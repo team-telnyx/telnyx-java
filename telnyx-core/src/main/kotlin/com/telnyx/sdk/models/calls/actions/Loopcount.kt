@@ -22,20 +22,20 @@ import java.util.Optional
 @JsonSerialize(using = Loopcount.Serializer::class)
 class Loopcount
 private constructor(
-    private val loopcountString: String? = null,
+    private val string: String? = null,
     private val integer: Long? = null,
     private val _json: JsonValue? = null,
 ) {
 
-    fun loopcountString(): Optional<String> = Optional.ofNullable(loopcountString)
+    fun string(): Optional<String> = Optional.ofNullable(string)
 
     fun integer(): Optional<Long> = Optional.ofNullable(integer)
 
-    fun isLoopcountString(): Boolean = loopcountString != null
+    fun isString(): Boolean = string != null
 
     fun isInteger(): Boolean = integer != null
 
-    fun asLoopcountString(): String = loopcountString.getOrThrow("loopcountString")
+    fun asString(): String = string.getOrThrow("string")
 
     fun asInteger(): Long = integer.getOrThrow("integer")
 
@@ -43,7 +43,7 @@ private constructor(
 
     fun <T> accept(visitor: Visitor<T>): T =
         when {
-            loopcountString != null -> visitor.visitLoopcountString(loopcountString)
+            string != null -> visitor.visitString(string)
             integer != null -> visitor.visitInteger(integer)
             else -> visitor.unknown(_json)
         }
@@ -57,7 +57,7 @@ private constructor(
 
         accept(
             object : Visitor<Unit> {
-                override fun visitLoopcountString(loopcountString: String) {}
+                override fun visitString(string: String) {}
 
                 override fun visitInteger(integer: Long) {}
             }
@@ -82,7 +82,7 @@ private constructor(
     internal fun validity(): Int =
         accept(
             object : Visitor<Int> {
-                override fun visitLoopcountString(loopcountString: String) = 1
+                override fun visitString(string: String) = 1
 
                 override fun visitInteger(integer: Long) = 1
 
@@ -95,16 +95,14 @@ private constructor(
             return true
         }
 
-        return other is Loopcount &&
-            loopcountString == other.loopcountString &&
-            integer == other.integer
+        return other is Loopcount && string == other.string && integer == other.integer
     }
 
-    override fun hashCode(): Int = Objects.hash(loopcountString, integer)
+    override fun hashCode(): Int = Objects.hash(string, integer)
 
     override fun toString(): String =
         when {
-            loopcountString != null -> "Loopcount{loopcountString=$loopcountString}"
+            string != null -> "Loopcount{string=$string}"
             integer != null -> "Loopcount{integer=$integer}"
             _json != null -> "Loopcount{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid Loopcount")
@@ -112,9 +110,7 @@ private constructor(
 
     companion object {
 
-        @JvmStatic
-        fun ofLoopcountString(loopcountString: String) =
-            Loopcount(loopcountString = loopcountString)
+        @JvmStatic fun ofString(string: String) = Loopcount(string = string)
 
         @JvmStatic fun ofInteger(integer: Long) = Loopcount(integer = integer)
     }
@@ -122,7 +118,7 @@ private constructor(
     /** An interface that defines how to map each variant of [Loopcount] to a value of type [T]. */
     interface Visitor<out T> {
 
-        fun visitLoopcountString(loopcountString: String): T
+        fun visitString(string: String): T
 
         fun visitInteger(integer: Long): T
 
@@ -148,7 +144,7 @@ private constructor(
             val bestMatches =
                 sequenceOf(
                         tryDeserialize(node, jacksonTypeRef<String>())?.let {
-                            Loopcount(loopcountString = it, _json = json)
+                            Loopcount(string = it, _json = json)
                         },
                         tryDeserialize(node, jacksonTypeRef<Long>())?.let {
                             Loopcount(integer = it, _json = json)
@@ -177,7 +173,7 @@ private constructor(
             provider: SerializerProvider,
         ) {
             when {
-                value.loopcountString != null -> generator.writeObject(value.loopcountString)
+                value.string != null -> generator.writeObject(value.string)
                 value.integer != null -> generator.writeObject(value.integer)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid Loopcount")

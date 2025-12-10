@@ -50,16 +50,22 @@ internal class ChatCreateCompletionParamsTest {
             .stream(true)
             .temperature(0.0)
             .toolChoice(ChatCreateCompletionParams.ToolChoice.NONE)
-            .addFunctionTool(
-                ChatCreateCompletionParams.Tool.ChatCompletionTool.Function.builder()
-                    .name("name")
-                    .description("description")
-                    .parameters(
-                        ChatCreateCompletionParams.Tool.ChatCompletionTool.Function.Parameters
-                            .builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+            .addTool(
+                ChatCreateCompletionParams.Tool.ChatCompletionToolParam.builder()
+                    .function(
+                        ChatCreateCompletionParams.Tool.ChatCompletionToolParam.Function.builder()
+                            .name("name")
+                            .description("description")
+                            .parameters(
+                                ChatCreateCompletionParams.Tool.ChatCompletionToolParam.Function
+                                    .Parameters
+                                    .builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .build()
                     )
+                    .type(ChatCreateCompletionParams.Tool.ChatCompletionToolParam.Type.FUNCTION)
                     .build()
             )
             .topLogprobs(0L)
@@ -110,16 +116,23 @@ internal class ChatCreateCompletionParamsTest {
                 .stream(true)
                 .temperature(0.0)
                 .toolChoice(ChatCreateCompletionParams.ToolChoice.NONE)
-                .addFunctionTool(
-                    ChatCreateCompletionParams.Tool.ChatCompletionTool.Function.builder()
-                        .name("name")
-                        .description("description")
-                        .parameters(
-                            ChatCreateCompletionParams.Tool.ChatCompletionTool.Function.Parameters
+                .addTool(
+                    ChatCreateCompletionParams.Tool.ChatCompletionToolParam.builder()
+                        .function(
+                            ChatCreateCompletionParams.Tool.ChatCompletionToolParam.Function
                                 .builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .name("name")
+                                .description("description")
+                                .parameters(
+                                    ChatCreateCompletionParams.Tool.ChatCompletionToolParam.Function
+                                        .Parameters
+                                        .builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .build()
+                                )
                                 .build()
                         )
+                        .type(ChatCreateCompletionParams.Tool.ChatCompletionToolParam.Type.FUNCTION)
                         .build()
                 )
                 .topLogprobs(0L)
@@ -170,14 +183,15 @@ internal class ChatCreateCompletionParamsTest {
         assertThat(body.toolChoice()).contains(ChatCreateCompletionParams.ToolChoice.NONE)
         assertThat(body.tools().getOrNull())
             .containsExactly(
-                ChatCreateCompletionParams.Tool.ofFunction(
-                    ChatCreateCompletionParams.Tool.ChatCompletionTool.builder()
+                ChatCreateCompletionParams.Tool.ofChatCompletionToolParam(
+                    ChatCreateCompletionParams.Tool.ChatCompletionToolParam.builder()
                         .function(
-                            ChatCreateCompletionParams.Tool.ChatCompletionTool.Function.builder()
+                            ChatCreateCompletionParams.Tool.ChatCompletionToolParam.Function
+                                .builder()
                                 .name("name")
                                 .description("description")
                                 .parameters(
-                                    ChatCreateCompletionParams.Tool.ChatCompletionTool.Function
+                                    ChatCreateCompletionParams.Tool.ChatCompletionToolParam.Function
                                         .Parameters
                                         .builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -185,6 +199,7 @@ internal class ChatCreateCompletionParamsTest {
                                 )
                                 .build()
                         )
+                        .type(ChatCreateCompletionParams.Tool.ChatCompletionToolParam.Type.FUNCTION)
                         .build()
                 )
             )

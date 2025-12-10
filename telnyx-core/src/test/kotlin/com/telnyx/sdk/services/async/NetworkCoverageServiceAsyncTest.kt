@@ -4,6 +4,8 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.networkcoverage.AvailableService
+import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,9 +23,27 @@ internal class NetworkCoverageServiceAsyncTest {
                 .build()
         val networkCoverageServiceAsync = client.networkCoverage()
 
-        val pageFuture = networkCoverageServiceAsync.list()
+        val networkCoveragesFuture =
+            networkCoverageServiceAsync.list(
+                NetworkCoverageListParams.builder()
+                    .filter(
+                        NetworkCoverageListParams.Filter.builder()
+                            .locationCode("silicon_valley-ca")
+                            .locationPop("SV1")
+                            .locationRegion("AMER")
+                            .locationSite("SJC")
+                            .build()
+                    )
+                    .filters(
+                        NetworkCoverageListParams.Filters.builder()
+                            .availableServices(AvailableService.CLOUD_VPN)
+                            .build()
+                    )
+                    .page(NetworkCoverageListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val networkCoverages = networkCoveragesFuture.get()
+        networkCoverages.validate()
     }
 }

@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.globalips.GlobalIpCreateParams
 import com.telnyx.sdk.models.globalips.GlobalIpCreateResponse
 import com.telnyx.sdk.models.globalips.GlobalIpDeleteParams
 import com.telnyx.sdk.models.globalips.GlobalIpDeleteResponse
-import com.telnyx.sdk.models.globalips.GlobalIpListPage
-import com.telnyx.sdk.models.globalips.GlobalIpListPageResponse
 import com.telnyx.sdk.models.globalips.GlobalIpListParams
+import com.telnyx.sdk.models.globalips.GlobalIpListResponse
 import com.telnyx.sdk.models.globalips.GlobalIpRetrieveParams
 import com.telnyx.sdk.models.globalips.GlobalIpRetrieveResponse
 import java.util.function.Consumer
@@ -57,7 +56,7 @@ class GlobalIpServiceImpl internal constructor(private val clientOptions: Client
     override fun list(
         params: GlobalIpListParams,
         requestOptions: RequestOptions,
-    ): GlobalIpListPage =
+    ): GlobalIpListResponse =
         // get /global_ips
         withRawResponse().list(params, requestOptions).parse()
 
@@ -139,13 +138,13 @@ class GlobalIpServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val listHandler: Handler<GlobalIpListPageResponse> =
-            jsonHandler<GlobalIpListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<GlobalIpListResponse> =
+            jsonHandler<GlobalIpListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: GlobalIpListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<GlobalIpListPage> {
+        ): HttpResponseFor<GlobalIpListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -162,13 +161,6 @@ class GlobalIpServiceImpl internal constructor(private val clientOptions: Client
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        GlobalIpListPage.builder()
-                            .service(GlobalIpServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

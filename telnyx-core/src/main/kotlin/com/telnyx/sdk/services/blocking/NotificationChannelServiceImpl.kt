@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.notificationchannels.NotificationChannelCreateParam
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelCreateResponse
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelDeleteParams
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelDeleteResponse
-import com.telnyx.sdk.models.notificationchannels.NotificationChannelListPage
-import com.telnyx.sdk.models.notificationchannels.NotificationChannelListPageResponse
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelListParams
+import com.telnyx.sdk.models.notificationchannels.NotificationChannelListResponse
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelRetrieveParams
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelRetrieveResponse
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelUpdateParams
@@ -68,7 +67,7 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationCha
     override fun list(
         params: NotificationChannelListParams,
         requestOptions: RequestOptions,
-    ): NotificationChannelListPage =
+    ): NotificationChannelListResponse =
         // get /notification_channels
         withRawResponse().list(params, requestOptions).parse()
 
@@ -159,7 +158,7 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationCha
         ): HttpResponseFor<NotificationChannelUpdateResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("notificationChannelId", params.notificationChannelId().getOrNull())
+            checkRequired("pathId", params.pathId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -181,13 +180,13 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationCha
             }
         }
 
-        private val listHandler: Handler<NotificationChannelListPageResponse> =
-            jsonHandler<NotificationChannelListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NotificationChannelListResponse> =
+            jsonHandler<NotificationChannelListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NotificationChannelListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<NotificationChannelListPage> {
+        ): HttpResponseFor<NotificationChannelListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -204,13 +203,6 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationCha
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        NotificationChannelListPage.builder()
-                            .service(NotificationChannelServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

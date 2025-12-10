@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointC
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointCreateResponse
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointDeleteParams
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointDeleteResponse
-import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointListPage
-import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointListPageResponse
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointListParams
+import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointListResponse
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointRetrieveParams
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointRetrieveResponse
 import java.util.function.Consumer
@@ -62,7 +61,7 @@ internal constructor(private val clientOptions: ClientOptions) : DynamicEmergenc
     override fun list(
         params: DynamicEmergencyEndpointListParams,
         requestOptions: RequestOptions,
-    ): DynamicEmergencyEndpointListPage =
+    ): DynamicEmergencyEndpointListResponse =
         // get /dynamic_emergency_endpoints
         withRawResponse().list(params, requestOptions).parse()
 
@@ -144,13 +143,13 @@ internal constructor(private val clientOptions: ClientOptions) : DynamicEmergenc
             }
         }
 
-        private val listHandler: Handler<DynamicEmergencyEndpointListPageResponse> =
-            jsonHandler<DynamicEmergencyEndpointListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DynamicEmergencyEndpointListResponse> =
+            jsonHandler<DynamicEmergencyEndpointListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DynamicEmergencyEndpointListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DynamicEmergencyEndpointListPage> {
+        ): HttpResponseFor<DynamicEmergencyEndpointListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -167,13 +166,6 @@ internal constructor(private val clientOptions: ClientOptions) : DynamicEmergenc
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        DynamicEmergencyEndpointListPage.builder()
-                            .service(DynamicEmergencyEndpointServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

@@ -6,8 +6,8 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.queues.calls.CallListPageAsync
 import com.telnyx.sdk.models.queues.calls.CallListParams
+import com.telnyx.sdk.models.queues.calls.CallListResponse
 import com.telnyx.sdk.models.queues.calls.CallRemoveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveResponse
@@ -77,7 +77,7 @@ interface CallServiceAsync {
     ): CompletableFuture<Void?>
 
     /** Retrieve the list of calls in an existing queue */
-    fun list(queueName: String): CompletableFuture<CallListPageAsync> =
+    fun list(queueName: String): CompletableFuture<CallListResponse> =
         list(queueName, CallListParams.none())
 
     /** @see list */
@@ -85,30 +85,30 @@ interface CallServiceAsync {
         queueName: String,
         params: CallListParams = CallListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CallListPageAsync> =
+    ): CompletableFuture<CallListResponse> =
         list(params.toBuilder().queueName(queueName).build(), requestOptions)
 
     /** @see list */
     fun list(
         queueName: String,
         params: CallListParams = CallListParams.none(),
-    ): CompletableFuture<CallListPageAsync> = list(queueName, params, RequestOptions.none())
+    ): CompletableFuture<CallListResponse> = list(queueName, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: CallListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CallListPageAsync>
+    ): CompletableFuture<CallListResponse>
 
     /** @see list */
-    fun list(params: CallListParams): CompletableFuture<CallListPageAsync> =
+    fun list(params: CallListParams): CompletableFuture<CallListResponse> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         queueName: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CallListPageAsync> = list(queueName, CallListParams.none(), requestOptions)
+    ): CompletableFuture<CallListResponse> = list(queueName, CallListParams.none(), requestOptions)
 
     /**
      * Removes an inactive call from a queue. If the call is no longer active, use this command to
@@ -206,7 +206,7 @@ interface CallServiceAsync {
          * Returns a raw HTTP response for `get /queues/{queue_name}/calls`, but is otherwise the
          * same as [CallServiceAsync.list].
          */
-        fun list(queueName: String): CompletableFuture<HttpResponseFor<CallListPageAsync>> =
+        fun list(queueName: String): CompletableFuture<HttpResponseFor<CallListResponse>> =
             list(queueName, CallListParams.none())
 
         /** @see list */
@@ -214,31 +214,31 @@ interface CallServiceAsync {
             queueName: String,
             params: CallListParams = CallListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CallListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CallListResponse>> =
             list(params.toBuilder().queueName(queueName).build(), requestOptions)
 
         /** @see list */
         fun list(
             queueName: String,
             params: CallListParams = CallListParams.none(),
-        ): CompletableFuture<HttpResponseFor<CallListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CallListResponse>> =
             list(queueName, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: CallListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CallListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<CallListResponse>>
 
         /** @see list */
-        fun list(params: CallListParams): CompletableFuture<HttpResponseFor<CallListPageAsync>> =
+        fun list(params: CallListParams): CompletableFuture<HttpResponseFor<CallListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             queueName: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CallListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CallListResponse>> =
             list(queueName, CallListParams.none(), requestOptions)
 
         /**

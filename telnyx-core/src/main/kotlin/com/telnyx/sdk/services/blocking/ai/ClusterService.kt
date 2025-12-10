@@ -11,8 +11,8 @@ import com.telnyx.sdk.models.ai.clusters.ClusterComputeParams
 import com.telnyx.sdk.models.ai.clusters.ClusterComputeResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterDeleteParams
 import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphParams
-import com.telnyx.sdk.models.ai.clusters.ClusterListPage
 import com.telnyx.sdk.models.ai.clusters.ClusterListParams
+import com.telnyx.sdk.models.ai.clusters.ClusterListResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveParams
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveResponse
 import java.util.function.Consumer
@@ -63,20 +63,20 @@ interface ClusterService {
         retrieve(taskId, ClusterRetrieveParams.none(), requestOptions)
 
     /** List all clusters */
-    fun list(): ClusterListPage = list(ClusterListParams.none())
+    fun list(): ClusterListResponse = list(ClusterListParams.none())
 
     /** @see list */
     fun list(
         params: ClusterListParams = ClusterListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ClusterListPage
+    ): ClusterListResponse
 
     /** @see list */
-    fun list(params: ClusterListParams = ClusterListParams.none()): ClusterListPage =
+    fun list(params: ClusterListParams = ClusterListParams.none()): ClusterListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): ClusterListPage =
+    fun list(requestOptions: RequestOptions): ClusterListResponse =
         list(ClusterListParams.none(), requestOptions)
 
     /** Delete a cluster */
@@ -213,24 +213,25 @@ interface ClusterService {
          * Returns a raw HTTP response for `get /ai/clusters`, but is otherwise the same as
          * [ClusterService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<ClusterListPage> = list(ClusterListParams.none())
+        @MustBeClosed
+        fun list(): HttpResponseFor<ClusterListResponse> = list(ClusterListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ClusterListParams = ClusterListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ClusterListPage>
+        ): HttpResponseFor<ClusterListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ClusterListParams = ClusterListParams.none()
-        ): HttpResponseFor<ClusterListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<ClusterListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<ClusterListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ClusterListResponse> =
             list(ClusterListParams.none(), requestOptions)
 
         /**

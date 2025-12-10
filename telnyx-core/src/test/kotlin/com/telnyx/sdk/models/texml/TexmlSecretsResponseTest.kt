@@ -16,7 +16,7 @@ internal class TexmlSecretsResponseTest {
                 .data(
                     TexmlSecretsResponse.Data.builder()
                         .name("My Secret Name")
-                        .value(TexmlSecretsResponse.Data.SecretValue.REDACTED)
+                        .value(TexmlSecretsResponse.Data.Value_.REDACTED)
                         .build()
                 )
                 .build()
@@ -25,7 +25,7 @@ internal class TexmlSecretsResponseTest {
             .contains(
                 TexmlSecretsResponse.Data.builder()
                     .name("My Secret Name")
-                    .value(TexmlSecretsResponse.Data.SecretValue.REDACTED)
+                    .value(TexmlSecretsResponse.Data.Value_.REDACTED)
                     .build()
             )
     }
@@ -38,7 +38,7 @@ internal class TexmlSecretsResponseTest {
                 .data(
                     TexmlSecretsResponse.Data.builder()
                         .name("My Secret Name")
-                        .value(TexmlSecretsResponse.Data.SecretValue.REDACTED)
+                        .value(TexmlSecretsResponse.Data.Value_.REDACTED)
                         .build()
                 )
                 .build()

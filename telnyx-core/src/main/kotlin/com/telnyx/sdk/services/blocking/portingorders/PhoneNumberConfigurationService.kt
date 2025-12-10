@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationCreateParams
 import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationCreateResponse
-import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListPage
 import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListParams
+import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListResponse
 import java.util.function.Consumer
 
 interface PhoneNumberConfigurationService {
@@ -46,21 +46,22 @@ interface PhoneNumberConfigurationService {
         create(PhoneNumberConfigurationCreateParams.none(), requestOptions)
 
     /** Returns a list of phone number configurations paginated. */
-    fun list(): PhoneNumberConfigurationListPage = list(PhoneNumberConfigurationListParams.none())
+    fun list(): PhoneNumberConfigurationListResponse =
+        list(PhoneNumberConfigurationListParams.none())
 
     /** @see list */
     fun list(
         params: PhoneNumberConfigurationListParams = PhoneNumberConfigurationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhoneNumberConfigurationListPage
+    ): PhoneNumberConfigurationListResponse
 
     /** @see list */
     fun list(
         params: PhoneNumberConfigurationListParams = PhoneNumberConfigurationListParams.none()
-    ): PhoneNumberConfigurationListPage = list(params, RequestOptions.none())
+    ): PhoneNumberConfigurationListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): PhoneNumberConfigurationListPage =
+    fun list(requestOptions: RequestOptions): PhoneNumberConfigurationListResponse =
         list(PhoneNumberConfigurationListParams.none(), requestOptions)
 
     /**
@@ -114,7 +115,7 @@ interface PhoneNumberConfigurationService {
          * otherwise the same as [PhoneNumberConfigurationService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<PhoneNumberConfigurationListPage> =
+        fun list(): HttpResponseFor<PhoneNumberConfigurationListResponse> =
             list(PhoneNumberConfigurationListParams.none())
 
         /** @see list */
@@ -122,19 +123,20 @@ interface PhoneNumberConfigurationService {
         fun list(
             params: PhoneNumberConfigurationListParams = PhoneNumberConfigurationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhoneNumberConfigurationListPage>
+        ): HttpResponseFor<PhoneNumberConfigurationListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PhoneNumberConfigurationListParams = PhoneNumberConfigurationListParams.none()
-        ): HttpResponseFor<PhoneNumberConfigurationListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<PhoneNumberConfigurationListResponse> =
+            list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<PhoneNumberConfigurationListPage> =
+        ): HttpResponseFor<PhoneNumberConfigurationListResponse> =
             list(PhoneNumberConfigurationListParams.none(), requestOptions)
     }
 }

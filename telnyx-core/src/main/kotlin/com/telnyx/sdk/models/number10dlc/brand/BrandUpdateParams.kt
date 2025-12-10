@@ -15,6 +15,11 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.brand.AltBusinessIdType
+import com.telnyx.sdk.models.brand.BrandIdentityStatus
+import com.telnyx.sdk.models.brand.EntityType
+import com.telnyx.sdk.models.brand.StockExchange
+import com.telnyx.sdk.models.brand.Vertical
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional

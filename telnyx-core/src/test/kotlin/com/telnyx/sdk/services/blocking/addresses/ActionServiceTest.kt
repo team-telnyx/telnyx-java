@@ -26,8 +26,8 @@ internal class ActionServiceTest {
         val response =
             actionService.acceptSuggestions(
                 ActionAcceptSuggestionsParams.builder()
-                    .addressUuid("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .id("id")
+                    .pathId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .bodyId("id")
                     .build()
             )
 

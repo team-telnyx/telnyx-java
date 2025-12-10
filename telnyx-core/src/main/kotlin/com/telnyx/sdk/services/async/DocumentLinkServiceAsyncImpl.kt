@@ -14,9 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.documentlinks.DocumentLinkListPageAsync
-import com.telnyx.sdk.models.documentlinks.DocumentLinkListPageResponse
 import com.telnyx.sdk.models.documentlinks.DocumentLinkListParams
+import com.telnyx.sdk.models.documentlinks.DocumentLinkListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -35,7 +34,7 @@ class DocumentLinkServiceAsyncImpl internal constructor(private val clientOption
     override fun list(
         params: DocumentLinkListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<DocumentLinkListPageAsync> =
+    ): CompletableFuture<DocumentLinkListResponse> =
         // get /document_links
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -52,13 +51,13 @@ class DocumentLinkServiceAsyncImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<DocumentLinkListPageResponse> =
-            jsonHandler<DocumentLinkListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DocumentLinkListResponse> =
+            jsonHandler<DocumentLinkListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DocumentLinkListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<DocumentLinkListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<DocumentLinkListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -77,14 +76,6 @@ class DocumentLinkServiceAsyncImpl internal constructor(private val clientOption
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                DocumentLinkListPageAsync.builder()
-                                    .service(DocumentLinkServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

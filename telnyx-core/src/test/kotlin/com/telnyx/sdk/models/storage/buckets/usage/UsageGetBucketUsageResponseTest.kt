@@ -26,8 +26,8 @@ internal class UsageGetBucketUsageResponseTest {
                 .meta(
                     PaginationMetaSimple.builder()
                         .pageNumber(2L)
-                        .totalPages(3L)
                         .pageSize(25L)
+                        .totalPages(3L)
                         .totalResults(55L)
                         .build()
                 )
@@ -46,8 +46,8 @@ internal class UsageGetBucketUsageResponseTest {
             .contains(
                 PaginationMetaSimple.builder()
                     .pageNumber(2L)
-                    .totalPages(3L)
                     .pageSize(25L)
+                    .totalPages(3L)
                     .totalResults(55L)
                     .build()
             )
@@ -69,8 +69,8 @@ internal class UsageGetBucketUsageResponseTest {
                 .meta(
                     PaginationMetaSimple.builder()
                         .pageNumber(2L)
-                        .totalPages(3L)
                         .pageSize(25L)
+                        .totalPages(3L)
                         .totalResults(55L)
                         .build()
                 )

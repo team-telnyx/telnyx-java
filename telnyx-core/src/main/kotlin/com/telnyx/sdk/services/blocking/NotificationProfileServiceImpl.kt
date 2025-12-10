@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.notificationprofiles.NotificationProfileCreateParam
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileCreateResponse
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileDeleteParams
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileDeleteResponse
-import com.telnyx.sdk.models.notificationprofiles.NotificationProfileListPage
-import com.telnyx.sdk.models.notificationprofiles.NotificationProfileListPageResponse
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileListParams
+import com.telnyx.sdk.models.notificationprofiles.NotificationProfileListResponse
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileRetrieveParams
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileRetrieveResponse
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileUpdateParams
@@ -68,7 +67,7 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationPro
     override fun list(
         params: NotificationProfileListParams,
         requestOptions: RequestOptions,
-    ): NotificationProfileListPage =
+    ): NotificationProfileListResponse =
         // get /notification_profiles
         withRawResponse().list(params, requestOptions).parse()
 
@@ -159,7 +158,7 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationPro
         ): HttpResponseFor<NotificationProfileUpdateResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("notificationProfileId", params.notificationProfileId().getOrNull())
+            checkRequired("pathId", params.pathId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -181,13 +180,13 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationPro
             }
         }
 
-        private val listHandler: Handler<NotificationProfileListPageResponse> =
-            jsonHandler<NotificationProfileListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NotificationProfileListResponse> =
+            jsonHandler<NotificationProfileListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NotificationProfileListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<NotificationProfileListPage> {
+        ): HttpResponseFor<NotificationProfileListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -204,13 +203,6 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationPro
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        NotificationProfileListPage.builder()
-                            .service(NotificationProfileServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

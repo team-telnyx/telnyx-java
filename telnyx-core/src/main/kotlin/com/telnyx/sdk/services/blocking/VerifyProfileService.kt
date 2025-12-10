@@ -11,8 +11,8 @@ import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateTemplateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileData
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileDeleteParams
-import com.telnyx.sdk.models.verifyprofiles.VerifyProfileListPage
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileListParams
+import com.telnyx.sdk.models.verifyprofiles.VerifyProfileListResponse
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveTemplatesParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveTemplatesResponse
@@ -109,21 +109,21 @@ interface VerifyProfileService {
         update(verifyProfileId, VerifyProfileUpdateParams.none(), requestOptions)
 
     /** Gets a paginated list of Verify profiles. */
-    fun list(): VerifyProfileListPage = list(VerifyProfileListParams.none())
+    fun list(): VerifyProfileListResponse = list(VerifyProfileListParams.none())
 
     /** @see list */
     fun list(
         params: VerifyProfileListParams = VerifyProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VerifyProfileListPage
+    ): VerifyProfileListResponse
 
     /** @see list */
     fun list(
         params: VerifyProfileListParams = VerifyProfileListParams.none()
-    ): VerifyProfileListPage = list(params, RequestOptions.none())
+    ): VerifyProfileListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): VerifyProfileListPage =
+    fun list(requestOptions: RequestOptions): VerifyProfileListResponse =
         list(VerifyProfileListParams.none(), requestOptions)
 
     /** Delete Verify profile */
@@ -335,24 +335,25 @@ interface VerifyProfileService {
          * [VerifyProfileService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<VerifyProfileListPage> = list(VerifyProfileListParams.none())
+        fun list(): HttpResponseFor<VerifyProfileListResponse> =
+            list(VerifyProfileListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: VerifyProfileListParams = VerifyProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VerifyProfileListPage>
+        ): HttpResponseFor<VerifyProfileListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: VerifyProfileListParams = VerifyProfileListParams.none()
-        ): HttpResponseFor<VerifyProfileListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<VerifyProfileListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<VerifyProfileListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<VerifyProfileListResponse> =
             list(VerifyProfileListParams.none(), requestOptions)
 
         /**

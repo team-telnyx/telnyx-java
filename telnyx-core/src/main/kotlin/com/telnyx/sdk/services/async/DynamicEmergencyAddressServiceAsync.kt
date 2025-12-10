@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressCr
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressCreateResponse
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressDeleteParams
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressDeleteResponse
-import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressListPageAsync
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressListParams
+import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressListResponse
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressRetrieveParams
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -101,24 +101,24 @@ interface DynamicEmergencyAddressServiceAsync {
         retrieve(id, DynamicEmergencyAddressRetrieveParams.none(), requestOptions)
 
     /** Returns the dynamic emergency addresses according to filters */
-    fun list(): CompletableFuture<DynamicEmergencyAddressListPageAsync> =
+    fun list(): CompletableFuture<DynamicEmergencyAddressListResponse> =
         list(DynamicEmergencyAddressListParams.none())
 
     /** @see list */
     fun list(
         params: DynamicEmergencyAddressListParams = DynamicEmergencyAddressListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DynamicEmergencyAddressListPageAsync>
+    ): CompletableFuture<DynamicEmergencyAddressListResponse>
 
     /** @see list */
     fun list(
         params: DynamicEmergencyAddressListParams = DynamicEmergencyAddressListParams.none()
-    ): CompletableFuture<DynamicEmergencyAddressListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<DynamicEmergencyAddressListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         requestOptions: RequestOptions
-    ): CompletableFuture<DynamicEmergencyAddressListPageAsync> =
+    ): CompletableFuture<DynamicEmergencyAddressListResponse> =
         list(DynamicEmergencyAddressListParams.none(), requestOptions)
 
     /** Deletes the dynamic emergency address based on the ID provided */
@@ -256,25 +256,25 @@ interface DynamicEmergencyAddressServiceAsync {
          * Returns a raw HTTP response for `get /dynamic_emergency_addresses`, but is otherwise the
          * same as [DynamicEmergencyAddressServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<DynamicEmergencyAddressListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<DynamicEmergencyAddressListResponse>> =
             list(DynamicEmergencyAddressListParams.none())
 
         /** @see list */
         fun list(
             params: DynamicEmergencyAddressListParams = DynamicEmergencyAddressListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DynamicEmergencyAddressListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<DynamicEmergencyAddressListResponse>>
 
         /** @see list */
         fun list(
             params: DynamicEmergencyAddressListParams = DynamicEmergencyAddressListParams.none()
-        ): CompletableFuture<HttpResponseFor<DynamicEmergencyAddressListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<DynamicEmergencyAddressListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<DynamicEmergencyAddressListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<DynamicEmergencyAddressListResponse>> =
             list(DynamicEmergencyAddressListParams.none(), requestOptions)
 
         /**

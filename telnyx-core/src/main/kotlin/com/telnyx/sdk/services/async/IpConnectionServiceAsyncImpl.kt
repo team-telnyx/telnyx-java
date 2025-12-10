@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.ipconnections.IpConnectionCreateParams
 import com.telnyx.sdk.models.ipconnections.IpConnectionCreateResponse
 import com.telnyx.sdk.models.ipconnections.IpConnectionDeleteParams
 import com.telnyx.sdk.models.ipconnections.IpConnectionDeleteResponse
-import com.telnyx.sdk.models.ipconnections.IpConnectionListPageAsync
-import com.telnyx.sdk.models.ipconnections.IpConnectionListPageResponse
 import com.telnyx.sdk.models.ipconnections.IpConnectionListParams
+import com.telnyx.sdk.models.ipconnections.IpConnectionListResponse
 import com.telnyx.sdk.models.ipconnections.IpConnectionRetrieveParams
 import com.telnyx.sdk.models.ipconnections.IpConnectionRetrieveResponse
 import com.telnyx.sdk.models.ipconnections.IpConnectionUpdateParams
@@ -67,7 +66,7 @@ class IpConnectionServiceAsyncImpl internal constructor(private val clientOption
     override fun list(
         params: IpConnectionListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IpConnectionListPageAsync> =
+    ): CompletableFuture<IpConnectionListResponse> =
         // get /ip_connections
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -189,13 +188,13 @@ class IpConnectionServiceAsyncImpl internal constructor(private val clientOption
                 }
         }
 
-        private val listHandler: Handler<IpConnectionListPageResponse> =
-            jsonHandler<IpConnectionListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<IpConnectionListResponse> =
+            jsonHandler<IpConnectionListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: IpConnectionListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IpConnectionListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<IpConnectionListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -214,14 +213,6 @@ class IpConnectionServiceAsyncImpl internal constructor(private val clientOption
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                IpConnectionListPageAsync.builder()
-                                    .service(IpConnectionServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

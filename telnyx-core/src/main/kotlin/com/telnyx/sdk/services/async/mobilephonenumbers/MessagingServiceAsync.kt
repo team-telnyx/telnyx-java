@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async.mobilephonenumbers
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingListPageAsync
 import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingListParams
+import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingListResponse
 import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingRetrieveParams
 import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -62,21 +62,21 @@ interface MessagingServiceAsync {
         retrieve(id, MessagingRetrieveParams.none(), requestOptions)
 
     /** List mobile phone numbers with messaging settings */
-    fun list(): CompletableFuture<MessagingListPageAsync> = list(MessagingListParams.none())
+    fun list(): CompletableFuture<MessagingListResponse> = list(MessagingListParams.none())
 
     /** @see list */
     fun list(
         params: MessagingListParams = MessagingListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessagingListPageAsync>
+    ): CompletableFuture<MessagingListResponse>
 
     /** @see list */
     fun list(
         params: MessagingListParams = MessagingListParams.none()
-    ): CompletableFuture<MessagingListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<MessagingListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<MessagingListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<MessagingListResponse> =
         list(MessagingListParams.none(), requestOptions)
 
     /**
@@ -138,25 +138,25 @@ interface MessagingServiceAsync {
          * Returns a raw HTTP response for `get /mobile_phone_numbers/messaging`, but is otherwise
          * the same as [MessagingServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<MessagingListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<MessagingListResponse>> =
             list(MessagingListParams.none())
 
         /** @see list */
         fun list(
             params: MessagingListParams = MessagingListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessagingListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<MessagingListResponse>>
 
         /** @see list */
         fun list(
             params: MessagingListParams = MessagingListParams.none()
-        ): CompletableFuture<HttpResponseFor<MessagingListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<MessagingListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<MessagingListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<MessagingListResponse>> =
             list(MessagingListParams.none(), requestOptions)
     }
 }

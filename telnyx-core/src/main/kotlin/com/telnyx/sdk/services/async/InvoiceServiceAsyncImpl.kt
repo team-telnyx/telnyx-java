@@ -15,9 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.invoices.InvoiceListPageAsync
-import com.telnyx.sdk.models.invoices.InvoiceListPageResponse
 import com.telnyx.sdk.models.invoices.InvoiceListParams
+import com.telnyx.sdk.models.invoices.InvoiceListResponse
 import com.telnyx.sdk.models.invoices.InvoiceRetrieveParams
 import com.telnyx.sdk.models.invoices.InvoiceRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -46,7 +45,7 @@ class InvoiceServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: InvoiceListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InvoiceListPageAsync> =
+    ): CompletableFuture<InvoiceListResponse> =
         // get /invoices
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -96,13 +95,13 @@ class InvoiceServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<InvoiceListPageResponse> =
-            jsonHandler<InvoiceListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InvoiceListResponse> =
+            jsonHandler<InvoiceListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InvoiceListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InvoiceListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<InvoiceListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -121,14 +120,6 @@ class InvoiceServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                InvoiceListPageAsync.builder()
-                                    .service(InvoiceServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

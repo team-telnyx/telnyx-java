@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -37,8 +38,45 @@ internal class WebhookDeliveryServiceTest {
                 .build()
         val webhookDeliveryService = client.webhookDeliveries()
 
-        val page = webhookDeliveryService.list()
+        val webhookDeliveries =
+            webhookDeliveryService.list(
+                WebhookDeliveryListParams.builder()
+                    .filter(
+                        WebhookDeliveryListParams.Filter.builder()
+                            .attempts(
+                                WebhookDeliveryListParams.Filter.Attempts.builder()
+                                    .contains("https://fallback.example.com/webhooks")
+                                    .build()
+                            )
+                            .eventType("call_initiated,call.initiated")
+                            .finishedAt(
+                                WebhookDeliveryListParams.Filter.FinishedAt.builder()
+                                    .gte("2019-03-29T11:10:00Z")
+                                    .lte("2019-03-29T11:10:00Z")
+                                    .build()
+                            )
+                            .startedAt(
+                                WebhookDeliveryListParams.Filter.StartedAt.builder()
+                                    .gte("2019-03-29T11:10:00Z")
+                                    .lte("2019-03-29T11:10:00Z")
+                                    .build()
+                            )
+                            .status(
+                                WebhookDeliveryListParams.Filter.Status.builder()
+                                    .eq(WebhookDeliveryListParams.Filter.Status.Eq.DELIVERED)
+                                    .build()
+                            )
+                            .webhook(
+                                WebhookDeliveryListParams.Filter.Webhook.builder()
+                                    .contains("call.initiated")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .page(WebhookDeliveryListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        webhookDeliveries.validate()
     }
 }

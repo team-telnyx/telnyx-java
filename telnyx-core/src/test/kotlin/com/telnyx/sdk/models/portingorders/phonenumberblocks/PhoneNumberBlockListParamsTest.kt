@@ -20,16 +20,14 @@ internal class PhoneNumberBlockListParamsTest {
                         PhoneNumberBlockListParams.Filter.PortabilityStatus.CONFIRMED
                     )
                     .addPortingOrderId("f3575e15-32ce-400e-a4c0-dd78800c20b0")
-                    .status(
-                        PhoneNumberBlockListParams.Filter.Status.PortingOrderSingleStatus.IN_PROCESS
-                    )
+                    .status(PhoneNumberBlockListParams.Filter.Status.UnionMember0.IN_PROCESS)
                     .supportKey("sr_a12345")
                     .build()
             )
             .page(PhoneNumberBlockListParams.Page.builder().number(1L).size(1L).build())
             .sort(
                 PhoneNumberBlockListParams.Sort.builder()
-                    .value(PhoneNumberBlockListParams.Sort.SortValue.CREATED_AT)
+                    .value(PhoneNumberBlockListParams.Sort.Value_.CREATED_AT)
                     .build()
             )
             .build()
@@ -60,17 +58,14 @@ internal class PhoneNumberBlockListParamsTest {
                             PhoneNumberBlockListParams.Filter.PortabilityStatus.CONFIRMED
                         )
                         .addPortingOrderId("f3575e15-32ce-400e-a4c0-dd78800c20b0")
-                        .status(
-                            PhoneNumberBlockListParams.Filter.Status.PortingOrderSingleStatus
-                                .IN_PROCESS
-                        )
+                        .status(PhoneNumberBlockListParams.Filter.Status.UnionMember0.IN_PROCESS)
                         .supportKey("sr_a12345")
                         .build()
                 )
                 .page(PhoneNumberBlockListParams.Page.builder().number(1L).size(1L).build())
                 .sort(
                     PhoneNumberBlockListParams.Sort.builder()
-                        .value(PhoneNumberBlockListParams.Sort.SortValue.CREATED_AT)
+                        .value(PhoneNumberBlockListParams.Sort.Value_.CREATED_AT)
                         .build()
                 )
                 .build()

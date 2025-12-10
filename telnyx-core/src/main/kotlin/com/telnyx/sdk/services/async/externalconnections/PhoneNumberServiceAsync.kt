@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async.externalconnections
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberListPageAsync
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberListParams
+import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberListResponse
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberRetrieveParams
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberRetrieveResponse
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberUpdateParams
@@ -83,7 +83,7 @@ interface PhoneNumberServiceAsync {
     ): CompletableFuture<PhoneNumberUpdateResponse>
 
     /** Returns a list of all active phone numbers associated with the given external connection. */
-    fun list(id: String): CompletableFuture<PhoneNumberListPageAsync> =
+    fun list(id: String): CompletableFuture<PhoneNumberListResponse> =
         list(id, PhoneNumberListParams.none())
 
     /** @see list */
@@ -91,30 +91,30 @@ interface PhoneNumberServiceAsync {
         id: String,
         params: PhoneNumberListParams = PhoneNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PhoneNumberListPageAsync> =
+    ): CompletableFuture<PhoneNumberListResponse> =
         list(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see list */
     fun list(
         id: String,
         params: PhoneNumberListParams = PhoneNumberListParams.none(),
-    ): CompletableFuture<PhoneNumberListPageAsync> = list(id, params, RequestOptions.none())
+    ): CompletableFuture<PhoneNumberListResponse> = list(id, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: PhoneNumberListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PhoneNumberListPageAsync>
+    ): CompletableFuture<PhoneNumberListResponse>
 
     /** @see list */
-    fun list(params: PhoneNumberListParams): CompletableFuture<PhoneNumberListPageAsync> =
+    fun list(params: PhoneNumberListParams): CompletableFuture<PhoneNumberListResponse> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         id: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PhoneNumberListPageAsync> =
+    ): CompletableFuture<PhoneNumberListResponse> =
         list(id, PhoneNumberListParams.none(), requestOptions)
 
     /**
@@ -198,7 +198,7 @@ interface PhoneNumberServiceAsync {
          * Returns a raw HTTP response for `get /external_connections/{id}/phone_numbers`, but is
          * otherwise the same as [PhoneNumberServiceAsync.list].
          */
-        fun list(id: String): CompletableFuture<HttpResponseFor<PhoneNumberListPageAsync>> =
+        fun list(id: String): CompletableFuture<HttpResponseFor<PhoneNumberListResponse>> =
             list(id, PhoneNumberListParams.none())
 
         /** @see list */
@@ -206,33 +206,33 @@ interface PhoneNumberServiceAsync {
             id: String,
             params: PhoneNumberListParams = PhoneNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PhoneNumberListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberListResponse>> =
             list(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see list */
         fun list(
             id: String,
             params: PhoneNumberListParams = PhoneNumberListParams.none(),
-        ): CompletableFuture<HttpResponseFor<PhoneNumberListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberListResponse>> =
             list(id, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: PhoneNumberListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PhoneNumberListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<PhoneNumberListResponse>>
 
         /** @see list */
         fun list(
             params: PhoneNumberListParams
-        ): CompletableFuture<HttpResponseFor<PhoneNumberListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             id: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PhoneNumberListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberListResponse>> =
             list(id, PhoneNumberListParams.none(), requestOptions)
     }
 }

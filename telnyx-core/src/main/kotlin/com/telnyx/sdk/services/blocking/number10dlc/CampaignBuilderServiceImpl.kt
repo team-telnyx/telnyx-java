@@ -15,7 +15,7 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.number10dlc.campaign.TelnyxCampaignCsp
+import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.models.number10dlc.campaignbuilder.CampaignBuilderSubmitParams
 import com.telnyx.sdk.services.blocking.number10dlc.campaignbuilder.BrandService
 import com.telnyx.sdk.services.blocking.number10dlc.campaignbuilder.BrandServiceImpl

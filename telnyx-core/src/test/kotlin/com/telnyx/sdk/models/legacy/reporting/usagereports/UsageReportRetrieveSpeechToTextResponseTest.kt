@@ -14,19 +14,11 @@ internal class UsageReportRetrieveSpeechToTextResponseTest {
     fun create() {
         val usageReportRetrieveSpeechToTextResponse =
             UsageReportRetrieveSpeechToTextResponse.builder()
-                .data(
-                    UsageReportRetrieveSpeechToTextResponse.Data.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                        .build()
-                )
+                .data(JsonValue.from(mapOf<String, Any>()))
                 .build()
 
-        assertThat(usageReportRetrieveSpeechToTextResponse.data())
-            .contains(
-                UsageReportRetrieveSpeechToTextResponse.Data.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                    .build()
-            )
+        assertThat(usageReportRetrieveSpeechToTextResponse._data())
+            .isEqualTo(JsonValue.from(mapOf<String, Any>()))
     }
 
     @Test
@@ -34,11 +26,7 @@ internal class UsageReportRetrieveSpeechToTextResponseTest {
         val jsonMapper = jsonMapper()
         val usageReportRetrieveSpeechToTextResponse =
             UsageReportRetrieveSpeechToTextResponse.builder()
-                .data(
-                    UsageReportRetrieveSpeechToTextResponse.Data.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                        .build()
-                )
+                .data(JsonValue.from(mapOf<String, Any>()))
                 .build()
 
         val roundtrippedUsageReportRetrieveSpeechToTextResponse =

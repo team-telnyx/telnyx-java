@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.oauthgrants.OAuthGrantListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -36,9 +37,12 @@ internal class OAuthGrantServiceTest {
                 .build()
         val oauthGrantService = client.oauthGrants()
 
-        val page = oauthGrantService.list()
+        val oauthGrants =
+            oauthGrantService.list(
+                OAuthGrantListParams.builder().pageNumber(1L).pageSize(1L).build()
+            )
 
-        page.response().validate()
+        oauthGrants.validate()
     }
 
     @Disabled("Prism tests are disabled")

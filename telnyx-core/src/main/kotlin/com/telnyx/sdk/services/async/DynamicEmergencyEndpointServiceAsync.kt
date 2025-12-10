@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointC
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointCreateResponse
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointDeleteParams
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointDeleteResponse
-import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointListPageAsync
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointListParams
+import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointListResponse
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointRetrieveParams
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -102,25 +102,24 @@ interface DynamicEmergencyEndpointServiceAsync {
         retrieve(id, DynamicEmergencyEndpointRetrieveParams.none(), requestOptions)
 
     /** Returns the dynamic emergency endpoints according to filters */
-    fun list(): CompletableFuture<DynamicEmergencyEndpointListPageAsync> =
+    fun list(): CompletableFuture<DynamicEmergencyEndpointListResponse> =
         list(DynamicEmergencyEndpointListParams.none())
 
     /** @see list */
     fun list(
         params: DynamicEmergencyEndpointListParams = DynamicEmergencyEndpointListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DynamicEmergencyEndpointListPageAsync>
+    ): CompletableFuture<DynamicEmergencyEndpointListResponse>
 
     /** @see list */
     fun list(
         params: DynamicEmergencyEndpointListParams = DynamicEmergencyEndpointListParams.none()
-    ): CompletableFuture<DynamicEmergencyEndpointListPageAsync> =
-        list(params, RequestOptions.none())
+    ): CompletableFuture<DynamicEmergencyEndpointListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         requestOptions: RequestOptions
-    ): CompletableFuture<DynamicEmergencyEndpointListPageAsync> =
+    ): CompletableFuture<DynamicEmergencyEndpointListResponse> =
         list(DynamicEmergencyEndpointListParams.none(), requestOptions)
 
     /** Deletes the dynamic emergency endpoint based on the ID provided */
@@ -258,25 +257,25 @@ interface DynamicEmergencyEndpointServiceAsync {
          * Returns a raw HTTP response for `get /dynamic_emergency_endpoints`, but is otherwise the
          * same as [DynamicEmergencyEndpointServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<DynamicEmergencyEndpointListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<DynamicEmergencyEndpointListResponse>> =
             list(DynamicEmergencyEndpointListParams.none())
 
         /** @see list */
         fun list(
             params: DynamicEmergencyEndpointListParams = DynamicEmergencyEndpointListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DynamicEmergencyEndpointListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<DynamicEmergencyEndpointListResponse>>
 
         /** @see list */
         fun list(
             params: DynamicEmergencyEndpointListParams = DynamicEmergencyEndpointListParams.none()
-        ): CompletableFuture<HttpResponseFor<DynamicEmergencyEndpointListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<DynamicEmergencyEndpointListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<DynamicEmergencyEndpointListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<DynamicEmergencyEndpointListResponse>> =
             list(DynamicEmergencyEndpointListParams.none(), requestOptions)
 
         /**

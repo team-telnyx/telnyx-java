@@ -6,23 +6,23 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeleteParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeleteResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetMnoMetadataParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetMnoMetadataResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignListPage
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignListParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignListResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignUpdateParams
-import com.telnyx.sdk.models.number10dlc.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.services.blocking.number10dlc.campaign.OsrService
 import com.telnyx.sdk.services.blocking.number10dlc.campaign.UsecaseService
 import java.util.function.Consumer
@@ -112,13 +112,45 @@ interface CampaignService {
         update(campaignId, CampaignUpdateParams.none(), requestOptions)
 
     /** Retrieve a list of campaigns associated with a supplied `brandId`. */
-    fun list(params: CampaignListParams): CampaignListPage = list(params, RequestOptions.none())
+    fun list(params: CampaignListParams): CampaignListResponse = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: CampaignListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CampaignListPage
+    ): CampaignListResponse
+
+    /** Terminate a campaign. Note that once deactivated, a campaign cannot be restored. */
+    fun delete(campaignId: String): CampaignDeleteResponse =
+        delete(campaignId, CampaignDeleteParams.none())
+
+    /** @see delete */
+    fun delete(
+        campaignId: String,
+        params: CampaignDeleteParams = CampaignDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CampaignDeleteResponse =
+        delete(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(
+        campaignId: String,
+        params: CampaignDeleteParams = CampaignDeleteParams.none(),
+    ): CampaignDeleteResponse = delete(campaignId, params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(
+        params: CampaignDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CampaignDeleteResponse
+
+    /** @see delete */
+    fun delete(params: CampaignDeleteParams): CampaignDeleteResponse =
+        delete(params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(campaignId: String, requestOptions: RequestOptions): CampaignDeleteResponse =
+        delete(campaignId, CampaignDeleteParams.none(), requestOptions)
 
     /** Manually accept a campaign shared with Telnyx */
     fun acceptSharing(campaignId: String): CampaignAcceptSharingResponse =
@@ -154,38 +186,6 @@ interface CampaignService {
         requestOptions: RequestOptions,
     ): CampaignAcceptSharingResponse =
         acceptSharing(campaignId, CampaignAcceptSharingParams.none(), requestOptions)
-
-    /** Terminate a campaign. Note that once deactivated, a campaign cannot be restored. */
-    fun deactivate(campaignId: String): CampaignDeactivateResponse =
-        deactivate(campaignId, CampaignDeactivateParams.none())
-
-    /** @see deactivate */
-    fun deactivate(
-        campaignId: String,
-        params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CampaignDeactivateResponse =
-        deactivate(params.toBuilder().campaignId(campaignId).build(), requestOptions)
-
-    /** @see deactivate */
-    fun deactivate(
-        campaignId: String,
-        params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
-    ): CampaignDeactivateResponse = deactivate(campaignId, params, RequestOptions.none())
-
-    /** @see deactivate */
-    fun deactivate(
-        params: CampaignDeactivateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CampaignDeactivateResponse
-
-    /** @see deactivate */
-    fun deactivate(params: CampaignDeactivateParams): CampaignDeactivateResponse =
-        deactivate(params, RequestOptions.none())
-
-    /** @see deactivate */
-    fun deactivate(campaignId: String, requestOptions: RequestOptions): CampaignDeactivateResponse =
-        deactivate(campaignId, CampaignDeactivateParams.none(), requestOptions)
 
     /** Get the campaign metadata for each MNO it was submitted to. */
     fun getMnoMetadata(campaignId: String): CampaignGetMnoMetadataResponse =
@@ -431,7 +431,7 @@ interface CampaignService {
          * [CampaignService.list].
          */
         @MustBeClosed
-        fun list(params: CampaignListParams): HttpResponseFor<CampaignListPage> =
+        fun list(params: CampaignListParams): HttpResponseFor<CampaignListResponse> =
             list(params, RequestOptions.none())
 
         /** @see list */
@@ -439,7 +439,52 @@ interface CampaignService {
         fun list(
             params: CampaignListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CampaignListPage>
+        ): HttpResponseFor<CampaignListResponse>
+
+        /**
+         * Returns a raw HTTP response for `delete /10dlc/campaign/{campaignId}`, but is otherwise
+         * the same as [CampaignService.delete].
+         */
+        @MustBeClosed
+        fun delete(campaignId: String): HttpResponseFor<CampaignDeleteResponse> =
+            delete(campaignId, CampaignDeleteParams.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            campaignId: String,
+            params: CampaignDeleteParams = CampaignDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CampaignDeleteResponse> =
+            delete(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            campaignId: String,
+            params: CampaignDeleteParams = CampaignDeleteParams.none(),
+        ): HttpResponseFor<CampaignDeleteResponse> =
+            delete(campaignId, params, RequestOptions.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            params: CampaignDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CampaignDeleteResponse>
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(params: CampaignDeleteParams): HttpResponseFor<CampaignDeleteResponse> =
+            delete(params, RequestOptions.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            campaignId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CampaignDeleteResponse> =
+            delete(campaignId, CampaignDeleteParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /10dlc/campaign/acceptSharing/{campaignId}`, but is
@@ -487,52 +532,6 @@ interface CampaignService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<CampaignAcceptSharingResponse> =
             acceptSharing(campaignId, CampaignAcceptSharingParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `delete /10dlc/campaign/{campaignId}`, but is otherwise
-         * the same as [CampaignService.deactivate].
-         */
-        @MustBeClosed
-        fun deactivate(campaignId: String): HttpResponseFor<CampaignDeactivateResponse> =
-            deactivate(campaignId, CampaignDeactivateParams.none())
-
-        /** @see deactivate */
-        @MustBeClosed
-        fun deactivate(
-            campaignId: String,
-            params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CampaignDeactivateResponse> =
-            deactivate(params.toBuilder().campaignId(campaignId).build(), requestOptions)
-
-        /** @see deactivate */
-        @MustBeClosed
-        fun deactivate(
-            campaignId: String,
-            params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
-        ): HttpResponseFor<CampaignDeactivateResponse> =
-            deactivate(campaignId, params, RequestOptions.none())
-
-        /** @see deactivate */
-        @MustBeClosed
-        fun deactivate(
-            params: CampaignDeactivateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CampaignDeactivateResponse>
-
-        /** @see deactivate */
-        @MustBeClosed
-        fun deactivate(
-            params: CampaignDeactivateParams
-        ): HttpResponseFor<CampaignDeactivateResponse> = deactivate(params, RequestOptions.none())
-
-        /** @see deactivate */
-        @MustBeClosed
-        fun deactivate(
-            campaignId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignDeactivateResponse> =
-            deactivate(campaignId, CampaignDeactivateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/mnoMetadata`, but is

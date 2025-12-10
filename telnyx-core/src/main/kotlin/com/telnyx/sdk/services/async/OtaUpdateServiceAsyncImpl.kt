@@ -15,9 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.otaupdates.OtaUpdateListPageAsync
-import com.telnyx.sdk.models.otaupdates.OtaUpdateListPageResponse
 import com.telnyx.sdk.models.otaupdates.OtaUpdateListParams
+import com.telnyx.sdk.models.otaupdates.OtaUpdateListResponse
 import com.telnyx.sdk.models.otaupdates.OtaUpdateRetrieveParams
 import com.telnyx.sdk.models.otaupdates.OtaUpdateRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -46,7 +45,7 @@ class OtaUpdateServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun list(
         params: OtaUpdateListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<OtaUpdateListPageAsync> =
+    ): CompletableFuture<OtaUpdateListResponse> =
         // get /ota_updates
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -96,13 +95,13 @@ class OtaUpdateServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
-        private val listHandler: Handler<OtaUpdateListPageResponse> =
-            jsonHandler<OtaUpdateListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<OtaUpdateListResponse> =
+            jsonHandler<OtaUpdateListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: OtaUpdateListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<OtaUpdateListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<OtaUpdateListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -121,14 +120,6 @@ class OtaUpdateServiceAsyncImpl internal constructor(private val clientOptions: 
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                OtaUpdateListPageAsync.builder()
-                                    .service(OtaUpdateServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

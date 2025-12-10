@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.numberreservations.NumberReservationCreateParams
 import com.telnyx.sdk.models.numberreservations.NumberReservationCreateResponse
-import com.telnyx.sdk.models.numberreservations.NumberReservationListPageAsync
-import com.telnyx.sdk.models.numberreservations.NumberReservationListPageResponse
 import com.telnyx.sdk.models.numberreservations.NumberReservationListParams
+import com.telnyx.sdk.models.numberreservations.NumberReservationListResponse
 import com.telnyx.sdk.models.numberreservations.NumberReservationRetrieveParams
 import com.telnyx.sdk.models.numberreservations.NumberReservationRetrieveResponse
 import com.telnyx.sdk.services.async.numberreservations.ActionServiceAsync
@@ -64,7 +63,7 @@ internal constructor(private val clientOptions: ClientOptions) : NumberReservati
     override fun list(
         params: NumberReservationListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NumberReservationListPageAsync> =
+    ): CompletableFuture<NumberReservationListResponse> =
         // get /number_reservations
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -151,13 +150,13 @@ internal constructor(private val clientOptions: ClientOptions) : NumberReservati
                 }
         }
 
-        private val listHandler: Handler<NumberReservationListPageResponse> =
-            jsonHandler<NumberReservationListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NumberReservationListResponse> =
+            jsonHandler<NumberReservationListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NumberReservationListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NumberReservationListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<NumberReservationListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -176,14 +175,6 @@ internal constructor(private val clientOptions: ClientOptions) : NumberReservati
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                NumberReservationListPageAsync.builder()
-                                    .service(NumberReservationServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

@@ -16,24 +16,23 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeleteParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeleteResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetMnoMetadataParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetMnoMetadataResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignListPageAsync
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignListPageResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignListParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignListResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignUpdateParams
-import com.telnyx.sdk.models.number10dlc.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.services.async.number10dlc.campaign.OsrServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.campaign.OsrServiceAsyncImpl
 import com.telnyx.sdk.services.async.number10dlc.campaign.UsecaseServiceAsync
@@ -79,9 +78,16 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun list(
         params: CampaignListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CampaignListPageAsync> =
+    ): CompletableFuture<CampaignListResponse> =
         // get /10dlc/campaign
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+
+    override fun delete(
+        params: CampaignDeleteParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CampaignDeleteResponse> =
+        // delete /10dlc/campaign/{campaignId}
+        withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
 
     override fun acceptSharing(
         params: CampaignAcceptSharingParams,
@@ -89,13 +95,6 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
     ): CompletableFuture<CampaignAcceptSharingResponse> =
         // post /10dlc/campaign/acceptSharing/{campaignId}
         withRawResponse().acceptSharing(params, requestOptions).thenApply { it.parse() }
-
-    override fun deactivate(
-        params: CampaignDeactivateParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CampaignDeactivateResponse> =
-        // delete /10dlc/campaign/{campaignId}
-        withRawResponse().deactivate(params, requestOptions).thenApply { it.parse() }
 
     override fun getMnoMetadata(
         params: CampaignGetMnoMetadataParams,
@@ -217,13 +216,13 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                 }
         }
 
-        private val listHandler: Handler<CampaignListPageResponse> =
-            jsonHandler<CampaignListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CampaignListResponse> =
+            jsonHandler<CampaignListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CampaignListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CampaignListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<CampaignListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -243,13 +242,39 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                                     it.validate()
                                 }
                             }
-                            .let {
-                                CampaignListPageAsync.builder()
-                                    .service(CampaignServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
+                    }
+                }
+        }
+
+        private val deleteHandler: Handler<CampaignDeleteResponse> =
+            jsonHandler<CampaignDeleteResponse>(clientOptions.jsonMapper)
+
+        override fun delete(
+            params: CampaignDeleteParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CampaignDeleteResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("campaignId", params.campaignId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("10dlc", "campaign", params._pathParam(0))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { deleteHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
                             }
                     }
                 }
@@ -280,40 +305,6 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                     errorHandler.handle(response).parseable {
                         response
                             .use { acceptSharingHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val deactivateHandler: Handler<CampaignDeactivateResponse> =
-            jsonHandler<CampaignDeactivateResponse>(clientOptions.jsonMapper)
-
-        override fun deactivate(
-            params: CampaignDeactivateParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CampaignDeactivateResponse>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("campaignId", params.campaignId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("10dlc", "campaign", params._pathParam(0))
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { deactivateHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

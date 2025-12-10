@@ -704,7 +704,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            @Deprecated("Use country_iso instead")
+            @Deprecated("deprecated")
             fun country(): Optional<String> = country.getOptional("country")
 
             /**
@@ -801,7 +801,7 @@ private constructor(
              *
              * Unlike [country], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @Deprecated("Use country_iso instead")
+            @Deprecated("deprecated")
             @JsonProperty("country")
             @ExcludeMissing
             fun _country(): JsonField<String> = country
@@ -996,7 +996,7 @@ private constructor(
                 }
 
                 /** Use country_iso instead */
-                @Deprecated("Use country_iso instead")
+                @Deprecated("deprecated")
                 fun country(country: String) = country(JsonField.of(country))
 
                 /**
@@ -1006,7 +1006,7 @@ private constructor(
                  * instead. This method is primarily for setting the field to an undocumented or not
                  * yet supported value.
                  */
-                @Deprecated("Use country_iso instead")
+                @Deprecated("deprecated")
                 fun country(country: JsonField<String>) = apply { this.country = country }
 
                 fun countryCode(countryCode: Long) = countryCode(JsonField.of(countryCode))

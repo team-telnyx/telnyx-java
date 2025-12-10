@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderCreat
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderCreateResponse
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderDeleteParams
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderDeleteResponse
-import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderListPageAsync
-import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderListPageResponse
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderListParams
+import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderListResponse
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderRetrieveParams
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderRetrieveResponse
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderUpdateParams
@@ -73,7 +72,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun list(
         params: AuthenticationProviderListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AuthenticationProviderListPageAsync> =
+    ): CompletableFuture<AuthenticationProviderListResponse> =
         // get /authentication_providers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -195,13 +194,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 }
         }
 
-        private val listHandler: Handler<AuthenticationProviderListPageResponse> =
-            jsonHandler<AuthenticationProviderListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AuthenticationProviderListResponse> =
+            jsonHandler<AuthenticationProviderListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AuthenticationProviderListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AuthenticationProviderListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<AuthenticationProviderListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -220,14 +219,6 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                AuthenticationProviderListPageAsync.builder()
-                                    .service(AuthenticationProviderServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

@@ -15,12 +15,14 @@ internal class CallStreamingStoppedWebhookEventTest {
         val callStreamingStoppedWebhookEvent =
             CallStreamingStoppedWebhookEvent.builder()
                 .data(
-                    CallStreamingStopped.builder()
+                    CallStreamingStoppedWebhookEvent.Data.builder()
                         .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                        .eventType(CallStreamingStopped.EventType.STREAMING_STOPPED)
+                        .eventType(
+                            CallStreamingStoppedWebhookEvent.Data.EventType.STREAMING_STOPPED
+                        )
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                         .payload(
-                            CallStreamingStopped.Payload.builder()
+                            CallStreamingStoppedWebhookEvent.Data.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -29,19 +31,19 @@ internal class CallStreamingStoppedWebhookEventTest {
                                 .streamUrl("wss://www.example.com/websocket")
                                 .build()
                         )
-                        .recordType(CallStreamingStopped.RecordType.EVENT)
+                        .recordType(CallStreamingStoppedWebhookEvent.Data.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callStreamingStoppedWebhookEvent.data())
             .contains(
-                CallStreamingStopped.builder()
+                CallStreamingStoppedWebhookEvent.Data.builder()
                     .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                    .eventType(CallStreamingStopped.EventType.STREAMING_STOPPED)
+                    .eventType(CallStreamingStoppedWebhookEvent.Data.EventType.STREAMING_STOPPED)
                     .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                     .payload(
-                        CallStreamingStopped.Payload.builder()
+                        CallStreamingStoppedWebhookEvent.Data.Payload.builder()
                             .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                             .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                             .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -50,7 +52,7 @@ internal class CallStreamingStoppedWebhookEventTest {
                             .streamUrl("wss://www.example.com/websocket")
                             .build()
                     )
-                    .recordType(CallStreamingStopped.RecordType.EVENT)
+                    .recordType(CallStreamingStoppedWebhookEvent.Data.RecordType.EVENT)
                     .build()
             )
     }
@@ -61,12 +63,14 @@ internal class CallStreamingStoppedWebhookEventTest {
         val callStreamingStoppedWebhookEvent =
             CallStreamingStoppedWebhookEvent.builder()
                 .data(
-                    CallStreamingStopped.builder()
+                    CallStreamingStoppedWebhookEvent.Data.builder()
                         .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                        .eventType(CallStreamingStopped.EventType.STREAMING_STOPPED)
+                        .eventType(
+                            CallStreamingStoppedWebhookEvent.Data.EventType.STREAMING_STOPPED
+                        )
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                         .payload(
-                            CallStreamingStopped.Payload.builder()
+                            CallStreamingStoppedWebhookEvent.Data.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -75,7 +79,7 @@ internal class CallStreamingStoppedWebhookEventTest {
                                 .streamUrl("wss://www.example.com/websocket")
                                 .build()
                         )
-                        .recordType(CallStreamingStopped.RecordType.EVENT)
+                        .recordType(CallStreamingStoppedWebhookEvent.Data.RecordType.EVENT)
                         .build()
                 )
                 .build()

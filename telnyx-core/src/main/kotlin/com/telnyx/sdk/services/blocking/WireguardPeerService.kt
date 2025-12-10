@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.wireguardpeers.WireguardPeerCreateParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerCreateResponse
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerDeleteParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerDeleteResponse
-import com.telnyx.sdk.models.wireguardpeers.WireguardPeerListPage
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerListParams
+import com.telnyx.sdk.models.wireguardpeers.WireguardPeerListResponse
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerRetrieveConfigParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerRetrieveParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerRetrieveResponse
@@ -96,21 +96,21 @@ interface WireguardPeerService {
     ): WireguardPeerUpdateResponse
 
     /** List all WireGuard peers. */
-    fun list(): WireguardPeerListPage = list(WireguardPeerListParams.none())
+    fun list(): WireguardPeerListResponse = list(WireguardPeerListParams.none())
 
     /** @see list */
     fun list(
         params: WireguardPeerListParams = WireguardPeerListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): WireguardPeerListPage
+    ): WireguardPeerListResponse
 
     /** @see list */
     fun list(
         params: WireguardPeerListParams = WireguardPeerListParams.none()
-    ): WireguardPeerListPage = list(params, RequestOptions.none())
+    ): WireguardPeerListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): WireguardPeerListPage =
+    fun list(requestOptions: RequestOptions): WireguardPeerListResponse =
         list(WireguardPeerListParams.none(), requestOptions)
 
     /** Delete the WireGuard peer. */
@@ -288,24 +288,25 @@ interface WireguardPeerService {
          * [WireguardPeerService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<WireguardPeerListPage> = list(WireguardPeerListParams.none())
+        fun list(): HttpResponseFor<WireguardPeerListResponse> =
+            list(WireguardPeerListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: WireguardPeerListParams = WireguardPeerListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<WireguardPeerListPage>
+        ): HttpResponseFor<WireguardPeerListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: WireguardPeerListParams = WireguardPeerListParams.none()
-        ): HttpResponseFor<WireguardPeerListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<WireguardPeerListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<WireguardPeerListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<WireguardPeerListResponse> =
             list(WireguardPeerListParams.none(), requestOptions)
 
         /**

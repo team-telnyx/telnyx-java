@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionCreateP
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionCreateResponse
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionDeleteParams
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionDeleteResponse
-import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionListPage
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionListParams
+import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionListResponse
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionRetrieveParams
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionRetrieveResponse
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionUpdateParams
@@ -120,21 +120,21 @@ interface MobileVoiceConnectionService {
         update(id, MobileVoiceConnectionUpdateParams.none(), requestOptions)
 
     /** List Mobile Voice Connections */
-    fun list(): MobileVoiceConnectionListPage = list(MobileVoiceConnectionListParams.none())
+    fun list(): MobileVoiceConnectionListResponse = list(MobileVoiceConnectionListParams.none())
 
     /** @see list */
     fun list(
         params: MobileVoiceConnectionListParams = MobileVoiceConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MobileVoiceConnectionListPage
+    ): MobileVoiceConnectionListResponse
 
     /** @see list */
     fun list(
         params: MobileVoiceConnectionListParams = MobileVoiceConnectionListParams.none()
-    ): MobileVoiceConnectionListPage = list(params, RequestOptions.none())
+    ): MobileVoiceConnectionListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): MobileVoiceConnectionListPage =
+    fun list(requestOptions: RequestOptions): MobileVoiceConnectionListResponse =
         list(MobileVoiceConnectionListParams.none(), requestOptions)
 
     /** Delete a Mobile Voice Connection */
@@ -313,7 +313,7 @@ interface MobileVoiceConnectionService {
          * same as [MobileVoiceConnectionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<MobileVoiceConnectionListPage> =
+        fun list(): HttpResponseFor<MobileVoiceConnectionListResponse> =
             list(MobileVoiceConnectionListParams.none())
 
         /** @see list */
@@ -321,17 +321,19 @@ interface MobileVoiceConnectionService {
         fun list(
             params: MobileVoiceConnectionListParams = MobileVoiceConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MobileVoiceConnectionListPage>
+        ): HttpResponseFor<MobileVoiceConnectionListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MobileVoiceConnectionListParams = MobileVoiceConnectionListParams.none()
-        ): HttpResponseFor<MobileVoiceConnectionListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<MobileVoiceConnectionListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<MobileVoiceConnectionListPage> =
+        fun list(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<MobileVoiceConnectionListResponse> =
             list(MobileVoiceConnectionListParams.none(), requestOptions)
 
         /**

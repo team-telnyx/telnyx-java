@@ -10,8 +10,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretCreateParams
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretCreateResponse
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretDeleteParams
-import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListPage
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListParams
+import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListResponse
 import java.util.function.Consumer
 
 interface IntegrationSecretService {
@@ -42,21 +42,21 @@ interface IntegrationSecretService {
     ): IntegrationSecretCreateResponse
 
     /** Retrieve a list of all integration secrets configured by the user. */
-    fun list(): IntegrationSecretListPage = list(IntegrationSecretListParams.none())
+    fun list(): IntegrationSecretListResponse = list(IntegrationSecretListParams.none())
 
     /** @see list */
     fun list(
         params: IntegrationSecretListParams = IntegrationSecretListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): IntegrationSecretListPage
+    ): IntegrationSecretListResponse
 
     /** @see list */
     fun list(
         params: IntegrationSecretListParams = IntegrationSecretListParams.none()
-    ): IntegrationSecretListPage = list(params, RequestOptions.none())
+    ): IntegrationSecretListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): IntegrationSecretListPage =
+    fun list(requestOptions: RequestOptions): IntegrationSecretListResponse =
         list(IntegrationSecretListParams.none(), requestOptions)
 
     /** Delete an integration secret given its ID. */
@@ -124,7 +124,7 @@ interface IntegrationSecretService {
          * [IntegrationSecretService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<IntegrationSecretListPage> =
+        fun list(): HttpResponseFor<IntegrationSecretListResponse> =
             list(IntegrationSecretListParams.none())
 
         /** @see list */
@@ -132,17 +132,17 @@ interface IntegrationSecretService {
         fun list(
             params: IntegrationSecretListParams = IntegrationSecretListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IntegrationSecretListPage>
+        ): HttpResponseFor<IntegrationSecretListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: IntegrationSecretListParams = IntegrationSecretListParams.none()
-        ): HttpResponseFor<IntegrationSecretListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<IntegrationSecretListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<IntegrationSecretListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<IntegrationSecretListResponse> =
             list(IntegrationSecretListParams.none(), requestOptions)
 
         /**

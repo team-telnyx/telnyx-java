@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountCreateParams
+import com.telnyx.sdk.models.managedaccounts.ManagedAccountListParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountUpdateGlobalChannelLimitParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -87,10 +88,33 @@ internal class ManagedAccountServiceAsyncTest {
                 .build()
         val managedAccountServiceAsync = client.managedAccounts()
 
-        val pageFuture = managedAccountServiceAsync.list()
+        val managedAccountsFuture =
+            managedAccountServiceAsync.list(
+                ManagedAccountListParams.builder()
+                    .filter(
+                        ManagedAccountListParams.Filter.builder()
+                            .email(
+                                ManagedAccountListParams.Filter.Email.builder()
+                                    .contains("john")
+                                    .eq("eq")
+                                    .build()
+                            )
+                            .organizationName(
+                                ManagedAccountListParams.Filter.OrganizationName.builder()
+                                    .contains("contains")
+                                    .eq("Example Company LLC")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .includeCancelledAccounts(true)
+                    .page(ManagedAccountListParams.Page.builder().number(1L).size(1L).build())
+                    .sort(ManagedAccountListParams.Sort.EMAIL)
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val managedAccounts = managedAccountsFuture.get()
+        managedAccounts.validate()
     }
 
     @Disabled("Prism tests are disabled")

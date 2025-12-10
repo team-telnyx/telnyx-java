@@ -10,12 +10,17 @@ internal class ClusterListParamsTest {
 
     @Test
     fun create() {
-        ClusterListParams.builder().pageNumber(0L).pageSize(0L).build()
+        ClusterListParams.builder()
+            .page(ClusterListParams.Page.builder().number(0L).size(0L).build())
+            .build()
     }
 
     @Test
     fun queryParams() {
-        val params = ClusterListParams.builder().pageNumber(0L).pageSize(0L).build()
+        val params =
+            ClusterListParams.builder()
+                .page(ClusterListParams.Page.builder().number(0L).size(0L).build())
+                .build()
 
         val queryParams = params._queryParams()
 

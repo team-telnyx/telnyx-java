@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberCreateParams
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberCreateResponse
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberDataWrapper
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberDeleteParams
-import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberListPage
-import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberListPageResponse
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberListParams
+import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberListResponse
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberRetrieveParams
 import com.telnyx.sdk.services.blocking.verifiednumbers.ActionService
 import com.telnyx.sdk.services.blocking.verifiednumbers.ActionServiceImpl
@@ -62,7 +61,7 @@ class VerifiedNumberServiceImpl internal constructor(private val clientOptions: 
     override fun list(
         params: VerifiedNumberListParams,
         requestOptions: RequestOptions,
-    ): VerifiedNumberListPage =
+    ): VerifiedNumberListResponse =
         // get /verified_numbers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -150,13 +149,13 @@ class VerifiedNumberServiceImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val listHandler: Handler<VerifiedNumberListPageResponse> =
-            jsonHandler<VerifiedNumberListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<VerifiedNumberListResponse> =
+            jsonHandler<VerifiedNumberListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: VerifiedNumberListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VerifiedNumberListPage> {
+        ): HttpResponseFor<VerifiedNumberListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -173,13 +172,6 @@ class VerifiedNumberServiceImpl internal constructor(private val clientOptions: 
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        VerifiedNumberListPage.builder()
-                            .service(VerifiedNumberServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

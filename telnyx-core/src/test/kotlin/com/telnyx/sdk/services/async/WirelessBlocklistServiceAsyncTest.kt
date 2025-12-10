@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateParams
+import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -88,10 +89,19 @@ internal class WirelessBlocklistServiceAsyncTest {
                 .build()
         val wirelessBlocklistServiceAsync = client.wirelessBlocklists()
 
-        val pageFuture = wirelessBlocklistServiceAsync.list()
+        val wirelessBlocklistsFuture =
+            wirelessBlocklistServiceAsync.list(
+                WirelessBlocklistListParams.builder()
+                    .filterName("filter[name]")
+                    .filterType("filter[type]")
+                    .filterValues("filter[values]")
+                    .pageNumber(1L)
+                    .pageSize(1L)
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val wirelessBlocklists = wirelessBlocklistsFuture.get()
+        wirelessBlocklists.validate()
     }
 
     @Disabled("Prism tests are disabled")

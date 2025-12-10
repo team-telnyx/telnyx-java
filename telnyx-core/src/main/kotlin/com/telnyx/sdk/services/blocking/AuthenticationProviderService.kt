@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderCreat
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderCreateResponse
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderDeleteParams
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderDeleteResponse
-import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderListPage
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderListParams
+import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderListResponse
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderRetrieveParams
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderRetrieveResponse
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderUpdateParams
@@ -111,21 +111,21 @@ interface AuthenticationProviderService {
         update(id, AuthenticationProviderUpdateParams.none(), requestOptions)
 
     /** Returns a list of your SSO authentication providers. */
-    fun list(): AuthenticationProviderListPage = list(AuthenticationProviderListParams.none())
+    fun list(): AuthenticationProviderListResponse = list(AuthenticationProviderListParams.none())
 
     /** @see list */
     fun list(
         params: AuthenticationProviderListParams = AuthenticationProviderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AuthenticationProviderListPage
+    ): AuthenticationProviderListResponse
 
     /** @see list */
     fun list(
         params: AuthenticationProviderListParams = AuthenticationProviderListParams.none()
-    ): AuthenticationProviderListPage = list(params, RequestOptions.none())
+    ): AuthenticationProviderListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AuthenticationProviderListPage =
+    fun list(requestOptions: RequestOptions): AuthenticationProviderListResponse =
         list(AuthenticationProviderListParams.none(), requestOptions)
 
     /** Deletes an existing authentication provider. */
@@ -293,7 +293,7 @@ interface AuthenticationProviderService {
          * same as [AuthenticationProviderService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<AuthenticationProviderListPage> =
+        fun list(): HttpResponseFor<AuthenticationProviderListResponse> =
             list(AuthenticationProviderListParams.none())
 
         /** @see list */
@@ -301,17 +301,19 @@ interface AuthenticationProviderService {
         fun list(
             params: AuthenticationProviderListParams = AuthenticationProviderListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AuthenticationProviderListPage>
+        ): HttpResponseFor<AuthenticationProviderListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AuthenticationProviderListParams = AuthenticationProviderListParams.none()
-        ): HttpResponseFor<AuthenticationProviderListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<AuthenticationProviderListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AuthenticationProviderListPage> =
+        fun list(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<AuthenticationProviderListResponse> =
             list(AuthenticationProviderListParams.none(), requestOptions)
 
         /**

@@ -12,6 +12,7 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ai.clusters.ClusterComputeParams
 import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphParams
+import com.telnyx.sdk.models.ai.clusters.ClusterListParams
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
@@ -56,9 +57,14 @@ internal class ClusterServiceTest {
                 .build()
         val clusterService = client.ai().clusters()
 
-        val page = clusterService.list()
+        val clusters =
+            clusterService.list(
+                ClusterListParams.builder()
+                    .page(ClusterListParams.Page.builder().number(0L).size(0L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        clusters.validate()
     }
 
     @Disabled("Prism tests are disabled")

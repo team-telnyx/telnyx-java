@@ -28,8 +28,8 @@ internal class CommentListResponseTest {
                 .meta(
                     Metadata.builder()
                         .pageNumber(3.0)
-                        .totalPages(13.0)
                         .pageSize(1.0)
+                        .totalPages(13.0)
                         .totalResults(13.0)
                         .build()
                 )
@@ -50,8 +50,8 @@ internal class CommentListResponseTest {
             .contains(
                 Metadata.builder()
                     .pageNumber(3.0)
-                    .totalPages(13.0)
                     .pageSize(1.0)
+                    .totalPages(13.0)
                     .totalResults(13.0)
                     .build()
             )
@@ -75,8 +75,8 @@ internal class CommentListResponseTest {
                 .meta(
                     Metadata.builder()
                         .pageNumber(3.0)
-                        .totalPages(13.0)
                         .pageSize(1.0)
+                        .totalPages(13.0)
                         .totalResults(13.0)
                         .build()
                 )

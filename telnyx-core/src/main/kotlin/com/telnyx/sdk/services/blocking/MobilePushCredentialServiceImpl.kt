@@ -19,9 +19,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialCreateParams
 import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialDeleteParams
-import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialListPage
-import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialListPageResponse
 import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialListParams
+import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialListResponse
 import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialRetrieveParams
 import com.telnyx.sdk.models.mobilepushcredentials.PushCredentialResponse
 import java.util.function.Consumer
@@ -58,7 +57,7 @@ internal constructor(private val clientOptions: ClientOptions) : MobilePushCrede
     override fun list(
         params: MobilePushCredentialListParams,
         requestOptions: RequestOptions,
-    ): MobilePushCredentialListPage =
+    ): MobilePushCredentialListResponse =
         // get /mobile_push_credentials
         withRawResponse().list(params, requestOptions).parse()
 
@@ -138,13 +137,13 @@ internal constructor(private val clientOptions: ClientOptions) : MobilePushCrede
             }
         }
 
-        private val listHandler: Handler<MobilePushCredentialListPageResponse> =
-            jsonHandler<MobilePushCredentialListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MobilePushCredentialListResponse> =
+            jsonHandler<MobilePushCredentialListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MobilePushCredentialListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MobilePushCredentialListPage> {
+        ): HttpResponseFor<MobilePushCredentialListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -161,13 +160,6 @@ internal constructor(private val clientOptions: ClientOptions) : MobilePushCrede
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        MobilePushCredentialListPage.builder()
-                            .service(MobilePushCredentialServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

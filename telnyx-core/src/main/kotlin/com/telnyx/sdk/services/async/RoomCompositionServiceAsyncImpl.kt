@@ -20,9 +20,8 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionCreateParams
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionCreateResponse
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionDeleteParams
-import com.telnyx.sdk.models.roomcompositions.RoomCompositionListPageAsync
-import com.telnyx.sdk.models.roomcompositions.RoomCompositionListPageResponse
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionListParams
+import com.telnyx.sdk.models.roomcompositions.RoomCompositionListResponse
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionRetrieveParams
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -60,7 +59,7 @@ internal constructor(private val clientOptions: ClientOptions) : RoomComposition
     override fun list(
         params: RoomCompositionListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RoomCompositionListPageAsync> =
+    ): CompletableFuture<RoomCompositionListResponse> =
         // get /room_compositions
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -148,13 +147,13 @@ internal constructor(private val clientOptions: ClientOptions) : RoomComposition
                 }
         }
 
-        private val listHandler: Handler<RoomCompositionListPageResponse> =
-            jsonHandler<RoomCompositionListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RoomCompositionListResponse> =
+            jsonHandler<RoomCompositionListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RoomCompositionListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RoomCompositionListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<RoomCompositionListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -173,14 +172,6 @@ internal constructor(private val clientOptions: ClientOptions) : RoomComposition
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                RoomCompositionListPageAsync.builder()
-                                    .service(RoomCompositionServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

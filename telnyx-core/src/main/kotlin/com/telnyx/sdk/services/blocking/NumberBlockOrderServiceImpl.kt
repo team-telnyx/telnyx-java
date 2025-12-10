@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderCreateParams
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderCreateResponse
-import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderListPage
-import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderListPageResponse
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderListParams
+import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderListResponse
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderRetrieveParams
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderRetrieveResponse
 import java.util.function.Consumer
@@ -55,7 +54,7 @@ class NumberBlockOrderServiceImpl internal constructor(private val clientOptions
     override fun list(
         params: NumberBlockOrderListParams,
         requestOptions: RequestOptions,
-    ): NumberBlockOrderListPage =
+    ): NumberBlockOrderListResponse =
         // get /number_block_orders
         withRawResponse().list(params, requestOptions).parse()
 
@@ -130,13 +129,13 @@ class NumberBlockOrderServiceImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listHandler: Handler<NumberBlockOrderListPageResponse> =
-            jsonHandler<NumberBlockOrderListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NumberBlockOrderListResponse> =
+            jsonHandler<NumberBlockOrderListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NumberBlockOrderListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<NumberBlockOrderListPage> {
+        ): HttpResponseFor<NumberBlockOrderListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -153,13 +152,6 @@ class NumberBlockOrderServiceImpl internal constructor(private val clientOptions
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        NumberBlockOrderListPage.builder()
-                            .service(NumberBlockOrderServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

@@ -12,7 +12,7 @@ internal class SimCardUpdateParamsTest {
     @Test
     fun create() {
         SimCardUpdateParams.builder()
-            .simCardId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+            .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .simCard(
                 SimCard.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -61,18 +61,14 @@ internal class SimCardUpdateParamsTest {
                             .build()
                     )
                     .recordType("sim_card")
-                    .addResourcesWithInProgressAction(
-                        SimCard.ResourcesWithInProgressAction.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
-                    )
+                    .addResourcesWithInProgressAction(JsonValue.from(mapOf<String, Any>()))
                     .simCardGroupId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .status(
                         SimCardStatus.builder()
                             .reason(
                                 "The SIM card is active, ready to connect to networks and consume data."
                             )
-                            .value(SimCardStatus.SimCardStatusValue.ENABLED)
+                            .value(SimCardStatus.Value_.ENABLED)
                             .build()
                     )
                     .tags(listOf("personal", "customers", "active-customers"))
@@ -88,7 +84,7 @@ internal class SimCardUpdateParamsTest {
     fun pathParams() {
         val params =
             SimCardUpdateParams.builder()
-                .simCardId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .simCard(SimCard.builder().build())
                 .build()
 
@@ -101,7 +97,7 @@ internal class SimCardUpdateParamsTest {
     fun body() {
         val params =
             SimCardUpdateParams.builder()
-                .simCardId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .simCard(
                     SimCard.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -150,18 +146,14 @@ internal class SimCardUpdateParamsTest {
                                 .build()
                         )
                         .recordType("sim_card")
-                        .addResourcesWithInProgressAction(
-                            SimCard.ResourcesWithInProgressAction.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
-                        )
+                        .addResourcesWithInProgressAction(JsonValue.from(mapOf<String, Any>()))
                         .simCardGroupId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .status(
                             SimCardStatus.builder()
                                 .reason(
                                     "The SIM card is active, ready to connect to networks and consume data."
                                 )
-                                .value(SimCardStatus.SimCardStatusValue.ENABLED)
+                                .value(SimCardStatus.Value_.ENABLED)
                                 .build()
                         )
                         .tags(listOf("personal", "customers", "active-customers"))
@@ -223,18 +215,14 @@ internal class SimCardUpdateParamsTest {
                             .build()
                     )
                     .recordType("sim_card")
-                    .addResourcesWithInProgressAction(
-                        SimCard.ResourcesWithInProgressAction.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
-                    )
+                    .addResourcesWithInProgressAction(JsonValue.from(mapOf<String, Any>()))
                     .simCardGroupId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .status(
                         SimCardStatus.builder()
                             .reason(
                                 "The SIM card is active, ready to connect to networks and consume data."
                             )
-                            .value(SimCardStatus.SimCardStatusValue.ENABLED)
+                            .value(SimCardStatus.Value_.ENABLED)
                             .build()
                     )
                     .tags(listOf("personal", "customers", "active-customers"))
@@ -249,7 +237,7 @@ internal class SimCardUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             SimCardUpdateParams.builder()
-                .simCardId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .simCard(SimCard.builder().build())
                 .build()
 

@@ -61,7 +61,7 @@ internal class Number10dlcGetEnumResponseTest {
     fun ofEnumObjectList() {
         val enumObjectList =
             listOf(
-                Number10dlcGetEnumResponse.EnumObject.builder()
+                Number10dlcGetEnumResponse.UnnamedSchemaWithArrayParent0.builder()
                     .putAdditionalProperty("networkId", JsonValue.from("bar"))
                     .putAdditionalProperty("displayName", JsonValue.from("bar"))
                     .putAdditionalProperty("osrBitmaskIndex", JsonValue.from("bar"))
@@ -83,7 +83,7 @@ internal class Number10dlcGetEnumResponseTest {
         val number10dlcGetEnumResponse =
             Number10dlcGetEnumResponse.ofEnumObjectList(
                 listOf(
-                    Number10dlcGetEnumResponse.EnumObject.builder()
+                    Number10dlcGetEnumResponse.UnnamedSchemaWithArrayParent0.builder()
                         .putAdditionalProperty("networkId", JsonValue.from("bar"))
                         .putAdditionalProperty("displayName", JsonValue.from("bar"))
                         .putAdditionalProperty("osrBitmaskIndex", JsonValue.from("bar"))

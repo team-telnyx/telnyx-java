@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantDeleteParams
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantDeleteResponse
-import com.telnyx.sdk.models.oauthgrants.OAuthGrantListPageAsync
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantListParams
+import com.telnyx.sdk.models.oauthgrants.OAuthGrantListResponse
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantRetrieveParams
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -64,21 +64,21 @@ interface OAuthGrantServiceAsync {
         retrieve(id, OAuthGrantRetrieveParams.none(), requestOptions)
 
     /** Retrieve a paginated list of OAuth grants for the authenticated user */
-    fun list(): CompletableFuture<OAuthGrantListPageAsync> = list(OAuthGrantListParams.none())
+    fun list(): CompletableFuture<OAuthGrantListResponse> = list(OAuthGrantListParams.none())
 
     /** @see list */
     fun list(
         params: OAuthGrantListParams = OAuthGrantListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<OAuthGrantListPageAsync>
+    ): CompletableFuture<OAuthGrantListResponse>
 
     /** @see list */
     fun list(
         params: OAuthGrantListParams = OAuthGrantListParams.none()
-    ): CompletableFuture<OAuthGrantListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<OAuthGrantListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<OAuthGrantListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<OAuthGrantListResponse> =
         list(OAuthGrantListParams.none(), requestOptions)
 
     /** Revoke an OAuth grant */
@@ -176,25 +176,25 @@ interface OAuthGrantServiceAsync {
          * Returns a raw HTTP response for `get /oauth_grants`, but is otherwise the same as
          * [OAuthGrantServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<OAuthGrantListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<OAuthGrantListResponse>> =
             list(OAuthGrantListParams.none())
 
         /** @see list */
         fun list(
             params: OAuthGrantListParams = OAuthGrantListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<OAuthGrantListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<OAuthGrantListResponse>>
 
         /** @see list */
         fun list(
             params: OAuthGrantListParams = OAuthGrantListParams.none()
-        ): CompletableFuture<HttpResponseFor<OAuthGrantListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<OAuthGrantListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<OAuthGrantListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<OAuthGrantListResponse>> =
             list(OAuthGrantListParams.none(), requestOptions)
 
         /**

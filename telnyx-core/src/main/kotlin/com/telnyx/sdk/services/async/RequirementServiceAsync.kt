@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.requirements.RequirementListPageAsync
 import com.telnyx.sdk.models.requirements.RequirementListParams
+import com.telnyx.sdk.models.requirements.RequirementListResponse
 import com.telnyx.sdk.models.requirements.RequirementRetrieveParams
 import com.telnyx.sdk.models.requirements.RequirementRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -63,21 +63,21 @@ interface RequirementServiceAsync {
         retrieve(id, RequirementRetrieveParams.none(), requestOptions)
 
     /** List all requirements with filtering, sorting, and pagination */
-    fun list(): CompletableFuture<RequirementListPageAsync> = list(RequirementListParams.none())
+    fun list(): CompletableFuture<RequirementListResponse> = list(RequirementListParams.none())
 
     /** @see list */
     fun list(
         params: RequirementListParams = RequirementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RequirementListPageAsync>
+    ): CompletableFuture<RequirementListResponse>
 
     /** @see list */
     fun list(
         params: RequirementListParams = RequirementListParams.none()
-    ): CompletableFuture<RequirementListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<RequirementListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<RequirementListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<RequirementListResponse> =
         list(RequirementListParams.none(), requestOptions)
 
     /**
@@ -140,25 +140,25 @@ interface RequirementServiceAsync {
          * Returns a raw HTTP response for `get /requirements`, but is otherwise the same as
          * [RequirementServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<RequirementListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<RequirementListResponse>> =
             list(RequirementListParams.none())
 
         /** @see list */
         fun list(
             params: RequirementListParams = RequirementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RequirementListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<RequirementListResponse>>
 
         /** @see list */
         fun list(
             params: RequirementListParams = RequirementListParams.none()
-        ): CompletableFuture<HttpResponseFor<RequirementListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<RequirementListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<RequirementListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<RequirementListResponse>> =
             list(RequirementListParams.none(), requestOptions)
     }
 }

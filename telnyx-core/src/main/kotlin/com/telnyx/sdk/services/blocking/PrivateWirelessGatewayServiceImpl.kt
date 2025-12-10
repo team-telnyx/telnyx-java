@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayCreat
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayCreateResponse
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayDeleteParams
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayDeleteResponse
-import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayListPage
-import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayListPageResponse
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayListParams
+import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayListResponse
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayRetrieveParams
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayRetrieveResponse
 import java.util.function.Consumer
@@ -59,7 +58,7 @@ internal constructor(private val clientOptions: ClientOptions) : PrivateWireless
     override fun list(
         params: PrivateWirelessGatewayListParams,
         requestOptions: RequestOptions,
-    ): PrivateWirelessGatewayListPage =
+    ): PrivateWirelessGatewayListResponse =
         // get /private_wireless_gateways
         withRawResponse().list(params, requestOptions).parse()
 
@@ -141,13 +140,13 @@ internal constructor(private val clientOptions: ClientOptions) : PrivateWireless
             }
         }
 
-        private val listHandler: Handler<PrivateWirelessGatewayListPageResponse> =
-            jsonHandler<PrivateWirelessGatewayListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PrivateWirelessGatewayListResponse> =
+            jsonHandler<PrivateWirelessGatewayListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PrivateWirelessGatewayListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PrivateWirelessGatewayListPage> {
+        ): HttpResponseFor<PrivateWirelessGatewayListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -164,13 +163,6 @@ internal constructor(private val clientOptions: ClientOptions) : PrivateWireless
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        PrivateWirelessGatewayListPage.builder()
-                            .service(PrivateWirelessGatewayServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

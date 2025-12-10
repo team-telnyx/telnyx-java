@@ -4,6 +4,8 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.networkcoverage.AvailableService
+import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,8 +23,26 @@ internal class NetworkCoverageServiceTest {
                 .build()
         val networkCoverageService = client.networkCoverage()
 
-        val page = networkCoverageService.list()
+        val networkCoverages =
+            networkCoverageService.list(
+                NetworkCoverageListParams.builder()
+                    .filter(
+                        NetworkCoverageListParams.Filter.builder()
+                            .locationCode("silicon_valley-ca")
+                            .locationPop("SV1")
+                            .locationRegion("AMER")
+                            .locationSite("SJC")
+                            .build()
+                    )
+                    .filters(
+                        NetworkCoverageListParams.Filters.builder()
+                            .availableServices(AvailableService.CLOUD_VPN)
+                            .build()
+                    )
+                    .page(NetworkCoverageListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        networkCoverages.validate()
     }
 }

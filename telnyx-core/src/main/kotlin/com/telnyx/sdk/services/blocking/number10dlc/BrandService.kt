@@ -7,21 +7,20 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.brand.TelnyxBrand
 import com.telnyx.sdk.models.number10dlc.brand.BrandCreateParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandDeleteParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackResponse
-import com.telnyx.sdk.models.number10dlc.brand.BrandListPage
 import com.telnyx.sdk.models.number10dlc.brand.BrandListParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandListResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveResponse
-import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusParams
-import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandRevetParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
-import com.telnyx.sdk.models.number10dlc.brand.TelnyxBrand
 import com.telnyx.sdk.services.blocking.number10dlc.brand.ExternalVettingService
+import com.telnyx.sdk.services.blocking.number10dlc.brand.SmsOtpService
 import java.util.function.Consumer
 
 interface BrandService {
@@ -37,6 +36,8 @@ interface BrandService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BrandService
+
+    fun smsOtp(): SmsOtpService
 
     fun externalVetting(): ExternalVettingService
 
@@ -106,20 +107,20 @@ interface BrandService {
     ): TelnyxBrand
 
     /** This endpoint is used to list all brands associated with your organization. */
-    fun list(): BrandListPage = list(BrandListParams.none())
+    fun list(): BrandListResponse = list(BrandListParams.none())
 
     /** @see list */
     fun list(
         params: BrandListParams = BrandListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandListPage
+    ): BrandListResponse
 
     /** @see list */
-    fun list(params: BrandListParams = BrandListParams.none()): BrandListPage =
+    fun list(params: BrandListParams = BrandListParams.none()): BrandListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): BrandListPage =
+    fun list(requestOptions: RequestOptions): BrandListResponse =
         list(BrandListParams.none(), requestOptions)
 
     /**
@@ -225,52 +226,6 @@ interface BrandService {
         resend2faEmail(brandId, BrandResend2faEmailParams.none(), requestOptions)
 
     /**
-     * Query the status of an SMS OTP (One-Time Password) for Sole Proprietor brand verification.
-     *
-     * This endpoint allows you to check the delivery and verification status of an OTP sent during
-     * the Sole Proprietor brand verification process. You can query by either:
-     * * `referenceId` - The reference ID returned when the OTP was initially triggered
-     * * `brandId` - Query parameter for portal users to look up OTP status by Brand ID
-     *
-     * The response includes delivery status, verification dates, and detailed delivery information.
-     */
-    fun retrieveSmsOtpStatus(referenceId: String): BrandRetrieveSmsOtpStatusResponse =
-        retrieveSmsOtpStatus(referenceId, BrandRetrieveSmsOtpStatusParams.none())
-
-    /** @see retrieveSmsOtpStatus */
-    fun retrieveSmsOtpStatus(
-        referenceId: String,
-        params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandRetrieveSmsOtpStatusResponse =
-        retrieveSmsOtpStatus(params.toBuilder().referenceId(referenceId).build(), requestOptions)
-
-    /** @see retrieveSmsOtpStatus */
-    fun retrieveSmsOtpStatus(
-        referenceId: String,
-        params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
-    ): BrandRetrieveSmsOtpStatusResponse =
-        retrieveSmsOtpStatus(referenceId, params, RequestOptions.none())
-
-    /** @see retrieveSmsOtpStatus */
-    fun retrieveSmsOtpStatus(
-        params: BrandRetrieveSmsOtpStatusParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandRetrieveSmsOtpStatusResponse
-
-    /** @see retrieveSmsOtpStatus */
-    fun retrieveSmsOtpStatus(
-        params: BrandRetrieveSmsOtpStatusParams
-    ): BrandRetrieveSmsOtpStatusResponse = retrieveSmsOtpStatus(params, RequestOptions.none())
-
-    /** @see retrieveSmsOtpStatus */
-    fun retrieveSmsOtpStatus(
-        referenceId: String,
-        requestOptions: RequestOptions,
-    ): BrandRetrieveSmsOtpStatusResponse =
-        retrieveSmsOtpStatus(referenceId, BrandRetrieveSmsOtpStatusParams.none(), requestOptions)
-
-    /**
      * This operation allows you to revet the brand. However, revetting is allowed once after the
      * successful brand registration and thereafter limited to once every 3 months.
      */
@@ -309,6 +264,8 @@ interface BrandService {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): BrandService.WithRawResponse
+
+        fun smsOtp(): SmsOtpService.WithRawResponse
 
         fun externalVetting(): ExternalVettingService.WithRawResponse
 
@@ -404,23 +361,24 @@ interface BrandService {
          * Returns a raw HTTP response for `get /10dlc/brand`, but is otherwise the same as
          * [BrandService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<BrandListPage> = list(BrandListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<BrandListResponse> = list(BrandListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: BrandListParams = BrandListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandListPage>
+        ): HttpResponseFor<BrandListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: BrandListParams = BrandListParams.none()): HttpResponseFor<BrandListPage> =
-            list(params, RequestOptions.none())
+        fun list(
+            params: BrandListParams = BrandListParams.none()
+        ): HttpResponseFor<BrandListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<BrandListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<BrandListResponse> =
             list(BrandListParams.none(), requestOptions)
 
         /**
@@ -546,62 +504,6 @@ interface BrandService {
         @MustBeClosed
         fun resend2faEmail(brandId: String, requestOptions: RequestOptions): HttpResponse =
             resend2faEmail(brandId, BrandResend2faEmailParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /10dlc/brand/smsOtp/{referenceId}`, but is otherwise
-         * the same as [BrandService.retrieveSmsOtpStatus].
-         */
-        @MustBeClosed
-        fun retrieveSmsOtpStatus(
-            referenceId: String
-        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> =
-            retrieveSmsOtpStatus(referenceId, BrandRetrieveSmsOtpStatusParams.none())
-
-        /** @see retrieveSmsOtpStatus */
-        @MustBeClosed
-        fun retrieveSmsOtpStatus(
-            referenceId: String,
-            params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> =
-            retrieveSmsOtpStatus(
-                params.toBuilder().referenceId(referenceId).build(),
-                requestOptions,
-            )
-
-        /** @see retrieveSmsOtpStatus */
-        @MustBeClosed
-        fun retrieveSmsOtpStatus(
-            referenceId: String,
-            params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
-        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> =
-            retrieveSmsOtpStatus(referenceId, params, RequestOptions.none())
-
-        /** @see retrieveSmsOtpStatus */
-        @MustBeClosed
-        fun retrieveSmsOtpStatus(
-            params: BrandRetrieveSmsOtpStatusParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>
-
-        /** @see retrieveSmsOtpStatus */
-        @MustBeClosed
-        fun retrieveSmsOtpStatus(
-            params: BrandRetrieveSmsOtpStatusParams
-        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> =
-            retrieveSmsOtpStatus(params, RequestOptions.none())
-
-        /** @see retrieveSmsOtpStatus */
-        @MustBeClosed
-        fun retrieveSmsOtpStatus(
-            referenceId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> =
-            retrieveSmsOtpStatus(
-                referenceId,
-                BrandRetrieveSmsOtpStatusParams.none(),
-                requestOptions,
-            )
 
         /**
          * Returns a raw HTTP response for `put /10dlc/brand/{brandId}/revet`, but is otherwise the

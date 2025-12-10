@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.externalconnections
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.externalconnections.uploads.UploadCreateParams
+import com.telnyx.sdk.models.externalconnections.uploads.UploadListParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadRetrieveParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadRetryParams
 import org.junit.jupiter.api.Disabled
@@ -79,10 +80,42 @@ internal class UploadServiceAsyncTest {
                 .build()
         val uploadServiceAsync = client.externalConnections().uploads()
 
-        val pageFuture = uploadServiceAsync.list("id")
+        val uploadsFuture =
+            uploadServiceAsync.list(
+                UploadListParams.builder()
+                    .id("id")
+                    .filter(
+                        UploadListParams.Filter.builder()
+                            .civicAddressId(
+                                UploadListParams.Filter.CivicAddressId.builder()
+                                    .eq("19990261512338516954")
+                                    .build()
+                            )
+                            .locationId(
+                                UploadListParams.Filter.LocationId.builder()
+                                    .eq("19995665508264022121")
+                                    .build()
+                            )
+                            .phoneNumber(
+                                UploadListParams.Filter.PhoneNumber.builder()
+                                    .contains("+1970")
+                                    .eq("+19705555098")
+                                    .build()
+                            )
+                            .status(
+                                UploadListParams.Filter.Status.builder()
+                                    .addEq(UploadListParams.Filter.Status.Eq.PENDING_UPLOAD)
+                                    .addEq(UploadListParams.Filter.Status.Eq.PENDING)
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .page(UploadListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val uploads = uploadsFuture.get()
+        uploads.validate()
     }
 
     @Disabled("Prism tests are disabled")

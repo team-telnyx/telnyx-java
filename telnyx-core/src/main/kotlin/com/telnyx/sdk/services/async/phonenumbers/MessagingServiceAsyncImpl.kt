@@ -16,9 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.phonenumbers.messaging.MessagingListPageAsync
-import com.telnyx.sdk.models.phonenumbers.messaging.MessagingListPageResponse
 import com.telnyx.sdk.models.phonenumbers.messaging.MessagingListParams
+import com.telnyx.sdk.models.phonenumbers.messaging.MessagingListResponse
 import com.telnyx.sdk.models.phonenumbers.messaging.MessagingRetrieveParams
 import com.telnyx.sdk.models.phonenumbers.messaging.MessagingRetrieveResponse
 import com.telnyx.sdk.models.phonenumbers.messaging.MessagingUpdateParams
@@ -56,7 +55,7 @@ class MessagingServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun list(
         params: MessagingListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MessagingListPageAsync> =
+    ): CompletableFuture<MessagingListResponse> =
         // get /phone_numbers/messaging
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -140,13 +139,13 @@ class MessagingServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
-        private val listHandler: Handler<MessagingListPageResponse> =
-            jsonHandler<MessagingListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessagingListResponse> =
+            jsonHandler<MessagingListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessagingListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MessagingListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<MessagingListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -165,14 +164,6 @@ class MessagingServiceAsyncImpl internal constructor(private val clientOptions: 
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                MessagingListPageAsync.builder()
-                                    .service(MessagingServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

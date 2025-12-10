@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddress
+import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -76,10 +77,23 @@ internal class DynamicEmergencyAddressServiceAsyncTest {
                 .build()
         val dynamicEmergencyAddressServiceAsync = client.dynamicEmergencyAddresses()
 
-        val pageFuture = dynamicEmergencyAddressServiceAsync.list()
+        val dynamicEmergencyAddressesFuture =
+            dynamicEmergencyAddressServiceAsync.list(
+                DynamicEmergencyAddressListParams.builder()
+                    .filter(
+                        DynamicEmergencyAddressListParams.Filter.builder()
+                            .countryCode("country_code")
+                            .status(DynamicEmergencyAddressListParams.Filter.Status.PENDING)
+                            .build()
+                    )
+                    .page(
+                        DynamicEmergencyAddressListParams.Page.builder().number(1L).size(1L).build()
+                    )
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val dynamicEmergencyAddresses = dynamicEmergencyAddressesFuture.get()
+        dynamicEmergencyAddresses.validate()
     }
 
     @Disabled("Prism tests are disabled")

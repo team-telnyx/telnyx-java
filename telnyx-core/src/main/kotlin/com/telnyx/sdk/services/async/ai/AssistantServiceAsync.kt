@@ -12,7 +12,7 @@ import com.telnyx.sdk.models.ai.assistants.AssistantCreateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteParams
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantGetTexmlParams
-import com.telnyx.sdk.models.ai.assistants.AssistantImportsParams
+import com.telnyx.sdk.models.ai.assistants.AssistantImportParams
 import com.telnyx.sdk.models.ai.assistants.AssistantListParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
@@ -291,12 +291,12 @@ interface AssistantServiceAsync {
      * Import assistants from external providers. Any assistant that has already been imported will
      * be overwritten with its latest version from the importing provider.
      */
-    fun imports(params: AssistantImportsParams): CompletableFuture<AssistantsList> =
-        imports(params, RequestOptions.none())
+    fun import_(params: AssistantImportParams): CompletableFuture<AssistantsList> =
+        import_(params, RequestOptions.none())
 
-    /** @see imports */
-    fun imports(
-        params: AssistantImportsParams,
+    /** @see import_ */
+    fun import_(
+        params: AssistantImportParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AssistantsList>
 
@@ -634,16 +634,16 @@ interface AssistantServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post /ai/assistants/import`, but is otherwise the same
-         * as [AssistantServiceAsync.imports].
+         * as [AssistantServiceAsync.import_].
          */
-        fun imports(
-            params: AssistantImportsParams
+        fun import_(
+            params: AssistantImportParams
         ): CompletableFuture<HttpResponseFor<AssistantsList>> =
-            imports(params, RequestOptions.none())
+            import_(params, RequestOptions.none())
 
-        /** @see imports */
-        fun imports(
-            params: AssistantImportsParams,
+        /** @see import_ */
+        fun import_(
+            params: AssistantImportParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AssistantsList>>
 

@@ -16,14 +16,13 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaign
 import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignCreateParams
 import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignDeleteParams
-import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignListPageAsync
-import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignListPageResponse
 import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignListParams
+import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignListResponse
 import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignRetrieveParams
 import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignUpdateParams
+import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaign
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -69,7 +68,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhoneNumberCamp
     override fun list(
         params: PhoneNumberCampaignListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PhoneNumberCampaignListPageAsync> =
+    ): CompletableFuture<PhoneNumberCampaignListResponse> =
         // get /10dlc/phone_number_campaigns
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -166,7 +165,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhoneNumberCamp
         ): CompletableFuture<HttpResponseFor<PhoneNumberCampaign>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("campaignPhoneNumber", params.campaignPhoneNumber().getOrNull())
+            checkRequired("pathPhoneNumber", params.pathPhoneNumber().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PUT)
@@ -191,13 +190,13 @@ internal constructor(private val clientOptions: ClientOptions) : PhoneNumberCamp
                 }
         }
 
-        private val listHandler: Handler<PhoneNumberCampaignListPageResponse> =
-            jsonHandler<PhoneNumberCampaignListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PhoneNumberCampaignListResponse> =
+            jsonHandler<PhoneNumberCampaignListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PhoneNumberCampaignListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PhoneNumberCampaignListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<PhoneNumberCampaignListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -216,14 +215,6 @@ internal constructor(private val clientOptions: ClientOptions) : PhoneNumberCamp
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                PhoneNumberCampaignListPageAsync.builder()
-                                    .service(PhoneNumberCampaignServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

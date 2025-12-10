@@ -19,8 +19,7 @@ internal class AccessIpAddressListParamsTest {
                     .ipSource("ip_source")
                     .build()
             )
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(AccessIpAddressListParams.Page.builder().number(0L).size(250L).build())
             .build()
     }
 
@@ -35,8 +34,7 @@ internal class AccessIpAddressListParamsTest {
                         .ipSource("ip_source")
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(AccessIpAddressListParams.Page.builder().number(0L).size(250L).build())
                 .build()
 
         val queryParams = params._queryParams()
@@ -48,7 +46,7 @@ internal class AccessIpAddressListParamsTest {
                     .put("filter[ip_address]", "ip_address")
                     .put("filter[ip_source]", "ip_source")
                     .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[size]", "250")
                     .build()
             )
     }

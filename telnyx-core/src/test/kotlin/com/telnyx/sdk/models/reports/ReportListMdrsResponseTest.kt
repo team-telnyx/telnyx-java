@@ -36,8 +36,8 @@ internal class ReportListMdrsResponseTest {
                 .meta(
                     PaginationMetaReporting.builder()
                         .pageNumber(2)
-                        .totalPages(3)
                         .pageSize(25)
+                        .totalPages(3)
                         .totalResults(55)
                         .build()
                 )
@@ -65,8 +65,8 @@ internal class ReportListMdrsResponseTest {
             .contains(
                 PaginationMetaReporting.builder()
                     .pageNumber(2)
-                    .totalPages(3)
                     .pageSize(25)
+                    .totalPages(3)
                     .totalResults(55)
                     .build()
             )
@@ -97,8 +97,8 @@ internal class ReportListMdrsResponseTest {
                 .meta(
                     PaginationMetaReporting.builder()
                         .pageNumber(2)
-                        .totalPages(3)
                         .pageSize(25)
+                        .totalPages(3)
                         .totalResults(55)
                         .build()
                 )

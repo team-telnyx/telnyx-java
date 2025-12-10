@@ -42,7 +42,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun sipInfoBody(): String = body.sipInfoBody()
+    fun body(): String = body.body()
 
     /**
      * Content type of the INFO body. Must be MIME type compliant. There is a 1,400 bytes limit
@@ -71,11 +71,11 @@ private constructor(
     fun commandId(): Optional<String> = body.commandId()
 
     /**
-     * Returns the raw JSON value of [sipInfoBody].
+     * Returns the raw JSON value of [body].
      *
-     * Unlike [sipInfoBody], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [body], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _sipInfoBody(): JsonField<String> = body._sipInfoBody()
+    fun _body_(): JsonField<String> = this.body._body_()
 
     /**
      * Returns the raw JSON value of [contentType].
@@ -115,7 +115,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .sipInfoBody()
+         * .body()
          * .contentType()
          * ```
          */
@@ -149,7 +149,7 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [sipInfoBody]
+         * - [body]
          * - [contentType]
          * - [clientState]
          * - [commandId]
@@ -157,16 +157,15 @@ private constructor(
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
         /** Content of the SIP INFO */
-        fun sipInfoBody(sipInfoBody: String) = apply { body.sipInfoBody(sipInfoBody) }
+        fun body(body: String) = apply { this.body.body(body) }
 
         /**
-         * Sets [Builder.sipInfoBody] to an arbitrary JSON value.
+         * Sets [Builder.body] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.sipInfoBody] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.body] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun sipInfoBody(sipInfoBody: JsonField<String>) = apply { body.sipInfoBody(sipInfoBody) }
+        fun body(body: JsonField<String>) = apply { this.body.body(body) }
 
         /**
          * Content type of the INFO body. Must be MIME type compliant. There is a 1,400 bytes limit
@@ -336,7 +335,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .sipInfoBody()
+         * .body()
          * .contentType()
          * ```
          *
@@ -366,7 +365,7 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val sipInfoBody: JsonField<String>,
+        private val body: JsonField<String>,
         private val contentType: JsonField<String>,
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
@@ -375,7 +374,7 @@ private constructor(
 
         @JsonCreator
         private constructor(
-            @JsonProperty("body") @ExcludeMissing sipInfoBody: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("body") @ExcludeMissing body: JsonField<String> = JsonMissing.of(),
             @JsonProperty("content_type")
             @ExcludeMissing
             contentType: JsonField<String> = JsonMissing.of(),
@@ -385,7 +384,7 @@ private constructor(
             @JsonProperty("command_id")
             @ExcludeMissing
             commandId: JsonField<String> = JsonMissing.of(),
-        ) : this(sipInfoBody, contentType, clientState, commandId, mutableMapOf())
+        ) : this(body, contentType, clientState, commandId, mutableMapOf())
 
         /**
          * Content of the SIP INFO
@@ -393,7 +392,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun sipInfoBody(): String = sipInfoBody.getRequired("body")
+        fun body(): String = body.getRequired("body")
 
         /**
          * Content type of the INFO body. Must be MIME type compliant. There is a 1,400 bytes limit
@@ -422,11 +421,11 @@ private constructor(
         fun commandId(): Optional<String> = commandId.getOptional("command_id")
 
         /**
-         * Returns the raw JSON value of [sipInfoBody].
+         * Returns the raw JSON value of [body].
          *
-         * Unlike [sipInfoBody], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [body], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("body") @ExcludeMissing fun _sipInfoBody(): JsonField<String> = sipInfoBody
+        @JsonProperty("body") @ExcludeMissing fun _body_(): JsonField<String> = body
 
         /**
          * Returns the raw JSON value of [contentType].
@@ -472,7 +471,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .sipInfoBody()
+             * .body()
              * .contentType()
              * ```
              */
@@ -482,7 +481,7 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var sipInfoBody: JsonField<String>? = null
+            private var body: JsonField<String>? = null
             private var contentType: JsonField<String>? = null
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
@@ -490,7 +489,7 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
-                sipInfoBody = body.sipInfoBody
+                this.body = body.body
                 contentType = body.contentType
                 clientState = body.clientState
                 commandId = body.commandId
@@ -498,18 +497,16 @@ private constructor(
             }
 
             /** Content of the SIP INFO */
-            fun sipInfoBody(sipInfoBody: String) = sipInfoBody(JsonField.of(sipInfoBody))
+            fun body(body: String) = body(JsonField.of(body))
 
             /**
-             * Sets [Builder.sipInfoBody] to an arbitrary JSON value.
+             * Sets [Builder.body] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.sipInfoBody] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.body] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
-            fun sipInfoBody(sipInfoBody: JsonField<String>) = apply {
-                this.sipInfoBody = sipInfoBody
-            }
+            fun body(body: JsonField<String>) = apply { this.body = body }
 
             /**
              * Content type of the INFO body. Must be MIME type compliant. There is a 1,400 bytes
@@ -586,7 +583,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .sipInfoBody()
+             * .body()
              * .contentType()
              * ```
              *
@@ -594,7 +591,7 @@ private constructor(
              */
             fun build(): Body =
                 Body(
-                    checkRequired("sipInfoBody", sipInfoBody),
+                    checkRequired("body", body),
                     checkRequired("contentType", contentType),
                     clientState,
                     commandId,
@@ -609,7 +606,7 @@ private constructor(
                 return@apply
             }
 
-            sipInfoBody()
+            body()
             contentType()
             clientState()
             commandId()
@@ -632,7 +629,7 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (sipInfoBody.asKnown().isPresent) 1 else 0) +
+            (if (body.asKnown().isPresent) 1 else 0) +
                 (if (contentType.asKnown().isPresent) 1 else 0) +
                 (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0)
@@ -643,7 +640,7 @@ private constructor(
             }
 
             return other is Body &&
-                sipInfoBody == other.sipInfoBody &&
+                body == other.body &&
                 contentType == other.contentType &&
                 clientState == other.clientState &&
                 commandId == other.commandId &&
@@ -651,13 +648,13 @@ private constructor(
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(sipInfoBody, contentType, clientState, commandId, additionalProperties)
+            Objects.hash(body, contentType, clientState, commandId, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{sipInfoBody=$sipInfoBody, contentType=$contentType, clientState=$clientState, commandId=$commandId, additionalProperties=$additionalProperties}"
+            "Body{body=$body, contentType=$contentType, clientState=$clientState, commandId=$commandId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

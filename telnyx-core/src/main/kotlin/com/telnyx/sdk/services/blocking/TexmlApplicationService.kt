@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.texmlapplications.TexmlApplicationCreateParams
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationCreateResponse
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationDeleteParams
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationDeleteResponse
-import com.telnyx.sdk.models.texmlapplications.TexmlApplicationListPage
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationListParams
+import com.telnyx.sdk.models.texmlapplications.TexmlApplicationListResponse
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationRetrieveParams
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationRetrieveResponse
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationUpdateParams
@@ -96,21 +96,21 @@ interface TexmlApplicationService {
     ): TexmlApplicationUpdateResponse
 
     /** Returns a list of your TeXML Applications. */
-    fun list(): TexmlApplicationListPage = list(TexmlApplicationListParams.none())
+    fun list(): TexmlApplicationListResponse = list(TexmlApplicationListParams.none())
 
     /** @see list */
     fun list(
         params: TexmlApplicationListParams = TexmlApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): TexmlApplicationListPage
+    ): TexmlApplicationListResponse
 
     /** @see list */
     fun list(
         params: TexmlApplicationListParams = TexmlApplicationListParams.none()
-    ): TexmlApplicationListPage = list(params, RequestOptions.none())
+    ): TexmlApplicationListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): TexmlApplicationListPage =
+    fun list(requestOptions: RequestOptions): TexmlApplicationListResponse =
         list(TexmlApplicationListParams.none(), requestOptions)
 
     /** Deletes a TeXML Application. */
@@ -260,7 +260,7 @@ interface TexmlApplicationService {
          * [TexmlApplicationService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<TexmlApplicationListPage> =
+        fun list(): HttpResponseFor<TexmlApplicationListResponse> =
             list(TexmlApplicationListParams.none())
 
         /** @see list */
@@ -268,17 +268,17 @@ interface TexmlApplicationService {
         fun list(
             params: TexmlApplicationListParams = TexmlApplicationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<TexmlApplicationListPage>
+        ): HttpResponseFor<TexmlApplicationListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: TexmlApplicationListParams = TexmlApplicationListParams.none()
-        ): HttpResponseFor<TexmlApplicationListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<TexmlApplicationListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<TexmlApplicationListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<TexmlApplicationListResponse> =
             list(TexmlApplicationListParams.none(), requestOptions)
 
         /**

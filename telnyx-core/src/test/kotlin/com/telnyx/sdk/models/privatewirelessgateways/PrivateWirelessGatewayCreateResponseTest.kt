@@ -32,10 +32,7 @@ internal class PrivateWirelessGatewayCreateResponseTest {
                             PrivateWirelessGatewayStatus.builder()
                                 .errorCode(null)
                                 .errorDescription(null)
-                                .value(
-                                    PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue
-                                        .PROVISIONING
-                                )
+                                .value(PrivateWirelessGatewayStatus.Value_.PROVISIONING)
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")
@@ -63,10 +60,7 @@ internal class PrivateWirelessGatewayCreateResponseTest {
                         PrivateWirelessGatewayStatus.builder()
                             .errorCode(null)
                             .errorDescription(null)
-                            .value(
-                                PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue
-                                    .PROVISIONING
-                            )
+                            .value(PrivateWirelessGatewayStatus.Value_.PROVISIONING)
                             .build()
                     )
                     .updatedAt("2018-02-02T22:25:27.521Z")
@@ -98,10 +92,7 @@ internal class PrivateWirelessGatewayCreateResponseTest {
                             PrivateWirelessGatewayStatus.builder()
                                 .errorCode(null)
                                 .errorDescription(null)
-                                .value(
-                                    PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue
-                                        .PROVISIONING
-                                )
+                                .value(PrivateWirelessGatewayStatus.Value_.PROVISIONING)
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")

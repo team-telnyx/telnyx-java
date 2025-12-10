@@ -20,9 +20,8 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretCreateParams
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretCreateResponse
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretDeleteParams
-import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListPage
-import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListPageResponse
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListParams
+import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -48,7 +47,7 @@ class IntegrationSecretServiceImpl internal constructor(private val clientOption
     override fun list(
         params: IntegrationSecretListParams,
         requestOptions: RequestOptions,
-    ): IntegrationSecretListPage =
+    ): IntegrationSecretListResponse =
         // get /integration_secrets
         withRawResponse().list(params, requestOptions).parse()
 
@@ -98,13 +97,13 @@ class IntegrationSecretServiceImpl internal constructor(private val clientOption
             }
         }
 
-        private val listHandler: Handler<IntegrationSecretListPageResponse> =
-            jsonHandler<IntegrationSecretListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<IntegrationSecretListResponse> =
+            jsonHandler<IntegrationSecretListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: IntegrationSecretListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<IntegrationSecretListPage> {
+        ): HttpResponseFor<IntegrationSecretListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -121,13 +120,6 @@ class IntegrationSecretServiceImpl internal constructor(private val clientOption
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        IntegrationSecretListPage.builder()
-                            .service(IntegrationSecretServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

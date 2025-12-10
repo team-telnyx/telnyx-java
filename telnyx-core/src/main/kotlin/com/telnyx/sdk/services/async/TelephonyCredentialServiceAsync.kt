@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialCreateRespo
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialCreateTokenParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialDeleteParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialDeleteResponse
-import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialListPageAsync
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialListParams
+import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialListResponse
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialRetrieveParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialRetrieveResponse
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialUpdateParams
@@ -120,22 +120,22 @@ interface TelephonyCredentialServiceAsync {
         update(id, TelephonyCredentialUpdateParams.none(), requestOptions)
 
     /** List all On-demand Credentials. */
-    fun list(): CompletableFuture<TelephonyCredentialListPageAsync> =
+    fun list(): CompletableFuture<TelephonyCredentialListResponse> =
         list(TelephonyCredentialListParams.none())
 
     /** @see list */
     fun list(
         params: TelephonyCredentialListParams = TelephonyCredentialListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TelephonyCredentialListPageAsync>
+    ): CompletableFuture<TelephonyCredentialListResponse>
 
     /** @see list */
     fun list(
         params: TelephonyCredentialListParams = TelephonyCredentialListParams.none()
-    ): CompletableFuture<TelephonyCredentialListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<TelephonyCredentialListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<TelephonyCredentialListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<TelephonyCredentialListResponse> =
         list(TelephonyCredentialListParams.none(), requestOptions)
 
     /** Delete an existing credential. */
@@ -326,25 +326,25 @@ interface TelephonyCredentialServiceAsync {
          * Returns a raw HTTP response for `get /telephony_credentials`, but is otherwise the same
          * as [TelephonyCredentialServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<TelephonyCredentialListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<TelephonyCredentialListResponse>> =
             list(TelephonyCredentialListParams.none())
 
         /** @see list */
         fun list(
             params: TelephonyCredentialListParams = TelephonyCredentialListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TelephonyCredentialListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<TelephonyCredentialListResponse>>
 
         /** @see list */
         fun list(
             params: TelephonyCredentialListParams = TelephonyCredentialListParams.none()
-        ): CompletableFuture<HttpResponseFor<TelephonyCredentialListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<TelephonyCredentialListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<TelephonyCredentialListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<TelephonyCredentialListResponse>> =
             list(TelephonyCredentialListParams.none(), requestOptions)
 
         /**

@@ -9,16 +9,14 @@ internal class MessagingProfileDeleteParamsTest {
 
     @Test
     fun create() {
-        MessagingProfileDeleteParams.builder()
-            .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .build()
+        MessagingProfileDeleteParams.builder().id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e").build()
     }
 
     @Test
     fun pathParams() {
         val params =
             MessagingProfileDeleteParams.builder()
-                .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.faxapplications.FaxApplicationCreateParams
 import com.telnyx.sdk.models.faxapplications.FaxApplicationCreateResponse
 import com.telnyx.sdk.models.faxapplications.FaxApplicationDeleteParams
 import com.telnyx.sdk.models.faxapplications.FaxApplicationDeleteResponse
-import com.telnyx.sdk.models.faxapplications.FaxApplicationListPage
-import com.telnyx.sdk.models.faxapplications.FaxApplicationListPageResponse
 import com.telnyx.sdk.models.faxapplications.FaxApplicationListParams
+import com.telnyx.sdk.models.faxapplications.FaxApplicationListResponse
 import com.telnyx.sdk.models.faxapplications.FaxApplicationRetrieveParams
 import com.telnyx.sdk.models.faxapplications.FaxApplicationRetrieveResponse
 import com.telnyx.sdk.models.faxapplications.FaxApplicationUpdateParams
@@ -66,7 +65,7 @@ class FaxApplicationServiceImpl internal constructor(private val clientOptions: 
     override fun list(
         params: FaxApplicationListParams,
         requestOptions: RequestOptions,
-    ): FaxApplicationListPage =
+    ): FaxApplicationListResponse =
         // get /fax_applications
         withRawResponse().list(params, requestOptions).parse()
 
@@ -179,13 +178,13 @@ class FaxApplicationServiceImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val listHandler: Handler<FaxApplicationListPageResponse> =
-            jsonHandler<FaxApplicationListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<FaxApplicationListResponse> =
+            jsonHandler<FaxApplicationListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: FaxApplicationListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<FaxApplicationListPage> {
+        ): HttpResponseFor<FaxApplicationListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -202,13 +201,6 @@ class FaxApplicationServiceImpl internal constructor(private val clientOptions: 
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        FaxApplicationListPage.builder()
-                            .service(FaxApplicationServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

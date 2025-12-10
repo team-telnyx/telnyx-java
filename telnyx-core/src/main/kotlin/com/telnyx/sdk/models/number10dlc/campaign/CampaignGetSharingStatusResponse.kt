@@ -11,6 +11,7 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.campaign.CampaignSharingStatus
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional

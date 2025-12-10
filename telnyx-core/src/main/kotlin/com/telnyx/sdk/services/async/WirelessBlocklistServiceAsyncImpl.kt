@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistDeleteParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistDeleteResponse
-import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListPageAsync
-import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListPageResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListParams
+import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistRetrieveParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistRetrieveResponse
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistUpdateParams
@@ -69,7 +68,7 @@ internal constructor(private val clientOptions: ClientOptions) : WirelessBlockli
     override fun list(
         params: WirelessBlocklistListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<WirelessBlocklistListPageAsync> =
+    ): CompletableFuture<WirelessBlocklistListResponse> =
         // get /wireless_blocklists
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -188,13 +187,13 @@ internal constructor(private val clientOptions: ClientOptions) : WirelessBlockli
                 }
         }
 
-        private val listHandler: Handler<WirelessBlocklistListPageResponse> =
-            jsonHandler<WirelessBlocklistListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<WirelessBlocklistListResponse> =
+            jsonHandler<WirelessBlocklistListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: WirelessBlocklistListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<WirelessBlocklistListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<WirelessBlocklistListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -213,14 +212,6 @@ internal constructor(private val clientOptions: ClientOptions) : WirelessBlockli
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                WirelessBlocklistListPageAsync.builder()
-                                    .service(WirelessBlocklistServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

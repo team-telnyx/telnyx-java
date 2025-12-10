@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.webhooks
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.InboundMessagePayload
 import com.telnyx.sdk.models.messages.MessagingError
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -23,51 +22,58 @@ internal class InboundMessageWebhookEventTest {
                         .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
                         .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
-                            InboundMessagePayload.builder()
+                            InboundMessageWebhookEvent.Data.Payload.builder()
                                 .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
                                 .addCc(
-                                    InboundMessagePayload.Cc.builder()
+                                    InboundMessageWebhookEvent.Data.Payload.Cc.builder()
                                         .carrier("carrier")
-                                        .lineType(InboundMessagePayload.Cc.LineType.WIRELINE)
+                                        .lineType(
+                                            InboundMessageWebhookEvent.Data.Payload.Cc.LineType
+                                                .WIRELINE
+                                        )
                                         .phoneNumber("phone_number")
-                                        .status(InboundMessagePayload.Cc.Status.QUEUED)
+                                        .status(
+                                            InboundMessageWebhookEvent.Data.Payload.Cc.Status.QUEUED
+                                        )
                                         .build()
                                 )
                                 .completedAt(null)
                                 .cost(
-                                    InboundMessagePayload.Cost.builder()
+                                    InboundMessageWebhookEvent.Data.Payload.Cost.builder()
                                         .amount("0.0051")
                                         .currency("USD")
                                         .build()
                                 )
                                 .costBreakdown(
-                                    InboundMessagePayload.CostBreakdown.builder()
+                                    InboundMessageWebhookEvent.Data.Payload.CostBreakdown.builder()
                                         .carrierFee(
-                                            InboundMessagePayload.CostBreakdown.CarrierFee.builder()
+                                            InboundMessageWebhookEvent.Data.Payload.CostBreakdown
+                                                .CarrierFee
+                                                .builder()
                                                 .amount("0.00305")
                                                 .currency("USD")
                                                 .build()
                                         )
                                         .rate(
-                                            InboundMessagePayload.CostBreakdown.Rate.builder()
+                                            InboundMessageWebhookEvent.Data.Payload.CostBreakdown
+                                                .Rate
+                                                .builder()
                                                 .amount("0.00205")
                                                 .currency("USD")
                                                 .build()
                                         )
                                         .build()
                                 )
-                                .direction(InboundMessagePayload.Direction.INBOUND)
+                                .direction(
+                                    InboundMessageWebhookEvent.Data.Payload.Direction.INBOUND
+                                )
                                 .encoding("GSM-7")
                                 .addError(
                                     MessagingError.builder()
                                         .code("code")
                                         .title("title")
                                         .detail("detail")
-                                        .meta(
-                                            MessagingError.Meta.builder()
-                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                                .build()
-                                        )
+                                        .meta(JsonValue.from(mapOf<String, Any>()))
                                         .source(
                                             MessagingError.Source.builder()
                                                 .parameter("parameter")
@@ -77,15 +83,21 @@ internal class InboundMessageWebhookEventTest {
                                         .build()
                                 )
                                 .from(
-                                    InboundMessagePayload.From.builder()
+                                    InboundMessageWebhookEvent.Data.Payload.From.builder()
                                         .carrier("T-MOBILE USA, INC.")
-                                        .lineType(InboundMessagePayload.From.LineType.WIRELESS)
+                                        .lineType(
+                                            InboundMessageWebhookEvent.Data.Payload.From.LineType
+                                                .WIRELESS
+                                        )
                                         .phoneNumber("+18665550001")
-                                        .status(InboundMessagePayload.From.Status.RECEIVED)
+                                        .status(
+                                            InboundMessageWebhookEvent.Data.Payload.From.Status
+                                                .RECEIVED
+                                        )
                                         .build()
                                 )
                                 .addMedia(
-                                    InboundMessagePayload.Media.builder()
+                                    InboundMessageWebhookEvent.Data.Payload.Media.builder()
                                         .contentType("content_type")
                                         .hashSha256("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
                                         .size(0L)
@@ -96,7 +108,9 @@ internal class InboundMessageWebhookEventTest {
                                 .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
                                 .parts(1L)
                                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
-                                .recordType(InboundMessagePayload.RecordType.MESSAGE)
+                                .recordType(
+                                    InboundMessageWebhookEvent.Data.Payload.RecordType.MESSAGE
+                                )
                                 .sentAt(null)
                                 .subject("From Telnyx!")
                                 .addTag("Greetings")
@@ -105,14 +119,20 @@ internal class InboundMessageWebhookEventTest {
                                 .tcrCampaignRegistered("REGISTERED")
                                 .text("Hello, World!")
                                 .addTo(
-                                    InboundMessagePayload.To.builder()
+                                    InboundMessageWebhookEvent.Data.Payload.To.builder()
                                         .carrier("TELNYX LLC")
-                                        .lineType(InboundMessagePayload.To.LineType.VO_IP)
+                                        .lineType(
+                                            InboundMessageWebhookEvent.Data.Payload.To.LineType
+                                                .VO_IP
+                                        )
                                         .phoneNumber("+18445550001")
-                                        .status(InboundMessagePayload.To.Status.DELIVERED)
+                                        .status(
+                                            InboundMessageWebhookEvent.Data.Payload.To.Status
+                                                .DELIVERED
+                                        )
                                         .build()
                                 )
-                                .type(InboundMessagePayload.Type.SMS)
+                                .type(InboundMessageWebhookEvent.Data.Payload.Type.SMS)
                                 .validUntil(null)
                                 .webhookFailoverUrl("https://backup.example.com/hooks")
                                 .webhookUrl("https://www.example.com/hooks")
@@ -130,51 +150,54 @@ internal class InboundMessageWebhookEventTest {
                     .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
                     .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                     .payload(
-                        InboundMessagePayload.builder()
+                        InboundMessageWebhookEvent.Data.Payload.builder()
                             .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
                             .addCc(
-                                InboundMessagePayload.Cc.builder()
+                                InboundMessageWebhookEvent.Data.Payload.Cc.builder()
                                     .carrier("carrier")
-                                    .lineType(InboundMessagePayload.Cc.LineType.WIRELINE)
+                                    .lineType(
+                                        InboundMessageWebhookEvent.Data.Payload.Cc.LineType.WIRELINE
+                                    )
                                     .phoneNumber("phone_number")
-                                    .status(InboundMessagePayload.Cc.Status.QUEUED)
+                                    .status(
+                                        InboundMessageWebhookEvent.Data.Payload.Cc.Status.QUEUED
+                                    )
                                     .build()
                             )
                             .completedAt(null)
                             .cost(
-                                InboundMessagePayload.Cost.builder()
+                                InboundMessageWebhookEvent.Data.Payload.Cost.builder()
                                     .amount("0.0051")
                                     .currency("USD")
                                     .build()
                             )
                             .costBreakdown(
-                                InboundMessagePayload.CostBreakdown.builder()
+                                InboundMessageWebhookEvent.Data.Payload.CostBreakdown.builder()
                                     .carrierFee(
-                                        InboundMessagePayload.CostBreakdown.CarrierFee.builder()
+                                        InboundMessageWebhookEvent.Data.Payload.CostBreakdown
+                                            .CarrierFee
+                                            .builder()
                                             .amount("0.00305")
                                             .currency("USD")
                                             .build()
                                     )
                                     .rate(
-                                        InboundMessagePayload.CostBreakdown.Rate.builder()
+                                        InboundMessageWebhookEvent.Data.Payload.CostBreakdown.Rate
+                                            .builder()
                                             .amount("0.00205")
                                             .currency("USD")
                                             .build()
                                     )
                                     .build()
                             )
-                            .direction(InboundMessagePayload.Direction.INBOUND)
+                            .direction(InboundMessageWebhookEvent.Data.Payload.Direction.INBOUND)
                             .encoding("GSM-7")
                             .addError(
                                 MessagingError.builder()
                                     .code("code")
                                     .title("title")
                                     .detail("detail")
-                                    .meta(
-                                        MessagingError.Meta.builder()
-                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                            .build()
-                                    )
+                                    .meta(JsonValue.from(mapOf<String, Any>()))
                                     .source(
                                         MessagingError.Source.builder()
                                             .parameter("parameter")
@@ -184,15 +207,20 @@ internal class InboundMessageWebhookEventTest {
                                     .build()
                             )
                             .from(
-                                InboundMessagePayload.From.builder()
+                                InboundMessageWebhookEvent.Data.Payload.From.builder()
                                     .carrier("T-MOBILE USA, INC.")
-                                    .lineType(InboundMessagePayload.From.LineType.WIRELESS)
+                                    .lineType(
+                                        InboundMessageWebhookEvent.Data.Payload.From.LineType
+                                            .WIRELESS
+                                    )
                                     .phoneNumber("+18665550001")
-                                    .status(InboundMessagePayload.From.Status.RECEIVED)
+                                    .status(
+                                        InboundMessageWebhookEvent.Data.Payload.From.Status.RECEIVED
+                                    )
                                     .build()
                             )
                             .addMedia(
-                                InboundMessagePayload.Media.builder()
+                                InboundMessageWebhookEvent.Data.Payload.Media.builder()
                                     .contentType("content_type")
                                     .hashSha256("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
                                     .size(0L)
@@ -203,7 +231,7 @@ internal class InboundMessageWebhookEventTest {
                             .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
                             .parts(1L)
                             .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
-                            .recordType(InboundMessagePayload.RecordType.MESSAGE)
+                            .recordType(InboundMessageWebhookEvent.Data.Payload.RecordType.MESSAGE)
                             .sentAt(null)
                             .subject("From Telnyx!")
                             .addTag("Greetings")
@@ -212,14 +240,18 @@ internal class InboundMessageWebhookEventTest {
                             .tcrCampaignRegistered("REGISTERED")
                             .text("Hello, World!")
                             .addTo(
-                                InboundMessagePayload.To.builder()
+                                InboundMessageWebhookEvent.Data.Payload.To.builder()
                                     .carrier("TELNYX LLC")
-                                    .lineType(InboundMessagePayload.To.LineType.VO_IP)
+                                    .lineType(
+                                        InboundMessageWebhookEvent.Data.Payload.To.LineType.VO_IP
+                                    )
                                     .phoneNumber("+18445550001")
-                                    .status(InboundMessagePayload.To.Status.DELIVERED)
+                                    .status(
+                                        InboundMessageWebhookEvent.Data.Payload.To.Status.DELIVERED
+                                    )
                                     .build()
                             )
-                            .type(InboundMessagePayload.Type.SMS)
+                            .type(InboundMessageWebhookEvent.Data.Payload.Type.SMS)
                             .validUntil(null)
                             .webhookFailoverUrl("https://backup.example.com/hooks")
                             .webhookUrl("https://www.example.com/hooks")
@@ -241,51 +273,58 @@ internal class InboundMessageWebhookEventTest {
                         .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
                         .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
-                            InboundMessagePayload.builder()
+                            InboundMessageWebhookEvent.Data.Payload.builder()
                                 .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
                                 .addCc(
-                                    InboundMessagePayload.Cc.builder()
+                                    InboundMessageWebhookEvent.Data.Payload.Cc.builder()
                                         .carrier("carrier")
-                                        .lineType(InboundMessagePayload.Cc.LineType.WIRELINE)
+                                        .lineType(
+                                            InboundMessageWebhookEvent.Data.Payload.Cc.LineType
+                                                .WIRELINE
+                                        )
                                         .phoneNumber("phone_number")
-                                        .status(InboundMessagePayload.Cc.Status.QUEUED)
+                                        .status(
+                                            InboundMessageWebhookEvent.Data.Payload.Cc.Status.QUEUED
+                                        )
                                         .build()
                                 )
                                 .completedAt(null)
                                 .cost(
-                                    InboundMessagePayload.Cost.builder()
+                                    InboundMessageWebhookEvent.Data.Payload.Cost.builder()
                                         .amount("0.0051")
                                         .currency("USD")
                                         .build()
                                 )
                                 .costBreakdown(
-                                    InboundMessagePayload.CostBreakdown.builder()
+                                    InboundMessageWebhookEvent.Data.Payload.CostBreakdown.builder()
                                         .carrierFee(
-                                            InboundMessagePayload.CostBreakdown.CarrierFee.builder()
+                                            InboundMessageWebhookEvent.Data.Payload.CostBreakdown
+                                                .CarrierFee
+                                                .builder()
                                                 .amount("0.00305")
                                                 .currency("USD")
                                                 .build()
                                         )
                                         .rate(
-                                            InboundMessagePayload.CostBreakdown.Rate.builder()
+                                            InboundMessageWebhookEvent.Data.Payload.CostBreakdown
+                                                .Rate
+                                                .builder()
                                                 .amount("0.00205")
                                                 .currency("USD")
                                                 .build()
                                         )
                                         .build()
                                 )
-                                .direction(InboundMessagePayload.Direction.INBOUND)
+                                .direction(
+                                    InboundMessageWebhookEvent.Data.Payload.Direction.INBOUND
+                                )
                                 .encoding("GSM-7")
                                 .addError(
                                     MessagingError.builder()
                                         .code("code")
                                         .title("title")
                                         .detail("detail")
-                                        .meta(
-                                            MessagingError.Meta.builder()
-                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                                .build()
-                                        )
+                                        .meta(JsonValue.from(mapOf<String, Any>()))
                                         .source(
                                             MessagingError.Source.builder()
                                                 .parameter("parameter")
@@ -295,15 +334,21 @@ internal class InboundMessageWebhookEventTest {
                                         .build()
                                 )
                                 .from(
-                                    InboundMessagePayload.From.builder()
+                                    InboundMessageWebhookEvent.Data.Payload.From.builder()
                                         .carrier("T-MOBILE USA, INC.")
-                                        .lineType(InboundMessagePayload.From.LineType.WIRELESS)
+                                        .lineType(
+                                            InboundMessageWebhookEvent.Data.Payload.From.LineType
+                                                .WIRELESS
+                                        )
                                         .phoneNumber("+18665550001")
-                                        .status(InboundMessagePayload.From.Status.RECEIVED)
+                                        .status(
+                                            InboundMessageWebhookEvent.Data.Payload.From.Status
+                                                .RECEIVED
+                                        )
                                         .build()
                                 )
                                 .addMedia(
-                                    InboundMessagePayload.Media.builder()
+                                    InboundMessageWebhookEvent.Data.Payload.Media.builder()
                                         .contentType("content_type")
                                         .hashSha256("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
                                         .size(0L)
@@ -314,7 +359,9 @@ internal class InboundMessageWebhookEventTest {
                                 .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
                                 .parts(1L)
                                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
-                                .recordType(InboundMessagePayload.RecordType.MESSAGE)
+                                .recordType(
+                                    InboundMessageWebhookEvent.Data.Payload.RecordType.MESSAGE
+                                )
                                 .sentAt(null)
                                 .subject("From Telnyx!")
                                 .addTag("Greetings")
@@ -323,14 +370,20 @@ internal class InboundMessageWebhookEventTest {
                                 .tcrCampaignRegistered("REGISTERED")
                                 .text("Hello, World!")
                                 .addTo(
-                                    InboundMessagePayload.To.builder()
+                                    InboundMessageWebhookEvent.Data.Payload.To.builder()
                                         .carrier("TELNYX LLC")
-                                        .lineType(InboundMessagePayload.To.LineType.VO_IP)
+                                        .lineType(
+                                            InboundMessageWebhookEvent.Data.Payload.To.LineType
+                                                .VO_IP
+                                        )
                                         .phoneNumber("+18445550001")
-                                        .status(InboundMessagePayload.To.Status.DELIVERED)
+                                        .status(
+                                            InboundMessageWebhookEvent.Data.Payload.To.Status
+                                                .DELIVERED
+                                        )
                                         .build()
                                 )
-                                .type(InboundMessagePayload.Type.SMS)
+                                .type(InboundMessageWebhookEvent.Data.Payload.Type.SMS)
                                 .validUntil(null)
                                 .webhookFailoverUrl("https://backup.example.com/hooks")
                                 .webhookUrl("https://www.example.com/hooks")

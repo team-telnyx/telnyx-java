@@ -20,9 +20,8 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingDeleteBulkParams
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingDeleteBulkResponse
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingDeleteParams
-import com.telnyx.sdk.models.roomrecordings.RoomRecordingListPage
-import com.telnyx.sdk.models.roomrecordings.RoomRecordingListPageResponse
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingListParams
+import com.telnyx.sdk.models.roomrecordings.RoomRecordingListResponse
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingRetrieveParams
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingRetrieveResponse
 import java.util.function.Consumer
@@ -50,7 +49,7 @@ class RoomRecordingServiceImpl internal constructor(private val clientOptions: C
     override fun list(
         params: RoomRecordingListParams,
         requestOptions: RequestOptions,
-    ): RoomRecordingListPage =
+    ): RoomRecordingListResponse =
         // get /room_recordings
         withRawResponse().list(params, requestOptions).parse()
 
@@ -109,13 +108,13 @@ class RoomRecordingServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val listHandler: Handler<RoomRecordingListPageResponse> =
-            jsonHandler<RoomRecordingListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RoomRecordingListResponse> =
+            jsonHandler<RoomRecordingListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RoomRecordingListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RoomRecordingListPage> {
+        ): HttpResponseFor<RoomRecordingListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -132,13 +131,6 @@ class RoomRecordingServiceImpl internal constructor(private val clientOptions: C
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        RoomRecordingListPage.builder()
-                            .service(RoomRecordingServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

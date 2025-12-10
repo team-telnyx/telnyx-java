@@ -12,8 +12,7 @@ internal class RunListParamsTest {
     fun create() {
         RunListParams.builder()
             .testId("test_id")
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(RunListParams.Page.builder().number(1L).size(1L).build())
             .status("status")
             .build()
     }
@@ -32,8 +31,7 @@ internal class RunListParamsTest {
         val params =
             RunListParams.builder()
                 .testId("test_id")
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(RunListParams.Page.builder().number(1L).size(1L).build())
                 .status("status")
                 .build()
 
@@ -42,8 +40,8 @@ internal class RunListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .put("status", "status")
                     .build()
             )

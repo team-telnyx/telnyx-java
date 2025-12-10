@@ -5,23 +5,23 @@ package com.telnyx.sdk.services.async.number10dlc
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeleteParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeleteResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetMnoMetadataParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetMnoMetadataResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignListPageAsync
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignListParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignListResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignUpdateParams
-import com.telnyx.sdk.models.number10dlc.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.services.async.number10dlc.campaign.OsrServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.campaign.UsecaseServiceAsync
 import java.util.concurrent.CompletableFuture
@@ -119,14 +119,49 @@ interface CampaignServiceAsync {
         update(campaignId, CampaignUpdateParams.none(), requestOptions)
 
     /** Retrieve a list of campaigns associated with a supplied `brandId`. */
-    fun list(params: CampaignListParams): CompletableFuture<CampaignListPageAsync> =
+    fun list(params: CampaignListParams): CompletableFuture<CampaignListResponse> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: CampaignListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignListPageAsync>
+    ): CompletableFuture<CampaignListResponse>
+
+    /** Terminate a campaign. Note that once deactivated, a campaign cannot be restored. */
+    fun delete(campaignId: String): CompletableFuture<CampaignDeleteResponse> =
+        delete(campaignId, CampaignDeleteParams.none())
+
+    /** @see delete */
+    fun delete(
+        campaignId: String,
+        params: CampaignDeleteParams = CampaignDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CampaignDeleteResponse> =
+        delete(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(
+        campaignId: String,
+        params: CampaignDeleteParams = CampaignDeleteParams.none(),
+    ): CompletableFuture<CampaignDeleteResponse> = delete(campaignId, params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(
+        params: CampaignDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CampaignDeleteResponse>
+
+    /** @see delete */
+    fun delete(params: CampaignDeleteParams): CompletableFuture<CampaignDeleteResponse> =
+        delete(params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(
+        campaignId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CampaignDeleteResponse> =
+        delete(campaignId, CampaignDeleteParams.none(), requestOptions)
 
     /** Manually accept a campaign shared with Telnyx */
     fun acceptSharing(campaignId: String): CompletableFuture<CampaignAcceptSharingResponse> =
@@ -165,43 +200,6 @@ interface CampaignServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<CampaignAcceptSharingResponse> =
         acceptSharing(campaignId, CampaignAcceptSharingParams.none(), requestOptions)
-
-    /** Terminate a campaign. Note that once deactivated, a campaign cannot be restored. */
-    fun deactivate(campaignId: String): CompletableFuture<CampaignDeactivateResponse> =
-        deactivate(campaignId, CampaignDeactivateParams.none())
-
-    /** @see deactivate */
-    fun deactivate(
-        campaignId: String,
-        params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignDeactivateResponse> =
-        deactivate(params.toBuilder().campaignId(campaignId).build(), requestOptions)
-
-    /** @see deactivate */
-    fun deactivate(
-        campaignId: String,
-        params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
-    ): CompletableFuture<CampaignDeactivateResponse> =
-        deactivate(campaignId, params, RequestOptions.none())
-
-    /** @see deactivate */
-    fun deactivate(
-        params: CampaignDeactivateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignDeactivateResponse>
-
-    /** @see deactivate */
-    fun deactivate(
-        params: CampaignDeactivateParams
-    ): CompletableFuture<CampaignDeactivateResponse> = deactivate(params, RequestOptions.none())
-
-    /** @see deactivate */
-    fun deactivate(
-        campaignId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CampaignDeactivateResponse> =
-        deactivate(campaignId, CampaignDeactivateParams.none(), requestOptions)
 
     /** Get the campaign metadata for each MNO it was submitted to. */
     fun getMnoMetadata(campaignId: String): CompletableFuture<CampaignGetMnoMetadataResponse> =
@@ -456,14 +454,55 @@ interface CampaignServiceAsync {
          */
         fun list(
             params: CampaignListParams
-        ): CompletableFuture<HttpResponseFor<CampaignListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CampaignListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: CampaignListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<CampaignListResponse>>
+
+        /**
+         * Returns a raw HTTP response for `delete /10dlc/campaign/{campaignId}`, but is otherwise
+         * the same as [CampaignServiceAsync.delete].
+         */
+        fun delete(campaignId: String): CompletableFuture<HttpResponseFor<CampaignDeleteResponse>> =
+            delete(campaignId, CampaignDeleteParams.none())
+
+        /** @see delete */
+        fun delete(
+            campaignId: String,
+            params: CampaignDeleteParams = CampaignDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CampaignDeleteResponse>> =
+            delete(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+        /** @see delete */
+        fun delete(
+            campaignId: String,
+            params: CampaignDeleteParams = CampaignDeleteParams.none(),
+        ): CompletableFuture<HttpResponseFor<CampaignDeleteResponse>> =
+            delete(campaignId, params, RequestOptions.none())
+
+        /** @see delete */
+        fun delete(
+            params: CampaignDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CampaignDeleteResponse>>
+
+        /** @see delete */
+        fun delete(
+            params: CampaignDeleteParams
+        ): CompletableFuture<HttpResponseFor<CampaignDeleteResponse>> =
+            delete(params, RequestOptions.none())
+
+        /** @see delete */
+        fun delete(
+            campaignId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CampaignDeleteResponse>> =
+            delete(campaignId, CampaignDeleteParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /10dlc/campaign/acceptSharing/{campaignId}`, but is
@@ -507,49 +546,6 @@ interface CampaignServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CampaignAcceptSharingResponse>> =
             acceptSharing(campaignId, CampaignAcceptSharingParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `delete /10dlc/campaign/{campaignId}`, but is otherwise
-         * the same as [CampaignServiceAsync.deactivate].
-         */
-        fun deactivate(
-            campaignId: String
-        ): CompletableFuture<HttpResponseFor<CampaignDeactivateResponse>> =
-            deactivate(campaignId, CampaignDeactivateParams.none())
-
-        /** @see deactivate */
-        fun deactivate(
-            campaignId: String,
-            params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignDeactivateResponse>> =
-            deactivate(params.toBuilder().campaignId(campaignId).build(), requestOptions)
-
-        /** @see deactivate */
-        fun deactivate(
-            campaignId: String,
-            params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignDeactivateResponse>> =
-            deactivate(campaignId, params, RequestOptions.none())
-
-        /** @see deactivate */
-        fun deactivate(
-            params: CampaignDeactivateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignDeactivateResponse>>
-
-        /** @see deactivate */
-        fun deactivate(
-            params: CampaignDeactivateParams
-        ): CompletableFuture<HttpResponseFor<CampaignDeactivateResponse>> =
-            deactivate(params, RequestOptions.none())
-
-        /** @see deactivate */
-        fun deactivate(
-            campaignId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CampaignDeactivateResponse>> =
-            deactivate(campaignId, CampaignDeactivateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/mnoMetadata`, but is

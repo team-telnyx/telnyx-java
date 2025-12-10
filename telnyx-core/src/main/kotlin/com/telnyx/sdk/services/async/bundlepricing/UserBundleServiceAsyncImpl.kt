@@ -20,11 +20,10 @@ import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleCreateParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleCreateResponse
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleDeactivateParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleDeactivateResponse
-import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListPageAsync
-import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListPageResponse
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListResourcesParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListResourcesResponse
+import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListResponse
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListUnusedParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListUnusedResponse
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleRetrieveParams
@@ -62,7 +61,7 @@ class UserBundleServiceAsyncImpl internal constructor(private val clientOptions:
     override fun list(
         params: UserBundleListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<UserBundleListPageAsync> =
+    ): CompletableFuture<UserBundleListResponse> =
         // get /bundle_pricing/user_bundles
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -164,13 +163,13 @@ class UserBundleServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val listHandler: Handler<UserBundleListPageResponse> =
-            jsonHandler<UserBundleListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<UserBundleListResponse> =
+            jsonHandler<UserBundleListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: UserBundleListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<UserBundleListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<UserBundleListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -189,14 +188,6 @@ class UserBundleServiceAsyncImpl internal constructor(private val clientOptions:
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                UserBundleListPageAsync.builder()
-                                    .service(UserBundleServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

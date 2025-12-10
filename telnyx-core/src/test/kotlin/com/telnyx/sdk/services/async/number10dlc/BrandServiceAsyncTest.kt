@@ -4,14 +4,14 @@ package com.telnyx.sdk.services.async.number10dlc
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.number10dlc.brand.AltBusinessIdType
+import com.telnyx.sdk.models.brand.AltBusinessIdType
+import com.telnyx.sdk.models.brand.BrandIdentityStatus
+import com.telnyx.sdk.models.brand.EntityType
+import com.telnyx.sdk.models.brand.StockExchange
+import com.telnyx.sdk.models.brand.Vertical
 import com.telnyx.sdk.models.number10dlc.brand.BrandCreateParams
-import com.telnyx.sdk.models.number10dlc.brand.BrandIdentityStatus
-import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandListParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
-import com.telnyx.sdk.models.number10dlc.brand.EntityType
-import com.telnyx.sdk.models.number10dlc.brand.StockExchange
-import com.telnyx.sdk.models.number10dlc.brand.Vertical
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -135,10 +135,23 @@ internal class BrandServiceAsyncTest {
                 .build()
         val brandServiceAsync = client.number10dlc().brand()
 
-        val pageFuture = brandServiceAsync.list()
+        val brandsFuture =
+            brandServiceAsync.list(
+                BrandListParams.builder()
+                    .brandId("826ef77a-348c-445b-81a5-a9b13c68fbfe")
+                    .country("country")
+                    .displayName("displayName")
+                    .entityType("entityType")
+                    .page(1L)
+                    .recordsPerPage(0L)
+                    .sort(BrandListParams.Sort.ASSIGNED_CAMPAIGNS_COUNT)
+                    .state("state")
+                    .tcrBrandId("BBAND1")
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val brands = brandsFuture.get()
+        brands.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -185,28 +198,6 @@ internal class BrandServiceAsyncTest {
         val future = brandServiceAsync.resend2faEmail("brandId")
 
         val response = future.get()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun retrieveSmsOtpStatus() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val brandServiceAsync = client.number10dlc().brand()
-
-        val responseFuture =
-            brandServiceAsync.retrieveSmsOtpStatus(
-                BrandRetrieveSmsOtpStatusParams.builder()
-                    .referenceId("OTP4B2001")
-                    .brandId("B123ABC")
-                    .build()
-            )
-
-        val response = responseFuture.get()
-        response.validate()
     }
 
     @Disabled("Prism tests are disabled")
