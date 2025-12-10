@@ -118,6 +118,59 @@ private constructor(
                 }
         }
 
+        /**
+         * Alias for calling [addData] with
+         * `EventListResponse.ofPortingEventDeletedPayload(portingEventDeletedPayload)`.
+         */
+        fun addData(portingEventDeletedPayload: EventListResponse.PortingEventDeletedPayload) =
+            addData(EventListResponse.ofPortingEventDeletedPayload(portingEventDeletedPayload))
+
+        /**
+         * Alias for calling [addData] with
+         * `EventListResponse.ofPortingEventMessagingChangedPayload(portingEventMessagingChangedPayload)`.
+         */
+        fun addData(
+            portingEventMessagingChangedPayload:
+                EventListResponse.PortingEventMessagingChangedPayload
+        ) =
+            addData(
+                EventListResponse.ofPortingEventMessagingChangedPayload(
+                    portingEventMessagingChangedPayload
+                )
+            )
+
+        /**
+         * Alias for calling [addData] with
+         * `EventListResponse.ofPortingEventStatusChangedEvent(portingEventStatusChangedEvent)`.
+         */
+        fun addData(
+            portingEventStatusChangedEvent: EventListResponse.PortingEventStatusChangedEvent
+        ) =
+            addData(
+                EventListResponse.ofPortingEventStatusChangedEvent(portingEventStatusChangedEvent)
+            )
+
+        /**
+         * Alias for calling [addData] with
+         * `EventListResponse.ofPortingEventNewCommentEvent(portingEventNewCommentEvent)`.
+         */
+        fun addData(portingEventNewCommentEvent: EventListResponse.PortingEventNewCommentEvent) =
+            addData(EventListResponse.ofPortingEventNewCommentEvent(portingEventNewCommentEvent))
+
+        /**
+         * Alias for calling [addData] with
+         * `EventListResponse.ofPortingEventSplitEvent(portingEventSplitEvent)`.
+         */
+        fun addData(portingEventSplitEvent: EventListResponse.PortingEventSplitEvent) =
+            addData(EventListResponse.ofPortingEventSplitEvent(portingEventSplitEvent))
+
+        /**
+         * Alias for calling [addData] with
+         * `EventListResponse.ofPortingEventWithoutWebhook(portingEventWithoutWebhook)`.
+         */
+        fun addData(portingEventWithoutWebhook: EventListResponse.PortingEventWithoutWebhook) =
+            addData(EventListResponse.ofPortingEventWithoutWebhook(portingEventWithoutWebhook))
+
         fun meta(meta: PaginationMeta) = meta(JsonField.of(meta))
 
         /**

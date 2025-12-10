@@ -17,24 +17,30 @@ internal class EventListPageResponseTest {
         val eventListPageResponse =
             EventListPageResponse.builder()
                 .addData(
-                    EventListResponse.builder()
+                    EventListResponse.PortingEventDeletedPayload.builder()
                         .id("eef3340b-8903-4466-b445-89b697315a3a")
                         .addAvailableNotificationMethod(
-                            EventListResponse.AvailableNotificationMethod.EMAIL
+                            EventListResponse.PortingEventDeletedPayload.AvailableNotificationMethod
+                                .EMAIL
                         )
-                        .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                        .eventType(EventListResponse.EventType.PORTING_ORDER_DELETED)
+                        .eventType(
+                            EventListResponse.PortingEventDeletedPayload.EventType
+                                .PORTING_ORDER_DELETED
+                        )
                         .payload(
-                            EventListResponse.Payload.WebhookPortingOrderDeletedPayload.builder()
+                            EventListResponse.PortingEventDeletedPayload.Payload.builder()
                                 .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
+                                .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                                 .customerReference("my-ref-001")
                                 .deletedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                                .recordType("porting_event")
+                                .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                                 .build()
                         )
-                        .payloadStatus(EventListResponse.PayloadStatus.CREATED)
+                        .payloadStatus(
+                            EventListResponse.PortingEventDeletedPayload.PayloadStatus.CREATED
+                        )
                         .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
-                        .recordType("porting_event")
-                        .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                         .build()
                 )
                 .meta(
@@ -49,25 +55,33 @@ internal class EventListPageResponseTest {
 
         assertThat(eventListPageResponse.data().getOrNull())
             .containsExactly(
-                EventListResponse.builder()
-                    .id("eef3340b-8903-4466-b445-89b697315a3a")
-                    .addAvailableNotificationMethod(
-                        EventListResponse.AvailableNotificationMethod.EMAIL
-                    )
-                    .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .eventType(EventListResponse.EventType.PORTING_ORDER_DELETED)
-                    .payload(
-                        EventListResponse.Payload.WebhookPortingOrderDeletedPayload.builder()
-                            .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
-                            .customerReference("my-ref-001")
-                            .deletedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
-                            .build()
-                    )
-                    .payloadStatus(EventListResponse.PayloadStatus.CREATED)
-                    .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
-                    .recordType("porting_event")
-                    .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .build()
+                EventListResponse.ofPortingEventDeletedPayload(
+                    EventListResponse.PortingEventDeletedPayload.builder()
+                        .id("eef3340b-8903-4466-b445-89b697315a3a")
+                        .addAvailableNotificationMethod(
+                            EventListResponse.PortingEventDeletedPayload.AvailableNotificationMethod
+                                .EMAIL
+                        )
+                        .eventType(
+                            EventListResponse.PortingEventDeletedPayload.EventType
+                                .PORTING_ORDER_DELETED
+                        )
+                        .payload(
+                            EventListResponse.PortingEventDeletedPayload.Payload.builder()
+                                .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
+                                .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                                .customerReference("my-ref-001")
+                                .deletedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                                .recordType("porting_event")
+                                .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                                .build()
+                        )
+                        .payloadStatus(
+                            EventListResponse.PortingEventDeletedPayload.PayloadStatus.CREATED
+                        )
+                        .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
+                        .build()
+                )
             )
         assertThat(eventListPageResponse.meta())
             .contains(
@@ -86,24 +100,30 @@ internal class EventListPageResponseTest {
         val eventListPageResponse =
             EventListPageResponse.builder()
                 .addData(
-                    EventListResponse.builder()
+                    EventListResponse.PortingEventDeletedPayload.builder()
                         .id("eef3340b-8903-4466-b445-89b697315a3a")
                         .addAvailableNotificationMethod(
-                            EventListResponse.AvailableNotificationMethod.EMAIL
+                            EventListResponse.PortingEventDeletedPayload.AvailableNotificationMethod
+                                .EMAIL
                         )
-                        .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                        .eventType(EventListResponse.EventType.PORTING_ORDER_DELETED)
+                        .eventType(
+                            EventListResponse.PortingEventDeletedPayload.EventType
+                                .PORTING_ORDER_DELETED
+                        )
                         .payload(
-                            EventListResponse.Payload.WebhookPortingOrderDeletedPayload.builder()
+                            EventListResponse.PortingEventDeletedPayload.Payload.builder()
                                 .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
+                                .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                                 .customerReference("my-ref-001")
                                 .deletedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                                .recordType("porting_event")
+                                .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                                 .build()
                         )
-                        .payloadStatus(EventListResponse.PayloadStatus.CREATED)
+                        .payloadStatus(
+                            EventListResponse.PortingEventDeletedPayload.PayloadStatus.CREATED
+                        )
                         .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
-                        .recordType("porting_event")
-                        .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                         .build()
                 )
                 .meta(
