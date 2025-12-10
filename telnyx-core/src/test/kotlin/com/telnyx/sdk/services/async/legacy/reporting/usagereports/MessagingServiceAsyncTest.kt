@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async.legacy.reporting.usagereports
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingCreateParams
-import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingListParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -68,11 +67,10 @@ internal class MessagingServiceAsyncTest {
                 .build()
         val messagingServiceAsync = client.legacy().reporting().usageReports().messaging()
 
-        val messagingsFuture =
-            messagingServiceAsync.list(MessagingListParams.builder().page(1).perPage(1).build())
+        val pageFuture = messagingServiceAsync.list()
 
-        val messagings = messagingsFuture.get()
-        messagings.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

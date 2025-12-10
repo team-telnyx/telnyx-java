@@ -12,11 +12,6 @@ import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.brand.AltBusinessIdType
-import com.telnyx.sdk.models.brand.BrandIdentityStatus
-import com.telnyx.sdk.models.brand.EntityType
-import com.telnyx.sdk.models.brand.StockExchange
-import com.telnyx.sdk.models.brand.TelnyxBrand
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional

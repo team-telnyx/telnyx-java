@@ -10,8 +10,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.faxes.FaxCreateParams
 import com.telnyx.sdk.models.faxes.FaxCreateResponse
 import com.telnyx.sdk.models.faxes.FaxDeleteParams
+import com.telnyx.sdk.models.faxes.FaxListPage
 import com.telnyx.sdk.models.faxes.FaxListParams
-import com.telnyx.sdk.models.faxes.FaxListResponse
 import com.telnyx.sdk.models.faxes.FaxRetrieveParams
 import com.telnyx.sdk.models.faxes.FaxRetrieveResponse
 import com.telnyx.sdk.services.blocking.faxes.ActionService
@@ -84,20 +84,20 @@ interface FaxService {
         retrieve(id, FaxRetrieveParams.none(), requestOptions)
 
     /** View a list of faxes */
-    fun list(): FaxListResponse = list(FaxListParams.none())
+    fun list(): FaxListPage = list(FaxListParams.none())
 
     /** @see list */
     fun list(
         params: FaxListParams = FaxListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): FaxListResponse
+    ): FaxListPage
 
     /** @see list */
-    fun list(params: FaxListParams = FaxListParams.none()): FaxListResponse =
+    fun list(params: FaxListParams = FaxListParams.none()): FaxListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): FaxListResponse =
+    fun list(requestOptions: RequestOptions): FaxListPage =
         list(FaxListParams.none(), requestOptions)
 
     /** Delete a fax */
@@ -199,23 +199,23 @@ interface FaxService {
          * Returns a raw HTTP response for `get /faxes`, but is otherwise the same as
          * [FaxService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<FaxListResponse> = list(FaxListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<FaxListPage> = list(FaxListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: FaxListParams = FaxListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<FaxListResponse>
+        ): HttpResponseFor<FaxListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: FaxListParams = FaxListParams.none()): HttpResponseFor<FaxListResponse> =
+        fun list(params: FaxListParams = FaxListParams.none()): HttpResponseFor<FaxListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<FaxListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<FaxListPage> =
             list(FaxListParams.none(), requestOptions)
 
         /**

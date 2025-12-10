@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.globalips.GlobalIpCreateParams
 import com.telnyx.sdk.models.globalips.GlobalIpCreateResponse
 import com.telnyx.sdk.models.globalips.GlobalIpDeleteParams
 import com.telnyx.sdk.models.globalips.GlobalIpDeleteResponse
+import com.telnyx.sdk.models.globalips.GlobalIpListPageAsync
+import com.telnyx.sdk.models.globalips.GlobalIpListPageResponse
 import com.telnyx.sdk.models.globalips.GlobalIpListParams
-import com.telnyx.sdk.models.globalips.GlobalIpListResponse
 import com.telnyx.sdk.models.globalips.GlobalIpRetrieveParams
 import com.telnyx.sdk.models.globalips.GlobalIpRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -57,7 +58,7 @@ class GlobalIpServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun list(
         params: GlobalIpListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<GlobalIpListResponse> =
+    ): CompletableFuture<GlobalIpListPageAsync> =
         // get /global_ips
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -145,13 +146,13 @@ class GlobalIpServiceAsyncImpl internal constructor(private val clientOptions: C
                 }
         }
 
-        private val listHandler: Handler<GlobalIpListResponse> =
-            jsonHandler<GlobalIpListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<GlobalIpListPageResponse> =
+            jsonHandler<GlobalIpListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: GlobalIpListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<GlobalIpListResponse>> {
+        ): CompletableFuture<HttpResponseFor<GlobalIpListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -170,6 +171,14 @@ class GlobalIpServiceAsyncImpl internal constructor(private val clientOptions: C
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                GlobalIpListPageAsync.builder()
+                                    .service(GlobalIpServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -20,8 +20,9 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.rooms.RoomCreateParams
 import com.telnyx.sdk.models.rooms.RoomCreateResponse
 import com.telnyx.sdk.models.rooms.RoomDeleteParams
+import com.telnyx.sdk.models.rooms.RoomListPageAsync
+import com.telnyx.sdk.models.rooms.RoomListPageResponse
 import com.telnyx.sdk.models.rooms.RoomListParams
-import com.telnyx.sdk.models.rooms.RoomListResponse
 import com.telnyx.sdk.models.rooms.RoomRetrieveParams
 import com.telnyx.sdk.models.rooms.RoomRetrieveResponse
 import com.telnyx.sdk.models.rooms.RoomUpdateParams
@@ -78,7 +79,7 @@ class RoomServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun list(
         params: RoomListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RoomListResponse> =
+    ): CompletableFuture<RoomListPageAsync> =
         // get /rooms
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -212,13 +213,13 @@ class RoomServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val listHandler: Handler<RoomListResponse> =
-            jsonHandler<RoomListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RoomListPageResponse> =
+            jsonHandler<RoomListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RoomListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RoomListResponse>> {
+        ): CompletableFuture<HttpResponseFor<RoomListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -237,6 +238,14 @@ class RoomServiceAsyncImpl internal constructor(private val clientOptions: Clien
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                RoomListPageAsync.builder()
+                                    .service(RoomServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

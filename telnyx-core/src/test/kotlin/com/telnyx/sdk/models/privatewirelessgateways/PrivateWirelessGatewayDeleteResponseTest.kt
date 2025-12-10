@@ -32,7 +32,10 @@ internal class PrivateWirelessGatewayDeleteResponseTest {
                             PrivateWirelessGatewayStatus.builder()
                                 .errorCode(null)
                                 .errorDescription(null)
-                                .value(PrivateWirelessGatewayStatus.Value_.PROVISIONED)
+                                .value(
+                                    PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue
+                                        .PROVISIONED
+                                )
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")
@@ -60,7 +63,10 @@ internal class PrivateWirelessGatewayDeleteResponseTest {
                         PrivateWirelessGatewayStatus.builder()
                             .errorCode(null)
                             .errorDescription(null)
-                            .value(PrivateWirelessGatewayStatus.Value_.PROVISIONED)
+                            .value(
+                                PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue
+                                    .PROVISIONED
+                            )
                             .build()
                     )
                     .updatedAt("2018-02-02T22:25:27.521Z")
@@ -92,7 +98,10 @@ internal class PrivateWirelessGatewayDeleteResponseTest {
                             PrivateWirelessGatewayStatus.builder()
                                 .errorCode(null)
                                 .errorDescription(null)
-                                .value(PrivateWirelessGatewayStatus.Value_.PROVISIONED)
+                                .value(
+                                    PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue
+                                        .PROVISIONED
+                                )
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")

@@ -140,14 +140,14 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val name: JsonField<String>,
-        private val value: JsonField<Value_>,
+        private val value: JsonField<SecretValue>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("value") @ExcludeMissing value: JsonField<Value_> = JsonMissing.of(),
+            @JsonProperty("value") @ExcludeMissing value: JsonField<SecretValue> = JsonMissing.of(),
         ) : this(name, value, mutableMapOf())
 
         /**
@@ -160,7 +160,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun value(): Optional<Value_> = value.getOptional("value")
+        fun value(): Optional<SecretValue> = value.getOptional("value")
 
         /**
          * Returns the raw JSON value of [name].
@@ -174,7 +174,7 @@ private constructor(
          *
          * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<Value_> = value
+        @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<SecretValue> = value
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -198,7 +198,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var name: JsonField<String> = JsonMissing.of()
-            private var value: JsonField<Value_> = JsonMissing.of()
+            private var value: JsonField<SecretValue> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -219,16 +219,16 @@ private constructor(
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
-            fun value(value: Value_) = value(JsonField.of(value))
+            fun value(value: SecretValue) = value(JsonField.of(value))
 
             /**
              * Sets [Builder.value] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.value] with a well-typed [Value_] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.value] with a well-typed [SecretValue] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun value(value: JsonField<Value_>) = apply { this.value = value }
+            fun value(value: JsonField<SecretValue>) = apply { this.value = value }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -288,7 +288,8 @@ private constructor(
             (if (name.asKnown().isPresent) 1 else 0) +
                 (value.asKnown().getOrNull()?.validity() ?: 0)
 
-        class Value_ @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+        class SecretValue @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -304,18 +305,18 @@ private constructor(
 
                 @JvmField val REDACTED = of("REDACTED")
 
-                @JvmStatic fun of(value: String) = Value_(JsonField.of(value))
+                @JvmStatic fun of(value: String) = SecretValue(JsonField.of(value))
             }
 
-            /** An enum containing [Value_]'s known values. */
+            /** An enum containing [SecretValue]'s known values. */
             enum class Known {
                 REDACTED
             }
 
             /**
-             * An enum containing [Value_]'s known values, as well as an [_UNKNOWN] member.
+             * An enum containing [SecretValue]'s known values, as well as an [_UNKNOWN] member.
              *
-             * An instance of [Value_] can contain an unknown value in a couple of cases:
+             * An instance of [SecretValue] can contain an unknown value in a couple of cases:
              * - It was deserialized from data that doesn't match any known member. For example, if
              *   the SDK is on an older version than the API, then the API may respond with new
              *   members that the SDK is unaware of.
@@ -324,7 +325,8 @@ private constructor(
             enum class Value {
                 REDACTED,
                 /**
-                 * An enum member indicating that [Value_] was instantiated with an unknown value.
+                 * An enum member indicating that [SecretValue] was instantiated with an unknown
+                 * value.
                  */
                 _UNKNOWN,
             }
@@ -354,7 +356,7 @@ private constructor(
             fun known(): Known =
                 when (this) {
                     REDACTED -> Known.REDACTED
-                    else -> throw TelnyxInvalidDataException("Unknown Value_: $value")
+                    else -> throw TelnyxInvalidDataException("Unknown SecretValue: $value")
                 }
 
             /**
@@ -373,7 +375,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): Value_ = apply {
+            fun validate(): SecretValue = apply {
                 if (validated) {
                     return@apply
                 }
@@ -403,7 +405,7 @@ private constructor(
                     return true
                 }
 
-                return other is Value_ && value == other.value
+                return other is SecretValue && value == other.value
             }
 
             override fun hashCode() = value.hashCode()

@@ -20,8 +20,9 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.assistants.tests.AssistantTest
 import com.telnyx.sdk.models.ai.assistants.tests.TestCreateParams
 import com.telnyx.sdk.models.ai.assistants.tests.TestDeleteParams
+import com.telnyx.sdk.models.ai.assistants.tests.TestListPageAsync
+import com.telnyx.sdk.models.ai.assistants.tests.TestListPageResponse
 import com.telnyx.sdk.models.ai.assistants.tests.TestListParams
-import com.telnyx.sdk.models.ai.assistants.tests.TestListResponse
 import com.telnyx.sdk.models.ai.assistants.tests.TestRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.tests.TestUpdateParams
 import com.telnyx.sdk.services.async.ai.assistants.tests.RunServiceAsync
@@ -78,7 +79,7 @@ class TestServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun list(
         params: TestListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<TestListResponse> =
+    ): CompletableFuture<TestListPageAsync> =
         // get /ai/assistants/tests
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -212,13 +213,13 @@ class TestServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val listHandler: Handler<TestListResponse> =
-            jsonHandler<TestListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<TestListPageResponse> =
+            jsonHandler<TestListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: TestListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TestListResponse>> {
+        ): CompletableFuture<HttpResponseFor<TestListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -237,6 +238,14 @@ class TestServiceAsyncImpl internal constructor(private val clientOptions: Clien
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                TestListPageAsync.builder()
+                                    .service(TestServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

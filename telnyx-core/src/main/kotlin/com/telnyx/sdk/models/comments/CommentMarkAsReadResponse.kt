@@ -143,7 +143,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
-        private val body: JsonField<String>,
+        private val commentBody: JsonField<String>,
         private val commentRecordId: JsonField<String>,
         private val commentRecordType: JsonField<CommentRecordType>,
         private val commenter: JsonField<String>,
@@ -157,7 +157,7 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("body") @ExcludeMissing body: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("body") @ExcludeMissing commentBody: JsonField<String> = JsonMissing.of(),
             @JsonProperty("comment_record_id")
             @ExcludeMissing
             commentRecordId: JsonField<String> = JsonMissing.of(),
@@ -181,7 +181,7 @@ private constructor(
             updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         ) : this(
             id,
-            body,
+            commentBody,
             commentRecordId,
             commentRecordType,
             commenter,
@@ -202,7 +202,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun body(): Optional<String> = body.getOptional("body")
+        fun commentBody(): Optional<String> = commentBody.getOptional("body")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -261,11 +261,11 @@ private constructor(
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         /**
-         * Returns the raw JSON value of [body].
+         * Returns the raw JSON value of [commentBody].
          *
-         * Unlike [body], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [commentBody], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("body") @ExcludeMissing fun _body(): JsonField<String> = body
+        @JsonProperty("body") @ExcludeMissing fun _commentBody(): JsonField<String> = commentBody
 
         /**
          * Returns the raw JSON value of [commentRecordId].
@@ -351,7 +351,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var id: JsonField<String> = JsonMissing.of()
-            private var body: JsonField<String> = JsonMissing.of()
+            private var commentBody: JsonField<String> = JsonMissing.of()
             private var commentRecordId: JsonField<String> = JsonMissing.of()
             private var commentRecordType: JsonField<CommentRecordType> = JsonMissing.of()
             private var commenter: JsonField<String> = JsonMissing.of()
@@ -364,7 +364,7 @@ private constructor(
             @JvmSynthetic
             internal fun from(data: Data) = apply {
                 id = data.id
-                body = data.body
+                commentBody = data.commentBody
                 commentRecordId = data.commentRecordId
                 commentRecordType = data.commentRecordType
                 commenter = data.commenter
@@ -386,16 +386,18 @@ private constructor(
              */
             fun id(id: JsonField<String>) = apply { this.id = id }
 
-            fun body(body: String) = body(JsonField.of(body))
+            fun commentBody(commentBody: String) = commentBody(JsonField.of(commentBody))
 
             /**
-             * Sets [Builder.body] to an arbitrary JSON value.
+             * Sets [Builder.commentBody] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.body] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * You should usually call [Builder.commentBody] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun body(body: JsonField<String>) = apply { this.body = body }
+            fun commentBody(commentBody: JsonField<String>) = apply {
+                this.commentBody = commentBody
+            }
 
             fun commentRecordId(commentRecordId: String) =
                 commentRecordId(JsonField.of(commentRecordId))
@@ -517,7 +519,7 @@ private constructor(
             fun build(): Data =
                 Data(
                     id,
-                    body,
+                    commentBody,
                     commentRecordId,
                     commentRecordType,
                     commenter,
@@ -537,7 +539,7 @@ private constructor(
             }
 
             id()
-            body()
+            commentBody()
             commentRecordId()
             commentRecordType().ifPresent { it.validate() }
             commenter()
@@ -565,7 +567,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (id.asKnown().isPresent) 1 else 0) +
-                (if (body.asKnown().isPresent) 1 else 0) +
+                (if (commentBody.asKnown().isPresent) 1 else 0) +
                 (if (commentRecordId.asKnown().isPresent) 1 else 0) +
                 (commentRecordType.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (commenter.asKnown().isPresent) 1 else 0) +
@@ -845,7 +847,7 @@ private constructor(
 
             return other is Data &&
                 id == other.id &&
-                body == other.body &&
+                commentBody == other.commentBody &&
                 commentRecordId == other.commentRecordId &&
                 commentRecordType == other.commentRecordType &&
                 commenter == other.commenter &&
@@ -859,7 +861,7 @@ private constructor(
         private val hashCode: Int by lazy {
             Objects.hash(
                 id,
-                body,
+                commentBody,
                 commentRecordId,
                 commentRecordType,
                 commenter,
@@ -874,7 +876,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{id=$id, body=$body, commentRecordId=$commentRecordId, commentRecordType=$commentRecordType, commenter=$commenter, commenterType=$commenterType, createdAt=$createdAt, readAt=$readAt, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+            "Data{id=$id, commentBody=$commentBody, commentRecordId=$commentRecordId, commentRecordType=$commentRecordType, commenter=$commenter, commenterType=$commenterType, createdAt=$createdAt, readAt=$readAt, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -18,7 +18,7 @@ internal class NumberLookupListResponseTest {
         val numberLookupListResponse =
             NumberLookupListResponse.builder()
                 .addData(
-                    NumberLookupListResponse.Data.builder()
+                    TelcoDataUsageReportResponse.builder()
                         .id("9783f4d7-0bfc-427a-9d6b-bc659ad16e5b")
                         .aggregationType("ALL")
                         .createdAt(OffsetDateTime.parse("2025-12-02T20:20:57.196925Z"))
@@ -29,9 +29,9 @@ internal class NumberLookupListResponseTest {
                             "https://portal-cdrs-usage.s3.amazonaws.com/telco_data_usage_report_2025-12-02.csv"
                         )
                         .addResult(
-                            NumberLookupListResponse.Data.Result.builder()
+                            TelcoDataUsageRecord.builder()
                                 .addAggregation(
-                                    NumberLookupListResponse.Data.Result.Aggregation.builder()
+                                    TelcoDataAggregation.builder()
                                         .currency("USD")
                                         .totalCost(0.009)
                                         .totalDips(3L)
@@ -50,8 +50,8 @@ internal class NumberLookupListResponseTest {
                 .meta(
                     StandardPaginationMeta.builder()
                         .pageNumber(2)
-                        .pageSize(25)
                         .totalPages(3)
+                        .pageSize(25)
                         .totalResults(55)
                         .build()
                 )
@@ -59,7 +59,7 @@ internal class NumberLookupListResponseTest {
 
         assertThat(numberLookupListResponse.data().getOrNull())
             .containsExactly(
-                NumberLookupListResponse.Data.builder()
+                TelcoDataUsageReportResponse.builder()
                     .id("9783f4d7-0bfc-427a-9d6b-bc659ad16e5b")
                     .aggregationType("ALL")
                     .createdAt(OffsetDateTime.parse("2025-12-02T20:20:57.196925Z"))
@@ -70,9 +70,9 @@ internal class NumberLookupListResponseTest {
                         "https://portal-cdrs-usage.s3.amazonaws.com/telco_data_usage_report_2025-12-02.csv"
                     )
                     .addResult(
-                        NumberLookupListResponse.Data.Result.builder()
+                        TelcoDataUsageRecord.builder()
                             .addAggregation(
-                                NumberLookupListResponse.Data.Result.Aggregation.builder()
+                                TelcoDataAggregation.builder()
                                     .currency("USD")
                                     .totalCost(0.009)
                                     .totalDips(3L)
@@ -92,8 +92,8 @@ internal class NumberLookupListResponseTest {
             .contains(
                 StandardPaginationMeta.builder()
                     .pageNumber(2)
-                    .pageSize(25)
                     .totalPages(3)
+                    .pageSize(25)
                     .totalResults(55)
                     .build()
             )
@@ -105,7 +105,7 @@ internal class NumberLookupListResponseTest {
         val numberLookupListResponse =
             NumberLookupListResponse.builder()
                 .addData(
-                    NumberLookupListResponse.Data.builder()
+                    TelcoDataUsageReportResponse.builder()
                         .id("9783f4d7-0bfc-427a-9d6b-bc659ad16e5b")
                         .aggregationType("ALL")
                         .createdAt(OffsetDateTime.parse("2025-12-02T20:20:57.196925Z"))
@@ -116,9 +116,9 @@ internal class NumberLookupListResponseTest {
                             "https://portal-cdrs-usage.s3.amazonaws.com/telco_data_usage_report_2025-12-02.csv"
                         )
                         .addResult(
-                            NumberLookupListResponse.Data.Result.builder()
+                            TelcoDataUsageRecord.builder()
                                 .addAggregation(
-                                    NumberLookupListResponse.Data.Result.Aggregation.builder()
+                                    TelcoDataAggregation.builder()
                                         .currency("USD")
                                         .totalCost(0.009)
                                         .totalDips(3L)
@@ -137,8 +137,8 @@ internal class NumberLookupListResponseTest {
                 .meta(
                     StandardPaginationMeta.builder()
                         .pageNumber(2)
-                        .pageSize(25)
                         .totalPages(3)
+                        .pageSize(25)
                         .totalResults(55)
                         .build()
                 )

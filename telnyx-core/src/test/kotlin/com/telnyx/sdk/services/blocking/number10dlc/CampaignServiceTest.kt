@@ -70,32 +70,9 @@ internal class CampaignServiceTest {
                 .build()
         val campaignService = client.number10dlc().campaign()
 
-        val campaigns =
-            campaignService.list(
-                CampaignListParams.builder()
-                    .brandId("brandId")
-                    .page(0L)
-                    .recordsPerPage(0L)
-                    .sort(CampaignListParams.Sort.ASSIGNED_PHONE_NUMBERS_COUNT)
-                    .build()
-            )
+        val page = campaignService.list(CampaignListParams.builder().brandId("brandId").build())
 
-        campaigns.validate()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val campaignService = client.number10dlc().campaign()
-
-        val campaign = campaignService.delete("campaignId")
-
-        campaign.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -109,6 +86,21 @@ internal class CampaignServiceTest {
         val campaignService = client.number10dlc().campaign()
 
         val response = campaignService.acceptSharing("C26F1KLZN")
+
+        response.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun deactivate() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val campaignService = client.number10dlc().campaign()
+
+        val response = campaignService.deactivate("campaignId")
 
         response.validate()
     }

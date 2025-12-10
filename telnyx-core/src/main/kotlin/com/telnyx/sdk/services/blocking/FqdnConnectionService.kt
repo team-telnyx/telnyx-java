@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionCreateParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionCreateResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionDeleteParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionDeleteResponse
+import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListPage
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListParams
-import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionRetrieveParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionRetrieveResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionUpdateParams
@@ -105,21 +105,21 @@ interface FqdnConnectionService {
         update(id, FqdnConnectionUpdateParams.none(), requestOptions)
 
     /** Returns a list of your FQDN connections. */
-    fun list(): FqdnConnectionListResponse = list(FqdnConnectionListParams.none())
+    fun list(): FqdnConnectionListPage = list(FqdnConnectionListParams.none())
 
     /** @see list */
     fun list(
         params: FqdnConnectionListParams = FqdnConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): FqdnConnectionListResponse
+    ): FqdnConnectionListPage
 
     /** @see list */
     fun list(
         params: FqdnConnectionListParams = FqdnConnectionListParams.none()
-    ): FqdnConnectionListResponse = list(params, RequestOptions.none())
+    ): FqdnConnectionListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): FqdnConnectionListResponse =
+    fun list(requestOptions: RequestOptions): FqdnConnectionListPage =
         list(FqdnConnectionListParams.none(), requestOptions)
 
     /** Deletes an FQDN connection. */
@@ -279,25 +279,24 @@ interface FqdnConnectionService {
          * [FqdnConnectionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<FqdnConnectionListResponse> =
-            list(FqdnConnectionListParams.none())
+        fun list(): HttpResponseFor<FqdnConnectionListPage> = list(FqdnConnectionListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: FqdnConnectionListParams = FqdnConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<FqdnConnectionListResponse>
+        ): HttpResponseFor<FqdnConnectionListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: FqdnConnectionListParams = FqdnConnectionListParams.none()
-        ): HttpResponseFor<FqdnConnectionListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<FqdnConnectionListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<FqdnConnectionListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<FqdnConnectionListPage> =
             list(FqdnConnectionListParams.none(), requestOptions)
 
         /**

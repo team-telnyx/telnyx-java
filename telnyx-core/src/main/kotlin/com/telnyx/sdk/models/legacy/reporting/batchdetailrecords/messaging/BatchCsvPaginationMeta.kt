@@ -10,6 +10,7 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -19,8 +20,8 @@ class BatchCsvPaginationMeta
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val pageNumber: JsonField<Int>,
-    private val pageSize: JsonField<Int>,
     private val totalPages: JsonField<Int>,
+    private val pageSize: JsonField<Int>,
     private val totalResults: JsonField<Int>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -28,30 +29,30 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("page_number") @ExcludeMissing pageNumber: JsonField<Int> = JsonMissing.of(),
-        @JsonProperty("page_size") @ExcludeMissing pageSize: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("total_pages") @ExcludeMissing totalPages: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("page_size") @ExcludeMissing pageSize: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("total_results")
         @ExcludeMissing
         totalResults: JsonField<Int> = JsonMissing.of(),
-    ) : this(pageNumber, pageSize, totalPages, totalResults, mutableMapOf())
+    ) : this(pageNumber, totalPages, pageSize, totalResults, mutableMapOf())
 
     /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun pageNumber(): Optional<Int> = pageNumber.getOptional("page_number")
+    fun pageNumber(): Int = pageNumber.getRequired("page_number")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun totalPages(): Int = totalPages.getRequired("total_pages")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun pageSize(): Optional<Int> = pageSize.getOptional("page_size")
-
-    /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun totalPages(): Optional<Int> = totalPages.getOptional("total_pages")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -67,18 +68,18 @@ private constructor(
     @JsonProperty("page_number") @ExcludeMissing fun _pageNumber(): JsonField<Int> = pageNumber
 
     /**
-     * Returns the raw JSON value of [pageSize].
-     *
-     * Unlike [pageSize], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("page_size") @ExcludeMissing fun _pageSize(): JsonField<Int> = pageSize
-
-    /**
      * Returns the raw JSON value of [totalPages].
      *
      * Unlike [totalPages], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("total_pages") @ExcludeMissing fun _totalPages(): JsonField<Int> = totalPages
+
+    /**
+     * Returns the raw JSON value of [pageSize].
+     *
+     * Unlike [pageSize], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("page_size") @ExcludeMissing fun _pageSize(): JsonField<Int> = pageSize
 
     /**
      * Returns the raw JSON value of [totalResults].
@@ -103,24 +104,32 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [BatchCsvPaginationMeta]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [BatchCsvPaginationMeta].
+         *
+         * The following fields are required:
+         * ```java
+         * .pageNumber()
+         * .totalPages()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [BatchCsvPaginationMeta]. */
     class Builder internal constructor() {
 
-        private var pageNumber: JsonField<Int> = JsonMissing.of()
+        private var pageNumber: JsonField<Int>? = null
+        private var totalPages: JsonField<Int>? = null
         private var pageSize: JsonField<Int> = JsonMissing.of()
-        private var totalPages: JsonField<Int> = JsonMissing.of()
         private var totalResults: JsonField<Int> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(batchCsvPaginationMeta: BatchCsvPaginationMeta) = apply {
             pageNumber = batchCsvPaginationMeta.pageNumber
-            pageSize = batchCsvPaginationMeta.pageSize
             totalPages = batchCsvPaginationMeta.totalPages
+            pageSize = batchCsvPaginationMeta.pageSize
             totalResults = batchCsvPaginationMeta.totalResults
             additionalProperties = batchCsvPaginationMeta.additionalProperties.toMutableMap()
         }
@@ -135,16 +144,6 @@ private constructor(
          */
         fun pageNumber(pageNumber: JsonField<Int>) = apply { this.pageNumber = pageNumber }
 
-        fun pageSize(pageSize: Int) = pageSize(JsonField.of(pageSize))
-
-        /**
-         * Sets [Builder.pageSize] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.pageSize] with a well-typed [Int] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun pageSize(pageSize: JsonField<Int>) = apply { this.pageSize = pageSize }
-
         fun totalPages(totalPages: Int) = totalPages(JsonField.of(totalPages))
 
         /**
@@ -154,6 +153,16 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun totalPages(totalPages: JsonField<Int>) = apply { this.totalPages = totalPages }
+
+        fun pageSize(pageSize: Int) = pageSize(JsonField.of(pageSize))
+
+        /**
+         * Sets [Builder.pageSize] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.pageSize] with a well-typed [Int] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun pageSize(pageSize: JsonField<Int>) = apply { this.pageSize = pageSize }
 
         fun totalResults(totalResults: Int) = totalResults(JsonField.of(totalResults))
 
@@ -189,12 +198,20 @@ private constructor(
          * Returns an immutable instance of [BatchCsvPaginationMeta].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .pageNumber()
+         * .totalPages()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): BatchCsvPaginationMeta =
             BatchCsvPaginationMeta(
-                pageNumber,
+                checkRequired("pageNumber", pageNumber),
+                checkRequired("totalPages", totalPages),
                 pageSize,
-                totalPages,
                 totalResults,
                 additionalProperties.toMutableMap(),
             )
@@ -208,8 +225,8 @@ private constructor(
         }
 
         pageNumber()
-        pageSize()
         totalPages()
+        pageSize()
         totalResults()
         validated = true
     }
@@ -230,8 +247,8 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (pageNumber.asKnown().isPresent) 1 else 0) +
-            (if (pageSize.asKnown().isPresent) 1 else 0) +
             (if (totalPages.asKnown().isPresent) 1 else 0) +
+            (if (pageSize.asKnown().isPresent) 1 else 0) +
             (if (totalResults.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
@@ -241,18 +258,18 @@ private constructor(
 
         return other is BatchCsvPaginationMeta &&
             pageNumber == other.pageNumber &&
-            pageSize == other.pageSize &&
             totalPages == other.totalPages &&
+            pageSize == other.pageSize &&
             totalResults == other.totalResults &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(pageNumber, pageSize, totalPages, totalResults, additionalProperties)
+        Objects.hash(pageNumber, totalPages, pageSize, totalResults, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "BatchCsvPaginationMeta{pageNumber=$pageNumber, pageSize=$pageSize, totalPages=$totalPages, totalResults=$totalResults, additionalProperties=$additionalProperties}"
+        "BatchCsvPaginationMeta{pageNumber=$pageNumber, totalPages=$totalPages, pageSize=$pageSize, totalResults=$totalResults, additionalProperties=$additionalProperties}"
 }

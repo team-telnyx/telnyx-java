@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.recordings.RecordingDeleteParams
 import com.telnyx.sdk.models.recordings.RecordingDeleteResponse
+import com.telnyx.sdk.models.recordings.RecordingListPageAsync
+import com.telnyx.sdk.models.recordings.RecordingListPageResponse
 import com.telnyx.sdk.models.recordings.RecordingListParams
-import com.telnyx.sdk.models.recordings.RecordingListResponse
 import com.telnyx.sdk.models.recordings.RecordingRetrieveParams
 import com.telnyx.sdk.models.recordings.RecordingRetrieveResponse
 import com.telnyx.sdk.services.async.recordings.ActionServiceAsync
@@ -54,7 +55,7 @@ class RecordingServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun list(
         params: RecordingListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RecordingListResponse> =
+    ): CompletableFuture<RecordingListPageAsync> =
         // get /recordings
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -117,13 +118,13 @@ class RecordingServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
-        private val listHandler: Handler<RecordingListResponse> =
-            jsonHandler<RecordingListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RecordingListPageResponse> =
+            jsonHandler<RecordingListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RecordingListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RecordingListResponse>> {
+        ): CompletableFuture<HttpResponseFor<RecordingListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -142,6 +143,14 @@ class RecordingServiceAsyncImpl internal constructor(private val clientOptions: 
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                RecordingListPageAsync.builder()
+                                    .service(RecordingServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

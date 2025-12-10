@@ -20,10 +20,12 @@ import com.telnyx.sdk.models.networks.NetworkCreateParams
 import com.telnyx.sdk.models.networks.NetworkCreateResponse
 import com.telnyx.sdk.models.networks.NetworkDeleteParams
 import com.telnyx.sdk.models.networks.NetworkDeleteResponse
+import com.telnyx.sdk.models.networks.NetworkListInterfacesPageAsync
+import com.telnyx.sdk.models.networks.NetworkListInterfacesPageResponse
 import com.telnyx.sdk.models.networks.NetworkListInterfacesParams
-import com.telnyx.sdk.models.networks.NetworkListInterfacesResponse
+import com.telnyx.sdk.models.networks.NetworkListPageAsync
+import com.telnyx.sdk.models.networks.NetworkListPageResponse
 import com.telnyx.sdk.models.networks.NetworkListParams
-import com.telnyx.sdk.models.networks.NetworkListResponse
 import com.telnyx.sdk.models.networks.NetworkRetrieveParams
 import com.telnyx.sdk.models.networks.NetworkRetrieveResponse
 import com.telnyx.sdk.models.networks.NetworkUpdateParams
@@ -76,7 +78,7 @@ class NetworkServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: NetworkListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NetworkListResponse> =
+    ): CompletableFuture<NetworkListPageAsync> =
         // get /networks
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -90,7 +92,7 @@ class NetworkServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun listInterfaces(
         params: NetworkListInterfacesParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NetworkListInterfacesResponse> =
+    ): CompletableFuture<NetworkListInterfacesPageAsync> =
         // get /networks/{id}/network_interfaces
         withRawResponse().listInterfaces(params, requestOptions).thenApply { it.parse() }
 
@@ -186,7 +188,7 @@ class NetworkServiceAsyncImpl internal constructor(private val clientOptions: Cl
         ): CompletableFuture<HttpResponseFor<NetworkUpdateResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("pathId", params.pathId().getOrNull())
+            checkRequired("networkId", params.networkId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -211,13 +213,13 @@ class NetworkServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<NetworkListResponse> =
-            jsonHandler<NetworkListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NetworkListPageResponse> =
+            jsonHandler<NetworkListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NetworkListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NetworkListResponse>> {
+        ): CompletableFuture<HttpResponseFor<NetworkListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -236,6 +238,14 @@ class NetworkServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                NetworkListPageAsync.builder()
+                                    .service(NetworkServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }
@@ -275,13 +285,13 @@ class NetworkServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listInterfacesHandler: Handler<NetworkListInterfacesResponse> =
-            jsonHandler<NetworkListInterfacesResponse>(clientOptions.jsonMapper)
+        private val listInterfacesHandler: Handler<NetworkListInterfacesPageResponse> =
+            jsonHandler<NetworkListInterfacesPageResponse>(clientOptions.jsonMapper)
 
         override fun listInterfaces(
             params: NetworkListInterfacesParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NetworkListInterfacesResponse>> {
+        ): CompletableFuture<HttpResponseFor<NetworkListInterfacesPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -303,6 +313,14 @@ class NetworkServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                NetworkListInterfacesPageAsync.builder()
+                                    .service(NetworkServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

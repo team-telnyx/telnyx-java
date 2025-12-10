@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListPage
 import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListParams
-import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListResponse
 import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryRetrieveParams
 import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryRetrieveResponse
 import java.util.function.Consumer
@@ -58,21 +58,21 @@ interface WebhookDeliveryService {
         retrieve(id, WebhookDeliveryRetrieveParams.none(), requestOptions)
 
     /** Lists webhook_deliveries for the authenticated user */
-    fun list(): WebhookDeliveryListResponse = list(WebhookDeliveryListParams.none())
+    fun list(): WebhookDeliveryListPage = list(WebhookDeliveryListParams.none())
 
     /** @see list */
     fun list(
         params: WebhookDeliveryListParams = WebhookDeliveryListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): WebhookDeliveryListResponse
+    ): WebhookDeliveryListPage
 
     /** @see list */
     fun list(
         params: WebhookDeliveryListParams = WebhookDeliveryListParams.none()
-    ): WebhookDeliveryListResponse = list(params, RequestOptions.none())
+    ): WebhookDeliveryListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): WebhookDeliveryListResponse =
+    fun list(requestOptions: RequestOptions): WebhookDeliveryListPage =
         list(WebhookDeliveryListParams.none(), requestOptions)
 
     /**
@@ -142,7 +142,7 @@ interface WebhookDeliveryService {
          * [WebhookDeliveryService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<WebhookDeliveryListResponse> =
+        fun list(): HttpResponseFor<WebhookDeliveryListPage> =
             list(WebhookDeliveryListParams.none())
 
         /** @see list */
@@ -150,17 +150,17 @@ interface WebhookDeliveryService {
         fun list(
             params: WebhookDeliveryListParams = WebhookDeliveryListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<WebhookDeliveryListResponse>
+        ): HttpResponseFor<WebhookDeliveryListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: WebhookDeliveryListParams = WebhookDeliveryListParams.none()
-        ): HttpResponseFor<WebhookDeliveryListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<WebhookDeliveryListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<WebhookDeliveryListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<WebhookDeliveryListPage> =
             list(WebhookDeliveryListParams.none(), requestOptions)
     }
 }

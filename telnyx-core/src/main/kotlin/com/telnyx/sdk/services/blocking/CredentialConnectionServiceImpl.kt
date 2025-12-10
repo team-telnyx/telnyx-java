@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.credentialconnections.CredentialConnectionCreatePar
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionCreateResponse
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionDeleteParams
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionDeleteResponse
+import com.telnyx.sdk.models.credentialconnections.CredentialConnectionListPage
+import com.telnyx.sdk.models.credentialconnections.CredentialConnectionListPageResponse
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionListParams
-import com.telnyx.sdk.models.credentialconnections.CredentialConnectionListResponse
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionRetrieveParams
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionRetrieveResponse
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionUpdateParams
@@ -73,7 +74,7 @@ internal constructor(private val clientOptions: ClientOptions) : CredentialConne
     override fun list(
         params: CredentialConnectionListParams,
         requestOptions: RequestOptions,
-    ): CredentialConnectionListResponse =
+    ): CredentialConnectionListPage =
         // get /credential_connections
         withRawResponse().list(params, requestOptions).parse()
 
@@ -192,13 +193,13 @@ internal constructor(private val clientOptions: ClientOptions) : CredentialConne
             }
         }
 
-        private val listHandler: Handler<CredentialConnectionListResponse> =
-            jsonHandler<CredentialConnectionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CredentialConnectionListPageResponse> =
+            jsonHandler<CredentialConnectionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CredentialConnectionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CredentialConnectionListResponse> {
+        ): HttpResponseFor<CredentialConnectionListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -215,6 +216,13 @@ internal constructor(private val clientOptions: ClientOptions) : CredentialConne
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        CredentialConnectionListPage.builder()
+                            .service(CredentialConnectionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

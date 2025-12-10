@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async.simcards
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.simcards.actions.ActionBulkSetPublicIpsParams
-import com.telnyx.sdk.models.simcards.actions.ActionListParams
 import com.telnyx.sdk.models.simcards.actions.ActionSetPublicIpParams
 import com.telnyx.sdk.models.simcards.actions.ActionValidateRegistrationCodesParams
 import org.junit.jupiter.api.Disabled
@@ -41,23 +40,10 @@ internal class ActionServiceAsyncTest {
                 .build()
         val actionServiceAsync = client.simCards().actions()
 
-        val actionsFuture =
-            actionServiceAsync.list(
-                ActionListParams.builder()
-                    .filter(
-                        ActionListParams.Filter.builder()
-                            .actionType(ActionListParams.Filter.ActionType.DISABLE)
-                            .bulkSimCardActionId("47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9")
-                            .simCardId("47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9")
-                            .status(ActionListParams.Filter.Status.IN_PROGRESS)
-                            .build()
-                    )
-                    .page(ActionListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = actionServiceAsync.list()
 
-        val actions = actionsFuture.get()
-        actions.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

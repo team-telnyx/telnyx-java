@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayCreateP
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayCreateResponse
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayDeleteParams
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayDeleteResponse
+import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayListPageAsync
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayListParams
-import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayListResponse
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayRetrieveParams
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -91,22 +91,24 @@ interface PublicInternetGatewayServiceAsync {
         retrieve(id, PublicInternetGatewayRetrieveParams.none(), requestOptions)
 
     /** List all Public Internet Gateways. */
-    fun list(): CompletableFuture<PublicInternetGatewayListResponse> =
+    fun list(): CompletableFuture<PublicInternetGatewayListPageAsync> =
         list(PublicInternetGatewayListParams.none())
 
     /** @see list */
     fun list(
         params: PublicInternetGatewayListParams = PublicInternetGatewayListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PublicInternetGatewayListResponse>
+    ): CompletableFuture<PublicInternetGatewayListPageAsync>
 
     /** @see list */
     fun list(
         params: PublicInternetGatewayListParams = PublicInternetGatewayListParams.none()
-    ): CompletableFuture<PublicInternetGatewayListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<PublicInternetGatewayListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<PublicInternetGatewayListResponse> =
+    fun list(
+        requestOptions: RequestOptions
+    ): CompletableFuture<PublicInternetGatewayListPageAsync> =
         list(PublicInternetGatewayListParams.none(), requestOptions)
 
     /** Delete a Public Internet Gateway. */
@@ -235,25 +237,25 @@ interface PublicInternetGatewayServiceAsync {
          * Returns a raw HTTP response for `get /public_internet_gateways`, but is otherwise the
          * same as [PublicInternetGatewayServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<PublicInternetGatewayListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<PublicInternetGatewayListPageAsync>> =
             list(PublicInternetGatewayListParams.none())
 
         /** @see list */
         fun list(
             params: PublicInternetGatewayListParams = PublicInternetGatewayListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PublicInternetGatewayListResponse>>
+        ): CompletableFuture<HttpResponseFor<PublicInternetGatewayListPageAsync>>
 
         /** @see list */
         fun list(
             params: PublicInternetGatewayListParams = PublicInternetGatewayListParams.none()
-        ): CompletableFuture<HttpResponseFor<PublicInternetGatewayListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicInternetGatewayListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<PublicInternetGatewayListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicInternetGatewayListPageAsync>> =
             list(PublicInternetGatewayListParams.none(), requestOptions)
 
         /**

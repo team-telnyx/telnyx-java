@@ -227,35 +227,38 @@ private constructor(
         }
 
         /** Alias for calling [addTool] with `Tool.ofBookAppointment(bookAppointment)`. */
-        fun addTool(bookAppointment: Tool.BookAppointment) =
+        fun addTool(bookAppointment: Tool.BookAppointmentTool) =
             addTool(Tool.ofBookAppointment(bookAppointment))
 
         /**
          * Alias for calling [addTool] with the following:
          * ```java
-         * Tool.BookAppointment.builder()
+         * Tool.BookAppointmentTool.builder()
          *     .bookAppointment(bookAppointment)
          *     .build()
          * ```
          */
-        fun addBookAppointmentTool(bookAppointment: Tool.BookAppointment.InnerBookAppointment) =
-            addTool(Tool.BookAppointment.builder().bookAppointment(bookAppointment).build())
+        fun addBookAppointmentTool(bookAppointment: Tool.BookAppointmentTool.BookAppointment) =
+            addTool(Tool.BookAppointmentTool.builder().bookAppointment(bookAppointment).build())
 
         /** Alias for calling [addTool] with `Tool.ofCheckAvailability(checkAvailability)`. */
-        fun addTool(checkAvailability: Tool.CheckAvailability) =
+        fun addTool(checkAvailability: Tool.CheckAvailabilityTool) =
             addTool(Tool.ofCheckAvailability(checkAvailability))
 
         /**
          * Alias for calling [addTool] with the following:
          * ```java
-         * Tool.CheckAvailability.builder()
+         * Tool.CheckAvailabilityTool.builder()
          *     .checkAvailability(checkAvailability)
          *     .build()
          * ```
          */
         fun addCheckAvailabilityTool(
-            checkAvailability: Tool.CheckAvailability.InnerCheckAvailability
-        ) = addTool(Tool.CheckAvailability.builder().checkAvailability(checkAvailability).build())
+            checkAvailability: Tool.CheckAvailabilityTool.CheckAvailability
+        ) =
+            addTool(
+                Tool.CheckAvailabilityTool.builder().checkAvailability(checkAvailability).build()
+            )
 
         /** Alias for calling [addTool] with `Tool.ofWebhook(webhook)`. */
         fun addTool(webhook: WebhookTool) = addTool(Tool.ofWebhook(webhook))
@@ -396,8 +399,8 @@ private constructor(
     @JsonSerialize(using = Tool.Serializer::class)
     class Tool
     private constructor(
-        private val bookAppointment: BookAppointment? = null,
-        private val checkAvailability: CheckAvailability? = null,
+        private val bookAppointment: BookAppointmentTool? = null,
+        private val checkAvailability: CheckAvailabilityTool? = null,
         private val webhook: WebhookTool? = null,
         private val hangup: HangupTool? = null,
         private val transfer: TransferTool? = null,
@@ -405,9 +408,9 @@ private constructor(
         private val _json: JsonValue? = null,
     ) {
 
-        fun bookAppointment(): Optional<BookAppointment> = Optional.ofNullable(bookAppointment)
+        fun bookAppointment(): Optional<BookAppointmentTool> = Optional.ofNullable(bookAppointment)
 
-        fun checkAvailability(): Optional<CheckAvailability> =
+        fun checkAvailability(): Optional<CheckAvailabilityTool> =
             Optional.ofNullable(checkAvailability)
 
         fun webhook(): Optional<WebhookTool> = Optional.ofNullable(webhook)
@@ -430,9 +433,9 @@ private constructor(
 
         fun isRetrieval(): Boolean = retrieval != null
 
-        fun asBookAppointment(): BookAppointment = bookAppointment.getOrThrow("bookAppointment")
+        fun asBookAppointment(): BookAppointmentTool = bookAppointment.getOrThrow("bookAppointment")
 
-        fun asCheckAvailability(): CheckAvailability =
+        fun asCheckAvailability(): CheckAvailabilityTool =
             checkAvailability.getOrThrow("checkAvailability")
 
         fun asWebhook(): WebhookTool = webhook.getOrThrow("webhook")
@@ -465,11 +468,11 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitBookAppointment(bookAppointment: BookAppointment) {
+                    override fun visitBookAppointment(bookAppointment: BookAppointmentTool) {
                         bookAppointment.validate()
                     }
 
-                    override fun visitCheckAvailability(checkAvailability: CheckAvailability) {
+                    override fun visitCheckAvailability(checkAvailability: CheckAvailabilityTool) {
                         checkAvailability.validate()
                     }
 
@@ -511,10 +514,10 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitBookAppointment(bookAppointment: BookAppointment) =
+                    override fun visitBookAppointment(bookAppointment: BookAppointmentTool) =
                         bookAppointment.validity()
 
-                    override fun visitCheckAvailability(checkAvailability: CheckAvailability) =
+                    override fun visitCheckAvailability(checkAvailability: CheckAvailabilityTool) =
                         checkAvailability.validity()
 
                     override fun visitWebhook(webhook: WebhookTool) = webhook.validity()
@@ -561,11 +564,11 @@ private constructor(
         companion object {
 
             @JvmStatic
-            fun ofBookAppointment(bookAppointment: BookAppointment) =
+            fun ofBookAppointment(bookAppointment: BookAppointmentTool) =
                 Tool(bookAppointment = bookAppointment)
 
             @JvmStatic
-            fun ofCheckAvailability(checkAvailability: CheckAvailability) =
+            fun ofCheckAvailability(checkAvailability: CheckAvailabilityTool) =
                 Tool(checkAvailability = checkAvailability)
 
             @JvmStatic fun ofWebhook(webhook: WebhookTool) = Tool(webhook = webhook)
@@ -580,9 +583,9 @@ private constructor(
         /** An interface that defines how to map each variant of [Tool] to a value of type [T]. */
         interface Visitor<out T> {
 
-            fun visitBookAppointment(bookAppointment: BookAppointment): T
+            fun visitBookAppointment(bookAppointment: BookAppointmentTool): T
 
-            fun visitCheckAvailability(checkAvailability: CheckAvailability): T
+            fun visitCheckAvailability(checkAvailability: CheckAvailabilityTool): T
 
             fun visitWebhook(webhook: WebhookTool): T
 
@@ -614,12 +617,12 @@ private constructor(
 
                 when (type) {
                     "book_appointment" -> {
-                        return tryDeserialize(node, jacksonTypeRef<BookAppointment>())?.let {
+                        return tryDeserialize(node, jacksonTypeRef<BookAppointmentTool>())?.let {
                             Tool(bookAppointment = it, _json = json)
                         } ?: Tool(_json = json)
                     }
                     "check_availability" -> {
-                        return tryDeserialize(node, jacksonTypeRef<CheckAvailability>())?.let {
+                        return tryDeserialize(node, jacksonTypeRef<CheckAvailabilityTool>())?.let {
                             Tool(checkAvailability = it, _json = json)
                         } ?: Tool(_json = json)
                     }
@@ -670,10 +673,10 @@ private constructor(
             }
         }
 
-        class BookAppointment
+        class BookAppointmentTool
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val bookAppointment: JsonField<InnerBookAppointment>,
+            private val bookAppointment: JsonField<BookAppointment>,
             private val type: JsonValue,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -682,7 +685,7 @@ private constructor(
             private constructor(
                 @JsonProperty("book_appointment")
                 @ExcludeMissing
-                bookAppointment: JsonField<InnerBookAppointment> = JsonMissing.of(),
+                bookAppointment: JsonField<BookAppointment> = JsonMissing.of(),
                 @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
             ) : this(bookAppointment, type, mutableMapOf())
 
@@ -691,8 +694,7 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun bookAppointment(): InnerBookAppointment =
-                bookAppointment.getRequired("book_appointment")
+            fun bookAppointment(): BookAppointment = bookAppointment.getRequired("book_appointment")
 
             /**
              * Expected to always return the following:
@@ -713,7 +715,7 @@ private constructor(
              */
             @JsonProperty("book_appointment")
             @ExcludeMissing
-            fun _bookAppointment(): JsonField<InnerBookAppointment> = bookAppointment
+            fun _bookAppointment(): JsonField<BookAppointment> = bookAppointment
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -730,7 +732,7 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [BookAppointment].
+                 * Returns a mutable builder for constructing an instance of [BookAppointmentTool].
                  *
                  * The following fields are required:
                  * ```java
@@ -740,31 +742,31 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [BookAppointment]. */
+            /** A builder for [BookAppointmentTool]. */
             class Builder internal constructor() {
 
-                private var bookAppointment: JsonField<InnerBookAppointment>? = null
+                private var bookAppointment: JsonField<BookAppointment>? = null
                 private var type: JsonValue = JsonValue.from("book_appointment")
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(bookAppointment: BookAppointment) = apply {
-                    this.bookAppointment = bookAppointment.bookAppointment
-                    type = bookAppointment.type
-                    additionalProperties = bookAppointment.additionalProperties.toMutableMap()
+                internal fun from(bookAppointmentTool: BookAppointmentTool) = apply {
+                    bookAppointment = bookAppointmentTool.bookAppointment
+                    type = bookAppointmentTool.type
+                    additionalProperties = bookAppointmentTool.additionalProperties.toMutableMap()
                 }
 
-                fun bookAppointment(bookAppointment: InnerBookAppointment) =
+                fun bookAppointment(bookAppointment: BookAppointment) =
                     bookAppointment(JsonField.of(bookAppointment))
 
                 /**
                  * Sets [Builder.bookAppointment] to an arbitrary JSON value.
                  *
                  * You should usually call [Builder.bookAppointment] with a well-typed
-                 * [InnerBookAppointment] value instead. This method is primarily for setting the
-                 * field to an undocumented or not yet supported value.
+                 * [BookAppointment] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
                  */
-                fun bookAppointment(bookAppointment: JsonField<InnerBookAppointment>) = apply {
+                fun bookAppointment(bookAppointment: JsonField<BookAppointment>) = apply {
                     this.bookAppointment = bookAppointment
                 }
 
@@ -805,7 +807,7 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [BookAppointment].
+                 * Returns an immutable instance of [BookAppointmentTool].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
@@ -816,8 +818,8 @@ private constructor(
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): BookAppointment =
-                    BookAppointment(
+                fun build(): BookAppointmentTool =
+                    BookAppointmentTool(
                         checkRequired("bookAppointment", bookAppointment),
                         type,
                         additionalProperties.toMutableMap(),
@@ -826,7 +828,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): BookAppointment = apply {
+            fun validate(): BookAppointmentTool = apply {
                 if (validated) {
                     return@apply
                 }
@@ -859,7 +861,7 @@ private constructor(
                 (bookAppointment.asKnown().getOrNull()?.validity() ?: 0) +
                     type.let { if (it == JsonValue.from("book_appointment")) 1 else 0 }
 
-            class InnerBookAppointment
+            class BookAppointment
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val apiKeyRef: JsonField<String>,
@@ -983,8 +985,7 @@ private constructor(
                 companion object {
 
                     /**
-                     * Returns a mutable builder for constructing an instance of
-                     * [InnerBookAppointment].
+                     * Returns a mutable builder for constructing an instance of [BookAppointment].
                      *
                      * The following fields are required:
                      * ```java
@@ -995,7 +996,7 @@ private constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [InnerBookAppointment]. */
+                /** A builder for [BookAppointment]. */
                 class Builder internal constructor() {
 
                     private var apiKeyRef: JsonField<String>? = null
@@ -1005,13 +1006,12 @@ private constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(innerBookAppointment: InnerBookAppointment) = apply {
-                        apiKeyRef = innerBookAppointment.apiKeyRef
-                        eventTypeId = innerBookAppointment.eventTypeId
-                        attendeeName = innerBookAppointment.attendeeName
-                        attendeeTimezone = innerBookAppointment.attendeeTimezone
-                        additionalProperties =
-                            innerBookAppointment.additionalProperties.toMutableMap()
+                    internal fun from(bookAppointment: BookAppointment) = apply {
+                        apiKeyRef = bookAppointment.apiKeyRef
+                        eventTypeId = bookAppointment.eventTypeId
+                        attendeeName = bookAppointment.attendeeName
+                        attendeeTimezone = bookAppointment.attendeeTimezone
+                        additionalProperties = bookAppointment.additionalProperties.toMutableMap()
                     }
 
                     /**
@@ -1111,7 +1111,7 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [InnerBookAppointment].
+                     * Returns an immutable instance of [BookAppointment].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      *
@@ -1123,8 +1123,8 @@ private constructor(
                      *
                      * @throws IllegalStateException if any required field is unset.
                      */
-                    fun build(): InnerBookAppointment =
-                        InnerBookAppointment(
+                    fun build(): BookAppointment =
+                        BookAppointment(
                             checkRequired("apiKeyRef", apiKeyRef),
                             checkRequired("eventTypeId", eventTypeId),
                             attendeeName,
@@ -1135,7 +1135,7 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                fun validate(): InnerBookAppointment = apply {
+                fun validate(): BookAppointment = apply {
                     if (validated) {
                         return@apply
                     }
@@ -1173,7 +1173,7 @@ private constructor(
                         return true
                     }
 
-                    return other is InnerBookAppointment &&
+                    return other is BookAppointment &&
                         apiKeyRef == other.apiKeyRef &&
                         eventTypeId == other.eventTypeId &&
                         attendeeName == other.attendeeName &&
@@ -1194,7 +1194,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "InnerBookAppointment{apiKeyRef=$apiKeyRef, eventTypeId=$eventTypeId, attendeeName=$attendeeName, attendeeTimezone=$attendeeTimezone, additionalProperties=$additionalProperties}"
+                    "BookAppointment{apiKeyRef=$apiKeyRef, eventTypeId=$eventTypeId, attendeeName=$attendeeName, attendeeTimezone=$attendeeTimezone, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1202,7 +1202,7 @@ private constructor(
                     return true
                 }
 
-                return other is BookAppointment &&
+                return other is BookAppointmentTool &&
                     bookAppointment == other.bookAppointment &&
                     type == other.type &&
                     additionalProperties == other.additionalProperties
@@ -1215,13 +1215,13 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "BookAppointment{bookAppointment=$bookAppointment, type=$type, additionalProperties=$additionalProperties}"
+                "BookAppointmentTool{bookAppointment=$bookAppointment, type=$type, additionalProperties=$additionalProperties}"
         }
 
-        class CheckAvailability
+        class CheckAvailabilityTool
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val checkAvailability: JsonField<InnerCheckAvailability>,
+            private val checkAvailability: JsonField<CheckAvailability>,
             private val type: JsonValue,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -1230,7 +1230,7 @@ private constructor(
             private constructor(
                 @JsonProperty("check_availability")
                 @ExcludeMissing
-                checkAvailability: JsonField<InnerCheckAvailability> = JsonMissing.of(),
+                checkAvailability: JsonField<CheckAvailability> = JsonMissing.of(),
                 @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
             ) : this(checkAvailability, type, mutableMapOf())
 
@@ -1239,7 +1239,7 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun checkAvailability(): InnerCheckAvailability =
+            fun checkAvailability(): CheckAvailability =
                 checkAvailability.getRequired("check_availability")
 
             /**
@@ -1261,7 +1261,7 @@ private constructor(
              */
             @JsonProperty("check_availability")
             @ExcludeMissing
-            fun _checkAvailability(): JsonField<InnerCheckAvailability> = checkAvailability
+            fun _checkAvailability(): JsonField<CheckAvailability> = checkAvailability
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1278,7 +1278,8 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [CheckAvailability].
+                 * Returns a mutable builder for constructing an instance of
+                 * [CheckAvailabilityTool].
                  *
                  * The following fields are required:
                  * ```java
@@ -1288,34 +1289,33 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [CheckAvailability]. */
+            /** A builder for [CheckAvailabilityTool]. */
             class Builder internal constructor() {
 
-                private var checkAvailability: JsonField<InnerCheckAvailability>? = null
+                private var checkAvailability: JsonField<CheckAvailability>? = null
                 private var type: JsonValue = JsonValue.from("check_availability")
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(checkAvailability: CheckAvailability) = apply {
-                    this.checkAvailability = checkAvailability.checkAvailability
-                    type = checkAvailability.type
-                    additionalProperties = checkAvailability.additionalProperties.toMutableMap()
+                internal fun from(checkAvailabilityTool: CheckAvailabilityTool) = apply {
+                    checkAvailability = checkAvailabilityTool.checkAvailability
+                    type = checkAvailabilityTool.type
+                    additionalProperties = checkAvailabilityTool.additionalProperties.toMutableMap()
                 }
 
-                fun checkAvailability(checkAvailability: InnerCheckAvailability) =
+                fun checkAvailability(checkAvailability: CheckAvailability) =
                     checkAvailability(JsonField.of(checkAvailability))
 
                 /**
                  * Sets [Builder.checkAvailability] to an arbitrary JSON value.
                  *
                  * You should usually call [Builder.checkAvailability] with a well-typed
-                 * [InnerCheckAvailability] value instead. This method is primarily for setting the
-                 * field to an undocumented or not yet supported value.
+                 * [CheckAvailability] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
                  */
-                fun checkAvailability(checkAvailability: JsonField<InnerCheckAvailability>) =
-                    apply {
-                        this.checkAvailability = checkAvailability
-                    }
+                fun checkAvailability(checkAvailability: JsonField<CheckAvailability>) = apply {
+                    this.checkAvailability = checkAvailability
+                }
 
                 /**
                  * Sets the field to an arbitrary JSON value.
@@ -1354,7 +1354,7 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [CheckAvailability].
+                 * Returns an immutable instance of [CheckAvailabilityTool].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
@@ -1365,8 +1365,8 @@ private constructor(
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): CheckAvailability =
-                    CheckAvailability(
+                fun build(): CheckAvailabilityTool =
+                    CheckAvailabilityTool(
                         checkRequired("checkAvailability", checkAvailability),
                         type,
                         additionalProperties.toMutableMap(),
@@ -1375,7 +1375,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): CheckAvailability = apply {
+            fun validate(): CheckAvailabilityTool = apply {
                 if (validated) {
                     return@apply
                 }
@@ -1408,7 +1408,7 @@ private constructor(
                 (checkAvailability.asKnown().getOrNull()?.validity() ?: 0) +
                     type.let { if (it == JsonValue.from("check_availability")) 1 else 0 }
 
-            class InnerCheckAvailability
+            class CheckAvailability
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val apiKeyRef: JsonField<String>,
@@ -1484,7 +1484,7 @@ private constructor(
 
                     /**
                      * Returns a mutable builder for constructing an instance of
-                     * [InnerCheckAvailability].
+                     * [CheckAvailability].
                      *
                      * The following fields are required:
                      * ```java
@@ -1495,7 +1495,7 @@ private constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [InnerCheckAvailability]. */
+                /** A builder for [CheckAvailability]. */
                 class Builder internal constructor() {
 
                     private var apiKeyRef: JsonField<String>? = null
@@ -1503,11 +1503,10 @@ private constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(innerCheckAvailability: InnerCheckAvailability) = apply {
-                        apiKeyRef = innerCheckAvailability.apiKeyRef
-                        eventTypeId = innerCheckAvailability.eventTypeId
-                        additionalProperties =
-                            innerCheckAvailability.additionalProperties.toMutableMap()
+                    internal fun from(checkAvailability: CheckAvailability) = apply {
+                        apiKeyRef = checkAvailability.apiKeyRef
+                        eventTypeId = checkAvailability.eventTypeId
+                        additionalProperties = checkAvailability.additionalProperties.toMutableMap()
                     }
 
                     /**
@@ -1569,7 +1568,7 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [InnerCheckAvailability].
+                     * Returns an immutable instance of [CheckAvailability].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      *
@@ -1581,8 +1580,8 @@ private constructor(
                      *
                      * @throws IllegalStateException if any required field is unset.
                      */
-                    fun build(): InnerCheckAvailability =
-                        InnerCheckAvailability(
+                    fun build(): CheckAvailability =
+                        CheckAvailability(
                             checkRequired("apiKeyRef", apiKeyRef),
                             checkRequired("eventTypeId", eventTypeId),
                             additionalProperties.toMutableMap(),
@@ -1591,7 +1590,7 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                fun validate(): InnerCheckAvailability = apply {
+                fun validate(): CheckAvailability = apply {
                     if (validated) {
                         return@apply
                     }
@@ -1625,7 +1624,7 @@ private constructor(
                         return true
                     }
 
-                    return other is InnerCheckAvailability &&
+                    return other is CheckAvailability &&
                         apiKeyRef == other.apiKeyRef &&
                         eventTypeId == other.eventTypeId &&
                         additionalProperties == other.additionalProperties
@@ -1638,7 +1637,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "InnerCheckAvailability{apiKeyRef=$apiKeyRef, eventTypeId=$eventTypeId, additionalProperties=$additionalProperties}"
+                    "CheckAvailability{apiKeyRef=$apiKeyRef, eventTypeId=$eventTypeId, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1646,7 +1645,7 @@ private constructor(
                     return true
                 }
 
-                return other is CheckAvailability &&
+                return other is CheckAvailabilityTool &&
                     checkAvailability == other.checkAvailability &&
                     type == other.type &&
                     additionalProperties == other.additionalProperties
@@ -1659,7 +1658,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CheckAvailability{checkAvailability=$checkAvailability, type=$type, additionalProperties=$additionalProperties}"
+                "CheckAvailabilityTool{checkAvailability=$checkAvailability, type=$type, additionalProperties=$additionalProperties}"
         }
     }
 

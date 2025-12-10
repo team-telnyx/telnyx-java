@@ -5,8 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.simcardorders.SimCardOrderCreateParams
-import com.telnyx.sdk.models.simcardorders.SimCardOrderListParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -60,29 +58,8 @@ internal class SimCardOrderServiceTest {
                 .build()
         val simCardOrderService = client.simCardOrders()
 
-        val simCardOrders =
-            simCardOrderService.list(
-                SimCardOrderListParams.builder()
-                    .filter(
-                        SimCardOrderListParams.Filter.builder()
-                            .addressAdministrativeArea("TX")
-                            .addressCountryCode("US")
-                            .addressExtendedAddress("14th Floor")
-                            .addressId("1293384261075731499")
-                            .addressLocality("Austin")
-                            .addressPostalCode("78701")
-                            .addressStreetAddress("600 Congress Avenue")
-                            .costAmount("2.53")
-                            .costCurrency("USD")
-                            .createdAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
-                            .quantity(21L)
-                            .updatedAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
-                            .build()
-                    )
-                    .page(SimCardOrderListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val page = simCardOrderService.list()
 
-        simCardOrders.validate()
+        page.response().validate()
     }
 }

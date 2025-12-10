@@ -16,8 +16,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.phonenumbers.voice.VoiceListPageAsync
+import com.telnyx.sdk.models.phonenumbers.voice.VoiceListPageResponse
 import com.telnyx.sdk.models.phonenumbers.voice.VoiceListParams
-import com.telnyx.sdk.models.phonenumbers.voice.VoiceListResponse
 import com.telnyx.sdk.models.phonenumbers.voice.VoiceRetrieveParams
 import com.telnyx.sdk.models.phonenumbers.voice.VoiceRetrieveResponse
 import com.telnyx.sdk.models.phonenumbers.voice.VoiceUpdateParams
@@ -55,7 +56,7 @@ class VoiceServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: VoiceListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VoiceListResponse> =
+    ): CompletableFuture<VoiceListPageAsync> =
         // get /phone_numbers/voice
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -139,13 +140,13 @@ class VoiceServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val listHandler: Handler<VoiceListResponse> =
-            jsonHandler<VoiceListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<VoiceListPageResponse> =
+            jsonHandler<VoiceListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: VoiceListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VoiceListResponse>> {
+        ): CompletableFuture<HttpResponseFor<VoiceListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -164,6 +165,14 @@ class VoiceServiceAsyncImpl internal constructor(private val clientOptions: Clie
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                VoiceListPageAsync.builder()
+                                    .service(VoiceServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

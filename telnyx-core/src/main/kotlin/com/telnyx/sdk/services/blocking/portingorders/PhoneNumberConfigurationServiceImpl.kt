@@ -17,8 +17,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationCreateParams
 import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationCreateResponse
+import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListPage
+import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListPageResponse
 import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListParams
-import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListResponse
 import java.util.function.Consumer
 
 class PhoneNumberConfigurationServiceImpl
@@ -48,7 +49,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhoneNumberConf
     override fun list(
         params: PhoneNumberConfigurationListParams,
         requestOptions: RequestOptions,
-    ): PhoneNumberConfigurationListResponse =
+    ): PhoneNumberConfigurationListPage =
         // get /porting_orders/phone_number_configurations
         withRawResponse().list(params, requestOptions).parse()
 
@@ -93,13 +94,13 @@ internal constructor(private val clientOptions: ClientOptions) : PhoneNumberConf
             }
         }
 
-        private val listHandler: Handler<PhoneNumberConfigurationListResponse> =
-            jsonHandler<PhoneNumberConfigurationListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PhoneNumberConfigurationListPageResponse> =
+            jsonHandler<PhoneNumberConfigurationListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PhoneNumberConfigurationListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PhoneNumberConfigurationListResponse> {
+        ): HttpResponseFor<PhoneNumberConfigurationListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -116,6 +117,13 @@ internal constructor(private val clientOptions: ClientOptions) : PhoneNumberConf
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        PhoneNumberConfigurationListPage.builder()
+                            .service(PhoneNumberConfigurationServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

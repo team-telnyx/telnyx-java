@@ -143,16 +143,19 @@ interface ActionService {
      * - `call.bridged` for Leg A
      * - `call.bridged` for Leg B
      */
-    fun bridge(pathCallControlId: String, params: ActionBridgeParams): ActionBridgeResponse =
-        bridge(pathCallControlId, params, RequestOptions.none())
+    fun bridge(callControlIdToBridge: String, params: ActionBridgeParams): ActionBridgeResponse =
+        bridge(callControlIdToBridge, params, RequestOptions.none())
 
     /** @see bridge */
     fun bridge(
-        pathCallControlId: String,
+        callControlIdToBridge: String,
         params: ActionBridgeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ActionBridgeResponse =
-        bridge(params.toBuilder().pathCallControlId(pathCallControlId).build(), requestOptions)
+        bridge(
+            params.toBuilder().callControlIdToBridge(callControlIdToBridge).build(),
+            requestOptions,
+        )
 
     /** @see bridge */
     fun bridge(params: ActionBridgeParams): ActionBridgeResponse =
@@ -1466,19 +1469,22 @@ interface ActionService {
          */
         @MustBeClosed
         fun bridge(
-            pathCallControlId: String,
+            callControlIdToBridge: String,
             params: ActionBridgeParams,
         ): HttpResponseFor<ActionBridgeResponse> =
-            bridge(pathCallControlId, params, RequestOptions.none())
+            bridge(callControlIdToBridge, params, RequestOptions.none())
 
         /** @see bridge */
         @MustBeClosed
         fun bridge(
-            pathCallControlId: String,
+            callControlIdToBridge: String,
             params: ActionBridgeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ActionBridgeResponse> =
-            bridge(params.toBuilder().pathCallControlId(pathCallControlId).build(), requestOptions)
+            bridge(
+                params.toBuilder().callControlIdToBridge(callControlIdToBridge).build(),
+                requestOptions,
+            )
 
         /** @see bridge */
         @MustBeClosed

@@ -12,13 +12,13 @@ import kotlin.jvm.optionals.getOrNull
 /** List phone numbers associated with a messaging profile */
 class MessagingProfileListPhoneNumbersParams
 private constructor(
-    private val id: String?,
+    private val messagingProfileId: String?,
     private val page: Page?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun id(): Optional<String> = Optional.ofNullable(id)
+    fun messagingProfileId(): Optional<String> = Optional.ofNullable(messagingProfileId)
 
     /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
     fun page(): Optional<Page> = Optional.ofNullable(page)
@@ -45,7 +45,7 @@ private constructor(
     /** A builder for [MessagingProfileListPhoneNumbersParams]. */
     class Builder internal constructor() {
 
-        private var id: String? = null
+        private var messagingProfileId: String? = null
         private var page: Page? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -54,17 +54,22 @@ private constructor(
         internal fun from(
             messagingProfileListPhoneNumbersParams: MessagingProfileListPhoneNumbersParams
         ) = apply {
-            id = messagingProfileListPhoneNumbersParams.id
+            messagingProfileId = messagingProfileListPhoneNumbersParams.messagingProfileId
             page = messagingProfileListPhoneNumbersParams.page
             additionalHeaders = messagingProfileListPhoneNumbersParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 messagingProfileListPhoneNumbersParams.additionalQueryParams.toBuilder()
         }
 
-        fun id(id: String?) = apply { this.id = id }
+        fun messagingProfileId(messagingProfileId: String?) = apply {
+            this.messagingProfileId = messagingProfileId
+        }
 
-        /** Alias for calling [Builder.id] with `id.orElse(null)`. */
-        fun id(id: Optional<String>) = id(id.getOrNull())
+        /**
+         * Alias for calling [Builder.messagingProfileId] with `messagingProfileId.orElse(null)`.
+         */
+        fun messagingProfileId(messagingProfileId: Optional<String>) =
+            messagingProfileId(messagingProfileId.getOrNull())
 
         /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         fun page(page: Page?) = apply { this.page = page }
@@ -177,7 +182,7 @@ private constructor(
          */
         fun build(): MessagingProfileListPhoneNumbersParams =
             MessagingProfileListPhoneNumbersParams(
-                id,
+                messagingProfileId,
                 page,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -186,7 +191,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> id ?: ""
+            0 -> messagingProfileId ?: ""
             else -> ""
         }
 
@@ -355,14 +360,15 @@ private constructor(
         }
 
         return other is MessagingProfileListPhoneNumbersParams &&
-            id == other.id &&
+            messagingProfileId == other.messagingProfileId &&
             page == other.page &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(id, page, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(messagingProfileId, page, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "MessagingProfileListPhoneNumbersParams{id=$id, page=$page, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "MessagingProfileListPhoneNumbersParams{messagingProfileId=$messagingProfileId, page=$page, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.blocking.mobilephonenumbers
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -37,13 +36,8 @@ internal class MessagingServiceTest {
                 .build()
         val messagingService = client.mobilePhoneNumbers().messaging()
 
-        val messagings =
-            messagingService.list(
-                MessagingListParams.builder()
-                    .page(MessagingListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val page = messagingService.list()
 
-        messagings.validate()
+        page.response().validate()
     }
 }

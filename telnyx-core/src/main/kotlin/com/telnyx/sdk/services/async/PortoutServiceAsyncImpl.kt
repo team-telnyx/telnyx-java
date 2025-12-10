@@ -16,10 +16,11 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.portouts.PortoutListPageAsync
+import com.telnyx.sdk.models.portouts.PortoutListPageResponse
 import com.telnyx.sdk.models.portouts.PortoutListParams
 import com.telnyx.sdk.models.portouts.PortoutListRejectionCodesParams
 import com.telnyx.sdk.models.portouts.PortoutListRejectionCodesResponse
-import com.telnyx.sdk.models.portouts.PortoutListResponse
 import com.telnyx.sdk.models.portouts.PortoutRetrieveParams
 import com.telnyx.sdk.models.portouts.PortoutRetrieveResponse
 import com.telnyx.sdk.models.portouts.PortoutUpdateStatusParams
@@ -76,7 +77,7 @@ class PortoutServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: PortoutListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PortoutListResponse> =
+    ): CompletableFuture<PortoutListPageAsync> =
         // get /portouts
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -165,13 +166,13 @@ class PortoutServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<PortoutListResponse> =
-            jsonHandler<PortoutListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PortoutListPageResponse> =
+            jsonHandler<PortoutListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PortoutListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PortoutListResponse>> {
+        ): CompletableFuture<HttpResponseFor<PortoutListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -190,6 +191,14 @@ class PortoutServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                PortoutListPageAsync.builder()
+                                    .service(PortoutServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -7,12 +7,12 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberDeleteParams
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberDeleteResponse
+import com.telnyx.sdk.models.phonenumbers.PhoneNumberListPageAsync
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberListParams
-import com.telnyx.sdk.models.phonenumbers.PhoneNumberListResponse
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberRetrieveParams
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberRetrieveResponse
+import com.telnyx.sdk.models.phonenumbers.PhoneNumberSlimListPageAsync
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberSlimListParams
-import com.telnyx.sdk.models.phonenumbers.PhoneNumberSlimListResponse
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberUpdateParams
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberUpdateResponse
 import com.telnyx.sdk.services.async.phonenumbers.ActionServiceAsync
@@ -87,22 +87,23 @@ interface PhoneNumberServiceAsync {
         retrieve(id, PhoneNumberRetrieveParams.none(), requestOptions)
 
     /** Update a phone number */
-    fun update(pathId: String): CompletableFuture<PhoneNumberUpdateResponse> =
-        update(pathId, PhoneNumberUpdateParams.none())
+    fun update(phoneNumberId: String): CompletableFuture<PhoneNumberUpdateResponse> =
+        update(phoneNumberId, PhoneNumberUpdateParams.none())
 
     /** @see update */
     fun update(
-        pathId: String,
+        phoneNumberId: String,
         params: PhoneNumberUpdateParams = PhoneNumberUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhoneNumberUpdateResponse> =
-        update(params.toBuilder().pathId(pathId).build(), requestOptions)
+        update(params.toBuilder().phoneNumberId(phoneNumberId).build(), requestOptions)
 
     /** @see update */
     fun update(
-        pathId: String,
+        phoneNumberId: String,
         params: PhoneNumberUpdateParams = PhoneNumberUpdateParams.none(),
-    ): CompletableFuture<PhoneNumberUpdateResponse> = update(pathId, params, RequestOptions.none())
+    ): CompletableFuture<PhoneNumberUpdateResponse> =
+        update(phoneNumberId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
@@ -116,27 +117,27 @@ interface PhoneNumberServiceAsync {
 
     /** @see update */
     fun update(
-        pathId: String,
+        phoneNumberId: String,
         requestOptions: RequestOptions,
     ): CompletableFuture<PhoneNumberUpdateResponse> =
-        update(pathId, PhoneNumberUpdateParams.none(), requestOptions)
+        update(phoneNumberId, PhoneNumberUpdateParams.none(), requestOptions)
 
     /** List phone numbers */
-    fun list(): CompletableFuture<PhoneNumberListResponse> = list(PhoneNumberListParams.none())
+    fun list(): CompletableFuture<PhoneNumberListPageAsync> = list(PhoneNumberListParams.none())
 
     /** @see list */
     fun list(
         params: PhoneNumberListParams = PhoneNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PhoneNumberListResponse>
+    ): CompletableFuture<PhoneNumberListPageAsync>
 
     /** @see list */
     fun list(
         params: PhoneNumberListParams = PhoneNumberListParams.none()
-    ): CompletableFuture<PhoneNumberListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<PhoneNumberListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<PhoneNumberListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<PhoneNumberListPageAsync> =
         list(PhoneNumberListParams.none(), requestOptions)
 
     /** Delete a phone number */
@@ -178,22 +179,22 @@ interface PhoneNumberServiceAsync {
      * List phone numbers, This endpoint is a lighter version of the /phone_numbers endpoint having
      * higher performance and rate limit.
      */
-    fun slimList(): CompletableFuture<PhoneNumberSlimListResponse> =
+    fun slimList(): CompletableFuture<PhoneNumberSlimListPageAsync> =
         slimList(PhoneNumberSlimListParams.none())
 
     /** @see slimList */
     fun slimList(
         params: PhoneNumberSlimListParams = PhoneNumberSlimListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PhoneNumberSlimListResponse>
+    ): CompletableFuture<PhoneNumberSlimListPageAsync>
 
     /** @see slimList */
     fun slimList(
         params: PhoneNumberSlimListParams = PhoneNumberSlimListParams.none()
-    ): CompletableFuture<PhoneNumberSlimListResponse> = slimList(params, RequestOptions.none())
+    ): CompletableFuture<PhoneNumberSlimListPageAsync> = slimList(params, RequestOptions.none())
 
     /** @see slimList */
-    fun slimList(requestOptions: RequestOptions): CompletableFuture<PhoneNumberSlimListResponse> =
+    fun slimList(requestOptions: RequestOptions): CompletableFuture<PhoneNumberSlimListPageAsync> =
         slimList(PhoneNumberSlimListParams.none(), requestOptions)
 
     /**
@@ -268,23 +269,25 @@ interface PhoneNumberServiceAsync {
          * Returns a raw HTTP response for `patch /phone_numbers/{id}`, but is otherwise the same as
          * [PhoneNumberServiceAsync.update].
          */
-        fun update(pathId: String): CompletableFuture<HttpResponseFor<PhoneNumberUpdateResponse>> =
-            update(pathId, PhoneNumberUpdateParams.none())
+        fun update(
+            phoneNumberId: String
+        ): CompletableFuture<HttpResponseFor<PhoneNumberUpdateResponse>> =
+            update(phoneNumberId, PhoneNumberUpdateParams.none())
 
         /** @see update */
         fun update(
-            pathId: String,
+            phoneNumberId: String,
             params: PhoneNumberUpdateParams = PhoneNumberUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PhoneNumberUpdateResponse>> =
-            update(params.toBuilder().pathId(pathId).build(), requestOptions)
+            update(params.toBuilder().phoneNumberId(phoneNumberId).build(), requestOptions)
 
         /** @see update */
         fun update(
-            pathId: String,
+            phoneNumberId: String,
             params: PhoneNumberUpdateParams = PhoneNumberUpdateParams.none(),
         ): CompletableFuture<HttpResponseFor<PhoneNumberUpdateResponse>> =
-            update(pathId, params, RequestOptions.none())
+            update(phoneNumberId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
@@ -300,34 +303,34 @@ interface PhoneNumberServiceAsync {
 
         /** @see update */
         fun update(
-            pathId: String,
+            phoneNumberId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<PhoneNumberUpdateResponse>> =
-            update(pathId, PhoneNumberUpdateParams.none(), requestOptions)
+            update(phoneNumberId, PhoneNumberUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /phone_numbers`, but is otherwise the same as
          * [PhoneNumberServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<PhoneNumberListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<PhoneNumberListPageAsync>> =
             list(PhoneNumberListParams.none())
 
         /** @see list */
         fun list(
             params: PhoneNumberListParams = PhoneNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PhoneNumberListResponse>>
+        ): CompletableFuture<HttpResponseFor<PhoneNumberListPageAsync>>
 
         /** @see list */
         fun list(
             params: PhoneNumberListParams = PhoneNumberListParams.none()
-        ): CompletableFuture<HttpResponseFor<PhoneNumberListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<PhoneNumberListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberListPageAsync>> =
             list(PhoneNumberListParams.none(), requestOptions)
 
         /**
@@ -375,25 +378,25 @@ interface PhoneNumberServiceAsync {
          * Returns a raw HTTP response for `get /phone_numbers/slim`, but is otherwise the same as
          * [PhoneNumberServiceAsync.slimList].
          */
-        fun slimList(): CompletableFuture<HttpResponseFor<PhoneNumberSlimListResponse>> =
+        fun slimList(): CompletableFuture<HttpResponseFor<PhoneNumberSlimListPageAsync>> =
             slimList(PhoneNumberSlimListParams.none())
 
         /** @see slimList */
         fun slimList(
             params: PhoneNumberSlimListParams = PhoneNumberSlimListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PhoneNumberSlimListResponse>>
+        ): CompletableFuture<HttpResponseFor<PhoneNumberSlimListPageAsync>>
 
         /** @see slimList */
         fun slimList(
             params: PhoneNumberSlimListParams = PhoneNumberSlimListParams.none()
-        ): CompletableFuture<HttpResponseFor<PhoneNumberSlimListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberSlimListPageAsync>> =
             slimList(params, RequestOptions.none())
 
         /** @see slimList */
         fun slimList(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<PhoneNumberSlimListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberSlimListPageAsync>> =
             slimList(PhoneNumberSlimListParams.none(), requestOptions)
     }
 }

@@ -21,8 +21,9 @@ import com.telnyx.sdk.models.documents.DocumentDeleteResponse
 import com.telnyx.sdk.models.documents.DocumentDownloadParams
 import com.telnyx.sdk.models.documents.DocumentGenerateDownloadLinkParams
 import com.telnyx.sdk.models.documents.DocumentGenerateDownloadLinkResponse
+import com.telnyx.sdk.models.documents.DocumentListPage
+import com.telnyx.sdk.models.documents.DocumentListPageResponse
 import com.telnyx.sdk.models.documents.DocumentListParams
-import com.telnyx.sdk.models.documents.DocumentListResponse
 import com.telnyx.sdk.models.documents.DocumentRetrieveParams
 import com.telnyx.sdk.models.documents.DocumentRetrieveResponse
 import com.telnyx.sdk.models.documents.DocumentUpdateParams
@@ -63,7 +64,7 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
     override fun list(
         params: DocumentListParams,
         requestOptions: RequestOptions,
-    ): DocumentListResponse =
+    ): DocumentListPage =
         // get /documents
         withRawResponse().list(params, requestOptions).parse()
 
@@ -154,7 +155,7 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
         ): HttpResponseFor<DocumentUpdateResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("pathId", params.pathId().getOrNull())
+            checkRequired("documentId", params.documentId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -176,13 +177,13 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val listHandler: Handler<DocumentListResponse> =
-            jsonHandler<DocumentListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DocumentListPageResponse> =
+            jsonHandler<DocumentListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DocumentListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DocumentListResponse> {
+        ): HttpResponseFor<DocumentListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -199,6 +200,13 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        DocumentListPage.builder()
+                            .service(DocumentServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

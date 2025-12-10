@@ -26,7 +26,7 @@ internal class DefaultGatewayServiceTest {
         val defaultGateway =
             defaultGatewayService.create(
                 DefaultGatewayCreateParams.builder()
-                    .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .networkIdentifier("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .recordType("sample_record_type")

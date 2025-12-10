@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.numberreservations.NumberReservationCreateParams
-import com.telnyx.sdk.models.numberreservations.NumberReservationListParams
 import com.telnyx.sdk.models.numberreservations.ReservedPhoneNumber
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
@@ -76,26 +75,8 @@ internal class NumberReservationServiceTest {
                 .build()
         val numberReservationService = client.numberReservations()
 
-        val numberReservations =
-            numberReservationService.list(
-                NumberReservationListParams.builder()
-                    .filter(
-                        NumberReservationListParams.Filter.builder()
-                            .createdAt(
-                                NumberReservationListParams.Filter.CreatedAt.builder()
-                                    .gt("gt")
-                                    .lt("lt")
-                                    .build()
-                            )
-                            .customerReference("customer_reference")
-                            .phoneNumbersPhoneNumber("phone_numbers.phone_number")
-                            .status("status")
-                            .build()
-                    )
-                    .page(NumberReservationListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val page = numberReservationService.list()
 
-        numberReservations.validate()
+        page.response().validate()
     }
 }

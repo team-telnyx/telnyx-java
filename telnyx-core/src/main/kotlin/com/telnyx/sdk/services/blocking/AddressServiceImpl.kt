@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.addresses.AddressCreateParams
 import com.telnyx.sdk.models.addresses.AddressCreateResponse
 import com.telnyx.sdk.models.addresses.AddressDeleteParams
 import com.telnyx.sdk.models.addresses.AddressDeleteResponse
+import com.telnyx.sdk.models.addresses.AddressListPage
+import com.telnyx.sdk.models.addresses.AddressListPageResponse
 import com.telnyx.sdk.models.addresses.AddressListParams
-import com.telnyx.sdk.models.addresses.AddressListResponse
 import com.telnyx.sdk.models.addresses.AddressRetrieveParams
 import com.telnyx.sdk.models.addresses.AddressRetrieveResponse
 import com.telnyx.sdk.services.blocking.addresses.ActionService
@@ -59,10 +60,7 @@ class AddressServiceImpl internal constructor(private val clientOptions: ClientO
         // get /addresses/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: AddressListParams,
-        requestOptions: RequestOptions,
-    ): AddressListResponse =
+    override fun list(params: AddressListParams, requestOptions: RequestOptions): AddressListPage =
         // get /addresses
         withRawResponse().list(params, requestOptions).parse()
 
@@ -150,13 +148,13 @@ class AddressServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<AddressListResponse> =
-            jsonHandler<AddressListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AddressListPageResponse> =
+            jsonHandler<AddressListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AddressListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AddressListResponse> {
+        ): HttpResponseFor<AddressListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -173,6 +171,13 @@ class AddressServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        AddressListPage.builder()
+                            .service(AddressServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

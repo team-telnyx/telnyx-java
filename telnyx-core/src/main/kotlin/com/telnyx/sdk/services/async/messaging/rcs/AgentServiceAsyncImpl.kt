@@ -16,8 +16,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.messaging.rcs.agents.AgentListPageAsync
+import com.telnyx.sdk.models.messaging.rcs.agents.AgentListPageResponse
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentListParams
-import com.telnyx.sdk.models.messaging.rcs.agents.AgentListResponse
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentRetrieveParams
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentUpdateParams
 import com.telnyx.sdk.models.rcsagents.RcsAgentResponse
@@ -54,7 +55,7 @@ class AgentServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: AgentListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AgentListResponse> =
+    ): CompletableFuture<AgentListPageAsync> =
         // get /messaging/rcs/agents
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -138,13 +139,13 @@ class AgentServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val listHandler: Handler<AgentListResponse> =
-            jsonHandler<AgentListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AgentListPageResponse> =
+            jsonHandler<AgentListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AgentListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AgentListResponse>> {
+        ): CompletableFuture<HttpResponseFor<AgentListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -163,6 +164,14 @@ class AgentServiceAsyncImpl internal constructor(private val clientOptions: Clie
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                AgentListPageAsync.builder()
+                                    .service(AgentServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

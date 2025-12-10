@@ -23,10 +23,6 @@ import com.telnyx.sdk.services.blocking.number10dlc.CampaignBuilderService
 import com.telnyx.sdk.services.blocking.number10dlc.CampaignBuilderServiceImpl
 import com.telnyx.sdk.services.blocking.number10dlc.CampaignService
 import com.telnyx.sdk.services.blocking.number10dlc.CampaignServiceImpl
-import com.telnyx.sdk.services.blocking.number10dlc.PartnerCampaignService
-import com.telnyx.sdk.services.blocking.number10dlc.PartnerCampaignServiceImpl
-import com.telnyx.sdk.services.blocking.number10dlc.PhoneNumberAssignmentByProfileService
-import com.telnyx.sdk.services.blocking.number10dlc.PhoneNumberAssignmentByProfileServiceImpl
 import com.telnyx.sdk.services.blocking.number10dlc.PhoneNumberCampaignService
 import com.telnyx.sdk.services.blocking.number10dlc.PhoneNumberCampaignServiceImpl
 import java.util.function.Consumer
@@ -47,18 +43,6 @@ class Number10dlcServiceImpl internal constructor(private val clientOptions: Cli
         CampaignBuilderServiceImpl(clientOptions)
     }
 
-    private val partnerCampaign: PartnerCampaignService by lazy {
-        PartnerCampaignServiceImpl(clientOptions)
-    }
-
-    private val partnerCampaigns: PartnerCampaignService by lazy {
-        PartnerCampaignServiceImpl(clientOptions)
-    }
-
-    private val phoneNumberAssignmentByProfile: PhoneNumberAssignmentByProfileService by lazy {
-        PhoneNumberAssignmentByProfileServiceImpl(clientOptions)
-    }
-
     private val phoneNumberCampaigns: PhoneNumberCampaignService by lazy {
         PhoneNumberCampaignServiceImpl(clientOptions)
     }
@@ -73,13 +57,6 @@ class Number10dlcServiceImpl internal constructor(private val clientOptions: Cli
     override fun campaign(): CampaignService = campaign
 
     override fun campaignBuilder(): CampaignBuilderService = campaignBuilder
-
-    override fun partnerCampaign(): PartnerCampaignService = partnerCampaign
-
-    override fun partnerCampaigns(): PartnerCampaignService = partnerCampaigns
-
-    override fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileService =
-        phoneNumberAssignmentByProfile
 
     override fun phoneNumberCampaigns(): PhoneNumberCampaignService = phoneNumberCampaigns
 
@@ -108,19 +85,6 @@ class Number10dlcServiceImpl internal constructor(private val clientOptions: Cli
             CampaignBuilderServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val partnerCampaign: PartnerCampaignService.WithRawResponse by lazy {
-            PartnerCampaignServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val partnerCampaigns: PartnerCampaignService.WithRawResponse by lazy {
-            PartnerCampaignServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val phoneNumberAssignmentByProfile:
-            PhoneNumberAssignmentByProfileService.WithRawResponse by lazy {
-            PhoneNumberAssignmentByProfileServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val phoneNumberCampaigns: PhoneNumberCampaignService.WithRawResponse by lazy {
             PhoneNumberCampaignServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -137,13 +101,6 @@ class Number10dlcServiceImpl internal constructor(private val clientOptions: Cli
         override fun campaign(): CampaignService.WithRawResponse = campaign
 
         override fun campaignBuilder(): CampaignBuilderService.WithRawResponse = campaignBuilder
-
-        override fun partnerCampaign(): PartnerCampaignService.WithRawResponse = partnerCampaign
-
-        override fun partnerCampaigns(): PartnerCampaignService.WithRawResponse = partnerCampaigns
-
-        override fun phoneNumberAssignmentByProfile():
-            PhoneNumberAssignmentByProfileService.WithRawResponse = phoneNumberAssignmentByProfile
 
         override fun phoneNumberCampaigns(): PhoneNumberCampaignService.WithRawResponse =
             phoneNumberCampaigns

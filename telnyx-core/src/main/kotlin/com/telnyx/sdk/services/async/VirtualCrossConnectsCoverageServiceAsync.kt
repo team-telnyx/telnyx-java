@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListPageAsync
 import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListParams
-import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -31,7 +31,7 @@ interface VirtualCrossConnectsCoverageServiceAsync {
      * regions are available for the `location_code` your Virtual Cross Connect will be provisioned
      * in.
      */
-    fun list(): CompletableFuture<VirtualCrossConnectsCoverageListResponse> =
+    fun list(): CompletableFuture<VirtualCrossConnectsCoverageListPageAsync> =
         list(VirtualCrossConnectsCoverageListParams.none())
 
     /** @see list */
@@ -39,19 +39,19 @@ interface VirtualCrossConnectsCoverageServiceAsync {
         params: VirtualCrossConnectsCoverageListParams =
             VirtualCrossConnectsCoverageListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VirtualCrossConnectsCoverageListResponse>
+    ): CompletableFuture<VirtualCrossConnectsCoverageListPageAsync>
 
     /** @see list */
     fun list(
         params: VirtualCrossConnectsCoverageListParams =
             VirtualCrossConnectsCoverageListParams.none()
-    ): CompletableFuture<VirtualCrossConnectsCoverageListResponse> =
+    ): CompletableFuture<VirtualCrossConnectsCoverageListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         requestOptions: RequestOptions
-    ): CompletableFuture<VirtualCrossConnectsCoverageListResponse> =
+    ): CompletableFuture<VirtualCrossConnectsCoverageListPageAsync> =
         list(VirtualCrossConnectsCoverageListParams.none(), requestOptions)
 
     /**
@@ -73,7 +73,7 @@ interface VirtualCrossConnectsCoverageServiceAsync {
          * Returns a raw HTTP response for `get /virtual_cross_connects_coverage`, but is otherwise
          * the same as [VirtualCrossConnectsCoverageServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<VirtualCrossConnectsCoverageListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<VirtualCrossConnectsCoverageListPageAsync>> =
             list(VirtualCrossConnectsCoverageListParams.none())
 
         /** @see list */
@@ -81,19 +81,19 @@ interface VirtualCrossConnectsCoverageServiceAsync {
             params: VirtualCrossConnectsCoverageListParams =
                 VirtualCrossConnectsCoverageListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectsCoverageListResponse>>
+        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectsCoverageListPageAsync>>
 
         /** @see list */
         fun list(
             params: VirtualCrossConnectsCoverageListParams =
                 VirtualCrossConnectsCoverageListParams.none()
-        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectsCoverageListResponse>> =
+        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectsCoverageListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectsCoverageListResponse>> =
+        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectsCoverageListPageAsync>> =
             list(VirtualCrossConnectsCoverageListParams.none(), requestOptions)
     }
 }

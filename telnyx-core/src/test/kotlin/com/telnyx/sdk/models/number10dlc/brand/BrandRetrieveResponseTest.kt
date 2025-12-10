@@ -4,11 +4,6 @@ package com.telnyx.sdk.models.number10dlc.brand
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.brand.AltBusinessIdType
-import com.telnyx.sdk.models.brand.BrandIdentityStatus
-import com.telnyx.sdk.models.brand.EntityType
-import com.telnyx.sdk.models.brand.StockExchange
-import com.telnyx.sdk.models.brand.TelnyxBrand
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

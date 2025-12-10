@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileCreatePar
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileCreateResponse
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileDeleteParams
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileDeleteResponse
+import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileListPage
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileListParams
-import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileListResponse
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileRetrieveParams
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileRetrieveResponse
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileUpdateParams
@@ -99,21 +99,21 @@ interface OutboundVoiceProfileService {
     ): OutboundVoiceProfileUpdateResponse
 
     /** Get all outbound voice profiles belonging to the user that match the given filters. */
-    fun list(): OutboundVoiceProfileListResponse = list(OutboundVoiceProfileListParams.none())
+    fun list(): OutboundVoiceProfileListPage = list(OutboundVoiceProfileListParams.none())
 
     /** @see list */
     fun list(
         params: OutboundVoiceProfileListParams = OutboundVoiceProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): OutboundVoiceProfileListResponse
+    ): OutboundVoiceProfileListPage
 
     /** @see list */
     fun list(
         params: OutboundVoiceProfileListParams = OutboundVoiceProfileListParams.none()
-    ): OutboundVoiceProfileListResponse = list(params, RequestOptions.none())
+    ): OutboundVoiceProfileListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): OutboundVoiceProfileListResponse =
+    fun list(requestOptions: RequestOptions): OutboundVoiceProfileListPage =
         list(OutboundVoiceProfileListParams.none(), requestOptions)
 
     /** Deletes an existing outbound voice profile. */
@@ -266,7 +266,7 @@ interface OutboundVoiceProfileService {
          * as [OutboundVoiceProfileService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<OutboundVoiceProfileListResponse> =
+        fun list(): HttpResponseFor<OutboundVoiceProfileListPage> =
             list(OutboundVoiceProfileListParams.none())
 
         /** @see list */
@@ -274,19 +274,17 @@ interface OutboundVoiceProfileService {
         fun list(
             params: OutboundVoiceProfileListParams = OutboundVoiceProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<OutboundVoiceProfileListResponse>
+        ): HttpResponseFor<OutboundVoiceProfileListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: OutboundVoiceProfileListParams = OutboundVoiceProfileListParams.none()
-        ): HttpResponseFor<OutboundVoiceProfileListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<OutboundVoiceProfileListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<OutboundVoiceProfileListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<OutboundVoiceProfileListPage> =
             list(OutboundVoiceProfileListParams.none(), requestOptions)
 
         /**

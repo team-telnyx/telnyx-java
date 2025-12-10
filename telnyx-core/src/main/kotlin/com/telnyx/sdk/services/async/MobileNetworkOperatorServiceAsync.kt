@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListPageAsync
 import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListParams
-import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -31,22 +31,24 @@ interface MobileNetworkOperatorServiceAsync {
      * can be used as a support resource that can be related to other resources or become a
      * configuration option.
      */
-    fun list(): CompletableFuture<MobileNetworkOperatorListResponse> =
+    fun list(): CompletableFuture<MobileNetworkOperatorListPageAsync> =
         list(MobileNetworkOperatorListParams.none())
 
     /** @see list */
     fun list(
         params: MobileNetworkOperatorListParams = MobileNetworkOperatorListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MobileNetworkOperatorListResponse>
+    ): CompletableFuture<MobileNetworkOperatorListPageAsync>
 
     /** @see list */
     fun list(
         params: MobileNetworkOperatorListParams = MobileNetworkOperatorListParams.none()
-    ): CompletableFuture<MobileNetworkOperatorListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<MobileNetworkOperatorListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<MobileNetworkOperatorListResponse> =
+    fun list(
+        requestOptions: RequestOptions
+    ): CompletableFuture<MobileNetworkOperatorListPageAsync> =
         list(MobileNetworkOperatorListParams.none(), requestOptions)
 
     /**
@@ -68,25 +70,25 @@ interface MobileNetworkOperatorServiceAsync {
          * Returns a raw HTTP response for `get /mobile_network_operators`, but is otherwise the
          * same as [MobileNetworkOperatorServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<MobileNetworkOperatorListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<MobileNetworkOperatorListPageAsync>> =
             list(MobileNetworkOperatorListParams.none())
 
         /** @see list */
         fun list(
             params: MobileNetworkOperatorListParams = MobileNetworkOperatorListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MobileNetworkOperatorListResponse>>
+        ): CompletableFuture<HttpResponseFor<MobileNetworkOperatorListPageAsync>>
 
         /** @see list */
         fun list(
             params: MobileNetworkOperatorListParams = MobileNetworkOperatorListParams.none()
-        ): CompletableFuture<HttpResponseFor<MobileNetworkOperatorListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MobileNetworkOperatorListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<MobileNetworkOperatorListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MobileNetworkOperatorListPageAsync>> =
             list(MobileNetworkOperatorListParams.none(), requestOptions)
     }
 }

@@ -5,8 +5,6 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.accessipranges.AccessIpRangeCreateParams
-import com.telnyx.sdk.models.accessipranges.AccessIpRangeListParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -46,21 +44,10 @@ internal class AccessIpRangeServiceAsyncTest {
                 .build()
         val accessIpRangeServiceAsync = client.accessIpRanges()
 
-        val accessIpRangesFuture =
-            accessIpRangeServiceAsync.list(
-                AccessIpRangeListParams.builder()
-                    .filter(
-                        AccessIpRangeListParams.Filter.builder()
-                            .cidrBlock("string")
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                    .page(AccessIpRangeListParams.Page.builder().number(0L).size(250L).build())
-                    .build()
-            )
+        val pageFuture = accessIpRangeServiceAsync.list()
 
-        val accessIpRanges = accessIpRangesFuture.get()
-        accessIpRanges.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

@@ -22,7 +22,7 @@ internal class SimCardActionTest {
                 .status(
                     SimCardAction.Status.builder()
                         .reason("The data limit was exceeded.")
-                        .value(SimCardAction.Status.Value_.COMPLETED)
+                        .value(SimCardAction.Status.SimCardActionStatusValue.COMPLETED)
                         .build()
                 )
                 .updatedAt("2018-02-02T22:25:27.521Z")
@@ -38,7 +38,7 @@ internal class SimCardActionTest {
             .contains(
                 SimCardAction.Status.builder()
                     .reason("The data limit was exceeded.")
-                    .value(SimCardAction.Status.Value_.COMPLETED)
+                    .value(SimCardAction.Status.SimCardActionStatusValue.COMPLETED)
                     .build()
             )
         assertThat(simCardAction.updatedAt()).contains("2018-02-02T22:25:27.521Z")
@@ -58,7 +58,7 @@ internal class SimCardActionTest {
                 .status(
                     SimCardAction.Status.builder()
                         .reason("The data limit was exceeded.")
-                        .value(SimCardAction.Status.Value_.COMPLETED)
+                        .value(SimCardAction.Status.SimCardActionStatusValue.COMPLETED)
                         .build()
                 )
                 .updatedAt("2018-02-02T22:25:27.521Z")

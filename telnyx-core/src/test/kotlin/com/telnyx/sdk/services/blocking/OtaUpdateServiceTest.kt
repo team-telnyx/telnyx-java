@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.otaupdates.OtaUpdateListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -37,20 +36,8 @@ internal class OtaUpdateServiceTest {
                 .build()
         val otaUpdateService = client.otaUpdates()
 
-        val otaUpdates =
-            otaUpdateService.list(
-                OtaUpdateListParams.builder()
-                    .filter(
-                        OtaUpdateListParams.Filter.builder()
-                            .simCardId("sim_card_id")
-                            .status(OtaUpdateListParams.Filter.Status.IN_PROGRESS)
-                            .type(OtaUpdateListParams.Filter.Type.SIM_CARD_NETWORK_PREFERENCES)
-                            .build()
-                    )
-                    .page(OtaUpdateListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val page = otaUpdateService.list()
 
-        otaUpdates.validate()
+        page.response().validate()
     }
 }

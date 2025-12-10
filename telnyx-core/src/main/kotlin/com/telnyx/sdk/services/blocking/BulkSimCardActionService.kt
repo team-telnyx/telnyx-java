@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionListPage
 import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionListParams
-import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionListResponse
 import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionRetrieveParams
 import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionRetrieveResponse
 import java.util.function.Consumer
@@ -65,21 +65,21 @@ interface BulkSimCardActionService {
      * This API lists a paginated collection of bulk SIM card actions. A bulk SIM card action
      * contains details about a collection of individual SIM card actions.
      */
-    fun list(): BulkSimCardActionListResponse = list(BulkSimCardActionListParams.none())
+    fun list(): BulkSimCardActionListPage = list(BulkSimCardActionListParams.none())
 
     /** @see list */
     fun list(
         params: BulkSimCardActionListParams = BulkSimCardActionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BulkSimCardActionListResponse
+    ): BulkSimCardActionListPage
 
     /** @see list */
     fun list(
         params: BulkSimCardActionListParams = BulkSimCardActionListParams.none()
-    ): BulkSimCardActionListResponse = list(params, RequestOptions.none())
+    ): BulkSimCardActionListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): BulkSimCardActionListResponse =
+    fun list(requestOptions: RequestOptions): BulkSimCardActionListPage =
         list(BulkSimCardActionListParams.none(), requestOptions)
 
     /**
@@ -149,7 +149,7 @@ interface BulkSimCardActionService {
          * as [BulkSimCardActionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<BulkSimCardActionListResponse> =
+        fun list(): HttpResponseFor<BulkSimCardActionListPage> =
             list(BulkSimCardActionListParams.none())
 
         /** @see list */
@@ -157,17 +157,17 @@ interface BulkSimCardActionService {
         fun list(
             params: BulkSimCardActionListParams = BulkSimCardActionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BulkSimCardActionListResponse>
+        ): HttpResponseFor<BulkSimCardActionListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: BulkSimCardActionListParams = BulkSimCardActionListParams.none()
-        ): HttpResponseFor<BulkSimCardActionListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<BulkSimCardActionListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<BulkSimCardActionListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<BulkSimCardActionListPage> =
             list(BulkSimCardActionListParams.none(), requestOptions)
     }
 }

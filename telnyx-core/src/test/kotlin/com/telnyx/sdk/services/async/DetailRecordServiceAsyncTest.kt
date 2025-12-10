@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.detailrecords.DetailRecordListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -22,21 +21,9 @@ internal class DetailRecordServiceAsyncTest {
                 .build()
         val detailRecordServiceAsync = client.detailRecords()
 
-        val detailRecordsFuture =
-            detailRecordServiceAsync.list(
-                DetailRecordListParams.builder()
-                    .filter(
-                        DetailRecordListParams.Filter.builder()
-                            .recordType(DetailRecordListParams.Filter.RecordType.AI_VOICE_ASSISTANT)
-                            .dateRange(DetailRecordListParams.Filter.DateRange.YESTERDAY)
-                            .build()
-                    )
-                    .page(DetailRecordListParams.Page.builder().number(1).size(1).build())
-                    .addSort("string")
-                    .build()
-            )
+        val pageFuture = detailRecordServiceAsync.list()
 
-        val detailRecords = detailRecordsFuture.get()
-        detailRecords.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

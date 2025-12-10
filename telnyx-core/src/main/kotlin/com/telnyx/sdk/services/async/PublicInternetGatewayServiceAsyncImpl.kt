@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayCreateP
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayCreateResponse
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayDeleteParams
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayDeleteResponse
+import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayListPageAsync
+import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayListPageResponse
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayListParams
-import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayListResponse
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayRetrieveParams
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -62,7 +63,7 @@ internal constructor(private val clientOptions: ClientOptions) : PublicInternetG
     override fun list(
         params: PublicInternetGatewayListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PublicInternetGatewayListResponse> =
+    ): CompletableFuture<PublicInternetGatewayListPageAsync> =
         // get /public_internet_gateways
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -150,13 +151,13 @@ internal constructor(private val clientOptions: ClientOptions) : PublicInternetG
                 }
         }
 
-        private val listHandler: Handler<PublicInternetGatewayListResponse> =
-            jsonHandler<PublicInternetGatewayListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PublicInternetGatewayListPageResponse> =
+            jsonHandler<PublicInternetGatewayListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PublicInternetGatewayListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PublicInternetGatewayListResponse>> {
+        ): CompletableFuture<HttpResponseFor<PublicInternetGatewayListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -175,6 +176,14 @@ internal constructor(private val clientOptions: ClientOptions) : PublicInternetG
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                PublicInternetGatewayListPageAsync.builder()
+                                    .service(PublicInternetGatewayServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

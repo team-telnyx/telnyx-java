@@ -25,8 +25,8 @@ internal class WirelessBlocklistValueListResponseTest {
                 .meta(
                     PaginationMeta.builder()
                         .pageNumber(2L)
-                        .pageSize(25L)
                         .totalPages(3L)
+                        .pageSize(25L)
                         .totalResults(55L)
                         .build()
                 )
@@ -47,8 +47,8 @@ internal class WirelessBlocklistValueListResponseTest {
             .contains(
                 PaginationMeta.builder()
                     .pageNumber(2L)
-                    .pageSize(25L)
                     .totalPages(3L)
+                    .pageSize(25L)
                     .totalResults(55L)
                     .build()
             )
@@ -70,8 +70,8 @@ internal class WirelessBlocklistValueListResponseTest {
                 .meta(
                     PaginationMeta.builder()
                         .pageNumber(2L)
-                        .pageSize(25L)
                         .totalPages(3L)
+                        .pageSize(25L)
                         .totalResults(55L)
                         .build()
                 )

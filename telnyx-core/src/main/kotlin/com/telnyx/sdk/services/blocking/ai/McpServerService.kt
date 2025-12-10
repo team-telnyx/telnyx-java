@@ -10,8 +10,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerDeleteParams
+import com.telnyx.sdk.models.ai.mcpservers.McpServerListPage
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerListResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerUpdateParams
@@ -107,21 +107,20 @@ interface McpServerService {
         update(mcpServerId, McpServerUpdateParams.none(), requestOptions)
 
     /** Retrieve a list of MCP servers. */
-    fun list(): List<McpServerListResponse> = list(McpServerListParams.none())
+    fun list(): McpServerListPage = list(McpServerListParams.none())
 
     /** @see list */
     fun list(
         params: McpServerListParams = McpServerListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): List<McpServerListResponse>
+    ): McpServerListPage
 
     /** @see list */
-    fun list(
-        params: McpServerListParams = McpServerListParams.none()
-    ): List<McpServerListResponse> = list(params, RequestOptions.none())
+    fun list(params: McpServerListParams = McpServerListParams.none()): McpServerListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): List<McpServerListResponse> =
+    fun list(requestOptions: RequestOptions): McpServerListPage =
         list(McpServerListParams.none(), requestOptions)
 
     /** Delete a specific MCP server. */
@@ -271,24 +270,24 @@ interface McpServerService {
          * [McpServerService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<List<McpServerListResponse>> = list(McpServerListParams.none())
+        fun list(): HttpResponseFor<McpServerListPage> = list(McpServerListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: McpServerListParams = McpServerListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<List<McpServerListResponse>>
+        ): HttpResponseFor<McpServerListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: McpServerListParams = McpServerListParams.none()
-        ): HttpResponseFor<List<McpServerListResponse>> = list(params, RequestOptions.none())
+        ): HttpResponseFor<McpServerListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<List<McpServerListResponse>> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<McpServerListPage> =
             list(McpServerListParams.none(), requestOptions)
 
         /**

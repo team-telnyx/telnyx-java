@@ -15,12 +15,12 @@ internal class StreamingStartedWebhookEventTest {
         val streamingStartedWebhookEvent =
             StreamingStartedWebhookEvent.builder()
                 .data(
-                    StreamingStartedWebhookEvent.Data.builder()
+                    CallStreamingStarted.builder()
                         .id("7d743d69-f7e8-4761-b7d4-8cacf9d3c031")
-                        .eventType(StreamingStartedWebhookEvent.Data.EventType.STREAMING_STARTED)
+                        .eventType(CallStreamingStarted.EventType.STREAMING_STARTED)
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:06:32.059436Z"))
                         .payload(
-                            StreamingStartedWebhookEvent.Data.Payload.builder()
+                            CallStreamingStarted.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -29,19 +29,19 @@ internal class StreamingStartedWebhookEventTest {
                                 .streamUrl("wss://www.example.com/websocket")
                                 .build()
                         )
-                        .recordType(StreamingStartedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallStreamingStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(streamingStartedWebhookEvent.data())
             .contains(
-                StreamingStartedWebhookEvent.Data.builder()
+                CallStreamingStarted.builder()
                     .id("7d743d69-f7e8-4761-b7d4-8cacf9d3c031")
-                    .eventType(StreamingStartedWebhookEvent.Data.EventType.STREAMING_STARTED)
+                    .eventType(CallStreamingStarted.EventType.STREAMING_STARTED)
                     .occurredAt(OffsetDateTime.parse("2021-12-15T14:06:32.059436Z"))
                     .payload(
-                        StreamingStartedWebhookEvent.Data.Payload.builder()
+                        CallStreamingStarted.Payload.builder()
                             .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                             .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                             .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -50,7 +50,7 @@ internal class StreamingStartedWebhookEventTest {
                             .streamUrl("wss://www.example.com/websocket")
                             .build()
                     )
-                    .recordType(StreamingStartedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallStreamingStarted.RecordType.EVENT)
                     .build()
             )
     }
@@ -61,12 +61,12 @@ internal class StreamingStartedWebhookEventTest {
         val streamingStartedWebhookEvent =
             StreamingStartedWebhookEvent.builder()
                 .data(
-                    StreamingStartedWebhookEvent.Data.builder()
+                    CallStreamingStarted.builder()
                         .id("7d743d69-f7e8-4761-b7d4-8cacf9d3c031")
-                        .eventType(StreamingStartedWebhookEvent.Data.EventType.STREAMING_STARTED)
+                        .eventType(CallStreamingStarted.EventType.STREAMING_STARTED)
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:06:32.059436Z"))
                         .payload(
-                            StreamingStartedWebhookEvent.Data.Payload.builder()
+                            CallStreamingStarted.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -75,7 +75,7 @@ internal class StreamingStartedWebhookEventTest {
                                 .streamUrl("wss://www.example.com/websocket")
                                 .build()
                         )
-                        .recordType(StreamingStartedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallStreamingStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()
