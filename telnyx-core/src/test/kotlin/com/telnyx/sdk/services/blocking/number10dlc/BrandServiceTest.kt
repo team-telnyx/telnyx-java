@@ -4,14 +4,14 @@ package com.telnyx.sdk.services.blocking.number10dlc
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.brand.AltBusinessIdType
-import com.telnyx.sdk.models.brand.BrandIdentityStatus
-import com.telnyx.sdk.models.brand.EntityType
-import com.telnyx.sdk.models.brand.StockExchange
-import com.telnyx.sdk.models.brand.Vertical
+import com.telnyx.sdk.models.number10dlc.brand.AltBusinessIdType
 import com.telnyx.sdk.models.number10dlc.brand.BrandCreateParams
-import com.telnyx.sdk.models.number10dlc.brand.BrandListParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandIdentityStatus
+import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
+import com.telnyx.sdk.models.number10dlc.brand.EntityType
+import com.telnyx.sdk.models.number10dlc.brand.StockExchange
+import com.telnyx.sdk.models.number10dlc.brand.Vertical
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -132,22 +132,9 @@ internal class BrandServiceTest {
                 .build()
         val brandService = client.number10dlc().brand()
 
-        val brands =
-            brandService.list(
-                BrandListParams.builder()
-                    .brandId("826ef77a-348c-445b-81a5-a9b13c68fbfe")
-                    .country("country")
-                    .displayName("displayName")
-                    .entityType("entityType")
-                    .page(1L)
-                    .recordsPerPage(0L)
-                    .sort(BrandListParams.Sort.ASSIGNED_CAMPAIGNS_COUNT)
-                    .state("state")
-                    .tcrBrandId("BBAND1")
-                    .build()
-            )
+        val page = brandService.list()
 
-        brands.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -165,7 +152,7 @@ internal class BrandServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun _2faEmail() {
+    fun getFeedback() {
         val client =
             TelnyxOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -173,12 +160,14 @@ internal class BrandServiceTest {
                 .build()
         val brandService = client.number10dlc().brand()
 
-        brandService._2faEmail("brandId")
+        val response = brandService.getFeedback("brandId")
+
+        response.validate()
     }
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun updateRevet() {
+    fun resend2faEmail() {
         val client =
             TelnyxOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -186,7 +175,41 @@ internal class BrandServiceTest {
                 .build()
         val brandService = client.number10dlc().brand()
 
-        val telnyxBrand = brandService.updateRevet("brandId")
+        brandService.resend2faEmail("brandId")
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun retrieveSmsOtpStatus() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val brandService = client.number10dlc().brand()
+
+        val response =
+            brandService.retrieveSmsOtpStatus(
+                BrandRetrieveSmsOtpStatusParams.builder()
+                    .referenceId("OTP4B2001")
+                    .brandId("B123ABC")
+                    .build()
+            )
+
+        response.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun revet() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val brandService = client.number10dlc().brand()
+
+        val telnyxBrand = brandService.revet("brandId")
 
         telnyxBrand.validate()
     }

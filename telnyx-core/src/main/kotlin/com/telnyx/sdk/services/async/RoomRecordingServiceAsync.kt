@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingDeleteBulkParams
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingDeleteBulkResponse
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingDeleteParams
+import com.telnyx.sdk.models.roomrecordings.RoomRecordingListPageAsync
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingListParams
-import com.telnyx.sdk.models.roomrecordings.RoomRecordingListResponse
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingRetrieveParams
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -68,21 +68,21 @@ interface RoomRecordingServiceAsync {
         retrieve(roomRecordingId, RoomRecordingRetrieveParams.none(), requestOptions)
 
     /** View a list of room recordings. */
-    fun list(): CompletableFuture<RoomRecordingListResponse> = list(RoomRecordingListParams.none())
+    fun list(): CompletableFuture<RoomRecordingListPageAsync> = list(RoomRecordingListParams.none())
 
     /** @see list */
     fun list(
         params: RoomRecordingListParams = RoomRecordingListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RoomRecordingListResponse>
+    ): CompletableFuture<RoomRecordingListPageAsync>
 
     /** @see list */
     fun list(
         params: RoomRecordingListParams = RoomRecordingListParams.none()
-    ): CompletableFuture<RoomRecordingListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<RoomRecordingListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<RoomRecordingListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<RoomRecordingListPageAsync> =
         list(RoomRecordingListParams.none(), requestOptions)
 
     /** Synchronously delete a Room Recording. */
@@ -201,25 +201,25 @@ interface RoomRecordingServiceAsync {
          * Returns a raw HTTP response for `get /room_recordings`, but is otherwise the same as
          * [RoomRecordingServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<RoomRecordingListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<RoomRecordingListPageAsync>> =
             list(RoomRecordingListParams.none())
 
         /** @see list */
         fun list(
             params: RoomRecordingListParams = RoomRecordingListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RoomRecordingListResponse>>
+        ): CompletableFuture<HttpResponseFor<RoomRecordingListPageAsync>>
 
         /** @see list */
         fun list(
             params: RoomRecordingListParams = RoomRecordingListParams.none()
-        ): CompletableFuture<HttpResponseFor<RoomRecordingListResponse>> =
+        ): CompletableFuture<HttpResponseFor<RoomRecordingListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<RoomRecordingListResponse>> =
+        ): CompletableFuture<HttpResponseFor<RoomRecordingListPageAsync>> =
             list(RoomRecordingListParams.none(), requestOptions)
 
         /**

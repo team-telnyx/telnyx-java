@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async.number10dlc
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
-import com.telnyx.sdk.models.number10dlc.campaignbuilder.CampaignBuilderCampaignBuilderParams
+import com.telnyx.sdk.models.number10dlc.campaign.TelnyxCampaignCsp
+import com.telnyx.sdk.models.number10dlc.campaignbuilder.CampaignBuilderSubmitParams
 import com.telnyx.sdk.services.async.number10dlc.campaignbuilder.BrandServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -37,13 +37,12 @@ interface CampaignBuilderServiceAsync {
      * Costs section for
      * details](https://developers.telnyx.com/docs/messaging/10dlc/concepts#10dlc-costs)).
      */
-    fun campaignBuilder(
-        params: CampaignBuilderCampaignBuilderParams
-    ): CompletableFuture<TelnyxCampaignCsp> = campaignBuilder(params, RequestOptions.none())
+    fun submit(params: CampaignBuilderSubmitParams): CompletableFuture<TelnyxCampaignCsp> =
+        submit(params, RequestOptions.none())
 
-    /** @see campaignBuilder */
-    fun campaignBuilder(
-        params: CampaignBuilderCampaignBuilderParams,
+    /** @see submit */
+    fun submit(
+        params: CampaignBuilderSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<TelnyxCampaignCsp>
 
@@ -66,16 +65,16 @@ interface CampaignBuilderServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post /10dlc/campaignBuilder`, but is otherwise the same
-         * as [CampaignBuilderServiceAsync.campaignBuilder].
+         * as [CampaignBuilderServiceAsync.submit].
          */
-        fun campaignBuilder(
-            params: CampaignBuilderCampaignBuilderParams
+        fun submit(
+            params: CampaignBuilderSubmitParams
         ): CompletableFuture<HttpResponseFor<TelnyxCampaignCsp>> =
-            campaignBuilder(params, RequestOptions.none())
+            submit(params, RequestOptions.none())
 
-        /** @see campaignBuilder */
-        fun campaignBuilder(
-            params: CampaignBuilderCampaignBuilderParams,
+        /** @see submit */
+        fun submit(
+            params: CampaignBuilderSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<TelnyxCampaignCsp>>
     }

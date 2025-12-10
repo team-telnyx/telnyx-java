@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.number10dlc.campaignbuilder.brand.BrandRetrieveParams
-import com.telnyx.sdk.models.number10dlc.campaignbuilder.brand.BrandRetrieveResponse
+import com.telnyx.sdk.models.number10dlc.campaignbuilder.brand.BrandQualifyByUsecaseParams
+import com.telnyx.sdk.models.number10dlc.campaignbuilder.brand.BrandQualifyByUsecaseResponse
 import java.util.function.Consumer
 
 interface BrandService {
@@ -28,25 +28,28 @@ interface BrandService {
      * This endpoint allows you to see whether or not the supplied brand is suitable for your
      * desired campaign use case.
      */
-    fun retrieve(usecase: String, params: BrandRetrieveParams): BrandRetrieveResponse =
-        retrieve(usecase, params, RequestOptions.none())
-
-    /** @see retrieve */
-    fun retrieve(
+    fun qualifyByUsecase(
         usecase: String,
-        params: BrandRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandRetrieveResponse = retrieve(params.toBuilder().usecase(usecase).build(), requestOptions)
+        params: BrandQualifyByUsecaseParams,
+    ): BrandQualifyByUsecaseResponse = qualifyByUsecase(usecase, params, RequestOptions.none())
 
-    /** @see retrieve */
-    fun retrieve(params: BrandRetrieveParams): BrandRetrieveResponse =
-        retrieve(params, RequestOptions.none())
-
-    /** @see retrieve */
-    fun retrieve(
-        params: BrandRetrieveParams,
+    /** @see qualifyByUsecase */
+    fun qualifyByUsecase(
+        usecase: String,
+        params: BrandQualifyByUsecaseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandRetrieveResponse
+    ): BrandQualifyByUsecaseResponse =
+        qualifyByUsecase(params.toBuilder().usecase(usecase).build(), requestOptions)
+
+    /** @see qualifyByUsecase */
+    fun qualifyByUsecase(params: BrandQualifyByUsecaseParams): BrandQualifyByUsecaseResponse =
+        qualifyByUsecase(params, RequestOptions.none())
+
+    /** @see qualifyByUsecase */
+    fun qualifyByUsecase(
+        params: BrandQualifyByUsecaseParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BrandQualifyByUsecaseResponse
 
     /** A view of [BrandService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -61,33 +64,36 @@ interface BrandService {
         /**
          * Returns a raw HTTP response for `get
          * /10dlc/campaignBuilder/brand/{brandId}/usecase/{usecase}`, but is otherwise the same as
-         * [BrandService.retrieve].
+         * [BrandService.qualifyByUsecase].
          */
         @MustBeClosed
-        fun retrieve(
+        fun qualifyByUsecase(
             usecase: String,
-            params: BrandRetrieveParams,
-        ): HttpResponseFor<BrandRetrieveResponse> = retrieve(usecase, params, RequestOptions.none())
+            params: BrandQualifyByUsecaseParams,
+        ): HttpResponseFor<BrandQualifyByUsecaseResponse> =
+            qualifyByUsecase(usecase, params, RequestOptions.none())
 
-        /** @see retrieve */
+        /** @see qualifyByUsecase */
         @MustBeClosed
-        fun retrieve(
+        fun qualifyByUsecase(
             usecase: String,
-            params: BrandRetrieveParams,
+            params: BrandQualifyByUsecaseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandRetrieveResponse> =
-            retrieve(params.toBuilder().usecase(usecase).build(), requestOptions)
+        ): HttpResponseFor<BrandQualifyByUsecaseResponse> =
+            qualifyByUsecase(params.toBuilder().usecase(usecase).build(), requestOptions)
 
-        /** @see retrieve */
+        /** @see qualifyByUsecase */
         @MustBeClosed
-        fun retrieve(params: BrandRetrieveParams): HttpResponseFor<BrandRetrieveResponse> =
-            retrieve(params, RequestOptions.none())
+        fun qualifyByUsecase(
+            params: BrandQualifyByUsecaseParams
+        ): HttpResponseFor<BrandQualifyByUsecaseResponse> =
+            qualifyByUsecase(params, RequestOptions.none())
 
-        /** @see retrieve */
+        /** @see qualifyByUsecase */
         @MustBeClosed
-        fun retrieve(
-            params: BrandRetrieveParams,
+        fun qualifyByUsecase(
+            params: BrandQualifyByUsecaseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandRetrieveResponse>
+        ): HttpResponseFor<BrandQualifyByUsecaseResponse>
     }
 }

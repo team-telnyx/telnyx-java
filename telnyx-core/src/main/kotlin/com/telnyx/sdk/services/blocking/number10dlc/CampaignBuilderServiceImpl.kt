@@ -15,8 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
-import com.telnyx.sdk.models.number10dlc.campaignbuilder.CampaignBuilderCampaignBuilderParams
+import com.telnyx.sdk.models.number10dlc.campaign.TelnyxCampaignCsp
+import com.telnyx.sdk.models.number10dlc.campaignbuilder.CampaignBuilderSubmitParams
 import com.telnyx.sdk.services.blocking.number10dlc.campaignbuilder.BrandService
 import com.telnyx.sdk.services.blocking.number10dlc.campaignbuilder.BrandServiceImpl
 import java.util.function.Consumer
@@ -37,12 +37,12 @@ class CampaignBuilderServiceImpl internal constructor(private val clientOptions:
 
     override fun brand(): BrandService = brand
 
-    override fun campaignBuilder(
-        params: CampaignBuilderCampaignBuilderParams,
+    override fun submit(
+        params: CampaignBuilderSubmitParams,
         requestOptions: RequestOptions,
     ): TelnyxCampaignCsp =
         // post /10dlc/campaignBuilder
-        withRawResponse().campaignBuilder(params, requestOptions).parse()
+        withRawResponse().submit(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CampaignBuilderService.WithRawResponse {
@@ -63,11 +63,11 @@ class CampaignBuilderServiceImpl internal constructor(private val clientOptions:
 
         override fun brand(): BrandService.WithRawResponse = brand
 
-        private val campaignBuilderHandler: Handler<TelnyxCampaignCsp> =
+        private val submitHandler: Handler<TelnyxCampaignCsp> =
             jsonHandler<TelnyxCampaignCsp>(clientOptions.jsonMapper)
 
-        override fun campaignBuilder(
-            params: CampaignBuilderCampaignBuilderParams,
+        override fun submit(
+            params: CampaignBuilderSubmitParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<TelnyxCampaignCsp> {
             val request =
@@ -82,7 +82,7 @@ class CampaignBuilderServiceImpl internal constructor(private val clientOptions:
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { campaignBuilderHandler.handle(it) }
+                    .use { submitHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

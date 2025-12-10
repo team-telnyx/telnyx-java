@@ -5,10 +5,10 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.portouts.PortoutListPageAsync
 import com.telnyx.sdk.models.portouts.PortoutListParams
 import com.telnyx.sdk.models.portouts.PortoutListRejectionCodesParams
 import com.telnyx.sdk.models.portouts.PortoutListRejectionCodesResponse
-import com.telnyx.sdk.models.portouts.PortoutListResponse
 import com.telnyx.sdk.models.portouts.PortoutRetrieveParams
 import com.telnyx.sdk.models.portouts.PortoutRetrieveResponse
 import com.telnyx.sdk.models.portouts.PortoutUpdateStatusParams
@@ -78,21 +78,21 @@ interface PortoutServiceAsync {
         retrieve(id, PortoutRetrieveParams.none(), requestOptions)
 
     /** Returns the portout requests according to filters */
-    fun list(): CompletableFuture<PortoutListResponse> = list(PortoutListParams.none())
+    fun list(): CompletableFuture<PortoutListPageAsync> = list(PortoutListParams.none())
 
     /** @see list */
     fun list(
         params: PortoutListParams = PortoutListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PortoutListResponse>
+    ): CompletableFuture<PortoutListPageAsync>
 
     /** @see list */
     fun list(
         params: PortoutListParams = PortoutListParams.none()
-    ): CompletableFuture<PortoutListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<PortoutListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<PortoutListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<PortoutListPageAsync> =
         list(PortoutListParams.none(), requestOptions)
 
     /** Given a port-out ID, list rejection codes that are eligible for that port-out */
@@ -228,25 +228,25 @@ interface PortoutServiceAsync {
          * Returns a raw HTTP response for `get /portouts`, but is otherwise the same as
          * [PortoutServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<PortoutListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<PortoutListPageAsync>> =
             list(PortoutListParams.none())
 
         /** @see list */
         fun list(
             params: PortoutListParams = PortoutListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PortoutListResponse>>
+        ): CompletableFuture<HttpResponseFor<PortoutListPageAsync>>
 
         /** @see list */
         fun list(
             params: PortoutListParams = PortoutListParams.none()
-        ): CompletableFuture<HttpResponseFor<PortoutListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PortoutListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<PortoutListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PortoutListPageAsync>> =
             list(PortoutListParams.none(), requestOptions)
 
         /**

@@ -16,8 +16,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.messaging.rcs.agents.AgentListPage
+import com.telnyx.sdk.models.messaging.rcs.agents.AgentListPageResponse
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentListParams
-import com.telnyx.sdk.models.messaging.rcs.agents.AgentListResponse
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentRetrieveParams
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentUpdateParams
 import com.telnyx.sdk.models.rcsagents.RcsAgentResponse
@@ -50,7 +51,7 @@ class AgentServiceImpl internal constructor(private val clientOptions: ClientOpt
         // patch /messaging/rcs/agents/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: AgentListParams, requestOptions: RequestOptions): AgentListResponse =
+    override fun list(params: AgentListParams, requestOptions: RequestOptions): AgentListPage =
         // get /messaging/rcs/agents
         withRawResponse().list(params, requestOptions).parse()
 
@@ -128,13 +129,13 @@ class AgentServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val listHandler: Handler<AgentListResponse> =
-            jsonHandler<AgentListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AgentListPageResponse> =
+            jsonHandler<AgentListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AgentListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AgentListResponse> {
+        ): HttpResponseFor<AgentListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -151,6 +152,13 @@ class AgentServiceImpl internal constructor(private val clientOptions: ClientOpt
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        AgentListPage.builder()
+                            .service(AgentServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

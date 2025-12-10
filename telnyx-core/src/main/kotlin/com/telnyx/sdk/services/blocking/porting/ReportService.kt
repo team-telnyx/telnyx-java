@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.porting.reports.ReportCreateParams
 import com.telnyx.sdk.models.porting.reports.ReportCreateResponse
+import com.telnyx.sdk.models.porting.reports.ReportListPage
 import com.telnyx.sdk.models.porting.reports.ReportListParams
-import com.telnyx.sdk.models.porting.reports.ReportListResponse
 import com.telnyx.sdk.models.porting.reports.ReportRetrieveParams
 import com.telnyx.sdk.models.porting.reports.ReportRetrieveResponse
 import java.util.function.Consumer
@@ -69,20 +69,20 @@ interface ReportService {
         retrieve(id, ReportRetrieveParams.none(), requestOptions)
 
     /** List the reports generated about porting operations. */
-    fun list(): ReportListResponse = list(ReportListParams.none())
+    fun list(): ReportListPage = list(ReportListParams.none())
 
     /** @see list */
     fun list(
         params: ReportListParams = ReportListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ReportListResponse
+    ): ReportListPage
 
     /** @see list */
-    fun list(params: ReportListParams = ReportListParams.none()): ReportListResponse =
+    fun list(params: ReportListParams = ReportListParams.none()): ReportListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): ReportListResponse =
+    fun list(requestOptions: RequestOptions): ReportListPage =
         list(ReportListParams.none(), requestOptions)
 
     /** A view of [ReportService] that provides access to raw HTTP responses for each method. */
@@ -158,25 +158,24 @@ interface ReportService {
          * Returns a raw HTTP response for `get /porting/reports`, but is otherwise the same as
          * [ReportService.list].
          */
-        @MustBeClosed
-        fun list(): HttpResponseFor<ReportListResponse> = list(ReportListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<ReportListPage> = list(ReportListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ReportListParams = ReportListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ReportListResponse>
+        ): HttpResponseFor<ReportListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ReportListParams = ReportListParams.none()
-        ): HttpResponseFor<ReportListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<ReportListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<ReportListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ReportListPage> =
             list(ReportListParams.none(), requestOptions)
     }
 }

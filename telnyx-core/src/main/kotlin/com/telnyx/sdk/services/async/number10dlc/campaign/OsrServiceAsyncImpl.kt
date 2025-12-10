@@ -15,8 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.number10dlc.campaign.osr.OsrRetrieveAttributesParams
-import com.telnyx.sdk.models.number10dlc.campaign.osr.OsrRetrieveAttributesResponse
+import com.telnyx.sdk.models.number10dlc.campaign.osr.OsrGetAttributesParams
+import com.telnyx.sdk.models.number10dlc.campaign.osr.OsrGetAttributesResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -33,12 +33,12 @@ class OsrServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): OsrServiceAsync =
         OsrServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun retrieveAttributes(
-        params: OsrRetrieveAttributesParams,
+    override fun getAttributes(
+        params: OsrGetAttributesParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<OsrRetrieveAttributesResponse> =
+    ): CompletableFuture<OsrGetAttributesResponse> =
         // get /10dlc/campaign/{campaignId}/osr/attributes
-        withRawResponse().retrieveAttributes(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().getAttributes(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         OsrServiceAsync.WithRawResponse {
@@ -53,13 +53,13 @@ class OsrServiceAsyncImpl internal constructor(private val clientOptions: Client
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val retrieveAttributesHandler: Handler<OsrRetrieveAttributesResponse> =
-            jsonHandler<OsrRetrieveAttributesResponse>(clientOptions.jsonMapper)
+        private val getAttributesHandler: Handler<OsrGetAttributesResponse> =
+            jsonHandler<OsrGetAttributesResponse>(clientOptions.jsonMapper)
 
-        override fun retrieveAttributes(
-            params: OsrRetrieveAttributesParams,
+        override fun getAttributes(
+            params: OsrGetAttributesParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<OsrRetrieveAttributesResponse>> {
+        ): CompletableFuture<HttpResponseFor<OsrGetAttributesResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("campaignId", params.campaignId().getOrNull())
@@ -76,7 +76,7 @@ class OsrServiceAsyncImpl internal constructor(private val clientOptions: Client
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { retrieveAttributesHandler.handle(it) }
+                            .use { getAttributesHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

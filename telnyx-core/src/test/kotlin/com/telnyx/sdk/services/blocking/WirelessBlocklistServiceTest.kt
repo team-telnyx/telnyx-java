@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistCreateParams
-import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistListParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -86,18 +85,9 @@ internal class WirelessBlocklistServiceTest {
                 .build()
         val wirelessBlocklistService = client.wirelessBlocklists()
 
-        val wirelessBlocklists =
-            wirelessBlocklistService.list(
-                WirelessBlocklistListParams.builder()
-                    .filterName("filter[name]")
-                    .filterType("filter[type]")
-                    .filterValues("filter[values]")
-                    .pageNumber(1L)
-                    .pageSize(1L)
-                    .build()
-            )
+        val page = wirelessBlocklistService.list()
 
-        wirelessBlocklists.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

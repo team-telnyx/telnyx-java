@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async.number10dlc.campaign
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.number10dlc.campaign.osr.OsrRetrieveAttributesParams
-import com.telnyx.sdk.models.number10dlc.campaign.osr.OsrRetrieveAttributesResponse
+import com.telnyx.sdk.models.number10dlc.campaign.osr.OsrGetAttributesParams
+import com.telnyx.sdk.models.number10dlc.campaign.osr.OsrGetAttributesResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -25,42 +25,40 @@ interface OsrServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OsrServiceAsync
 
     /** Get My Osr Campaign Attributes */
-    fun retrieveAttributes(campaignId: String): CompletableFuture<OsrRetrieveAttributesResponse> =
-        retrieveAttributes(campaignId, OsrRetrieveAttributesParams.none())
+    fun getAttributes(campaignId: String): CompletableFuture<OsrGetAttributesResponse> =
+        getAttributes(campaignId, OsrGetAttributesParams.none())
 
-    /** @see retrieveAttributes */
-    fun retrieveAttributes(
+    /** @see getAttributes */
+    fun getAttributes(
         campaignId: String,
-        params: OsrRetrieveAttributesParams = OsrRetrieveAttributesParams.none(),
+        params: OsrGetAttributesParams = OsrGetAttributesParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<OsrRetrieveAttributesResponse> =
-        retrieveAttributes(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+    ): CompletableFuture<OsrGetAttributesResponse> =
+        getAttributes(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-    /** @see retrieveAttributes */
-    fun retrieveAttributes(
+    /** @see getAttributes */
+    fun getAttributes(
         campaignId: String,
-        params: OsrRetrieveAttributesParams = OsrRetrieveAttributesParams.none(),
-    ): CompletableFuture<OsrRetrieveAttributesResponse> =
-        retrieveAttributes(campaignId, params, RequestOptions.none())
+        params: OsrGetAttributesParams = OsrGetAttributesParams.none(),
+    ): CompletableFuture<OsrGetAttributesResponse> =
+        getAttributes(campaignId, params, RequestOptions.none())
 
-    /** @see retrieveAttributes */
-    fun retrieveAttributes(
-        params: OsrRetrieveAttributesParams,
+    /** @see getAttributes */
+    fun getAttributes(
+        params: OsrGetAttributesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<OsrRetrieveAttributesResponse>
+    ): CompletableFuture<OsrGetAttributesResponse>
 
-    /** @see retrieveAttributes */
-    fun retrieveAttributes(
-        params: OsrRetrieveAttributesParams
-    ): CompletableFuture<OsrRetrieveAttributesResponse> =
-        retrieveAttributes(params, RequestOptions.none())
+    /** @see getAttributes */
+    fun getAttributes(params: OsrGetAttributesParams): CompletableFuture<OsrGetAttributesResponse> =
+        getAttributes(params, RequestOptions.none())
 
-    /** @see retrieveAttributes */
-    fun retrieveAttributes(
+    /** @see getAttributes */
+    fun getAttributes(
         campaignId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<OsrRetrieveAttributesResponse> =
-        retrieveAttributes(campaignId, OsrRetrieveAttributesParams.none(), requestOptions)
+    ): CompletableFuture<OsrGetAttributesResponse> =
+        getAttributes(campaignId, OsrGetAttributesParams.none(), requestOptions)
 
     /** A view of [OsrServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -74,45 +72,45 @@ interface OsrServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/osr/attributes`, but is
-         * otherwise the same as [OsrServiceAsync.retrieveAttributes].
+         * otherwise the same as [OsrServiceAsync.getAttributes].
          */
-        fun retrieveAttributes(
+        fun getAttributes(
             campaignId: String
-        ): CompletableFuture<HttpResponseFor<OsrRetrieveAttributesResponse>> =
-            retrieveAttributes(campaignId, OsrRetrieveAttributesParams.none())
+        ): CompletableFuture<HttpResponseFor<OsrGetAttributesResponse>> =
+            getAttributes(campaignId, OsrGetAttributesParams.none())
 
-        /** @see retrieveAttributes */
-        fun retrieveAttributes(
+        /** @see getAttributes */
+        fun getAttributes(
             campaignId: String,
-            params: OsrRetrieveAttributesParams = OsrRetrieveAttributesParams.none(),
+            params: OsrGetAttributesParams = OsrGetAttributesParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<OsrRetrieveAttributesResponse>> =
-            retrieveAttributes(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<OsrGetAttributesResponse>> =
+            getAttributes(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-        /** @see retrieveAttributes */
-        fun retrieveAttributes(
+        /** @see getAttributes */
+        fun getAttributes(
             campaignId: String,
-            params: OsrRetrieveAttributesParams = OsrRetrieveAttributesParams.none(),
-        ): CompletableFuture<HttpResponseFor<OsrRetrieveAttributesResponse>> =
-            retrieveAttributes(campaignId, params, RequestOptions.none())
+            params: OsrGetAttributesParams = OsrGetAttributesParams.none(),
+        ): CompletableFuture<HttpResponseFor<OsrGetAttributesResponse>> =
+            getAttributes(campaignId, params, RequestOptions.none())
 
-        /** @see retrieveAttributes */
-        fun retrieveAttributes(
-            params: OsrRetrieveAttributesParams,
+        /** @see getAttributes */
+        fun getAttributes(
+            params: OsrGetAttributesParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<OsrRetrieveAttributesResponse>>
+        ): CompletableFuture<HttpResponseFor<OsrGetAttributesResponse>>
 
-        /** @see retrieveAttributes */
-        fun retrieveAttributes(
-            params: OsrRetrieveAttributesParams
-        ): CompletableFuture<HttpResponseFor<OsrRetrieveAttributesResponse>> =
-            retrieveAttributes(params, RequestOptions.none())
+        /** @see getAttributes */
+        fun getAttributes(
+            params: OsrGetAttributesParams
+        ): CompletableFuture<HttpResponseFor<OsrGetAttributesResponse>> =
+            getAttributes(params, RequestOptions.none())
 
-        /** @see retrieveAttributes */
-        fun retrieveAttributes(
+        /** @see getAttributes */
+        fun getAttributes(
             campaignId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<OsrRetrieveAttributesResponse>> =
-            retrieveAttributes(campaignId, OsrRetrieveAttributesParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<OsrGetAttributesResponse>> =
+            getAttributes(campaignId, OsrGetAttributesParams.none(), requestOptions)
     }
 }

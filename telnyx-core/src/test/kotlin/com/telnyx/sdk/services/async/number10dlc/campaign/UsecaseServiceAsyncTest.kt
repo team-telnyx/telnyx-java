@@ -4,7 +4,7 @@ package com.telnyx.sdk.services.async.number10dlc.campaign
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.number10dlc.campaign.usecase.UsecaseRetrieveCostParams
+import com.telnyx.sdk.models.number10dlc.campaign.usecase.UsecaseGetCostParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,7 +14,7 @@ internal class UsecaseServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun retrieveCost() {
+    fun getCost() {
         val client =
             TelnyxOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -23,9 +23,7 @@ internal class UsecaseServiceAsyncTest {
         val usecaseServiceAsync = client.number10dlc().campaign().usecase()
 
         val responseFuture =
-            usecaseServiceAsync.retrieveCost(
-                UsecaseRetrieveCostParams.builder().usecase("usecase").build()
-            )
+            usecaseServiceAsync.getCost(UsecaseGetCostParams.builder().usecase("usecase").build())
 
         val response = responseFuture.get()
         response.validate()

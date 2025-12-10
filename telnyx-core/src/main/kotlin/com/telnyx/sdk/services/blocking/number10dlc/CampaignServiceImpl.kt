@@ -16,21 +16,24 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignAppealParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignAppealResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeleteParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeleteResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetMnoMetadataParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetMnoMetadataResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignListPage
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignListPageResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignListParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignListResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveMnoMetadataParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveMnoMetadataResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveOperationStatusParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveOperationStatusResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveSharingParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveSharingResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignUpdateParams
+import com.telnyx.sdk.models.number10dlc.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.services.blocking.number10dlc.campaign.OsrService
 import com.telnyx.sdk.services.blocking.number10dlc.campaign.OsrServiceImpl
 import com.telnyx.sdk.services.blocking.number10dlc.campaign.UsecaseService
@@ -75,44 +78,51 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
     override fun list(
         params: CampaignListParams,
         requestOptions: RequestOptions,
-    ): CampaignListResponse =
+    ): CampaignListPage =
         // get /10dlc/campaign
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun delete(
-        params: CampaignDeleteParams,
+    override fun acceptSharing(
+        params: CampaignAcceptSharingParams,
         requestOptions: RequestOptions,
-    ): CampaignDeleteResponse =
+    ): CampaignAcceptSharingResponse =
+        // post /10dlc/campaign/acceptSharing/{campaignId}
+        withRawResponse().acceptSharing(params, requestOptions).parse()
+
+    override fun deactivate(
+        params: CampaignDeactivateParams,
+        requestOptions: RequestOptions,
+    ): CampaignDeactivateResponse =
         // delete /10dlc/campaign/{campaignId}
-        withRawResponse().delete(params, requestOptions).parse()
+        withRawResponse().deactivate(params, requestOptions).parse()
 
-    override fun appeal(
-        params: CampaignAppealParams,
+    override fun getMnoMetadata(
+        params: CampaignGetMnoMetadataParams,
         requestOptions: RequestOptions,
-    ): CampaignAppealResponse =
-        // post /10dlc/campaign/{campaignId}/appeal
-        withRawResponse().appeal(params, requestOptions).parse()
-
-    override fun retrieveMnoMetadata(
-        params: CampaignRetrieveMnoMetadataParams,
-        requestOptions: RequestOptions,
-    ): CampaignRetrieveMnoMetadataResponse =
+    ): CampaignGetMnoMetadataResponse =
         // get /10dlc/campaign/{campaignId}/mnoMetadata
-        withRawResponse().retrieveMnoMetadata(params, requestOptions).parse()
+        withRawResponse().getMnoMetadata(params, requestOptions).parse()
 
-    override fun retrieveOperationStatus(
-        params: CampaignRetrieveOperationStatusParams,
+    override fun getOperationStatus(
+        params: CampaignGetOperationStatusParams,
         requestOptions: RequestOptions,
-    ): CampaignRetrieveOperationStatusResponse =
+    ): CampaignGetOperationStatusResponse =
         // get /10dlc/campaign/{campaignId}/operationStatus
-        withRawResponse().retrieveOperationStatus(params, requestOptions).parse()
+        withRawResponse().getOperationStatus(params, requestOptions).parse()
 
-    override fun retrieveSharing(
-        params: CampaignRetrieveSharingParams,
+    override fun getSharingStatus(
+        params: CampaignGetSharingStatusParams,
         requestOptions: RequestOptions,
-    ): CampaignRetrieveSharingResponse =
+    ): CampaignGetSharingStatusResponse =
         // get /10dlc/campaign/{campaignId}/sharing
-        withRawResponse().retrieveSharing(params, requestOptions).parse()
+        withRawResponse().getSharingStatus(params, requestOptions).parse()
+
+    override fun submitAppeal(
+        params: CampaignSubmitAppealParams,
+        requestOptions: RequestOptions,
+    ): CampaignSubmitAppealResponse =
+        // post /10dlc/campaign/{campaignId}/appeal
+        withRawResponse().submitAppeal(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CampaignService.WithRawResponse {
@@ -200,13 +210,13 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val listHandler: Handler<CampaignListResponse> =
-            jsonHandler<CampaignListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CampaignListPageResponse> =
+            jsonHandler<CampaignListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CampaignListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignListResponse> {
+        ): HttpResponseFor<CampaignListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -224,16 +234,54 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
                             it.validate()
                         }
                     }
+                    .let {
+                        CampaignListPage.builder()
+                            .service(CampaignServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
 
-        private val deleteHandler: Handler<CampaignDeleteResponse> =
-            jsonHandler<CampaignDeleteResponse>(clientOptions.jsonMapper)
+        private val acceptSharingHandler: Handler<CampaignAcceptSharingResponse> =
+            jsonHandler<CampaignAcceptSharingResponse>(clientOptions.jsonMapper)
 
-        override fun delete(
-            params: CampaignDeleteParams,
+        override fun acceptSharing(
+            params: CampaignAcceptSharingParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignDeleteResponse> {
+        ): HttpResponseFor<CampaignAcceptSharingResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("campaignId", params.campaignId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("10dlc", "campaign", "acceptSharing", params._pathParam(0))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { acceptSharingHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val deactivateHandler: Handler<CampaignDeactivateResponse> =
+            jsonHandler<CampaignDeactivateResponse>(clientOptions.jsonMapper)
+
+        override fun deactivate(
+            params: CampaignDeactivateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CampaignDeactivateResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("campaignId", params.campaignId().getOrNull())
@@ -249,7 +297,7 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { deleteHandler.handle(it) }
+                    .use { deactivateHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -258,13 +306,103 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val appealHandler: Handler<CampaignAppealResponse> =
-            jsonHandler<CampaignAppealResponse>(clientOptions.jsonMapper)
+        private val getMnoMetadataHandler: Handler<CampaignGetMnoMetadataResponse> =
+            jsonHandler<CampaignGetMnoMetadataResponse>(clientOptions.jsonMapper)
 
-        override fun appeal(
-            params: CampaignAppealParams,
+        override fun getMnoMetadata(
+            params: CampaignGetMnoMetadataParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignAppealResponse> {
+        ): HttpResponseFor<CampaignGetMnoMetadataResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("campaignId", params.campaignId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("10dlc", "campaign", params._pathParam(0), "mnoMetadata")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getMnoMetadataHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val getOperationStatusHandler: Handler<CampaignGetOperationStatusResponse> =
+            jsonHandler<CampaignGetOperationStatusResponse>(clientOptions.jsonMapper)
+
+        override fun getOperationStatus(
+            params: CampaignGetOperationStatusParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CampaignGetOperationStatusResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("campaignId", params.campaignId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("10dlc", "campaign", params._pathParam(0), "operationStatus")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getOperationStatusHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val getSharingStatusHandler: Handler<CampaignGetSharingStatusResponse> =
+            jsonHandler<CampaignGetSharingStatusResponse>(clientOptions.jsonMapper)
+
+        override fun getSharingStatus(
+            params: CampaignGetSharingStatusParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CampaignGetSharingStatusResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("campaignId", params.campaignId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("10dlc", "campaign", params._pathParam(0), "sharing")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getSharingStatusHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val submitAppealHandler: Handler<CampaignSubmitAppealResponse> =
+            jsonHandler<CampaignSubmitAppealResponse>(clientOptions.jsonMapper)
+
+        override fun submitAppeal(
+            params: CampaignSubmitAppealParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CampaignSubmitAppealResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("campaignId", params.campaignId().getOrNull())
@@ -280,98 +418,7 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { appealHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val retrieveMnoMetadataHandler: Handler<CampaignRetrieveMnoMetadataResponse> =
-            jsonHandler<CampaignRetrieveMnoMetadataResponse>(clientOptions.jsonMapper)
-
-        override fun retrieveMnoMetadata(
-            params: CampaignRetrieveMnoMetadataParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignRetrieveMnoMetadataResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("campaignId", params.campaignId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("10dlc", "campaign", params._pathParam(0), "mnoMetadata")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveMnoMetadataHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val retrieveOperationStatusHandler:
-            Handler<CampaignRetrieveOperationStatusResponse> =
-            jsonHandler<CampaignRetrieveOperationStatusResponse>(clientOptions.jsonMapper)
-
-        override fun retrieveOperationStatus(
-            params: CampaignRetrieveOperationStatusParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignRetrieveOperationStatusResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("campaignId", params.campaignId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("10dlc", "campaign", params._pathParam(0), "operationStatus")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveOperationStatusHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val retrieveSharingHandler: Handler<CampaignRetrieveSharingResponse> =
-            jsonHandler<CampaignRetrieveSharingResponse>(clientOptions.jsonMapper)
-
-        override fun retrieveSharing(
-            params: CampaignRetrieveSharingParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignRetrieveSharingResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("campaignId", params.campaignId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("10dlc", "campaign", params._pathParam(0), "sharing")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveSharingHandler.handle(it) }
+                    .use { submitAppealHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

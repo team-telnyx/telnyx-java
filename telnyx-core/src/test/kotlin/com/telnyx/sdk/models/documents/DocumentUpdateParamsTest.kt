@@ -10,7 +10,7 @@ internal class DocumentUpdateParamsTest {
     @Test
     fun create() {
         DocumentUpdateParams.builder()
-            .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+            .documentId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .docServiceDocument(
                 DocServiceDocument.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -33,7 +33,7 @@ internal class DocumentUpdateParamsTest {
     fun pathParams() {
         val params =
             DocumentUpdateParams.builder()
-                .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .documentId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .docServiceDocument(DocServiceDocument.builder().build())
                 .build()
 
@@ -46,7 +46,7 @@ internal class DocumentUpdateParamsTest {
     fun body() {
         val params =
             DocumentUpdateParams.builder()
-                .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .documentId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .docServiceDocument(
                     DocServiceDocument.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -90,7 +90,7 @@ internal class DocumentUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             DocumentUpdateParams.builder()
-                .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .documentId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .docServiceDocument(DocServiceDocument.builder().build())
                 .build()
 

@@ -4,8 +4,8 @@ package com.telnyx.sdk.services.blocking.number10dlc
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignAppealParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignListParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealParams
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -70,22 +70,14 @@ internal class CampaignServiceTest {
                 .build()
         val campaignService = client.number10dlc().campaign()
 
-        val campaigns =
-            campaignService.list(
-                CampaignListParams.builder()
-                    .brandId("brandId")
-                    .page(0L)
-                    .recordsPerPage(0L)
-                    .sort(CampaignListParams.Sort.ASSIGNED_PHONE_NUMBERS_COUNT)
-                    .build()
-            )
+        val page = campaignService.list(CampaignListParams.builder().brandId("brandId").build())
 
-        campaigns.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun delete() {
+    fun acceptSharing() {
         val client =
             TelnyxOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -93,14 +85,74 @@ internal class CampaignServiceTest {
                 .build()
         val campaignService = client.number10dlc().campaign()
 
-        val campaign = campaignService.delete("campaignId")
+        val response = campaignService.acceptSharing("C26F1KLZN")
 
-        campaign.validate()
+        response.validate()
     }
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun appeal() {
+    fun deactivate() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val campaignService = client.number10dlc().campaign()
+
+        val response = campaignService.deactivate("campaignId")
+
+        response.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun getMnoMetadata() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val campaignService = client.number10dlc().campaign()
+
+        val response = campaignService.getMnoMetadata("campaignId")
+
+        response.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun getOperationStatus() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val campaignService = client.number10dlc().campaign()
+
+        val response = campaignService.getOperationStatus("campaignId")
+
+        response.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun getSharingStatus() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val campaignService = client.number10dlc().campaign()
+
+        val response = campaignService.getSharingStatus("campaignId")
+
+        response.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun submitAppeal() {
         val client =
             TelnyxOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -109,59 +161,14 @@ internal class CampaignServiceTest {
         val campaignService = client.number10dlc().campaign()
 
         val response =
-            campaignService.appeal(
-                CampaignAppealParams.builder()
+            campaignService.submitAppeal(
+                CampaignSubmitAppealParams.builder()
                     .campaignId("5eb13888-32b7-4cab-95e6-d834dde21d64")
                     .appealReason(
                         "The website has been updated to include the required privacy policy and terms of service."
                     )
                     .build()
             )
-
-        response.validate()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun retrieveMnoMetadata() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val campaignService = client.number10dlc().campaign()
-
-        val response = campaignService.retrieveMnoMetadata("campaignId")
-
-        response.validate()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun retrieveOperationStatus() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val campaignService = client.number10dlc().campaign()
-
-        val response = campaignService.retrieveOperationStatus("campaignId")
-
-        response.validate()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun retrieveSharing() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val campaignService = client.number10dlc().campaign()
-
-        val response = campaignService.retrieveSharing("campaignId")
 
         response.validate()
     }

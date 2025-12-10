@@ -6,8 +6,8 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.porting.events.EventListPageAsync
 import com.telnyx.sdk.models.porting.events.EventListParams
-import com.telnyx.sdk.models.porting.events.EventListResponse
 import com.telnyx.sdk.models.porting.events.EventRepublishParams
 import com.telnyx.sdk.models.porting.events.EventRetrieveParams
 import com.telnyx.sdk.models.porting.events.EventRetrieveResponse
@@ -64,21 +64,21 @@ interface EventServiceAsync {
         retrieve(id, EventRetrieveParams.none(), requestOptions)
 
     /** Returns a list of all porting events. */
-    fun list(): CompletableFuture<EventListResponse> = list(EventListParams.none())
+    fun list(): CompletableFuture<EventListPageAsync> = list(EventListParams.none())
 
     /** @see list */
     fun list(
         params: EventListParams = EventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EventListResponse>
+    ): CompletableFuture<EventListPageAsync>
 
     /** @see list */
     fun list(
         params: EventListParams = EventListParams.none()
-    ): CompletableFuture<EventListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<EventListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<EventListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<EventListPageAsync> =
         list(EventListParams.none(), requestOptions)
 
     /** Republish a specific porting event. */
@@ -168,25 +168,25 @@ interface EventServiceAsync {
          * Returns a raw HTTP response for `get /porting/events`, but is otherwise the same as
          * [EventServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<EventListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<EventListPageAsync>> =
             list(EventListParams.none())
 
         /** @see list */
         fun list(
             params: EventListParams = EventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EventListResponse>>
+        ): CompletableFuture<HttpResponseFor<EventListPageAsync>>
 
         /** @see list */
         fun list(
             params: EventListParams = EventListParams.none()
-        ): CompletableFuture<HttpResponseFor<EventListResponse>> =
+        ): CompletableFuture<HttpResponseFor<EventListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<EventListResponse>> =
+        ): CompletableFuture<HttpResponseFor<EventListPageAsync>> =
             list(EventListParams.none(), requestOptions)
 
         /**

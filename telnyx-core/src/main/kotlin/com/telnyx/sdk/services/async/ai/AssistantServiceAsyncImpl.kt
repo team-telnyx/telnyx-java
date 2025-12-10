@@ -24,7 +24,7 @@ import com.telnyx.sdk.models.ai.assistants.AssistantCreateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteParams
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantGetTexmlParams
-import com.telnyx.sdk.models.ai.assistants.AssistantImportParams
+import com.telnyx.sdk.models.ai.assistants.AssistantImportsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantListParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
@@ -138,12 +138,12 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
         // get /ai/assistants/{assistant_id}/texml
         withRawResponse().getTexml(params, requestOptions).thenApply { it.parse() }
 
-    override fun import_(
-        params: AssistantImportParams,
+    override fun imports(
+        params: AssistantImportsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AssistantsList> =
         // post /ai/assistants/import
-        withRawResponse().import_(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().imports(params, requestOptions).thenApply { it.parse() }
 
     override fun sendSms(
         params: AssistantSendSmsParams,
@@ -451,11 +451,11 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
-        private val importHandler: Handler<AssistantsList> =
+        private val importsHandler: Handler<AssistantsList> =
             jsonHandler<AssistantsList>(clientOptions.jsonMapper)
 
-        override fun import_(
-            params: AssistantImportParams,
+        override fun imports(
+            params: AssistantImportsParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AssistantsList>> {
             val request =
@@ -472,7 +472,7 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { importHandler.handle(it) }
+                            .use { importsHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

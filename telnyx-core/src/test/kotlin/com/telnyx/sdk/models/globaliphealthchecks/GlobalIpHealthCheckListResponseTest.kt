@@ -5,8 +5,6 @@ package com.telnyx.sdk.models.globaliphealthchecks
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -16,58 +14,35 @@ internal class GlobalIpHealthCheckListResponseTest {
     fun create() {
         val globalIpHealthCheckListResponse =
             GlobalIpHealthCheckListResponse.builder()
-                .addData(
-                    GlobalIpHealthCheckListResponse.Data.builder()
-                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .createdAt("2018-02-02T22:25:27.521Z")
-                        .recordType("global_ip_health_check")
-                        .updatedAt("2018-02-02T22:25:27.521Z")
-                        .globalIpId("a836125b-20b6-452e-9c03-2653f09c7ed7")
-                        .healthCheckParams(
-                            GlobalIpHealthCheckListResponse.Data.HealthCheckParams.builder()
-                                .putAdditionalProperty("path", JsonValue.from("bar"))
-                                .putAdditionalProperty("port", JsonValue.from("bar"))
-                                .build()
-                        )
-                        .healthCheckType("http_status_2xx")
+                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .createdAt("2018-02-02T22:25:27.521Z")
+                .recordType("sample_record_type")
+                .updatedAt("2018-02-02T22:25:27.521Z")
+                .globalIpId("a836125b-20b6-452e-9c03-2653f09c7ed7")
+                .healthCheckParams(
+                    GlobalIpHealthCheckListResponse.HealthCheckParams.builder()
+                        .putAdditionalProperty("path", JsonValue.from("bar"))
+                        .putAdditionalProperty("port", JsonValue.from("bar"))
                         .build()
                 )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .pageSize(25L)
-                        .totalPages(3L)
-                        .totalResults(55L)
-                        .build()
-                )
+                .healthCheckType("http_status_2xx")
                 .build()
 
-        assertThat(globalIpHealthCheckListResponse.data().getOrNull())
-            .containsExactly(
-                GlobalIpHealthCheckListResponse.Data.builder()
-                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .createdAt("2018-02-02T22:25:27.521Z")
-                    .recordType("global_ip_health_check")
-                    .updatedAt("2018-02-02T22:25:27.521Z")
-                    .globalIpId("a836125b-20b6-452e-9c03-2653f09c7ed7")
-                    .healthCheckParams(
-                        GlobalIpHealthCheckListResponse.Data.HealthCheckParams.builder()
-                            .putAdditionalProperty("path", JsonValue.from("bar"))
-                            .putAdditionalProperty("port", JsonValue.from("bar"))
-                            .build()
-                    )
-                    .healthCheckType("http_status_2xx")
-                    .build()
-            )
-        assertThat(globalIpHealthCheckListResponse.meta())
+        assertThat(globalIpHealthCheckListResponse.id())
+            .contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(globalIpHealthCheckListResponse.createdAt()).contains("2018-02-02T22:25:27.521Z")
+        assertThat(globalIpHealthCheckListResponse.recordType()).contains("sample_record_type")
+        assertThat(globalIpHealthCheckListResponse.updatedAt()).contains("2018-02-02T22:25:27.521Z")
+        assertThat(globalIpHealthCheckListResponse.globalIpId())
+            .contains("a836125b-20b6-452e-9c03-2653f09c7ed7")
+        assertThat(globalIpHealthCheckListResponse.healthCheckParams())
             .contains(
-                PaginationMeta.builder()
-                    .pageNumber(2L)
-                    .pageSize(25L)
-                    .totalPages(3L)
-                    .totalResults(55L)
+                GlobalIpHealthCheckListResponse.HealthCheckParams.builder()
+                    .putAdditionalProperty("path", JsonValue.from("bar"))
+                    .putAdditionalProperty("port", JsonValue.from("bar"))
                     .build()
             )
+        assertThat(globalIpHealthCheckListResponse.healthCheckType()).contains("http_status_2xx")
     }
 
     @Test
@@ -75,30 +50,18 @@ internal class GlobalIpHealthCheckListResponseTest {
         val jsonMapper = jsonMapper()
         val globalIpHealthCheckListResponse =
             GlobalIpHealthCheckListResponse.builder()
-                .addData(
-                    GlobalIpHealthCheckListResponse.Data.builder()
-                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .createdAt("2018-02-02T22:25:27.521Z")
-                        .recordType("global_ip_health_check")
-                        .updatedAt("2018-02-02T22:25:27.521Z")
-                        .globalIpId("a836125b-20b6-452e-9c03-2653f09c7ed7")
-                        .healthCheckParams(
-                            GlobalIpHealthCheckListResponse.Data.HealthCheckParams.builder()
-                                .putAdditionalProperty("path", JsonValue.from("bar"))
-                                .putAdditionalProperty("port", JsonValue.from("bar"))
-                                .build()
-                        )
-                        .healthCheckType("http_status_2xx")
+                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .createdAt("2018-02-02T22:25:27.521Z")
+                .recordType("sample_record_type")
+                .updatedAt("2018-02-02T22:25:27.521Z")
+                .globalIpId("a836125b-20b6-452e-9c03-2653f09c7ed7")
+                .healthCheckParams(
+                    GlobalIpHealthCheckListResponse.HealthCheckParams.builder()
+                        .putAdditionalProperty("path", JsonValue.from("bar"))
+                        .putAdditionalProperty("port", JsonValue.from("bar"))
                         .build()
                 )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .pageSize(25L)
-                        .totalPages(3L)
-                        .totalResults(55L)
-                        .build()
-                )
+                .healthCheckType("http_status_2xx")
                 .build()
 
         val roundtrippedGlobalIpHealthCheckListResponse =

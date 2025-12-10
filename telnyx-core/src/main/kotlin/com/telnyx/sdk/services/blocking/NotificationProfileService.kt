@@ -11,8 +11,8 @@ import com.telnyx.sdk.models.notificationprofiles.NotificationProfileCreateParam
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileCreateResponse
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileDeleteParams
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileDeleteResponse
+import com.telnyx.sdk.models.notificationprofiles.NotificationProfileListPage
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileListParams
-import com.telnyx.sdk.models.notificationprofiles.NotificationProfileListResponse
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileRetrieveParams
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileRetrieveResponse
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileUpdateParams
@@ -101,17 +101,21 @@ interface NotificationProfileService {
 
     /** Update a notification profile. */
     fun update(
-        pathId: String,
+        notificationProfileId: String,
         params: NotificationProfileUpdateParams,
-    ): NotificationProfileUpdateResponse = update(pathId, params, RequestOptions.none())
+    ): NotificationProfileUpdateResponse =
+        update(notificationProfileId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        pathId: String,
+        notificationProfileId: String,
         params: NotificationProfileUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): NotificationProfileUpdateResponse =
-        update(params.toBuilder().pathId(pathId).build(), requestOptions)
+        update(
+            params.toBuilder().notificationProfileId(notificationProfileId).build(),
+            requestOptions,
+        )
 
     /** @see update */
     fun update(params: NotificationProfileUpdateParams): NotificationProfileUpdateResponse =
@@ -124,21 +128,21 @@ interface NotificationProfileService {
     ): NotificationProfileUpdateResponse
 
     /** Returns a list of your notifications profiles. */
-    fun list(): NotificationProfileListResponse = list(NotificationProfileListParams.none())
+    fun list(): NotificationProfileListPage = list(NotificationProfileListParams.none())
 
     /** @see list */
     fun list(
         params: NotificationProfileListParams = NotificationProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NotificationProfileListResponse
+    ): NotificationProfileListPage
 
     /** @see list */
     fun list(
         params: NotificationProfileListParams = NotificationProfileListParams.none()
-    ): NotificationProfileListResponse = list(params, RequestOptions.none())
+    ): NotificationProfileListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): NotificationProfileListResponse =
+    fun list(requestOptions: RequestOptions): NotificationProfileListPage =
         list(NotificationProfileListParams.none(), requestOptions)
 
     /** Delete a notification profile. */
@@ -289,19 +293,22 @@ interface NotificationProfileService {
          */
         @MustBeClosed
         fun update(
-            pathId: String,
+            notificationProfileId: String,
             params: NotificationProfileUpdateParams,
         ): HttpResponseFor<NotificationProfileUpdateResponse> =
-            update(pathId, params, RequestOptions.none())
+            update(notificationProfileId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
-            pathId: String,
+            notificationProfileId: String,
             params: NotificationProfileUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<NotificationProfileUpdateResponse> =
-            update(params.toBuilder().pathId(pathId).build(), requestOptions)
+            update(
+                params.toBuilder().notificationProfileId(notificationProfileId).build(),
+                requestOptions,
+            )
 
         /** @see update */
         @MustBeClosed
@@ -322,7 +329,7 @@ interface NotificationProfileService {
          * as [NotificationProfileService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<NotificationProfileListResponse> =
+        fun list(): HttpResponseFor<NotificationProfileListPage> =
             list(NotificationProfileListParams.none())
 
         /** @see list */
@@ -330,17 +337,17 @@ interface NotificationProfileService {
         fun list(
             params: NotificationProfileListParams = NotificationProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NotificationProfileListResponse>
+        ): HttpResponseFor<NotificationProfileListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: NotificationProfileListParams = NotificationProfileListParams.none()
-        ): HttpResponseFor<NotificationProfileListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<NotificationProfileListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<NotificationProfileListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<NotificationProfileListPage> =
             list(NotificationProfileListParams.none(), requestOptions)
 
         /**

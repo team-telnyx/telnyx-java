@@ -61,7 +61,7 @@ internal class PortingOrderListParamsTest {
             .page(PortingOrderListParams.Page.builder().number(1L).size(1L).build())
             .sort(
                 PortingOrderListParams.Sort.builder()
-                    .value(PortingOrderListParams.Sort.Value_.CREATED_AT)
+                    .value(PortingOrderListParams.Sort.SortValue.CREATED_AT)
                     .build()
             )
             .build()
@@ -121,7 +121,7 @@ internal class PortingOrderListParamsTest {
                 .page(PortingOrderListParams.Page.builder().number(1L).size(1L).build())
                 .sort(
                     PortingOrderListParams.Sort.builder()
-                        .value(PortingOrderListParams.Sort.Value_.CREATED_AT)
+                        .value(PortingOrderListParams.Sort.SortValue.CREATED_AT)
                         .build()
                 )
                 .build()

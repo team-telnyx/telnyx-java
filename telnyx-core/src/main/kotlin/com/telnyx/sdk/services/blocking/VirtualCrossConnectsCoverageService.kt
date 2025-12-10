@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListPage
 import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListParams
-import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListResponse
 import java.util.function.Consumer
 
 interface VirtualCrossConnectsCoverageService {
@@ -29,7 +29,7 @@ interface VirtualCrossConnectsCoverageService {
      * regions are available for the `location_code` your Virtual Cross Connect will be provisioned
      * in.
      */
-    fun list(): VirtualCrossConnectsCoverageListResponse =
+    fun list(): VirtualCrossConnectsCoverageListPage =
         list(VirtualCrossConnectsCoverageListParams.none())
 
     /** @see list */
@@ -37,16 +37,16 @@ interface VirtualCrossConnectsCoverageService {
         params: VirtualCrossConnectsCoverageListParams =
             VirtualCrossConnectsCoverageListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VirtualCrossConnectsCoverageListResponse
+    ): VirtualCrossConnectsCoverageListPage
 
     /** @see list */
     fun list(
         params: VirtualCrossConnectsCoverageListParams =
             VirtualCrossConnectsCoverageListParams.none()
-    ): VirtualCrossConnectsCoverageListResponse = list(params, RequestOptions.none())
+    ): VirtualCrossConnectsCoverageListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): VirtualCrossConnectsCoverageListResponse =
+    fun list(requestOptions: RequestOptions): VirtualCrossConnectsCoverageListPage =
         list(VirtualCrossConnectsCoverageListParams.none(), requestOptions)
 
     /**
@@ -69,7 +69,7 @@ interface VirtualCrossConnectsCoverageService {
          * the same as [VirtualCrossConnectsCoverageService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<VirtualCrossConnectsCoverageListResponse> =
+        fun list(): HttpResponseFor<VirtualCrossConnectsCoverageListPage> =
             list(VirtualCrossConnectsCoverageListParams.none())
 
         /** @see list */
@@ -78,21 +78,21 @@ interface VirtualCrossConnectsCoverageService {
             params: VirtualCrossConnectsCoverageListParams =
                 VirtualCrossConnectsCoverageListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VirtualCrossConnectsCoverageListResponse>
+        ): HttpResponseFor<VirtualCrossConnectsCoverageListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: VirtualCrossConnectsCoverageListParams =
                 VirtualCrossConnectsCoverageListParams.none()
-        ): HttpResponseFor<VirtualCrossConnectsCoverageListResponse> =
+        ): HttpResponseFor<VirtualCrossConnectsCoverageListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<VirtualCrossConnectsCoverageListResponse> =
+        ): HttpResponseFor<VirtualCrossConnectsCoverageListPage> =
             list(VirtualCrossConnectsCoverageListParams.none(), requestOptions)
     }
 }

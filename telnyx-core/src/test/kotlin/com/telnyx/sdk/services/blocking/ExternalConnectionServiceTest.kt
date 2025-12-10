@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionCreateParams
-import com.telnyx.sdk.models.externalconnections.ExternalConnectionListParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionUpdateLocationParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -115,33 +114,9 @@ internal class ExternalConnectionServiceTest {
                 .build()
         val externalConnectionService = client.externalConnections()
 
-        val externalConnections =
-            externalConnectionService.list(
-                ExternalConnectionListParams.builder()
-                    .filter(
-                        ExternalConnectionListParams.Filter.builder()
-                            .id("1930241863466354012")
-                            .connectionName(
-                                ExternalConnectionListParams.Filter.ConnectionName.builder()
-                                    .contains("My Connection")
-                                    .build()
-                            )
-                            .createdAt("2022-12-31")
-                            .externalSipConnection(
-                                ExternalConnectionListParams.Filter.ExternalSipConnection.ZOOM
-                            )
-                            .phoneNumber(
-                                ExternalConnectionListParams.Filter.PhoneNumber.builder()
-                                    .contains("+15555555555")
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .page(ExternalConnectionListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val page = externalConnectionService.list()
 
-        externalConnections.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

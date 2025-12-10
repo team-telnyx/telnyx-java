@@ -10,12 +10,12 @@ internal class NetworkUpdateParamsTest {
     @Test
     fun create() {
         NetworkUpdateParams.builder()
-            .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+            .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .networkCreate(
                 NetworkCreate.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
-                    .recordType("network")
+                    .recordType("sample_record_type")
                     .updatedAt("2018-02-02T22:25:27.521Z")
                     .name("test network")
                     .build()
@@ -27,7 +27,7 @@ internal class NetworkUpdateParamsTest {
     fun pathParams() {
         val params =
             NetworkUpdateParams.builder()
-                .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .networkCreate(NetworkCreate.builder().name("test network").build())
                 .build()
 
@@ -40,12 +40,12 @@ internal class NetworkUpdateParamsTest {
     fun body() {
         val params =
             NetworkUpdateParams.builder()
-                .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .networkCreate(
                     NetworkCreate.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
-                        .recordType("network")
+                        .recordType("sample_record_type")
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .name("test network")
                         .build()
@@ -59,7 +59,7 @@ internal class NetworkUpdateParamsTest {
                 NetworkCreate.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
-                    .recordType("network")
+                    .recordType("sample_record_type")
                     .updatedAt("2018-02-02T22:25:27.521Z")
                     .name("test network")
                     .build()
@@ -70,7 +70,7 @@ internal class NetworkUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             NetworkUpdateParams.builder()
-                .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .networkCreate(NetworkCreate.builder().name("test network").build())
                 .build()
 

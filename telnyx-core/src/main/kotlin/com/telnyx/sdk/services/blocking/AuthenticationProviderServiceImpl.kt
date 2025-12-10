@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderCreat
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderCreateResponse
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderDeleteParams
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderDeleteResponse
+import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderListPage
+import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderListPageResponse
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderListParams
-import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderListResponse
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderRetrieveParams
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderRetrieveResponse
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderUpdateParams
@@ -67,7 +68,7 @@ internal constructor(private val clientOptions: ClientOptions) : AuthenticationP
     override fun list(
         params: AuthenticationProviderListParams,
         requestOptions: RequestOptions,
-    ): AuthenticationProviderListResponse =
+    ): AuthenticationProviderListPage =
         // get /authentication_providers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -180,13 +181,13 @@ internal constructor(private val clientOptions: ClientOptions) : AuthenticationP
             }
         }
 
-        private val listHandler: Handler<AuthenticationProviderListResponse> =
-            jsonHandler<AuthenticationProviderListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AuthenticationProviderListPageResponse> =
+            jsonHandler<AuthenticationProviderListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AuthenticationProviderListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AuthenticationProviderListResponse> {
+        ): HttpResponseFor<AuthenticationProviderListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -203,6 +204,13 @@ internal constructor(private val clientOptions: ClientOptions) : AuthenticationP
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        AuthenticationProviderListPage.builder()
+                            .service(AuthenticationProviderServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

@@ -6,8 +6,8 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListPageAsync
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListParams
-import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListResponse
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeSendParams
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeVerifyParams
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeVerifyResponse
@@ -29,7 +29,7 @@ interface VerificationCodeServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VerificationCodeServiceAsync
 
     /** Returns a list of verification codes for a porting order. */
-    fun list(id: String): CompletableFuture<VerificationCodeListResponse> =
+    fun list(id: String): CompletableFuture<VerificationCodeListPageAsync> =
         list(id, VerificationCodeListParams.none())
 
     /** @see list */
@@ -37,30 +37,30 @@ interface VerificationCodeServiceAsync {
         id: String,
         params: VerificationCodeListParams = VerificationCodeListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VerificationCodeListResponse> =
+    ): CompletableFuture<VerificationCodeListPageAsync> =
         list(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see list */
     fun list(
         id: String,
         params: VerificationCodeListParams = VerificationCodeListParams.none(),
-    ): CompletableFuture<VerificationCodeListResponse> = list(id, params, RequestOptions.none())
+    ): CompletableFuture<VerificationCodeListPageAsync> = list(id, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: VerificationCodeListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VerificationCodeListResponse>
+    ): CompletableFuture<VerificationCodeListPageAsync>
 
     /** @see list */
-    fun list(params: VerificationCodeListParams): CompletableFuture<VerificationCodeListResponse> =
+    fun list(params: VerificationCodeListParams): CompletableFuture<VerificationCodeListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         id: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VerificationCodeListResponse> =
+    ): CompletableFuture<VerificationCodeListPageAsync> =
         list(id, VerificationCodeListParams.none(), requestOptions)
 
     /** Send the verification code for all porting phone numbers. */
@@ -148,7 +148,7 @@ interface VerificationCodeServiceAsync {
          * Returns a raw HTTP response for `get /porting_orders/{id}/verification_codes`, but is
          * otherwise the same as [VerificationCodeServiceAsync.list].
          */
-        fun list(id: String): CompletableFuture<HttpResponseFor<VerificationCodeListResponse>> =
+        fun list(id: String): CompletableFuture<HttpResponseFor<VerificationCodeListPageAsync>> =
             list(id, VerificationCodeListParams.none())
 
         /** @see list */
@@ -156,33 +156,33 @@ interface VerificationCodeServiceAsync {
             id: String,
             params: VerificationCodeListParams = VerificationCodeListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VerificationCodeListResponse>> =
+        ): CompletableFuture<HttpResponseFor<VerificationCodeListPageAsync>> =
             list(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see list */
         fun list(
             id: String,
             params: VerificationCodeListParams = VerificationCodeListParams.none(),
-        ): CompletableFuture<HttpResponseFor<VerificationCodeListResponse>> =
+        ): CompletableFuture<HttpResponseFor<VerificationCodeListPageAsync>> =
             list(id, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: VerificationCodeListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VerificationCodeListResponse>>
+        ): CompletableFuture<HttpResponseFor<VerificationCodeListPageAsync>>
 
         /** @see list */
         fun list(
             params: VerificationCodeListParams
-        ): CompletableFuture<HttpResponseFor<VerificationCodeListResponse>> =
+        ): CompletableFuture<HttpResponseFor<VerificationCodeListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             id: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VerificationCodeListResponse>> =
+        ): CompletableFuture<HttpResponseFor<VerificationCodeListPageAsync>> =
             list(id, VerificationCodeListParams.none(), requestOptions)
 
         /**

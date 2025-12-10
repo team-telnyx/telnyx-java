@@ -7,16 +7,20 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.brand.TelnyxBrand
-import com.telnyx.sdk.models.number10dlc.brand.Brand2faEmailParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandCreateParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandDeleteParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandListPage
 import com.telnyx.sdk.models.number10dlc.brand.BrandListParams
-import com.telnyx.sdk.models.number10dlc.brand.BrandListResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandRevetParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
-import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateRevetParams
+import com.telnyx.sdk.models.number10dlc.brand.TelnyxBrand
 import com.telnyx.sdk.services.blocking.number10dlc.brand.ExternalVettingService
 import java.util.function.Consumer
 
@@ -102,20 +106,20 @@ interface BrandService {
     ): TelnyxBrand
 
     /** This endpoint is used to list all brands associated with your organization. */
-    fun list(): BrandListResponse = list(BrandListParams.none())
+    fun list(): BrandListPage = list(BrandListParams.none())
 
     /** @see list */
     fun list(
         params: BrandListParams = BrandListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BrandListResponse
+    ): BrandListPage
 
     /** @see list */
-    fun list(params: BrandListParams = BrandListParams.none()): BrandListResponse =
+    fun list(params: BrandListParams = BrandListParams.none()): BrandListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): BrandListResponse =
+    fun list(requestOptions: RequestOptions): BrandListPage =
         list(BrandListParams.none(), requestOptions)
 
     /**
@@ -146,66 +150,155 @@ interface BrandService {
     fun delete(brandId: String, requestOptions: RequestOptions) =
         delete(brandId, BrandDeleteParams.none(), requestOptions)
 
-    /** Resend brand 2FA email */
-    fun _2faEmail(brandId: String) = _2faEmail(brandId, Brand2faEmailParams.none())
+    /**
+     * Get feedback about a brand by ID. This endpoint can be used after creating or revetting a
+     * brand.
+     *
+     * Possible values for `.category[].id`:
+     * * `TAX_ID` - Data mismatch related to tax id and its associated properties.
+     * * `STOCK_SYMBOL` - Non public entity registered as a public for profit entity or the stock
+     *   information mismatch.
+     * * `GOVERNMENT_ENTITY` - Non government entity registered as a government entity. Must be a
+     *   U.S. government entity.
+     * * `NONPROFIT` - Not a recognized non-profit entity. No IRS tax-exempt status found.
+     * * `OTHERS` - Details of the data misrepresentation if any.
+     */
+    fun getFeedback(brandId: String): BrandGetFeedbackResponse =
+        getFeedback(brandId, BrandGetFeedbackParams.none())
 
-    /** @see _2faEmail */
-    fun _2faEmail(
+    /** @see getFeedback */
+    fun getFeedback(
         brandId: String,
-        params: Brand2faEmailParams = Brand2faEmailParams.none(),
+        params: BrandGetFeedbackParams = BrandGetFeedbackParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = _2faEmail(params.toBuilder().brandId(brandId).build(), requestOptions)
+    ): BrandGetFeedbackResponse =
+        getFeedback(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-    /** @see _2faEmail */
-    fun _2faEmail(brandId: String, params: Brand2faEmailParams = Brand2faEmailParams.none()) =
-        _2faEmail(brandId, params, RequestOptions.none())
+    /** @see getFeedback */
+    fun getFeedback(
+        brandId: String,
+        params: BrandGetFeedbackParams = BrandGetFeedbackParams.none(),
+    ): BrandGetFeedbackResponse = getFeedback(brandId, params, RequestOptions.none())
 
-    /** @see _2faEmail */
-    fun _2faEmail(
-        params: Brand2faEmailParams,
+    /** @see getFeedback */
+    fun getFeedback(
+        params: BrandGetFeedbackParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BrandGetFeedbackResponse
+
+    /** @see getFeedback */
+    fun getFeedback(params: BrandGetFeedbackParams): BrandGetFeedbackResponse =
+        getFeedback(params, RequestOptions.none())
+
+    /** @see getFeedback */
+    fun getFeedback(brandId: String, requestOptions: RequestOptions): BrandGetFeedbackResponse =
+        getFeedback(brandId, BrandGetFeedbackParams.none(), requestOptions)
+
+    /** Resend brand 2FA email */
+    fun resend2faEmail(brandId: String) = resend2faEmail(brandId, BrandResend2faEmailParams.none())
+
+    /** @see resend2faEmail */
+    fun resend2faEmail(
+        brandId: String,
+        params: BrandResend2faEmailParams = BrandResend2faEmailParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = resend2faEmail(params.toBuilder().brandId(brandId).build(), requestOptions)
+
+    /** @see resend2faEmail */
+    fun resend2faEmail(
+        brandId: String,
+        params: BrandResend2faEmailParams = BrandResend2faEmailParams.none(),
+    ) = resend2faEmail(brandId, params, RequestOptions.none())
+
+    /** @see resend2faEmail */
+    fun resend2faEmail(
+        params: BrandResend2faEmailParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    /** @see _2faEmail */
-    fun _2faEmail(params: Brand2faEmailParams) = _2faEmail(params, RequestOptions.none())
+    /** @see resend2faEmail */
+    fun resend2faEmail(params: BrandResend2faEmailParams) =
+        resend2faEmail(params, RequestOptions.none())
 
-    /** @see _2faEmail */
-    fun _2faEmail(brandId: String, requestOptions: RequestOptions) =
-        _2faEmail(brandId, Brand2faEmailParams.none(), requestOptions)
+    /** @see resend2faEmail */
+    fun resend2faEmail(brandId: String, requestOptions: RequestOptions) =
+        resend2faEmail(brandId, BrandResend2faEmailParams.none(), requestOptions)
+
+    /**
+     * Query the status of an SMS OTP (One-Time Password) for Sole Proprietor brand verification.
+     *
+     * This endpoint allows you to check the delivery and verification status of an OTP sent during
+     * the Sole Proprietor brand verification process. You can query by either:
+     * * `referenceId` - The reference ID returned when the OTP was initially triggered
+     * * `brandId` - Query parameter for portal users to look up OTP status by Brand ID
+     *
+     * The response includes delivery status, verification dates, and detailed delivery information.
+     */
+    fun retrieveSmsOtpStatus(referenceId: String): BrandRetrieveSmsOtpStatusResponse =
+        retrieveSmsOtpStatus(referenceId, BrandRetrieveSmsOtpStatusParams.none())
+
+    /** @see retrieveSmsOtpStatus */
+    fun retrieveSmsOtpStatus(
+        referenceId: String,
+        params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BrandRetrieveSmsOtpStatusResponse =
+        retrieveSmsOtpStatus(params.toBuilder().referenceId(referenceId).build(), requestOptions)
+
+    /** @see retrieveSmsOtpStatus */
+    fun retrieveSmsOtpStatus(
+        referenceId: String,
+        params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
+    ): BrandRetrieveSmsOtpStatusResponse =
+        retrieveSmsOtpStatus(referenceId, params, RequestOptions.none())
+
+    /** @see retrieveSmsOtpStatus */
+    fun retrieveSmsOtpStatus(
+        params: BrandRetrieveSmsOtpStatusParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BrandRetrieveSmsOtpStatusResponse
+
+    /** @see retrieveSmsOtpStatus */
+    fun retrieveSmsOtpStatus(
+        params: BrandRetrieveSmsOtpStatusParams
+    ): BrandRetrieveSmsOtpStatusResponse = retrieveSmsOtpStatus(params, RequestOptions.none())
+
+    /** @see retrieveSmsOtpStatus */
+    fun retrieveSmsOtpStatus(
+        referenceId: String,
+        requestOptions: RequestOptions,
+    ): BrandRetrieveSmsOtpStatusResponse =
+        retrieveSmsOtpStatus(referenceId, BrandRetrieveSmsOtpStatusParams.none(), requestOptions)
 
     /**
      * This operation allows you to revet the brand. However, revetting is allowed once after the
      * successful brand registration and thereafter limited to once every 3 months.
      */
-    fun updateRevet(brandId: String): TelnyxBrand =
-        updateRevet(brandId, BrandUpdateRevetParams.none())
+    fun revet(brandId: String): TelnyxBrand = revet(brandId, BrandRevetParams.none())
 
-    /** @see updateRevet */
-    fun updateRevet(
+    /** @see revet */
+    fun revet(
         brandId: String,
-        params: BrandUpdateRevetParams = BrandUpdateRevetParams.none(),
+        params: BrandRevetParams = BrandRevetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): TelnyxBrand = updateRevet(params.toBuilder().brandId(brandId).build(), requestOptions)
+    ): TelnyxBrand = revet(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-    /** @see updateRevet */
-    fun updateRevet(
-        brandId: String,
-        params: BrandUpdateRevetParams = BrandUpdateRevetParams.none(),
-    ): TelnyxBrand = updateRevet(brandId, params, RequestOptions.none())
+    /** @see revet */
+    fun revet(brandId: String, params: BrandRevetParams = BrandRevetParams.none()): TelnyxBrand =
+        revet(brandId, params, RequestOptions.none())
 
-    /** @see updateRevet */
-    fun updateRevet(
-        params: BrandUpdateRevetParams,
+    /** @see revet */
+    fun revet(
+        params: BrandRevetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TelnyxBrand
 
-    /** @see updateRevet */
-    fun updateRevet(params: BrandUpdateRevetParams): TelnyxBrand =
-        updateRevet(params, RequestOptions.none())
+    /** @see revet */
+    fun revet(params: BrandRevetParams): TelnyxBrand = revet(params, RequestOptions.none())
 
-    /** @see updateRevet */
-    fun updateRevet(brandId: String, requestOptions: RequestOptions): TelnyxBrand =
-        updateRevet(brandId, BrandUpdateRevetParams.none(), requestOptions)
+    /** @see revet */
+    fun revet(brandId: String, requestOptions: RequestOptions): TelnyxBrand =
+        revet(brandId, BrandRevetParams.none(), requestOptions)
 
     /** A view of [BrandService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -311,24 +404,23 @@ interface BrandService {
          * Returns a raw HTTP response for `get /10dlc/brand`, but is otherwise the same as
          * [BrandService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<BrandListResponse> = list(BrandListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<BrandListPage> = list(BrandListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: BrandListParams = BrandListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BrandListResponse>
+        ): HttpResponseFor<BrandListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            params: BrandListParams = BrandListParams.none()
-        ): HttpResponseFor<BrandListResponse> = list(params, RequestOptions.none())
+        fun list(params: BrandListParams = BrandListParams.none()): HttpResponseFor<BrandListPage> =
+            list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<BrandListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<BrandListPage> =
             list(BrandListParams.none(), requestOptions)
 
         /**
@@ -370,87 +462,186 @@ interface BrandService {
             delete(brandId, BrandDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /10dlc/brand/{brandId}/2faEmail`, but is otherwise
-         * the same as [BrandService._2faEmail].
+         * Returns a raw HTTP response for `get /10dlc/brand/feedback/{brandId}`, but is otherwise
+         * the same as [BrandService.getFeedback].
          */
         @MustBeClosed
-        fun _2faEmail(brandId: String): HttpResponse =
-            _2faEmail(brandId, Brand2faEmailParams.none())
+        fun getFeedback(brandId: String): HttpResponseFor<BrandGetFeedbackResponse> =
+            getFeedback(brandId, BrandGetFeedbackParams.none())
 
-        /** @see _2faEmail */
+        /** @see getFeedback */
         @MustBeClosed
-        fun _2faEmail(
+        fun getFeedback(
             brandId: String,
-            params: Brand2faEmailParams = Brand2faEmailParams.none(),
+            params: BrandGetFeedbackParams = BrandGetFeedbackParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse = _2faEmail(params.toBuilder().brandId(brandId).build(), requestOptions)
+        ): HttpResponseFor<BrandGetFeedbackResponse> =
+            getFeedback(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-        /** @see _2faEmail */
+        /** @see getFeedback */
         @MustBeClosed
-        fun _2faEmail(
+        fun getFeedback(
             brandId: String,
-            params: Brand2faEmailParams = Brand2faEmailParams.none(),
-        ): HttpResponse = _2faEmail(brandId, params, RequestOptions.none())
+            params: BrandGetFeedbackParams = BrandGetFeedbackParams.none(),
+        ): HttpResponseFor<BrandGetFeedbackResponse> =
+            getFeedback(brandId, params, RequestOptions.none())
 
-        /** @see _2faEmail */
+        /** @see getFeedback */
         @MustBeClosed
-        fun _2faEmail(
-            params: Brand2faEmailParams,
+        fun getFeedback(
+            params: BrandGetFeedbackParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BrandGetFeedbackResponse>
+
+        /** @see getFeedback */
+        @MustBeClosed
+        fun getFeedback(params: BrandGetFeedbackParams): HttpResponseFor<BrandGetFeedbackResponse> =
+            getFeedback(params, RequestOptions.none())
+
+        /** @see getFeedback */
+        @MustBeClosed
+        fun getFeedback(
+            brandId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BrandGetFeedbackResponse> =
+            getFeedback(brandId, BrandGetFeedbackParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /10dlc/brand/{brandId}/2faEmail`, but is otherwise
+         * the same as [BrandService.resend2faEmail].
+         */
+        @MustBeClosed
+        fun resend2faEmail(brandId: String): HttpResponse =
+            resend2faEmail(brandId, BrandResend2faEmailParams.none())
+
+        /** @see resend2faEmail */
+        @MustBeClosed
+        fun resend2faEmail(
+            brandId: String,
+            params: BrandResend2faEmailParams = BrandResend2faEmailParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            resend2faEmail(params.toBuilder().brandId(brandId).build(), requestOptions)
+
+        /** @see resend2faEmail */
+        @MustBeClosed
+        fun resend2faEmail(
+            brandId: String,
+            params: BrandResend2faEmailParams = BrandResend2faEmailParams.none(),
+        ): HttpResponse = resend2faEmail(brandId, params, RequestOptions.none())
+
+        /** @see resend2faEmail */
+        @MustBeClosed
+        fun resend2faEmail(
+            params: BrandResend2faEmailParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see _2faEmail */
+        /** @see resend2faEmail */
         @MustBeClosed
-        fun _2faEmail(params: Brand2faEmailParams): HttpResponse =
-            _2faEmail(params, RequestOptions.none())
+        fun resend2faEmail(params: BrandResend2faEmailParams): HttpResponse =
+            resend2faEmail(params, RequestOptions.none())
 
-        /** @see _2faEmail */
+        /** @see resend2faEmail */
         @MustBeClosed
-        fun _2faEmail(brandId: String, requestOptions: RequestOptions): HttpResponse =
-            _2faEmail(brandId, Brand2faEmailParams.none(), requestOptions)
+        fun resend2faEmail(brandId: String, requestOptions: RequestOptions): HttpResponse =
+            resend2faEmail(brandId, BrandResend2faEmailParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /10dlc/brand/smsOtp/{referenceId}`, but is otherwise
+         * the same as [BrandService.retrieveSmsOtpStatus].
+         */
+        @MustBeClosed
+        fun retrieveSmsOtpStatus(
+            referenceId: String
+        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> =
+            retrieveSmsOtpStatus(referenceId, BrandRetrieveSmsOtpStatusParams.none())
+
+        /** @see retrieveSmsOtpStatus */
+        @MustBeClosed
+        fun retrieveSmsOtpStatus(
+            referenceId: String,
+            params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> =
+            retrieveSmsOtpStatus(
+                params.toBuilder().referenceId(referenceId).build(),
+                requestOptions,
+            )
+
+        /** @see retrieveSmsOtpStatus */
+        @MustBeClosed
+        fun retrieveSmsOtpStatus(
+            referenceId: String,
+            params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
+        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> =
+            retrieveSmsOtpStatus(referenceId, params, RequestOptions.none())
+
+        /** @see retrieveSmsOtpStatus */
+        @MustBeClosed
+        fun retrieveSmsOtpStatus(
+            params: BrandRetrieveSmsOtpStatusParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>
+
+        /** @see retrieveSmsOtpStatus */
+        @MustBeClosed
+        fun retrieveSmsOtpStatus(
+            params: BrandRetrieveSmsOtpStatusParams
+        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> =
+            retrieveSmsOtpStatus(params, RequestOptions.none())
+
+        /** @see retrieveSmsOtpStatus */
+        @MustBeClosed
+        fun retrieveSmsOtpStatus(
+            referenceId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> =
+            retrieveSmsOtpStatus(
+                referenceId,
+                BrandRetrieveSmsOtpStatusParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `put /10dlc/brand/{brandId}/revet`, but is otherwise the
-         * same as [BrandService.updateRevet].
+         * same as [BrandService.revet].
          */
         @MustBeClosed
-        fun updateRevet(brandId: String): HttpResponseFor<TelnyxBrand> =
-            updateRevet(brandId, BrandUpdateRevetParams.none())
+        fun revet(brandId: String): HttpResponseFor<TelnyxBrand> =
+            revet(brandId, BrandRevetParams.none())
 
-        /** @see updateRevet */
+        /** @see revet */
         @MustBeClosed
-        fun updateRevet(
+        fun revet(
             brandId: String,
-            params: BrandUpdateRevetParams = BrandUpdateRevetParams.none(),
+            params: BrandRevetParams = BrandRevetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TelnyxBrand> =
-            updateRevet(params.toBuilder().brandId(brandId).build(), requestOptions)
+            revet(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-        /** @see updateRevet */
+        /** @see revet */
         @MustBeClosed
-        fun updateRevet(
+        fun revet(
             brandId: String,
-            params: BrandUpdateRevetParams = BrandUpdateRevetParams.none(),
-        ): HttpResponseFor<TelnyxBrand> = updateRevet(brandId, params, RequestOptions.none())
+            params: BrandRevetParams = BrandRevetParams.none(),
+        ): HttpResponseFor<TelnyxBrand> = revet(brandId, params, RequestOptions.none())
 
-        /** @see updateRevet */
+        /** @see revet */
         @MustBeClosed
-        fun updateRevet(
-            params: BrandUpdateRevetParams,
+        fun revet(
+            params: BrandRevetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TelnyxBrand>
 
-        /** @see updateRevet */
+        /** @see revet */
         @MustBeClosed
-        fun updateRevet(params: BrandUpdateRevetParams): HttpResponseFor<TelnyxBrand> =
-            updateRevet(params, RequestOptions.none())
+        fun revet(params: BrandRevetParams): HttpResponseFor<TelnyxBrand> =
+            revet(params, RequestOptions.none())
 
-        /** @see updateRevet */
+        /** @see revet */
         @MustBeClosed
-        fun updateRevet(
-            brandId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<TelnyxBrand> =
-            updateRevet(brandId, BrandUpdateRevetParams.none(), requestOptions)
+        fun revet(brandId: String, requestOptions: RequestOptions): HttpResponseFor<TelnyxBrand> =
+            revet(brandId, BrandRevetParams.none(), requestOptions)
     }
 }

@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.useraddresses.UserAddressCreateParams
-import com.telnyx.sdk.models.useraddresses.UserAddressListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -73,30 +72,9 @@ internal class UserAddressServiceAsyncTest {
                 .build()
         val userAddressServiceAsync = client.userAddresses()
 
-        val userAddressesFuture =
-            userAddressServiceAsync.list(
-                UserAddressListParams.builder()
-                    .filter(
-                        UserAddressListParams.Filter.builder()
-                            .customerReference(
-                                UserAddressListParams.Filter.CustomerReference.builder()
-                                    .contains("contains")
-                                    .eq("eq")
-                                    .build()
-                            )
-                            .streetAddress(
-                                UserAddressListParams.Filter.StreetAddress.builder()
-                                    .contains("contains")
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .page(UserAddressListParams.Page.builder().number(1L).size(1L).build())
-                    .sort(UserAddressListParams.Sort.STREET_ADDRESS)
-                    .build()
-            )
+        val pageFuture = userAddressServiceAsync.list()
 
-        val userAddresses = userAddressesFuture.get()
-        userAddresses.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

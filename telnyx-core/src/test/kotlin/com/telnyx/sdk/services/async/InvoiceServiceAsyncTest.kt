@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.invoices.InvoiceListParams
 import com.telnyx.sdk.models.invoices.InvoiceRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -45,15 +44,9 @@ internal class InvoiceServiceAsyncTest {
                 .build()
         val invoiceServiceAsync = client.invoices()
 
-        val invoicesFuture =
-            invoiceServiceAsync.list(
-                InvoiceListParams.builder()
-                    .page(InvoiceListParams.Page.builder().number(1L).size(1L).build())
-                    .sort(InvoiceListParams.Sort.PERIOD_START)
-                    .build()
-            )
+        val pageFuture = invoiceServiceAsync.list()
 
-        val invoices = invoicesFuture.get()
-        invoices.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

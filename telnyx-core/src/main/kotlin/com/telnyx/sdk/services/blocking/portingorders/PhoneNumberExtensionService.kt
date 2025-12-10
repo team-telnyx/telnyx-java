@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExte
 import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionCreateResponse
 import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionDeleteParams
 import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionDeleteResponse
+import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionListPage
 import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionListParams
-import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionListResponse
 import java.util.function.Consumer
 
 interface PhoneNumberExtensionService {
@@ -53,7 +53,7 @@ interface PhoneNumberExtensionService {
     ): PhoneNumberExtensionCreateResponse
 
     /** Returns a list of all phone number extensions of a porting order. */
-    fun list(portingOrderId: String): PhoneNumberExtensionListResponse =
+    fun list(portingOrderId: String): PhoneNumberExtensionListPage =
         list(portingOrderId, PhoneNumberExtensionListParams.none())
 
     /** @see list */
@@ -61,30 +61,27 @@ interface PhoneNumberExtensionService {
         portingOrderId: String,
         params: PhoneNumberExtensionListParams = PhoneNumberExtensionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhoneNumberExtensionListResponse =
+    ): PhoneNumberExtensionListPage =
         list(params.toBuilder().portingOrderId(portingOrderId).build(), requestOptions)
 
     /** @see list */
     fun list(
         portingOrderId: String,
         params: PhoneNumberExtensionListParams = PhoneNumberExtensionListParams.none(),
-    ): PhoneNumberExtensionListResponse = list(portingOrderId, params, RequestOptions.none())
+    ): PhoneNumberExtensionListPage = list(portingOrderId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: PhoneNumberExtensionListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhoneNumberExtensionListResponse
+    ): PhoneNumberExtensionListPage
 
     /** @see list */
-    fun list(params: PhoneNumberExtensionListParams): PhoneNumberExtensionListResponse =
+    fun list(params: PhoneNumberExtensionListParams): PhoneNumberExtensionListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        portingOrderId: String,
-        requestOptions: RequestOptions,
-    ): PhoneNumberExtensionListResponse =
+    fun list(portingOrderId: String, requestOptions: RequestOptions): PhoneNumberExtensionListPage =
         list(portingOrderId, PhoneNumberExtensionListParams.none(), requestOptions)
 
     /** Deletes a phone number extension. */
@@ -167,7 +164,7 @@ interface PhoneNumberExtensionService {
          * [PhoneNumberExtensionService.list].
          */
         @MustBeClosed
-        fun list(portingOrderId: String): HttpResponseFor<PhoneNumberExtensionListResponse> =
+        fun list(portingOrderId: String): HttpResponseFor<PhoneNumberExtensionListPage> =
             list(portingOrderId, PhoneNumberExtensionListParams.none())
 
         /** @see list */
@@ -176,7 +173,7 @@ interface PhoneNumberExtensionService {
             portingOrderId: String,
             params: PhoneNumberExtensionListParams = PhoneNumberExtensionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhoneNumberExtensionListResponse> =
+        ): HttpResponseFor<PhoneNumberExtensionListPage> =
             list(params.toBuilder().portingOrderId(portingOrderId).build(), requestOptions)
 
         /** @see list */
@@ -184,7 +181,7 @@ interface PhoneNumberExtensionService {
         fun list(
             portingOrderId: String,
             params: PhoneNumberExtensionListParams = PhoneNumberExtensionListParams.none(),
-        ): HttpResponseFor<PhoneNumberExtensionListResponse> =
+        ): HttpResponseFor<PhoneNumberExtensionListPage> =
             list(portingOrderId, params, RequestOptions.none())
 
         /** @see list */
@@ -192,20 +189,20 @@ interface PhoneNumberExtensionService {
         fun list(
             params: PhoneNumberExtensionListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhoneNumberExtensionListResponse>
+        ): HttpResponseFor<PhoneNumberExtensionListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PhoneNumberExtensionListParams
-        ): HttpResponseFor<PhoneNumberExtensionListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<PhoneNumberExtensionListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             portingOrderId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PhoneNumberExtensionListResponse> =
+        ): HttpResponseFor<PhoneNumberExtensionListPage> =
             list(portingOrderId, PhoneNumberExtensionListParams.none(), requestOptions)
 
         /**

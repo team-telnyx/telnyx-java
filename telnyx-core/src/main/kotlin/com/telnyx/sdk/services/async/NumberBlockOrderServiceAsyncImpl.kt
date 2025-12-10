@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderCreateParams
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderCreateResponse
+import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderListPageAsync
+import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderListPageResponse
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderListParams
-import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderListResponse
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderRetrieveParams
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -57,7 +58,7 @@ internal constructor(private val clientOptions: ClientOptions) : NumberBlockOrde
     override fun list(
         params: NumberBlockOrderListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NumberBlockOrderListResponse> =
+    ): CompletableFuture<NumberBlockOrderListPageAsync> =
         // get /number_block_orders
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -138,13 +139,13 @@ internal constructor(private val clientOptions: ClientOptions) : NumberBlockOrde
                 }
         }
 
-        private val listHandler: Handler<NumberBlockOrderListResponse> =
-            jsonHandler<NumberBlockOrderListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NumberBlockOrderListPageResponse> =
+            jsonHandler<NumberBlockOrderListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NumberBlockOrderListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NumberBlockOrderListResponse>> {
+        ): CompletableFuture<HttpResponseFor<NumberBlockOrderListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -163,6 +164,14 @@ internal constructor(private val clientOptions: ClientOptions) : NumberBlockOrde
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                NumberBlockOrderListPageAsync.builder()
+                                    .service(NumberBlockOrderServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

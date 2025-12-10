@@ -17,16 +17,21 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.brand.TelnyxBrand
-import com.telnyx.sdk.models.number10dlc.brand.Brand2faEmailParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandCreateParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandDeleteParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandListPage
+import com.telnyx.sdk.models.number10dlc.brand.BrandListPageResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandListParams
-import com.telnyx.sdk.models.number10dlc.brand.BrandListResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandRevetParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
-import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateRevetParams
+import com.telnyx.sdk.models.number10dlc.brand.TelnyxBrand
 import com.telnyx.sdk.services.blocking.number10dlc.brand.ExternalVettingService
 import com.telnyx.sdk.services.blocking.number10dlc.brand.ExternalVettingServiceImpl
 import java.util.function.Consumer
@@ -65,7 +70,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
         // put /10dlc/brand/{brandId}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: BrandListParams, requestOptions: RequestOptions): BrandListResponse =
+    override fun list(params: BrandListParams, requestOptions: RequestOptions): BrandListPage =
         // get /10dlc/brand
         withRawResponse().list(params, requestOptions).parse()
 
@@ -74,17 +79,28 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun _2faEmail(params: Brand2faEmailParams, requestOptions: RequestOptions) {
+    override fun getFeedback(
+        params: BrandGetFeedbackParams,
+        requestOptions: RequestOptions,
+    ): BrandGetFeedbackResponse =
+        // get /10dlc/brand/feedback/{brandId}
+        withRawResponse().getFeedback(params, requestOptions).parse()
+
+    override fun resend2faEmail(params: BrandResend2faEmailParams, requestOptions: RequestOptions) {
         // post /10dlc/brand/{brandId}/2faEmail
-        withRawResponse()._2faEmail(params, requestOptions)
+        withRawResponse().resend2faEmail(params, requestOptions)
     }
 
-    override fun updateRevet(
-        params: BrandUpdateRevetParams,
+    override fun retrieveSmsOtpStatus(
+        params: BrandRetrieveSmsOtpStatusParams,
         requestOptions: RequestOptions,
-    ): TelnyxBrand =
+    ): BrandRetrieveSmsOtpStatusResponse =
+        // get /10dlc/brand/smsOtp/{referenceId}
+        withRawResponse().retrieveSmsOtpStatus(params, requestOptions).parse()
+
+    override fun revet(params: BrandRevetParams, requestOptions: RequestOptions): TelnyxBrand =
         // put /10dlc/brand/{brandId}/revet
-        withRawResponse().updateRevet(params, requestOptions).parse()
+        withRawResponse().revet(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BrandService.WithRawResponse {
@@ -194,13 +210,13 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val listHandler: Handler<BrandListResponse> =
-            jsonHandler<BrandListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BrandListPageResponse> =
+            jsonHandler<BrandListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: BrandListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BrandListResponse> {
+        ): HttpResponseFor<BrandListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -217,6 +233,13 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        BrandListPage.builder()
+                            .service(BrandServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }
@@ -245,10 +268,40 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val _2faEmailHandler: Handler<Void?> = emptyHandler()
+        private val getFeedbackHandler: Handler<BrandGetFeedbackResponse> =
+            jsonHandler<BrandGetFeedbackResponse>(clientOptions.jsonMapper)
 
-        override fun _2faEmail(
-            params: Brand2faEmailParams,
+        override fun getFeedback(
+            params: BrandGetFeedbackParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BrandGetFeedbackResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("brandId", params.brandId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("10dlc", "brand", "feedback", params._pathParam(0))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getFeedbackHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val resend2faEmailHandler: Handler<Void?> = emptyHandler()
+
+        override fun resend2faEmail(
+            params: BrandResend2faEmailParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
@@ -265,15 +318,45 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { _2faEmailHandler.handle(it) }
+                response.use { resend2faEmailHandler.handle(it) }
             }
         }
 
-        private val updateRevetHandler: Handler<TelnyxBrand> =
+        private val retrieveSmsOtpStatusHandler: Handler<BrandRetrieveSmsOtpStatusResponse> =
+            jsonHandler<BrandRetrieveSmsOtpStatusResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveSmsOtpStatus(
+            params: BrandRetrieveSmsOtpStatusParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("referenceId", params.referenceId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("10dlc", "brand", "smsOtp", params._pathParam(0))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { retrieveSmsOtpStatusHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val revetHandler: Handler<TelnyxBrand> =
             jsonHandler<TelnyxBrand>(clientOptions.jsonMapper)
 
-        override fun updateRevet(
-            params: BrandUpdateRevetParams,
+        override fun revet(
+            params: BrandRevetParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<TelnyxBrand> {
             // We check here instead of in the params builder because this can be specified
@@ -291,7 +374,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { updateRevetHandler.handle(it) }
+                    .use { revetHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

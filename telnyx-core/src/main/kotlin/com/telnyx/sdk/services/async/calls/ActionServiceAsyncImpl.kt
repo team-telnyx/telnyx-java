@@ -412,7 +412,7 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
         ): CompletableFuture<HttpResponseFor<ActionBridgeResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("pathCallControlId", params.pathCallControlId().getOrNull())
+            checkRequired("callControlIdToBridge", params.callControlIdToBridge().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

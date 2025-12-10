@@ -5,12 +5,12 @@ package com.telnyx.sdk.services.async.number10dlc.brand
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingExternalVettingParams
-import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingExternalVettingResponse
-import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingRetrieveExternalVettingParams
-import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingRetrieveExternalVettingResponse
-import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingUpdateExternalVettingParams
-import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingUpdateExternalVettingResponse
+import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingImportsParams
+import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingImportsResponse
+import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingListParams
+import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingListResponse
+import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingOrderParams
+import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingOrderResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -28,109 +28,97 @@ interface ExternalVettingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExternalVettingServiceAsync
 
-    /** Order new external vetting for a brand */
-    fun externalVetting(
-        brandId: String,
-        params: ExternalVettingExternalVettingParams,
-    ): CompletableFuture<ExternalVettingExternalVettingResponse> =
-        externalVetting(brandId, params, RequestOptions.none())
-
-    /** @see externalVetting */
-    fun externalVetting(
-        brandId: String,
-        params: ExternalVettingExternalVettingParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ExternalVettingExternalVettingResponse> =
-        externalVetting(params.toBuilder().brandId(brandId).build(), requestOptions)
-
-    /** @see externalVetting */
-    fun externalVetting(
-        params: ExternalVettingExternalVettingParams
-    ): CompletableFuture<ExternalVettingExternalVettingResponse> =
-        externalVetting(params, RequestOptions.none())
-
-    /** @see externalVetting */
-    fun externalVetting(
-        params: ExternalVettingExternalVettingParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ExternalVettingExternalVettingResponse>
-
     /** Get list of valid external vetting record for a given brand */
-    fun retrieveExternalVetting(
-        brandId: String
-    ): CompletableFuture<List<ExternalVettingRetrieveExternalVettingResponse>> =
-        retrieveExternalVetting(brandId, ExternalVettingRetrieveExternalVettingParams.none())
+    fun list(brandId: String): CompletableFuture<List<ExternalVettingListResponse>> =
+        list(brandId, ExternalVettingListParams.none())
 
-    /** @see retrieveExternalVetting */
-    fun retrieveExternalVetting(
+    /** @see list */
+    fun list(
         brandId: String,
-        params: ExternalVettingRetrieveExternalVettingParams =
-            ExternalVettingRetrieveExternalVettingParams.none(),
+        params: ExternalVettingListParams = ExternalVettingListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<List<ExternalVettingRetrieveExternalVettingResponse>> =
-        retrieveExternalVetting(params.toBuilder().brandId(brandId).build(), requestOptions)
+    ): CompletableFuture<List<ExternalVettingListResponse>> =
+        list(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-    /** @see retrieveExternalVetting */
-    fun retrieveExternalVetting(
+    /** @see list */
+    fun list(
         brandId: String,
-        params: ExternalVettingRetrieveExternalVettingParams =
-            ExternalVettingRetrieveExternalVettingParams.none(),
-    ): CompletableFuture<List<ExternalVettingRetrieveExternalVettingResponse>> =
-        retrieveExternalVetting(brandId, params, RequestOptions.none())
+        params: ExternalVettingListParams = ExternalVettingListParams.none(),
+    ): CompletableFuture<List<ExternalVettingListResponse>> =
+        list(brandId, params, RequestOptions.none())
 
-    /** @see retrieveExternalVetting */
-    fun retrieveExternalVetting(
-        params: ExternalVettingRetrieveExternalVettingParams,
+    /** @see list */
+    fun list(
+        params: ExternalVettingListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<List<ExternalVettingRetrieveExternalVettingResponse>>
+    ): CompletableFuture<List<ExternalVettingListResponse>>
 
-    /** @see retrieveExternalVetting */
-    fun retrieveExternalVetting(
-        params: ExternalVettingRetrieveExternalVettingParams
-    ): CompletableFuture<List<ExternalVettingRetrieveExternalVettingResponse>> =
-        retrieveExternalVetting(params, RequestOptions.none())
+    /** @see list */
+    fun list(
+        params: ExternalVettingListParams
+    ): CompletableFuture<List<ExternalVettingListResponse>> = list(params, RequestOptions.none())
 
-    /** @see retrieveExternalVetting */
-    fun retrieveExternalVetting(
+    /** @see list */
+    fun list(
         brandId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<List<ExternalVettingRetrieveExternalVettingResponse>> =
-        retrieveExternalVetting(
-            brandId,
-            ExternalVettingRetrieveExternalVettingParams.none(),
-            requestOptions,
-        )
+    ): CompletableFuture<List<ExternalVettingListResponse>> =
+        list(brandId, ExternalVettingListParams.none(), requestOptions)
 
     /**
      * This operation can be used to import an external vetting record from a TCR-approved vetting
      * provider. If the vetting provider confirms validity of the record, it will be saved with the
      * brand and will be considered for future campaign qualification.
      */
-    fun updateExternalVetting(
+    fun imports(
         brandId: String,
-        params: ExternalVettingUpdateExternalVettingParams,
-    ): CompletableFuture<ExternalVettingUpdateExternalVettingResponse> =
-        updateExternalVetting(brandId, params, RequestOptions.none())
+        params: ExternalVettingImportsParams,
+    ): CompletableFuture<ExternalVettingImportsResponse> =
+        imports(brandId, params, RequestOptions.none())
 
-    /** @see updateExternalVetting */
-    fun updateExternalVetting(
+    /** @see imports */
+    fun imports(
         brandId: String,
-        params: ExternalVettingUpdateExternalVettingParams,
+        params: ExternalVettingImportsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ExternalVettingUpdateExternalVettingResponse> =
-        updateExternalVetting(params.toBuilder().brandId(brandId).build(), requestOptions)
+    ): CompletableFuture<ExternalVettingImportsResponse> =
+        imports(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-    /** @see updateExternalVetting */
-    fun updateExternalVetting(
-        params: ExternalVettingUpdateExternalVettingParams
-    ): CompletableFuture<ExternalVettingUpdateExternalVettingResponse> =
-        updateExternalVetting(params, RequestOptions.none())
+    /** @see imports */
+    fun imports(
+        params: ExternalVettingImportsParams
+    ): CompletableFuture<ExternalVettingImportsResponse> = imports(params, RequestOptions.none())
 
-    /** @see updateExternalVetting */
-    fun updateExternalVetting(
-        params: ExternalVettingUpdateExternalVettingParams,
+    /** @see imports */
+    fun imports(
+        params: ExternalVettingImportsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ExternalVettingUpdateExternalVettingResponse>
+    ): CompletableFuture<ExternalVettingImportsResponse>
+
+    /** Order new external vetting for a brand */
+    fun order(
+        brandId: String,
+        params: ExternalVettingOrderParams,
+    ): CompletableFuture<ExternalVettingOrderResponse> =
+        order(brandId, params, RequestOptions.none())
+
+    /** @see order */
+    fun order(
+        brandId: String,
+        params: ExternalVettingOrderParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ExternalVettingOrderResponse> =
+        order(params.toBuilder().brandId(brandId).build(), requestOptions)
+
+    /** @see order */
+    fun order(params: ExternalVettingOrderParams): CompletableFuture<ExternalVettingOrderResponse> =
+        order(params, RequestOptions.none())
+
+    /** @see order */
+    fun order(
+        params: ExternalVettingOrderParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ExternalVettingOrderResponse>
 
     /**
      * A view of [ExternalVettingServiceAsync] that provides access to raw HTTP responses for each
@@ -148,118 +136,106 @@ interface ExternalVettingServiceAsync {
         ): ExternalVettingServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /10dlc/brand/{brandId}/externalVetting`, but is
-         * otherwise the same as [ExternalVettingServiceAsync.externalVetting].
-         */
-        fun externalVetting(
-            brandId: String,
-            params: ExternalVettingExternalVettingParams,
-        ): CompletableFuture<HttpResponseFor<ExternalVettingExternalVettingResponse>> =
-            externalVetting(brandId, params, RequestOptions.none())
-
-        /** @see externalVetting */
-        fun externalVetting(
-            brandId: String,
-            params: ExternalVettingExternalVettingParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ExternalVettingExternalVettingResponse>> =
-            externalVetting(params.toBuilder().brandId(brandId).build(), requestOptions)
-
-        /** @see externalVetting */
-        fun externalVetting(
-            params: ExternalVettingExternalVettingParams
-        ): CompletableFuture<HttpResponseFor<ExternalVettingExternalVettingResponse>> =
-            externalVetting(params, RequestOptions.none())
-
-        /** @see externalVetting */
-        fun externalVetting(
-            params: ExternalVettingExternalVettingParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ExternalVettingExternalVettingResponse>>
-
-        /**
          * Returns a raw HTTP response for `get /10dlc/brand/{brandId}/externalVetting`, but is
-         * otherwise the same as [ExternalVettingServiceAsync.retrieveExternalVetting].
+         * otherwise the same as [ExternalVettingServiceAsync.list].
          */
-        fun retrieveExternalVetting(
+        fun list(
             brandId: String
-        ): CompletableFuture<
-            HttpResponseFor<List<ExternalVettingRetrieveExternalVettingResponse>>
-        > = retrieveExternalVetting(brandId, ExternalVettingRetrieveExternalVettingParams.none())
+        ): CompletableFuture<HttpResponseFor<List<ExternalVettingListResponse>>> =
+            list(brandId, ExternalVettingListParams.none())
 
-        /** @see retrieveExternalVetting */
-        fun retrieveExternalVetting(
+        /** @see list */
+        fun list(
             brandId: String,
-            params: ExternalVettingRetrieveExternalVettingParams =
-                ExternalVettingRetrieveExternalVettingParams.none(),
+            params: ExternalVettingListParams = ExternalVettingListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<
-            HttpResponseFor<List<ExternalVettingRetrieveExternalVettingResponse>>
-        > = retrieveExternalVetting(params.toBuilder().brandId(brandId).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<List<ExternalVettingListResponse>>> =
+            list(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-        /** @see retrieveExternalVetting */
-        fun retrieveExternalVetting(
+        /** @see list */
+        fun list(
             brandId: String,
-            params: ExternalVettingRetrieveExternalVettingParams =
-                ExternalVettingRetrieveExternalVettingParams.none(),
-        ): CompletableFuture<
-            HttpResponseFor<List<ExternalVettingRetrieveExternalVettingResponse>>
-        > = retrieveExternalVetting(brandId, params, RequestOptions.none())
+            params: ExternalVettingListParams = ExternalVettingListParams.none(),
+        ): CompletableFuture<HttpResponseFor<List<ExternalVettingListResponse>>> =
+            list(brandId, params, RequestOptions.none())
 
-        /** @see retrieveExternalVetting */
-        fun retrieveExternalVetting(
-            params: ExternalVettingRetrieveExternalVettingParams,
+        /** @see list */
+        fun list(
+            params: ExternalVettingListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<List<ExternalVettingRetrieveExternalVettingResponse>>>
+        ): CompletableFuture<HttpResponseFor<List<ExternalVettingListResponse>>>
 
-        /** @see retrieveExternalVetting */
-        fun retrieveExternalVetting(
-            params: ExternalVettingRetrieveExternalVettingParams
-        ): CompletableFuture<
-            HttpResponseFor<List<ExternalVettingRetrieveExternalVettingResponse>>
-        > = retrieveExternalVetting(params, RequestOptions.none())
+        /** @see list */
+        fun list(
+            params: ExternalVettingListParams
+        ): CompletableFuture<HttpResponseFor<List<ExternalVettingListResponse>>> =
+            list(params, RequestOptions.none())
 
-        /** @see retrieveExternalVetting */
-        fun retrieveExternalVetting(
+        /** @see list */
+        fun list(
             brandId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<List<ExternalVettingRetrieveExternalVettingResponse>>
-        > =
-            retrieveExternalVetting(
-                brandId,
-                ExternalVettingRetrieveExternalVettingParams.none(),
-                requestOptions,
-            )
+        ): CompletableFuture<HttpResponseFor<List<ExternalVettingListResponse>>> =
+            list(brandId, ExternalVettingListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put /10dlc/brand/{brandId}/externalVetting`, but is
-         * otherwise the same as [ExternalVettingServiceAsync.updateExternalVetting].
+         * otherwise the same as [ExternalVettingServiceAsync.imports].
          */
-        fun updateExternalVetting(
+        fun imports(
             brandId: String,
-            params: ExternalVettingUpdateExternalVettingParams,
-        ): CompletableFuture<HttpResponseFor<ExternalVettingUpdateExternalVettingResponse>> =
-            updateExternalVetting(brandId, params, RequestOptions.none())
+            params: ExternalVettingImportsParams,
+        ): CompletableFuture<HttpResponseFor<ExternalVettingImportsResponse>> =
+            imports(brandId, params, RequestOptions.none())
 
-        /** @see updateExternalVetting */
-        fun updateExternalVetting(
+        /** @see imports */
+        fun imports(
             brandId: String,
-            params: ExternalVettingUpdateExternalVettingParams,
+            params: ExternalVettingImportsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ExternalVettingUpdateExternalVettingResponse>> =
-            updateExternalVetting(params.toBuilder().brandId(brandId).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<ExternalVettingImportsResponse>> =
+            imports(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-        /** @see updateExternalVetting */
-        fun updateExternalVetting(
-            params: ExternalVettingUpdateExternalVettingParams
-        ): CompletableFuture<HttpResponseFor<ExternalVettingUpdateExternalVettingResponse>> =
-            updateExternalVetting(params, RequestOptions.none())
+        /** @see imports */
+        fun imports(
+            params: ExternalVettingImportsParams
+        ): CompletableFuture<HttpResponseFor<ExternalVettingImportsResponse>> =
+            imports(params, RequestOptions.none())
 
-        /** @see updateExternalVetting */
-        fun updateExternalVetting(
-            params: ExternalVettingUpdateExternalVettingParams,
+        /** @see imports */
+        fun imports(
+            params: ExternalVettingImportsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ExternalVettingUpdateExternalVettingResponse>>
+        ): CompletableFuture<HttpResponseFor<ExternalVettingImportsResponse>>
+
+        /**
+         * Returns a raw HTTP response for `post /10dlc/brand/{brandId}/externalVetting`, but is
+         * otherwise the same as [ExternalVettingServiceAsync.order].
+         */
+        fun order(
+            brandId: String,
+            params: ExternalVettingOrderParams,
+        ): CompletableFuture<HttpResponseFor<ExternalVettingOrderResponse>> =
+            order(brandId, params, RequestOptions.none())
+
+        /** @see order */
+        fun order(
+            brandId: String,
+            params: ExternalVettingOrderParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ExternalVettingOrderResponse>> =
+            order(params.toBuilder().brandId(brandId).build(), requestOptions)
+
+        /** @see order */
+        fun order(
+            params: ExternalVettingOrderParams
+        ): CompletableFuture<HttpResponseFor<ExternalVettingOrderResponse>> =
+            order(params, RequestOptions.none())
+
+        /** @see order */
+        fun order(
+            params: ExternalVettingOrderParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ExternalVettingOrderResponse>>
     }
 }

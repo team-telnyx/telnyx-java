@@ -4,7 +4,7 @@ package com.telnyx.sdk.services.blocking.number10dlc.campaign
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.number10dlc.campaign.usecase.UsecaseRetrieveCostParams
+import com.telnyx.sdk.models.number10dlc.campaign.usecase.UsecaseGetCostParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,7 +14,7 @@ internal class UsecaseServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun retrieveCost() {
+    fun getCost() {
         val client =
             TelnyxOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -23,9 +23,7 @@ internal class UsecaseServiceTest {
         val usecaseService = client.number10dlc().campaign().usecase()
 
         val response =
-            usecaseService.retrieveCost(
-                UsecaseRetrieveCostParams.builder().usecase("usecase").build()
-            )
+            usecaseService.getCost(UsecaseGetCostParams.builder().usecase("usecase").build())
 
         response.validate()
     }

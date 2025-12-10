@@ -559,7 +559,7 @@ private constructor(
             private val connectionId: JsonField<String>,
             private val from: JsonField<String>,
             private val messageHistory: JsonField<List<MessageHistory>>,
-            private val partialResults: JsonValue,
+            private val partialResults: JsonField<PartialResults>,
             private val to: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -587,7 +587,7 @@ private constructor(
                 messageHistory: JsonField<List<MessageHistory>> = JsonMissing.of(),
                 @JsonProperty("partial_results")
                 @ExcludeMissing
-                partialResults: JsonValue = JsonMissing.of(),
+                partialResults: JsonField<PartialResults> = JsonMissing.of(),
                 @JsonProperty("to") @ExcludeMissing to: JsonField<String> = JsonMissing.of(),
             ) : this(
                 callControlId,
@@ -664,10 +664,12 @@ private constructor(
             /**
              * The partial result of the AI gather, its type depends of the `parameters` provided in
              * the command
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
              */
-            @JsonProperty("partial_results")
-            @ExcludeMissing
-            fun _partialResults(): JsonValue = partialResults
+            fun partialResults(): Optional<PartialResults> =
+                partialResults.getOptional("partial_results")
 
             /**
              * Destination number or SIP URI of the call.
@@ -745,6 +747,16 @@ private constructor(
             fun _messageHistory(): JsonField<List<MessageHistory>> = messageHistory
 
             /**
+             * Returns the raw JSON value of [partialResults].
+             *
+             * Unlike [partialResults], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("partial_results")
+            @ExcludeMissing
+            fun _partialResults(): JsonField<PartialResults> = partialResults
+
+            /**
              * Returns the raw JSON value of [to].
              *
              * Unlike [to], this method doesn't throw if the JSON field has an unexpected type.
@@ -779,7 +791,7 @@ private constructor(
                 private var connectionId: JsonField<String> = JsonMissing.of()
                 private var from: JsonField<String> = JsonMissing.of()
                 private var messageHistory: JsonField<MutableList<MessageHistory>>? = null
-                private var partialResults: JsonValue = JsonMissing.of()
+                private var partialResults: JsonField<PartialResults> = JsonMissing.of()
                 private var to: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -914,7 +926,17 @@ private constructor(
                  * The partial result of the AI gather, its type depends of the `parameters`
                  * provided in the command
                  */
-                fun partialResults(partialResults: JsonValue) = apply {
+                fun partialResults(partialResults: PartialResults) =
+                    partialResults(JsonField.of(partialResults))
+
+                /**
+                 * Sets [Builder.partialResults] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.partialResults] with a well-typed
+                 * [PartialResults] value instead. This method is primarily for setting the field to
+                 * an undocumented or not yet supported value.
+                 */
+                fun partialResults(partialResults: JsonField<PartialResults>) = apply {
                     this.partialResults = partialResults
                 }
 
@@ -986,6 +1008,7 @@ private constructor(
                 connectionId()
                 from()
                 messageHistory().ifPresent { it.forEach { it.validate() } }
+                partialResults().ifPresent { it.validate() }
                 to()
                 validated = true
             }
@@ -1013,6 +1036,7 @@ private constructor(
                     (if (connectionId.asKnown().isPresent) 1 else 0) +
                     (if (from.asKnown().isPresent) 1 else 0) +
                     (messageHistory.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                    (partialResults.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (to.asKnown().isPresent) 1 else 0)
 
             class MessageHistory
@@ -1336,6 +1360,118 @@ private constructor(
 
                 override fun toString() =
                     "MessageHistory{content=$content, role=$role, additionalProperties=$additionalProperties}"
+            }
+
+            /**
+             * The partial result of the AI gather, its type depends of the `parameters` provided in
+             * the command
+             */
+            class PartialResults
+            @JsonCreator
+            private constructor(
+                @com.fasterxml.jackson.annotation.JsonValue
+                private val additionalProperties: Map<String, JsonValue>
+            ) {
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [PartialResults].
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [PartialResults]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(partialResults: PartialResults) = apply {
+                        additionalProperties = partialResults.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [PartialResults].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): PartialResults = PartialResults(additionalProperties.toImmutable())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): PartialResults = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    additionalProperties.count { (_, value) ->
+                        !value.isNull() && !value.isMissing()
+                    }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is PartialResults &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "PartialResults{additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {

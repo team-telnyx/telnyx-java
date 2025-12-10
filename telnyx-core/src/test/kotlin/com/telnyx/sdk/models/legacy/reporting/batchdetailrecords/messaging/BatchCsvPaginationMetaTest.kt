@@ -14,14 +14,14 @@ internal class BatchCsvPaginationMetaTest {
         val batchCsvPaginationMeta =
             BatchCsvPaginationMeta.builder()
                 .pageNumber(2)
-                .pageSize(25)
                 .totalPages(3)
+                .pageSize(25)
                 .totalResults(55)
                 .build()
 
-        assertThat(batchCsvPaginationMeta.pageNumber()).contains(2)
+        assertThat(batchCsvPaginationMeta.pageNumber()).isEqualTo(2)
+        assertThat(batchCsvPaginationMeta.totalPages()).isEqualTo(3)
         assertThat(batchCsvPaginationMeta.pageSize()).contains(25)
-        assertThat(batchCsvPaginationMeta.totalPages()).contains(3)
         assertThat(batchCsvPaginationMeta.totalResults()).contains(55)
     }
 
@@ -31,8 +31,8 @@ internal class BatchCsvPaginationMetaTest {
         val batchCsvPaginationMeta =
             BatchCsvPaginationMeta.builder()
                 .pageNumber(2)
-                .pageSize(25)
                 .totalPages(3)
+                .pageSize(25)
                 .totalResults(55)
                 .build()
 

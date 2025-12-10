@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
-import com.telnyx.sdk.models.number10dlc.campaignbuilder.CampaignBuilderCampaignBuilderParams
+import com.telnyx.sdk.models.number10dlc.campaign.TelnyxCampaignCsp
+import com.telnyx.sdk.models.number10dlc.campaignbuilder.CampaignBuilderSubmitParams
 import com.telnyx.sdk.services.blocking.number10dlc.campaignbuilder.BrandService
 import java.util.function.Consumer
 
@@ -37,12 +37,12 @@ interface CampaignBuilderService {
      * Costs section for
      * details](https://developers.telnyx.com/docs/messaging/10dlc/concepts#10dlc-costs)).
      */
-    fun campaignBuilder(params: CampaignBuilderCampaignBuilderParams): TelnyxCampaignCsp =
-        campaignBuilder(params, RequestOptions.none())
+    fun submit(params: CampaignBuilderSubmitParams): TelnyxCampaignCsp =
+        submit(params, RequestOptions.none())
 
-    /** @see campaignBuilder */
-    fun campaignBuilder(
-        params: CampaignBuilderCampaignBuilderParams,
+    /** @see submit */
+    fun submit(
+        params: CampaignBuilderSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TelnyxCampaignCsp
 
@@ -65,17 +65,16 @@ interface CampaignBuilderService {
 
         /**
          * Returns a raw HTTP response for `post /10dlc/campaignBuilder`, but is otherwise the same
-         * as [CampaignBuilderService.campaignBuilder].
+         * as [CampaignBuilderService.submit].
          */
         @MustBeClosed
-        fun campaignBuilder(
-            params: CampaignBuilderCampaignBuilderParams
-        ): HttpResponseFor<TelnyxCampaignCsp> = campaignBuilder(params, RequestOptions.none())
+        fun submit(params: CampaignBuilderSubmitParams): HttpResponseFor<TelnyxCampaignCsp> =
+            submit(params, RequestOptions.none())
 
-        /** @see campaignBuilder */
+        /** @see submit */
         @MustBeClosed
-        fun campaignBuilder(
-            params: CampaignBuilderCampaignBuilderParams,
+        fun submit(
+            params: CampaignBuilderSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TelnyxCampaignCsp>
     }

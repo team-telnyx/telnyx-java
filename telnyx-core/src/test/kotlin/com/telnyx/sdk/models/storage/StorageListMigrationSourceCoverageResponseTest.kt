@@ -24,8 +24,8 @@ internal class StorageListMigrationSourceCoverageResponseTest {
                 .meta(
                     PaginationMetaSimple.builder()
                         .pageNumber(2L)
-                        .pageSize(25L)
                         .totalPages(3L)
+                        .pageSize(25L)
                         .totalResults(55L)
                         .build()
                 )
@@ -42,8 +42,8 @@ internal class StorageListMigrationSourceCoverageResponseTest {
             .contains(
                 PaginationMetaSimple.builder()
                     .pageNumber(2L)
-                    .pageSize(25L)
                     .totalPages(3L)
+                    .pageSize(25L)
                     .totalResults(55L)
                     .build()
             )
@@ -63,8 +63,8 @@ internal class StorageListMigrationSourceCoverageResponseTest {
                 .meta(
                     PaginationMetaSimple.builder()
                         .pageNumber(2L)
-                        .pageSize(25L)
                         .totalPages(3L)
+                        .pageSize(25L)
                         .totalResults(55L)
                         .build()
                 )

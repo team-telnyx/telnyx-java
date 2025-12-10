@@ -11,7 +11,7 @@ internal class MessagingProfileListPhoneNumbersParamsTest {
     @Test
     fun create() {
         MessagingProfileListPhoneNumbersParams.builder()
-            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .page(MessagingProfileListPhoneNumbersParams.Page.builder().number(1L).size(1L).build())
             .build()
     }
@@ -20,7 +20,7 @@ internal class MessagingProfileListPhoneNumbersParamsTest {
     fun pathParams() {
         val params =
             MessagingProfileListPhoneNumbersParams.builder()
-                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -32,7 +32,7 @@ internal class MessagingProfileListPhoneNumbersParamsTest {
     fun queryParams() {
         val params =
             MessagingProfileListPhoneNumbersParams.builder()
-                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .page(
                     MessagingProfileListPhoneNumbersParams.Page.builder()
                         .number(1L)
@@ -53,7 +53,7 @@ internal class MessagingProfileListPhoneNumbersParamsTest {
     fun queryParamsWithoutOptionalFields() {
         val params =
             MessagingProfileListPhoneNumbersParams.builder()
-                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
 
         val queryParams = params._queryParams()

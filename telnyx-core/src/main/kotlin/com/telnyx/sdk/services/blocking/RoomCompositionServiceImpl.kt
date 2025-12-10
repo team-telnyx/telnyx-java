@@ -20,8 +20,9 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionCreateParams
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionCreateResponse
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionDeleteParams
+import com.telnyx.sdk.models.roomcompositions.RoomCompositionListPage
+import com.telnyx.sdk.models.roomcompositions.RoomCompositionListPageResponse
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionListParams
-import com.telnyx.sdk.models.roomcompositions.RoomCompositionListResponse
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionRetrieveParams
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionRetrieveResponse
 import java.util.function.Consumer
@@ -56,7 +57,7 @@ class RoomCompositionServiceImpl internal constructor(private val clientOptions:
     override fun list(
         params: RoomCompositionListParams,
         requestOptions: RequestOptions,
-    ): RoomCompositionListResponse =
+    ): RoomCompositionListPage =
         // get /room_compositions
         withRawResponse().list(params, requestOptions).parse()
 
@@ -136,13 +137,13 @@ class RoomCompositionServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val listHandler: Handler<RoomCompositionListResponse> =
-            jsonHandler<RoomCompositionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RoomCompositionListPageResponse> =
+            jsonHandler<RoomCompositionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RoomCompositionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RoomCompositionListResponse> {
+        ): HttpResponseFor<RoomCompositionListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -159,6 +160,13 @@ class RoomCompositionServiceImpl internal constructor(private val clientOptions:
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        RoomCompositionListPage.builder()
+                            .service(RoomCompositionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

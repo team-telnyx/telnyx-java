@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.addresses.AddressCreateParams
 import com.telnyx.sdk.models.addresses.AddressCreateResponse
 import com.telnyx.sdk.models.addresses.AddressDeleteParams
 import com.telnyx.sdk.models.addresses.AddressDeleteResponse
+import com.telnyx.sdk.models.addresses.AddressListPageAsync
 import com.telnyx.sdk.models.addresses.AddressListParams
-import com.telnyx.sdk.models.addresses.AddressListResponse
 import com.telnyx.sdk.models.addresses.AddressRetrieveParams
 import com.telnyx.sdk.models.addresses.AddressRetrieveResponse
 import com.telnyx.sdk.services.async.addresses.ActionServiceAsync
@@ -79,21 +79,21 @@ interface AddressServiceAsync {
         retrieve(id, AddressRetrieveParams.none(), requestOptions)
 
     /** Returns a list of your addresses. */
-    fun list(): CompletableFuture<AddressListResponse> = list(AddressListParams.none())
+    fun list(): CompletableFuture<AddressListPageAsync> = list(AddressListParams.none())
 
     /** @see list */
     fun list(
         params: AddressListParams = AddressListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AddressListResponse>
+    ): CompletableFuture<AddressListPageAsync>
 
     /** @see list */
     fun list(
         params: AddressListParams = AddressListParams.none()
-    ): CompletableFuture<AddressListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<AddressListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<AddressListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<AddressListPageAsync> =
         list(AddressListParams.none(), requestOptions)
 
     /** Deletes an existing address. */
@@ -207,25 +207,25 @@ interface AddressServiceAsync {
          * Returns a raw HTTP response for `get /addresses`, but is otherwise the same as
          * [AddressServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<AddressListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<AddressListPageAsync>> =
             list(AddressListParams.none())
 
         /** @see list */
         fun list(
             params: AddressListParams = AddressListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AddressListResponse>>
+        ): CompletableFuture<HttpResponseFor<AddressListPageAsync>>
 
         /** @see list */
         fun list(
             params: AddressListParams = AddressListParams.none()
-        ): CompletableFuture<HttpResponseFor<AddressListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AddressListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<AddressListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AddressListPageAsync>> =
             list(AddressListParams.none(), requestOptions)
 
         /**

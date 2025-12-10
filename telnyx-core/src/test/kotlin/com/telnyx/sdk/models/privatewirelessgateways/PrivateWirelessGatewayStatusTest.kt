@@ -13,15 +13,15 @@ internal class PrivateWirelessGatewayStatusTest {
     fun create() {
         val privateWirelessGatewayStatus =
             PrivateWirelessGatewayStatus.builder()
-                .errorCode("error_code")
-                .errorDescription("error_description")
-                .value(PrivateWirelessGatewayStatus.Value_.PROVISIONED)
+                .errorCode(null)
+                .errorDescription(null)
+                .value(PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue.PROVISIONED)
                 .build()
 
-        assertThat(privateWirelessGatewayStatus.errorCode()).contains("error_code")
-        assertThat(privateWirelessGatewayStatus.errorDescription()).contains("error_description")
+        assertThat(privateWirelessGatewayStatus.errorCode()).isEmpty
+        assertThat(privateWirelessGatewayStatus.errorDescription()).isEmpty
         assertThat(privateWirelessGatewayStatus.value())
-            .contains(PrivateWirelessGatewayStatus.Value_.PROVISIONED)
+            .contains(PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue.PROVISIONED)
     }
 
     @Test
@@ -29,9 +29,9 @@ internal class PrivateWirelessGatewayStatusTest {
         val jsonMapper = jsonMapper()
         val privateWirelessGatewayStatus =
             PrivateWirelessGatewayStatus.builder()
-                .errorCode("error_code")
-                .errorDescription("error_description")
-                .value(PrivateWirelessGatewayStatus.Value_.PROVISIONED)
+                .errorCode(null)
+                .errorDescription(null)
+                .value(PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue.PROVISIONED)
                 .build()
 
         val roundtrippedPrivateWirelessGatewayStatus =

@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.externalconnections.releases.ReleaseListPage
 import com.telnyx.sdk.models.externalconnections.releases.ReleaseListParams
-import com.telnyx.sdk.models.externalconnections.releases.ReleaseListResponse
 import com.telnyx.sdk.models.externalconnections.releases.ReleaseRetrieveParams
 import com.telnyx.sdk.models.externalconnections.releases.ReleaseRetrieveResponse
 import java.util.function.Consumer
@@ -53,32 +53,30 @@ interface ReleaseService {
      * created when you change the `connection_id` of a phone number that is currently on Microsoft
      * Teams.
      */
-    fun list(id: String): ReleaseListResponse = list(id, ReleaseListParams.none())
+    fun list(id: String): ReleaseListPage = list(id, ReleaseListParams.none())
 
     /** @see list */
     fun list(
         id: String,
         params: ReleaseListParams = ReleaseListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ReleaseListResponse = list(params.toBuilder().id(id).build(), requestOptions)
+    ): ReleaseListPage = list(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see list */
-    fun list(
-        id: String,
-        params: ReleaseListParams = ReleaseListParams.none(),
-    ): ReleaseListResponse = list(id, params, RequestOptions.none())
+    fun list(id: String, params: ReleaseListParams = ReleaseListParams.none()): ReleaseListPage =
+        list(id, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: ReleaseListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ReleaseListResponse
+    ): ReleaseListPage
 
     /** @see list */
-    fun list(params: ReleaseListParams): ReleaseListResponse = list(params, RequestOptions.none())
+    fun list(params: ReleaseListParams): ReleaseListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(id: String, requestOptions: RequestOptions): ReleaseListResponse =
+    fun list(id: String, requestOptions: RequestOptions): ReleaseListPage =
         list(id, ReleaseListParams.none(), requestOptions)
 
     /** A view of [ReleaseService] that provides access to raw HTTP responses for each method. */
@@ -128,8 +126,7 @@ interface ReleaseService {
          * otherwise the same as [ReleaseService.list].
          */
         @MustBeClosed
-        fun list(id: String): HttpResponseFor<ReleaseListResponse> =
-            list(id, ReleaseListParams.none())
+        fun list(id: String): HttpResponseFor<ReleaseListPage> = list(id, ReleaseListParams.none())
 
         /** @see list */
         @MustBeClosed
@@ -137,7 +134,7 @@ interface ReleaseService {
             id: String,
             params: ReleaseListParams = ReleaseListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ReleaseListResponse> =
+        ): HttpResponseFor<ReleaseListPage> =
             list(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see list */
@@ -145,23 +142,23 @@ interface ReleaseService {
         fun list(
             id: String,
             params: ReleaseListParams = ReleaseListParams.none(),
-        ): HttpResponseFor<ReleaseListResponse> = list(id, params, RequestOptions.none())
+        ): HttpResponseFor<ReleaseListPage> = list(id, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ReleaseListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ReleaseListResponse>
+        ): HttpResponseFor<ReleaseListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: ReleaseListParams): HttpResponseFor<ReleaseListResponse> =
+        fun list(params: ReleaseListParams): HttpResponseFor<ReleaseListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(id: String, requestOptions: RequestOptions): HttpResponseFor<ReleaseListResponse> =
+        fun list(id: String, requestOptions: RequestOptions): HttpResponseFor<ReleaseListPage> =
             list(id, ReleaseListParams.none(), requestOptions)
     }
 }

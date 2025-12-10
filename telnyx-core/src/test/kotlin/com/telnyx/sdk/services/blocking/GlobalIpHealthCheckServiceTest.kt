@@ -6,7 +6,6 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckCreateParams
-import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -71,14 +70,9 @@ internal class GlobalIpHealthCheckServiceTest {
                 .build()
         val globalIpHealthCheckService = client.globalIpHealthChecks()
 
-        val globalIpHealthChecks =
-            globalIpHealthCheckService.list(
-                GlobalIpHealthCheckListParams.builder()
-                    .page(GlobalIpHealthCheckListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val page = globalIpHealthCheckService.list()
 
-        globalIpHealthChecks.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

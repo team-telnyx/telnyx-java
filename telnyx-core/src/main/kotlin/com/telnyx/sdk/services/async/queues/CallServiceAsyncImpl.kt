@@ -17,8 +17,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.queues.calls.CallListPageAsync
+import com.telnyx.sdk.models.queues.calls.CallListPageResponse
 import com.telnyx.sdk.models.queues.calls.CallListParams
-import com.telnyx.sdk.models.queues.calls.CallListResponse
 import com.telnyx.sdk.models.queues.calls.CallRemoveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveResponse
@@ -56,7 +57,7 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun list(
         params: CallListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CallListResponse> =
+    ): CompletableFuture<CallListPageAsync> =
         // get /queues/{queue_name}/calls
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -140,13 +141,13 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val listHandler: Handler<CallListResponse> =
-            jsonHandler<CallListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CallListPageResponse> =
+            jsonHandler<CallListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CallListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CallListResponse>> {
+        ): CompletableFuture<HttpResponseFor<CallListPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("queueName", params.queueName().getOrNull())
@@ -168,6 +169,14 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                CallListPageAsync.builder()
+                                    .service(CallServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

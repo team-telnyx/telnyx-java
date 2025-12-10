@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageDismissParams
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageDismissResponse
+import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageListPage
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageListParams
-import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageListResponse
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageRetrieveParams
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageRetrieveResponse
 import java.util.function.Consumer
@@ -62,20 +62,20 @@ interface LogMessageService {
     /**
      * Retrieve a list of log messages for all external connections associated with your account.
      */
-    fun list(): LogMessageListResponse = list(LogMessageListParams.none())
+    fun list(): LogMessageListPage = list(LogMessageListParams.none())
 
     /** @see list */
     fun list(
         params: LogMessageListParams = LogMessageListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LogMessageListResponse
+    ): LogMessageListPage
 
     /** @see list */
-    fun list(params: LogMessageListParams = LogMessageListParams.none()): LogMessageListResponse =
+    fun list(params: LogMessageListParams = LogMessageListParams.none()): LogMessageListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): LogMessageListResponse =
+    fun list(requestOptions: RequestOptions): LogMessageListPage =
         list(LogMessageListParams.none(), requestOptions)
 
     /** Dismiss a log message for an external connection associated with your account. */
@@ -170,24 +170,24 @@ interface LogMessageService {
          * otherwise the same as [LogMessageService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<LogMessageListResponse> = list(LogMessageListParams.none())
+        fun list(): HttpResponseFor<LogMessageListPage> = list(LogMessageListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: LogMessageListParams = LogMessageListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LogMessageListResponse>
+        ): HttpResponseFor<LogMessageListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: LogMessageListParams = LogMessageListParams.none()
-        ): HttpResponseFor<LogMessageListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<LogMessageListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<LogMessageListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<LogMessageListPage> =
             list(LogMessageListParams.none(), requestOptions)
 
         /**

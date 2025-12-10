@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckCreateParam
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckCreateResponse
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckDeleteParams
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckDeleteResponse
+import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckListPageAsync
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckListParams
-import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckListResponse
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckRetrieveParams
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -90,22 +90,22 @@ interface GlobalIpHealthCheckServiceAsync {
         retrieve(id, GlobalIpHealthCheckRetrieveParams.none(), requestOptions)
 
     /** List all Global IP health checks. */
-    fun list(): CompletableFuture<GlobalIpHealthCheckListResponse> =
+    fun list(): CompletableFuture<GlobalIpHealthCheckListPageAsync> =
         list(GlobalIpHealthCheckListParams.none())
 
     /** @see list */
     fun list(
         params: GlobalIpHealthCheckListParams = GlobalIpHealthCheckListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<GlobalIpHealthCheckListResponse>
+    ): CompletableFuture<GlobalIpHealthCheckListPageAsync>
 
     /** @see list */
     fun list(
         params: GlobalIpHealthCheckListParams = GlobalIpHealthCheckListParams.none()
-    ): CompletableFuture<GlobalIpHealthCheckListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<GlobalIpHealthCheckListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<GlobalIpHealthCheckListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<GlobalIpHealthCheckListPageAsync> =
         list(GlobalIpHealthCheckListParams.none(), requestOptions)
 
     /** Delete a Global IP health check. */
@@ -232,25 +232,25 @@ interface GlobalIpHealthCheckServiceAsync {
          * Returns a raw HTTP response for `get /global_ip_health_checks`, but is otherwise the same
          * as [GlobalIpHealthCheckServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<GlobalIpHealthCheckListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<GlobalIpHealthCheckListPageAsync>> =
             list(GlobalIpHealthCheckListParams.none())
 
         /** @see list */
         fun list(
             params: GlobalIpHealthCheckListParams = GlobalIpHealthCheckListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<GlobalIpHealthCheckListResponse>>
+        ): CompletableFuture<HttpResponseFor<GlobalIpHealthCheckListPageAsync>>
 
         /** @see list */
         fun list(
             params: GlobalIpHealthCheckListParams = GlobalIpHealthCheckListParams.none()
-        ): CompletableFuture<HttpResponseFor<GlobalIpHealthCheckListResponse>> =
+        ): CompletableFuture<HttpResponseFor<GlobalIpHealthCheckListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<GlobalIpHealthCheckListResponse>> =
+        ): CompletableFuture<HttpResponseFor<GlobalIpHealthCheckListPageAsync>> =
             list(GlobalIpHealthCheckListParams.none(), requestOptions)
 
         /**

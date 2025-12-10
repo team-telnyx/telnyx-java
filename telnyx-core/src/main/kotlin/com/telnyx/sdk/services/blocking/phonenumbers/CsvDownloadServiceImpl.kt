@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadCreateParams
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadCreateResponse
+import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListPage
+import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListPageResponse
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListParams
-import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListResponse
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadRetrieveParams
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadRetrieveResponse
 import java.util.function.Consumer
@@ -54,7 +55,7 @@ class CsvDownloadServiceImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: CsvDownloadListParams,
         requestOptions: RequestOptions,
-    ): CsvDownloadListResponse =
+    ): CsvDownloadListPage =
         // get /phone_numbers/csv_downloads
         withRawResponse().list(params, requestOptions).parse()
 
@@ -129,13 +130,13 @@ class CsvDownloadServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listHandler: Handler<CsvDownloadListResponse> =
-            jsonHandler<CsvDownloadListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CsvDownloadListPageResponse> =
+            jsonHandler<CsvDownloadListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CsvDownloadListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CsvDownloadListResponse> {
+        ): HttpResponseFor<CsvDownloadListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -152,6 +153,13 @@ class CsvDownloadServiceImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        CsvDownloadListPage.builder()
+                            .service(CsvDownloadServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

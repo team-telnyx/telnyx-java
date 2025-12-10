@@ -4,7 +4,7 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.number10dlc.Number10dlcRetrieveParams
+import com.telnyx.sdk.models.number10dlc.Number10dlcGetEnumParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,7 +14,7 @@ internal class Number10dlcServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun retrieve() {
+    fun getEnum() {
         val client =
             TelnyxOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -22,10 +22,9 @@ internal class Number10dlcServiceAsyncTest {
                 .build()
         val number10dlcServiceAsync = client.number10dlc()
 
-        val number10dlcFuture =
-            number10dlcServiceAsync.retrieve(Number10dlcRetrieveParams.Endpoint.MNO)
+        val responseFuture = number10dlcServiceAsync.getEnum(Number10dlcGetEnumParams.Endpoint.MNO)
 
-        val number10dlc = number10dlcFuture.get()
-        number10dlc.validate()
+        val response = responseFuture.get()
+        response.validate()
     }
 }

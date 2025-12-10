@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantDeleteParams
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantDeleteResponse
+import com.telnyx.sdk.models.oauthgrants.OAuthGrantListPage
+import com.telnyx.sdk.models.oauthgrants.OAuthGrantListPageResponse
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantListParams
-import com.telnyx.sdk.models.oauthgrants.OAuthGrantListResponse
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantRetrieveParams
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantRetrieveResponse
 import java.util.function.Consumer
@@ -47,7 +48,7 @@ class OAuthGrantServiceImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: OAuthGrantListParams,
         requestOptions: RequestOptions,
-    ): OAuthGrantListResponse =
+    ): OAuthGrantListPage =
         // get /oauth_grants
         withRawResponse().list(params, requestOptions).parse()
 
@@ -101,13 +102,13 @@ class OAuthGrantServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val listHandler: Handler<OAuthGrantListResponse> =
-            jsonHandler<OAuthGrantListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<OAuthGrantListPageResponse> =
+            jsonHandler<OAuthGrantListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: OAuthGrantListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<OAuthGrantListResponse> {
+        ): HttpResponseFor<OAuthGrantListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -124,6 +125,13 @@ class OAuthGrantServiceImpl internal constructor(private val clientOptions: Clie
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        OAuthGrantListPage.builder()
+                            .service(OAuthGrantServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

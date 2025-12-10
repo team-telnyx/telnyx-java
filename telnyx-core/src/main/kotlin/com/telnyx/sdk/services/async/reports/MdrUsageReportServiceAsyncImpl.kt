@@ -22,8 +22,9 @@ import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportDeleteParams
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportDeleteResponse
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportFetchSyncParams
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportFetchSyncResponse
+import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListPageAsync
+import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListPageResponse
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListParams
-import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListResponse
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportRetrieveParams
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -61,7 +62,7 @@ internal constructor(private val clientOptions: ClientOptions) : MdrUsageReportS
     override fun list(
         params: MdrUsageReportListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MdrUsageReportListResponse> =
+    ): CompletableFuture<MdrUsageReportListPageAsync> =
         // get /reports/mdr_usage_reports
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -156,13 +157,13 @@ internal constructor(private val clientOptions: ClientOptions) : MdrUsageReportS
                 }
         }
 
-        private val listHandler: Handler<MdrUsageReportListResponse> =
-            jsonHandler<MdrUsageReportListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MdrUsageReportListPageResponse> =
+            jsonHandler<MdrUsageReportListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MdrUsageReportListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MdrUsageReportListResponse>> {
+        ): CompletableFuture<HttpResponseFor<MdrUsageReportListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -181,6 +182,14 @@ internal constructor(private val clientOptions: ClientOptions) : MdrUsageReportS
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                MdrUsageReportListPageAsync.builder()
+                                    .service(MdrUsageReportServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -6,21 +6,23 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignAppealParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignAppealResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeleteParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeleteResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetMnoMetadataParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetMnoMetadataResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignListPage
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignListParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignListResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveMnoMetadataParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveMnoMetadataResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveOperationStatusParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveOperationStatusResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveSharingParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveSharingResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignUpdateParams
+import com.telnyx.sdk.models.number10dlc.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.services.blocking.number10dlc.campaign.OsrService
 import com.telnyx.sdk.services.blocking.number10dlc.campaign.UsecaseService
 import java.util.function.Consumer
@@ -110,45 +112,188 @@ interface CampaignService {
         update(campaignId, CampaignUpdateParams.none(), requestOptions)
 
     /** Retrieve a list of campaigns associated with a supplied `brandId`. */
-    fun list(params: CampaignListParams): CampaignListResponse = list(params, RequestOptions.none())
+    fun list(params: CampaignListParams): CampaignListPage = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: CampaignListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CampaignListResponse
+    ): CampaignListPage
+
+    /** Manually accept a campaign shared with Telnyx */
+    fun acceptSharing(campaignId: String): CampaignAcceptSharingResponse =
+        acceptSharing(campaignId, CampaignAcceptSharingParams.none())
+
+    /** @see acceptSharing */
+    fun acceptSharing(
+        campaignId: String,
+        params: CampaignAcceptSharingParams = CampaignAcceptSharingParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CampaignAcceptSharingResponse =
+        acceptSharing(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+    /** @see acceptSharing */
+    fun acceptSharing(
+        campaignId: String,
+        params: CampaignAcceptSharingParams = CampaignAcceptSharingParams.none(),
+    ): CampaignAcceptSharingResponse = acceptSharing(campaignId, params, RequestOptions.none())
+
+    /** @see acceptSharing */
+    fun acceptSharing(
+        params: CampaignAcceptSharingParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CampaignAcceptSharingResponse
+
+    /** @see acceptSharing */
+    fun acceptSharing(params: CampaignAcceptSharingParams): CampaignAcceptSharingResponse =
+        acceptSharing(params, RequestOptions.none())
+
+    /** @see acceptSharing */
+    fun acceptSharing(
+        campaignId: String,
+        requestOptions: RequestOptions,
+    ): CampaignAcceptSharingResponse =
+        acceptSharing(campaignId, CampaignAcceptSharingParams.none(), requestOptions)
 
     /** Terminate a campaign. Note that once deactivated, a campaign cannot be restored. */
-    fun delete(campaignId: String): CampaignDeleteResponse =
-        delete(campaignId, CampaignDeleteParams.none())
+    fun deactivate(campaignId: String): CampaignDeactivateResponse =
+        deactivate(campaignId, CampaignDeactivateParams.none())
 
-    /** @see delete */
-    fun delete(
+    /** @see deactivate */
+    fun deactivate(
         campaignId: String,
-        params: CampaignDeleteParams = CampaignDeleteParams.none(),
+        params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CampaignDeleteResponse =
-        delete(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+    ): CampaignDeactivateResponse =
+        deactivate(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-    /** @see delete */
-    fun delete(
+    /** @see deactivate */
+    fun deactivate(
         campaignId: String,
-        params: CampaignDeleteParams = CampaignDeleteParams.none(),
-    ): CampaignDeleteResponse = delete(campaignId, params, RequestOptions.none())
+        params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
+    ): CampaignDeactivateResponse = deactivate(campaignId, params, RequestOptions.none())
 
-    /** @see delete */
-    fun delete(
-        params: CampaignDeleteParams,
+    /** @see deactivate */
+    fun deactivate(
+        params: CampaignDeactivateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CampaignDeleteResponse
+    ): CampaignDeactivateResponse
 
-    /** @see delete */
-    fun delete(params: CampaignDeleteParams): CampaignDeleteResponse =
-        delete(params, RequestOptions.none())
+    /** @see deactivate */
+    fun deactivate(params: CampaignDeactivateParams): CampaignDeactivateResponse =
+        deactivate(params, RequestOptions.none())
 
-    /** @see delete */
-    fun delete(campaignId: String, requestOptions: RequestOptions): CampaignDeleteResponse =
-        delete(campaignId, CampaignDeleteParams.none(), requestOptions)
+    /** @see deactivate */
+    fun deactivate(campaignId: String, requestOptions: RequestOptions): CampaignDeactivateResponse =
+        deactivate(campaignId, CampaignDeactivateParams.none(), requestOptions)
+
+    /** Get the campaign metadata for each MNO it was submitted to. */
+    fun getMnoMetadata(campaignId: String): CampaignGetMnoMetadataResponse =
+        getMnoMetadata(campaignId, CampaignGetMnoMetadataParams.none())
+
+    /** @see getMnoMetadata */
+    fun getMnoMetadata(
+        campaignId: String,
+        params: CampaignGetMnoMetadataParams = CampaignGetMnoMetadataParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CampaignGetMnoMetadataResponse =
+        getMnoMetadata(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+    /** @see getMnoMetadata */
+    fun getMnoMetadata(
+        campaignId: String,
+        params: CampaignGetMnoMetadataParams = CampaignGetMnoMetadataParams.none(),
+    ): CampaignGetMnoMetadataResponse = getMnoMetadata(campaignId, params, RequestOptions.none())
+
+    /** @see getMnoMetadata */
+    fun getMnoMetadata(
+        params: CampaignGetMnoMetadataParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CampaignGetMnoMetadataResponse
+
+    /** @see getMnoMetadata */
+    fun getMnoMetadata(params: CampaignGetMnoMetadataParams): CampaignGetMnoMetadataResponse =
+        getMnoMetadata(params, RequestOptions.none())
+
+    /** @see getMnoMetadata */
+    fun getMnoMetadata(
+        campaignId: String,
+        requestOptions: RequestOptions,
+    ): CampaignGetMnoMetadataResponse =
+        getMnoMetadata(campaignId, CampaignGetMnoMetadataParams.none(), requestOptions)
+
+    /** Retrieve campaign's operation status at MNO level. */
+    fun getOperationStatus(campaignId: String): CampaignGetOperationStatusResponse =
+        getOperationStatus(campaignId, CampaignGetOperationStatusParams.none())
+
+    /** @see getOperationStatus */
+    fun getOperationStatus(
+        campaignId: String,
+        params: CampaignGetOperationStatusParams = CampaignGetOperationStatusParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CampaignGetOperationStatusResponse =
+        getOperationStatus(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+    /** @see getOperationStatus */
+    fun getOperationStatus(
+        campaignId: String,
+        params: CampaignGetOperationStatusParams = CampaignGetOperationStatusParams.none(),
+    ): CampaignGetOperationStatusResponse =
+        getOperationStatus(campaignId, params, RequestOptions.none())
+
+    /** @see getOperationStatus */
+    fun getOperationStatus(
+        params: CampaignGetOperationStatusParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CampaignGetOperationStatusResponse
+
+    /** @see getOperationStatus */
+    fun getOperationStatus(
+        params: CampaignGetOperationStatusParams
+    ): CampaignGetOperationStatusResponse = getOperationStatus(params, RequestOptions.none())
+
+    /** @see getOperationStatus */
+    fun getOperationStatus(
+        campaignId: String,
+        requestOptions: RequestOptions,
+    ): CampaignGetOperationStatusResponse =
+        getOperationStatus(campaignId, CampaignGetOperationStatusParams.none(), requestOptions)
+
+    /** Get Sharing Status */
+    fun getSharingStatus(campaignId: String): CampaignGetSharingStatusResponse =
+        getSharingStatus(campaignId, CampaignGetSharingStatusParams.none())
+
+    /** @see getSharingStatus */
+    fun getSharingStatus(
+        campaignId: String,
+        params: CampaignGetSharingStatusParams = CampaignGetSharingStatusParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CampaignGetSharingStatusResponse =
+        getSharingStatus(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+    /** @see getSharingStatus */
+    fun getSharingStatus(
+        campaignId: String,
+        params: CampaignGetSharingStatusParams = CampaignGetSharingStatusParams.none(),
+    ): CampaignGetSharingStatusResponse =
+        getSharingStatus(campaignId, params, RequestOptions.none())
+
+    /** @see getSharingStatus */
+    fun getSharingStatus(
+        params: CampaignGetSharingStatusParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CampaignGetSharingStatusResponse
+
+    /** @see getSharingStatus */
+    fun getSharingStatus(params: CampaignGetSharingStatusParams): CampaignGetSharingStatusResponse =
+        getSharingStatus(params, RequestOptions.none())
+
+    /** @see getSharingStatus */
+    fun getSharingStatus(
+        campaignId: String,
+        requestOptions: RequestOptions,
+    ): CampaignGetSharingStatusResponse =
+        getSharingStatus(campaignId, CampaignGetSharingStatusParams.none(), requestOptions)
 
     /**
      * Submits an appeal for rejected native campaigns in TELNYX_FAILED or MNO_REJECTED status. The
@@ -156,141 +301,28 @@ interface CampaignService {
      * TCR_ACCEPTED. Note: Appeal forwarding is handled manually to allow proper review before
      * incurring upstream charges.
      */
-    fun appeal(campaignId: String, params: CampaignAppealParams): CampaignAppealResponse =
-        appeal(campaignId, params, RequestOptions.none())
-
-    /** @see appeal */
-    fun appeal(
+    fun submitAppeal(
         campaignId: String,
-        params: CampaignAppealParams,
+        params: CampaignSubmitAppealParams,
+    ): CampaignSubmitAppealResponse = submitAppeal(campaignId, params, RequestOptions.none())
+
+    /** @see submitAppeal */
+    fun submitAppeal(
+        campaignId: String,
+        params: CampaignSubmitAppealParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CampaignAppealResponse =
-        appeal(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+    ): CampaignSubmitAppealResponse =
+        submitAppeal(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-    /** @see appeal */
-    fun appeal(params: CampaignAppealParams): CampaignAppealResponse =
-        appeal(params, RequestOptions.none())
+    /** @see submitAppeal */
+    fun submitAppeal(params: CampaignSubmitAppealParams): CampaignSubmitAppealResponse =
+        submitAppeal(params, RequestOptions.none())
 
-    /** @see appeal */
-    fun appeal(
-        params: CampaignAppealParams,
+    /** @see submitAppeal */
+    fun submitAppeal(
+        params: CampaignSubmitAppealParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CampaignAppealResponse
-
-    /** Get the campaign metadata for each MNO it was submitted to. */
-    fun retrieveMnoMetadata(campaignId: String): CampaignRetrieveMnoMetadataResponse =
-        retrieveMnoMetadata(campaignId, CampaignRetrieveMnoMetadataParams.none())
-
-    /** @see retrieveMnoMetadata */
-    fun retrieveMnoMetadata(
-        campaignId: String,
-        params: CampaignRetrieveMnoMetadataParams = CampaignRetrieveMnoMetadataParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CampaignRetrieveMnoMetadataResponse =
-        retrieveMnoMetadata(params.toBuilder().campaignId(campaignId).build(), requestOptions)
-
-    /** @see retrieveMnoMetadata */
-    fun retrieveMnoMetadata(
-        campaignId: String,
-        params: CampaignRetrieveMnoMetadataParams = CampaignRetrieveMnoMetadataParams.none(),
-    ): CampaignRetrieveMnoMetadataResponse =
-        retrieveMnoMetadata(campaignId, params, RequestOptions.none())
-
-    /** @see retrieveMnoMetadata */
-    fun retrieveMnoMetadata(
-        params: CampaignRetrieveMnoMetadataParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CampaignRetrieveMnoMetadataResponse
-
-    /** @see retrieveMnoMetadata */
-    fun retrieveMnoMetadata(
-        params: CampaignRetrieveMnoMetadataParams
-    ): CampaignRetrieveMnoMetadataResponse = retrieveMnoMetadata(params, RequestOptions.none())
-
-    /** @see retrieveMnoMetadata */
-    fun retrieveMnoMetadata(
-        campaignId: String,
-        requestOptions: RequestOptions,
-    ): CampaignRetrieveMnoMetadataResponse =
-        retrieveMnoMetadata(campaignId, CampaignRetrieveMnoMetadataParams.none(), requestOptions)
-
-    /** Retrieve campaign's operation status at MNO level. */
-    fun retrieveOperationStatus(campaignId: String): CampaignRetrieveOperationStatusResponse =
-        retrieveOperationStatus(campaignId, CampaignRetrieveOperationStatusParams.none())
-
-    /** @see retrieveOperationStatus */
-    fun retrieveOperationStatus(
-        campaignId: String,
-        params: CampaignRetrieveOperationStatusParams =
-            CampaignRetrieveOperationStatusParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CampaignRetrieveOperationStatusResponse =
-        retrieveOperationStatus(params.toBuilder().campaignId(campaignId).build(), requestOptions)
-
-    /** @see retrieveOperationStatus */
-    fun retrieveOperationStatus(
-        campaignId: String,
-        params: CampaignRetrieveOperationStatusParams = CampaignRetrieveOperationStatusParams.none(),
-    ): CampaignRetrieveOperationStatusResponse =
-        retrieveOperationStatus(campaignId, params, RequestOptions.none())
-
-    /** @see retrieveOperationStatus */
-    fun retrieveOperationStatus(
-        params: CampaignRetrieveOperationStatusParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CampaignRetrieveOperationStatusResponse
-
-    /** @see retrieveOperationStatus */
-    fun retrieveOperationStatus(
-        params: CampaignRetrieveOperationStatusParams
-    ): CampaignRetrieveOperationStatusResponse =
-        retrieveOperationStatus(params, RequestOptions.none())
-
-    /** @see retrieveOperationStatus */
-    fun retrieveOperationStatus(
-        campaignId: String,
-        requestOptions: RequestOptions,
-    ): CampaignRetrieveOperationStatusResponse =
-        retrieveOperationStatus(
-            campaignId,
-            CampaignRetrieveOperationStatusParams.none(),
-            requestOptions,
-        )
-
-    /** Get Sharing Status */
-    fun retrieveSharing(campaignId: String): CampaignRetrieveSharingResponse =
-        retrieveSharing(campaignId, CampaignRetrieveSharingParams.none())
-
-    /** @see retrieveSharing */
-    fun retrieveSharing(
-        campaignId: String,
-        params: CampaignRetrieveSharingParams = CampaignRetrieveSharingParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CampaignRetrieveSharingResponse =
-        retrieveSharing(params.toBuilder().campaignId(campaignId).build(), requestOptions)
-
-    /** @see retrieveSharing */
-    fun retrieveSharing(
-        campaignId: String,
-        params: CampaignRetrieveSharingParams = CampaignRetrieveSharingParams.none(),
-    ): CampaignRetrieveSharingResponse = retrieveSharing(campaignId, params, RequestOptions.none())
-
-    /** @see retrieveSharing */
-    fun retrieveSharing(
-        params: CampaignRetrieveSharingParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CampaignRetrieveSharingResponse
-
-    /** @see retrieveSharing */
-    fun retrieveSharing(params: CampaignRetrieveSharingParams): CampaignRetrieveSharingResponse =
-        retrieveSharing(params, RequestOptions.none())
-
-    /** @see retrieveSharing */
-    fun retrieveSharing(
-        campaignId: String,
-        requestOptions: RequestOptions,
-    ): CampaignRetrieveSharingResponse =
-        retrieveSharing(campaignId, CampaignRetrieveSharingParams.none(), requestOptions)
+    ): CampaignSubmitAppealResponse
 
     /** A view of [CampaignService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -399,7 +431,7 @@ interface CampaignService {
          * [CampaignService.list].
          */
         @MustBeClosed
-        fun list(params: CampaignListParams): HttpResponseFor<CampaignListResponse> =
+        fun list(params: CampaignListParams): HttpResponseFor<CampaignListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
@@ -407,241 +439,278 @@ interface CampaignService {
         fun list(
             params: CampaignListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CampaignListResponse>
+        ): HttpResponseFor<CampaignListPage>
+
+        /**
+         * Returns a raw HTTP response for `post /10dlc/campaign/acceptSharing/{campaignId}`, but is
+         * otherwise the same as [CampaignService.acceptSharing].
+         */
+        @MustBeClosed
+        fun acceptSharing(campaignId: String): HttpResponseFor<CampaignAcceptSharingResponse> =
+            acceptSharing(campaignId, CampaignAcceptSharingParams.none())
+
+        /** @see acceptSharing */
+        @MustBeClosed
+        fun acceptSharing(
+            campaignId: String,
+            params: CampaignAcceptSharingParams = CampaignAcceptSharingParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CampaignAcceptSharingResponse> =
+            acceptSharing(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+        /** @see acceptSharing */
+        @MustBeClosed
+        fun acceptSharing(
+            campaignId: String,
+            params: CampaignAcceptSharingParams = CampaignAcceptSharingParams.none(),
+        ): HttpResponseFor<CampaignAcceptSharingResponse> =
+            acceptSharing(campaignId, params, RequestOptions.none())
+
+        /** @see acceptSharing */
+        @MustBeClosed
+        fun acceptSharing(
+            params: CampaignAcceptSharingParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CampaignAcceptSharingResponse>
+
+        /** @see acceptSharing */
+        @MustBeClosed
+        fun acceptSharing(
+            params: CampaignAcceptSharingParams
+        ): HttpResponseFor<CampaignAcceptSharingResponse> =
+            acceptSharing(params, RequestOptions.none())
+
+        /** @see acceptSharing */
+        @MustBeClosed
+        fun acceptSharing(
+            campaignId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CampaignAcceptSharingResponse> =
+            acceptSharing(campaignId, CampaignAcceptSharingParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `delete /10dlc/campaign/{campaignId}`, but is otherwise
-         * the same as [CampaignService.delete].
+         * the same as [CampaignService.deactivate].
          */
         @MustBeClosed
-        fun delete(campaignId: String): HttpResponseFor<CampaignDeleteResponse> =
-            delete(campaignId, CampaignDeleteParams.none())
+        fun deactivate(campaignId: String): HttpResponseFor<CampaignDeactivateResponse> =
+            deactivate(campaignId, CampaignDeactivateParams.none())
 
-        /** @see delete */
+        /** @see deactivate */
         @MustBeClosed
-        fun delete(
+        fun deactivate(
             campaignId: String,
-            params: CampaignDeleteParams = CampaignDeleteParams.none(),
+            params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CampaignDeleteResponse> =
-            delete(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+        ): HttpResponseFor<CampaignDeactivateResponse> =
+            deactivate(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-        /** @see delete */
+        /** @see deactivate */
         @MustBeClosed
-        fun delete(
+        fun deactivate(
             campaignId: String,
-            params: CampaignDeleteParams = CampaignDeleteParams.none(),
-        ): HttpResponseFor<CampaignDeleteResponse> =
-            delete(campaignId, params, RequestOptions.none())
+            params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
+        ): HttpResponseFor<CampaignDeactivateResponse> =
+            deactivate(campaignId, params, RequestOptions.none())
 
-        /** @see delete */
+        /** @see deactivate */
         @MustBeClosed
-        fun delete(
-            params: CampaignDeleteParams,
+        fun deactivate(
+            params: CampaignDeactivateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CampaignDeleteResponse>
+        ): HttpResponseFor<CampaignDeactivateResponse>
 
-        /** @see delete */
+        /** @see deactivate */
         @MustBeClosed
-        fun delete(params: CampaignDeleteParams): HttpResponseFor<CampaignDeleteResponse> =
-            delete(params, RequestOptions.none())
+        fun deactivate(
+            params: CampaignDeactivateParams
+        ): HttpResponseFor<CampaignDeactivateResponse> = deactivate(params, RequestOptions.none())
 
-        /** @see delete */
+        /** @see deactivate */
         @MustBeClosed
-        fun delete(
+        fun deactivate(
             campaignId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignDeleteResponse> =
-            delete(campaignId, CampaignDeleteParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `post /10dlc/campaign/{campaignId}/appeal`, but is
-         * otherwise the same as [CampaignService.appeal].
-         */
-        @MustBeClosed
-        fun appeal(
-            campaignId: String,
-            params: CampaignAppealParams,
-        ): HttpResponseFor<CampaignAppealResponse> =
-            appeal(campaignId, params, RequestOptions.none())
-
-        /** @see appeal */
-        @MustBeClosed
-        fun appeal(
-            campaignId: String,
-            params: CampaignAppealParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CampaignAppealResponse> =
-            appeal(params.toBuilder().campaignId(campaignId).build(), requestOptions)
-
-        /** @see appeal */
-        @MustBeClosed
-        fun appeal(params: CampaignAppealParams): HttpResponseFor<CampaignAppealResponse> =
-            appeal(params, RequestOptions.none())
-
-        /** @see appeal */
-        @MustBeClosed
-        fun appeal(
-            params: CampaignAppealParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CampaignAppealResponse>
+        ): HttpResponseFor<CampaignDeactivateResponse> =
+            deactivate(campaignId, CampaignDeactivateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/mnoMetadata`, but is
-         * otherwise the same as [CampaignService.retrieveMnoMetadata].
+         * otherwise the same as [CampaignService.getMnoMetadata].
          */
         @MustBeClosed
-        fun retrieveMnoMetadata(
-            campaignId: String
-        ): HttpResponseFor<CampaignRetrieveMnoMetadataResponse> =
-            retrieveMnoMetadata(campaignId, CampaignRetrieveMnoMetadataParams.none())
+        fun getMnoMetadata(campaignId: String): HttpResponseFor<CampaignGetMnoMetadataResponse> =
+            getMnoMetadata(campaignId, CampaignGetMnoMetadataParams.none())
 
-        /** @see retrieveMnoMetadata */
+        /** @see getMnoMetadata */
         @MustBeClosed
-        fun retrieveMnoMetadata(
+        fun getMnoMetadata(
             campaignId: String,
-            params: CampaignRetrieveMnoMetadataParams = CampaignRetrieveMnoMetadataParams.none(),
+            params: CampaignGetMnoMetadataParams = CampaignGetMnoMetadataParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CampaignRetrieveMnoMetadataResponse> =
-            retrieveMnoMetadata(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+        ): HttpResponseFor<CampaignGetMnoMetadataResponse> =
+            getMnoMetadata(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-        /** @see retrieveMnoMetadata */
+        /** @see getMnoMetadata */
         @MustBeClosed
-        fun retrieveMnoMetadata(
+        fun getMnoMetadata(
             campaignId: String,
-            params: CampaignRetrieveMnoMetadataParams = CampaignRetrieveMnoMetadataParams.none(),
-        ): HttpResponseFor<CampaignRetrieveMnoMetadataResponse> =
-            retrieveMnoMetadata(campaignId, params, RequestOptions.none())
+            params: CampaignGetMnoMetadataParams = CampaignGetMnoMetadataParams.none(),
+        ): HttpResponseFor<CampaignGetMnoMetadataResponse> =
+            getMnoMetadata(campaignId, params, RequestOptions.none())
 
-        /** @see retrieveMnoMetadata */
+        /** @see getMnoMetadata */
         @MustBeClosed
-        fun retrieveMnoMetadata(
-            params: CampaignRetrieveMnoMetadataParams,
+        fun getMnoMetadata(
+            params: CampaignGetMnoMetadataParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CampaignRetrieveMnoMetadataResponse>
+        ): HttpResponseFor<CampaignGetMnoMetadataResponse>
 
-        /** @see retrieveMnoMetadata */
+        /** @see getMnoMetadata */
         @MustBeClosed
-        fun retrieveMnoMetadata(
-            params: CampaignRetrieveMnoMetadataParams
-        ): HttpResponseFor<CampaignRetrieveMnoMetadataResponse> =
-            retrieveMnoMetadata(params, RequestOptions.none())
+        fun getMnoMetadata(
+            params: CampaignGetMnoMetadataParams
+        ): HttpResponseFor<CampaignGetMnoMetadataResponse> =
+            getMnoMetadata(params, RequestOptions.none())
 
-        /** @see retrieveMnoMetadata */
+        /** @see getMnoMetadata */
         @MustBeClosed
-        fun retrieveMnoMetadata(
+        fun getMnoMetadata(
             campaignId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignRetrieveMnoMetadataResponse> =
-            retrieveMnoMetadata(
-                campaignId,
-                CampaignRetrieveMnoMetadataParams.none(),
-                requestOptions,
-            )
+        ): HttpResponseFor<CampaignGetMnoMetadataResponse> =
+            getMnoMetadata(campaignId, CampaignGetMnoMetadataParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/operationStatus`, but
-         * is otherwise the same as [CampaignService.retrieveOperationStatus].
+         * is otherwise the same as [CampaignService.getOperationStatus].
          */
         @MustBeClosed
-        fun retrieveOperationStatus(
+        fun getOperationStatus(
             campaignId: String
-        ): HttpResponseFor<CampaignRetrieveOperationStatusResponse> =
-            retrieveOperationStatus(campaignId, CampaignRetrieveOperationStatusParams.none())
+        ): HttpResponseFor<CampaignGetOperationStatusResponse> =
+            getOperationStatus(campaignId, CampaignGetOperationStatusParams.none())
 
-        /** @see retrieveOperationStatus */
+        /** @see getOperationStatus */
         @MustBeClosed
-        fun retrieveOperationStatus(
+        fun getOperationStatus(
             campaignId: String,
-            params: CampaignRetrieveOperationStatusParams =
-                CampaignRetrieveOperationStatusParams.none(),
+            params: CampaignGetOperationStatusParams = CampaignGetOperationStatusParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CampaignRetrieveOperationStatusResponse> =
-            retrieveOperationStatus(
-                params.toBuilder().campaignId(campaignId).build(),
-                requestOptions,
-            )
+        ): HttpResponseFor<CampaignGetOperationStatusResponse> =
+            getOperationStatus(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-        /** @see retrieveOperationStatus */
+        /** @see getOperationStatus */
         @MustBeClosed
-        fun retrieveOperationStatus(
+        fun getOperationStatus(
             campaignId: String,
-            params: CampaignRetrieveOperationStatusParams =
-                CampaignRetrieveOperationStatusParams.none(),
-        ): HttpResponseFor<CampaignRetrieveOperationStatusResponse> =
-            retrieveOperationStatus(campaignId, params, RequestOptions.none())
+            params: CampaignGetOperationStatusParams = CampaignGetOperationStatusParams.none(),
+        ): HttpResponseFor<CampaignGetOperationStatusResponse> =
+            getOperationStatus(campaignId, params, RequestOptions.none())
 
-        /** @see retrieveOperationStatus */
+        /** @see getOperationStatus */
         @MustBeClosed
-        fun retrieveOperationStatus(
-            params: CampaignRetrieveOperationStatusParams,
+        fun getOperationStatus(
+            params: CampaignGetOperationStatusParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CampaignRetrieveOperationStatusResponse>
+        ): HttpResponseFor<CampaignGetOperationStatusResponse>
 
-        /** @see retrieveOperationStatus */
+        /** @see getOperationStatus */
         @MustBeClosed
-        fun retrieveOperationStatus(
-            params: CampaignRetrieveOperationStatusParams
-        ): HttpResponseFor<CampaignRetrieveOperationStatusResponse> =
-            retrieveOperationStatus(params, RequestOptions.none())
+        fun getOperationStatus(
+            params: CampaignGetOperationStatusParams
+        ): HttpResponseFor<CampaignGetOperationStatusResponse> =
+            getOperationStatus(params, RequestOptions.none())
 
-        /** @see retrieveOperationStatus */
+        /** @see getOperationStatus */
         @MustBeClosed
-        fun retrieveOperationStatus(
+        fun getOperationStatus(
             campaignId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignRetrieveOperationStatusResponse> =
-            retrieveOperationStatus(
-                campaignId,
-                CampaignRetrieveOperationStatusParams.none(),
-                requestOptions,
-            )
+        ): HttpResponseFor<CampaignGetOperationStatusResponse> =
+            getOperationStatus(campaignId, CampaignGetOperationStatusParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/sharing`, but is
-         * otherwise the same as [CampaignService.retrieveSharing].
+         * otherwise the same as [CampaignService.getSharingStatus].
          */
         @MustBeClosed
-        fun retrieveSharing(campaignId: String): HttpResponseFor<CampaignRetrieveSharingResponse> =
-            retrieveSharing(campaignId, CampaignRetrieveSharingParams.none())
+        fun getSharingStatus(
+            campaignId: String
+        ): HttpResponseFor<CampaignGetSharingStatusResponse> =
+            getSharingStatus(campaignId, CampaignGetSharingStatusParams.none())
 
-        /** @see retrieveSharing */
+        /** @see getSharingStatus */
         @MustBeClosed
-        fun retrieveSharing(
+        fun getSharingStatus(
             campaignId: String,
-            params: CampaignRetrieveSharingParams = CampaignRetrieveSharingParams.none(),
+            params: CampaignGetSharingStatusParams = CampaignGetSharingStatusParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CampaignRetrieveSharingResponse> =
-            retrieveSharing(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+        ): HttpResponseFor<CampaignGetSharingStatusResponse> =
+            getSharingStatus(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-        /** @see retrieveSharing */
+        /** @see getSharingStatus */
         @MustBeClosed
-        fun retrieveSharing(
+        fun getSharingStatus(
             campaignId: String,
-            params: CampaignRetrieveSharingParams = CampaignRetrieveSharingParams.none(),
-        ): HttpResponseFor<CampaignRetrieveSharingResponse> =
-            retrieveSharing(campaignId, params, RequestOptions.none())
+            params: CampaignGetSharingStatusParams = CampaignGetSharingStatusParams.none(),
+        ): HttpResponseFor<CampaignGetSharingStatusResponse> =
+            getSharingStatus(campaignId, params, RequestOptions.none())
 
-        /** @see retrieveSharing */
+        /** @see getSharingStatus */
         @MustBeClosed
-        fun retrieveSharing(
-            params: CampaignRetrieveSharingParams,
+        fun getSharingStatus(
+            params: CampaignGetSharingStatusParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CampaignRetrieveSharingResponse>
+        ): HttpResponseFor<CampaignGetSharingStatusResponse>
 
-        /** @see retrieveSharing */
+        /** @see getSharingStatus */
         @MustBeClosed
-        fun retrieveSharing(
-            params: CampaignRetrieveSharingParams
-        ): HttpResponseFor<CampaignRetrieveSharingResponse> =
-            retrieveSharing(params, RequestOptions.none())
+        fun getSharingStatus(
+            params: CampaignGetSharingStatusParams
+        ): HttpResponseFor<CampaignGetSharingStatusResponse> =
+            getSharingStatus(params, RequestOptions.none())
 
-        /** @see retrieveSharing */
+        /** @see getSharingStatus */
         @MustBeClosed
-        fun retrieveSharing(
+        fun getSharingStatus(
             campaignId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CampaignRetrieveSharingResponse> =
-            retrieveSharing(campaignId, CampaignRetrieveSharingParams.none(), requestOptions)
+        ): HttpResponseFor<CampaignGetSharingStatusResponse> =
+            getSharingStatus(campaignId, CampaignGetSharingStatusParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /10dlc/campaign/{campaignId}/appeal`, but is
+         * otherwise the same as [CampaignService.submitAppeal].
+         */
+        @MustBeClosed
+        fun submitAppeal(
+            campaignId: String,
+            params: CampaignSubmitAppealParams,
+        ): HttpResponseFor<CampaignSubmitAppealResponse> =
+            submitAppeal(campaignId, params, RequestOptions.none())
+
+        /** @see submitAppeal */
+        @MustBeClosed
+        fun submitAppeal(
+            campaignId: String,
+            params: CampaignSubmitAppealParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CampaignSubmitAppealResponse> =
+            submitAppeal(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+        /** @see submitAppeal */
+        @MustBeClosed
+        fun submitAppeal(
+            params: CampaignSubmitAppealParams
+        ): HttpResponseFor<CampaignSubmitAppealResponse> =
+            submitAppeal(params, RequestOptions.none())
+
+        /** @see submitAppeal */
+        @MustBeClosed
+        fun submitAppeal(
+            params: CampaignSubmitAppealParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CampaignSubmitAppealResponse>
     }
 }

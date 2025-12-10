@@ -16,7 +16,8 @@ internal class IntegrationSecretListParamsTest {
                     .type(IntegrationSecretListParams.Filter.Type.BEARER)
                     .build()
             )
-            .page(IntegrationSecretListParams.Page.builder().number(1L).size(25L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -29,7 +30,8 @@ internal class IntegrationSecretListParamsTest {
                         .type(IntegrationSecretListParams.Filter.Type.BEARER)
                         .build()
                 )
-                .page(IntegrationSecretListParams.Page.builder().number(1L).size(25L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -38,8 +40,8 @@ internal class IntegrationSecretListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("filter[type]", "bearer")
-                    .put("page[number]", "1")
-                    .put("page[size]", "25")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .build()
             )
     }
