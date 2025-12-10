@@ -33,8 +33,8 @@ internal class PublicInternetGatewayServiceAsyncTest {
                     .name("test interface")
                     .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .status(InterfaceStatus.PROVISIONED)
-                    .regionCode("ashburn-va")
                     .publicIp("127.0.0.1")
+                    .regionCode("ashburn-va")
                     .build()
             )
 
