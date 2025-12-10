@@ -64,6 +64,7 @@ import com.telnyx.sdk.services.async.ListServiceAsync
 import com.telnyx.sdk.services.async.ManagedAccountServiceAsync
 import com.telnyx.sdk.services.async.MediaServiceAsync
 import com.telnyx.sdk.services.async.MessageServiceAsync
+import com.telnyx.sdk.services.async.Messaging10dlcServiceAsync
 import com.telnyx.sdk.services.async.MessagingHostedNumberOrderServiceAsync
 import com.telnyx.sdk.services.async.MessagingHostedNumberServiceAsync
 import com.telnyx.sdk.services.async.MessagingNumbersBulkUpdateServiceAsync
@@ -84,7 +85,6 @@ import com.telnyx.sdk.services.async.NotificationEventConditionServiceAsync
 import com.telnyx.sdk.services.async.NotificationEventServiceAsync
 import com.telnyx.sdk.services.async.NotificationProfileServiceAsync
 import com.telnyx.sdk.services.async.NotificationSettingServiceAsync
-import com.telnyx.sdk.services.async.Number10dlcServiceAsync
 import com.telnyx.sdk.services.async.NumberBlockOrderServiceAsync
 import com.telnyx.sdk.services.async.NumberLookupServiceAsync
 import com.telnyx.sdk.services.async.NumberOrderPhoneNumberServiceAsync
@@ -97,9 +97,7 @@ import com.telnyx.sdk.services.async.OAuthServiceAsync
 import com.telnyx.sdk.services.async.OperatorConnectServiceAsync
 import com.telnyx.sdk.services.async.OtaUpdateServiceAsync
 import com.telnyx.sdk.services.async.OutboundVoiceProfileServiceAsync
-import com.telnyx.sdk.services.async.PartnerCampaignServiceAsync
 import com.telnyx.sdk.services.async.PaymentServiceAsync
-import com.telnyx.sdk.services.async.PhoneNumberAssignmentByProfileServiceAsync
 import com.telnyx.sdk.services.async.PhoneNumberBlockServiceAsync
 import com.telnyx.sdk.services.async.PhoneNumberServiceAsync
 import com.telnyx.sdk.services.async.PhoneNumbersRegulatoryRequirementServiceAsync
@@ -377,8 +375,6 @@ interface TelnyxClientAsync {
 
     fun payment(): PaymentServiceAsync
 
-    fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileServiceAsync
-
     fun phoneNumberBlocks(): PhoneNumberBlockServiceAsync
 
     fun phoneNumbers(): PhoneNumberServiceAsync
@@ -485,8 +481,6 @@ interface TelnyxClientAsync {
 
     fun wirelessBlocklists(): WirelessBlocklistServiceAsync
 
-    fun partnerCampaigns(): PartnerCampaignServiceAsync
-
     fun wellKnown(): WellKnownServiceAsync
 
     fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync
@@ -495,7 +489,7 @@ interface TelnyxClientAsync {
 
     fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync
 
-    fun number10dlc(): Number10dlcServiceAsync
+    fun messaging10dlc(): Messaging10dlcServiceAsync
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -706,9 +700,6 @@ interface TelnyxClientAsync {
 
         fun payment(): PaymentServiceAsync.WithRawResponse
 
-        fun phoneNumberAssignmentByProfile():
-            PhoneNumberAssignmentByProfileServiceAsync.WithRawResponse
-
         fun phoneNumberBlocks(): PhoneNumberBlockServiceAsync.WithRawResponse
 
         fun phoneNumbers(): PhoneNumberServiceAsync.WithRawResponse
@@ -817,8 +808,6 @@ interface TelnyxClientAsync {
 
         fun wirelessBlocklists(): WirelessBlocklistServiceAsync.WithRawResponse
 
-        fun partnerCampaigns(): PartnerCampaignServiceAsync.WithRawResponse
-
         fun wellKnown(): WellKnownServiceAsync.WithRawResponse
 
         fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync.WithRawResponse
@@ -827,6 +816,6 @@ interface TelnyxClientAsync {
 
         fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync.WithRawResponse
 
-        fun number10dlc(): Number10dlcServiceAsync.WithRawResponse
+        fun messaging10dlc(): Messaging10dlcServiceAsync.WithRawResponse
     }
 }

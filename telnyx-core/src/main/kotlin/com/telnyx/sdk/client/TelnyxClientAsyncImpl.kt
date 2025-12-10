@@ -126,6 +126,8 @@ import com.telnyx.sdk.services.async.MediaServiceAsync
 import com.telnyx.sdk.services.async.MediaServiceAsyncImpl
 import com.telnyx.sdk.services.async.MessageServiceAsync
 import com.telnyx.sdk.services.async.MessageServiceAsyncImpl
+import com.telnyx.sdk.services.async.Messaging10dlcServiceAsync
+import com.telnyx.sdk.services.async.Messaging10dlcServiceAsyncImpl
 import com.telnyx.sdk.services.async.MessagingHostedNumberOrderServiceAsync
 import com.telnyx.sdk.services.async.MessagingHostedNumberOrderServiceAsyncImpl
 import com.telnyx.sdk.services.async.MessagingHostedNumberServiceAsync
@@ -166,8 +168,6 @@ import com.telnyx.sdk.services.async.NotificationProfileServiceAsync
 import com.telnyx.sdk.services.async.NotificationProfileServiceAsyncImpl
 import com.telnyx.sdk.services.async.NotificationSettingServiceAsync
 import com.telnyx.sdk.services.async.NotificationSettingServiceAsyncImpl
-import com.telnyx.sdk.services.async.Number10dlcServiceAsync
-import com.telnyx.sdk.services.async.Number10dlcServiceAsyncImpl
 import com.telnyx.sdk.services.async.NumberBlockOrderServiceAsync
 import com.telnyx.sdk.services.async.NumberBlockOrderServiceAsyncImpl
 import com.telnyx.sdk.services.async.NumberLookupServiceAsync
@@ -192,12 +192,8 @@ import com.telnyx.sdk.services.async.OtaUpdateServiceAsync
 import com.telnyx.sdk.services.async.OtaUpdateServiceAsyncImpl
 import com.telnyx.sdk.services.async.OutboundVoiceProfileServiceAsync
 import com.telnyx.sdk.services.async.OutboundVoiceProfileServiceAsyncImpl
-import com.telnyx.sdk.services.async.PartnerCampaignServiceAsync
-import com.telnyx.sdk.services.async.PartnerCampaignServiceAsyncImpl
 import com.telnyx.sdk.services.async.PaymentServiceAsync
 import com.telnyx.sdk.services.async.PaymentServiceAsyncImpl
-import com.telnyx.sdk.services.async.PhoneNumberAssignmentByProfileServiceAsync
-import com.telnyx.sdk.services.async.PhoneNumberAssignmentByProfileServiceAsyncImpl
 import com.telnyx.sdk.services.async.PhoneNumberBlockServiceAsync
 import com.telnyx.sdk.services.async.PhoneNumberBlockServiceAsyncImpl
 import com.telnyx.sdk.services.async.PhoneNumberServiceAsync
@@ -683,10 +679,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         PaymentServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val phoneNumberAssignmentByProfile: PhoneNumberAssignmentByProfileServiceAsync by lazy {
-        PhoneNumberAssignmentByProfileServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val phoneNumberBlocks: PhoneNumberBlockServiceAsync by lazy {
         PhoneNumberBlockServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -896,10 +888,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         WirelessBlocklistServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val partnerCampaigns: PartnerCampaignServiceAsync by lazy {
-        PartnerCampaignServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val wellKnown: WellKnownServiceAsync by lazy {
         WellKnownServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -916,8 +904,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         MobileVoiceConnectionServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val number10dlc: Number10dlcServiceAsync by lazy {
-        Number10dlcServiceAsyncImpl(clientOptionsWithUserAgent)
+    private val messaging10dlc: Messaging10dlcServiceAsync by lazy {
+        Messaging10dlcServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     override fun sync(): TelnyxClient = sync
@@ -1128,9 +1116,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     override fun payment(): PaymentServiceAsync = payment
 
-    override fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileServiceAsync =
-        phoneNumberAssignmentByProfile
-
     override fun phoneNumberBlocks(): PhoneNumberBlockServiceAsync = phoneNumberBlocks
 
     override fun phoneNumbers(): PhoneNumberServiceAsync = phoneNumbers
@@ -1245,8 +1230,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     override fun wirelessBlocklists(): WirelessBlocklistServiceAsync = wirelessBlocklists
 
-    override fun partnerCampaigns(): PartnerCampaignServiceAsync = partnerCampaigns
-
     override fun wellKnown(): WellKnownServiceAsync = wellKnown
 
     override fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync =
@@ -1257,7 +1240,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     override fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync =
         mobileVoiceConnections
 
-    override fun number10dlc(): Number10dlcServiceAsync = number10dlc
+    override fun messaging10dlc(): Messaging10dlcServiceAsync = messaging10dlc
 
     override fun close() = clientOptions.close()
 
@@ -1654,11 +1637,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             PaymentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val phoneNumberAssignmentByProfile:
-            PhoneNumberAssignmentByProfileServiceAsync.WithRawResponse by lazy {
-            PhoneNumberAssignmentByProfileServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val phoneNumberBlocks: PhoneNumberBlockServiceAsync.WithRawResponse by lazy {
             PhoneNumberBlockServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -1880,10 +1858,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             WirelessBlocklistServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val partnerCampaigns: PartnerCampaignServiceAsync.WithRawResponse by lazy {
-            PartnerCampaignServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val wellKnown: WellKnownServiceAsync.WithRawResponse by lazy {
             WellKnownServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -1902,8 +1876,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             MobileVoiceConnectionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val number10dlc: Number10dlcServiceAsync.WithRawResponse by lazy {
-            Number10dlcServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        private val messaging10dlc: Messaging10dlcServiceAsync.WithRawResponse by lazy {
+            Messaging10dlcServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -2143,10 +2117,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         override fun payment(): PaymentServiceAsync.WithRawResponse = payment
 
-        override fun phoneNumberAssignmentByProfile():
-            PhoneNumberAssignmentByProfileServiceAsync.WithRawResponse =
-            phoneNumberAssignmentByProfile
-
         override fun phoneNumberBlocks(): PhoneNumberBlockServiceAsync.WithRawResponse =
             phoneNumberBlocks
 
@@ -2278,9 +2248,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         override fun wirelessBlocklists(): WirelessBlocklistServiceAsync.WithRawResponse =
             wirelessBlocklists
 
-        override fun partnerCampaigns(): PartnerCampaignServiceAsync.WithRawResponse =
-            partnerCampaigns
-
         override fun wellKnown(): WellKnownServiceAsync.WithRawResponse = wellKnown
 
         override fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync.WithRawResponse =
@@ -2292,6 +2259,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         override fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync.WithRawResponse =
             mobileVoiceConnections
 
-        override fun number10dlc(): Number10dlcServiceAsync.WithRawResponse = number10dlc
+        override fun messaging10dlc(): Messaging10dlcServiceAsync.WithRawResponse = messaging10dlc
     }
 }
