@@ -16,8 +16,8 @@ import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.globalipassignments.Record
 import com.telnyx.sdk.models.networks.InterfaceStatus
-import com.telnyx.sdk.models.publicinternetgateways.NetworkInterface
-import com.telnyx.sdk.models.publicinternetgateways.NetworkInterfaceRegion
+import com.telnyx.sdk.models.publicinternetgateways.Interface
+import com.telnyx.sdk.models.publicinternetgateways.RegionIn
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -588,11 +588,10 @@ private constructor(
                 .updatedAt(updatedAt)
                 .build()
 
-        fun toNetworkInterface(): NetworkInterface =
-            NetworkInterface.builder().name(name).networkId(networkId).status(status).build()
+        fun toInterface(): Interface =
+            Interface.builder().name(name).networkId(networkId).status(status).build()
 
-        fun toNetworkInterfaceRegion(): NetworkInterfaceRegion =
-            NetworkInterfaceRegion.builder().regionCode(regionCode).build()
+        fun toRegionIn(): RegionIn = RegionIn.builder().regionCode(regionCode).build()
 
         /**
          * Identifies the resource.

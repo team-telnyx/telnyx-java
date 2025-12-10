@@ -575,7 +575,7 @@ private constructor(
             private val clientState: JsonField<String>,
             private val connectionId: JsonField<String>,
             private val insightGroupId: JsonField<String>,
-            private val results: JsonField<List<InsightResult>>,
+            private val results: JsonField<List<Result>>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -604,7 +604,7 @@ private constructor(
                 insightGroupId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("results")
                 @ExcludeMissing
-                results: JsonField<List<InsightResult>> = JsonMissing.of(),
+                results: JsonField<List<Result>> = JsonMissing.of(),
             ) : this(
                 callControlId,
                 callLegId,
@@ -682,7 +682,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun results(): Optional<List<InsightResult>> = results.getOptional("results")
+            fun results(): Optional<List<Result>> = results.getOptional("results")
 
             /**
              * Returns the raw JSON value of [callControlId].
@@ -761,7 +761,7 @@ private constructor(
              */
             @JsonProperty("results")
             @ExcludeMissing
-            fun _results(): JsonField<List<InsightResult>> = results
+            fun _results(): JsonField<List<Result>> = results
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -791,7 +791,7 @@ private constructor(
                 private var clientState: JsonField<String> = JsonMissing.of()
                 private var connectionId: JsonField<String> = JsonMissing.of()
                 private var insightGroupId: JsonField<String> = JsonMissing.of()
-                private var results: JsonField<MutableList<InsightResult>>? = null
+                private var results: JsonField<MutableList<Result>>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -912,25 +912,25 @@ private constructor(
                 }
 
                 /** Array of insight results being generated for the call. */
-                fun results(results: List<InsightResult>) = results(JsonField.of(results))
+                fun results(results: List<Result>) = results(JsonField.of(results))
 
                 /**
                  * Sets [Builder.results] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.results] with a well-typed `List<InsightResult>`
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
+                 * You should usually call [Builder.results] with a well-typed `List<Result>` value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
-                fun results(results: JsonField<List<InsightResult>>) = apply {
+                fun results(results: JsonField<List<Result>>) = apply {
                     this.results = results.map { it.toMutableList() }
                 }
 
                 /**
-                 * Adds a single [InsightResult] to [results].
+                 * Adds a single [Result] to [results].
                  *
                  * @throws IllegalStateException if the field was previously set to a non-list.
                  */
-                fun addResult(result: InsightResult) = apply {
+                fun addResult(result: Result) = apply {
                     results =
                         (results ?: JsonField.of(mutableListOf())).also {
                             checkKnown("results", it).add(result)
@@ -1156,11 +1156,11 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
-            class InsightResult
+            class Result
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val insightId: JsonField<String>,
-                private val result: JsonField<Result>,
+                private val result: JsonField<InnerResult>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
 
@@ -1171,7 +1171,7 @@ private constructor(
                     insightId: JsonField<String> = JsonMissing.of(),
                     @JsonProperty("result")
                     @ExcludeMissing
-                    result: JsonField<Result> = JsonMissing.of(),
+                    result: JsonField<InnerResult> = JsonMissing.of(),
                 ) : this(insightId, result, mutableMapOf())
 
                 /**
@@ -1188,7 +1188,7 @@ private constructor(
                  * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
                  *   if the server responded with an unexpected value).
                  */
-                fun result(): Optional<Result> = result.getOptional("result")
+                fun result(): Optional<InnerResult> = result.getOptional("result")
 
                 /**
                  * Returns the raw JSON value of [insightId].
@@ -1206,7 +1206,9 @@ private constructor(
                  * Unlike [result], this method doesn't throw if the JSON field has an unexpected
                  * type.
                  */
-                @JsonProperty("result") @ExcludeMissing fun _result(): JsonField<Result> = result
+                @JsonProperty("result")
+                @ExcludeMissing
+                fun _result(): JsonField<InnerResult> = result
 
                 @JsonAnySetter
                 private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1222,24 +1224,22 @@ private constructor(
 
                 companion object {
 
-                    /**
-                     * Returns a mutable builder for constructing an instance of [InsightResult].
-                     */
+                    /** Returns a mutable builder for constructing an instance of [Result]. */
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [InsightResult]. */
+                /** A builder for [Result]. */
                 class Builder internal constructor() {
 
                     private var insightId: JsonField<String> = JsonMissing.of()
-                    private var result: JsonField<Result> = JsonMissing.of()
+                    private var result: JsonField<InnerResult> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(insightResult: InsightResult) = apply {
-                        insightId = insightResult.insightId
-                        result = insightResult.result
-                        additionalProperties = insightResult.additionalProperties.toMutableMap()
+                    internal fun from(result: Result) = apply {
+                        insightId = result.insightId
+                        this.result = result.result
+                        additionalProperties = result.additionalProperties.toMutableMap()
                     }
 
                     /** ID that is unique to the insight result being generated for the call. */
@@ -1257,26 +1257,22 @@ private constructor(
                     }
 
                     /** The result of the insight. */
-                    fun result(result: Result) = result(JsonField.of(result))
+                    fun result(result: InnerResult) = result(JsonField.of(result))
 
                     /**
                      * Sets [Builder.result] to an arbitrary JSON value.
                      *
-                     * You should usually call [Builder.result] with a well-typed [Result] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
+                     * You should usually call [Builder.result] with a well-typed [InnerResult]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
                      */
-                    fun result(result: JsonField<Result>) = apply { this.result = result }
+                    fun result(result: JsonField<InnerResult>) = apply { this.result = result }
 
-                    /**
-                     * Alias for calling [result] with
-                     * `Result.ofInsightObjectResult(insightObjectResult)`.
-                     */
-                    fun result(insightObjectResult: Result.InsightObjectResult) =
-                        result(Result.ofInsightObjectResult(insightObjectResult))
+                    /** Alias for calling [result] with `InnerResult.ofJsonValue(jsonValue)`. */
+                    fun result(jsonValue: JsonValue) = result(InnerResult.ofJsonValue(jsonValue))
 
-                    /** Alias for calling [result] with `Result.ofString(string)`. */
-                    fun result(string: String) = result(Result.ofString(string))
+                    /** Alias for calling [result] with `InnerResult.ofString(string)`. */
+                    fun result(string: String) = result(InnerResult.ofString(string))
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -1301,17 +1297,17 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [InsightResult].
+                     * Returns an immutable instance of [Result].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): InsightResult =
-                        InsightResult(insightId, result, additionalProperties.toMutableMap())
+                    fun build(): Result =
+                        Result(insightId, result, additionalProperties.toMutableMap())
                 }
 
                 private var validated: Boolean = false
 
-                fun validate(): InsightResult = apply {
+                fun validate(): Result = apply {
                     if (validated) {
                         return@apply
                     }
@@ -1341,29 +1337,27 @@ private constructor(
                         (result.asKnown().getOrNull()?.validity() ?: 0)
 
                 /** The result of the insight. */
-                @JsonDeserialize(using = Result.Deserializer::class)
-                @JsonSerialize(using = Result.Serializer::class)
-                class Result
+                @JsonDeserialize(using = InnerResult.Deserializer::class)
+                @JsonSerialize(using = InnerResult.Serializer::class)
+                class InnerResult
                 private constructor(
-                    private val insightObjectResult: InsightObjectResult? = null,
+                    private val jsonValue: JsonValue? = null,
                     private val string: String? = null,
                     private val _json: JsonValue? = null,
                 ) {
 
                     /** The result of the insight. */
-                    fun insightObjectResult(): Optional<InsightObjectResult> =
-                        Optional.ofNullable(insightObjectResult)
+                    fun jsonValue(): Optional<JsonValue> = Optional.ofNullable(jsonValue)
 
                     /** The result of the insight. */
                     fun string(): Optional<String> = Optional.ofNullable(string)
 
-                    fun isInsightObjectResult(): Boolean = insightObjectResult != null
+                    fun isJsonValue(): Boolean = jsonValue != null
 
                     fun isString(): Boolean = string != null
 
                     /** The result of the insight. */
-                    fun asInsightObjectResult(): InsightObjectResult =
-                        insightObjectResult.getOrThrow("insightObjectResult")
+                    fun asJsonValue(): JsonValue = jsonValue.getOrThrow("jsonValue")
 
                     /** The result of the insight. */
                     fun asString(): String = string.getOrThrow("string")
@@ -1372,26 +1366,21 @@ private constructor(
 
                     fun <T> accept(visitor: Visitor<T>): T =
                         when {
-                            insightObjectResult != null ->
-                                visitor.visitInsightObjectResult(insightObjectResult)
+                            jsonValue != null -> visitor.visitJsonValue(jsonValue)
                             string != null -> visitor.visitString(string)
                             else -> visitor.unknown(_json)
                         }
 
                     private var validated: Boolean = false
 
-                    fun validate(): Result = apply {
+                    fun validate(): InnerResult = apply {
                         if (validated) {
                             return@apply
                         }
 
                         accept(
                             object : Visitor<Unit> {
-                                override fun visitInsightObjectResult(
-                                    insightObjectResult: InsightObjectResult
-                                ) {
-                                    insightObjectResult.validate()
-                                }
+                                override fun visitJsonValue(jsonValue: JsonValue) {}
 
                                 override fun visitString(string: String) {}
                             }
@@ -1417,9 +1406,7 @@ private constructor(
                     internal fun validity(): Int =
                         accept(
                             object : Visitor<Int> {
-                                override fun visitInsightObjectResult(
-                                    insightObjectResult: InsightObjectResult
-                                ) = insightObjectResult.validity()
+                                override fun visitJsonValue(jsonValue: JsonValue) = 1
 
                                 override fun visitString(string: String) = 1
 
@@ -1432,49 +1419,47 @@ private constructor(
                             return true
                         }
 
-                        return other is Result &&
-                            insightObjectResult == other.insightObjectResult &&
+                        return other is InnerResult &&
+                            jsonValue == other.jsonValue &&
                             string == other.string
                     }
 
-                    override fun hashCode(): Int = Objects.hash(insightObjectResult, string)
+                    override fun hashCode(): Int = Objects.hash(jsonValue, string)
 
                     override fun toString(): String =
                         when {
-                            insightObjectResult != null ->
-                                "Result{insightObjectResult=$insightObjectResult}"
-                            string != null -> "Result{string=$string}"
-                            _json != null -> "Result{_unknown=$_json}"
-                            else -> throw IllegalStateException("Invalid Result")
+                            jsonValue != null -> "InnerResult{jsonValue=$jsonValue}"
+                            string != null -> "InnerResult{string=$string}"
+                            _json != null -> "InnerResult{_unknown=$_json}"
+                            else -> throw IllegalStateException("Invalid InnerResult")
                         }
 
                     companion object {
 
                         /** The result of the insight. */
                         @JvmStatic
-                        fun ofInsightObjectResult(insightObjectResult: InsightObjectResult) =
-                            Result(insightObjectResult = insightObjectResult)
+                        fun ofJsonValue(jsonValue: JsonValue) = InnerResult(jsonValue = jsonValue)
 
                         /** The result of the insight. */
-                        @JvmStatic fun ofString(string: String) = Result(string = string)
+                        @JvmStatic fun ofString(string: String) = InnerResult(string = string)
                     }
 
                     /**
-                     * An interface that defines how to map each variant of [Result] to a value of
-                     * type [T].
+                     * An interface that defines how to map each variant of [InnerResult] to a value
+                     * of type [T].
                      */
                     interface Visitor<out T> {
 
                         /** The result of the insight. */
-                        fun visitInsightObjectResult(insightObjectResult: InsightObjectResult): T
+                        fun visitJsonValue(jsonValue: JsonValue): T
 
                         /** The result of the insight. */
                         fun visitString(string: String): T
 
                         /**
-                         * Maps an unknown variant of [Result] to a value of type [T].
+                         * Maps an unknown variant of [InnerResult] to a value of type [T].
                          *
-                         * An instance of [Result] can contain an unknown variant if it was
+                         * An instance of [InnerResult] can contain an unknown variant if it was
                          * deserialized from data that doesn't match any known variant. For example,
                          * if the SDK is on an older version than the API, then the API may respond
                          * with new variants that the SDK is unaware of.
@@ -1482,23 +1467,23 @@ private constructor(
                          * @throws TelnyxInvalidDataException in the default implementation.
                          */
                         fun unknown(json: JsonValue?): T {
-                            throw TelnyxInvalidDataException("Unknown Result: $json")
+                            throw TelnyxInvalidDataException("Unknown InnerResult: $json")
                         }
                     }
 
-                    internal class Deserializer : BaseDeserializer<Result>(Result::class) {
+                    internal class Deserializer :
+                        BaseDeserializer<InnerResult>(InnerResult::class) {
 
-                        override fun ObjectCodec.deserialize(node: JsonNode): Result {
+                        override fun ObjectCodec.deserialize(node: JsonNode): InnerResult {
                             val json = JsonValue.fromJsonNode(node)
 
                             val bestMatches =
                                 sequenceOf(
-                                        tryDeserialize(node, jacksonTypeRef<InsightObjectResult>())
-                                            ?.let {
-                                                Result(insightObjectResult = it, _json = json)
-                                            },
                                         tryDeserialize(node, jacksonTypeRef<String>())?.let {
-                                            Result(string = it, _json = json)
+                                            InnerResult(string = it, _json = json)
+                                        },
+                                        tryDeserialize(node, jacksonTypeRef<JsonValue>())?.let {
+                                            InnerResult(jsonValue = it, _json = json)
                                         },
                                     )
                                     .filterNotNull()
@@ -1506,9 +1491,8 @@ private constructor(
                                     .toList()
                             return when (bestMatches.size) {
                                 // This can happen if what we're deserializing is completely
-                                // incompatible with all the possible variants (e.g. deserializing
-                                // from array).
-                                0 -> Result(_json = json)
+                                // incompatible with all the possible variants.
+                                0 -> InnerResult(_json = json)
                                 1 -> bestMatches.single()
                                 // If there's more than one match with the highest validity, then
                                 // use the first completely valid match, or simply the first match
@@ -1519,135 +1503,20 @@ private constructor(
                         }
                     }
 
-                    internal class Serializer : BaseSerializer<Result>(Result::class) {
+                    internal class Serializer : BaseSerializer<InnerResult>(InnerResult::class) {
 
                         override fun serialize(
-                            value: Result,
+                            value: InnerResult,
                             generator: JsonGenerator,
                             provider: SerializerProvider,
                         ) {
                             when {
-                                value.insightObjectResult != null ->
-                                    generator.writeObject(value.insightObjectResult)
+                                value.jsonValue != null -> generator.writeObject(value.jsonValue)
                                 value.string != null -> generator.writeObject(value.string)
                                 value._json != null -> generator.writeObject(value._json)
-                                else -> throw IllegalStateException("Invalid Result")
+                                else -> throw IllegalStateException("Invalid InnerResult")
                             }
                         }
-                    }
-
-                    /** The result of the insight. */
-                    class InsightObjectResult
-                    @JsonCreator
-                    private constructor(
-                        @com.fasterxml.jackson.annotation.JsonValue
-                        private val additionalProperties: Map<String, JsonValue>
-                    ) {
-
-                        @JsonAnyGetter
-                        @ExcludeMissing
-                        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                        fun toBuilder() = Builder().from(this)
-
-                        companion object {
-
-                            /**
-                             * Returns a mutable builder for constructing an instance of
-                             * [InsightObjectResult].
-                             */
-                            @JvmStatic fun builder() = Builder()
-                        }
-
-                        /** A builder for [InsightObjectResult]. */
-                        class Builder internal constructor() {
-
-                            private var additionalProperties: MutableMap<String, JsonValue> =
-                                mutableMapOf()
-
-                            @JvmSynthetic
-                            internal fun from(insightObjectResult: InsightObjectResult) = apply {
-                                additionalProperties =
-                                    insightObjectResult.additionalProperties.toMutableMap()
-                            }
-
-                            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                                apply {
-                                    this.additionalProperties.clear()
-                                    putAllAdditionalProperties(additionalProperties)
-                                }
-
-                            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                                additionalProperties.put(key, value)
-                            }
-
-                            fun putAllAdditionalProperties(
-                                additionalProperties: Map<String, JsonValue>
-                            ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                            fun removeAdditionalProperty(key: String) = apply {
-                                additionalProperties.remove(key)
-                            }
-
-                            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                                keys.forEach(::removeAdditionalProperty)
-                            }
-
-                            /**
-                             * Returns an immutable instance of [InsightObjectResult].
-                             *
-                             * Further updates to this [Builder] will not mutate the returned
-                             * instance.
-                             */
-                            fun build(): InsightObjectResult =
-                                InsightObjectResult(additionalProperties.toImmutable())
-                        }
-
-                        private var validated: Boolean = false
-
-                        fun validate(): InsightObjectResult = apply {
-                            if (validated) {
-                                return@apply
-                            }
-
-                            validated = true
-                        }
-
-                        fun isValid(): Boolean =
-                            try {
-                                validate()
-                                true
-                            } catch (e: TelnyxInvalidDataException) {
-                                false
-                            }
-
-                        /**
-                         * Returns a score indicating how many valid values are contained in this
-                         * object recursively.
-                         *
-                         * Used for best match union deserialization.
-                         */
-                        @JvmSynthetic
-                        internal fun validity(): Int =
-                            additionalProperties.count { (_, value) ->
-                                !value.isNull() && !value.isMissing()
-                            }
-
-                        override fun equals(other: Any?): Boolean {
-                            if (this === other) {
-                                return true
-                            }
-
-                            return other is InsightObjectResult &&
-                                additionalProperties == other.additionalProperties
-                        }
-
-                        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                        override fun hashCode(): Int = hashCode
-
-                        override fun toString() =
-                            "InsightObjectResult{additionalProperties=$additionalProperties}"
                     }
                 }
 
@@ -1656,7 +1525,7 @@ private constructor(
                         return true
                     }
 
-                    return other is InsightResult &&
+                    return other is Result &&
                         insightId == other.insightId &&
                         result == other.result &&
                         additionalProperties == other.additionalProperties
@@ -1669,7 +1538,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "InsightResult{insightId=$insightId, result=$result, additionalProperties=$additionalProperties}"
+                    "Result{insightId=$insightId, result=$result, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {

@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.oauthclients.OAuthClientCreateParams
 import com.telnyx.sdk.models.oauthclients.OAuthClientCreateResponse
 import com.telnyx.sdk.models.oauthclients.OAuthClientDeleteParams
-import com.telnyx.sdk.models.oauthclients.OAuthClientListPageAsync
 import com.telnyx.sdk.models.oauthclients.OAuthClientListParams
+import com.telnyx.sdk.models.oauthclients.OAuthClientListResponse
 import com.telnyx.sdk.models.oauthclients.OAuthClientRetrieveParams
 import com.telnyx.sdk.models.oauthclients.OAuthClientRetrieveResponse
 import com.telnyx.sdk.models.oauthclients.OAuthClientUpdateParams
@@ -114,21 +114,21 @@ interface OAuthClientServiceAsync {
         update(id, OAuthClientUpdateParams.none(), requestOptions)
 
     /** Retrieve a paginated list of OAuth clients for the authenticated user */
-    fun list(): CompletableFuture<OAuthClientListPageAsync> = list(OAuthClientListParams.none())
+    fun list(): CompletableFuture<OAuthClientListResponse> = list(OAuthClientListParams.none())
 
     /** @see list */
     fun list(
         params: OAuthClientListParams = OAuthClientListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<OAuthClientListPageAsync>
+    ): CompletableFuture<OAuthClientListResponse>
 
     /** @see list */
     fun list(
         params: OAuthClientListParams = OAuthClientListParams.none()
-    ): CompletableFuture<OAuthClientListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<OAuthClientListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<OAuthClientListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<OAuthClientListResponse> =
         list(OAuthClientListParams.none(), requestOptions)
 
     /** Delete an OAuth client */
@@ -277,25 +277,25 @@ interface OAuthClientServiceAsync {
          * Returns a raw HTTP response for `get /oauth_clients`, but is otherwise the same as
          * [OAuthClientServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<OAuthClientListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<OAuthClientListResponse>> =
             list(OAuthClientListParams.none())
 
         /** @see list */
         fun list(
             params: OAuthClientListParams = OAuthClientListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<OAuthClientListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<OAuthClientListResponse>>
 
         /** @see list */
         fun list(
             params: OAuthClientListParams = OAuthClientListParams.none()
-        ): CompletableFuture<HttpResponseFor<OAuthClientListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<OAuthClientListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<OAuthClientListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<OAuthClientListResponse>> =
             list(OAuthClientListParams.none(), requestOptions)
 
         /**

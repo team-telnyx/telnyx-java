@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.simcardgroups.SimCardGroupCreateParams
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupCreateResponse
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupDeleteParams
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupDeleteResponse
-import com.telnyx.sdk.models.simcardgroups.SimCardGroupListPage
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupListParams
+import com.telnyx.sdk.models.simcardgroups.SimCardGroupListResponse
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupRetrieveParams
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupRetrieveResponse
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupUpdateParams
@@ -107,20 +107,21 @@ interface SimCardGroupService {
         update(id, SimCardGroupUpdateParams.none(), requestOptions)
 
     /** Get all SIM card groups belonging to the user that match the given filters. */
-    fun list(): SimCardGroupListPage = list(SimCardGroupListParams.none())
+    fun list(): SimCardGroupListResponse = list(SimCardGroupListParams.none())
 
     /** @see list */
     fun list(
         params: SimCardGroupListParams = SimCardGroupListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimCardGroupListPage
+    ): SimCardGroupListResponse
 
     /** @see list */
-    fun list(params: SimCardGroupListParams = SimCardGroupListParams.none()): SimCardGroupListPage =
-        list(params, RequestOptions.none())
+    fun list(
+        params: SimCardGroupListParams = SimCardGroupListParams.none()
+    ): SimCardGroupListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): SimCardGroupListPage =
+    fun list(requestOptions: RequestOptions): SimCardGroupListResponse =
         list(SimCardGroupListParams.none(), requestOptions)
 
     /** Permanently deletes a SIM card group */
@@ -279,24 +280,24 @@ interface SimCardGroupService {
          * [SimCardGroupService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<SimCardGroupListPage> = list(SimCardGroupListParams.none())
+        fun list(): HttpResponseFor<SimCardGroupListResponse> = list(SimCardGroupListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: SimCardGroupListParams = SimCardGroupListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimCardGroupListPage>
+        ): HttpResponseFor<SimCardGroupListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: SimCardGroupListParams = SimCardGroupListParams.none()
-        ): HttpResponseFor<SimCardGroupListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<SimCardGroupListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<SimCardGroupListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<SimCardGroupListResponse> =
             list(SimCardGroupListParams.none(), requestOptions)
 
         /**

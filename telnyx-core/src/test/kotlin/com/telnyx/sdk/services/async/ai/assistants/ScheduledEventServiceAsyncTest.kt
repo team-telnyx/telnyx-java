@@ -8,6 +8,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ConversationChannelType
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventCreateParams
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventDeleteParams
+import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListParams
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventRetrieveParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
@@ -80,10 +81,19 @@ internal class ScheduledEventServiceAsyncTest {
                 .build()
         val scheduledEventServiceAsync = client.ai().assistants().scheduledEvents()
 
-        val pageFuture = scheduledEventServiceAsync.list("assistant_id")
+        val scheduledEventsFuture =
+            scheduledEventServiceAsync.list(
+                ScheduledEventListParams.builder()
+                    .assistantId("assistant_id")
+                    .conversationChannel(ConversationChannelType.PHONE_CALL)
+                    .fromDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .page(ScheduledEventListParams.Page.builder().number(1L).size(1L).build())
+                    .toDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val scheduledEvents = scheduledEventsFuture.get()
+        scheduledEvents.validate()
     }
 
     @Disabled("Prism tests are disabled")

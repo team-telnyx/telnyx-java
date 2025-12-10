@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.roomparticipants.RoomParticipantListPage
 import com.telnyx.sdk.models.roomparticipants.RoomParticipantListParams
+import com.telnyx.sdk.models.roomparticipants.RoomParticipantListResponse
 import com.telnyx.sdk.models.roomparticipants.RoomParticipantRetrieveParams
 import com.telnyx.sdk.models.roomparticipants.RoomParticipantRetrieveResponse
 import java.util.function.Consumer
@@ -62,21 +62,21 @@ interface RoomParticipantService {
         retrieve(roomParticipantId, RoomParticipantRetrieveParams.none(), requestOptions)
 
     /** View a list of room participants. */
-    fun list(): RoomParticipantListPage = list(RoomParticipantListParams.none())
+    fun list(): RoomParticipantListResponse = list(RoomParticipantListParams.none())
 
     /** @see list */
     fun list(
         params: RoomParticipantListParams = RoomParticipantListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RoomParticipantListPage
+    ): RoomParticipantListResponse
 
     /** @see list */
     fun list(
         params: RoomParticipantListParams = RoomParticipantListParams.none()
-    ): RoomParticipantListPage = list(params, RequestOptions.none())
+    ): RoomParticipantListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): RoomParticipantListPage =
+    fun list(requestOptions: RequestOptions): RoomParticipantListResponse =
         list(RoomParticipantListParams.none(), requestOptions)
 
     /**
@@ -149,7 +149,7 @@ interface RoomParticipantService {
          * [RoomParticipantService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<RoomParticipantListPage> =
+        fun list(): HttpResponseFor<RoomParticipantListResponse> =
             list(RoomParticipantListParams.none())
 
         /** @see list */
@@ -157,17 +157,17 @@ interface RoomParticipantService {
         fun list(
             params: RoomParticipantListParams = RoomParticipantListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RoomParticipantListPage>
+        ): HttpResponseFor<RoomParticipantListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: RoomParticipantListParams = RoomParticipantListParams.none()
-        ): HttpResponseFor<RoomParticipantListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<RoomParticipantListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<RoomParticipantListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<RoomParticipantListResponse> =
             list(RoomParticipantListParams.none(), requestOptions)
     }
 }

@@ -15,9 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.roomparticipants.RoomParticipantListPageAsync
-import com.telnyx.sdk.models.roomparticipants.RoomParticipantListPageResponse
 import com.telnyx.sdk.models.roomparticipants.RoomParticipantListParams
+import com.telnyx.sdk.models.roomparticipants.RoomParticipantListResponse
 import com.telnyx.sdk.models.roomparticipants.RoomParticipantRetrieveParams
 import com.telnyx.sdk.models.roomparticipants.RoomParticipantRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -48,7 +47,7 @@ internal constructor(private val clientOptions: ClientOptions) : RoomParticipant
     override fun list(
         params: RoomParticipantListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RoomParticipantListPageAsync> =
+    ): CompletableFuture<RoomParticipantListResponse> =
         // get /room_participants
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -98,13 +97,13 @@ internal constructor(private val clientOptions: ClientOptions) : RoomParticipant
                 }
         }
 
-        private val listHandler: Handler<RoomParticipantListPageResponse> =
-            jsonHandler<RoomParticipantListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RoomParticipantListResponse> =
+            jsonHandler<RoomParticipantListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RoomParticipantListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RoomParticipantListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<RoomParticipantListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -123,14 +122,6 @@ internal constructor(private val clientOptions: ClientOptions) : RoomParticipant
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                RoomParticipantListPageAsync.builder()
-                                    .service(RoomParticipantServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

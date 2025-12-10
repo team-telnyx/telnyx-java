@@ -12,8 +12,8 @@ import com.telnyx.sdk.models.documents.DocumentDeleteResponse
 import com.telnyx.sdk.models.documents.DocumentDownloadParams
 import com.telnyx.sdk.models.documents.DocumentGenerateDownloadLinkParams
 import com.telnyx.sdk.models.documents.DocumentGenerateDownloadLinkResponse
-import com.telnyx.sdk.models.documents.DocumentListPage
 import com.telnyx.sdk.models.documents.DocumentListParams
+import com.telnyx.sdk.models.documents.DocumentListResponse
 import com.telnyx.sdk.models.documents.DocumentRetrieveParams
 import com.telnyx.sdk.models.documents.DocumentRetrieveResponse
 import com.telnyx.sdk.models.documents.DocumentUpdateParams
@@ -69,16 +69,15 @@ interface DocumentService {
         retrieve(id, DocumentRetrieveParams.none(), requestOptions)
 
     /** Update a document. */
-    fun update(documentId: String, params: DocumentUpdateParams): DocumentUpdateResponse =
-        update(documentId, params, RequestOptions.none())
+    fun update(pathId: String, params: DocumentUpdateParams): DocumentUpdateResponse =
+        update(pathId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        documentId: String,
+        pathId: String,
         params: DocumentUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DocumentUpdateResponse =
-        update(params.toBuilder().documentId(documentId).build(), requestOptions)
+    ): DocumentUpdateResponse = update(params.toBuilder().pathId(pathId).build(), requestOptions)
 
     /** @see update */
     fun update(params: DocumentUpdateParams): DocumentUpdateResponse =
@@ -91,20 +90,20 @@ interface DocumentService {
     ): DocumentUpdateResponse
 
     /** List all documents ordered by created_at descending. */
-    fun list(): DocumentListPage = list(DocumentListParams.none())
+    fun list(): DocumentListResponse = list(DocumentListParams.none())
 
     /** @see list */
     fun list(
         params: DocumentListParams = DocumentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DocumentListPage
+    ): DocumentListResponse
 
     /** @see list */
-    fun list(params: DocumentListParams = DocumentListParams.none()): DocumentListPage =
+    fun list(params: DocumentListParams = DocumentListParams.none()): DocumentListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): DocumentListPage =
+    fun list(requestOptions: RequestOptions): DocumentListResponse =
         list(DocumentListParams.none(), requestOptions)
 
     /**
@@ -302,19 +301,18 @@ interface DocumentService {
          */
         @MustBeClosed
         fun update(
-            documentId: String,
+            pathId: String,
             params: DocumentUpdateParams,
-        ): HttpResponseFor<DocumentUpdateResponse> =
-            update(documentId, params, RequestOptions.none())
+        ): HttpResponseFor<DocumentUpdateResponse> = update(pathId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
-            documentId: String,
+            pathId: String,
             params: DocumentUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DocumentUpdateResponse> =
-            update(params.toBuilder().documentId(documentId).build(), requestOptions)
+            update(params.toBuilder().pathId(pathId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
@@ -333,24 +331,24 @@ interface DocumentService {
          * [DocumentService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<DocumentListPage> = list(DocumentListParams.none())
+        fun list(): HttpResponseFor<DocumentListResponse> = list(DocumentListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DocumentListParams = DocumentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DocumentListPage>
+        ): HttpResponseFor<DocumentListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DocumentListParams = DocumentListParams.none()
-        ): HttpResponseFor<DocumentListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<DocumentListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListResponse> =
             list(DocumentListParams.none(), requestOptions)
 
         /**

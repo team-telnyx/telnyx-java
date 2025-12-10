@@ -14,9 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListPageAsync
-import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListPageResponse
 import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListParams
+import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -39,7 +38,7 @@ internal constructor(private val clientOptions: ClientOptions) : PortingPhoneNum
     override fun list(
         params: PortingPhoneNumberListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PortingPhoneNumberListPageAsync> =
+    ): CompletableFuture<PortingPhoneNumberListResponse> =
         // get /porting_phone_numbers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -56,13 +55,13 @@ internal constructor(private val clientOptions: ClientOptions) : PortingPhoneNum
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<PortingPhoneNumberListPageResponse> =
-            jsonHandler<PortingPhoneNumberListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PortingPhoneNumberListResponse> =
+            jsonHandler<PortingPhoneNumberListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PortingPhoneNumberListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PortingPhoneNumberListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<PortingPhoneNumberListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -81,14 +80,6 @@ internal constructor(private val clientOptions: ClientOptions) : PortingPhoneNum
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                PortingPhoneNumberListPageAsync.builder()
-                                    .service(PortingPhoneNumberServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

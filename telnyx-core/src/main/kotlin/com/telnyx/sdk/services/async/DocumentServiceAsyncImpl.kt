@@ -21,9 +21,8 @@ import com.telnyx.sdk.models.documents.DocumentDeleteResponse
 import com.telnyx.sdk.models.documents.DocumentDownloadParams
 import com.telnyx.sdk.models.documents.DocumentGenerateDownloadLinkParams
 import com.telnyx.sdk.models.documents.DocumentGenerateDownloadLinkResponse
-import com.telnyx.sdk.models.documents.DocumentListPageAsync
-import com.telnyx.sdk.models.documents.DocumentListPageResponse
 import com.telnyx.sdk.models.documents.DocumentListParams
+import com.telnyx.sdk.models.documents.DocumentListResponse
 import com.telnyx.sdk.models.documents.DocumentRetrieveParams
 import com.telnyx.sdk.models.documents.DocumentRetrieveResponse
 import com.telnyx.sdk.models.documents.DocumentUpdateParams
@@ -65,7 +64,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun list(
         params: DocumentListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<DocumentListPageAsync> =
+    ): CompletableFuture<DocumentListResponse> =
         // get /documents
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -159,7 +158,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
         ): CompletableFuture<HttpResponseFor<DocumentUpdateResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("documentId", params.documentId().getOrNull())
+            checkRequired("pathId", params.pathId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -184,13 +183,13 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
                 }
         }
 
-        private val listHandler: Handler<DocumentListPageResponse> =
-            jsonHandler<DocumentListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DocumentListResponse> =
+            jsonHandler<DocumentListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DocumentListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<DocumentListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<DocumentListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -209,14 +208,6 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                DocumentListPageAsync.builder()
-                                    .service(DocumentServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

@@ -4,7 +4,6 @@ package com.telnyx.sdk.models.messagingprofiles.autorespconfigs
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.MessagingPaginationMeta
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -28,7 +27,7 @@ internal class AutorespConfigListResponseTest {
                         .build()
                 )
                 .meta(
-                    MessagingPaginationMeta.builder()
+                    AutorespConfigListResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)
@@ -52,7 +51,7 @@ internal class AutorespConfigListResponseTest {
             )
         assertThat(autorespConfigListResponse.meta())
             .isEqualTo(
-                MessagingPaginationMeta.builder()
+                AutorespConfigListResponse.Meta.builder()
                     .pageNumber(2L)
                     .pageSize(25L)
                     .totalPages(3L)
@@ -79,7 +78,7 @@ internal class AutorespConfigListResponseTest {
                         .build()
                 )
                 .meta(
-                    MessagingPaginationMeta.builder()
+                    AutorespConfigListResponse.Meta.builder()
                         .pageNumber(2L)
                         .pageSize(25L)
                         .totalPages(3L)

@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceCreatePara
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceDeleteParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceDeleteResponse
-import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceListPage
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceListParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceRetrieveParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceRetrieveResponse
 import java.util.function.Consumer
@@ -71,20 +71,20 @@ interface VoiceService {
         retrieve(id, VoiceRetrieveParams.none(), requestOptions)
 
     /** Fetch all previous requests for cdr usage reports. */
-    fun list(): VoiceListPage = list(VoiceListParams.none())
+    fun list(): VoiceListResponse = list(VoiceListParams.none())
 
     /** @see list */
     fun list(
         params: VoiceListParams = VoiceListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VoiceListPage
+    ): VoiceListResponse
 
     /** @see list */
-    fun list(params: VoiceListParams = VoiceListParams.none()): VoiceListPage =
+    fun list(params: VoiceListParams = VoiceListParams.none()): VoiceListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): VoiceListPage =
+    fun list(requestOptions: RequestOptions): VoiceListResponse =
         list(VoiceListParams.none(), requestOptions)
 
     /** Deletes a specific V2 legacy usage CDR report request by ID */
@@ -190,23 +190,24 @@ interface VoiceService {
          * Returns a raw HTTP response for `get /legacy/reporting/usage_reports/voice`, but is
          * otherwise the same as [VoiceService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<VoiceListPage> = list(VoiceListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<VoiceListResponse> = list(VoiceListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: VoiceListParams = VoiceListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VoiceListPage>
+        ): HttpResponseFor<VoiceListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: VoiceListParams = VoiceListParams.none()): HttpResponseFor<VoiceListPage> =
-            list(params, RequestOptions.none())
+        fun list(
+            params: VoiceListParams = VoiceListParams.none()
+        ): HttpResponseFor<VoiceListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<VoiceListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<VoiceListResponse> =
             list(VoiceListParams.none(), requestOptions)
 
         /**

@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfile
+import com.telnyx.sdk.models.notificationprofiles.NotificationProfileListParams
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
@@ -66,7 +67,7 @@ internal class NotificationProfileServiceTest {
         val notificationProfile =
             notificationProfileService.update(
                 NotificationProfileUpdateParams.builder()
-                    .notificationProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .pathId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .notificationProfile(
                         NotificationProfile.builder()
                             .id("12455643-3cf1-4683-ad23-1cd32f7d5e0a")
@@ -91,9 +92,14 @@ internal class NotificationProfileServiceTest {
                 .build()
         val notificationProfileService = client.notificationProfiles()
 
-        val page = notificationProfileService.list()
+        val notificationProfiles =
+            notificationProfileService.list(
+                NotificationProfileListParams.builder()
+                    .page(NotificationProfileListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        notificationProfiles.validate()
     }
 
     @Disabled("Prism tests are disabled")

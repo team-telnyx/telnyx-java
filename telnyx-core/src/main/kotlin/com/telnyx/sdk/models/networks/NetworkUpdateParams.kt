@@ -14,13 +14,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Update a Network. */
 class NetworkUpdateParams
 private constructor(
-    private val networkId: String?,
+    private val pathId: String?,
     private val networkCreate: NetworkCreate,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun networkId(): Optional<String> = Optional.ofNullable(networkId)
+    fun pathId(): Optional<String> = Optional.ofNullable(pathId)
 
     fun networkCreate(): NetworkCreate = networkCreate
 
@@ -50,23 +50,23 @@ private constructor(
     /** A builder for [NetworkUpdateParams]. */
     class Builder internal constructor() {
 
-        private var networkId: String? = null
+        private var pathId: String? = null
         private var networkCreate: NetworkCreate? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(networkUpdateParams: NetworkUpdateParams) = apply {
-            networkId = networkUpdateParams.networkId
+            pathId = networkUpdateParams.pathId
             networkCreate = networkUpdateParams.networkCreate
             additionalHeaders = networkUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = networkUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun networkId(networkId: String?) = apply { this.networkId = networkId }
+        fun pathId(pathId: String?) = apply { this.pathId = pathId }
 
-        /** Alias for calling [Builder.networkId] with `networkId.orElse(null)`. */
-        fun networkId(networkId: Optional<String>) = networkId(networkId.getOrNull())
+        /** Alias for calling [Builder.pathId] with `pathId.orElse(null)`. */
+        fun pathId(pathId: Optional<String>) = pathId(pathId.getOrNull())
 
         fun networkCreate(networkCreate: NetworkCreate) = apply {
             this.networkCreate = networkCreate
@@ -184,7 +184,7 @@ private constructor(
          */
         fun build(): NetworkUpdateParams =
             NetworkUpdateParams(
-                networkId,
+                pathId,
                 checkRequired("networkCreate", networkCreate),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -195,7 +195,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> networkId ?: ""
+            0 -> pathId ?: ""
             else -> ""
         }
 
@@ -209,15 +209,15 @@ private constructor(
         }
 
         return other is NetworkUpdateParams &&
-            networkId == other.networkId &&
+            pathId == other.pathId &&
             networkCreate == other.networkCreate &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(networkId, networkCreate, additionalHeaders, additionalQueryParams)
+        Objects.hash(pathId, networkCreate, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "NetworkUpdateParams{networkId=$networkId, networkCreate=$networkCreate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "NetworkUpdateParams{pathId=$pathId, networkCreate=$networkCreate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

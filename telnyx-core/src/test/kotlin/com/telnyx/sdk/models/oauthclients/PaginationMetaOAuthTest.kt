@@ -14,14 +14,14 @@ internal class PaginationMetaOAuthTest {
         val paginationMetaOAuth =
             PaginationMetaOAuth.builder()
                 .pageNumber(0L)
-                .totalPages(0L)
                 .pageSize(0L)
+                .totalPages(0L)
                 .totalResults(0L)
                 .build()
 
-        assertThat(paginationMetaOAuth.pageNumber()).isEqualTo(0L)
-        assertThat(paginationMetaOAuth.totalPages()).isEqualTo(0L)
+        assertThat(paginationMetaOAuth.pageNumber()).contains(0L)
         assertThat(paginationMetaOAuth.pageSize()).contains(0L)
+        assertThat(paginationMetaOAuth.totalPages()).contains(0L)
         assertThat(paginationMetaOAuth.totalResults()).contains(0L)
     }
 
@@ -31,8 +31,8 @@ internal class PaginationMetaOAuthTest {
         val paginationMetaOAuth =
             PaginationMetaOAuth.builder()
                 .pageNumber(0L)
-                .totalPages(0L)
                 .pageSize(0L)
+                .totalPages(0L)
                 .totalResults(0L)
                 .build()
 

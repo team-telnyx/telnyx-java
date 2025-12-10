@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListPage
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListParams
+import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeListResponse
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeSendParams
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeVerifyParams
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeVerifyResponse
@@ -29,33 +29,33 @@ interface VerificationCodeService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VerificationCodeService
 
     /** Returns a list of verification codes for a porting order. */
-    fun list(id: String): VerificationCodeListPage = list(id, VerificationCodeListParams.none())
+    fun list(id: String): VerificationCodeListResponse = list(id, VerificationCodeListParams.none())
 
     /** @see list */
     fun list(
         id: String,
         params: VerificationCodeListParams = VerificationCodeListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VerificationCodeListPage = list(params.toBuilder().id(id).build(), requestOptions)
+    ): VerificationCodeListResponse = list(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see list */
     fun list(
         id: String,
         params: VerificationCodeListParams = VerificationCodeListParams.none(),
-    ): VerificationCodeListPage = list(id, params, RequestOptions.none())
+    ): VerificationCodeListResponse = list(id, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: VerificationCodeListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VerificationCodeListPage
+    ): VerificationCodeListResponse
 
     /** @see list */
-    fun list(params: VerificationCodeListParams): VerificationCodeListPage =
+    fun list(params: VerificationCodeListParams): VerificationCodeListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(id: String, requestOptions: RequestOptions): VerificationCodeListPage =
+    fun list(id: String, requestOptions: RequestOptions): VerificationCodeListResponse =
         list(id, VerificationCodeListParams.none(), requestOptions)
 
     /** Send the verification code for all porting phone numbers. */
@@ -136,7 +136,7 @@ interface VerificationCodeService {
          * otherwise the same as [VerificationCodeService.list].
          */
         @MustBeClosed
-        fun list(id: String): HttpResponseFor<VerificationCodeListPage> =
+        fun list(id: String): HttpResponseFor<VerificationCodeListResponse> =
             list(id, VerificationCodeListParams.none())
 
         /** @see list */
@@ -145,7 +145,7 @@ interface VerificationCodeService {
             id: String,
             params: VerificationCodeListParams = VerificationCodeListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VerificationCodeListPage> =
+        ): HttpResponseFor<VerificationCodeListResponse> =
             list(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see list */
@@ -153,26 +153,27 @@ interface VerificationCodeService {
         fun list(
             id: String,
             params: VerificationCodeListParams = VerificationCodeListParams.none(),
-        ): HttpResponseFor<VerificationCodeListPage> = list(id, params, RequestOptions.none())
+        ): HttpResponseFor<VerificationCodeListResponse> = list(id, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: VerificationCodeListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VerificationCodeListPage>
+        ): HttpResponseFor<VerificationCodeListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: VerificationCodeListParams): HttpResponseFor<VerificationCodeListPage> =
-            list(params, RequestOptions.none())
+        fun list(
+            params: VerificationCodeListParams
+        ): HttpResponseFor<VerificationCodeListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VerificationCodeListPage> =
+        ): HttpResponseFor<VerificationCodeListResponse> =
             list(id, VerificationCodeListParams.none(), requestOptions)
 
         /**

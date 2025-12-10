@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.addresses.AddressCreateParams
 import com.telnyx.sdk.models.addresses.AddressCreateResponse
 import com.telnyx.sdk.models.addresses.AddressDeleteParams
 import com.telnyx.sdk.models.addresses.AddressDeleteResponse
-import com.telnyx.sdk.models.addresses.AddressListPageAsync
-import com.telnyx.sdk.models.addresses.AddressListPageResponse
 import com.telnyx.sdk.models.addresses.AddressListParams
+import com.telnyx.sdk.models.addresses.AddressListResponse
 import com.telnyx.sdk.models.addresses.AddressRetrieveParams
 import com.telnyx.sdk.models.addresses.AddressRetrieveResponse
 import com.telnyx.sdk.services.async.addresses.ActionServiceAsync
@@ -64,7 +63,7 @@ class AddressServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: AddressListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AddressListPageAsync> =
+    ): CompletableFuture<AddressListResponse> =
         // get /addresses
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -158,13 +157,13 @@ class AddressServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<AddressListPageResponse> =
-            jsonHandler<AddressListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AddressListResponse> =
+            jsonHandler<AddressListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AddressListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AddressListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<AddressListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -183,14 +182,6 @@ class AddressServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                AddressListPageAsync.builder()
-                                    .service(AddressServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

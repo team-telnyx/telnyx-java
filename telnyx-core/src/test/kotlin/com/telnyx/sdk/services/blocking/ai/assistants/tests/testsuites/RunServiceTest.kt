@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking.ai.assistants.tests.testsuites
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.RunListParams
 import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.RunTriggerParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -22,9 +23,17 @@ internal class RunServiceTest {
                 .build()
         val runService = client.ai().assistants().tests().testSuites().runs()
 
-        val page = runService.list("suite_name")
+        val paginatedTestRunList =
+            runService.list(
+                RunListParams.builder()
+                    .suiteName("suite_name")
+                    .page(RunListParams.Page.builder().number(1L).size(1L).build())
+                    .status("status")
+                    .testSuiteRunId("test_suite_run_id")
+                    .build()
+            )
 
-        page.response().validate()
+        paginatedTestRunList.validate()
     }
 
     @Disabled("Prism tests are disabled")

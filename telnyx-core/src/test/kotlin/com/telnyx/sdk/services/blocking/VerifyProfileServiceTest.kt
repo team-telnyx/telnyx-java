@@ -6,6 +6,7 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateTemplateParams
+import com.telnyx.sdk.models.verifyprofiles.VerifyProfileListParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateTemplateParams
 import org.junit.jupiter.api.Disabled
@@ -144,9 +145,15 @@ internal class VerifyProfileServiceTest {
                 .build()
         val verifyProfileService = client.verifyProfiles()
 
-        val page = verifyProfileService.list()
+        val verifyProfiles =
+            verifyProfileService.list(
+                VerifyProfileListParams.builder()
+                    .filter(VerifyProfileListParams.Filter.builder().name("name").build())
+                    .page(VerifyProfileListParams.Page.builder().number(0L).size(0L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        verifyProfiles.validate()
     }
 
     @Disabled("Prism tests are disabled")

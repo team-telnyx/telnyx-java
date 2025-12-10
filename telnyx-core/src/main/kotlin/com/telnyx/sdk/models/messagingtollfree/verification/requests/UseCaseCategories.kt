@@ -22,7 +22,7 @@ class UseCaseCategories @JsonCreator private constructor(private val value: Json
 
     companion object {
 
-        @JvmField val TWO_FA = of("2FA")
+        @JvmField val _2_FA = of("2FA")
 
         @JvmField val APP_NOTIFICATIONS = of("App Notifications")
 
@@ -113,7 +113,7 @@ class UseCaseCategories @JsonCreator private constructor(private val value: Json
 
     /** An enum containing [UseCaseCategories]'s known values. */
     enum class Known {
-        TWO_FA,
+        _2_FA,
         APP_NOTIFICATIONS,
         APPOINTMENTS,
         AUCTIONS,
@@ -168,7 +168,7 @@ class UseCaseCategories @JsonCreator private constructor(private val value: Json
      * - It was constructed with an arbitrary value using the [of] method.
      */
     enum class Value {
-        TWO_FA,
+        _2_FA,
         APP_NOTIFICATIONS,
         APPOINTMENTS,
         AUCTIONS,
@@ -227,7 +227,7 @@ class UseCaseCategories @JsonCreator private constructor(private val value: Json
      */
     fun value(): Value =
         when (this) {
-            TWO_FA -> Value.TWO_FA
+            _2_FA -> Value._2_FA
             APP_NOTIFICATIONS -> Value.APP_NOTIFICATIONS
             APPOINTMENTS -> Value.APPOINTMENTS
             AUCTIONS -> Value.AUCTIONS
@@ -283,7 +283,7 @@ class UseCaseCategories @JsonCreator private constructor(private val value: Json
      */
     fun known(): Known =
         when (this) {
-            TWO_FA -> Known.TWO_FA
+            _2_FA -> Known._2_FA
             APP_NOTIFICATIONS -> Known.APP_NOTIFICATIONS
             APPOINTMENTS -> Known.APPOINTMENTS
             AUCTIONS -> Known.AUCTIONS

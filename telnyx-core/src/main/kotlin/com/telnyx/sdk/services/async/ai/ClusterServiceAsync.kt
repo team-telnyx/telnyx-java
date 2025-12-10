@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.ai.clusters.ClusterComputeParams
 import com.telnyx.sdk.models.ai.clusters.ClusterComputeResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterDeleteParams
 import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphParams
-import com.telnyx.sdk.models.ai.clusters.ClusterListPageAsync
 import com.telnyx.sdk.models.ai.clusters.ClusterListParams
+import com.telnyx.sdk.models.ai.clusters.ClusterListResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveParams
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -67,21 +67,21 @@ interface ClusterServiceAsync {
         retrieve(taskId, ClusterRetrieveParams.none(), requestOptions)
 
     /** List all clusters */
-    fun list(): CompletableFuture<ClusterListPageAsync> = list(ClusterListParams.none())
+    fun list(): CompletableFuture<ClusterListResponse> = list(ClusterListParams.none())
 
     /** @see list */
     fun list(
         params: ClusterListParams = ClusterListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ClusterListPageAsync>
+    ): CompletableFuture<ClusterListResponse>
 
     /** @see list */
     fun list(
         params: ClusterListParams = ClusterListParams.none()
-    ): CompletableFuture<ClusterListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<ClusterListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<ClusterListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<ClusterListResponse> =
         list(ClusterListParams.none(), requestOptions)
 
     /** Delete a cluster */
@@ -223,25 +223,25 @@ interface ClusterServiceAsync {
          * Returns a raw HTTP response for `get /ai/clusters`, but is otherwise the same as
          * [ClusterServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<ClusterListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<ClusterListResponse>> =
             list(ClusterListParams.none())
 
         /** @see list */
         fun list(
             params: ClusterListParams = ClusterListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ClusterListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<ClusterListResponse>>
 
         /** @see list */
         fun list(
             params: ClusterListParams = ClusterListParams.none()
-        ): CompletableFuture<HttpResponseFor<ClusterListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ClusterListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<ClusterListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ClusterListResponse>> =
             list(ClusterListParams.none(), requestOptions)
 
         /**

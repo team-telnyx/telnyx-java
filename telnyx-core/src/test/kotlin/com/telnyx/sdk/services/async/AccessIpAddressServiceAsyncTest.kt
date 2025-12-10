@@ -5,6 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressCreateParams
+import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListParams
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -61,10 +63,22 @@ internal class AccessIpAddressServiceAsyncTest {
                 .build()
         val accessIpAddressServiceAsync = client.accessIpAddress()
 
-        val pageFuture = accessIpAddressServiceAsync.list()
+        val accessIpAddressesFuture =
+            accessIpAddressServiceAsync.list(
+                AccessIpAddressListParams.builder()
+                    .filter(
+                        AccessIpAddressListParams.Filter.builder()
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .ipAddress("ip_address")
+                            .ipSource("ip_source")
+                            .build()
+                    )
+                    .page(AccessIpAddressListParams.Page.builder().number(0L).size(250L).build())
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val accessIpAddresses = accessIpAddressesFuture.get()
+        accessIpAddresses.validate()
     }
 
     @Disabled("Prism tests are disabled")

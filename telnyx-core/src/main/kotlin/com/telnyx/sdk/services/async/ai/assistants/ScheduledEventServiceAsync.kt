@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventCreateParams
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventDeleteParams
-import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListPageAsync
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListParams
+import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListResponse
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventResponse
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -79,7 +79,7 @@ interface ScheduledEventServiceAsync {
     ): CompletableFuture<ScheduledEventResponse>
 
     /** Get scheduled events for an assistant with pagination and filtering */
-    fun list(assistantId: String): CompletableFuture<ScheduledEventListPageAsync> =
+    fun list(assistantId: String): CompletableFuture<ScheduledEventListResponse> =
         list(assistantId, ScheduledEventListParams.none())
 
     /** @see list */
@@ -87,31 +87,31 @@ interface ScheduledEventServiceAsync {
         assistantId: String,
         params: ScheduledEventListParams = ScheduledEventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ScheduledEventListPageAsync> =
+    ): CompletableFuture<ScheduledEventListResponse> =
         list(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
     /** @see list */
     fun list(
         assistantId: String,
         params: ScheduledEventListParams = ScheduledEventListParams.none(),
-    ): CompletableFuture<ScheduledEventListPageAsync> =
+    ): CompletableFuture<ScheduledEventListResponse> =
         list(assistantId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: ScheduledEventListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ScheduledEventListPageAsync>
+    ): CompletableFuture<ScheduledEventListResponse>
 
     /** @see list */
-    fun list(params: ScheduledEventListParams): CompletableFuture<ScheduledEventListPageAsync> =
+    fun list(params: ScheduledEventListParams): CompletableFuture<ScheduledEventListResponse> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         assistantId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ScheduledEventListPageAsync> =
+    ): CompletableFuture<ScheduledEventListResponse> =
         list(assistantId, ScheduledEventListParams.none(), requestOptions)
 
     /**
@@ -221,7 +221,7 @@ interface ScheduledEventServiceAsync {
          */
         fun list(
             assistantId: String
-        ): CompletableFuture<HttpResponseFor<ScheduledEventListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ScheduledEventListResponse>> =
             list(assistantId, ScheduledEventListParams.none())
 
         /** @see list */
@@ -229,33 +229,33 @@ interface ScheduledEventServiceAsync {
             assistantId: String,
             params: ScheduledEventListParams = ScheduledEventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ScheduledEventListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ScheduledEventListResponse>> =
             list(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
         /** @see list */
         fun list(
             assistantId: String,
             params: ScheduledEventListParams = ScheduledEventListParams.none(),
-        ): CompletableFuture<HttpResponseFor<ScheduledEventListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ScheduledEventListResponse>> =
             list(assistantId, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: ScheduledEventListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ScheduledEventListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<ScheduledEventListResponse>>
 
         /** @see list */
         fun list(
             params: ScheduledEventListParams
-        ): CompletableFuture<HttpResponseFor<ScheduledEventListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ScheduledEventListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             assistantId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ScheduledEventListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ScheduledEventListResponse>> =
             list(assistantId, ScheduledEventListParams.none(), requestOptions)
 
         /**

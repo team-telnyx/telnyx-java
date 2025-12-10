@@ -17,7 +17,7 @@ internal class TranscriptionSettingsTest {
                 .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
                 .region("region")
                 .settings(
-                    TranscriptionSettingsConfig.builder()
+                    TranscriptionSettings.Settings.builder()
                         .eotThreshold(0.0)
                         .eotTimeoutMs(0L)
                         .numerals(true)
@@ -32,7 +32,7 @@ internal class TranscriptionSettingsTest {
         assertThat(transcriptionSettings.region()).contains("region")
         assertThat(transcriptionSettings.settings())
             .contains(
-                TranscriptionSettingsConfig.builder()
+                TranscriptionSettings.Settings.builder()
                     .eotThreshold(0.0)
                     .eotTimeoutMs(0L)
                     .numerals(true)
@@ -50,7 +50,7 @@ internal class TranscriptionSettingsTest {
                 .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
                 .region("region")
                 .settings(
-                    TranscriptionSettingsConfig.builder()
+                    TranscriptionSettings.Settings.builder()
                         .eotThreshold(0.0)
                         .eotTimeoutMs(0L)
                         .numerals(true)

@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementInitiateParams
 import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementInitiateResponse
-import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementListPage
 import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementListParams
+import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementListResponse
 import java.util.function.Consumer
 
 interface ActionRequirementService {
@@ -27,7 +27,7 @@ interface ActionRequirementService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionRequirementService
 
     /** Returns a list of action requirements for a specific porting order. */
-    fun list(portingOrderId: String): ActionRequirementListPage =
+    fun list(portingOrderId: String): ActionRequirementListResponse =
         list(portingOrderId, ActionRequirementListParams.none())
 
     /** @see list */
@@ -35,27 +35,30 @@ interface ActionRequirementService {
         portingOrderId: String,
         params: ActionRequirementListParams = ActionRequirementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ActionRequirementListPage =
+    ): ActionRequirementListResponse =
         list(params.toBuilder().portingOrderId(portingOrderId).build(), requestOptions)
 
     /** @see list */
     fun list(
         portingOrderId: String,
         params: ActionRequirementListParams = ActionRequirementListParams.none(),
-    ): ActionRequirementListPage = list(portingOrderId, params, RequestOptions.none())
+    ): ActionRequirementListResponse = list(portingOrderId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: ActionRequirementListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ActionRequirementListPage
+    ): ActionRequirementListResponse
 
     /** @see list */
-    fun list(params: ActionRequirementListParams): ActionRequirementListPage =
+    fun list(params: ActionRequirementListParams): ActionRequirementListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(portingOrderId: String, requestOptions: RequestOptions): ActionRequirementListPage =
+    fun list(
+        portingOrderId: String,
+        requestOptions: RequestOptions,
+    ): ActionRequirementListResponse =
         list(portingOrderId, ActionRequirementListParams.none(), requestOptions)
 
     /** Initiates a specific action requirement for a porting order. */
@@ -103,7 +106,7 @@ interface ActionRequirementService {
          * [ActionRequirementService.list].
          */
         @MustBeClosed
-        fun list(portingOrderId: String): HttpResponseFor<ActionRequirementListPage> =
+        fun list(portingOrderId: String): HttpResponseFor<ActionRequirementListResponse> =
             list(portingOrderId, ActionRequirementListParams.none())
 
         /** @see list */
@@ -112,7 +115,7 @@ interface ActionRequirementService {
             portingOrderId: String,
             params: ActionRequirementListParams = ActionRequirementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ActionRequirementListPage> =
+        ): HttpResponseFor<ActionRequirementListResponse> =
             list(params.toBuilder().portingOrderId(portingOrderId).build(), requestOptions)
 
         /** @see list */
@@ -120,7 +123,7 @@ interface ActionRequirementService {
         fun list(
             portingOrderId: String,
             params: ActionRequirementListParams = ActionRequirementListParams.none(),
-        ): HttpResponseFor<ActionRequirementListPage> =
+        ): HttpResponseFor<ActionRequirementListResponse> =
             list(portingOrderId, params, RequestOptions.none())
 
         /** @see list */
@@ -128,19 +131,20 @@ interface ActionRequirementService {
         fun list(
             params: ActionRequirementListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ActionRequirementListPage>
+        ): HttpResponseFor<ActionRequirementListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: ActionRequirementListParams): HttpResponseFor<ActionRequirementListPage> =
-            list(params, RequestOptions.none())
+        fun list(
+            params: ActionRequirementListParams
+        ): HttpResponseFor<ActionRequirementListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             portingOrderId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ActionRequirementListPage> =
+        ): HttpResponseFor<ActionRequirementListResponse> =
             list(portingOrderId, ActionRequirementListParams.none(), requestOptions)
 
         /**

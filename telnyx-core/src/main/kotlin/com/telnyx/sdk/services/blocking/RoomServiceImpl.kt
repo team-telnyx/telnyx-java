@@ -20,9 +20,8 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.rooms.RoomCreateParams
 import com.telnyx.sdk.models.rooms.RoomCreateResponse
 import com.telnyx.sdk.models.rooms.RoomDeleteParams
-import com.telnyx.sdk.models.rooms.RoomListPage
-import com.telnyx.sdk.models.rooms.RoomListPageResponse
 import com.telnyx.sdk.models.rooms.RoomListParams
+import com.telnyx.sdk.models.rooms.RoomListResponse
 import com.telnyx.sdk.models.rooms.RoomRetrieveParams
 import com.telnyx.sdk.models.rooms.RoomRetrieveResponse
 import com.telnyx.sdk.models.rooms.RoomUpdateParams
@@ -74,7 +73,7 @@ class RoomServiceImpl internal constructor(private val clientOptions: ClientOpti
         // patch /rooms/{room_id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: RoomListParams, requestOptions: RequestOptions): RoomListPage =
+    override fun list(params: RoomListParams, requestOptions: RequestOptions): RoomListResponse =
         // get /rooms
         withRawResponse().list(params, requestOptions).parse()
 
@@ -197,13 +196,13 @@ class RoomServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val listHandler: Handler<RoomListPageResponse> =
-            jsonHandler<RoomListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RoomListResponse> =
+            jsonHandler<RoomListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RoomListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RoomListPage> {
+        ): HttpResponseFor<RoomListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -220,13 +219,6 @@ class RoomServiceImpl internal constructor(private val clientOptions: ClientOpti
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        RoomListPage.builder()
-                            .service(RoomServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

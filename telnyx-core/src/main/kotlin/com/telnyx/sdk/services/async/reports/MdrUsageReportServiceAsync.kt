@@ -11,8 +11,8 @@ import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportDeleteParams
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportDeleteResponse
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportFetchSyncParams
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportFetchSyncResponse
-import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListPageAsync
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListParams
+import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListResponse
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportRetrieveParams
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -87,22 +87,22 @@ interface MdrUsageReportServiceAsync {
      * Fetch all messaging usage reports. Usage reports are aggregated messaging data for specified
      * time period and breakdown
      */
-    fun list(): CompletableFuture<MdrUsageReportListPageAsync> =
+    fun list(): CompletableFuture<MdrUsageReportListResponse> =
         list(MdrUsageReportListParams.none())
 
     /** @see list */
     fun list(
         params: MdrUsageReportListParams = MdrUsageReportListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MdrUsageReportListPageAsync>
+    ): CompletableFuture<MdrUsageReportListResponse>
 
     /** @see list */
     fun list(
         params: MdrUsageReportListParams = MdrUsageReportListParams.none()
-    ): CompletableFuture<MdrUsageReportListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<MdrUsageReportListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<MdrUsageReportListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<MdrUsageReportListResponse> =
         list(MdrUsageReportListParams.none(), requestOptions)
 
     /** Delete messaging usage report by id */
@@ -233,25 +233,25 @@ interface MdrUsageReportServiceAsync {
          * Returns a raw HTTP response for `get /reports/mdr_usage_reports`, but is otherwise the
          * same as [MdrUsageReportServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<MdrUsageReportListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<MdrUsageReportListResponse>> =
             list(MdrUsageReportListParams.none())
 
         /** @see list */
         fun list(
             params: MdrUsageReportListParams = MdrUsageReportListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MdrUsageReportListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<MdrUsageReportListResponse>>
 
         /** @see list */
         fun list(
             params: MdrUsageReportListParams = MdrUsageReportListParams.none()
-        ): CompletableFuture<HttpResponseFor<MdrUsageReportListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<MdrUsageReportListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<MdrUsageReportListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<MdrUsageReportListResponse>> =
             list(MdrUsageReportListParams.none(), requestOptions)
 
         /**

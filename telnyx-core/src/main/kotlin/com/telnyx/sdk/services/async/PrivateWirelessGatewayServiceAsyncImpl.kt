@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayCreat
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayCreateResponse
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayDeleteParams
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayDeleteResponse
-import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayListPageAsync
-import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayListPageResponse
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayListParams
+import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayListResponse
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayRetrieveParams
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -64,7 +63,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun list(
         params: PrivateWirelessGatewayListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PrivateWirelessGatewayListPageAsync> =
+    ): CompletableFuture<PrivateWirelessGatewayListResponse> =
         // get /private_wireless_gateways
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -152,13 +151,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 }
         }
 
-        private val listHandler: Handler<PrivateWirelessGatewayListPageResponse> =
-            jsonHandler<PrivateWirelessGatewayListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PrivateWirelessGatewayListResponse> =
+            jsonHandler<PrivateWirelessGatewayListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PrivateWirelessGatewayListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PrivateWirelessGatewayListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<PrivateWirelessGatewayListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -177,14 +176,6 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                PrivateWirelessGatewayListPageAsync.builder()
-                                    .service(PrivateWirelessGatewayServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

@@ -15,8 +15,11 @@ internal class VoiceSettingsTest {
             VoiceSettings.builder()
                 .voice("voice")
                 .apiKeyRef("api_key_ref")
-                .predefinedMediaBackgroundAudio(
-                    VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue.SILENCE
+                .backgroundAudio(
+                    VoiceSettings.BackgroundAudio.UnionMember0.builder()
+                        .type(VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA)
+                        .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
+                        .build()
                 )
                 .voiceSpeed(0.0)
                 .build()
@@ -25,12 +28,10 @@ internal class VoiceSettingsTest {
         assertThat(voiceSettings.apiKeyRef()).contains("api_key_ref")
         assertThat(voiceSettings.backgroundAudio())
             .contains(
-                VoiceSettings.BackgroundAudio.ofPredefinedMedia(
-                    VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
-                        .value(
-                            VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
-                                .SILENCE
-                        )
+                VoiceSettings.BackgroundAudio.ofUnionMember0(
+                    VoiceSettings.BackgroundAudio.UnionMember0.builder()
+                        .type(VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA)
+                        .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
                         .build()
                 )
             )
@@ -44,8 +45,11 @@ internal class VoiceSettingsTest {
             VoiceSettings.builder()
                 .voice("voice")
                 .apiKeyRef("api_key_ref")
-                .predefinedMediaBackgroundAudio(
-                    VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue.SILENCE
+                .backgroundAudio(
+                    VoiceSettings.BackgroundAudio.UnionMember0.builder()
+                        .type(VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA)
+                        .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
+                        .build()
                 )
                 .voiceSpeed(0.0)
                 .build()

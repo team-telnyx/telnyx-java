@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.numberreservations.NumberReservationCreateParams
 import com.telnyx.sdk.models.numberreservations.NumberReservationCreateResponse
-import com.telnyx.sdk.models.numberreservations.NumberReservationListPageAsync
 import com.telnyx.sdk.models.numberreservations.NumberReservationListParams
+import com.telnyx.sdk.models.numberreservations.NumberReservationListResponse
 import com.telnyx.sdk.models.numberreservations.NumberReservationRetrieveParams
 import com.telnyx.sdk.models.numberreservations.NumberReservationRetrieveResponse
 import com.telnyx.sdk.services.async.numberreservations.ActionServiceAsync
@@ -94,22 +94,22 @@ interface NumberReservationServiceAsync {
         retrieve(numberReservationId, NumberReservationRetrieveParams.none(), requestOptions)
 
     /** Gets a paginated list of phone number reservations. */
-    fun list(): CompletableFuture<NumberReservationListPageAsync> =
+    fun list(): CompletableFuture<NumberReservationListResponse> =
         list(NumberReservationListParams.none())
 
     /** @see list */
     fun list(
         params: NumberReservationListParams = NumberReservationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NumberReservationListPageAsync>
+    ): CompletableFuture<NumberReservationListResponse>
 
     /** @see list */
     fun list(
         params: NumberReservationListParams = NumberReservationListParams.none()
-    ): CompletableFuture<NumberReservationListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<NumberReservationListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<NumberReservationListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<NumberReservationListResponse> =
         list(NumberReservationListParams.none(), requestOptions)
 
     /**
@@ -204,25 +204,25 @@ interface NumberReservationServiceAsync {
          * Returns a raw HTTP response for `get /number_reservations`, but is otherwise the same as
          * [NumberReservationServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<NumberReservationListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<NumberReservationListResponse>> =
             list(NumberReservationListParams.none())
 
         /** @see list */
         fun list(
             params: NumberReservationListParams = NumberReservationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NumberReservationListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<NumberReservationListResponse>>
 
         /** @see list */
         fun list(
             params: NumberReservationListParams = NumberReservationListParams.none()
-        ): CompletableFuture<HttpResponseFor<NumberReservationListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<NumberReservationListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<NumberReservationListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<NumberReservationListResponse>> =
             list(NumberReservationListParams.none(), requestOptions)
     }
 }

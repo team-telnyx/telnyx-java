@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.otaupdates.OtaUpdateListPageAsync
 import com.telnyx.sdk.models.otaupdates.OtaUpdateListParams
+import com.telnyx.sdk.models.otaupdates.OtaUpdateListResponse
 import com.telnyx.sdk.models.otaupdates.OtaUpdateRetrieveParams
 import com.telnyx.sdk.models.otaupdates.OtaUpdateRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -62,21 +62,21 @@ interface OtaUpdateServiceAsync {
         retrieve(id, OtaUpdateRetrieveParams.none(), requestOptions)
 
     /** List OTA updates */
-    fun list(): CompletableFuture<OtaUpdateListPageAsync> = list(OtaUpdateListParams.none())
+    fun list(): CompletableFuture<OtaUpdateListResponse> = list(OtaUpdateListParams.none())
 
     /** @see list */
     fun list(
         params: OtaUpdateListParams = OtaUpdateListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<OtaUpdateListPageAsync>
+    ): CompletableFuture<OtaUpdateListResponse>
 
     /** @see list */
     fun list(
         params: OtaUpdateListParams = OtaUpdateListParams.none()
-    ): CompletableFuture<OtaUpdateListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<OtaUpdateListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<OtaUpdateListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<OtaUpdateListResponse> =
         list(OtaUpdateListParams.none(), requestOptions)
 
     /**
@@ -138,25 +138,25 @@ interface OtaUpdateServiceAsync {
          * Returns a raw HTTP response for `get /ota_updates`, but is otherwise the same as
          * [OtaUpdateServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<OtaUpdateListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<OtaUpdateListResponse>> =
             list(OtaUpdateListParams.none())
 
         /** @see list */
         fun list(
             params: OtaUpdateListParams = OtaUpdateListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<OtaUpdateListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<OtaUpdateListResponse>>
 
         /** @see list */
         fun list(
             params: OtaUpdateListParams = OtaUpdateListParams.none()
-        ): CompletableFuture<HttpResponseFor<OtaUpdateListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<OtaUpdateListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<OtaUpdateListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<OtaUpdateListResponse>> =
             list(OtaUpdateListParams.none(), requestOptions)
     }
 }

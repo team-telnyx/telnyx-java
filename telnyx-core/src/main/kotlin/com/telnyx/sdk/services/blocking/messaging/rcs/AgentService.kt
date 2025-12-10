@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.messaging.rcs.agents.AgentListPage
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentListParams
+import com.telnyx.sdk.models.messaging.rcs.agents.AgentListResponse
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentRetrieveParams
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentUpdateParams
 import com.telnyx.sdk.models.rcsagents.RcsAgentResponse
@@ -85,20 +85,20 @@ interface AgentService {
         update(id, AgentUpdateParams.none(), requestOptions)
 
     /** List all RCS agents */
-    fun list(): AgentListPage = list(AgentListParams.none())
+    fun list(): AgentListResponse = list(AgentListParams.none())
 
     /** @see list */
     fun list(
         params: AgentListParams = AgentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AgentListPage
+    ): AgentListResponse
 
     /** @see list */
-    fun list(params: AgentListParams = AgentListParams.none()): AgentListPage =
+    fun list(params: AgentListParams = AgentListParams.none()): AgentListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AgentListPage =
+    fun list(requestOptions: RequestOptions): AgentListResponse =
         list(AgentListParams.none(), requestOptions)
 
     /** A view of [AgentService] that provides access to raw HTTP responses for each method. */
@@ -200,23 +200,24 @@ interface AgentService {
          * Returns a raw HTTP response for `get /messaging/rcs/agents`, but is otherwise the same as
          * [AgentService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<AgentListPage> = list(AgentListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<AgentListResponse> = list(AgentListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AgentListParams = AgentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AgentListPage>
+        ): HttpResponseFor<AgentListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: AgentListParams = AgentListParams.none()): HttpResponseFor<AgentListPage> =
-            list(params, RequestOptions.none())
+        fun list(
+            params: AgentListParams = AgentListParams.none()
+        ): HttpResponseFor<AgentListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AgentListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AgentListResponse> =
             list(AgentListParams.none(), requestOptions)
     }
 }

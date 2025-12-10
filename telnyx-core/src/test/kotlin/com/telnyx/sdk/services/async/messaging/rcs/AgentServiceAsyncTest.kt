@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async.messaging.rcs
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.messaging.rcs.agents.AgentListParams
 import com.telnyx.sdk.models.messaging.rcs.agents.AgentUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -62,9 +63,14 @@ internal class AgentServiceAsyncTest {
                 .build()
         val agentServiceAsync = client.messaging().rcs().agents()
 
-        val pageFuture = agentServiceAsync.list()
+        val agentsFuture =
+            agentServiceAsync.list(
+                AgentListParams.builder()
+                    .page(AgentListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val agents = agentsFuture.get()
+        agents.validate()
     }
 }

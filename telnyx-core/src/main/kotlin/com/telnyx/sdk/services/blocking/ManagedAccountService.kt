@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.managedaccounts.ManagedAccountCreateParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountCreateResponse
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountGetAllocatableGlobalOutboundChannelsParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountGetAllocatableGlobalOutboundChannelsResponse
-import com.telnyx.sdk.models.managedaccounts.ManagedAccountListPage
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountListParams
+import com.telnyx.sdk.models.managedaccounts.ManagedAccountListResponse
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountRetrieveParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountRetrieveResponse
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountUpdateGlobalChannelLimitParams
@@ -116,21 +116,21 @@ interface ManagedAccountService {
      * Lists the accounts managed by the current user. Users need to be explictly approved by Telnyx
      * in order to become manager accounts.
      */
-    fun list(): ManagedAccountListPage = list(ManagedAccountListParams.none())
+    fun list(): ManagedAccountListResponse = list(ManagedAccountListParams.none())
 
     /** @see list */
     fun list(
         params: ManagedAccountListParams = ManagedAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ManagedAccountListPage
+    ): ManagedAccountListResponse
 
     /** @see list */
     fun list(
         params: ManagedAccountListParams = ManagedAccountListParams.none()
-    ): ManagedAccountListPage = list(params, RequestOptions.none())
+    ): ManagedAccountListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): ManagedAccountListPage =
+    fun list(requestOptions: RequestOptions): ManagedAccountListResponse =
         list(ManagedAccountListParams.none(), requestOptions)
 
     /**
@@ -341,24 +341,25 @@ interface ManagedAccountService {
          * [ManagedAccountService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<ManagedAccountListPage> = list(ManagedAccountListParams.none())
+        fun list(): HttpResponseFor<ManagedAccountListResponse> =
+            list(ManagedAccountListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ManagedAccountListParams = ManagedAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ManagedAccountListPage>
+        ): HttpResponseFor<ManagedAccountListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ManagedAccountListParams = ManagedAccountListParams.none()
-        ): HttpResponseFor<ManagedAccountListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<ManagedAccountListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<ManagedAccountListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ManagedAccountListResponse> =
             list(ManagedAccountListParams.none(), requestOptions)
 
         /**

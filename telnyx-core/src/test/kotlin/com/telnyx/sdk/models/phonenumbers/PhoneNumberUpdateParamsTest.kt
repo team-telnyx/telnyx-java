@@ -11,8 +11,8 @@ internal class PhoneNumberUpdateParamsTest {
     @Test
     fun create() {
         PhoneNumberUpdateParams.builder()
-            .phoneNumberId("1293384261075731499")
-            .id("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
+            .pathId("1293384261075731499")
+            .bodyId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
             .billingGroupId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
             .connectionId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
             .customerReference("customer-reference")
@@ -24,7 +24,7 @@ internal class PhoneNumberUpdateParamsTest {
 
     @Test
     fun pathParams() {
-        val params = PhoneNumberUpdateParams.builder().phoneNumberId("1293384261075731499").build()
+        val params = PhoneNumberUpdateParams.builder().pathId("1293384261075731499").build()
 
         assertThat(params._pathParam(0)).isEqualTo("1293384261075731499")
         // out-of-bound path param
@@ -35,8 +35,8 @@ internal class PhoneNumberUpdateParamsTest {
     fun body() {
         val params =
             PhoneNumberUpdateParams.builder()
-                .phoneNumberId("1293384261075731499")
-                .id("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
+                .pathId("1293384261075731499")
+                .bodyId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
                 .billingGroupId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
                 .connectionId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
                 .customerReference("customer-reference")
@@ -47,7 +47,7 @@ internal class PhoneNumberUpdateParamsTest {
 
         val body = params._body()
 
-        assertThat(body.id()).contains("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
+        assertThat(body.bodyId()).contains("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
         assertThat(body.billingGroupId()).contains("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
         assertThat(body.connectionId()).contains("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
         assertThat(body.customerReference()).contains("customer-reference")
@@ -58,7 +58,7 @@ internal class PhoneNumberUpdateParamsTest {
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = PhoneNumberUpdateParams.builder().phoneNumberId("1293384261075731499").build()
+        val params = PhoneNumberUpdateParams.builder().pathId("1293384261075731499").build()
 
         val body = params._body()
     }

@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.portouts.events.EventListPage
 import com.telnyx.sdk.models.portouts.events.EventListParams
+import com.telnyx.sdk.models.portouts.events.EventListResponse
 import com.telnyx.sdk.models.portouts.events.EventRepublishParams
 import com.telnyx.sdk.models.portouts.events.EventRetrieveParams
 import com.telnyx.sdk.models.portouts.events.EventRetrieveResponse
@@ -59,20 +59,20 @@ interface EventService {
         retrieve(id, EventRetrieveParams.none(), requestOptions)
 
     /** Returns a list of all port-out events. */
-    fun list(): EventListPage = list(EventListParams.none())
+    fun list(): EventListResponse = list(EventListParams.none())
 
     /** @see list */
     fun list(
         params: EventListParams = EventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventListPage
+    ): EventListResponse
 
     /** @see list */
-    fun list(params: EventListParams = EventListParams.none()): EventListPage =
+    fun list(params: EventListParams = EventListParams.none()): EventListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): EventListPage =
+    fun list(requestOptions: RequestOptions): EventListResponse =
         list(EventListParams.none(), requestOptions)
 
     /** Republish a specific port-out event. */
@@ -160,23 +160,24 @@ interface EventService {
          * Returns a raw HTTP response for `get /portouts/events`, but is otherwise the same as
          * [EventService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<EventListPage> = list(EventListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<EventListResponse> = list(EventListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EventListParams = EventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventListPage>
+        ): HttpResponseFor<EventListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: EventListParams = EventListParams.none()): HttpResponseFor<EventListPage> =
-            list(params, RequestOptions.none())
+        fun list(
+            params: EventListParams = EventListParams.none()
+        ): HttpResponseFor<EventListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<EventListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<EventListResponse> =
             list(EventListParams.none(), requestOptions)
 
         /**

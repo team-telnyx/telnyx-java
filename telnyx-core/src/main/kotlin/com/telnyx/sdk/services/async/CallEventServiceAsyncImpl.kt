@@ -14,9 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.callevents.CallEventListPageAsync
-import com.telnyx.sdk.models.callevents.CallEventListPageResponse
 import com.telnyx.sdk.models.callevents.CallEventListParams
+import com.telnyx.sdk.models.callevents.CallEventListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -35,7 +34,7 @@ class CallEventServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun list(
         params: CallEventListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CallEventListPageAsync> =
+    ): CompletableFuture<CallEventListResponse> =
         // get /call_events
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -52,13 +51,13 @@ class CallEventServiceAsyncImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<CallEventListPageResponse> =
-            jsonHandler<CallEventListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CallEventListResponse> =
+            jsonHandler<CallEventListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CallEventListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CallEventListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<CallEventListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -77,14 +76,6 @@ class CallEventServiceAsyncImpl internal constructor(private val clientOptions: 
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                CallEventListPageAsync.builder()
-                                    .service(CallEventServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

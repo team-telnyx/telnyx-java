@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerCreateParams
+import com.telnyx.sdk.models.wireguardpeers.WireguardPeerListParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerPatch
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -95,10 +96,20 @@ internal class WireguardPeerServiceAsyncTest {
                 .build()
         val wireguardPeerServiceAsync = client.wireguardPeers()
 
-        val pageFuture = wireguardPeerServiceAsync.list()
+        val wireguardPeersFuture =
+            wireguardPeerServiceAsync.list(
+                WireguardPeerListParams.builder()
+                    .filter(
+                        WireguardPeerListParams.Filter.builder()
+                            .wireguardInterfaceId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                            .build()
+                    )
+                    .page(WireguardPeerListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val wireguardPeers = wireguardPeersFuture.get()
+        wireguardPeers.validate()
     }
 
     @Disabled("Prism tests are disabled")

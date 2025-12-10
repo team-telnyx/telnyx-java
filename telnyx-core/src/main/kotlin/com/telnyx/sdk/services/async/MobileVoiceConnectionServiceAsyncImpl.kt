@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionCreateP
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionCreateResponse
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionDeleteParams
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionDeleteResponse
-import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionListPageAsync
-import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionListPageResponse
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionListParams
+import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionListResponse
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionRetrieveParams
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionRetrieveResponse
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionUpdateParams
@@ -72,7 +71,7 @@ internal constructor(private val clientOptions: ClientOptions) : MobileVoiceConn
     override fun list(
         params: MobileVoiceConnectionListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MobileVoiceConnectionListPageAsync> =
+    ): CompletableFuture<MobileVoiceConnectionListResponse> =
         // get /v2/mobile_voice_connections
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -194,13 +193,13 @@ internal constructor(private val clientOptions: ClientOptions) : MobileVoiceConn
                 }
         }
 
-        private val listHandler: Handler<MobileVoiceConnectionListPageResponse> =
-            jsonHandler<MobileVoiceConnectionListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MobileVoiceConnectionListResponse> =
+            jsonHandler<MobileVoiceConnectionListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MobileVoiceConnectionListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MobileVoiceConnectionListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<MobileVoiceConnectionListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -219,14 +218,6 @@ internal constructor(private val clientOptions: ClientOptions) : MobileVoiceConn
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                MobileVoiceConnectionListPageAsync.builder()
-                                    .service(MobileVoiceConnectionServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

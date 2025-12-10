@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberCreateParams
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberCreateResponse
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberDataWrapper
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberDeleteParams
-import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberListPageAsync
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberListParams
+import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberListResponse
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberRetrieveParams
 import com.telnyx.sdk.services.async.verifiednumbers.ActionServiceAsync
 import java.util.concurrent.CompletableFuture
@@ -84,22 +84,22 @@ interface VerifiedNumberServiceAsync {
         retrieve(phoneNumber, VerifiedNumberRetrieveParams.none(), requestOptions)
 
     /** Gets a paginated list of Verified Numbers. */
-    fun list(): CompletableFuture<VerifiedNumberListPageAsync> =
+    fun list(): CompletableFuture<VerifiedNumberListResponse> =
         list(VerifiedNumberListParams.none())
 
     /** @see list */
     fun list(
         params: VerifiedNumberListParams = VerifiedNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VerifiedNumberListPageAsync>
+    ): CompletableFuture<VerifiedNumberListResponse>
 
     /** @see list */
     fun list(
         params: VerifiedNumberListParams = VerifiedNumberListParams.none()
-    ): CompletableFuture<VerifiedNumberListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<VerifiedNumberListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<VerifiedNumberListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<VerifiedNumberListResponse> =
         list(VerifiedNumberListParams.none(), requestOptions)
 
     /** Delete a verified number */
@@ -217,25 +217,25 @@ interface VerifiedNumberServiceAsync {
          * Returns a raw HTTP response for `get /verified_numbers`, but is otherwise the same as
          * [VerifiedNumberServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<VerifiedNumberListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<VerifiedNumberListResponse>> =
             list(VerifiedNumberListParams.none())
 
         /** @see list */
         fun list(
             params: VerifiedNumberListParams = VerifiedNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VerifiedNumberListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<VerifiedNumberListResponse>>
 
         /** @see list */
         fun list(
             params: VerifiedNumberListParams = VerifiedNumberListParams.none()
-        ): CompletableFuture<HttpResponseFor<VerifiedNumberListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<VerifiedNumberListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<VerifiedNumberListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<VerifiedNumberListResponse>> =
             list(VerifiedNumberListParams.none(), requestOptions)
 
         /**

@@ -6,6 +6,7 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.networks.InterfaceStatus
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayCreateParams
+import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -33,8 +34,8 @@ internal class PublicInternetGatewayServiceTest {
                     .name("test interface")
                     .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .status(InterfaceStatus.PROVISIONED)
-                    .regionCode("ashburn-va")
                     .publicIp("127.0.0.1")
+                    .regionCode("ashburn-va")
                     .build()
             )
 
@@ -67,9 +68,21 @@ internal class PublicInternetGatewayServiceTest {
                 .build()
         val publicInternetGatewayService = client.publicInternetGateways()
 
-        val page = publicInternetGatewayService.list()
+        val publicInternetGateways =
+            publicInternetGatewayService.list(
+                PublicInternetGatewayListParams.builder()
+                    .filter(
+                        PublicInternetGatewayListParams.Filter.builder()
+                            .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                            .build()
+                    )
+                    .page(
+                        PublicInternetGatewayListParams.Page.builder().number(1L).size(1L).build()
+                    )
+                    .build()
+            )
 
-        page.response().validate()
+        publicInternetGateways.validate()
     }
 
     @Disabled("Prism tests are disabled")

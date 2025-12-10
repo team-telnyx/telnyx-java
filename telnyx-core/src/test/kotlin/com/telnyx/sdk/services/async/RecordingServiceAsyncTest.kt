@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.recordings.RecordingListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -37,10 +38,32 @@ internal class RecordingServiceAsyncTest {
                 .build()
         val recordingServiceAsync = client.recordings()
 
-        val pageFuture = recordingServiceAsync.list()
+        val recordingsFuture =
+            recordingServiceAsync.list(
+                RecordingListParams.builder()
+                    .filter(
+                        RecordingListParams.Filter.builder()
+                            .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                            .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                            .conferenceId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                            .connectionId("175237942907135762")
+                            .createdAt(
+                                RecordingListParams.Filter.CreatedAt.builder()
+                                    .gte("2019-03-29T11:10:00Z")
+                                    .lte("2019-03-29T11:10:00Z")
+                                    .build()
+                            )
+                            .from("1234567890")
+                            .sipCallId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                            .to("1234567890")
+                            .build()
+                    )
+                    .page(RecordingListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val recordings = recordingsFuture.get()
+        recordings.validate()
     }
 
     @Disabled("Prism tests are disabled")

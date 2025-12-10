@@ -8,10 +8,10 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.conferences.ConferenceCreateParams
 import com.telnyx.sdk.models.conferences.ConferenceCreateResponse
-import com.telnyx.sdk.models.conferences.ConferenceListPage
 import com.telnyx.sdk.models.conferences.ConferenceListParams
-import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPage
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsParams
+import com.telnyx.sdk.models.conferences.ConferenceListParticipantsResponse
+import com.telnyx.sdk.models.conferences.ConferenceListResponse
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParams
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveResponse
 import com.telnyx.sdk.services.blocking.conferences.ActionService
@@ -92,24 +92,24 @@ interface ConferenceService {
      * have left the conference or after 4 hours regardless of the number of active participants.
      * Conferences are listed in descending order by `expires_at`.
      */
-    fun list(): ConferenceListPage = list(ConferenceListParams.none())
+    fun list(): ConferenceListResponse = list(ConferenceListParams.none())
 
     /** @see list */
     fun list(
         params: ConferenceListParams = ConferenceListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConferenceListPage
+    ): ConferenceListResponse
 
     /** @see list */
-    fun list(params: ConferenceListParams = ConferenceListParams.none()): ConferenceListPage =
+    fun list(params: ConferenceListParams = ConferenceListParams.none()): ConferenceListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): ConferenceListPage =
+    fun list(requestOptions: RequestOptions): ConferenceListResponse =
         list(ConferenceListParams.none(), requestOptions)
 
     /** Lists conference participants */
-    fun listParticipants(conferenceId: String): ConferenceListParticipantsPage =
+    fun listParticipants(conferenceId: String): ConferenceListParticipantsResponse =
         listParticipants(conferenceId, ConferenceListParticipantsParams.none())
 
     /** @see listParticipants */
@@ -117,31 +117,32 @@ interface ConferenceService {
         conferenceId: String,
         params: ConferenceListParticipantsParams = ConferenceListParticipantsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConferenceListParticipantsPage =
+    ): ConferenceListParticipantsResponse =
         listParticipants(params.toBuilder().conferenceId(conferenceId).build(), requestOptions)
 
     /** @see listParticipants */
     fun listParticipants(
         conferenceId: String,
         params: ConferenceListParticipantsParams = ConferenceListParticipantsParams.none(),
-    ): ConferenceListParticipantsPage =
+    ): ConferenceListParticipantsResponse =
         listParticipants(conferenceId, params, RequestOptions.none())
 
     /** @see listParticipants */
     fun listParticipants(
         params: ConferenceListParticipantsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConferenceListParticipantsPage
+    ): ConferenceListParticipantsResponse
 
     /** @see listParticipants */
-    fun listParticipants(params: ConferenceListParticipantsParams): ConferenceListParticipantsPage =
-        listParticipants(params, RequestOptions.none())
+    fun listParticipants(
+        params: ConferenceListParticipantsParams
+    ): ConferenceListParticipantsResponse = listParticipants(params, RequestOptions.none())
 
     /** @see listParticipants */
     fun listParticipants(
         conferenceId: String,
         requestOptions: RequestOptions,
-    ): ConferenceListParticipantsPage =
+    ): ConferenceListParticipantsResponse =
         listParticipants(conferenceId, ConferenceListParticipantsParams.none(), requestOptions)
 
     /** A view of [ConferenceService] that provides access to raw HTTP responses for each method. */
@@ -223,24 +224,24 @@ interface ConferenceService {
          * [ConferenceService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<ConferenceListPage> = list(ConferenceListParams.none())
+        fun list(): HttpResponseFor<ConferenceListResponse> = list(ConferenceListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ConferenceListParams = ConferenceListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConferenceListPage>
+        ): HttpResponseFor<ConferenceListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ConferenceListParams = ConferenceListParams.none()
-        ): HttpResponseFor<ConferenceListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<ConferenceListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<ConferenceListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ConferenceListResponse> =
             list(ConferenceListParams.none(), requestOptions)
 
         /**
@@ -250,7 +251,7 @@ interface ConferenceService {
         @MustBeClosed
         fun listParticipants(
             conferenceId: String
-        ): HttpResponseFor<ConferenceListParticipantsPage> =
+        ): HttpResponseFor<ConferenceListParticipantsResponse> =
             listParticipants(conferenceId, ConferenceListParticipantsParams.none())
 
         /** @see listParticipants */
@@ -259,7 +260,7 @@ interface ConferenceService {
             conferenceId: String,
             params: ConferenceListParticipantsParams = ConferenceListParticipantsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConferenceListParticipantsPage> =
+        ): HttpResponseFor<ConferenceListParticipantsResponse> =
             listParticipants(params.toBuilder().conferenceId(conferenceId).build(), requestOptions)
 
         /** @see listParticipants */
@@ -267,7 +268,7 @@ interface ConferenceService {
         fun listParticipants(
             conferenceId: String,
             params: ConferenceListParticipantsParams = ConferenceListParticipantsParams.none(),
-        ): HttpResponseFor<ConferenceListParticipantsPage> =
+        ): HttpResponseFor<ConferenceListParticipantsResponse> =
             listParticipants(conferenceId, params, RequestOptions.none())
 
         /** @see listParticipants */
@@ -275,13 +276,13 @@ interface ConferenceService {
         fun listParticipants(
             params: ConferenceListParticipantsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConferenceListParticipantsPage>
+        ): HttpResponseFor<ConferenceListParticipantsResponse>
 
         /** @see listParticipants */
         @MustBeClosed
         fun listParticipants(
             params: ConferenceListParticipantsParams
-        ): HttpResponseFor<ConferenceListParticipantsPage> =
+        ): HttpResponseFor<ConferenceListParticipantsResponse> =
             listParticipants(params, RequestOptions.none())
 
         /** @see listParticipants */
@@ -289,7 +290,7 @@ interface ConferenceService {
         fun listParticipants(
             conferenceId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConferenceListParticipantsPage> =
+        ): HttpResponseFor<ConferenceListParticipantsResponse> =
             listParticipants(conferenceId, ConferenceListParticipantsParams.none(), requestOptions)
     }
 }

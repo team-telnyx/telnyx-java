@@ -21,7 +21,7 @@ internal class SimCardGroupCreateResponseTest {
                         .dataLimit(
                             SimCardGroup.DataLimit.builder().amount("2048.1").unit("MB").build()
                         )
-                        .isDefault(true)
+                        .default_(true)
                         .name("My Test Group")
                         .privateWirelessGatewayId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .recordType("sim_card_group")
@@ -38,7 +38,7 @@ internal class SimCardGroupCreateResponseTest {
                     .consumedData(ConsumedData.builder().amount("2048.1").unit("MB").build())
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .dataLimit(SimCardGroup.DataLimit.builder().amount("2048.1").unit("MB").build())
-                    .isDefault(true)
+                    .default_(true)
                     .name("My Test Group")
                     .privateWirelessGatewayId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .recordType("sim_card_group")
@@ -61,7 +61,7 @@ internal class SimCardGroupCreateResponseTest {
                         .dataLimit(
                             SimCardGroup.DataLimit.builder().amount("2048.1").unit("MB").build()
                         )
-                        .isDefault(true)
+                        .default_(true)
                         .name("My Test Group")
                         .privateWirelessGatewayId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .recordType("sim_card_group")

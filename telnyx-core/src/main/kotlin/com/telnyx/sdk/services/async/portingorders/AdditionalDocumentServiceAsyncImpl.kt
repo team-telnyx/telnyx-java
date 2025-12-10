@@ -20,9 +20,8 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentCreateParams
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentCreateResponse
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentDeleteParams
-import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentListPageAsync
-import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentListPageResponse
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentListParams
+import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -53,7 +52,7 @@ internal constructor(private val clientOptions: ClientOptions) : AdditionalDocum
     override fun list(
         params: AdditionalDocumentListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AdditionalDocumentListPageAsync> =
+    ): CompletableFuture<AdditionalDocumentListResponse> =
         // get /porting_orders/{id}/additional_documents
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -111,13 +110,13 @@ internal constructor(private val clientOptions: ClientOptions) : AdditionalDocum
                 }
         }
 
-        private val listHandler: Handler<AdditionalDocumentListPageResponse> =
-            jsonHandler<AdditionalDocumentListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AdditionalDocumentListResponse> =
+            jsonHandler<AdditionalDocumentListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AdditionalDocumentListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AdditionalDocumentListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<AdditionalDocumentListResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -139,14 +138,6 @@ internal constructor(private val clientOptions: ClientOptions) : AdditionalDocum
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                AdditionalDocumentListPageAsync.builder()
-                                    .service(AdditionalDocumentServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

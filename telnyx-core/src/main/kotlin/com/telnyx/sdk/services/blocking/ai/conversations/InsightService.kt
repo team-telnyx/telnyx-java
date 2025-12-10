@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.conversations.insights.InsightCreateParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightDeleteParams
-import com.telnyx.sdk.models.ai.conversations.insights.InsightListPage
 import com.telnyx.sdk.models.ai.conversations.insights.InsightListParams
+import com.telnyx.sdk.models.ai.conversations.insights.InsightListResponse
 import com.telnyx.sdk.models.ai.conversations.insights.InsightRetrieveParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightTemplateDetail
 import com.telnyx.sdk.models.ai.conversations.insights.InsightUpdateParams
@@ -105,20 +105,20 @@ interface InsightService {
         update(insightId, InsightUpdateParams.none(), requestOptions)
 
     /** Get all insights */
-    fun list(): InsightListPage = list(InsightListParams.none())
+    fun list(): InsightListResponse = list(InsightListParams.none())
 
     /** @see list */
     fun list(
         params: InsightListParams = InsightListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InsightListPage
+    ): InsightListResponse
 
     /** @see list */
-    fun list(params: InsightListParams = InsightListParams.none()): InsightListPage =
+    fun list(params: InsightListParams = InsightListParams.none()): InsightListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): InsightListPage =
+    fun list(requestOptions: RequestOptions): InsightListResponse =
         list(InsightListParams.none(), requestOptions)
 
     /** Delete insight by ID */
@@ -263,24 +263,25 @@ interface InsightService {
          * Returns a raw HTTP response for `get /ai/conversations/insights`, but is otherwise the
          * same as [InsightService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<InsightListPage> = list(InsightListParams.none())
+        @MustBeClosed
+        fun list(): HttpResponseFor<InsightListResponse> = list(InsightListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: InsightListParams = InsightListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InsightListPage>
+        ): HttpResponseFor<InsightListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: InsightListParams = InsightListParams.none()
-        ): HttpResponseFor<InsightListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<InsightListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<InsightListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<InsightListResponse> =
             list(InsightListParams.none(), requestOptions)
 
         /**

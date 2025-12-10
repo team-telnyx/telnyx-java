@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.faxapplications.FaxApplicationCreateParams
 import com.telnyx.sdk.models.faxapplications.FaxApplicationCreateResponse
 import com.telnyx.sdk.models.faxapplications.FaxApplicationDeleteParams
 import com.telnyx.sdk.models.faxapplications.FaxApplicationDeleteResponse
-import com.telnyx.sdk.models.faxapplications.FaxApplicationListPage
 import com.telnyx.sdk.models.faxapplications.FaxApplicationListParams
+import com.telnyx.sdk.models.faxapplications.FaxApplicationListResponse
 import com.telnyx.sdk.models.faxapplications.FaxApplicationRetrieveParams
 import com.telnyx.sdk.models.faxapplications.FaxApplicationRetrieveResponse
 import com.telnyx.sdk.models.faxapplications.FaxApplicationUpdateParams
@@ -106,21 +106,21 @@ interface FaxApplicationService {
      * response. You can adjust which applications are listed by using filters. Fax Applications are
      * used to configure how you send and receive faxes using the Programmable Fax API with Telnyx.
      */
-    fun list(): FaxApplicationListPage = list(FaxApplicationListParams.none())
+    fun list(): FaxApplicationListResponse = list(FaxApplicationListParams.none())
 
     /** @see list */
     fun list(
         params: FaxApplicationListParams = FaxApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): FaxApplicationListPage
+    ): FaxApplicationListResponse
 
     /** @see list */
     fun list(
         params: FaxApplicationListParams = FaxApplicationListParams.none()
-    ): FaxApplicationListPage = list(params, RequestOptions.none())
+    ): FaxApplicationListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): FaxApplicationListPage =
+    fun list(requestOptions: RequestOptions): FaxApplicationListResponse =
         list(FaxApplicationListParams.none(), requestOptions)
 
     /**
@@ -270,24 +270,25 @@ interface FaxApplicationService {
          * [FaxApplicationService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<FaxApplicationListPage> = list(FaxApplicationListParams.none())
+        fun list(): HttpResponseFor<FaxApplicationListResponse> =
+            list(FaxApplicationListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: FaxApplicationListParams = FaxApplicationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<FaxApplicationListPage>
+        ): HttpResponseFor<FaxApplicationListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: FaxApplicationListParams = FaxApplicationListParams.none()
-        ): HttpResponseFor<FaxApplicationListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<FaxApplicationListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<FaxApplicationListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<FaxApplicationListResponse> =
             list(FaxApplicationListParams.none(), requestOptions)
 
         /**

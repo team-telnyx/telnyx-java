@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.simcardgroups.SimCardGroupCreateParams
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupCreateResponse
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupDeleteParams
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupDeleteResponse
-import com.telnyx.sdk.models.simcardgroups.SimCardGroupListPageAsync
-import com.telnyx.sdk.models.simcardgroups.SimCardGroupListPageResponse
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupListParams
+import com.telnyx.sdk.models.simcardgroups.SimCardGroupListResponse
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupRetrieveParams
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupRetrieveResponse
 import com.telnyx.sdk.models.simcardgroups.SimCardGroupUpdateParams
@@ -73,7 +72,7 @@ class SimCardGroupServiceAsyncImpl internal constructor(private val clientOption
     override fun list(
         params: SimCardGroupListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SimCardGroupListPageAsync> =
+    ): CompletableFuture<SimCardGroupListResponse> =
         // get /sim_card_groups
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -201,13 +200,13 @@ class SimCardGroupServiceAsyncImpl internal constructor(private val clientOption
                 }
         }
 
-        private val listHandler: Handler<SimCardGroupListPageResponse> =
-            jsonHandler<SimCardGroupListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<SimCardGroupListResponse> =
+            jsonHandler<SimCardGroupListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: SimCardGroupListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SimCardGroupListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<SimCardGroupListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -226,14 +225,6 @@ class SimCardGroupServiceAsyncImpl internal constructor(private val clientOption
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                SimCardGroupListPageAsync.builder()
-                                    .service(SimCardGroupServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

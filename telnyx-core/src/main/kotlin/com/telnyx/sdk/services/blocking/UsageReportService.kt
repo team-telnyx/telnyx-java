@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.usagereports.UsageReportGetOptionsParams
 import com.telnyx.sdk.models.usagereports.UsageReportGetOptionsResponse
-import com.telnyx.sdk.models.usagereports.UsageReportListPage
 import com.telnyx.sdk.models.usagereports.UsageReportListParams
+import com.telnyx.sdk.models.usagereports.UsageReportListResponse
 import java.util.function.Consumer
 
 interface UsageReportService {
@@ -27,14 +27,14 @@ interface UsageReportService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): UsageReportService
 
     /** Get Telnyx usage data by product, broken out by the specified dimensions */
-    fun list(params: UsageReportListParams): UsageReportListPage =
+    fun list(params: UsageReportListParams): UsageReportListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: UsageReportListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UsageReportListPage
+    ): UsageReportListResponse
 
     /**
      * Get the Usage Reports options for querying usage, including the products available and their
@@ -76,7 +76,7 @@ interface UsageReportService {
          * [UsageReportService.list].
          */
         @MustBeClosed
-        fun list(params: UsageReportListParams): HttpResponseFor<UsageReportListPage> =
+        fun list(params: UsageReportListParams): HttpResponseFor<UsageReportListResponse> =
             list(params, RequestOptions.none())
 
         /** @see list */
@@ -84,7 +84,7 @@ interface UsageReportService {
         fun list(
             params: UsageReportListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UsageReportListPage>
+        ): HttpResponseFor<UsageReportListResponse>
 
         /**
          * Returns a raw HTTP response for `get /usage_reports/options`, but is otherwise the same

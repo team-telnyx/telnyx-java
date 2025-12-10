@@ -20,7 +20,6 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerDeleteParams
-import com.telnyx.sdk.models.ai.mcpservers.McpServerListPageAsync
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveParams
@@ -67,7 +66,7 @@ class McpServerServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun list(
         params: McpServerListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<McpServerListPageAsync> =
+    ): CompletableFuture<List<McpServerListResponse>> =
         // get /ai/mcp_servers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -195,7 +194,7 @@ class McpServerServiceAsyncImpl internal constructor(private val clientOptions: 
         override fun list(
             params: McpServerListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<McpServerListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<List<McpServerListResponse>>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -214,14 +213,6 @@ class McpServerServiceAsyncImpl internal constructor(private val clientOptions: 
                                 if (requestOptions.responseValidation!!) {
                                     it.forEach { it.validate() }
                                 }
-                            }
-                            .let {
-                                McpServerListPageAsync.builder()
-                                    .service(McpServerServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .items(it)
-                                    .build()
                             }
                     }
                 }

@@ -15,9 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingListPage
-import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingListPageResponse
 import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingListParams
+import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingListResponse
 import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingRetrieveParams
 import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingRetrieveResponse
 import java.util.function.Consumer
@@ -45,7 +44,7 @@ class MessagingServiceImpl internal constructor(private val clientOptions: Clien
     override fun list(
         params: MessagingListParams,
         requestOptions: RequestOptions,
-    ): MessagingListPage =
+    ): MessagingListResponse =
         // get /mobile_phone_numbers/messaging
         withRawResponse().list(params, requestOptions).parse()
 
@@ -92,13 +91,13 @@ class MessagingServiceImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val listHandler: Handler<MessagingListPageResponse> =
-            jsonHandler<MessagingListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessagingListResponse> =
+            jsonHandler<MessagingListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessagingListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MessagingListPage> {
+        ): HttpResponseFor<MessagingListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -115,13 +114,6 @@ class MessagingServiceImpl internal constructor(private val clientOptions: Clien
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        MessagingListPage.builder()
-                            .service(MessagingServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

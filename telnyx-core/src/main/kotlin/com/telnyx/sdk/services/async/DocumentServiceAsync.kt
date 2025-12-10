@@ -11,8 +11,8 @@ import com.telnyx.sdk.models.documents.DocumentDeleteResponse
 import com.telnyx.sdk.models.documents.DocumentDownloadParams
 import com.telnyx.sdk.models.documents.DocumentGenerateDownloadLinkParams
 import com.telnyx.sdk.models.documents.DocumentGenerateDownloadLinkResponse
-import com.telnyx.sdk.models.documents.DocumentListPageAsync
 import com.telnyx.sdk.models.documents.DocumentListParams
+import com.telnyx.sdk.models.documents.DocumentListResponse
 import com.telnyx.sdk.models.documents.DocumentRetrieveParams
 import com.telnyx.sdk.models.documents.DocumentRetrieveResponse
 import com.telnyx.sdk.models.documents.DocumentUpdateParams
@@ -75,17 +75,17 @@ interface DocumentServiceAsync {
 
     /** Update a document. */
     fun update(
-        documentId: String,
+        pathId: String,
         params: DocumentUpdateParams,
-    ): CompletableFuture<DocumentUpdateResponse> = update(documentId, params, RequestOptions.none())
+    ): CompletableFuture<DocumentUpdateResponse> = update(pathId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        documentId: String,
+        pathId: String,
         params: DocumentUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DocumentUpdateResponse> =
-        update(params.toBuilder().documentId(documentId).build(), requestOptions)
+        update(params.toBuilder().pathId(pathId).build(), requestOptions)
 
     /** @see update */
     fun update(params: DocumentUpdateParams): CompletableFuture<DocumentUpdateResponse> =
@@ -98,21 +98,21 @@ interface DocumentServiceAsync {
     ): CompletableFuture<DocumentUpdateResponse>
 
     /** List all documents ordered by created_at descending. */
-    fun list(): CompletableFuture<DocumentListPageAsync> = list(DocumentListParams.none())
+    fun list(): CompletableFuture<DocumentListResponse> = list(DocumentListParams.none())
 
     /** @see list */
     fun list(
         params: DocumentListParams = DocumentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DocumentListPageAsync>
+    ): CompletableFuture<DocumentListResponse>
 
     /** @see list */
     fun list(
         params: DocumentListParams = DocumentListParams.none()
-    ): CompletableFuture<DocumentListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<DocumentListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<DocumentListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<DocumentListResponse> =
         list(DocumentListParams.none(), requestOptions)
 
     /**
@@ -312,18 +312,18 @@ interface DocumentServiceAsync {
          * [DocumentServiceAsync.update].
          */
         fun update(
-            documentId: String,
+            pathId: String,
             params: DocumentUpdateParams,
         ): CompletableFuture<HttpResponseFor<DocumentUpdateResponse>> =
-            update(documentId, params, RequestOptions.none())
+            update(pathId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
-            documentId: String,
+            pathId: String,
             params: DocumentUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DocumentUpdateResponse>> =
-            update(params.toBuilder().documentId(documentId).build(), requestOptions)
+            update(params.toBuilder().pathId(pathId).build(), requestOptions)
 
         /** @see update */
         fun update(
@@ -341,25 +341,25 @@ interface DocumentServiceAsync {
          * Returns a raw HTTP response for `get /documents`, but is otherwise the same as
          * [DocumentServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<DocumentListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<DocumentListResponse>> =
             list(DocumentListParams.none())
 
         /** @see list */
         fun list(
             params: DocumentListParams = DocumentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DocumentListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<DocumentListResponse>>
 
         /** @see list */
         fun list(
             params: DocumentListParams = DocumentListParams.none()
-        ): CompletableFuture<HttpResponseFor<DocumentListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<DocumentListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<DocumentListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<DocumentListResponse>> =
             list(DocumentListParams.none(), requestOptions)
 
         /**

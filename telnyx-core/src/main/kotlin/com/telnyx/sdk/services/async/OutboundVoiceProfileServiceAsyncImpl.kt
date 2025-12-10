@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileCreatePar
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileCreateResponse
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileDeleteParams
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileDeleteResponse
-import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileListPageAsync
-import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileListPageResponse
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileListParams
+import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileListResponse
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileRetrieveParams
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileRetrieveResponse
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileUpdateParams
@@ -72,7 +71,7 @@ internal constructor(private val clientOptions: ClientOptions) : OutboundVoicePr
     override fun list(
         params: OutboundVoiceProfileListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<OutboundVoiceProfileListPageAsync> =
+    ): CompletableFuture<OutboundVoiceProfileListResponse> =
         // get /outbound_voice_profiles
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -194,13 +193,13 @@ internal constructor(private val clientOptions: ClientOptions) : OutboundVoicePr
                 }
         }
 
-        private val listHandler: Handler<OutboundVoiceProfileListPageResponse> =
-            jsonHandler<OutboundVoiceProfileListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<OutboundVoiceProfileListResponse> =
+            jsonHandler<OutboundVoiceProfileListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: OutboundVoiceProfileListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<OutboundVoiceProfileListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<OutboundVoiceProfileListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -219,14 +218,6 @@ internal constructor(private val clientOptions: ClientOptions) : OutboundVoicePr
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                OutboundVoiceProfileListPageAsync.builder()
-                                    .service(OutboundVoiceProfileServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

@@ -5,10 +5,10 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.connections.ConnectionListActiveCallsPageAsync
 import com.telnyx.sdk.models.connections.ConnectionListActiveCallsParams
-import com.telnyx.sdk.models.connections.ConnectionListPageAsync
+import com.telnyx.sdk.models.connections.ConnectionListActiveCallsResponse
 import com.telnyx.sdk.models.connections.ConnectionListParams
+import com.telnyx.sdk.models.connections.ConnectionListResponse
 import com.telnyx.sdk.models.connections.ConnectionRetrieveParams
 import com.telnyx.sdk.models.connections.ConnectionRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -67,21 +67,21 @@ interface ConnectionServiceAsync {
         retrieve(id, ConnectionRetrieveParams.none(), requestOptions)
 
     /** Returns a list of your connections irrespective of type. */
-    fun list(): CompletableFuture<ConnectionListPageAsync> = list(ConnectionListParams.none())
+    fun list(): CompletableFuture<ConnectionListResponse> = list(ConnectionListParams.none())
 
     /** @see list */
     fun list(
         params: ConnectionListParams = ConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConnectionListPageAsync>
+    ): CompletableFuture<ConnectionListResponse>
 
     /** @see list */
     fun list(
         params: ConnectionListParams = ConnectionListParams.none()
-    ): CompletableFuture<ConnectionListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<ConnectionListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<ConnectionListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<ConnectionListResponse> =
         list(ConnectionListParams.none(), requestOptions)
 
     /**
@@ -91,7 +91,7 @@ interface ConnectionServiceAsync {
      */
     fun listActiveCalls(
         connectionId: String
-    ): CompletableFuture<ConnectionListActiveCallsPageAsync> =
+    ): CompletableFuture<ConnectionListActiveCallsResponse> =
         listActiveCalls(connectionId, ConnectionListActiveCallsParams.none())
 
     /** @see listActiveCalls */
@@ -99,33 +99,33 @@ interface ConnectionServiceAsync {
         connectionId: String,
         params: ConnectionListActiveCallsParams = ConnectionListActiveCallsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConnectionListActiveCallsPageAsync> =
+    ): CompletableFuture<ConnectionListActiveCallsResponse> =
         listActiveCalls(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
     /** @see listActiveCalls */
     fun listActiveCalls(
         connectionId: String,
         params: ConnectionListActiveCallsParams = ConnectionListActiveCallsParams.none(),
-    ): CompletableFuture<ConnectionListActiveCallsPageAsync> =
+    ): CompletableFuture<ConnectionListActiveCallsResponse> =
         listActiveCalls(connectionId, params, RequestOptions.none())
 
     /** @see listActiveCalls */
     fun listActiveCalls(
         params: ConnectionListActiveCallsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConnectionListActiveCallsPageAsync>
+    ): CompletableFuture<ConnectionListActiveCallsResponse>
 
     /** @see listActiveCalls */
     fun listActiveCalls(
         params: ConnectionListActiveCallsParams
-    ): CompletableFuture<ConnectionListActiveCallsPageAsync> =
+    ): CompletableFuture<ConnectionListActiveCallsResponse> =
         listActiveCalls(params, RequestOptions.none())
 
     /** @see listActiveCalls */
     fun listActiveCalls(
         connectionId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ConnectionListActiveCallsPageAsync> =
+    ): CompletableFuture<ConnectionListActiveCallsResponse> =
         listActiveCalls(connectionId, ConnectionListActiveCallsParams.none(), requestOptions)
 
     /**
@@ -188,25 +188,25 @@ interface ConnectionServiceAsync {
          * Returns a raw HTTP response for `get /connections`, but is otherwise the same as
          * [ConnectionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<ConnectionListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<ConnectionListResponse>> =
             list(ConnectionListParams.none())
 
         /** @see list */
         fun list(
             params: ConnectionListParams = ConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConnectionListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<ConnectionListResponse>>
 
         /** @see list */
         fun list(
             params: ConnectionListParams = ConnectionListParams.none()
-        ): CompletableFuture<HttpResponseFor<ConnectionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ConnectionListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<ConnectionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ConnectionListResponse>> =
             list(ConnectionListParams.none(), requestOptions)
 
         /**
@@ -215,7 +215,7 @@ interface ConnectionServiceAsync {
          */
         fun listActiveCalls(
             connectionId: String
-        ): CompletableFuture<HttpResponseFor<ConnectionListActiveCallsPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ConnectionListActiveCallsResponse>> =
             listActiveCalls(connectionId, ConnectionListActiveCallsParams.none())
 
         /** @see listActiveCalls */
@@ -223,33 +223,33 @@ interface ConnectionServiceAsync {
             connectionId: String,
             params: ConnectionListActiveCallsParams = ConnectionListActiveCallsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConnectionListActiveCallsPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ConnectionListActiveCallsResponse>> =
             listActiveCalls(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
         /** @see listActiveCalls */
         fun listActiveCalls(
             connectionId: String,
             params: ConnectionListActiveCallsParams = ConnectionListActiveCallsParams.none(),
-        ): CompletableFuture<HttpResponseFor<ConnectionListActiveCallsPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ConnectionListActiveCallsResponse>> =
             listActiveCalls(connectionId, params, RequestOptions.none())
 
         /** @see listActiveCalls */
         fun listActiveCalls(
             params: ConnectionListActiveCallsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConnectionListActiveCallsPageAsync>>
+        ): CompletableFuture<HttpResponseFor<ConnectionListActiveCallsResponse>>
 
         /** @see listActiveCalls */
         fun listActiveCalls(
             params: ConnectionListActiveCallsParams
-        ): CompletableFuture<HttpResponseFor<ConnectionListActiveCallsPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ConnectionListActiveCallsResponse>> =
             listActiveCalls(params, RequestOptions.none())
 
         /** @see listActiveCalls */
         fun listActiveCalls(
             connectionId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ConnectionListActiveCallsPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ConnectionListActiveCallsResponse>> =
             listActiveCalls(connectionId, ConnectionListActiveCallsParams.none(), requestOptions)
     }
 }

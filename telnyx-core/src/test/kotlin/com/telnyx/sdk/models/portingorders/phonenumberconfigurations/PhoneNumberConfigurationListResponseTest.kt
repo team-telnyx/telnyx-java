@@ -4,7 +4,9 @@ package com.telnyx.sdk.models.portingorders.phonenumberconfigurations
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import java.time.OffsetDateTime
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -14,26 +16,46 @@ internal class PhoneNumberConfigurationListResponseTest {
     fun create() {
         val phoneNumberConfigurationListResponse =
             PhoneNumberConfigurationListResponse.builder()
-                .id("eef3340b-8903-4466-b445-89b697315a3a")
-                .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .portingPhoneNumberId("f1486bae-f067-460c-ad43-73a92848f902")
-                .recordType("porting_phone_number_configuration")
-                .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .userBundleId("daa4308e-742f-4867-97f2-3073db13319a")
+                .addData(
+                    PhoneNumberConfigurationListResponse.Data.builder()
+                        .id("eef3340b-8903-4466-b445-89b697315a3a")
+                        .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                        .portingPhoneNumberId("f1486bae-f067-460c-ad43-73a92848f902")
+                        .recordType("porting_phone_number_configuration")
+                        .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                        .userBundleId("daa4308e-742f-4867-97f2-3073db13319a")
+                        .build()
+                )
+                .meta(
+                    PaginationMeta.builder()
+                        .pageNumber(2L)
+                        .pageSize(25L)
+                        .totalPages(3L)
+                        .totalResults(55L)
+                        .build()
+                )
                 .build()
 
-        assertThat(phoneNumberConfigurationListResponse.id())
-            .contains("eef3340b-8903-4466-b445-89b697315a3a")
-        assertThat(phoneNumberConfigurationListResponse.createdAt())
-            .contains(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-        assertThat(phoneNumberConfigurationListResponse.portingPhoneNumberId())
-            .contains("f1486bae-f067-460c-ad43-73a92848f902")
-        assertThat(phoneNumberConfigurationListResponse.recordType())
-            .contains("porting_phone_number_configuration")
-        assertThat(phoneNumberConfigurationListResponse.updatedAt())
-            .contains(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-        assertThat(phoneNumberConfigurationListResponse.userBundleId())
-            .contains("daa4308e-742f-4867-97f2-3073db13319a")
+        assertThat(phoneNumberConfigurationListResponse.data().getOrNull())
+            .containsExactly(
+                PhoneNumberConfigurationListResponse.Data.builder()
+                    .id("eef3340b-8903-4466-b445-89b697315a3a")
+                    .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                    .portingPhoneNumberId("f1486bae-f067-460c-ad43-73a92848f902")
+                    .recordType("porting_phone_number_configuration")
+                    .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                    .userBundleId("daa4308e-742f-4867-97f2-3073db13319a")
+                    .build()
+            )
+        assertThat(phoneNumberConfigurationListResponse.meta())
+            .contains(
+                PaginationMeta.builder()
+                    .pageNumber(2L)
+                    .pageSize(25L)
+                    .totalPages(3L)
+                    .totalResults(55L)
+                    .build()
+            )
     }
 
     @Test
@@ -41,12 +63,24 @@ internal class PhoneNumberConfigurationListResponseTest {
         val jsonMapper = jsonMapper()
         val phoneNumberConfigurationListResponse =
             PhoneNumberConfigurationListResponse.builder()
-                .id("eef3340b-8903-4466-b445-89b697315a3a")
-                .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .portingPhoneNumberId("f1486bae-f067-460c-ad43-73a92848f902")
-                .recordType("porting_phone_number_configuration")
-                .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .userBundleId("daa4308e-742f-4867-97f2-3073db13319a")
+                .addData(
+                    PhoneNumberConfigurationListResponse.Data.builder()
+                        .id("eef3340b-8903-4466-b445-89b697315a3a")
+                        .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                        .portingPhoneNumberId("f1486bae-f067-460c-ad43-73a92848f902")
+                        .recordType("porting_phone_number_configuration")
+                        .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                        .userBundleId("daa4308e-742f-4867-97f2-3073db13319a")
+                        .build()
+                )
+                .meta(
+                    PaginationMeta.builder()
+                        .pageNumber(2L)
+                        .pageSize(25L)
+                        .totalPages(3L)
+                        .totalResults(55L)
+                        .build()
+                )
                 .build()
 
         val roundtrippedPhoneNumberConfigurationListResponse =

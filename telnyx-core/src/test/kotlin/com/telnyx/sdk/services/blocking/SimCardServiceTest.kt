@@ -8,6 +8,8 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.SimCardStatus
 import com.telnyx.sdk.models.simcards.SimCard
 import com.telnyx.sdk.models.simcards.SimCardDeleteParams
+import com.telnyx.sdk.models.simcards.SimCardListParams
+import com.telnyx.sdk.models.simcards.SimCardListWirelessConnectivityLogsParams
 import com.telnyx.sdk.models.simcards.SimCardRetrieveParams
 import com.telnyx.sdk.models.simcards.SimCardUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -52,7 +54,7 @@ internal class SimCardServiceTest {
         val simCard =
             simCardService.update(
                 SimCardUpdateParams.builder()
-                    .simCardId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .simCard(
                         SimCard.builder()
                             .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -101,18 +103,14 @@ internal class SimCardServiceTest {
                                     .build()
                             )
                             .recordType("sim_card")
-                            .addResourcesWithInProgressAction(
-                                SimCard.ResourcesWithInProgressAction.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                    .build()
-                            )
+                            .addResourcesWithInProgressAction(JsonValue.from(mapOf<String, Any>()))
                             .simCardGroupId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                             .status(
                                 SimCardStatus.builder()
                                     .reason(
                                         "The SIM card is active, ready to connect to networks and consume data."
                                     )
-                                    .value(SimCardStatus.SimCardStatusValue.ENABLED)
+                                    .value(SimCardStatus.Value_.ENABLED)
                                     .build()
                             )
                             .tags(listOf("personal", "customers", "active-customers"))
@@ -137,9 +135,24 @@ internal class SimCardServiceTest {
                 .build()
         val simCardService = client.simCards()
 
-        val page = simCardService.list()
+        val simCards =
+            simCardService.list(
+                SimCardListParams.builder()
+                    .filter(
+                        SimCardListParams.Filter.builder()
+                            .iccid("89310410106543789301")
+                            .addStatus(SimCardListParams.Filter.Status.ENABLED)
+                            .tags(listOf("personal", "customers", "active-customers"))
+                            .build()
+                    )
+                    .filterSimCardGroupId("47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9")
+                    .includeSimCardGroup(true)
+                    .page(SimCardListParams.Page.builder().number(1L).size(1L).build())
+                    .sort(SimCardListParams.Sort.CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT)
+                    .build()
+            )
 
-        page.response().validate()
+        simCards.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -218,9 +231,15 @@ internal class SimCardServiceTest {
                 .build()
         val simCardService = client.simCards()
 
-        val page =
-            simCardService.listWirelessConnectivityLogs("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        val response =
+            simCardService.listWirelessConnectivityLogs(
+                SimCardListWirelessConnectivityLogsParams.builder()
+                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .pageNumber(1L)
+                    .pageSize(1L)
+                    .build()
+            )
 
-        page.response().validate()
+        response.validate()
     }
 }

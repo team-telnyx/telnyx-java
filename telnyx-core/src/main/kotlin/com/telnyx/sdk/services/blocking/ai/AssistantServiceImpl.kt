@@ -24,7 +24,7 @@ import com.telnyx.sdk.models.ai.assistants.AssistantCreateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteParams
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantGetTexmlParams
-import com.telnyx.sdk.models.ai.assistants.AssistantImportsParams
+import com.telnyx.sdk.models.ai.assistants.AssistantImportParams
 import com.telnyx.sdk.models.ai.assistants.AssistantListParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
@@ -131,12 +131,12 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
         // get /ai/assistants/{assistant_id}/texml
         withRawResponse().getTexml(params, requestOptions).parse()
 
-    override fun imports(
-        params: AssistantImportsParams,
+    override fun import_(
+        params: AssistantImportParams,
         requestOptions: RequestOptions,
     ): AssistantsList =
         // post /ai/assistants/import
-        withRawResponse().imports(params, requestOptions).parse()
+        withRawResponse().import_(params, requestOptions).parse()
 
     override fun sendSms(
         params: AssistantSendSmsParams,
@@ -420,11 +420,11 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val importsHandler: Handler<AssistantsList> =
+        private val importHandler: Handler<AssistantsList> =
             jsonHandler<AssistantsList>(clientOptions.jsonMapper)
 
-        override fun imports(
-            params: AssistantImportsParams,
+        override fun import_(
+            params: AssistantImportParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AssistantsList> {
             val request =
@@ -439,7 +439,7 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { importsHandler.handle(it) }
+                    .use { importHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

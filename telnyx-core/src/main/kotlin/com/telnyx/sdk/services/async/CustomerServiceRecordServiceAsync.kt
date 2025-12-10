@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordCreateParams
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordCreateResponse
-import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordListPageAsync
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordListParams
+import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordListResponse
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordRetrieveParams
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordRetrieveResponse
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordVerifyPhoneNumberCoverageParams
@@ -90,24 +90,22 @@ interface CustomerServiceRecordServiceAsync {
         )
 
     /** List customer service records. */
-    fun list(): CompletableFuture<CustomerServiceRecordListPageAsync> =
+    fun list(): CompletableFuture<CustomerServiceRecordListResponse> =
         list(CustomerServiceRecordListParams.none())
 
     /** @see list */
     fun list(
         params: CustomerServiceRecordListParams = CustomerServiceRecordListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CustomerServiceRecordListPageAsync>
+    ): CompletableFuture<CustomerServiceRecordListResponse>
 
     /** @see list */
     fun list(
         params: CustomerServiceRecordListParams = CustomerServiceRecordListParams.none()
-    ): CompletableFuture<CustomerServiceRecordListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<CustomerServiceRecordListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CustomerServiceRecordListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<CustomerServiceRecordListResponse> =
         list(CustomerServiceRecordListParams.none(), requestOptions)
 
     /** Verify the coverage for a list of phone numbers. */
@@ -208,25 +206,25 @@ interface CustomerServiceRecordServiceAsync {
          * Returns a raw HTTP response for `get /customer_service_records`, but is otherwise the
          * same as [CustomerServiceRecordServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<CustomerServiceRecordListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<CustomerServiceRecordListResponse>> =
             list(CustomerServiceRecordListParams.none())
 
         /** @see list */
         fun list(
             params: CustomerServiceRecordListParams = CustomerServiceRecordListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CustomerServiceRecordListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<CustomerServiceRecordListResponse>>
 
         /** @see list */
         fun list(
             params: CustomerServiceRecordListParams = CustomerServiceRecordListParams.none()
-        ): CompletableFuture<HttpResponseFor<CustomerServiceRecordListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CustomerServiceRecordListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CustomerServiceRecordListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CustomerServiceRecordListResponse>> =
             list(CustomerServiceRecordListParams.none(), requestOptions)
 
         /**

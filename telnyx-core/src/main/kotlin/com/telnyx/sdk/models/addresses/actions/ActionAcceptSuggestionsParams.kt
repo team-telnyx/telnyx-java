@@ -25,13 +25,13 @@ import kotlin.jvm.optionals.getOrNull
  */
 class ActionAcceptSuggestionsParams
 private constructor(
-    private val addressUuid: String?,
+    private val pathId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun addressUuid(): Optional<String> = Optional.ofNullable(addressUuid)
+    fun pathId(): Optional<String> = Optional.ofNullable(pathId)
 
     /**
      * The ID of the address.
@@ -39,14 +39,14 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun id(): Optional<String> = body.id()
+    fun bodyId(): Optional<String> = body.bodyId()
 
     /**
-     * Returns the raw JSON value of [id].
+     * Returns the raw JSON value of [bodyId].
      *
-     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [bodyId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _id(): JsonField<String> = body._id()
+    fun _bodyId(): JsonField<String> = body._bodyId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -72,43 +72,43 @@ private constructor(
     /** A builder for [ActionAcceptSuggestionsParams]. */
     class Builder internal constructor() {
 
-        private var addressUuid: String? = null
+        private var pathId: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(actionAcceptSuggestionsParams: ActionAcceptSuggestionsParams) = apply {
-            addressUuid = actionAcceptSuggestionsParams.addressUuid
+            pathId = actionAcceptSuggestionsParams.pathId
             body = actionAcceptSuggestionsParams.body.toBuilder()
             additionalHeaders = actionAcceptSuggestionsParams.additionalHeaders.toBuilder()
             additionalQueryParams = actionAcceptSuggestionsParams.additionalQueryParams.toBuilder()
         }
 
-        fun addressUuid(addressUuid: String?) = apply { this.addressUuid = addressUuid }
+        fun pathId(pathId: String?) = apply { this.pathId = pathId }
 
-        /** Alias for calling [Builder.addressUuid] with `addressUuid.orElse(null)`. */
-        fun addressUuid(addressUuid: Optional<String>) = addressUuid(addressUuid.getOrNull())
+        /** Alias for calling [Builder.pathId] with `pathId.orElse(null)`. */
+        fun pathId(pathId: Optional<String>) = pathId(pathId.getOrNull())
 
         /**
          * Sets the entire request body.
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [id]
+         * - [bodyId]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
         /** The ID of the address. */
-        fun id(id: String) = apply { body.id(id) }
+        fun bodyId(bodyId: String) = apply { body.bodyId(bodyId) }
 
         /**
-         * Sets [Builder.id] to an arbitrary JSON value.
+         * Sets [Builder.bodyId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * You should usually call [Builder.bodyId] with a well-typed [String] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun id(id: JsonField<String>) = apply { body.id(id) }
+        fun bodyId(bodyId: JsonField<String>) = apply { body.bodyId(bodyId) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -234,7 +234,7 @@ private constructor(
          */
         fun build(): ActionAcceptSuggestionsParams =
             ActionAcceptSuggestionsParams(
-                addressUuid,
+                pathId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -245,7 +245,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> addressUuid ?: ""
+            0 -> pathId ?: ""
             else -> ""
         }
 
@@ -256,14 +256,14 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val id: JsonField<String>,
+        private val bodyId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of()
-        ) : this(id, mutableMapOf())
+            @JsonProperty("id") @ExcludeMissing bodyId: JsonField<String> = JsonMissing.of()
+        ) : this(bodyId, mutableMapOf())
 
         /**
          * The ID of the address.
@@ -271,14 +271,14 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun id(): Optional<String> = id.getOptional("id")
+        fun bodyId(): Optional<String> = bodyId.getOptional("id")
 
         /**
-         * Returns the raw JSON value of [id].
+         * Returns the raw JSON value of [bodyId].
          *
-         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [bodyId], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+        @JsonProperty("id") @ExcludeMissing fun _bodyId(): JsonField<String> = bodyId
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -301,26 +301,26 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var id: JsonField<String> = JsonMissing.of()
+            private var bodyId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
-                id = body.id
+                bodyId = body.bodyId
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The ID of the address. */
-            fun id(id: String) = id(JsonField.of(id))
+            fun bodyId(bodyId: String) = bodyId(JsonField.of(bodyId))
 
             /**
-             * Sets [Builder.id] to an arbitrary JSON value.
+             * Sets [Builder.bodyId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.id] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * You should usually call [Builder.bodyId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun id(id: JsonField<String>) = apply { this.id = id }
+            fun bodyId(bodyId: JsonField<String>) = apply { this.bodyId = bodyId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -346,7 +346,7 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Body = Body(id, additionalProperties.toMutableMap())
+            fun build(): Body = Body(bodyId, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -356,7 +356,7 @@ private constructor(
                 return@apply
             }
 
-            id()
+            bodyId()
             validated = true
         }
 
@@ -374,7 +374,7 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        @JvmSynthetic internal fun validity(): Int = (if (id.asKnown().isPresent) 1 else 0)
+        @JvmSynthetic internal fun validity(): Int = (if (bodyId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -382,15 +382,15 @@ private constructor(
             }
 
             return other is Body &&
-                id == other.id &&
+                bodyId == other.bodyId &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(id, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(bodyId, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Body{id=$id, additionalProperties=$additionalProperties}"
+        override fun toString() = "Body{bodyId=$bodyId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -399,15 +399,15 @@ private constructor(
         }
 
         return other is ActionAcceptSuggestionsParams &&
-            addressUuid == other.addressUuid &&
+            pathId == other.pathId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(addressUuid, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(pathId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ActionAcceptSuggestionsParams{addressUuid=$addressUuid, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ActionAcceptSuggestionsParams{pathId=$pathId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

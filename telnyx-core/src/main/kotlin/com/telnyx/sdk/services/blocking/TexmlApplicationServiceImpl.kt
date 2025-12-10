@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.texmlapplications.TexmlApplicationCreateParams
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationCreateResponse
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationDeleteParams
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationDeleteResponse
-import com.telnyx.sdk.models.texmlapplications.TexmlApplicationListPage
-import com.telnyx.sdk.models.texmlapplications.TexmlApplicationListPageResponse
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationListParams
+import com.telnyx.sdk.models.texmlapplications.TexmlApplicationListResponse
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationRetrieveParams
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationRetrieveResponse
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationUpdateParams
@@ -66,7 +65,7 @@ class TexmlApplicationServiceImpl internal constructor(private val clientOptions
     override fun list(
         params: TexmlApplicationListParams,
         requestOptions: RequestOptions,
-    ): TexmlApplicationListPage =
+    ): TexmlApplicationListResponse =
         // get /texml_applications
         withRawResponse().list(params, requestOptions).parse()
 
@@ -179,13 +178,13 @@ class TexmlApplicationServiceImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listHandler: Handler<TexmlApplicationListPageResponse> =
-            jsonHandler<TexmlApplicationListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<TexmlApplicationListResponse> =
+            jsonHandler<TexmlApplicationListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: TexmlApplicationListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<TexmlApplicationListPage> {
+        ): HttpResponseFor<TexmlApplicationListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -202,13 +201,6 @@ class TexmlApplicationServiceImpl internal constructor(private val clientOptions
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        TexmlApplicationListPage.builder()
-                            .service(TexmlApplicationServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

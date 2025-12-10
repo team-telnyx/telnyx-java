@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.callevents.CallEventListPageAsync
 import com.telnyx.sdk.models.callevents.CallEventListParams
+import com.telnyx.sdk.models.callevents.CallEventListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -31,21 +31,21 @@ interface CallEventServiceAsync {
      *
      * **Note**: Only one `filter[occurred_at]` can be passed.
      */
-    fun list(): CompletableFuture<CallEventListPageAsync> = list(CallEventListParams.none())
+    fun list(): CompletableFuture<CallEventListResponse> = list(CallEventListParams.none())
 
     /** @see list */
     fun list(
         params: CallEventListParams = CallEventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CallEventListPageAsync>
+    ): CompletableFuture<CallEventListResponse>
 
     /** @see list */
     fun list(
         params: CallEventListParams = CallEventListParams.none()
-    ): CompletableFuture<CallEventListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<CallEventListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<CallEventListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<CallEventListResponse> =
         list(CallEventListParams.none(), requestOptions)
 
     /**
@@ -66,25 +66,25 @@ interface CallEventServiceAsync {
          * Returns a raw HTTP response for `get /call_events`, but is otherwise the same as
          * [CallEventServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<CallEventListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<CallEventListResponse>> =
             list(CallEventListParams.none())
 
         /** @see list */
         fun list(
             params: CallEventListParams = CallEventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CallEventListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<CallEventListResponse>>
 
         /** @see list */
         fun list(
             params: CallEventListParams = CallEventListParams.none()
-        ): CompletableFuture<HttpResponseFor<CallEventListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CallEventListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CallEventListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CallEventListResponse>> =
             list(CallEventListParams.none(), requestOptions)
     }
 }

@@ -7,6 +7,7 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderCheckEligibilityParams
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderCreateParams
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderCreateVerificationCodesParams
+import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderListParams
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderValidateCodesParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -64,10 +65,20 @@ internal class MessagingHostedNumberOrderServiceAsyncTest {
                 .build()
         val messagingHostedNumberOrderServiceAsync = client.messagingHostedNumberOrders()
 
-        val pageFuture = messagingHostedNumberOrderServiceAsync.list()
+        val messagingHostedNumberOrdersFuture =
+            messagingHostedNumberOrderServiceAsync.list(
+                MessagingHostedNumberOrderListParams.builder()
+                    .page(
+                        MessagingHostedNumberOrderListParams.Page.builder()
+                            .number(1L)
+                            .size(1L)
+                            .build()
+                    )
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val messagingHostedNumberOrders = messagingHostedNumberOrdersFuture.get()
+        messagingHostedNumberOrders.validate()
     }
 
     @Disabled("Prism tests are disabled")

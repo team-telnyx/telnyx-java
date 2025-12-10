@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async.bundlepricing
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleListPageAsync
 import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleListParams
+import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleListResponse
 import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleRetrieveParams
 import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -64,21 +64,21 @@ interface BillingBundleServiceAsync {
         retrieve(bundleId, BillingBundleRetrieveParams.none(), requestOptions)
 
     /** Get all allowed bundles. */
-    fun list(): CompletableFuture<BillingBundleListPageAsync> = list(BillingBundleListParams.none())
+    fun list(): CompletableFuture<BillingBundleListResponse> = list(BillingBundleListParams.none())
 
     /** @see list */
     fun list(
         params: BillingBundleListParams = BillingBundleListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BillingBundleListPageAsync>
+    ): CompletableFuture<BillingBundleListResponse>
 
     /** @see list */
     fun list(
         params: BillingBundleListParams = BillingBundleListParams.none()
-    ): CompletableFuture<BillingBundleListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<BillingBundleListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<BillingBundleListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<BillingBundleListResponse> =
         list(BillingBundleListParams.none(), requestOptions)
 
     /**
@@ -143,25 +143,25 @@ interface BillingBundleServiceAsync {
          * Returns a raw HTTP response for `get /bundle_pricing/billing_bundles`, but is otherwise
          * the same as [BillingBundleServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<BillingBundleListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<BillingBundleListResponse>> =
             list(BillingBundleListParams.none())
 
         /** @see list */
         fun list(
             params: BillingBundleListParams = BillingBundleListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BillingBundleListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<BillingBundleListResponse>>
 
         /** @see list */
         fun list(
             params: BillingBundleListParams = BillingBundleListParams.none()
-        ): CompletableFuture<HttpResponseFor<BillingBundleListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<BillingBundleListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<BillingBundleListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<BillingBundleListResponse>> =
             list(BillingBundleListParams.none(), requestOptions)
     }
 }

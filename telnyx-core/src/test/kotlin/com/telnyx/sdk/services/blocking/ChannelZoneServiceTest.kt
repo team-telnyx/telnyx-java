@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.channelzones.ChannelZoneListParams
 import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -43,8 +44,13 @@ internal class ChannelZoneServiceTest {
                 .build()
         val channelZoneService = client.channelZones()
 
-        val page = channelZoneService.list()
+        val channelZones =
+            channelZoneService.list(
+                ChannelZoneListParams.builder()
+                    .page(ChannelZoneListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        channelZones.validate()
     }
 }

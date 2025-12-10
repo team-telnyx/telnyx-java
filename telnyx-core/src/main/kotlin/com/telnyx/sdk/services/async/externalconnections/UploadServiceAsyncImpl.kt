@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.externalconnections.uploads.UploadCreateParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadCreateResponse
-import com.telnyx.sdk.models.externalconnections.uploads.UploadListPageAsync
-import com.telnyx.sdk.models.externalconnections.uploads.UploadListPageResponse
 import com.telnyx.sdk.models.externalconnections.uploads.UploadListParams
+import com.telnyx.sdk.models.externalconnections.uploads.UploadListResponse
 import com.telnyx.sdk.models.externalconnections.uploads.UploadPendingCountParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadPendingCountResponse
 import com.telnyx.sdk.models.externalconnections.uploads.UploadRefreshStatusParams
@@ -62,7 +61,7 @@ class UploadServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: UploadListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<UploadListPageAsync> =
+    ): CompletableFuture<UploadListResponse> =
         // get /external_connections/{id}/uploads
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -172,13 +171,13 @@ class UploadServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val listHandler: Handler<UploadListPageResponse> =
-            jsonHandler<UploadListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<UploadListResponse> =
+            jsonHandler<UploadListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: UploadListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<UploadListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<UploadListResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -200,14 +199,6 @@ class UploadServiceAsyncImpl internal constructor(private val clientOptions: Cli
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                UploadListPageAsync.builder()
-                                    .service(UploadServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

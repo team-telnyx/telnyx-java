@@ -15,9 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingListPageAsync
-import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingListPageResponse
 import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingListParams
+import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingListResponse
 import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingRetrieveParams
 import com.telnyx.sdk.models.mobilephonenumbers.messaging.MessagingRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -46,7 +45,7 @@ class MessagingServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun list(
         params: MessagingListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MessagingListPageAsync> =
+    ): CompletableFuture<MessagingListResponse> =
         // get /mobile_phone_numbers/messaging
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -96,13 +95,13 @@ class MessagingServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
-        private val listHandler: Handler<MessagingListPageResponse> =
-            jsonHandler<MessagingListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessagingListResponse> =
+            jsonHandler<MessagingListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessagingListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MessagingListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<MessagingListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -121,14 +120,6 @@ class MessagingServiceAsyncImpl internal constructor(private val clientOptions: 
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                MessagingListPageAsync.builder()
-                                    .service(MessagingServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

@@ -12,18 +12,18 @@ internal class AssistantDeleteResponseTest {
     @Test
     fun create() {
         val assistantDeleteResponse =
-            AssistantDeleteResponse.builder().id("id").deleted(true).modelObject("object").build()
+            AssistantDeleteResponse.builder().id("id").deleted(true).object_("object").build()
 
         assertThat(assistantDeleteResponse.id()).isEqualTo("id")
         assertThat(assistantDeleteResponse.deleted()).isEqualTo(true)
-        assertThat(assistantDeleteResponse.modelObject()).isEqualTo("object")
+        assertThat(assistantDeleteResponse.object_()).isEqualTo("object")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val assistantDeleteResponse =
-            AssistantDeleteResponse.builder().id("id").deleted(true).modelObject("object").build()
+            AssistantDeleteResponse.builder().id("id").deleted(true).object_("object").build()
 
         val roundtrippedAssistantDeleteResponse =
             jsonMapper.readValue(

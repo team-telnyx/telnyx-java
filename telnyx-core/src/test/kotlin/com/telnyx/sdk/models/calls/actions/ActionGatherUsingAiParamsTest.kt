@@ -15,11 +15,25 @@ internal class ActionGatherUsingAiParamsTest {
         ActionGatherUsingAiParams.builder()
             .callControlId("call_control_id")
             .parameters(
-                ActionGatherUsingAiParams.Parameters.builder()
-                    .putAdditionalProperty("properties", JsonValue.from("bar"))
-                    .putAdditionalProperty("required", JsonValue.from("bar"))
-                    .putAdditionalProperty("type", JsonValue.from("bar"))
-                    .build()
+                JsonValue.from(
+                    mapOf(
+                        "properties" to
+                            mapOf(
+                                "age" to
+                                    mapOf(
+                                        "description" to "The age of the customer.",
+                                        "type" to "integer",
+                                    ),
+                                "location" to
+                                    mapOf(
+                                        "description" to "The location of the customer.",
+                                        "type" to "string",
+                                    ),
+                            ),
+                        "required" to listOf("age", "location"),
+                        "type" to "object",
+                    )
+                )
             )
             .assistant(
                 Assistant.builder()
@@ -27,7 +41,7 @@ internal class ActionGatherUsingAiParamsTest {
                     .model("Qwen/Qwen3-235B-A22B")
                     .openaiApiKeyRef("my_openai_api_key")
                     .addBookAppointmentTool(
-                        Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
+                        Assistant.Tool.BookAppointment.InnerBookAppointment.builder()
                             .apiKeyRef("my_calcom_api_key")
                             .eventTypeId(0L)
                             .attendeeName("attendee_name")
@@ -75,11 +89,25 @@ internal class ActionGatherUsingAiParamsTest {
             ActionGatherUsingAiParams.builder()
                 .callControlId("call_control_id")
                 .parameters(
-                    ActionGatherUsingAiParams.Parameters.builder()
-                        .putAdditionalProperty("properties", JsonValue.from("bar"))
-                        .putAdditionalProperty("required", JsonValue.from("bar"))
-                        .putAdditionalProperty("type", JsonValue.from("bar"))
-                        .build()
+                    JsonValue.from(
+                        mapOf(
+                            "properties" to
+                                mapOf(
+                                    "age" to
+                                        mapOf(
+                                            "description" to "The age of the customer.",
+                                            "type" to "integer",
+                                        ),
+                                    "location" to
+                                        mapOf(
+                                            "description" to "The location of the customer.",
+                                            "type" to "string",
+                                        ),
+                                ),
+                            "required" to listOf("age", "location"),
+                            "type" to "object",
+                        )
+                    )
                 )
                 .build()
 
@@ -94,11 +122,25 @@ internal class ActionGatherUsingAiParamsTest {
             ActionGatherUsingAiParams.builder()
                 .callControlId("call_control_id")
                 .parameters(
-                    ActionGatherUsingAiParams.Parameters.builder()
-                        .putAdditionalProperty("properties", JsonValue.from("bar"))
-                        .putAdditionalProperty("required", JsonValue.from("bar"))
-                        .putAdditionalProperty("type", JsonValue.from("bar"))
-                        .build()
+                    JsonValue.from(
+                        mapOf(
+                            "properties" to
+                                mapOf(
+                                    "age" to
+                                        mapOf(
+                                            "description" to "The age of the customer.",
+                                            "type" to "integer",
+                                        ),
+                                    "location" to
+                                        mapOf(
+                                            "description" to "The location of the customer.",
+                                            "type" to "string",
+                                        ),
+                                ),
+                            "required" to listOf("age", "location"),
+                            "type" to "object",
+                        )
+                    )
                 )
                 .assistant(
                     Assistant.builder()
@@ -106,7 +148,7 @@ internal class ActionGatherUsingAiParamsTest {
                         .model("Qwen/Qwen3-235B-A22B")
                         .openaiApiKeyRef("my_openai_api_key")
                         .addBookAppointmentTool(
-                            Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
+                            Assistant.Tool.BookAppointment.InnerBookAppointment.builder()
                                 .apiKeyRef("my_calcom_api_key")
                                 .eventTypeId(0L)
                                 .attendeeName("attendee_name")
@@ -149,13 +191,27 @@ internal class ActionGatherUsingAiParamsTest {
 
         val body = params._body()
 
-        assertThat(body.parameters())
+        assertThat(body._parameters())
             .isEqualTo(
-                ActionGatherUsingAiParams.Parameters.builder()
-                    .putAdditionalProperty("properties", JsonValue.from("bar"))
-                    .putAdditionalProperty("required", JsonValue.from("bar"))
-                    .putAdditionalProperty("type", JsonValue.from("bar"))
-                    .build()
+                JsonValue.from(
+                    mapOf(
+                        "properties" to
+                            mapOf(
+                                "age" to
+                                    mapOf(
+                                        "description" to "The age of the customer.",
+                                        "type" to "integer",
+                                    ),
+                                "location" to
+                                    mapOf(
+                                        "description" to "The location of the customer.",
+                                        "type" to "string",
+                                    ),
+                            ),
+                        "required" to listOf("age", "location"),
+                        "type" to "object",
+                    )
+                )
             )
         assertThat(body.assistant())
             .contains(
@@ -164,7 +220,7 @@ internal class ActionGatherUsingAiParamsTest {
                     .model("Qwen/Qwen3-235B-A22B")
                     .openaiApiKeyRef("my_openai_api_key")
                     .addBookAppointmentTool(
-                        Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
+                        Assistant.Tool.BookAppointment.InnerBookAppointment.builder()
                             .apiKeyRef("my_calcom_api_key")
                             .eventTypeId(0L)
                             .attendeeName("attendee_name")
@@ -213,23 +269,51 @@ internal class ActionGatherUsingAiParamsTest {
             ActionGatherUsingAiParams.builder()
                 .callControlId("call_control_id")
                 .parameters(
-                    ActionGatherUsingAiParams.Parameters.builder()
-                        .putAdditionalProperty("properties", JsonValue.from("bar"))
-                        .putAdditionalProperty("required", JsonValue.from("bar"))
-                        .putAdditionalProperty("type", JsonValue.from("bar"))
-                        .build()
+                    JsonValue.from(
+                        mapOf(
+                            "properties" to
+                                mapOf(
+                                    "age" to
+                                        mapOf(
+                                            "description" to "The age of the customer.",
+                                            "type" to "integer",
+                                        ),
+                                    "location" to
+                                        mapOf(
+                                            "description" to "The location of the customer.",
+                                            "type" to "string",
+                                        ),
+                                ),
+                            "required" to listOf("age", "location"),
+                            "type" to "object",
+                        )
+                    )
                 )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.parameters())
+        assertThat(body._parameters())
             .isEqualTo(
-                ActionGatherUsingAiParams.Parameters.builder()
-                    .putAdditionalProperty("properties", JsonValue.from("bar"))
-                    .putAdditionalProperty("required", JsonValue.from("bar"))
-                    .putAdditionalProperty("type", JsonValue.from("bar"))
-                    .build()
+                JsonValue.from(
+                    mapOf(
+                        "properties" to
+                            mapOf(
+                                "age" to
+                                    mapOf(
+                                        "description" to "The age of the customer.",
+                                        "type" to "integer",
+                                    ),
+                                "location" to
+                                    mapOf(
+                                        "description" to "The location of the customer.",
+                                        "type" to "string",
+                                    ),
+                            ),
+                        "required" to listOf("age", "location"),
+                        "type" to "object",
+                    )
+                )
             )
     }
 }

@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListPageAsync
 import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListParams
+import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -27,25 +27,25 @@ interface NotificationEventConditionServiceAsync {
     ): NotificationEventConditionServiceAsync
 
     /** Returns a list of your notifications events conditions. */
-    fun list(): CompletableFuture<NotificationEventConditionListPageAsync> =
+    fun list(): CompletableFuture<NotificationEventConditionListResponse> =
         list(NotificationEventConditionListParams.none())
 
     /** @see list */
     fun list(
         params: NotificationEventConditionListParams = NotificationEventConditionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NotificationEventConditionListPageAsync>
+    ): CompletableFuture<NotificationEventConditionListResponse>
 
     /** @see list */
     fun list(
         params: NotificationEventConditionListParams = NotificationEventConditionListParams.none()
-    ): CompletableFuture<NotificationEventConditionListPageAsync> =
+    ): CompletableFuture<NotificationEventConditionListResponse> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         requestOptions: RequestOptions
-    ): CompletableFuture<NotificationEventConditionListPageAsync> =
+    ): CompletableFuture<NotificationEventConditionListResponse> =
         list(NotificationEventConditionListParams.none(), requestOptions)
 
     /**
@@ -67,7 +67,7 @@ interface NotificationEventConditionServiceAsync {
          * Returns a raw HTTP response for `get /notification_event_conditions`, but is otherwise
          * the same as [NotificationEventConditionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<NotificationEventConditionListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<NotificationEventConditionListResponse>> =
             list(NotificationEventConditionListParams.none())
 
         /** @see list */
@@ -75,19 +75,19 @@ interface NotificationEventConditionServiceAsync {
             params: NotificationEventConditionListParams =
                 NotificationEventConditionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NotificationEventConditionListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<NotificationEventConditionListResponse>>
 
         /** @see list */
         fun list(
             params: NotificationEventConditionListParams =
                 NotificationEventConditionListParams.none()
-        ): CompletableFuture<HttpResponseFor<NotificationEventConditionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<NotificationEventConditionListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<NotificationEventConditionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<NotificationEventConditionListResponse>> =
             list(NotificationEventConditionListParams.none(), requestOptions)
     }
 }
