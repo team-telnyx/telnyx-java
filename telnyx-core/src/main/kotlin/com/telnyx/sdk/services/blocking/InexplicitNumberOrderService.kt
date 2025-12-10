@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderCreateParams
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderCreateResponse
+import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListPage
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListParams
-import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderListResponse
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderRetrieveParams
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderRetrieveResponse
 import java.util.function.Consumer
@@ -78,21 +78,21 @@ interface InexplicitNumberOrderService {
         retrieve(id, InexplicitNumberOrderRetrieveParams.none(), requestOptions)
 
     /** Get a paginated list of inexplicit number orders. */
-    fun list(): InexplicitNumberOrderListResponse = list(InexplicitNumberOrderListParams.none())
+    fun list(): InexplicitNumberOrderListPage = list(InexplicitNumberOrderListParams.none())
 
     /** @see list */
     fun list(
         params: InexplicitNumberOrderListParams = InexplicitNumberOrderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InexplicitNumberOrderListResponse
+    ): InexplicitNumberOrderListPage
 
     /** @see list */
     fun list(
         params: InexplicitNumberOrderListParams = InexplicitNumberOrderListParams.none()
-    ): InexplicitNumberOrderListResponse = list(params, RequestOptions.none())
+    ): InexplicitNumberOrderListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): InexplicitNumberOrderListResponse =
+    fun list(requestOptions: RequestOptions): InexplicitNumberOrderListPage =
         list(InexplicitNumberOrderListParams.none(), requestOptions)
 
     /**
@@ -180,7 +180,7 @@ interface InexplicitNumberOrderService {
          * same as [InexplicitNumberOrderService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<InexplicitNumberOrderListResponse> =
+        fun list(): HttpResponseFor<InexplicitNumberOrderListPage> =
             list(InexplicitNumberOrderListParams.none())
 
         /** @see list */
@@ -188,19 +188,17 @@ interface InexplicitNumberOrderService {
         fun list(
             params: InexplicitNumberOrderListParams = InexplicitNumberOrderListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InexplicitNumberOrderListResponse>
+        ): HttpResponseFor<InexplicitNumberOrderListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: InexplicitNumberOrderListParams = InexplicitNumberOrderListParams.none()
-        ): HttpResponseFor<InexplicitNumberOrderListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<InexplicitNumberOrderListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<InexplicitNumberOrderListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<InexplicitNumberOrderListPage> =
             list(InexplicitNumberOrderListParams.none(), requestOptions)
     }
 }

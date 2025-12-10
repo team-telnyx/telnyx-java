@@ -29,9 +29,12 @@ internal class PrivateWirelessGatewayTest {
                 .regionCode("dc2")
                 .status(
                     PrivateWirelessGatewayStatus.builder()
-                        .errorCode("error_code")
-                        .errorDescription("error_description")
-                        .value(PrivateWirelessGatewayStatus.Value_.PROVISIONED)
+                        .errorCode(null)
+                        .errorDescription(null)
+                        .value(
+                            PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue
+                                .PROVISIONED
+                        )
                         .build()
                 )
                 .updatedAt("2018-02-02T22:25:27.521Z")
@@ -52,9 +55,11 @@ internal class PrivateWirelessGatewayTest {
         assertThat(privateWirelessGateway.status())
             .contains(
                 PrivateWirelessGatewayStatus.builder()
-                    .errorCode("error_code")
-                    .errorDescription("error_description")
-                    .value(PrivateWirelessGatewayStatus.Value_.PROVISIONED)
+                    .errorCode(null)
+                    .errorDescription(null)
+                    .value(
+                        PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue.PROVISIONED
+                    )
                     .build()
             )
         assertThat(privateWirelessGateway.updatedAt()).contains("2018-02-02T22:25:27.521Z")
@@ -80,9 +85,12 @@ internal class PrivateWirelessGatewayTest {
                 .regionCode("dc2")
                 .status(
                     PrivateWirelessGatewayStatus.builder()
-                        .errorCode("error_code")
-                        .errorDescription("error_description")
-                        .value(PrivateWirelessGatewayStatus.Value_.PROVISIONED)
+                        .errorCode(null)
+                        .errorDescription(null)
+                        .value(
+                            PrivateWirelessGatewayStatus.PrivateWirelessGatewayStatusValue
+                                .PROVISIONED
+                        )
                         .build()
                 )
                 .updatedAt("2018-02-02T22:25:27.521Z")

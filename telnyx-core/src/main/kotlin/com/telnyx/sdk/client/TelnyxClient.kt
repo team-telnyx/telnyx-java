@@ -15,14 +15,11 @@ import com.telnyx.sdk.services.blocking.AvailablePhoneNumberBlockService
 import com.telnyx.sdk.services.blocking.AvailablePhoneNumberService
 import com.telnyx.sdk.services.blocking.BalanceService
 import com.telnyx.sdk.services.blocking.BillingGroupService
-import com.telnyx.sdk.services.blocking.BrandService
 import com.telnyx.sdk.services.blocking.BulkSimCardActionService
 import com.telnyx.sdk.services.blocking.BundlePricingService
 import com.telnyx.sdk.services.blocking.CallControlApplicationService
 import com.telnyx.sdk.services.blocking.CallEventService
 import com.telnyx.sdk.services.blocking.CallService
-import com.telnyx.sdk.services.blocking.CampaignBuilderService
-import com.telnyx.sdk.services.blocking.CampaignService
 import com.telnyx.sdk.services.blocking.ChannelZoneService
 import com.telnyx.sdk.services.blocking.ChargesBreakdownService
 import com.telnyx.sdk.services.blocking.ChargesSummaryService
@@ -39,7 +36,6 @@ import com.telnyx.sdk.services.blocking.DocumentLinkService
 import com.telnyx.sdk.services.blocking.DocumentService
 import com.telnyx.sdk.services.blocking.DynamicEmergencyAddressService
 import com.telnyx.sdk.services.blocking.DynamicEmergencyEndpointService
-import com.telnyx.sdk.services.blocking.EnumService
 import com.telnyx.sdk.services.blocking.ExternalConnectionService
 import com.telnyx.sdk.services.blocking.FaxApplicationService
 import com.telnyx.sdk.services.blocking.FaxService
@@ -105,7 +101,6 @@ import com.telnyx.sdk.services.blocking.PartnerCampaignService
 import com.telnyx.sdk.services.blocking.PaymentService
 import com.telnyx.sdk.services.blocking.PhoneNumberAssignmentByProfileService
 import com.telnyx.sdk.services.blocking.PhoneNumberBlockService
-import com.telnyx.sdk.services.blocking.PhoneNumberCampaignService
 import com.telnyx.sdk.services.blocking.PhoneNumberService
 import com.telnyx.sdk.services.blocking.PhoneNumbersRegulatoryRequirementService
 import com.telnyx.sdk.services.blocking.PortabilityCheckService
@@ -115,7 +110,6 @@ import com.telnyx.sdk.services.blocking.PortingService
 import com.telnyx.sdk.services.blocking.PortoutService
 import com.telnyx.sdk.services.blocking.PrivateWirelessGatewayService
 import com.telnyx.sdk.services.blocking.PublicInternetGatewayService
-import com.telnyx.sdk.services.blocking.PublicService
 import com.telnyx.sdk.services.blocking.QueueService
 import com.telnyx.sdk.services.blocking.RcsAgentService
 import com.telnyx.sdk.services.blocking.RecordingService
@@ -233,8 +227,6 @@ interface TelnyxClient {
 
     fun billingGroups(): BillingGroupService
 
-    fun brand(): BrandService
-
     fun bulkSimCardActions(): BulkSimCardActionService
 
     fun bundlePricing(): BundlePricingService
@@ -244,10 +236,6 @@ interface TelnyxClient {
     fun callEvents(): CallEventService
 
     fun calls(): CallService
-
-    fun campaign(): CampaignService
-
-    fun campaignBuilder(): CampaignBuilderService
 
     fun channelZones(): ChannelZoneService
 
@@ -280,8 +268,6 @@ interface TelnyxClient {
     fun dynamicEmergencyAddresses(): DynamicEmergencyAddressService
 
     fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointService
-
-    fun enum_(): EnumService
 
     fun externalConnections(): ExternalConnectionService
 
@@ -394,8 +380,6 @@ interface TelnyxClient {
     fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileService
 
     fun phoneNumberBlocks(): PhoneNumberBlockService
-
-    fun phoneNumberCampaigns(): PhoneNumberCampaignService
 
     fun phoneNumbers(): PhoneNumberService
 
@@ -511,8 +495,6 @@ interface TelnyxClient {
 
     fun mobileVoiceConnections(): MobileVoiceConnectionService
 
-    fun public_(): PublicService
-
     fun number10dlc(): Number10dlcService
 
     /**
@@ -572,8 +554,6 @@ interface TelnyxClient {
 
         fun billingGroups(): BillingGroupService.WithRawResponse
 
-        fun brand(): BrandService.WithRawResponse
-
         fun bulkSimCardActions(): BulkSimCardActionService.WithRawResponse
 
         fun bundlePricing(): BundlePricingService.WithRawResponse
@@ -583,10 +563,6 @@ interface TelnyxClient {
         fun callEvents(): CallEventService.WithRawResponse
 
         fun calls(): CallService.WithRawResponse
-
-        fun campaign(): CampaignService.WithRawResponse
-
-        fun campaignBuilder(): CampaignBuilderService.WithRawResponse
 
         fun channelZones(): ChannelZoneService.WithRawResponse
 
@@ -619,8 +595,6 @@ interface TelnyxClient {
         fun dynamicEmergencyAddresses(): DynamicEmergencyAddressService.WithRawResponse
 
         fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointService.WithRawResponse
-
-        fun enum_(): EnumService.WithRawResponse
 
         fun externalConnections(): ExternalConnectionService.WithRawResponse
 
@@ -733,8 +707,6 @@ interface TelnyxClient {
         fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileService.WithRawResponse
 
         fun phoneNumberBlocks(): PhoneNumberBlockService.WithRawResponse
-
-        fun phoneNumberCampaigns(): PhoneNumberCampaignService.WithRawResponse
 
         fun phoneNumbers(): PhoneNumberService.WithRawResponse
 
@@ -850,8 +822,6 @@ interface TelnyxClient {
         fun mobilePhoneNumbers(): MobilePhoneNumberService.WithRawResponse
 
         fun mobileVoiceConnections(): MobileVoiceConnectionService.WithRawResponse
-
-        fun public_(): PublicService.WithRawResponse
 
         fun number10dlc(): Number10dlcService.WithRawResponse
     }

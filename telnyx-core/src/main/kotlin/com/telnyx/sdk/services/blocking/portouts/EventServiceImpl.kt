@@ -17,8 +17,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.portouts.events.EventListPage
+import com.telnyx.sdk.models.portouts.events.EventListPageResponse
 import com.telnyx.sdk.models.portouts.events.EventListParams
-import com.telnyx.sdk.models.portouts.events.EventListResponse
 import com.telnyx.sdk.models.portouts.events.EventRepublishParams
 import com.telnyx.sdk.models.portouts.events.EventRetrieveParams
 import com.telnyx.sdk.models.portouts.events.EventRetrieveResponse
@@ -44,7 +45,7 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
         // get /portouts/events/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(params: EventListParams, requestOptions: RequestOptions): EventListResponse =
+    override fun list(params: EventListParams, requestOptions: RequestOptions): EventListPage =
         // get /portouts/events
         withRawResponse().list(params, requestOptions).parse()
 
@@ -96,13 +97,13 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val listHandler: Handler<EventListResponse> =
-            jsonHandler<EventListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EventListPageResponse> =
+            jsonHandler<EventListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EventListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EventListResponse> {
+        ): HttpResponseFor<EventListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -119,6 +120,13 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        EventListPage.builder()
+                            .service(EventServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

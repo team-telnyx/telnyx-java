@@ -20,6 +20,7 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerCreateResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerDeleteParams
+import com.telnyx.sdk.models.ai.mcpservers.McpServerListPage
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListParams
 import com.telnyx.sdk.models.ai.mcpservers.McpServerListResponse
 import com.telnyx.sdk.models.ai.mcpservers.McpServerRetrieveParams
@@ -65,7 +66,7 @@ class McpServerServiceImpl internal constructor(private val clientOptions: Clien
     override fun list(
         params: McpServerListParams,
         requestOptions: RequestOptions,
-    ): List<McpServerListResponse> =
+    ): McpServerListPage =
         // get /ai/mcp_servers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -182,7 +183,7 @@ class McpServerServiceImpl internal constructor(private val clientOptions: Clien
         override fun list(
             params: McpServerListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<List<McpServerListResponse>> {
+        ): HttpResponseFor<McpServerListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -199,6 +200,13 @@ class McpServerServiceImpl internal constructor(private val clientOptions: Clien
                         if (requestOptions.responseValidation!!) {
                             it.forEach { it.validate() }
                         }
+                    }
+                    .let {
+                        McpServerListPage.builder()
+                            .service(McpServerServiceImpl(clientOptions))
+                            .params(params)
+                            .items(it)
+                            .build()
                     }
             }
         }

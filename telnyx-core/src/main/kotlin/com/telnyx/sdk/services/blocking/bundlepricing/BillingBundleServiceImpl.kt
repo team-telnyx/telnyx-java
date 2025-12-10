@@ -15,8 +15,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleListPage
+import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleListPageResponse
 import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleListParams
-import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleListResponse
 import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleRetrieveParams
 import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleRetrieveResponse
 import java.util.function.Consumer
@@ -44,7 +45,7 @@ class BillingBundleServiceImpl internal constructor(private val clientOptions: C
     override fun list(
         params: BillingBundleListParams,
         requestOptions: RequestOptions,
-    ): BillingBundleListResponse =
+    ): BillingBundleListPage =
         // get /bundle_pricing/billing_bundles
         withRawResponse().list(params, requestOptions).parse()
 
@@ -91,13 +92,13 @@ class BillingBundleServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val listHandler: Handler<BillingBundleListResponse> =
-            jsonHandler<BillingBundleListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BillingBundleListPageResponse> =
+            jsonHandler<BillingBundleListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: BillingBundleListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BillingBundleListResponse> {
+        ): HttpResponseFor<BillingBundleListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -114,6 +115,13 @@ class BillingBundleServiceImpl internal constructor(private val clientOptions: C
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        BillingBundleListPage.builder()
+                            .service(BillingBundleServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

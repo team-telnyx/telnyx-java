@@ -794,12 +794,17 @@ private constructor(
             val CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT =
                 of("current_billing_period_consumed_data.amount")
 
+            @JvmField
+            val minus_CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT =
+                of("-current_billing_period_consumed_data.amount")
+
             @JvmStatic fun of(value: String) = Sort(JsonField.of(value))
         }
 
         /** An enum containing [Sort]'s known values. */
         enum class Known {
-            CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT
+            CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT,
+            minus_CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT,
         }
 
         /**
@@ -813,6 +818,7 @@ private constructor(
          */
         enum class Value {
             CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT,
+            minus_CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT,
             /** An enum member indicating that [Sort] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -828,6 +834,8 @@ private constructor(
             when (this) {
                 CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT ->
                     Value.CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT
+                minus_CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT ->
+                    Value.minus_CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT
                 else -> Value._UNKNOWN
             }
 
@@ -844,6 +852,8 @@ private constructor(
             when (this) {
                 CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT ->
                     Known.CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT
+                minus_CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT ->
+                    Known.minus_CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT
                 else -> throw TelnyxInvalidDataException("Unknown Sort: $value")
             }
 

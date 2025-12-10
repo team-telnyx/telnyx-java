@@ -5,8 +5,6 @@ package com.telnyx.sdk.models.portingorders
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -16,82 +14,50 @@ internal class PortingOrderRetrieveRequirementsResponseTest {
     fun create() {
         val portingOrderRetrieveRequirementsResponse =
             PortingOrderRetrieveRequirementsResponse.builder()
-                .addData(
-                    PortingOrderRetrieveRequirementsResponse.Data.builder()
-                        .fieldType(PortingOrderRetrieveRequirementsResponse.Data.FieldType.DOCUMENT)
-                        .fieldValue("9787fb5f-cbe5-4de4-b765-3303774ee9fe")
-                        .recordType("porting_requirement")
-                        .requirementStatus("approved")
-                        .requirementType(
-                            PortingOrderRetrieveRequirementsResponse.Data.RequirementType.builder()
-                                .id("53970723-fbff-4f46-a975-f62be6c1a585")
-                                .acceptanceCriteria(
-                                    PortingOrderRetrieveRequirementsResponse.Data.RequirementType
-                                        .AcceptanceCriteria
-                                        .builder()
-                                        .putAdditionalProperty(
-                                            "acceptable_values",
-                                            JsonValue.from("bar"),
-                                        )
-                                        .build()
-                                )
-                                .description(
-                                    "A copy of the latest phone bill from the current provider"
-                                )
-                                .example("Most recent phone bill")
-                                .name("Latest Invoice")
-                                .type("document")
+                .fieldType(PortingOrderRetrieveRequirementsResponse.FieldType.DOCUMENT)
+                .fieldValue("9787fb5f-cbe5-4de4-b765-3303774ee9fe")
+                .recordType("porting_requirement")
+                .requirementStatus("approved")
+                .requirementType(
+                    PortingOrderRetrieveRequirementsResponse.RequirementType.builder()
+                        .id("53970723-fbff-4f46-a975-f62be6c1a585")
+                        .acceptanceCriteria(
+                            PortingOrderRetrieveRequirementsResponse.RequirementType
+                                .AcceptanceCriteria
+                                .builder()
+                                .putAdditionalProperty("acceptable_values", JsonValue.from("bar"))
                                 .build()
                         )
-                        .build()
-                )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .pageSize(25L)
-                        .totalPages(3L)
-                        .totalResults(55L)
+                        .description("A copy of the latest phone bill from the current provider")
+                        .example("Most recent phone bill")
+                        .name("Latest Invoice")
+                        .type("document")
                         .build()
                 )
                 .build()
 
-        assertThat(portingOrderRetrieveRequirementsResponse.data().getOrNull())
-            .containsExactly(
-                PortingOrderRetrieveRequirementsResponse.Data.builder()
-                    .fieldType(PortingOrderRetrieveRequirementsResponse.Data.FieldType.DOCUMENT)
-                    .fieldValue("9787fb5f-cbe5-4de4-b765-3303774ee9fe")
-                    .recordType("porting_requirement")
-                    .requirementStatus("approved")
-                    .requirementType(
-                        PortingOrderRetrieveRequirementsResponse.Data.RequirementType.builder()
-                            .id("53970723-fbff-4f46-a975-f62be6c1a585")
-                            .acceptanceCriteria(
-                                PortingOrderRetrieveRequirementsResponse.Data.RequirementType
-                                    .AcceptanceCriteria
-                                    .builder()
-                                    .putAdditionalProperty(
-                                        "acceptable_values",
-                                        JsonValue.from("bar"),
-                                    )
-                                    .build()
-                            )
-                            .description(
-                                "A copy of the latest phone bill from the current provider"
-                            )
-                            .example("Most recent phone bill")
-                            .name("Latest Invoice")
-                            .type("document")
+        assertThat(portingOrderRetrieveRequirementsResponse.fieldType())
+            .contains(PortingOrderRetrieveRequirementsResponse.FieldType.DOCUMENT)
+        assertThat(portingOrderRetrieveRequirementsResponse.fieldValue())
+            .contains("9787fb5f-cbe5-4de4-b765-3303774ee9fe")
+        assertThat(portingOrderRetrieveRequirementsResponse.recordType())
+            .contains("porting_requirement")
+        assertThat(portingOrderRetrieveRequirementsResponse.requirementStatus())
+            .contains("approved")
+        assertThat(portingOrderRetrieveRequirementsResponse.requirementType())
+            .contains(
+                PortingOrderRetrieveRequirementsResponse.RequirementType.builder()
+                    .id("53970723-fbff-4f46-a975-f62be6c1a585")
+                    .acceptanceCriteria(
+                        PortingOrderRetrieveRequirementsResponse.RequirementType.AcceptanceCriteria
+                            .builder()
+                            .putAdditionalProperty("acceptable_values", JsonValue.from("bar"))
                             .build()
                     )
-                    .build()
-            )
-        assertThat(portingOrderRetrieveRequirementsResponse.meta())
-            .contains(
-                PaginationMeta.builder()
-                    .pageNumber(2L)
-                    .pageSize(25L)
-                    .totalPages(3L)
-                    .totalResults(55L)
+                    .description("A copy of the latest phone bill from the current provider")
+                    .example("Most recent phone bill")
+                    .name("Latest Invoice")
+                    .type("document")
                     .build()
             )
     }
@@ -101,41 +67,24 @@ internal class PortingOrderRetrieveRequirementsResponseTest {
         val jsonMapper = jsonMapper()
         val portingOrderRetrieveRequirementsResponse =
             PortingOrderRetrieveRequirementsResponse.builder()
-                .addData(
-                    PortingOrderRetrieveRequirementsResponse.Data.builder()
-                        .fieldType(PortingOrderRetrieveRequirementsResponse.Data.FieldType.DOCUMENT)
-                        .fieldValue("9787fb5f-cbe5-4de4-b765-3303774ee9fe")
-                        .recordType("porting_requirement")
-                        .requirementStatus("approved")
-                        .requirementType(
-                            PortingOrderRetrieveRequirementsResponse.Data.RequirementType.builder()
-                                .id("53970723-fbff-4f46-a975-f62be6c1a585")
-                                .acceptanceCriteria(
-                                    PortingOrderRetrieveRequirementsResponse.Data.RequirementType
-                                        .AcceptanceCriteria
-                                        .builder()
-                                        .putAdditionalProperty(
-                                            "acceptable_values",
-                                            JsonValue.from("bar"),
-                                        )
-                                        .build()
-                                )
-                                .description(
-                                    "A copy of the latest phone bill from the current provider"
-                                )
-                                .example("Most recent phone bill")
-                                .name("Latest Invoice")
-                                .type("document")
+                .fieldType(PortingOrderRetrieveRequirementsResponse.FieldType.DOCUMENT)
+                .fieldValue("9787fb5f-cbe5-4de4-b765-3303774ee9fe")
+                .recordType("porting_requirement")
+                .requirementStatus("approved")
+                .requirementType(
+                    PortingOrderRetrieveRequirementsResponse.RequirementType.builder()
+                        .id("53970723-fbff-4f46-a975-f62be6c1a585")
+                        .acceptanceCriteria(
+                            PortingOrderRetrieveRequirementsResponse.RequirementType
+                                .AcceptanceCriteria
+                                .builder()
+                                .putAdditionalProperty("acceptable_values", JsonValue.from("bar"))
                                 .build()
                         )
-                        .build()
-                )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .pageSize(25L)
-                        .totalPages(3L)
-                        .totalResults(55L)
+                        .description("A copy of the latest phone bill from the current provider")
+                        .example("Most recent phone bill")
+                        .name("Latest Invoice")
+                        .type("document")
                         .build()
                 )
                 .build()

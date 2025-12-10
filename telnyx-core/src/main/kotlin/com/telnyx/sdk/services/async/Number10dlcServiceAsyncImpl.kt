@@ -15,18 +15,14 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.number10dlc.Number10dlcRetrieveParams
-import com.telnyx.sdk.models.number10dlc.Number10dlcRetrieveResponse
+import com.telnyx.sdk.models.number10dlc.Number10dlcGetEnumParams
+import com.telnyx.sdk.models.number10dlc.Number10dlcGetEnumResponse
 import com.telnyx.sdk.services.async.number10dlc.BrandServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.BrandServiceAsyncImpl
 import com.telnyx.sdk.services.async.number10dlc.CampaignBuilderServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.CampaignBuilderServiceAsyncImpl
 import com.telnyx.sdk.services.async.number10dlc.CampaignServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.CampaignServiceAsyncImpl
-import com.telnyx.sdk.services.async.number10dlc.PartnerCampaignServiceAsync
-import com.telnyx.sdk.services.async.number10dlc.PartnerCampaignServiceAsyncImpl
-import com.telnyx.sdk.services.async.number10dlc.PhoneNumberAssignmentByProfileServiceAsync
-import com.telnyx.sdk.services.async.number10dlc.PhoneNumberAssignmentByProfileServiceAsyncImpl
 import com.telnyx.sdk.services.async.number10dlc.PhoneNumberCampaignServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.PhoneNumberCampaignServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -48,18 +44,6 @@ class Number10dlcServiceAsyncImpl internal constructor(private val clientOptions
         CampaignBuilderServiceAsyncImpl(clientOptions)
     }
 
-    private val partnerCampaign: PartnerCampaignServiceAsync by lazy {
-        PartnerCampaignServiceAsyncImpl(clientOptions)
-    }
-
-    private val partnerCampaigns: PartnerCampaignServiceAsync by lazy {
-        PartnerCampaignServiceAsyncImpl(clientOptions)
-    }
-
-    private val phoneNumberAssignmentByProfile: PhoneNumberAssignmentByProfileServiceAsync by lazy {
-        PhoneNumberAssignmentByProfileServiceAsyncImpl(clientOptions)
-    }
-
     private val phoneNumberCampaigns: PhoneNumberCampaignServiceAsync by lazy {
         PhoneNumberCampaignServiceAsyncImpl(clientOptions)
     }
@@ -75,21 +59,14 @@ class Number10dlcServiceAsyncImpl internal constructor(private val clientOptions
 
     override fun campaignBuilder(): CampaignBuilderServiceAsync = campaignBuilder
 
-    override fun partnerCampaign(): PartnerCampaignServiceAsync = partnerCampaign
-
-    override fun partnerCampaigns(): PartnerCampaignServiceAsync = partnerCampaigns
-
-    override fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileServiceAsync =
-        phoneNumberAssignmentByProfile
-
     override fun phoneNumberCampaigns(): PhoneNumberCampaignServiceAsync = phoneNumberCampaigns
 
-    override fun retrieve(
-        params: Number10dlcRetrieveParams,
+    override fun getEnum(
+        params: Number10dlcGetEnumParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Number10dlcRetrieveResponse> =
+    ): CompletableFuture<Number10dlcGetEnumResponse> =
         // get /10dlc/enum/{endpoint}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().getEnum(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         Number10dlcServiceAsync.WithRawResponse {
@@ -107,19 +84,6 @@ class Number10dlcServiceAsyncImpl internal constructor(private val clientOptions
 
         private val campaignBuilder: CampaignBuilderServiceAsync.WithRawResponse by lazy {
             CampaignBuilderServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val partnerCampaign: PartnerCampaignServiceAsync.WithRawResponse by lazy {
-            PartnerCampaignServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val partnerCampaigns: PartnerCampaignServiceAsync.WithRawResponse by lazy {
-            PartnerCampaignServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val phoneNumberAssignmentByProfile:
-            PhoneNumberAssignmentByProfileServiceAsync.WithRawResponse by lazy {
-            PhoneNumberAssignmentByProfileServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val phoneNumberCampaigns: PhoneNumberCampaignServiceAsync.WithRawResponse by lazy {
@@ -140,26 +104,16 @@ class Number10dlcServiceAsyncImpl internal constructor(private val clientOptions
         override fun campaignBuilder(): CampaignBuilderServiceAsync.WithRawResponse =
             campaignBuilder
 
-        override fun partnerCampaign(): PartnerCampaignServiceAsync.WithRawResponse =
-            partnerCampaign
-
-        override fun partnerCampaigns(): PartnerCampaignServiceAsync.WithRawResponse =
-            partnerCampaigns
-
-        override fun phoneNumberAssignmentByProfile():
-            PhoneNumberAssignmentByProfileServiceAsync.WithRawResponse =
-            phoneNumberAssignmentByProfile
-
         override fun phoneNumberCampaigns(): PhoneNumberCampaignServiceAsync.WithRawResponse =
             phoneNumberCampaigns
 
-        private val retrieveHandler: Handler<Number10dlcRetrieveResponse> =
-            jsonHandler<Number10dlcRetrieveResponse>(clientOptions.jsonMapper)
+        private val getEnumHandler: Handler<Number10dlcGetEnumResponse> =
+            jsonHandler<Number10dlcGetEnumResponse>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: Number10dlcRetrieveParams,
+        override fun getEnum(
+            params: Number10dlcGetEnumParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Number10dlcRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<Number10dlcGetEnumResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("endpoint", params.endpoint().getOrNull())
@@ -176,7 +130,7 @@ class Number10dlcServiceAsyncImpl internal constructor(private val clientOptions
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { retrieveHandler.handle(it) }
+                            .use { getEnumHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

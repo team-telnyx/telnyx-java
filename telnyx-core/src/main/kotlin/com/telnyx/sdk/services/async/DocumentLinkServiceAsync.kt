@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.documentlinks.DocumentLinkListPageAsync
 import com.telnyx.sdk.models.documentlinks.DocumentLinkListParams
-import com.telnyx.sdk.models.documentlinks.DocumentLinkListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -25,21 +25,21 @@ interface DocumentLinkServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DocumentLinkServiceAsync
 
     /** List all documents links ordered by created_at descending. */
-    fun list(): CompletableFuture<DocumentLinkListResponse> = list(DocumentLinkListParams.none())
+    fun list(): CompletableFuture<DocumentLinkListPageAsync> = list(DocumentLinkListParams.none())
 
     /** @see list */
     fun list(
         params: DocumentLinkListParams = DocumentLinkListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DocumentLinkListResponse>
+    ): CompletableFuture<DocumentLinkListPageAsync>
 
     /** @see list */
     fun list(
         params: DocumentLinkListParams = DocumentLinkListParams.none()
-    ): CompletableFuture<DocumentLinkListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<DocumentLinkListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<DocumentLinkListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<DocumentLinkListPageAsync> =
         list(DocumentLinkListParams.none(), requestOptions)
 
     /**
@@ -61,25 +61,25 @@ interface DocumentLinkServiceAsync {
          * Returns a raw HTTP response for `get /document_links`, but is otherwise the same as
          * [DocumentLinkServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<DocumentLinkListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<DocumentLinkListPageAsync>> =
             list(DocumentLinkListParams.none())
 
         /** @see list */
         fun list(
             params: DocumentLinkListParams = DocumentLinkListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DocumentLinkListResponse>>
+        ): CompletableFuture<HttpResponseFor<DocumentLinkListPageAsync>>
 
         /** @see list */
         fun list(
             params: DocumentLinkListParams = DocumentLinkListParams.none()
-        ): CompletableFuture<HttpResponseFor<DocumentLinkListResponse>> =
+        ): CompletableFuture<HttpResponseFor<DocumentLinkListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<DocumentLinkListResponse>> =
+        ): CompletableFuture<HttpResponseFor<DocumentLinkListPageAsync>> =
             list(DocumentLinkListParams.none(), requestOptions)
     }
 }

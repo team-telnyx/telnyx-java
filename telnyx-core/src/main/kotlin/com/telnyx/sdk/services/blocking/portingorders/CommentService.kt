@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.portingorders.comments.CommentCreateParams
 import com.telnyx.sdk.models.portingorders.comments.CommentCreateResponse
+import com.telnyx.sdk.models.portingorders.comments.CommentListPage
 import com.telnyx.sdk.models.portingorders.comments.CommentListParams
-import com.telnyx.sdk.models.portingorders.comments.CommentListResponse
 import java.util.function.Consumer
 
 interface CommentService {
@@ -57,32 +57,30 @@ interface CommentService {
         create(id, CommentCreateParams.none(), requestOptions)
 
     /** Returns a list of all comments of a porting order. */
-    fun list(id: String): CommentListResponse = list(id, CommentListParams.none())
+    fun list(id: String): CommentListPage = list(id, CommentListParams.none())
 
     /** @see list */
     fun list(
         id: String,
         params: CommentListParams = CommentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CommentListResponse = list(params.toBuilder().id(id).build(), requestOptions)
+    ): CommentListPage = list(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see list */
-    fun list(
-        id: String,
-        params: CommentListParams = CommentListParams.none(),
-    ): CommentListResponse = list(id, params, RequestOptions.none())
+    fun list(id: String, params: CommentListParams = CommentListParams.none()): CommentListPage =
+        list(id, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: CommentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CommentListResponse
+    ): CommentListPage
 
     /** @see list */
-    fun list(params: CommentListParams): CommentListResponse = list(params, RequestOptions.none())
+    fun list(params: CommentListParams): CommentListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(id: String, requestOptions: RequestOptions): CommentListResponse =
+    fun list(id: String, requestOptions: RequestOptions): CommentListPage =
         list(id, CommentListParams.none(), requestOptions)
 
     /** A view of [CommentService] that provides access to raw HTTP responses for each method. */
@@ -144,8 +142,7 @@ interface CommentService {
          * same as [CommentService.list].
          */
         @MustBeClosed
-        fun list(id: String): HttpResponseFor<CommentListResponse> =
-            list(id, CommentListParams.none())
+        fun list(id: String): HttpResponseFor<CommentListPage> = list(id, CommentListParams.none())
 
         /** @see list */
         @MustBeClosed
@@ -153,7 +150,7 @@ interface CommentService {
             id: String,
             params: CommentListParams = CommentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CommentListResponse> =
+        ): HttpResponseFor<CommentListPage> =
             list(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see list */
@@ -161,23 +158,23 @@ interface CommentService {
         fun list(
             id: String,
             params: CommentListParams = CommentListParams.none(),
-        ): HttpResponseFor<CommentListResponse> = list(id, params, RequestOptions.none())
+        ): HttpResponseFor<CommentListPage> = list(id, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CommentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CommentListResponse>
+        ): HttpResponseFor<CommentListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: CommentListParams): HttpResponseFor<CommentListResponse> =
+        fun list(params: CommentListParams): HttpResponseFor<CommentListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(id: String, requestOptions: RequestOptions): HttpResponseFor<CommentListResponse> =
+        fun list(id: String, requestOptions: RequestOptions): HttpResponseFor<CommentListPage> =
             list(id, CommentListParams.none(), requestOptions)
     }
 }

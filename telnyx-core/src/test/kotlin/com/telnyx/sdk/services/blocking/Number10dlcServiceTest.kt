@@ -4,7 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.number10dlc.Number10dlcRetrieveParams
+import com.telnyx.sdk.models.number10dlc.Number10dlcGetEnumParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,7 +14,7 @@ internal class Number10dlcServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun retrieve() {
+    fun getEnum() {
         val client =
             TelnyxOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -22,8 +22,8 @@ internal class Number10dlcServiceTest {
                 .build()
         val number10dlcService = client.number10dlc()
 
-        val number10dlc = number10dlcService.retrieve(Number10dlcRetrieveParams.Endpoint.MNO)
+        val response = number10dlcService.getEnum(Number10dlcGetEnumParams.Endpoint.MNO)
 
-        number10dlc.validate()
+        response.validate()
     }
 }

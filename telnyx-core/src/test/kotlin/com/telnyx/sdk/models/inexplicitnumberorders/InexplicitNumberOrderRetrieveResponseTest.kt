@@ -15,7 +15,7 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
         val inexplicitNumberOrderRetrieveResponse =
             InexplicitNumberOrderRetrieveResponse.builder()
                 .data(
-                    InexplicitNumberOrderRetrieveResponse.Data.builder()
+                    InexplicitNumberOrderResponse.builder()
                         .id("id")
                         .billingGroupId("billing_group_id")
                         .connectionId("connection_id")
@@ -23,7 +23,7 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
                         .customerReference("customer_reference")
                         .messagingProfileId("messaging_profile_id")
                         .addOrderingGroup(
-                            InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.builder()
+                            InexplicitNumberOrderResponse.OrderingGroup.builder()
                                 .administrativeArea("administrative_area")
                                 .countAllocated(0L)
                                 .countRequested(0L)
@@ -33,8 +33,7 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
                                 .excludeHeldNumbers(true)
                                 .nationalDestinationCode("national_destination_code")
                                 .addOrder(
-                                    InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.Order
-                                        .builder()
+                                    InexplicitNumberOrderResponse.OrderingGroup.Order.builder()
                                         .numberOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .addSubNumberOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .build()
@@ -44,14 +43,9 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
                                 .phoneNumberEndsWith("phone_number[ends_with]")
                                 .phoneNumberStartsWith("phone_number[starts_with]")
                                 .quickship(true)
-                                .status(
-                                    InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.Status
-                                        .PENDING
-                                )
+                                .status(InexplicitNumberOrderResponse.OrderingGroup.Status.PENDING)
                                 .strategy(
-                                    InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup
-                                        .Strategy
-                                        .ALWAYS
+                                    InexplicitNumberOrderResponse.OrderingGroup.Strategy.ALWAYS
                                 )
                                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .build()
@@ -63,7 +57,7 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
 
         assertThat(inexplicitNumberOrderRetrieveResponse.data())
             .contains(
-                InexplicitNumberOrderRetrieveResponse.Data.builder()
+                InexplicitNumberOrderResponse.builder()
                     .id("id")
                     .billingGroupId("billing_group_id")
                     .connectionId("connection_id")
@@ -71,7 +65,7 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
                     .customerReference("customer_reference")
                     .messagingProfileId("messaging_profile_id")
                     .addOrderingGroup(
-                        InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.builder()
+                        InexplicitNumberOrderResponse.OrderingGroup.builder()
                             .administrativeArea("administrative_area")
                             .countAllocated(0L)
                             .countRequested(0L)
@@ -81,8 +75,7 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
                             .excludeHeldNumbers(true)
                             .nationalDestinationCode("national_destination_code")
                             .addOrder(
-                                InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.Order
-                                    .builder()
+                                InexplicitNumberOrderResponse.OrderingGroup.Order.builder()
                                     .numberOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .addSubNumberOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .build()
@@ -92,14 +85,8 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
                             .phoneNumberEndsWith("phone_number[ends_with]")
                             .phoneNumberStartsWith("phone_number[starts_with]")
                             .quickship(true)
-                            .status(
-                                InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.Status
-                                    .PENDING
-                            )
-                            .strategy(
-                                InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.Strategy
-                                    .ALWAYS
-                            )
+                            .status(InexplicitNumberOrderResponse.OrderingGroup.Status.PENDING)
+                            .strategy(InexplicitNumberOrderResponse.OrderingGroup.Strategy.ALWAYS)
                             .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
                     )
@@ -114,7 +101,7 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
         val inexplicitNumberOrderRetrieveResponse =
             InexplicitNumberOrderRetrieveResponse.builder()
                 .data(
-                    InexplicitNumberOrderRetrieveResponse.Data.builder()
+                    InexplicitNumberOrderResponse.builder()
                         .id("id")
                         .billingGroupId("billing_group_id")
                         .connectionId("connection_id")
@@ -122,7 +109,7 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
                         .customerReference("customer_reference")
                         .messagingProfileId("messaging_profile_id")
                         .addOrderingGroup(
-                            InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.builder()
+                            InexplicitNumberOrderResponse.OrderingGroup.builder()
                                 .administrativeArea("administrative_area")
                                 .countAllocated(0L)
                                 .countRequested(0L)
@@ -132,8 +119,7 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
                                 .excludeHeldNumbers(true)
                                 .nationalDestinationCode("national_destination_code")
                                 .addOrder(
-                                    InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.Order
-                                        .builder()
+                                    InexplicitNumberOrderResponse.OrderingGroup.Order.builder()
                                         .numberOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .addSubNumberOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .build()
@@ -143,14 +129,9 @@ internal class InexplicitNumberOrderRetrieveResponseTest {
                                 .phoneNumberEndsWith("phone_number[ends_with]")
                                 .phoneNumberStartsWith("phone_number[starts_with]")
                                 .quickship(true)
-                                .status(
-                                    InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup.Status
-                                        .PENDING
-                                )
+                                .status(InexplicitNumberOrderResponse.OrderingGroup.Status.PENDING)
                                 .strategy(
-                                    InexplicitNumberOrderRetrieveResponse.Data.OrderingGroup
-                                        .Strategy
-                                        .ALWAYS
+                                    InexplicitNumberOrderResponse.OrderingGroup.Strategy.ALWAYS
                                 )
                                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .build()

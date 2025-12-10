@@ -6,13 +6,13 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.rooms.sessions.SessionList0Page
 import com.telnyx.sdk.models.rooms.sessions.SessionList0Params
-import com.telnyx.sdk.models.rooms.sessions.SessionList0Response
+import com.telnyx.sdk.models.rooms.sessions.SessionList1Page
 import com.telnyx.sdk.models.rooms.sessions.SessionList1Params
-import com.telnyx.sdk.models.rooms.sessions.SessionList1Response
 import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParams
+import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParticipantsPage
 import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParticipantsParams
-import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParticipantsResponse
 import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveResponse
 import com.telnyx.sdk.services.blocking.rooms.sessions.ActionService
 import java.util.function.Consumer
@@ -66,54 +66,53 @@ interface SessionService {
         retrieve(roomSessionId, SessionRetrieveParams.none(), requestOptions)
 
     /** View a list of room sessions. */
-    fun list0(): SessionList0Response = list0(SessionList0Params.none())
+    fun list0(): SessionList0Page = list0(SessionList0Params.none())
 
     /** @see list0 */
     fun list0(
         params: SessionList0Params = SessionList0Params.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SessionList0Response
+    ): SessionList0Page
 
     /** @see list0 */
-    fun list0(params: SessionList0Params = SessionList0Params.none()): SessionList0Response =
+    fun list0(params: SessionList0Params = SessionList0Params.none()): SessionList0Page =
         list0(params, RequestOptions.none())
 
     /** @see list0 */
-    fun list0(requestOptions: RequestOptions): SessionList0Response =
+    fun list0(requestOptions: RequestOptions): SessionList0Page =
         list0(SessionList0Params.none(), requestOptions)
 
     /** View a list of room sessions. */
-    fun list1(roomId: String): SessionList1Response = list1(roomId, SessionList1Params.none())
+    fun list1(roomId: String): SessionList1Page = list1(roomId, SessionList1Params.none())
 
     /** @see list1 */
     fun list1(
         roomId: String,
         params: SessionList1Params = SessionList1Params.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SessionList1Response = list1(params.toBuilder().roomId(roomId).build(), requestOptions)
+    ): SessionList1Page = list1(params.toBuilder().roomId(roomId).build(), requestOptions)
 
     /** @see list1 */
     fun list1(
         roomId: String,
         params: SessionList1Params = SessionList1Params.none(),
-    ): SessionList1Response = list1(roomId, params, RequestOptions.none())
+    ): SessionList1Page = list1(roomId, params, RequestOptions.none())
 
     /** @see list1 */
     fun list1(
         params: SessionList1Params,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SessionList1Response
+    ): SessionList1Page
 
     /** @see list1 */
-    fun list1(params: SessionList1Params): SessionList1Response =
-        list1(params, RequestOptions.none())
+    fun list1(params: SessionList1Params): SessionList1Page = list1(params, RequestOptions.none())
 
     /** @see list1 */
-    fun list1(roomId: String, requestOptions: RequestOptions): SessionList1Response =
+    fun list1(roomId: String, requestOptions: RequestOptions): SessionList1Page =
         list1(roomId, SessionList1Params.none(), requestOptions)
 
     /** View a list of room participants. */
-    fun retrieveParticipants(roomSessionId: String): SessionRetrieveParticipantsResponse =
+    fun retrieveParticipants(roomSessionId: String): SessionRetrieveParticipantsPage =
         retrieveParticipants(roomSessionId, SessionRetrieveParticipantsParams.none())
 
     /** @see retrieveParticipants */
@@ -121,7 +120,7 @@ interface SessionService {
         roomSessionId: String,
         params: SessionRetrieveParticipantsParams = SessionRetrieveParticipantsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SessionRetrieveParticipantsResponse =
+    ): SessionRetrieveParticipantsPage =
         retrieveParticipants(
             params.toBuilder().roomSessionId(roomSessionId).build(),
             requestOptions,
@@ -131,25 +130,25 @@ interface SessionService {
     fun retrieveParticipants(
         roomSessionId: String,
         params: SessionRetrieveParticipantsParams = SessionRetrieveParticipantsParams.none(),
-    ): SessionRetrieveParticipantsResponse =
+    ): SessionRetrieveParticipantsPage =
         retrieveParticipants(roomSessionId, params, RequestOptions.none())
 
     /** @see retrieveParticipants */
     fun retrieveParticipants(
         params: SessionRetrieveParticipantsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SessionRetrieveParticipantsResponse
+    ): SessionRetrieveParticipantsPage
 
     /** @see retrieveParticipants */
     fun retrieveParticipants(
         params: SessionRetrieveParticipantsParams
-    ): SessionRetrieveParticipantsResponse = retrieveParticipants(params, RequestOptions.none())
+    ): SessionRetrieveParticipantsPage = retrieveParticipants(params, RequestOptions.none())
 
     /** @see retrieveParticipants */
     fun retrieveParticipants(
         roomSessionId: String,
         requestOptions: RequestOptions,
-    ): SessionRetrieveParticipantsResponse =
+    ): SessionRetrieveParticipantsPage =
         retrieveParticipants(
             roomSessionId,
             SessionRetrieveParticipantsParams.none(),
@@ -218,24 +217,24 @@ interface SessionService {
          * [SessionService.list0].
          */
         @MustBeClosed
-        fun list0(): HttpResponseFor<SessionList0Response> = list0(SessionList0Params.none())
+        fun list0(): HttpResponseFor<SessionList0Page> = list0(SessionList0Params.none())
 
         /** @see list0 */
         @MustBeClosed
         fun list0(
             params: SessionList0Params = SessionList0Params.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SessionList0Response>
+        ): HttpResponseFor<SessionList0Page>
 
         /** @see list0 */
         @MustBeClosed
         fun list0(
             params: SessionList0Params = SessionList0Params.none()
-        ): HttpResponseFor<SessionList0Response> = list0(params, RequestOptions.none())
+        ): HttpResponseFor<SessionList0Page> = list0(params, RequestOptions.none())
 
         /** @see list0 */
         @MustBeClosed
-        fun list0(requestOptions: RequestOptions): HttpResponseFor<SessionList0Response> =
+        fun list0(requestOptions: RequestOptions): HttpResponseFor<SessionList0Page> =
             list0(SessionList0Params.none(), requestOptions)
 
         /**
@@ -243,7 +242,7 @@ interface SessionService {
          * same as [SessionService.list1].
          */
         @MustBeClosed
-        fun list1(roomId: String): HttpResponseFor<SessionList1Response> =
+        fun list1(roomId: String): HttpResponseFor<SessionList1Page> =
             list1(roomId, SessionList1Params.none())
 
         /** @see list1 */
@@ -252,7 +251,7 @@ interface SessionService {
             roomId: String,
             params: SessionList1Params = SessionList1Params.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SessionList1Response> =
+        ): HttpResponseFor<SessionList1Page> =
             list1(params.toBuilder().roomId(roomId).build(), requestOptions)
 
         /** @see list1 */
@@ -260,18 +259,18 @@ interface SessionService {
         fun list1(
             roomId: String,
             params: SessionList1Params = SessionList1Params.none(),
-        ): HttpResponseFor<SessionList1Response> = list1(roomId, params, RequestOptions.none())
+        ): HttpResponseFor<SessionList1Page> = list1(roomId, params, RequestOptions.none())
 
         /** @see list1 */
         @MustBeClosed
         fun list1(
             params: SessionList1Params,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SessionList1Response>
+        ): HttpResponseFor<SessionList1Page>
 
         /** @see list1 */
         @MustBeClosed
-        fun list1(params: SessionList1Params): HttpResponseFor<SessionList1Response> =
+        fun list1(params: SessionList1Params): HttpResponseFor<SessionList1Page> =
             list1(params, RequestOptions.none())
 
         /** @see list1 */
@@ -279,7 +278,7 @@ interface SessionService {
         fun list1(
             roomId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SessionList1Response> =
+        ): HttpResponseFor<SessionList1Page> =
             list1(roomId, SessionList1Params.none(), requestOptions)
 
         /**
@@ -289,7 +288,7 @@ interface SessionService {
         @MustBeClosed
         fun retrieveParticipants(
             roomSessionId: String
-        ): HttpResponseFor<SessionRetrieveParticipantsResponse> =
+        ): HttpResponseFor<SessionRetrieveParticipantsPage> =
             retrieveParticipants(roomSessionId, SessionRetrieveParticipantsParams.none())
 
         /** @see retrieveParticipants */
@@ -298,7 +297,7 @@ interface SessionService {
             roomSessionId: String,
             params: SessionRetrieveParticipantsParams = SessionRetrieveParticipantsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SessionRetrieveParticipantsResponse> =
+        ): HttpResponseFor<SessionRetrieveParticipantsPage> =
             retrieveParticipants(
                 params.toBuilder().roomSessionId(roomSessionId).build(),
                 requestOptions,
@@ -309,7 +308,7 @@ interface SessionService {
         fun retrieveParticipants(
             roomSessionId: String,
             params: SessionRetrieveParticipantsParams = SessionRetrieveParticipantsParams.none(),
-        ): HttpResponseFor<SessionRetrieveParticipantsResponse> =
+        ): HttpResponseFor<SessionRetrieveParticipantsPage> =
             retrieveParticipants(roomSessionId, params, RequestOptions.none())
 
         /** @see retrieveParticipants */
@@ -317,13 +316,13 @@ interface SessionService {
         fun retrieveParticipants(
             params: SessionRetrieveParticipantsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SessionRetrieveParticipantsResponse>
+        ): HttpResponseFor<SessionRetrieveParticipantsPage>
 
         /** @see retrieveParticipants */
         @MustBeClosed
         fun retrieveParticipants(
             params: SessionRetrieveParticipantsParams
-        ): HttpResponseFor<SessionRetrieveParticipantsResponse> =
+        ): HttpResponseFor<SessionRetrieveParticipantsPage> =
             retrieveParticipants(params, RequestOptions.none())
 
         /** @see retrieveParticipants */
@@ -331,7 +330,7 @@ interface SessionService {
         fun retrieveParticipants(
             roomSessionId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SessionRetrieveParticipantsResponse> =
+        ): HttpResponseFor<SessionRetrieveParticipantsPage> =
             retrieveParticipants(
                 roomSessionId,
                 SessionRetrieveParticipantsParams.none(),

@@ -5,21 +5,23 @@ package com.telnyx.sdk.services.async.number10dlc
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignAppealParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignAppealResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeleteParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeleteResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignAcceptSharingResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignDeactivateResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetMnoMetadataParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetMnoMetadataResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetOperationStatusResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignGetSharingStatusResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignListPageAsync
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignListParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignListResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveMnoMetadataParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveMnoMetadataResponse
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveOperationStatusParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveOperationStatusResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveSharingParams
-import com.telnyx.sdk.models.number10dlc.campaign.CampaignRetrieveSharingResponse
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealParams
+import com.telnyx.sdk.models.number10dlc.campaign.CampaignSubmitAppealResponse
 import com.telnyx.sdk.models.number10dlc.campaign.CampaignUpdateParams
+import com.telnyx.sdk.models.number10dlc.campaign.TelnyxCampaignCsp
 import com.telnyx.sdk.services.async.number10dlc.campaign.OsrServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.campaign.UsecaseServiceAsync
 import java.util.concurrent.CompletableFuture
@@ -117,49 +119,205 @@ interface CampaignServiceAsync {
         update(campaignId, CampaignUpdateParams.none(), requestOptions)
 
     /** Retrieve a list of campaigns associated with a supplied `brandId`. */
-    fun list(params: CampaignListParams): CompletableFuture<CampaignListResponse> =
+    fun list(params: CampaignListParams): CompletableFuture<CampaignListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: CampaignListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignListResponse>
+    ): CompletableFuture<CampaignListPageAsync>
 
-    /** Terminate a campaign. Note that once deactivated, a campaign cannot be restored. */
-    fun delete(campaignId: String): CompletableFuture<CampaignDeleteResponse> =
-        delete(campaignId, CampaignDeleteParams.none())
+    /** Manually accept a campaign shared with Telnyx */
+    fun acceptSharing(campaignId: String): CompletableFuture<CampaignAcceptSharingResponse> =
+        acceptSharing(campaignId, CampaignAcceptSharingParams.none())
 
-    /** @see delete */
-    fun delete(
+    /** @see acceptSharing */
+    fun acceptSharing(
         campaignId: String,
-        params: CampaignDeleteParams = CampaignDeleteParams.none(),
+        params: CampaignAcceptSharingParams = CampaignAcceptSharingParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignDeleteResponse> =
-        delete(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+    ): CompletableFuture<CampaignAcceptSharingResponse> =
+        acceptSharing(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-    /** @see delete */
-    fun delete(
+    /** @see acceptSharing */
+    fun acceptSharing(
         campaignId: String,
-        params: CampaignDeleteParams = CampaignDeleteParams.none(),
-    ): CompletableFuture<CampaignDeleteResponse> = delete(campaignId, params, RequestOptions.none())
+        params: CampaignAcceptSharingParams = CampaignAcceptSharingParams.none(),
+    ): CompletableFuture<CampaignAcceptSharingResponse> =
+        acceptSharing(campaignId, params, RequestOptions.none())
 
-    /** @see delete */
-    fun delete(
-        params: CampaignDeleteParams,
+    /** @see acceptSharing */
+    fun acceptSharing(
+        params: CampaignAcceptSharingParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignDeleteResponse>
+    ): CompletableFuture<CampaignAcceptSharingResponse>
 
-    /** @see delete */
-    fun delete(params: CampaignDeleteParams): CompletableFuture<CampaignDeleteResponse> =
-        delete(params, RequestOptions.none())
+    /** @see acceptSharing */
+    fun acceptSharing(
+        params: CampaignAcceptSharingParams
+    ): CompletableFuture<CampaignAcceptSharingResponse> =
+        acceptSharing(params, RequestOptions.none())
 
-    /** @see delete */
-    fun delete(
+    /** @see acceptSharing */
+    fun acceptSharing(
         campaignId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CampaignDeleteResponse> =
-        delete(campaignId, CampaignDeleteParams.none(), requestOptions)
+    ): CompletableFuture<CampaignAcceptSharingResponse> =
+        acceptSharing(campaignId, CampaignAcceptSharingParams.none(), requestOptions)
+
+    /** Terminate a campaign. Note that once deactivated, a campaign cannot be restored. */
+    fun deactivate(campaignId: String): CompletableFuture<CampaignDeactivateResponse> =
+        deactivate(campaignId, CampaignDeactivateParams.none())
+
+    /** @see deactivate */
+    fun deactivate(
+        campaignId: String,
+        params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CampaignDeactivateResponse> =
+        deactivate(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+    /** @see deactivate */
+    fun deactivate(
+        campaignId: String,
+        params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
+    ): CompletableFuture<CampaignDeactivateResponse> =
+        deactivate(campaignId, params, RequestOptions.none())
+
+    /** @see deactivate */
+    fun deactivate(
+        params: CampaignDeactivateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CampaignDeactivateResponse>
+
+    /** @see deactivate */
+    fun deactivate(
+        params: CampaignDeactivateParams
+    ): CompletableFuture<CampaignDeactivateResponse> = deactivate(params, RequestOptions.none())
+
+    /** @see deactivate */
+    fun deactivate(
+        campaignId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CampaignDeactivateResponse> =
+        deactivate(campaignId, CampaignDeactivateParams.none(), requestOptions)
+
+    /** Get the campaign metadata for each MNO it was submitted to. */
+    fun getMnoMetadata(campaignId: String): CompletableFuture<CampaignGetMnoMetadataResponse> =
+        getMnoMetadata(campaignId, CampaignGetMnoMetadataParams.none())
+
+    /** @see getMnoMetadata */
+    fun getMnoMetadata(
+        campaignId: String,
+        params: CampaignGetMnoMetadataParams = CampaignGetMnoMetadataParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CampaignGetMnoMetadataResponse> =
+        getMnoMetadata(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+    /** @see getMnoMetadata */
+    fun getMnoMetadata(
+        campaignId: String,
+        params: CampaignGetMnoMetadataParams = CampaignGetMnoMetadataParams.none(),
+    ): CompletableFuture<CampaignGetMnoMetadataResponse> =
+        getMnoMetadata(campaignId, params, RequestOptions.none())
+
+    /** @see getMnoMetadata */
+    fun getMnoMetadata(
+        params: CampaignGetMnoMetadataParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CampaignGetMnoMetadataResponse>
+
+    /** @see getMnoMetadata */
+    fun getMnoMetadata(
+        params: CampaignGetMnoMetadataParams
+    ): CompletableFuture<CampaignGetMnoMetadataResponse> =
+        getMnoMetadata(params, RequestOptions.none())
+
+    /** @see getMnoMetadata */
+    fun getMnoMetadata(
+        campaignId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CampaignGetMnoMetadataResponse> =
+        getMnoMetadata(campaignId, CampaignGetMnoMetadataParams.none(), requestOptions)
+
+    /** Retrieve campaign's operation status at MNO level. */
+    fun getOperationStatus(
+        campaignId: String
+    ): CompletableFuture<CampaignGetOperationStatusResponse> =
+        getOperationStatus(campaignId, CampaignGetOperationStatusParams.none())
+
+    /** @see getOperationStatus */
+    fun getOperationStatus(
+        campaignId: String,
+        params: CampaignGetOperationStatusParams = CampaignGetOperationStatusParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CampaignGetOperationStatusResponse> =
+        getOperationStatus(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+    /** @see getOperationStatus */
+    fun getOperationStatus(
+        campaignId: String,
+        params: CampaignGetOperationStatusParams = CampaignGetOperationStatusParams.none(),
+    ): CompletableFuture<CampaignGetOperationStatusResponse> =
+        getOperationStatus(campaignId, params, RequestOptions.none())
+
+    /** @see getOperationStatus */
+    fun getOperationStatus(
+        params: CampaignGetOperationStatusParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CampaignGetOperationStatusResponse>
+
+    /** @see getOperationStatus */
+    fun getOperationStatus(
+        params: CampaignGetOperationStatusParams
+    ): CompletableFuture<CampaignGetOperationStatusResponse> =
+        getOperationStatus(params, RequestOptions.none())
+
+    /** @see getOperationStatus */
+    fun getOperationStatus(
+        campaignId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CampaignGetOperationStatusResponse> =
+        getOperationStatus(campaignId, CampaignGetOperationStatusParams.none(), requestOptions)
+
+    /** Get Sharing Status */
+    fun getSharingStatus(campaignId: String): CompletableFuture<CampaignGetSharingStatusResponse> =
+        getSharingStatus(campaignId, CampaignGetSharingStatusParams.none())
+
+    /** @see getSharingStatus */
+    fun getSharingStatus(
+        campaignId: String,
+        params: CampaignGetSharingStatusParams = CampaignGetSharingStatusParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CampaignGetSharingStatusResponse> =
+        getSharingStatus(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+    /** @see getSharingStatus */
+    fun getSharingStatus(
+        campaignId: String,
+        params: CampaignGetSharingStatusParams = CampaignGetSharingStatusParams.none(),
+    ): CompletableFuture<CampaignGetSharingStatusResponse> =
+        getSharingStatus(campaignId, params, RequestOptions.none())
+
+    /** @see getSharingStatus */
+    fun getSharingStatus(
+        params: CampaignGetSharingStatusParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CampaignGetSharingStatusResponse>
+
+    /** @see getSharingStatus */
+    fun getSharingStatus(
+        params: CampaignGetSharingStatusParams
+    ): CompletableFuture<CampaignGetSharingStatusResponse> =
+        getSharingStatus(params, RequestOptions.none())
+
+    /** @see getSharingStatus */
+    fun getSharingStatus(
+        campaignId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CampaignGetSharingStatusResponse> =
+        getSharingStatus(campaignId, CampaignGetSharingStatusParams.none(), requestOptions)
 
     /**
      * Submits an appeal for rejected native campaigns in TELNYX_FAILED or MNO_REJECTED status. The
@@ -167,151 +325,30 @@ interface CampaignServiceAsync {
      * TCR_ACCEPTED. Note: Appeal forwarding is handled manually to allow proper review before
      * incurring upstream charges.
      */
-    fun appeal(
+    fun submitAppeal(
         campaignId: String,
-        params: CampaignAppealParams,
-    ): CompletableFuture<CampaignAppealResponse> = appeal(campaignId, params, RequestOptions.none())
+        params: CampaignSubmitAppealParams,
+    ): CompletableFuture<CampaignSubmitAppealResponse> =
+        submitAppeal(campaignId, params, RequestOptions.none())
 
-    /** @see appeal */
-    fun appeal(
+    /** @see submitAppeal */
+    fun submitAppeal(
         campaignId: String,
-        params: CampaignAppealParams,
+        params: CampaignSubmitAppealParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignAppealResponse> =
-        appeal(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+    ): CompletableFuture<CampaignSubmitAppealResponse> =
+        submitAppeal(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-    /** @see appeal */
-    fun appeal(params: CampaignAppealParams): CompletableFuture<CampaignAppealResponse> =
-        appeal(params, RequestOptions.none())
+    /** @see submitAppeal */
+    fun submitAppeal(
+        params: CampaignSubmitAppealParams
+    ): CompletableFuture<CampaignSubmitAppealResponse> = submitAppeal(params, RequestOptions.none())
 
-    /** @see appeal */
-    fun appeal(
-        params: CampaignAppealParams,
+    /** @see submitAppeal */
+    fun submitAppeal(
+        params: CampaignSubmitAppealParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignAppealResponse>
-
-    /** Get the campaign metadata for each MNO it was submitted to. */
-    fun retrieveMnoMetadata(
-        campaignId: String
-    ): CompletableFuture<CampaignRetrieveMnoMetadataResponse> =
-        retrieveMnoMetadata(campaignId, CampaignRetrieveMnoMetadataParams.none())
-
-    /** @see retrieveMnoMetadata */
-    fun retrieveMnoMetadata(
-        campaignId: String,
-        params: CampaignRetrieveMnoMetadataParams = CampaignRetrieveMnoMetadataParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignRetrieveMnoMetadataResponse> =
-        retrieveMnoMetadata(params.toBuilder().campaignId(campaignId).build(), requestOptions)
-
-    /** @see retrieveMnoMetadata */
-    fun retrieveMnoMetadata(
-        campaignId: String,
-        params: CampaignRetrieveMnoMetadataParams = CampaignRetrieveMnoMetadataParams.none(),
-    ): CompletableFuture<CampaignRetrieveMnoMetadataResponse> =
-        retrieveMnoMetadata(campaignId, params, RequestOptions.none())
-
-    /** @see retrieveMnoMetadata */
-    fun retrieveMnoMetadata(
-        params: CampaignRetrieveMnoMetadataParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignRetrieveMnoMetadataResponse>
-
-    /** @see retrieveMnoMetadata */
-    fun retrieveMnoMetadata(
-        params: CampaignRetrieveMnoMetadataParams
-    ): CompletableFuture<CampaignRetrieveMnoMetadataResponse> =
-        retrieveMnoMetadata(params, RequestOptions.none())
-
-    /** @see retrieveMnoMetadata */
-    fun retrieveMnoMetadata(
-        campaignId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CampaignRetrieveMnoMetadataResponse> =
-        retrieveMnoMetadata(campaignId, CampaignRetrieveMnoMetadataParams.none(), requestOptions)
-
-    /** Retrieve campaign's operation status at MNO level. */
-    fun retrieveOperationStatus(
-        campaignId: String
-    ): CompletableFuture<CampaignRetrieveOperationStatusResponse> =
-        retrieveOperationStatus(campaignId, CampaignRetrieveOperationStatusParams.none())
-
-    /** @see retrieveOperationStatus */
-    fun retrieveOperationStatus(
-        campaignId: String,
-        params: CampaignRetrieveOperationStatusParams =
-            CampaignRetrieveOperationStatusParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignRetrieveOperationStatusResponse> =
-        retrieveOperationStatus(params.toBuilder().campaignId(campaignId).build(), requestOptions)
-
-    /** @see retrieveOperationStatus */
-    fun retrieveOperationStatus(
-        campaignId: String,
-        params: CampaignRetrieveOperationStatusParams = CampaignRetrieveOperationStatusParams.none(),
-    ): CompletableFuture<CampaignRetrieveOperationStatusResponse> =
-        retrieveOperationStatus(campaignId, params, RequestOptions.none())
-
-    /** @see retrieveOperationStatus */
-    fun retrieveOperationStatus(
-        params: CampaignRetrieveOperationStatusParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignRetrieveOperationStatusResponse>
-
-    /** @see retrieveOperationStatus */
-    fun retrieveOperationStatus(
-        params: CampaignRetrieveOperationStatusParams
-    ): CompletableFuture<CampaignRetrieveOperationStatusResponse> =
-        retrieveOperationStatus(params, RequestOptions.none())
-
-    /** @see retrieveOperationStatus */
-    fun retrieveOperationStatus(
-        campaignId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CampaignRetrieveOperationStatusResponse> =
-        retrieveOperationStatus(
-            campaignId,
-            CampaignRetrieveOperationStatusParams.none(),
-            requestOptions,
-        )
-
-    /** Get Sharing Status */
-    fun retrieveSharing(campaignId: String): CompletableFuture<CampaignRetrieveSharingResponse> =
-        retrieveSharing(campaignId, CampaignRetrieveSharingParams.none())
-
-    /** @see retrieveSharing */
-    fun retrieveSharing(
-        campaignId: String,
-        params: CampaignRetrieveSharingParams = CampaignRetrieveSharingParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignRetrieveSharingResponse> =
-        retrieveSharing(params.toBuilder().campaignId(campaignId).build(), requestOptions)
-
-    /** @see retrieveSharing */
-    fun retrieveSharing(
-        campaignId: String,
-        params: CampaignRetrieveSharingParams = CampaignRetrieveSharingParams.none(),
-    ): CompletableFuture<CampaignRetrieveSharingResponse> =
-        retrieveSharing(campaignId, params, RequestOptions.none())
-
-    /** @see retrieveSharing */
-    fun retrieveSharing(
-        params: CampaignRetrieveSharingParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CampaignRetrieveSharingResponse>
-
-    /** @see retrieveSharing */
-    fun retrieveSharing(
-        params: CampaignRetrieveSharingParams
-    ): CompletableFuture<CampaignRetrieveSharingResponse> =
-        retrieveSharing(params, RequestOptions.none())
-
-    /** @see retrieveSharing */
-    fun retrieveSharing(
-        campaignId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CampaignRetrieveSharingResponse> =
-        retrieveSharing(campaignId, CampaignRetrieveSharingParams.none(), requestOptions)
+    ): CompletableFuture<CampaignSubmitAppealResponse>
 
     /**
      * A view of [CampaignServiceAsync] that provides access to raw HTTP responses for each method.
@@ -419,226 +456,258 @@ interface CampaignServiceAsync {
          */
         fun list(
             params: CampaignListParams
-        ): CompletableFuture<HttpResponseFor<CampaignListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CampaignListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: CampaignListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignListResponse>>
+        ): CompletableFuture<HttpResponseFor<CampaignListPageAsync>>
+
+        /**
+         * Returns a raw HTTP response for `post /10dlc/campaign/acceptSharing/{campaignId}`, but is
+         * otherwise the same as [CampaignServiceAsync.acceptSharing].
+         */
+        fun acceptSharing(
+            campaignId: String
+        ): CompletableFuture<HttpResponseFor<CampaignAcceptSharingResponse>> =
+            acceptSharing(campaignId, CampaignAcceptSharingParams.none())
+
+        /** @see acceptSharing */
+        fun acceptSharing(
+            campaignId: String,
+            params: CampaignAcceptSharingParams = CampaignAcceptSharingParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CampaignAcceptSharingResponse>> =
+            acceptSharing(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+        /** @see acceptSharing */
+        fun acceptSharing(
+            campaignId: String,
+            params: CampaignAcceptSharingParams = CampaignAcceptSharingParams.none(),
+        ): CompletableFuture<HttpResponseFor<CampaignAcceptSharingResponse>> =
+            acceptSharing(campaignId, params, RequestOptions.none())
+
+        /** @see acceptSharing */
+        fun acceptSharing(
+            params: CampaignAcceptSharingParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CampaignAcceptSharingResponse>>
+
+        /** @see acceptSharing */
+        fun acceptSharing(
+            params: CampaignAcceptSharingParams
+        ): CompletableFuture<HttpResponseFor<CampaignAcceptSharingResponse>> =
+            acceptSharing(params, RequestOptions.none())
+
+        /** @see acceptSharing */
+        fun acceptSharing(
+            campaignId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CampaignAcceptSharingResponse>> =
+            acceptSharing(campaignId, CampaignAcceptSharingParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `delete /10dlc/campaign/{campaignId}`, but is otherwise
-         * the same as [CampaignServiceAsync.delete].
+         * the same as [CampaignServiceAsync.deactivate].
          */
-        fun delete(campaignId: String): CompletableFuture<HttpResponseFor<CampaignDeleteResponse>> =
-            delete(campaignId, CampaignDeleteParams.none())
+        fun deactivate(
+            campaignId: String
+        ): CompletableFuture<HttpResponseFor<CampaignDeactivateResponse>> =
+            deactivate(campaignId, CampaignDeactivateParams.none())
 
-        /** @see delete */
-        fun delete(
+        /** @see deactivate */
+        fun deactivate(
             campaignId: String,
-            params: CampaignDeleteParams = CampaignDeleteParams.none(),
+            params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignDeleteResponse>> =
-            delete(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<CampaignDeactivateResponse>> =
+            deactivate(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-        /** @see delete */
-        fun delete(
+        /** @see deactivate */
+        fun deactivate(
             campaignId: String,
-            params: CampaignDeleteParams = CampaignDeleteParams.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignDeleteResponse>> =
-            delete(campaignId, params, RequestOptions.none())
+            params: CampaignDeactivateParams = CampaignDeactivateParams.none(),
+        ): CompletableFuture<HttpResponseFor<CampaignDeactivateResponse>> =
+            deactivate(campaignId, params, RequestOptions.none())
 
-        /** @see delete */
-        fun delete(
-            params: CampaignDeleteParams,
+        /** @see deactivate */
+        fun deactivate(
+            params: CampaignDeactivateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignDeleteResponse>>
+        ): CompletableFuture<HttpResponseFor<CampaignDeactivateResponse>>
 
-        /** @see delete */
-        fun delete(
-            params: CampaignDeleteParams
-        ): CompletableFuture<HttpResponseFor<CampaignDeleteResponse>> =
-            delete(params, RequestOptions.none())
+        /** @see deactivate */
+        fun deactivate(
+            params: CampaignDeactivateParams
+        ): CompletableFuture<HttpResponseFor<CampaignDeactivateResponse>> =
+            deactivate(params, RequestOptions.none())
 
-        /** @see delete */
-        fun delete(
+        /** @see deactivate */
+        fun deactivate(
             campaignId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CampaignDeleteResponse>> =
-            delete(campaignId, CampaignDeleteParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `post /10dlc/campaign/{campaignId}/appeal`, but is
-         * otherwise the same as [CampaignServiceAsync.appeal].
-         */
-        fun appeal(
-            campaignId: String,
-            params: CampaignAppealParams,
-        ): CompletableFuture<HttpResponseFor<CampaignAppealResponse>> =
-            appeal(campaignId, params, RequestOptions.none())
-
-        /** @see appeal */
-        fun appeal(
-            campaignId: String,
-            params: CampaignAppealParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignAppealResponse>> =
-            appeal(params.toBuilder().campaignId(campaignId).build(), requestOptions)
-
-        /** @see appeal */
-        fun appeal(
-            params: CampaignAppealParams
-        ): CompletableFuture<HttpResponseFor<CampaignAppealResponse>> =
-            appeal(params, RequestOptions.none())
-
-        /** @see appeal */
-        fun appeal(
-            params: CampaignAppealParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignAppealResponse>>
+        ): CompletableFuture<HttpResponseFor<CampaignDeactivateResponse>> =
+            deactivate(campaignId, CampaignDeactivateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/mnoMetadata`, but is
-         * otherwise the same as [CampaignServiceAsync.retrieveMnoMetadata].
+         * otherwise the same as [CampaignServiceAsync.getMnoMetadata].
          */
-        fun retrieveMnoMetadata(
+        fun getMnoMetadata(
             campaignId: String
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveMnoMetadataResponse>> =
-            retrieveMnoMetadata(campaignId, CampaignRetrieveMnoMetadataParams.none())
+        ): CompletableFuture<HttpResponseFor<CampaignGetMnoMetadataResponse>> =
+            getMnoMetadata(campaignId, CampaignGetMnoMetadataParams.none())
 
-        /** @see retrieveMnoMetadata */
-        fun retrieveMnoMetadata(
+        /** @see getMnoMetadata */
+        fun getMnoMetadata(
             campaignId: String,
-            params: CampaignRetrieveMnoMetadataParams = CampaignRetrieveMnoMetadataParams.none(),
+            params: CampaignGetMnoMetadataParams = CampaignGetMnoMetadataParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveMnoMetadataResponse>> =
-            retrieveMnoMetadata(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<CampaignGetMnoMetadataResponse>> =
+            getMnoMetadata(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-        /** @see retrieveMnoMetadata */
-        fun retrieveMnoMetadata(
+        /** @see getMnoMetadata */
+        fun getMnoMetadata(
             campaignId: String,
-            params: CampaignRetrieveMnoMetadataParams = CampaignRetrieveMnoMetadataParams.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveMnoMetadataResponse>> =
-            retrieveMnoMetadata(campaignId, params, RequestOptions.none())
+            params: CampaignGetMnoMetadataParams = CampaignGetMnoMetadataParams.none(),
+        ): CompletableFuture<HttpResponseFor<CampaignGetMnoMetadataResponse>> =
+            getMnoMetadata(campaignId, params, RequestOptions.none())
 
-        /** @see retrieveMnoMetadata */
-        fun retrieveMnoMetadata(
-            params: CampaignRetrieveMnoMetadataParams,
+        /** @see getMnoMetadata */
+        fun getMnoMetadata(
+            params: CampaignGetMnoMetadataParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveMnoMetadataResponse>>
+        ): CompletableFuture<HttpResponseFor<CampaignGetMnoMetadataResponse>>
 
-        /** @see retrieveMnoMetadata */
-        fun retrieveMnoMetadata(
-            params: CampaignRetrieveMnoMetadataParams
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveMnoMetadataResponse>> =
-            retrieveMnoMetadata(params, RequestOptions.none())
+        /** @see getMnoMetadata */
+        fun getMnoMetadata(
+            params: CampaignGetMnoMetadataParams
+        ): CompletableFuture<HttpResponseFor<CampaignGetMnoMetadataResponse>> =
+            getMnoMetadata(params, RequestOptions.none())
 
-        /** @see retrieveMnoMetadata */
-        fun retrieveMnoMetadata(
+        /** @see getMnoMetadata */
+        fun getMnoMetadata(
             campaignId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveMnoMetadataResponse>> =
-            retrieveMnoMetadata(
-                campaignId,
-                CampaignRetrieveMnoMetadataParams.none(),
-                requestOptions,
-            )
+        ): CompletableFuture<HttpResponseFor<CampaignGetMnoMetadataResponse>> =
+            getMnoMetadata(campaignId, CampaignGetMnoMetadataParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/operationStatus`, but
-         * is otherwise the same as [CampaignServiceAsync.retrieveOperationStatus].
+         * is otherwise the same as [CampaignServiceAsync.getOperationStatus].
          */
-        fun retrieveOperationStatus(
+        fun getOperationStatus(
             campaignId: String
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveOperationStatusResponse>> =
-            retrieveOperationStatus(campaignId, CampaignRetrieveOperationStatusParams.none())
+        ): CompletableFuture<HttpResponseFor<CampaignGetOperationStatusResponse>> =
+            getOperationStatus(campaignId, CampaignGetOperationStatusParams.none())
 
-        /** @see retrieveOperationStatus */
-        fun retrieveOperationStatus(
+        /** @see getOperationStatus */
+        fun getOperationStatus(
             campaignId: String,
-            params: CampaignRetrieveOperationStatusParams =
-                CampaignRetrieveOperationStatusParams.none(),
+            params: CampaignGetOperationStatusParams = CampaignGetOperationStatusParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveOperationStatusResponse>> =
-            retrieveOperationStatus(
-                params.toBuilder().campaignId(campaignId).build(),
-                requestOptions,
-            )
+        ): CompletableFuture<HttpResponseFor<CampaignGetOperationStatusResponse>> =
+            getOperationStatus(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-        /** @see retrieveOperationStatus */
-        fun retrieveOperationStatus(
+        /** @see getOperationStatus */
+        fun getOperationStatus(
             campaignId: String,
-            params: CampaignRetrieveOperationStatusParams =
-                CampaignRetrieveOperationStatusParams.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveOperationStatusResponse>> =
-            retrieveOperationStatus(campaignId, params, RequestOptions.none())
+            params: CampaignGetOperationStatusParams = CampaignGetOperationStatusParams.none(),
+        ): CompletableFuture<HttpResponseFor<CampaignGetOperationStatusResponse>> =
+            getOperationStatus(campaignId, params, RequestOptions.none())
 
-        /** @see retrieveOperationStatus */
-        fun retrieveOperationStatus(
-            params: CampaignRetrieveOperationStatusParams,
+        /** @see getOperationStatus */
+        fun getOperationStatus(
+            params: CampaignGetOperationStatusParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveOperationStatusResponse>>
+        ): CompletableFuture<HttpResponseFor<CampaignGetOperationStatusResponse>>
 
-        /** @see retrieveOperationStatus */
-        fun retrieveOperationStatus(
-            params: CampaignRetrieveOperationStatusParams
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveOperationStatusResponse>> =
-            retrieveOperationStatus(params, RequestOptions.none())
+        /** @see getOperationStatus */
+        fun getOperationStatus(
+            params: CampaignGetOperationStatusParams
+        ): CompletableFuture<HttpResponseFor<CampaignGetOperationStatusResponse>> =
+            getOperationStatus(params, RequestOptions.none())
 
-        /** @see retrieveOperationStatus */
-        fun retrieveOperationStatus(
+        /** @see getOperationStatus */
+        fun getOperationStatus(
             campaignId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveOperationStatusResponse>> =
-            retrieveOperationStatus(
-                campaignId,
-                CampaignRetrieveOperationStatusParams.none(),
-                requestOptions,
-            )
+        ): CompletableFuture<HttpResponseFor<CampaignGetOperationStatusResponse>> =
+            getOperationStatus(campaignId, CampaignGetOperationStatusParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/sharing`, but is
-         * otherwise the same as [CampaignServiceAsync.retrieveSharing].
+         * otherwise the same as [CampaignServiceAsync.getSharingStatus].
          */
-        fun retrieveSharing(
+        fun getSharingStatus(
             campaignId: String
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveSharingResponse>> =
-            retrieveSharing(campaignId, CampaignRetrieveSharingParams.none())
+        ): CompletableFuture<HttpResponseFor<CampaignGetSharingStatusResponse>> =
+            getSharingStatus(campaignId, CampaignGetSharingStatusParams.none())
 
-        /** @see retrieveSharing */
-        fun retrieveSharing(
+        /** @see getSharingStatus */
+        fun getSharingStatus(
             campaignId: String,
-            params: CampaignRetrieveSharingParams = CampaignRetrieveSharingParams.none(),
+            params: CampaignGetSharingStatusParams = CampaignGetSharingStatusParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveSharingResponse>> =
-            retrieveSharing(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<CampaignGetSharingStatusResponse>> =
+            getSharingStatus(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-        /** @see retrieveSharing */
-        fun retrieveSharing(
+        /** @see getSharingStatus */
+        fun getSharingStatus(
             campaignId: String,
-            params: CampaignRetrieveSharingParams = CampaignRetrieveSharingParams.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveSharingResponse>> =
-            retrieveSharing(campaignId, params, RequestOptions.none())
+            params: CampaignGetSharingStatusParams = CampaignGetSharingStatusParams.none(),
+        ): CompletableFuture<HttpResponseFor<CampaignGetSharingStatusResponse>> =
+            getSharingStatus(campaignId, params, RequestOptions.none())
 
-        /** @see retrieveSharing */
-        fun retrieveSharing(
-            params: CampaignRetrieveSharingParams,
+        /** @see getSharingStatus */
+        fun getSharingStatus(
+            params: CampaignGetSharingStatusParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveSharingResponse>>
+        ): CompletableFuture<HttpResponseFor<CampaignGetSharingStatusResponse>>
 
-        /** @see retrieveSharing */
-        fun retrieveSharing(
-            params: CampaignRetrieveSharingParams
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveSharingResponse>> =
-            retrieveSharing(params, RequestOptions.none())
+        /** @see getSharingStatus */
+        fun getSharingStatus(
+            params: CampaignGetSharingStatusParams
+        ): CompletableFuture<HttpResponseFor<CampaignGetSharingStatusResponse>> =
+            getSharingStatus(params, RequestOptions.none())
 
-        /** @see retrieveSharing */
-        fun retrieveSharing(
+        /** @see getSharingStatus */
+        fun getSharingStatus(
             campaignId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CampaignRetrieveSharingResponse>> =
-            retrieveSharing(campaignId, CampaignRetrieveSharingParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<CampaignGetSharingStatusResponse>> =
+            getSharingStatus(campaignId, CampaignGetSharingStatusParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /10dlc/campaign/{campaignId}/appeal`, but is
+         * otherwise the same as [CampaignServiceAsync.submitAppeal].
+         */
+        fun submitAppeal(
+            campaignId: String,
+            params: CampaignSubmitAppealParams,
+        ): CompletableFuture<HttpResponseFor<CampaignSubmitAppealResponse>> =
+            submitAppeal(campaignId, params, RequestOptions.none())
+
+        /** @see submitAppeal */
+        fun submitAppeal(
+            campaignId: String,
+            params: CampaignSubmitAppealParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CampaignSubmitAppealResponse>> =
+            submitAppeal(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+
+        /** @see submitAppeal */
+        fun submitAppeal(
+            params: CampaignSubmitAppealParams
+        ): CompletableFuture<HttpResponseFor<CampaignSubmitAppealResponse>> =
+            submitAppeal(params, RequestOptions.none())
+
+        /** @see submitAppeal */
+        fun submitAppeal(
+            params: CampaignSubmitAppealParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CampaignSubmitAppealResponse>>
     }
 }

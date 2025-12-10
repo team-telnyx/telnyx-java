@@ -20,8 +20,9 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentCreateParams
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentCreateResponse
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentDeleteParams
+import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentListPage
+import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentListPageResponse
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentListParams
-import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentListResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -47,7 +48,7 @@ class AdditionalDocumentServiceImpl internal constructor(private val clientOptio
     override fun list(
         params: AdditionalDocumentListParams,
         requestOptions: RequestOptions,
-    ): AdditionalDocumentListResponse =
+    ): AdditionalDocumentListPage =
         // get /porting_orders/{id}/additional_documents
         withRawResponse().list(params, requestOptions).parse()
 
@@ -100,13 +101,13 @@ class AdditionalDocumentServiceImpl internal constructor(private val clientOptio
             }
         }
 
-        private val listHandler: Handler<AdditionalDocumentListResponse> =
-            jsonHandler<AdditionalDocumentListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AdditionalDocumentListPageResponse> =
+            jsonHandler<AdditionalDocumentListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AdditionalDocumentListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AdditionalDocumentListResponse> {
+        ): HttpResponseFor<AdditionalDocumentListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -126,6 +127,13 @@ class AdditionalDocumentServiceImpl internal constructor(private val clientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        AdditionalDocumentListPage.builder()
+                            .service(AdditionalDocumentServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

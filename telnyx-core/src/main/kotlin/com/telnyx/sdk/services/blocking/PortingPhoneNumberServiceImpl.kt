@@ -14,8 +14,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListPage
+import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListPageResponse
 import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListParams
-import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListResponse
 import java.util.function.Consumer
 
 class PortingPhoneNumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -33,7 +34,7 @@ class PortingPhoneNumberServiceImpl internal constructor(private val clientOptio
     override fun list(
         params: PortingPhoneNumberListParams,
         requestOptions: RequestOptions,
-    ): PortingPhoneNumberListResponse =
+    ): PortingPhoneNumberListPage =
         // get /porting_phone_numbers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -50,13 +51,13 @@ class PortingPhoneNumberServiceImpl internal constructor(private val clientOptio
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<PortingPhoneNumberListResponse> =
-            jsonHandler<PortingPhoneNumberListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PortingPhoneNumberListPageResponse> =
+            jsonHandler<PortingPhoneNumberListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PortingPhoneNumberListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PortingPhoneNumberListResponse> {
+        ): HttpResponseFor<PortingPhoneNumberListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -73,6 +74,13 @@ class PortingPhoneNumberServiceImpl internal constructor(private val clientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        PortingPhoneNumberListPage.builder()
+                            .service(PortingPhoneNumberServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

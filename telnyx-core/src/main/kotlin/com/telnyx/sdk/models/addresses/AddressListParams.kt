@@ -244,18 +244,18 @@ private constructor(
                                     put("filter[customer_reference]", string)
                                 }
 
-                                override fun visitUnionMember1(
-                                    unionMember1: Filter.CustomerReference.UnionMember1
+                                override fun visitMatcher(
+                                    matcher: Filter.CustomerReference.CustomerReferenceMatcher
                                 ) {
-                                    unionMember1.contains().ifPresent {
+                                    matcher.contains().ifPresent {
                                         put("filter[customer_reference][contains]", it)
                                     }
-                                    unionMember1.eq().ifPresent {
+                                    matcher.eq().ifPresent {
                                         put("filter[customer_reference][eq]", it)
                                     }
-                                    unionMember1._additionalProperties().keys().forEach { key ->
-                                        unionMember1._additionalProperties().values(key).forEach {
-                                            value ->
+                                    matcher._additionalProperties().keys().forEach { key ->
+                                        matcher._additionalProperties().values(key).forEach { value
+                                            ->
                                             put("filter[customer_reference][$key]", value)
                                         }
                                     }
@@ -378,11 +378,10 @@ private constructor(
                 customerReference(CustomerReference.ofString(string))
 
             /**
-             * Alias for calling [customerReference] with
-             * `CustomerReference.ofUnionMember1(unionMember1)`.
+             * Alias for calling [customerReference] with `CustomerReference.ofMatcher(matcher)`.
              */
-            fun customerReference(unionMember1: CustomerReference.UnionMember1) =
-                customerReference(CustomerReference.ofUnionMember1(unionMember1))
+            fun customerReference(matcher: CustomerReference.CustomerReferenceMatcher) =
+                customerReference(CustomerReference.ofMatcher(matcher))
 
             fun streetAddress(streetAddress: StreetAddress?) = apply {
                 this.streetAddress = streetAddress
@@ -597,7 +596,7 @@ private constructor(
         class CustomerReference
         private constructor(
             private val string: String? = null,
-            private val unionMember1: UnionMember1? = null,
+            private val matcher: CustomerReferenceMatcher? = null,
         ) {
 
             /**
@@ -606,11 +605,11 @@ private constructor(
              */
             fun string(): Optional<String> = Optional.ofNullable(string)
 
-            fun unionMember1(): Optional<UnionMember1> = Optional.ofNullable(unionMember1)
+            fun matcher(): Optional<CustomerReferenceMatcher> = Optional.ofNullable(matcher)
 
             fun isString(): Boolean = string != null
 
-            fun isUnionMember1(): Boolean = unionMember1 != null
+            fun isMatcher(): Boolean = matcher != null
 
             /**
              * If present, addresses with <code>customer_reference</code> containing the given value
@@ -618,12 +617,12 @@ private constructor(
              */
             fun asString(): String = string.getOrThrow("string")
 
-            fun asUnionMember1(): UnionMember1 = unionMember1.getOrThrow("unionMember1")
+            fun asMatcher(): CustomerReferenceMatcher = matcher.getOrThrow("matcher")
 
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     string != null -> visitor.visitString(string)
-                    unionMember1 != null -> visitor.visitUnionMember1(unionMember1)
+                    matcher != null -> visitor.visitMatcher(matcher)
                     else -> throw IllegalStateException("Invalid CustomerReference")
                 }
 
@@ -634,15 +633,15 @@ private constructor(
 
                 return other is CustomerReference &&
                     string == other.string &&
-                    unionMember1 == other.unionMember1
+                    matcher == other.matcher
             }
 
-            override fun hashCode(): Int = Objects.hash(string, unionMember1)
+            override fun hashCode(): Int = Objects.hash(string, matcher)
 
             override fun toString(): String =
                 when {
                     string != null -> "CustomerReference{string=$string}"
-                    unionMember1 != null -> "CustomerReference{unionMember1=$unionMember1}"
+                    matcher != null -> "CustomerReference{matcher=$matcher}"
                     else -> throw IllegalStateException("Invalid CustomerReference")
                 }
 
@@ -655,8 +654,8 @@ private constructor(
                 @JvmStatic fun ofString(string: String) = CustomerReference(string = string)
 
                 @JvmStatic
-                fun ofUnionMember1(unionMember1: UnionMember1) =
-                    CustomerReference(unionMember1 = unionMember1)
+                fun ofMatcher(matcher: CustomerReferenceMatcher) =
+                    CustomerReference(matcher = matcher)
             }
 
             /**
@@ -671,10 +670,10 @@ private constructor(
                  */
                 fun visitString(string: String): T
 
-                fun visitUnionMember1(unionMember1: UnionMember1): T
+                fun visitMatcher(matcher: CustomerReferenceMatcher): T
             }
 
-            class UnionMember1
+            class CustomerReferenceMatcher
             private constructor(
                 private val contains: String?,
                 private val eq: String?,
@@ -694,11 +693,14 @@ private constructor(
 
                 companion object {
 
-                    /** Returns a mutable builder for constructing an instance of [UnionMember1]. */
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [CustomerReferenceMatcher].
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [UnionMember1]. */
+                /** A builder for [CustomerReferenceMatcher]. */
                 class Builder internal constructor() {
 
                     private var contains: String? = null
@@ -706,10 +708,11 @@ private constructor(
                     private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                     @JvmSynthetic
-                    internal fun from(unionMember1: UnionMember1) = apply {
-                        contains = unionMember1.contains
-                        eq = unionMember1.eq
-                        additionalProperties = unionMember1.additionalProperties.toBuilder()
+                    internal fun from(customerReferenceMatcher: CustomerReferenceMatcher) = apply {
+                        contains = customerReferenceMatcher.contains
+                        eq = customerReferenceMatcher.eq
+                        additionalProperties =
+                            customerReferenceMatcher.additionalProperties.toBuilder()
                     }
 
                     /** Partial match for customer_reference. Matching is not case-sensitive. */
@@ -776,12 +779,12 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [UnionMember1].
+                     * Returns an immutable instance of [CustomerReferenceMatcher].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): UnionMember1 =
-                        UnionMember1(contains, eq, additionalProperties.build())
+                    fun build(): CustomerReferenceMatcher =
+                        CustomerReferenceMatcher(contains, eq, additionalProperties.build())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -789,7 +792,7 @@ private constructor(
                         return true
                     }
 
-                    return other is UnionMember1 &&
+                    return other is CustomerReferenceMatcher &&
                         contains == other.contains &&
                         eq == other.eq &&
                         additionalProperties == other.additionalProperties
@@ -802,7 +805,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "UnionMember1{contains=$contains, eq=$eq, additionalProperties=$additionalProperties}"
+                    "CustomerReferenceMatcher{contains=$contains, eq=$eq, additionalProperties=$additionalProperties}"
             }
         }
 

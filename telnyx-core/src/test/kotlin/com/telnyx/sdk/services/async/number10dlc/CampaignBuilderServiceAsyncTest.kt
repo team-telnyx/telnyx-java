@@ -4,7 +4,7 @@ package com.telnyx.sdk.services.async.number10dlc
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.number10dlc.campaignbuilder.CampaignBuilderCampaignBuilderParams
+import com.telnyx.sdk.models.number10dlc.campaignbuilder.CampaignBuilderSubmitParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,7 +14,7 @@ internal class CampaignBuilderServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun campaignBuilder() {
+    fun submit() {
         val client =
             TelnyxOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -23,8 +23,8 @@ internal class CampaignBuilderServiceAsyncTest {
         val campaignBuilderServiceAsync = client.number10dlc().campaignBuilder()
 
         val telnyxCampaignCspFuture =
-            campaignBuilderServiceAsync.campaignBuilder(
-                CampaignBuilderCampaignBuilderParams.builder()
+            campaignBuilderServiceAsync.submit(
+                CampaignBuilderSubmitParams.builder()
                     .brandId("brandId")
                     .description("description")
                     .usecase("usecase")

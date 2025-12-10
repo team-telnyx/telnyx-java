@@ -14,8 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.number10dlc.campaign.usecase.UsecaseRetrieveCostParams
-import com.telnyx.sdk.models.number10dlc.campaign.usecase.UsecaseRetrieveCostResponse
+import com.telnyx.sdk.models.number10dlc.campaign.usecase.UsecaseGetCostParams
+import com.telnyx.sdk.models.number10dlc.campaign.usecase.UsecaseGetCostResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -31,12 +31,12 @@ class UsecaseServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): UsecaseServiceAsync =
         UsecaseServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun retrieveCost(
-        params: UsecaseRetrieveCostParams,
+    override fun getCost(
+        params: UsecaseGetCostParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<UsecaseRetrieveCostResponse> =
+    ): CompletableFuture<UsecaseGetCostResponse> =
         // get /10dlc/campaign/usecase/cost
-        withRawResponse().retrieveCost(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().getCost(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         UsecaseServiceAsync.WithRawResponse {
@@ -51,13 +51,13 @@ class UsecaseServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val retrieveCostHandler: Handler<UsecaseRetrieveCostResponse> =
-            jsonHandler<UsecaseRetrieveCostResponse>(clientOptions.jsonMapper)
+        private val getCostHandler: Handler<UsecaseGetCostResponse> =
+            jsonHandler<UsecaseGetCostResponse>(clientOptions.jsonMapper)
 
-        override fun retrieveCost(
-            params: UsecaseRetrieveCostParams,
+        override fun getCost(
+            params: UsecaseGetCostParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<UsecaseRetrieveCostResponse>> {
+        ): CompletableFuture<HttpResponseFor<UsecaseGetCostResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -71,7 +71,7 @@ class UsecaseServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { retrieveCostHandler.handle(it) }
+                            .use { getCostHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

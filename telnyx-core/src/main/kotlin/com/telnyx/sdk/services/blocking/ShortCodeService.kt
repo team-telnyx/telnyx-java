@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.shortcodes.ShortCodeListPage
 import com.telnyx.sdk.models.shortcodes.ShortCodeListParams
-import com.telnyx.sdk.models.shortcodes.ShortCodeListResponse
 import com.telnyx.sdk.models.shortcodes.ShortCodeRetrieveParams
 import com.telnyx.sdk.models.shortcodes.ShortCodeRetrieveResponse
 import com.telnyx.sdk.models.shortcodes.ShortCodeUpdateParams
@@ -85,20 +85,20 @@ interface ShortCodeService {
     ): ShortCodeUpdateResponse
 
     /** List short codes */
-    fun list(): ShortCodeListResponse = list(ShortCodeListParams.none())
+    fun list(): ShortCodeListPage = list(ShortCodeListParams.none())
 
     /** @see list */
     fun list(
         params: ShortCodeListParams = ShortCodeListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ShortCodeListResponse
+    ): ShortCodeListPage
 
     /** @see list */
-    fun list(params: ShortCodeListParams = ShortCodeListParams.none()): ShortCodeListResponse =
+    fun list(params: ShortCodeListParams = ShortCodeListParams.none()): ShortCodeListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): ShortCodeListResponse =
+    fun list(requestOptions: RequestOptions): ShortCodeListPage =
         list(ShortCodeListParams.none(), requestOptions)
 
     /** A view of [ShortCodeService] that provides access to raw HTTP responses for each method. */
@@ -191,24 +191,24 @@ interface ShortCodeService {
          * [ShortCodeService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<ShortCodeListResponse> = list(ShortCodeListParams.none())
+        fun list(): HttpResponseFor<ShortCodeListPage> = list(ShortCodeListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ShortCodeListParams = ShortCodeListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ShortCodeListResponse>
+        ): HttpResponseFor<ShortCodeListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ShortCodeListParams = ShortCodeListParams.none()
-        ): HttpResponseFor<ShortCodeListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<ShortCodeListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<ShortCodeListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ShortCodeListPage> =
             list(ShortCodeListParams.none(), requestOptions)
     }
 }

@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayCreat
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayCreateResponse
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayDeleteParams
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayDeleteResponse
+import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayListPage
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayListParams
-import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayListResponse
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayRetrieveParams
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayRetrieveResponse
 import java.util.function.Consumer
@@ -81,21 +81,21 @@ interface PrivateWirelessGatewayService {
         retrieve(id, PrivateWirelessGatewayRetrieveParams.none(), requestOptions)
 
     /** Get all Private Wireless Gateways belonging to the user. */
-    fun list(): PrivateWirelessGatewayListResponse = list(PrivateWirelessGatewayListParams.none())
+    fun list(): PrivateWirelessGatewayListPage = list(PrivateWirelessGatewayListParams.none())
 
     /** @see list */
     fun list(
         params: PrivateWirelessGatewayListParams = PrivateWirelessGatewayListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PrivateWirelessGatewayListResponse
+    ): PrivateWirelessGatewayListPage
 
     /** @see list */
     fun list(
         params: PrivateWirelessGatewayListParams = PrivateWirelessGatewayListParams.none()
-    ): PrivateWirelessGatewayListResponse = list(params, RequestOptions.none())
+    ): PrivateWirelessGatewayListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): PrivateWirelessGatewayListResponse =
+    fun list(requestOptions: RequestOptions): PrivateWirelessGatewayListPage =
         list(PrivateWirelessGatewayListParams.none(), requestOptions)
 
     /** Deletes the Private Wireless Gateway. */
@@ -216,7 +216,7 @@ interface PrivateWirelessGatewayService {
          * same as [PrivateWirelessGatewayService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<PrivateWirelessGatewayListResponse> =
+        fun list(): HttpResponseFor<PrivateWirelessGatewayListPage> =
             list(PrivateWirelessGatewayListParams.none())
 
         /** @see list */
@@ -224,19 +224,17 @@ interface PrivateWirelessGatewayService {
         fun list(
             params: PrivateWirelessGatewayListParams = PrivateWirelessGatewayListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PrivateWirelessGatewayListResponse>
+        ): HttpResponseFor<PrivateWirelessGatewayListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PrivateWirelessGatewayListParams = PrivateWirelessGatewayListParams.none()
-        ): HttpResponseFor<PrivateWirelessGatewayListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<PrivateWirelessGatewayListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<PrivateWirelessGatewayListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<PrivateWirelessGatewayListPage> =
             list(PrivateWirelessGatewayListParams.none(), requestOptions)
 
         /**

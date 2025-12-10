@@ -15,18 +15,14 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.number10dlc.Number10dlcRetrieveParams
-import com.telnyx.sdk.models.number10dlc.Number10dlcRetrieveResponse
+import com.telnyx.sdk.models.number10dlc.Number10dlcGetEnumParams
+import com.telnyx.sdk.models.number10dlc.Number10dlcGetEnumResponse
 import com.telnyx.sdk.services.blocking.number10dlc.BrandService
 import com.telnyx.sdk.services.blocking.number10dlc.BrandServiceImpl
 import com.telnyx.sdk.services.blocking.number10dlc.CampaignBuilderService
 import com.telnyx.sdk.services.blocking.number10dlc.CampaignBuilderServiceImpl
 import com.telnyx.sdk.services.blocking.number10dlc.CampaignService
 import com.telnyx.sdk.services.blocking.number10dlc.CampaignServiceImpl
-import com.telnyx.sdk.services.blocking.number10dlc.PartnerCampaignService
-import com.telnyx.sdk.services.blocking.number10dlc.PartnerCampaignServiceImpl
-import com.telnyx.sdk.services.blocking.number10dlc.PhoneNumberAssignmentByProfileService
-import com.telnyx.sdk.services.blocking.number10dlc.PhoneNumberAssignmentByProfileServiceImpl
 import com.telnyx.sdk.services.blocking.number10dlc.PhoneNumberCampaignService
 import com.telnyx.sdk.services.blocking.number10dlc.PhoneNumberCampaignServiceImpl
 import java.util.function.Consumer
@@ -47,18 +43,6 @@ class Number10dlcServiceImpl internal constructor(private val clientOptions: Cli
         CampaignBuilderServiceImpl(clientOptions)
     }
 
-    private val partnerCampaign: PartnerCampaignService by lazy {
-        PartnerCampaignServiceImpl(clientOptions)
-    }
-
-    private val partnerCampaigns: PartnerCampaignService by lazy {
-        PartnerCampaignServiceImpl(clientOptions)
-    }
-
-    private val phoneNumberAssignmentByProfile: PhoneNumberAssignmentByProfileService by lazy {
-        PhoneNumberAssignmentByProfileServiceImpl(clientOptions)
-    }
-
     private val phoneNumberCampaigns: PhoneNumberCampaignService by lazy {
         PhoneNumberCampaignServiceImpl(clientOptions)
     }
@@ -74,21 +58,14 @@ class Number10dlcServiceImpl internal constructor(private val clientOptions: Cli
 
     override fun campaignBuilder(): CampaignBuilderService = campaignBuilder
 
-    override fun partnerCampaign(): PartnerCampaignService = partnerCampaign
-
-    override fun partnerCampaigns(): PartnerCampaignService = partnerCampaigns
-
-    override fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileService =
-        phoneNumberAssignmentByProfile
-
     override fun phoneNumberCampaigns(): PhoneNumberCampaignService = phoneNumberCampaigns
 
-    override fun retrieve(
-        params: Number10dlcRetrieveParams,
+    override fun getEnum(
+        params: Number10dlcGetEnumParams,
         requestOptions: RequestOptions,
-    ): Number10dlcRetrieveResponse =
+    ): Number10dlcGetEnumResponse =
         // get /10dlc/enum/{endpoint}
-        withRawResponse().retrieve(params, requestOptions).parse()
+        withRawResponse().getEnum(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         Number10dlcService.WithRawResponse {
@@ -108,19 +85,6 @@ class Number10dlcServiceImpl internal constructor(private val clientOptions: Cli
             CampaignBuilderServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val partnerCampaign: PartnerCampaignService.WithRawResponse by lazy {
-            PartnerCampaignServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val partnerCampaigns: PartnerCampaignService.WithRawResponse by lazy {
-            PartnerCampaignServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val phoneNumberAssignmentByProfile:
-            PhoneNumberAssignmentByProfileService.WithRawResponse by lazy {
-            PhoneNumberAssignmentByProfileServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val phoneNumberCampaigns: PhoneNumberCampaignService.WithRawResponse by lazy {
             PhoneNumberCampaignServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -138,23 +102,16 @@ class Number10dlcServiceImpl internal constructor(private val clientOptions: Cli
 
         override fun campaignBuilder(): CampaignBuilderService.WithRawResponse = campaignBuilder
 
-        override fun partnerCampaign(): PartnerCampaignService.WithRawResponse = partnerCampaign
-
-        override fun partnerCampaigns(): PartnerCampaignService.WithRawResponse = partnerCampaigns
-
-        override fun phoneNumberAssignmentByProfile():
-            PhoneNumberAssignmentByProfileService.WithRawResponse = phoneNumberAssignmentByProfile
-
         override fun phoneNumberCampaigns(): PhoneNumberCampaignService.WithRawResponse =
             phoneNumberCampaigns
 
-        private val retrieveHandler: Handler<Number10dlcRetrieveResponse> =
-            jsonHandler<Number10dlcRetrieveResponse>(clientOptions.jsonMapper)
+        private val getEnumHandler: Handler<Number10dlcGetEnumResponse> =
+            jsonHandler<Number10dlcGetEnumResponse>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: Number10dlcRetrieveParams,
+        override fun getEnum(
+            params: Number10dlcGetEnumParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Number10dlcRetrieveResponse> {
+        ): HttpResponseFor<Number10dlcGetEnumResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("endpoint", params.endpoint().getOrNull())
@@ -169,7 +126,7 @@ class Number10dlcServiceImpl internal constructor(private val clientOptions: Cli
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { retrieveHandler.handle(it) }
+                    .use { getEnumHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

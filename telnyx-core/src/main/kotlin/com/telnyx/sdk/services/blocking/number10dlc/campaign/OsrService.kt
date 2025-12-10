@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.number10dlc.campaign.osr.OsrRetrieveAttributesParams
-import com.telnyx.sdk.models.number10dlc.campaign.osr.OsrRetrieveAttributesResponse
+import com.telnyx.sdk.models.number10dlc.campaign.osr.OsrGetAttributesParams
+import com.telnyx.sdk.models.number10dlc.campaign.osr.OsrGetAttributesResponse
 import java.util.function.Consumer
 
 interface OsrService {
@@ -25,39 +25,39 @@ interface OsrService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OsrService
 
     /** Get My Osr Campaign Attributes */
-    fun retrieveAttributes(campaignId: String): OsrRetrieveAttributesResponse =
-        retrieveAttributes(campaignId, OsrRetrieveAttributesParams.none())
+    fun getAttributes(campaignId: String): OsrGetAttributesResponse =
+        getAttributes(campaignId, OsrGetAttributesParams.none())
 
-    /** @see retrieveAttributes */
-    fun retrieveAttributes(
+    /** @see getAttributes */
+    fun getAttributes(
         campaignId: String,
-        params: OsrRetrieveAttributesParams = OsrRetrieveAttributesParams.none(),
+        params: OsrGetAttributesParams = OsrGetAttributesParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): OsrRetrieveAttributesResponse =
-        retrieveAttributes(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+    ): OsrGetAttributesResponse =
+        getAttributes(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-    /** @see retrieveAttributes */
-    fun retrieveAttributes(
+    /** @see getAttributes */
+    fun getAttributes(
         campaignId: String,
-        params: OsrRetrieveAttributesParams = OsrRetrieveAttributesParams.none(),
-    ): OsrRetrieveAttributesResponse = retrieveAttributes(campaignId, params, RequestOptions.none())
+        params: OsrGetAttributesParams = OsrGetAttributesParams.none(),
+    ): OsrGetAttributesResponse = getAttributes(campaignId, params, RequestOptions.none())
 
-    /** @see retrieveAttributes */
-    fun retrieveAttributes(
-        params: OsrRetrieveAttributesParams,
+    /** @see getAttributes */
+    fun getAttributes(
+        params: OsrGetAttributesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): OsrRetrieveAttributesResponse
+    ): OsrGetAttributesResponse
 
-    /** @see retrieveAttributes */
-    fun retrieveAttributes(params: OsrRetrieveAttributesParams): OsrRetrieveAttributesResponse =
-        retrieveAttributes(params, RequestOptions.none())
+    /** @see getAttributes */
+    fun getAttributes(params: OsrGetAttributesParams): OsrGetAttributesResponse =
+        getAttributes(params, RequestOptions.none())
 
-    /** @see retrieveAttributes */
-    fun retrieveAttributes(
+    /** @see getAttributes */
+    fun getAttributes(
         campaignId: String,
         requestOptions: RequestOptions,
-    ): OsrRetrieveAttributesResponse =
-        retrieveAttributes(campaignId, OsrRetrieveAttributesParams.none(), requestOptions)
+    ): OsrGetAttributesResponse =
+        getAttributes(campaignId, OsrGetAttributesParams.none(), requestOptions)
 
     /** A view of [OsrService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -71,49 +71,48 @@ interface OsrService {
 
         /**
          * Returns a raw HTTP response for `get /10dlc/campaign/{campaignId}/osr/attributes`, but is
-         * otherwise the same as [OsrService.retrieveAttributes].
+         * otherwise the same as [OsrService.getAttributes].
          */
         @MustBeClosed
-        fun retrieveAttributes(campaignId: String): HttpResponseFor<OsrRetrieveAttributesResponse> =
-            retrieveAttributes(campaignId, OsrRetrieveAttributesParams.none())
+        fun getAttributes(campaignId: String): HttpResponseFor<OsrGetAttributesResponse> =
+            getAttributes(campaignId, OsrGetAttributesParams.none())
 
-        /** @see retrieveAttributes */
+        /** @see getAttributes */
         @MustBeClosed
-        fun retrieveAttributes(
+        fun getAttributes(
             campaignId: String,
-            params: OsrRetrieveAttributesParams = OsrRetrieveAttributesParams.none(),
+            params: OsrGetAttributesParams = OsrGetAttributesParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<OsrRetrieveAttributesResponse> =
-            retrieveAttributes(params.toBuilder().campaignId(campaignId).build(), requestOptions)
+        ): HttpResponseFor<OsrGetAttributesResponse> =
+            getAttributes(params.toBuilder().campaignId(campaignId).build(), requestOptions)
 
-        /** @see retrieveAttributes */
+        /** @see getAttributes */
         @MustBeClosed
-        fun retrieveAttributes(
+        fun getAttributes(
             campaignId: String,
-            params: OsrRetrieveAttributesParams = OsrRetrieveAttributesParams.none(),
-        ): HttpResponseFor<OsrRetrieveAttributesResponse> =
-            retrieveAttributes(campaignId, params, RequestOptions.none())
+            params: OsrGetAttributesParams = OsrGetAttributesParams.none(),
+        ): HttpResponseFor<OsrGetAttributesResponse> =
+            getAttributes(campaignId, params, RequestOptions.none())
 
-        /** @see retrieveAttributes */
+        /** @see getAttributes */
         @MustBeClosed
-        fun retrieveAttributes(
-            params: OsrRetrieveAttributesParams,
+        fun getAttributes(
+            params: OsrGetAttributesParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<OsrRetrieveAttributesResponse>
+        ): HttpResponseFor<OsrGetAttributesResponse>
 
-        /** @see retrieveAttributes */
+        /** @see getAttributes */
         @MustBeClosed
-        fun retrieveAttributes(
-            params: OsrRetrieveAttributesParams
-        ): HttpResponseFor<OsrRetrieveAttributesResponse> =
-            retrieveAttributes(params, RequestOptions.none())
+        fun getAttributes(
+            params: OsrGetAttributesParams
+        ): HttpResponseFor<OsrGetAttributesResponse> = getAttributes(params, RequestOptions.none())
 
-        /** @see retrieveAttributes */
+        /** @see getAttributes */
         @MustBeClosed
-        fun retrieveAttributes(
+        fun getAttributes(
             campaignId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<OsrRetrieveAttributesResponse> =
-            retrieveAttributes(campaignId, OsrRetrieveAttributesParams.none(), requestOptions)
+        ): HttpResponseFor<OsrGetAttributesResponse> =
+            getAttributes(campaignId, OsrGetAttributesParams.none(), requestOptions)
     }
 }

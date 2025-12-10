@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.managedaccounts.ManagedAccountCreateParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountCreateResponse
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountGetAllocatableGlobalOutboundChannelsParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountGetAllocatableGlobalOutboundChannelsResponse
+import com.telnyx.sdk.models.managedaccounts.ManagedAccountListPage
+import com.telnyx.sdk.models.managedaccounts.ManagedAccountListPageResponse
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountListParams
-import com.telnyx.sdk.models.managedaccounts.ManagedAccountListResponse
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountRetrieveParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountRetrieveResponse
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountUpdateGlobalChannelLimitParams
@@ -73,7 +74,7 @@ class ManagedAccountServiceImpl internal constructor(private val clientOptions: 
     override fun list(
         params: ManagedAccountListParams,
         requestOptions: RequestOptions,
-    ): ManagedAccountListResponse =
+    ): ManagedAccountListPage =
         // get /managed_accounts
         withRawResponse().list(params, requestOptions).parse()
 
@@ -199,13 +200,13 @@ class ManagedAccountServiceImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val listHandler: Handler<ManagedAccountListResponse> =
-            jsonHandler<ManagedAccountListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ManagedAccountListPageResponse> =
+            jsonHandler<ManagedAccountListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ManagedAccountListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ManagedAccountListResponse> {
+        ): HttpResponseFor<ManagedAccountListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -222,6 +223,13 @@ class ManagedAccountServiceImpl internal constructor(private val clientOptions: 
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ManagedAccountListPage.builder()
+                            .service(ManagedAccountServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

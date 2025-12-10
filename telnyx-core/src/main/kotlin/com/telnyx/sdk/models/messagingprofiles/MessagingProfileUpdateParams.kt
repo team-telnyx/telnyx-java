@@ -26,13 +26,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Update a messaging profile */
 class MessagingProfileUpdateParams
 private constructor(
-    private val pathId: String?,
+    private val messagingProfileId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun pathId(): Optional<String> = Optional.ofNullable(pathId)
+    fun messagingProfileId(): Optional<String> = Optional.ofNullable(messagingProfileId)
 
     /**
      * Identifies the type of resource.
@@ -40,7 +40,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun bodyId(): Optional<String> = body.bodyId()
+    fun id(): Optional<String> = body.id()
 
     /**
      * The alphanumeric sender ID to use when sending to destinations that require an alphanumeric
@@ -203,11 +203,11 @@ private constructor(
     fun whitelistedDestinations(): Optional<List<String>> = body.whitelistedDestinations()
 
     /**
-     * Returns the raw JSON value of [bodyId].
+     * Returns the raw JSON value of [id].
      *
-     * Unlike [bodyId], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _bodyId(): JsonField<String> = body._bodyId()
+    fun _id(): JsonField<String> = body._id()
 
     /**
      * Returns the raw JSON value of [alphaSender].
@@ -365,30 +365,35 @@ private constructor(
     /** A builder for [MessagingProfileUpdateParams]. */
     class Builder internal constructor() {
 
-        private var pathId: String? = null
+        private var messagingProfileId: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(messagingProfileUpdateParams: MessagingProfileUpdateParams) = apply {
-            pathId = messagingProfileUpdateParams.pathId
+            messagingProfileId = messagingProfileUpdateParams.messagingProfileId
             body = messagingProfileUpdateParams.body.toBuilder()
             additionalHeaders = messagingProfileUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = messagingProfileUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun pathId(pathId: String?) = apply { this.pathId = pathId }
+        fun messagingProfileId(messagingProfileId: String?) = apply {
+            this.messagingProfileId = messagingProfileId
+        }
 
-        /** Alias for calling [Builder.pathId] with `pathId.orElse(null)`. */
-        fun pathId(pathId: Optional<String>) = pathId(pathId.getOrNull())
+        /**
+         * Alias for calling [Builder.messagingProfileId] with `messagingProfileId.orElse(null)`.
+         */
+        fun messagingProfileId(messagingProfileId: Optional<String>) =
+            messagingProfileId(messagingProfileId.getOrNull())
 
         /**
          * Sets the entire request body.
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [bodyId]
+         * - [id]
          * - [alphaSender]
          * - [createdAt]
          * - [dailySpendLimit]
@@ -398,15 +403,15 @@ private constructor(
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
         /** Identifies the type of resource. */
-        fun bodyId(bodyId: String) = apply { body.bodyId(bodyId) }
+        fun id(id: String) = apply { body.id(id) }
 
         /**
-         * Sets [Builder.bodyId] to an arbitrary JSON value.
+         * Sets [Builder.id] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.bodyId] with a well-typed [String] value instead. This
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun bodyId(bodyId: JsonField<String>) = apply { body.bodyId(bodyId) }
+        fun id(id: JsonField<String>) = apply { body.id(id) }
 
         /**
          * The alphanumeric sender ID to use when sending to destinations that require an
@@ -845,7 +850,7 @@ private constructor(
          */
         fun build(): MessagingProfileUpdateParams =
             MessagingProfileUpdateParams(
-                pathId,
+                messagingProfileId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -856,7 +861,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> pathId ?: ""
+            0 -> messagingProfileId ?: ""
             else -> ""
         }
 
@@ -867,7 +872,7 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val bodyId: JsonField<String>,
+        private val id: JsonField<String>,
         private val alphaSender: JsonField<String>,
         private val createdAt: JsonField<OffsetDateTime>,
         private val dailySpendLimit: JsonField<String>,
@@ -891,7 +896,7 @@ private constructor(
 
         @JsonCreator
         private constructor(
-            @JsonProperty("id") @ExcludeMissing bodyId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("alpha_sender")
             @ExcludeMissing
             alphaSender: JsonField<String> = JsonMissing.of(),
@@ -943,7 +948,7 @@ private constructor(
             @ExcludeMissing
             whitelistedDestinations: JsonField<List<String>> = JsonMissing.of(),
         ) : this(
-            bodyId,
+            id,
             alphaSender,
             createdAt,
             dailySpendLimit,
@@ -971,7 +976,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun bodyId(): Optional<String> = bodyId.getOptional("id")
+        fun id(): Optional<String> = id.getOptional("id")
 
         /**
          * The alphanumeric sender ID to use when sending to destinations that require an
@@ -1143,11 +1148,11 @@ private constructor(
             whitelistedDestinations.getOptional("whitelisted_destinations")
 
         /**
-         * Returns the raw JSON value of [bodyId].
+         * Returns the raw JSON value of [id].
          *
-         * Unlike [bodyId], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("id") @ExcludeMissing fun _bodyId(): JsonField<String> = bodyId
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         /**
          * Returns the raw JSON value of [alphaSender].
@@ -1335,7 +1340,7 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var bodyId: JsonField<String> = JsonMissing.of()
+            private var id: JsonField<String> = JsonMissing.of()
             private var alphaSender: JsonField<String> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var dailySpendLimit: JsonField<String> = JsonMissing.of()
@@ -1358,7 +1363,7 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
-                bodyId = body.bodyId
+                id = body.id
                 alphaSender = body.alphaSender
                 createdAt = body.createdAt
                 dailySpendLimit = body.dailySpendLimit
@@ -1381,16 +1386,16 @@ private constructor(
             }
 
             /** Identifies the type of resource. */
-            fun bodyId(bodyId: String) = bodyId(JsonField.of(bodyId))
+            fun id(id: String) = id(JsonField.of(id))
 
             /**
-             * Sets [Builder.bodyId] to an arbitrary JSON value.
+             * Sets [Builder.id] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.bodyId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
-            fun bodyId(bodyId: JsonField<String>) = apply { this.bodyId = bodyId }
+            fun id(id: JsonField<String>) = apply { this.id = id }
 
             /**
              * The alphanumeric sender ID to use when sending to destinations that require an
@@ -1741,7 +1746,7 @@ private constructor(
              */
             fun build(): Body =
                 Body(
-                    bodyId,
+                    id,
                     alphaSender,
                     createdAt,
                     dailySpendLimit,
@@ -1771,7 +1776,7 @@ private constructor(
                 return@apply
             }
 
-            bodyId()
+            id()
             alphaSender()
             createdAt()
             dailySpendLimit()
@@ -1809,7 +1814,7 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (bodyId.asKnown().isPresent) 1 else 0) +
+            (if (id.asKnown().isPresent) 1 else 0) +
                 (if (alphaSender.asKnown().isPresent) 1 else 0) +
                 (if (createdAt.asKnown().isPresent) 1 else 0) +
                 (if (dailySpendLimit.asKnown().isPresent) 1 else 0) +
@@ -1835,7 +1840,7 @@ private constructor(
             }
 
             return other is Body &&
-                bodyId == other.bodyId &&
+                id == other.id &&
                 alphaSender == other.alphaSender &&
                 createdAt == other.createdAt &&
                 dailySpendLimit == other.dailySpendLimit &&
@@ -1859,7 +1864,7 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
-                bodyId,
+                id,
                 alphaSender,
                 createdAt,
                 dailySpendLimit,
@@ -1885,7 +1890,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{bodyId=$bodyId, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
+            "Body{id=$id, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
     }
 
     /** Identifies the type of the resource. */
@@ -2029,20 +2034,20 @@ private constructor(
 
         companion object {
 
-            @JvmField val _1 = of("1")
+            @JvmField val V1 = of("1")
 
-            @JvmField val _2 = of("2")
+            @JvmField val V2 = of("2")
 
-            @JvmField val _2010_04_01 = of("2010-04-01")
+            @JvmField val V2010_04_01 = of("2010-04-01")
 
             @JvmStatic fun of(value: String) = WebhookApiVersion(JsonField.of(value))
         }
 
         /** An enum containing [WebhookApiVersion]'s known values. */
         enum class Known {
-            _1,
-            _2,
-            _2010_04_01,
+            V1,
+            V2,
+            V2010_04_01,
         }
 
         /**
@@ -2055,9 +2060,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            _1,
-            _2,
-            _2010_04_01,
+            V1,
+            V2,
+            V2010_04_01,
             /**
              * An enum member indicating that [WebhookApiVersion] was instantiated with an unknown
              * value.
@@ -2074,9 +2079,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                _1 -> Value._1
-                _2 -> Value._2
-                _2010_04_01 -> Value._2010_04_01
+                V1 -> Value.V1
+                V2 -> Value.V2
+                V2010_04_01 -> Value.V2010_04_01
                 else -> Value._UNKNOWN
             }
 
@@ -2091,9 +2096,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                _1 -> Known._1
-                _2 -> Known._2
-                _2010_04_01 -> Known._2010_04_01
+                V1 -> Known.V1
+                V2 -> Known.V2
+                V2010_04_01 -> Known.V2010_04_01
                 else -> throw TelnyxInvalidDataException("Unknown WebhookApiVersion: $value")
             }
 
@@ -2155,15 +2160,15 @@ private constructor(
         }
 
         return other is MessagingProfileUpdateParams &&
-            pathId == other.pathId &&
+            messagingProfileId == other.messagingProfileId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(pathId, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(messagingProfileId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "MessagingProfileUpdateParams{pathId=$pathId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "MessagingProfileUpdateParams{messagingProfileId=$messagingProfileId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

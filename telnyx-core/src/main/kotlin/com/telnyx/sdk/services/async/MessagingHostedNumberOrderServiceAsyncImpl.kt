@@ -24,8 +24,9 @@ import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOr
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderCreateVerificationCodesResponse
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderDeleteParams
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderDeleteResponse
+import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderListPageAsync
+import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderListPageResponse
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderListParams
-import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderListResponse
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderRetrieveParams
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderRetrieveResponse
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderValidateCodesParams
@@ -75,7 +76,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun list(
         params: MessagingHostedNumberOrderListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MessagingHostedNumberOrderListResponse> =
+    ): CompletableFuture<MessagingHostedNumberOrderListPageAsync> =
         // get /messaging_hosted_number_orders
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -190,13 +191,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 }
         }
 
-        private val listHandler: Handler<MessagingHostedNumberOrderListResponse> =
-            jsonHandler<MessagingHostedNumberOrderListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessagingHostedNumberOrderListPageResponse> =
+            jsonHandler<MessagingHostedNumberOrderListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessagingHostedNumberOrderListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MessagingHostedNumberOrderListResponse>> {
+        ): CompletableFuture<HttpResponseFor<MessagingHostedNumberOrderListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -215,6 +216,16 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                MessagingHostedNumberOrderListPageAsync.builder()
+                                    .service(
+                                        MessagingHostedNumberOrderServiceAsyncImpl(clientOptions)
+                                    )
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

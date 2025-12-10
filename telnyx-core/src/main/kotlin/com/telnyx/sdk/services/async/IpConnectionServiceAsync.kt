@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.ipconnections.IpConnectionCreateParams
 import com.telnyx.sdk.models.ipconnections.IpConnectionCreateResponse
 import com.telnyx.sdk.models.ipconnections.IpConnectionDeleteParams
 import com.telnyx.sdk.models.ipconnections.IpConnectionDeleteResponse
+import com.telnyx.sdk.models.ipconnections.IpConnectionListPageAsync
 import com.telnyx.sdk.models.ipconnections.IpConnectionListParams
-import com.telnyx.sdk.models.ipconnections.IpConnectionListResponse
 import com.telnyx.sdk.models.ipconnections.IpConnectionRetrieveParams
 import com.telnyx.sdk.models.ipconnections.IpConnectionRetrieveResponse
 import com.telnyx.sdk.models.ipconnections.IpConnectionUpdateParams
@@ -123,21 +123,21 @@ interface IpConnectionServiceAsync {
         update(id, IpConnectionUpdateParams.none(), requestOptions)
 
     /** Returns a list of your IP connections. */
-    fun list(): CompletableFuture<IpConnectionListResponse> = list(IpConnectionListParams.none())
+    fun list(): CompletableFuture<IpConnectionListPageAsync> = list(IpConnectionListParams.none())
 
     /** @see list */
     fun list(
         params: IpConnectionListParams = IpConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IpConnectionListResponse>
+    ): CompletableFuture<IpConnectionListPageAsync>
 
     /** @see list */
     fun list(
         params: IpConnectionListParams = IpConnectionListParams.none()
-    ): CompletableFuture<IpConnectionListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<IpConnectionListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<IpConnectionListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<IpConnectionListPageAsync> =
         list(IpConnectionListParams.none(), requestOptions)
 
     /** Deletes an existing IP connection. */
@@ -301,25 +301,25 @@ interface IpConnectionServiceAsync {
          * Returns a raw HTTP response for `get /ip_connections`, but is otherwise the same as
          * [IpConnectionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<IpConnectionListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<IpConnectionListPageAsync>> =
             list(IpConnectionListParams.none())
 
         /** @see list */
         fun list(
             params: IpConnectionListParams = IpConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IpConnectionListResponse>>
+        ): CompletableFuture<HttpResponseFor<IpConnectionListPageAsync>>
 
         /** @see list */
         fun list(
             params: IpConnectionListParams = IpConnectionListParams.none()
-        ): CompletableFuture<HttpResponseFor<IpConnectionListResponse>> =
+        ): CompletableFuture<HttpResponseFor<IpConnectionListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<IpConnectionListResponse>> =
+        ): CompletableFuture<HttpResponseFor<IpConnectionListPageAsync>> =
             list(IpConnectionListParams.none(), requestOptions)
 
         /**

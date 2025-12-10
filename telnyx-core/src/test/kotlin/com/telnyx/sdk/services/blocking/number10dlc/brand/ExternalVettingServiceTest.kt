@@ -4,8 +4,8 @@ package com.telnyx.sdk.services.blocking.number10dlc.brand
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingExternalVettingParams
-import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingUpdateExternalVettingParams
+import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingImportsParams
+import com.telnyx.sdk.models.number10dlc.brand.externalvetting.ExternalVettingOrderParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -15,7 +15,22 @@ internal class ExternalVettingServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun externalVetting() {
+    fun list() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val externalVettingService = client.number10dlc().brand().externalVetting()
+
+        val externalVettings = externalVettingService.list("brandId")
+
+        externalVettings.forEach { it.validate() }
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun imports() {
         val client =
             TelnyxOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -24,11 +39,12 @@ internal class ExternalVettingServiceTest {
         val externalVettingService = client.number10dlc().brand().externalVetting()
 
         val response =
-            externalVettingService.externalVetting(
-                ExternalVettingExternalVettingParams.builder()
+            externalVettingService.imports(
+                ExternalVettingImportsParams.builder()
                     .brandId("brandId")
                     .evpId("evpId")
-                    .vettingClass("vettingClass")
+                    .vettingId("vettingId")
+                    .vettingToken("vettingToken")
                     .build()
             )
 
@@ -37,22 +53,7 @@ internal class ExternalVettingServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun retrieveExternalVetting() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val externalVettingService = client.number10dlc().brand().externalVetting()
-
-        val response = externalVettingService.retrieveExternalVetting("brandId")
-
-        response.forEach { it.validate() }
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun updateExternalVetting() {
+    fun order() {
         val client =
             TelnyxOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -61,12 +62,11 @@ internal class ExternalVettingServiceTest {
         val externalVettingService = client.number10dlc().brand().externalVetting()
 
         val response =
-            externalVettingService.updateExternalVetting(
-                ExternalVettingUpdateExternalVettingParams.builder()
+            externalVettingService.order(
+                ExternalVettingOrderParams.builder()
                     .brandId("brandId")
                     .evpId("evpId")
-                    .vettingId("vettingId")
-                    .vettingToken("vettingToken")
+                    .vettingClass("vettingClass")
                     .build()
             )
 

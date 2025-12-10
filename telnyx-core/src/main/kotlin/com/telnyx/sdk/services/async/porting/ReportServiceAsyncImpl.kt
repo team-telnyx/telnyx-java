@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.porting.reports.ReportCreateParams
 import com.telnyx.sdk.models.porting.reports.ReportCreateResponse
+import com.telnyx.sdk.models.porting.reports.ReportListPageAsync
+import com.telnyx.sdk.models.porting.reports.ReportListPageResponse
 import com.telnyx.sdk.models.porting.reports.ReportListParams
-import com.telnyx.sdk.models.porting.reports.ReportListResponse
 import com.telnyx.sdk.models.porting.reports.ReportRetrieveParams
 import com.telnyx.sdk.models.porting.reports.ReportRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -55,7 +56,7 @@ class ReportServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: ReportListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ReportListResponse> =
+    ): CompletableFuture<ReportListPageAsync> =
         // get /porting/reports
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -136,13 +137,13 @@ class ReportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val listHandler: Handler<ReportListResponse> =
-            jsonHandler<ReportListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ReportListPageResponse> =
+            jsonHandler<ReportListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ReportListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ReportListResponse>> {
+        ): CompletableFuture<HttpResponseFor<ReportListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -161,6 +162,14 @@ class ReportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                ReportListPageAsync.builder()
+                                    .service(ReportServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

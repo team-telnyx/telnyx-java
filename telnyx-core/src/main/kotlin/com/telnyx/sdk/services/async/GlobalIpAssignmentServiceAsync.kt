@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentCreateParams
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentCreateResponse
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentDeleteParams
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentDeleteResponse
+import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentListPageAsync
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentListParams
-import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentListResponse
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentRetrieveParams
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentRetrieveResponse
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentUpdateParams
@@ -99,23 +99,26 @@ interface GlobalIpAssignmentServiceAsync {
         retrieve(id, GlobalIpAssignmentRetrieveParams.none(), requestOptions)
 
     /** Update a Global IP assignment. */
-    fun update(pathId: String): CompletableFuture<GlobalIpAssignmentUpdateResponse> =
-        update(pathId, GlobalIpAssignmentUpdateParams.none())
+    fun update(globalIpAssignmentId: String): CompletableFuture<GlobalIpAssignmentUpdateResponse> =
+        update(globalIpAssignmentId, GlobalIpAssignmentUpdateParams.none())
 
     /** @see update */
     fun update(
-        pathId: String,
+        globalIpAssignmentId: String,
         params: GlobalIpAssignmentUpdateParams = GlobalIpAssignmentUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<GlobalIpAssignmentUpdateResponse> =
-        update(params.toBuilder().pathId(pathId).build(), requestOptions)
+        update(
+            params.toBuilder().globalIpAssignmentId(globalIpAssignmentId).build(),
+            requestOptions,
+        )
 
     /** @see update */
     fun update(
-        pathId: String,
+        globalIpAssignmentId: String,
         params: GlobalIpAssignmentUpdateParams = GlobalIpAssignmentUpdateParams.none(),
     ): CompletableFuture<GlobalIpAssignmentUpdateResponse> =
-        update(pathId, params, RequestOptions.none())
+        update(globalIpAssignmentId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
@@ -130,28 +133,28 @@ interface GlobalIpAssignmentServiceAsync {
 
     /** @see update */
     fun update(
-        pathId: String,
+        globalIpAssignmentId: String,
         requestOptions: RequestOptions,
     ): CompletableFuture<GlobalIpAssignmentUpdateResponse> =
-        update(pathId, GlobalIpAssignmentUpdateParams.none(), requestOptions)
+        update(globalIpAssignmentId, GlobalIpAssignmentUpdateParams.none(), requestOptions)
 
     /** List all Global IP assignments. */
-    fun list(): CompletableFuture<GlobalIpAssignmentListResponse> =
+    fun list(): CompletableFuture<GlobalIpAssignmentListPageAsync> =
         list(GlobalIpAssignmentListParams.none())
 
     /** @see list */
     fun list(
         params: GlobalIpAssignmentListParams = GlobalIpAssignmentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<GlobalIpAssignmentListResponse>
+    ): CompletableFuture<GlobalIpAssignmentListPageAsync>
 
     /** @see list */
     fun list(
         params: GlobalIpAssignmentListParams = GlobalIpAssignmentListParams.none()
-    ): CompletableFuture<GlobalIpAssignmentListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<GlobalIpAssignmentListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<GlobalIpAssignmentListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<GlobalIpAssignmentListPageAsync> =
         list(GlobalIpAssignmentListParams.none(), requestOptions)
 
     /** Delete a Global IP assignment. */
@@ -287,24 +290,27 @@ interface GlobalIpAssignmentServiceAsync {
          * same as [GlobalIpAssignmentServiceAsync.update].
          */
         fun update(
-            pathId: String
+            globalIpAssignmentId: String
         ): CompletableFuture<HttpResponseFor<GlobalIpAssignmentUpdateResponse>> =
-            update(pathId, GlobalIpAssignmentUpdateParams.none())
+            update(globalIpAssignmentId, GlobalIpAssignmentUpdateParams.none())
 
         /** @see update */
         fun update(
-            pathId: String,
+            globalIpAssignmentId: String,
             params: GlobalIpAssignmentUpdateParams = GlobalIpAssignmentUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<GlobalIpAssignmentUpdateResponse>> =
-            update(params.toBuilder().pathId(pathId).build(), requestOptions)
+            update(
+                params.toBuilder().globalIpAssignmentId(globalIpAssignmentId).build(),
+                requestOptions,
+            )
 
         /** @see update */
         fun update(
-            pathId: String,
+            globalIpAssignmentId: String,
             params: GlobalIpAssignmentUpdateParams = GlobalIpAssignmentUpdateParams.none(),
         ): CompletableFuture<HttpResponseFor<GlobalIpAssignmentUpdateResponse>> =
-            update(pathId, params, RequestOptions.none())
+            update(globalIpAssignmentId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
@@ -320,34 +326,34 @@ interface GlobalIpAssignmentServiceAsync {
 
         /** @see update */
         fun update(
-            pathId: String,
+            globalIpAssignmentId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<GlobalIpAssignmentUpdateResponse>> =
-            update(pathId, GlobalIpAssignmentUpdateParams.none(), requestOptions)
+            update(globalIpAssignmentId, GlobalIpAssignmentUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /global_ip_assignments`, but is otherwise the same
          * as [GlobalIpAssignmentServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<GlobalIpAssignmentListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<GlobalIpAssignmentListPageAsync>> =
             list(GlobalIpAssignmentListParams.none())
 
         /** @see list */
         fun list(
             params: GlobalIpAssignmentListParams = GlobalIpAssignmentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<GlobalIpAssignmentListResponse>>
+        ): CompletableFuture<HttpResponseFor<GlobalIpAssignmentListPageAsync>>
 
         /** @see list */
         fun list(
             params: GlobalIpAssignmentListParams = GlobalIpAssignmentListParams.none()
-        ): CompletableFuture<HttpResponseFor<GlobalIpAssignmentListResponse>> =
+        ): CompletableFuture<HttpResponseFor<GlobalIpAssignmentListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<GlobalIpAssignmentListResponse>> =
+        ): CompletableFuture<HttpResponseFor<GlobalIpAssignmentListPageAsync>> =
             list(GlobalIpAssignmentListParams.none(), requestOptions)
 
         /**

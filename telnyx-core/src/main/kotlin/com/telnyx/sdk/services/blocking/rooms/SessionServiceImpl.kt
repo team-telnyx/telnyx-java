@@ -15,13 +15,16 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.rooms.sessions.SessionList0Page
+import com.telnyx.sdk.models.rooms.sessions.SessionList0PageResponse
 import com.telnyx.sdk.models.rooms.sessions.SessionList0Params
-import com.telnyx.sdk.models.rooms.sessions.SessionList0Response
+import com.telnyx.sdk.models.rooms.sessions.SessionList1Page
+import com.telnyx.sdk.models.rooms.sessions.SessionList1PageResponse
 import com.telnyx.sdk.models.rooms.sessions.SessionList1Params
-import com.telnyx.sdk.models.rooms.sessions.SessionList1Response
 import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParams
+import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParticipantsPage
+import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParticipantsPageResponse
 import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParticipantsParams
-import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParticipantsResponse
 import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveResponse
 import com.telnyx.sdk.services.blocking.rooms.sessions.ActionService
 import com.telnyx.sdk.services.blocking.rooms.sessions.ActionServiceImpl
@@ -54,21 +57,21 @@ class SessionServiceImpl internal constructor(private val clientOptions: ClientO
     override fun list0(
         params: SessionList0Params,
         requestOptions: RequestOptions,
-    ): SessionList0Response =
+    ): SessionList0Page =
         // get /room_sessions
         withRawResponse().list0(params, requestOptions).parse()
 
     override fun list1(
         params: SessionList1Params,
         requestOptions: RequestOptions,
-    ): SessionList1Response =
+    ): SessionList1Page =
         // get /rooms/{room_id}/sessions
         withRawResponse().list1(params, requestOptions).parse()
 
     override fun retrieveParticipants(
         params: SessionRetrieveParticipantsParams,
         requestOptions: RequestOptions,
-    ): SessionRetrieveParticipantsResponse =
+    ): SessionRetrieveParticipantsPage =
         // get /room_sessions/{room_session_id}/participants
         withRawResponse().retrieveParticipants(params, requestOptions).parse()
 
@@ -121,13 +124,13 @@ class SessionServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val list0Handler: Handler<SessionList0Response> =
-            jsonHandler<SessionList0Response>(clientOptions.jsonMapper)
+        private val list0Handler: Handler<SessionList0PageResponse> =
+            jsonHandler<SessionList0PageResponse>(clientOptions.jsonMapper)
 
         override fun list0(
             params: SessionList0Params,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SessionList0Response> {
+        ): HttpResponseFor<SessionList0Page> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -145,16 +148,23 @@ class SessionServiceImpl internal constructor(private val clientOptions: ClientO
                             it.validate()
                         }
                     }
+                    .let {
+                        SessionList0Page.builder()
+                            .service(SessionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
 
-        private val list1Handler: Handler<SessionList1Response> =
-            jsonHandler<SessionList1Response>(clientOptions.jsonMapper)
+        private val list1Handler: Handler<SessionList1PageResponse> =
+            jsonHandler<SessionList1PageResponse>(clientOptions.jsonMapper)
 
         override fun list1(
             params: SessionList1Params,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SessionList1Response> {
+        ): HttpResponseFor<SessionList1Page> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("roomId", params.roomId().getOrNull())
@@ -175,16 +185,23 @@ class SessionServiceImpl internal constructor(private val clientOptions: ClientO
                             it.validate()
                         }
                     }
+                    .let {
+                        SessionList1Page.builder()
+                            .service(SessionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
 
-        private val retrieveParticipantsHandler: Handler<SessionRetrieveParticipantsResponse> =
-            jsonHandler<SessionRetrieveParticipantsResponse>(clientOptions.jsonMapper)
+        private val retrieveParticipantsHandler: Handler<SessionRetrieveParticipantsPageResponse> =
+            jsonHandler<SessionRetrieveParticipantsPageResponse>(clientOptions.jsonMapper)
 
         override fun retrieveParticipants(
             params: SessionRetrieveParticipantsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SessionRetrieveParticipantsResponse> {
+        ): HttpResponseFor<SessionRetrieveParticipantsPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("roomSessionId", params.roomSessionId().getOrNull())
@@ -204,6 +221,13 @@ class SessionServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        SessionRetrieveParticipantsPage.builder()
+                            .service(SessionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

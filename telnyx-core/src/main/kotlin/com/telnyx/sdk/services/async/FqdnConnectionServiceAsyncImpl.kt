@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionCreateParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionCreateResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionDeleteParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionDeleteResponse
+import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListPageAsync
+import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListPageResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListParams
-import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionRetrieveParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionRetrieveResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionUpdateParams
@@ -68,7 +69,7 @@ internal constructor(private val clientOptions: ClientOptions) : FqdnConnectionS
     override fun list(
         params: FqdnConnectionListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<FqdnConnectionListResponse> =
+    ): CompletableFuture<FqdnConnectionListPageAsync> =
         // get /fqdn_connections
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -190,13 +191,13 @@ internal constructor(private val clientOptions: ClientOptions) : FqdnConnectionS
                 }
         }
 
-        private val listHandler: Handler<FqdnConnectionListResponse> =
-            jsonHandler<FqdnConnectionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<FqdnConnectionListPageResponse> =
+            jsonHandler<FqdnConnectionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: FqdnConnectionListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<FqdnConnectionListResponse>> {
+        ): CompletableFuture<HttpResponseFor<FqdnConnectionListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -215,6 +216,14 @@ internal constructor(private val clientOptions: ClientOptions) : FqdnConnectionS
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                FqdnConnectionListPageAsync.builder()
+                                    .service(FqdnConnectionServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

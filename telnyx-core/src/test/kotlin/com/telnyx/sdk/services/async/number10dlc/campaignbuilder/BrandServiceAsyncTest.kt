@@ -4,7 +4,7 @@ package com.telnyx.sdk.services.async.number10dlc.campaignbuilder
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.number10dlc.campaignbuilder.brand.BrandRetrieveParams
+import com.telnyx.sdk.models.number10dlc.campaignbuilder.brand.BrandQualifyByUsecaseParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,7 +14,7 @@ internal class BrandServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun retrieve() {
+    fun qualifyByUsecase() {
         val client =
             TelnyxOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -22,12 +22,12 @@ internal class BrandServiceAsyncTest {
                 .build()
         val brandServiceAsync = client.number10dlc().campaignBuilder().brand()
 
-        val brandFuture =
-            brandServiceAsync.retrieve(
-                BrandRetrieveParams.builder().brandId("brandId").usecase("usecase").build()
+        val responseFuture =
+            brandServiceAsync.qualifyByUsecase(
+                BrandQualifyByUsecaseParams.builder().brandId("brandId").usecase("usecase").build()
             )
 
-        val brand = brandFuture.get()
-        brand.validate()
+        val response = responseFuture.get()
+        response.validate()
     }
 }

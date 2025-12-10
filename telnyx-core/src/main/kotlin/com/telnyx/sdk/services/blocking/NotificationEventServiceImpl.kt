@@ -14,8 +14,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.notificationevents.NotificationEventListPage
+import com.telnyx.sdk.models.notificationevents.NotificationEventListPageResponse
 import com.telnyx.sdk.models.notificationevents.NotificationEventListParams
-import com.telnyx.sdk.models.notificationevents.NotificationEventListResponse
 import java.util.function.Consumer
 
 class NotificationEventServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -33,7 +34,7 @@ class NotificationEventServiceImpl internal constructor(private val clientOption
     override fun list(
         params: NotificationEventListParams,
         requestOptions: RequestOptions,
-    ): NotificationEventListResponse =
+    ): NotificationEventListPage =
         // get /notification_events
         withRawResponse().list(params, requestOptions).parse()
 
@@ -50,13 +51,13 @@ class NotificationEventServiceImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<NotificationEventListResponse> =
-            jsonHandler<NotificationEventListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NotificationEventListPageResponse> =
+            jsonHandler<NotificationEventListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NotificationEventListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<NotificationEventListResponse> {
+        ): HttpResponseFor<NotificationEventListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -73,6 +74,13 @@ class NotificationEventServiceImpl internal constructor(private val clientOption
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        NotificationEventListPage.builder()
+                            .service(NotificationEventServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

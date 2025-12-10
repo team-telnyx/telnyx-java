@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.billinggroups.BillingGroupCreateParams
-import com.telnyx.sdk.models.billinggroups.BillingGroupListParams
 import com.telnyx.sdk.models.billinggroups.BillingGroupUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -76,14 +75,9 @@ internal class BillingGroupServiceTest {
                 .build()
         val billingGroupService = client.billingGroups()
 
-        val billingGroups =
-            billingGroupService.list(
-                BillingGroupListParams.builder()
-                    .page(BillingGroupListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val page = billingGroupService.list()
 
-        billingGroups.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

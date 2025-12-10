@@ -19,8 +19,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestCreateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestDeleteParams
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListPageAsync
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListPageResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestUpdateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.VerificationRequestEgress
@@ -65,7 +66,7 @@ class RequestServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: RequestListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RequestListResponse> =
+    ): CompletableFuture<RequestListPageAsync> =
         // get /messaging_tollfree/verification/requests
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -197,13 +198,13 @@ class RequestServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<RequestListResponse> =
-            jsonHandler<RequestListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RequestListPageResponse> =
+            jsonHandler<RequestListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RequestListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RequestListResponse>> {
+        ): CompletableFuture<HttpResponseFor<RequestListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -222,6 +223,14 @@ class RequestServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                RequestListPageAsync.builder()
+                                    .service(RequestServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

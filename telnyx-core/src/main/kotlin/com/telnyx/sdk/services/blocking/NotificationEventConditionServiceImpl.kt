@@ -14,8 +14,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListPage
+import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListPageResponse
 import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListParams
-import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListResponse
 import java.util.function.Consumer
 
 class NotificationEventConditionServiceImpl
@@ -38,7 +39,7 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationEve
     override fun list(
         params: NotificationEventConditionListParams,
         requestOptions: RequestOptions,
-    ): NotificationEventConditionListResponse =
+    ): NotificationEventConditionListPage =
         // get /notification_event_conditions
         withRawResponse().list(params, requestOptions).parse()
 
@@ -55,13 +56,13 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationEve
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<NotificationEventConditionListResponse> =
-            jsonHandler<NotificationEventConditionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NotificationEventConditionListPageResponse> =
+            jsonHandler<NotificationEventConditionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NotificationEventConditionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<NotificationEventConditionListResponse> {
+        ): HttpResponseFor<NotificationEventConditionListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -78,6 +79,13 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationEve
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        NotificationEventConditionListPage.builder()
+                            .service(NotificationEventConditionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

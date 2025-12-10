@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async.externalconnections
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberListParams
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberRetrieveParams
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -66,35 +65,9 @@ internal class PhoneNumberServiceAsyncTest {
                 .build()
         val phoneNumberServiceAsync = client.externalConnections().phoneNumbers()
 
-        val phoneNumbersFuture =
-            phoneNumberServiceAsync.list(
-                PhoneNumberListParams.builder()
-                    .id("id")
-                    .filter(
-                        PhoneNumberListParams.Filter.builder()
-                            .civicAddressId(
-                                PhoneNumberListParams.Filter.CivicAddressId.builder()
-                                    .eq("19990261512338516954")
-                                    .build()
-                            )
-                            .locationId(
-                                PhoneNumberListParams.Filter.LocationId.builder()
-                                    .eq("19995665508264022121")
-                                    .build()
-                            )
-                            .phoneNumber(
-                                PhoneNumberListParams.Filter.PhoneNumber.builder()
-                                    .contains("+1970")
-                                    .eq("+19705555098")
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .page(PhoneNumberListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = phoneNumberServiceAsync.list("id")
 
-        val phoneNumbers = phoneNumbersFuture.get()
-        phoneNumbers.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

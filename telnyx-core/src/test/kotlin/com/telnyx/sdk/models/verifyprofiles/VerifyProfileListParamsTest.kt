@@ -12,7 +12,8 @@ internal class VerifyProfileListParamsTest {
     fun create() {
         VerifyProfileListParams.builder()
             .filter(VerifyProfileListParams.Filter.builder().name("name").build())
-            .page(VerifyProfileListParams.Page.builder().number(0L).size(0L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -21,7 +22,8 @@ internal class VerifyProfileListParamsTest {
         val params =
             VerifyProfileListParams.builder()
                 .filter(VerifyProfileListParams.Filter.builder().name("name").build())
-                .page(VerifyProfileListParams.Page.builder().number(0L).size(0L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()

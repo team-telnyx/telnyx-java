@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async.phonenumbers
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadCreateParams
-import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -83,14 +82,9 @@ internal class CsvDownloadServiceAsyncTest {
                 .build()
         val csvDownloadServiceAsync = client.phoneNumbers().csvDownloads()
 
-        val csvDownloadsFuture =
-            csvDownloadServiceAsync.list(
-                CsvDownloadListParams.builder()
-                    .page(CsvDownloadListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = csvDownloadServiceAsync.list()
 
-        val csvDownloads = csvDownloadsFuture.get()
-        csvDownloads.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

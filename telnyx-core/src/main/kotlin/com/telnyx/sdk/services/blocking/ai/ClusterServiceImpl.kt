@@ -21,8 +21,9 @@ import com.telnyx.sdk.models.ai.clusters.ClusterComputeParams
 import com.telnyx.sdk.models.ai.clusters.ClusterComputeResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterDeleteParams
 import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphParams
+import com.telnyx.sdk.models.ai.clusters.ClusterListPage
+import com.telnyx.sdk.models.ai.clusters.ClusterListPageResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterListParams
-import com.telnyx.sdk.models.ai.clusters.ClusterListResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveParams
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveResponse
 import java.util.function.Consumer
@@ -47,10 +48,7 @@ class ClusterServiceImpl internal constructor(private val clientOptions: ClientO
         // get /ai/clusters/{task_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: ClusterListParams,
-        requestOptions: RequestOptions,
-    ): ClusterListResponse =
+    override fun list(params: ClusterListParams, requestOptions: RequestOptions): ClusterListPage =
         // get /ai/clusters
         withRawResponse().list(params, requestOptions).parse()
 
@@ -116,13 +114,13 @@ class ClusterServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<ClusterListResponse> =
-            jsonHandler<ClusterListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ClusterListPageResponse> =
+            jsonHandler<ClusterListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ClusterListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ClusterListResponse> {
+        ): HttpResponseFor<ClusterListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -139,6 +137,13 @@ class ClusterServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ClusterListPage.builder()
+                            .service(ClusterServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

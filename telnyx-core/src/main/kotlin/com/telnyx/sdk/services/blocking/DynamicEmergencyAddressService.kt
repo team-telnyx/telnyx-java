@@ -11,8 +11,8 @@ import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressCr
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressCreateResponse
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressDeleteParams
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressDeleteResponse
+import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressListPage
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressListParams
-import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressListResponse
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressRetrieveParams
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressRetrieveResponse
 import java.util.function.Consumer
@@ -97,21 +97,21 @@ interface DynamicEmergencyAddressService {
         retrieve(id, DynamicEmergencyAddressRetrieveParams.none(), requestOptions)
 
     /** Returns the dynamic emergency addresses according to filters */
-    fun list(): DynamicEmergencyAddressListResponse = list(DynamicEmergencyAddressListParams.none())
+    fun list(): DynamicEmergencyAddressListPage = list(DynamicEmergencyAddressListParams.none())
 
     /** @see list */
     fun list(
         params: DynamicEmergencyAddressListParams = DynamicEmergencyAddressListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DynamicEmergencyAddressListResponse
+    ): DynamicEmergencyAddressListPage
 
     /** @see list */
     fun list(
         params: DynamicEmergencyAddressListParams = DynamicEmergencyAddressListParams.none()
-    ): DynamicEmergencyAddressListResponse = list(params, RequestOptions.none())
+    ): DynamicEmergencyAddressListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): DynamicEmergencyAddressListResponse =
+    fun list(requestOptions: RequestOptions): DynamicEmergencyAddressListPage =
         list(DynamicEmergencyAddressListParams.none(), requestOptions)
 
     /** Deletes the dynamic emergency address based on the ID provided */
@@ -252,7 +252,7 @@ interface DynamicEmergencyAddressService {
          * same as [DynamicEmergencyAddressService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<DynamicEmergencyAddressListResponse> =
+        fun list(): HttpResponseFor<DynamicEmergencyAddressListPage> =
             list(DynamicEmergencyAddressListParams.none())
 
         /** @see list */
@@ -260,20 +260,17 @@ interface DynamicEmergencyAddressService {
         fun list(
             params: DynamicEmergencyAddressListParams = DynamicEmergencyAddressListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DynamicEmergencyAddressListResponse>
+        ): HttpResponseFor<DynamicEmergencyAddressListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DynamicEmergencyAddressListParams = DynamicEmergencyAddressListParams.none()
-        ): HttpResponseFor<DynamicEmergencyAddressListResponse> =
-            list(params, RequestOptions.none())
+        ): HttpResponseFor<DynamicEmergencyAddressListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<DynamicEmergencyAddressListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<DynamicEmergencyAddressListPage> =
             list(DynamicEmergencyAddressListParams.none(), requestOptions)
 
         /**

@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreateParam
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreateResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectDeleteParams
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectDeleteResponse
+import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectListPage
+import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectListPageResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectListParams
-import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectListResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectRetrieveParams
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectRetrieveResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectUpdateParams
@@ -67,7 +68,7 @@ internal constructor(private val clientOptions: ClientOptions) : VirtualCrossCon
     override fun list(
         params: VirtualCrossConnectListParams,
         requestOptions: RequestOptions,
-    ): VirtualCrossConnectListResponse =
+    ): VirtualCrossConnectListPage =
         // get /virtual_cross_connects
         withRawResponse().list(params, requestOptions).parse()
 
@@ -180,13 +181,13 @@ internal constructor(private val clientOptions: ClientOptions) : VirtualCrossCon
             }
         }
 
-        private val listHandler: Handler<VirtualCrossConnectListResponse> =
-            jsonHandler<VirtualCrossConnectListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<VirtualCrossConnectListPageResponse> =
+            jsonHandler<VirtualCrossConnectListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: VirtualCrossConnectListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VirtualCrossConnectListResponse> {
+        ): HttpResponseFor<VirtualCrossConnectListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -203,6 +204,13 @@ internal constructor(private val clientOptions: ClientOptions) : VirtualCrossCon
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        VirtualCrossConnectListPage.builder()
+                            .service(VirtualCrossConnectServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

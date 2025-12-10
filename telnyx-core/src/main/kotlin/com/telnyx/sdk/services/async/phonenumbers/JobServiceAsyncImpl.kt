@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.phonenumbers.jobs.JobDeleteBatchParams
 import com.telnyx.sdk.models.phonenumbers.jobs.JobDeleteBatchResponse
+import com.telnyx.sdk.models.phonenumbers.jobs.JobListPageAsync
+import com.telnyx.sdk.models.phonenumbers.jobs.JobListPageResponse
 import com.telnyx.sdk.models.phonenumbers.jobs.JobListParams
-import com.telnyx.sdk.models.phonenumbers.jobs.JobListResponse
 import com.telnyx.sdk.models.phonenumbers.jobs.JobRetrieveParams
 import com.telnyx.sdk.models.phonenumbers.jobs.JobRetrieveResponse
 import com.telnyx.sdk.models.phonenumbers.jobs.JobUpdateBatchParams
@@ -52,7 +53,7 @@ class JobServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun list(
         params: JobListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<JobListResponse> =
+    ): CompletableFuture<JobListPageAsync> =
         // get /phone_numbers/jobs
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -125,13 +126,13 @@ class JobServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val listHandler: Handler<JobListResponse> =
-            jsonHandler<JobListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<JobListPageResponse> =
+            jsonHandler<JobListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: JobListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<JobListResponse>> {
+        ): CompletableFuture<HttpResponseFor<JobListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -150,6 +151,14 @@ class JobServiceAsyncImpl internal constructor(private val clientOptions: Client
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                JobListPageAsync.builder()
+                                    .service(JobServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

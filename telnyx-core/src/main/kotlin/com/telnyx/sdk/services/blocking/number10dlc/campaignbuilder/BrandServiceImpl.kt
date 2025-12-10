@@ -15,8 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.number10dlc.campaignbuilder.brand.BrandRetrieveParams
-import com.telnyx.sdk.models.number10dlc.campaignbuilder.brand.BrandRetrieveResponse
+import com.telnyx.sdk.models.number10dlc.campaignbuilder.brand.BrandQualifyByUsecaseParams
+import com.telnyx.sdk.models.number10dlc.campaignbuilder.brand.BrandQualifyByUsecaseResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -32,12 +32,12 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): BrandService =
         BrandServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun retrieve(
-        params: BrandRetrieveParams,
+    override fun qualifyByUsecase(
+        params: BrandQualifyByUsecaseParams,
         requestOptions: RequestOptions,
-    ): BrandRetrieveResponse =
+    ): BrandQualifyByUsecaseResponse =
         // get /10dlc/campaignBuilder/brand/{brandId}/usecase/{usecase}
-        withRawResponse().retrieve(params, requestOptions).parse()
+        withRawResponse().qualifyByUsecase(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BrandService.WithRawResponse {
@@ -52,13 +52,13 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val retrieveHandler: Handler<BrandRetrieveResponse> =
-            jsonHandler<BrandRetrieveResponse>(clientOptions.jsonMapper)
+        private val qualifyByUsecaseHandler: Handler<BrandQualifyByUsecaseResponse> =
+            jsonHandler<BrandQualifyByUsecaseResponse>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: BrandRetrieveParams,
+        override fun qualifyByUsecase(
+            params: BrandQualifyByUsecaseParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BrandRetrieveResponse> {
+        ): HttpResponseFor<BrandQualifyByUsecaseResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("usecase", params.usecase().getOrNull())
@@ -80,7 +80,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { retrieveHandler.handle(it) }
+                    .use { qualifyByUsecaseHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

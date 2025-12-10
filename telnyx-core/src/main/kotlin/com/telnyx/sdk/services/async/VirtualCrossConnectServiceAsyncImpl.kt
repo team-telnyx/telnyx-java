@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreateParam
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreateResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectDeleteParams
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectDeleteResponse
+import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectListPageAsync
+import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectListPageResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectListParams
-import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectListResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectRetrieveParams
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectRetrieveResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectUpdateParams
@@ -71,7 +72,7 @@ internal constructor(private val clientOptions: ClientOptions) : VirtualCrossCon
     override fun list(
         params: VirtualCrossConnectListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VirtualCrossConnectListResponse> =
+    ): CompletableFuture<VirtualCrossConnectListPageAsync> =
         // get /virtual_cross_connects
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -193,13 +194,13 @@ internal constructor(private val clientOptions: ClientOptions) : VirtualCrossCon
                 }
         }
 
-        private val listHandler: Handler<VirtualCrossConnectListResponse> =
-            jsonHandler<VirtualCrossConnectListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<VirtualCrossConnectListPageResponse> =
+            jsonHandler<VirtualCrossConnectListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: VirtualCrossConnectListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectListResponse>> {
+        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -218,6 +219,14 @@ internal constructor(private val clientOptions: ClientOptions) : VirtualCrossCon
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                VirtualCrossConnectListPageAsync.builder()
+                                    .service(VirtualCrossConnectServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

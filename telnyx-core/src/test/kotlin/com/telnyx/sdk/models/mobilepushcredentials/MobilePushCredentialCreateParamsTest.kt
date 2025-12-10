@@ -10,18 +10,14 @@ internal class MobilePushCredentialCreateParamsTest {
     @Test
     fun create() {
         MobilePushCredentialCreateParams.builder()
-            .body(
-                MobilePushCredentialCreateParams.Body.CreateIosPushCredentialRequest.builder()
+            .createMobilePushCredentialRequest(
+                MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Ios.builder()
                     .alias("LucyIosCredential")
                     .certificate(
                         "-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----"
                     )
                     .privateKey(
                         "-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----"
-                    )
-                    .type(
-                        MobilePushCredentialCreateParams.Body.CreateIosPushCredentialRequest.Type
-                            .IOS
                     )
                     .build()
             )
@@ -32,19 +28,14 @@ internal class MobilePushCredentialCreateParamsTest {
     fun body() {
         val params =
             MobilePushCredentialCreateParams.builder()
-                .body(
-                    MobilePushCredentialCreateParams.Body.CreateIosPushCredentialRequest.builder()
+                .createMobilePushCredentialRequest(
+                    MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Ios.builder()
                         .alias("LucyIosCredential")
                         .certificate(
                             "-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----"
                         )
                         .privateKey(
                             "-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----"
-                        )
-                        .type(
-                            MobilePushCredentialCreateParams.Body.CreateIosPushCredentialRequest
-                                .Type
-                                .IOS
                         )
                         .build()
                 )
@@ -54,19 +45,14 @@ internal class MobilePushCredentialCreateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                MobilePushCredentialCreateParams.Body.ofCreateIosPushCredentialRequest(
-                    MobilePushCredentialCreateParams.Body.CreateIosPushCredentialRequest.builder()
+                MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.ofIos(
+                    MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Ios.builder()
                         .alias("LucyIosCredential")
                         .certificate(
                             "-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----"
                         )
                         .privateKey(
                             "-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----"
-                        )
-                        .type(
-                            MobilePushCredentialCreateParams.Body.CreateIosPushCredentialRequest
-                                .Type
-                                .IOS
                         )
                         .build()
                 )

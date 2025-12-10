@@ -6,16 +6,20 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.brand.TelnyxBrand
-import com.telnyx.sdk.models.number10dlc.brand.Brand2faEmailParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandCreateParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandDeleteParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandListPageAsync
 import com.telnyx.sdk.models.number10dlc.brand.BrandListParams
-import com.telnyx.sdk.models.number10dlc.brand.BrandListResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandRevetParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
-import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateRevetParams
+import com.telnyx.sdk.models.number10dlc.brand.TelnyxBrand
 import com.telnyx.sdk.services.async.number10dlc.brand.ExternalVettingServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -109,21 +113,21 @@ interface BrandServiceAsync {
     ): CompletableFuture<TelnyxBrand>
 
     /** This endpoint is used to list all brands associated with your organization. */
-    fun list(): CompletableFuture<BrandListResponse> = list(BrandListParams.none())
+    fun list(): CompletableFuture<BrandListPageAsync> = list(BrandListParams.none())
 
     /** @see list */
     fun list(
         params: BrandListParams = BrandListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BrandListResponse>
+    ): CompletableFuture<BrandListPageAsync>
 
     /** @see list */
     fun list(
         params: BrandListParams = BrandListParams.none()
-    ): CompletableFuture<BrandListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<BrandListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<BrandListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<BrandListPageAsync> =
         list(BrandListParams.none(), requestOptions)
 
     /**
@@ -162,75 +166,169 @@ interface BrandServiceAsync {
     fun delete(brandId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(brandId, BrandDeleteParams.none(), requestOptions)
 
-    /** Resend brand 2FA email */
-    fun _2faEmail(brandId: String): CompletableFuture<Void?> =
-        _2faEmail(brandId, Brand2faEmailParams.none())
+    /**
+     * Get feedback about a brand by ID. This endpoint can be used after creating or revetting a
+     * brand.
+     *
+     * Possible values for `.category[].id`:
+     * * `TAX_ID` - Data mismatch related to tax id and its associated properties.
+     * * `STOCK_SYMBOL` - Non public entity registered as a public for profit entity or the stock
+     *   information mismatch.
+     * * `GOVERNMENT_ENTITY` - Non government entity registered as a government entity. Must be a
+     *   U.S. government entity.
+     * * `NONPROFIT` - Not a recognized non-profit entity. No IRS tax-exempt status found.
+     * * `OTHERS` - Details of the data misrepresentation if any.
+     */
+    fun getFeedback(brandId: String): CompletableFuture<BrandGetFeedbackResponse> =
+        getFeedback(brandId, BrandGetFeedbackParams.none())
 
-    /** @see _2faEmail */
-    fun _2faEmail(
+    /** @see getFeedback */
+    fun getFeedback(
         brandId: String,
-        params: Brand2faEmailParams = Brand2faEmailParams.none(),
+        params: BrandGetFeedbackParams = BrandGetFeedbackParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BrandGetFeedbackResponse> =
+        getFeedback(params.toBuilder().brandId(brandId).build(), requestOptions)
+
+    /** @see getFeedback */
+    fun getFeedback(
+        brandId: String,
+        params: BrandGetFeedbackParams = BrandGetFeedbackParams.none(),
+    ): CompletableFuture<BrandGetFeedbackResponse> =
+        getFeedback(brandId, params, RequestOptions.none())
+
+    /** @see getFeedback */
+    fun getFeedback(
+        params: BrandGetFeedbackParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BrandGetFeedbackResponse>
+
+    /** @see getFeedback */
+    fun getFeedback(params: BrandGetFeedbackParams): CompletableFuture<BrandGetFeedbackResponse> =
+        getFeedback(params, RequestOptions.none())
+
+    /** @see getFeedback */
+    fun getFeedback(
+        brandId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BrandGetFeedbackResponse> =
+        getFeedback(brandId, BrandGetFeedbackParams.none(), requestOptions)
+
+    /** Resend brand 2FA email */
+    fun resend2faEmail(brandId: String): CompletableFuture<Void?> =
+        resend2faEmail(brandId, BrandResend2faEmailParams.none())
+
+    /** @see resend2faEmail */
+    fun resend2faEmail(
+        brandId: String,
+        params: BrandResend2faEmailParams = BrandResend2faEmailParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?> =
-        _2faEmail(params.toBuilder().brandId(brandId).build(), requestOptions)
+        resend2faEmail(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-    /** @see _2faEmail */
-    fun _2faEmail(
+    /** @see resend2faEmail */
+    fun resend2faEmail(
         brandId: String,
-        params: Brand2faEmailParams = Brand2faEmailParams.none(),
-    ): CompletableFuture<Void?> = _2faEmail(brandId, params, RequestOptions.none())
+        params: BrandResend2faEmailParams = BrandResend2faEmailParams.none(),
+    ): CompletableFuture<Void?> = resend2faEmail(brandId, params, RequestOptions.none())
 
-    /** @see _2faEmail */
-    fun _2faEmail(
-        params: Brand2faEmailParams,
+    /** @see resend2faEmail */
+    fun resend2faEmail(
+        params: BrandResend2faEmailParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** @see _2faEmail */
-    fun _2faEmail(params: Brand2faEmailParams): CompletableFuture<Void?> =
-        _2faEmail(params, RequestOptions.none())
+    /** @see resend2faEmail */
+    fun resend2faEmail(params: BrandResend2faEmailParams): CompletableFuture<Void?> =
+        resend2faEmail(params, RequestOptions.none())
 
-    /** @see _2faEmail */
-    fun _2faEmail(brandId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
-        _2faEmail(brandId, Brand2faEmailParams.none(), requestOptions)
+    /** @see resend2faEmail */
+    fun resend2faEmail(brandId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
+        resend2faEmail(brandId, BrandResend2faEmailParams.none(), requestOptions)
+
+    /**
+     * Query the status of an SMS OTP (One-Time Password) for Sole Proprietor brand verification.
+     *
+     * This endpoint allows you to check the delivery and verification status of an OTP sent during
+     * the Sole Proprietor brand verification process. You can query by either:
+     * * `referenceId` - The reference ID returned when the OTP was initially triggered
+     * * `brandId` - Query parameter for portal users to look up OTP status by Brand ID
+     *
+     * The response includes delivery status, verification dates, and detailed delivery information.
+     */
+    fun retrieveSmsOtpStatus(
+        referenceId: String
+    ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
+        retrieveSmsOtpStatus(referenceId, BrandRetrieveSmsOtpStatusParams.none())
+
+    /** @see retrieveSmsOtpStatus */
+    fun retrieveSmsOtpStatus(
+        referenceId: String,
+        params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
+        retrieveSmsOtpStatus(params.toBuilder().referenceId(referenceId).build(), requestOptions)
+
+    /** @see retrieveSmsOtpStatus */
+    fun retrieveSmsOtpStatus(
+        referenceId: String,
+        params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
+    ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
+        retrieveSmsOtpStatus(referenceId, params, RequestOptions.none())
+
+    /** @see retrieveSmsOtpStatus */
+    fun retrieveSmsOtpStatus(
+        params: BrandRetrieveSmsOtpStatusParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse>
+
+    /** @see retrieveSmsOtpStatus */
+    fun retrieveSmsOtpStatus(
+        params: BrandRetrieveSmsOtpStatusParams
+    ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
+        retrieveSmsOtpStatus(params, RequestOptions.none())
+
+    /** @see retrieveSmsOtpStatus */
+    fun retrieveSmsOtpStatus(
+        referenceId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
+        retrieveSmsOtpStatus(referenceId, BrandRetrieveSmsOtpStatusParams.none(), requestOptions)
 
     /**
      * This operation allows you to revet the brand. However, revetting is allowed once after the
      * successful brand registration and thereafter limited to once every 3 months.
      */
-    fun updateRevet(brandId: String): CompletableFuture<TelnyxBrand> =
-        updateRevet(brandId, BrandUpdateRevetParams.none())
+    fun revet(brandId: String): CompletableFuture<TelnyxBrand> =
+        revet(brandId, BrandRevetParams.none())
 
-    /** @see updateRevet */
-    fun updateRevet(
+    /** @see revet */
+    fun revet(
         brandId: String,
-        params: BrandUpdateRevetParams = BrandUpdateRevetParams.none(),
+        params: BrandRevetParams = BrandRevetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<TelnyxBrand> =
-        updateRevet(params.toBuilder().brandId(brandId).build(), requestOptions)
+        revet(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-    /** @see updateRevet */
-    fun updateRevet(
+    /** @see revet */
+    fun revet(
         brandId: String,
-        params: BrandUpdateRevetParams = BrandUpdateRevetParams.none(),
-    ): CompletableFuture<TelnyxBrand> = updateRevet(brandId, params, RequestOptions.none())
+        params: BrandRevetParams = BrandRevetParams.none(),
+    ): CompletableFuture<TelnyxBrand> = revet(brandId, params, RequestOptions.none())
 
-    /** @see updateRevet */
-    fun updateRevet(
-        params: BrandUpdateRevetParams,
+    /** @see revet */
+    fun revet(
+        params: BrandRevetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<TelnyxBrand>
 
-    /** @see updateRevet */
-    fun updateRevet(params: BrandUpdateRevetParams): CompletableFuture<TelnyxBrand> =
-        updateRevet(params, RequestOptions.none())
+    /** @see revet */
+    fun revet(params: BrandRevetParams): CompletableFuture<TelnyxBrand> =
+        revet(params, RequestOptions.none())
 
-    /** @see updateRevet */
-    fun updateRevet(
-        brandId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<TelnyxBrand> =
-        updateRevet(brandId, BrandUpdateRevetParams.none(), requestOptions)
+    /** @see revet */
+    fun revet(brandId: String, requestOptions: RequestOptions): CompletableFuture<TelnyxBrand> =
+        revet(brandId, BrandRevetParams.none(), requestOptions)
 
     /** A view of [BrandServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -332,25 +430,25 @@ interface BrandServiceAsync {
          * Returns a raw HTTP response for `get /10dlc/brand`, but is otherwise the same as
          * [BrandServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<BrandListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<BrandListPageAsync>> =
             list(BrandListParams.none())
 
         /** @see list */
         fun list(
             params: BrandListParams = BrandListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BrandListResponse>>
+        ): CompletableFuture<HttpResponseFor<BrandListPageAsync>>
 
         /** @see list */
         fun list(
             params: BrandListParams = BrandListParams.none()
-        ): CompletableFuture<HttpResponseFor<BrandListResponse>> =
+        ): CompletableFuture<HttpResponseFor<BrandListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<BrandListResponse>> =
+        ): CompletableFuture<HttpResponseFor<BrandListPageAsync>> =
             list(BrandListParams.none(), requestOptions)
 
         /**
@@ -392,82 +490,173 @@ interface BrandServiceAsync {
             delete(brandId, BrandDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /10dlc/brand/{brandId}/2faEmail`, but is otherwise
-         * the same as [BrandServiceAsync._2faEmail].
+         * Returns a raw HTTP response for `get /10dlc/brand/feedback/{brandId}`, but is otherwise
+         * the same as [BrandServiceAsync.getFeedback].
          */
-        fun _2faEmail(brandId: String): CompletableFuture<HttpResponse> =
-            _2faEmail(brandId, Brand2faEmailParams.none())
+        fun getFeedback(
+            brandId: String
+        ): CompletableFuture<HttpResponseFor<BrandGetFeedbackResponse>> =
+            getFeedback(brandId, BrandGetFeedbackParams.none())
 
-        /** @see _2faEmail */
-        fun _2faEmail(
+        /** @see getFeedback */
+        fun getFeedback(
             brandId: String,
-            params: Brand2faEmailParams = Brand2faEmailParams.none(),
+            params: BrandGetFeedbackParams = BrandGetFeedbackParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BrandGetFeedbackResponse>> =
+            getFeedback(params.toBuilder().brandId(brandId).build(), requestOptions)
+
+        /** @see getFeedback */
+        fun getFeedback(
+            brandId: String,
+            params: BrandGetFeedbackParams = BrandGetFeedbackParams.none(),
+        ): CompletableFuture<HttpResponseFor<BrandGetFeedbackResponse>> =
+            getFeedback(brandId, params, RequestOptions.none())
+
+        /** @see getFeedback */
+        fun getFeedback(
+            params: BrandGetFeedbackParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BrandGetFeedbackResponse>>
+
+        /** @see getFeedback */
+        fun getFeedback(
+            params: BrandGetFeedbackParams
+        ): CompletableFuture<HttpResponseFor<BrandGetFeedbackResponse>> =
+            getFeedback(params, RequestOptions.none())
+
+        /** @see getFeedback */
+        fun getFeedback(
+            brandId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BrandGetFeedbackResponse>> =
+            getFeedback(brandId, BrandGetFeedbackParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /10dlc/brand/{brandId}/2faEmail`, but is otherwise
+         * the same as [BrandServiceAsync.resend2faEmail].
+         */
+        fun resend2faEmail(brandId: String): CompletableFuture<HttpResponse> =
+            resend2faEmail(brandId, BrandResend2faEmailParams.none())
+
+        /** @see resend2faEmail */
+        fun resend2faEmail(
+            brandId: String,
+            params: BrandResend2faEmailParams = BrandResend2faEmailParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse> =
-            _2faEmail(params.toBuilder().brandId(brandId).build(), requestOptions)
+            resend2faEmail(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-        /** @see _2faEmail */
-        fun _2faEmail(
+        /** @see resend2faEmail */
+        fun resend2faEmail(
             brandId: String,
-            params: Brand2faEmailParams = Brand2faEmailParams.none(),
-        ): CompletableFuture<HttpResponse> = _2faEmail(brandId, params, RequestOptions.none())
+            params: BrandResend2faEmailParams = BrandResend2faEmailParams.none(),
+        ): CompletableFuture<HttpResponse> = resend2faEmail(brandId, params, RequestOptions.none())
 
-        /** @see _2faEmail */
-        fun _2faEmail(
-            params: Brand2faEmailParams,
+        /** @see resend2faEmail */
+        fun resend2faEmail(
+            params: BrandResend2faEmailParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
-        /** @see _2faEmail */
-        fun _2faEmail(params: Brand2faEmailParams): CompletableFuture<HttpResponse> =
-            _2faEmail(params, RequestOptions.none())
+        /** @see resend2faEmail */
+        fun resend2faEmail(params: BrandResend2faEmailParams): CompletableFuture<HttpResponse> =
+            resend2faEmail(params, RequestOptions.none())
 
-        /** @see _2faEmail */
-        fun _2faEmail(
+        /** @see resend2faEmail */
+        fun resend2faEmail(
             brandId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> =
-            _2faEmail(brandId, Brand2faEmailParams.none(), requestOptions)
+            resend2faEmail(brandId, BrandResend2faEmailParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /10dlc/brand/smsOtp/{referenceId}`, but is otherwise
+         * the same as [BrandServiceAsync.retrieveSmsOtpStatus].
+         */
+        fun retrieveSmsOtpStatus(
+            referenceId: String
+        ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> =
+            retrieveSmsOtpStatus(referenceId, BrandRetrieveSmsOtpStatusParams.none())
+
+        /** @see retrieveSmsOtpStatus */
+        fun retrieveSmsOtpStatus(
+            referenceId: String,
+            params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> =
+            retrieveSmsOtpStatus(
+                params.toBuilder().referenceId(referenceId).build(),
+                requestOptions,
+            )
+
+        /** @see retrieveSmsOtpStatus */
+        fun retrieveSmsOtpStatus(
+            referenceId: String,
+            params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
+        ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> =
+            retrieveSmsOtpStatus(referenceId, params, RequestOptions.none())
+
+        /** @see retrieveSmsOtpStatus */
+        fun retrieveSmsOtpStatus(
+            params: BrandRetrieveSmsOtpStatusParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>>
+
+        /** @see retrieveSmsOtpStatus */
+        fun retrieveSmsOtpStatus(
+            params: BrandRetrieveSmsOtpStatusParams
+        ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> =
+            retrieveSmsOtpStatus(params, RequestOptions.none())
+
+        /** @see retrieveSmsOtpStatus */
+        fun retrieveSmsOtpStatus(
+            referenceId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> =
+            retrieveSmsOtpStatus(
+                referenceId,
+                BrandRetrieveSmsOtpStatusParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `put /10dlc/brand/{brandId}/revet`, but is otherwise the
-         * same as [BrandServiceAsync.updateRevet].
+         * same as [BrandServiceAsync.revet].
          */
-        fun updateRevet(brandId: String): CompletableFuture<HttpResponseFor<TelnyxBrand>> =
-            updateRevet(brandId, BrandUpdateRevetParams.none())
+        fun revet(brandId: String): CompletableFuture<HttpResponseFor<TelnyxBrand>> =
+            revet(brandId, BrandRevetParams.none())
 
-        /** @see updateRevet */
-        fun updateRevet(
+        /** @see revet */
+        fun revet(
             brandId: String,
-            params: BrandUpdateRevetParams = BrandUpdateRevetParams.none(),
+            params: BrandRevetParams = BrandRevetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<TelnyxBrand>> =
-            updateRevet(params.toBuilder().brandId(brandId).build(), requestOptions)
+            revet(params.toBuilder().brandId(brandId).build(), requestOptions)
 
-        /** @see updateRevet */
-        fun updateRevet(
+        /** @see revet */
+        fun revet(
             brandId: String,
-            params: BrandUpdateRevetParams = BrandUpdateRevetParams.none(),
+            params: BrandRevetParams = BrandRevetParams.none(),
         ): CompletableFuture<HttpResponseFor<TelnyxBrand>> =
-            updateRevet(brandId, params, RequestOptions.none())
+            revet(brandId, params, RequestOptions.none())
 
-        /** @see updateRevet */
-        fun updateRevet(
-            params: BrandUpdateRevetParams,
+        /** @see revet */
+        fun revet(
+            params: BrandRevetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<TelnyxBrand>>
 
-        /** @see updateRevet */
-        fun updateRevet(
-            params: BrandUpdateRevetParams
-        ): CompletableFuture<HttpResponseFor<TelnyxBrand>> =
-            updateRevet(params, RequestOptions.none())
+        /** @see revet */
+        fun revet(params: BrandRevetParams): CompletableFuture<HttpResponseFor<TelnyxBrand>> =
+            revet(params, RequestOptions.none())
 
-        /** @see updateRevet */
-        fun updateRevet(
+        /** @see revet */
+        fun revet(
             brandId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<TelnyxBrand>> =
-            updateRevet(brandId, BrandUpdateRevetParams.none(), requestOptions)
+            revet(brandId, BrandRevetParams.none(), requestOptions)
     }
 }

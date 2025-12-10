@@ -21,8 +21,9 @@ import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateTemplateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileData
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileDeleteParams
+import com.telnyx.sdk.models.verifyprofiles.VerifyProfileListPageAsync
+import com.telnyx.sdk.models.verifyprofiles.VerifyProfileListPageResponse
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileListParams
-import com.telnyx.sdk.models.verifyprofiles.VerifyProfileListResponse
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveTemplatesParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileRetrieveTemplatesResponse
@@ -68,7 +69,7 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
     override fun list(
         params: VerifyProfileListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VerifyProfileListResponse> =
+    ): CompletableFuture<VerifyProfileListPageAsync> =
         // get /verify_profiles
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -211,13 +212,13 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val listHandler: Handler<VerifyProfileListResponse> =
-            jsonHandler<VerifyProfileListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<VerifyProfileListPageResponse> =
+            jsonHandler<VerifyProfileListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: VerifyProfileListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VerifyProfileListResponse>> {
+        ): CompletableFuture<HttpResponseFor<VerifyProfileListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -236,6 +237,14 @@ class VerifyProfileServiceAsyncImpl internal constructor(private val clientOptio
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                VerifyProfileListPageAsync.builder()
+                                    .service(VerifyProfileServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

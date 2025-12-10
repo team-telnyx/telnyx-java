@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestCreateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestDeleteParams
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListPageAsync
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
-import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestUpdateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfVerificationRequest
@@ -121,14 +121,14 @@ interface RequestServiceAsync {
     ): CompletableFuture<VerificationRequestEgress>
 
     /** Get a list of previously-submitted tollfree verification requests */
-    fun list(params: RequestListParams): CompletableFuture<RequestListResponse> =
+    fun list(params: RequestListParams): CompletableFuture<RequestListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: RequestListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RequestListResponse>
+    ): CompletableFuture<RequestListPageAsync>
 
     /**
      * Delete a verification request
@@ -289,14 +289,14 @@ interface RequestServiceAsync {
          */
         fun list(
             params: RequestListParams
-        ): CompletableFuture<HttpResponseFor<RequestListResponse>> =
+        ): CompletableFuture<HttpResponseFor<RequestListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: RequestListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RequestListResponse>>
+        ): CompletableFuture<HttpResponseFor<RequestListPageAsync>>
 
         /**
          * Returns a raw HTTP response for `delete /messaging_tollfree/verification/requests/{id}`,

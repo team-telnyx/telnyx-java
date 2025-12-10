@@ -20,8 +20,9 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretCreateParams
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretCreateResponse
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretDeleteParams
+import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListPageAsync
+import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListPageResponse
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListParams
-import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -50,7 +51,7 @@ internal constructor(private val clientOptions: ClientOptions) : IntegrationSecr
     override fun list(
         params: IntegrationSecretListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntegrationSecretListResponse> =
+    ): CompletableFuture<IntegrationSecretListPageAsync> =
         // get /integration_secrets
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -105,13 +106,13 @@ internal constructor(private val clientOptions: ClientOptions) : IntegrationSecr
                 }
         }
 
-        private val listHandler: Handler<IntegrationSecretListResponse> =
-            jsonHandler<IntegrationSecretListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<IntegrationSecretListPageResponse> =
+            jsonHandler<IntegrationSecretListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: IntegrationSecretListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IntegrationSecretListResponse>> {
+        ): CompletableFuture<HttpResponseFor<IntegrationSecretListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -130,6 +131,14 @@ internal constructor(private val clientOptions: ClientOptions) : IntegrationSecr
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                IntegrationSecretListPageAsync.builder()
+                                    .service(IntegrationSecretServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

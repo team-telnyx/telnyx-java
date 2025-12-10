@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.requirements.RequirementListPage
 import com.telnyx.sdk.models.requirements.RequirementListParams
-import com.telnyx.sdk.models.requirements.RequirementListResponse
 import com.telnyx.sdk.models.requirements.RequirementRetrieveParams
 import com.telnyx.sdk.models.requirements.RequirementRetrieveResponse
 import java.util.function.Consumer
@@ -58,21 +58,20 @@ interface RequirementService {
         retrieve(id, RequirementRetrieveParams.none(), requestOptions)
 
     /** List all requirements with filtering, sorting, and pagination */
-    fun list(): RequirementListResponse = list(RequirementListParams.none())
+    fun list(): RequirementListPage = list(RequirementListParams.none())
 
     /** @see list */
     fun list(
         params: RequirementListParams = RequirementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RequirementListResponse
+    ): RequirementListPage
 
     /** @see list */
-    fun list(
-        params: RequirementListParams = RequirementListParams.none()
-    ): RequirementListResponse = list(params, RequestOptions.none())
+    fun list(params: RequirementListParams = RequirementListParams.none()): RequirementListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): RequirementListResponse =
+    fun list(requestOptions: RequestOptions): RequirementListPage =
         list(RequirementListParams.none(), requestOptions)
 
     /**
@@ -140,24 +139,24 @@ interface RequirementService {
          * [RequirementService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<RequirementListResponse> = list(RequirementListParams.none())
+        fun list(): HttpResponseFor<RequirementListPage> = list(RequirementListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: RequirementListParams = RequirementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RequirementListResponse>
+        ): HttpResponseFor<RequirementListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: RequirementListParams = RequirementListParams.none()
-        ): HttpResponseFor<RequirementListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<RequirementListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<RequirementListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<RequirementListPage> =
             list(RequirementListParams.none(), requestOptions)
     }
 }

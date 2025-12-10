@@ -15,8 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.campaign.TelnyxCampaignCsp
-import com.telnyx.sdk.models.number10dlc.campaignbuilder.CampaignBuilderCampaignBuilderParams
+import com.telnyx.sdk.models.number10dlc.campaign.TelnyxCampaignCsp
+import com.telnyx.sdk.models.number10dlc.campaignbuilder.CampaignBuilderSubmitParams
 import com.telnyx.sdk.services.async.number10dlc.campaignbuilder.BrandServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.campaignbuilder.BrandServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -40,12 +40,12 @@ internal constructor(private val clientOptions: ClientOptions) : CampaignBuilder
 
     override fun brand(): BrandServiceAsync = brand
 
-    override fun campaignBuilder(
-        params: CampaignBuilderCampaignBuilderParams,
+    override fun submit(
+        params: CampaignBuilderSubmitParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<TelnyxCampaignCsp> =
         // post /10dlc/campaignBuilder
-        withRawResponse().campaignBuilder(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().submit(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CampaignBuilderServiceAsync.WithRawResponse {
@@ -66,11 +66,11 @@ internal constructor(private val clientOptions: ClientOptions) : CampaignBuilder
 
         override fun brand(): BrandServiceAsync.WithRawResponse = brand
 
-        private val campaignBuilderHandler: Handler<TelnyxCampaignCsp> =
+        private val submitHandler: Handler<TelnyxCampaignCsp> =
             jsonHandler<TelnyxCampaignCsp>(clientOptions.jsonMapper)
 
-        override fun campaignBuilder(
-            params: CampaignBuilderCampaignBuilderParams,
+        override fun submit(
+            params: CampaignBuilderSubmitParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<TelnyxCampaignCsp>> {
             val request =
@@ -87,7 +87,7 @@ internal constructor(private val clientOptions: ClientOptions) : CampaignBuilder
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { campaignBuilderHandler.handle(it) }
+                            .use { submitHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

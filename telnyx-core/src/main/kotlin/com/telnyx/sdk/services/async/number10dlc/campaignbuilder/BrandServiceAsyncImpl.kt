@@ -15,8 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.number10dlc.campaignbuilder.brand.BrandRetrieveParams
-import com.telnyx.sdk.models.number10dlc.campaignbuilder.brand.BrandRetrieveResponse
+import com.telnyx.sdk.models.number10dlc.campaignbuilder.brand.BrandQualifyByUsecaseParams
+import com.telnyx.sdk.models.number10dlc.campaignbuilder.brand.BrandQualifyByUsecaseResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -33,12 +33,12 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): BrandServiceAsync =
         BrandServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun retrieve(
-        params: BrandRetrieveParams,
+    override fun qualifyByUsecase(
+        params: BrandQualifyByUsecaseParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BrandRetrieveResponse> =
+    ): CompletableFuture<BrandQualifyByUsecaseResponse> =
         // get /10dlc/campaignBuilder/brand/{brandId}/usecase/{usecase}
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().qualifyByUsecase(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BrandServiceAsync.WithRawResponse {
@@ -53,13 +53,13 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val retrieveHandler: Handler<BrandRetrieveResponse> =
-            jsonHandler<BrandRetrieveResponse>(clientOptions.jsonMapper)
+        private val qualifyByUsecaseHandler: Handler<BrandQualifyByUsecaseResponse> =
+            jsonHandler<BrandQualifyByUsecaseResponse>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: BrandRetrieveParams,
+        override fun qualifyByUsecase(
+            params: BrandQualifyByUsecaseParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BrandRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<BrandQualifyByUsecaseResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("usecase", params.usecase().getOrNull())
@@ -83,7 +83,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { retrieveHandler.handle(it) }
+                            .use { qualifyByUsecaseHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

@@ -13,7 +13,7 @@ internal class OsrServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun retrieveAttributes() {
+    fun getAttributes() {
         val client =
             TelnyxOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -21,7 +21,7 @@ internal class OsrServiceAsyncTest {
                 .build()
         val osrServiceAsync = client.number10dlc().campaign().osr()
 
-        val responseFuture = osrServiceAsync.retrieveAttributes("campaignId")
+        val responseFuture = osrServiceAsync.getAttributes("campaignId")
 
         val response = responseFuture.get()
         response.validate()

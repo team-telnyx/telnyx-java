@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotif
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationCreateResponse
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationDeleteParams
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationDeleteResponse
+import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationListPageAsync
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationListParams
-import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationListResponse
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationRetrieveParams
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationRetrieveResponse
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationUpdateParams
@@ -88,18 +88,24 @@ interface SimCardDataUsageNotificationServiceAsync {
 
     /** Updates information for a SIM Card Data Usage Notification. */
     fun update(
-        pathId: String,
+        simCardDataUsageNotificationId: String,
         params: SimCardDataUsageNotificationUpdateParams,
     ): CompletableFuture<SimCardDataUsageNotificationUpdateResponse> =
-        update(pathId, params, RequestOptions.none())
+        update(simCardDataUsageNotificationId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        pathId: String,
+        simCardDataUsageNotificationId: String,
         params: SimCardDataUsageNotificationUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimCardDataUsageNotificationUpdateResponse> =
-        update(params.toBuilder().pathId(pathId).build(), requestOptions)
+        update(
+            params
+                .toBuilder()
+                .simCardDataUsageNotificationId(simCardDataUsageNotificationId)
+                .build(),
+            requestOptions,
+        )
 
     /** @see update */
     fun update(
@@ -117,7 +123,7 @@ interface SimCardDataUsageNotificationServiceAsync {
      * Lists a paginated collection of SIM card data usage notifications. It enables exploring the
      * collection using specific filters.
      */
-    fun list(): CompletableFuture<SimCardDataUsageNotificationListResponse> =
+    fun list(): CompletableFuture<SimCardDataUsageNotificationListPageAsync> =
         list(SimCardDataUsageNotificationListParams.none())
 
     /** @see list */
@@ -125,19 +131,19 @@ interface SimCardDataUsageNotificationServiceAsync {
         params: SimCardDataUsageNotificationListParams =
             SimCardDataUsageNotificationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SimCardDataUsageNotificationListResponse>
+    ): CompletableFuture<SimCardDataUsageNotificationListPageAsync>
 
     /** @see list */
     fun list(
         params: SimCardDataUsageNotificationListParams =
             SimCardDataUsageNotificationListParams.none()
-    ): CompletableFuture<SimCardDataUsageNotificationListResponse> =
+    ): CompletableFuture<SimCardDataUsageNotificationListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         requestOptions: RequestOptions
-    ): CompletableFuture<SimCardDataUsageNotificationListResponse> =
+    ): CompletableFuture<SimCardDataUsageNotificationListPageAsync> =
         list(SimCardDataUsageNotificationListParams.none(), requestOptions)
 
     /** Delete the SIM Card Data Usage Notification. */
@@ -260,18 +266,24 @@ interface SimCardDataUsageNotificationServiceAsync {
          * otherwise the same as [SimCardDataUsageNotificationServiceAsync.update].
          */
         fun update(
-            pathId: String,
+            simCardDataUsageNotificationId: String,
             params: SimCardDataUsageNotificationUpdateParams,
         ): CompletableFuture<HttpResponseFor<SimCardDataUsageNotificationUpdateResponse>> =
-            update(pathId, params, RequestOptions.none())
+            update(simCardDataUsageNotificationId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
-            pathId: String,
+            simCardDataUsageNotificationId: String,
             params: SimCardDataUsageNotificationUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<SimCardDataUsageNotificationUpdateResponse>> =
-            update(params.toBuilder().pathId(pathId).build(), requestOptions)
+            update(
+                params
+                    .toBuilder()
+                    .simCardDataUsageNotificationId(simCardDataUsageNotificationId)
+                    .build(),
+                requestOptions,
+            )
 
         /** @see update */
         fun update(
@@ -289,7 +301,7 @@ interface SimCardDataUsageNotificationServiceAsync {
          * Returns a raw HTTP response for `get /sim_card_data_usage_notifications`, but is
          * otherwise the same as [SimCardDataUsageNotificationServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<SimCardDataUsageNotificationListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<SimCardDataUsageNotificationListPageAsync>> =
             list(SimCardDataUsageNotificationListParams.none())
 
         /** @see list */
@@ -297,19 +309,19 @@ interface SimCardDataUsageNotificationServiceAsync {
             params: SimCardDataUsageNotificationListParams =
                 SimCardDataUsageNotificationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SimCardDataUsageNotificationListResponse>>
+        ): CompletableFuture<HttpResponseFor<SimCardDataUsageNotificationListPageAsync>>
 
         /** @see list */
         fun list(
             params: SimCardDataUsageNotificationListParams =
                 SimCardDataUsageNotificationListParams.none()
-        ): CompletableFuture<HttpResponseFor<SimCardDataUsageNotificationListResponse>> =
+        ): CompletableFuture<HttpResponseFor<SimCardDataUsageNotificationListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<SimCardDataUsageNotificationListResponse>> =
+        ): CompletableFuture<HttpResponseFor<SimCardDataUsageNotificationListPageAsync>> =
             list(SimCardDataUsageNotificationListParams.none(), requestOptions)
 
         /**

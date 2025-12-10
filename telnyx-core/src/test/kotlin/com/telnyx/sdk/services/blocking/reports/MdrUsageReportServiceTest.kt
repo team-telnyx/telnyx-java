@@ -6,7 +6,6 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportCreateParams
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportFetchSyncParams
-import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -63,14 +62,9 @@ internal class MdrUsageReportServiceTest {
                 .build()
         val mdrUsageReportService = client.reports().mdrUsageReports()
 
-        val mdrUsageReports =
-            mdrUsageReportService.list(
-                MdrUsageReportListParams.builder()
-                    .page(MdrUsageReportListParams.Page.builder().number(0).size(0).build())
-                    .build()
-            )
+        val page = mdrUsageReportService.list()
 
-        mdrUsageReports.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

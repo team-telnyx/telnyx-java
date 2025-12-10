@@ -4,9 +4,7 @@ package com.telnyx.sdk.models.portingorders.additionaldocuments
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import java.time.OffsetDateTime
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -16,52 +14,33 @@ internal class AdditionalDocumentListResponseTest {
     fun create() {
         val additionalDocumentListResponse =
             AdditionalDocumentListResponse.builder()
-                .addData(
-                    AdditionalDocumentListResponse.Data.builder()
-                        .id("2acd1061-33cb-49b8-8014-beb6dc3fedbf")
-                        .contentType("text/plain")
-                        .createdAt(OffsetDateTime.parse("2023-06-01T10:00:00.00000Z"))
-                        .documentId("40bc547a-7f96-4cd5-926a-da4842671e88")
-                        .documentType(AdditionalDocumentListResponse.Data.DocumentType.LOA)
-                        .filename("file.txt")
-                        .portingOrderId("9d7b3b8e-4e67-4837-9c44-d110cd2c82a1")
-                        .recordType("porting_additional_document")
-                        .updatedAt(OffsetDateTime.parse("2023-06-01T10:00:00.00000Z"))
-                        .build()
-                )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(1L)
-                        .pageSize(25L)
-                        .totalPages(1L)
-                        .totalResults(1L)
-                        .build()
-                )
+                .id("eef3340b-8903-4466-b445-89b697315a3a")
+                .contentType("text/plain")
+                .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                .documentId("f1486bae-f067-460c-ad43-73a92848f902")
+                .documentType(AdditionalDocumentListResponse.DocumentType.LOA)
+                .filename("file.txt")
+                .portingOrderId("f1486bae-f067-460c-ad43-73a92848f902")
+                .recordType("porting_additional_document")
+                .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                 .build()
 
-        assertThat(additionalDocumentListResponse.data().getOrNull())
-            .containsExactly(
-                AdditionalDocumentListResponse.Data.builder()
-                    .id("2acd1061-33cb-49b8-8014-beb6dc3fedbf")
-                    .contentType("text/plain")
-                    .createdAt(OffsetDateTime.parse("2023-06-01T10:00:00.00000Z"))
-                    .documentId("40bc547a-7f96-4cd5-926a-da4842671e88")
-                    .documentType(AdditionalDocumentListResponse.Data.DocumentType.LOA)
-                    .filename("file.txt")
-                    .portingOrderId("9d7b3b8e-4e67-4837-9c44-d110cd2c82a1")
-                    .recordType("porting_additional_document")
-                    .updatedAt(OffsetDateTime.parse("2023-06-01T10:00:00.00000Z"))
-                    .build()
-            )
-        assertThat(additionalDocumentListResponse.meta())
-            .contains(
-                PaginationMeta.builder()
-                    .pageNumber(1L)
-                    .pageSize(25L)
-                    .totalPages(1L)
-                    .totalResults(1L)
-                    .build()
-            )
+        assertThat(additionalDocumentListResponse.id())
+            .contains("eef3340b-8903-4466-b445-89b697315a3a")
+        assertThat(additionalDocumentListResponse.contentType()).contains("text/plain")
+        assertThat(additionalDocumentListResponse.createdAt())
+            .contains(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+        assertThat(additionalDocumentListResponse.documentId())
+            .contains("f1486bae-f067-460c-ad43-73a92848f902")
+        assertThat(additionalDocumentListResponse.documentType())
+            .contains(AdditionalDocumentListResponse.DocumentType.LOA)
+        assertThat(additionalDocumentListResponse.filename()).contains("file.txt")
+        assertThat(additionalDocumentListResponse.portingOrderId())
+            .contains("f1486bae-f067-460c-ad43-73a92848f902")
+        assertThat(additionalDocumentListResponse.recordType())
+            .contains("porting_additional_document")
+        assertThat(additionalDocumentListResponse.updatedAt())
+            .contains(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
     }
 
     @Test
@@ -69,27 +48,15 @@ internal class AdditionalDocumentListResponseTest {
         val jsonMapper = jsonMapper()
         val additionalDocumentListResponse =
             AdditionalDocumentListResponse.builder()
-                .addData(
-                    AdditionalDocumentListResponse.Data.builder()
-                        .id("2acd1061-33cb-49b8-8014-beb6dc3fedbf")
-                        .contentType("text/plain")
-                        .createdAt(OffsetDateTime.parse("2023-06-01T10:00:00.00000Z"))
-                        .documentId("40bc547a-7f96-4cd5-926a-da4842671e88")
-                        .documentType(AdditionalDocumentListResponse.Data.DocumentType.LOA)
-                        .filename("file.txt")
-                        .portingOrderId("9d7b3b8e-4e67-4837-9c44-d110cd2c82a1")
-                        .recordType("porting_additional_document")
-                        .updatedAt(OffsetDateTime.parse("2023-06-01T10:00:00.00000Z"))
-                        .build()
-                )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(1L)
-                        .pageSize(25L)
-                        .totalPages(1L)
-                        .totalResults(1L)
-                        .build()
-                )
+                .id("eef3340b-8903-4466-b445-89b697315a3a")
+                .contentType("text/plain")
+                .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                .documentId("f1486bae-f067-460c-ad43-73a92848f902")
+                .documentType(AdditionalDocumentListResponse.DocumentType.LOA)
+                .filename("file.txt")
+                .portingOrderId("f1486bae-f067-460c-ad43-73a92848f902")
+                .recordType("porting_additional_document")
+                .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                 .build()
 
         val roundtrippedAdditionalDocumentListResponse =

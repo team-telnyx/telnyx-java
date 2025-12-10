@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceCreatePara
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceDeleteParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceDeleteResponse
+import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceListPage
+import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceListPageResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceListParams
-import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceRetrieveParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceRetrieveResponse
 import java.util.function.Consumer
@@ -53,7 +54,7 @@ class VoiceServiceImpl internal constructor(private val clientOptions: ClientOpt
         // get /legacy/reporting/usage_reports/voice/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(params: VoiceListParams, requestOptions: RequestOptions): VoiceListResponse =
+    override fun list(params: VoiceListParams, requestOptions: RequestOptions): VoiceListPage =
         // get /legacy/reporting/usage_reports/voice
         withRawResponse().list(params, requestOptions).parse()
 
@@ -141,13 +142,13 @@ class VoiceServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val listHandler: Handler<VoiceListResponse> =
-            jsonHandler<VoiceListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<VoiceListPageResponse> =
+            jsonHandler<VoiceListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: VoiceListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VoiceListResponse> {
+        ): HttpResponseFor<VoiceListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -164,6 +165,13 @@ class VoiceServiceImpl internal constructor(private val clientOptions: ClientOpt
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        VoiceListPage.builder()
+                            .service(VoiceServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

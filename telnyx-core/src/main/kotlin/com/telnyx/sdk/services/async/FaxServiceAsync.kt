@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.faxes.FaxCreateParams
 import com.telnyx.sdk.models.faxes.FaxCreateResponse
 import com.telnyx.sdk.models.faxes.FaxDeleteParams
+import com.telnyx.sdk.models.faxes.FaxListPageAsync
 import com.telnyx.sdk.models.faxes.FaxListParams
-import com.telnyx.sdk.models.faxes.FaxListResponse
 import com.telnyx.sdk.models.faxes.FaxRetrieveParams
 import com.telnyx.sdk.models.faxes.FaxRetrieveResponse
 import com.telnyx.sdk.services.async.faxes.ActionServiceAsync
@@ -90,20 +90,20 @@ interface FaxServiceAsync {
         retrieve(id, FaxRetrieveParams.none(), requestOptions)
 
     /** View a list of faxes */
-    fun list(): CompletableFuture<FaxListResponse> = list(FaxListParams.none())
+    fun list(): CompletableFuture<FaxListPageAsync> = list(FaxListParams.none())
 
     /** @see list */
     fun list(
         params: FaxListParams = FaxListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<FaxListResponse>
+    ): CompletableFuture<FaxListPageAsync>
 
     /** @see list */
-    fun list(params: FaxListParams = FaxListParams.none()): CompletableFuture<FaxListResponse> =
+    fun list(params: FaxListParams = FaxListParams.none()): CompletableFuture<FaxListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<FaxListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<FaxListPageAsync> =
         list(FaxListParams.none(), requestOptions)
 
     /** Delete a fax */
@@ -206,23 +206,25 @@ interface FaxServiceAsync {
          * Returns a raw HTTP response for `get /faxes`, but is otherwise the same as
          * [FaxServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<FaxListResponse>> = list(FaxListParams.none())
+        fun list(): CompletableFuture<HttpResponseFor<FaxListPageAsync>> =
+            list(FaxListParams.none())
 
         /** @see list */
         fun list(
             params: FaxListParams = FaxListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<FaxListResponse>>
+        ): CompletableFuture<HttpResponseFor<FaxListPageAsync>>
 
         /** @see list */
         fun list(
             params: FaxListParams = FaxListParams.none()
-        ): CompletableFuture<HttpResponseFor<FaxListResponse>> = list(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<FaxListPageAsync>> =
+            list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<FaxListResponse>> =
+        ): CompletableFuture<HttpResponseFor<FaxListPageAsync>> =
             list(FaxListParams.none(), requestOptions)
 
         /**

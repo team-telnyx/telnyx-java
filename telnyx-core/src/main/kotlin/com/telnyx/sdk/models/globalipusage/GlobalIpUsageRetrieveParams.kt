@@ -185,10 +185,13 @@ private constructor(
                                     put("filter[global_ip_id]", string)
                                 }
 
-                                override fun visitIn(in_: Filter.GlobalIpId.In) {
-                                    in_.in_().ifPresent { put("filter[global_ip_id][in]", it) }
-                                    in_._additionalProperties().keys().forEach { key ->
-                                        in_._additionalProperties().values(key).forEach { value ->
+                                override fun visitInFilter(inFilter: Filter.GlobalIpId.InFilter) {
+                                    inFilter.inList().ifPresent {
+                                        put("filter[global_ip_id][in]", it)
+                                    }
+                                    inFilter._additionalProperties().keys().forEach { key ->
+                                        inFilter._additionalProperties().values(key).forEach { value
+                                            ->
                                             put("filter[global_ip_id][$key]", value)
                                         }
                                     }
@@ -248,8 +251,9 @@ private constructor(
             /** Alias for calling [globalIpId] with `GlobalIpId.ofString(string)`. */
             fun globalIpId(string: String) = globalIpId(GlobalIpId.ofString(string))
 
-            /** Alias for calling [globalIpId] with `GlobalIpId.ofIn(in_)`. */
-            fun globalIpId(in_: GlobalIpId.In) = globalIpId(GlobalIpId.ofIn(in_))
+            /** Alias for calling [globalIpId] with `GlobalIpId.ofInFilter(inFilter)`. */
+            fun globalIpId(inFilter: GlobalIpId.InFilter) =
+                globalIpId(GlobalIpId.ofInFilter(inFilter))
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
@@ -310,28 +314,31 @@ private constructor(
 
         /** Filter by exact Global IP ID */
         class GlobalIpId
-        private constructor(private val string: String? = null, private val in_: In? = null) {
+        private constructor(
+            private val string: String? = null,
+            private val inFilter: InFilter? = null,
+        ) {
 
             /** Filter by exact Global IP ID */
             fun string(): Optional<String> = Optional.ofNullable(string)
 
             /** Filtering operations */
-            fun in_(): Optional<In> = Optional.ofNullable(in_)
+            fun inFilter(): Optional<InFilter> = Optional.ofNullable(inFilter)
 
             fun isString(): Boolean = string != null
 
-            fun isIn(): Boolean = in_ != null
+            fun isInFilter(): Boolean = inFilter != null
 
             /** Filter by exact Global IP ID */
             fun asString(): String = string.getOrThrow("string")
 
             /** Filtering operations */
-            fun asIn(): In = in_.getOrThrow("in_")
+            fun asInFilter(): InFilter = inFilter.getOrThrow("inFilter")
 
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     string != null -> visitor.visitString(string)
-                    in_ != null -> visitor.visitIn(in_)
+                    inFilter != null -> visitor.visitInFilter(inFilter)
                     else -> throw IllegalStateException("Invalid GlobalIpId")
                 }
 
@@ -340,15 +347,15 @@ private constructor(
                     return true
                 }
 
-                return other is GlobalIpId && string == other.string && in_ == other.in_
+                return other is GlobalIpId && string == other.string && inFilter == other.inFilter
             }
 
-            override fun hashCode(): Int = Objects.hash(string, in_)
+            override fun hashCode(): Int = Objects.hash(string, inFilter)
 
             override fun toString(): String =
                 when {
                     string != null -> "GlobalIpId{string=$string}"
-                    in_ != null -> "GlobalIpId{in_=$in_}"
+                    inFilter != null -> "GlobalIpId{inFilter=$inFilter}"
                     else -> throw IllegalStateException("Invalid GlobalIpId")
                 }
 
@@ -358,7 +365,7 @@ private constructor(
                 @JvmStatic fun ofString(string: String) = GlobalIpId(string = string)
 
                 /** Filtering operations */
-                @JvmStatic fun ofIn(in_: In) = GlobalIpId(in_ = in_)
+                @JvmStatic fun ofInFilter(inFilter: InFilter) = GlobalIpId(inFilter = inFilter)
             }
 
             /**
@@ -371,18 +378,18 @@ private constructor(
                 fun visitString(string: String): T
 
                 /** Filtering operations */
-                fun visitIn(in_: In): T
+                fun visitInFilter(inFilter: InFilter): T
             }
 
             /** Filtering operations */
-            class In
+            class InFilter
             private constructor(
-                private val in_: String?,
+                private val inList: String?,
                 private val additionalProperties: QueryParams,
             ) {
 
                 /** Filter by Global IP ID(s) separated by commas */
-                fun in_(): Optional<String> = Optional.ofNullable(in_)
+                fun inList(): Optional<String> = Optional.ofNullable(inList)
 
                 /** Query params to send with the request. */
                 fun _additionalProperties(): QueryParams = additionalProperties
@@ -391,27 +398,27 @@ private constructor(
 
                 companion object {
 
-                    /** Returns a mutable builder for constructing an instance of [In]. */
+                    /** Returns a mutable builder for constructing an instance of [InFilter]. */
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [In]. */
+                /** A builder for [InFilter]. */
                 class Builder internal constructor() {
 
-                    private var in_: String? = null
+                    private var inList: String? = null
                     private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                     @JvmSynthetic
-                    internal fun from(in_: In) = apply {
-                        this.in_ = in_.in_
-                        additionalProperties = in_.additionalProperties.toBuilder()
+                    internal fun from(inFilter: InFilter) = apply {
+                        inList = inFilter.inList
+                        additionalProperties = inFilter.additionalProperties.toBuilder()
                     }
 
                     /** Filter by Global IP ID(s) separated by commas */
-                    fun in_(in_: String?) = apply { this.in_ = in_ }
+                    fun inList(inList: String?) = apply { this.inList = inList }
 
-                    /** Alias for calling [Builder.in_] with `in_.orElse(null)`. */
-                    fun in_(in_: Optional<String>) = in_(in_.getOrNull())
+                    /** Alias for calling [Builder.inList] with `inList.orElse(null)`. */
+                    fun inList(inList: Optional<String>) = inList(inList.getOrNull())
 
                     fun additionalProperties(additionalProperties: QueryParams) = apply {
                         this.additionalProperties.clear()
@@ -465,11 +472,11 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [In].
+                     * Returns an immutable instance of [InFilter].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): In = In(in_, additionalProperties.build())
+                    fun build(): InFilter = InFilter(inList, additionalProperties.build())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -477,16 +484,17 @@ private constructor(
                         return true
                     }
 
-                    return other is In &&
-                        in_ == other.in_ &&
+                    return other is InFilter &&
+                        inList == other.inList &&
                         additionalProperties == other.additionalProperties
                 }
 
-                private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
+                private val hashCode: Int by lazy { Objects.hash(inList, additionalProperties) }
 
                 override fun hashCode(): Int = hashCode
 
-                override fun toString() = "In{in_=$in_, additionalProperties=$additionalProperties}"
+                override fun toString() =
+                    "InFilter{inList=$inList, additionalProperties=$additionalProperties}"
             }
         }
 

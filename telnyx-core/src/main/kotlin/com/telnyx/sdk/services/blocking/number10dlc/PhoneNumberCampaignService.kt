@@ -6,14 +6,14 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaign
+import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignCreate
 import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignCreateParams
 import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignDeleteParams
+import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignListPage
 import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignListParams
-import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignListResponse
 import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignRetrieveParams
 import com.telnyx.sdk.models.number10dlc.phonenumbercampaigns.PhoneNumberCampaignUpdateParams
-import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaign
-import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignCreate
 import java.util.function.Consumer
 
 interface PhoneNumberCampaignService {
@@ -90,17 +90,17 @@ interface PhoneNumberCampaignService {
 
     /** Create New Phone Number Campaign */
     fun update(
-        pathPhoneNumber: String,
+        campaignPhoneNumber: String,
         params: PhoneNumberCampaignUpdateParams,
-    ): PhoneNumberCampaign = update(pathPhoneNumber, params, RequestOptions.none())
+    ): PhoneNumberCampaign = update(campaignPhoneNumber, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        pathPhoneNumber: String,
+        campaignPhoneNumber: String,
         params: PhoneNumberCampaignUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhoneNumberCampaign =
-        update(params.toBuilder().pathPhoneNumber(pathPhoneNumber).build(), requestOptions)
+        update(params.toBuilder().campaignPhoneNumber(campaignPhoneNumber).build(), requestOptions)
 
     /** @see update */
     fun update(params: PhoneNumberCampaignUpdateParams): PhoneNumberCampaign =
@@ -113,21 +113,21 @@ interface PhoneNumberCampaignService {
     ): PhoneNumberCampaign
 
     /** Retrieve All Phone Number Campaigns */
-    fun list(): PhoneNumberCampaignListResponse = list(PhoneNumberCampaignListParams.none())
+    fun list(): PhoneNumberCampaignListPage = list(PhoneNumberCampaignListParams.none())
 
     /** @see list */
     fun list(
         params: PhoneNumberCampaignListParams = PhoneNumberCampaignListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhoneNumberCampaignListResponse
+    ): PhoneNumberCampaignListPage
 
     /** @see list */
     fun list(
         params: PhoneNumberCampaignListParams = PhoneNumberCampaignListParams.none()
-    ): PhoneNumberCampaignListResponse = list(params, RequestOptions.none())
+    ): PhoneNumberCampaignListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): PhoneNumberCampaignListResponse =
+    fun list(requestOptions: RequestOptions): PhoneNumberCampaignListPage =
         list(PhoneNumberCampaignListParams.none(), requestOptions)
 
     /** This endpoint allows you to remove a campaign assignment from the supplied `phoneNumber`. */
@@ -264,19 +264,22 @@ interface PhoneNumberCampaignService {
          */
         @MustBeClosed
         fun update(
-            pathPhoneNumber: String,
+            campaignPhoneNumber: String,
             params: PhoneNumberCampaignUpdateParams,
         ): HttpResponseFor<PhoneNumberCampaign> =
-            update(pathPhoneNumber, params, RequestOptions.none())
+            update(campaignPhoneNumber, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
-            pathPhoneNumber: String,
+            campaignPhoneNumber: String,
             params: PhoneNumberCampaignUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhoneNumberCampaign> =
-            update(params.toBuilder().pathPhoneNumber(pathPhoneNumber).build(), requestOptions)
+            update(
+                params.toBuilder().campaignPhoneNumber(campaignPhoneNumber).build(),
+                requestOptions,
+            )
 
         /** @see update */
         @MustBeClosed
@@ -295,7 +298,7 @@ interface PhoneNumberCampaignService {
          * same as [PhoneNumberCampaignService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<PhoneNumberCampaignListResponse> =
+        fun list(): HttpResponseFor<PhoneNumberCampaignListPage> =
             list(PhoneNumberCampaignListParams.none())
 
         /** @see list */
@@ -303,17 +306,17 @@ interface PhoneNumberCampaignService {
         fun list(
             params: PhoneNumberCampaignListParams = PhoneNumberCampaignListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhoneNumberCampaignListResponse>
+        ): HttpResponseFor<PhoneNumberCampaignListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PhoneNumberCampaignListParams = PhoneNumberCampaignListParams.none()
-        ): HttpResponseFor<PhoneNumberCampaignListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<PhoneNumberCampaignListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<PhoneNumberCampaignListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<PhoneNumberCampaignListPage> =
             list(PhoneNumberCampaignListParams.none(), requestOptions)
 
         /**
