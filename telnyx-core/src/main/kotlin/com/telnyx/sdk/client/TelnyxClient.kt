@@ -64,6 +64,7 @@ import com.telnyx.sdk.services.blocking.ListService
 import com.telnyx.sdk.services.blocking.ManagedAccountService
 import com.telnyx.sdk.services.blocking.MediaService
 import com.telnyx.sdk.services.blocking.MessageService
+import com.telnyx.sdk.services.blocking.Messaging10dlcService
 import com.telnyx.sdk.services.blocking.MessagingHostedNumberOrderService
 import com.telnyx.sdk.services.blocking.MessagingHostedNumberService
 import com.telnyx.sdk.services.blocking.MessagingNumbersBulkUpdateService
@@ -84,7 +85,6 @@ import com.telnyx.sdk.services.blocking.NotificationEventConditionService
 import com.telnyx.sdk.services.blocking.NotificationEventService
 import com.telnyx.sdk.services.blocking.NotificationProfileService
 import com.telnyx.sdk.services.blocking.NotificationSettingService
-import com.telnyx.sdk.services.blocking.Number10dlcService
 import com.telnyx.sdk.services.blocking.NumberBlockOrderService
 import com.telnyx.sdk.services.blocking.NumberLookupService
 import com.telnyx.sdk.services.blocking.NumberOrderPhoneNumberService
@@ -97,9 +97,7 @@ import com.telnyx.sdk.services.blocking.OAuthService
 import com.telnyx.sdk.services.blocking.OperatorConnectService
 import com.telnyx.sdk.services.blocking.OtaUpdateService
 import com.telnyx.sdk.services.blocking.OutboundVoiceProfileService
-import com.telnyx.sdk.services.blocking.PartnerCampaignService
 import com.telnyx.sdk.services.blocking.PaymentService
-import com.telnyx.sdk.services.blocking.PhoneNumberAssignmentByProfileService
 import com.telnyx.sdk.services.blocking.PhoneNumberBlockService
 import com.telnyx.sdk.services.blocking.PhoneNumberService
 import com.telnyx.sdk.services.blocking.PhoneNumbersRegulatoryRequirementService
@@ -377,8 +375,6 @@ interface TelnyxClient {
 
     fun payment(): PaymentService
 
-    fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileService
-
     fun phoneNumberBlocks(): PhoneNumberBlockService
 
     fun phoneNumbers(): PhoneNumberService
@@ -485,8 +481,6 @@ interface TelnyxClient {
 
     fun wirelessBlocklists(): WirelessBlocklistService
 
-    fun partnerCampaigns(): PartnerCampaignService
-
     fun wellKnown(): WellKnownService
 
     fun inexplicitNumberOrders(): InexplicitNumberOrderService
@@ -495,7 +489,7 @@ interface TelnyxClient {
 
     fun mobileVoiceConnections(): MobileVoiceConnectionService
 
-    fun number10dlc(): Number10dlcService
+    fun messaging10dlc(): Messaging10dlcService
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -704,8 +698,6 @@ interface TelnyxClient {
 
         fun payment(): PaymentService.WithRawResponse
 
-        fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileService.WithRawResponse
-
         fun phoneNumberBlocks(): PhoneNumberBlockService.WithRawResponse
 
         fun phoneNumbers(): PhoneNumberService.WithRawResponse
@@ -813,8 +805,6 @@ interface TelnyxClient {
 
         fun wirelessBlocklists(): WirelessBlocklistService.WithRawResponse
 
-        fun partnerCampaigns(): PartnerCampaignService.WithRawResponse
-
         fun wellKnown(): WellKnownService.WithRawResponse
 
         fun inexplicitNumberOrders(): InexplicitNumberOrderService.WithRawResponse
@@ -823,6 +813,6 @@ interface TelnyxClient {
 
         fun mobileVoiceConnections(): MobileVoiceConnectionService.WithRawResponse
 
-        fun number10dlc(): Number10dlcService.WithRawResponse
+        fun messaging10dlc(): Messaging10dlcService.WithRawResponse
     }
 }
