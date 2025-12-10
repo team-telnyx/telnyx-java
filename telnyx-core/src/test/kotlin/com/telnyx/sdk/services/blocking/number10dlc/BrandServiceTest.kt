@@ -8,7 +8,9 @@ import com.telnyx.sdk.models.number10dlc.brand.AltBusinessIdType
 import com.telnyx.sdk.models.number10dlc.brand.BrandCreateParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandIdentityStatus
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandTriggerSmsOtpParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandVerifySmsOtpParams
 import com.telnyx.sdk.models.number10dlc.brand.EntityType
 import com.telnyx.sdk.models.number10dlc.brand.StockExchange
 import com.telnyx.sdk.models.number10dlc.brand.Vertical
@@ -212,5 +214,45 @@ internal class BrandServiceTest {
         val telnyxBrand = brandService.revet("brandId")
 
         telnyxBrand.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun triggerSmsOtp() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val brandService = client.number10dlc().brand()
+
+        val response =
+            brandService.triggerSmsOtp(
+                BrandTriggerSmsOtpParams.builder()
+                    .brandId("4b20019b-043a-78f8-0657-b3be3f4b4002")
+                    .pinSms("Your PIN is @OTP_PIN@")
+                    .successSms("Verification successful!")
+                    .build()
+            )
+
+        response.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun verifySmsOtp() {
+        val client =
+            TelnyxOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val brandService = client.number10dlc().brand()
+
+        brandService.verifySmsOtp(
+            BrandVerifySmsOtpParams.builder()
+                .brandId("4b20019b-043a-78f8-0657-b3be3f4b4002")
+                .otpPin("123456")
+                .build()
+        )
     }
 }

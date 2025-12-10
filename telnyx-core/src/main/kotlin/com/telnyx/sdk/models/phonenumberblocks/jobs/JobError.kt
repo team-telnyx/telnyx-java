@@ -10,7 +10,6 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -21,33 +20,27 @@ class JobError
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val code: JsonField<String>,
-    private val title: JsonField<String>,
     private val detail: JsonField<String>,
     private val meta: JsonField<Meta>,
     private val source: JsonField<Source>,
+    private val title: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("code") @ExcludeMissing code: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("title") @ExcludeMissing title: JsonField<String> = JsonMissing.of(),
         @JsonProperty("detail") @ExcludeMissing detail: JsonField<String> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<Meta> = JsonMissing.of(),
         @JsonProperty("source") @ExcludeMissing source: JsonField<Source> = JsonMissing.of(),
-    ) : this(code, title, detail, meta, source, mutableMapOf())
+        @JsonProperty("title") @ExcludeMissing title: JsonField<String> = JsonMissing.of(),
+    ) : this(code, detail, meta, source, title, mutableMapOf())
 
     /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun code(): String = code.getRequired("code")
-
-    /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun title(): String = title.getRequired("title")
+    fun code(): Optional<String> = code.getOptional("code")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -68,18 +61,17 @@ private constructor(
     fun source(): Optional<Source> = source.getOptional("source")
 
     /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun title(): Optional<String> = title.getOptional("title")
+
+    /**
      * Returns the raw JSON value of [code].
      *
      * Unlike [code], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
-
-    /**
-     * Returns the raw JSON value of [title].
-     *
-     * Unlike [title], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("title") @ExcludeMissing fun _title(): JsonField<String> = title
 
     /**
      * Returns the raw JSON value of [detail].
@@ -102,6 +94,13 @@ private constructor(
      */
     @JsonProperty("source") @ExcludeMissing fun _source(): JsonField<Source> = source
 
+    /**
+     * Returns the raw JSON value of [title].
+     *
+     * Unlike [title], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("title") @ExcludeMissing fun _title(): JsonField<String> = title
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -116,35 +115,27 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [JobError].
-         *
-         * The following fields are required:
-         * ```java
-         * .code()
-         * .title()
-         * ```
-         */
+        /** Returns a mutable builder for constructing an instance of [JobError]. */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [JobError]. */
     class Builder internal constructor() {
 
-        private var code: JsonField<String>? = null
-        private var title: JsonField<String>? = null
+        private var code: JsonField<String> = JsonMissing.of()
         private var detail: JsonField<String> = JsonMissing.of()
         private var meta: JsonField<Meta> = JsonMissing.of()
         private var source: JsonField<Source> = JsonMissing.of()
+        private var title: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(jobError: JobError) = apply {
             code = jobError.code
-            title = jobError.title
             detail = jobError.detail
             meta = jobError.meta
             source = jobError.source
+            title = jobError.title
             additionalProperties = jobError.additionalProperties.toMutableMap()
         }
 
@@ -157,16 +148,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun code(code: JsonField<String>) = apply { this.code = code }
-
-        fun title(title: String) = title(JsonField.of(title))
-
-        /**
-         * Sets [Builder.title] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.title] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun title(title: JsonField<String>) = apply { this.title = title }
 
         fun detail(detail: String) = detail(JsonField.of(detail))
 
@@ -198,6 +179,16 @@ private constructor(
          */
         fun source(source: JsonField<Source>) = apply { this.source = source }
 
+        fun title(title: String) = title(JsonField.of(title))
+
+        /**
+         * Sets [Builder.title] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.title] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun title(title: JsonField<String>) = apply { this.title = title }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -221,24 +212,9 @@ private constructor(
          * Returns an immutable instance of [JobError].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .code()
-         * .title()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): JobError =
-            JobError(
-                checkRequired("code", code),
-                checkRequired("title", title),
-                detail,
-                meta,
-                source,
-                additionalProperties.toMutableMap(),
-            )
+            JobError(code, detail, meta, source, title, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
@@ -249,10 +225,10 @@ private constructor(
         }
 
         code()
-        title()
         detail()
         meta().ifPresent { it.validate() }
         source().ifPresent { it.validate() }
+        title()
         validated = true
     }
 
@@ -272,10 +248,10 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (code.asKnown().isPresent) 1 else 0) +
-            (if (title.asKnown().isPresent) 1 else 0) +
             (if (detail.asKnown().isPresent) 1 else 0) +
             (meta.asKnown().getOrNull()?.validity() ?: 0) +
-            (source.asKnown().getOrNull()?.validity() ?: 0)
+            (source.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (title.asKnown().isPresent) 1 else 0)
 
     class Meta
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -603,19 +579,19 @@ private constructor(
 
         return other is JobError &&
             code == other.code &&
-            title == other.title &&
             detail == other.detail &&
             meta == other.meta &&
             source == other.source &&
+            title == other.title &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(code, title, detail, meta, source, additionalProperties)
+        Objects.hash(code, detail, meta, source, title, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "JobError{code=$code, title=$title, detail=$detail, meta=$meta, source=$source, additionalProperties=$additionalProperties}"
+        "JobError{code=$code, detail=$detail, meta=$meta, source=$source, title=$title, additionalProperties=$additionalProperties}"
 }

@@ -19,7 +19,10 @@ import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandRevetParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandTriggerSmsOtpParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandTriggerSmsOtpResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandVerifySmsOtpParams
 import com.telnyx.sdk.models.number10dlc.brand.TelnyxBrand
 import com.telnyx.sdk.services.blocking.number10dlc.brand.ExternalVettingService
 import java.util.function.Consumer
@@ -299,6 +302,82 @@ interface BrandService {
     /** @see revet */
     fun revet(brandId: String, requestOptions: RequestOptions): TelnyxBrand =
         revet(brandId, BrandRevetParams.none(), requestOptions)
+
+    /**
+     * Trigger or re-trigger an SMS OTP (One-Time Password) for Sole Proprietor brand verification.
+     *
+     * **Important Notes:**
+     * * Only allowed for Sole Proprietor (`SOLE_PROPRIETOR`) brands
+     * * Triggers generation of a one-time password sent to the `mobilePhone` number in the brand's
+     *   profile
+     * * Campaigns cannot be created until OTP verification is complete
+     * * US/CA numbers only for real OTPs; mock brands can use non-US/CA numbers for testing
+     * * Returns a `referenceId` that can be used to check OTP status via the GET
+     *   `/10dlc/brand/smsOtp/{referenceId}` endpoint
+     *
+     * **Use Cases:**
+     * * Initial OTP trigger after Sole Proprietor brand creation
+     * * Re-triggering OTP if the user didn't receive or needs a new code
+     */
+    fun triggerSmsOtp(
+        brandId: String,
+        params: BrandTriggerSmsOtpParams,
+    ): BrandTriggerSmsOtpResponse = triggerSmsOtp(brandId, params, RequestOptions.none())
+
+    /** @see triggerSmsOtp */
+    fun triggerSmsOtp(
+        brandId: String,
+        params: BrandTriggerSmsOtpParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BrandTriggerSmsOtpResponse =
+        triggerSmsOtp(params.toBuilder().brandId(brandId).build(), requestOptions)
+
+    /** @see triggerSmsOtp */
+    fun triggerSmsOtp(params: BrandTriggerSmsOtpParams): BrandTriggerSmsOtpResponse =
+        triggerSmsOtp(params, RequestOptions.none())
+
+    /** @see triggerSmsOtp */
+    fun triggerSmsOtp(
+        params: BrandTriggerSmsOtpParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BrandTriggerSmsOtpResponse
+
+    /**
+     * Verify the SMS OTP (One-Time Password) for Sole Proprietor brand verification.
+     *
+     * **Verification Flow:**
+     * 1. User receives OTP via SMS after triggering
+     * 2. User submits the OTP pin through this endpoint
+     * 3. Upon successful verification:
+     *     - A `BRAND_OTP_VERIFIED` webhook event is sent to the CSP
+     *     - The brand's `identityStatus` changes to `VERIFIED`
+     *     - Campaigns can now be created for this brand
+     *
+     * **Error Handling:**
+     *
+     * Provides proper error responses for:
+     * * Invalid OTP pins
+     * * Expired OTPs
+     * * OTP verification failures
+     */
+    fun verifySmsOtp(brandId: String, params: BrandVerifySmsOtpParams) =
+        verifySmsOtp(brandId, params, RequestOptions.none())
+
+    /** @see verifySmsOtp */
+    fun verifySmsOtp(
+        brandId: String,
+        params: BrandVerifySmsOtpParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = verifySmsOtp(params.toBuilder().brandId(brandId).build(), requestOptions)
+
+    /** @see verifySmsOtp */
+    fun verifySmsOtp(params: BrandVerifySmsOtpParams) = verifySmsOtp(params, RequestOptions.none())
+
+    /** @see verifySmsOtp */
+    fun verifySmsOtp(
+        params: BrandVerifySmsOtpParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
 
     /** A view of [BrandService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -643,5 +722,67 @@ interface BrandService {
         @MustBeClosed
         fun revet(brandId: String, requestOptions: RequestOptions): HttpResponseFor<TelnyxBrand> =
             revet(brandId, BrandRevetParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /10dlc/brand/{brandId}/smsOtp`, but is otherwise
+         * the same as [BrandService.triggerSmsOtp].
+         */
+        @MustBeClosed
+        fun triggerSmsOtp(
+            brandId: String,
+            params: BrandTriggerSmsOtpParams,
+        ): HttpResponseFor<BrandTriggerSmsOtpResponse> =
+            triggerSmsOtp(brandId, params, RequestOptions.none())
+
+        /** @see triggerSmsOtp */
+        @MustBeClosed
+        fun triggerSmsOtp(
+            brandId: String,
+            params: BrandTriggerSmsOtpParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BrandTriggerSmsOtpResponse> =
+            triggerSmsOtp(params.toBuilder().brandId(brandId).build(), requestOptions)
+
+        /** @see triggerSmsOtp */
+        @MustBeClosed
+        fun triggerSmsOtp(
+            params: BrandTriggerSmsOtpParams
+        ): HttpResponseFor<BrandTriggerSmsOtpResponse> =
+            triggerSmsOtp(params, RequestOptions.none())
+
+        /** @see triggerSmsOtp */
+        @MustBeClosed
+        fun triggerSmsOtp(
+            params: BrandTriggerSmsOtpParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BrandTriggerSmsOtpResponse>
+
+        /**
+         * Returns a raw HTTP response for `put /10dlc/brand/{brandId}/smsOtp`, but is otherwise the
+         * same as [BrandService.verifySmsOtp].
+         */
+        @MustBeClosed
+        fun verifySmsOtp(brandId: String, params: BrandVerifySmsOtpParams): HttpResponse =
+            verifySmsOtp(brandId, params, RequestOptions.none())
+
+        /** @see verifySmsOtp */
+        @MustBeClosed
+        fun verifySmsOtp(
+            brandId: String,
+            params: BrandVerifySmsOtpParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = verifySmsOtp(params.toBuilder().brandId(brandId).build(), requestOptions)
+
+        /** @see verifySmsOtp */
+        @MustBeClosed
+        fun verifySmsOtp(params: BrandVerifySmsOtpParams): HttpResponse =
+            verifySmsOtp(params, RequestOptions.none())
+
+        /** @see verifySmsOtp */
+        @MustBeClosed
+        fun verifySmsOtp(
+            params: BrandVerifySmsOtpParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
     }
 }

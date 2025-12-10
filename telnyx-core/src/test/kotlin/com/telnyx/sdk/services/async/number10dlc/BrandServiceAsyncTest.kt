@@ -8,7 +8,9 @@ import com.telnyx.sdk.models.number10dlc.brand.AltBusinessIdType
 import com.telnyx.sdk.models.number10dlc.brand.BrandCreateParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandIdentityStatus
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandTriggerSmsOtpParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandVerifySmsOtpParams
 import com.telnyx.sdk.models.number10dlc.brand.EntityType
 import com.telnyx.sdk.models.number10dlc.brand.StockExchange
 import com.telnyx.sdk.models.number10dlc.brand.Vertical
@@ -223,5 +225,49 @@ internal class BrandServiceAsyncTest {
 
         val telnyxBrand = telnyxBrandFuture.get()
         telnyxBrand.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun triggerSmsOtp() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val brandServiceAsync = client.number10dlc().brand()
+
+        val responseFuture =
+            brandServiceAsync.triggerSmsOtp(
+                BrandTriggerSmsOtpParams.builder()
+                    .brandId("4b20019b-043a-78f8-0657-b3be3f4b4002")
+                    .pinSms("Your PIN is @OTP_PIN@")
+                    .successSms("Verification successful!")
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun verifySmsOtp() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val brandServiceAsync = client.number10dlc().brand()
+
+        val future =
+            brandServiceAsync.verifySmsOtp(
+                BrandVerifySmsOtpParams.builder()
+                    .brandId("4b20019b-043a-78f8-0657-b3be3f4b4002")
+                    .otpPin("123456")
+                    .build()
+            )
+
+        val response = future.get()
     }
 }
