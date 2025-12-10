@@ -20,7 +20,7 @@ internal class NumberOrderPhoneNumberListResponseTest {
                 .addData(
                     NumberOrderPhoneNumber.builder()
                         .id("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
-                        .bundleId(null)
+                        .bundleId("a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d")
                         .countryCode("US")
                         .deadline(OffsetDateTime.parse("2024-05-31T11:14:00Z"))
                         .isBlockNumber(false)
@@ -59,7 +59,7 @@ internal class NumberOrderPhoneNumberListResponseTest {
             .containsExactly(
                 NumberOrderPhoneNumber.builder()
                     .id("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
-                    .bundleId(null)
+                    .bundleId("a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d")
                     .countryCode("US")
                     .deadline(OffsetDateTime.parse("2024-05-31T11:14:00Z"))
                     .isBlockNumber(false)
@@ -103,7 +103,7 @@ internal class NumberOrderPhoneNumberListResponseTest {
                 .addData(
                     NumberOrderPhoneNumber.builder()
                         .id("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
-                        .bundleId(null)
+                        .bundleId("a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d")
                         .countryCode("US")
                         .deadline(OffsetDateTime.parse("2024-05-31T11:14:00Z"))
                         .isBlockNumber(false)
