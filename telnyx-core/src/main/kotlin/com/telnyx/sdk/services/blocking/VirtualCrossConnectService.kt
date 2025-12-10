@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreateParam
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectCreateResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectDeleteParams
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectDeleteResponse
-import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectListPage
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectListParams
+import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectListResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectRetrieveParams
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectRetrieveResponse
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectUpdateParams
@@ -40,22 +40,14 @@ interface VirtualCrossConnectService {
      * and secondary connections to be created at the same time and they can not be independantly
      * disabled.
      */
-    fun create(): VirtualCrossConnectCreateResponse = create(VirtualCrossConnectCreateParams.none())
+    fun create(params: VirtualCrossConnectCreateParams): VirtualCrossConnectCreateResponse =
+        create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none(),
+        params: VirtualCrossConnectCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualCrossConnectCreateResponse
-
-    /** @see create */
-    fun create(
-        params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none()
-    ): VirtualCrossConnectCreateResponse = create(params, RequestOptions.none())
-
-    /** @see create */
-    fun create(requestOptions: RequestOptions): VirtualCrossConnectCreateResponse =
-        create(VirtualCrossConnectCreateParams.none(), requestOptions)
 
     /** Retrieve a Virtual Cross Connect. */
     fun retrieve(id: String): VirtualCrossConnectRetrieveResponse =
@@ -128,21 +120,21 @@ interface VirtualCrossConnectService {
         update(id, VirtualCrossConnectUpdateParams.none(), requestOptions)
 
     /** List all Virtual Cross Connects. */
-    fun list(): VirtualCrossConnectListPage = list(VirtualCrossConnectListParams.none())
+    fun list(): VirtualCrossConnectListResponse = list(VirtualCrossConnectListParams.none())
 
     /** @see list */
     fun list(
         params: VirtualCrossConnectListParams = VirtualCrossConnectListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): VirtualCrossConnectListPage
+    ): VirtualCrossConnectListResponse
 
     /** @see list */
     fun list(
         params: VirtualCrossConnectListParams = VirtualCrossConnectListParams.none()
-    ): VirtualCrossConnectListPage = list(params, RequestOptions.none())
+    ): VirtualCrossConnectListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): VirtualCrossConnectListPage =
+    fun list(requestOptions: RequestOptions): VirtualCrossConnectListResponse =
         list(VirtualCrossConnectListParams.none(), requestOptions)
 
     /** Delete a Virtual Cross Connect. */
@@ -196,29 +188,17 @@ interface VirtualCrossConnectService {
          * as [VirtualCrossConnectService.create].
          */
         @MustBeClosed
-        fun create(): HttpResponseFor<VirtualCrossConnectCreateResponse> =
-            create(VirtualCrossConnectCreateParams.none())
-
-        /** @see create */
-        @MustBeClosed
         fun create(
-            params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VirtualCrossConnectCreateResponse>
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none()
+            params: VirtualCrossConnectCreateParams
         ): HttpResponseFor<VirtualCrossConnectCreateResponse> =
             create(params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<VirtualCrossConnectCreateResponse> =
-            create(VirtualCrossConnectCreateParams.none(), requestOptions)
+            params: VirtualCrossConnectCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<VirtualCrossConnectCreateResponse>
 
         /**
          * Returns a raw HTTP response for `get /virtual_cross_connects/{id}`, but is otherwise the
@@ -319,7 +299,7 @@ interface VirtualCrossConnectService {
          * as [VirtualCrossConnectService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<VirtualCrossConnectListPage> =
+        fun list(): HttpResponseFor<VirtualCrossConnectListResponse> =
             list(VirtualCrossConnectListParams.none())
 
         /** @see list */
@@ -327,17 +307,17 @@ interface VirtualCrossConnectService {
         fun list(
             params: VirtualCrossConnectListParams = VirtualCrossConnectListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VirtualCrossConnectListPage>
+        ): HttpResponseFor<VirtualCrossConnectListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: VirtualCrossConnectListParams = VirtualCrossConnectListParams.none()
-        ): HttpResponseFor<VirtualCrossConnectListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<VirtualCrossConnectListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<VirtualCrossConnectListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<VirtualCrossConnectListResponse> =
             list(VirtualCrossConnectListParams.none(), requestOptions)
 
         /**

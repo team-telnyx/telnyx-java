@@ -10,7 +10,6 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -20,8 +19,8 @@ class PaginationMetaSimple
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val pageNumber: JsonField<Long>,
-    private val totalPages: JsonField<Long>,
     private val pageSize: JsonField<Long>,
+    private val totalPages: JsonField<Long>,
     private val totalResults: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -29,30 +28,30 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("page_number") @ExcludeMissing pageNumber: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("total_pages") @ExcludeMissing totalPages: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("page_size") @ExcludeMissing pageSize: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("total_pages") @ExcludeMissing totalPages: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("total_results")
         @ExcludeMissing
         totalResults: JsonField<Long> = JsonMissing.of(),
-    ) : this(pageNumber, totalPages, pageSize, totalResults, mutableMapOf())
+    ) : this(pageNumber, pageSize, totalPages, totalResults, mutableMapOf())
 
     /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun pageNumber(): Long = pageNumber.getRequired("page_number")
-
-    /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun totalPages(): Long = totalPages.getRequired("total_pages")
+    fun pageNumber(): Optional<Long> = pageNumber.getOptional("page_number")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun pageSize(): Optional<Long> = pageSize.getOptional("page_size")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun totalPages(): Optional<Long> = totalPages.getOptional("total_pages")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -68,18 +67,18 @@ private constructor(
     @JsonProperty("page_number") @ExcludeMissing fun _pageNumber(): JsonField<Long> = pageNumber
 
     /**
-     * Returns the raw JSON value of [totalPages].
-     *
-     * Unlike [totalPages], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("total_pages") @ExcludeMissing fun _totalPages(): JsonField<Long> = totalPages
-
-    /**
      * Returns the raw JSON value of [pageSize].
      *
      * Unlike [pageSize], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("page_size") @ExcludeMissing fun _pageSize(): JsonField<Long> = pageSize
+
+    /**
+     * Returns the raw JSON value of [totalPages].
+     *
+     * Unlike [totalPages], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("total_pages") @ExcludeMissing fun _totalPages(): JsonField<Long> = totalPages
 
     /**
      * Returns the raw JSON value of [totalResults].
@@ -104,32 +103,24 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [PaginationMetaSimple].
-         *
-         * The following fields are required:
-         * ```java
-         * .pageNumber()
-         * .totalPages()
-         * ```
-         */
+        /** Returns a mutable builder for constructing an instance of [PaginationMetaSimple]. */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [PaginationMetaSimple]. */
     class Builder internal constructor() {
 
-        private var pageNumber: JsonField<Long>? = null
-        private var totalPages: JsonField<Long>? = null
+        private var pageNumber: JsonField<Long> = JsonMissing.of()
         private var pageSize: JsonField<Long> = JsonMissing.of()
+        private var totalPages: JsonField<Long> = JsonMissing.of()
         private var totalResults: JsonField<Long> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(paginationMetaSimple: PaginationMetaSimple) = apply {
             pageNumber = paginationMetaSimple.pageNumber
-            totalPages = paginationMetaSimple.totalPages
             pageSize = paginationMetaSimple.pageSize
+            totalPages = paginationMetaSimple.totalPages
             totalResults = paginationMetaSimple.totalResults
             additionalProperties = paginationMetaSimple.additionalProperties.toMutableMap()
         }
@@ -144,16 +135,6 @@ private constructor(
          */
         fun pageNumber(pageNumber: JsonField<Long>) = apply { this.pageNumber = pageNumber }
 
-        fun totalPages(totalPages: Long) = totalPages(JsonField.of(totalPages))
-
-        /**
-         * Sets [Builder.totalPages] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.totalPages] with a well-typed [Long] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun totalPages(totalPages: JsonField<Long>) = apply { this.totalPages = totalPages }
-
         fun pageSize(pageSize: Long) = pageSize(JsonField.of(pageSize))
 
         /**
@@ -163,6 +144,16 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun pageSize(pageSize: JsonField<Long>) = apply { this.pageSize = pageSize }
+
+        fun totalPages(totalPages: Long) = totalPages(JsonField.of(totalPages))
+
+        /**
+         * Sets [Builder.totalPages] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.totalPages] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun totalPages(totalPages: JsonField<Long>) = apply { this.totalPages = totalPages }
 
         fun totalResults(totalResults: Long) = totalResults(JsonField.of(totalResults))
 
@@ -198,20 +189,12 @@ private constructor(
          * Returns an immutable instance of [PaginationMetaSimple].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .pageNumber()
-         * .totalPages()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PaginationMetaSimple =
             PaginationMetaSimple(
-                checkRequired("pageNumber", pageNumber),
-                checkRequired("totalPages", totalPages),
+                pageNumber,
                 pageSize,
+                totalPages,
                 totalResults,
                 additionalProperties.toMutableMap(),
             )
@@ -225,8 +208,8 @@ private constructor(
         }
 
         pageNumber()
-        totalPages()
         pageSize()
+        totalPages()
         totalResults()
         validated = true
     }
@@ -247,8 +230,8 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (pageNumber.asKnown().isPresent) 1 else 0) +
-            (if (totalPages.asKnown().isPresent) 1 else 0) +
             (if (pageSize.asKnown().isPresent) 1 else 0) +
+            (if (totalPages.asKnown().isPresent) 1 else 0) +
             (if (totalResults.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
@@ -258,18 +241,18 @@ private constructor(
 
         return other is PaginationMetaSimple &&
             pageNumber == other.pageNumber &&
-            totalPages == other.totalPages &&
             pageSize == other.pageSize &&
+            totalPages == other.totalPages &&
             totalResults == other.totalResults &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(pageNumber, totalPages, pageSize, totalResults, additionalProperties)
+        Objects.hash(pageNumber, pageSize, totalPages, totalResults, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PaginationMetaSimple{pageNumber=$pageNumber, totalPages=$totalPages, pageSize=$pageSize, totalResults=$totalResults, additionalProperties=$additionalProperties}"
+        "PaginationMetaSimple{pageNumber=$pageNumber, pageSize=$pageSize, totalPages=$totalPages, totalResults=$totalResults, additionalProperties=$additionalProperties}"
 }

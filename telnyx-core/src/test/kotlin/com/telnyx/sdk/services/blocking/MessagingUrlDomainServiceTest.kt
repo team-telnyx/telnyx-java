@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,8 +22,13 @@ internal class MessagingUrlDomainServiceTest {
                 .build()
         val messagingUrlDomainService = client.messagingUrlDomains()
 
-        val page = messagingUrlDomainService.list()
+        val messagingUrlDomains =
+            messagingUrlDomainService.list(
+                MessagingUrlDomainListParams.builder()
+                    .page(MessagingUrlDomainListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        messagingUrlDomains.validate()
     }
 }

@@ -23,16 +23,25 @@ internal class UsageReportServiceTest {
                 .build()
         val usageReportService = client.usageReports()
 
-        val page =
+        val usageReports =
             usageReportService.list(
                 UsageReportListParams.builder()
                     .addDimension("string")
                     .addMetric("string")
                     .product("product")
+                    .dateRange("date_range")
+                    .endDate("end_date")
+                    .filter("filter")
+                    .format(UsageReportListParams.Format.CSV)
+                    .managedAccounts(true)
+                    .page(UsageReportListParams.Page.builder().number(1L).size(5000L).build())
+                    .addSort("string")
+                    .startDate("start_date")
+                    .authorizationBearer("authorization_bearer")
                     .build()
             )
 
-        page.response().validate()
+        usageReports.validate()
     }
 
     @Disabled("Prism tests are disabled")

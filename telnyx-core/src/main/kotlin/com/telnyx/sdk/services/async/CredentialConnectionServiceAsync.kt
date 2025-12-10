@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.credentialconnections.CredentialConnectionCreatePar
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionCreateResponse
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionDeleteParams
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionDeleteResponse
-import com.telnyx.sdk.models.credentialconnections.CredentialConnectionListPageAsync
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionListParams
+import com.telnyx.sdk.models.credentialconnections.CredentialConnectionListResponse
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionRetrieveParams
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionRetrieveResponse
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionUpdateParams
@@ -122,22 +122,22 @@ interface CredentialConnectionServiceAsync {
         update(id, CredentialConnectionUpdateParams.none(), requestOptions)
 
     /** Returns a list of your credential connections. */
-    fun list(): CompletableFuture<CredentialConnectionListPageAsync> =
+    fun list(): CompletableFuture<CredentialConnectionListResponse> =
         list(CredentialConnectionListParams.none())
 
     /** @see list */
     fun list(
         params: CredentialConnectionListParams = CredentialConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CredentialConnectionListPageAsync>
+    ): CompletableFuture<CredentialConnectionListResponse>
 
     /** @see list */
     fun list(
         params: CredentialConnectionListParams = CredentialConnectionListParams.none()
-    ): CompletableFuture<CredentialConnectionListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<CredentialConnectionListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<CredentialConnectionListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<CredentialConnectionListResponse> =
         list(CredentialConnectionListParams.none(), requestOptions)
 
     /** Deletes an existing credential connection. */
@@ -299,25 +299,25 @@ interface CredentialConnectionServiceAsync {
          * Returns a raw HTTP response for `get /credential_connections`, but is otherwise the same
          * as [CredentialConnectionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<CredentialConnectionListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<CredentialConnectionListResponse>> =
             list(CredentialConnectionListParams.none())
 
         /** @see list */
         fun list(
             params: CredentialConnectionListParams = CredentialConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CredentialConnectionListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<CredentialConnectionListResponse>>
 
         /** @see list */
         fun list(
             params: CredentialConnectionListParams = CredentialConnectionListParams.none()
-        ): CompletableFuture<HttpResponseFor<CredentialConnectionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CredentialConnectionListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CredentialConnectionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CredentialConnectionListResponse>> =
             list(CredentialConnectionListParams.none(), requestOptions)
 
         /**

@@ -6,11 +6,11 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.ai.assistants.tests.runs.RunListPage
 import com.telnyx.sdk.models.ai.assistants.tests.runs.RunListParams
 import com.telnyx.sdk.models.ai.assistants.tests.runs.RunRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.tests.runs.RunTriggerParams
 import com.telnyx.sdk.models.ai.assistants.tests.runs.TestRunResponse
+import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.PaginatedTestRunList
 import java.util.function.Consumer
 
 interface RunService {
@@ -51,30 +51,30 @@ interface RunService {
     /**
      * Retrieves paginated execution history for a specific assistant test with filtering options
      */
-    fun list(testId: String): RunListPage = list(testId, RunListParams.none())
+    fun list(testId: String): PaginatedTestRunList = list(testId, RunListParams.none())
 
     /** @see list */
     fun list(
         testId: String,
         params: RunListParams = RunListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RunListPage = list(params.toBuilder().testId(testId).build(), requestOptions)
+    ): PaginatedTestRunList = list(params.toBuilder().testId(testId).build(), requestOptions)
 
     /** @see list */
-    fun list(testId: String, params: RunListParams = RunListParams.none()): RunListPage =
+    fun list(testId: String, params: RunListParams = RunListParams.none()): PaginatedTestRunList =
         list(testId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: RunListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RunListPage
+    ): PaginatedTestRunList
 
     /** @see list */
-    fun list(params: RunListParams): RunListPage = list(params, RequestOptions.none())
+    fun list(params: RunListParams): PaginatedTestRunList = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(testId: String, requestOptions: RequestOptions): RunListPage =
+    fun list(testId: String, requestOptions: RequestOptions): PaginatedTestRunList =
         list(testId, RunListParams.none(), requestOptions)
 
     /** Initiates immediate execution of a specific assistant test */
@@ -150,7 +150,8 @@ interface RunService {
          * otherwise the same as [RunService.list].
          */
         @MustBeClosed
-        fun list(testId: String): HttpResponseFor<RunListPage> = list(testId, RunListParams.none())
+        fun list(testId: String): HttpResponseFor<PaginatedTestRunList> =
+            list(testId, RunListParams.none())
 
         /** @see list */
         @MustBeClosed
@@ -158,7 +159,7 @@ interface RunService {
             testId: String,
             params: RunListParams = RunListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RunListPage> =
+        ): HttpResponseFor<PaginatedTestRunList> =
             list(params.toBuilder().testId(testId).build(), requestOptions)
 
         /** @see list */
@@ -166,23 +167,26 @@ interface RunService {
         fun list(
             testId: String,
             params: RunListParams = RunListParams.none(),
-        ): HttpResponseFor<RunListPage> = list(testId, params, RequestOptions.none())
+        ): HttpResponseFor<PaginatedTestRunList> = list(testId, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: RunListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RunListPage>
+        ): HttpResponseFor<PaginatedTestRunList>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: RunListParams): HttpResponseFor<RunListPage> =
+        fun list(params: RunListParams): HttpResponseFor<PaginatedTestRunList> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(testId: String, requestOptions: RequestOptions): HttpResponseFor<RunListPage> =
+        fun list(
+            testId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PaginatedTestRunList> =
             list(testId, RunListParams.none(), requestOptions)
 
         /**

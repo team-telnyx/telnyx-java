@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventCreateParams
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventDeleteParams
-import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListPage
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListParams
+import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListResponse
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventResponse
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventRetrieveParams
 import java.util.function.Consumer
@@ -74,7 +74,7 @@ interface ScheduledEventService {
     ): ScheduledEventResponse
 
     /** Get scheduled events for an assistant with pagination and filtering */
-    fun list(assistantId: String): ScheduledEventListPage =
+    fun list(assistantId: String): ScheduledEventListResponse =
         list(assistantId, ScheduledEventListParams.none())
 
     /** @see list */
@@ -82,27 +82,27 @@ interface ScheduledEventService {
         assistantId: String,
         params: ScheduledEventListParams = ScheduledEventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ScheduledEventListPage =
+    ): ScheduledEventListResponse =
         list(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
     /** @see list */
     fun list(
         assistantId: String,
         params: ScheduledEventListParams = ScheduledEventListParams.none(),
-    ): ScheduledEventListPage = list(assistantId, params, RequestOptions.none())
+    ): ScheduledEventListResponse = list(assistantId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: ScheduledEventListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ScheduledEventListPage
+    ): ScheduledEventListResponse
 
     /** @see list */
-    fun list(params: ScheduledEventListParams): ScheduledEventListPage =
+    fun list(params: ScheduledEventListParams): ScheduledEventListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(assistantId: String, requestOptions: RequestOptions): ScheduledEventListPage =
+    fun list(assistantId: String, requestOptions: RequestOptions): ScheduledEventListResponse =
         list(assistantId, ScheduledEventListParams.none(), requestOptions)
 
     /**
@@ -213,7 +213,7 @@ interface ScheduledEventService {
          * is otherwise the same as [ScheduledEventService.list].
          */
         @MustBeClosed
-        fun list(assistantId: String): HttpResponseFor<ScheduledEventListPage> =
+        fun list(assistantId: String): HttpResponseFor<ScheduledEventListResponse> =
             list(assistantId, ScheduledEventListParams.none())
 
         /** @see list */
@@ -222,7 +222,7 @@ interface ScheduledEventService {
             assistantId: String,
             params: ScheduledEventListParams = ScheduledEventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ScheduledEventListPage> =
+        ): HttpResponseFor<ScheduledEventListResponse> =
             list(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
         /** @see list */
@@ -230,7 +230,7 @@ interface ScheduledEventService {
         fun list(
             assistantId: String,
             params: ScheduledEventListParams = ScheduledEventListParams.none(),
-        ): HttpResponseFor<ScheduledEventListPage> =
+        ): HttpResponseFor<ScheduledEventListResponse> =
             list(assistantId, params, RequestOptions.none())
 
         /** @see list */
@@ -238,11 +238,11 @@ interface ScheduledEventService {
         fun list(
             params: ScheduledEventListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ScheduledEventListPage>
+        ): HttpResponseFor<ScheduledEventListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: ScheduledEventListParams): HttpResponseFor<ScheduledEventListPage> =
+        fun list(params: ScheduledEventListParams): HttpResponseFor<ScheduledEventListResponse> =
             list(params, RequestOptions.none())
 
         /** @see list */
@@ -250,7 +250,7 @@ interface ScheduledEventService {
         fun list(
             assistantId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ScheduledEventListPage> =
+        ): HttpResponseFor<ScheduledEventListResponse> =
             list(assistantId, ScheduledEventListParams.none(), requestOptions)
 
         /**

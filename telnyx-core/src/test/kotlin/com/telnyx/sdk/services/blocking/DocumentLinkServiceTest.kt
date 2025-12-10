@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.documentlinks.DocumentLinkListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,8 +22,19 @@ internal class DocumentLinkServiceTest {
                 .build()
         val documentLinkService = client.documentLinks()
 
-        val page = documentLinkService.list()
+        val documentLinks =
+            documentLinkService.list(
+                DocumentLinkListParams.builder()
+                    .filter(
+                        DocumentLinkListParams.Filter.builder()
+                            .linkedRecordType("porting_order")
+                            .linkedResourceId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                            .build()
+                    )
+                    .page(DocumentLinkListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        documentLinks.validate()
     }
 }

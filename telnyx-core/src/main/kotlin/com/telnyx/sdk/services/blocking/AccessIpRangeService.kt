@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.accessipranges.AccessIpRange
 import com.telnyx.sdk.models.accessipranges.AccessIpRangeCreateParams
 import com.telnyx.sdk.models.accessipranges.AccessIpRangeDeleteParams
-import com.telnyx.sdk.models.accessipranges.AccessIpRangeListPage
 import com.telnyx.sdk.models.accessipranges.AccessIpRangeListParams
+import com.telnyx.sdk.models.accessipranges.AccessIpRangeListResponse
 import java.util.function.Consumer
 
 interface AccessIpRangeService {
@@ -38,21 +38,21 @@ interface AccessIpRangeService {
     ): AccessIpRange
 
     /** List all Access IP Ranges */
-    fun list(): AccessIpRangeListPage = list(AccessIpRangeListParams.none())
+    fun list(): AccessIpRangeListResponse = list(AccessIpRangeListParams.none())
 
     /** @see list */
     fun list(
         params: AccessIpRangeListParams = AccessIpRangeListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccessIpRangeListPage
+    ): AccessIpRangeListResponse
 
     /** @see list */
     fun list(
         params: AccessIpRangeListParams = AccessIpRangeListParams.none()
-    ): AccessIpRangeListPage = list(params, RequestOptions.none())
+    ): AccessIpRangeListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AccessIpRangeListPage =
+    fun list(requestOptions: RequestOptions): AccessIpRangeListResponse =
         list(AccessIpRangeListParams.none(), requestOptions)
 
     /** Delete access IP ranges */
@@ -121,24 +121,25 @@ interface AccessIpRangeService {
          * [AccessIpRangeService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<AccessIpRangeListPage> = list(AccessIpRangeListParams.none())
+        fun list(): HttpResponseFor<AccessIpRangeListResponse> =
+            list(AccessIpRangeListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AccessIpRangeListParams = AccessIpRangeListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccessIpRangeListPage>
+        ): HttpResponseFor<AccessIpRangeListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AccessIpRangeListParams = AccessIpRangeListParams.none()
-        ): HttpResponseFor<AccessIpRangeListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<AccessIpRangeListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AccessIpRangeListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AccessIpRangeListResponse> =
             list(AccessIpRangeListParams.none(), requestOptions)
 
         /**

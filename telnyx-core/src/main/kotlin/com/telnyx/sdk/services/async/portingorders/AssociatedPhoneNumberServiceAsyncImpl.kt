@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhon
 import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberCreateResponse
 import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberDeleteParams
 import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberDeleteResponse
-import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberListPageAsync
-import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberListPageResponse
 import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberListParams
+import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -54,7 +53,7 @@ internal constructor(private val clientOptions: ClientOptions) : AssociatedPhone
     override fun list(
         params: AssociatedPhoneNumberListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AssociatedPhoneNumberListPageAsync> =
+    ): CompletableFuture<AssociatedPhoneNumberListResponse> =
         // get /porting_orders/{porting_order_id}/associated_phone_numbers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -116,13 +115,13 @@ internal constructor(private val clientOptions: ClientOptions) : AssociatedPhone
                 }
         }
 
-        private val listHandler: Handler<AssociatedPhoneNumberListPageResponse> =
-            jsonHandler<AssociatedPhoneNumberListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AssociatedPhoneNumberListResponse> =
+            jsonHandler<AssociatedPhoneNumberListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AssociatedPhoneNumberListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AssociatedPhoneNumberListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<AssociatedPhoneNumberListResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("portingOrderId", params.portingOrderId().getOrNull())
@@ -148,14 +147,6 @@ internal constructor(private val clientOptions: ClientOptions) : AssociatedPhone
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                AssociatedPhoneNumberListPageAsync.builder()
-                                    .service(AssociatedPhoneNumberServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

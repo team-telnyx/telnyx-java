@@ -12,12 +12,12 @@ import kotlin.jvm.optionals.getOrNull
 /** Retrieve a messaging profile */
 class MessagingProfileRetrieveParams
 private constructor(
-    private val messagingProfileId: String?,
+    private val id: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun messagingProfileId(): Optional<String> = Optional.ofNullable(messagingProfileId)
+    fun id(): Optional<String> = Optional.ofNullable(id)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -41,26 +41,21 @@ private constructor(
     /** A builder for [MessagingProfileRetrieveParams]. */
     class Builder internal constructor() {
 
-        private var messagingProfileId: String? = null
+        private var id: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(messagingProfileRetrieveParams: MessagingProfileRetrieveParams) = apply {
-            messagingProfileId = messagingProfileRetrieveParams.messagingProfileId
+            id = messagingProfileRetrieveParams.id
             additionalHeaders = messagingProfileRetrieveParams.additionalHeaders.toBuilder()
             additionalQueryParams = messagingProfileRetrieveParams.additionalQueryParams.toBuilder()
         }
 
-        fun messagingProfileId(messagingProfileId: String?) = apply {
-            this.messagingProfileId = messagingProfileId
-        }
+        fun id(id: String?) = apply { this.id = id }
 
-        /**
-         * Alias for calling [Builder.messagingProfileId] with `messagingProfileId.orElse(null)`.
-         */
-        fun messagingProfileId(messagingProfileId: Optional<String>) =
-            messagingProfileId(messagingProfileId.getOrNull())
+        /** Alias for calling [Builder.id] with `id.orElse(null)`. */
+        fun id(id: Optional<String>) = id(id.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -167,7 +162,7 @@ private constructor(
          */
         fun build(): MessagingProfileRetrieveParams =
             MessagingProfileRetrieveParams(
-                messagingProfileId,
+                id,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -175,7 +170,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> messagingProfileId ?: ""
+            0 -> id ?: ""
             else -> ""
         }
 
@@ -189,14 +184,13 @@ private constructor(
         }
 
         return other is MessagingProfileRetrieveParams &&
-            messagingProfileId == other.messagingProfileId &&
+            id == other.id &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int =
-        Objects.hash(messagingProfileId, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int = Objects.hash(id, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "MessagingProfileRetrieveParams{messagingProfileId=$messagingProfileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "MessagingProfileRetrieveParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

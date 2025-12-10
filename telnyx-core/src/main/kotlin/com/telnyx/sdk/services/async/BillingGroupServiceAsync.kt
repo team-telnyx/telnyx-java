@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.billinggroups.BillingGroupCreateParams
 import com.telnyx.sdk.models.billinggroups.BillingGroupCreateResponse
 import com.telnyx.sdk.models.billinggroups.BillingGroupDeleteParams
 import com.telnyx.sdk.models.billinggroups.BillingGroupDeleteResponse
-import com.telnyx.sdk.models.billinggroups.BillingGroupListPageAsync
 import com.telnyx.sdk.models.billinggroups.BillingGroupListParams
+import com.telnyx.sdk.models.billinggroups.BillingGroupListResponse
 import com.telnyx.sdk.models.billinggroups.BillingGroupRetrieveParams
 import com.telnyx.sdk.models.billinggroups.BillingGroupRetrieveResponse
 import com.telnyx.sdk.models.billinggroups.BillingGroupUpdateParams
@@ -123,21 +123,21 @@ interface BillingGroupServiceAsync {
         update(id, BillingGroupUpdateParams.none(), requestOptions)
 
     /** List all billing groups */
-    fun list(): CompletableFuture<BillingGroupListPageAsync> = list(BillingGroupListParams.none())
+    fun list(): CompletableFuture<BillingGroupListResponse> = list(BillingGroupListParams.none())
 
     /** @see list */
     fun list(
         params: BillingGroupListParams = BillingGroupListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BillingGroupListPageAsync>
+    ): CompletableFuture<BillingGroupListResponse>
 
     /** @see list */
     fun list(
         params: BillingGroupListParams = BillingGroupListParams.none()
-    ): CompletableFuture<BillingGroupListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<BillingGroupListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<BillingGroupListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<BillingGroupListResponse> =
         list(BillingGroupListParams.none(), requestOptions)
 
     /** Delete a billing group */
@@ -301,25 +301,25 @@ interface BillingGroupServiceAsync {
          * Returns a raw HTTP response for `get /billing_groups`, but is otherwise the same as
          * [BillingGroupServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<BillingGroupListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<BillingGroupListResponse>> =
             list(BillingGroupListParams.none())
 
         /** @see list */
         fun list(
             params: BillingGroupListParams = BillingGroupListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BillingGroupListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<BillingGroupListResponse>>
 
         /** @see list */
         fun list(
             params: BillingGroupListParams = BillingGroupListParams.none()
-        ): CompletableFuture<HttpResponseFor<BillingGroupListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<BillingGroupListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<BillingGroupListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<BillingGroupListResponse>> =
             list(BillingGroupListParams.none(), requestOptions)
 
         /**

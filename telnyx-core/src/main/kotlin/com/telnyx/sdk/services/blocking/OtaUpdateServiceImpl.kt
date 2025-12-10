@@ -15,9 +15,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.otaupdates.OtaUpdateListPage
-import com.telnyx.sdk.models.otaupdates.OtaUpdateListPageResponse
 import com.telnyx.sdk.models.otaupdates.OtaUpdateListParams
+import com.telnyx.sdk.models.otaupdates.OtaUpdateListResponse
 import com.telnyx.sdk.models.otaupdates.OtaUpdateRetrieveParams
 import com.telnyx.sdk.models.otaupdates.OtaUpdateRetrieveResponse
 import java.util.function.Consumer
@@ -45,7 +44,7 @@ class OtaUpdateServiceImpl internal constructor(private val clientOptions: Clien
     override fun list(
         params: OtaUpdateListParams,
         requestOptions: RequestOptions,
-    ): OtaUpdateListPage =
+    ): OtaUpdateListResponse =
         // get /ota_updates
         withRawResponse().list(params, requestOptions).parse()
 
@@ -92,13 +91,13 @@ class OtaUpdateServiceImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val listHandler: Handler<OtaUpdateListPageResponse> =
-            jsonHandler<OtaUpdateListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<OtaUpdateListResponse> =
+            jsonHandler<OtaUpdateListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: OtaUpdateListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<OtaUpdateListPage> {
+        ): HttpResponseFor<OtaUpdateListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -115,13 +114,6 @@ class OtaUpdateServiceImpl internal constructor(private val clientOptions: Clien
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        OtaUpdateListPage.builder()
-                            .service(OtaUpdateServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

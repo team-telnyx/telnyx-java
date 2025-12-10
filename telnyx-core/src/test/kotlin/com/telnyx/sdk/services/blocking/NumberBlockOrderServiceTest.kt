@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderCreateParams
+import com.telnyx.sdk.models.numberblockorders.NumberBlockOrderListParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -70,8 +71,25 @@ internal class NumberBlockOrderServiceTest {
                 .build()
         val numberBlockOrderService = client.numberBlockOrders()
 
-        val page = numberBlockOrderService.list()
+        val numberBlockOrders =
+            numberBlockOrderService.list(
+                NumberBlockOrderListParams.builder()
+                    .filter(
+                        NumberBlockOrderListParams.Filter.builder()
+                            .createdAt(
+                                NumberBlockOrderListParams.Filter.CreatedAt.builder()
+                                    .gt("2018-01-01T00:00:00.000000Z")
+                                    .lt("2018-01-01T00:00:00.000000Z")
+                                    .build()
+                            )
+                            .phoneNumbersStartingNumber("+19705555000")
+                            .status("pending")
+                            .build()
+                    )
+                    .page(NumberBlockOrderListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        numberBlockOrders.validate()
     }
 }

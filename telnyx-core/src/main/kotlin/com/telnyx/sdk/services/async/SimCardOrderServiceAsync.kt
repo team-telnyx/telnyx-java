@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.simcardorders.SimCardOrderCreateParams
 import com.telnyx.sdk.models.simcardorders.SimCardOrderCreateResponse
-import com.telnyx.sdk.models.simcardorders.SimCardOrderListPageAsync
 import com.telnyx.sdk.models.simcardorders.SimCardOrderListParams
+import com.telnyx.sdk.models.simcardorders.SimCardOrderListResponse
 import com.telnyx.sdk.models.simcardorders.SimCardOrderRetrieveParams
 import com.telnyx.sdk.models.simcardorders.SimCardOrderRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -75,21 +75,21 @@ interface SimCardOrderServiceAsync {
         retrieve(id, SimCardOrderRetrieveParams.none(), requestOptions)
 
     /** Get all SIM card orders according to filters. */
-    fun list(): CompletableFuture<SimCardOrderListPageAsync> = list(SimCardOrderListParams.none())
+    fun list(): CompletableFuture<SimCardOrderListResponse> = list(SimCardOrderListParams.none())
 
     /** @see list */
     fun list(
         params: SimCardOrderListParams = SimCardOrderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SimCardOrderListPageAsync>
+    ): CompletableFuture<SimCardOrderListResponse>
 
     /** @see list */
     fun list(
         params: SimCardOrderListParams = SimCardOrderListParams.none()
-    ): CompletableFuture<SimCardOrderListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<SimCardOrderListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<SimCardOrderListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<SimCardOrderListResponse> =
         list(SimCardOrderListParams.none(), requestOptions)
 
     /**
@@ -167,25 +167,25 @@ interface SimCardOrderServiceAsync {
          * Returns a raw HTTP response for `get /sim_card_orders`, but is otherwise the same as
          * [SimCardOrderServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<SimCardOrderListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<SimCardOrderListResponse>> =
             list(SimCardOrderListParams.none())
 
         /** @see list */
         fun list(
             params: SimCardOrderListParams = SimCardOrderListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SimCardOrderListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<SimCardOrderListResponse>>
 
         /** @see list */
         fun list(
             params: SimCardOrderListParams = SimCardOrderListParams.none()
-        ): CompletableFuture<HttpResponseFor<SimCardOrderListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<SimCardOrderListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<SimCardOrderListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<SimCardOrderListResponse>> =
             list(SimCardOrderListParams.none(), requestOptions)
     }
 }

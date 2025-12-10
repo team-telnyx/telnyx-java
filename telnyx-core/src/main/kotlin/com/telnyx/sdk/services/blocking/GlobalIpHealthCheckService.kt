@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckCreateParam
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckCreateResponse
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckDeleteParams
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckDeleteResponse
-import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckListPage
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckListParams
+import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckListResponse
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckRetrieveParams
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckRetrieveResponse
 import java.util.function.Consumer
@@ -81,21 +81,21 @@ interface GlobalIpHealthCheckService {
         retrieve(id, GlobalIpHealthCheckRetrieveParams.none(), requestOptions)
 
     /** List all Global IP health checks. */
-    fun list(): GlobalIpHealthCheckListPage = list(GlobalIpHealthCheckListParams.none())
+    fun list(): GlobalIpHealthCheckListResponse = list(GlobalIpHealthCheckListParams.none())
 
     /** @see list */
     fun list(
         params: GlobalIpHealthCheckListParams = GlobalIpHealthCheckListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): GlobalIpHealthCheckListPage
+    ): GlobalIpHealthCheckListResponse
 
     /** @see list */
     fun list(
         params: GlobalIpHealthCheckListParams = GlobalIpHealthCheckListParams.none()
-    ): GlobalIpHealthCheckListPage = list(params, RequestOptions.none())
+    ): GlobalIpHealthCheckListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): GlobalIpHealthCheckListPage =
+    fun list(requestOptions: RequestOptions): GlobalIpHealthCheckListResponse =
         list(GlobalIpHealthCheckListParams.none(), requestOptions)
 
     /** Delete a Global IP health check. */
@@ -225,7 +225,7 @@ interface GlobalIpHealthCheckService {
          * as [GlobalIpHealthCheckService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<GlobalIpHealthCheckListPage> =
+        fun list(): HttpResponseFor<GlobalIpHealthCheckListResponse> =
             list(GlobalIpHealthCheckListParams.none())
 
         /** @see list */
@@ -233,17 +233,17 @@ interface GlobalIpHealthCheckService {
         fun list(
             params: GlobalIpHealthCheckListParams = GlobalIpHealthCheckListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<GlobalIpHealthCheckListPage>
+        ): HttpResponseFor<GlobalIpHealthCheckListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: GlobalIpHealthCheckListParams = GlobalIpHealthCheckListParams.none()
-        ): HttpResponseFor<GlobalIpHealthCheckListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<GlobalIpHealthCheckListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<GlobalIpHealthCheckListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<GlobalIpHealthCheckListResponse> =
             list(GlobalIpHealthCheckListParams.none(), requestOptions)
 
         /**

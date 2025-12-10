@@ -10,8 +10,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.assistants.tests.AssistantTest
 import com.telnyx.sdk.models.ai.assistants.tests.TestCreateParams
 import com.telnyx.sdk.models.ai.assistants.tests.TestDeleteParams
-import com.telnyx.sdk.models.ai.assistants.tests.TestListPage
 import com.telnyx.sdk.models.ai.assistants.tests.TestListParams
+import com.telnyx.sdk.models.ai.assistants.tests.TestListResponse
 import com.telnyx.sdk.models.ai.assistants.tests.TestRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.tests.TestUpdateParams
 import com.telnyx.sdk.services.blocking.ai.assistants.tests.RunService
@@ -103,20 +103,20 @@ interface TestService {
         update(testId, TestUpdateParams.none(), requestOptions)
 
     /** Retrieves a paginated list of assistant tests with optional filtering capabilities */
-    fun list(): TestListPage = list(TestListParams.none())
+    fun list(): TestListResponse = list(TestListParams.none())
 
     /** @see list */
     fun list(
         params: TestListParams = TestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): TestListPage
+    ): TestListResponse
 
     /** @see list */
-    fun list(params: TestListParams = TestListParams.none()): TestListPage =
+    fun list(params: TestListParams = TestListParams.none()): TestListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): TestListPage =
+    fun list(requestOptions: RequestOptions): TestListResponse =
         list(TestListParams.none(), requestOptions)
 
     /** Permanently removes an assistant test and all associated data */
@@ -261,23 +261,24 @@ interface TestService {
          * Returns a raw HTTP response for `get /ai/assistants/tests`, but is otherwise the same as
          * [TestService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<TestListPage> = list(TestListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<TestListResponse> = list(TestListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: TestListParams = TestListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<TestListPage>
+        ): HttpResponseFor<TestListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: TestListParams = TestListParams.none()): HttpResponseFor<TestListPage> =
-            list(params, RequestOptions.none())
+        fun list(
+            params: TestListParams = TestListParams.none()
+        ): HttpResponseFor<TestListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<TestListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<TestListResponse> =
             list(TestListParams.none(), requestOptions)
 
         /**

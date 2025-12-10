@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.addresses.AddressCreateParams
+import com.telnyx.sdk.models.addresses.AddressListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -73,10 +74,30 @@ internal class AddressServiceAsyncTest {
                 .build()
         val addressServiceAsync = client.addresses()
 
-        val pageFuture = addressServiceAsync.list()
+        val addressesFuture =
+            addressServiceAsync.list(
+                AddressListParams.builder()
+                    .filter(
+                        AddressListParams.Filter.builder()
+                            .addressBook(
+                                AddressListParams.Filter.AddressBook.builder().eq("eq").build()
+                            )
+                            .customerReference("string")
+                            .streetAddress(
+                                AddressListParams.Filter.StreetAddress.builder()
+                                    .contains("contains")
+                                    .build()
+                            )
+                            .usedAsEmergency("used_as_emergency")
+                            .build()
+                    )
+                    .page(AddressListParams.Page.builder().number(1L).size(1L).build())
+                    .sort(AddressListParams.Sort.STREET_ADDRESS)
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val addresses = addressesFuture.get()
+        addresses.validate()
     }
 
     @Disabled("Prism tests are disabled")

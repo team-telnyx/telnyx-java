@@ -14,14 +14,14 @@ internal class PaginationMetaSimpleTest {
         val paginationMetaSimple =
             PaginationMetaSimple.builder()
                 .pageNumber(2L)
-                .totalPages(3L)
                 .pageSize(25L)
+                .totalPages(3L)
                 .totalResults(55L)
                 .build()
 
-        assertThat(paginationMetaSimple.pageNumber()).isEqualTo(2L)
-        assertThat(paginationMetaSimple.totalPages()).isEqualTo(3L)
+        assertThat(paginationMetaSimple.pageNumber()).contains(2L)
         assertThat(paginationMetaSimple.pageSize()).contains(25L)
+        assertThat(paginationMetaSimple.totalPages()).contains(3L)
         assertThat(paginationMetaSimple.totalResults()).contains(55L)
     }
 
@@ -31,8 +31,8 @@ internal class PaginationMetaSimpleTest {
         val paginationMetaSimple =
             PaginationMetaSimple.builder()
                 .pageNumber(2L)
-                .totalPages(3L)
                 .pageSize(25L)
+                .totalPages(3L)
                 .totalResults(55L)
                 .build()
 

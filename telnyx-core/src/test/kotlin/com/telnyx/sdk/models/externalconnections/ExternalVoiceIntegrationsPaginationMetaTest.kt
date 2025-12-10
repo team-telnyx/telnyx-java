@@ -14,14 +14,14 @@ internal class ExternalVoiceIntegrationsPaginationMetaTest {
         val externalVoiceIntegrationsPaginationMeta =
             ExternalVoiceIntegrationsPaginationMeta.builder()
                 .pageNumber(2L)
-                .totalPages(3L)
                 .pageSize(25L)
+                .totalPages(3L)
                 .totalResults(55L)
                 .build()
 
-        assertThat(externalVoiceIntegrationsPaginationMeta.pageNumber()).isEqualTo(2L)
-        assertThat(externalVoiceIntegrationsPaginationMeta.totalPages()).isEqualTo(3L)
+        assertThat(externalVoiceIntegrationsPaginationMeta.pageNumber()).contains(2L)
         assertThat(externalVoiceIntegrationsPaginationMeta.pageSize()).contains(25L)
+        assertThat(externalVoiceIntegrationsPaginationMeta.totalPages()).contains(3L)
         assertThat(externalVoiceIntegrationsPaginationMeta.totalResults()).contains(55L)
     }
 
@@ -31,8 +31,8 @@ internal class ExternalVoiceIntegrationsPaginationMetaTest {
         val externalVoiceIntegrationsPaginationMeta =
             ExternalVoiceIntegrationsPaginationMeta.builder()
                 .pageNumber(2L)
-                .totalPages(3L)
                 .pageSize(25L)
+                .totalPages(3L)
                 .totalResults(55L)
                 .build()
 

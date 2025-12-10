@@ -24,26 +24,26 @@ private constructor(private val value: JsonField<Long>) : Enum {
 
     companion object {
 
-        @JvmField val RATE_8000 = of(8000L)
+        @JvmField val _8000 = of(8000L)
 
-        @JvmField val RATE_16000 = of(16000L)
+        @JvmField val _16000 = of(16000L)
 
-        @JvmField val RATE_22050 = of(22050L)
+        @JvmField val _22050 = of(22050L)
 
-        @JvmField val RATE_24000 = of(24000L)
+        @JvmField val _24000 = of(24000L)
 
-        @JvmField val RATE_48000 = of(48000L)
+        @JvmField val _48000 = of(48000L)
 
         @JvmStatic fun of(value: Long) = StreamBidirectionalSamplingRate(JsonField.of(value))
     }
 
     /** An enum containing [StreamBidirectionalSamplingRate]'s known values. */
     enum class Known {
-        RATE_8000,
-        RATE_16000,
-        RATE_22050,
-        RATE_24000,
-        RATE_48000,
+        _8000,
+        _16000,
+        _22050,
+        _24000,
+        _48000,
     }
 
     /**
@@ -58,11 +58,11 @@ private constructor(private val value: JsonField<Long>) : Enum {
      * - It was constructed with an arbitrary value using the [of] method.
      */
     enum class Value {
-        RATE_8000,
-        RATE_16000,
-        RATE_22050,
-        RATE_24000,
-        RATE_48000,
+        _8000,
+        _16000,
+        _22050,
+        _24000,
+        _48000,
         /**
          * An enum member indicating that [StreamBidirectionalSamplingRate] was instantiated with an
          * unknown value.
@@ -79,11 +79,11 @@ private constructor(private val value: JsonField<Long>) : Enum {
      */
     fun value(): Value =
         when (this) {
-            RATE_8000 -> Value.RATE_8000
-            RATE_16000 -> Value.RATE_16000
-            RATE_22050 -> Value.RATE_22050
-            RATE_24000 -> Value.RATE_24000
-            RATE_48000 -> Value.RATE_48000
+            _8000 -> Value._8000
+            _16000 -> Value._16000
+            _22050 -> Value._22050
+            _24000 -> Value._24000
+            _48000 -> Value._48000
             else -> Value._UNKNOWN
         }
 
@@ -97,11 +97,11 @@ private constructor(private val value: JsonField<Long>) : Enum {
      */
     fun known(): Known =
         when (this) {
-            RATE_8000 -> Known.RATE_8000
-            RATE_16000 -> Known.RATE_16000
-            RATE_22050 -> Known.RATE_22050
-            RATE_24000 -> Known.RATE_24000
-            RATE_48000 -> Known.RATE_48000
+            _8000 -> Known._8000
+            _16000 -> Known._16000
+            _22050 -> Known._22050
+            _24000 -> Known._24000
+            _48000 -> Known._48000
             else ->
                 throw TelnyxInvalidDataException("Unknown StreamBidirectionalSamplingRate: $value")
         }

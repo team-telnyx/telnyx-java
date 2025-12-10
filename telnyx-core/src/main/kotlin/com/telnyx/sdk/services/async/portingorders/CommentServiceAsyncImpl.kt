@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.portingorders.comments.CommentCreateParams
 import com.telnyx.sdk.models.portingorders.comments.CommentCreateResponse
-import com.telnyx.sdk.models.portingorders.comments.CommentListPageAsync
-import com.telnyx.sdk.models.portingorders.comments.CommentListPageResponse
 import com.telnyx.sdk.models.portingorders.comments.CommentListParams
+import com.telnyx.sdk.models.portingorders.comments.CommentListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -47,7 +46,7 @@ class CommentServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: CommentListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CommentListPageAsync> =
+    ): CompletableFuture<CommentListResponse> =
         // get /porting_orders/{id}/comments
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -98,13 +97,13 @@ class CommentServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<CommentListPageResponse> =
-            jsonHandler<CommentListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CommentListResponse> =
+            jsonHandler<CommentListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CommentListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CommentListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<CommentListResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -126,14 +125,6 @@ class CommentServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                CommentListPageAsync.builder()
-                                    .service(CommentServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

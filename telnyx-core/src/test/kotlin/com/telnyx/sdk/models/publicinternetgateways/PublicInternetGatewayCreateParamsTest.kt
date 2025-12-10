@@ -18,8 +18,8 @@ internal class PublicInternetGatewayCreateParamsTest {
             .name("test interface")
             .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .status(InterfaceStatus.PROVISIONED)
-            .regionCode("ashburn-va")
             .publicIp("127.0.0.1")
+            .regionCode("ashburn-va")
             .build()
     }
 
@@ -34,8 +34,8 @@ internal class PublicInternetGatewayCreateParamsTest {
                 .name("test interface")
                 .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .status(InterfaceStatus.PROVISIONED)
-                .regionCode("ashburn-va")
                 .publicIp("127.0.0.1")
+                .regionCode("ashburn-va")
                 .build()
 
         val body = params._body()
@@ -47,8 +47,8 @@ internal class PublicInternetGatewayCreateParamsTest {
         assertThat(body.name()).contains("test interface")
         assertThat(body.networkId()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
         assertThat(body.status()).contains(InterfaceStatus.PROVISIONED)
-        assertThat(body.regionCode()).contains("ashburn-va")
         assertThat(body.publicIp()).contains("127.0.0.1")
+        assertThat(body.regionCode()).contains("ashburn-va")
     }
 
     @Test

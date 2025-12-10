@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.networkcoverage
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -14,32 +15,56 @@ internal class NetworkCoverageListResponseTest {
     fun create() {
         val networkCoverageListResponse =
             NetworkCoverageListResponse.builder()
-                .addAvailableService(AvailableService.CLOUD_VPN)
-                .location(
-                    NetworkCoverageListResponse.Location.builder()
-                        .code("chicago-il")
-                        .name("Chicago IL, US")
-                        .pop("CH1")
-                        .region("AMER")
-                        .site("ORD")
+                .addData(
+                    NetworkCoverageListResponse.Data.builder()
+                        .addAvailableService(AvailableService.CLOUD_VPN)
+                        .location(
+                            NetworkCoverageListResponse.Data.Location.builder()
+                                .code("chicago-il")
+                                .name("Chicago IL, US")
+                                .pop("CH1")
+                                .region("AMER")
+                                .site("ORD")
+                                .build()
+                        )
+                        .recordType("network_coverage")
                         .build()
                 )
-                .recordType("network_coverage")
+                .meta(
+                    PaginationMeta.builder()
+                        .pageNumber(2L)
+                        .pageSize(25L)
+                        .totalPages(3L)
+                        .totalResults(55L)
+                        .build()
+                )
                 .build()
 
-        assertThat(networkCoverageListResponse.availableServices().getOrNull())
-            .containsExactly(AvailableService.CLOUD_VPN)
-        assertThat(networkCoverageListResponse.location())
-            .contains(
-                NetworkCoverageListResponse.Location.builder()
-                    .code("chicago-il")
-                    .name("Chicago IL, US")
-                    .pop("CH1")
-                    .region("AMER")
-                    .site("ORD")
+        assertThat(networkCoverageListResponse.data().getOrNull())
+            .containsExactly(
+                NetworkCoverageListResponse.Data.builder()
+                    .addAvailableService(AvailableService.CLOUD_VPN)
+                    .location(
+                        NetworkCoverageListResponse.Data.Location.builder()
+                            .code("chicago-il")
+                            .name("Chicago IL, US")
+                            .pop("CH1")
+                            .region("AMER")
+                            .site("ORD")
+                            .build()
+                    )
+                    .recordType("network_coverage")
                     .build()
             )
-        assertThat(networkCoverageListResponse.recordType()).contains("network_coverage")
+        assertThat(networkCoverageListResponse.meta())
+            .contains(
+                PaginationMeta.builder()
+                    .pageNumber(2L)
+                    .pageSize(25L)
+                    .totalPages(3L)
+                    .totalResults(55L)
+                    .build()
+            )
     }
 
     @Test
@@ -47,17 +72,29 @@ internal class NetworkCoverageListResponseTest {
         val jsonMapper = jsonMapper()
         val networkCoverageListResponse =
             NetworkCoverageListResponse.builder()
-                .addAvailableService(AvailableService.CLOUD_VPN)
-                .location(
-                    NetworkCoverageListResponse.Location.builder()
-                        .code("chicago-il")
-                        .name("Chicago IL, US")
-                        .pop("CH1")
-                        .region("AMER")
-                        .site("ORD")
+                .addData(
+                    NetworkCoverageListResponse.Data.builder()
+                        .addAvailableService(AvailableService.CLOUD_VPN)
+                        .location(
+                            NetworkCoverageListResponse.Data.Location.builder()
+                                .code("chicago-il")
+                                .name("Chicago IL, US")
+                                .pop("CH1")
+                                .region("AMER")
+                                .site("ORD")
+                                .build()
+                        )
+                        .recordType("network_coverage")
                         .build()
                 )
-                .recordType("network_coverage")
+                .meta(
+                    PaginationMeta.builder()
+                        .pageNumber(2L)
+                        .pageSize(25L)
+                        .totalPages(3L)
+                        .totalResults(55L)
+                        .build()
+                )
                 .build()
 
         val roundtrippedNetworkCoverageListResponse =

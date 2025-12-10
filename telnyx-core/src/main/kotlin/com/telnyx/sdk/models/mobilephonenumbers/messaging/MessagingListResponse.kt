@@ -11,6 +11,9 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.checkKnown
+import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.MessagingFeatureSet
 import java.time.OffsetDateTime
@@ -22,245 +25,42 @@ import kotlin.jvm.optionals.getOrNull
 class MessagingListResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val id: JsonField<String>,
-    private val countryCode: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val features: JsonField<Features>,
-    private val messagingProduct: JsonField<String>,
-    private val messagingProfileId: JsonField<String>,
-    private val phoneNumber: JsonField<String>,
-    private val recordType: JsonField<RecordType>,
-    private val trafficType: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val updatedAt: JsonField<OffsetDateTime>,
+    private val data: JsonField<List<Data>>,
+    private val meta: JsonField<Meta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("country_code")
-        @ExcludeMissing
-        countryCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("features") @ExcludeMissing features: JsonField<Features> = JsonMissing.of(),
-        @JsonProperty("messaging_product")
-        @ExcludeMissing
-        messagingProduct: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("messaging_profile_id")
-        @ExcludeMissing
-        messagingProfileId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("phone_number")
-        @ExcludeMissing
-        phoneNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("record_type")
-        @ExcludeMissing
-        recordType: JsonField<RecordType> = JsonMissing.of(),
-        @JsonProperty("traffic_type")
-        @ExcludeMissing
-        trafficType: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    ) : this(
-        id,
-        countryCode,
-        createdAt,
-        features,
-        messagingProduct,
-        messagingProfileId,
-        phoneNumber,
-        recordType,
-        trafficType,
-        type,
-        updatedAt,
-        mutableMapOf(),
-    )
-
-    /**
-     * Identifies the type of resource.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun id(): Optional<String> = id.getOptional("id")
-
-    /**
-     * ISO 3166-1 alpha-2 country code.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun countryCode(): Optional<String> = countryCode.getOptional("country_code")
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was created.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("created_at")
+        @JsonProperty("data") @ExcludeMissing data: JsonField<List<Data>> = JsonMissing.of(),
+        @JsonProperty("meta") @ExcludeMissing meta: JsonField<Meta> = JsonMissing.of(),
+    ) : this(data, meta, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun features(): Optional<Features> = features.getOptional("features")
+    fun data(): Optional<List<Data>> = data.getOptional("data")
 
     /**
-     * The messaging product that the number is registered to use
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun messagingProduct(): Optional<String> = messagingProduct.getOptional("messaging_product")
+    fun meta(): Optional<Meta> = meta.getOptional("meta")
 
     /**
-     * Unique identifier for a messaging profile.
+     * Returns the raw JSON value of [data].
      *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun messagingProfileId(): Optional<String> =
-        messagingProfileId.getOptional("messaging_profile_id")
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<Data>> = data
 
     /**
-     * +E.164 formatted phone number.
+     * Returns the raw JSON value of [meta].
      *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * Unlike [meta], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun phoneNumber(): Optional<String> = phoneNumber.getOptional("phone_number")
-
-    /**
-     * Identifies the type of the resource.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun recordType(): Optional<RecordType> = recordType.getOptional("record_type")
-
-    /**
-     * The messaging traffic or use case for which the number is currently configured.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun trafficType(): Optional<String> = trafficType.getOptional("traffic_type")
-
-    /**
-     * The type of the phone number
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun type(): Optional<Type> = type.getOptional("type")
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was updated.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun updatedAt(): Optional<OffsetDateTime> = updatedAt.getOptional("updated_at")
-
-    /**
-     * Returns the raw JSON value of [id].
-     *
-     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
-
-    /**
-     * Returns the raw JSON value of [countryCode].
-     *
-     * Unlike [countryCode], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("country_code")
-    @ExcludeMissing
-    fun _countryCode(): JsonField<String> = countryCode
-
-    /**
-     * Returns the raw JSON value of [createdAt].
-     *
-     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
-
-    /**
-     * Returns the raw JSON value of [features].
-     *
-     * Unlike [features], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("features") @ExcludeMissing fun _features(): JsonField<Features> = features
-
-    /**
-     * Returns the raw JSON value of [messagingProduct].
-     *
-     * Unlike [messagingProduct], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    @JsonProperty("messaging_product")
-    @ExcludeMissing
-    fun _messagingProduct(): JsonField<String> = messagingProduct
-
-    /**
-     * Returns the raw JSON value of [messagingProfileId].
-     *
-     * Unlike [messagingProfileId], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    @JsonProperty("messaging_profile_id")
-    @ExcludeMissing
-    fun _messagingProfileId(): JsonField<String> = messagingProfileId
-
-    /**
-     * Returns the raw JSON value of [phoneNumber].
-     *
-     * Unlike [phoneNumber], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("phone_number")
-    @ExcludeMissing
-    fun _phoneNumber(): JsonField<String> = phoneNumber
-
-    /**
-     * Returns the raw JSON value of [recordType].
-     *
-     * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("record_type")
-    @ExcludeMissing
-    fun _recordType(): JsonField<RecordType> = recordType
-
-    /**
-     * Returns the raw JSON value of [trafficType].
-     *
-     * Unlike [trafficType], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("traffic_type")
-    @ExcludeMissing
-    fun _trafficType(): JsonField<String> = trafficType
-
-    /**
-     * Returns the raw JSON value of [type].
-     *
-     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
-
-    /**
-     * Returns the raw JSON value of [updatedAt].
-     *
-     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
+    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<Meta> = meta
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -283,175 +83,50 @@ private constructor(
     /** A builder for [MessagingListResponse]. */
     class Builder internal constructor() {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var countryCode: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var features: JsonField<Features> = JsonMissing.of()
-        private var messagingProduct: JsonField<String> = JsonMissing.of()
-        private var messagingProfileId: JsonField<String> = JsonMissing.of()
-        private var phoneNumber: JsonField<String> = JsonMissing.of()
-        private var recordType: JsonField<RecordType> = JsonMissing.of()
-        private var trafficType: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var data: JsonField<MutableList<Data>>? = null
+        private var meta: JsonField<Meta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(messagingListResponse: MessagingListResponse) = apply {
-            id = messagingListResponse.id
-            countryCode = messagingListResponse.countryCode
-            createdAt = messagingListResponse.createdAt
-            features = messagingListResponse.features
-            messagingProduct = messagingListResponse.messagingProduct
-            messagingProfileId = messagingListResponse.messagingProfileId
-            phoneNumber = messagingListResponse.phoneNumber
-            recordType = messagingListResponse.recordType
-            trafficType = messagingListResponse.trafficType
-            type = messagingListResponse.type
-            updatedAt = messagingListResponse.updatedAt
+            data = messagingListResponse.data.map { it.toMutableList() }
+            meta = messagingListResponse.meta
             additionalProperties = messagingListResponse.additionalProperties.toMutableMap()
         }
 
-        /** Identifies the type of resource. */
-        fun id(id: String) = id(JsonField.of(id))
+        fun data(data: List<Data>) = data(JsonField.of(data))
 
         /**
-         * Sets [Builder.id] to an arbitrary JSON value.
+         * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * You should usually call [Builder.data] with a well-typed `List<Data>` value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /** ISO 3166-1 alpha-2 country code. */
-        fun countryCode(countryCode: String) = countryCode(JsonField.of(countryCode))
-
-        /**
-         * Sets [Builder.countryCode] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.countryCode] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun countryCode(countryCode: JsonField<String>) = apply { this.countryCode = countryCode }
-
-        /** ISO 8601 formatted date indicating when the resource was created. */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        /**
-         * Sets [Builder.createdAt] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        fun features(features: Features) = features(JsonField.of(features))
-
-        /**
-         * Sets [Builder.features] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.features] with a well-typed [Features] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun features(features: JsonField<Features>) = apply { this.features = features }
-
-        /** The messaging product that the number is registered to use */
-        fun messagingProduct(messagingProduct: String) =
-            messagingProduct(JsonField.of(messagingProduct))
-
-        /**
-         * Sets [Builder.messagingProduct] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.messagingProduct] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun messagingProduct(messagingProduct: JsonField<String>) = apply {
-            this.messagingProduct = messagingProduct
+        fun data(data: JsonField<List<Data>>) = apply {
+            this.data = data.map { it.toMutableList() }
         }
 
-        /** Unique identifier for a messaging profile. */
-        fun messagingProfileId(messagingProfileId: String?) =
-            messagingProfileId(JsonField.ofNullable(messagingProfileId))
-
         /**
-         * Alias for calling [Builder.messagingProfileId] with `messagingProfileId.orElse(null)`.
-         */
-        fun messagingProfileId(messagingProfileId: Optional<String>) =
-            messagingProfileId(messagingProfileId.getOrNull())
-
-        /**
-         * Sets [Builder.messagingProfileId] to an arbitrary JSON value.
+         * Adds a single [Data] to [Builder.data].
          *
-         * You should usually call [Builder.messagingProfileId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun messagingProfileId(messagingProfileId: JsonField<String>) = apply {
-            this.messagingProfileId = messagingProfileId
+        fun addData(data: Data) = apply {
+            this.data =
+                (this.data ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("data", it).add(data)
+                }
         }
 
-        /** +E.164 formatted phone number. */
-        fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
+        fun meta(meta: Meta) = meta(JsonField.of(meta))
 
         /**
-         * Sets [Builder.phoneNumber] to an arbitrary JSON value.
+         * Sets [Builder.meta] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.phoneNumber] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun phoneNumber(phoneNumber: JsonField<String>) = apply { this.phoneNumber = phoneNumber }
-
-        /** Identifies the type of the resource. */
-        fun recordType(recordType: RecordType) = recordType(JsonField.of(recordType))
-
-        /**
-         * Sets [Builder.recordType] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.recordType] with a well-typed [RecordType] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun recordType(recordType: JsonField<RecordType>) = apply { this.recordType = recordType }
-
-        /** The messaging traffic or use case for which the number is currently configured. */
-        fun trafficType(trafficType: String) = trafficType(JsonField.of(trafficType))
-
-        /**
-         * Sets [Builder.trafficType] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.trafficType] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun trafficType(trafficType: JsonField<String>) = apply { this.trafficType = trafficType }
-
-        /** The type of the phone number */
-        fun type(type: Type) = type(JsonField.of(type))
-
-        /**
-         * Sets [Builder.type] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * You should usually call [Builder.meta] with a well-typed [Meta] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun type(type: JsonField<Type>) = apply { this.type = type }
-
-        /** ISO 8601 formatted date indicating when the resource was updated. */
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-        /**
-         * Sets [Builder.updatedAt] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        fun meta(meta: JsonField<Meta>) = apply { this.meta = meta }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -479,17 +154,8 @@ private constructor(
          */
         fun build(): MessagingListResponse =
             MessagingListResponse(
-                id,
-                countryCode,
-                createdAt,
-                features,
-                messagingProduct,
-                messagingProfileId,
-                phoneNumber,
-                recordType,
-                trafficType,
-                type,
-                updatedAt,
+                (data ?: JsonMissing.of()).map { it.toImmutable() },
+                meta,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -501,17 +167,8 @@ private constructor(
             return@apply
         }
 
-        id()
-        countryCode()
-        createdAt()
-        features().ifPresent { it.validate() }
-        messagingProduct()
-        messagingProfileId()
-        phoneNumber()
-        recordType().ifPresent { it.validate() }
-        trafficType()
-        type().ifPresent { it.validate() }
-        updatedAt()
+        data().ifPresent { it.forEach { it.validate() } }
+        meta().ifPresent { it.validate() }
         validated = true
     }
 
@@ -530,48 +187,253 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (id.asKnown().isPresent) 1 else 0) +
-            (if (countryCode.asKnown().isPresent) 1 else 0) +
-            (if (createdAt.asKnown().isPresent) 1 else 0) +
-            (features.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (messagingProduct.asKnown().isPresent) 1 else 0) +
-            (if (messagingProfileId.asKnown().isPresent) 1 else 0) +
-            (if (phoneNumber.asKnown().isPresent) 1 else 0) +
-            (recordType.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (trafficType.asKnown().isPresent) 1 else 0) +
-            (type.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (updatedAt.asKnown().isPresent) 1 else 0)
+        (data.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (meta.asKnown().getOrNull()?.validity() ?: 0)
 
-    class Features
+    class Data
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val sms: JsonField<MessagingFeatureSet>,
+        private val id: JsonField<String>,
+        private val countryCode: JsonField<String>,
+        private val createdAt: JsonField<OffsetDateTime>,
+        private val features: JsonField<Features>,
+        private val messagingProduct: JsonField<String>,
+        private val messagingProfileId: JsonField<String>,
+        private val phoneNumber: JsonField<String>,
+        private val recordType: JsonField<RecordType>,
+        private val trafficType: JsonField<String>,
+        private val type: JsonField<Type>,
+        private val updatedAt: JsonField<OffsetDateTime>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("sms")
+            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("country_code")
             @ExcludeMissing
-            sms: JsonField<MessagingFeatureSet> = JsonMissing.of()
-        ) : this(sms, mutableMapOf())
+            countryCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("features")
+            @ExcludeMissing
+            features: JsonField<Features> = JsonMissing.of(),
+            @JsonProperty("messaging_product")
+            @ExcludeMissing
+            messagingProduct: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("messaging_profile_id")
+            @ExcludeMissing
+            messagingProfileId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("phone_number")
+            @ExcludeMissing
+            phoneNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("record_type")
+            @ExcludeMissing
+            recordType: JsonField<RecordType> = JsonMissing.of(),
+            @JsonProperty("traffic_type")
+            @ExcludeMissing
+            trafficType: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+            @JsonProperty("updated_at")
+            @ExcludeMissing
+            updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        ) : this(
+            id,
+            countryCode,
+            createdAt,
+            features,
+            messagingProduct,
+            messagingProfileId,
+            phoneNumber,
+            recordType,
+            trafficType,
+            type,
+            updatedAt,
+            mutableMapOf(),
+        )
 
         /**
-         * The set of features available for a specific messaging use case (SMS or MMS). Features
-         * can vary depending on the characteristics the phone number, as well as its current
-         * product configuration.
+         * Identifies the type of resource.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun sms(): Optional<MessagingFeatureSet> = sms.getOptional("sms")
+        fun id(): Optional<String> = id.getOptional("id")
 
         /**
-         * Returns the raw JSON value of [sms].
+         * ISO 3166-1 alpha-2 country code.
          *
-         * Unlike [sms], this method doesn't throw if the JSON field has an unexpected type.
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        @JsonProperty("sms") @ExcludeMissing fun _sms(): JsonField<MessagingFeatureSet> = sms
+        fun countryCode(): Optional<String> = countryCode.getOptional("country_code")
+
+        /**
+         * ISO 8601 formatted date indicating when the resource was created.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("created_at")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun features(): Optional<Features> = features.getOptional("features")
+
+        /**
+         * The messaging product that the number is registered to use
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun messagingProduct(): Optional<String> = messagingProduct.getOptional("messaging_product")
+
+        /**
+         * Unique identifier for a messaging profile.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun messagingProfileId(): Optional<String> =
+            messagingProfileId.getOptional("messaging_profile_id")
+
+        /**
+         * +E.164 formatted phone number.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun phoneNumber(): Optional<String> = phoneNumber.getOptional("phone_number")
+
+        /**
+         * Identifies the type of the resource.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun recordType(): Optional<RecordType> = recordType.getOptional("record_type")
+
+        /**
+         * The messaging traffic or use case for which the number is currently configured.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun trafficType(): Optional<String> = trafficType.getOptional("traffic_type")
+
+        /**
+         * The type of the phone number
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun type(): Optional<Type> = type.getOptional("type")
+
+        /**
+         * ISO 8601 formatted date indicating when the resource was updated.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun updatedAt(): Optional<OffsetDateTime> = updatedAt.getOptional("updated_at")
+
+        /**
+         * Returns the raw JSON value of [id].
+         *
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+        /**
+         * Returns the raw JSON value of [countryCode].
+         *
+         * Unlike [countryCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("country_code")
+        @ExcludeMissing
+        fun _countryCode(): JsonField<String> = countryCode
+
+        /**
+         * Returns the raw JSON value of [createdAt].
+         *
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+        /**
+         * Returns the raw JSON value of [features].
+         *
+         * Unlike [features], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("features") @ExcludeMissing fun _features(): JsonField<Features> = features
+
+        /**
+         * Returns the raw JSON value of [messagingProduct].
+         *
+         * Unlike [messagingProduct], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("messaging_product")
+        @ExcludeMissing
+        fun _messagingProduct(): JsonField<String> = messagingProduct
+
+        /**
+         * Returns the raw JSON value of [messagingProfileId].
+         *
+         * Unlike [messagingProfileId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("messaging_profile_id")
+        @ExcludeMissing
+        fun _messagingProfileId(): JsonField<String> = messagingProfileId
+
+        /**
+         * Returns the raw JSON value of [phoneNumber].
+         *
+         * Unlike [phoneNumber], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("phone_number")
+        @ExcludeMissing
+        fun _phoneNumber(): JsonField<String> = phoneNumber
+
+        /**
+         * Returns the raw JSON value of [recordType].
+         *
+         * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("record_type")
+        @ExcludeMissing
+        fun _recordType(): JsonField<RecordType> = recordType
+
+        /**
+         * Returns the raw JSON value of [trafficType].
+         *
+         * Unlike [trafficType], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("traffic_type")
+        @ExcludeMissing
+        fun _trafficType(): JsonField<String> = trafficType
+
+        /**
+         * Returns the raw JSON value of [type].
+         *
+         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+        /**
+         * Returns the raw JSON value of [updatedAt].
+         *
+         * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -587,40 +449,197 @@ private constructor(
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [Features]. */
+            /** Returns a mutable builder for constructing an instance of [Data]. */
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [Features]. */
+        /** A builder for [Data]. */
         class Builder internal constructor() {
 
-            private var sms: JsonField<MessagingFeatureSet> = JsonMissing.of()
+            private var id: JsonField<String> = JsonMissing.of()
+            private var countryCode: JsonField<String> = JsonMissing.of()
+            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var features: JsonField<Features> = JsonMissing.of()
+            private var messagingProduct: JsonField<String> = JsonMissing.of()
+            private var messagingProfileId: JsonField<String> = JsonMissing.of()
+            private var phoneNumber: JsonField<String> = JsonMissing.of()
+            private var recordType: JsonField<RecordType> = JsonMissing.of()
+            private var trafficType: JsonField<String> = JsonMissing.of()
+            private var type: JsonField<Type> = JsonMissing.of()
+            private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(features: Features) = apply {
-                sms = features.sms
-                additionalProperties = features.additionalProperties.toMutableMap()
+            internal fun from(data: Data) = apply {
+                id = data.id
+                countryCode = data.countryCode
+                createdAt = data.createdAt
+                features = data.features
+                messagingProduct = data.messagingProduct
+                messagingProfileId = data.messagingProfileId
+                phoneNumber = data.phoneNumber
+                recordType = data.recordType
+                trafficType = data.trafficType
+                type = data.type
+                updatedAt = data.updatedAt
+                additionalProperties = data.additionalProperties.toMutableMap()
             }
 
-            /**
-             * The set of features available for a specific messaging use case (SMS or MMS).
-             * Features can vary depending on the characteristics the phone number, as well as its
-             * current product configuration.
-             */
-            fun sms(sms: MessagingFeatureSet?) = sms(JsonField.ofNullable(sms))
-
-            /** Alias for calling [Builder.sms] with `sms.orElse(null)`. */
-            fun sms(sms: Optional<MessagingFeatureSet>) = sms(sms.getOrNull())
+            /** Identifies the type of resource. */
+            fun id(id: String) = id(JsonField.of(id))
 
             /**
-             * Sets [Builder.sms] to an arbitrary JSON value.
+             * Sets [Builder.id] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.sms] with a well-typed [MessagingFeatureSet] value
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun id(id: JsonField<String>) = apply { this.id = id }
+
+            /** ISO 3166-1 alpha-2 country code. */
+            fun countryCode(countryCode: String) = countryCode(JsonField.of(countryCode))
+
+            /**
+             * Sets [Builder.countryCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.countryCode] with a well-typed [String] value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun sms(sms: JsonField<MessagingFeatureSet>) = apply { this.sms = sms }
+            fun countryCode(countryCode: JsonField<String>) = apply {
+                this.countryCode = countryCode
+            }
+
+            /** ISO 8601 formatted date indicating when the resource was created. */
+            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+            /**
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
+            }
+
+            fun features(features: Features) = features(JsonField.of(features))
+
+            /**
+             * Sets [Builder.features] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.features] with a well-typed [Features] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun features(features: JsonField<Features>) = apply { this.features = features }
+
+            /** The messaging product that the number is registered to use */
+            fun messagingProduct(messagingProduct: String) =
+                messagingProduct(JsonField.of(messagingProduct))
+
+            /**
+             * Sets [Builder.messagingProduct] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.messagingProduct] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun messagingProduct(messagingProduct: JsonField<String>) = apply {
+                this.messagingProduct = messagingProduct
+            }
+
+            /** Unique identifier for a messaging profile. */
+            fun messagingProfileId(messagingProfileId: String?) =
+                messagingProfileId(JsonField.ofNullable(messagingProfileId))
+
+            /**
+             * Alias for calling [Builder.messagingProfileId] with
+             * `messagingProfileId.orElse(null)`.
+             */
+            fun messagingProfileId(messagingProfileId: Optional<String>) =
+                messagingProfileId(messagingProfileId.getOrNull())
+
+            /**
+             * Sets [Builder.messagingProfileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.messagingProfileId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun messagingProfileId(messagingProfileId: JsonField<String>) = apply {
+                this.messagingProfileId = messagingProfileId
+            }
+
+            /** +E.164 formatted phone number. */
+            fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
+
+            /**
+             * Sets [Builder.phoneNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.phoneNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun phoneNumber(phoneNumber: JsonField<String>) = apply {
+                this.phoneNumber = phoneNumber
+            }
+
+            /** Identifies the type of the resource. */
+            fun recordType(recordType: RecordType) = recordType(JsonField.of(recordType))
+
+            /**
+             * Sets [Builder.recordType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recordType] with a well-typed [RecordType] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun recordType(recordType: JsonField<RecordType>) = apply {
+                this.recordType = recordType
+            }
+
+            /** The messaging traffic or use case for which the number is currently configured. */
+            fun trafficType(trafficType: String) = trafficType(JsonField.of(trafficType))
+
+            /**
+             * Sets [Builder.trafficType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.trafficType] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun trafficType(trafficType: JsonField<String>) = apply {
+                this.trafficType = trafficType
+            }
+
+            /** The type of the phone number */
+            fun type(type: Type) = type(JsonField.of(type))
+
+            /**
+             * Sets [Builder.type] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun type(type: JsonField<Type>) = apply { this.type = type }
+
+            /** ISO 8601 formatted date indicating when the resource was updated. */
+            fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+            /**
+             * Sets [Builder.updatedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
+                this.updatedAt = updatedAt
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -642,21 +661,45 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [Features].
+             * Returns an immutable instance of [Data].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Features = Features(sms, additionalProperties.toMutableMap())
+            fun build(): Data =
+                Data(
+                    id,
+                    countryCode,
+                    createdAt,
+                    features,
+                    messagingProduct,
+                    messagingProfileId,
+                    phoneNumber,
+                    recordType,
+                    trafficType,
+                    type,
+                    updatedAt,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
 
-        fun validate(): Features = apply {
+        fun validate(): Data = apply {
             if (validated) {
                 return@apply
             }
 
-            sms().ifPresent { it.validate() }
+            id()
+            countryCode()
+            createdAt()
+            features().ifPresent { it.validate() }
+            messagingProduct()
+            messagingProfileId()
+            phoneNumber()
+            recordType().ifPresent { it.validate() }
+            trafficType()
+            type().ifPresent { it.validate() }
+            updatedAt()
             validated = true
         }
 
@@ -674,121 +717,699 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        @JvmSynthetic internal fun validity(): Int = (sms.asKnown().getOrNull()?.validity() ?: 0)
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (id.asKnown().isPresent) 1 else 0) +
+                (if (countryCode.asKnown().isPresent) 1 else 0) +
+                (if (createdAt.asKnown().isPresent) 1 else 0) +
+                (features.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (messagingProduct.asKnown().isPresent) 1 else 0) +
+                (if (messagingProfileId.asKnown().isPresent) 1 else 0) +
+                (if (phoneNumber.asKnown().isPresent) 1 else 0) +
+                (recordType.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (trafficType.asKnown().isPresent) 1 else 0) +
+                (type.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (updatedAt.asKnown().isPresent) 1 else 0)
+
+        class Features
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val sms: JsonField<MessagingFeatureSet>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("sms")
+                @ExcludeMissing
+                sms: JsonField<MessagingFeatureSet> = JsonMissing.of()
+            ) : this(sms, mutableMapOf())
+
+            /**
+             * The set of features available for a specific messaging use case (SMS or MMS).
+             * Features can vary depending on the characteristics the phone number, as well as its
+             * current product configuration.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun sms(): Optional<MessagingFeatureSet> = sms.getOptional("sms")
+
+            /**
+             * Returns the raw JSON value of [sms].
+             *
+             * Unlike [sms], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("sms") @ExcludeMissing fun _sms(): JsonField<MessagingFeatureSet> = sms
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [Features]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Features]. */
+            class Builder internal constructor() {
+
+                private var sms: JsonField<MessagingFeatureSet> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(features: Features) = apply {
+                    sms = features.sms
+                    additionalProperties = features.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * The set of features available for a specific messaging use case (SMS or MMS).
+                 * Features can vary depending on the characteristics the phone number, as well as
+                 * its current product configuration.
+                 */
+                fun sms(sms: MessagingFeatureSet?) = sms(JsonField.ofNullable(sms))
+
+                /** Alias for calling [Builder.sms] with `sms.orElse(null)`. */
+                fun sms(sms: Optional<MessagingFeatureSet>) = sms(sms.getOrNull())
+
+                /**
+                 * Sets [Builder.sms] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.sms] with a well-typed [MessagingFeatureSet]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun sms(sms: JsonField<MessagingFeatureSet>) = apply { this.sms = sms }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Features].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): Features = Features(sms, additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Features = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                sms().ifPresent { it.validate() }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int = (sms.asKnown().getOrNull()?.validity() ?: 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Features &&
+                    sms == other.sms &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(sms, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Features{sms=$sms, additionalProperties=$additionalProperties}"
+        }
+
+        /** Identifies the type of the resource. */
+        class RecordType @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val MESSAGING_PHONE_NUMBER = of("messaging_phone_number")
+
+                @JvmField val MESSAGING_SETTINGS = of("messaging_settings")
+
+                @JvmStatic fun of(value: String) = RecordType(JsonField.of(value))
+            }
+
+            /** An enum containing [RecordType]'s known values. */
+            enum class Known {
+                MESSAGING_PHONE_NUMBER,
+                MESSAGING_SETTINGS,
+            }
+
+            /**
+             * An enum containing [RecordType]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [RecordType] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                MESSAGING_PHONE_NUMBER,
+                MESSAGING_SETTINGS,
+                /**
+                 * An enum member indicating that [RecordType] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    MESSAGING_PHONE_NUMBER -> Value.MESSAGING_PHONE_NUMBER
+                    MESSAGING_SETTINGS -> Value.MESSAGING_SETTINGS
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    MESSAGING_PHONE_NUMBER -> Known.MESSAGING_PHONE_NUMBER
+                    MESSAGING_SETTINGS -> Known.MESSAGING_SETTINGS
+                    else -> throw TelnyxInvalidDataException("Unknown RecordType: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): RecordType = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is RecordType && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /** The type of the phone number */
+        class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val LONGCODE = of("longcode")
+
+                @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+            }
+
+            /** An enum containing [Type]'s known values. */
+            enum class Known {
+                LONGCODE
+            }
+
+            /**
+             * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Type] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                LONGCODE,
+                /** An enum member indicating that [Type] was instantiated with an unknown value. */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    LONGCODE -> Value.LONGCODE
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    LONGCODE -> Known.LONGCODE
+                    else -> throw TelnyxInvalidDataException("Unknown Type: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Type = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Type && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is Features &&
-                sms == other.sms &&
+            return other is Data &&
+                id == other.id &&
+                countryCode == other.countryCode &&
+                createdAt == other.createdAt &&
+                features == other.features &&
+                messagingProduct == other.messagingProduct &&
+                messagingProfileId == other.messagingProfileId &&
+                phoneNumber == other.phoneNumber &&
+                recordType == other.recordType &&
+                trafficType == other.trafficType &&
+                type == other.type &&
+                updatedAt == other.updatedAt &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(sms, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                id,
+                countryCode,
+                createdAt,
+                features,
+                messagingProduct,
+                messagingProfileId,
+                phoneNumber,
+                recordType,
+                trafficType,
+                type,
+                updatedAt,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Features{sms=$sms, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Data{id=$id, countryCode=$countryCode, createdAt=$createdAt, features=$features, messagingProduct=$messagingProduct, messagingProfileId=$messagingProfileId, phoneNumber=$phoneNumber, recordType=$recordType, trafficType=$trafficType, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
-    /** Identifies the type of the resource. */
-    class RecordType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Meta
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val pageNumber: JsonField<Long>,
+        private val pageSize: JsonField<Long>,
+        private val totalPages: JsonField<Long>,
+        private val totalResults: JsonField<Long>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("page_number")
+            @ExcludeMissing
+            pageNumber: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("page_size") @ExcludeMissing pageSize: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("total_pages")
+            @ExcludeMissing
+            totalPages: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("total_results")
+            @ExcludeMissing
+            totalResults: JsonField<Long> = JsonMissing.of(),
+        ) : this(pageNumber, pageSize, totalPages, totalResults, mutableMapOf())
 
         /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        fun pageNumber(): Long = pageNumber.getRequired("page_number")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun pageSize(): Long = pageSize.getRequired("page_size")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun totalPages(): Long = totalPages.getRequired("total_pages")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun totalResults(): Long = totalResults.getRequired("total_results")
+
+        /**
+         * Returns the raw JSON value of [pageNumber].
+         *
+         * Unlike [pageNumber], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("page_number") @ExcludeMissing fun _pageNumber(): JsonField<Long> = pageNumber
+
+        /**
+         * Returns the raw JSON value of [pageSize].
+         *
+         * Unlike [pageSize], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("page_size") @ExcludeMissing fun _pageSize(): JsonField<Long> = pageSize
+
+        /**
+         * Returns the raw JSON value of [totalPages].
+         *
+         * Unlike [totalPages], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("total_pages") @ExcludeMissing fun _totalPages(): JsonField<Long> = totalPages
+
+        /**
+         * Returns the raw JSON value of [totalResults].
+         *
+         * Unlike [totalResults], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("total_results")
+        @ExcludeMissing
+        fun _totalResults(): JsonField<Long> = totalResults
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
 
         companion object {
 
-            @JvmField val MESSAGING_PHONE_NUMBER = of("messaging_phone_number")
-
-            @JvmField val MESSAGING_SETTINGS = of("messaging_settings")
-
-            @JvmStatic fun of(value: String) = RecordType(JsonField.of(value))
-        }
-
-        /** An enum containing [RecordType]'s known values. */
-        enum class Known {
-            MESSAGING_PHONE_NUMBER,
-            MESSAGING_SETTINGS,
-        }
-
-        /**
-         * An enum containing [RecordType]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [RecordType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            MESSAGING_PHONE_NUMBER,
-            MESSAGING_SETTINGS,
             /**
-             * An enum member indicating that [RecordType] was instantiated with an unknown value.
+             * Returns a mutable builder for constructing an instance of [Meta].
+             *
+             * The following fields are required:
+             * ```java
+             * .pageNumber()
+             * .pageSize()
+             * .totalPages()
+             * .totalResults()
+             * ```
              */
-            _UNKNOWN,
+            @JvmStatic fun builder() = Builder()
         }
 
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                MESSAGING_PHONE_NUMBER -> Value.MESSAGING_PHONE_NUMBER
-                MESSAGING_SETTINGS -> Value.MESSAGING_SETTINGS
-                else -> Value._UNKNOWN
+        /** A builder for [Meta]. */
+        class Builder internal constructor() {
+
+            private var pageNumber: JsonField<Long>? = null
+            private var pageSize: JsonField<Long>? = null
+            private var totalPages: JsonField<Long>? = null
+            private var totalResults: JsonField<Long>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(meta: Meta) = apply {
+                pageNumber = meta.pageNumber
+                pageSize = meta.pageSize
+                totalPages = meta.totalPages
+                totalResults = meta.totalResults
+                additionalProperties = meta.additionalProperties.toMutableMap()
             }
 
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                MESSAGING_PHONE_NUMBER -> Known.MESSAGING_PHONE_NUMBER
-                MESSAGING_SETTINGS -> Known.MESSAGING_SETTINGS
-                else -> throw TelnyxInvalidDataException("Unknown RecordType: $value")
+            fun pageNumber(pageNumber: Long) = pageNumber(JsonField.of(pageNumber))
+
+            /**
+             * Sets [Builder.pageNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.pageNumber] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun pageNumber(pageNumber: JsonField<Long>) = apply { this.pageNumber = pageNumber }
+
+            fun pageSize(pageSize: Long) = pageSize(JsonField.of(pageSize))
+
+            /**
+             * Sets [Builder.pageSize] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.pageSize] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun pageSize(pageSize: JsonField<Long>) = apply { this.pageSize = pageSize }
+
+            fun totalPages(totalPages: Long) = totalPages(JsonField.of(totalPages))
+
+            /**
+             * Sets [Builder.totalPages] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.totalPages] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun totalPages(totalPages: JsonField<Long>) = apply { this.totalPages = totalPages }
+
+            fun totalResults(totalResults: Long) = totalResults(JsonField.of(totalResults))
+
+            /**
+             * Sets [Builder.totalResults] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.totalResults] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun totalResults(totalResults: JsonField<Long>) = apply {
+                this.totalResults = totalResults
             }
 
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Meta].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .pageNumber()
+             * .pageSize()
+             * .totalPages()
+             * .totalResults()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Meta =
+                Meta(
+                    checkRequired("pageNumber", pageNumber),
+                    checkRequired("pageSize", pageSize),
+                    checkRequired("totalPages", totalPages),
+                    checkRequired("totalResults", totalResults),
+                    additionalProperties.toMutableMap(),
+                )
+        }
 
         private var validated: Boolean = false
 
-        fun validate(): RecordType = apply {
+        fun validate(): Meta = apply {
             if (validated) {
                 return@apply
             }
 
-            known()
+            pageNumber()
+            pageSize()
+            totalPages()
+            totalResults()
             validated = true
         }
 
@@ -806,139 +1427,34 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (pageNumber.asKnown().isPresent) 1 else 0) +
+                (if (pageSize.asKnown().isPresent) 1 else 0) +
+                (if (totalPages.asKnown().isPresent) 1 else 0) +
+                (if (totalResults.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is RecordType && value == other.value
+            return other is Meta &&
+                pageNumber == other.pageNumber &&
+                pageSize == other.pageSize &&
+                totalPages == other.totalPages &&
+                totalResults == other.totalResults &&
+                additionalProperties == other.additionalProperties
         }
 
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
-    /** The type of the phone number */
-    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val LONGCODE = of("longcode")
-
-            @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+        private val hashCode: Int by lazy {
+            Objects.hash(pageNumber, pageSize, totalPages, totalResults, additionalProperties)
         }
 
-        /** An enum containing [Type]'s known values. */
-        enum class Known {
-            LONGCODE
-        }
+        override fun hashCode(): Int = hashCode
 
-        /**
-         * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [Type] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            LONGCODE,
-            /** An enum member indicating that [Type] was instantiated with an unknown value. */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                LONGCODE -> Value.LONGCODE
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                LONGCODE -> Known.LONGCODE
-                else -> throw TelnyxInvalidDataException("Unknown Type: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        fun validate(): Type = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Type && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
+        override fun toString() =
+            "Meta{pageNumber=$pageNumber, pageSize=$pageSize, totalPages=$totalPages, totalResults=$totalResults, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -947,39 +1463,15 @@ private constructor(
         }
 
         return other is MessagingListResponse &&
-            id == other.id &&
-            countryCode == other.countryCode &&
-            createdAt == other.createdAt &&
-            features == other.features &&
-            messagingProduct == other.messagingProduct &&
-            messagingProfileId == other.messagingProfileId &&
-            phoneNumber == other.phoneNumber &&
-            recordType == other.recordType &&
-            trafficType == other.trafficType &&
-            type == other.type &&
-            updatedAt == other.updatedAt &&
+            data == other.data &&
+            meta == other.meta &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy {
-        Objects.hash(
-            id,
-            countryCode,
-            createdAt,
-            features,
-            messagingProduct,
-            messagingProfileId,
-            phoneNumber,
-            recordType,
-            trafficType,
-            type,
-            updatedAt,
-            additionalProperties,
-        )
-    }
+    private val hashCode: Int by lazy { Objects.hash(data, meta, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessagingListResponse{id=$id, countryCode=$countryCode, createdAt=$createdAt, features=$features, messagingProduct=$messagingProduct, messagingProfileId=$messagingProfileId, phoneNumber=$phoneNumber, recordType=$recordType, trafficType=$trafficType, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "MessagingListResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
 }

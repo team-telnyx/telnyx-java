@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.externalconnections.ExternalConnectionCreateParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionCreateResponse
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionDeleteParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionDeleteResponse
-import com.telnyx.sdk.models.externalconnections.ExternalConnectionListPageAsync
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionListParams
+import com.telnyx.sdk.models.externalconnections.ExternalConnectionListResponse
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionRetrieveParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionRetrieveResponse
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionUpdateLocationParams
@@ -139,22 +139,22 @@ interface ExternalConnectionServiceAsync {
      * trunking integrations with Telnyx Partners, through External Voice Integrations in Mission
      * Control Portal.
      */
-    fun list(): CompletableFuture<ExternalConnectionListPageAsync> =
+    fun list(): CompletableFuture<ExternalConnectionListResponse> =
         list(ExternalConnectionListParams.none())
 
     /** @see list */
     fun list(
         params: ExternalConnectionListParams = ExternalConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ExternalConnectionListPageAsync>
+    ): CompletableFuture<ExternalConnectionListResponse>
 
     /** @see list */
     fun list(
         params: ExternalConnectionListParams = ExternalConnectionListParams.none()
-    ): CompletableFuture<ExternalConnectionListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<ExternalConnectionListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<ExternalConnectionListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<ExternalConnectionListResponse> =
         list(ExternalConnectionListParams.none(), requestOptions)
 
     /**
@@ -342,25 +342,25 @@ interface ExternalConnectionServiceAsync {
          * Returns a raw HTTP response for `get /external_connections`, but is otherwise the same as
          * [ExternalConnectionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<ExternalConnectionListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<ExternalConnectionListResponse>> =
             list(ExternalConnectionListParams.none())
 
         /** @see list */
         fun list(
             params: ExternalConnectionListParams = ExternalConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ExternalConnectionListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<ExternalConnectionListResponse>>
 
         /** @see list */
         fun list(
             params: ExternalConnectionListParams = ExternalConnectionListParams.none()
-        ): CompletableFuture<HttpResponseFor<ExternalConnectionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ExternalConnectionListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<ExternalConnectionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ExternalConnectionListResponse>> =
             list(ExternalConnectionListParams.none(), requestOptions)
 
         /**

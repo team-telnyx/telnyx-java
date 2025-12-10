@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationCreateParams
 import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationCreateResponse
-import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListPageAsync
 import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListParams
+import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -49,25 +49,24 @@ interface PhoneNumberConfigurationServiceAsync {
         create(PhoneNumberConfigurationCreateParams.none(), requestOptions)
 
     /** Returns a list of phone number configurations paginated. */
-    fun list(): CompletableFuture<PhoneNumberConfigurationListPageAsync> =
+    fun list(): CompletableFuture<PhoneNumberConfigurationListResponse> =
         list(PhoneNumberConfigurationListParams.none())
 
     /** @see list */
     fun list(
         params: PhoneNumberConfigurationListParams = PhoneNumberConfigurationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PhoneNumberConfigurationListPageAsync>
+    ): CompletableFuture<PhoneNumberConfigurationListResponse>
 
     /** @see list */
     fun list(
         params: PhoneNumberConfigurationListParams = PhoneNumberConfigurationListParams.none()
-    ): CompletableFuture<PhoneNumberConfigurationListPageAsync> =
-        list(params, RequestOptions.none())
+    ): CompletableFuture<PhoneNumberConfigurationListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         requestOptions: RequestOptions
-    ): CompletableFuture<PhoneNumberConfigurationListPageAsync> =
+    ): CompletableFuture<PhoneNumberConfigurationListResponse> =
         list(PhoneNumberConfigurationListParams.none(), requestOptions)
 
     /**
@@ -116,25 +115,25 @@ interface PhoneNumberConfigurationServiceAsync {
          * Returns a raw HTTP response for `get /porting_orders/phone_number_configurations`, but is
          * otherwise the same as [PhoneNumberConfigurationServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<PhoneNumberConfigurationListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<PhoneNumberConfigurationListResponse>> =
             list(PhoneNumberConfigurationListParams.none())
 
         /** @see list */
         fun list(
             params: PhoneNumberConfigurationListParams = PhoneNumberConfigurationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PhoneNumberConfigurationListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<PhoneNumberConfigurationListResponse>>
 
         /** @see list */
         fun list(
             params: PhoneNumberConfigurationListParams = PhoneNumberConfigurationListParams.none()
-        ): CompletableFuture<HttpResponseFor<PhoneNumberConfigurationListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberConfigurationListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<PhoneNumberConfigurationListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<PhoneNumberConfigurationListResponse>> =
             list(PhoneNumberConfigurationListParams.none(), requestOptions)
     }
 }

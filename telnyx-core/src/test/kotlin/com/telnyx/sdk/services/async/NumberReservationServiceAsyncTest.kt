@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.numberreservations.NumberReservationCreateParams
+import com.telnyx.sdk.models.numberreservations.NumberReservationListParams
 import com.telnyx.sdk.models.numberreservations.ReservedPhoneNumber
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
@@ -78,9 +79,27 @@ internal class NumberReservationServiceAsyncTest {
                 .build()
         val numberReservationServiceAsync = client.numberReservations()
 
-        val pageFuture = numberReservationServiceAsync.list()
+        val numberReservationsFuture =
+            numberReservationServiceAsync.list(
+                NumberReservationListParams.builder()
+                    .filter(
+                        NumberReservationListParams.Filter.builder()
+                            .createdAt(
+                                NumberReservationListParams.Filter.CreatedAt.builder()
+                                    .gt("gt")
+                                    .lt("lt")
+                                    .build()
+                            )
+                            .customerReference("customer_reference")
+                            .phoneNumbersPhoneNumber("phone_numbers.phone_number")
+                            .status("status")
+                            .build()
+                    )
+                    .page(NumberReservationListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val numberReservations = numberReservationsFuture.get()
+        numberReservations.validate()
     }
 }

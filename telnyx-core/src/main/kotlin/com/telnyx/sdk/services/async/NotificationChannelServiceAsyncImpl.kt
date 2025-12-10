@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.notificationchannels.NotificationChannelCreateParam
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelCreateResponse
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelDeleteParams
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelDeleteResponse
-import com.telnyx.sdk.models.notificationchannels.NotificationChannelListPageAsync
-import com.telnyx.sdk.models.notificationchannels.NotificationChannelListPageResponse
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelListParams
+import com.telnyx.sdk.models.notificationchannels.NotificationChannelListResponse
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelRetrieveParams
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelRetrieveResponse
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelUpdateParams
@@ -72,7 +71,7 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationCha
     override fun list(
         params: NotificationChannelListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NotificationChannelListPageAsync> =
+    ): CompletableFuture<NotificationChannelListResponse> =
         // get /notification_channels
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -169,7 +168,7 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationCha
         ): CompletableFuture<HttpResponseFor<NotificationChannelUpdateResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("notificationChannelId", params.notificationChannelId().getOrNull())
+            checkRequired("pathId", params.pathId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -194,13 +193,13 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationCha
                 }
         }
 
-        private val listHandler: Handler<NotificationChannelListPageResponse> =
-            jsonHandler<NotificationChannelListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NotificationChannelListResponse> =
+            jsonHandler<NotificationChannelListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NotificationChannelListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NotificationChannelListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<NotificationChannelListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -219,14 +218,6 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationCha
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                NotificationChannelListPageAsync.builder()
-                                    .service(NotificationChannelServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

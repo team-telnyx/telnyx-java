@@ -5,8 +5,10 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.rooms.RoomCreateParams
+import com.telnyx.sdk.models.rooms.RoomListParams
 import com.telnyx.sdk.models.rooms.RoomRetrieveParams
 import com.telnyx.sdk.models.rooms.RoomUpdateParams
+import java.time.LocalDate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -99,10 +101,35 @@ internal class RoomServiceAsyncTest {
                 .build()
         val roomServiceAsync = client.rooms()
 
-        val pageFuture = roomServiceAsync.list()
+        val roomsFuture =
+            roomServiceAsync.list(
+                RoomListParams.builder()
+                    .filter(
+                        RoomListParams.Filter.builder()
+                            .dateCreatedAt(
+                                RoomListParams.Filter.DateCreatedAt.builder()
+                                    .eq(LocalDate.parse("2021-04-25"))
+                                    .gte(LocalDate.parse("2021-04-25"))
+                                    .lte(LocalDate.parse("2021-04-25"))
+                                    .build()
+                            )
+                            .dateUpdatedAt(
+                                RoomListParams.Filter.DateUpdatedAt.builder()
+                                    .eq(LocalDate.parse("2021-04-25"))
+                                    .gte(LocalDate.parse("2021-04-25"))
+                                    .lte(LocalDate.parse("2021-04-25"))
+                                    .build()
+                            )
+                            .uniqueName("my_video_room")
+                            .build()
+                    )
+                    .includeSessions(true)
+                    .page(RoomListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val rooms = roomsFuture.get()
+        rooms.validate()
     }
 
     @Disabled("Prism tests are disabled")

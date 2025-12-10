@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.phonenumbers
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.phonenumbers.jobs.JobDeleteBatchParams
+import com.telnyx.sdk.models.phonenumbers.jobs.JobListParams
 import com.telnyx.sdk.models.phonenumbers.jobs.JobUpdateBatchParams
 import com.telnyx.sdk.models.phonenumbers.jobs.JobUpdateEmergencySettingsBatchParams
 import com.telnyx.sdk.models.phonenumbers.voice.CallForwarding
@@ -45,10 +46,21 @@ internal class JobServiceAsyncTest {
                 .build()
         val jobServiceAsync = client.phoneNumbers().jobs()
 
-        val pageFuture = jobServiceAsync.list()
+        val jobsFuture =
+            jobServiceAsync.list(
+                JobListParams.builder()
+                    .filter(
+                        JobListParams.Filter.builder()
+                            .type(JobListParams.Filter.Type.UPDATE_EMERGENCY_SETTINGS)
+                            .build()
+                    )
+                    .page(JobListParams.Page.builder().number(1L).size(1L).build())
+                    .sort(JobListParams.Sort.CREATED_AT)
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val jobs = jobsFuture.get()
+        jobs.validate()
     }
 
     @Disabled("Prism tests are disabled")

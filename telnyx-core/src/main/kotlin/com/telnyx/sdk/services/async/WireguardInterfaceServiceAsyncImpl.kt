@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceCreateParams
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceCreateResponse
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceDeleteParams
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceDeleteResponse
-import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceListPageAsync
-import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceListPageResponse
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceListParams
+import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceListResponse
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceRetrieveParams
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -62,7 +61,7 @@ internal constructor(private val clientOptions: ClientOptions) : WireguardInterf
     override fun list(
         params: WireguardInterfaceListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<WireguardInterfaceListPageAsync> =
+    ): CompletableFuture<WireguardInterfaceListResponse> =
         // get /wireguard_interfaces
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -150,13 +149,13 @@ internal constructor(private val clientOptions: ClientOptions) : WireguardInterf
                 }
         }
 
-        private val listHandler: Handler<WireguardInterfaceListPageResponse> =
-            jsonHandler<WireguardInterfaceListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<WireguardInterfaceListResponse> =
+            jsonHandler<WireguardInterfaceListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: WireguardInterfaceListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<WireguardInterfaceListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<WireguardInterfaceListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -175,14 +174,6 @@ internal constructor(private val clientOptions: ClientOptions) : WireguardInterf
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                WireguardInterfaceListPageAsync.builder()
-                                    .service(WireguardInterfaceServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

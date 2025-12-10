@@ -22,8 +22,7 @@ internal class UsageGetApiUsageResponseTest {
                                 .bytesReceived(123456L)
                                 .bytesSent(123456L)
                                 .category(
-                                    UsageGetApiUsageResponse.Data.Category.BucketOperationCategory
-                                        .PUT_OBJ
+                                    UsageGetApiUsageResponse.Data.Category.InnerCategory.PUT_OBJ
                                 )
                                 .ops(123456L)
                                 .successfulOps(123456L)
@@ -49,10 +48,7 @@ internal class UsageGetApiUsageResponseTest {
                         UsageGetApiUsageResponse.Data.Category.builder()
                             .bytesReceived(123456L)
                             .bytesSent(123456L)
-                            .category(
-                                UsageGetApiUsageResponse.Data.Category.BucketOperationCategory
-                                    .PUT_OBJ
-                            )
+                            .category(UsageGetApiUsageResponse.Data.Category.InnerCategory.PUT_OBJ)
                             .ops(123456L)
                             .successfulOps(123456L)
                             .build()
@@ -82,8 +78,7 @@ internal class UsageGetApiUsageResponseTest {
                                 .bytesReceived(123456L)
                                 .bytesSent(123456L)
                                 .category(
-                                    UsageGetApiUsageResponse.Data.Category.BucketOperationCategory
-                                        .PUT_OBJ
+                                    UsageGetApiUsageResponse.Data.Category.InnerCategory.PUT_OBJ
                                 )
                                 .ops(123456L)
                                 .successfulOps(123456L)

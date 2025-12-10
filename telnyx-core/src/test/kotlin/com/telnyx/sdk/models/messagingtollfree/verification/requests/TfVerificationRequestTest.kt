@@ -25,7 +25,7 @@ internal class TfVerificationRequestTest {
                 .businessZip("78701")
                 .corporateWebsite("http://example.com")
                 .isvReseller("isvReseller")
-                .messageVolume(Volume.V_100000)
+                .messageVolume(Volume._100_000)
                 .optInWorkflow(
                     "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
                 )
@@ -36,7 +36,7 @@ internal class TfVerificationRequestTest {
                 .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554398").build())
                 .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554399").build())
                 .productionMessageContent("Your Telnyx OTP is XXXX")
-                .useCase(UseCaseCategories.TWO_FA)
+                .useCase(UseCaseCategories._2_FA)
                 .useCaseSummary(
                     "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                 )
@@ -71,7 +71,7 @@ internal class TfVerificationRequestTest {
         assertThat(tfVerificationRequest.businessZip()).isEqualTo("78701")
         assertThat(tfVerificationRequest.corporateWebsite()).isEqualTo("http://example.com")
         assertThat(tfVerificationRequest.isvReseller()).isEqualTo("isvReseller")
-        assertThat(tfVerificationRequest.messageVolume()).isEqualTo(Volume.V_100000)
+        assertThat(tfVerificationRequest.messageVolume()).isEqualTo(Volume._100_000)
         assertThat(tfVerificationRequest.optInWorkflow())
             .isEqualTo(
                 "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
@@ -88,7 +88,7 @@ internal class TfVerificationRequestTest {
             )
         assertThat(tfVerificationRequest.productionMessageContent())
             .isEqualTo("Your Telnyx OTP is XXXX")
-        assertThat(tfVerificationRequest.useCase()).isEqualTo(UseCaseCategories.TWO_FA)
+        assertThat(tfVerificationRequest.useCase()).isEqualTo(UseCaseCategories._2_FA)
         assertThat(tfVerificationRequest.useCaseSummary())
             .isEqualTo(
                 "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
@@ -131,7 +131,7 @@ internal class TfVerificationRequestTest {
                 .businessZip("78701")
                 .corporateWebsite("http://example.com")
                 .isvReseller("isvReseller")
-                .messageVolume(Volume.V_100000)
+                .messageVolume(Volume._100_000)
                 .optInWorkflow(
                     "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
                 )
@@ -142,7 +142,7 @@ internal class TfVerificationRequestTest {
                 .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554398").build())
                 .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554399").build())
                 .productionMessageContent("Your Telnyx OTP is XXXX")
-                .useCase(UseCaseCategories.TWO_FA)
+                .useCase(UseCaseCategories._2_FA)
                 .useCaseSummary(
                     "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                 )

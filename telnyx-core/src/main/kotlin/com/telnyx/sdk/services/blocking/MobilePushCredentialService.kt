@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialCreateParams
 import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialDeleteParams
-import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialListPage
 import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialListParams
+import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialListResponse
 import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialRetrieveParams
 import com.telnyx.sdk.models.mobilepushcredentials.PushCredentialResponse
 import java.util.function.Consumer
@@ -72,21 +72,21 @@ interface MobilePushCredentialService {
         retrieve(pushCredentialId, MobilePushCredentialRetrieveParams.none(), requestOptions)
 
     /** List mobile push credentials */
-    fun list(): MobilePushCredentialListPage = list(MobilePushCredentialListParams.none())
+    fun list(): MobilePushCredentialListResponse = list(MobilePushCredentialListParams.none())
 
     /** @see list */
     fun list(
         params: MobilePushCredentialListParams = MobilePushCredentialListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MobilePushCredentialListPage
+    ): MobilePushCredentialListResponse
 
     /** @see list */
     fun list(
         params: MobilePushCredentialListParams = MobilePushCredentialListParams.none()
-    ): MobilePushCredentialListPage = list(params, RequestOptions.none())
+    ): MobilePushCredentialListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): MobilePushCredentialListPage =
+    fun list(requestOptions: RequestOptions): MobilePushCredentialListResponse =
         list(MobilePushCredentialListParams.none(), requestOptions)
 
     /** Deletes a mobile push credential based on the given `push_credential_id` */
@@ -201,7 +201,7 @@ interface MobilePushCredentialService {
          * as [MobilePushCredentialService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<MobilePushCredentialListPage> =
+        fun list(): HttpResponseFor<MobilePushCredentialListResponse> =
             list(MobilePushCredentialListParams.none())
 
         /** @see list */
@@ -209,17 +209,19 @@ interface MobilePushCredentialService {
         fun list(
             params: MobilePushCredentialListParams = MobilePushCredentialListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MobilePushCredentialListPage>
+        ): HttpResponseFor<MobilePushCredentialListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MobilePushCredentialListParams = MobilePushCredentialListParams.none()
-        ): HttpResponseFor<MobilePushCredentialListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<MobilePushCredentialListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<MobilePushCredentialListPage> =
+        fun list(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<MobilePushCredentialListResponse> =
             list(MobilePushCredentialListParams.none(), requestOptions)
 
         /**

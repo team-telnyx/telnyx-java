@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.async.portingorders
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobListParams
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobRetrieveParams
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobUpdateParams
 import java.time.OffsetDateTime
@@ -69,9 +70,15 @@ internal class ActivationJobServiceAsyncTest {
                 .build()
         val activationJobServiceAsync = client.portingOrders().activationJobs()
 
-        val pageFuture = activationJobServiceAsync.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        val activationJobsFuture =
+            activationJobServiceAsync.list(
+                ActivationJobListParams.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .page(ActivationJobListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val activationJobs = activationJobsFuture.get()
+        activationJobs.validate()
     }
 }

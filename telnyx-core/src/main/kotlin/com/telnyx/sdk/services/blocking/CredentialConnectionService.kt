@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.credentialconnections.CredentialConnectionCreatePar
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionCreateResponse
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionDeleteParams
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionDeleteResponse
-import com.telnyx.sdk.models.credentialconnections.CredentialConnectionListPage
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionListParams
+import com.telnyx.sdk.models.credentialconnections.CredentialConnectionListResponse
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionRetrieveParams
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionRetrieveResponse
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionUpdateParams
@@ -110,21 +110,21 @@ interface CredentialConnectionService {
         update(id, CredentialConnectionUpdateParams.none(), requestOptions)
 
     /** Returns a list of your credential connections. */
-    fun list(): CredentialConnectionListPage = list(CredentialConnectionListParams.none())
+    fun list(): CredentialConnectionListResponse = list(CredentialConnectionListParams.none())
 
     /** @see list */
     fun list(
         params: CredentialConnectionListParams = CredentialConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CredentialConnectionListPage
+    ): CredentialConnectionListResponse
 
     /** @see list */
     fun list(
         params: CredentialConnectionListParams = CredentialConnectionListParams.none()
-    ): CredentialConnectionListPage = list(params, RequestOptions.none())
+    ): CredentialConnectionListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CredentialConnectionListPage =
+    fun list(requestOptions: RequestOptions): CredentialConnectionListResponse =
         list(CredentialConnectionListParams.none(), requestOptions)
 
     /** Deletes an existing credential connection. */
@@ -292,7 +292,7 @@ interface CredentialConnectionService {
          * as [CredentialConnectionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CredentialConnectionListPage> =
+        fun list(): HttpResponseFor<CredentialConnectionListResponse> =
             list(CredentialConnectionListParams.none())
 
         /** @see list */
@@ -300,17 +300,19 @@ interface CredentialConnectionService {
         fun list(
             params: CredentialConnectionListParams = CredentialConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CredentialConnectionListPage>
+        ): HttpResponseFor<CredentialConnectionListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CredentialConnectionListParams = CredentialConnectionListParams.none()
-        ): HttpResponseFor<CredentialConnectionListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<CredentialConnectionListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CredentialConnectionListPage> =
+        fun list(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<CredentialConnectionListResponse> =
             list(CredentialConnectionListParams.none(), requestOptions)
 
         /**

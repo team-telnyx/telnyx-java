@@ -14,9 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.detailrecords.DetailRecordListPageAsync
-import com.telnyx.sdk.models.detailrecords.DetailRecordListPageResponse
 import com.telnyx.sdk.models.detailrecords.DetailRecordListParams
+import com.telnyx.sdk.models.detailrecords.DetailRecordListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -35,7 +34,7 @@ class DetailRecordServiceAsyncImpl internal constructor(private val clientOption
     override fun list(
         params: DetailRecordListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<DetailRecordListPageAsync> =
+    ): CompletableFuture<DetailRecordListResponse> =
         // get /detail_records
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -52,13 +51,13 @@ class DetailRecordServiceAsyncImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<DetailRecordListPageResponse> =
-            jsonHandler<DetailRecordListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DetailRecordListResponse> =
+            jsonHandler<DetailRecordListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DetailRecordListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<DetailRecordListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<DetailRecordListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -77,14 +76,6 @@ class DetailRecordServiceAsyncImpl internal constructor(private val clientOption
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                DetailRecordListPageAsync.builder()
-                                    .service(DetailRecordServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

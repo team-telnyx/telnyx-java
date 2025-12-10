@@ -20,18 +20,16 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.portingorders.PortingOrderCreateParams
 import com.telnyx.sdk.models.portingorders.PortingOrderCreateResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderDeleteParams
-import com.telnyx.sdk.models.portingorders.PortingOrderListPageAsync
-import com.telnyx.sdk.models.portingorders.PortingOrderListPageResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderListParams
+import com.telnyx.sdk.models.portingorders.PortingOrderListResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveAllowedFocWindowsParams
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveAllowedFocWindowsResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveExceptionTypesParams
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveExceptionTypesResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveLoaTemplateParams
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveParams
-import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveRequirementsPageAsync
-import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveRequirementsPageResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveRequirementsParams
+import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveRequirementsResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveSubRequestParams
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveSubRequestResponse
@@ -155,7 +153,7 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
     override fun list(
         params: PortingOrderListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PortingOrderListPageAsync> =
+    ): CompletableFuture<PortingOrderListResponse> =
         // get /porting_orders
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -190,7 +188,7 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
     override fun retrieveRequirements(
         params: PortingOrderRetrieveRequirementsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PortingOrderRetrieveRequirementsPageAsync> =
+    ): CompletableFuture<PortingOrderRetrieveRequirementsResponse> =
         // get /porting_orders/{id}/requirements
         withRawResponse().retrieveRequirements(params, requestOptions).thenApply { it.parse() }
 
@@ -382,13 +380,13 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                 }
         }
 
-        private val listHandler: Handler<PortingOrderListPageResponse> =
-            jsonHandler<PortingOrderListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PortingOrderListResponse> =
+            jsonHandler<PortingOrderListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PortingOrderListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PortingOrderListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<PortingOrderListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -407,14 +405,6 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                PortingOrderListPageAsync.builder()
-                                    .service(PortingOrderServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }
@@ -532,14 +522,13 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                 .thenApply { response -> errorHandler.handle(response) }
         }
 
-        private val retrieveRequirementsHandler:
-            Handler<PortingOrderRetrieveRequirementsPageResponse> =
-            jsonHandler<PortingOrderRetrieveRequirementsPageResponse>(clientOptions.jsonMapper)
+        private val retrieveRequirementsHandler: Handler<PortingOrderRetrieveRequirementsResponse> =
+            jsonHandler<PortingOrderRetrieveRequirementsResponse>(clientOptions.jsonMapper)
 
         override fun retrieveRequirements(
             params: PortingOrderRetrieveRequirementsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PortingOrderRetrieveRequirementsPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<PortingOrderRetrieveRequirementsResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -561,14 +550,6 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                PortingOrderRetrieveRequirementsPageAsync.builder()
-                                    .service(PortingOrderServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

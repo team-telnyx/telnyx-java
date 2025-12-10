@@ -16,9 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.simcardgroups.actions.ActionListPageAsync
-import com.telnyx.sdk.models.simcardgroups.actions.ActionListPageResponse
 import com.telnyx.sdk.models.simcardgroups.actions.ActionListParams
+import com.telnyx.sdk.models.simcardgroups.actions.ActionListResponse
 import com.telnyx.sdk.models.simcardgroups.actions.ActionRemovePrivateWirelessGatewayParams
 import com.telnyx.sdk.models.simcardgroups.actions.ActionRemovePrivateWirelessGatewayResponse
 import com.telnyx.sdk.models.simcardgroups.actions.ActionRemoveWirelessBlocklistParams
@@ -55,7 +54,7 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: ActionListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ActionListPageAsync> =
+    ): CompletableFuture<ActionListResponse> =
         // get /sim_card_group_actions
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -135,13 +134,13 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val listHandler: Handler<ActionListPageResponse> =
-            jsonHandler<ActionListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ActionListResponse> =
+            jsonHandler<ActionListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ActionListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ActionListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<ActionListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -160,14 +159,6 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                ActionListPageAsync.builder()
-                                    .service(ActionServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionCreateParams
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionCreateResponse
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionDeleteParams
-import com.telnyx.sdk.models.roomcompositions.RoomCompositionListPageAsync
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionListParams
+import com.telnyx.sdk.models.roomcompositions.RoomCompositionListResponse
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionRetrieveParams
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -87,22 +87,22 @@ interface RoomCompositionServiceAsync {
         retrieve(roomCompositionId, RoomCompositionRetrieveParams.none(), requestOptions)
 
     /** View a list of room compositions. */
-    fun list(): CompletableFuture<RoomCompositionListPageAsync> =
+    fun list(): CompletableFuture<RoomCompositionListResponse> =
         list(RoomCompositionListParams.none())
 
     /** @see list */
     fun list(
         params: RoomCompositionListParams = RoomCompositionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RoomCompositionListPageAsync>
+    ): CompletableFuture<RoomCompositionListResponse>
 
     /** @see list */
     fun list(
         params: RoomCompositionListParams = RoomCompositionListParams.none()
-    ): CompletableFuture<RoomCompositionListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<RoomCompositionListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<RoomCompositionListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<RoomCompositionListResponse> =
         list(RoomCompositionListParams.none(), requestOptions)
 
     /** Synchronously delete a room composition. */
@@ -230,25 +230,25 @@ interface RoomCompositionServiceAsync {
          * Returns a raw HTTP response for `get /room_compositions`, but is otherwise the same as
          * [RoomCompositionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<RoomCompositionListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<RoomCompositionListResponse>> =
             list(RoomCompositionListParams.none())
 
         /** @see list */
         fun list(
             params: RoomCompositionListParams = RoomCompositionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RoomCompositionListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<RoomCompositionListResponse>>
 
         /** @see list */
         fun list(
             params: RoomCompositionListParams = RoomCompositionListParams.none()
-        ): CompletableFuture<HttpResponseFor<RoomCompositionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<RoomCompositionListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<RoomCompositionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<RoomCompositionListResponse>> =
             list(RoomCompositionListParams.none(), requestOptions)
 
         /**

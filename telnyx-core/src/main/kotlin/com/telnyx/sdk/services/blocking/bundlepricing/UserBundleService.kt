@@ -10,10 +10,10 @@ import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleCreateParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleCreateResponse
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleDeactivateParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleDeactivateResponse
-import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListPage
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListResourcesParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListResourcesResponse
+import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListResponse
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListUnusedParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListUnusedResponse
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleRetrieveParams
@@ -85,20 +85,20 @@ interface UserBundleService {
         retrieve(userBundleId, UserBundleRetrieveParams.none(), requestOptions)
 
     /** Get a paginated list of user bundles. */
-    fun list(): UserBundleListPage = list(UserBundleListParams.none())
+    fun list(): UserBundleListResponse = list(UserBundleListParams.none())
 
     /** @see list */
     fun list(
         params: UserBundleListParams = UserBundleListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserBundleListPage
+    ): UserBundleListResponse
 
     /** @see list */
-    fun list(params: UserBundleListParams = UserBundleListParams.none()): UserBundleListPage =
+    fun list(params: UserBundleListParams = UserBundleListParams.none()): UserBundleListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): UserBundleListPage =
+    fun list(requestOptions: RequestOptions): UserBundleListResponse =
         list(UserBundleListParams.none(), requestOptions)
 
     /** Deactivates a user bundle by its ID. */
@@ -278,24 +278,24 @@ interface UserBundleService {
          * same as [UserBundleService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<UserBundleListPage> = list(UserBundleListParams.none())
+        fun list(): HttpResponseFor<UserBundleListResponse> = list(UserBundleListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: UserBundleListParams = UserBundleListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserBundleListPage>
+        ): HttpResponseFor<UserBundleListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: UserBundleListParams = UserBundleListParams.none()
-        ): HttpResponseFor<UserBundleListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<UserBundleListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<UserBundleListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<UserBundleListResponse> =
             list(UserBundleListParams.none(), requestOptions)
 
         /**

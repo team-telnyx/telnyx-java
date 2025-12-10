@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.phonenumberblocks.jobs.JobDeletePhoneNumberBlockParams
 import com.telnyx.sdk.models.phonenumberblocks.jobs.JobDeletePhoneNumberBlockResponse
-import com.telnyx.sdk.models.phonenumberblocks.jobs.JobListPage
-import com.telnyx.sdk.models.phonenumberblocks.jobs.JobListPageResponse
 import com.telnyx.sdk.models.phonenumberblocks.jobs.JobListParams
+import com.telnyx.sdk.models.phonenumberblocks.jobs.JobListResponse
 import com.telnyx.sdk.models.phonenumberblocks.jobs.JobRetrieveParams
 import com.telnyx.sdk.models.phonenumberblocks.jobs.JobRetrieveResponse
 import java.util.function.Consumer
@@ -44,7 +43,7 @@ class JobServiceImpl internal constructor(private val clientOptions: ClientOptio
         // get /phone_number_blocks/jobs/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(params: JobListParams, requestOptions: RequestOptions): JobListPage =
+    override fun list(params: JobListParams, requestOptions: RequestOptions): JobListResponse =
         // get /phone_number_blocks/jobs
         withRawResponse().list(params, requestOptions).parse()
 
@@ -98,13 +97,13 @@ class JobServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val listHandler: Handler<JobListPageResponse> =
-            jsonHandler<JobListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<JobListResponse> =
+            jsonHandler<JobListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: JobListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<JobListPage> {
+        ): HttpResponseFor<JobListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -121,13 +120,6 @@ class JobServiceImpl internal constructor(private val clientOptions: ClientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        JobListPage.builder()
-                            .service(JobServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

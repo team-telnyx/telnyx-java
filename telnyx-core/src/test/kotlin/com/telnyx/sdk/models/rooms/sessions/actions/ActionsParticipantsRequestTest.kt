@@ -15,15 +15,15 @@ internal class ActionsParticipantsRequestTest {
         val actionsParticipantsRequest =
             ActionsParticipantsRequest.builder()
                 .addExclude("7b61621f-62e0-4aad-ab11-9fd19e272e73")
-                .participants(ActionsParticipantsRequest.Participants.AllParticipants.ALL)
+                .participants(ActionsParticipantsRequest.Participants.UnionMember0.ALL)
                 .build()
 
         assertThat(actionsParticipantsRequest.exclude().getOrNull())
             .containsExactly("7b61621f-62e0-4aad-ab11-9fd19e272e73")
         assertThat(actionsParticipantsRequest.participants())
             .contains(
-                ActionsParticipantsRequest.Participants.ofAll(
-                    ActionsParticipantsRequest.Participants.AllParticipants.ALL
+                ActionsParticipantsRequest.Participants.ofUnionMember0(
+                    ActionsParticipantsRequest.Participants.UnionMember0.ALL
                 )
             )
     }
@@ -34,7 +34,7 @@ internal class ActionsParticipantsRequestTest {
         val actionsParticipantsRequest =
             ActionsParticipantsRequest.builder()
                 .addExclude("7b61621f-62e0-4aad-ab11-9fd19e272e73")
-                .participants(ActionsParticipantsRequest.Participants.AllParticipants.ALL)
+                .participants(ActionsParticipantsRequest.Participants.UnionMember0.ALL)
                 .build()
 
         val roundtrippedActionsParticipantsRequest =

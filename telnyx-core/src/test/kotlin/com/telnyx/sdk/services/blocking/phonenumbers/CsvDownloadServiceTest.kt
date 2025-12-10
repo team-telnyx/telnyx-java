@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking.phonenumbers
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadCreateParams
+import com.telnyx.sdk.models.phonenumbers.csvdownloads.CsvDownloadListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -80,8 +81,13 @@ internal class CsvDownloadServiceTest {
                 .build()
         val csvDownloadService = client.phoneNumbers().csvDownloads()
 
-        val page = csvDownloadService.list()
+        val csvDownloads =
+            csvDownloadService.list(
+                CsvDownloadListParams.builder()
+                    .page(CsvDownloadListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        csvDownloads.validate()
     }
 }

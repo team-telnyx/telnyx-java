@@ -24,13 +24,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Create Default Gateway. */
 class DefaultGatewayCreateParams
 private constructor(
-    private val networkIdentifier: String?,
+    private val pathId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun networkIdentifier(): Optional<String> = Optional.ofNullable(networkIdentifier)
+    fun pathId(): Optional<String> = Optional.ofNullable(pathId)
 
     /**
      * Identifies the resource.
@@ -160,26 +160,23 @@ private constructor(
     /** A builder for [DefaultGatewayCreateParams]. */
     class Builder internal constructor() {
 
-        private var networkIdentifier: String? = null
+        private var pathId: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(defaultGatewayCreateParams: DefaultGatewayCreateParams) = apply {
-            networkIdentifier = defaultGatewayCreateParams.networkIdentifier
+            pathId = defaultGatewayCreateParams.pathId
             body = defaultGatewayCreateParams.body.toBuilder()
             additionalHeaders = defaultGatewayCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = defaultGatewayCreateParams.additionalQueryParams.toBuilder()
         }
 
-        fun networkIdentifier(networkIdentifier: String?) = apply {
-            this.networkIdentifier = networkIdentifier
-        }
+        fun pathId(pathId: String?) = apply { this.pathId = pathId }
 
-        /** Alias for calling [Builder.networkIdentifier] with `networkIdentifier.orElse(null)`. */
-        fun networkIdentifier(networkIdentifier: Optional<String>) =
-            networkIdentifier(networkIdentifier.getOrNull())
+        /** Alias for calling [Builder.pathId] with `pathId.orElse(null)`. */
+        fun pathId(pathId: Optional<String>) = pathId(pathId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -406,7 +403,7 @@ private constructor(
          */
         fun build(): DefaultGatewayCreateParams =
             DefaultGatewayCreateParams(
-                networkIdentifier,
+                pathId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -417,7 +414,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> networkIdentifier ?: ""
+            0 -> pathId ?: ""
             else -> ""
         }
 
@@ -836,15 +833,15 @@ private constructor(
         }
 
         return other is DefaultGatewayCreateParams &&
-            networkIdentifier == other.networkIdentifier &&
+            pathId == other.pathId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(networkIdentifier, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(pathId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "DefaultGatewayCreateParams{networkIdentifier=$networkIdentifier, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "DefaultGatewayCreateParams{pathId=$pathId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

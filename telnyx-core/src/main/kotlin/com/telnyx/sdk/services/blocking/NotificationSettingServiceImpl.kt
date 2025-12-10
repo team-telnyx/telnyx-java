@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.notificationsettings.NotificationSettingCreateParam
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingCreateResponse
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingDeleteParams
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingDeleteResponse
-import com.telnyx.sdk.models.notificationsettings.NotificationSettingListPage
-import com.telnyx.sdk.models.notificationsettings.NotificationSettingListPageResponse
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingListParams
+import com.telnyx.sdk.models.notificationsettings.NotificationSettingListResponse
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingRetrieveParams
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingRetrieveResponse
 import java.util.function.Consumer
@@ -59,7 +58,7 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationSet
     override fun list(
         params: NotificationSettingListParams,
         requestOptions: RequestOptions,
-    ): NotificationSettingListPage =
+    ): NotificationSettingListResponse =
         // get /notification_settings
         withRawResponse().list(params, requestOptions).parse()
 
@@ -141,13 +140,13 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationSet
             }
         }
 
-        private val listHandler: Handler<NotificationSettingListPageResponse> =
-            jsonHandler<NotificationSettingListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NotificationSettingListResponse> =
+            jsonHandler<NotificationSettingListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NotificationSettingListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<NotificationSettingListPage> {
+        ): HttpResponseFor<NotificationSettingListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -164,13 +163,6 @@ internal constructor(private val clientOptions: ClientOptions) : NotificationSet
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        NotificationSettingListPage.builder()
-                            .service(NotificationSettingServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

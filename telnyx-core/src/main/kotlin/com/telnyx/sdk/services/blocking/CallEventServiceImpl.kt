@@ -14,9 +14,8 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.callevents.CallEventListPage
-import com.telnyx.sdk.models.callevents.CallEventListPageResponse
 import com.telnyx.sdk.models.callevents.CallEventListParams
+import com.telnyx.sdk.models.callevents.CallEventListResponse
 import java.util.function.Consumer
 
 class CallEventServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -34,7 +33,7 @@ class CallEventServiceImpl internal constructor(private val clientOptions: Clien
     override fun list(
         params: CallEventListParams,
         requestOptions: RequestOptions,
-    ): CallEventListPage =
+    ): CallEventListResponse =
         // get /call_events
         withRawResponse().list(params, requestOptions).parse()
 
@@ -51,13 +50,13 @@ class CallEventServiceImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<CallEventListPageResponse> =
-            jsonHandler<CallEventListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CallEventListResponse> =
+            jsonHandler<CallEventListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CallEventListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CallEventListPage> {
+        ): HttpResponseFor<CallEventListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -74,13 +73,6 @@ class CallEventServiceImpl internal constructor(private val clientOptions: Clien
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        CallEventListPage.builder()
-                            .service(CallEventServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

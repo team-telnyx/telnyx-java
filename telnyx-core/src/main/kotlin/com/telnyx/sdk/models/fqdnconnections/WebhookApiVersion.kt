@@ -22,17 +22,17 @@ class WebhookApiVersion @JsonCreator private constructor(private val value: Json
 
     companion object {
 
-        @JvmField val V1 = of("1")
+        @JvmField val _1 = of("1")
 
-        @JvmField val V2 = of("2")
+        @JvmField val _2 = of("2")
 
         @JvmStatic fun of(value: String) = WebhookApiVersion(JsonField.of(value))
     }
 
     /** An enum containing [WebhookApiVersion]'s known values. */
     enum class Known {
-        V1,
-        V2,
+        _1,
+        _2,
     }
 
     /**
@@ -45,8 +45,8 @@ class WebhookApiVersion @JsonCreator private constructor(private val value: Json
      * - It was constructed with an arbitrary value using the [of] method.
      */
     enum class Value {
-        V1,
-        V2,
+        _1,
+        _2,
         /**
          * An enum member indicating that [WebhookApiVersion] was instantiated with an unknown
          * value.
@@ -63,8 +63,8 @@ class WebhookApiVersion @JsonCreator private constructor(private val value: Json
      */
     fun value(): Value =
         when (this) {
-            V1 -> Value.V1
-            V2 -> Value.V2
+            _1 -> Value._1
+            _2 -> Value._2
             else -> Value._UNKNOWN
         }
 
@@ -78,8 +78,8 @@ class WebhookApiVersion @JsonCreator private constructor(private val value: Json
      */
     fun known(): Known =
         when (this) {
-            V1 -> Known.V1
-            V2 -> Known.V2
+            _1 -> Known._1
+            _2 -> Known._2
             else -> throw TelnyxInvalidDataException("Unknown WebhookApiVersion: $value")
         }
 

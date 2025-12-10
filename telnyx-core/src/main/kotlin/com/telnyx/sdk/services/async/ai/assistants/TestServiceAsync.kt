@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.assistants.tests.AssistantTest
 import com.telnyx.sdk.models.ai.assistants.tests.TestCreateParams
 import com.telnyx.sdk.models.ai.assistants.tests.TestDeleteParams
-import com.telnyx.sdk.models.ai.assistants.tests.TestListPageAsync
 import com.telnyx.sdk.models.ai.assistants.tests.TestListParams
+import com.telnyx.sdk.models.ai.assistants.tests.TestListResponse
 import com.telnyx.sdk.models.ai.assistants.tests.TestRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.tests.TestUpdateParams
 import com.telnyx.sdk.services.async.ai.assistants.tests.RunServiceAsync
@@ -111,20 +111,20 @@ interface TestServiceAsync {
         update(testId, TestUpdateParams.none(), requestOptions)
 
     /** Retrieves a paginated list of assistant tests with optional filtering capabilities */
-    fun list(): CompletableFuture<TestListPageAsync> = list(TestListParams.none())
+    fun list(): CompletableFuture<TestListResponse> = list(TestListParams.none())
 
     /** @see list */
     fun list(
         params: TestListParams = TestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TestListPageAsync>
+    ): CompletableFuture<TestListResponse>
 
     /** @see list */
-    fun list(params: TestListParams = TestListParams.none()): CompletableFuture<TestListPageAsync> =
+    fun list(params: TestListParams = TestListParams.none()): CompletableFuture<TestListResponse> =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<TestListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<TestListResponse> =
         list(TestListParams.none(), requestOptions)
 
     /** Permanently removes an assistant test and all associated data */
@@ -268,25 +268,25 @@ interface TestServiceAsync {
          * Returns a raw HTTP response for `get /ai/assistants/tests`, but is otherwise the same as
          * [TestServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<TestListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<TestListResponse>> =
             list(TestListParams.none())
 
         /** @see list */
         fun list(
             params: TestListParams = TestListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TestListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<TestListResponse>>
 
         /** @see list */
         fun list(
             params: TestListParams = TestListParams.none()
-        ): CompletableFuture<HttpResponseFor<TestListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<TestListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<TestListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<TestListResponse>> =
             list(TestListParams.none(), requestOptions)
 
         /**

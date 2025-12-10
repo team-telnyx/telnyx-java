@@ -35,8 +35,8 @@ internal class MigrationListResponseTest {
                 .meta(
                     PaginationMetaSimple.builder()
                         .pageNumber(2L)
-                        .totalPages(3L)
                         .pageSize(25L)
+                        .totalPages(3L)
                         .totalResults(55L)
                         .build()
                 )
@@ -63,8 +63,8 @@ internal class MigrationListResponseTest {
             .contains(
                 PaginationMetaSimple.builder()
                     .pageNumber(2L)
-                    .totalPages(3L)
                     .pageSize(25L)
+                    .totalPages(3L)
                     .totalResults(55L)
                     .build()
             )
@@ -94,8 +94,8 @@ internal class MigrationListResponseTest {
                 .meta(
                     PaginationMetaSimple.builder()
                         .pageNumber(2L)
-                        .totalPages(3L)
                         .pageSize(25L)
+                        .totalPages(3L)
                         .totalResults(55L)
                         .build()
                 )

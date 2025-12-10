@@ -15,32 +15,37 @@ internal class MobilePhoneNumberUpdateResponseTest {
         val mobilePhoneNumberUpdateResponse =
             MobilePhoneNumberUpdateResponse.builder()
                 .data(
-                    MobilePhoneNumber.builder()
+                    MobilePhoneNumberUpdateResponse.Data.builder()
                         .id("id")
                         .callForwarding(
-                            MobilePhoneNumber.CallForwarding.builder()
+                            MobilePhoneNumberUpdateResponse.Data.CallForwarding.builder()
                                 .callForwardingEnabled(true)
                                 .forwardingType(
-                                    MobilePhoneNumber.CallForwarding.ForwardingType.ALWAYS
+                                    MobilePhoneNumberUpdateResponse.Data.CallForwarding
+                                        .ForwardingType
+                                        .ALWAYS
                                 )
                                 .forwardsTo("forwards_to")
                                 .build()
                         )
                         .callRecording(
-                            MobilePhoneNumber.CallRecording.builder()
+                            MobilePhoneNumberUpdateResponse.Data.CallRecording.builder()
                                 .inboundCallRecordingChannels(
-                                    MobilePhoneNumber.CallRecording.InboundCallRecordingChannels
+                                    MobilePhoneNumberUpdateResponse.Data.CallRecording
+                                        .InboundCallRecordingChannels
                                         .SINGLE
                                 )
                                 .inboundCallRecordingEnabled(true)
                                 .inboundCallRecordingFormat(
-                                    MobilePhoneNumber.CallRecording.InboundCallRecordingFormat.WAV
+                                    MobilePhoneNumberUpdateResponse.Data.CallRecording
+                                        .InboundCallRecordingFormat
+                                        .WAV
                                 )
                                 .build()
                         )
                         .callerIdNameEnabled(true)
                         .cnamListing(
-                            MobilePhoneNumber.CnamListing.builder()
+                            MobilePhoneNumberUpdateResponse.Data.CnamListing.builder()
                                 .cnamListingDetails("cnam_listing_details")
                                 .cnamListingEnabled(true)
                                 .build()
@@ -52,16 +57,20 @@ internal class MobilePhoneNumberUpdateResponseTest {
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .customerReference("customer_reference")
                         .inbound(
-                            MobilePhoneNumber.Inbound.builder()
+                            MobilePhoneNumberUpdateResponse.Data.Inbound.builder()
                                 .interceptionAppId("interception_app_id")
                                 .interceptionAppName("interception_app_name")
                                 .build()
                         )
-                        .inboundCallScreening(MobilePhoneNumber.InboundCallScreening.DISABLED)
+                        .inboundCallScreening(
+                            MobilePhoneNumberUpdateResponse.Data.InboundCallScreening.DISABLED
+                        )
                         .mobileVoiceEnabled(true)
-                        .noiseSuppression(MobilePhoneNumber.NoiseSuppression.INBOUND)
+                        .noiseSuppression(
+                            MobilePhoneNumberUpdateResponse.Data.NoiseSuppression.INBOUND
+                        )
                         .outbound(
-                            MobilePhoneNumber.Outbound.builder()
+                            MobilePhoneNumberUpdateResponse.Data.Outbound.builder()
                                 .interceptionAppId("interception_app_id")
                                 .interceptionAppName("interception_app_name")
                                 .build()
@@ -78,29 +87,36 @@ internal class MobilePhoneNumberUpdateResponseTest {
 
         assertThat(mobilePhoneNumberUpdateResponse.data())
             .contains(
-                MobilePhoneNumber.builder()
+                MobilePhoneNumberUpdateResponse.Data.builder()
                     .id("id")
                     .callForwarding(
-                        MobilePhoneNumber.CallForwarding.builder()
+                        MobilePhoneNumberUpdateResponse.Data.CallForwarding.builder()
                             .callForwardingEnabled(true)
-                            .forwardingType(MobilePhoneNumber.CallForwarding.ForwardingType.ALWAYS)
+                            .forwardingType(
+                                MobilePhoneNumberUpdateResponse.Data.CallForwarding.ForwardingType
+                                    .ALWAYS
+                            )
                             .forwardsTo("forwards_to")
                             .build()
                     )
                     .callRecording(
-                        MobilePhoneNumber.CallRecording.builder()
+                        MobilePhoneNumberUpdateResponse.Data.CallRecording.builder()
                             .inboundCallRecordingChannels(
-                                MobilePhoneNumber.CallRecording.InboundCallRecordingChannels.SINGLE
+                                MobilePhoneNumberUpdateResponse.Data.CallRecording
+                                    .InboundCallRecordingChannels
+                                    .SINGLE
                             )
                             .inboundCallRecordingEnabled(true)
                             .inboundCallRecordingFormat(
-                                MobilePhoneNumber.CallRecording.InboundCallRecordingFormat.WAV
+                                MobilePhoneNumberUpdateResponse.Data.CallRecording
+                                    .InboundCallRecordingFormat
+                                    .WAV
                             )
                             .build()
                     )
                     .callerIdNameEnabled(true)
                     .cnamListing(
-                        MobilePhoneNumber.CnamListing.builder()
+                        MobilePhoneNumberUpdateResponse.Data.CnamListing.builder()
                             .cnamListingDetails("cnam_listing_details")
                             .cnamListingEnabled(true)
                             .build()
@@ -112,16 +128,18 @@ internal class MobilePhoneNumberUpdateResponseTest {
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .customerReference("customer_reference")
                     .inbound(
-                        MobilePhoneNumber.Inbound.builder()
+                        MobilePhoneNumberUpdateResponse.Data.Inbound.builder()
                             .interceptionAppId("interception_app_id")
                             .interceptionAppName("interception_app_name")
                             .build()
                     )
-                    .inboundCallScreening(MobilePhoneNumber.InboundCallScreening.DISABLED)
+                    .inboundCallScreening(
+                        MobilePhoneNumberUpdateResponse.Data.InboundCallScreening.DISABLED
+                    )
                     .mobileVoiceEnabled(true)
-                    .noiseSuppression(MobilePhoneNumber.NoiseSuppression.INBOUND)
+                    .noiseSuppression(MobilePhoneNumberUpdateResponse.Data.NoiseSuppression.INBOUND)
                     .outbound(
-                        MobilePhoneNumber.Outbound.builder()
+                        MobilePhoneNumberUpdateResponse.Data.Outbound.builder()
                             .interceptionAppId("interception_app_id")
                             .interceptionAppName("interception_app_name")
                             .build()
@@ -142,32 +160,37 @@ internal class MobilePhoneNumberUpdateResponseTest {
         val mobilePhoneNumberUpdateResponse =
             MobilePhoneNumberUpdateResponse.builder()
                 .data(
-                    MobilePhoneNumber.builder()
+                    MobilePhoneNumberUpdateResponse.Data.builder()
                         .id("id")
                         .callForwarding(
-                            MobilePhoneNumber.CallForwarding.builder()
+                            MobilePhoneNumberUpdateResponse.Data.CallForwarding.builder()
                                 .callForwardingEnabled(true)
                                 .forwardingType(
-                                    MobilePhoneNumber.CallForwarding.ForwardingType.ALWAYS
+                                    MobilePhoneNumberUpdateResponse.Data.CallForwarding
+                                        .ForwardingType
+                                        .ALWAYS
                                 )
                                 .forwardsTo("forwards_to")
                                 .build()
                         )
                         .callRecording(
-                            MobilePhoneNumber.CallRecording.builder()
+                            MobilePhoneNumberUpdateResponse.Data.CallRecording.builder()
                                 .inboundCallRecordingChannels(
-                                    MobilePhoneNumber.CallRecording.InboundCallRecordingChannels
+                                    MobilePhoneNumberUpdateResponse.Data.CallRecording
+                                        .InboundCallRecordingChannels
                                         .SINGLE
                                 )
                                 .inboundCallRecordingEnabled(true)
                                 .inboundCallRecordingFormat(
-                                    MobilePhoneNumber.CallRecording.InboundCallRecordingFormat.WAV
+                                    MobilePhoneNumberUpdateResponse.Data.CallRecording
+                                        .InboundCallRecordingFormat
+                                        .WAV
                                 )
                                 .build()
                         )
                         .callerIdNameEnabled(true)
                         .cnamListing(
-                            MobilePhoneNumber.CnamListing.builder()
+                            MobilePhoneNumberUpdateResponse.Data.CnamListing.builder()
                                 .cnamListingDetails("cnam_listing_details")
                                 .cnamListingEnabled(true)
                                 .build()
@@ -179,16 +202,20 @@ internal class MobilePhoneNumberUpdateResponseTest {
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .customerReference("customer_reference")
                         .inbound(
-                            MobilePhoneNumber.Inbound.builder()
+                            MobilePhoneNumberUpdateResponse.Data.Inbound.builder()
                                 .interceptionAppId("interception_app_id")
                                 .interceptionAppName("interception_app_name")
                                 .build()
                         )
-                        .inboundCallScreening(MobilePhoneNumber.InboundCallScreening.DISABLED)
+                        .inboundCallScreening(
+                            MobilePhoneNumberUpdateResponse.Data.InboundCallScreening.DISABLED
+                        )
                         .mobileVoiceEnabled(true)
-                        .noiseSuppression(MobilePhoneNumber.NoiseSuppression.INBOUND)
+                        .noiseSuppression(
+                            MobilePhoneNumberUpdateResponse.Data.NoiseSuppression.INBOUND
+                        )
                         .outbound(
-                            MobilePhoneNumber.Outbound.builder()
+                            MobilePhoneNumberUpdateResponse.Data.Outbound.builder()
                                 .interceptionAppId("interception_app_id")
                                 .interceptionAppName("interception_app_name")
                                 .build()

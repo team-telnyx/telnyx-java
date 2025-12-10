@@ -20,9 +20,8 @@ import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingCr
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingDeleteParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingDeleteResponse
-import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingListPage
-import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingListPageResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingListParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingRetrieveParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingRetrieveResponse
 import java.util.function.Consumer
@@ -57,7 +56,7 @@ class MessagingServiceImpl internal constructor(private val clientOptions: Clien
     override fun list(
         params: MessagingListParams,
         requestOptions: RequestOptions,
-    ): MessagingListPage =
+    ): MessagingListResponse =
         // get /legacy/reporting/usage_reports/messaging
         withRawResponse().list(params, requestOptions).parse()
 
@@ -145,13 +144,13 @@ class MessagingServiceImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val listHandler: Handler<MessagingListPageResponse> =
-            jsonHandler<MessagingListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessagingListResponse> =
+            jsonHandler<MessagingListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessagingListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MessagingListPage> {
+        ): HttpResponseFor<MessagingListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -168,13 +167,6 @@ class MessagingServiceImpl internal constructor(private val clientOptions: Clien
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        MessagingListPage.builder()
-                            .service(MessagingServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

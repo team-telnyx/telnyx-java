@@ -15,11 +15,13 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.BaseDeserializer
 import com.telnyx.sdk.core.BaseSerializer
+import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.http.Headers
@@ -34,13 +36,12 @@ import kotlin.jvm.optionals.getOrNull
 /** Creates a new mobile push credential */
 class MobilePushCredentialCreateParams
 private constructor(
-    private val createMobilePushCredentialRequest: CreateMobilePushCredentialRequest,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun createMobilePushCredentialRequest(): CreateMobilePushCredentialRequest =
-        createMobilePushCredentialRequest
+    fun body(): Body = body
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -58,7 +59,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .createMobilePushCredentialRequest()
+         * .body()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -67,37 +68,34 @@ private constructor(
     /** A builder for [MobilePushCredentialCreateParams]. */
     class Builder internal constructor() {
 
-        private var createMobilePushCredentialRequest: CreateMobilePushCredentialRequest? = null
+        private var body: Body? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(mobilePushCredentialCreateParams: MobilePushCredentialCreateParams) =
             apply {
-                createMobilePushCredentialRequest =
-                    mobilePushCredentialCreateParams.createMobilePushCredentialRequest
+                body = mobilePushCredentialCreateParams.body
                 additionalHeaders = mobilePushCredentialCreateParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     mobilePushCredentialCreateParams.additionalQueryParams.toBuilder()
             }
 
-        fun createMobilePushCredentialRequest(
-            createMobilePushCredentialRequest: CreateMobilePushCredentialRequest
-        ) = apply { this.createMobilePushCredentialRequest = createMobilePushCredentialRequest }
+        fun body(body: Body) = apply { this.body = body }
 
         /**
-         * Alias for calling [createMobilePushCredentialRequest] with
-         * `CreateMobilePushCredentialRequest.ofIos(ios)`.
+         * Alias for calling [body] with
+         * `Body.ofCreateIosPushCredentialRequest(createIosPushCredentialRequest)`.
          */
-        fun createMobilePushCredentialRequest(ios: CreateMobilePushCredentialRequest.Ios) =
-            createMobilePushCredentialRequest(CreateMobilePushCredentialRequest.ofIos(ios))
+        fun body(createIosPushCredentialRequest: Body.CreateIosPushCredentialRequest) =
+            body(Body.ofCreateIosPushCredentialRequest(createIosPushCredentialRequest))
 
         /**
-         * Alias for calling [createMobilePushCredentialRequest] with
-         * `CreateMobilePushCredentialRequest.ofAndroid(android)`.
+         * Alias for calling [body] with
+         * `Body.ofCreateAndroidPushCredentialRequest(createAndroidPushCredentialRequest)`.
          */
-        fun createMobilePushCredentialRequest(android: CreateMobilePushCredentialRequest.Android) =
-            createMobilePushCredentialRequest(CreateMobilePushCredentialRequest.ofAndroid(android))
+        fun body(createAndroidPushCredentialRequest: Body.CreateAndroidPushCredentialRequest) =
+            body(Body.ofCreateAndroidPushCredentialRequest(createAndroidPushCredentialRequest))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -204,73 +202,83 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .createMobilePushCredentialRequest()
+         * .body()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): MobilePushCredentialCreateParams =
             MobilePushCredentialCreateParams(
-                checkRequired(
-                    "createMobilePushCredentialRequest",
-                    createMobilePushCredentialRequest,
-                ),
+                checkRequired("body", body),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): CreateMobilePushCredentialRequest = createMobilePushCredentialRequest
+    fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(using = CreateMobilePushCredentialRequest.Deserializer::class)
-    @JsonSerialize(using = CreateMobilePushCredentialRequest.Serializer::class)
-    class CreateMobilePushCredentialRequest
+    @JsonDeserialize(using = Body.Deserializer::class)
+    @JsonSerialize(using = Body.Serializer::class)
+    class Body
     private constructor(
-        private val ios: Ios? = null,
-        private val android: Android? = null,
+        private val createIosPushCredentialRequest: CreateIosPushCredentialRequest? = null,
+        private val createAndroidPushCredentialRequest: CreateAndroidPushCredentialRequest? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun ios(): Optional<Ios> = Optional.ofNullable(ios)
+        fun createIosPushCredentialRequest(): Optional<CreateIosPushCredentialRequest> =
+            Optional.ofNullable(createIosPushCredentialRequest)
 
-        fun android(): Optional<Android> = Optional.ofNullable(android)
+        fun createAndroidPushCredentialRequest(): Optional<CreateAndroidPushCredentialRequest> =
+            Optional.ofNullable(createAndroidPushCredentialRequest)
 
-        fun isIos(): Boolean = ios != null
+        fun isCreateIosPushCredentialRequest(): Boolean = createIosPushCredentialRequest != null
 
-        fun isAndroid(): Boolean = android != null
+        fun isCreateAndroidPushCredentialRequest(): Boolean =
+            createAndroidPushCredentialRequest != null
 
-        fun asIos(): Ios = ios.getOrThrow("ios")
+        fun asCreateIosPushCredentialRequest(): CreateIosPushCredentialRequest =
+            createIosPushCredentialRequest.getOrThrow("createIosPushCredentialRequest")
 
-        fun asAndroid(): Android = android.getOrThrow("android")
+        fun asCreateAndroidPushCredentialRequest(): CreateAndroidPushCredentialRequest =
+            createAndroidPushCredentialRequest.getOrThrow("createAndroidPushCredentialRequest")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                ios != null -> visitor.visitIos(ios)
-                android != null -> visitor.visitAndroid(android)
+                createIosPushCredentialRequest != null ->
+                    visitor.visitCreateIosPushCredentialRequest(createIosPushCredentialRequest)
+                createAndroidPushCredentialRequest != null ->
+                    visitor.visitCreateAndroidPushCredentialRequest(
+                        createAndroidPushCredentialRequest
+                    )
                 else -> visitor.unknown(_json)
             }
 
         private var validated: Boolean = false
 
-        fun validate(): CreateMobilePushCredentialRequest = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitIos(ios: Ios) {
-                        ios.validate()
+                    override fun visitCreateIosPushCredentialRequest(
+                        createIosPushCredentialRequest: CreateIosPushCredentialRequest
+                    ) {
+                        createIosPushCredentialRequest.validate()
                     }
 
-                    override fun visitAndroid(android: Android) {
-                        android.validate()
+                    override fun visitCreateAndroidPushCredentialRequest(
+                        createAndroidPushCredentialRequest: CreateAndroidPushCredentialRequest
+                    ) {
+                        createAndroidPushCredentialRequest.validate()
                     }
                 }
             )
@@ -295,9 +303,13 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitIos(ios: Ios) = ios.validity()
+                    override fun visitCreateIosPushCredentialRequest(
+                        createIosPushCredentialRequest: CreateIosPushCredentialRequest
+                    ) = createIosPushCredentialRequest.validity()
 
-                    override fun visitAndroid(android: Android) = android.validity()
+                    override fun visitCreateAndroidPushCredentialRequest(
+                        createAndroidPushCredentialRequest: CreateAndroidPushCredentialRequest
+                    ) = createAndroidPushCredentialRequest.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -308,109 +320,120 @@ private constructor(
                 return true
             }
 
-            return other is CreateMobilePushCredentialRequest &&
-                ios == other.ios &&
-                android == other.android
+            return other is Body &&
+                createIosPushCredentialRequest == other.createIosPushCredentialRequest &&
+                createAndroidPushCredentialRequest == other.createAndroidPushCredentialRequest
         }
 
-        override fun hashCode(): Int = Objects.hash(ios, android)
+        override fun hashCode(): Int =
+            Objects.hash(createIosPushCredentialRequest, createAndroidPushCredentialRequest)
 
         override fun toString(): String =
             when {
-                ios != null -> "CreateMobilePushCredentialRequest{ios=$ios}"
-                android != null -> "CreateMobilePushCredentialRequest{android=$android}"
-                _json != null -> "CreateMobilePushCredentialRequest{_unknown=$_json}"
-                else -> throw IllegalStateException("Invalid CreateMobilePushCredentialRequest")
+                createIosPushCredentialRequest != null ->
+                    "Body{createIosPushCredentialRequest=$createIosPushCredentialRequest}"
+                createAndroidPushCredentialRequest != null ->
+                    "Body{createAndroidPushCredentialRequest=$createAndroidPushCredentialRequest}"
+                _json != null -> "Body{_unknown=$_json}"
+                else -> throw IllegalStateException("Invalid Body")
             }
 
         companion object {
 
-            @JvmStatic fun ofIos(ios: Ios) = CreateMobilePushCredentialRequest(ios = ios)
+            @JvmStatic
+            fun ofCreateIosPushCredentialRequest(
+                createIosPushCredentialRequest: CreateIosPushCredentialRequest
+            ) = Body(createIosPushCredentialRequest = createIosPushCredentialRequest)
 
             @JvmStatic
-            fun ofAndroid(android: Android) = CreateMobilePushCredentialRequest(android = android)
+            fun ofCreateAndroidPushCredentialRequest(
+                createAndroidPushCredentialRequest: CreateAndroidPushCredentialRequest
+            ) = Body(createAndroidPushCredentialRequest = createAndroidPushCredentialRequest)
         }
 
-        /**
-         * An interface that defines how to map each variant of [CreateMobilePushCredentialRequest]
-         * to a value of type [T].
-         */
+        /** An interface that defines how to map each variant of [Body] to a value of type [T]. */
         interface Visitor<out T> {
 
-            fun visitIos(ios: Ios): T
+            fun visitCreateIosPushCredentialRequest(
+                createIosPushCredentialRequest: CreateIosPushCredentialRequest
+            ): T
 
-            fun visitAndroid(android: Android): T
+            fun visitCreateAndroidPushCredentialRequest(
+                createAndroidPushCredentialRequest: CreateAndroidPushCredentialRequest
+            ): T
 
             /**
-             * Maps an unknown variant of [CreateMobilePushCredentialRequest] to a value of type
-             * [T].
+             * Maps an unknown variant of [Body] to a value of type [T].
              *
-             * An instance of [CreateMobilePushCredentialRequest] can contain an unknown variant if
-             * it was deserialized from data that doesn't match any known variant. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * variants that the SDK is unaware of.
+             * An instance of [Body] can contain an unknown variant if it was deserialized from data
+             * that doesn't match any known variant. For example, if the SDK is on an older version
+             * than the API, then the API may respond with new variants that the SDK is unaware of.
              *
              * @throws TelnyxInvalidDataException in the default implementation.
              */
             fun unknown(json: JsonValue?): T {
-                throw TelnyxInvalidDataException("Unknown CreateMobilePushCredentialRequest: $json")
+                throw TelnyxInvalidDataException("Unknown Body: $json")
             }
         }
 
-        internal class Deserializer :
-            BaseDeserializer<CreateMobilePushCredentialRequest>(
-                CreateMobilePushCredentialRequest::class
-            ) {
+        internal class Deserializer : BaseDeserializer<Body>(Body::class) {
 
-            override fun ObjectCodec.deserialize(
-                node: JsonNode
-            ): CreateMobilePushCredentialRequest {
+            override fun ObjectCodec.deserialize(node: JsonNode): Body {
                 val json = JsonValue.fromJsonNode(node)
-                val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
 
-                when (type) {
-                    "ios" -> {
-                        return tryDeserialize(node, jacksonTypeRef<Ios>())?.let {
-                            CreateMobilePushCredentialRequest(ios = it, _json = json)
-                        } ?: CreateMobilePushCredentialRequest(_json = json)
-                    }
-                    "android" -> {
-                        return tryDeserialize(node, jacksonTypeRef<Android>())?.let {
-                            CreateMobilePushCredentialRequest(android = it, _json = json)
-                        } ?: CreateMobilePushCredentialRequest(_json = json)
-                    }
+                val bestMatches =
+                    sequenceOf(
+                            tryDeserialize(node, jacksonTypeRef<CreateIosPushCredentialRequest>())
+                                ?.let { Body(createIosPushCredentialRequest = it, _json = json) },
+                            tryDeserialize(
+                                    node,
+                                    jacksonTypeRef<CreateAndroidPushCredentialRequest>(),
+                                )
+                                ?.let {
+                                    Body(createAndroidPushCredentialRequest = it, _json = json)
+                                },
+                        )
+                        .filterNotNull()
+                        .allMaxBy { it.validity() }
+                        .toList()
+                return when (bestMatches.size) {
+                    // This can happen if what we're deserializing is completely incompatible with
+                    // all the possible variants (e.g. deserializing from boolean).
+                    0 -> Body(_json = json)
+                    1 -> bestMatches.single()
+                    // If there's more than one match with the highest validity, then use the first
+                    // completely valid match, or simply the first match if none are completely
+                    // valid.
+                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
                 }
-
-                return CreateMobilePushCredentialRequest(_json = json)
             }
         }
 
-        internal class Serializer :
-            BaseSerializer<CreateMobilePushCredentialRequest>(
-                CreateMobilePushCredentialRequest::class
-            ) {
+        internal class Serializer : BaseSerializer<Body>(Body::class) {
 
             override fun serialize(
-                value: CreateMobilePushCredentialRequest,
+                value: Body,
                 generator: JsonGenerator,
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.ios != null -> generator.writeObject(value.ios)
-                    value.android != null -> generator.writeObject(value.android)
+                    value.createIosPushCredentialRequest != null ->
+                        generator.writeObject(value.createIosPushCredentialRequest)
+                    value.createAndroidPushCredentialRequest != null ->
+                        generator.writeObject(value.createAndroidPushCredentialRequest)
                     value._json != null -> generator.writeObject(value._json)
-                    else -> throw IllegalStateException("Invalid CreateMobilePushCredentialRequest")
+                    else -> throw IllegalStateException("Invalid Body")
                 }
             }
         }
 
-        class Ios
+        class CreateIosPushCredentialRequest
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val alias: JsonField<String>,
             private val certificate: JsonField<String>,
             private val privateKey: JsonField<String>,
-            private val type: JsonValue,
+            private val type: JsonField<Type>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -423,7 +446,7 @@ private constructor(
                 @JsonProperty("private_key")
                 @ExcludeMissing
                 privateKey: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+                @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
             ) : this(alias, certificate, privateKey, type, mutableMapOf())
 
             /**
@@ -456,15 +479,11 @@ private constructor(
             /**
              * Type of mobile push credential. Should be <code>ios</code> here
              *
-             * Expected to always return the following:
-             * ```java
-             * JsonValue.from("ios")
-             * ```
-             *
-             * However, this method can be useful for debugging and logging (e.g. if the server
-             * responded with an unexpected value).
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+            fun type(): Type = type.getRequired("type")
 
             /**
              * Returns the raw JSON value of [alias].
@@ -493,6 +512,13 @@ private constructor(
             @ExcludeMissing
             fun _privateKey(): JsonField<String> = privateKey
 
+            /**
+             * Returns the raw JSON value of [type].
+             *
+             * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
                 additionalProperties.put(key, value)
@@ -508,35 +534,39 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [Ios].
+                 * Returns a mutable builder for constructing an instance of
+                 * [CreateIosPushCredentialRequest].
                  *
                  * The following fields are required:
                  * ```java
                  * .alias()
                  * .certificate()
                  * .privateKey()
+                 * .type()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [Ios]. */
+            /** A builder for [CreateIosPushCredentialRequest]. */
             class Builder internal constructor() {
 
                 private var alias: JsonField<String>? = null
                 private var certificate: JsonField<String>? = null
                 private var privateKey: JsonField<String>? = null
-                private var type: JsonValue = JsonValue.from("ios")
+                private var type: JsonField<Type>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(ios: Ios) = apply {
-                    alias = ios.alias
-                    certificate = ios.certificate
-                    privateKey = ios.privateKey
-                    type = ios.type
-                    additionalProperties = ios.additionalProperties.toMutableMap()
-                }
+                internal fun from(createIosPushCredentialRequest: CreateIosPushCredentialRequest) =
+                    apply {
+                        alias = createIosPushCredentialRequest.alias
+                        certificate = createIosPushCredentialRequest.certificate
+                        privateKey = createIosPushCredentialRequest.privateKey
+                        type = createIosPushCredentialRequest.type
+                        additionalProperties =
+                            createIosPushCredentialRequest.additionalProperties.toMutableMap()
+                    }
 
                 /** Alias to uniquely identify the credential */
                 fun alias(alias: String) = alias(JsonField.of(alias))
@@ -578,19 +608,17 @@ private constructor(
                     this.privateKey = privateKey
                 }
 
+                /** Type of mobile push credential. Should be <code>ios</code> here */
+                fun type(type: Type) = type(JsonField.of(type))
+
                 /**
-                 * Sets the field to an arbitrary JSON value.
+                 * Sets [Builder.type] to an arbitrary JSON value.
                  *
-                 * It is usually unnecessary to call this method because the field defaults to the
-                 * following:
-                 * ```java
-                 * JsonValue.from("ios")
-                 * ```
-                 *
+                 * You should usually call [Builder.type] with a well-typed [Type] value instead.
                  * This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun type(type: JsonValue) = apply { this.type = type }
+                fun type(type: JsonField<Type>) = apply { this.type = type }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -615,7 +643,7 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [Ios].
+                 * Returns an immutable instance of [CreateIosPushCredentialRequest].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
@@ -624,23 +652,24 @@ private constructor(
                  * .alias()
                  * .certificate()
                  * .privateKey()
+                 * .type()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): Ios =
-                    Ios(
+                fun build(): CreateIosPushCredentialRequest =
+                    CreateIosPushCredentialRequest(
                         checkRequired("alias", alias),
                         checkRequired("certificate", certificate),
                         checkRequired("privateKey", privateKey),
-                        type,
+                        checkRequired("type", type),
                         additionalProperties.toMutableMap(),
                     )
             }
 
             private var validated: Boolean = false
 
-            fun validate(): Ios = apply {
+            fun validate(): CreateIosPushCredentialRequest = apply {
                 if (validated) {
                     return@apply
                 }
@@ -648,11 +677,7 @@ private constructor(
                 alias()
                 certificate()
                 privateKey()
-                _type().let {
-                    if (it != JsonValue.from("ios")) {
-                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
-                    }
-                }
+                type().validate()
                 validated = true
             }
 
@@ -675,14 +700,139 @@ private constructor(
                 (if (alias.asKnown().isPresent) 1 else 0) +
                     (if (certificate.asKnown().isPresent) 1 else 0) +
                     (if (privateKey.asKnown().isPresent) 1 else 0) +
-                    type.let { if (it == JsonValue.from("ios")) 1 else 0 }
+                    (type.asKnown().getOrNull()?.validity() ?: 0)
+
+            /** Type of mobile push credential. Should be <code>ios</code> here */
+            class Type @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val IOS = of("ios")
+
+                    @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                }
+
+                /** An enum containing [Type]'s known values. */
+                enum class Known {
+                    IOS
+                }
+
+                /**
+                 * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Type] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    IOS,
+                    /**
+                     * An enum member indicating that [Type] was instantiated with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        IOS -> Value.IOS
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        IOS -> Known.IOS
+                        else -> throw TelnyxInvalidDataException("Unknown Type: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): Type = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Type && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
                 }
 
-                return other is Ios &&
+                return other is CreateIosPushCredentialRequest &&
                     alias == other.alias &&
                     certificate == other.certificate &&
                     privateKey == other.privateKey &&
@@ -697,15 +847,15 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Ios{alias=$alias, certificate=$certificate, privateKey=$privateKey, type=$type, additionalProperties=$additionalProperties}"
+                "CreateIosPushCredentialRequest{alias=$alias, certificate=$certificate, privateKey=$privateKey, type=$type, additionalProperties=$additionalProperties}"
         }
 
-        class Android
+        class CreateAndroidPushCredentialRequest
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val alias: JsonField<String>,
             private val projectAccountJsonFile: JsonField<ProjectAccountJsonFile>,
-            private val type: JsonValue,
+            private val type: JsonField<Type>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -715,7 +865,7 @@ private constructor(
                 @JsonProperty("project_account_json_file")
                 @ExcludeMissing
                 projectAccountJsonFile: JsonField<ProjectAccountJsonFile> = JsonMissing.of(),
-                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+                @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
             ) : this(alias, projectAccountJsonFile, type, mutableMapOf())
 
             /**
@@ -740,15 +890,11 @@ private constructor(
             /**
              * Type of mobile push credential. Should be <code>android</code> here
              *
-             * Expected to always return the following:
-             * ```java
-             * JsonValue.from("android")
-             * ```
-             *
-             * However, this method can be useful for debugging and logging (e.g. if the server
-             * responded with an unexpected value).
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+            fun type(): Type = type.getRequired("type")
 
             /**
              * Returns the raw JSON value of [alias].
@@ -768,6 +914,13 @@ private constructor(
             fun _projectAccountJsonFile(): JsonField<ProjectAccountJsonFile> =
                 projectAccountJsonFile
 
+            /**
+             * Returns the raw JSON value of [type].
+             *
+             * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
                 additionalProperties.put(key, value)
@@ -783,31 +936,37 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [Android].
+                 * Returns a mutable builder for constructing an instance of
+                 * [CreateAndroidPushCredentialRequest].
                  *
                  * The following fields are required:
                  * ```java
                  * .alias()
                  * .projectAccountJsonFile()
+                 * .type()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [Android]. */
+            /** A builder for [CreateAndroidPushCredentialRequest]. */
             class Builder internal constructor() {
 
                 private var alias: JsonField<String>? = null
                 private var projectAccountJsonFile: JsonField<ProjectAccountJsonFile>? = null
-                private var type: JsonValue = JsonValue.from("android")
+                private var type: JsonField<Type>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(android: Android) = apply {
-                    alias = android.alias
-                    projectAccountJsonFile = android.projectAccountJsonFile
-                    type = android.type
-                    additionalProperties = android.additionalProperties.toMutableMap()
+                internal fun from(
+                    createAndroidPushCredentialRequest: CreateAndroidPushCredentialRequest
+                ) = apply {
+                    alias = createAndroidPushCredentialRequest.alias
+                    projectAccountJsonFile =
+                        createAndroidPushCredentialRequest.projectAccountJsonFile
+                    type = createAndroidPushCredentialRequest.type
+                    additionalProperties =
+                        createAndroidPushCredentialRequest.additionalProperties.toMutableMap()
                 }
 
                 /** Alias to uniquely identify the credential */
@@ -837,19 +996,17 @@ private constructor(
                     projectAccountJsonFile: JsonField<ProjectAccountJsonFile>
                 ) = apply { this.projectAccountJsonFile = projectAccountJsonFile }
 
+                /** Type of mobile push credential. Should be <code>android</code> here */
+                fun type(type: Type) = type(JsonField.of(type))
+
                 /**
-                 * Sets the field to an arbitrary JSON value.
+                 * Sets [Builder.type] to an arbitrary JSON value.
                  *
-                 * It is usually unnecessary to call this method because the field defaults to the
-                 * following:
-                 * ```java
-                 * JsonValue.from("android")
-                 * ```
-                 *
+                 * You should usually call [Builder.type] with a well-typed [Type] value instead.
                  * This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun type(type: JsonValue) = apply { this.type = type }
+                fun type(type: JsonField<Type>) = apply { this.type = type }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -874,7 +1031,7 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [Android].
+                 * Returns an immutable instance of [CreateAndroidPushCredentialRequest].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
@@ -882,33 +1039,30 @@ private constructor(
                  * ```java
                  * .alias()
                  * .projectAccountJsonFile()
+                 * .type()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): Android =
-                    Android(
+                fun build(): CreateAndroidPushCredentialRequest =
+                    CreateAndroidPushCredentialRequest(
                         checkRequired("alias", alias),
                         checkRequired("projectAccountJsonFile", projectAccountJsonFile),
-                        type,
+                        checkRequired("type", type),
                         additionalProperties.toMutableMap(),
                     )
             }
 
             private var validated: Boolean = false
 
-            fun validate(): Android = apply {
+            fun validate(): CreateAndroidPushCredentialRequest = apply {
                 if (validated) {
                     return@apply
                 }
 
                 alias()
                 projectAccountJsonFile().validate()
-                _type().let {
-                    if (it != JsonValue.from("android")) {
-                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
-                    }
-                }
+                type().validate()
                 validated = true
             }
 
@@ -930,7 +1084,7 @@ private constructor(
             internal fun validity(): Int =
                 (if (alias.asKnown().isPresent) 1 else 0) +
                     (projectAccountJsonFile.asKnown().getOrNull()?.validity() ?: 0) +
-                    type.let { if (it == JsonValue.from("android")) 1 else 0 }
+                    (type.asKnown().getOrNull()?.validity() ?: 0)
 
             /** Private key file in JSON format */
             class ProjectAccountJsonFile
@@ -1044,12 +1198,137 @@ private constructor(
                     "ProjectAccountJsonFile{additionalProperties=$additionalProperties}"
             }
 
+            /** Type of mobile push credential. Should be <code>android</code> here */
+            class Type @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val ANDROID = of("android")
+
+                    @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                }
+
+                /** An enum containing [Type]'s known values. */
+                enum class Known {
+                    ANDROID
+                }
+
+                /**
+                 * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Type] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    ANDROID,
+                    /**
+                     * An enum member indicating that [Type] was instantiated with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        ANDROID -> Value.ANDROID
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        ANDROID -> Known.ANDROID
+                        else -> throw TelnyxInvalidDataException("Unknown Type: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): Type = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Type && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
                 }
 
-                return other is Android &&
+                return other is CreateAndroidPushCredentialRequest &&
                     alias == other.alias &&
                     projectAccountJsonFile == other.projectAccountJsonFile &&
                     type == other.type &&
@@ -1063,7 +1342,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Android{alias=$alias, projectAccountJsonFile=$projectAccountJsonFile, type=$type, additionalProperties=$additionalProperties}"
+                "CreateAndroidPushCredentialRequest{alias=$alias, projectAccountJsonFile=$projectAccountJsonFile, type=$type, additionalProperties=$additionalProperties}"
         }
     }
 
@@ -1073,14 +1352,13 @@ private constructor(
         }
 
         return other is MobilePushCredentialCreateParams &&
-            createMobilePushCredentialRequest == other.createMobilePushCredentialRequest &&
+            body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int =
-        Objects.hash(createMobilePushCredentialRequest, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "MobilePushCredentialCreateParams{createMobilePushCredentialRequest=$createMobilePushCredentialRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "MobilePushCredentialCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

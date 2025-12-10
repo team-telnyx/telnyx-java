@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.channelzones.ChannelZoneListPageAsync
 import com.telnyx.sdk.models.channelzones.ChannelZoneListParams
+import com.telnyx.sdk.models.channelzones.ChannelZoneListResponse
 import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateParams
 import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateResponse
 import java.util.concurrent.CompletableFuture
@@ -61,21 +61,21 @@ interface ChannelZoneServiceAsync {
      * href="https://support.telnyx.com/en/articles/8428806-global-channel-billing">Telnyx Support
      * Articles</a> section for full information and examples of how to utilize Channel Billing.
      */
-    fun list(): CompletableFuture<ChannelZoneListPageAsync> = list(ChannelZoneListParams.none())
+    fun list(): CompletableFuture<ChannelZoneListResponse> = list(ChannelZoneListParams.none())
 
     /** @see list */
     fun list(
         params: ChannelZoneListParams = ChannelZoneListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ChannelZoneListPageAsync>
+    ): CompletableFuture<ChannelZoneListResponse>
 
     /** @see list */
     fun list(
         params: ChannelZoneListParams = ChannelZoneListParams.none()
-    ): CompletableFuture<ChannelZoneListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<ChannelZoneListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<ChannelZoneListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<ChannelZoneListResponse> =
         list(ChannelZoneListParams.none(), requestOptions)
 
     /**
@@ -127,25 +127,25 @@ interface ChannelZoneServiceAsync {
          * Returns a raw HTTP response for `get /channel_zones`, but is otherwise the same as
          * [ChannelZoneServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<ChannelZoneListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<ChannelZoneListResponse>> =
             list(ChannelZoneListParams.none())
 
         /** @see list */
         fun list(
             params: ChannelZoneListParams = ChannelZoneListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ChannelZoneListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<ChannelZoneListResponse>>
 
         /** @see list */
         fun list(
             params: ChannelZoneListParams = ChannelZoneListParams.none()
-        ): CompletableFuture<HttpResponseFor<ChannelZoneListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ChannelZoneListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<ChannelZoneListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ChannelZoneListResponse>> =
             list(ChannelZoneListParams.none(), requestOptions)
     }
 }

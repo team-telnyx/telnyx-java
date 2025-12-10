@@ -23,8 +23,8 @@ internal class DocumentListParamsTest {
                     .customerReference(
                         DocumentListParams.Filter.CustomerReference.builder()
                             .eq("MY REF 001")
-                            .addInList("REF001")
-                            .addInList("REF002")
+                            .addIn("REF001")
+                            .addIn("REF002")
                             .build()
                     )
                     .filename(
@@ -52,8 +52,8 @@ internal class DocumentListParamsTest {
                         .customerReference(
                             DocumentListParams.Filter.CustomerReference.builder()
                                 .eq("MY REF 001")
-                                .addInList("REF001")
-                                .addInList("REF002")
+                                .addIn("REF001")
+                                .addIn("REF002")
                                 .build()
                         )
                         .filename(

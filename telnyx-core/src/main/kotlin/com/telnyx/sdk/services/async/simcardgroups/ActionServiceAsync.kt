@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async.simcardgroups
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.simcardgroups.actions.ActionListPageAsync
 import com.telnyx.sdk.models.simcardgroups.actions.ActionListParams
+import com.telnyx.sdk.models.simcardgroups.actions.ActionListResponse
 import com.telnyx.sdk.models.simcardgroups.actions.ActionRemovePrivateWirelessGatewayParams
 import com.telnyx.sdk.models.simcardgroups.actions.ActionRemovePrivateWirelessGatewayResponse
 import com.telnyx.sdk.models.simcardgroups.actions.ActionRemoveWirelessBlocklistParams
@@ -76,21 +76,21 @@ interface ActionServiceAsync {
      * This API allows listing a paginated collection a SIM card group actions. It allows to explore
      * a collection of existing asynchronous operation using specific filters.
      */
-    fun list(): CompletableFuture<ActionListPageAsync> = list(ActionListParams.none())
+    fun list(): CompletableFuture<ActionListResponse> = list(ActionListParams.none())
 
     /** @see list */
     fun list(
         params: ActionListParams = ActionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ActionListPageAsync>
+    ): CompletableFuture<ActionListResponse>
 
     /** @see list */
     fun list(
         params: ActionListParams = ActionListParams.none()
-    ): CompletableFuture<ActionListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<ActionListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<ActionListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<ActionListResponse> =
         list(ActionListParams.none(), requestOptions)
 
     /**
@@ -309,25 +309,25 @@ interface ActionServiceAsync {
          * Returns a raw HTTP response for `get /sim_card_group_actions`, but is otherwise the same
          * as [ActionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<ActionListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<ActionListResponse>> =
             list(ActionListParams.none())
 
         /** @see list */
         fun list(
             params: ActionListParams = ActionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ActionListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<ActionListResponse>>
 
         /** @see list */
         fun list(
             params: ActionListParams = ActionListParams.none()
-        ): CompletableFuture<HttpResponseFor<ActionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ActionListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<ActionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<ActionListResponse>> =
             list(ActionListParams.none(), requestOptions)
 
         /**

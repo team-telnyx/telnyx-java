@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceCreateParams
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceCreateResponse
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceDeleteParams
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceDeleteResponse
-import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceListPageAsync
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceListParams
+import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceListResponse
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceRetrieveParams
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -93,22 +93,22 @@ interface WireguardInterfaceServiceAsync {
         retrieve(id, WireguardInterfaceRetrieveParams.none(), requestOptions)
 
     /** List all WireGuard Interfaces. */
-    fun list(): CompletableFuture<WireguardInterfaceListPageAsync> =
+    fun list(): CompletableFuture<WireguardInterfaceListResponse> =
         list(WireguardInterfaceListParams.none())
 
     /** @see list */
     fun list(
         params: WireguardInterfaceListParams = WireguardInterfaceListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<WireguardInterfaceListPageAsync>
+    ): CompletableFuture<WireguardInterfaceListResponse>
 
     /** @see list */
     fun list(
         params: WireguardInterfaceListParams = WireguardInterfaceListParams.none()
-    ): CompletableFuture<WireguardInterfaceListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<WireguardInterfaceListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<WireguardInterfaceListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<WireguardInterfaceListResponse> =
         list(WireguardInterfaceListParams.none(), requestOptions)
 
     /** Delete a WireGuard Interface. */
@@ -235,25 +235,25 @@ interface WireguardInterfaceServiceAsync {
          * Returns a raw HTTP response for `get /wireguard_interfaces`, but is otherwise the same as
          * [WireguardInterfaceServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<WireguardInterfaceListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<WireguardInterfaceListResponse>> =
             list(WireguardInterfaceListParams.none())
 
         /** @see list */
         fun list(
             params: WireguardInterfaceListParams = WireguardInterfaceListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<WireguardInterfaceListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<WireguardInterfaceListResponse>>
 
         /** @see list */
         fun list(
             params: WireguardInterfaceListParams = WireguardInterfaceListParams.none()
-        ): CompletableFuture<HttpResponseFor<WireguardInterfaceListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<WireguardInterfaceListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<WireguardInterfaceListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<WireguardInterfaceListResponse>> =
             list(WireguardInterfaceListParams.none(), requestOptions)
 
         /**

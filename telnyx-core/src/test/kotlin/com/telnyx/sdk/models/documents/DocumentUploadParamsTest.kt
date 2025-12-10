@@ -10,8 +10,8 @@ internal class DocumentUploadParamsTest {
     @Test
     fun create() {
         DocumentUploadParams.builder()
-            .document(
-                DocumentUploadParams.Document.DocServiceDocumentUploadUrl.builder()
+            .body(
+                DocumentUploadParams.Body.DocServiceDocumentUploadUrl.builder()
                     .url("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")
                     .customerReference("MY REF 001")
                     .filename("test-document.pdf")
@@ -24,8 +24,8 @@ internal class DocumentUploadParamsTest {
     fun body() {
         val params =
             DocumentUploadParams.builder()
-                .document(
-                    DocumentUploadParams.Document.DocServiceDocumentUploadUrl.builder()
+                .body(
+                    DocumentUploadParams.Body.DocServiceDocumentUploadUrl.builder()
                         .url(
                             "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                         )
@@ -39,8 +39,8 @@ internal class DocumentUploadParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                DocumentUploadParams.Document.ofDocServiceDocumentUploadUrl(
-                    DocumentUploadParams.Document.DocServiceDocumentUploadUrl.builder()
+                DocumentUploadParams.Body.ofDocServiceDocumentUploadUrl(
+                    DocumentUploadParams.Body.DocServiceDocumentUploadUrl.builder()
                         .url(
                             "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                         )
@@ -55,8 +55,8 @@ internal class DocumentUploadParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             DocumentUploadParams.builder()
-                .document(
-                    DocumentUploadParams.Document.DocServiceDocumentUploadUrl.builder()
+                .body(
+                    DocumentUploadParams.Body.DocServiceDocumentUploadUrl.builder()
                         .url(
                             "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                         )
@@ -68,8 +68,8 @@ internal class DocumentUploadParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                DocumentUploadParams.Document.ofDocServiceDocumentUploadUrl(
-                    DocumentUploadParams.Document.DocServiceDocumentUploadUrl.builder()
+                DocumentUploadParams.Body.ofDocServiceDocumentUploadUrl(
+                    DocumentUploadParams.Body.DocServiceDocumentUploadUrl.builder()
                         .url(
                             "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                         )

@@ -15,12 +15,10 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.connections.ConnectionListActiveCallsPageAsync
-import com.telnyx.sdk.models.connections.ConnectionListActiveCallsPageResponse
 import com.telnyx.sdk.models.connections.ConnectionListActiveCallsParams
-import com.telnyx.sdk.models.connections.ConnectionListPageAsync
-import com.telnyx.sdk.models.connections.ConnectionListPageResponse
+import com.telnyx.sdk.models.connections.ConnectionListActiveCallsResponse
 import com.telnyx.sdk.models.connections.ConnectionListParams
+import com.telnyx.sdk.models.connections.ConnectionListResponse
 import com.telnyx.sdk.models.connections.ConnectionRetrieveParams
 import com.telnyx.sdk.models.connections.ConnectionRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -49,14 +47,14 @@ class ConnectionServiceAsyncImpl internal constructor(private val clientOptions:
     override fun list(
         params: ConnectionListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ConnectionListPageAsync> =
+    ): CompletableFuture<ConnectionListResponse> =
         // get /connections
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun listActiveCalls(
         params: ConnectionListActiveCallsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ConnectionListActiveCallsPageAsync> =
+    ): CompletableFuture<ConnectionListActiveCallsResponse> =
         // get /connections/{connection_id}/active_calls
         withRawResponse().listActiveCalls(params, requestOptions).thenApply { it.parse() }
 
@@ -106,13 +104,13 @@ class ConnectionServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val listHandler: Handler<ConnectionListPageResponse> =
-            jsonHandler<ConnectionListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ConnectionListResponse> =
+            jsonHandler<ConnectionListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ConnectionListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ConnectionListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<ConnectionListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -132,25 +130,17 @@ class ConnectionServiceAsyncImpl internal constructor(private val clientOptions:
                                     it.validate()
                                 }
                             }
-                            .let {
-                                ConnectionListPageAsync.builder()
-                                    .service(ConnectionServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
-                            }
                     }
                 }
         }
 
-        private val listActiveCallsHandler: Handler<ConnectionListActiveCallsPageResponse> =
-            jsonHandler<ConnectionListActiveCallsPageResponse>(clientOptions.jsonMapper)
+        private val listActiveCallsHandler: Handler<ConnectionListActiveCallsResponse> =
+            jsonHandler<ConnectionListActiveCallsResponse>(clientOptions.jsonMapper)
 
         override fun listActiveCalls(
             params: ConnectionListActiveCallsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ConnectionListActiveCallsPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<ConnectionListActiveCallsResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("connectionId", params.connectionId().getOrNull())
@@ -172,14 +162,6 @@ class ConnectionServiceAsyncImpl internal constructor(private val clientOptions:
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                ConnectionListActiveCallsPageAsync.builder()
-                                    .service(ConnectionServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

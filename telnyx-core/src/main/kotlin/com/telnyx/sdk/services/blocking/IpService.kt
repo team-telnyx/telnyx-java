@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.ips.IpCreateParams
 import com.telnyx.sdk.models.ips.IpCreateResponse
 import com.telnyx.sdk.models.ips.IpDeleteParams
 import com.telnyx.sdk.models.ips.IpDeleteResponse
-import com.telnyx.sdk.models.ips.IpListPage
 import com.telnyx.sdk.models.ips.IpListParams
+import com.telnyx.sdk.models.ips.IpListResponse
 import com.telnyx.sdk.models.ips.IpRetrieveParams
 import com.telnyx.sdk.models.ips.IpRetrieveResponse
 import com.telnyx.sdk.models.ips.IpUpdateParams
@@ -92,20 +92,21 @@ interface IpService {
     ): IpUpdateResponse
 
     /** Get all IPs belonging to the user that match the given filters. */
-    fun list(): IpListPage = list(IpListParams.none())
+    fun list(): IpListResponse = list(IpListParams.none())
 
     /** @see list */
     fun list(
         params: IpListParams = IpListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): IpListPage
+    ): IpListResponse
 
     /** @see list */
-    fun list(params: IpListParams = IpListParams.none()): IpListPage =
+    fun list(params: IpListParams = IpListParams.none()): IpListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): IpListPage = list(IpListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): IpListResponse =
+        list(IpListParams.none(), requestOptions)
 
     /** Delete an IP. */
     fun delete(id: String): IpDeleteResponse = delete(id, IpDeleteParams.none())
@@ -236,23 +237,23 @@ interface IpService {
          * Returns a raw HTTP response for `get /ips`, but is otherwise the same as
          * [IpService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<IpListPage> = list(IpListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<IpListResponse> = list(IpListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: IpListParams = IpListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IpListPage>
+        ): HttpResponseFor<IpListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: IpListParams = IpListParams.none()): HttpResponseFor<IpListPage> =
+        fun list(params: IpListParams = IpListParams.none()): HttpResponseFor<IpListResponse> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<IpListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<IpListResponse> =
             list(IpListParams.none(), requestOptions)
 
         /**

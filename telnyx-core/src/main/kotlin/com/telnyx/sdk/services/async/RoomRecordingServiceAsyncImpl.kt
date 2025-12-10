@@ -20,9 +20,8 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingDeleteBulkParams
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingDeleteBulkResponse
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingDeleteParams
-import com.telnyx.sdk.models.roomrecordings.RoomRecordingListPageAsync
-import com.telnyx.sdk.models.roomrecordings.RoomRecordingListPageResponse
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingListParams
+import com.telnyx.sdk.models.roomrecordings.RoomRecordingListResponse
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingRetrieveParams
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -51,7 +50,7 @@ class RoomRecordingServiceAsyncImpl internal constructor(private val clientOptio
     override fun list(
         params: RoomRecordingListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RoomRecordingListPageAsync> =
+    ): CompletableFuture<RoomRecordingListResponse> =
         // get /room_recordings
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -115,13 +114,13 @@ class RoomRecordingServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val listHandler: Handler<RoomRecordingListPageResponse> =
-            jsonHandler<RoomRecordingListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RoomRecordingListResponse> =
+            jsonHandler<RoomRecordingListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RoomRecordingListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RoomRecordingListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<RoomRecordingListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -140,14 +139,6 @@ class RoomRecordingServiceAsyncImpl internal constructor(private val clientOptio
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                RoomRecordingListPageAsync.builder()
-                                    .service(RoomRecordingServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

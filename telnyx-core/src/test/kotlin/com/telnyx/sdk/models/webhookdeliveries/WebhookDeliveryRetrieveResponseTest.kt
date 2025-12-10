@@ -89,11 +89,7 @@ internal class WebhookDeliveryRetrieveResponseTest {
                                 .id("C9C0797E-901D-4349-A33C-C2C8F31A92C2")
                                 .eventType("call_initiated")
                                 .occurredAt(OffsetDateTime.parse("2020-08-10T13:02:01.000Z"))
-                                .payload(
-                                    WebhookDeliveryRetrieveResponse.Data.Webhook.Payload.builder()
-                                        .putAdditionalProperty("useful", JsonValue.from("bar"))
-                                        .build()
-                                )
+                                .payload(JsonValue.from(mapOf("useful" to "information")))
                                 .recordType(
                                     WebhookDeliveryRetrieveResponse.Data.Webhook.RecordType.EVENT
                                 )
@@ -172,11 +168,7 @@ internal class WebhookDeliveryRetrieveResponseTest {
                             .id("C9C0797E-901D-4349-A33C-C2C8F31A92C2")
                             .eventType("call_initiated")
                             .occurredAt(OffsetDateTime.parse("2020-08-10T13:02:01.000Z"))
-                            .payload(
-                                WebhookDeliveryRetrieveResponse.Data.Webhook.Payload.builder()
-                                    .putAdditionalProperty("useful", JsonValue.from("bar"))
-                                    .build()
-                            )
+                            .payload(JsonValue.from(mapOf("useful" to "information")))
                             .recordType(
                                 WebhookDeliveryRetrieveResponse.Data.Webhook.RecordType.EVENT
                             )
@@ -265,11 +257,7 @@ internal class WebhookDeliveryRetrieveResponseTest {
                                 .id("C9C0797E-901D-4349-A33C-C2C8F31A92C2")
                                 .eventType("call_initiated")
                                 .occurredAt(OffsetDateTime.parse("2020-08-10T13:02:01.000Z"))
-                                .payload(
-                                    WebhookDeliveryRetrieveResponse.Data.Webhook.Payload.builder()
-                                        .putAdditionalProperty("useful", JsonValue.from("bar"))
-                                        .build()
-                                )
+                                .payload(JsonValue.from(mapOf("useful" to "information")))
                                 .recordType(
                                     WebhookDeliveryRetrieveResponse.Data.Webhook.RecordType.EVENT
                                 )

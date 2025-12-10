@@ -6,6 +6,7 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationCreateParams
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationInbound
+import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationListParams
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationOutbound
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -56,7 +57,7 @@ internal class CallControlApplicationServiceAsyncTest {
                             .build()
                     )
                     .redactDtmfDebugLogging(true)
-                    .webhookApiVersion(CallControlApplicationCreateParams.WebhookApiVersion.V1)
+                    .webhookApiVersion(CallControlApplicationCreateParams.WebhookApiVersion._1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookTimeoutSecs(25L)
                     .build()
@@ -126,7 +127,7 @@ internal class CallControlApplicationServiceAsyncTest {
                     .redactDtmfDebugLogging(true)
                     .addTag("tag1")
                     .addTag("tag2")
-                    .webhookApiVersion(CallControlApplicationUpdateParams.WebhookApiVersion.V1)
+                    .webhookApiVersion(CallControlApplicationUpdateParams.WebhookApiVersion._1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookTimeoutSecs(25L)
                     .build()
@@ -146,10 +147,53 @@ internal class CallControlApplicationServiceAsyncTest {
                 .build()
         val callControlApplicationServiceAsync = client.callControlApplications()
 
-        val pageFuture = callControlApplicationServiceAsync.list()
+        val callControlApplicationsFuture =
+            callControlApplicationServiceAsync.list(
+                CallControlApplicationListParams.builder()
+                    .filter(
+                        CallControlApplicationListParams.Filter.builder()
+                            .applicationName(
+                                CallControlApplicationListParams.Filter.ApplicationName.builder()
+                                    .contains("contains")
+                                    .build()
+                            )
+                            .applicationSessionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .connectionId("connection_id")
+                            .failed(false)
+                            .from("+12025550142")
+                            .legId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .name("name")
+                            .occurredAt(
+                                CallControlApplicationListParams.Filter.OccurredAt.builder()
+                                    .eq("2019-03-29T11:10:00Z")
+                                    .gt("2019-03-29T11:10:00Z")
+                                    .gte("2019-03-29T11:10:00Z")
+                                    .lt("2019-03-29T11:10:00Z")
+                                    .lte("2019-03-29T11:10:00Z")
+                                    .build()
+                            )
+                            .outboundOutboundVoiceProfileId("outbound.outbound_voice_profile_id")
+                            .product(CallControlApplicationListParams.Filter.Product.TEXML)
+                            .status(CallControlApplicationListParams.Filter.Status.INIT)
+                            .to("+12025550142")
+                            .type(CallControlApplicationListParams.Filter.Type.WEBHOOK)
+                            .build()
+                    )
+                    .page(
+                        CallControlApplicationListParams.Page.builder()
+                            .after("after")
+                            .before("before")
+                            .limit(1L)
+                            .number(1L)
+                            .size(1L)
+                            .build()
+                    )
+                    .sort(CallControlApplicationListParams.Sort.CONNECTION_NAME)
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val callControlApplications = callControlApplicationsFuture.get()
+        callControlApplications.validate()
     }
 
     @Disabled("Prism tests are disabled")

@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialCreateParams
+import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialListParams
 import com.telnyx.sdk.models.telephonycredentials.TelephonyCredentialUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -85,9 +86,23 @@ internal class TelephonyCredentialServiceTest {
                 .build()
         val telephonyCredentialService = client.telephonyCredentials()
 
-        val page = telephonyCredentialService.list()
+        val telephonyCredentials =
+            telephonyCredentialService.list(
+                TelephonyCredentialListParams.builder()
+                    .filter(
+                        TelephonyCredentialListParams.Filter.builder()
+                            .name("name")
+                            .resourceId("resource_id")
+                            .sipUsername("sip_username")
+                            .status("status")
+                            .tag("tag")
+                            .build()
+                    )
+                    .page(TelephonyCredentialListParams.Page.builder().number(1L).size(1L).build())
+                    .build()
+            )
 
-        page.response().validate()
+        telephonyCredentials.validate()
     }
 
     @Disabled("Prism tests are disabled")

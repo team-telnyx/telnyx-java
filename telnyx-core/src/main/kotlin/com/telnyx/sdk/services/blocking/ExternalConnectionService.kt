@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.externalconnections.ExternalConnectionCreateParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionCreateResponse
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionDeleteParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionDeleteResponse
-import com.telnyx.sdk.models.externalconnections.ExternalConnectionListPage
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionListParams
+import com.telnyx.sdk.models.externalconnections.ExternalConnectionListResponse
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionRetrieveParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionRetrieveResponse
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionUpdateLocationParams
@@ -129,21 +129,21 @@ interface ExternalConnectionService {
      * trunking integrations with Telnyx Partners, through External Voice Integrations in Mission
      * Control Portal.
      */
-    fun list(): ExternalConnectionListPage = list(ExternalConnectionListParams.none())
+    fun list(): ExternalConnectionListResponse = list(ExternalConnectionListParams.none())
 
     /** @see list */
     fun list(
         params: ExternalConnectionListParams = ExternalConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalConnectionListPage
+    ): ExternalConnectionListResponse
 
     /** @see list */
     fun list(
         params: ExternalConnectionListParams = ExternalConnectionListParams.none()
-    ): ExternalConnectionListPage = list(params, RequestOptions.none())
+    ): ExternalConnectionListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): ExternalConnectionListPage =
+    fun list(requestOptions: RequestOptions): ExternalConnectionListResponse =
         list(ExternalConnectionListParams.none(), requestOptions)
 
     /**
@@ -333,7 +333,7 @@ interface ExternalConnectionService {
          * [ExternalConnectionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<ExternalConnectionListPage> =
+        fun list(): HttpResponseFor<ExternalConnectionListResponse> =
             list(ExternalConnectionListParams.none())
 
         /** @see list */
@@ -341,17 +341,17 @@ interface ExternalConnectionService {
         fun list(
             params: ExternalConnectionListParams = ExternalConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalConnectionListPage>
+        ): HttpResponseFor<ExternalConnectionListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ExternalConnectionListParams = ExternalConnectionListParams.none()
-        ): HttpResponseFor<ExternalConnectionListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<ExternalConnectionListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<ExternalConnectionListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ExternalConnectionListResponse> =
             list(ExternalConnectionListParams.none(), requestOptions)
 
         /**

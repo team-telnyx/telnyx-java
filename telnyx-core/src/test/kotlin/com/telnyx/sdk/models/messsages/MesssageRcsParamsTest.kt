@@ -110,16 +110,9 @@ internal class MesssageRcsParamsTest {
                                                                     )
                                                                     .postbackData("postback_data")
                                                                     .shareLocationAction(
-                                                                        RcsSuggestion.Action
-                                                                            .ShareLocationAction
-                                                                            .builder()
-                                                                            .putAdditionalProperty(
-                                                                                "foo",
-                                                                                JsonValue.from(
-                                                                                    "bar"
-                                                                                ),
-                                                                            )
-                                                                            .build()
+                                                                        JsonValue.from(
+                                                                            mapOf<String, Any>()
+                                                                        )
                                                                     )
                                                                     .text("Hello world")
                                                                     .viewLocationAction(
@@ -245,16 +238,9 @@ internal class MesssageRcsParamsTest {
                                                                     )
                                                                     .postbackData("postback_data")
                                                                     .shareLocationAction(
-                                                                        RcsSuggestion.Action
-                                                                            .ShareLocationAction
-                                                                            .builder()
-                                                                            .putAdditionalProperty(
-                                                                                "foo",
-                                                                                JsonValue.from(
-                                                                                    "bar"
-                                                                                ),
-                                                                            )
-                                                                            .build()
+                                                                        JsonValue.from(
+                                                                            mapOf<String, Any>()
+                                                                        )
                                                                     )
                                                                     .text("Hello world")
                                                                     .viewLocationAction(
@@ -346,12 +332,7 @@ internal class MesssageRcsParamsTest {
                                             )
                                             .postbackData("postback_data")
                                             .shareLocationAction(
-                                                RcsSuggestion.Action.ShareLocationAction.builder()
-                                                    .putAdditionalProperty(
-                                                        "foo",
-                                                        JsonValue.from("bar"),
-                                                    )
-                                                    .build()
+                                                JsonValue.from(mapOf<String, Any>())
                                             )
                                             .text("Hello world")
                                             .viewLocationAction(
@@ -520,16 +501,9 @@ internal class MesssageRcsParamsTest {
                                                                             "postback_data"
                                                                         )
                                                                         .shareLocationAction(
-                                                                            RcsSuggestion.Action
-                                                                                .ShareLocationAction
-                                                                                .builder()
-                                                                                .putAdditionalProperty(
-                                                                                    "foo",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .build()
+                                                                            JsonValue.from(
+                                                                                mapOf<String, Any>()
+                                                                            )
                                                                         )
                                                                         .text("Hello world")
                                                                         .viewLocationAction(
@@ -668,16 +642,9 @@ internal class MesssageRcsParamsTest {
                                                                             "postback_data"
                                                                         )
                                                                         .shareLocationAction(
-                                                                            RcsSuggestion.Action
-                                                                                .ShareLocationAction
-                                                                                .builder()
-                                                                                .putAdditionalProperty(
-                                                                                    "foo",
-                                                                                    JsonValue.from(
-                                                                                        "bar"
-                                                                                    ),
-                                                                                )
-                                                                                .build()
+                                                                            JsonValue.from(
+                                                                                mapOf<String, Any>()
+                                                                            )
                                                                         )
                                                                         .text("Hello world")
                                                                         .viewLocationAction(
@@ -778,13 +745,7 @@ internal class MesssageRcsParamsTest {
                                                 )
                                                 .postbackData("postback_data")
                                                 .shareLocationAction(
-                                                    RcsSuggestion.Action.ShareLocationAction
-                                                        .builder()
-                                                        .putAdditionalProperty(
-                                                            "foo",
-                                                            JsonValue.from("bar"),
-                                                        )
-                                                        .build()
+                                                    JsonValue.from(mapOf<String, Any>())
                                                 )
                                                 .text("Hello world")
                                                 .viewLocationAction(
@@ -945,16 +906,9 @@ internal class MesssageRcsParamsTest {
                                                                     )
                                                                     .postbackData("postback_data")
                                                                     .shareLocationAction(
-                                                                        RcsSuggestion.Action
-                                                                            .ShareLocationAction
-                                                                            .builder()
-                                                                            .putAdditionalProperty(
-                                                                                "foo",
-                                                                                JsonValue.from(
-                                                                                    "bar"
-                                                                                ),
-                                                                            )
-                                                                            .build()
+                                                                        JsonValue.from(
+                                                                            mapOf<String, Any>()
+                                                                        )
                                                                     )
                                                                     .text("Hello world")
                                                                     .viewLocationAction(
@@ -1080,16 +1034,9 @@ internal class MesssageRcsParamsTest {
                                                                     )
                                                                     .postbackData("postback_data")
                                                                     .shareLocationAction(
-                                                                        RcsSuggestion.Action
-                                                                            .ShareLocationAction
-                                                                            .builder()
-                                                                            .putAdditionalProperty(
-                                                                                "foo",
-                                                                                JsonValue.from(
-                                                                                    "bar"
-                                                                                ),
-                                                                            )
-                                                                            .build()
+                                                                        JsonValue.from(
+                                                                            mapOf<String, Any>()
+                                                                        )
                                                                     )
                                                                     .text("Hello world")
                                                                     .viewLocationAction(
@@ -1181,12 +1128,7 @@ internal class MesssageRcsParamsTest {
                                             )
                                             .postbackData("postback_data")
                                             .shareLocationAction(
-                                                RcsSuggestion.Action.ShareLocationAction.builder()
-                                                    .putAdditionalProperty(
-                                                        "foo",
-                                                        JsonValue.from("bar"),
-                                                    )
-                                                    .build()
+                                                JsonValue.from(mapOf<String, Any>())
                                             )
                                             .text("Hello world")
                                             .viewLocationAction(

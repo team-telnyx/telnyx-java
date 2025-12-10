@@ -10,16 +10,16 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.portingorders.PortingOrderCreateParams
 import com.telnyx.sdk.models.portingorders.PortingOrderCreateResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderDeleteParams
-import com.telnyx.sdk.models.portingorders.PortingOrderListPage
 import com.telnyx.sdk.models.portingorders.PortingOrderListParams
+import com.telnyx.sdk.models.portingorders.PortingOrderListResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveAllowedFocWindowsParams
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveAllowedFocWindowsResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveExceptionTypesParams
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveExceptionTypesResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveLoaTemplateParams
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveParams
-import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveRequirementsPage
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveRequirementsParams
+import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveRequirementsResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveSubRequestParams
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveSubRequestResponse
@@ -152,20 +152,21 @@ interface PortingOrderService {
         update(id, PortingOrderUpdateParams.none(), requestOptions)
 
     /** Returns a list of your porting order. */
-    fun list(): PortingOrderListPage = list(PortingOrderListParams.none())
+    fun list(): PortingOrderListResponse = list(PortingOrderListParams.none())
 
     /** @see list */
     fun list(
         params: PortingOrderListParams = PortingOrderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PortingOrderListPage
+    ): PortingOrderListResponse
 
     /** @see list */
-    fun list(params: PortingOrderListParams = PortingOrderListParams.none()): PortingOrderListPage =
-        list(params, RequestOptions.none())
+    fun list(
+        params: PortingOrderListParams = PortingOrderListParams.none()
+    ): PortingOrderListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): PortingOrderListPage =
+    fun list(requestOptions: RequestOptions): PortingOrderListResponse =
         list(PortingOrderListParams.none(), requestOptions)
 
     /**
@@ -305,7 +306,7 @@ interface PortingOrderService {
         retrieveLoaTemplate(id, PortingOrderRetrieveLoaTemplateParams.none(), requestOptions)
 
     /** Returns a list of all requirements based on country/number type for this porting order. */
-    fun retrieveRequirements(id: String): PortingOrderRetrieveRequirementsPage =
+    fun retrieveRequirements(id: String): PortingOrderRetrieveRequirementsResponse =
         retrieveRequirements(id, PortingOrderRetrieveRequirementsParams.none())
 
     /** @see retrieveRequirements */
@@ -314,7 +315,7 @@ interface PortingOrderService {
         params: PortingOrderRetrieveRequirementsParams =
             PortingOrderRetrieveRequirementsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PortingOrderRetrieveRequirementsPage =
+    ): PortingOrderRetrieveRequirementsResponse =
         retrieveRequirements(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieveRequirements */
@@ -322,25 +323,26 @@ interface PortingOrderService {
         id: String,
         params: PortingOrderRetrieveRequirementsParams =
             PortingOrderRetrieveRequirementsParams.none(),
-    ): PortingOrderRetrieveRequirementsPage =
+    ): PortingOrderRetrieveRequirementsResponse =
         retrieveRequirements(id, params, RequestOptions.none())
 
     /** @see retrieveRequirements */
     fun retrieveRequirements(
         params: PortingOrderRetrieveRequirementsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PortingOrderRetrieveRequirementsPage
+    ): PortingOrderRetrieveRequirementsResponse
 
     /** @see retrieveRequirements */
     fun retrieveRequirements(
         params: PortingOrderRetrieveRequirementsParams
-    ): PortingOrderRetrieveRequirementsPage = retrieveRequirements(params, RequestOptions.none())
+    ): PortingOrderRetrieveRequirementsResponse =
+        retrieveRequirements(params, RequestOptions.none())
 
     /** @see retrieveRequirements */
     fun retrieveRequirements(
         id: String,
         requestOptions: RequestOptions,
-    ): PortingOrderRetrieveRequirementsPage =
+    ): PortingOrderRetrieveRequirementsResponse =
         retrieveRequirements(id, PortingOrderRetrieveRequirementsParams.none(), requestOptions)
 
     /** Retrieve the associated V1 sub_request_id and port_request_id */
@@ -524,24 +526,24 @@ interface PortingOrderService {
          * [PortingOrderService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<PortingOrderListPage> = list(PortingOrderListParams.none())
+        fun list(): HttpResponseFor<PortingOrderListResponse> = list(PortingOrderListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PortingOrderListParams = PortingOrderListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PortingOrderListPage>
+        ): HttpResponseFor<PortingOrderListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PortingOrderListParams = PortingOrderListParams.none()
-        ): HttpResponseFor<PortingOrderListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<PortingOrderListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<PortingOrderListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<PortingOrderListResponse> =
             list(PortingOrderListParams.none(), requestOptions)
 
         /**
@@ -718,7 +720,7 @@ interface PortingOrderService {
         @MustBeClosed
         fun retrieveRequirements(
             id: String
-        ): HttpResponseFor<PortingOrderRetrieveRequirementsPage> =
+        ): HttpResponseFor<PortingOrderRetrieveRequirementsResponse> =
             retrieveRequirements(id, PortingOrderRetrieveRequirementsParams.none())
 
         /** @see retrieveRequirements */
@@ -728,7 +730,7 @@ interface PortingOrderService {
             params: PortingOrderRetrieveRequirementsParams =
                 PortingOrderRetrieveRequirementsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PortingOrderRetrieveRequirementsPage> =
+        ): HttpResponseFor<PortingOrderRetrieveRequirementsResponse> =
             retrieveRequirements(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieveRequirements */
@@ -737,7 +739,7 @@ interface PortingOrderService {
             id: String,
             params: PortingOrderRetrieveRequirementsParams =
                 PortingOrderRetrieveRequirementsParams.none(),
-        ): HttpResponseFor<PortingOrderRetrieveRequirementsPage> =
+        ): HttpResponseFor<PortingOrderRetrieveRequirementsResponse> =
             retrieveRequirements(id, params, RequestOptions.none())
 
         /** @see retrieveRequirements */
@@ -745,13 +747,13 @@ interface PortingOrderService {
         fun retrieveRequirements(
             params: PortingOrderRetrieveRequirementsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PortingOrderRetrieveRequirementsPage>
+        ): HttpResponseFor<PortingOrderRetrieveRequirementsResponse>
 
         /** @see retrieveRequirements */
         @MustBeClosed
         fun retrieveRequirements(
             params: PortingOrderRetrieveRequirementsParams
-        ): HttpResponseFor<PortingOrderRetrieveRequirementsPage> =
+        ): HttpResponseFor<PortingOrderRetrieveRequirementsResponse> =
             retrieveRequirements(params, RequestOptions.none())
 
         /** @see retrieveRequirements */
@@ -759,7 +761,7 @@ interface PortingOrderService {
         fun retrieveRequirements(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PortingOrderRetrieveRequirementsPage> =
+        ): HttpResponseFor<PortingOrderRetrieveRequirementsResponse> =
             retrieveRequirements(id, PortingOrderRetrieveRequirementsParams.none(), requestOptions)
 
         /**

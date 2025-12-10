@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.numberorders.NumberOrderCreateParams
 import com.telnyx.sdk.models.numberorders.NumberOrderCreateResponse
-import com.telnyx.sdk.models.numberorders.NumberOrderListPageAsync
-import com.telnyx.sdk.models.numberorders.NumberOrderListPageResponse
 import com.telnyx.sdk.models.numberorders.NumberOrderListParams
+import com.telnyx.sdk.models.numberorders.NumberOrderListResponse
 import com.telnyx.sdk.models.numberorders.NumberOrderRetrieveParams
 import com.telnyx.sdk.models.numberorders.NumberOrderRetrieveResponse
 import com.telnyx.sdk.models.numberorders.NumberOrderUpdateParams
@@ -65,7 +64,7 @@ class NumberOrderServiceAsyncImpl internal constructor(private val clientOptions
     override fun list(
         params: NumberOrderListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NumberOrderListPageAsync> =
+    ): CompletableFuture<NumberOrderListResponse> =
         // get /number_orders
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -180,13 +179,13 @@ class NumberOrderServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val listHandler: Handler<NumberOrderListPageResponse> =
-            jsonHandler<NumberOrderListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NumberOrderListResponse> =
+            jsonHandler<NumberOrderListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NumberOrderListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NumberOrderListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<NumberOrderListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -205,14 +204,6 @@ class NumberOrderServiceAsyncImpl internal constructor(private val clientOptions
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                NumberOrderListPageAsync.builder()
-                                    .service(NumberOrderServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

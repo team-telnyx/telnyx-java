@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionCreateP
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionCreateResponse
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionDeleteParams
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionDeleteResponse
-import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionListPageAsync
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionListParams
+import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionListResponse
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionRetrieveParams
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionRetrieveResponse
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionUpdateParams
@@ -131,24 +131,22 @@ interface MobileVoiceConnectionServiceAsync {
         update(id, MobileVoiceConnectionUpdateParams.none(), requestOptions)
 
     /** List Mobile Voice Connections */
-    fun list(): CompletableFuture<MobileVoiceConnectionListPageAsync> =
+    fun list(): CompletableFuture<MobileVoiceConnectionListResponse> =
         list(MobileVoiceConnectionListParams.none())
 
     /** @see list */
     fun list(
         params: MobileVoiceConnectionListParams = MobileVoiceConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MobileVoiceConnectionListPageAsync>
+    ): CompletableFuture<MobileVoiceConnectionListResponse>
 
     /** @see list */
     fun list(
         params: MobileVoiceConnectionListParams = MobileVoiceConnectionListParams.none()
-    ): CompletableFuture<MobileVoiceConnectionListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<MobileVoiceConnectionListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        requestOptions: RequestOptions
-    ): CompletableFuture<MobileVoiceConnectionListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<MobileVoiceConnectionListResponse> =
         list(MobileVoiceConnectionListParams.none(), requestOptions)
 
     /** Delete a Mobile Voice Connection */
@@ -320,25 +318,25 @@ interface MobileVoiceConnectionServiceAsync {
          * Returns a raw HTTP response for `get /v2/mobile_voice_connections`, but is otherwise the
          * same as [MobileVoiceConnectionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<MobileVoiceConnectionListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<MobileVoiceConnectionListResponse>> =
             list(MobileVoiceConnectionListParams.none())
 
         /** @see list */
         fun list(
             params: MobileVoiceConnectionListParams = MobileVoiceConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MobileVoiceConnectionListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<MobileVoiceConnectionListResponse>>
 
         /** @see list */
         fun list(
             params: MobileVoiceConnectionListParams = MobileVoiceConnectionListParams.none()
-        ): CompletableFuture<HttpResponseFor<MobileVoiceConnectionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<MobileVoiceConnectionListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<MobileVoiceConnectionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<MobileVoiceConnectionListResponse>> =
             list(MobileVoiceConnectionListParams.none(), requestOptions)
 
         /**

@@ -60,11 +60,7 @@ internal class RcsCardContentTest {
                                         .build()
                                 )
                                 .postbackData("postback_data")
-                                .shareLocationAction(
-                                    RcsSuggestion.Action.ShareLocationAction.builder()
-                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                        .build()
-                                )
+                                .shareLocationAction(JsonValue.from(mapOf<String, Any>()))
                                 .text("Hello world")
                                 .viewLocationAction(
                                     RcsSuggestion.Action.ViewLocationAction.builder()
@@ -138,11 +134,7 @@ internal class RcsCardContentTest {
                                     .build()
                             )
                             .postbackData("postback_data")
-                            .shareLocationAction(
-                                RcsSuggestion.Action.ShareLocationAction.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                    .build()
-                            )
+                            .shareLocationAction(JsonValue.from(mapOf<String, Any>()))
                             .text("Hello world")
                             .viewLocationAction(
                                 RcsSuggestion.Action.ViewLocationAction.builder()
@@ -218,11 +210,7 @@ internal class RcsCardContentTest {
                                         .build()
                                 )
                                 .postbackData("postback_data")
-                                .shareLocationAction(
-                                    RcsSuggestion.Action.ShareLocationAction.builder()
-                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                        .build()
-                                )
+                                .shareLocationAction(JsonValue.from(mapOf<String, Any>()))
                                 .text("Hello world")
                                 .viewLocationAction(
                                     RcsSuggestion.Action.ViewLocationAction.builder()

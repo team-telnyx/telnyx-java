@@ -4,7 +4,6 @@ package com.telnyx.sdk.models.availablephonenumberblocks
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.AvailablePhoneNumbersMetadata
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -53,7 +52,7 @@ internal class AvailablePhoneNumberBlockListResponseTest {
                         .build()
                 )
                 .meta(
-                    AvailablePhoneNumbersMetadata.builder()
+                    AvailablePhoneNumberBlockListResponse.Meta.builder()
                         .bestEffortResults(50L)
                         .totalResults(100L)
                         .build()
@@ -100,7 +99,7 @@ internal class AvailablePhoneNumberBlockListResponseTest {
             )
         assertThat(availablePhoneNumberBlockListResponse.meta())
             .contains(
-                AvailablePhoneNumbersMetadata.builder()
+                AvailablePhoneNumberBlockListResponse.Meta.builder()
                     .bestEffortResults(50L)
                     .totalResults(100L)
                     .build()
@@ -150,7 +149,7 @@ internal class AvailablePhoneNumberBlockListResponseTest {
                         .build()
                 )
                 .meta(
-                    AvailablePhoneNumbersMetadata.builder()
+                    AvailablePhoneNumberBlockListResponse.Meta.builder()
                         .bestEffortResults(50L)
                         .totalResults(100L)
                         .build()

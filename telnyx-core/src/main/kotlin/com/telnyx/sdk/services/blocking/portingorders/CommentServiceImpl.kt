@@ -18,9 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.portingorders.comments.CommentCreateParams
 import com.telnyx.sdk.models.portingorders.comments.CommentCreateResponse
-import com.telnyx.sdk.models.portingorders.comments.CommentListPage
-import com.telnyx.sdk.models.portingorders.comments.CommentListPageResponse
 import com.telnyx.sdk.models.portingorders.comments.CommentListParams
+import com.telnyx.sdk.models.portingorders.comments.CommentListResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -43,7 +42,10 @@ class CommentServiceImpl internal constructor(private val clientOptions: ClientO
         // post /porting_orders/{id}/comments
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun list(params: CommentListParams, requestOptions: RequestOptions): CommentListPage =
+    override fun list(
+        params: CommentListParams,
+        requestOptions: RequestOptions,
+    ): CommentListResponse =
         // get /porting_orders/{id}/comments
         withRawResponse().list(params, requestOptions).parse()
 
@@ -91,13 +93,13 @@ class CommentServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<CommentListPageResponse> =
-            jsonHandler<CommentListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CommentListResponse> =
+            jsonHandler<CommentListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CommentListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CommentListPage> {
+        ): HttpResponseFor<CommentListResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -117,13 +119,6 @@ class CommentServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        CommentListPage.builder()
-                            .service(CommentServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }
