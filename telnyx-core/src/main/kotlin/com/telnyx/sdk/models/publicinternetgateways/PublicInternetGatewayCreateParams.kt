@@ -86,20 +86,20 @@ private constructor(
     fun status(): Optional<InterfaceStatus> = body.status()
 
     /**
+     * The region the interface should be deployed to.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun regionCode(): Optional<String> = body.regionCode()
+
+    /**
      * The publically accessible ip for this interface.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun publicIp(): Optional<String> = body.publicIp()
-
-    /**
-     * The region interface is deployed to.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun regionCode(): Optional<String> = body.regionCode()
 
     /**
      * Returns the raw JSON value of [id].
@@ -151,18 +151,18 @@ private constructor(
     fun _status(): JsonField<InterfaceStatus> = body._status()
 
     /**
-     * Returns the raw JSON value of [publicIp].
-     *
-     * Unlike [publicIp], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _publicIp(): JsonField<String> = body._publicIp()
-
-    /**
      * Returns the raw JSON value of [regionCode].
      *
      * Unlike [regionCode], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _regionCode(): JsonField<String> = body._regionCode()
+
+    /**
+     * Returns the raw JSON value of [publicIp].
+     *
+     * Unlike [publicIp], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _publicIp(): JsonField<String> = body._publicIp()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -297,18 +297,7 @@ private constructor(
          */
         fun status(status: JsonField<InterfaceStatus>) = apply { body.status(status) }
 
-        /** The publically accessible ip for this interface. */
-        fun publicIp(publicIp: String) = apply { body.publicIp(publicIp) }
-
-        /**
-         * Sets [Builder.publicIp] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.publicIp] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun publicIp(publicIp: JsonField<String>) = apply { body.publicIp(publicIp) }
-
-        /** The region interface is deployed to. */
+        /** The region the interface should be deployed to. */
         fun regionCode(regionCode: String) = apply { body.regionCode(regionCode) }
 
         /**
@@ -319,6 +308,17 @@ private constructor(
          * value.
          */
         fun regionCode(regionCode: JsonField<String>) = apply { body.regionCode(regionCode) }
+
+        /** The publically accessible ip for this interface. */
+        fun publicIp(publicIp: String) = apply { body.publicIp(publicIp) }
+
+        /**
+         * Sets [Builder.publicIp] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.publicIp] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun publicIp(publicIp: JsonField<String>) = apply { body.publicIp(publicIp) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -466,8 +466,8 @@ private constructor(
         private val name: JsonField<String>,
         private val networkId: JsonField<String>,
         private val status: JsonField<InterfaceStatus>,
-        private val publicIp: JsonField<String>,
         private val regionCode: JsonField<String>,
+        private val publicIp: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -490,12 +490,12 @@ private constructor(
             @JsonProperty("status")
             @ExcludeMissing
             status: JsonField<InterfaceStatus> = JsonMissing.of(),
-            @JsonProperty("public_ip")
-            @ExcludeMissing
-            publicIp: JsonField<String> = JsonMissing.of(),
             @JsonProperty("region_code")
             @ExcludeMissing
             regionCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("public_ip")
+            @ExcludeMissing
+            publicIp: JsonField<String> = JsonMissing.of(),
         ) : this(
             id,
             createdAt,
@@ -504,8 +504,8 @@ private constructor(
             name,
             networkId,
             status,
-            publicIp,
             regionCode,
+            publicIp,
             mutableMapOf(),
         )
 
@@ -519,6 +519,9 @@ private constructor(
 
         fun toNetworkInterface(): NetworkInterface =
             NetworkInterface.builder().name(name).networkId(networkId).status(status).build()
+
+        fun toNetworkInterfaceRegion(): NetworkInterfaceRegion =
+            NetworkInterfaceRegion.builder().regionCode(regionCode).build()
 
         /**
          * Identifies the resource.
@@ -577,20 +580,20 @@ private constructor(
         fun status(): Optional<InterfaceStatus> = status.getOptional("status")
 
         /**
+         * The region the interface should be deployed to.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun regionCode(): Optional<String> = regionCode.getOptional("region_code")
+
+        /**
          * The publically accessible ip for this interface.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun publicIp(): Optional<String> = publicIp.getOptional("public_ip")
-
-        /**
-         * The region interface is deployed to.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun regionCode(): Optional<String> = regionCode.getOptional("region_code")
 
         /**
          * Returns the raw JSON value of [id].
@@ -644,13 +647,6 @@ private constructor(
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<InterfaceStatus> = status
 
         /**
-         * Returns the raw JSON value of [publicIp].
-         *
-         * Unlike [publicIp], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("public_ip") @ExcludeMissing fun _publicIp(): JsonField<String> = publicIp
-
-        /**
          * Returns the raw JSON value of [regionCode].
          *
          * Unlike [regionCode], this method doesn't throw if the JSON field has an unexpected type.
@@ -658,6 +654,13 @@ private constructor(
         @JsonProperty("region_code")
         @ExcludeMissing
         fun _regionCode(): JsonField<String> = regionCode
+
+        /**
+         * Returns the raw JSON value of [publicIp].
+         *
+         * Unlike [publicIp], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("public_ip") @ExcludeMissing fun _publicIp(): JsonField<String> = publicIp
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -687,8 +690,8 @@ private constructor(
             private var name: JsonField<String> = JsonMissing.of()
             private var networkId: JsonField<String> = JsonMissing.of()
             private var status: JsonField<InterfaceStatus> = JsonMissing.of()
-            private var publicIp: JsonField<String> = JsonMissing.of()
             private var regionCode: JsonField<String> = JsonMissing.of()
+            private var publicIp: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -700,8 +703,8 @@ private constructor(
                 name = body.name
                 networkId = body.networkId
                 status = body.status
-                publicIp = body.publicIp
                 regionCode = body.regionCode
+                publicIp = body.publicIp
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -789,6 +792,18 @@ private constructor(
              */
             fun status(status: JsonField<InterfaceStatus>) = apply { this.status = status }
 
+            /** The region the interface should be deployed to. */
+            fun regionCode(regionCode: String) = regionCode(JsonField.of(regionCode))
+
+            /**
+             * Sets [Builder.regionCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.regionCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun regionCode(regionCode: JsonField<String>) = apply { this.regionCode = regionCode }
+
             /** The publically accessible ip for this interface. */
             fun publicIp(publicIp: String) = publicIp(JsonField.of(publicIp))
 
@@ -800,18 +815,6 @@ private constructor(
              * supported value.
              */
             fun publicIp(publicIp: JsonField<String>) = apply { this.publicIp = publicIp }
-
-            /** The region interface is deployed to. */
-            fun regionCode(regionCode: String) = regionCode(JsonField.of(regionCode))
-
-            /**
-             * Sets [Builder.regionCode] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.regionCode] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun regionCode(regionCode: JsonField<String>) = apply { this.regionCode = regionCode }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -846,8 +849,8 @@ private constructor(
                     name,
                     networkId,
                     status,
-                    publicIp,
                     regionCode,
+                    publicIp,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -866,8 +869,8 @@ private constructor(
             name()
             networkId()
             status().ifPresent { it.validate() }
-            publicIp()
             regionCode()
+            publicIp()
             validated = true
         }
 
@@ -894,8 +897,8 @@ private constructor(
                 (if (name.asKnown().isPresent) 1 else 0) +
                 (if (networkId.asKnown().isPresent) 1 else 0) +
                 (status.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (publicIp.asKnown().isPresent) 1 else 0) +
-                (if (regionCode.asKnown().isPresent) 1 else 0)
+                (if (regionCode.asKnown().isPresent) 1 else 0) +
+                (if (publicIp.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -910,8 +913,8 @@ private constructor(
                 name == other.name &&
                 networkId == other.networkId &&
                 status == other.status &&
-                publicIp == other.publicIp &&
                 regionCode == other.regionCode &&
+                publicIp == other.publicIp &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -924,8 +927,8 @@ private constructor(
                 name,
                 networkId,
                 status,
-                publicIp,
                 regionCode,
+                publicIp,
                 additionalProperties,
             )
         }
@@ -933,7 +936,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, name=$name, networkId=$networkId, status=$status, publicIp=$publicIp, regionCode=$regionCode, additionalProperties=$additionalProperties}"
+            "Body{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, name=$name, networkId=$networkId, status=$status, regionCode=$regionCode, publicIp=$publicIp, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
