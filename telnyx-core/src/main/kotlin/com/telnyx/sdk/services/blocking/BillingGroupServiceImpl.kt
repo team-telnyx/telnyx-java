@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.billinggroups.BillingGroupCreateParams
 import com.telnyx.sdk.models.billinggroups.BillingGroupCreateResponse
 import com.telnyx.sdk.models.billinggroups.BillingGroupDeleteParams
 import com.telnyx.sdk.models.billinggroups.BillingGroupDeleteResponse
+import com.telnyx.sdk.models.billinggroups.BillingGroupListPage
+import com.telnyx.sdk.models.billinggroups.BillingGroupListPageResponse
 import com.telnyx.sdk.models.billinggroups.BillingGroupListParams
-import com.telnyx.sdk.models.billinggroups.BillingGroupListResponse
 import com.telnyx.sdk.models.billinggroups.BillingGroupRetrieveParams
 import com.telnyx.sdk.models.billinggroups.BillingGroupRetrieveResponse
 import com.telnyx.sdk.models.billinggroups.BillingGroupUpdateParams
@@ -65,7 +66,7 @@ class BillingGroupServiceImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: BillingGroupListParams,
         requestOptions: RequestOptions,
-    ): BillingGroupListResponse =
+    ): BillingGroupListPage =
         // get /billing_groups
         withRawResponse().list(params, requestOptions).parse()
 
@@ -178,13 +179,13 @@ class BillingGroupServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<BillingGroupListResponse> =
-            jsonHandler<BillingGroupListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BillingGroupListPageResponse> =
+            jsonHandler<BillingGroupListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: BillingGroupListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BillingGroupListResponse> {
+        ): HttpResponseFor<BillingGroupListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -201,6 +202,13 @@ class BillingGroupServiceImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        BillingGroupListPage.builder()
+                            .service(BillingGroupServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

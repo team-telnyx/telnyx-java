@@ -10,10 +10,10 @@ import com.telnyx.sdk.models.networks.NetworkCreateParams
 import com.telnyx.sdk.models.networks.NetworkCreateResponse
 import com.telnyx.sdk.models.networks.NetworkDeleteParams
 import com.telnyx.sdk.models.networks.NetworkDeleteResponse
+import com.telnyx.sdk.models.networks.NetworkListInterfacesPageAsync
 import com.telnyx.sdk.models.networks.NetworkListInterfacesParams
-import com.telnyx.sdk.models.networks.NetworkListInterfacesResponse
+import com.telnyx.sdk.models.networks.NetworkListPageAsync
 import com.telnyx.sdk.models.networks.NetworkListParams
-import com.telnyx.sdk.models.networks.NetworkListResponse
 import com.telnyx.sdk.models.networks.NetworkRetrieveParams
 import com.telnyx.sdk.models.networks.NetworkRetrieveResponse
 import com.telnyx.sdk.models.networks.NetworkUpdateParams
@@ -96,17 +96,17 @@ interface NetworkServiceAsync {
 
     /** Update a Network. */
     fun update(
-        pathId: String,
+        networkId: String,
         params: NetworkUpdateParams,
-    ): CompletableFuture<NetworkUpdateResponse> = update(pathId, params, RequestOptions.none())
+    ): CompletableFuture<NetworkUpdateResponse> = update(networkId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        pathId: String,
+        networkId: String,
         params: NetworkUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<NetworkUpdateResponse> =
-        update(params.toBuilder().pathId(pathId).build(), requestOptions)
+        update(params.toBuilder().networkId(networkId).build(), requestOptions)
 
     /** @see update */
     fun update(params: NetworkUpdateParams): CompletableFuture<NetworkUpdateResponse> =
@@ -119,21 +119,21 @@ interface NetworkServiceAsync {
     ): CompletableFuture<NetworkUpdateResponse>
 
     /** List all Networks. */
-    fun list(): CompletableFuture<NetworkListResponse> = list(NetworkListParams.none())
+    fun list(): CompletableFuture<NetworkListPageAsync> = list(NetworkListParams.none())
 
     /** @see list */
     fun list(
         params: NetworkListParams = NetworkListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NetworkListResponse>
+    ): CompletableFuture<NetworkListPageAsync>
 
     /** @see list */
     fun list(
         params: NetworkListParams = NetworkListParams.none()
-    ): CompletableFuture<NetworkListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<NetworkListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<NetworkListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<NetworkListPageAsync> =
         list(NetworkListParams.none(), requestOptions)
 
     /** Delete a Network. */
@@ -172,7 +172,7 @@ interface NetworkServiceAsync {
         delete(id, NetworkDeleteParams.none(), requestOptions)
 
     /** List all Interfaces for a Network. */
-    fun listInterfaces(id: String): CompletableFuture<NetworkListInterfacesResponse> =
+    fun listInterfaces(id: String): CompletableFuture<NetworkListInterfacesPageAsync> =
         listInterfaces(id, NetworkListInterfacesParams.none())
 
     /** @see listInterfaces */
@@ -180,33 +180,33 @@ interface NetworkServiceAsync {
         id: String,
         params: NetworkListInterfacesParams = NetworkListInterfacesParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NetworkListInterfacesResponse> =
+    ): CompletableFuture<NetworkListInterfacesPageAsync> =
         listInterfaces(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see listInterfaces */
     fun listInterfaces(
         id: String,
         params: NetworkListInterfacesParams = NetworkListInterfacesParams.none(),
-    ): CompletableFuture<NetworkListInterfacesResponse> =
+    ): CompletableFuture<NetworkListInterfacesPageAsync> =
         listInterfaces(id, params, RequestOptions.none())
 
     /** @see listInterfaces */
     fun listInterfaces(
         params: NetworkListInterfacesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NetworkListInterfacesResponse>
+    ): CompletableFuture<NetworkListInterfacesPageAsync>
 
     /** @see listInterfaces */
     fun listInterfaces(
         params: NetworkListInterfacesParams
-    ): CompletableFuture<NetworkListInterfacesResponse> =
+    ): CompletableFuture<NetworkListInterfacesPageAsync> =
         listInterfaces(params, RequestOptions.none())
 
     /** @see listInterfaces */
     fun listInterfaces(
         id: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NetworkListInterfacesResponse> =
+    ): CompletableFuture<NetworkListInterfacesPageAsync> =
         listInterfaces(id, NetworkListInterfacesParams.none(), requestOptions)
 
     /**
@@ -302,18 +302,18 @@ interface NetworkServiceAsync {
          * [NetworkServiceAsync.update].
          */
         fun update(
-            pathId: String,
+            networkId: String,
             params: NetworkUpdateParams,
         ): CompletableFuture<HttpResponseFor<NetworkUpdateResponse>> =
-            update(pathId, params, RequestOptions.none())
+            update(networkId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
-            pathId: String,
+            networkId: String,
             params: NetworkUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<NetworkUpdateResponse>> =
-            update(params.toBuilder().pathId(pathId).build(), requestOptions)
+            update(params.toBuilder().networkId(networkId).build(), requestOptions)
 
         /** @see update */
         fun update(
@@ -331,25 +331,25 @@ interface NetworkServiceAsync {
          * Returns a raw HTTP response for `get /networks`, but is otherwise the same as
          * [NetworkServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<NetworkListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<NetworkListPageAsync>> =
             list(NetworkListParams.none())
 
         /** @see list */
         fun list(
             params: NetworkListParams = NetworkListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NetworkListResponse>>
+        ): CompletableFuture<HttpResponseFor<NetworkListPageAsync>>
 
         /** @see list */
         fun list(
             params: NetworkListParams = NetworkListParams.none()
-        ): CompletableFuture<HttpResponseFor<NetworkListResponse>> =
+        ): CompletableFuture<HttpResponseFor<NetworkListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<NetworkListResponse>> =
+        ): CompletableFuture<HttpResponseFor<NetworkListPageAsync>> =
             list(NetworkListParams.none(), requestOptions)
 
         /**
@@ -399,7 +399,7 @@ interface NetworkServiceAsync {
          */
         fun listInterfaces(
             id: String
-        ): CompletableFuture<HttpResponseFor<NetworkListInterfacesResponse>> =
+        ): CompletableFuture<HttpResponseFor<NetworkListInterfacesPageAsync>> =
             listInterfaces(id, NetworkListInterfacesParams.none())
 
         /** @see listInterfaces */
@@ -407,33 +407,33 @@ interface NetworkServiceAsync {
             id: String,
             params: NetworkListInterfacesParams = NetworkListInterfacesParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NetworkListInterfacesResponse>> =
+        ): CompletableFuture<HttpResponseFor<NetworkListInterfacesPageAsync>> =
             listInterfaces(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see listInterfaces */
         fun listInterfaces(
             id: String,
             params: NetworkListInterfacesParams = NetworkListInterfacesParams.none(),
-        ): CompletableFuture<HttpResponseFor<NetworkListInterfacesResponse>> =
+        ): CompletableFuture<HttpResponseFor<NetworkListInterfacesPageAsync>> =
             listInterfaces(id, params, RequestOptions.none())
 
         /** @see listInterfaces */
         fun listInterfaces(
             params: NetworkListInterfacesParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NetworkListInterfacesResponse>>
+        ): CompletableFuture<HttpResponseFor<NetworkListInterfacesPageAsync>>
 
         /** @see listInterfaces */
         fun listInterfaces(
             params: NetworkListInterfacesParams
-        ): CompletableFuture<HttpResponseFor<NetworkListInterfacesResponse>> =
+        ): CompletableFuture<HttpResponseFor<NetworkListInterfacesPageAsync>> =
             listInterfaces(params, RequestOptions.none())
 
         /** @see listInterfaces */
         fun listInterfaces(
             id: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NetworkListInterfacesResponse>> =
+        ): CompletableFuture<HttpResponseFor<NetworkListInterfacesPageAsync>> =
             listInterfaces(id, NetworkListInterfacesParams.none(), requestOptions)
     }
 }

@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.fqdns.FqdnCreateParams
 import com.telnyx.sdk.models.fqdns.FqdnCreateResponse
 import com.telnyx.sdk.models.fqdns.FqdnDeleteParams
 import com.telnyx.sdk.models.fqdns.FqdnDeleteResponse
+import com.telnyx.sdk.models.fqdns.FqdnListPageAsync
 import com.telnyx.sdk.models.fqdns.FqdnListParams
-import com.telnyx.sdk.models.fqdns.FqdnListResponse
 import com.telnyx.sdk.models.fqdns.FqdnRetrieveParams
 import com.telnyx.sdk.models.fqdns.FqdnRetrieveResponse
 import com.telnyx.sdk.models.fqdns.FqdnUpdateParams
@@ -110,20 +110,20 @@ interface FqdnServiceAsync {
         update(id, FqdnUpdateParams.none(), requestOptions)
 
     /** Get all FQDNs belonging to the user that match the given filters. */
-    fun list(): CompletableFuture<FqdnListResponse> = list(FqdnListParams.none())
+    fun list(): CompletableFuture<FqdnListPageAsync> = list(FqdnListParams.none())
 
     /** @see list */
     fun list(
         params: FqdnListParams = FqdnListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<FqdnListResponse>
+    ): CompletableFuture<FqdnListPageAsync>
 
     /** @see list */
-    fun list(params: FqdnListParams = FqdnListParams.none()): CompletableFuture<FqdnListResponse> =
+    fun list(params: FqdnListParams = FqdnListParams.none()): CompletableFuture<FqdnListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<FqdnListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<FqdnListPageAsync> =
         list(FqdnListParams.none(), requestOptions)
 
     /** Delete an FQDN. */
@@ -269,25 +269,25 @@ interface FqdnServiceAsync {
          * Returns a raw HTTP response for `get /fqdns`, but is otherwise the same as
          * [FqdnServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<FqdnListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<FqdnListPageAsync>> =
             list(FqdnListParams.none())
 
         /** @see list */
         fun list(
             params: FqdnListParams = FqdnListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<FqdnListResponse>>
+        ): CompletableFuture<HttpResponseFor<FqdnListPageAsync>>
 
         /** @see list */
         fun list(
             params: FqdnListParams = FqdnListParams.none()
-        ): CompletableFuture<HttpResponseFor<FqdnListResponse>> =
+        ): CompletableFuture<HttpResponseFor<FqdnListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<FqdnListResponse>> =
+        ): CompletableFuture<HttpResponseFor<FqdnListPageAsync>> =
             list(FqdnListParams.none(), requestOptions)
 
         /**

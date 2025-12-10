@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileCreatePar
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileCreateResponse
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileDeleteParams
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileDeleteResponse
+import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileListPageAsync
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileListParams
-import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileListResponse
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileRetrieveParams
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileRetrieveResponse
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileUpdateParams
@@ -108,22 +108,22 @@ interface OutboundVoiceProfileServiceAsync {
     ): CompletableFuture<OutboundVoiceProfileUpdateResponse>
 
     /** Get all outbound voice profiles belonging to the user that match the given filters. */
-    fun list(): CompletableFuture<OutboundVoiceProfileListResponse> =
+    fun list(): CompletableFuture<OutboundVoiceProfileListPageAsync> =
         list(OutboundVoiceProfileListParams.none())
 
     /** @see list */
     fun list(
         params: OutboundVoiceProfileListParams = OutboundVoiceProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<OutboundVoiceProfileListResponse>
+    ): CompletableFuture<OutboundVoiceProfileListPageAsync>
 
     /** @see list */
     fun list(
         params: OutboundVoiceProfileListParams = OutboundVoiceProfileListParams.none()
-    ): CompletableFuture<OutboundVoiceProfileListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<OutboundVoiceProfileListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<OutboundVoiceProfileListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<OutboundVoiceProfileListPageAsync> =
         list(OutboundVoiceProfileListParams.none(), requestOptions)
 
     /** Deletes an existing outbound voice profile. */
@@ -270,25 +270,25 @@ interface OutboundVoiceProfileServiceAsync {
          * Returns a raw HTTP response for `get /outbound_voice_profiles`, but is otherwise the same
          * as [OutboundVoiceProfileServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<OutboundVoiceProfileListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<OutboundVoiceProfileListPageAsync>> =
             list(OutboundVoiceProfileListParams.none())
 
         /** @see list */
         fun list(
             params: OutboundVoiceProfileListParams = OutboundVoiceProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<OutboundVoiceProfileListResponse>>
+        ): CompletableFuture<HttpResponseFor<OutboundVoiceProfileListPageAsync>>
 
         /** @see list */
         fun list(
             params: OutboundVoiceProfileListParams = OutboundVoiceProfileListParams.none()
-        ): CompletableFuture<HttpResponseFor<OutboundVoiceProfileListResponse>> =
+        ): CompletableFuture<HttpResponseFor<OutboundVoiceProfileListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<OutboundVoiceProfileListResponse>> =
+        ): CompletableFuture<HttpResponseFor<OutboundVoiceProfileListPageAsync>> =
             list(OutboundVoiceProfileListParams.none(), requestOptions)
 
         /**

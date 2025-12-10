@@ -668,17 +668,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val _1 = of(1L)
+            @JvmField val CHANNEL_1 = of(1L)
 
-            @JvmField val _2 = of(2L)
+            @JvmField val CHANNEL_2 = of(2L)
 
             @JvmStatic fun of(value: Long) = Channels(JsonField.of(value))
         }
 
         /** An enum containing [Channels]'s known values. */
         enum class Known {
-            _1,
-            _2,
+            CHANNEL_1,
+            CHANNEL_2,
         }
 
         /**
@@ -691,8 +691,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            _1,
-            _2,
+            CHANNEL_1,
+            CHANNEL_2,
             /** An enum member indicating that [Channels] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -706,8 +706,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                _1 -> Value._1
-                _2 -> Value._2
+                CHANNEL_1 -> Value.CHANNEL_1
+                CHANNEL_2 -> Value.CHANNEL_2
                 else -> Value._UNKNOWN
             }
 
@@ -722,8 +722,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                _1 -> Known._1
-                _2 -> Known._2
+                CHANNEL_1 -> Known.CHANNEL_1
+                CHANNEL_2 -> Known.CHANNEL_2
                 else -> throw TelnyxInvalidDataException("Unknown Channels: $value")
             }
 

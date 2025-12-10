@@ -12,8 +12,8 @@ import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportDeleteParams
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportDeleteResponse
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportFetchSyncParams
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportFetchSyncResponse
+import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListPage
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListParams
-import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListResponse
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportRetrieveParams
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportRetrieveResponse
 import java.util.function.Consumer
@@ -80,21 +80,21 @@ interface MdrUsageReportService {
      * Fetch all messaging usage reports. Usage reports are aggregated messaging data for specified
      * time period and breakdown
      */
-    fun list(): MdrUsageReportListResponse = list(MdrUsageReportListParams.none())
+    fun list(): MdrUsageReportListPage = list(MdrUsageReportListParams.none())
 
     /** @see list */
     fun list(
         params: MdrUsageReportListParams = MdrUsageReportListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MdrUsageReportListResponse
+    ): MdrUsageReportListPage
 
     /** @see list */
     fun list(
         params: MdrUsageReportListParams = MdrUsageReportListParams.none()
-    ): MdrUsageReportListResponse = list(params, RequestOptions.none())
+    ): MdrUsageReportListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): MdrUsageReportListResponse =
+    fun list(requestOptions: RequestOptions): MdrUsageReportListPage =
         list(MdrUsageReportListParams.none(), requestOptions)
 
     /** Delete messaging usage report by id */
@@ -223,25 +223,24 @@ interface MdrUsageReportService {
          * same as [MdrUsageReportService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<MdrUsageReportListResponse> =
-            list(MdrUsageReportListParams.none())
+        fun list(): HttpResponseFor<MdrUsageReportListPage> = list(MdrUsageReportListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MdrUsageReportListParams = MdrUsageReportListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MdrUsageReportListResponse>
+        ): HttpResponseFor<MdrUsageReportListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MdrUsageReportListParams = MdrUsageReportListParams.none()
-        ): HttpResponseFor<MdrUsageReportListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<MdrUsageReportListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<MdrUsageReportListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<MdrUsageReportListPage> =
             list(MdrUsageReportListParams.none(), requestOptions)
 
         /**

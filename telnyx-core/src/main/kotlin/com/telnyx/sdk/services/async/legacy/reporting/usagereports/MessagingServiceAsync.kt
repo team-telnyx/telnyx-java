@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingCr
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingDeleteParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingDeleteResponse
+import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingListPageAsync
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingListParams
-import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingRetrieveParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -76,21 +76,21 @@ interface MessagingServiceAsync {
         retrieve(id, MessagingRetrieveParams.none(), requestOptions)
 
     /** Fetch all previous requests for MDR usage reports. */
-    fun list(): CompletableFuture<MessagingListResponse> = list(MessagingListParams.none())
+    fun list(): CompletableFuture<MessagingListPageAsync> = list(MessagingListParams.none())
 
     /** @see list */
     fun list(
         params: MessagingListParams = MessagingListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessagingListResponse>
+    ): CompletableFuture<MessagingListPageAsync>
 
     /** @see list */
     fun list(
         params: MessagingListParams = MessagingListParams.none()
-    ): CompletableFuture<MessagingListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<MessagingListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<MessagingListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<MessagingListPageAsync> =
         list(MessagingListParams.none(), requestOptions)
 
     /** Deletes a specific V2 legacy usage MDR report request by ID */
@@ -202,25 +202,25 @@ interface MessagingServiceAsync {
          * Returns a raw HTTP response for `get /legacy/reporting/usage_reports/messaging`, but is
          * otherwise the same as [MessagingServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<MessagingListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<MessagingListPageAsync>> =
             list(MessagingListParams.none())
 
         /** @see list */
         fun list(
             params: MessagingListParams = MessagingListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessagingListResponse>>
+        ): CompletableFuture<HttpResponseFor<MessagingListPageAsync>>
 
         /** @see list */
         fun list(
             params: MessagingListParams = MessagingListParams.none()
-        ): CompletableFuture<HttpResponseFor<MessagingListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessagingListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<MessagingListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessagingListPageAsync>> =
             list(MessagingListParams.none(), requestOptions)
 
         /**

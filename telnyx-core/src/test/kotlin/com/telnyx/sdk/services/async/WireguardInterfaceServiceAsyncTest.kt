@@ -6,7 +6,6 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.networks.InterfaceStatus
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceCreateParams
-import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -72,20 +71,10 @@ internal class WireguardInterfaceServiceAsyncTest {
                 .build()
         val wireguardInterfaceServiceAsync = client.wireguardInterfaces()
 
-        val wireguardInterfacesFuture =
-            wireguardInterfaceServiceAsync.list(
-                WireguardInterfaceListParams.builder()
-                    .filter(
-                        WireguardInterfaceListParams.Filter.builder()
-                            .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                            .build()
-                    )
-                    .page(WireguardInterfaceListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = wireguardInterfaceServiceAsync.list()
 
-        val wireguardInterfaces = wireguardInterfacesFuture.get()
-        wireguardInterfaces.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

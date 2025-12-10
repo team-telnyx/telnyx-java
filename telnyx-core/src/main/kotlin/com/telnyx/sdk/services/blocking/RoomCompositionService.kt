@@ -10,8 +10,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionCreateParams
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionCreateResponse
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionDeleteParams
+import com.telnyx.sdk.models.roomcompositions.RoomCompositionListPage
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionListParams
-import com.telnyx.sdk.models.roomcompositions.RoomCompositionListResponse
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionRetrieveParams
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionRetrieveResponse
 import java.util.function.Consumer
@@ -84,21 +84,21 @@ interface RoomCompositionService {
         retrieve(roomCompositionId, RoomCompositionRetrieveParams.none(), requestOptions)
 
     /** View a list of room compositions. */
-    fun list(): RoomCompositionListResponse = list(RoomCompositionListParams.none())
+    fun list(): RoomCompositionListPage = list(RoomCompositionListParams.none())
 
     /** @see list */
     fun list(
         params: RoomCompositionListParams = RoomCompositionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RoomCompositionListResponse
+    ): RoomCompositionListPage
 
     /** @see list */
     fun list(
         params: RoomCompositionListParams = RoomCompositionListParams.none()
-    ): RoomCompositionListResponse = list(params, RequestOptions.none())
+    ): RoomCompositionListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): RoomCompositionListResponse =
+    fun list(requestOptions: RequestOptions): RoomCompositionListPage =
         list(RoomCompositionListParams.none(), requestOptions)
 
     /** Synchronously delete a room composition. */
@@ -227,7 +227,7 @@ interface RoomCompositionService {
          * [RoomCompositionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<RoomCompositionListResponse> =
+        fun list(): HttpResponseFor<RoomCompositionListPage> =
             list(RoomCompositionListParams.none())
 
         /** @see list */
@@ -235,17 +235,17 @@ interface RoomCompositionService {
         fun list(
             params: RoomCompositionListParams = RoomCompositionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RoomCompositionListResponse>
+        ): HttpResponseFor<RoomCompositionListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: RoomCompositionListParams = RoomCompositionListParams.none()
-        ): HttpResponseFor<RoomCompositionListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<RoomCompositionListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<RoomCompositionListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<RoomCompositionListPage> =
             list(RoomCompositionListParams.none(), requestOptions)
 
         /**

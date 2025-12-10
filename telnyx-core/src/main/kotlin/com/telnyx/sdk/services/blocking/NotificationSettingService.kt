@@ -11,8 +11,8 @@ import com.telnyx.sdk.models.notificationsettings.NotificationSettingCreateParam
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingCreateResponse
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingDeleteParams
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingDeleteResponse
+import com.telnyx.sdk.models.notificationsettings.NotificationSettingListPage
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingListParams
-import com.telnyx.sdk.models.notificationsettings.NotificationSettingListResponse
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingRetrieveParams
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingRetrieveResponse
 import java.util.function.Consumer
@@ -98,21 +98,21 @@ interface NotificationSettingService {
         retrieve(id, NotificationSettingRetrieveParams.none(), requestOptions)
 
     /** List notification settings. */
-    fun list(): NotificationSettingListResponse = list(NotificationSettingListParams.none())
+    fun list(): NotificationSettingListPage = list(NotificationSettingListParams.none())
 
     /** @see list */
     fun list(
         params: NotificationSettingListParams = NotificationSettingListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): NotificationSettingListResponse
+    ): NotificationSettingListPage
 
     /** @see list */
     fun list(
         params: NotificationSettingListParams = NotificationSettingListParams.none()
-    ): NotificationSettingListResponse = list(params, RequestOptions.none())
+    ): NotificationSettingListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): NotificationSettingListResponse =
+    fun list(requestOptions: RequestOptions): NotificationSettingListPage =
         list(NotificationSettingListParams.none(), requestOptions)
 
     /** Delete a notification setting. */
@@ -262,7 +262,7 @@ interface NotificationSettingService {
          * as [NotificationSettingService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<NotificationSettingListResponse> =
+        fun list(): HttpResponseFor<NotificationSettingListPage> =
             list(NotificationSettingListParams.none())
 
         /** @see list */
@@ -270,17 +270,17 @@ interface NotificationSettingService {
         fun list(
             params: NotificationSettingListParams = NotificationSettingListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NotificationSettingListResponse>
+        ): HttpResponseFor<NotificationSettingListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: NotificationSettingListParams = NotificationSettingListParams.none()
-        ): HttpResponseFor<NotificationSettingListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<NotificationSettingListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<NotificationSettingListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<NotificationSettingListPage> =
             list(NotificationSettingListParams.none(), requestOptions)
 
         /**

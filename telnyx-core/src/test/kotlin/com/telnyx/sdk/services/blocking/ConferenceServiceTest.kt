@@ -5,8 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.conferences.ConferenceCreateParams
-import com.telnyx.sdk.models.conferences.ConferenceListParams
-import com.telnyx.sdk.models.conferences.ConferenceListParticipantsParams
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -77,52 +75,9 @@ internal class ConferenceServiceTest {
                 .build()
         val conferenceService = client.conferences()
 
-        val conferences =
-            conferenceService.list(
-                ConferenceListParams.builder()
-                    .filter(
-                        ConferenceListParams.Filter.builder()
-                            .applicationName(
-                                ConferenceListParams.Filter.ApplicationName.builder()
-                                    .contains("contains")
-                                    .build()
-                            )
-                            .applicationSessionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .connectionId("connection_id")
-                            .failed(false)
-                            .from("+12025550142")
-                            .legId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .name("name")
-                            .occurredAt(
-                                ConferenceListParams.Filter.OccurredAt.builder()
-                                    .eq("2019-03-29T11:10:00Z")
-                                    .gt("2019-03-29T11:10:00Z")
-                                    .gte("2019-03-29T11:10:00Z")
-                                    .lt("2019-03-29T11:10:00Z")
-                                    .lte("2019-03-29T11:10:00Z")
-                                    .build()
-                            )
-                            .outboundOutboundVoiceProfileId("outbound.outbound_voice_profile_id")
-                            .product(ConferenceListParams.Filter.Product.TEXML)
-                            .status(ConferenceListParams.Filter.Status.INIT)
-                            .to("+12025550142")
-                            .type(ConferenceListParams.Filter.Type.WEBHOOK)
-                            .build()
-                    )
-                    .page(
-                        ConferenceListParams.Page.builder()
-                            .after("after")
-                            .before("before")
-                            .limit(1L)
-                            .number(1L)
-                            .size(1L)
-                            .build()
-                    )
-                    .region(ConferenceListParams.Region.AUSTRALIA)
-                    .build()
-            )
+        val page = conferenceService.list()
 
-        conferences.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -135,30 +90,8 @@ internal class ConferenceServiceTest {
                 .build()
         val conferenceService = client.conferences()
 
-        val response =
-            conferenceService.listParticipants(
-                ConferenceListParticipantsParams.builder()
-                    .conferenceId("conference_id")
-                    .filter(
-                        ConferenceListParticipantsParams.Filter.builder()
-                            .muted(true)
-                            .onHold(true)
-                            .whispering(true)
-                            .build()
-                    )
-                    .page(
-                        ConferenceListParticipantsParams.Page.builder()
-                            .after("after")
-                            .before("before")
-                            .limit(1L)
-                            .number(1L)
-                            .size(1L)
-                            .build()
-                    )
-                    .region(ConferenceListParticipantsParams.Region.AUSTRALIA)
-                    .build()
-            )
+        val page = conferenceService.listParticipants("conference_id")
 
-        response.validate()
+        page.response().validate()
     }
 }

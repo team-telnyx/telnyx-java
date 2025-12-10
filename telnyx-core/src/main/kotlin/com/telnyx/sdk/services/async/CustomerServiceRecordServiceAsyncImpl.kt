@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordCreateParams
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordCreateResponse
+import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordListPageAsync
+import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordListPageResponse
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordListParams
-import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordListResponse
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordRetrieveParams
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordRetrieveResponse
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordVerifyPhoneNumberCoverageParams
@@ -62,7 +63,7 @@ internal constructor(private val clientOptions: ClientOptions) : CustomerService
     override fun list(
         params: CustomerServiceRecordListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CustomerServiceRecordListResponse> =
+    ): CompletableFuture<CustomerServiceRecordListPageAsync> =
         // get /customer_service_records
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -150,13 +151,13 @@ internal constructor(private val clientOptions: ClientOptions) : CustomerService
                 }
         }
 
-        private val listHandler: Handler<CustomerServiceRecordListResponse> =
-            jsonHandler<CustomerServiceRecordListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CustomerServiceRecordListPageResponse> =
+            jsonHandler<CustomerServiceRecordListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CustomerServiceRecordListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CustomerServiceRecordListResponse>> {
+        ): CompletableFuture<HttpResponseFor<CustomerServiceRecordListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -175,6 +176,14 @@ internal constructor(private val clientOptions: ClientOptions) : CustomerService
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                CustomerServiceRecordListPageAsync.builder()
+                                    .service(CustomerServiceRecordServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

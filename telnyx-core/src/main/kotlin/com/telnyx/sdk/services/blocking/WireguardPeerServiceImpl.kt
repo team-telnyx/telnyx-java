@@ -21,8 +21,9 @@ import com.telnyx.sdk.models.wireguardpeers.WireguardPeerCreateParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerCreateResponse
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerDeleteParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerDeleteResponse
+import com.telnyx.sdk.models.wireguardpeers.WireguardPeerListPage
+import com.telnyx.sdk.models.wireguardpeers.WireguardPeerListPageResponse
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerListParams
-import com.telnyx.sdk.models.wireguardpeers.WireguardPeerListResponse
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerRetrieveConfigParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerRetrieveParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerRetrieveResponse
@@ -67,7 +68,7 @@ class WireguardPeerServiceImpl internal constructor(private val clientOptions: C
     override fun list(
         params: WireguardPeerListParams,
         requestOptions: RequestOptions,
-    ): WireguardPeerListResponse =
+    ): WireguardPeerListPage =
         // get /wireguard_peers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -187,13 +188,13 @@ class WireguardPeerServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val listHandler: Handler<WireguardPeerListResponse> =
-            jsonHandler<WireguardPeerListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<WireguardPeerListPageResponse> =
+            jsonHandler<WireguardPeerListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: WireguardPeerListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<WireguardPeerListResponse> {
+        ): HttpResponseFor<WireguardPeerListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -210,6 +211,13 @@ class WireguardPeerServiceImpl internal constructor(private val clientOptions: C
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        WireguardPeerListPage.builder()
+                            .service(WireguardPeerServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

@@ -18,7 +18,8 @@ private constructor(
     private val imsi: String?,
     private val mcc: String?,
     private val mnc: String?,
-    private val page: Page?,
+    private val pageNumber: Long?,
+    private val pageSize: Long?,
     private val phoneNumber: String?,
     private val simCardId: String?,
     private val simGroupId: String?,
@@ -44,8 +45,9 @@ private constructor(
     /** Mobile network code */
     fun mnc(): Optional<String> = Optional.ofNullable(mnc)
 
-    /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
-    fun page(): Optional<Page> = Optional.ofNullable(page)
+    fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
+
+    fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
     /** Phone number */
     fun phoneNumber(): Optional<String> = Optional.ofNullable(phoneNumber)
@@ -89,7 +91,8 @@ private constructor(
         private var imsi: String? = null
         private var mcc: String? = null
         private var mnc: String? = null
-        private var page: Page? = null
+        private var pageNumber: Long? = null
+        private var pageSize: Long? = null
         private var phoneNumber: String? = null
         private var simCardId: String? = null
         private var simGroupId: String? = null
@@ -106,7 +109,8 @@ private constructor(
             imsi = reportListWdrsParams.imsi
             mcc = reportListWdrsParams.mcc
             mnc = reportListWdrsParams.mnc
-            page = reportListWdrsParams.page
+            pageNumber = reportListWdrsParams.pageNumber
+            pageSize = reportListWdrsParams.pageSize
             phoneNumber = reportListWdrsParams.phoneNumber
             simCardId = reportListWdrsParams.simCardId
             simGroupId = reportListWdrsParams.simGroupId
@@ -147,11 +151,29 @@ private constructor(
         /** Alias for calling [Builder.mnc] with `mnc.orElse(null)`. */
         fun mnc(mnc: Optional<String>) = mnc(mnc.getOrNull())
 
-        /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
-        fun page(page: Page?) = apply { this.page = page }
+        fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
-        /** Alias for calling [Builder.page] with `page.orElse(null)`. */
-        fun page(page: Optional<Page>) = page(page.getOrNull())
+        /**
+         * Alias for [Builder.pageNumber].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageNumber(pageNumber: Long) = pageNumber(pageNumber as Long?)
+
+        /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
+        fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
+
+        fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
+
+        /**
+         * Alias for [Builder.pageSize].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageSize(pageSize: Long) = pageSize(pageSize as Long?)
+
+        /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
+        fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
         /** Phone number */
         fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
@@ -308,7 +330,8 @@ private constructor(
                 imsi,
                 mcc,
                 mnc,
-                page,
+                pageNumber,
+                pageSize,
                 phoneNumber,
                 simCardId,
                 simGroupId,
@@ -330,15 +353,8 @@ private constructor(
                 imsi?.let { put("imsi", it) }
                 mcc?.let { put("mcc", it) }
                 mnc?.let { put("mnc", it) }
-                page?.let {
-                    it.number().ifPresent { put("page[number]", it.toString()) }
-                    it.size().ifPresent { put("page[size]", it.toString()) }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("page[$key]", value)
-                        }
-                    }
-                }
+                pageNumber?.let { put("page[number]", it.toString()) }
+                pageSize?.let { put("page[size]", it.toString()) }
                 phoneNumber?.let { put("phone_number", it) }
                 simCardId?.let { put("sim_card_id", it) }
                 simGroupId?.let { put("sim_group_id", it) }
@@ -348,147 +364,6 @@ private constructor(
                 putAll(additionalQueryParams)
             }
             .build()
-
-    /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
-    class Page
-    private constructor(
-        private val number: Int?,
-        private val size: Int?,
-        private val additionalProperties: QueryParams,
-    ) {
-
-        /** Page number */
-        fun number(): Optional<Int> = Optional.ofNullable(number)
-
-        /** Size of the page */
-        fun size(): Optional<Int> = Optional.ofNullable(size)
-
-        /** Query params to send with the request. */
-        fun _additionalProperties(): QueryParams = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Page]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Page]. */
-        class Builder internal constructor() {
-
-            private var number: Int? = null
-            private var size: Int? = null
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
-
-            @JvmSynthetic
-            internal fun from(page: Page) = apply {
-                number = page.number
-                size = page.size
-                additionalProperties = page.additionalProperties.toBuilder()
-            }
-
-            /** Page number */
-            fun number(number: Int?) = apply { this.number = number }
-
-            /**
-             * Alias for [Builder.number].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun number(number: Int) = number(number as Int?)
-
-            /** Alias for calling [Builder.number] with `number.orElse(null)`. */
-            fun number(number: Optional<Int>) = number(number.getOrNull())
-
-            /** Size of the page */
-            fun size(size: Int?) = apply { this.size = size }
-
-            /**
-             * Alias for [Builder.size].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun size(size: Int) = size(size as Int?)
-
-            /** Alias for calling [Builder.size] with `size.orElse(null)`. */
-            fun size(size: Optional<Int>) = size(size.getOrNull())
-
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
-
-            /**
-             * Returns an immutable instance of [Page].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Page = Page(number, size, additionalProperties.build())
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Page &&
-                number == other.number &&
-                size == other.size &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(number, size, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Page{number=$number, size=$size, additionalProperties=$additionalProperties}"
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -501,7 +376,8 @@ private constructor(
             imsi == other.imsi &&
             mcc == other.mcc &&
             mnc == other.mnc &&
-            page == other.page &&
+            pageNumber == other.pageNumber &&
+            pageSize == other.pageSize &&
             phoneNumber == other.phoneNumber &&
             simCardId == other.simCardId &&
             simGroupId == other.simGroupId &&
@@ -519,7 +395,8 @@ private constructor(
             imsi,
             mcc,
             mnc,
-            page,
+            pageNumber,
+            pageSize,
             phoneNumber,
             simCardId,
             simGroupId,
@@ -531,5 +408,5 @@ private constructor(
         )
 
     override fun toString() =
-        "ReportListWdrsParams{id=$id, endDate=$endDate, imsi=$imsi, mcc=$mcc, mnc=$mnc, page=$page, phoneNumber=$phoneNumber, simCardId=$simCardId, simGroupId=$simGroupId, simGroupName=$simGroupName, sort=$sort, startDate=$startDate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ReportListWdrsParams{id=$id, endDate=$endDate, imsi=$imsi, mcc=$mcc, mnc=$mnc, pageNumber=$pageNumber, pageSize=$pageSize, phoneNumber=$phoneNumber, simCardId=$simCardId, simGroupId=$simGroupId, simGroupName=$simGroupName, sort=$sort, startDate=$startDate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

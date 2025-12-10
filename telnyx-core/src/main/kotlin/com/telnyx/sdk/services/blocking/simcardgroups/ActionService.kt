@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.simcardgroups.actions.ActionListPage
 import com.telnyx.sdk.models.simcardgroups.actions.ActionListParams
-import com.telnyx.sdk.models.simcardgroups.actions.ActionListResponse
 import com.telnyx.sdk.models.simcardgroups.actions.ActionRemovePrivateWirelessGatewayParams
 import com.telnyx.sdk.models.simcardgroups.actions.ActionRemovePrivateWirelessGatewayResponse
 import com.telnyx.sdk.models.simcardgroups.actions.ActionRemoveWirelessBlocklistParams
@@ -71,20 +71,20 @@ interface ActionService {
      * This API allows listing a paginated collection a SIM card group actions. It allows to explore
      * a collection of existing asynchronous operation using specific filters.
      */
-    fun list(): ActionListResponse = list(ActionListParams.none())
+    fun list(): ActionListPage = list(ActionListParams.none())
 
     /** @see list */
     fun list(
         params: ActionListParams = ActionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ActionListResponse
+    ): ActionListPage
 
     /** @see list */
-    fun list(params: ActionListParams = ActionListParams.none()): ActionListResponse =
+    fun list(params: ActionListParams = ActionListParams.none()): ActionListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): ActionListResponse =
+    fun list(requestOptions: RequestOptions): ActionListPage =
         list(ActionListParams.none(), requestOptions)
 
     /**
@@ -296,25 +296,24 @@ interface ActionService {
          * Returns a raw HTTP response for `get /sim_card_group_actions`, but is otherwise the same
          * as [ActionService.list].
          */
-        @MustBeClosed
-        fun list(): HttpResponseFor<ActionListResponse> = list(ActionListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<ActionListPage> = list(ActionListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ActionListParams = ActionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ActionListResponse>
+        ): HttpResponseFor<ActionListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ActionListParams = ActionListParams.none()
-        ): HttpResponseFor<ActionListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<ActionListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<ActionListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ActionListPage> =
             list(ActionListParams.none(), requestOptions)
 
         /**

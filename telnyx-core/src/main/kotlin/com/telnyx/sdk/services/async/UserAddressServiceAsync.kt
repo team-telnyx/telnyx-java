@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.useraddresses.UserAddressCreateParams
 import com.telnyx.sdk.models.useraddresses.UserAddressCreateResponse
+import com.telnyx.sdk.models.useraddresses.UserAddressListPageAsync
 import com.telnyx.sdk.models.useraddresses.UserAddressListParams
-import com.telnyx.sdk.models.useraddresses.UserAddressListResponse
 import com.telnyx.sdk.models.useraddresses.UserAddressRetrieveParams
 import com.telnyx.sdk.models.useraddresses.UserAddressRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -75,21 +75,21 @@ interface UserAddressServiceAsync {
         retrieve(id, UserAddressRetrieveParams.none(), requestOptions)
 
     /** Returns a list of your user addresses. */
-    fun list(): CompletableFuture<UserAddressListResponse> = list(UserAddressListParams.none())
+    fun list(): CompletableFuture<UserAddressListPageAsync> = list(UserAddressListParams.none())
 
     /** @see list */
     fun list(
         params: UserAddressListParams = UserAddressListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<UserAddressListResponse>
+    ): CompletableFuture<UserAddressListPageAsync>
 
     /** @see list */
     fun list(
         params: UserAddressListParams = UserAddressListParams.none()
-    ): CompletableFuture<UserAddressListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<UserAddressListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<UserAddressListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<UserAddressListPageAsync> =
         list(UserAddressListParams.none(), requestOptions)
 
     /**
@@ -167,25 +167,25 @@ interface UserAddressServiceAsync {
          * Returns a raw HTTP response for `get /user_addresses`, but is otherwise the same as
          * [UserAddressServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<UserAddressListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<UserAddressListPageAsync>> =
             list(UserAddressListParams.none())
 
         /** @see list */
         fun list(
             params: UserAddressListParams = UserAddressListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<UserAddressListResponse>>
+        ): CompletableFuture<HttpResponseFor<UserAddressListPageAsync>>
 
         /** @see list */
         fun list(
             params: UserAddressListParams = UserAddressListParams.none()
-        ): CompletableFuture<HttpResponseFor<UserAddressListResponse>> =
+        ): CompletableFuture<HttpResponseFor<UserAddressListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<UserAddressListResponse>> =
+        ): CompletableFuture<HttpResponseFor<UserAddressListPageAsync>> =
             list(UserAddressListParams.none(), requestOptions)
     }
 }

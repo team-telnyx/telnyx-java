@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListPageAsync
 import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListParams
-import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -25,22 +25,22 @@ interface MessagingUrlDomainServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingUrlDomainServiceAsync
 
     /** List messaging URL domains */
-    fun list(): CompletableFuture<MessagingUrlDomainListResponse> =
+    fun list(): CompletableFuture<MessagingUrlDomainListPageAsync> =
         list(MessagingUrlDomainListParams.none())
 
     /** @see list */
     fun list(
         params: MessagingUrlDomainListParams = MessagingUrlDomainListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MessagingUrlDomainListResponse>
+    ): CompletableFuture<MessagingUrlDomainListPageAsync>
 
     /** @see list */
     fun list(
         params: MessagingUrlDomainListParams = MessagingUrlDomainListParams.none()
-    ): CompletableFuture<MessagingUrlDomainListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<MessagingUrlDomainListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<MessagingUrlDomainListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<MessagingUrlDomainListPageAsync> =
         list(MessagingUrlDomainListParams.none(), requestOptions)
 
     /**
@@ -62,25 +62,25 @@ interface MessagingUrlDomainServiceAsync {
          * Returns a raw HTTP response for `get /messaging_url_domains`, but is otherwise the same
          * as [MessagingUrlDomainServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<MessagingUrlDomainListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<MessagingUrlDomainListPageAsync>> =
             list(MessagingUrlDomainListParams.none())
 
         /** @see list */
         fun list(
             params: MessagingUrlDomainListParams = MessagingUrlDomainListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MessagingUrlDomainListResponse>>
+        ): CompletableFuture<HttpResponseFor<MessagingUrlDomainListPageAsync>>
 
         /** @see list */
         fun list(
             params: MessagingUrlDomainListParams = MessagingUrlDomainListParams.none()
-        ): CompletableFuture<HttpResponseFor<MessagingUrlDomainListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessagingUrlDomainListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<MessagingUrlDomainListResponse>> =
+        ): CompletableFuture<HttpResponseFor<MessagingUrlDomainListPageAsync>> =
             list(MessagingUrlDomainListParams.none(), requestOptions)
     }
 }

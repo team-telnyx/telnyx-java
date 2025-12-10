@@ -43,7 +43,7 @@ private constructor(
     private val msisdn: JsonField<String>,
     private val pinPukCodes: JsonField<PinPukCodes>,
     private val recordType: JsonField<String>,
-    private val resourcesWithInProgressActions: JsonField<List<JsonValue>>,
+    private val resourcesWithInProgressActions: JsonField<List<ResourcesWithInProgressAction>>,
     private val simCardGroupId: JsonField<String>,
     private val status: JsonField<SimCardStatus>,
     private val tags: JsonField<List<String>>,
@@ -102,7 +102,8 @@ private constructor(
         recordType: JsonField<String> = JsonMissing.of(),
         @JsonProperty("resources_with_in_progress_actions")
         @ExcludeMissing
-        resourcesWithInProgressActions: JsonField<List<JsonValue>> = JsonMissing.of(),
+        resourcesWithInProgressActions: JsonField<List<ResourcesWithInProgressAction>> =
+            JsonMissing.of(),
         @JsonProperty("sim_card_group_id")
         @ExcludeMissing
         simCardGroupId: JsonField<String> = JsonMissing.of(),
@@ -331,7 +332,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun resourcesWithInProgressActions(): Optional<List<JsonValue>> =
+    fun resourcesWithInProgressActions(): Optional<List<ResourcesWithInProgressAction>> =
         resourcesWithInProgressActions.getOptional("resources_with_in_progress_actions")
 
     /**
@@ -550,7 +551,7 @@ private constructor(
      */
     @JsonProperty("resources_with_in_progress_actions")
     @ExcludeMissing
-    fun _resourcesWithInProgressActions(): JsonField<List<JsonValue>> =
+    fun _resourcesWithInProgressActions(): JsonField<List<ResourcesWithInProgressAction>> =
         resourcesWithInProgressActions
 
     /**
@@ -639,7 +640,9 @@ private constructor(
         private var msisdn: JsonField<String> = JsonMissing.of()
         private var pinPukCodes: JsonField<PinPukCodes> = JsonMissing.of()
         private var recordType: JsonField<String> = JsonMissing.of()
-        private var resourcesWithInProgressActions: JsonField<MutableList<JsonValue>>? = null
+        private var resourcesWithInProgressActions:
+            JsonField<MutableList<ResourcesWithInProgressAction>>? =
+            null
         private var simCardGroupId: JsonField<String> = JsonMissing.of()
         private var status: JsonField<SimCardStatus> = JsonMissing.of()
         private var tags: JsonField<MutableList<String>>? = null
@@ -998,29 +1001,32 @@ private constructor(
         fun recordType(recordType: JsonField<String>) = apply { this.recordType = recordType }
 
         /** List of resources with actions in progress. */
-        fun resourcesWithInProgressActions(resourcesWithInProgressActions: List<JsonValue>) =
-            resourcesWithInProgressActions(JsonField.of(resourcesWithInProgressActions))
+        fun resourcesWithInProgressActions(
+            resourcesWithInProgressActions: List<ResourcesWithInProgressAction>
+        ) = resourcesWithInProgressActions(JsonField.of(resourcesWithInProgressActions))
 
         /**
          * Sets [Builder.resourcesWithInProgressActions] to an arbitrary JSON value.
          *
          * You should usually call [Builder.resourcesWithInProgressActions] with a well-typed
-         * `List<JsonValue>` value instead. This method is primarily for setting the field to an
-         * undocumented or not yet supported value.
+         * `List<ResourcesWithInProgressAction>` value instead. This method is primarily for setting
+         * the field to an undocumented or not yet supported value.
          */
         fun resourcesWithInProgressActions(
-            resourcesWithInProgressActions: JsonField<List<JsonValue>>
+            resourcesWithInProgressActions: JsonField<List<ResourcesWithInProgressAction>>
         ) = apply {
             this.resourcesWithInProgressActions =
                 resourcesWithInProgressActions.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [JsonValue] to [resourcesWithInProgressActions].
+         * Adds a single [ResourcesWithInProgressAction] to [resourcesWithInProgressActions].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addResourcesWithInProgressAction(resourcesWithInProgressAction: JsonValue) = apply {
+        fun addResourcesWithInProgressAction(
+            resourcesWithInProgressAction: ResourcesWithInProgressAction
+        ) = apply {
             resourcesWithInProgressActions =
                 (resourcesWithInProgressActions ?: JsonField.of(mutableListOf())).also {
                     checkKnown("resourcesWithInProgressActions", it)
@@ -1197,7 +1203,7 @@ private constructor(
         msisdn()
         pinPukCodes().ifPresent { it.validate() }
         recordType()
-        resourcesWithInProgressActions()
+        resourcesWithInProgressActions().ifPresent { it.forEach { it.validate() } }
         simCardGroupId()
         status().ifPresent { it.validate() }
         tags()
@@ -1242,7 +1248,8 @@ private constructor(
             (if (msisdn.asKnown().isPresent) 1 else 0) +
             (pinPukCodes.asKnown().getOrNull()?.validity() ?: 0) +
             (if (recordType.asKnown().isPresent) 1 else 0) +
-            (resourcesWithInProgressActions.asKnown().getOrNull()?.size ?: 0) +
+            (resourcesWithInProgressActions.asKnown().getOrNull()?.sumOf { it.validity().toInt() }
+                ?: 0) +
             (if (simCardGroupId.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (tags.asKnown().getOrNull()?.size ?: 0) +
@@ -2517,6 +2524,113 @@ private constructor(
 
         override fun toString() =
             "PinPukCodes{pin1=$pin1, pin2=$pin2, puk1=$puk1, puk2=$puk2, additionalProperties=$additionalProperties}"
+    }
+
+    class ResourcesWithInProgressAction
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [ResourcesWithInProgressAction].
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ResourcesWithInProgressAction]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(resourcesWithInProgressAction: ResourcesWithInProgressAction) =
+                apply {
+                    additionalProperties =
+                        resourcesWithInProgressAction.additionalProperties.toMutableMap()
+                }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ResourcesWithInProgressAction].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): ResourcesWithInProgressAction =
+                ResourcesWithInProgressAction(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): ResourcesWithInProgressAction = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ResourcesWithInProgressAction &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ResourcesWithInProgressAction{additionalProperties=$additionalProperties}"
     }
 
     /** The type of SIM card */

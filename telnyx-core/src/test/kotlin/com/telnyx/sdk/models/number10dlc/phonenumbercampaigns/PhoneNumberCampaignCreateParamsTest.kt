@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.models.number10dlc.phonenumbercampaigns
 
-import com.telnyx.sdk.models.phonenumbercampaigns.PhoneNumberCampaignCreate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

@@ -14,8 +14,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListPageAsync
+import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListPageResponse
 import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListParams
-import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -38,7 +39,7 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingUrlDom
     override fun list(
         params: MessagingUrlDomainListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<MessagingUrlDomainListResponse> =
+    ): CompletableFuture<MessagingUrlDomainListPageAsync> =
         // get /messaging_url_domains
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -55,13 +56,13 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingUrlDom
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<MessagingUrlDomainListResponse> =
-            jsonHandler<MessagingUrlDomainListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessagingUrlDomainListPageResponse> =
+            jsonHandler<MessagingUrlDomainListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MessagingUrlDomainListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MessagingUrlDomainListResponse>> {
+        ): CompletableFuture<HttpResponseFor<MessagingUrlDomainListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -80,6 +81,14 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingUrlDom
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                MessagingUrlDomainListPageAsync.builder()
+                                    .service(MessagingUrlDomainServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.auditevents.AuditEventListPage
 import com.telnyx.sdk.models.auditevents.AuditEventListParams
-import com.telnyx.sdk.models.auditevents.AuditEventListResponse
 import java.util.function.Consumer
 
 interface AuditEventService {
@@ -28,20 +28,20 @@ interface AuditEventService {
      * Retrieve a list of audit log entries. Audit logs are a best-effort, eventually consistent
      * record of significant account-related changes.
      */
-    fun list(): AuditEventListResponse = list(AuditEventListParams.none())
+    fun list(): AuditEventListPage = list(AuditEventListParams.none())
 
     /** @see list */
     fun list(
         params: AuditEventListParams = AuditEventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AuditEventListResponse
+    ): AuditEventListPage
 
     /** @see list */
-    fun list(params: AuditEventListParams = AuditEventListParams.none()): AuditEventListResponse =
+    fun list(params: AuditEventListParams = AuditEventListParams.none()): AuditEventListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AuditEventListResponse =
+    fun list(requestOptions: RequestOptions): AuditEventListPage =
         list(AuditEventListParams.none(), requestOptions)
 
     /** A view of [AuditEventService] that provides access to raw HTTP responses for each method. */
@@ -61,24 +61,24 @@ interface AuditEventService {
          * [AuditEventService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<AuditEventListResponse> = list(AuditEventListParams.none())
+        fun list(): HttpResponseFor<AuditEventListPage> = list(AuditEventListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AuditEventListParams = AuditEventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AuditEventListResponse>
+        ): HttpResponseFor<AuditEventListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AuditEventListParams = AuditEventListParams.none()
-        ): HttpResponseFor<AuditEventListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<AuditEventListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AuditEventListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AuditEventListPage> =
             list(AuditEventListParams.none(), requestOptions)
     }
 }

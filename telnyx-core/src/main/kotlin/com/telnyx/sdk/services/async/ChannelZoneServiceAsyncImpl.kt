@@ -16,8 +16,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.channelzones.ChannelZoneListPageAsync
+import com.telnyx.sdk.models.channelzones.ChannelZoneListPageResponse
 import com.telnyx.sdk.models.channelzones.ChannelZoneListParams
-import com.telnyx.sdk.models.channelzones.ChannelZoneListResponse
 import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateParams
 import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateResponse
 import java.util.concurrent.CompletableFuture
@@ -46,7 +47,7 @@ class ChannelZoneServiceAsyncImpl internal constructor(private val clientOptions
     override fun list(
         params: ChannelZoneListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ChannelZoneListResponse> =
+    ): CompletableFuture<ChannelZoneListPageAsync> =
         // get /channel_zones
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -97,13 +98,13 @@ class ChannelZoneServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val listHandler: Handler<ChannelZoneListResponse> =
-            jsonHandler<ChannelZoneListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ChannelZoneListPageResponse> =
+            jsonHandler<ChannelZoneListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ChannelZoneListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ChannelZoneListResponse>> {
+        ): CompletableFuture<HttpResponseFor<ChannelZoneListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -122,6 +123,14 @@ class ChannelZoneServiceAsyncImpl internal constructor(private val clientOptions
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                ChannelZoneListPageAsync.builder()
+                                    .service(ChannelZoneServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

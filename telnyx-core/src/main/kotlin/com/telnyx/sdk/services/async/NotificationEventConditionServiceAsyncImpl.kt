@@ -14,8 +14,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListPageAsync
+import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListPageResponse
 import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListParams
-import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -40,7 +41,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun list(
         params: NotificationEventConditionListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<NotificationEventConditionListResponse> =
+    ): CompletableFuture<NotificationEventConditionListPageAsync> =
         // get /notification_event_conditions
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -57,13 +58,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<NotificationEventConditionListResponse> =
-            jsonHandler<NotificationEventConditionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NotificationEventConditionListPageResponse> =
+            jsonHandler<NotificationEventConditionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NotificationEventConditionListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<NotificationEventConditionListResponse>> {
+        ): CompletableFuture<HttpResponseFor<NotificationEventConditionListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -82,6 +83,16 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                NotificationEventConditionListPageAsync.builder()
+                                    .service(
+                                        NotificationEventConditionServiceAsyncImpl(clientOptions)
+                                    )
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

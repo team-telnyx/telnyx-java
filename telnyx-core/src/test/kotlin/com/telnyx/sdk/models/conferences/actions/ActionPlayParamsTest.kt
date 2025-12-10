@@ -46,7 +46,7 @@ internal class ActionPlayParamsTest {
 
         assertThat(body.audioUrl()).contains("http://www.example.com/sounds/greeting.wav")
         assertThat(body.callControlIds().getOrNull()).containsExactly("string")
-        assertThat(body.loop()).contains(Loopcount.ofString("infinity"))
+        assertThat(body.loop()).contains(Loopcount.ofLoopcountString("infinity"))
         assertThat(body.mediaName()).contains("my_media_uploaded_to_media_storage_api")
         assertThat(body.region()).contains(ActionPlayParams.Region.US)
     }

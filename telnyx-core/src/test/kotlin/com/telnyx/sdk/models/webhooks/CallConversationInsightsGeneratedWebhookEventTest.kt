@@ -3,7 +3,6 @@
 package com.telnyx.sdk.models.webhooks
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -40,13 +39,11 @@ internal class CallConversationInsightsGeneratedWebhookEventTest {
                                 .insightGroupId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .addResult(
                                     CallConversationInsightsGeneratedWebhookEvent.Data.Payload
-                                        .Result
+                                        .InsightResult
                                         .builder()
                                         .insightId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                         .result(
-                                            JsonValue.from(
-                                                "The user inquired about the menu at Ember & Oak. The menu offers various options, including vegetarian, vegan, and gluten-free dishes, as well as a children's menu. The restaurant also has a daily happy hour from 4 PM to 6 PM and offers takeaway and delivery services. The user found the information helpful but had to leave without making any further decisions or requests. No specific preferences or goals were expressed beyond inquiring about the menu."
-                                            )
+                                            "The user inquired about the menu at Ember & Oak. The menu offers various options, including vegetarian, vegan, and gluten-free dishes, as well as a children's menu. The restaurant also has a daily happy hour from 4 PM to 6 PM and offers takeaway and delivery services. The user found the information helpful but had to leave without making any further decisions or requests. No specific preferences or goals were expressed beyond inquiring about the menu."
                                         )
                                         .build()
                                 )
@@ -84,13 +81,12 @@ internal class CallConversationInsightsGeneratedWebhookEventTest {
                             .connectionId("7267xxxxxxxxxxxxxx")
                             .insightGroupId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                             .addResult(
-                                CallConversationInsightsGeneratedWebhookEvent.Data.Payload.Result
+                                CallConversationInsightsGeneratedWebhookEvent.Data.Payload
+                                    .InsightResult
                                     .builder()
                                     .insightId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                     .result(
-                                        JsonValue.from(
-                                            "The user inquired about the menu at Ember & Oak. The menu offers various options, including vegetarian, vegan, and gluten-free dishes, as well as a children's menu. The restaurant also has a daily happy hour from 4 PM to 6 PM and offers takeaway and delivery services. The user found the information helpful but had to leave without making any further decisions or requests. No specific preferences or goals were expressed beyond inquiring about the menu."
-                                        )
+                                        "The user inquired about the menu at Ember & Oak. The menu offers various options, including vegetarian, vegan, and gluten-free dishes, as well as a children's menu. The restaurant also has a daily happy hour from 4 PM to 6 PM and offers takeaway and delivery services. The user found the information helpful but had to leave without making any further decisions or requests. No specific preferences or goals were expressed beyond inquiring about the menu."
                                     )
                                     .build()
                             )
@@ -131,13 +127,11 @@ internal class CallConversationInsightsGeneratedWebhookEventTest {
                                 .insightGroupId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .addResult(
                                     CallConversationInsightsGeneratedWebhookEvent.Data.Payload
-                                        .Result
+                                        .InsightResult
                                         .builder()
                                         .insightId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                         .result(
-                                            JsonValue.from(
-                                                "The user inquired about the menu at Ember & Oak. The menu offers various options, including vegetarian, vegan, and gluten-free dishes, as well as a children's menu. The restaurant also has a daily happy hour from 4 PM to 6 PM and offers takeaway and delivery services. The user found the information helpful but had to leave without making any further decisions or requests. No specific preferences or goals were expressed beyond inquiring about the menu."
-                                            )
+                                            "The user inquired about the menu at Ember & Oak. The menu offers various options, including vegetarian, vegan, and gluten-free dishes, as well as a children's menu. The restaurant also has a daily happy hour from 4 PM to 6 PM and offers takeaway and delivery services. The user found the information helpful but had to leave without making any further decisions or requests. No specific preferences or goals were expressed beyond inquiring about the menu."
                                         )
                                         .build()
                                 )

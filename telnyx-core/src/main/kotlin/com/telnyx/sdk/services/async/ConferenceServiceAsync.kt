@@ -7,10 +7,10 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.conferences.ConferenceCreateParams
 import com.telnyx.sdk.models.conferences.ConferenceCreateResponse
+import com.telnyx.sdk.models.conferences.ConferenceListPageAsync
 import com.telnyx.sdk.models.conferences.ConferenceListParams
+import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPageAsync
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsParams
-import com.telnyx.sdk.models.conferences.ConferenceListParticipantsResponse
-import com.telnyx.sdk.models.conferences.ConferenceListResponse
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParams
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveResponse
 import com.telnyx.sdk.services.async.conferences.ActionServiceAsync
@@ -96,27 +96,27 @@ interface ConferenceServiceAsync {
      * have left the conference or after 4 hours regardless of the number of active participants.
      * Conferences are listed in descending order by `expires_at`.
      */
-    fun list(): CompletableFuture<ConferenceListResponse> = list(ConferenceListParams.none())
+    fun list(): CompletableFuture<ConferenceListPageAsync> = list(ConferenceListParams.none())
 
     /** @see list */
     fun list(
         params: ConferenceListParams = ConferenceListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConferenceListResponse>
+    ): CompletableFuture<ConferenceListPageAsync>
 
     /** @see list */
     fun list(
         params: ConferenceListParams = ConferenceListParams.none()
-    ): CompletableFuture<ConferenceListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<ConferenceListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<ConferenceListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<ConferenceListPageAsync> =
         list(ConferenceListParams.none(), requestOptions)
 
     /** Lists conference participants */
     fun listParticipants(
         conferenceId: String
-    ): CompletableFuture<ConferenceListParticipantsResponse> =
+    ): CompletableFuture<ConferenceListParticipantsPageAsync> =
         listParticipants(conferenceId, ConferenceListParticipantsParams.none())
 
     /** @see listParticipants */
@@ -124,33 +124,33 @@ interface ConferenceServiceAsync {
         conferenceId: String,
         params: ConferenceListParticipantsParams = ConferenceListParticipantsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConferenceListParticipantsResponse> =
+    ): CompletableFuture<ConferenceListParticipantsPageAsync> =
         listParticipants(params.toBuilder().conferenceId(conferenceId).build(), requestOptions)
 
     /** @see listParticipants */
     fun listParticipants(
         conferenceId: String,
         params: ConferenceListParticipantsParams = ConferenceListParticipantsParams.none(),
-    ): CompletableFuture<ConferenceListParticipantsResponse> =
+    ): CompletableFuture<ConferenceListParticipantsPageAsync> =
         listParticipants(conferenceId, params, RequestOptions.none())
 
     /** @see listParticipants */
     fun listParticipants(
         params: ConferenceListParticipantsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConferenceListParticipantsResponse>
+    ): CompletableFuture<ConferenceListParticipantsPageAsync>
 
     /** @see listParticipants */
     fun listParticipants(
         params: ConferenceListParticipantsParams
-    ): CompletableFuture<ConferenceListParticipantsResponse> =
+    ): CompletableFuture<ConferenceListParticipantsPageAsync> =
         listParticipants(params, RequestOptions.none())
 
     /** @see listParticipants */
     fun listParticipants(
         conferenceId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ConferenceListParticipantsResponse> =
+    ): CompletableFuture<ConferenceListParticipantsPageAsync> =
         listParticipants(conferenceId, ConferenceListParticipantsParams.none(), requestOptions)
 
     /**
@@ -230,25 +230,25 @@ interface ConferenceServiceAsync {
          * Returns a raw HTTP response for `get /conferences`, but is otherwise the same as
          * [ConferenceServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<ConferenceListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<ConferenceListPageAsync>> =
             list(ConferenceListParams.none())
 
         /** @see list */
         fun list(
             params: ConferenceListParams = ConferenceListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConferenceListResponse>>
+        ): CompletableFuture<HttpResponseFor<ConferenceListPageAsync>>
 
         /** @see list */
         fun list(
             params: ConferenceListParams = ConferenceListParams.none()
-        ): CompletableFuture<HttpResponseFor<ConferenceListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ConferenceListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<ConferenceListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ConferenceListPageAsync>> =
             list(ConferenceListParams.none(), requestOptions)
 
         /**
@@ -257,7 +257,7 @@ interface ConferenceServiceAsync {
          */
         fun listParticipants(
             conferenceId: String
-        ): CompletableFuture<HttpResponseFor<ConferenceListParticipantsResponse>> =
+        ): CompletableFuture<HttpResponseFor<ConferenceListParticipantsPageAsync>> =
             listParticipants(conferenceId, ConferenceListParticipantsParams.none())
 
         /** @see listParticipants */
@@ -265,33 +265,33 @@ interface ConferenceServiceAsync {
             conferenceId: String,
             params: ConferenceListParticipantsParams = ConferenceListParticipantsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConferenceListParticipantsResponse>> =
+        ): CompletableFuture<HttpResponseFor<ConferenceListParticipantsPageAsync>> =
             listParticipants(params.toBuilder().conferenceId(conferenceId).build(), requestOptions)
 
         /** @see listParticipants */
         fun listParticipants(
             conferenceId: String,
             params: ConferenceListParticipantsParams = ConferenceListParticipantsParams.none(),
-        ): CompletableFuture<HttpResponseFor<ConferenceListParticipantsResponse>> =
+        ): CompletableFuture<HttpResponseFor<ConferenceListParticipantsPageAsync>> =
             listParticipants(conferenceId, params, RequestOptions.none())
 
         /** @see listParticipants */
         fun listParticipants(
             params: ConferenceListParticipantsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConferenceListParticipantsResponse>>
+        ): CompletableFuture<HttpResponseFor<ConferenceListParticipantsPageAsync>>
 
         /** @see listParticipants */
         fun listParticipants(
             params: ConferenceListParticipantsParams
-        ): CompletableFuture<HttpResponseFor<ConferenceListParticipantsResponse>> =
+        ): CompletableFuture<HttpResponseFor<ConferenceListParticipantsPageAsync>> =
             listParticipants(params, RequestOptions.none())
 
         /** @see listParticipants */
         fun listParticipants(
             conferenceId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ConferenceListParticipantsResponse>> =
+        ): CompletableFuture<HttpResponseFor<ConferenceListParticipantsPageAsync>> =
             listParticipants(conferenceId, ConferenceListParticipantsParams.none(), requestOptions)
     }
 }

@@ -6,7 +6,6 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotification
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationCreateParams
-import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationListParams
 import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotificationUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -74,7 +73,7 @@ internal class SimCardDataUsageNotificationServiceAsyncTest {
         val simCardDataUsageNotificationFuture =
             simCardDataUsageNotificationServiceAsync.update(
                 SimCardDataUsageNotificationUpdateParams.builder()
-                    .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .simCardDataUsageNotificationId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .simCardDataUsageNotification(
                         SimCardDataUsageNotification.builder()
                             .id("79228acc-3f08-4e70-ac68-cb5aae8b537a")
@@ -107,17 +106,10 @@ internal class SimCardDataUsageNotificationServiceAsyncTest {
                 .build()
         val simCardDataUsageNotificationServiceAsync = client.simCardDataUsageNotifications()
 
-        val simCardDataUsageNotificationsFuture =
-            simCardDataUsageNotificationServiceAsync.list(
-                SimCardDataUsageNotificationListParams.builder()
-                    .filterSimCardId("47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9")
-                    .pageNumber(1L)
-                    .pageSize(1L)
-                    .build()
-            )
+        val pageFuture = simCardDataUsageNotificationServiceAsync.list()
 
-        val simCardDataUsageNotifications = simCardDataUsageNotificationsFuture.get()
-        simCardDataUsageNotifications.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

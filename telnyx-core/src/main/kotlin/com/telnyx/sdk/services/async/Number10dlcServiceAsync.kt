@@ -10,8 +10,6 @@ import com.telnyx.sdk.models.number10dlc.Number10dlcGetEnumResponse
 import com.telnyx.sdk.services.async.number10dlc.BrandServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.CampaignBuilderServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.CampaignServiceAsync
-import com.telnyx.sdk.services.async.number10dlc.PartnerCampaignServiceAsync
-import com.telnyx.sdk.services.async.number10dlc.PhoneNumberAssignmentByProfileServiceAsync
 import com.telnyx.sdk.services.async.number10dlc.PhoneNumberCampaignServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -35,12 +33,6 @@ interface Number10dlcServiceAsync {
     fun campaign(): CampaignServiceAsync
 
     fun campaignBuilder(): CampaignBuilderServiceAsync
-
-    fun partnerCampaign(): PartnerCampaignServiceAsync
-
-    fun partnerCampaigns(): PartnerCampaignServiceAsync
-
-    fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileServiceAsync
 
     fun phoneNumberCampaigns(): PhoneNumberCampaignServiceAsync
 
@@ -102,13 +94,6 @@ interface Number10dlcServiceAsync {
         fun campaign(): CampaignServiceAsync.WithRawResponse
 
         fun campaignBuilder(): CampaignBuilderServiceAsync.WithRawResponse
-
-        fun partnerCampaign(): PartnerCampaignServiceAsync.WithRawResponse
-
-        fun partnerCampaigns(): PartnerCampaignServiceAsync.WithRawResponse
-
-        fun phoneNumberAssignmentByProfile():
-            PhoneNumberAssignmentByProfileServiceAsync.WithRawResponse
 
         fun phoneNumberCampaigns(): PhoneNumberCampaignServiceAsync.WithRawResponse
 

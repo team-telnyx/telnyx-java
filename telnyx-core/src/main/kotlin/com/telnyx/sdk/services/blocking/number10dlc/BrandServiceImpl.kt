@@ -17,22 +17,23 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.brand.TelnyxBrand
 import com.telnyx.sdk.models.number10dlc.brand.BrandCreateParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandDeleteParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandGetFeedbackResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandListPage
+import com.telnyx.sdk.models.number10dlc.brand.BrandListPageResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandListParams
-import com.telnyx.sdk.models.number10dlc.brand.BrandListResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandResend2faEmailParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveResponse
+import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusParams
+import com.telnyx.sdk.models.number10dlc.brand.BrandRetrieveSmsOtpStatusResponse
 import com.telnyx.sdk.models.number10dlc.brand.BrandRevetParams
 import com.telnyx.sdk.models.number10dlc.brand.BrandUpdateParams
+import com.telnyx.sdk.models.number10dlc.brand.TelnyxBrand
 import com.telnyx.sdk.services.blocking.number10dlc.brand.ExternalVettingService
 import com.telnyx.sdk.services.blocking.number10dlc.brand.ExternalVettingServiceImpl
-import com.telnyx.sdk.services.blocking.number10dlc.brand.SmsOtpService
-import com.telnyx.sdk.services.blocking.number10dlc.brand.SmsOtpServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -43,8 +44,6 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
         WithRawResponseImpl(clientOptions)
     }
 
-    private val smsOtp: SmsOtpService by lazy { SmsOtpServiceImpl(clientOptions) }
-
     private val externalVetting: ExternalVettingService by lazy {
         ExternalVettingServiceImpl(clientOptions)
     }
@@ -53,8 +52,6 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): BrandService =
         BrandServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
-
-    override fun smsOtp(): SmsOtpService = smsOtp
 
     override fun externalVetting(): ExternalVettingService = externalVetting
 
@@ -73,7 +70,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
         // put /10dlc/brand/{brandId}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: BrandListParams, requestOptions: RequestOptions): BrandListResponse =
+    override fun list(params: BrandListParams, requestOptions: RequestOptions): BrandListPage =
         // get /10dlc/brand
         withRawResponse().list(params, requestOptions).parse()
 
@@ -94,6 +91,13 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
         withRawResponse().resend2faEmail(params, requestOptions)
     }
 
+    override fun retrieveSmsOtpStatus(
+        params: BrandRetrieveSmsOtpStatusParams,
+        requestOptions: RequestOptions,
+    ): BrandRetrieveSmsOtpStatusResponse =
+        // get /10dlc/brand/smsOtp/{referenceId}
+        withRawResponse().retrieveSmsOtpStatus(params, requestOptions).parse()
+
     override fun revet(params: BrandRevetParams, requestOptions: RequestOptions): TelnyxBrand =
         // put /10dlc/brand/{brandId}/revet
         withRawResponse().revet(params, requestOptions).parse()
@@ -103,10 +107,6 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
 
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
-
-        private val smsOtp: SmsOtpService.WithRawResponse by lazy {
-            SmsOtpServiceImpl.WithRawResponseImpl(clientOptions)
-        }
 
         private val externalVetting: ExternalVettingService.WithRawResponse by lazy {
             ExternalVettingServiceImpl.WithRawResponseImpl(clientOptions)
@@ -118,8 +118,6 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
             BrandServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
-
-        override fun smsOtp(): SmsOtpService.WithRawResponse = smsOtp
 
         override fun externalVetting(): ExternalVettingService.WithRawResponse = externalVetting
 
@@ -212,13 +210,13 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val listHandler: Handler<BrandListResponse> =
-            jsonHandler<BrandListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BrandListPageResponse> =
+            jsonHandler<BrandListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: BrandListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BrandListResponse> {
+        ): HttpResponseFor<BrandListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -235,6 +233,13 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        BrandListPage.builder()
+                            .service(BrandServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }
@@ -314,6 +319,36 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response.use { resend2faEmailHandler.handle(it) }
+            }
+        }
+
+        private val retrieveSmsOtpStatusHandler: Handler<BrandRetrieveSmsOtpStatusResponse> =
+            jsonHandler<BrandRetrieveSmsOtpStatusResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveSmsOtpStatus(
+            params: BrandRetrieveSmsOtpStatusParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BrandRetrieveSmsOtpStatusResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("referenceId", params.referenceId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("10dlc", "brand", "smsOtp", params._pathParam(0))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { retrieveSmsOtpStatusHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
         }
 

@@ -58,30 +58,23 @@ internal class ActionAnswerParamsTest {
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.GOOGLE)
                     .transcriptionEngineConfig(
-                        TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
+                        TranscriptionEngineGoogleConfig.builder()
                             .enableSpeakerDiarization(true)
                             .addHint("string")
                             .interimResults(true)
                             .language(GoogleTranscriptionLanguage.EN)
                             .maxSpeakerCount(4)
                             .minSpeakerCount(4)
-                            .model(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.Model
-                                    .LATEST_LONG
-                            )
+                            .model(TranscriptionEngineGoogleConfig.Model.LATEST_LONG)
                             .profanityFilter(true)
                             .addSpeechContext(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                    .SpeechContext
-                                    .builder()
+                                TranscriptionEngineGoogleConfig.SpeechContext.builder()
                                     .boost(1.0)
                                     .addPhrase("string")
                                     .build()
                             )
                             .transcriptionEngine(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                    .TranscriptionEngine
-                                    .GOOGLE
+                                TranscriptionEngineGoogleConfig.TranscriptionEngine.GOOGLE
                             )
                             .useEnhanced(true)
                             .build()
@@ -149,30 +142,23 @@ internal class ActionAnswerParamsTest {
                         .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                         .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.GOOGLE)
                         .transcriptionEngineConfig(
-                            TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
+                            TranscriptionEngineGoogleConfig.builder()
                                 .enableSpeakerDiarization(true)
                                 .addHint("string")
                                 .interimResults(true)
                                 .language(GoogleTranscriptionLanguage.EN)
                                 .maxSpeakerCount(4)
                                 .minSpeakerCount(4)
-                                .model(
-                                    TranscriptionStartRequest.TranscriptionEngineConfig.Google.Model
-                                        .LATEST_LONG
-                                )
+                                .model(TranscriptionEngineGoogleConfig.Model.LATEST_LONG)
                                 .profanityFilter(true)
                                 .addSpeechContext(
-                                    TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                        .SpeechContext
-                                        .builder()
+                                    TranscriptionEngineGoogleConfig.SpeechContext.builder()
                                         .boost(1.0)
                                         .addPhrase("string")
                                         .build()
                                 )
                                 .transcriptionEngine(
-                                    TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                        .TranscriptionEngine
-                                        .GOOGLE
+                                    TranscriptionEngineGoogleConfig.TranscriptionEngine.GOOGLE
                                 )
                                 .useEnhanced(true)
                                 .build()
@@ -233,30 +219,23 @@ internal class ActionAnswerParamsTest {
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.GOOGLE)
                     .transcriptionEngineConfig(
-                        TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
+                        TranscriptionEngineGoogleConfig.builder()
                             .enableSpeakerDiarization(true)
                             .addHint("string")
                             .interimResults(true)
                             .language(GoogleTranscriptionLanguage.EN)
                             .maxSpeakerCount(4)
                             .minSpeakerCount(4)
-                            .model(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.Model
-                                    .LATEST_LONG
-                            )
+                            .model(TranscriptionEngineGoogleConfig.Model.LATEST_LONG)
                             .profanityFilter(true)
                             .addSpeechContext(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                    .SpeechContext
-                                    .builder()
+                                TranscriptionEngineGoogleConfig.SpeechContext.builder()
                                     .boost(1.0)
                                     .addPhrase("string")
                                     .build()
                             )
                             .transcriptionEngine(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                    .TranscriptionEngine
-                                    .GOOGLE
+                                TranscriptionEngineGoogleConfig.TranscriptionEngine.GOOGLE
                             )
                             .useEnhanced(true)
                             .build()

@@ -45,8 +45,8 @@ internal class RequirementTypeListResponseTest {
                 .meta(
                     PaginationMeta.builder()
                         .pageNumber(2L)
-                        .pageSize(25L)
                         .totalPages(3L)
+                        .pageSize(25L)
                         .totalResults(55L)
                         .build()
                 )
@@ -83,8 +83,8 @@ internal class RequirementTypeListResponseTest {
             .contains(
                 PaginationMeta.builder()
                     .pageNumber(2L)
-                    .pageSize(25L)
                     .totalPages(3L)
+                    .pageSize(25L)
                     .totalResults(55L)
                     .build()
             )
@@ -124,8 +124,8 @@ internal class RequirementTypeListResponseTest {
                 .meta(
                     PaginationMeta.builder()
                         .pageNumber(2L)
-                        .pageSize(25L)
                         .totalPages(3L)
+                        .pageSize(25L)
                         .totalResults(55L)
                         .build()
                 )

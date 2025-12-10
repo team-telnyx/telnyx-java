@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentCreateParams
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentCreateResponse
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentDeleteParams
+import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentListPageAsync
 import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentListParams
-import com.telnyx.sdk.models.portingorders.additionaldocuments.AdditionalDocumentListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -66,7 +66,7 @@ interface AdditionalDocumentServiceAsync {
         create(id, AdditionalDocumentCreateParams.none(), requestOptions)
 
     /** Returns a list of additional documents for a porting order. */
-    fun list(id: String): CompletableFuture<AdditionalDocumentListResponse> =
+    fun list(id: String): CompletableFuture<AdditionalDocumentListPageAsync> =
         list(id, AdditionalDocumentListParams.none())
 
     /** @see list */
@@ -74,31 +74,31 @@ interface AdditionalDocumentServiceAsync {
         id: String,
         params: AdditionalDocumentListParams = AdditionalDocumentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AdditionalDocumentListResponse> =
+    ): CompletableFuture<AdditionalDocumentListPageAsync> =
         list(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see list */
     fun list(
         id: String,
         params: AdditionalDocumentListParams = AdditionalDocumentListParams.none(),
-    ): CompletableFuture<AdditionalDocumentListResponse> = list(id, params, RequestOptions.none())
+    ): CompletableFuture<AdditionalDocumentListPageAsync> = list(id, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: AdditionalDocumentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AdditionalDocumentListResponse>
+    ): CompletableFuture<AdditionalDocumentListPageAsync>
 
     /** @see list */
     fun list(
         params: AdditionalDocumentListParams
-    ): CompletableFuture<AdditionalDocumentListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<AdditionalDocumentListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         id: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AdditionalDocumentListResponse> =
+    ): CompletableFuture<AdditionalDocumentListPageAsync> =
         list(id, AdditionalDocumentListParams.none(), requestOptions)
 
     /** Deletes an additional document for a porting order. */
@@ -190,7 +190,7 @@ interface AdditionalDocumentServiceAsync {
          * Returns a raw HTTP response for `get /porting_orders/{id}/additional_documents`, but is
          * otherwise the same as [AdditionalDocumentServiceAsync.list].
          */
-        fun list(id: String): CompletableFuture<HttpResponseFor<AdditionalDocumentListResponse>> =
+        fun list(id: String): CompletableFuture<HttpResponseFor<AdditionalDocumentListPageAsync>> =
             list(id, AdditionalDocumentListParams.none())
 
         /** @see list */
@@ -198,33 +198,33 @@ interface AdditionalDocumentServiceAsync {
             id: String,
             params: AdditionalDocumentListParams = AdditionalDocumentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AdditionalDocumentListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AdditionalDocumentListPageAsync>> =
             list(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see list */
         fun list(
             id: String,
             params: AdditionalDocumentListParams = AdditionalDocumentListParams.none(),
-        ): CompletableFuture<HttpResponseFor<AdditionalDocumentListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AdditionalDocumentListPageAsync>> =
             list(id, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: AdditionalDocumentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AdditionalDocumentListResponse>>
+        ): CompletableFuture<HttpResponseFor<AdditionalDocumentListPageAsync>>
 
         /** @see list */
         fun list(
             params: AdditionalDocumentListParams
-        ): CompletableFuture<HttpResponseFor<AdditionalDocumentListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AdditionalDocumentListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             id: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AdditionalDocumentListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AdditionalDocumentListPageAsync>> =
             list(id, AdditionalDocumentListParams.none(), requestOptions)
 
         /**
