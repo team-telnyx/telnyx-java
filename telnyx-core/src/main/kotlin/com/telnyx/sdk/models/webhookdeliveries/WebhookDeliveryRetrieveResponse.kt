@@ -959,10 +959,7 @@ private constructor(
                     fun request(request: JsonField<Request>) = apply { this.request = request }
 
                     /** Response details, optional. */
-                    fun response(response: Response?) = response(JsonField.ofNullable(response))
-
-                    /** Alias for calling [Builder.response] with `response.orElse(null)`. */
-                    fun response(response: Optional<Response>) = response(response.getOrNull())
+                    fun response(response: Response) = response(JsonField.of(response))
 
                     /**
                      * Sets [Builder.response] to an arbitrary JSON value.
