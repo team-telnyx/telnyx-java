@@ -1,0 +1,162 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.sdk.models.number10dlc.brand
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.jsonMapper
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class TelnyxBrandTest {
+
+    @Test
+    fun create() {
+        val telnyxBrand =
+            TelnyxBrand.builder()
+                .brandRelationship(TelnyxBrand.BrandRelationship.BASIC_ACCOUNT)
+                .country("US")
+                .displayName("ABC Mobile")
+                .email("email")
+                .entityType(EntityType.PRIVATE_PROFIT)
+                .vertical("vertical")
+                .altBusinessId("altBusinessId")
+                .altBusinessIdType(AltBusinessIdType.NONE)
+                .brandId("4b20017f-8da9-a992-a6c0-683072fb7729")
+                .businessContactEmail("name@example.com")
+                .city("New York")
+                .companyName("ABC Inc.")
+                .createdAt("2021-03-08T17:57:48.801186")
+                .cspId("cspId")
+                .ein("111111111")
+                .failureReasons("failureReasons")
+                .firstName("John")
+                .identityStatus(BrandIdentityStatus.VERIFIED)
+                .ipAddress("ipAddress")
+                .isReseller(true)
+                .lastName("Smith")
+                .mobilePhone("+12024567890")
+                .mock(true)
+                .optionalAttributes(
+                    TelnyxBrand.OptionalAttributes.builder()
+                        .taxExemptStatus("taxExemptStatus")
+                        .build()
+                )
+                .phone("+12024567890")
+                .postalCode("10001")
+                .referenceId("referenceId")
+                .state("NY")
+                .status(TelnyxBrand.Status.OK)
+                .stockExchange(StockExchange.NASDAQ)
+                .stockSymbol("ABC")
+                .street("123")
+                .tcrBrandId("BBRAND1")
+                .universalEin("universalEin")
+                .updatedAt("2021-03-08T17:57:48.801186")
+                .webhookFailoverUrl("webhookFailoverURL")
+                .webhookUrl("https://webhook.com/67ea78a8-9f32-4d04-b62d-f9502e8e5f93")
+                .website("http://www.abcmobile.com")
+                .build()
+
+        assertThat(telnyxBrand.brandRelationship())
+            .isEqualTo(TelnyxBrand.BrandRelationship.BASIC_ACCOUNT)
+        assertThat(telnyxBrand.country()).isEqualTo("US")
+        assertThat(telnyxBrand.displayName()).isEqualTo("ABC Mobile")
+        assertThat(telnyxBrand.email()).isEqualTo("email")
+        assertThat(telnyxBrand.entityType()).isEqualTo(EntityType.PRIVATE_PROFIT)
+        assertThat(telnyxBrand.vertical()).isEqualTo("vertical")
+        assertThat(telnyxBrand.altBusinessId()).contains("altBusinessId")
+        assertThat(telnyxBrand.altBusinessIdType()).contains(AltBusinessIdType.NONE)
+        assertThat(telnyxBrand.brandId()).contains("4b20017f-8da9-a992-a6c0-683072fb7729")
+        assertThat(telnyxBrand.businessContactEmail()).contains("name@example.com")
+        assertThat(telnyxBrand.city()).contains("New York")
+        assertThat(telnyxBrand.companyName()).contains("ABC Inc.")
+        assertThat(telnyxBrand.createdAt()).contains("2021-03-08T17:57:48.801186")
+        assertThat(telnyxBrand.cspId()).contains("cspId")
+        assertThat(telnyxBrand.ein()).contains("111111111")
+        assertThat(telnyxBrand.failureReasons()).contains("failureReasons")
+        assertThat(telnyxBrand.firstName()).contains("John")
+        assertThat(telnyxBrand.identityStatus()).contains(BrandIdentityStatus.VERIFIED)
+        assertThat(telnyxBrand.ipAddress()).contains("ipAddress")
+        assertThat(telnyxBrand.isReseller()).contains(true)
+        assertThat(telnyxBrand.lastName()).contains("Smith")
+        assertThat(telnyxBrand.mobilePhone()).contains("+12024567890")
+        assertThat(telnyxBrand.mock()).contains(true)
+        assertThat(telnyxBrand.optionalAttributes())
+            .contains(
+                TelnyxBrand.OptionalAttributes.builder().taxExemptStatus("taxExemptStatus").build()
+            )
+        assertThat(telnyxBrand.phone()).contains("+12024567890")
+        assertThat(telnyxBrand.postalCode()).contains("10001")
+        assertThat(telnyxBrand.referenceId()).contains("referenceId")
+        assertThat(telnyxBrand.state()).contains("NY")
+        assertThat(telnyxBrand.status()).contains(TelnyxBrand.Status.OK)
+        assertThat(telnyxBrand.stockExchange()).contains(StockExchange.NASDAQ)
+        assertThat(telnyxBrand.stockSymbol()).contains("ABC")
+        assertThat(telnyxBrand.street()).contains("123")
+        assertThat(telnyxBrand.tcrBrandId()).contains("BBRAND1")
+        assertThat(telnyxBrand.universalEin()).contains("universalEin")
+        assertThat(telnyxBrand.updatedAt()).contains("2021-03-08T17:57:48.801186")
+        assertThat(telnyxBrand.webhookFailoverUrl()).contains("webhookFailoverURL")
+        assertThat(telnyxBrand.webhookUrl())
+            .contains("https://webhook.com/67ea78a8-9f32-4d04-b62d-f9502e8e5f93")
+        assertThat(telnyxBrand.website()).contains("http://www.abcmobile.com")
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val telnyxBrand =
+            TelnyxBrand.builder()
+                .brandRelationship(TelnyxBrand.BrandRelationship.BASIC_ACCOUNT)
+                .country("US")
+                .displayName("ABC Mobile")
+                .email("email")
+                .entityType(EntityType.PRIVATE_PROFIT)
+                .vertical("vertical")
+                .altBusinessId("altBusinessId")
+                .altBusinessIdType(AltBusinessIdType.NONE)
+                .brandId("4b20017f-8da9-a992-a6c0-683072fb7729")
+                .businessContactEmail("name@example.com")
+                .city("New York")
+                .companyName("ABC Inc.")
+                .createdAt("2021-03-08T17:57:48.801186")
+                .cspId("cspId")
+                .ein("111111111")
+                .failureReasons("failureReasons")
+                .firstName("John")
+                .identityStatus(BrandIdentityStatus.VERIFIED)
+                .ipAddress("ipAddress")
+                .isReseller(true)
+                .lastName("Smith")
+                .mobilePhone("+12024567890")
+                .mock(true)
+                .optionalAttributes(
+                    TelnyxBrand.OptionalAttributes.builder()
+                        .taxExemptStatus("taxExemptStatus")
+                        .build()
+                )
+                .phone("+12024567890")
+                .postalCode("10001")
+                .referenceId("referenceId")
+                .state("NY")
+                .status(TelnyxBrand.Status.OK)
+                .stockExchange(StockExchange.NASDAQ)
+                .stockSymbol("ABC")
+                .street("123")
+                .tcrBrandId("BBRAND1")
+                .universalEin("universalEin")
+                .updatedAt("2021-03-08T17:57:48.801186")
+                .webhookFailoverUrl("webhookFailoverURL")
+                .webhookUrl("https://webhook.com/67ea78a8-9f32-4d04-b62d-f9502e8e5f93")
+                .website("http://www.abcmobile.com")
+                .build()
+
+        val roundtrippedTelnyxBrand =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(telnyxBrand),
+                jacksonTypeRef<TelnyxBrand>(),
+            )
+
+        assertThat(roundtrippedTelnyxBrand).isEqualTo(telnyxBrand)
+    }
+}

@@ -12,7 +12,7 @@ import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.messaging10dlc.phonenumberassignmentbyprofile.TaskStatus
+import com.telnyx.sdk.models.phonenumberassignmentbyprofile.TaskStatus
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
