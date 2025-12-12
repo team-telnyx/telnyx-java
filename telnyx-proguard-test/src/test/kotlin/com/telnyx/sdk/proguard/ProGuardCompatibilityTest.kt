@@ -146,7 +146,6 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.otaUpdates()).isNotNull()
         assertThat(client.outboundVoiceProfiles()).isNotNull()
         assertThat(client.payment()).isNotNull()
-        assertThat(client.phoneNumberAssignmentByProfile()).isNotNull()
         assertThat(client.phoneNumberBlocks()).isNotNull()
         assertThat(client.phoneNumbers()).isNotNull()
         assertThat(client.phoneNumbersRegulatoryRequirements()).isNotNull()
@@ -200,18 +199,11 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.wireless()).isNotNull()
         assertThat(client.wirelessBlocklistValues()).isNotNull()
         assertThat(client.wirelessBlocklists()).isNotNull()
-        assertThat(client.partnerCampaigns()).isNotNull()
         assertThat(client.wellKnown()).isNotNull()
         assertThat(client.inexplicitNumberOrders()).isNotNull()
         assertThat(client.mobilePhoneNumbers()).isNotNull()
         assertThat(client.mobileVoiceConnections()).isNotNull()
-        assertThat(client.number10dlc()).isNotNull()
-        assertThat(client.brand()).isNotNull()
-        assertThat(client.campaign()).isNotNull()
-        assertThat(client.campaignBuilder()).isNotNull()
-        assertThat(client.enum_()).isNotNull()
-        assertThat(client.partnerCampaign()).isNotNull()
-        assertThat(client.phoneNumberCampaigns()).isNotNull()
+        assertThat(client.messaging10dlc()).isNotNull()
     }
 
     @Test
