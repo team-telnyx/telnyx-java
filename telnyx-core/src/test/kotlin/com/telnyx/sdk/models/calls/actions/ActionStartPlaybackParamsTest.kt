@@ -59,7 +59,7 @@ internal class ActionStartPlaybackParamsTest {
         assertThat(body.cacheAudio()).contains(true)
         assertThat(body.clientState()).contains("aGF2ZSBhIG5pY2UgZGF5ID1d")
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
-        assertThat(body.loop()).contains(Loopcount.ofString("infinity"))
+        assertThat(body.loop()).contains(Loopcount.ofLoopcountString("infinity"))
         assertThat(body.mediaName()).contains("my_media_uploaded_to_media_storage_api")
         assertThat(body.overlay()).contains(true)
         assertThat(body.playbackContent()).contains("SUQzAwAAAAADf1...")

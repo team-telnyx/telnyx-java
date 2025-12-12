@@ -26,9 +26,6 @@ private constructor(
     private val callAiGatherMessageHistoryUpdated: CallAiGatherMessageHistoryUpdatedWebhookEvent? =
         null,
     private val callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent? = null,
-    private val customerServiceRecordStatusChanged:
-        CustomerServiceRecordStatusChangedWebhookEvent? =
-        null,
     private val callAnswered: CallAnsweredWebhookEvent? = null,
     private val callBridged: CallBridgedWebhookEvent? = null,
     private val callConversationEnded: CallConversationEndedWebhookEvent? = null,
@@ -111,10 +108,6 @@ private constructor(
 
     fun callAiGatherPartialResults(): Optional<CallAiGatherPartialResultsWebhookEvent> =
         Optional.ofNullable(callAiGatherPartialResults)
-
-    fun customerServiceRecordStatusChanged():
-        Optional<CustomerServiceRecordStatusChangedWebhookEvent> =
-        Optional.ofNullable(customerServiceRecordStatusChanged)
 
     fun callAnswered(): Optional<CallAnsweredWebhookEvent> = Optional.ofNullable(callAnswered)
 
@@ -293,8 +286,6 @@ private constructor(
 
     fun isCallAiGatherPartialResults(): Boolean = callAiGatherPartialResults != null
 
-    fun isCustomerServiceRecordStatusChanged(): Boolean = customerServiceRecordStatusChanged != null
-
     fun isCallAnswered(): Boolean = callAnswered != null
 
     fun isCallBridged(): Boolean = callBridged != null
@@ -424,9 +415,6 @@ private constructor(
 
     fun asCallAiGatherPartialResults(): CallAiGatherPartialResultsWebhookEvent =
         callAiGatherPartialResults.getOrThrow("callAiGatherPartialResults")
-
-    fun asCustomerServiceRecordStatusChanged(): CustomerServiceRecordStatusChangedWebhookEvent =
-        customerServiceRecordStatusChanged.getOrThrow("customerServiceRecordStatusChanged")
 
     fun asCallAnswered(): CallAnsweredWebhookEvent = callAnswered.getOrThrow("callAnswered")
 
@@ -604,8 +592,6 @@ private constructor(
                 visitor.visitCallAiGatherMessageHistoryUpdated(callAiGatherMessageHistoryUpdated)
             callAiGatherPartialResults != null ->
                 visitor.visitCallAiGatherPartialResults(callAiGatherPartialResults)
-            customerServiceRecordStatusChanged != null ->
-                visitor.visitCustomerServiceRecordStatusChanged(customerServiceRecordStatusChanged)
             callAnswered != null -> visitor.visitCallAnswered(callAnswered)
             callBridged != null -> visitor.visitCallBridged(callBridged)
             callConversationEnded != null ->
@@ -715,13 +701,6 @@ private constructor(
                     callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent
                 ) {
                     callAiGatherPartialResults.validate()
-                }
-
-                override fun visitCustomerServiceRecordStatusChanged(
-                    customerServiceRecordStatusChanged:
-                        CustomerServiceRecordStatusChangedWebhookEvent
-                ) {
-                    customerServiceRecordStatusChanged.validate()
                 }
 
                 override fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent) {
@@ -1069,11 +1048,6 @@ private constructor(
                     callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent
                 ) = callAiGatherPartialResults.validity()
 
-                override fun visitCustomerServiceRecordStatusChanged(
-                    customerServiceRecordStatusChanged:
-                        CustomerServiceRecordStatusChangedWebhookEvent
-                ) = customerServiceRecordStatusChanged.validity()
-
                 override fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent) =
                     callAnswered.validity()
 
@@ -1302,7 +1276,6 @@ private constructor(
             callAiGatherEnded == other.callAiGatherEnded &&
             callAiGatherMessageHistoryUpdated == other.callAiGatherMessageHistoryUpdated &&
             callAiGatherPartialResults == other.callAiGatherPartialResults &&
-            customerServiceRecordStatusChanged == other.customerServiceRecordStatusChanged &&
             callAnswered == other.callAnswered &&
             callBridged == other.callBridged &&
             callConversationEnded == other.callConversationEnded &&
@@ -1370,7 +1343,6 @@ private constructor(
             callAiGatherEnded,
             callAiGatherMessageHistoryUpdated,
             callAiGatherPartialResults,
-            customerServiceRecordStatusChanged,
             callAnswered,
             callBridged,
             callConversationEnded,
@@ -1441,8 +1413,6 @@ private constructor(
                 "UnsafeUnwrapWebhookEvent{callAiGatherMessageHistoryUpdated=$callAiGatherMessageHistoryUpdated}"
             callAiGatherPartialResults != null ->
                 "UnsafeUnwrapWebhookEvent{callAiGatherPartialResults=$callAiGatherPartialResults}"
-            customerServiceRecordStatusChanged != null ->
-                "UnsafeUnwrapWebhookEvent{customerServiceRecordStatusChanged=$customerServiceRecordStatusChanged}"
             callAnswered != null -> "UnsafeUnwrapWebhookEvent{callAnswered=$callAnswered}"
             callBridged != null -> "UnsafeUnwrapWebhookEvent{callBridged=$callBridged}"
             callConversationEnded != null ->
@@ -1566,14 +1536,6 @@ private constructor(
         fun ofCallAiGatherPartialResults(
             callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent
         ) = UnsafeUnwrapWebhookEvent(callAiGatherPartialResults = callAiGatherPartialResults)
-
-        @JvmStatic
-        fun ofCustomerServiceRecordStatusChanged(
-            customerServiceRecordStatusChanged: CustomerServiceRecordStatusChangedWebhookEvent
-        ) =
-            UnsafeUnwrapWebhookEvent(
-                customerServiceRecordStatusChanged = customerServiceRecordStatusChanged
-            )
 
         @JvmStatic
         fun ofCallAnswered(callAnswered: CallAnsweredWebhookEvent) =
@@ -1872,10 +1834,6 @@ private constructor(
             callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent
         ): T
 
-        fun visitCustomerServiceRecordStatusChanged(
-            customerServiceRecordStatusChanged: CustomerServiceRecordStatusChangedWebhookEvent
-        ): T
-
         fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent): T
 
         fun visitCallBridged(callBridged: CallBridgedWebhookEvent): T
@@ -2075,16 +2033,6 @@ private constructor(
                             ?.let {
                                 UnsafeUnwrapWebhookEvent(
                                     callAiGatherPartialResults = it,
-                                    _json = json,
-                                )
-                            },
-                        tryDeserialize(
-                                node,
-                                jacksonTypeRef<CustomerServiceRecordStatusChangedWebhookEvent>(),
-                            )
-                            ?.let {
-                                UnsafeUnwrapWebhookEvent(
-                                    customerServiceRecordStatusChanged = it,
                                     _json = json,
                                 )
                             },
@@ -2404,8 +2352,6 @@ private constructor(
                     generator.writeObject(value.callAiGatherMessageHistoryUpdated)
                 value.callAiGatherPartialResults != null ->
                     generator.writeObject(value.callAiGatherPartialResults)
-                value.customerServiceRecordStatusChanged != null ->
-                    generator.writeObject(value.customerServiceRecordStatusChanged)
                 value.callAnswered != null -> generator.writeObject(value.callAnswered)
                 value.callBridged != null -> generator.writeObject(value.callBridged)
                 value.callConversationEnded != null ->
