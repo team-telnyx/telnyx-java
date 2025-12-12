@@ -15,19 +15,19 @@ import org.junit.jupiter.params.provider.EnumSource
 internal class LoopcountTest {
 
     @Test
-    fun ofString() {
-        val string = "string"
+    fun ofLoopcountString() {
+        val loopcountString = "string"
 
-        val loopcount = Loopcount.ofString(string)
+        val loopcount = Loopcount.ofLoopcountString(loopcountString)
 
-        assertThat(loopcount.string()).contains(string)
+        assertThat(loopcount.loopcountString()).contains(loopcountString)
         assertThat(loopcount.integer()).isEmpty
     }
 
     @Test
-    fun ofStringRoundtrip() {
+    fun ofLoopcountStringRoundtrip() {
         val jsonMapper = jsonMapper()
-        val loopcount = Loopcount.ofString("string")
+        val loopcount = Loopcount.ofLoopcountString("string")
 
         val roundtrippedLoopcount =
             jsonMapper.readValue(
@@ -44,7 +44,7 @@ internal class LoopcountTest {
 
         val loopcount = Loopcount.ofInteger(integer)
 
-        assertThat(loopcount.string()).isEmpty
+        assertThat(loopcount.loopcountString()).isEmpty
         assertThat(loopcount.integer()).contains(integer)
     }
 

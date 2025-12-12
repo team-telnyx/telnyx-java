@@ -63,7 +63,7 @@ internal class ParticipantServiceAsyncTest {
                     .endConferenceOnExit(false)
                     .hold(true)
                     .holdMethod(ParticipantUpdateParams.HoldMethod.POST)
-                    .holdUrl("HoldUrl")
+                    .holdUrl("https://www.example.com/hold-music.xml")
                     .muted(true)
                     .waitUrl("https://www.example.com/wait_music.mp3")
                     .build()

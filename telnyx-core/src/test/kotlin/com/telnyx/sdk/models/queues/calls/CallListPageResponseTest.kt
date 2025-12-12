@@ -28,6 +28,7 @@ internal class CallListPageResponseTest {
                         .recordType(CallListResponse.RecordType.QUEUE_CALL)
                         .to("+18005550102")
                         .waitTimeSecs(145L)
+                        .isAlive(true)
                         .build()
                 )
                 .meta(
@@ -54,6 +55,7 @@ internal class CallListPageResponseTest {
                     .recordType(CallListResponse.RecordType.QUEUE_CALL)
                     .to("+18005550102")
                     .waitTimeSecs(145L)
+                    .isAlive(true)
                     .build()
             )
         assertThat(callListPageResponse.meta())
@@ -85,6 +87,7 @@ internal class CallListPageResponseTest {
                         .recordType(CallListResponse.RecordType.QUEUE_CALL)
                         .to("+18005550102")
                         .waitTimeSecs(145L)
+                        .isAlive(true)
                         .build()
                 )
                 .meta(

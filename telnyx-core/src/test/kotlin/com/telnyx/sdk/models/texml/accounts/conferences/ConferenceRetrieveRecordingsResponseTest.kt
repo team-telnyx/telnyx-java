@@ -19,7 +19,7 @@ internal class ConferenceRetrieveRecordingsResponseTest {
                 .firstPageUri(
                     "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences/6dc6cc1a-1ba1-4351-86b8-4c22c95cd98f/Recordings.json?page=0&pagesize=20"
                 )
-                .nextPageUri("next_page_uri")
+                .nextPageUri("accepted")
                 .page(0L)
                 .pageSize(20L)
                 .addRecording(
@@ -61,7 +61,7 @@ internal class ConferenceRetrieveRecordingsResponseTest {
             .contains(
                 "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences/6dc6cc1a-1ba1-4351-86b8-4c22c95cd98f/Recordings.json?page=0&pagesize=20"
             )
-        assertThat(conferenceRetrieveRecordingsResponse.nextPageUri()).contains("next_page_uri")
+        assertThat(conferenceRetrieveRecordingsResponse.nextPageUri()).contains("accepted")
         assertThat(conferenceRetrieveRecordingsResponse.page()).contains(0L)
         assertThat(conferenceRetrieveRecordingsResponse.pageSize()).contains(20L)
         assertThat(conferenceRetrieveRecordingsResponse.recordings().getOrNull())
@@ -109,7 +109,7 @@ internal class ConferenceRetrieveRecordingsResponseTest {
                 .firstPageUri(
                     "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences/6dc6cc1a-1ba1-4351-86b8-4c22c95cd98f/Recordings.json?page=0&pagesize=20"
                 )
-                .nextPageUri("next_page_uri")
+                .nextPageUri("accepted")
                 .page(0L)
                 .pageSize(20L)
                 .addRecording(

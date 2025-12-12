@@ -16,7 +16,7 @@ internal class StreamStreamingSidJsonResponseTest {
             StreamStreamingSidJsonResponse.builder()
                 .accountSid("61bf923e-5e4d-4595-a110-56190ea18a1b")
                 .callSid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
-                .dateUpdated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .dateUpdated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                 .sid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
                 .status(StreamStreamingSidJsonResponse.Status.STOPPED)
                 .uri(
@@ -29,7 +29,7 @@ internal class StreamStreamingSidJsonResponseTest {
         assertThat(streamStreamingSidJsonResponse.callSid())
             .contains("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
         assertThat(streamStreamingSidJsonResponse.dateUpdated())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .contains(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
         assertThat(streamStreamingSidJsonResponse.sid())
             .contains("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
         assertThat(streamStreamingSidJsonResponse.status())
@@ -47,7 +47,7 @@ internal class StreamStreamingSidJsonResponseTest {
             StreamStreamingSidJsonResponse.builder()
                 .accountSid("61bf923e-5e4d-4595-a110-56190ea18a1b")
                 .callSid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
-                .dateUpdated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .dateUpdated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                 .sid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
                 .status(StreamStreamingSidJsonResponse.Status.STOPPED)
                 .uri(

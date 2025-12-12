@@ -12,27 +12,16 @@ internal class TexmlRecordingSubresourcesUrisTest {
     @Test
     fun create() {
         val texmlRecordingSubresourcesUris =
-            TexmlRecordingSubresourcesUris.builder()
-                .transcriptions(
-                    "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/b08f0fa1-a32c-4218-b3b5-9cf78941ccac/Transcriptions.json"
-                )
-                .build()
+            TexmlRecordingSubresourcesUris.builder().transcriptions("https://example.com").build()
 
-        assertThat(texmlRecordingSubresourcesUris.transcriptions())
-            .contains(
-                "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/b08f0fa1-a32c-4218-b3b5-9cf78941ccac/Transcriptions.json"
-            )
+        assertThat(texmlRecordingSubresourcesUris.transcriptions()).contains("https://example.com")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val texmlRecordingSubresourcesUris =
-            TexmlRecordingSubresourcesUris.builder()
-                .transcriptions(
-                    "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/b08f0fa1-a32c-4218-b3b5-9cf78941ccac/Transcriptions.json"
-                )
-                .build()
+            TexmlRecordingSubresourcesUris.builder().transcriptions("https://example.com").build()
 
         val roundtrippedTexmlRecordingSubresourcesUris =
             jsonMapper.readValue(

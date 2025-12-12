@@ -703,8 +703,8 @@ private constructor(
 
             /**
              * The reason the call was ended (`call_rejected`, `normal_clearing`,
-             * `originator_cancel`, `timeout`, `time_limit`, `user_busy`, `not_found` or
-             * `unspecified`).
+             * `originator_cancel`, `timeout`, `time_limit`, `user_busy`, `not_found`, `no_answer`
+             * or `unspecified`).
              *
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
@@ -1117,8 +1117,8 @@ private constructor(
 
                 /**
                  * The reason the call was ended (`call_rejected`, `normal_clearing`,
-                 * `originator_cancel`, `timeout`, `time_limit`, `user_busy`, `not_found` or
-                 * `unspecified`).
+                 * `originator_cancel`, `timeout`, `time_limit`, `user_busy`, `not_found`,
+                 * `no_answer` or `unspecified`).
                  */
                 fun hangupCause(hangupCause: HangupCause) = hangupCause(JsonField.of(hangupCause))
 
@@ -2118,8 +2118,8 @@ private constructor(
 
             /**
              * The reason the call was ended (`call_rejected`, `normal_clearing`,
-             * `originator_cancel`, `timeout`, `time_limit`, `user_busy`, `not_found` or
-             * `unspecified`).
+             * `originator_cancel`, `timeout`, `time_limit`, `user_busy`, `not_found`, `no_answer`
+             * or `unspecified`).
              */
             class HangupCause
             @JsonCreator
@@ -2151,6 +2151,8 @@ private constructor(
 
                     @JvmField val NOT_FOUND = of("not_found")
 
+                    @JvmField val NO_ANSWER = of("no_answer")
+
                     @JvmField val UNSPECIFIED = of("unspecified")
 
                     @JvmStatic fun of(value: String) = HangupCause(JsonField.of(value))
@@ -2165,6 +2167,7 @@ private constructor(
                     TIME_LIMIT,
                     USER_BUSY,
                     NOT_FOUND,
+                    NO_ANSWER,
                     UNSPECIFIED,
                 }
 
@@ -2185,6 +2188,7 @@ private constructor(
                     TIME_LIMIT,
                     USER_BUSY,
                     NOT_FOUND,
+                    NO_ANSWER,
                     UNSPECIFIED,
                     /**
                      * An enum member indicating that [HangupCause] was instantiated with an unknown
@@ -2209,6 +2213,7 @@ private constructor(
                         TIME_LIMIT -> Value.TIME_LIMIT
                         USER_BUSY -> Value.USER_BUSY
                         NOT_FOUND -> Value.NOT_FOUND
+                        NO_ANSWER -> Value.NO_ANSWER
                         UNSPECIFIED -> Value.UNSPECIFIED
                         else -> Value._UNKNOWN
                     }
@@ -2231,6 +2236,7 @@ private constructor(
                         TIME_LIMIT -> Known.TIME_LIMIT
                         USER_BUSY -> Known.USER_BUSY
                         NOT_FOUND -> Known.NOT_FOUND
+                        NO_ANSWER -> Known.NO_ANSWER
                         UNSPECIFIED -> Known.UNSPECIFIED
                         else -> throw TelnyxInvalidDataException("Unknown HangupCause: $value")
                     }
