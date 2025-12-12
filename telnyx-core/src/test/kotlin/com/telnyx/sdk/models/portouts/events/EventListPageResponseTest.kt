@@ -17,15 +17,20 @@ internal class EventListPageResponseTest {
         val eventListPageResponse =
             EventListPageResponse.builder()
                 .addData(
-                    EventListResponse.builder()
+                    EventListResponse.WebhookPortoutStatusChanged.builder()
                         .id("eef3340b-8903-4466-b445-89b697315a3a")
                         .addAvailableNotificationMethod(
-                            EventListResponse.AvailableNotificationMethod.EMAIL
+                            EventListResponse.WebhookPortoutStatusChanged
+                                .AvailableNotificationMethod
+                                .EMAIL
                         )
                         .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                        .eventType(EventListResponse.EventType.PORTOUT_STATUS_CHANGED)
+                        .eventType(
+                            EventListResponse.WebhookPortoutStatusChanged.EventType
+                                .PORTOUT_STATUS_CHANGED
+                        )
                         .payload(
-                            EventListResponse.Payload.WebhookPortoutStatusChangedPayload.builder()
+                            EventListResponse.WebhookPortoutStatusChanged.Payload.builder()
                                 .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                 .attemptedPin("1234")
                                 .carrierName("Testing Carrier")
@@ -33,15 +38,16 @@ internal class EventListPageResponseTest {
                                 .rejectionReason(null)
                                 .spid("987H")
                                 .status(
-                                    EventListResponse.Payload.WebhookPortoutStatusChangedPayload
-                                        .Status
+                                    EventListResponse.WebhookPortoutStatusChanged.Payload.Status
                                         .AUTHORIZED
                                 )
                                 .subscriberName("John Doe")
                                 .userId("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                 .build()
                         )
-                        .payloadStatus(EventListResponse.PayloadStatus.CREATED)
+                        .payloadStatus(
+                            EventListResponse.WebhookPortoutStatusChanged.PayloadStatus.CREATED
+                        )
                         .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                         .recordType("portout_event")
                         .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
@@ -59,34 +65,43 @@ internal class EventListPageResponseTest {
 
         assertThat(eventListPageResponse.data().getOrNull())
             .containsExactly(
-                EventListResponse.builder()
-                    .id("eef3340b-8903-4466-b445-89b697315a3a")
-                    .addAvailableNotificationMethod(
-                        EventListResponse.AvailableNotificationMethod.EMAIL
-                    )
-                    .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .eventType(EventListResponse.EventType.PORTOUT_STATUS_CHANGED)
-                    .payload(
-                        EventListResponse.Payload.WebhookPortoutStatusChangedPayload.builder()
-                            .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
-                            .attemptedPin("1234")
-                            .carrierName("Testing Carrier")
-                            .addPhoneNumber("+35312345678")
-                            .rejectionReason(null)
-                            .spid("987H")
-                            .status(
-                                EventListResponse.Payload.WebhookPortoutStatusChangedPayload.Status
-                                    .AUTHORIZED
-                            )
-                            .subscriberName("John Doe")
-                            .userId("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
-                            .build()
-                    )
-                    .payloadStatus(EventListResponse.PayloadStatus.CREATED)
-                    .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
-                    .recordType("portout_event")
-                    .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .build()
+                EventListResponse.ofWebhookPortoutStatusChanged(
+                    EventListResponse.WebhookPortoutStatusChanged.builder()
+                        .id("eef3340b-8903-4466-b445-89b697315a3a")
+                        .addAvailableNotificationMethod(
+                            EventListResponse.WebhookPortoutStatusChanged
+                                .AvailableNotificationMethod
+                                .EMAIL
+                        )
+                        .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                        .eventType(
+                            EventListResponse.WebhookPortoutStatusChanged.EventType
+                                .PORTOUT_STATUS_CHANGED
+                        )
+                        .payload(
+                            EventListResponse.WebhookPortoutStatusChanged.Payload.builder()
+                                .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
+                                .attemptedPin("1234")
+                                .carrierName("Testing Carrier")
+                                .addPhoneNumber("+35312345678")
+                                .rejectionReason(null)
+                                .spid("987H")
+                                .status(
+                                    EventListResponse.WebhookPortoutStatusChanged.Payload.Status
+                                        .AUTHORIZED
+                                )
+                                .subscriberName("John Doe")
+                                .userId("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
+                                .build()
+                        )
+                        .payloadStatus(
+                            EventListResponse.WebhookPortoutStatusChanged.PayloadStatus.CREATED
+                        )
+                        .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
+                        .recordType("portout_event")
+                        .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                        .build()
+                )
             )
         assertThat(eventListPageResponse.meta())
             .contains(
@@ -105,15 +120,20 @@ internal class EventListPageResponseTest {
         val eventListPageResponse =
             EventListPageResponse.builder()
                 .addData(
-                    EventListResponse.builder()
+                    EventListResponse.WebhookPortoutStatusChanged.builder()
                         .id("eef3340b-8903-4466-b445-89b697315a3a")
                         .addAvailableNotificationMethod(
-                            EventListResponse.AvailableNotificationMethod.EMAIL
+                            EventListResponse.WebhookPortoutStatusChanged
+                                .AvailableNotificationMethod
+                                .EMAIL
                         )
                         .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                        .eventType(EventListResponse.EventType.PORTOUT_STATUS_CHANGED)
+                        .eventType(
+                            EventListResponse.WebhookPortoutStatusChanged.EventType
+                                .PORTOUT_STATUS_CHANGED
+                        )
                         .payload(
-                            EventListResponse.Payload.WebhookPortoutStatusChangedPayload.builder()
+                            EventListResponse.WebhookPortoutStatusChanged.Payload.builder()
                                 .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                 .attemptedPin("1234")
                                 .carrierName("Testing Carrier")
@@ -121,15 +141,16 @@ internal class EventListPageResponseTest {
                                 .rejectionReason(null)
                                 .spid("987H")
                                 .status(
-                                    EventListResponse.Payload.WebhookPortoutStatusChangedPayload
-                                        .Status
+                                    EventListResponse.WebhookPortoutStatusChanged.Payload.Status
                                         .AUTHORIZED
                                 )
                                 .subscriberName("John Doe")
                                 .userId("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                 .build()
                         )
-                        .payloadStatus(EventListResponse.PayloadStatus.CREATED)
+                        .payloadStatus(
+                            EventListResponse.WebhookPortoutStatusChanged.PayloadStatus.CREATED
+                        )
                         .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                         .recordType("portout_event")
                         .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
