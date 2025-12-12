@@ -18,20 +18,18 @@ internal class TexmlGetCallRecordingResponseBodyTest {
                 .callSid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
                 .channels(TexmlGetCallRecordingResponseBody.Channels.CHANNEL_1)
                 .conferenceSid("cd5a70f4-759b-4d5e-9c06-88c00f16f3c1")
-                .dateCreated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .dateUpdated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .dateCreated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
+                .dateUpdated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                 .duration("12")
                 .errorCode(null)
                 .mediaUrl("http://recordings.com/mp3/filename.mp3")
                 .sid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
                 .source(TexmlGetCallRecordingResponseBody.Source.START_CALL_RECORDING_API)
-                .startTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .startTime(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                 .status(TexmlGetCallRecordingResponseBody.Status.PAUSED)
                 .subresourcesUris(
                     TexmlRecordingSubresourcesUris.builder()
-                        .transcriptions(
-                            "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/b08f0fa1-a32c-4218-b3b5-9cf78941ccac/Transcriptions.json"
-                        )
+                        .transcriptions("https://example.com")
                         .build()
                 )
                 .uri(
@@ -48,9 +46,9 @@ internal class TexmlGetCallRecordingResponseBodyTest {
         assertThat(texmlGetCallRecordingResponseBody.conferenceSid())
             .contains("cd5a70f4-759b-4d5e-9c06-88c00f16f3c1")
         assertThat(texmlGetCallRecordingResponseBody.dateCreated())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .contains(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
         assertThat(texmlGetCallRecordingResponseBody.dateUpdated())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .contains(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
         assertThat(texmlGetCallRecordingResponseBody.duration()).contains("12")
         assertThat(texmlGetCallRecordingResponseBody.errorCode()).isEmpty
         assertThat(texmlGetCallRecordingResponseBody.mediaUrl())
@@ -60,15 +58,13 @@ internal class TexmlGetCallRecordingResponseBodyTest {
         assertThat(texmlGetCallRecordingResponseBody.source())
             .contains(TexmlGetCallRecordingResponseBody.Source.START_CALL_RECORDING_API)
         assertThat(texmlGetCallRecordingResponseBody.startTime())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .contains(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
         assertThat(texmlGetCallRecordingResponseBody.status())
             .contains(TexmlGetCallRecordingResponseBody.Status.PAUSED)
         assertThat(texmlGetCallRecordingResponseBody.subresourcesUris())
             .contains(
                 TexmlRecordingSubresourcesUris.builder()
-                    .transcriptions(
-                        "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/b08f0fa1-a32c-4218-b3b5-9cf78941ccac/Transcriptions.json"
-                    )
+                    .transcriptions("https://example.com")
                     .build()
             )
         assertThat(texmlGetCallRecordingResponseBody.uri())
@@ -86,20 +82,18 @@ internal class TexmlGetCallRecordingResponseBodyTest {
                 .callSid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
                 .channels(TexmlGetCallRecordingResponseBody.Channels.CHANNEL_1)
                 .conferenceSid("cd5a70f4-759b-4d5e-9c06-88c00f16f3c1")
-                .dateCreated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .dateUpdated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .dateCreated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
+                .dateUpdated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                 .duration("12")
                 .errorCode(null)
                 .mediaUrl("http://recordings.com/mp3/filename.mp3")
                 .sid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
                 .source(TexmlGetCallRecordingResponseBody.Source.START_CALL_RECORDING_API)
-                .startTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .startTime(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                 .status(TexmlGetCallRecordingResponseBody.Status.PAUSED)
                 .subresourcesUris(
                     TexmlRecordingSubresourcesUris.builder()
-                        .transcriptions(
-                            "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/b08f0fa1-a32c-4218-b3b5-9cf78941ccac/Transcriptions.json"
-                        )
+                        .transcriptions("https://example.com")
                         .build()
                 )
                 .uri(

@@ -151,6 +151,7 @@ private constructor(
         private val recordType: JsonField<RecordType>,
         private val to: JsonField<String>,
         private val waitTimeSecs: JsonField<Long>,
+        private val isAlive: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -183,6 +184,7 @@ private constructor(
             @JsonProperty("wait_time_secs")
             @ExcludeMissing
             waitTimeSecs: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("is_alive") @ExcludeMissing isAlive: JsonField<Boolean> = JsonMissing.of(),
         ) : this(
             callControlId,
             callLegId,
@@ -195,6 +197,7 @@ private constructor(
             recordType,
             to,
             waitTimeSecs,
+            isAlive,
             mutableMapOf(),
         )
 
@@ -285,6 +288,14 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun waitTimeSecs(): Long = waitTimeSecs.getRequired("wait_time_secs")
+
+        /**
+         * Indicates whether the call is still active in the queue.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun isAlive(): Optional<Boolean> = isAlive.getOptional("is_alive")
 
         /**
          * Returns the raw JSON value of [callControlId].
@@ -382,6 +393,13 @@ private constructor(
         @ExcludeMissing
         fun _waitTimeSecs(): JsonField<Long> = waitTimeSecs
 
+        /**
+         * Returns the raw JSON value of [isAlive].
+         *
+         * Unlike [isAlive], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("is_alive") @ExcludeMissing fun _isAlive(): JsonField<Boolean> = isAlive
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -431,6 +449,7 @@ private constructor(
             private var recordType: JsonField<RecordType>? = null
             private var to: JsonField<String>? = null
             private var waitTimeSecs: JsonField<Long>? = null
+            private var isAlive: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -446,6 +465,7 @@ private constructor(
                 recordType = data.recordType
                 to = data.to
                 waitTimeSecs = data.waitTimeSecs
+                isAlive = data.isAlive
                 additionalProperties = data.additionalProperties.toMutableMap()
             }
 
@@ -596,6 +616,18 @@ private constructor(
                 this.waitTimeSecs = waitTimeSecs
             }
 
+            /** Indicates whether the call is still active in the queue. */
+            fun isAlive(isAlive: Boolean) = isAlive(JsonField.of(isAlive))
+
+            /**
+             * Sets [Builder.isAlive] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.isAlive] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun isAlive(isAlive: JsonField<Boolean>) = apply { this.isAlive = isAlive }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -650,6 +682,7 @@ private constructor(
                     checkRequired("recordType", recordType),
                     checkRequired("to", to),
                     checkRequired("waitTimeSecs", waitTimeSecs),
+                    isAlive,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -672,6 +705,7 @@ private constructor(
             recordType().validate()
             to()
             waitTimeSecs()
+            isAlive()
             validated = true
         }
 
@@ -701,7 +735,8 @@ private constructor(
                 (if (queuePosition.asKnown().isPresent) 1 else 0) +
                 (recordType.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (to.asKnown().isPresent) 1 else 0) +
-                (if (waitTimeSecs.asKnown().isPresent) 1 else 0)
+                (if (waitTimeSecs.asKnown().isPresent) 1 else 0) +
+                (if (isAlive.asKnown().isPresent) 1 else 0)
 
         class RecordType @JsonCreator private constructor(private val value: JsonField<String>) :
             Enum {
@@ -845,6 +880,7 @@ private constructor(
                 recordType == other.recordType &&
                 to == other.to &&
                 waitTimeSecs == other.waitTimeSecs &&
+                isAlive == other.isAlive &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -861,6 +897,7 @@ private constructor(
                 recordType,
                 to,
                 waitTimeSecs,
+                isAlive,
                 additionalProperties,
             )
         }
@@ -868,7 +905,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{callControlId=$callControlId, callLegId=$callLegId, callSessionId=$callSessionId, connectionId=$connectionId, enqueuedAt=$enqueuedAt, from=$from, queueId=$queueId, queuePosition=$queuePosition, recordType=$recordType, to=$to, waitTimeSecs=$waitTimeSecs, additionalProperties=$additionalProperties}"
+            "Data{callControlId=$callControlId, callLegId=$callLegId, callSessionId=$callSessionId, connectionId=$connectionId, enqueuedAt=$enqueuedAt, from=$from, queueId=$queueId, queuePosition=$queuePosition, recordType=$recordType, to=$to, waitTimeSecs=$waitTimeSecs, isAlive=$isAlive, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

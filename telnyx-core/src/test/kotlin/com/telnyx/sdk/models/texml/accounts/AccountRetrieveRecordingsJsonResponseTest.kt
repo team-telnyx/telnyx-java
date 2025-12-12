@@ -16,37 +16,31 @@ internal class AccountRetrieveRecordingsJsonResponseTest {
         val accountRetrieveRecordingsJsonResponse =
             AccountRetrieveRecordingsJsonResponse.builder()
                 .end(19L)
-                .firstPageUri(
-                    "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings.json?Page=0&PageSize=1"
-                )
+                .firstPageUri("https://example.com")
                 .nextPageUri(
                     "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Calls.json?Page=1&PageSize=1"
                 )
                 .page(0L)
                 .pageSize(20L)
-                .previousPageUri(
-                    "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings.json?Page=0&PageSize=1"
-                )
+                .previousPageUri("https://example.com")
                 .addRecording(
                     TexmlGetCallRecordingResponseBody.builder()
                         .accountSid("61bf923e-5e4d-4595-a110-56190ea18a1b")
                         .callSid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
                         .channels(TexmlGetCallRecordingResponseBody.Channels.CHANNEL_1)
                         .conferenceSid("cd5a70f4-759b-4d5e-9c06-88c00f16f3c1")
-                        .dateCreated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .dateUpdated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .dateCreated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
+                        .dateUpdated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                         .duration("12")
                         .errorCode(null)
                         .mediaUrl("http://recordings.com/mp3/filename.mp3")
                         .sid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
                         .source(TexmlGetCallRecordingResponseBody.Source.START_CALL_RECORDING_API)
-                        .startTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .startTime(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                         .status(TexmlGetCallRecordingResponseBody.Status.PAUSED)
                         .subresourcesUris(
                             TexmlRecordingSubresourcesUris.builder()
-                                .transcriptions(
-                                    "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/b08f0fa1-a32c-4218-b3b5-9cf78941ccac/Transcriptions.json"
-                                )
+                                .transcriptions("https://example.com")
                                 .build()
                         )
                         .uri(
@@ -62,9 +56,7 @@ internal class AccountRetrieveRecordingsJsonResponseTest {
 
         assertThat(accountRetrieveRecordingsJsonResponse.end()).contains(19L)
         assertThat(accountRetrieveRecordingsJsonResponse.firstPageUri())
-            .contains(
-                "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings.json?Page=0&PageSize=1"
-            )
+            .contains("https://example.com")
         assertThat(accountRetrieveRecordingsJsonResponse.nextPageUri())
             .contains(
                 "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Calls.json?Page=1&PageSize=1"
@@ -72,9 +64,7 @@ internal class AccountRetrieveRecordingsJsonResponseTest {
         assertThat(accountRetrieveRecordingsJsonResponse.page()).contains(0L)
         assertThat(accountRetrieveRecordingsJsonResponse.pageSize()).contains(20L)
         assertThat(accountRetrieveRecordingsJsonResponse.previousPageUri())
-            .contains(
-                "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings.json?Page=0&PageSize=1"
-            )
+            .contains("https://example.com")
         assertThat(accountRetrieveRecordingsJsonResponse.recordings().getOrNull())
             .containsExactly(
                 TexmlGetCallRecordingResponseBody.builder()
@@ -82,20 +72,18 @@ internal class AccountRetrieveRecordingsJsonResponseTest {
                     .callSid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
                     .channels(TexmlGetCallRecordingResponseBody.Channels.CHANNEL_1)
                     .conferenceSid("cd5a70f4-759b-4d5e-9c06-88c00f16f3c1")
-                    .dateCreated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .dateUpdated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .dateCreated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
+                    .dateUpdated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                     .duration("12")
                     .errorCode(null)
                     .mediaUrl("http://recordings.com/mp3/filename.mp3")
                     .sid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
                     .source(TexmlGetCallRecordingResponseBody.Source.START_CALL_RECORDING_API)
-                    .startTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .startTime(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                     .status(TexmlGetCallRecordingResponseBody.Status.PAUSED)
                     .subresourcesUris(
                         TexmlRecordingSubresourcesUris.builder()
-                            .transcriptions(
-                                "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/b08f0fa1-a32c-4218-b3b5-9cf78941ccac/Transcriptions.json"
-                            )
+                            .transcriptions("https://example.com")
                             .build()
                     )
                     .uri(
@@ -116,37 +104,31 @@ internal class AccountRetrieveRecordingsJsonResponseTest {
         val accountRetrieveRecordingsJsonResponse =
             AccountRetrieveRecordingsJsonResponse.builder()
                 .end(19L)
-                .firstPageUri(
-                    "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings.json?Page=0&PageSize=1"
-                )
+                .firstPageUri("https://example.com")
                 .nextPageUri(
                     "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Calls.json?Page=1&PageSize=1"
                 )
                 .page(0L)
                 .pageSize(20L)
-                .previousPageUri(
-                    "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings.json?Page=0&PageSize=1"
-                )
+                .previousPageUri("https://example.com")
                 .addRecording(
                     TexmlGetCallRecordingResponseBody.builder()
                         .accountSid("61bf923e-5e4d-4595-a110-56190ea18a1b")
                         .callSid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
                         .channels(TexmlGetCallRecordingResponseBody.Channels.CHANNEL_1)
                         .conferenceSid("cd5a70f4-759b-4d5e-9c06-88c00f16f3c1")
-                        .dateCreated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .dateUpdated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .dateCreated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
+                        .dateUpdated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                         .duration("12")
                         .errorCode(null)
                         .mediaUrl("http://recordings.com/mp3/filename.mp3")
                         .sid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
                         .source(TexmlGetCallRecordingResponseBody.Source.START_CALL_RECORDING_API)
-                        .startTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .startTime(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                         .status(TexmlGetCallRecordingResponseBody.Status.PAUSED)
                         .subresourcesUris(
                             TexmlRecordingSubresourcesUris.builder()
-                                .transcriptions(
-                                    "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/b08f0fa1-a32c-4218-b3b5-9cf78941ccac/Transcriptions.json"
-                                )
+                                .transcriptions("https://example.com")
                                 .build()
                         )
                         .uri(

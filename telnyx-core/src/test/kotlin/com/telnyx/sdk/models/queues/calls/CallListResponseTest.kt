@@ -24,6 +24,7 @@ internal class CallListResponseTest {
                 .recordType(CallListResponse.RecordType.QUEUE_CALL)
                 .to("+18005550102")
                 .waitTimeSecs(145L)
+                .isAlive(true)
                 .build()
 
         assertThat(callListResponse.callControlId())
@@ -39,6 +40,7 @@ internal class CallListResponseTest {
         assertThat(callListResponse.recordType()).isEqualTo(CallListResponse.RecordType.QUEUE_CALL)
         assertThat(callListResponse.to()).isEqualTo("+18005550102")
         assertThat(callListResponse.waitTimeSecs()).isEqualTo(145L)
+        assertThat(callListResponse.isAlive()).contains(true)
     }
 
     @Test
@@ -57,6 +59,7 @@ internal class CallListResponseTest {
                 .recordType(CallListResponse.RecordType.QUEUE_CALL)
                 .to("+18005550102")
                 .waitTimeSecs(145L)
+                .isAlive(true)
                 .build()
 
         val roundtrippedCallListResponse =

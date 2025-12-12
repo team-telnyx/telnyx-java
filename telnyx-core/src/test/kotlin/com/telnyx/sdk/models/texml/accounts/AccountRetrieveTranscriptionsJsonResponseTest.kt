@@ -16,25 +16,21 @@ internal class AccountRetrieveTranscriptionsJsonResponseTest {
         val accountRetrieveTranscriptionsJsonResponse =
             AccountRetrieveTranscriptionsJsonResponse.builder()
                 .end(1L)
-                .firstPageUri(
-                    "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Transcriptions.json?Page=0&PageSize=1"
-                )
+                .firstPageUri("https://example.com")
                 .nextPageUri(
                     "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Transcriptions.json?PageToken=KRWXZPO&PageSize=1"
                 )
                 .page(0L)
                 .pageSize(20L)
-                .previousPageUri(
-                    "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Transcriptions.json?PageToken=MZQTDUHX&PageSize=1"
-                )
+                .previousPageUri("https://example.com")
                 .start(0L)
                 .addTranscription(
                     AccountRetrieveTranscriptionsJsonResponse.Transcription.builder()
                         .accountSid("61bf923e-5e4d-4595-a110-56190ea18a1b")
                         .apiVersion("2010-04-01")
                         .callSid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
-                        .dateCreated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .dateUpdated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .dateCreated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
+                        .dateUpdated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                         .duration("12")
                         .recordingSid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
                         .sid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
@@ -54,9 +50,7 @@ internal class AccountRetrieveTranscriptionsJsonResponseTest {
 
         assertThat(accountRetrieveTranscriptionsJsonResponse.end()).contains(1L)
         assertThat(accountRetrieveTranscriptionsJsonResponse.firstPageUri())
-            .contains(
-                "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Transcriptions.json?Page=0&PageSize=1"
-            )
+            .contains("https://example.com")
         assertThat(accountRetrieveTranscriptionsJsonResponse.nextPageUri())
             .contains(
                 "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Transcriptions.json?PageToken=KRWXZPO&PageSize=1"
@@ -64,9 +58,7 @@ internal class AccountRetrieveTranscriptionsJsonResponseTest {
         assertThat(accountRetrieveTranscriptionsJsonResponse.page()).contains(0L)
         assertThat(accountRetrieveTranscriptionsJsonResponse.pageSize()).contains(20L)
         assertThat(accountRetrieveTranscriptionsJsonResponse.previousPageUri())
-            .contains(
-                "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Transcriptions.json?PageToken=MZQTDUHX&PageSize=1"
-            )
+            .contains("https://example.com")
         assertThat(accountRetrieveTranscriptionsJsonResponse.start()).contains(0L)
         assertThat(accountRetrieveTranscriptionsJsonResponse.transcriptions().getOrNull())
             .containsExactly(
@@ -74,8 +66,8 @@ internal class AccountRetrieveTranscriptionsJsonResponseTest {
                     .accountSid("61bf923e-5e4d-4595-a110-56190ea18a1b")
                     .apiVersion("2010-04-01")
                     .callSid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
-                    .dateCreated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .dateUpdated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .dateCreated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
+                    .dateUpdated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                     .duration("12")
                     .recordingSid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
                     .sid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
@@ -100,25 +92,21 @@ internal class AccountRetrieveTranscriptionsJsonResponseTest {
         val accountRetrieveTranscriptionsJsonResponse =
             AccountRetrieveTranscriptionsJsonResponse.builder()
                 .end(1L)
-                .firstPageUri(
-                    "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Transcriptions.json?Page=0&PageSize=1"
-                )
+                .firstPageUri("https://example.com")
                 .nextPageUri(
                     "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Transcriptions.json?PageToken=KRWXZPO&PageSize=1"
                 )
                 .page(0L)
                 .pageSize(20L)
-                .previousPageUri(
-                    "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Transcriptions.json?PageToken=MZQTDUHX&PageSize=1"
-                )
+                .previousPageUri("https://example.com")
                 .start(0L)
                 .addTranscription(
                     AccountRetrieveTranscriptionsJsonResponse.Transcription.builder()
                         .accountSid("61bf923e-5e4d-4595-a110-56190ea18a1b")
                         .apiVersion("2010-04-01")
                         .callSid("v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA")
-                        .dateCreated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .dateUpdated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .dateCreated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
+                        .dateUpdated(OffsetDateTime.parse("2023-08-11T19:12:11Z"))
                         .duration("12")
                         .recordingSid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")
                         .sid("e9cea0be-7dbd-4b98-98b1-c0089d9d43b0")

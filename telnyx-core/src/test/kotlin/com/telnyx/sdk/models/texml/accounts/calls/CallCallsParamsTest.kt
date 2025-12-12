@@ -12,7 +12,7 @@ internal class CallCallsParamsTest {
     fun create() {
         CallCallsParams.builder()
             .accountSid("account_sid")
-            .applicationSid("ApplicationSid")
+            .applicationSid("example-app-sid")
             .from("+13120001234")
             .to("+13121230000")
             .asyncAmd(true)
@@ -60,7 +60,7 @@ internal class CallCallsParamsTest {
         val params =
             CallCallsParams.builder()
                 .accountSid("account_sid")
-                .applicationSid("ApplicationSid")
+                .applicationSid("example-app-sid")
                 .from("+13120001234")
                 .to("+13121230000")
                 .build()
@@ -75,7 +75,7 @@ internal class CallCallsParamsTest {
         val params =
             CallCallsParams.builder()
                 .accountSid("account_sid")
-                .applicationSid("ApplicationSid")
+                .applicationSid("example-app-sid")
                 .from("+13120001234")
                 .to("+13121230000")
                 .asyncAmd(true)
@@ -119,7 +119,7 @@ internal class CallCallsParamsTest {
 
         val body = params._body()
 
-        assertThat(body.applicationSid()).isEqualTo("ApplicationSid")
+        assertThat(body.applicationSid()).isEqualTo("example-app-sid")
         assertThat(body.from()).isEqualTo("+13120001234")
         assertThat(body.to()).isEqualTo("+13121230000")
         assertThat(body.asyncAmd()).contains(true)
@@ -172,14 +172,14 @@ internal class CallCallsParamsTest {
         val params =
             CallCallsParams.builder()
                 .accountSid("account_sid")
-                .applicationSid("ApplicationSid")
+                .applicationSid("example-app-sid")
                 .from("+13120001234")
                 .to("+13121230000")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.applicationSid()).isEqualTo("ApplicationSid")
+        assertThat(body.applicationSid()).isEqualTo("example-app-sid")
         assertThat(body.from()).isEqualTo("+13120001234")
         assertThat(body.to()).isEqualTo("+13121230000")
     }

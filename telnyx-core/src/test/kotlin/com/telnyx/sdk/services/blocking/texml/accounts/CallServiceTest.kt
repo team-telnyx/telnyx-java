@@ -85,7 +85,7 @@ internal class CallServiceTest {
             callService.calls(
                 CallCallsParams.builder()
                     .accountSid("account_sid")
-                    .applicationSid("ApplicationSid")
+                    .applicationSid("example-app-sid")
                     .from("+13120001234")
                     .to("+13121230000")
                     .asyncAmd(true)

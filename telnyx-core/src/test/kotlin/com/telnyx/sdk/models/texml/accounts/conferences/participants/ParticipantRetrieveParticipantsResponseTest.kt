@@ -18,7 +18,7 @@ internal class ParticipantRetrieveParticipantsResponseTest {
                 .firstPageUri(
                     "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences/6dc6cc1a-1ba1-4351-86b8-4c22c95cd98f/Participants.json?page=0&pagesize=20"
                 )
-                .nextPageUri("next_page_uri")
+                .nextPageUri("accepted")
                 .page(0L)
                 .pageSize(20L)
                 .addParticipant(
@@ -28,8 +28,12 @@ internal class ParticipantRetrieveParticipantsResponseTest {
                         .callSid("v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ")
                         .callSidLegacy("v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ")
                         .coaching(false)
-                        .coachingCallSid("coaching_call_sid")
-                        .coachingCallSidLegacy("coaching_call_sid_legacy")
+                        .coachingCallSid(
+                            "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ"
+                        )
+                        .coachingCallSidLegacy(
+                            "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ"
+                        )
                         .dateCreated("Fri, 27 Oct 2023 07:41:58 +0000")
                         .dateUpdated("Fri, 27 Oct 2023 07:41:58 +0000")
                         .endConferenceOnExit(false)
@@ -54,7 +58,7 @@ internal class ParticipantRetrieveParticipantsResponseTest {
             .contains(
                 "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences/6dc6cc1a-1ba1-4351-86b8-4c22c95cd98f/Participants.json?page=0&pagesize=20"
             )
-        assertThat(participantRetrieveParticipantsResponse.nextPageUri()).contains("next_page_uri")
+        assertThat(participantRetrieveParticipantsResponse.nextPageUri()).contains("accepted")
         assertThat(participantRetrieveParticipantsResponse.page()).contains(0L)
         assertThat(participantRetrieveParticipantsResponse.pageSize()).contains(20L)
         assertThat(participantRetrieveParticipantsResponse.participants().getOrNull())
@@ -65,8 +69,10 @@ internal class ParticipantRetrieveParticipantsResponseTest {
                     .callSid("v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ")
                     .callSidLegacy("v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ")
                     .coaching(false)
-                    .coachingCallSid("coaching_call_sid")
-                    .coachingCallSidLegacy("coaching_call_sid_legacy")
+                    .coachingCallSid("v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ")
+                    .coachingCallSidLegacy(
+                        "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ"
+                    )
                     .dateCreated("Fri, 27 Oct 2023 07:41:58 +0000")
                     .dateUpdated("Fri, 27 Oct 2023 07:41:58 +0000")
                     .endConferenceOnExit(false)
@@ -94,7 +100,7 @@ internal class ParticipantRetrieveParticipantsResponseTest {
                 .firstPageUri(
                     "/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Conferences/6dc6cc1a-1ba1-4351-86b8-4c22c95cd98f/Participants.json?page=0&pagesize=20"
                 )
-                .nextPageUri("next_page_uri")
+                .nextPageUri("accepted")
                 .page(0L)
                 .pageSize(20L)
                 .addParticipant(
@@ -104,8 +110,12 @@ internal class ParticipantRetrieveParticipantsResponseTest {
                         .callSid("v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ")
                         .callSidLegacy("v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ")
                         .coaching(false)
-                        .coachingCallSid("coaching_call_sid")
-                        .coachingCallSidLegacy("coaching_call_sid_legacy")
+                        .coachingCallSid(
+                            "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ"
+                        )
+                        .coachingCallSidLegacy(
+                            "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ"
+                        )
                         .dateCreated("Fri, 27 Oct 2023 07:41:58 +0000")
                         .dateUpdated("Fri, 27 Oct 2023 07:41:58 +0000")
                         .endConferenceOnExit(false)

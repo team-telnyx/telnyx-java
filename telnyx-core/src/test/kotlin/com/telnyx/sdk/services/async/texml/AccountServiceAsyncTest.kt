@@ -28,7 +28,7 @@ internal class AccountServiceAsyncTest {
             accountServiceAsync.retrieveRecordingsJson(
                 AccountRetrieveRecordingsJsonParams.builder()
                     .accountSid("account_sid")
-                    .dateCreated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .dateCreated(OffsetDateTime.parse("2023-05-22T00:00:00Z"))
                     .page(0L)
                     .pageSize(0L)
                     .build()
