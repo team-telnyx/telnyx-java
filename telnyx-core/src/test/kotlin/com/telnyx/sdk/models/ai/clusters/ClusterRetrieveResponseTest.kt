@@ -4,7 +4,7 @@ package com.telnyx.sdk.models.ai.clusters
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.messaging10dlc.phonenumberassignmentbyprofile.TaskStatus
+import com.telnyx.sdk.models.phonenumberassignmentbyprofile.TaskStatus
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

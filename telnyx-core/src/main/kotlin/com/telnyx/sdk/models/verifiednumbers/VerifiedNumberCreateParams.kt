@@ -162,10 +162,7 @@ private constructor(
          * W = 1 second pause. Maximum length: 50 characters. Only works with 'call' verification
          * method.
          */
-        fun extension(extension: String?) = apply { body.extension(extension) }
-
-        /** Alias for calling [Builder.extension] with `extension.orElse(null)`. */
-        fun extension(extension: Optional<String>) = extension(extension.getOrNull())
+        fun extension(extension: String) = apply { body.extension(extension) }
 
         /**
          * Sets [Builder.extension] to an arbitrary JSON value.
@@ -472,10 +469,7 @@ private constructor(
              * second pause, W = 1 second pause. Maximum length: 50 characters. Only works with
              * 'call' verification method.
              */
-            fun extension(extension: String?) = extension(JsonField.ofNullable(extension))
-
-            /** Alias for calling [Builder.extension] with `extension.orElse(null)`. */
-            fun extension(extension: Optional<String>) = extension(extension.getOrNull())
+            fun extension(extension: String) = extension(JsonField.of(extension))
 
             /**
              * Sets [Builder.extension] to an arbitrary JSON value.

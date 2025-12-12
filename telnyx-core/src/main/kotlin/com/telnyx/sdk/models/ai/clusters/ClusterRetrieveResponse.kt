@@ -14,7 +14,7 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.messaging10dlc.phonenumberassignmentbyprofile.TaskStatus
+import com.telnyx.sdk.models.phonenumberassignmentbyprofile.TaskStatus
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
