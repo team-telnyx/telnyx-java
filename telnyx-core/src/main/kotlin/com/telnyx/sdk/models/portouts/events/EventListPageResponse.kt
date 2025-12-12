@@ -118,6 +118,27 @@ private constructor(
                 }
         }
 
+        /**
+         * Alias for calling [addData] with
+         * `EventListResponse.ofWebhookPortoutStatusChanged(webhookPortoutStatusChanged)`.
+         */
+        fun addData(webhookPortoutStatusChanged: EventListResponse.WebhookPortoutStatusChanged) =
+            addData(EventListResponse.ofWebhookPortoutStatusChanged(webhookPortoutStatusChanged))
+
+        /**
+         * Alias for calling [addData] with
+         * `EventListResponse.ofWebhookPortoutNewComment(webhookPortoutNewComment)`.
+         */
+        fun addData(webhookPortoutNewComment: EventListResponse.WebhookPortoutNewComment) =
+            addData(EventListResponse.ofWebhookPortoutNewComment(webhookPortoutNewComment))
+
+        /**
+         * Alias for calling [addData] with
+         * `EventListResponse.ofWebhookPortoutFocDateChanged(webhookPortoutFocDateChanged)`.
+         */
+        fun addData(webhookPortoutFocDateChanged: EventListResponse.WebhookPortoutFocDateChanged) =
+            addData(EventListResponse.ofWebhookPortoutFocDateChanged(webhookPortoutFocDateChanged))
+
         fun meta(meta: PaginationMeta) = meta(JsonField.of(meta))
 
         /**
