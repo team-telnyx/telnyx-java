@@ -24,7 +24,7 @@ interface ActionService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionService
 
-    /** Upload file required for a messaging hosted number order */
+    /** Upload hosted number document */
     fun uploadFile(id: String): ActionUploadFileResponse =
         uploadFile(id, ActionUploadFileParams.none())
 

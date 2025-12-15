@@ -29,7 +29,7 @@ interface AutorespConfigServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AutorespConfigServiceAsync
 
-    /** Create Auto-Reponse Setting */
+    /** Create auto-response setting */
     fun create(
         profileId: String,
         params: AutorespConfigCreateParams,
