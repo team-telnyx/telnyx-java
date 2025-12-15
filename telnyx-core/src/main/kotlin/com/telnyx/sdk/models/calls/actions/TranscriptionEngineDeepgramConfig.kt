@@ -20,7 +20,6 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.toImmutable
@@ -34,22 +33,22 @@ import kotlin.jvm.optionals.getOrNull
 @JsonSerialize(using = TranscriptionEngineDeepgramConfig.Serializer::class)
 class TranscriptionEngineDeepgramConfig
 private constructor(
-    private val deepgramNova2: DeepgramNova2Config? = null,
-    private val deepgramNova3: DeepgramNova3Config? = null,
+    private val deepgramNova2: DeepgramNova2? = null,
+    private val deepgramNova3: DeepgramNova3? = null,
     private val _json: JsonValue? = null,
 ) {
 
-    fun deepgramNova2(): Optional<DeepgramNova2Config> = Optional.ofNullable(deepgramNova2)
+    fun deepgramNova2(): Optional<DeepgramNova2> = Optional.ofNullable(deepgramNova2)
 
-    fun deepgramNova3(): Optional<DeepgramNova3Config> = Optional.ofNullable(deepgramNova3)
+    fun deepgramNova3(): Optional<DeepgramNova3> = Optional.ofNullable(deepgramNova3)
 
     fun isDeepgramNova2(): Boolean = deepgramNova2 != null
 
     fun isDeepgramNova3(): Boolean = deepgramNova3 != null
 
-    fun asDeepgramNova2(): DeepgramNova2Config = deepgramNova2.getOrThrow("deepgramNova2")
+    fun asDeepgramNova2(): DeepgramNova2 = deepgramNova2.getOrThrow("deepgramNova2")
 
-    fun asDeepgramNova3(): DeepgramNova3Config = deepgramNova3.getOrThrow("deepgramNova3")
+    fun asDeepgramNova3(): DeepgramNova3 = deepgramNova3.getOrThrow("deepgramNova3")
 
     fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -69,11 +68,11 @@ private constructor(
 
         accept(
             object : Visitor<Unit> {
-                override fun visitDeepgramNova2(deepgramNova2: DeepgramNova2Config) {
+                override fun visitDeepgramNova2(deepgramNova2: DeepgramNova2) {
                     deepgramNova2.validate()
                 }
 
-                override fun visitDeepgramNova3(deepgramNova3: DeepgramNova3Config) {
+                override fun visitDeepgramNova3(deepgramNova3: DeepgramNova3) {
                     deepgramNova3.validate()
                 }
             }
@@ -98,10 +97,10 @@ private constructor(
     internal fun validity(): Int =
         accept(
             object : Visitor<Int> {
-                override fun visitDeepgramNova2(deepgramNova2: DeepgramNova2Config) =
+                override fun visitDeepgramNova2(deepgramNova2: DeepgramNova2) =
                     deepgramNova2.validity()
 
-                override fun visitDeepgramNova3(deepgramNova3: DeepgramNova3Config) =
+                override fun visitDeepgramNova3(deepgramNova3: DeepgramNova3) =
                     deepgramNova3.validity()
 
                 override fun unknown(json: JsonValue?) = 0
@@ -133,11 +132,11 @@ private constructor(
     companion object {
 
         @JvmStatic
-        fun ofDeepgramNova2(deepgramNova2: DeepgramNova2Config) =
+        fun ofDeepgramNova2(deepgramNova2: DeepgramNova2) =
             TranscriptionEngineDeepgramConfig(deepgramNova2 = deepgramNova2)
 
         @JvmStatic
-        fun ofDeepgramNova3(deepgramNova3: DeepgramNova3Config) =
+        fun ofDeepgramNova3(deepgramNova3: DeepgramNova3) =
             TranscriptionEngineDeepgramConfig(deepgramNova3 = deepgramNova3)
     }
 
@@ -147,9 +146,9 @@ private constructor(
      */
     interface Visitor<out T> {
 
-        fun visitDeepgramNova2(deepgramNova2: DeepgramNova2Config): T
+        fun visitDeepgramNova2(deepgramNova2: DeepgramNova2): T
 
-        fun visitDeepgramNova3(deepgramNova3: DeepgramNova3Config): T
+        fun visitDeepgramNova3(deepgramNova3: DeepgramNova3): T
 
         /**
          * Maps an unknown variant of [TranscriptionEngineDeepgramConfig] to a value of type [T].
@@ -173,28 +172,23 @@ private constructor(
 
         override fun ObjectCodec.deserialize(node: JsonNode): TranscriptionEngineDeepgramConfig {
             val json = JsonValue.fromJsonNode(node)
+            val transcriptionModel =
+                json.asObject().getOrNull()?.get("transcription_model")?.asString()?.getOrNull()
 
-            val bestMatches =
-                sequenceOf(
-                        tryDeserialize(node, jacksonTypeRef<DeepgramNova2Config>())?.let {
-                            TranscriptionEngineDeepgramConfig(deepgramNova2 = it, _json = json)
-                        },
-                        tryDeserialize(node, jacksonTypeRef<DeepgramNova3Config>())?.let {
-                            TranscriptionEngineDeepgramConfig(deepgramNova3 = it, _json = json)
-                        },
-                    )
-                    .filterNotNull()
-                    .allMaxBy { it.validity() }
-                    .toList()
-            return when (bestMatches.size) {
-                // This can happen if what we're deserializing is completely incompatible with all
-                // the possible variants (e.g. deserializing from boolean).
-                0 -> TranscriptionEngineDeepgramConfig(_json = json)
-                1 -> bestMatches.single()
-                // If there's more than one match with the highest validity, then use the first
-                // completely valid match, or simply the first match if none are completely valid.
-                else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+            when (transcriptionModel) {
+                "deepgram/nova-2" -> {
+                    return tryDeserialize(node, jacksonTypeRef<DeepgramNova2>())?.let {
+                        TranscriptionEngineDeepgramConfig(deepgramNova2 = it, _json = json)
+                    } ?: TranscriptionEngineDeepgramConfig(_json = json)
+                }
+                "deepgram/nova-3" -> {
+                    return tryDeserialize(node, jacksonTypeRef<DeepgramNova3>())?.let {
+                        TranscriptionEngineDeepgramConfig(deepgramNova3 = it, _json = json)
+                    } ?: TranscriptionEngineDeepgramConfig(_json = json)
+                }
             }
+
+            return TranscriptionEngineDeepgramConfig(_json = json)
         }
     }
 
@@ -217,11 +211,11 @@ private constructor(
         }
     }
 
-    class DeepgramNova2Config
+    class DeepgramNova2
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val transcriptionEngine: JsonField<TranscriptionEngine>,
-        private val transcriptionModel: JsonField<TranscriptionModel>,
+        private val transcriptionModel: JsonValue,
         private val keywordsBoosting: JsonField<KeywordsBoosting>,
         private val language: JsonField<Language>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -234,7 +228,7 @@ private constructor(
             transcriptionEngine: JsonField<TranscriptionEngine> = JsonMissing.of(),
             @JsonProperty("transcription_model")
             @ExcludeMissing
-            transcriptionModel: JsonField<TranscriptionModel> = JsonMissing.of(),
+            transcriptionModel: JsonValue = JsonMissing.of(),
             @JsonProperty("keywords_boosting")
             @ExcludeMissing
             keywordsBoosting: JsonField<KeywordsBoosting> = JsonMissing.of(),
@@ -257,11 +251,17 @@ private constructor(
             transcriptionEngine.getRequired("transcription_engine")
 
         /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * Expected to always return the following:
+         * ```java
+         * JsonValue.from("deepgram/nova-2")
+         * ```
+         *
+         * However, this method can be useful for debugging and logging (e.g. if the server
+         * responded with an unexpected value).
          */
-        fun transcriptionModel(): TranscriptionModel =
-            transcriptionModel.getRequired("transcription_model")
+        @JsonProperty("transcription_model")
+        @ExcludeMissing
+        fun _transcriptionModel(): JsonValue = transcriptionModel
 
         /**
          * Keywords and their respective intensifiers (boosting values) to improve transcription
@@ -291,16 +291,6 @@ private constructor(
         @JsonProperty("transcription_engine")
         @ExcludeMissing
         fun _transcriptionEngine(): JsonField<TranscriptionEngine> = transcriptionEngine
-
-        /**
-         * Returns the raw JSON value of [transcriptionModel].
-         *
-         * Unlike [transcriptionModel], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("transcription_model")
-        @ExcludeMissing
-        fun _transcriptionModel(): JsonField<TranscriptionModel> = transcriptionModel
 
         /**
          * Returns the raw JSON value of [keywordsBoosting].
@@ -334,33 +324,32 @@ private constructor(
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of [DeepgramNova2Config].
+             * Returns a mutable builder for constructing an instance of [DeepgramNova2].
              *
              * The following fields are required:
              * ```java
              * .transcriptionEngine()
-             * .transcriptionModel()
              * ```
              */
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [DeepgramNova2Config]. */
+        /** A builder for [DeepgramNova2]. */
         class Builder internal constructor() {
 
             private var transcriptionEngine: JsonField<TranscriptionEngine>? = null
-            private var transcriptionModel: JsonField<TranscriptionModel>? = null
+            private var transcriptionModel: JsonValue = JsonValue.from("deepgram/nova-2")
             private var keywordsBoosting: JsonField<KeywordsBoosting> = JsonMissing.of()
             private var language: JsonField<Language> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(deepgramNova2Config: DeepgramNova2Config) = apply {
-                transcriptionEngine = deepgramNova2Config.transcriptionEngine
-                transcriptionModel = deepgramNova2Config.transcriptionModel
-                keywordsBoosting = deepgramNova2Config.keywordsBoosting
-                language = deepgramNova2Config.language
-                additionalProperties = deepgramNova2Config.additionalProperties.toMutableMap()
+            internal fun from(deepgramNova2: DeepgramNova2) = apply {
+                transcriptionEngine = deepgramNova2.transcriptionEngine
+                transcriptionModel = deepgramNova2.transcriptionModel
+                keywordsBoosting = deepgramNova2.keywordsBoosting
+                language = deepgramNova2.language
+                additionalProperties = deepgramNova2.additionalProperties.toMutableMap()
             }
 
             fun transcriptionEngine(transcriptionEngine: TranscriptionEngine) =
@@ -377,17 +366,19 @@ private constructor(
                 this.transcriptionEngine = transcriptionEngine
             }
 
-            fun transcriptionModel(transcriptionModel: TranscriptionModel) =
-                transcriptionModel(JsonField.of(transcriptionModel))
-
             /**
-             * Sets [Builder.transcriptionModel] to an arbitrary JSON value.
+             * Sets the field to an arbitrary JSON value.
              *
-             * You should usually call [Builder.transcriptionModel] with a well-typed
-             * [TranscriptionModel] value instead. This method is primarily for setting the field to
-             * an undocumented or not yet supported value.
+             * It is usually unnecessary to call this method because the field defaults to the
+             * following:
+             * ```java
+             * JsonValue.from("deepgram/nova-2")
+             * ```
+             *
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun transcriptionModel(transcriptionModel: JsonField<TranscriptionModel>) = apply {
+            fun transcriptionModel(transcriptionModel: JsonValue) = apply {
                 this.transcriptionModel = transcriptionModel
             }
 
@@ -442,22 +433,21 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [DeepgramNova2Config].
+             * Returns an immutable instance of [DeepgramNova2].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              *
              * The following fields are required:
              * ```java
              * .transcriptionEngine()
-             * .transcriptionModel()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): DeepgramNova2Config =
-                DeepgramNova2Config(
+            fun build(): DeepgramNova2 =
+                DeepgramNova2(
                     checkRequired("transcriptionEngine", transcriptionEngine),
-                    checkRequired("transcriptionModel", transcriptionModel),
+                    transcriptionModel,
                     keywordsBoosting,
                     language,
                     additionalProperties.toMutableMap(),
@@ -466,13 +456,19 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): DeepgramNova2Config = apply {
+        fun validate(): DeepgramNova2 = apply {
             if (validated) {
                 return@apply
             }
 
             transcriptionEngine().validate()
-            transcriptionModel().validate()
+            _transcriptionModel().let {
+                if (it != JsonValue.from("deepgram/nova-2")) {
+                    throw TelnyxInvalidDataException(
+                        "'transcriptionModel' is invalid, received $it"
+                    )
+                }
+            }
             keywordsBoosting().ifPresent { it.validate() }
             language().ifPresent { it.validate() }
             validated = true
@@ -495,7 +491,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (transcriptionEngine.asKnown().getOrNull()?.validity() ?: 0) +
-                (transcriptionModel.asKnown().getOrNull()?.validity() ?: 0) +
+                transcriptionModel.let { if (it == JsonValue.from("deepgram/nova-2")) 1 else 0 } +
                 (keywordsBoosting.asKnown().getOrNull()?.validity() ?: 0) +
                 (language.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -620,134 +616,6 @@ private constructor(
                 }
 
                 return other is TranscriptionEngine && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        class TranscriptionModel
-        @JsonCreator
-        private constructor(private val value: JsonField<String>) : Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                @JvmField val DEEPGRAM_NOVA_2 = of("deepgram/nova-2")
-
-                @JvmStatic fun of(value: String) = TranscriptionModel(JsonField.of(value))
-            }
-
-            /** An enum containing [TranscriptionModel]'s known values. */
-            enum class Known {
-                DEEPGRAM_NOVA_2
-            }
-
-            /**
-             * An enum containing [TranscriptionModel]'s known values, as well as an [_UNKNOWN]
-             * member.
-             *
-             * An instance of [TranscriptionModel] can contain an unknown value in a couple of
-             * cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                DEEPGRAM_NOVA_2,
-                /**
-                 * An enum member indicating that [TranscriptionModel] was instantiated with an
-                 * unknown value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    DEEPGRAM_NOVA_2 -> Value.DEEPGRAM_NOVA_2
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    DEEPGRAM_NOVA_2 -> Known.DEEPGRAM_NOVA_2
-                    else -> throw TelnyxInvalidDataException("Unknown TranscriptionModel: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    TelnyxInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            fun validate(): TranscriptionModel = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is TranscriptionModel && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1311,7 +1179,7 @@ private constructor(
                 return true
             }
 
-            return other is DeepgramNova2Config &&
+            return other is DeepgramNova2 &&
                 transcriptionEngine == other.transcriptionEngine &&
                 transcriptionModel == other.transcriptionModel &&
                 keywordsBoosting == other.keywordsBoosting &&
@@ -1332,14 +1200,14 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "DeepgramNova2Config{transcriptionEngine=$transcriptionEngine, transcriptionModel=$transcriptionModel, keywordsBoosting=$keywordsBoosting, language=$language, additionalProperties=$additionalProperties}"
+            "DeepgramNova2{transcriptionEngine=$transcriptionEngine, transcriptionModel=$transcriptionModel, keywordsBoosting=$keywordsBoosting, language=$language, additionalProperties=$additionalProperties}"
     }
 
-    class DeepgramNova3Config
+    class DeepgramNova3
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val transcriptionEngine: JsonField<TranscriptionEngine>,
-        private val transcriptionModel: JsonField<TranscriptionModel>,
+        private val transcriptionModel: JsonValue,
         private val keywordsBoosting: JsonField<KeywordsBoosting>,
         private val language: JsonField<Language>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1352,7 +1220,7 @@ private constructor(
             transcriptionEngine: JsonField<TranscriptionEngine> = JsonMissing.of(),
             @JsonProperty("transcription_model")
             @ExcludeMissing
-            transcriptionModel: JsonField<TranscriptionModel> = JsonMissing.of(),
+            transcriptionModel: JsonValue = JsonMissing.of(),
             @JsonProperty("keywords_boosting")
             @ExcludeMissing
             keywordsBoosting: JsonField<KeywordsBoosting> = JsonMissing.of(),
@@ -1375,11 +1243,17 @@ private constructor(
             transcriptionEngine.getRequired("transcription_engine")
 
         /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * Expected to always return the following:
+         * ```java
+         * JsonValue.from("deepgram/nova-3")
+         * ```
+         *
+         * However, this method can be useful for debugging and logging (e.g. if the server
+         * responded with an unexpected value).
          */
-        fun transcriptionModel(): TranscriptionModel =
-            transcriptionModel.getRequired("transcription_model")
+        @JsonProperty("transcription_model")
+        @ExcludeMissing
+        fun _transcriptionModel(): JsonValue = transcriptionModel
 
         /**
          * Keywords and their respective intensifiers (boosting values) to improve transcription
@@ -1409,16 +1283,6 @@ private constructor(
         @JsonProperty("transcription_engine")
         @ExcludeMissing
         fun _transcriptionEngine(): JsonField<TranscriptionEngine> = transcriptionEngine
-
-        /**
-         * Returns the raw JSON value of [transcriptionModel].
-         *
-         * Unlike [transcriptionModel], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("transcription_model")
-        @ExcludeMissing
-        fun _transcriptionModel(): JsonField<TranscriptionModel> = transcriptionModel
 
         /**
          * Returns the raw JSON value of [keywordsBoosting].
@@ -1452,33 +1316,32 @@ private constructor(
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of [DeepgramNova3Config].
+             * Returns a mutable builder for constructing an instance of [DeepgramNova3].
              *
              * The following fields are required:
              * ```java
              * .transcriptionEngine()
-             * .transcriptionModel()
              * ```
              */
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [DeepgramNova3Config]. */
+        /** A builder for [DeepgramNova3]. */
         class Builder internal constructor() {
 
             private var transcriptionEngine: JsonField<TranscriptionEngine>? = null
-            private var transcriptionModel: JsonField<TranscriptionModel>? = null
+            private var transcriptionModel: JsonValue = JsonValue.from("deepgram/nova-3")
             private var keywordsBoosting: JsonField<KeywordsBoosting> = JsonMissing.of()
             private var language: JsonField<Language> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(deepgramNova3Config: DeepgramNova3Config) = apply {
-                transcriptionEngine = deepgramNova3Config.transcriptionEngine
-                transcriptionModel = deepgramNova3Config.transcriptionModel
-                keywordsBoosting = deepgramNova3Config.keywordsBoosting
-                language = deepgramNova3Config.language
-                additionalProperties = deepgramNova3Config.additionalProperties.toMutableMap()
+            internal fun from(deepgramNova3: DeepgramNova3) = apply {
+                transcriptionEngine = deepgramNova3.transcriptionEngine
+                transcriptionModel = deepgramNova3.transcriptionModel
+                keywordsBoosting = deepgramNova3.keywordsBoosting
+                language = deepgramNova3.language
+                additionalProperties = deepgramNova3.additionalProperties.toMutableMap()
             }
 
             fun transcriptionEngine(transcriptionEngine: TranscriptionEngine) =
@@ -1495,17 +1358,19 @@ private constructor(
                 this.transcriptionEngine = transcriptionEngine
             }
 
-            fun transcriptionModel(transcriptionModel: TranscriptionModel) =
-                transcriptionModel(JsonField.of(transcriptionModel))
-
             /**
-             * Sets [Builder.transcriptionModel] to an arbitrary JSON value.
+             * Sets the field to an arbitrary JSON value.
              *
-             * You should usually call [Builder.transcriptionModel] with a well-typed
-             * [TranscriptionModel] value instead. This method is primarily for setting the field to
-             * an undocumented or not yet supported value.
+             * It is usually unnecessary to call this method because the field defaults to the
+             * following:
+             * ```java
+             * JsonValue.from("deepgram/nova-3")
+             * ```
+             *
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun transcriptionModel(transcriptionModel: JsonField<TranscriptionModel>) = apply {
+            fun transcriptionModel(transcriptionModel: JsonValue) = apply {
                 this.transcriptionModel = transcriptionModel
             }
 
@@ -1560,22 +1425,21 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [DeepgramNova3Config].
+             * Returns an immutable instance of [DeepgramNova3].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              *
              * The following fields are required:
              * ```java
              * .transcriptionEngine()
-             * .transcriptionModel()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): DeepgramNova3Config =
-                DeepgramNova3Config(
+            fun build(): DeepgramNova3 =
+                DeepgramNova3(
                     checkRequired("transcriptionEngine", transcriptionEngine),
-                    checkRequired("transcriptionModel", transcriptionModel),
+                    transcriptionModel,
                     keywordsBoosting,
                     language,
                     additionalProperties.toMutableMap(),
@@ -1584,13 +1448,19 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): DeepgramNova3Config = apply {
+        fun validate(): DeepgramNova3 = apply {
             if (validated) {
                 return@apply
             }
 
             transcriptionEngine().validate()
-            transcriptionModel().validate()
+            _transcriptionModel().let {
+                if (it != JsonValue.from("deepgram/nova-3")) {
+                    throw TelnyxInvalidDataException(
+                        "'transcriptionModel' is invalid, received $it"
+                    )
+                }
+            }
             keywordsBoosting().ifPresent { it.validate() }
             language().ifPresent { it.validate() }
             validated = true
@@ -1613,7 +1483,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (transcriptionEngine.asKnown().getOrNull()?.validity() ?: 0) +
-                (transcriptionModel.asKnown().getOrNull()?.validity() ?: 0) +
+                transcriptionModel.let { if (it == JsonValue.from("deepgram/nova-3")) 1 else 0 } +
                 (keywordsBoosting.asKnown().getOrNull()?.validity() ?: 0) +
                 (language.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -1738,134 +1608,6 @@ private constructor(
                 }
 
                 return other is TranscriptionEngine && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        class TranscriptionModel
-        @JsonCreator
-        private constructor(private val value: JsonField<String>) : Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                @JvmField val DEEPGRAM_NOVA_3 = of("deepgram/nova-3")
-
-                @JvmStatic fun of(value: String) = TranscriptionModel(JsonField.of(value))
-            }
-
-            /** An enum containing [TranscriptionModel]'s known values. */
-            enum class Known {
-                DEEPGRAM_NOVA_3
-            }
-
-            /**
-             * An enum containing [TranscriptionModel]'s known values, as well as an [_UNKNOWN]
-             * member.
-             *
-             * An instance of [TranscriptionModel] can contain an unknown value in a couple of
-             * cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                DEEPGRAM_NOVA_3,
-                /**
-                 * An enum member indicating that [TranscriptionModel] was instantiated with an
-                 * unknown value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    DEEPGRAM_NOVA_3 -> Value.DEEPGRAM_NOVA_3
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    DEEPGRAM_NOVA_3 -> Known.DEEPGRAM_NOVA_3
-                    else -> throw TelnyxInvalidDataException("Unknown TranscriptionModel: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws TelnyxInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    TelnyxInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            fun validate(): TranscriptionModel = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is TranscriptionModel && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -2225,7 +1967,7 @@ private constructor(
                 return true
             }
 
-            return other is DeepgramNova3Config &&
+            return other is DeepgramNova3 &&
                 transcriptionEngine == other.transcriptionEngine &&
                 transcriptionModel == other.transcriptionModel &&
                 keywordsBoosting == other.keywordsBoosting &&
@@ -2246,6 +1988,6 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "DeepgramNova3Config{transcriptionEngine=$transcriptionEngine, transcriptionModel=$transcriptionModel, keywordsBoosting=$keywordsBoosting, language=$language, additionalProperties=$additionalProperties}"
+            "DeepgramNova3{transcriptionEngine=$transcriptionEngine, transcriptionModel=$transcriptionModel, keywordsBoosting=$keywordsBoosting, language=$language, additionalProperties=$additionalProperties}"
     }
 }

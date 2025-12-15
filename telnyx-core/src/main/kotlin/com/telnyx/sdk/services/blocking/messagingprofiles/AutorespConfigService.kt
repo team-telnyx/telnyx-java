@@ -29,7 +29,7 @@ interface AutorespConfigService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AutorespConfigService
 
-    /** Create auto-response setting */
+    /** Create Auto-Reponse Setting */
     fun create(profileId: String, params: AutorespConfigCreateParams): AutoRespConfigResponse =
         create(profileId, params, RequestOptions.none())
 

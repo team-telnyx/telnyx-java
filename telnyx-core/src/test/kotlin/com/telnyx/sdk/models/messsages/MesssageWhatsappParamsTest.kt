@@ -15,7 +15,7 @@ internal class MesssageWhatsappParamsTest {
             .whatsappMessage(
                 MesssageWhatsappParams.WhatsappMessage.builder()
                     .audio(
-                        MesssageWhatsappParams.WhatsappMessage.Audio.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -67,7 +67,7 @@ internal class MesssageWhatsappParamsTest {
                             .build()
                     )
                     .document(
-                        MesssageWhatsappParams.WhatsappMessage.Document.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -75,7 +75,7 @@ internal class MesssageWhatsappParamsTest {
                             .build()
                     )
                     .image(
-                        MesssageWhatsappParams.WhatsappMessage.Image.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -118,7 +118,7 @@ internal class MesssageWhatsappParamsTest {
                                                 MesssageWhatsappParams.WhatsappMessage.Interactive
                                                     .Action
                                                     .Card
-                                                    .InnerAction
+                                                    .CardAction
                                                     .builder()
                                                     .catalogId("catalog_id")
                                                     .productRetailerId("product_retailer_id")
@@ -128,7 +128,7 @@ internal class MesssageWhatsappParamsTest {
                                                 MesssageWhatsappParams.WhatsappMessage.Interactive
                                                     .Action
                                                     .Card
-                                                    .Body
+                                                    .CardBody
                                                     .builder()
                                                     .text("text")
                                                     .build()
@@ -141,13 +141,7 @@ internal class MesssageWhatsappParamsTest {
                                                     .Header
                                                     .builder()
                                                     .image(
-                                                        MesssageWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Card
-                                                            .Header
-                                                            .Image
-                                                            .builder()
+                                                        WhatsappMedia.builder()
                                                             .caption("caption")
                                                             .filename("filename")
                                                             .link("http://example.com/media.jpg")
@@ -164,13 +158,7 @@ internal class MesssageWhatsappParamsTest {
                                                             .IMAGE
                                                     )
                                                     .video(
-                                                        MesssageWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Card
-                                                            .Header
-                                                            .Video
-                                                            .builder()
+                                                        WhatsappMedia.builder()
                                                             .caption("caption")
                                                             .filename("filename")
                                                             .link("http://example.com/media.jpg")
@@ -230,7 +218,8 @@ internal class MesssageWhatsappParamsTest {
                                     .build()
                             )
                             .body(
-                                MesssageWhatsappParams.WhatsappMessage.Interactive.Body.builder()
+                                MesssageWhatsappParams.WhatsappMessage.Interactive.InteractiveBody
+                                    .builder()
                                     .text("text")
                                     .build()
                             )
@@ -242,9 +231,7 @@ internal class MesssageWhatsappParamsTest {
                             .header(
                                 MesssageWhatsappParams.WhatsappMessage.Interactive.Header.builder()
                                     .document(
-                                        MesssageWhatsappParams.WhatsappMessage.Interactive.Header
-                                            .Document
-                                            .builder()
+                                        WhatsappMedia.builder()
                                             .caption("caption")
                                             .filename("filename")
                                             .link("http://example.com/media.jpg")
@@ -252,9 +239,7 @@ internal class MesssageWhatsappParamsTest {
                                             .build()
                                     )
                                     .image(
-                                        MesssageWhatsappParams.WhatsappMessage.Interactive.Header
-                                            .Image
-                                            .builder()
+                                        WhatsappMedia.builder()
                                             .caption("caption")
                                             .filename("filename")
                                             .link("http://example.com/media.jpg")
@@ -264,9 +249,7 @@ internal class MesssageWhatsappParamsTest {
                                     .subText("sub_text")
                                     .text("text")
                                     .video(
-                                        MesssageWhatsappParams.WhatsappMessage.Interactive.Header
-                                            .Video
-                                            .builder()
+                                        WhatsappMedia.builder()
                                             .caption("caption")
                                             .filename("filename")
                                             .link("http://example.com/media.jpg")
@@ -293,7 +276,7 @@ internal class MesssageWhatsappParamsTest {
                             .build()
                     )
                     .sticker(
-                        MesssageWhatsappParams.WhatsappMessage.Sticker.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -302,7 +285,7 @@ internal class MesssageWhatsappParamsTest {
                     )
                     .type(MesssageWhatsappParams.WhatsappMessage.Type.AUDIO)
                     .video(
-                        MesssageWhatsappParams.WhatsappMessage.Video.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -325,7 +308,7 @@ internal class MesssageWhatsappParamsTest {
                 .whatsappMessage(
                     MesssageWhatsappParams.WhatsappMessage.builder()
                         .audio(
-                            MesssageWhatsappParams.WhatsappMessage.Audio.builder()
+                            WhatsappMedia.builder()
                                 .caption("caption")
                                 .filename("filename")
                                 .link("http://example.com/media.jpg")
@@ -377,7 +360,7 @@ internal class MesssageWhatsappParamsTest {
                                 .build()
                         )
                         .document(
-                            MesssageWhatsappParams.WhatsappMessage.Document.builder()
+                            WhatsappMedia.builder()
                                 .caption("caption")
                                 .filename("filename")
                                 .link("http://example.com/media.jpg")
@@ -385,7 +368,7 @@ internal class MesssageWhatsappParamsTest {
                                 .build()
                         )
                         .image(
-                            MesssageWhatsappParams.WhatsappMessage.Image.builder()
+                            WhatsappMedia.builder()
                                 .caption("caption")
                                 .filename("filename")
                                 .link("http://example.com/media.jpg")
@@ -434,7 +417,7 @@ internal class MesssageWhatsappParamsTest {
                                                         .Interactive
                                                         .Action
                                                         .Card
-                                                        .InnerAction
+                                                        .CardAction
                                                         .builder()
                                                         .catalogId("catalog_id")
                                                         .productRetailerId("product_retailer_id")
@@ -445,7 +428,7 @@ internal class MesssageWhatsappParamsTest {
                                                         .Interactive
                                                         .Action
                                                         .Card
-                                                        .Body
+                                                        .CardBody
                                                         .builder()
                                                         .text("text")
                                                         .build()
@@ -459,13 +442,7 @@ internal class MesssageWhatsappParamsTest {
                                                         .Header
                                                         .builder()
                                                         .image(
-                                                            MesssageWhatsappParams.WhatsappMessage
-                                                                .Interactive
-                                                                .Action
-                                                                .Card
-                                                                .Header
-                                                                .Image
-                                                                .builder()
+                                                            WhatsappMedia.builder()
                                                                 .caption("caption")
                                                                 .filename("filename")
                                                                 .link(
@@ -484,13 +461,7 @@ internal class MesssageWhatsappParamsTest {
                                                                 .IMAGE
                                                         )
                                                         .video(
-                                                            MesssageWhatsappParams.WhatsappMessage
-                                                                .Interactive
-                                                                .Action
-                                                                .Card
-                                                                .Header
-                                                                .Video
-                                                                .builder()
+                                                            WhatsappMedia.builder()
                                                                 .caption("caption")
                                                                 .filename("filename")
                                                                 .link(
@@ -557,7 +528,8 @@ internal class MesssageWhatsappParamsTest {
                                         .build()
                                 )
                                 .body(
-                                    MesssageWhatsappParams.WhatsappMessage.Interactive.Body
+                                    MesssageWhatsappParams.WhatsappMessage.Interactive
+                                        .InteractiveBody
                                         .builder()
                                         .text("text")
                                         .build()
@@ -572,10 +544,7 @@ internal class MesssageWhatsappParamsTest {
                                     MesssageWhatsappParams.WhatsappMessage.Interactive.Header
                                         .builder()
                                         .document(
-                                            MesssageWhatsappParams.WhatsappMessage.Interactive
-                                                .Header
-                                                .Document
-                                                .builder()
+                                            WhatsappMedia.builder()
                                                 .caption("caption")
                                                 .filename("filename")
                                                 .link("http://example.com/media.jpg")
@@ -583,10 +552,7 @@ internal class MesssageWhatsappParamsTest {
                                                 .build()
                                         )
                                         .image(
-                                            MesssageWhatsappParams.WhatsappMessage.Interactive
-                                                .Header
-                                                .Image
-                                                .builder()
+                                            WhatsappMedia.builder()
                                                 .caption("caption")
                                                 .filename("filename")
                                                 .link("http://example.com/media.jpg")
@@ -596,10 +562,7 @@ internal class MesssageWhatsappParamsTest {
                                         .subText("sub_text")
                                         .text("text")
                                         .video(
-                                            MesssageWhatsappParams.WhatsappMessage.Interactive
-                                                .Header
-                                                .Video
-                                                .builder()
+                                            WhatsappMedia.builder()
                                                 .caption("caption")
                                                 .filename("filename")
                                                 .link("http://example.com/media.jpg")
@@ -628,7 +591,7 @@ internal class MesssageWhatsappParamsTest {
                                 .build()
                         )
                         .sticker(
-                            MesssageWhatsappParams.WhatsappMessage.Sticker.builder()
+                            WhatsappMedia.builder()
                                 .caption("caption")
                                 .filename("filename")
                                 .link("http://example.com/media.jpg")
@@ -637,7 +600,7 @@ internal class MesssageWhatsappParamsTest {
                         )
                         .type(MesssageWhatsappParams.WhatsappMessage.Type.AUDIO)
                         .video(
-                            MesssageWhatsappParams.WhatsappMessage.Video.builder()
+                            WhatsappMedia.builder()
                                 .caption("caption")
                                 .filename("filename")
                                 .link("http://example.com/media.jpg")
@@ -658,7 +621,7 @@ internal class MesssageWhatsappParamsTest {
             .isEqualTo(
                 MesssageWhatsappParams.WhatsappMessage.builder()
                     .audio(
-                        MesssageWhatsappParams.WhatsappMessage.Audio.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -710,7 +673,7 @@ internal class MesssageWhatsappParamsTest {
                             .build()
                     )
                     .document(
-                        MesssageWhatsappParams.WhatsappMessage.Document.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -718,7 +681,7 @@ internal class MesssageWhatsappParamsTest {
                             .build()
                     )
                     .image(
-                        MesssageWhatsappParams.WhatsappMessage.Image.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -761,7 +724,7 @@ internal class MesssageWhatsappParamsTest {
                                                 MesssageWhatsappParams.WhatsappMessage.Interactive
                                                     .Action
                                                     .Card
-                                                    .InnerAction
+                                                    .CardAction
                                                     .builder()
                                                     .catalogId("catalog_id")
                                                     .productRetailerId("product_retailer_id")
@@ -771,7 +734,7 @@ internal class MesssageWhatsappParamsTest {
                                                 MesssageWhatsappParams.WhatsappMessage.Interactive
                                                     .Action
                                                     .Card
-                                                    .Body
+                                                    .CardBody
                                                     .builder()
                                                     .text("text")
                                                     .build()
@@ -784,13 +747,7 @@ internal class MesssageWhatsappParamsTest {
                                                     .Header
                                                     .builder()
                                                     .image(
-                                                        MesssageWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Card
-                                                            .Header
-                                                            .Image
-                                                            .builder()
+                                                        WhatsappMedia.builder()
                                                             .caption("caption")
                                                             .filename("filename")
                                                             .link("http://example.com/media.jpg")
@@ -807,13 +764,7 @@ internal class MesssageWhatsappParamsTest {
                                                             .IMAGE
                                                     )
                                                     .video(
-                                                        MesssageWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Card
-                                                            .Header
-                                                            .Video
-                                                            .builder()
+                                                        WhatsappMedia.builder()
                                                             .caption("caption")
                                                             .filename("filename")
                                                             .link("http://example.com/media.jpg")
@@ -873,7 +824,8 @@ internal class MesssageWhatsappParamsTest {
                                     .build()
                             )
                             .body(
-                                MesssageWhatsappParams.WhatsappMessage.Interactive.Body.builder()
+                                MesssageWhatsappParams.WhatsappMessage.Interactive.InteractiveBody
+                                    .builder()
                                     .text("text")
                                     .build()
                             )
@@ -885,9 +837,7 @@ internal class MesssageWhatsappParamsTest {
                             .header(
                                 MesssageWhatsappParams.WhatsappMessage.Interactive.Header.builder()
                                     .document(
-                                        MesssageWhatsappParams.WhatsappMessage.Interactive.Header
-                                            .Document
-                                            .builder()
+                                        WhatsappMedia.builder()
                                             .caption("caption")
                                             .filename("filename")
                                             .link("http://example.com/media.jpg")
@@ -895,9 +845,7 @@ internal class MesssageWhatsappParamsTest {
                                             .build()
                                     )
                                     .image(
-                                        MesssageWhatsappParams.WhatsappMessage.Interactive.Header
-                                            .Image
-                                            .builder()
+                                        WhatsappMedia.builder()
                                             .caption("caption")
                                             .filename("filename")
                                             .link("http://example.com/media.jpg")
@@ -907,9 +855,7 @@ internal class MesssageWhatsappParamsTest {
                                     .subText("sub_text")
                                     .text("text")
                                     .video(
-                                        MesssageWhatsappParams.WhatsappMessage.Interactive.Header
-                                            .Video
-                                            .builder()
+                                        WhatsappMedia.builder()
                                             .caption("caption")
                                             .filename("filename")
                                             .link("http://example.com/media.jpg")
@@ -936,7 +882,7 @@ internal class MesssageWhatsappParamsTest {
                             .build()
                     )
                     .sticker(
-                        MesssageWhatsappParams.WhatsappMessage.Sticker.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -945,7 +891,7 @@ internal class MesssageWhatsappParamsTest {
                     )
                     .type(MesssageWhatsappParams.WhatsappMessage.Type.AUDIO)
                     .video(
-                        MesssageWhatsappParams.WhatsappMessage.Video.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")

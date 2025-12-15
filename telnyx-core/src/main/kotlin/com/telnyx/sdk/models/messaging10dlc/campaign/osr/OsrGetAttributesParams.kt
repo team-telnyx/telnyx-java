@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get OSR campaign attributes */
+/** Get My Osr Campaign Attributes */
 class OsrGetAttributesParams
 private constructor(
     private val campaignId: String?,

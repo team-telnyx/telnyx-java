@@ -119,7 +119,7 @@ interface PhoneNumberCampaignServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhoneNumberCampaign>
 
-    /** List phone number campaigns */
+    /** Retrieve All Phone Number Campaigns */
     fun list(): CompletableFuture<PhoneNumberCampaignListPageAsync> =
         list(PhoneNumberCampaignListParams.none())
 

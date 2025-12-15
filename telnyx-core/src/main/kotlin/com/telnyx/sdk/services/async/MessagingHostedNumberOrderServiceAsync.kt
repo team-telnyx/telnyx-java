@@ -167,7 +167,7 @@ interface MessagingHostedNumberOrderServiceAsync {
     ): CompletableFuture<MessagingHostedNumberOrderDeleteResponse> =
         delete(id, MessagingHostedNumberOrderDeleteParams.none(), requestOptions)
 
-    /** Check hosted messaging eligibility */
+    /** Check eligibility of phone numbers for hosted messaging */
     fun checkEligibility(
         params: MessagingHostedNumberOrderCheckEligibilityParams
     ): CompletableFuture<MessagingHostedNumberOrderCheckEligibilityResponse> =

@@ -24,7 +24,7 @@ interface ActionServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionServiceAsync
 
-    /** Upload hosted number document */
+    /** Upload file required for a messaging hosted number order */
     fun uploadFile(id: String): CompletableFuture<ActionUploadFileResponse> =
         uploadFile(id, ActionUploadFileParams.none())
 

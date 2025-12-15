@@ -126,8 +126,6 @@ internal class CallServiceAsyncTest {
                     .statusCallback("https://www.example.com/statuscallback-listener")
                     .statusCallbackEvent(CallCallsParams.StatusCallbackEvent.INITIATED)
                     .statusCallbackMethod(CallCallsParams.StatusCallbackMethod.GET)
-                    .superviseCallSid("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
-                    .supervisingRole(CallCallsParams.SupervisingRole.MONITOR)
                     .trim(CallCallsParams.Trim.TRIM_SILENCE)
                     .url("https://www.example.com/texml.xml")
                     .urlMethod(CallCallsParams.UrlMethod.GET)

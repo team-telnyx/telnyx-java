@@ -11,6 +11,7 @@ import com.telnyx.sdk.models.messsages.RcsAgentMessage
 import com.telnyx.sdk.models.messsages.RcsCardContent
 import com.telnyx.sdk.models.messsages.RcsContentInfo
 import com.telnyx.sdk.models.messsages.RcsSuggestion
+import com.telnyx.sdk.models.messsages.WhatsappMedia
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -496,7 +497,7 @@ internal class MesssageServiceTest {
                     .whatsappMessage(
                         MesssageWhatsappParams.WhatsappMessage.builder()
                             .audio(
-                                MesssageWhatsappParams.WhatsappMessage.Audio.builder()
+                                WhatsappMedia.builder()
                                     .caption("caption")
                                     .filename("filename")
                                     .link("http://example.com/media.jpg")
@@ -551,7 +552,7 @@ internal class MesssageServiceTest {
                                     .build()
                             )
                             .document(
-                                MesssageWhatsappParams.WhatsappMessage.Document.builder()
+                                WhatsappMedia.builder()
                                     .caption("caption")
                                     .filename("filename")
                                     .link("http://example.com/media.jpg")
@@ -559,7 +560,7 @@ internal class MesssageServiceTest {
                                     .build()
                             )
                             .image(
-                                MesssageWhatsappParams.WhatsappMessage.Image.builder()
+                                WhatsappMedia.builder()
                                     .caption("caption")
                                     .filename("filename")
                                     .link("http://example.com/media.jpg")
@@ -608,7 +609,7 @@ internal class MesssageServiceTest {
                                                             .Interactive
                                                             .Action
                                                             .Card
-                                                            .InnerAction
+                                                            .CardAction
                                                             .builder()
                                                             .catalogId("catalog_id")
                                                             .productRetailerId(
@@ -621,7 +622,7 @@ internal class MesssageServiceTest {
                                                             .Interactive
                                                             .Action
                                                             .Card
-                                                            .Body
+                                                            .CardBody
                                                             .builder()
                                                             .text("text")
                                                             .build()
@@ -635,14 +636,7 @@ internal class MesssageServiceTest {
                                                             .Header
                                                             .builder()
                                                             .image(
-                                                                MesssageWhatsappParams
-                                                                    .WhatsappMessage
-                                                                    .Interactive
-                                                                    .Action
-                                                                    .Card
-                                                                    .Header
-                                                                    .Image
-                                                                    .builder()
+                                                                WhatsappMedia.builder()
                                                                     .caption("caption")
                                                                     .filename("filename")
                                                                     .link(
@@ -662,14 +656,7 @@ internal class MesssageServiceTest {
                                                                     .IMAGE
                                                             )
                                                             .video(
-                                                                MesssageWhatsappParams
-                                                                    .WhatsappMessage
-                                                                    .Interactive
-                                                                    .Action
-                                                                    .Card
-                                                                    .Header
-                                                                    .Video
-                                                                    .builder()
+                                                                WhatsappMedia.builder()
                                                                     .caption("caption")
                                                                     .filename("filename")
                                                                     .link(
@@ -738,7 +725,8 @@ internal class MesssageServiceTest {
                                             .build()
                                     )
                                     .body(
-                                        MesssageWhatsappParams.WhatsappMessage.Interactive.Body
+                                        MesssageWhatsappParams.WhatsappMessage.Interactive
+                                            .InteractiveBody
                                             .builder()
                                             .text("text")
                                             .build()
@@ -753,10 +741,7 @@ internal class MesssageServiceTest {
                                         MesssageWhatsappParams.WhatsappMessage.Interactive.Header
                                             .builder()
                                             .document(
-                                                MesssageWhatsappParams.WhatsappMessage.Interactive
-                                                    .Header
-                                                    .Document
-                                                    .builder()
+                                                WhatsappMedia.builder()
                                                     .caption("caption")
                                                     .filename("filename")
                                                     .link("http://example.com/media.jpg")
@@ -764,10 +749,7 @@ internal class MesssageServiceTest {
                                                     .build()
                                             )
                                             .image(
-                                                MesssageWhatsappParams.WhatsappMessage.Interactive
-                                                    .Header
-                                                    .Image
-                                                    .builder()
+                                                WhatsappMedia.builder()
                                                     .caption("caption")
                                                     .filename("filename")
                                                     .link("http://example.com/media.jpg")
@@ -777,10 +759,7 @@ internal class MesssageServiceTest {
                                             .subText("sub_text")
                                             .text("text")
                                             .video(
-                                                MesssageWhatsappParams.WhatsappMessage.Interactive
-                                                    .Header
-                                                    .Video
-                                                    .builder()
+                                                WhatsappMedia.builder()
                                                     .caption("caption")
                                                     .filename("filename")
                                                     .link("http://example.com/media.jpg")
@@ -810,7 +789,7 @@ internal class MesssageServiceTest {
                                     .build()
                             )
                             .sticker(
-                                MesssageWhatsappParams.WhatsappMessage.Sticker.builder()
+                                WhatsappMedia.builder()
                                     .caption("caption")
                                     .filename("filename")
                                     .link("http://example.com/media.jpg")
@@ -819,7 +798,7 @@ internal class MesssageServiceTest {
                             )
                             .type(MesssageWhatsappParams.WhatsappMessage.Type.AUDIO)
                             .video(
-                                MesssageWhatsappParams.WhatsappMessage.Video.builder()
+                                WhatsappMedia.builder()
                                     .caption("caption")
                                     .filename("filename")
                                     .link("http://example.com/media.jpg")

@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create auto-response setting */
+/** Create Auto-Reponse Setting */
 class AutorespConfigCreateParams
 private constructor(
     private val profileId: String?,
