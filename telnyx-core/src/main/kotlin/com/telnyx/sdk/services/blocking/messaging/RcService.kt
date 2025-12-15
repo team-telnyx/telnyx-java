@@ -55,7 +55,7 @@ interface RcService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RcInviteTestNumberResponse
 
-    /** List RCS capabilities of a given batch of phone numbers */
+    /** Check RCS capabilities (batch) */
     fun listBulkCapabilities(params: RcListBulkCapabilitiesParams): RcListBulkCapabilitiesResponse =
         listBulkCapabilities(params, RequestOptions.none())
 
@@ -65,7 +65,7 @@ interface RcService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RcListBulkCapabilitiesResponse
 
-    /** List RCS capabilities of a phone number */
+    /** Check RCS capabilities */
     fun retrieveCapabilities(
         phoneNumber: String,
         params: RcRetrieveCapabilitiesParams,

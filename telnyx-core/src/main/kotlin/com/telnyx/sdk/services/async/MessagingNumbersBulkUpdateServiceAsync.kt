@@ -28,7 +28,7 @@ interface MessagingNumbersBulkUpdateServiceAsync {
         modifier: Consumer<ClientOptions.Builder>
     ): MessagingNumbersBulkUpdateServiceAsync
 
-    /** Update the messaging profile of multiple phone numbers */
+    /** Bulk update phone number profiles */
     fun create(
         params: MessagingNumbersBulkUpdateCreateParams
     ): CompletableFuture<MessagingNumbersBulkUpdateCreateResponse> =

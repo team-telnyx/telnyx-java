@@ -58,7 +58,7 @@ interface RcServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RcInviteTestNumberResponse>
 
-    /** List RCS capabilities of a given batch of phone numbers */
+    /** Check RCS capabilities (batch) */
     fun listBulkCapabilities(
         params: RcListBulkCapabilitiesParams
     ): CompletableFuture<RcListBulkCapabilitiesResponse> =
@@ -70,7 +70,7 @@ interface RcServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RcListBulkCapabilitiesResponse>
 
-    /** List RCS capabilities of a phone number */
+    /** Check RCS capabilities */
     fun retrieveCapabilities(
         phoneNumber: String,
         params: RcRetrieveCapabilitiesParams,

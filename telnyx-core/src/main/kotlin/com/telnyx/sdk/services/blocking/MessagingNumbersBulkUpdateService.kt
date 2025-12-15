@@ -26,7 +26,7 @@ interface MessagingNumbersBulkUpdateService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingNumbersBulkUpdateService
 
-    /** Update the messaging profile of multiple phone numbers */
+    /** Bulk update phone number profiles */
     fun create(
         params: MessagingNumbersBulkUpdateCreateParams
     ): MessagingNumbersBulkUpdateCreateResponse = create(params, RequestOptions.none())
