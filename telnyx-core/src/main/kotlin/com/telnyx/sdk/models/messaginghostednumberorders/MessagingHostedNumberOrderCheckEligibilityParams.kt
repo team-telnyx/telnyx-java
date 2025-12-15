@@ -21,7 +21,7 @@ import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-/** Check hosted messaging eligibility */
+/** Check eligibility of phone numbers for hosted messaging */
 class MessagingHostedNumberOrderCheckEligibilityParams
 private constructor(
     private val body: Body,

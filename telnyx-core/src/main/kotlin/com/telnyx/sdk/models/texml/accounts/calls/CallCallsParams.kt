@@ -317,26 +317,6 @@ private constructor(
     fun statusCallbackMethod(): Optional<StatusCallbackMethod> = body.statusCallbackMethod()
 
     /**
-     * The call control ID of the existing call to supervise. When provided, the created leg will be
-     * added to the specified call in supervising mode. Status callbacks and action callbacks will
-     * NOT be sent for the supervising leg.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun superviseCallSid(): Optional<String> = body.superviseCallSid()
-
-    /**
-     * The supervising role for the new leg. Determines the audio behavior: barge (hear both sides),
-     * whisper (only hear supervisor), monitor (hear both sides but supervisor muted). Default:
-     * barge
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun supervisingRole(): Optional<SupervisingRole> = body.supervisingRole()
-
-    /**
      * Whether to trim any leading and trailing silence from the recording. Defaults to
      * `trim-silence`.
      *
@@ -608,21 +588,6 @@ private constructor(
      * type.
      */
     fun _statusCallbackMethod(): JsonField<StatusCallbackMethod> = body._statusCallbackMethod()
-
-    /**
-     * Returns the raw JSON value of [superviseCallSid].
-     *
-     * Unlike [superviseCallSid], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    fun _superviseCallSid(): JsonField<String> = body._superviseCallSid()
-
-    /**
-     * Returns the raw JSON value of [supervisingRole].
-     *
-     * Unlike [supervisingRole], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _supervisingRole(): JsonField<SupervisingRole> = body._supervisingRole()
 
     /**
      * Returns the raw JSON value of [trim].
@@ -1239,46 +1204,6 @@ private constructor(
         }
 
         /**
-         * The call control ID of the existing call to supervise. When provided, the created leg
-         * will be added to the specified call in supervising mode. Status callbacks and action
-         * callbacks will NOT be sent for the supervising leg.
-         */
-        fun superviseCallSid(superviseCallSid: String) = apply {
-            body.superviseCallSid(superviseCallSid)
-        }
-
-        /**
-         * Sets [Builder.superviseCallSid] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.superviseCallSid] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun superviseCallSid(superviseCallSid: JsonField<String>) = apply {
-            body.superviseCallSid(superviseCallSid)
-        }
-
-        /**
-         * The supervising role for the new leg. Determines the audio behavior: barge (hear both
-         * sides), whisper (only hear supervisor), monitor (hear both sides but supervisor muted).
-         * Default: barge
-         */
-        fun supervisingRole(supervisingRole: SupervisingRole) = apply {
-            body.supervisingRole(supervisingRole)
-        }
-
-        /**
-         * Sets [Builder.supervisingRole] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.supervisingRole] with a well-typed [SupervisingRole]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun supervisingRole(supervisingRole: JsonField<SupervisingRole>) = apply {
-            body.supervisingRole(supervisingRole)
-        }
-
-        /**
          * Whether to trim any leading and trailing silence from the recording. Defaults to
          * `trim-silence`.
          */
@@ -1505,8 +1430,6 @@ private constructor(
         private val statusCallback: JsonField<String>,
         private val statusCallbackEvent: JsonField<StatusCallbackEvent>,
         private val statusCallbackMethod: JsonField<StatusCallbackMethod>,
-        private val superviseCallSid: JsonField<String>,
-        private val supervisingRole: JsonField<SupervisingRole>,
         private val trim: JsonField<Trim>,
         private val url: JsonField<String>,
         private val urlMethod: JsonField<UrlMethod>,
@@ -1607,12 +1530,6 @@ private constructor(
             @JsonProperty("StatusCallbackMethod")
             @ExcludeMissing
             statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of(),
-            @JsonProperty("SuperviseCallSid")
-            @ExcludeMissing
-            superviseCallSid: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("SupervisingRole")
-            @ExcludeMissing
-            supervisingRole: JsonField<SupervisingRole> = JsonMissing.of(),
             @JsonProperty("Trim") @ExcludeMissing trim: JsonField<Trim> = JsonMissing.of(),
             @JsonProperty("Url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
             @JsonProperty("UrlMethod")
@@ -1651,8 +1568,6 @@ private constructor(
             statusCallback,
             statusCallbackEvent,
             statusCallbackMethod,
-            superviseCallSid,
-            supervisingRole,
             trim,
             url,
             urlMethod,
@@ -1949,27 +1864,6 @@ private constructor(
          */
         fun statusCallbackMethod(): Optional<StatusCallbackMethod> =
             statusCallbackMethod.getOptional("StatusCallbackMethod")
-
-        /**
-         * The call control ID of the existing call to supervise. When provided, the created leg
-         * will be added to the specified call in supervising mode. Status callbacks and action
-         * callbacks will NOT be sent for the supervising leg.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun superviseCallSid(): Optional<String> = superviseCallSid.getOptional("SuperviseCallSid")
-
-        /**
-         * The supervising role for the new leg. Determines the audio behavior: barge (hear both
-         * sides), whisper (only hear supervisor), monitor (hear both sides but supervisor muted).
-         * Default: barge
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun supervisingRole(): Optional<SupervisingRole> =
-            supervisingRole.getOptional("SupervisingRole")
 
         /**
          * Whether to trim any leading and trailing silence from the recording. Defaults to
@@ -2306,26 +2200,6 @@ private constructor(
         fun _statusCallbackMethod(): JsonField<StatusCallbackMethod> = statusCallbackMethod
 
         /**
-         * Returns the raw JSON value of [superviseCallSid].
-         *
-         * Unlike [superviseCallSid], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("SuperviseCallSid")
-        @ExcludeMissing
-        fun _superviseCallSid(): JsonField<String> = superviseCallSid
-
-        /**
-         * Returns the raw JSON value of [supervisingRole].
-         *
-         * Unlike [supervisingRole], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("SupervisingRole")
-        @ExcludeMissing
-        fun _supervisingRole(): JsonField<SupervisingRole> = supervisingRole
-
-        /**
          * Returns the raw JSON value of [trim].
          *
          * Unlike [trim], this method doesn't throw if the JSON field has an unexpected type.
@@ -2412,8 +2286,6 @@ private constructor(
             private var statusCallback: JsonField<String> = JsonMissing.of()
             private var statusCallbackEvent: JsonField<StatusCallbackEvent> = JsonMissing.of()
             private var statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of()
-            private var superviseCallSid: JsonField<String> = JsonMissing.of()
-            private var supervisingRole: JsonField<SupervisingRole> = JsonMissing.of()
             private var trim: JsonField<Trim> = JsonMissing.of()
             private var url: JsonField<String> = JsonMissing.of()
             private var urlMethod: JsonField<UrlMethod> = JsonMissing.of()
@@ -2453,8 +2325,6 @@ private constructor(
                 statusCallback = body.statusCallback
                 statusCallbackEvent = body.statusCallbackEvent
                 statusCallbackMethod = body.statusCallbackMethod
-                superviseCallSid = body.superviseCallSid
-                supervisingRole = body.supervisingRole
                 trim = body.trim
                 url = body.url
                 urlMethod = body.urlMethod
@@ -2989,44 +2859,6 @@ private constructor(
                 }
 
             /**
-             * The call control ID of the existing call to supervise. When provided, the created leg
-             * will be added to the specified call in supervising mode. Status callbacks and action
-             * callbacks will NOT be sent for the supervising leg.
-             */
-            fun superviseCallSid(superviseCallSid: String) =
-                superviseCallSid(JsonField.of(superviseCallSid))
-
-            /**
-             * Sets [Builder.superviseCallSid] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.superviseCallSid] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun superviseCallSid(superviseCallSid: JsonField<String>) = apply {
-                this.superviseCallSid = superviseCallSid
-            }
-
-            /**
-             * The supervising role for the new leg. Determines the audio behavior: barge (hear both
-             * sides), whisper (only hear supervisor), monitor (hear both sides but supervisor
-             * muted). Default: barge
-             */
-            fun supervisingRole(supervisingRole: SupervisingRole) =
-                supervisingRole(JsonField.of(supervisingRole))
-
-            /**
-             * Sets [Builder.supervisingRole] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.supervisingRole] with a well-typed [SupervisingRole]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun supervisingRole(supervisingRole: JsonField<SupervisingRole>) = apply {
-                this.supervisingRole = supervisingRole
-            }
-
-            /**
              * Whether to trim any leading and trailing silence from the recording. Defaults to
              * `trim-silence`.
              */
@@ -3135,8 +2967,6 @@ private constructor(
                     statusCallback,
                     statusCallbackEvent,
                     statusCallbackMethod,
-                    superviseCallSid,
-                    supervisingRole,
                     trim,
                     url,
                     urlMethod,
@@ -3183,8 +3013,6 @@ private constructor(
             statusCallback()
             statusCallbackEvent().ifPresent { it.validate() }
             statusCallbackMethod().ifPresent { it.validate() }
-            superviseCallSid()
-            supervisingRole().ifPresent { it.validate() }
             trim().ifPresent { it.validate() }
             url()
             urlMethod().ifPresent { it.validate() }
@@ -3239,8 +3067,6 @@ private constructor(
                 (if (statusCallback.asKnown().isPresent) 1 else 0) +
                 (statusCallbackEvent.asKnown().getOrNull()?.validity() ?: 0) +
                 (statusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (superviseCallSid.asKnown().isPresent) 1 else 0) +
-                (supervisingRole.asKnown().getOrNull()?.validity() ?: 0) +
                 (trim.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (url.asKnown().isPresent) 1 else 0) +
                 (urlMethod.asKnown().getOrNull()?.validity() ?: 0)
@@ -3283,8 +3109,6 @@ private constructor(
                 statusCallback == other.statusCallback &&
                 statusCallbackEvent == other.statusCallbackEvent &&
                 statusCallbackMethod == other.statusCallbackMethod &&
-                superviseCallSid == other.superviseCallSid &&
-                supervisingRole == other.supervisingRole &&
                 trim == other.trim &&
                 url == other.url &&
                 urlMethod == other.urlMethod &&
@@ -3325,8 +3149,6 @@ private constructor(
                 statusCallback,
                 statusCallbackEvent,
                 statusCallbackMethod,
-                superviseCallSid,
-                supervisingRole,
                 trim,
                 url,
                 urlMethod,
@@ -3337,7 +3159,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{applicationSid=$applicationSid, from=$from, to=$to, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+            "Body{applicationSid=$applicationSid, from=$from, to=$to, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -4759,146 +4581,6 @@ private constructor(
             }
 
             return other is StatusCallbackMethod && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
-    /**
-     * The supervising role for the new leg. Determines the audio behavior: barge (hear both sides),
-     * whisper (only hear supervisor), monitor (hear both sides but supervisor muted). Default:
-     * barge
-     */
-    class SupervisingRole @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val BARGE = of("barge")
-
-            @JvmField val WHISPER = of("whisper")
-
-            @JvmField val MONITOR = of("monitor")
-
-            @JvmStatic fun of(value: String) = SupervisingRole(JsonField.of(value))
-        }
-
-        /** An enum containing [SupervisingRole]'s known values. */
-        enum class Known {
-            BARGE,
-            WHISPER,
-            MONITOR,
-        }
-
-        /**
-         * An enum containing [SupervisingRole]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [SupervisingRole] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            BARGE,
-            WHISPER,
-            MONITOR,
-            /**
-             * An enum member indicating that [SupervisingRole] was instantiated with an unknown
-             * value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                BARGE -> Value.BARGE
-                WHISPER -> Value.WHISPER
-                MONITOR -> Value.MONITOR
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                BARGE -> Known.BARGE
-                WHISPER -> Known.WHISPER
-                MONITOR -> Known.MONITOR
-                else -> throw TelnyxInvalidDataException("Unknown SupervisingRole: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        fun validate(): SupervisingRole = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is SupervisingRole && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

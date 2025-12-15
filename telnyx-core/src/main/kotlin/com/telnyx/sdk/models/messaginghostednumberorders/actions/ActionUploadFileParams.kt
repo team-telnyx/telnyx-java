@@ -22,7 +22,7 @@ import kotlin.io.path.inputStream
 import kotlin.io.path.name
 import kotlin.jvm.optionals.getOrNull
 
-/** Upload hosted number document */
+/** Upload file required for a messaging hosted number order */
 class ActionUploadFileParams
 private constructor(
     private val id: String?,

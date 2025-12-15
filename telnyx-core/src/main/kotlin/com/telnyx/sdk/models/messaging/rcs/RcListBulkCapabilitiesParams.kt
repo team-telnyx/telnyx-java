@@ -21,7 +21,7 @@ import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-/** Check RCS capabilities (batch) */
+/** List RCS capabilities of a given batch of phone numbers */
 class RcListBulkCapabilitiesParams
 private constructor(
     private val body: Body,

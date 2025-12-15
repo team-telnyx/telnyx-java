@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Check RCS capabilities */
+/** List RCS capabilities of a phone number */
 class RcRetrieveCapabilitiesParams
 private constructor(
     private val agentId: String,

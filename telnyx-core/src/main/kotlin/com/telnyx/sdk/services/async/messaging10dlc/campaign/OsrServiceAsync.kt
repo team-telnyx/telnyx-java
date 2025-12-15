@@ -24,7 +24,7 @@ interface OsrServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OsrServiceAsync
 
-    /** Get OSR campaign attributes */
+    /** Get My Osr Campaign Attributes */
     fun getAttributes(campaignId: String): CompletableFuture<OsrGetAttributesResponse> =
         getAttributes(campaignId, OsrGetAttributesParams.none())
 
