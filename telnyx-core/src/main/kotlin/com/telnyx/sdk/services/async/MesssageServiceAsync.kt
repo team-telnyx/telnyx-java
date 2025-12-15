@@ -7,6 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.messsages.MesssageRcsParams
 import com.telnyx.sdk.models.messsages.MesssageRcsResponse
+import com.telnyx.sdk.models.messsages.MesssageWhatsappParams
+import com.telnyx.sdk.models.messsages.MesssageWhatsappResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -33,6 +35,16 @@ interface MesssageServiceAsync {
         params: MesssageRcsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MesssageRcsResponse>
+
+    /** Send a Whatsapp message */
+    fun whatsapp(params: MesssageWhatsappParams): CompletableFuture<MesssageWhatsappResponse> =
+        whatsapp(params, RequestOptions.none())
+
+    /** @see whatsapp */
+    fun whatsapp(
+        params: MesssageWhatsappParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<MesssageWhatsappResponse>
 
     /**
      * A view of [MesssageServiceAsync] that provides access to raw HTTP responses for each method.
@@ -62,5 +74,20 @@ interface MesssageServiceAsync {
             params: MesssageRcsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<MesssageRcsResponse>>
+
+        /**
+         * Returns a raw HTTP response for `post /messsages/whatsapp`, but is otherwise the same as
+         * [MesssageServiceAsync.whatsapp].
+         */
+        fun whatsapp(
+            params: MesssageWhatsappParams
+        ): CompletableFuture<HttpResponseFor<MesssageWhatsappResponse>> =
+            whatsapp(params, RequestOptions.none())
+
+        /** @see whatsapp */
+        fun whatsapp(
+            params: MesssageWhatsappParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<MesssageWhatsappResponse>>
     }
 }

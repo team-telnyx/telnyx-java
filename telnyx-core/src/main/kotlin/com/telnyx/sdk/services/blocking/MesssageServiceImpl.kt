@@ -17,6 +17,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.messsages.MesssageRcsParams
 import com.telnyx.sdk.models.messsages.MesssageRcsResponse
+import com.telnyx.sdk.models.messsages.MesssageWhatsappParams
+import com.telnyx.sdk.models.messsages.MesssageWhatsappResponse
 import java.util.function.Consumer
 
 class MesssageServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -37,6 +39,13 @@ class MesssageServiceImpl internal constructor(private val clientOptions: Client
     ): MesssageRcsResponse =
         // post /messsages/rcs
         withRawResponse().rcs(params, requestOptions).parse()
+
+    override fun whatsapp(
+        params: MesssageWhatsappParams,
+        requestOptions: RequestOptions,
+    ): MesssageWhatsappResponse =
+        // post /messsages/whatsapp
+        withRawResponse().whatsapp(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         MesssageService.WithRawResponse {
@@ -71,6 +80,34 @@ class MesssageServiceImpl internal constructor(private val clientOptions: Client
             return errorHandler.handle(response).parseable {
                 response
                     .use { rcsHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val whatsappHandler: Handler<MesssageWhatsappResponse> =
+            jsonHandler<MesssageWhatsappResponse>(clientOptions.jsonMapper)
+
+        override fun whatsapp(
+            params: MesssageWhatsappParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<MesssageWhatsappResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("messsages", "whatsapp")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { whatsappHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

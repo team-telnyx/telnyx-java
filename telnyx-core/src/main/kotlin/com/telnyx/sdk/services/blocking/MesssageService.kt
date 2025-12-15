@@ -8,6 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.messsages.MesssageRcsParams
 import com.telnyx.sdk.models.messsages.MesssageRcsResponse
+import com.telnyx.sdk.models.messsages.MesssageWhatsappParams
+import com.telnyx.sdk.models.messsages.MesssageWhatsappResponse
 import java.util.function.Consumer
 
 interface MesssageService {
@@ -33,6 +35,16 @@ interface MesssageService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MesssageRcsResponse
 
+    /** Send a Whatsapp message */
+    fun whatsapp(params: MesssageWhatsappParams): MesssageWhatsappResponse =
+        whatsapp(params, RequestOptions.none())
+
+    /** @see whatsapp */
+    fun whatsapp(
+        params: MesssageWhatsappParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): MesssageWhatsappResponse
+
     /** A view of [MesssageService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -57,5 +69,20 @@ interface MesssageService {
             params: MesssageRcsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<MesssageRcsResponse>
+
+        /**
+         * Returns a raw HTTP response for `post /messsages/whatsapp`, but is otherwise the same as
+         * [MesssageService.whatsapp].
+         */
+        @MustBeClosed
+        fun whatsapp(params: MesssageWhatsappParams): HttpResponseFor<MesssageWhatsappResponse> =
+            whatsapp(params, RequestOptions.none())
+
+        /** @see whatsapp */
+        @MustBeClosed
+        fun whatsapp(
+            params: MesssageWhatsappParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<MesssageWhatsappResponse>
     }
 }

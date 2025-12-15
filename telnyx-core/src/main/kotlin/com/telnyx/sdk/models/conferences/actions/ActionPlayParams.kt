@@ -222,8 +222,8 @@ private constructor(
          */
         fun loop(loop: JsonField<Loopcount>) = apply { body.loop(loop) }
 
-        /** Alias for calling [loop] with `Loopcount.ofString(string)`. */
-        fun loop(string: String) = apply { body.loop(string) }
+        /** Alias for calling [loop] with `Loopcount.ofLoopcountString(loopcountString)`. */
+        fun loop(loopcountString: String) = apply { body.loop(loopcountString) }
 
         /** Alias for calling [loop] with `Loopcount.ofInteger(integer)`. */
         fun loop(integer: Long) = apply { body.loop(integer) }
@@ -610,8 +610,8 @@ private constructor(
              */
             fun loop(loop: JsonField<Loopcount>) = apply { this.loop = loop }
 
-            /** Alias for calling [loop] with `Loopcount.ofString(string)`. */
-            fun loop(string: String) = loop(Loopcount.ofString(string))
+            /** Alias for calling [loop] with `Loopcount.ofLoopcountString(loopcountString)`. */
+            fun loop(loopcountString: String) = loop(Loopcount.ofLoopcountString(loopcountString))
 
             /** Alias for calling [loop] with `Loopcount.ofInteger(integer)`. */
             fun loop(integer: Long) = loop(Loopcount.ofInteger(integer))
