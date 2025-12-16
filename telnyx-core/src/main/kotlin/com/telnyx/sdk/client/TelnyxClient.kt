@@ -73,7 +73,6 @@ import com.telnyx.sdk.services.blocking.MessagingProfileService
 import com.telnyx.sdk.services.blocking.MessagingService
 import com.telnyx.sdk.services.blocking.MessagingTollfreeService
 import com.telnyx.sdk.services.blocking.MessagingUrlDomainService
-import com.telnyx.sdk.services.blocking.MesssageService
 import com.telnyx.sdk.services.blocking.MobileNetworkOperatorService
 import com.telnyx.sdk.services.blocking.MobilePhoneNumberService
 import com.telnyx.sdk.services.blocking.MobilePushCredentialService
@@ -334,8 +333,6 @@ interface TelnyxClient {
     fun messagingTollfree(): MessagingTollfreeService
 
     fun messagingUrlDomains(): MessagingUrlDomainService
-
-    fun messsages(): MesssageService
 
     fun mobileNetworkOperators(): MobileNetworkOperatorService
 
@@ -657,8 +654,6 @@ interface TelnyxClient {
         fun messagingTollfree(): MessagingTollfreeService.WithRawResponse
 
         fun messagingUrlDomains(): MessagingUrlDomainService.WithRawResponse
-
-        fun messsages(): MesssageService.WithRawResponse
 
         fun mobileNetworkOperators(): MobileNetworkOperatorService.WithRawResponse
 
