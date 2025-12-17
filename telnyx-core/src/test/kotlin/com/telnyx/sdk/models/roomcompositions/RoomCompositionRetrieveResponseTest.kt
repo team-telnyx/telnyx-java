@@ -20,7 +20,7 @@ internal class RoomCompositionRetrieveResponseTest {
                         .id("7103dc53-ee59-4b54-a58b-c77d99ceb037")
                         .completedAt(OffsetDateTime.parse("2022-02-25T05:39:56.377426Z"))
                         .createdAt(OffsetDateTime.parse("2021-03-26T17:51:59.588408Z"))
-                        .downloadUrl("download_url")
+                        .downloadUrl("https://example.com")
                         .durationSecs(84L)
                         .endedAt(OffsetDateTime.parse("2022-02-24T23:22:24.577677Z"))
                         .format(RoomComposition.Format.MP4)
@@ -41,7 +41,8 @@ internal class RoomCompositionRetrieveResponseTest {
                                             "height" to 720,
                                             "max_columns" to 3,
                                             "max_rows" to 3,
-                                            "video_sources" to listOf("*"),
+                                            "video_sources" to
+                                                listOf("7b61621f-62e0-4aad-ab11-9fd19e272e73"),
                                             "width" to 1280,
                                             "x_pos" to 0,
                                             "y_pos" to 0,
@@ -66,7 +67,7 @@ internal class RoomCompositionRetrieveResponseTest {
                     .id("7103dc53-ee59-4b54-a58b-c77d99ceb037")
                     .completedAt(OffsetDateTime.parse("2022-02-25T05:39:56.377426Z"))
                     .createdAt(OffsetDateTime.parse("2021-03-26T17:51:59.588408Z"))
-                    .downloadUrl("download_url")
+                    .downloadUrl("https://example.com")
                     .durationSecs(84L)
                     .endedAt(OffsetDateTime.parse("2022-02-24T23:22:24.577677Z"))
                     .format(RoomComposition.Format.MP4)
@@ -87,7 +88,8 @@ internal class RoomCompositionRetrieveResponseTest {
                                         "height" to 720,
                                         "max_columns" to 3,
                                         "max_rows" to 3,
-                                        "video_sources" to listOf("*"),
+                                        "video_sources" to
+                                            listOf("7b61621f-62e0-4aad-ab11-9fd19e272e73"),
                                         "width" to 1280,
                                         "x_pos" to 0,
                                         "y_pos" to 0,
@@ -114,7 +116,7 @@ internal class RoomCompositionRetrieveResponseTest {
                         .id("7103dc53-ee59-4b54-a58b-c77d99ceb037")
                         .completedAt(OffsetDateTime.parse("2022-02-25T05:39:56.377426Z"))
                         .createdAt(OffsetDateTime.parse("2021-03-26T17:51:59.588408Z"))
-                        .downloadUrl("download_url")
+                        .downloadUrl("https://example.com")
                         .durationSecs(84L)
                         .endedAt(OffsetDateTime.parse("2022-02-24T23:22:24.577677Z"))
                         .format(RoomComposition.Format.MP4)
@@ -135,7 +137,8 @@ internal class RoomCompositionRetrieveResponseTest {
                                             "height" to 720,
                                             "max_columns" to 3,
                                             "max_rows" to 3,
-                                            "video_sources" to listOf("*"),
+                                            "video_sources" to
+                                                listOf("7b61621f-62e0-4aad-ab11-9fd19e272e73"),
                                             "width" to 1280,
                                             "x_pos" to 0,
                                             "y_pos" to 0,

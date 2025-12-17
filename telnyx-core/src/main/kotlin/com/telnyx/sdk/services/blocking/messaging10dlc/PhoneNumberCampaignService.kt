@@ -112,7 +112,7 @@ interface PhoneNumberCampaignService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhoneNumberCampaign
 
-    /** Retrieve All Phone Number Campaigns */
+    /** List phone number campaigns */
     fun list(): PhoneNumberCampaignListPage = list(PhoneNumberCampaignListParams.none())
 
     /** @see list */

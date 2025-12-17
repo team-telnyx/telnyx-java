@@ -472,15 +472,8 @@ private constructor(
          * The failover URL where webhooks related to this room will be sent if sending to the
          * primary URL fails. Must include a scheme, such as 'https'.
          */
-        fun webhookEventFailoverUrl(webhookEventFailoverUrl: String?) =
-            webhookEventFailoverUrl(JsonField.ofNullable(webhookEventFailoverUrl))
-
-        /**
-         * Alias for calling [Builder.webhookEventFailoverUrl] with
-         * `webhookEventFailoverUrl.orElse(null)`.
-         */
-        fun webhookEventFailoverUrl(webhookEventFailoverUrl: Optional<String>) =
-            webhookEventFailoverUrl(webhookEventFailoverUrl.getOrNull())
+        fun webhookEventFailoverUrl(webhookEventFailoverUrl: String) =
+            webhookEventFailoverUrl(JsonField.of(webhookEventFailoverUrl))
 
         /**
          * Sets [Builder.webhookEventFailoverUrl] to an arbitrary JSON value.
@@ -512,22 +505,8 @@ private constructor(
         }
 
         /** Specifies how many seconds to wait before timing out a webhook. */
-        fun webhookTimeoutSecs(webhookTimeoutSecs: Long?) =
-            webhookTimeoutSecs(JsonField.ofNullable(webhookTimeoutSecs))
-
-        /**
-         * Alias for [Builder.webhookTimeoutSecs].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
         fun webhookTimeoutSecs(webhookTimeoutSecs: Long) =
-            webhookTimeoutSecs(webhookTimeoutSecs as Long?)
-
-        /**
-         * Alias for calling [Builder.webhookTimeoutSecs] with `webhookTimeoutSecs.orElse(null)`.
-         */
-        fun webhookTimeoutSecs(webhookTimeoutSecs: Optional<Long>) =
-            webhookTimeoutSecs(webhookTimeoutSecs.getOrNull())
+            webhookTimeoutSecs(JsonField.of(webhookTimeoutSecs))
 
         /**
          * Sets [Builder.webhookTimeoutSecs] to an arbitrary JSON value.

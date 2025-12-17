@@ -144,6 +144,8 @@ import com.telnyx.sdk.services.async.MessagingTollfreeServiceAsync
 import com.telnyx.sdk.services.async.MessagingTollfreeServiceAsyncImpl
 import com.telnyx.sdk.services.async.MessagingUrlDomainServiceAsync
 import com.telnyx.sdk.services.async.MessagingUrlDomainServiceAsyncImpl
+import com.telnyx.sdk.services.async.MesssageServiceAsync
+import com.telnyx.sdk.services.async.MesssageServiceAsyncImpl
 import com.telnyx.sdk.services.async.MobileNetworkOperatorServiceAsync
 import com.telnyx.sdk.services.async.MobileNetworkOperatorServiceAsyncImpl
 import com.telnyx.sdk.services.async.MobilePhoneNumberServiceAsync
@@ -595,6 +597,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     private val messagingUrlDomains: MessagingUrlDomainServiceAsync by lazy {
         MessagingUrlDomainServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val messsages: MesssageServiceAsync by lazy {
+        MesssageServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     private val mobileNetworkOperators: MobileNetworkOperatorServiceAsync by lazy {
@@ -1066,6 +1072,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     override fun messagingTollfree(): MessagingTollfreeServiceAsync = messagingTollfree
 
     override fun messagingUrlDomains(): MessagingUrlDomainServiceAsync = messagingUrlDomains
+
+    override fun messsages(): MesssageServiceAsync = messsages
 
     override fun mobileNetworkOperators(): MobileNetworkOperatorServiceAsync =
         mobileNetworkOperators
@@ -1542,6 +1550,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         private val messagingUrlDomains: MessagingUrlDomainServiceAsync.WithRawResponse by lazy {
             MessagingUrlDomainServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val messsages: MesssageServiceAsync.WithRawResponse by lazy {
+            MesssageServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val mobileNetworkOperators:
@@ -2051,6 +2063,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         override fun messagingUrlDomains(): MessagingUrlDomainServiceAsync.WithRawResponse =
             messagingUrlDomains
+
+        override fun messsages(): MesssageServiceAsync.WithRawResponse = messsages
 
         override fun mobileNetworkOperators(): MobileNetworkOperatorServiceAsync.WithRawResponse =
             mobileNetworkOperators

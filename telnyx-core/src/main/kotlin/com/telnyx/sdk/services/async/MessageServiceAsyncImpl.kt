@@ -32,10 +32,10 @@ import com.telnyx.sdk.models.messages.MessageSendParams
 import com.telnyx.sdk.models.messages.MessageSendResponse
 import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeResponse
+import com.telnyx.sdk.models.messages.MessageSendWhatsappParams
+import com.telnyx.sdk.models.messages.MessageSendWhatsappResponse
 import com.telnyx.sdk.services.async.messages.RcServiceAsync
 import com.telnyx.sdk.services.async.messages.RcServiceAsyncImpl
-import com.telnyx.sdk.services.async.messages.WhatsappServiceAsync
-import com.telnyx.sdk.services.async.messages.WhatsappServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -49,16 +49,12 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
     private val rcs: RcServiceAsync by lazy { RcServiceAsyncImpl(clientOptions) }
 
-    private val whatsapp: WhatsappServiceAsync by lazy { WhatsappServiceAsyncImpl(clientOptions) }
-
     override fun withRawResponse(): MessageServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessageServiceAsync =
         MessageServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun rcs(): RcServiceAsync = rcs
-
-    override fun whatsapp(): WhatsappServiceAsync = whatsapp
 
     override fun retrieve(
         params: MessageRetrieveParams,
@@ -116,6 +112,13 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
         // post /messages/short_code
         withRawResponse().sendShortCode(params, requestOptions).thenApply { it.parse() }
 
+    override fun sendWhatsapp(
+        params: MessageSendWhatsappParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<MessageSendWhatsappResponse> =
+        // post /messages/whatsapp
+        withRawResponse().sendWhatsapp(params, requestOptions).thenApply { it.parse() }
+
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         MessageServiceAsync.WithRawResponse {
 
@@ -126,10 +129,6 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
             RcServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val whatsapp: WhatsappServiceAsync.WithRawResponse by lazy {
-            WhatsappServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): MessageServiceAsync.WithRawResponse =
@@ -138,8 +137,6 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
             )
 
         override fun rcs(): RcServiceAsync.WithRawResponse = rcs
-
-        override fun whatsapp(): WhatsappServiceAsync.WithRawResponse = whatsapp
 
         private val retrieveHandler: Handler<MessageRetrieveResponse> =
             jsonHandler<MessageRetrieveResponse>(clientOptions.jsonMapper)
@@ -385,6 +382,37 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     errorHandler.handle(response).parseable {
                         response
                             .use { sendShortCodeHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val sendWhatsappHandler: Handler<MessageSendWhatsappResponse> =
+            jsonHandler<MessageSendWhatsappResponse>(clientOptions.jsonMapper)
+
+        override fun sendWhatsapp(
+            params: MessageSendWhatsappParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<MessageSendWhatsappResponse>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("messages", "whatsapp")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { sendWhatsappHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

@@ -21,7 +21,7 @@ import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-/** Update the messaging profile of multiple phone numbers */
+/** Bulk update phone number profiles */
 class MessagingNumbersBulkUpdateCreateParams
 private constructor(
     private val body: Body,

@@ -17,18 +17,23 @@ internal class TranscriptionEngineDeepgramConfigTest {
     @Test
     fun ofDeepgramNova2() {
         val deepgramNova2 =
-            TranscriptionEngineDeepgramConfig.DeepgramNova2.builder()
+            TranscriptionEngineDeepgramConfig.DeepgramNova2Config.builder()
                 .transcriptionEngine(
-                    TranscriptionEngineDeepgramConfig.DeepgramNova2.TranscriptionEngine.DEEPGRAM
+                    TranscriptionEngineDeepgramConfig.DeepgramNova2Config.TranscriptionEngine
+                        .DEEPGRAM
+                )
+                .transcriptionModel(
+                    TranscriptionEngineDeepgramConfig.DeepgramNova2Config.TranscriptionModel
+                        .DEEPGRAM_NOVA_2
                 )
                 .keywordsBoosting(
-                    TranscriptionEngineDeepgramConfig.DeepgramNova2.KeywordsBoosting.builder()
+                    TranscriptionEngineDeepgramConfig.DeepgramNova2Config.KeywordsBoosting.builder()
                         .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
                         .putAdditionalProperty("systrom", JsonValue.from(2))
                         .putAdditionalProperty("krieger", JsonValue.from(1))
                         .build()
                 )
-                .language(TranscriptionEngineDeepgramConfig.DeepgramNova2.Language.EN)
+                .language(TranscriptionEngineDeepgramConfig.DeepgramNova2Config.Language.EN)
                 .build()
 
         val transcriptionEngineDeepgramConfig =
@@ -43,18 +48,24 @@ internal class TranscriptionEngineDeepgramConfigTest {
         val jsonMapper = jsonMapper()
         val transcriptionEngineDeepgramConfig =
             TranscriptionEngineDeepgramConfig.ofDeepgramNova2(
-                TranscriptionEngineDeepgramConfig.DeepgramNova2.builder()
+                TranscriptionEngineDeepgramConfig.DeepgramNova2Config.builder()
                     .transcriptionEngine(
-                        TranscriptionEngineDeepgramConfig.DeepgramNova2.TranscriptionEngine.DEEPGRAM
+                        TranscriptionEngineDeepgramConfig.DeepgramNova2Config.TranscriptionEngine
+                            .DEEPGRAM
+                    )
+                    .transcriptionModel(
+                        TranscriptionEngineDeepgramConfig.DeepgramNova2Config.TranscriptionModel
+                            .DEEPGRAM_NOVA_2
                     )
                     .keywordsBoosting(
-                        TranscriptionEngineDeepgramConfig.DeepgramNova2.KeywordsBoosting.builder()
+                        TranscriptionEngineDeepgramConfig.DeepgramNova2Config.KeywordsBoosting
+                            .builder()
                             .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
                             .putAdditionalProperty("systrom", JsonValue.from(2))
                             .putAdditionalProperty("krieger", JsonValue.from(1))
                             .build()
                     )
-                    .language(TranscriptionEngineDeepgramConfig.DeepgramNova2.Language.EN)
+                    .language(TranscriptionEngineDeepgramConfig.DeepgramNova2Config.Language.EN)
                     .build()
             )
 
@@ -71,18 +82,23 @@ internal class TranscriptionEngineDeepgramConfigTest {
     @Test
     fun ofDeepgramNova3() {
         val deepgramNova3 =
-            TranscriptionEngineDeepgramConfig.DeepgramNova3.builder()
+            TranscriptionEngineDeepgramConfig.DeepgramNova3Config.builder()
                 .transcriptionEngine(
-                    TranscriptionEngineDeepgramConfig.DeepgramNova3.TranscriptionEngine.DEEPGRAM
+                    TranscriptionEngineDeepgramConfig.DeepgramNova3Config.TranscriptionEngine
+                        .DEEPGRAM
+                )
+                .transcriptionModel(
+                    TranscriptionEngineDeepgramConfig.DeepgramNova3Config.TranscriptionModel
+                        .DEEPGRAM_NOVA_3
                 )
                 .keywordsBoosting(
-                    TranscriptionEngineDeepgramConfig.DeepgramNova3.KeywordsBoosting.builder()
+                    TranscriptionEngineDeepgramConfig.DeepgramNova3Config.KeywordsBoosting.builder()
                         .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
                         .putAdditionalProperty("systrom", JsonValue.from(2))
                         .putAdditionalProperty("krieger", JsonValue.from(1))
                         .build()
                 )
-                .language(TranscriptionEngineDeepgramConfig.DeepgramNova3.Language.EN)
+                .language(TranscriptionEngineDeepgramConfig.DeepgramNova3Config.Language.EN)
                 .build()
 
         val transcriptionEngineDeepgramConfig =
@@ -97,18 +113,24 @@ internal class TranscriptionEngineDeepgramConfigTest {
         val jsonMapper = jsonMapper()
         val transcriptionEngineDeepgramConfig =
             TranscriptionEngineDeepgramConfig.ofDeepgramNova3(
-                TranscriptionEngineDeepgramConfig.DeepgramNova3.builder()
+                TranscriptionEngineDeepgramConfig.DeepgramNova3Config.builder()
                     .transcriptionEngine(
-                        TranscriptionEngineDeepgramConfig.DeepgramNova3.TranscriptionEngine.DEEPGRAM
+                        TranscriptionEngineDeepgramConfig.DeepgramNova3Config.TranscriptionEngine
+                            .DEEPGRAM
+                    )
+                    .transcriptionModel(
+                        TranscriptionEngineDeepgramConfig.DeepgramNova3Config.TranscriptionModel
+                            .DEEPGRAM_NOVA_3
                     )
                     .keywordsBoosting(
-                        TranscriptionEngineDeepgramConfig.DeepgramNova3.KeywordsBoosting.builder()
+                        TranscriptionEngineDeepgramConfig.DeepgramNova3Config.KeywordsBoosting
+                            .builder()
                             .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
                             .putAdditionalProperty("systrom", JsonValue.from(2))
                             .putAdditionalProperty("krieger", JsonValue.from(1))
                             .build()
                     )
-                    .language(TranscriptionEngineDeepgramConfig.DeepgramNova3.Language.EN)
+                    .language(TranscriptionEngineDeepgramConfig.DeepgramNova3Config.Language.EN)
                     .build()
             )
 

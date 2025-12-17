@@ -218,17 +218,7 @@ private constructor(
         }
 
         /** Height of the video region */
-        fun height(height: Long?) = height(JsonField.ofNullable(height))
-
-        /**
-         * Alias for [Builder.height].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun height(height: Long) = height(height as Long?)
-
-        /** Alias for calling [Builder.height] with `height.orElse(null)`. */
-        fun height(height: Optional<Long>) = height(height.getOrNull())
+        fun height(height: Long) = height(JsonField.of(height))
 
         /**
          * Sets [Builder.height] to an arbitrary JSON value.
@@ -242,17 +232,7 @@ private constructor(
          * Maximum number of columns of the region's placement grid. By default, the region has as
          * many columns as needed to layout all the specified video sources.
          */
-        fun maxColumns(maxColumns: Long?) = maxColumns(JsonField.ofNullable(maxColumns))
-
-        /**
-         * Alias for [Builder.maxColumns].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun maxColumns(maxColumns: Long) = maxColumns(maxColumns as Long?)
-
-        /** Alias for calling [Builder.maxColumns] with `maxColumns.orElse(null)`. */
-        fun maxColumns(maxColumns: Optional<Long>) = maxColumns(maxColumns.getOrNull())
+        fun maxColumns(maxColumns: Long) = maxColumns(JsonField.of(maxColumns))
 
         /**
          * Sets [Builder.maxColumns] to an arbitrary JSON value.
@@ -266,17 +246,7 @@ private constructor(
          * Maximum number of rows of the region's placement grid. By default, the region has as many
          * rows as needed to layout all the specified video sources.
          */
-        fun maxRows(maxRows: Long?) = maxRows(JsonField.ofNullable(maxRows))
-
-        /**
-         * Alias for [Builder.maxRows].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun maxRows(maxRows: Long) = maxRows(maxRows as Long?)
-
-        /** Alias for calling [Builder.maxRows] with `maxRows.orElse(null)`. */
-        fun maxRows(maxRows: Optional<Long>) = maxRows(maxRows.getOrNull())
+        fun maxRows(maxRows: Long) = maxRows(JsonField.of(maxRows))
 
         /**
          * Sets [Builder.maxRows] to an arbitrary JSON value.
@@ -316,17 +286,7 @@ private constructor(
         }
 
         /** Width of the video region */
-        fun width(width: Long?) = width(JsonField.ofNullable(width))
-
-        /**
-         * Alias for [Builder.width].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun width(width: Long) = width(width as Long?)
-
-        /** Alias for calling [Builder.width] with `width.orElse(null)`. */
-        fun width(width: Optional<Long>) = width(width.getOrNull())
+        fun width(width: Long) = width(JsonField.of(width))
 
         /**
          * Sets [Builder.width] to an arbitrary JSON value.
@@ -340,17 +300,7 @@ private constructor(
          * X axis value (in pixels) of the region's upper left corner relative to the upper left
          * corner of the whole room composition viewport.
          */
-        fun xPos(xPos: Long?) = xPos(JsonField.ofNullable(xPos))
-
-        /**
-         * Alias for [Builder.xPos].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun xPos(xPos: Long) = xPos(xPos as Long?)
-
-        /** Alias for calling [Builder.xPos] with `xPos.orElse(null)`. */
-        fun xPos(xPos: Optional<Long>) = xPos(xPos.getOrNull())
+        fun xPos(xPos: Long) = xPos(JsonField.of(xPos))
 
         /**
          * Sets [Builder.xPos] to an arbitrary JSON value.
@@ -364,17 +314,7 @@ private constructor(
          * Y axis value (in pixels) of the region's upper left corner relative to the upper left
          * corner of the whole room composition viewport.
          */
-        fun yPos(yPos: Long?) = yPos(JsonField.ofNullable(yPos))
-
-        /**
-         * Alias for [Builder.yPos].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun yPos(yPos: Long) = yPos(yPos as Long?)
-
-        /** Alias for calling [Builder.yPos] with `yPos.orElse(null)`. */
-        fun yPos(yPos: Optional<Long>) = yPos(yPos.getOrNull())
+        fun yPos(yPos: Long) = yPos(JsonField.of(yPos))
 
         /**
          * Sets [Builder.yPos] to an arbitrary JSON value.
@@ -387,17 +327,7 @@ private constructor(
         /**
          * Regions with higher z_pos values are stacked on top of regions with lower z_pos values
          */
-        fun zPos(zPos: Long?) = zPos(JsonField.ofNullable(zPos))
-
-        /**
-         * Alias for [Builder.zPos].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun zPos(zPos: Long) = zPos(zPos as Long?)
-
-        /** Alias for calling [Builder.zPos] with `zPos.orElse(null)`. */
-        fun zPos(zPos: Optional<Long>) = zPos(zPos.getOrNull())
+        fun zPos(zPos: Long) = zPos(JsonField.of(zPos))
 
         /**
          * Sets [Builder.zPos] to an arbitrary JSON value.
