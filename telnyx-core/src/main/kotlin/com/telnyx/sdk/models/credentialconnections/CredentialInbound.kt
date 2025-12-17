@@ -30,6 +30,7 @@ private constructor(
     private val isupHeadersEnabled: JsonField<Boolean>,
     private val prackEnabled: JsonField<Boolean>,
     private val shakenStirEnabled: JsonField<Boolean>,
+    private val simultaneousRinging: JsonField<SimultaneousRinging>,
     private val sipCompactHeadersEnabled: JsonField<Boolean>,
     private val timeout1xxSecs: JsonField<Long>,
     private val timeout2xxSecs: JsonField<Long>,
@@ -60,6 +61,9 @@ private constructor(
         @JsonProperty("shaken_stir_enabled")
         @ExcludeMissing
         shakenStirEnabled: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("simultaneous_ringing")
+        @ExcludeMissing
+        simultaneousRinging: JsonField<SimultaneousRinging> = JsonMissing.of(),
         @JsonProperty("sip_compact_headers_enabled")
         @ExcludeMissing
         sipCompactHeadersEnabled: JsonField<Boolean> = JsonMissing.of(),
@@ -78,6 +82,7 @@ private constructor(
         isupHeadersEnabled,
         prackEnabled,
         shakenStirEnabled,
+        simultaneousRinging,
         sipCompactHeadersEnabled,
         timeout1xxSecs,
         timeout2xxSecs,
@@ -157,6 +162,15 @@ private constructor(
      */
     fun shakenStirEnabled(): Optional<Boolean> =
         shakenStirEnabled.getOptional("shaken_stir_enabled")
+
+    /**
+     * When enabled, allows multiple devices to ring simultaneously on incoming calls.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun simultaneousRinging(): Optional<SimultaneousRinging> =
+        simultaneousRinging.getOptional("simultaneous_ringing")
 
     /**
      * Defaults to true.
@@ -258,6 +272,16 @@ private constructor(
     fun _shakenStirEnabled(): JsonField<Boolean> = shakenStirEnabled
 
     /**
+     * Returns the raw JSON value of [simultaneousRinging].
+     *
+     * Unlike [simultaneousRinging], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("simultaneous_ringing")
+    @ExcludeMissing
+    fun _simultaneousRinging(): JsonField<SimultaneousRinging> = simultaneousRinging
+
+    /**
      * Returns the raw JSON value of [sipCompactHeadersEnabled].
      *
      * Unlike [sipCompactHeadersEnabled], this method doesn't throw if the JSON field has an
@@ -314,6 +338,7 @@ private constructor(
         private var isupHeadersEnabled: JsonField<Boolean> = JsonMissing.of()
         private var prackEnabled: JsonField<Boolean> = JsonMissing.of()
         private var shakenStirEnabled: JsonField<Boolean> = JsonMissing.of()
+        private var simultaneousRinging: JsonField<SimultaneousRinging> = JsonMissing.of()
         private var sipCompactHeadersEnabled: JsonField<Boolean> = JsonMissing.of()
         private var timeout1xxSecs: JsonField<Long> = JsonMissing.of()
         private var timeout2xxSecs: JsonField<Long> = JsonMissing.of()
@@ -329,6 +354,7 @@ private constructor(
             isupHeadersEnabled = credentialInbound.isupHeadersEnabled
             prackEnabled = credentialInbound.prackEnabled
             shakenStirEnabled = credentialInbound.shakenStirEnabled
+            simultaneousRinging = credentialInbound.simultaneousRinging
             sipCompactHeadersEnabled = credentialInbound.sipCompactHeadersEnabled
             timeout1xxSecs = credentialInbound.timeout1xxSecs
             timeout2xxSecs = credentialInbound.timeout2xxSecs
@@ -478,6 +504,21 @@ private constructor(
             this.shakenStirEnabled = shakenStirEnabled
         }
 
+        /** When enabled, allows multiple devices to ring simultaneously on incoming calls. */
+        fun simultaneousRinging(simultaneousRinging: SimultaneousRinging) =
+            simultaneousRinging(JsonField.of(simultaneousRinging))
+
+        /**
+         * Sets [Builder.simultaneousRinging] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.simultaneousRinging] with a well-typed
+         * [SimultaneousRinging] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun simultaneousRinging(simultaneousRinging: JsonField<SimultaneousRinging>) = apply {
+            this.simultaneousRinging = simultaneousRinging
+        }
+
         /** Defaults to true. */
         fun sipCompactHeadersEnabled(sipCompactHeadersEnabled: Boolean) =
             sipCompactHeadersEnabled(JsonField.of(sipCompactHeadersEnabled))
@@ -555,6 +596,7 @@ private constructor(
                 isupHeadersEnabled,
                 prackEnabled,
                 shakenStirEnabled,
+                simultaneousRinging,
                 sipCompactHeadersEnabled,
                 timeout1xxSecs,
                 timeout2xxSecs,
@@ -577,6 +619,7 @@ private constructor(
         isupHeadersEnabled()
         prackEnabled()
         shakenStirEnabled()
+        simultaneousRinging().ifPresent { it.validate() }
         sipCompactHeadersEnabled()
         timeout1xxSecs()
         timeout2xxSecs()
@@ -606,6 +649,7 @@ private constructor(
             (if (isupHeadersEnabled.asKnown().isPresent) 1 else 0) +
             (if (prackEnabled.asKnown().isPresent) 1 else 0) +
             (if (shakenStirEnabled.asKnown().isPresent) 1 else 0) +
+            (simultaneousRinging.asKnown().getOrNull()?.validity() ?: 0) +
             (if (sipCompactHeadersEnabled.asKnown().isPresent) 1 else 0) +
             (if (timeout1xxSecs.asKnown().isPresent) 1 else 0) +
             (if (timeout2xxSecs.asKnown().isPresent) 1 else 0)
@@ -896,6 +940,137 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** When enabled, allows multiple devices to ring simultaneously on incoming calls. */
+    class SimultaneousRinging
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val DISABLED = of("disabled")
+
+            @JvmField val ENABLED = of("enabled")
+
+            @JvmStatic fun of(value: String) = SimultaneousRinging(JsonField.of(value))
+        }
+
+        /** An enum containing [SimultaneousRinging]'s known values. */
+        enum class Known {
+            DISABLED,
+            ENABLED,
+        }
+
+        /**
+         * An enum containing [SimultaneousRinging]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [SimultaneousRinging] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            DISABLED,
+            ENABLED,
+            /**
+             * An enum member indicating that [SimultaneousRinging] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                DISABLED -> Value.DISABLED
+                ENABLED -> Value.ENABLED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                DISABLED -> Known.DISABLED
+                ENABLED -> Known.ENABLED
+                else -> throw TelnyxInvalidDataException("Unknown SimultaneousRinging: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): SimultaneousRinging = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is SimultaneousRinging && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -910,6 +1085,7 @@ private constructor(
             isupHeadersEnabled == other.isupHeadersEnabled &&
             prackEnabled == other.prackEnabled &&
             shakenStirEnabled == other.shakenStirEnabled &&
+            simultaneousRinging == other.simultaneousRinging &&
             sipCompactHeadersEnabled == other.sipCompactHeadersEnabled &&
             timeout1xxSecs == other.timeout1xxSecs &&
             timeout2xxSecs == other.timeout2xxSecs &&
@@ -926,6 +1102,7 @@ private constructor(
             isupHeadersEnabled,
             prackEnabled,
             shakenStirEnabled,
+            simultaneousRinging,
             sipCompactHeadersEnabled,
             timeout1xxSecs,
             timeout2xxSecs,
@@ -936,5 +1113,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CredentialInbound{aniNumberFormat=$aniNumberFormat, channelLimit=$channelLimit, codecs=$codecs, dnisNumberFormat=$dnisNumberFormat, generateRingbackTone=$generateRingbackTone, isupHeadersEnabled=$isupHeadersEnabled, prackEnabled=$prackEnabled, shakenStirEnabled=$shakenStirEnabled, sipCompactHeadersEnabled=$sipCompactHeadersEnabled, timeout1xxSecs=$timeout1xxSecs, timeout2xxSecs=$timeout2xxSecs, additionalProperties=$additionalProperties}"
+        "CredentialInbound{aniNumberFormat=$aniNumberFormat, channelLimit=$channelLimit, codecs=$codecs, dnisNumberFormat=$dnisNumberFormat, generateRingbackTone=$generateRingbackTone, isupHeadersEnabled=$isupHeadersEnabled, prackEnabled=$prackEnabled, shakenStirEnabled=$shakenStirEnabled, simultaneousRinging=$simultaneousRinging, sipCompactHeadersEnabled=$sipCompactHeadersEnabled, timeout1xxSecs=$timeout1xxSecs, timeout2xxSecs=$timeout2xxSecs, additionalProperties=$additionalProperties}"
 }
