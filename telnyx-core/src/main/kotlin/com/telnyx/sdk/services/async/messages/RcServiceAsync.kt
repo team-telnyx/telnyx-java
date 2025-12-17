@@ -7,6 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.messages.rcs.RcGenerateDeeplinkParams
 import com.telnyx.sdk.models.messages.rcs.RcGenerateDeeplinkResponse
+import com.telnyx.sdk.models.messages.rcs.RcSendParams
+import com.telnyx.sdk.models.messages.rcs.RcSendResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -64,6 +66,16 @@ interface RcServiceAsync {
     ): CompletableFuture<RcGenerateDeeplinkResponse> =
         generateDeeplink(agentId, RcGenerateDeeplinkParams.none(), requestOptions)
 
+    /** Send an RCS message */
+    fun send(params: RcSendParams): CompletableFuture<RcSendResponse> =
+        send(params, RequestOptions.none())
+
+    /** @see send */
+    fun send(
+        params: RcSendParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<RcSendResponse>
+
     /** A view of [RcServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -116,5 +128,18 @@ interface RcServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<RcGenerateDeeplinkResponse>> =
             generateDeeplink(agentId, RcGenerateDeeplinkParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /messages/rcs`, but is otherwise the same as
+         * [RcServiceAsync.send].
+         */
+        fun send(params: RcSendParams): CompletableFuture<HttpResponseFor<RcSendResponse>> =
+            send(params, RequestOptions.none())
+
+        /** @see send */
+        fun send(
+            params: RcSendParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RcSendResponse>>
     }
 }

@@ -24,7 +24,7 @@ interface OsrService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OsrService
 
-    /** Get My Osr Campaign Attributes */
+    /** Get OSR campaign attributes */
     fun getAttributes(campaignId: String): OsrGetAttributesResponse =
         getAttributes(campaignId, OsrGetAttributesParams.none())
 

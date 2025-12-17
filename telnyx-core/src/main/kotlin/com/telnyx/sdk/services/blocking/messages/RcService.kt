@@ -8,6 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.messages.rcs.RcGenerateDeeplinkParams
 import com.telnyx.sdk.models.messages.rcs.RcGenerateDeeplinkResponse
+import com.telnyx.sdk.models.messages.rcs.RcSendParams
+import com.telnyx.sdk.models.messages.rcs.RcSendResponse
 import java.util.function.Consumer
 
 interface RcService {
@@ -60,6 +62,15 @@ interface RcService {
         requestOptions: RequestOptions,
     ): RcGenerateDeeplinkResponse =
         generateDeeplink(agentId, RcGenerateDeeplinkParams.none(), requestOptions)
+
+    /** Send an RCS message */
+    fun send(params: RcSendParams): RcSendResponse = send(params, RequestOptions.none())
+
+    /** @see send */
+    fun send(
+        params: RcSendParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RcSendResponse
 
     /** A view of [RcService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -117,5 +128,20 @@ interface RcService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<RcGenerateDeeplinkResponse> =
             generateDeeplink(agentId, RcGenerateDeeplinkParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /messages/rcs`, but is otherwise the same as
+         * [RcService.send].
+         */
+        @MustBeClosed
+        fun send(params: RcSendParams): HttpResponseFor<RcSendResponse> =
+            send(params, RequestOptions.none())
+
+        /** @see send */
+        @MustBeClosed
+        fun send(
+            params: RcSendParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RcSendResponse>
     }
 }

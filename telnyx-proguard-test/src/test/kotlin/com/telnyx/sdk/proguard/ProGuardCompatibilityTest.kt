@@ -126,6 +126,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.messagingProfiles()).isNotNull()
         assertThat(client.messagingTollfree()).isNotNull()
         assertThat(client.messagingUrlDomains()).isNotNull()
+        assertThat(client.messsages()).isNotNull()
         assertThat(client.mobileNetworkOperators()).isNotNull()
         assertThat(client.mobilePushCredentials()).isNotNull()
         assertThat(client.networkCoverage()).isNotNull()

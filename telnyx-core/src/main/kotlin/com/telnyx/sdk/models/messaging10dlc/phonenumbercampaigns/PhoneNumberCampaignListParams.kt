@@ -13,7 +13,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve All Phone Number Campaigns */
+/** List phone number campaigns */
 class PhoneNumberCampaignListParams
 private constructor(
     private val filter: Filter?,

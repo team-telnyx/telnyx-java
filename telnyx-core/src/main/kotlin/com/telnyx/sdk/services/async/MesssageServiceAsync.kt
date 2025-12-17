@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.services.blocking.messages
+package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.core.ClientOptions
 import java.util.function.Consumer
 
-interface WhatsappService {
+interface MesssageServiceAsync {
 
     /**
      * Returns a view of this service that provides access to raw HTTP responses for each method.
@@ -17,9 +17,11 @@ interface WhatsappService {
      *
      * The original service is not modified.
      */
-    fun withOptions(modifier: Consumer<ClientOptions.Builder>): WhatsappService
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): MesssageServiceAsync
 
-    /** A view of [WhatsappService] that provides access to raw HTTP responses for each method. */
+    /**
+     * A view of [MesssageServiceAsync] that provides access to raw HTTP responses for each method.
+     */
     interface WithRawResponse {
 
         /**
@@ -27,6 +29,8 @@ interface WhatsappService {
          *
          * The original service is not modified.
          */
-        fun withOptions(modifier: Consumer<ClientOptions.Builder>): WhatsappService.WithRawResponse
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): MesssageServiceAsync.WithRawResponse
     }
 }

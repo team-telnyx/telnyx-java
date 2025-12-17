@@ -13,10 +13,13 @@ import com.telnyx.sdk.core.http.HttpRequest
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.messages.rcs.RcGenerateDeeplinkParams
 import com.telnyx.sdk.models.messages.rcs.RcGenerateDeeplinkResponse
+import com.telnyx.sdk.models.messages.rcs.RcSendParams
+import com.telnyx.sdk.models.messages.rcs.RcSendResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -37,6 +40,10 @@ class RcServiceImpl internal constructor(private val clientOptions: ClientOption
     ): RcGenerateDeeplinkResponse =
         // get /messages/rcs/deeplinks/{agent_id}
         withRawResponse().generateDeeplink(params, requestOptions).parse()
+
+    override fun send(params: RcSendParams, requestOptions: RequestOptions): RcSendResponse =
+        // post /messages/rcs
+        withRawResponse().send(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         RcService.WithRawResponse {
@@ -73,6 +80,34 @@ class RcServiceImpl internal constructor(private val clientOptions: ClientOption
             return errorHandler.handle(response).parseable {
                 response
                     .use { generateDeeplinkHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val sendHandler: Handler<RcSendResponse> =
+            jsonHandler<RcSendResponse>(clientOptions.jsonMapper)
+
+        override fun send(
+            params: RcSendParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<RcSendResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("messages", "rcs")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { sendHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
