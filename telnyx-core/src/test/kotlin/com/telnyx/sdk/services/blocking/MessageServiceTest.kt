@@ -361,7 +361,7 @@ internal class MessageServiceTest {
                                                             .Interactive
                                                             .Action
                                                             .Card
-                                                            .InnerAction
+                                                            .CardAction
                                                             .builder()
                                                             .catalogId("catalog_id")
                                                             .productRetailerId(
@@ -374,7 +374,7 @@ internal class MessageServiceTest {
                                                             .Interactive
                                                             .Action
                                                             .Card
-                                                            .Body
+                                                            .CardBody
                                                             .builder()
                                                             .text("text")
                                                             .build()
@@ -479,7 +479,8 @@ internal class MessageServiceTest {
                                             .build()
                                     )
                                     .body(
-                                        MessageSendWhatsappParams.WhatsappMessage.Interactive.Body
+                                        MessageSendWhatsappParams.WhatsappMessage.Interactive
+                                            .InteractiveBody
                                             .builder()
                                             .text("text")
                                             .build()

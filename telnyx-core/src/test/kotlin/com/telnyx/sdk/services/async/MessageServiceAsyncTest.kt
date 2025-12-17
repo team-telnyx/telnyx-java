@@ -370,7 +370,7 @@ internal class MessageServiceAsyncTest {
                                                             .Interactive
                                                             .Action
                                                             .Card
-                                                            .InnerAction
+                                                            .CardAction
                                                             .builder()
                                                             .catalogId("catalog_id")
                                                             .productRetailerId(
@@ -383,7 +383,7 @@ internal class MessageServiceAsyncTest {
                                                             .Interactive
                                                             .Action
                                                             .Card
-                                                            .Body
+                                                            .CardBody
                                                             .builder()
                                                             .text("text")
                                                             .build()
@@ -488,7 +488,8 @@ internal class MessageServiceAsyncTest {
                                             .build()
                                     )
                                     .body(
-                                        MessageSendWhatsappParams.WhatsappMessage.Interactive.Body
+                                        MessageSendWhatsappParams.WhatsappMessage.Interactive
+                                            .InteractiveBody
                                             .builder()
                                             .text("text")
                                             .build()

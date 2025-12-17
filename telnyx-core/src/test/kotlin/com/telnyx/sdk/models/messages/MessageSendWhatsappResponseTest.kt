@@ -136,7 +136,7 @@ internal class MessageSendWhatsappResponseTest {
                                                                 .Interactive
                                                                 .Action
                                                                 .Card
-                                                                .InnerAction
+                                                                .CardAction
                                                                 .builder()
                                                                 .catalogId("catalog_id")
                                                                 .productRetailerId(
@@ -149,7 +149,7 @@ internal class MessageSendWhatsappResponseTest {
                                                                 .Interactive
                                                                 .Action
                                                                 .Card
-                                                                .InnerBody
+                                                                .CardBody
                                                                 .builder()
                                                                 .text("text")
                                                                 .build()
@@ -255,7 +255,7 @@ internal class MessageSendWhatsappResponseTest {
                                         )
                                         .body(
                                             MessageSendWhatsappResponse.Data.Body.Interactive
-                                                .InnerBody
+                                                .InteractiveBody
                                                 .builder()
                                                 .text("text")
                                                 .build()
@@ -482,7 +482,7 @@ internal class MessageSendWhatsappResponseTest {
                                                             .Interactive
                                                             .Action
                                                             .Card
-                                                            .InnerAction
+                                                            .CardAction
                                                             .builder()
                                                             .catalogId("catalog_id")
                                                             .productRetailerId(
@@ -495,7 +495,7 @@ internal class MessageSendWhatsappResponseTest {
                                                             .Interactive
                                                             .Action
                                                             .Card
-                                                            .InnerBody
+                                                            .CardBody
                                                             .builder()
                                                             .text("text")
                                                             .build()
@@ -598,7 +598,8 @@ internal class MessageSendWhatsappResponseTest {
                                             .build()
                                     )
                                     .body(
-                                        MessageSendWhatsappResponse.Data.Body.Interactive.InnerBody
+                                        MessageSendWhatsappResponse.Data.Body.Interactive
+                                            .InteractiveBody
                                             .builder()
                                             .text("text")
                                             .build()
@@ -833,7 +834,7 @@ internal class MessageSendWhatsappResponseTest {
                                                                 .Interactive
                                                                 .Action
                                                                 .Card
-                                                                .InnerAction
+                                                                .CardAction
                                                                 .builder()
                                                                 .catalogId("catalog_id")
                                                                 .productRetailerId(
@@ -846,7 +847,7 @@ internal class MessageSendWhatsappResponseTest {
                                                                 .Interactive
                                                                 .Action
                                                                 .Card
-                                                                .InnerBody
+                                                                .CardBody
                                                                 .builder()
                                                                 .text("text")
                                                                 .build()
@@ -952,7 +953,7 @@ internal class MessageSendWhatsappResponseTest {
                                         )
                                         .body(
                                             MessageSendWhatsappResponse.Data.Body.Interactive
-                                                .InnerBody
+                                                .InteractiveBody
                                                 .builder()
                                                 .text("text")
                                                 .build()

@@ -122,7 +122,7 @@ internal class MessageSendWhatsappParamsTest {
                                                     .Interactive
                                                     .Action
                                                     .Card
-                                                    .InnerAction
+                                                    .CardAction
                                                     .builder()
                                                     .catalogId("catalog_id")
                                                     .productRetailerId("product_retailer_id")
@@ -133,7 +133,7 @@ internal class MessageSendWhatsappParamsTest {
                                                     .Interactive
                                                     .Action
                                                     .Card
-                                                    .Body
+                                                    .CardBody
                                                     .builder()
                                                     .text("text")
                                                     .build()
@@ -227,7 +227,9 @@ internal class MessageSendWhatsappParamsTest {
                                     .build()
                             )
                             .body(
-                                MessageSendWhatsappParams.WhatsappMessage.Interactive.Body.builder()
+                                MessageSendWhatsappParams.WhatsappMessage.Interactive
+                                    .InteractiveBody
+                                    .builder()
                                     .text("text")
                                     .build()
                             )
@@ -432,7 +434,7 @@ internal class MessageSendWhatsappParamsTest {
                                                         .Interactive
                                                         .Action
                                                         .Card
-                                                        .InnerAction
+                                                        .CardAction
                                                         .builder()
                                                         .catalogId("catalog_id")
                                                         .productRetailerId("product_retailer_id")
@@ -443,7 +445,7 @@ internal class MessageSendWhatsappParamsTest {
                                                         .Interactive
                                                         .Action
                                                         .Card
-                                                        .Body
+                                                        .CardBody
                                                         .builder()
                                                         .text("text")
                                                         .build()
@@ -544,7 +546,8 @@ internal class MessageSendWhatsappParamsTest {
                                         .build()
                                 )
                                 .body(
-                                    MessageSendWhatsappParams.WhatsappMessage.Interactive.Body
+                                    MessageSendWhatsappParams.WhatsappMessage.Interactive
+                                        .InteractiveBody
                                         .builder()
                                         .text("text")
                                         .build()
@@ -744,7 +747,7 @@ internal class MessageSendWhatsappParamsTest {
                                                     .Interactive
                                                     .Action
                                                     .Card
-                                                    .InnerAction
+                                                    .CardAction
                                                     .builder()
                                                     .catalogId("catalog_id")
                                                     .productRetailerId("product_retailer_id")
@@ -755,7 +758,7 @@ internal class MessageSendWhatsappParamsTest {
                                                     .Interactive
                                                     .Action
                                                     .Card
-                                                    .Body
+                                                    .CardBody
                                                     .builder()
                                                     .text("text")
                                                     .build()
@@ -849,7 +852,9 @@ internal class MessageSendWhatsappParamsTest {
                                     .build()
                             )
                             .body(
-                                MessageSendWhatsappParams.WhatsappMessage.Interactive.Body.builder()
+                                MessageSendWhatsappParams.WhatsappMessage.Interactive
+                                    .InteractiveBody
+                                    .builder()
                                     .text("text")
                                     .build()
                             )
