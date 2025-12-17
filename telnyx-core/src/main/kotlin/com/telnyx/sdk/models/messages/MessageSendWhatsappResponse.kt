@@ -2776,7 +2776,7 @@ private constructor(
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val action: JsonField<Action>,
-                private val body: JsonField<InnerBody>,
+                private val body: JsonField<InteractiveBody>,
                 private val footer: JsonField<Footer>,
                 private val header: JsonField<Header>,
                 private val type: JsonField<Type>,
@@ -2790,7 +2790,7 @@ private constructor(
                     action: JsonField<Action> = JsonMissing.of(),
                     @JsonProperty("body")
                     @ExcludeMissing
-                    body: JsonField<InnerBody> = JsonMissing.of(),
+                    body: JsonField<InteractiveBody> = JsonMissing.of(),
                     @JsonProperty("footer")
                     @ExcludeMissing
                     footer: JsonField<Footer> = JsonMissing.of(),
@@ -2810,7 +2810,7 @@ private constructor(
                  * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
                  *   if the server responded with an unexpected value).
                  */
-                fun body(): Optional<InnerBody> = body.getOptional("body")
+                fun body(): Optional<InteractiveBody> = body.getOptional("body")
 
                 /**
                  * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
@@ -2844,7 +2844,7 @@ private constructor(
                  * Unlike [body], this method doesn't throw if the JSON field has an unexpected
                  * type.
                  */
-                @JsonProperty("body") @ExcludeMissing fun _body(): JsonField<InnerBody> = body
+                @JsonProperty("body") @ExcludeMissing fun _body(): JsonField<InteractiveBody> = body
 
                 /**
                  * Returns the raw JSON value of [footer].
@@ -2892,7 +2892,7 @@ private constructor(
                 class Builder internal constructor() {
 
                     private var action: JsonField<Action> = JsonMissing.of()
-                    private var body: JsonField<InnerBody> = JsonMissing.of()
+                    private var body: JsonField<InteractiveBody> = JsonMissing.of()
                     private var footer: JsonField<Footer> = JsonMissing.of()
                     private var header: JsonField<Header> = JsonMissing.of()
                     private var type: JsonField<Type> = JsonMissing.of()
@@ -2919,16 +2919,16 @@ private constructor(
                      */
                     fun action(action: JsonField<Action>) = apply { this.action = action }
 
-                    fun body(body: InnerBody) = body(JsonField.of(body))
+                    fun body(body: InteractiveBody) = body(JsonField.of(body))
 
                     /**
                      * Sets [Builder.body] to an arbitrary JSON value.
                      *
-                     * You should usually call [Builder.body] with a well-typed [InnerBody] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
+                     * You should usually call [Builder.body] with a well-typed [InteractiveBody]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
                      */
-                    fun body(body: JsonField<InnerBody>) = apply { this.body = body }
+                    fun body(body: JsonField<InteractiveBody>) = apply { this.body = body }
 
                     fun footer(footer: Footer) = footer(JsonField.of(footer))
 
@@ -4044,8 +4044,8 @@ private constructor(
                     class Card
                     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                     private constructor(
-                        private val action: JsonField<InnerAction>,
-                        private val body: JsonField<InnerBody>,
+                        private val action: JsonField<CardAction>,
+                        private val body: JsonField<CardBody>,
                         private val cardIndex: JsonField<Long>,
                         private val header: JsonField<Header>,
                         private val type: JsonField<Type>,
@@ -4056,10 +4056,10 @@ private constructor(
                         private constructor(
                             @JsonProperty("action")
                             @ExcludeMissing
-                            action: JsonField<InnerAction> = JsonMissing.of(),
+                            action: JsonField<CardAction> = JsonMissing.of(),
                             @JsonProperty("body")
                             @ExcludeMissing
-                            body: JsonField<InnerBody> = JsonMissing.of(),
+                            body: JsonField<CardBody> = JsonMissing.of(),
                             @JsonProperty("card_index")
                             @ExcludeMissing
                             cardIndex: JsonField<Long> = JsonMissing.of(),
@@ -4075,13 +4075,13 @@ private constructor(
                          * @throws TelnyxInvalidDataException if the JSON field has an unexpected
                          *   type (e.g. if the server responded with an unexpected value).
                          */
-                        fun action(): Optional<InnerAction> = action.getOptional("action")
+                        fun action(): Optional<CardAction> = action.getOptional("action")
 
                         /**
                          * @throws TelnyxInvalidDataException if the JSON field has an unexpected
                          *   type (e.g. if the server responded with an unexpected value).
                          */
-                        fun body(): Optional<InnerBody> = body.getOptional("body")
+                        fun body(): Optional<CardBody> = body.getOptional("body")
 
                         /**
                          * unique index for each card (0-9)
@@ -4111,7 +4111,7 @@ private constructor(
                          */
                         @JsonProperty("action")
                         @ExcludeMissing
-                        fun _action(): JsonField<InnerAction> = action
+                        fun _action(): JsonField<CardAction> = action
 
                         /**
                          * Returns the raw JSON value of [body].
@@ -4121,7 +4121,7 @@ private constructor(
                          */
                         @JsonProperty("body")
                         @ExcludeMissing
-                        fun _body(): JsonField<InnerBody> = body
+                        fun _body(): JsonField<CardBody> = body
 
                         /**
                          * Returns the raw JSON value of [cardIndex].
@@ -4172,8 +4172,8 @@ private constructor(
                         /** A builder for [Card]. */
                         class Builder internal constructor() {
 
-                            private var action: JsonField<InnerAction> = JsonMissing.of()
-                            private var body: JsonField<InnerBody> = JsonMissing.of()
+                            private var action: JsonField<CardAction> = JsonMissing.of()
+                            private var body: JsonField<CardBody> = JsonMissing.of()
                             private var cardIndex: JsonField<Long> = JsonMissing.of()
                             private var header: JsonField<Header> = JsonMissing.of()
                             private var type: JsonField<Type> = JsonMissing.of()
@@ -4190,29 +4190,29 @@ private constructor(
                                 additionalProperties = card.additionalProperties.toMutableMap()
                             }
 
-                            fun action(action: InnerAction) = action(JsonField.of(action))
+                            fun action(action: CardAction) = action(JsonField.of(action))
 
                             /**
                              * Sets [Builder.action] to an arbitrary JSON value.
                              *
                              * You should usually call [Builder.action] with a well-typed
-                             * [InnerAction] value instead. This method is primarily for setting the
+                             * [CardAction] value instead. This method is primarily for setting the
                              * field to an undocumented or not yet supported value.
                              */
-                            fun action(action: JsonField<InnerAction>) = apply {
+                            fun action(action: JsonField<CardAction>) = apply {
                                 this.action = action
                             }
 
-                            fun body(body: InnerBody) = body(JsonField.of(body))
+                            fun body(body: CardBody) = body(JsonField.of(body))
 
                             /**
                              * Sets [Builder.body] to an arbitrary JSON value.
                              *
-                             * You should usually call [Builder.body] with a well-typed [InnerBody]
+                             * You should usually call [Builder.body] with a well-typed [CardBody]
                              * value instead. This method is primarily for setting the field to an
                              * undocumented or not yet supported value.
                              */
-                            fun body(body: JsonField<InnerBody>) = apply { this.body = body }
+                            fun body(body: JsonField<CardBody>) = apply { this.body = body }
 
                             /** unique index for each card (0-9) */
                             fun cardIndex(cardIndex: Long) = cardIndex(JsonField.of(cardIndex))
@@ -4326,7 +4326,7 @@ private constructor(
                                 (header.asKnown().getOrNull()?.validity() ?: 0) +
                                 (type.asKnown().getOrNull()?.validity() ?: 0)
 
-                        class InnerAction
+                        class CardAction
                         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                         private constructor(
                             private val catalogId: JsonField<String>,
@@ -4399,12 +4399,12 @@ private constructor(
 
                                 /**
                                  * Returns a mutable builder for constructing an instance of
-                                 * [InnerAction].
+                                 * [CardAction].
                                  */
                                 @JvmStatic fun builder() = Builder()
                             }
 
-                            /** A builder for [InnerAction]. */
+                            /** A builder for [CardAction]. */
                             class Builder internal constructor() {
 
                                 private var catalogId: JsonField<String> = JsonMissing.of()
@@ -4413,11 +4413,11 @@ private constructor(
                                     mutableMapOf()
 
                                 @JvmSynthetic
-                                internal fun from(innerAction: InnerAction) = apply {
-                                    catalogId = innerAction.catalogId
-                                    productRetailerId = innerAction.productRetailerId
+                                internal fun from(cardAction: CardAction) = apply {
+                                    catalogId = cardAction.catalogId
+                                    productRetailerId = cardAction.productRetailerId
                                     additionalProperties =
-                                        innerAction.additionalProperties.toMutableMap()
+                                        cardAction.additionalProperties.toMutableMap()
                                 }
 
                                 /** the unique ID of the catalog */
@@ -4475,13 +4475,13 @@ private constructor(
                                 }
 
                                 /**
-                                 * Returns an immutable instance of [InnerAction].
+                                 * Returns an immutable instance of [CardAction].
                                  *
                                  * Further updates to this [Builder] will not mutate the returned
                                  * instance.
                                  */
-                                fun build(): InnerAction =
-                                    InnerAction(
+                                fun build(): CardAction =
+                                    CardAction(
                                         catalogId,
                                         productRetailerId,
                                         additionalProperties.toMutableMap(),
@@ -4490,7 +4490,7 @@ private constructor(
 
                             private var validated: Boolean = false
 
-                            fun validate(): InnerAction = apply {
+                            fun validate(): CardAction = apply {
                                 if (validated) {
                                     return@apply
                                 }
@@ -4524,7 +4524,7 @@ private constructor(
                                     return true
                                 }
 
-                                return other is InnerAction &&
+                                return other is CardAction &&
                                     catalogId == other.catalogId &&
                                     productRetailerId == other.productRetailerId &&
                                     additionalProperties == other.additionalProperties
@@ -4537,10 +4537,10 @@ private constructor(
                             override fun hashCode(): Int = hashCode
 
                             override fun toString() =
-                                "InnerAction{catalogId=$catalogId, productRetailerId=$productRetailerId, additionalProperties=$additionalProperties}"
+                                "CardAction{catalogId=$catalogId, productRetailerId=$productRetailerId, additionalProperties=$additionalProperties}"
                         }
 
-                        class InnerBody
+                        class CardBody
                         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                         private constructor(
                             private val text: JsonField<String>,
@@ -4589,12 +4589,12 @@ private constructor(
 
                                 /**
                                  * Returns a mutable builder for constructing an instance of
-                                 * [InnerBody].
+                                 * [CardBody].
                                  */
                                 @JvmStatic fun builder() = Builder()
                             }
 
-                            /** A builder for [InnerBody]. */
+                            /** A builder for [CardBody]. */
                             class Builder internal constructor() {
 
                                 private var text: JsonField<String> = JsonMissing.of()
@@ -4602,10 +4602,10 @@ private constructor(
                                     mutableMapOf()
 
                                 @JvmSynthetic
-                                internal fun from(innerBody: InnerBody) = apply {
-                                    text = innerBody.text
+                                internal fun from(cardBody: CardBody) = apply {
+                                    text = cardBody.text
                                     additionalProperties =
-                                        innerBody.additionalProperties.toMutableMap()
+                                        cardBody.additionalProperties.toMutableMap()
                                 }
 
                                 /** 160 character maximum, up to 2 line breaks */
@@ -4644,18 +4644,18 @@ private constructor(
                                 }
 
                                 /**
-                                 * Returns an immutable instance of [InnerBody].
+                                 * Returns an immutable instance of [CardBody].
                                  *
                                  * Further updates to this [Builder] will not mutate the returned
                                  * instance.
                                  */
-                                fun build(): InnerBody =
-                                    InnerBody(text, additionalProperties.toMutableMap())
+                                fun build(): CardBody =
+                                    CardBody(text, additionalProperties.toMutableMap())
                             }
 
                             private var validated: Boolean = false
 
-                            fun validate(): InnerBody = apply {
+                            fun validate(): CardBody = apply {
                                 if (validated) {
                                     return@apply
                                 }
@@ -4686,7 +4686,7 @@ private constructor(
                                     return true
                                 }
 
-                                return other is InnerBody &&
+                                return other is CardBody &&
                                     text == other.text &&
                                     additionalProperties == other.additionalProperties
                             }
@@ -4698,7 +4698,7 @@ private constructor(
                             override fun hashCode(): Int = hashCode
 
                             override fun toString() =
-                                "InnerBody{text=$text, additionalProperties=$additionalProperties}"
+                                "CardBody{text=$text, additionalProperties=$additionalProperties}"
                         }
 
                         class Header
@@ -6160,7 +6160,7 @@ private constructor(
                         "Action{button=$button, buttons=$buttons, cards=$cards, catalogId=$catalogId, mode=$mode, name=$name, parameters=$parameters, productRetailerId=$productRetailerId, sections=$sections, additionalProperties=$additionalProperties}"
                 }
 
-                class InnerBody
+                class InteractiveBody
                 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val text: JsonField<String>,
@@ -6205,12 +6205,13 @@ private constructor(
                     companion object {
 
                         /**
-                         * Returns a mutable builder for constructing an instance of [InnerBody].
+                         * Returns a mutable builder for constructing an instance of
+                         * [InteractiveBody].
                          */
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    /** A builder for [InnerBody]. */
+                    /** A builder for [InteractiveBody]. */
                     class Builder internal constructor() {
 
                         private var text: JsonField<String> = JsonMissing.of()
@@ -6218,9 +6219,10 @@ private constructor(
                             mutableMapOf()
 
                         @JvmSynthetic
-                        internal fun from(innerBody: InnerBody) = apply {
-                            text = innerBody.text
-                            additionalProperties = innerBody.additionalProperties.toMutableMap()
+                        internal fun from(interactiveBody: InteractiveBody) = apply {
+                            text = interactiveBody.text
+                            additionalProperties =
+                                interactiveBody.additionalProperties.toMutableMap()
                         }
 
                         /** body text, 1024 character maximum */
@@ -6258,17 +6260,17 @@ private constructor(
                         }
 
                         /**
-                         * Returns an immutable instance of [InnerBody].
+                         * Returns an immutable instance of [InteractiveBody].
                          *
                          * Further updates to this [Builder] will not mutate the returned instance.
                          */
-                        fun build(): InnerBody =
-                            InnerBody(text, additionalProperties.toMutableMap())
+                        fun build(): InteractiveBody =
+                            InteractiveBody(text, additionalProperties.toMutableMap())
                     }
 
                     private var validated: Boolean = false
 
-                    fun validate(): InnerBody = apply {
+                    fun validate(): InteractiveBody = apply {
                         if (validated) {
                             return@apply
                         }
@@ -6299,7 +6301,7 @@ private constructor(
                             return true
                         }
 
-                        return other is InnerBody &&
+                        return other is InteractiveBody &&
                             text == other.text &&
                             additionalProperties == other.additionalProperties
                     }
@@ -6309,7 +6311,7 @@ private constructor(
                     override fun hashCode(): Int = hashCode
 
                     override fun toString() =
-                        "InnerBody{text=$text, additionalProperties=$additionalProperties}"
+                        "InteractiveBody{text=$text, additionalProperties=$additionalProperties}"
                 }
 
                 class Footer
