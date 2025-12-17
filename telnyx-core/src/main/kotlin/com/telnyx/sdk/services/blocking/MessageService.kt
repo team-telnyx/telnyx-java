@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.messages.MessageSendResponse
 import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeResponse
 import com.telnyx.sdk.services.blocking.messages.RcService
+import com.telnyx.sdk.services.blocking.messages.WhatsappService
 import java.util.function.Consumer
 
 interface MessageService {
@@ -40,6 +41,8 @@ interface MessageService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessageService
 
     fun rcs(): RcService
+
+    fun whatsapp(): WhatsappService
 
     /**
      * Note: This API endpoint can only retrieve messages that are no older than 10 days since their
@@ -193,6 +196,8 @@ interface MessageService {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessageService.WithRawResponse
 
         fun rcs(): RcService.WithRawResponse
+
+        fun whatsapp(): WhatsappService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /messages/{id}`, but is otherwise the same as

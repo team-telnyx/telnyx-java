@@ -34,6 +34,8 @@ import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeResponse
 import com.telnyx.sdk.services.async.messages.RcServiceAsync
 import com.telnyx.sdk.services.async.messages.RcServiceAsyncImpl
+import com.telnyx.sdk.services.async.messages.WhatsappServiceAsync
+import com.telnyx.sdk.services.async.messages.WhatsappServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -47,12 +49,16 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
     private val rcs: RcServiceAsync by lazy { RcServiceAsyncImpl(clientOptions) }
 
+    private val whatsapp: WhatsappServiceAsync by lazy { WhatsappServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): MessageServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessageServiceAsync =
         MessageServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun rcs(): RcServiceAsync = rcs
+
+    override fun whatsapp(): WhatsappServiceAsync = whatsapp
 
     override fun retrieve(
         params: MessageRetrieveParams,
@@ -120,6 +126,10 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
             RcServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val whatsapp: WhatsappServiceAsync.WithRawResponse by lazy {
+            WhatsappServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): MessageServiceAsync.WithRawResponse =
@@ -128,6 +138,8 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
             )
 
         override fun rcs(): RcServiceAsync.WithRawResponse = rcs
+
+        override fun whatsapp(): WhatsappServiceAsync.WithRawResponse = whatsapp
 
         private val retrieveHandler: Handler<MessageRetrieveResponse> =
             jsonHandler<MessageRetrieveResponse>(clientOptions.jsonMapper)
