@@ -34,6 +34,8 @@ import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeResponse
 import com.telnyx.sdk.services.blocking.messages.RcService
 import com.telnyx.sdk.services.blocking.messages.RcServiceImpl
+import com.telnyx.sdk.services.blocking.messages.WhatsappService
+import com.telnyx.sdk.services.blocking.messages.WhatsappServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -46,12 +48,16 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
 
     private val rcs: RcService by lazy { RcServiceImpl(clientOptions) }
 
+    private val whatsapp: WhatsappService by lazy { WhatsappServiceImpl(clientOptions) }
+
     override fun withRawResponse(): MessageService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessageService =
         MessageServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun rcs(): RcService = rcs
+
+    override fun whatsapp(): WhatsappService = whatsapp
 
     override fun retrieve(
         params: MessageRetrieveParams,
@@ -119,6 +125,10 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
             RcServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val whatsapp: WhatsappService.WithRawResponse by lazy {
+            WhatsappServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): MessageService.WithRawResponse =
@@ -127,6 +137,8 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
             )
 
         override fun rcs(): RcService.WithRawResponse = rcs
+
+        override fun whatsapp(): WhatsappService.WithRawResponse = whatsapp
 
         private val retrieveHandler: Handler<MessageRetrieveResponse> =
             jsonHandler<MessageRetrieveResponse>(clientOptions.jsonMapper)
