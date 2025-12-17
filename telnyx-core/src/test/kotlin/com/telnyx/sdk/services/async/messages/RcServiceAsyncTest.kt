@@ -5,12 +5,12 @@ package com.telnyx.sdk.services.async.messages
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.models.messages.RcsAgentMessage
+import com.telnyx.sdk.models.messages.RcsCardContent
+import com.telnyx.sdk.models.messages.RcsContentInfo
+import com.telnyx.sdk.models.messages.RcsSuggestion
 import com.telnyx.sdk.models.messages.rcs.RcGenerateDeeplinkParams
 import com.telnyx.sdk.models.messages.rcs.RcSendParams
-import com.telnyx.sdk.models.messsages.RcsAgentMessage
-import com.telnyx.sdk.models.messsages.RcsCardContent
-import com.telnyx.sdk.models.messsages.RcsContentInfo
-import com.telnyx.sdk.models.messsages.RcsSuggestion
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
