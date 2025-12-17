@@ -11,6 +11,7 @@ import com.telnyx.sdk.models.messages.MessageSendNumberPoolParams
 import com.telnyx.sdk.models.messages.MessageSendParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendWhatsappParams
+import com.telnyx.sdk.models.messages.WhatsappMedia
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -253,7 +254,7 @@ internal class MessageServiceAsyncTest {
                     .whatsappMessage(
                         MessageSendWhatsappParams.WhatsappMessage.builder()
                             .audio(
-                                MessageSendWhatsappParams.WhatsappMessage.Audio.builder()
+                                WhatsappMedia.builder()
                                     .caption("caption")
                                     .filename("filename")
                                     .link("http://example.com/media.jpg")
@@ -310,7 +311,7 @@ internal class MessageServiceAsyncTest {
                                     .build()
                             )
                             .document(
-                                MessageSendWhatsappParams.WhatsappMessage.Document.builder()
+                                WhatsappMedia.builder()
                                     .caption("caption")
                                     .filename("filename")
                                     .link("http://example.com/media.jpg")
@@ -318,7 +319,7 @@ internal class MessageServiceAsyncTest {
                                     .build()
                             )
                             .image(
-                                MessageSendWhatsappParams.WhatsappMessage.Image.builder()
+                                WhatsappMedia.builder()
                                     .caption("caption")
                                     .filename("filename")
                                     .link("http://example.com/media.jpg")
@@ -396,14 +397,7 @@ internal class MessageServiceAsyncTest {
                                                             .Header
                                                             .builder()
                                                             .image(
-                                                                MessageSendWhatsappParams
-                                                                    .WhatsappMessage
-                                                                    .Interactive
-                                                                    .Action
-                                                                    .Card
-                                                                    .Header
-                                                                    .Image
-                                                                    .builder()
+                                                                WhatsappMedia.builder()
                                                                     .caption("caption")
                                                                     .filename("filename")
                                                                     .link(
@@ -423,14 +417,7 @@ internal class MessageServiceAsyncTest {
                                                                     .IMAGE
                                                             )
                                                             .video(
-                                                                MessageSendWhatsappParams
-                                                                    .WhatsappMessage
-                                                                    .Interactive
-                                                                    .Action
-                                                                    .Card
-                                                                    .Header
-                                                                    .Video
-                                                                    .builder()
+                                                                WhatsappMedia.builder()
                                                                     .caption("caption")
                                                                     .filename("filename")
                                                                     .link(
@@ -516,11 +503,7 @@ internal class MessageServiceAsyncTest {
                                         MessageSendWhatsappParams.WhatsappMessage.Interactive.Header
                                             .builder()
                                             .document(
-                                                MessageSendWhatsappParams.WhatsappMessage
-                                                    .Interactive
-                                                    .Header
-                                                    .Document
-                                                    .builder()
+                                                WhatsappMedia.builder()
                                                     .caption("caption")
                                                     .filename("filename")
                                                     .link("http://example.com/media.jpg")
@@ -528,11 +511,7 @@ internal class MessageServiceAsyncTest {
                                                     .build()
                                             )
                                             .image(
-                                                MessageSendWhatsappParams.WhatsappMessage
-                                                    .Interactive
-                                                    .Header
-                                                    .Image
-                                                    .builder()
+                                                WhatsappMedia.builder()
                                                     .caption("caption")
                                                     .filename("filename")
                                                     .link("http://example.com/media.jpg")
@@ -542,11 +521,7 @@ internal class MessageServiceAsyncTest {
                                             .subText("sub_text")
                                             .text("text")
                                             .video(
-                                                MessageSendWhatsappParams.WhatsappMessage
-                                                    .Interactive
-                                                    .Header
-                                                    .Video
-                                                    .builder()
+                                                WhatsappMedia.builder()
                                                     .caption("caption")
                                                     .filename("filename")
                                                     .link("http://example.com/media.jpg")
@@ -576,7 +551,7 @@ internal class MessageServiceAsyncTest {
                                     .build()
                             )
                             .sticker(
-                                MessageSendWhatsappParams.WhatsappMessage.Sticker.builder()
+                                WhatsappMedia.builder()
                                     .caption("caption")
                                     .filename("filename")
                                     .link("http://example.com/media.jpg")
@@ -585,7 +560,7 @@ internal class MessageServiceAsyncTest {
                             )
                             .type(MessageSendWhatsappParams.WhatsappMessage.Type.AUDIO)
                             .video(
-                                MessageSendWhatsappParams.WhatsappMessage.Video.builder()
+                                WhatsappMedia.builder()
                                     .caption("caption")
                                     .filename("filename")
                                     .link("http://example.com/media.jpg")

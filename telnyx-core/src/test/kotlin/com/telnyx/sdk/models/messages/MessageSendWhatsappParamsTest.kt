@@ -15,7 +15,7 @@ internal class MessageSendWhatsappParamsTest {
             .whatsappMessage(
                 MessageSendWhatsappParams.WhatsappMessage.builder()
                     .audio(
-                        MessageSendWhatsappParams.WhatsappMessage.Audio.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -67,7 +67,7 @@ internal class MessageSendWhatsappParamsTest {
                             .build()
                     )
                     .document(
-                        MessageSendWhatsappParams.WhatsappMessage.Document.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -75,7 +75,7 @@ internal class MessageSendWhatsappParamsTest {
                             .build()
                     )
                     .image(
-                        MessageSendWhatsappParams.WhatsappMessage.Image.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -147,13 +147,7 @@ internal class MessageSendWhatsappParamsTest {
                                                     .Header
                                                     .builder()
                                                     .image(
-                                                        MessageSendWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Card
-                                                            .Header
-                                                            .Image
-                                                            .builder()
+                                                        WhatsappMedia.builder()
                                                             .caption("caption")
                                                             .filename("filename")
                                                             .link("http://example.com/media.jpg")
@@ -170,13 +164,7 @@ internal class MessageSendWhatsappParamsTest {
                                                             .IMAGE
                                                     )
                                                     .video(
-                                                        MessageSendWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Card
-                                                            .Header
-                                                            .Video
-                                                            .builder()
+                                                        WhatsappMedia.builder()
                                                             .caption("caption")
                                                             .filename("filename")
                                                             .link("http://example.com/media.jpg")
@@ -253,9 +241,7 @@ internal class MessageSendWhatsappParamsTest {
                                 MessageSendWhatsappParams.WhatsappMessage.Interactive.Header
                                     .builder()
                                     .document(
-                                        MessageSendWhatsappParams.WhatsappMessage.Interactive.Header
-                                            .Document
-                                            .builder()
+                                        WhatsappMedia.builder()
                                             .caption("caption")
                                             .filename("filename")
                                             .link("http://example.com/media.jpg")
@@ -263,9 +249,7 @@ internal class MessageSendWhatsappParamsTest {
                                             .build()
                                     )
                                     .image(
-                                        MessageSendWhatsappParams.WhatsappMessage.Interactive.Header
-                                            .Image
-                                            .builder()
+                                        WhatsappMedia.builder()
                                             .caption("caption")
                                             .filename("filename")
                                             .link("http://example.com/media.jpg")
@@ -275,9 +259,7 @@ internal class MessageSendWhatsappParamsTest {
                                     .subText("sub_text")
                                     .text("text")
                                     .video(
-                                        MessageSendWhatsappParams.WhatsappMessage.Interactive.Header
-                                            .Video
-                                            .builder()
+                                        WhatsappMedia.builder()
                                             .caption("caption")
                                             .filename("filename")
                                             .link("http://example.com/media.jpg")
@@ -306,7 +288,7 @@ internal class MessageSendWhatsappParamsTest {
                             .build()
                     )
                     .sticker(
-                        MessageSendWhatsappParams.WhatsappMessage.Sticker.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -315,7 +297,7 @@ internal class MessageSendWhatsappParamsTest {
                     )
                     .type(MessageSendWhatsappParams.WhatsappMessage.Type.AUDIO)
                     .video(
-                        MessageSendWhatsappParams.WhatsappMessage.Video.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -338,7 +320,7 @@ internal class MessageSendWhatsappParamsTest {
                 .whatsappMessage(
                     MessageSendWhatsappParams.WhatsappMessage.builder()
                         .audio(
-                            MessageSendWhatsappParams.WhatsappMessage.Audio.builder()
+                            WhatsappMedia.builder()
                                 .caption("caption")
                                 .filename("filename")
                                 .link("http://example.com/media.jpg")
@@ -393,7 +375,7 @@ internal class MessageSendWhatsappParamsTest {
                                 .build()
                         )
                         .document(
-                            MessageSendWhatsappParams.WhatsappMessage.Document.builder()
+                            WhatsappMedia.builder()
                                 .caption("caption")
                                 .filename("filename")
                                 .link("http://example.com/media.jpg")
@@ -401,7 +383,7 @@ internal class MessageSendWhatsappParamsTest {
                                 .build()
                         )
                         .image(
-                            MessageSendWhatsappParams.WhatsappMessage.Image.builder()
+                            WhatsappMedia.builder()
                                 .caption("caption")
                                 .filename("filename")
                                 .link("http://example.com/media.jpg")
@@ -475,14 +457,7 @@ internal class MessageSendWhatsappParamsTest {
                                                         .Header
                                                         .builder()
                                                         .image(
-                                                            MessageSendWhatsappParams
-                                                                .WhatsappMessage
-                                                                .Interactive
-                                                                .Action
-                                                                .Card
-                                                                .Header
-                                                                .Image
-                                                                .builder()
+                                                            WhatsappMedia.builder()
                                                                 .caption("caption")
                                                                 .filename("filename")
                                                                 .link(
@@ -502,14 +477,7 @@ internal class MessageSendWhatsappParamsTest {
                                                                 .IMAGE
                                                         )
                                                         .video(
-                                                            MessageSendWhatsappParams
-                                                                .WhatsappMessage
-                                                                .Interactive
-                                                                .Action
-                                                                .Card
-                                                                .Header
-                                                                .Video
-                                                                .builder()
+                                                            WhatsappMedia.builder()
                                                                 .caption("caption")
                                                                 .filename("filename")
                                                                 .link(
@@ -591,10 +559,7 @@ internal class MessageSendWhatsappParamsTest {
                                     MessageSendWhatsappParams.WhatsappMessage.Interactive.Header
                                         .builder()
                                         .document(
-                                            MessageSendWhatsappParams.WhatsappMessage.Interactive
-                                                .Header
-                                                .Document
-                                                .builder()
+                                            WhatsappMedia.builder()
                                                 .caption("caption")
                                                 .filename("filename")
                                                 .link("http://example.com/media.jpg")
@@ -602,10 +567,7 @@ internal class MessageSendWhatsappParamsTest {
                                                 .build()
                                         )
                                         .image(
-                                            MessageSendWhatsappParams.WhatsappMessage.Interactive
-                                                .Header
-                                                .Image
-                                                .builder()
+                                            WhatsappMedia.builder()
                                                 .caption("caption")
                                                 .filename("filename")
                                                 .link("http://example.com/media.jpg")
@@ -615,10 +577,7 @@ internal class MessageSendWhatsappParamsTest {
                                         .subText("sub_text")
                                         .text("text")
                                         .video(
-                                            MessageSendWhatsappParams.WhatsappMessage.Interactive
-                                                .Header
-                                                .Video
-                                                .builder()
+                                            WhatsappMedia.builder()
                                                 .caption("caption")
                                                 .filename("filename")
                                                 .link("http://example.com/media.jpg")
@@ -648,7 +607,7 @@ internal class MessageSendWhatsappParamsTest {
                                 .build()
                         )
                         .sticker(
-                            MessageSendWhatsappParams.WhatsappMessage.Sticker.builder()
+                            WhatsappMedia.builder()
                                 .caption("caption")
                                 .filename("filename")
                                 .link("http://example.com/media.jpg")
@@ -657,7 +616,7 @@ internal class MessageSendWhatsappParamsTest {
                         )
                         .type(MessageSendWhatsappParams.WhatsappMessage.Type.AUDIO)
                         .video(
-                            MessageSendWhatsappParams.WhatsappMessage.Video.builder()
+                            WhatsappMedia.builder()
                                 .caption("caption")
                                 .filename("filename")
                                 .link("http://example.com/media.jpg")
@@ -678,7 +637,7 @@ internal class MessageSendWhatsappParamsTest {
             .isEqualTo(
                 MessageSendWhatsappParams.WhatsappMessage.builder()
                     .audio(
-                        MessageSendWhatsappParams.WhatsappMessage.Audio.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -730,7 +689,7 @@ internal class MessageSendWhatsappParamsTest {
                             .build()
                     )
                     .document(
-                        MessageSendWhatsappParams.WhatsappMessage.Document.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -738,7 +697,7 @@ internal class MessageSendWhatsappParamsTest {
                             .build()
                     )
                     .image(
-                        MessageSendWhatsappParams.WhatsappMessage.Image.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -810,13 +769,7 @@ internal class MessageSendWhatsappParamsTest {
                                                     .Header
                                                     .builder()
                                                     .image(
-                                                        MessageSendWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Card
-                                                            .Header
-                                                            .Image
-                                                            .builder()
+                                                        WhatsappMedia.builder()
                                                             .caption("caption")
                                                             .filename("filename")
                                                             .link("http://example.com/media.jpg")
@@ -833,13 +786,7 @@ internal class MessageSendWhatsappParamsTest {
                                                             .IMAGE
                                                     )
                                                     .video(
-                                                        MessageSendWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Card
-                                                            .Header
-                                                            .Video
-                                                            .builder()
+                                                        WhatsappMedia.builder()
                                                             .caption("caption")
                                                             .filename("filename")
                                                             .link("http://example.com/media.jpg")
@@ -916,9 +863,7 @@ internal class MessageSendWhatsappParamsTest {
                                 MessageSendWhatsappParams.WhatsappMessage.Interactive.Header
                                     .builder()
                                     .document(
-                                        MessageSendWhatsappParams.WhatsappMessage.Interactive.Header
-                                            .Document
-                                            .builder()
+                                        WhatsappMedia.builder()
                                             .caption("caption")
                                             .filename("filename")
                                             .link("http://example.com/media.jpg")
@@ -926,9 +871,7 @@ internal class MessageSendWhatsappParamsTest {
                                             .build()
                                     )
                                     .image(
-                                        MessageSendWhatsappParams.WhatsappMessage.Interactive.Header
-                                            .Image
-                                            .builder()
+                                        WhatsappMedia.builder()
                                             .caption("caption")
                                             .filename("filename")
                                             .link("http://example.com/media.jpg")
@@ -938,9 +881,7 @@ internal class MessageSendWhatsappParamsTest {
                                     .subText("sub_text")
                                     .text("text")
                                     .video(
-                                        MessageSendWhatsappParams.WhatsappMessage.Interactive.Header
-                                            .Video
-                                            .builder()
+                                        WhatsappMedia.builder()
                                             .caption("caption")
                                             .filename("filename")
                                             .link("http://example.com/media.jpg")
@@ -969,7 +910,7 @@ internal class MessageSendWhatsappParamsTest {
                             .build()
                     )
                     .sticker(
-                        MessageSendWhatsappParams.WhatsappMessage.Sticker.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")
@@ -978,7 +919,7 @@ internal class MessageSendWhatsappParamsTest {
                     )
                     .type(MessageSendWhatsappParams.WhatsappMessage.Type.AUDIO)
                     .video(
-                        MessageSendWhatsappParams.WhatsappMessage.Video.builder()
+                        WhatsappMedia.builder()
                             .caption("caption")
                             .filename("filename")
                             .link("http://example.com/media.jpg")

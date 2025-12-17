@@ -5,10 +5,10 @@ package com.telnyx.sdk.models.messages.rcs
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.messsages.RcsAgentMessage
-import com.telnyx.sdk.models.messsages.RcsCardContent
-import com.telnyx.sdk.models.messsages.RcsContentInfo
-import com.telnyx.sdk.models.messsages.RcsSuggestion
+import com.telnyx.sdk.models.messages.RcsAgentMessage
+import com.telnyx.sdk.models.messages.RcsCardContent
+import com.telnyx.sdk.models.messages.RcsContentInfo
+import com.telnyx.sdk.models.messages.RcsSuggestion
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

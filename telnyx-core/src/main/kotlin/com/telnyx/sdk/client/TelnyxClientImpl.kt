@@ -144,8 +144,6 @@ import com.telnyx.sdk.services.blocking.MessagingTollfreeService
 import com.telnyx.sdk.services.blocking.MessagingTollfreeServiceImpl
 import com.telnyx.sdk.services.blocking.MessagingUrlDomainService
 import com.telnyx.sdk.services.blocking.MessagingUrlDomainServiceImpl
-import com.telnyx.sdk.services.blocking.MesssageService
-import com.telnyx.sdk.services.blocking.MesssageServiceImpl
 import com.telnyx.sdk.services.blocking.MobileNetworkOperatorService
 import com.telnyx.sdk.services.blocking.MobileNetworkOperatorServiceImpl
 import com.telnyx.sdk.services.blocking.MobilePhoneNumberService
@@ -577,10 +575,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     private val messagingUrlDomains: MessagingUrlDomainService by lazy {
         MessagingUrlDomainServiceImpl(clientOptionsWithUserAgent)
-    }
-
-    private val messsages: MesssageService by lazy {
-        MesssageServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val mobileNetworkOperators: MobileNetworkOperatorService by lazy {
@@ -1026,8 +1020,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun messagingTollfree(): MessagingTollfreeService = messagingTollfree
 
     override fun messagingUrlDomains(): MessagingUrlDomainService = messagingUrlDomains
-
-    override fun messsages(): MesssageService = messsages
 
     override fun mobileNetworkOperators(): MobileNetworkOperatorService = mobileNetworkOperators
 
@@ -1488,10 +1480,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         private val messagingUrlDomains: MessagingUrlDomainService.WithRawResponse by lazy {
             MessagingUrlDomainServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val messsages: MesssageService.WithRawResponse by lazy {
-            MesssageServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val mobileNetworkOperators: MobileNetworkOperatorService.WithRawResponse by lazy {
@@ -1984,8 +1972,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         override fun messagingUrlDomains(): MessagingUrlDomainService.WithRawResponse =
             messagingUrlDomains
-
-        override fun messsages(): MesssageService.WithRawResponse = messsages
 
         override fun mobileNetworkOperators(): MobileNetworkOperatorService.WithRawResponse =
             mobileNetworkOperators

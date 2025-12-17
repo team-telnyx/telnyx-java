@@ -13,7 +13,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.messsages.RcsAgentMessage
+import com.telnyx.sdk.models.messages.RcsAgentMessage
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects

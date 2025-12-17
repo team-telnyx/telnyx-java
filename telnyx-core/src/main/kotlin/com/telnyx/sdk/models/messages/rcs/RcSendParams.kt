@@ -18,7 +18,7 @@ import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.messsages.RcsAgentMessage
+import com.telnyx.sdk.models.messages.RcsAgentMessage
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional

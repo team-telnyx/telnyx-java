@@ -681,23 +681,25 @@ private constructor(
     class WhatsappMessage
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val audio: JsonField<Audio>,
+        private val audio: JsonField<WhatsappMedia>,
         private val bizOpaqueCallbackData: JsonField<String>,
         private val contacts: JsonField<List<Contact>>,
-        private val document: JsonField<Document>,
-        private val image: JsonField<Image>,
+        private val document: JsonField<WhatsappMedia>,
+        private val image: JsonField<WhatsappMedia>,
         private val interactive: JsonField<Interactive>,
         private val location: JsonField<Location>,
         private val reaction: JsonField<Reaction>,
-        private val sticker: JsonField<Sticker>,
+        private val sticker: JsonField<WhatsappMedia>,
         private val type: JsonField<Type>,
-        private val video: JsonField<Video>,
+        private val video: JsonField<WhatsappMedia>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("audio") @ExcludeMissing audio: JsonField<Audio> = JsonMissing.of(),
+            @JsonProperty("audio")
+            @ExcludeMissing
+            audio: JsonField<WhatsappMedia> = JsonMissing.of(),
             @JsonProperty("biz_opaque_callback_data")
             @ExcludeMissing
             bizOpaqueCallbackData: JsonField<String> = JsonMissing.of(),
@@ -706,8 +708,10 @@ private constructor(
             contacts: JsonField<List<Contact>> = JsonMissing.of(),
             @JsonProperty("document")
             @ExcludeMissing
-            document: JsonField<Document> = JsonMissing.of(),
-            @JsonProperty("image") @ExcludeMissing image: JsonField<Image> = JsonMissing.of(),
+            document: JsonField<WhatsappMedia> = JsonMissing.of(),
+            @JsonProperty("image")
+            @ExcludeMissing
+            image: JsonField<WhatsappMedia> = JsonMissing.of(),
             @JsonProperty("interactive")
             @ExcludeMissing
             interactive: JsonField<Interactive> = JsonMissing.of(),
@@ -717,9 +721,13 @@ private constructor(
             @JsonProperty("reaction")
             @ExcludeMissing
             reaction: JsonField<Reaction> = JsonMissing.of(),
-            @JsonProperty("sticker") @ExcludeMissing sticker: JsonField<Sticker> = JsonMissing.of(),
+            @JsonProperty("sticker")
+            @ExcludeMissing
+            sticker: JsonField<WhatsappMedia> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-            @JsonProperty("video") @ExcludeMissing video: JsonField<Video> = JsonMissing.of(),
+            @JsonProperty("video")
+            @ExcludeMissing
+            video: JsonField<WhatsappMedia> = JsonMissing.of(),
         ) : this(
             audio,
             bizOpaqueCallbackData,
@@ -739,7 +747,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun audio(): Optional<Audio> = audio.getOptional("audio")
+        fun audio(): Optional<WhatsappMedia> = audio.getOptional("audio")
 
         /**
          * custom data to return with status update
@@ -760,13 +768,13 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun document(): Optional<Document> = document.getOptional("document")
+        fun document(): Optional<WhatsappMedia> = document.getOptional("document")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun image(): Optional<Image> = image.getOptional("image")
+        fun image(): Optional<WhatsappMedia> = image.getOptional("image")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -790,7 +798,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun sticker(): Optional<Sticker> = sticker.getOptional("sticker")
+        fun sticker(): Optional<WhatsappMedia> = sticker.getOptional("sticker")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -802,14 +810,14 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun video(): Optional<Video> = video.getOptional("video")
+        fun video(): Optional<WhatsappMedia> = video.getOptional("video")
 
         /**
          * Returns the raw JSON value of [audio].
          *
          * Unlike [audio], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("audio") @ExcludeMissing fun _audio(): JsonField<Audio> = audio
+        @JsonProperty("audio") @ExcludeMissing fun _audio(): JsonField<WhatsappMedia> = audio
 
         /**
          * Returns the raw JSON value of [bizOpaqueCallbackData].
@@ -835,14 +843,16 @@ private constructor(
          *
          * Unlike [document], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("document") @ExcludeMissing fun _document(): JsonField<Document> = document
+        @JsonProperty("document")
+        @ExcludeMissing
+        fun _document(): JsonField<WhatsappMedia> = document
 
         /**
          * Returns the raw JSON value of [image].
          *
          * Unlike [image], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("image") @ExcludeMissing fun _image(): JsonField<Image> = image
+        @JsonProperty("image") @ExcludeMissing fun _image(): JsonField<WhatsappMedia> = image
 
         /**
          * Returns the raw JSON value of [interactive].
@@ -872,7 +882,7 @@ private constructor(
          *
          * Unlike [sticker], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("sticker") @ExcludeMissing fun _sticker(): JsonField<Sticker> = sticker
+        @JsonProperty("sticker") @ExcludeMissing fun _sticker(): JsonField<WhatsappMedia> = sticker
 
         /**
          * Returns the raw JSON value of [type].
@@ -886,7 +896,7 @@ private constructor(
          *
          * Unlike [video], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("video") @ExcludeMissing fun _video(): JsonField<Video> = video
+        @JsonProperty("video") @ExcludeMissing fun _video(): JsonField<WhatsappMedia> = video
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -909,17 +919,17 @@ private constructor(
         /** A builder for [WhatsappMessage]. */
         class Builder internal constructor() {
 
-            private var audio: JsonField<Audio> = JsonMissing.of()
+            private var audio: JsonField<WhatsappMedia> = JsonMissing.of()
             private var bizOpaqueCallbackData: JsonField<String> = JsonMissing.of()
             private var contacts: JsonField<MutableList<Contact>>? = null
-            private var document: JsonField<Document> = JsonMissing.of()
-            private var image: JsonField<Image> = JsonMissing.of()
+            private var document: JsonField<WhatsappMedia> = JsonMissing.of()
+            private var image: JsonField<WhatsappMedia> = JsonMissing.of()
             private var interactive: JsonField<Interactive> = JsonMissing.of()
             private var location: JsonField<Location> = JsonMissing.of()
             private var reaction: JsonField<Reaction> = JsonMissing.of()
-            private var sticker: JsonField<Sticker> = JsonMissing.of()
+            private var sticker: JsonField<WhatsappMedia> = JsonMissing.of()
             private var type: JsonField<Type> = JsonMissing.of()
-            private var video: JsonField<Video> = JsonMissing.of()
+            private var video: JsonField<WhatsappMedia> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -938,16 +948,16 @@ private constructor(
                 additionalProperties = whatsappMessage.additionalProperties.toMutableMap()
             }
 
-            fun audio(audio: Audio) = audio(JsonField.of(audio))
+            fun audio(audio: WhatsappMedia) = audio(JsonField.of(audio))
 
             /**
              * Sets [Builder.audio] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.audio] with a well-typed [Audio] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * You should usually call [Builder.audio] with a well-typed [WhatsappMedia] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun audio(audio: JsonField<Audio>) = apply { this.audio = audio }
+            fun audio(audio: JsonField<WhatsappMedia>) = apply { this.audio = audio }
 
             /** custom data to return with status update */
             fun bizOpaqueCallbackData(bizOpaqueCallbackData: String) =
@@ -989,27 +999,27 @@ private constructor(
                     }
             }
 
-            fun document(document: Document) = document(JsonField.of(document))
+            fun document(document: WhatsappMedia) = document(JsonField.of(document))
 
             /**
              * Sets [Builder.document] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.document] with a well-typed [Document] value
+             * You should usually call [Builder.document] with a well-typed [WhatsappMedia] value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun document(document: JsonField<Document>) = apply { this.document = document }
+            fun document(document: JsonField<WhatsappMedia>) = apply { this.document = document }
 
-            fun image(image: Image) = image(JsonField.of(image))
+            fun image(image: WhatsappMedia) = image(JsonField.of(image))
 
             /**
              * Sets [Builder.image] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.image] with a well-typed [Image] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * You should usually call [Builder.image] with a well-typed [WhatsappMedia] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun image(image: JsonField<Image>) = apply { this.image = image }
+            fun image(image: JsonField<WhatsappMedia>) = apply { this.image = image }
 
             fun interactive(interactive: Interactive) = interactive(JsonField.of(interactive))
 
@@ -1046,16 +1056,16 @@ private constructor(
              */
             fun reaction(reaction: JsonField<Reaction>) = apply { this.reaction = reaction }
 
-            fun sticker(sticker: Sticker) = sticker(JsonField.of(sticker))
+            fun sticker(sticker: WhatsappMedia) = sticker(JsonField.of(sticker))
 
             /**
              * Sets [Builder.sticker] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.sticker] with a well-typed [Sticker] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.sticker] with a well-typed [WhatsappMedia] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun sticker(sticker: JsonField<Sticker>) = apply { this.sticker = sticker }
+            fun sticker(sticker: JsonField<WhatsappMedia>) = apply { this.sticker = sticker }
 
             fun type(type: Type) = type(JsonField.of(type))
 
@@ -1068,16 +1078,16 @@ private constructor(
              */
             fun type(type: JsonField<Type>) = apply { this.type = type }
 
-            fun video(video: Video) = video(JsonField.of(video))
+            fun video(video: WhatsappMedia) = video(JsonField.of(video))
 
             /**
              * Sets [Builder.video] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.video] with a well-typed [Video] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * You should usually call [Builder.video] with a well-typed [WhatsappMedia] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun video(video: JsonField<Video>) = apply { this.video = video }
+            fun video(video: JsonField<WhatsappMedia>) = apply { this.video = video }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1168,262 +1178,6 @@ private constructor(
                 (sticker.asKnown().getOrNull()?.validity() ?: 0) +
                 (type.asKnown().getOrNull()?.validity() ?: 0) +
                 (video.asKnown().getOrNull()?.validity() ?: 0)
-
-        class Audio
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val caption: JsonField<String>,
-            private val filename: JsonField<String>,
-            private val link: JsonField<String>,
-            private val voice: JsonField<Boolean>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("caption")
-                @ExcludeMissing
-                caption: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("filename")
-                @ExcludeMissing
-                filename: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("link") @ExcludeMissing link: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("voice") @ExcludeMissing voice: JsonField<Boolean> = JsonMissing.of(),
-            ) : this(caption, filename, link, voice, mutableMapOf())
-
-            /**
-             * media caption
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun caption(): Optional<String> = caption.getOptional("caption")
-
-            /**
-             * file name with extension
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun filename(): Optional<String> = filename.getOptional("filename")
-
-            /**
-             * media URL
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun link(): Optional<String> = link.getOptional("link")
-
-            /**
-             * true if voice message
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun voice(): Optional<Boolean> = voice.getOptional("voice")
-
-            /**
-             * Returns the raw JSON value of [caption].
-             *
-             * Unlike [caption], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("caption") @ExcludeMissing fun _caption(): JsonField<String> = caption
-
-            /**
-             * Returns the raw JSON value of [filename].
-             *
-             * Unlike [filename], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("filename") @ExcludeMissing fun _filename(): JsonField<String> = filename
-
-            /**
-             * Returns the raw JSON value of [link].
-             *
-             * Unlike [link], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("link") @ExcludeMissing fun _link(): JsonField<String> = link
-
-            /**
-             * Returns the raw JSON value of [voice].
-             *
-             * Unlike [voice], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("voice") @ExcludeMissing fun _voice(): JsonField<Boolean> = voice
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Audio]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Audio]. */
-            class Builder internal constructor() {
-
-                private var caption: JsonField<String> = JsonMissing.of()
-                private var filename: JsonField<String> = JsonMissing.of()
-                private var link: JsonField<String> = JsonMissing.of()
-                private var voice: JsonField<Boolean> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(audio: Audio) = apply {
-                    caption = audio.caption
-                    filename = audio.filename
-                    link = audio.link
-                    voice = audio.voice
-                    additionalProperties = audio.additionalProperties.toMutableMap()
-                }
-
-                /** media caption */
-                fun caption(caption: String) = caption(JsonField.of(caption))
-
-                /**
-                 * Sets [Builder.caption] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.caption] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun caption(caption: JsonField<String>) = apply { this.caption = caption }
-
-                /** file name with extension */
-                fun filename(filename: String) = filename(JsonField.of(filename))
-
-                /**
-                 * Sets [Builder.filename] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.filename] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun filename(filename: JsonField<String>) = apply { this.filename = filename }
-
-                /** media URL */
-                fun link(link: String) = link(JsonField.of(link))
-
-                /**
-                 * Sets [Builder.link] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.link] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun link(link: JsonField<String>) = apply { this.link = link }
-
-                /** true if voice message */
-                fun voice(voice: Boolean) = voice(JsonField.of(voice))
-
-                /**
-                 * Sets [Builder.voice] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.voice] with a well-typed [Boolean] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun voice(voice: JsonField<Boolean>) = apply { this.voice = voice }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Audio].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Audio =
-                    Audio(caption, filename, link, voice, additionalProperties.toMutableMap())
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): Audio = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                caption()
-                filename()
-                link()
-                voice()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (if (caption.asKnown().isPresent) 1 else 0) +
-                    (if (filename.asKnown().isPresent) 1 else 0) +
-                    (if (link.asKnown().isPresent) 1 else 0) +
-                    (if (voice.asKnown().isPresent) 1 else 0)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Audio &&
-                    caption == other.caption &&
-                    filename == other.filename &&
-                    link == other.link &&
-                    voice == other.voice &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(caption, filename, link, voice, additionalProperties)
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Audio{caption=$caption, filename=$filename, link=$link, voice=$voice, additionalProperties=$additionalProperties}"
-        }
 
         class Contact
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -3008,518 +2762,6 @@ private constructor(
 
             override fun toString() =
                 "Contact{addresses=$addresses, birthday=$birthday, emails=$emails, name=$name, org=$org, phones=$phones, urls=$urls, additionalProperties=$additionalProperties}"
-        }
-
-        class Document
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val caption: JsonField<String>,
-            private val filename: JsonField<String>,
-            private val link: JsonField<String>,
-            private val voice: JsonField<Boolean>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("caption")
-                @ExcludeMissing
-                caption: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("filename")
-                @ExcludeMissing
-                filename: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("link") @ExcludeMissing link: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("voice") @ExcludeMissing voice: JsonField<Boolean> = JsonMissing.of(),
-            ) : this(caption, filename, link, voice, mutableMapOf())
-
-            /**
-             * media caption
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun caption(): Optional<String> = caption.getOptional("caption")
-
-            /**
-             * file name with extension
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun filename(): Optional<String> = filename.getOptional("filename")
-
-            /**
-             * media URL
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun link(): Optional<String> = link.getOptional("link")
-
-            /**
-             * true if voice message
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun voice(): Optional<Boolean> = voice.getOptional("voice")
-
-            /**
-             * Returns the raw JSON value of [caption].
-             *
-             * Unlike [caption], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("caption") @ExcludeMissing fun _caption(): JsonField<String> = caption
-
-            /**
-             * Returns the raw JSON value of [filename].
-             *
-             * Unlike [filename], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("filename") @ExcludeMissing fun _filename(): JsonField<String> = filename
-
-            /**
-             * Returns the raw JSON value of [link].
-             *
-             * Unlike [link], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("link") @ExcludeMissing fun _link(): JsonField<String> = link
-
-            /**
-             * Returns the raw JSON value of [voice].
-             *
-             * Unlike [voice], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("voice") @ExcludeMissing fun _voice(): JsonField<Boolean> = voice
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Document]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Document]. */
-            class Builder internal constructor() {
-
-                private var caption: JsonField<String> = JsonMissing.of()
-                private var filename: JsonField<String> = JsonMissing.of()
-                private var link: JsonField<String> = JsonMissing.of()
-                private var voice: JsonField<Boolean> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(document: Document) = apply {
-                    caption = document.caption
-                    filename = document.filename
-                    link = document.link
-                    voice = document.voice
-                    additionalProperties = document.additionalProperties.toMutableMap()
-                }
-
-                /** media caption */
-                fun caption(caption: String) = caption(JsonField.of(caption))
-
-                /**
-                 * Sets [Builder.caption] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.caption] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun caption(caption: JsonField<String>) = apply { this.caption = caption }
-
-                /** file name with extension */
-                fun filename(filename: String) = filename(JsonField.of(filename))
-
-                /**
-                 * Sets [Builder.filename] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.filename] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun filename(filename: JsonField<String>) = apply { this.filename = filename }
-
-                /** media URL */
-                fun link(link: String) = link(JsonField.of(link))
-
-                /**
-                 * Sets [Builder.link] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.link] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun link(link: JsonField<String>) = apply { this.link = link }
-
-                /** true if voice message */
-                fun voice(voice: Boolean) = voice(JsonField.of(voice))
-
-                /**
-                 * Sets [Builder.voice] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.voice] with a well-typed [Boolean] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun voice(voice: JsonField<Boolean>) = apply { this.voice = voice }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Document].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Document =
-                    Document(caption, filename, link, voice, additionalProperties.toMutableMap())
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): Document = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                caption()
-                filename()
-                link()
-                voice()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (if (caption.asKnown().isPresent) 1 else 0) +
-                    (if (filename.asKnown().isPresent) 1 else 0) +
-                    (if (link.asKnown().isPresent) 1 else 0) +
-                    (if (voice.asKnown().isPresent) 1 else 0)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Document &&
-                    caption == other.caption &&
-                    filename == other.filename &&
-                    link == other.link &&
-                    voice == other.voice &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(caption, filename, link, voice, additionalProperties)
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Document{caption=$caption, filename=$filename, link=$link, voice=$voice, additionalProperties=$additionalProperties}"
-        }
-
-        class Image
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val caption: JsonField<String>,
-            private val filename: JsonField<String>,
-            private val link: JsonField<String>,
-            private val voice: JsonField<Boolean>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("caption")
-                @ExcludeMissing
-                caption: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("filename")
-                @ExcludeMissing
-                filename: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("link") @ExcludeMissing link: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("voice") @ExcludeMissing voice: JsonField<Boolean> = JsonMissing.of(),
-            ) : this(caption, filename, link, voice, mutableMapOf())
-
-            /**
-             * media caption
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun caption(): Optional<String> = caption.getOptional("caption")
-
-            /**
-             * file name with extension
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun filename(): Optional<String> = filename.getOptional("filename")
-
-            /**
-             * media URL
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun link(): Optional<String> = link.getOptional("link")
-
-            /**
-             * true if voice message
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun voice(): Optional<Boolean> = voice.getOptional("voice")
-
-            /**
-             * Returns the raw JSON value of [caption].
-             *
-             * Unlike [caption], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("caption") @ExcludeMissing fun _caption(): JsonField<String> = caption
-
-            /**
-             * Returns the raw JSON value of [filename].
-             *
-             * Unlike [filename], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("filename") @ExcludeMissing fun _filename(): JsonField<String> = filename
-
-            /**
-             * Returns the raw JSON value of [link].
-             *
-             * Unlike [link], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("link") @ExcludeMissing fun _link(): JsonField<String> = link
-
-            /**
-             * Returns the raw JSON value of [voice].
-             *
-             * Unlike [voice], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("voice") @ExcludeMissing fun _voice(): JsonField<Boolean> = voice
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Image]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Image]. */
-            class Builder internal constructor() {
-
-                private var caption: JsonField<String> = JsonMissing.of()
-                private var filename: JsonField<String> = JsonMissing.of()
-                private var link: JsonField<String> = JsonMissing.of()
-                private var voice: JsonField<Boolean> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(image: Image) = apply {
-                    caption = image.caption
-                    filename = image.filename
-                    link = image.link
-                    voice = image.voice
-                    additionalProperties = image.additionalProperties.toMutableMap()
-                }
-
-                /** media caption */
-                fun caption(caption: String) = caption(JsonField.of(caption))
-
-                /**
-                 * Sets [Builder.caption] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.caption] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun caption(caption: JsonField<String>) = apply { this.caption = caption }
-
-                /** file name with extension */
-                fun filename(filename: String) = filename(JsonField.of(filename))
-
-                /**
-                 * Sets [Builder.filename] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.filename] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun filename(filename: JsonField<String>) = apply { this.filename = filename }
-
-                /** media URL */
-                fun link(link: String) = link(JsonField.of(link))
-
-                /**
-                 * Sets [Builder.link] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.link] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun link(link: JsonField<String>) = apply { this.link = link }
-
-                /** true if voice message */
-                fun voice(voice: Boolean) = voice(JsonField.of(voice))
-
-                /**
-                 * Sets [Builder.voice] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.voice] with a well-typed [Boolean] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun voice(voice: JsonField<Boolean>) = apply { this.voice = voice }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Image].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Image =
-                    Image(caption, filename, link, voice, additionalProperties.toMutableMap())
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): Image = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                caption()
-                filename()
-                link()
-                voice()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (if (caption.asKnown().isPresent) 1 else 0) +
-                    (if (filename.asKnown().isPresent) 1 else 0) +
-                    (if (link.asKnown().isPresent) 1 else 0) +
-                    (if (voice.asKnown().isPresent) 1 else 0)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Image &&
-                    caption == other.caption &&
-                    filename == other.filename &&
-                    link == other.link &&
-                    voice == other.voice &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(caption, filename, link, voice, additionalProperties)
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Image{caption=$caption, filename=$filename, link=$link, voice=$voice, additionalProperties=$additionalProperties}"
         }
 
         class Interactive
@@ -5408,9 +4650,9 @@ private constructor(
                     class Header
                     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                     private constructor(
-                        private val image: JsonField<Image>,
+                        private val image: JsonField<WhatsappMedia>,
                         private val type: JsonField<Type>,
-                        private val video: JsonField<Video>,
+                        private val video: JsonField<WhatsappMedia>,
                         private val additionalProperties: MutableMap<String, JsonValue>,
                     ) {
 
@@ -5418,20 +4660,20 @@ private constructor(
                         private constructor(
                             @JsonProperty("image")
                             @ExcludeMissing
-                            image: JsonField<Image> = JsonMissing.of(),
+                            image: JsonField<WhatsappMedia> = JsonMissing.of(),
                             @JsonProperty("type")
                             @ExcludeMissing
                             type: JsonField<Type> = JsonMissing.of(),
                             @JsonProperty("video")
                             @ExcludeMissing
-                            video: JsonField<Video> = JsonMissing.of(),
+                            video: JsonField<WhatsappMedia> = JsonMissing.of(),
                         ) : this(image, type, video, mutableMapOf())
 
                         /**
                          * @throws TelnyxInvalidDataException if the JSON field has an unexpected
                          *   type (e.g. if the server responded with an unexpected value).
                          */
-                        fun image(): Optional<Image> = image.getOptional("image")
+                        fun image(): Optional<WhatsappMedia> = image.getOptional("image")
 
                         /**
                          * @throws TelnyxInvalidDataException if the JSON field has an unexpected
@@ -5443,7 +4685,7 @@ private constructor(
                          * @throws TelnyxInvalidDataException if the JSON field has an unexpected
                          *   type (e.g. if the server responded with an unexpected value).
                          */
-                        fun video(): Optional<Video> = video.getOptional("video")
+                        fun video(): Optional<WhatsappMedia> = video.getOptional("video")
 
                         /**
                          * Returns the raw JSON value of [image].
@@ -5453,7 +4695,7 @@ private constructor(
                          */
                         @JsonProperty("image")
                         @ExcludeMissing
-                        fun _image(): JsonField<Image> = image
+                        fun _image(): JsonField<WhatsappMedia> = image
 
                         /**
                          * Returns the raw JSON value of [type].
@@ -5471,7 +4713,7 @@ private constructor(
                          */
                         @JsonProperty("video")
                         @ExcludeMissing
-                        fun _video(): JsonField<Video> = video
+                        fun _video(): JsonField<WhatsappMedia> = video
 
                         @JsonAnySetter
                         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -5496,9 +4738,9 @@ private constructor(
                         /** A builder for [Header]. */
                         class Builder internal constructor() {
 
-                            private var image: JsonField<Image> = JsonMissing.of()
+                            private var image: JsonField<WhatsappMedia> = JsonMissing.of()
                             private var type: JsonField<Type> = JsonMissing.of()
-                            private var video: JsonField<Video> = JsonMissing.of()
+                            private var video: JsonField<WhatsappMedia> = JsonMissing.of()
                             private var additionalProperties: MutableMap<String, JsonValue> =
                                 mutableMapOf()
 
@@ -5510,16 +4752,18 @@ private constructor(
                                 additionalProperties = header.additionalProperties.toMutableMap()
                             }
 
-                            fun image(image: Image) = image(JsonField.of(image))
+                            fun image(image: WhatsappMedia) = image(JsonField.of(image))
 
                             /**
                              * Sets [Builder.image] to an arbitrary JSON value.
                              *
-                             * You should usually call [Builder.image] with a well-typed [Image]
-                             * value instead. This method is primarily for setting the field to an
-                             * undocumented or not yet supported value.
+                             * You should usually call [Builder.image] with a well-typed
+                             * [WhatsappMedia] value instead. This method is primarily for setting
+                             * the field to an undocumented or not yet supported value.
                              */
-                            fun image(image: JsonField<Image>) = apply { this.image = image }
+                            fun image(image: JsonField<WhatsappMedia>) = apply {
+                                this.image = image
+                            }
 
                             fun type(type: Type) = type(JsonField.of(type))
 
@@ -5532,16 +4776,18 @@ private constructor(
                              */
                             fun type(type: JsonField<Type>) = apply { this.type = type }
 
-                            fun video(video: Video) = video(JsonField.of(video))
+                            fun video(video: WhatsappMedia) = video(JsonField.of(video))
 
                             /**
                              * Sets [Builder.video] to an arbitrary JSON value.
                              *
-                             * You should usually call [Builder.video] with a well-typed [Video]
-                             * value instead. This method is primarily for setting the field to an
-                             * undocumented or not yet supported value.
+                             * You should usually call [Builder.video] with a well-typed
+                             * [WhatsappMedia] value instead. This method is primarily for setting
+                             * the field to an undocumented or not yet supported value.
                              */
-                            fun video(video: JsonField<Video>) = apply { this.video = video }
+                            fun video(video: JsonField<WhatsappMedia>) = apply {
+                                this.video = video
+                            }
 
                             fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                                 apply {
@@ -5607,297 +4853,6 @@ private constructor(
                             (image.asKnown().getOrNull()?.validity() ?: 0) +
                                 (type.asKnown().getOrNull()?.validity() ?: 0) +
                                 (video.asKnown().getOrNull()?.validity() ?: 0)
-
-                        class Image
-                        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-                        private constructor(
-                            private val caption: JsonField<String>,
-                            private val filename: JsonField<String>,
-                            private val link: JsonField<String>,
-                            private val voice: JsonField<Boolean>,
-                            private val additionalProperties: MutableMap<String, JsonValue>,
-                        ) {
-
-                            @JsonCreator
-                            private constructor(
-                                @JsonProperty("caption")
-                                @ExcludeMissing
-                                caption: JsonField<String> = JsonMissing.of(),
-                                @JsonProperty("filename")
-                                @ExcludeMissing
-                                filename: JsonField<String> = JsonMissing.of(),
-                                @JsonProperty("link")
-                                @ExcludeMissing
-                                link: JsonField<String> = JsonMissing.of(),
-                                @JsonProperty("voice")
-                                @ExcludeMissing
-                                voice: JsonField<Boolean> = JsonMissing.of(),
-                            ) : this(caption, filename, link, voice, mutableMapOf())
-
-                            /**
-                             * media caption
-                             *
-                             * @throws TelnyxInvalidDataException if the JSON field has an
-                             *   unexpected type (e.g. if the server responded with an unexpected
-                             *   value).
-                             */
-                            fun caption(): Optional<String> = caption.getOptional("caption")
-
-                            /**
-                             * file name with extension
-                             *
-                             * @throws TelnyxInvalidDataException if the JSON field has an
-                             *   unexpected type (e.g. if the server responded with an unexpected
-                             *   value).
-                             */
-                            fun filename(): Optional<String> = filename.getOptional("filename")
-
-                            /**
-                             * media URL
-                             *
-                             * @throws TelnyxInvalidDataException if the JSON field has an
-                             *   unexpected type (e.g. if the server responded with an unexpected
-                             *   value).
-                             */
-                            fun link(): Optional<String> = link.getOptional("link")
-
-                            /**
-                             * true if voice message
-                             *
-                             * @throws TelnyxInvalidDataException if the JSON field has an
-                             *   unexpected type (e.g. if the server responded with an unexpected
-                             *   value).
-                             */
-                            fun voice(): Optional<Boolean> = voice.getOptional("voice")
-
-                            /**
-                             * Returns the raw JSON value of [caption].
-                             *
-                             * Unlike [caption], this method doesn't throw if the JSON field has an
-                             * unexpected type.
-                             */
-                            @JsonProperty("caption")
-                            @ExcludeMissing
-                            fun _caption(): JsonField<String> = caption
-
-                            /**
-                             * Returns the raw JSON value of [filename].
-                             *
-                             * Unlike [filename], this method doesn't throw if the JSON field has an
-                             * unexpected type.
-                             */
-                            @JsonProperty("filename")
-                            @ExcludeMissing
-                            fun _filename(): JsonField<String> = filename
-
-                            /**
-                             * Returns the raw JSON value of [link].
-                             *
-                             * Unlike [link], this method doesn't throw if the JSON field has an
-                             * unexpected type.
-                             */
-                            @JsonProperty("link")
-                            @ExcludeMissing
-                            fun _link(): JsonField<String> = link
-
-                            /**
-                             * Returns the raw JSON value of [voice].
-                             *
-                             * Unlike [voice], this method doesn't throw if the JSON field has an
-                             * unexpected type.
-                             */
-                            @JsonProperty("voice")
-                            @ExcludeMissing
-                            fun _voice(): JsonField<Boolean> = voice
-
-                            @JsonAnySetter
-                            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                                additionalProperties.put(key, value)
-                            }
-
-                            @JsonAnyGetter
-                            @ExcludeMissing
-                            fun _additionalProperties(): Map<String, JsonValue> =
-                                Collections.unmodifiableMap(additionalProperties)
-
-                            fun toBuilder() = Builder().from(this)
-
-                            companion object {
-
-                                /**
-                                 * Returns a mutable builder for constructing an instance of
-                                 * [Image].
-                                 */
-                                @JvmStatic fun builder() = Builder()
-                            }
-
-                            /** A builder for [Image]. */
-                            class Builder internal constructor() {
-
-                                private var caption: JsonField<String> = JsonMissing.of()
-                                private var filename: JsonField<String> = JsonMissing.of()
-                                private var link: JsonField<String> = JsonMissing.of()
-                                private var voice: JsonField<Boolean> = JsonMissing.of()
-                                private var additionalProperties: MutableMap<String, JsonValue> =
-                                    mutableMapOf()
-
-                                @JvmSynthetic
-                                internal fun from(image: Image) = apply {
-                                    caption = image.caption
-                                    filename = image.filename
-                                    link = image.link
-                                    voice = image.voice
-                                    additionalProperties = image.additionalProperties.toMutableMap()
-                                }
-
-                                /** media caption */
-                                fun caption(caption: String) = caption(JsonField.of(caption))
-
-                                /**
-                                 * Sets [Builder.caption] to an arbitrary JSON value.
-                                 *
-                                 * You should usually call [Builder.caption] with a well-typed
-                                 * [String] value instead. This method is primarily for setting the
-                                 * field to an undocumented or not yet supported value.
-                                 */
-                                fun caption(caption: JsonField<String>) = apply {
-                                    this.caption = caption
-                                }
-
-                                /** file name with extension */
-                                fun filename(filename: String) = filename(JsonField.of(filename))
-
-                                /**
-                                 * Sets [Builder.filename] to an arbitrary JSON value.
-                                 *
-                                 * You should usually call [Builder.filename] with a well-typed
-                                 * [String] value instead. This method is primarily for setting the
-                                 * field to an undocumented or not yet supported value.
-                                 */
-                                fun filename(filename: JsonField<String>) = apply {
-                                    this.filename = filename
-                                }
-
-                                /** media URL */
-                                fun link(link: String) = link(JsonField.of(link))
-
-                                /**
-                                 * Sets [Builder.link] to an arbitrary JSON value.
-                                 *
-                                 * You should usually call [Builder.link] with a well-typed [String]
-                                 * value instead. This method is primarily for setting the field to
-                                 * an undocumented or not yet supported value.
-                                 */
-                                fun link(link: JsonField<String>) = apply { this.link = link }
-
-                                /** true if voice message */
-                                fun voice(voice: Boolean) = voice(JsonField.of(voice))
-
-                                /**
-                                 * Sets [Builder.voice] to an arbitrary JSON value.
-                                 *
-                                 * You should usually call [Builder.voice] with a well-typed
-                                 * [Boolean] value instead. This method is primarily for setting the
-                                 * field to an undocumented or not yet supported value.
-                                 */
-                                fun voice(voice: JsonField<Boolean>) = apply { this.voice = voice }
-
-                                fun additionalProperties(
-                                    additionalProperties: Map<String, JsonValue>
-                                ) = apply {
-                                    this.additionalProperties.clear()
-                                    putAllAdditionalProperties(additionalProperties)
-                                }
-
-                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                                    additionalProperties.put(key, value)
-                                }
-
-                                fun putAllAdditionalProperties(
-                                    additionalProperties: Map<String, JsonValue>
-                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                                fun removeAdditionalProperty(key: String) = apply {
-                                    additionalProperties.remove(key)
-                                }
-
-                                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                                    keys.forEach(::removeAdditionalProperty)
-                                }
-
-                                /**
-                                 * Returns an immutable instance of [Image].
-                                 *
-                                 * Further updates to this [Builder] will not mutate the returned
-                                 * instance.
-                                 */
-                                fun build(): Image =
-                                    Image(
-                                        caption,
-                                        filename,
-                                        link,
-                                        voice,
-                                        additionalProperties.toMutableMap(),
-                                    )
-                            }
-
-                            private var validated: Boolean = false
-
-                            fun validate(): Image = apply {
-                                if (validated) {
-                                    return@apply
-                                }
-
-                                caption()
-                                filename()
-                                link()
-                                voice()
-                                validated = true
-                            }
-
-                            fun isValid(): Boolean =
-                                try {
-                                    validate()
-                                    true
-                                } catch (e: TelnyxInvalidDataException) {
-                                    false
-                                }
-
-                            /**
-                             * Returns a score indicating how many valid values are contained in
-                             * this object recursively.
-                             *
-                             * Used for best match union deserialization.
-                             */
-                            @JvmSynthetic
-                            internal fun validity(): Int =
-                                (if (caption.asKnown().isPresent) 1 else 0) +
-                                    (if (filename.asKnown().isPresent) 1 else 0) +
-                                    (if (link.asKnown().isPresent) 1 else 0) +
-                                    (if (voice.asKnown().isPresent) 1 else 0)
-
-                            override fun equals(other: Any?): Boolean {
-                                if (this === other) {
-                                    return true
-                                }
-
-                                return other is Image &&
-                                    caption == other.caption &&
-                                    filename == other.filename &&
-                                    link == other.link &&
-                                    voice == other.voice &&
-                                    additionalProperties == other.additionalProperties
-                            }
-
-                            private val hashCode: Int by lazy {
-                                Objects.hash(caption, filename, link, voice, additionalProperties)
-                            }
-
-                            override fun hashCode(): Int = hashCode
-
-                            override fun toString() =
-                                "Image{caption=$caption, filename=$filename, link=$link, voice=$voice, additionalProperties=$additionalProperties}"
-                        }
 
                         class Type
                         @JsonCreator
@@ -6034,297 +4989,6 @@ private constructor(
                             override fun hashCode() = value.hashCode()
 
                             override fun toString() = value.toString()
-                        }
-
-                        class Video
-                        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-                        private constructor(
-                            private val caption: JsonField<String>,
-                            private val filename: JsonField<String>,
-                            private val link: JsonField<String>,
-                            private val voice: JsonField<Boolean>,
-                            private val additionalProperties: MutableMap<String, JsonValue>,
-                        ) {
-
-                            @JsonCreator
-                            private constructor(
-                                @JsonProperty("caption")
-                                @ExcludeMissing
-                                caption: JsonField<String> = JsonMissing.of(),
-                                @JsonProperty("filename")
-                                @ExcludeMissing
-                                filename: JsonField<String> = JsonMissing.of(),
-                                @JsonProperty("link")
-                                @ExcludeMissing
-                                link: JsonField<String> = JsonMissing.of(),
-                                @JsonProperty("voice")
-                                @ExcludeMissing
-                                voice: JsonField<Boolean> = JsonMissing.of(),
-                            ) : this(caption, filename, link, voice, mutableMapOf())
-
-                            /**
-                             * media caption
-                             *
-                             * @throws TelnyxInvalidDataException if the JSON field has an
-                             *   unexpected type (e.g. if the server responded with an unexpected
-                             *   value).
-                             */
-                            fun caption(): Optional<String> = caption.getOptional("caption")
-
-                            /**
-                             * file name with extension
-                             *
-                             * @throws TelnyxInvalidDataException if the JSON field has an
-                             *   unexpected type (e.g. if the server responded with an unexpected
-                             *   value).
-                             */
-                            fun filename(): Optional<String> = filename.getOptional("filename")
-
-                            /**
-                             * media URL
-                             *
-                             * @throws TelnyxInvalidDataException if the JSON field has an
-                             *   unexpected type (e.g. if the server responded with an unexpected
-                             *   value).
-                             */
-                            fun link(): Optional<String> = link.getOptional("link")
-
-                            /**
-                             * true if voice message
-                             *
-                             * @throws TelnyxInvalidDataException if the JSON field has an
-                             *   unexpected type (e.g. if the server responded with an unexpected
-                             *   value).
-                             */
-                            fun voice(): Optional<Boolean> = voice.getOptional("voice")
-
-                            /**
-                             * Returns the raw JSON value of [caption].
-                             *
-                             * Unlike [caption], this method doesn't throw if the JSON field has an
-                             * unexpected type.
-                             */
-                            @JsonProperty("caption")
-                            @ExcludeMissing
-                            fun _caption(): JsonField<String> = caption
-
-                            /**
-                             * Returns the raw JSON value of [filename].
-                             *
-                             * Unlike [filename], this method doesn't throw if the JSON field has an
-                             * unexpected type.
-                             */
-                            @JsonProperty("filename")
-                            @ExcludeMissing
-                            fun _filename(): JsonField<String> = filename
-
-                            /**
-                             * Returns the raw JSON value of [link].
-                             *
-                             * Unlike [link], this method doesn't throw if the JSON field has an
-                             * unexpected type.
-                             */
-                            @JsonProperty("link")
-                            @ExcludeMissing
-                            fun _link(): JsonField<String> = link
-
-                            /**
-                             * Returns the raw JSON value of [voice].
-                             *
-                             * Unlike [voice], this method doesn't throw if the JSON field has an
-                             * unexpected type.
-                             */
-                            @JsonProperty("voice")
-                            @ExcludeMissing
-                            fun _voice(): JsonField<Boolean> = voice
-
-                            @JsonAnySetter
-                            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                                additionalProperties.put(key, value)
-                            }
-
-                            @JsonAnyGetter
-                            @ExcludeMissing
-                            fun _additionalProperties(): Map<String, JsonValue> =
-                                Collections.unmodifiableMap(additionalProperties)
-
-                            fun toBuilder() = Builder().from(this)
-
-                            companion object {
-
-                                /**
-                                 * Returns a mutable builder for constructing an instance of
-                                 * [Video].
-                                 */
-                                @JvmStatic fun builder() = Builder()
-                            }
-
-                            /** A builder for [Video]. */
-                            class Builder internal constructor() {
-
-                                private var caption: JsonField<String> = JsonMissing.of()
-                                private var filename: JsonField<String> = JsonMissing.of()
-                                private var link: JsonField<String> = JsonMissing.of()
-                                private var voice: JsonField<Boolean> = JsonMissing.of()
-                                private var additionalProperties: MutableMap<String, JsonValue> =
-                                    mutableMapOf()
-
-                                @JvmSynthetic
-                                internal fun from(video: Video) = apply {
-                                    caption = video.caption
-                                    filename = video.filename
-                                    link = video.link
-                                    voice = video.voice
-                                    additionalProperties = video.additionalProperties.toMutableMap()
-                                }
-
-                                /** media caption */
-                                fun caption(caption: String) = caption(JsonField.of(caption))
-
-                                /**
-                                 * Sets [Builder.caption] to an arbitrary JSON value.
-                                 *
-                                 * You should usually call [Builder.caption] with a well-typed
-                                 * [String] value instead. This method is primarily for setting the
-                                 * field to an undocumented or not yet supported value.
-                                 */
-                                fun caption(caption: JsonField<String>) = apply {
-                                    this.caption = caption
-                                }
-
-                                /** file name with extension */
-                                fun filename(filename: String) = filename(JsonField.of(filename))
-
-                                /**
-                                 * Sets [Builder.filename] to an arbitrary JSON value.
-                                 *
-                                 * You should usually call [Builder.filename] with a well-typed
-                                 * [String] value instead. This method is primarily for setting the
-                                 * field to an undocumented or not yet supported value.
-                                 */
-                                fun filename(filename: JsonField<String>) = apply {
-                                    this.filename = filename
-                                }
-
-                                /** media URL */
-                                fun link(link: String) = link(JsonField.of(link))
-
-                                /**
-                                 * Sets [Builder.link] to an arbitrary JSON value.
-                                 *
-                                 * You should usually call [Builder.link] with a well-typed [String]
-                                 * value instead. This method is primarily for setting the field to
-                                 * an undocumented or not yet supported value.
-                                 */
-                                fun link(link: JsonField<String>) = apply { this.link = link }
-
-                                /** true if voice message */
-                                fun voice(voice: Boolean) = voice(JsonField.of(voice))
-
-                                /**
-                                 * Sets [Builder.voice] to an arbitrary JSON value.
-                                 *
-                                 * You should usually call [Builder.voice] with a well-typed
-                                 * [Boolean] value instead. This method is primarily for setting the
-                                 * field to an undocumented or not yet supported value.
-                                 */
-                                fun voice(voice: JsonField<Boolean>) = apply { this.voice = voice }
-
-                                fun additionalProperties(
-                                    additionalProperties: Map<String, JsonValue>
-                                ) = apply {
-                                    this.additionalProperties.clear()
-                                    putAllAdditionalProperties(additionalProperties)
-                                }
-
-                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                                    additionalProperties.put(key, value)
-                                }
-
-                                fun putAllAdditionalProperties(
-                                    additionalProperties: Map<String, JsonValue>
-                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                                fun removeAdditionalProperty(key: String) = apply {
-                                    additionalProperties.remove(key)
-                                }
-
-                                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                                    keys.forEach(::removeAdditionalProperty)
-                                }
-
-                                /**
-                                 * Returns an immutable instance of [Video].
-                                 *
-                                 * Further updates to this [Builder] will not mutate the returned
-                                 * instance.
-                                 */
-                                fun build(): Video =
-                                    Video(
-                                        caption,
-                                        filename,
-                                        link,
-                                        voice,
-                                        additionalProperties.toMutableMap(),
-                                    )
-                            }
-
-                            private var validated: Boolean = false
-
-                            fun validate(): Video = apply {
-                                if (validated) {
-                                    return@apply
-                                }
-
-                                caption()
-                                filename()
-                                link()
-                                voice()
-                                validated = true
-                            }
-
-                            fun isValid(): Boolean =
-                                try {
-                                    validate()
-                                    true
-                                } catch (e: TelnyxInvalidDataException) {
-                                    false
-                                }
-
-                            /**
-                             * Returns a score indicating how many valid values are contained in
-                             * this object recursively.
-                             *
-                             * Used for best match union deserialization.
-                             */
-                            @JvmSynthetic
-                            internal fun validity(): Int =
-                                (if (caption.asKnown().isPresent) 1 else 0) +
-                                    (if (filename.asKnown().isPresent) 1 else 0) +
-                                    (if (link.asKnown().isPresent) 1 else 0) +
-                                    (if (voice.asKnown().isPresent) 1 else 0)
-
-                            override fun equals(other: Any?): Boolean {
-                                if (this === other) {
-                                    return true
-                                }
-
-                                return other is Video &&
-                                    caption == other.caption &&
-                                    filename == other.filename &&
-                                    link == other.link &&
-                                    voice == other.voice &&
-                                    additionalProperties == other.additionalProperties
-                            }
-
-                            private val hashCode: Int by lazy {
-                                Objects.hash(caption, filename, link, voice, additionalProperties)
-                            }
-
-                            override fun hashCode(): Int = hashCode
-
-                            override fun toString() =
-                                "Video{caption=$caption, filename=$filename, link=$link, voice=$voice, additionalProperties=$additionalProperties}"
                         }
 
                         override fun equals(other: Any?): Boolean {
@@ -7689,11 +6353,11 @@ private constructor(
             class Header
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
-                private val document: JsonField<Document>,
-                private val image: JsonField<Image>,
+                private val document: JsonField<WhatsappMedia>,
+                private val image: JsonField<WhatsappMedia>,
                 private val subText: JsonField<String>,
                 private val text: JsonField<String>,
-                private val video: JsonField<Video>,
+                private val video: JsonField<WhatsappMedia>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
 
@@ -7701,10 +6365,10 @@ private constructor(
                 private constructor(
                     @JsonProperty("document")
                     @ExcludeMissing
-                    document: JsonField<Document> = JsonMissing.of(),
+                    document: JsonField<WhatsappMedia> = JsonMissing.of(),
                     @JsonProperty("image")
                     @ExcludeMissing
-                    image: JsonField<Image> = JsonMissing.of(),
+                    image: JsonField<WhatsappMedia> = JsonMissing.of(),
                     @JsonProperty("sub_text")
                     @ExcludeMissing
                     subText: JsonField<String> = JsonMissing.of(),
@@ -7713,20 +6377,20 @@ private constructor(
                     text: JsonField<String> = JsonMissing.of(),
                     @JsonProperty("video")
                     @ExcludeMissing
-                    video: JsonField<Video> = JsonMissing.of(),
+                    video: JsonField<WhatsappMedia> = JsonMissing.of(),
                 ) : this(document, image, subText, text, video, mutableMapOf())
 
                 /**
                  * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
                  *   if the server responded with an unexpected value).
                  */
-                fun document(): Optional<Document> = document.getOptional("document")
+                fun document(): Optional<WhatsappMedia> = document.getOptional("document")
 
                 /**
                  * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
                  *   if the server responded with an unexpected value).
                  */
-                fun image(): Optional<Image> = image.getOptional("image")
+                fun image(): Optional<WhatsappMedia> = image.getOptional("image")
 
                 /**
                  * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
@@ -7746,7 +6410,7 @@ private constructor(
                  * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
                  *   if the server responded with an unexpected value).
                  */
-                fun video(): Optional<Video> = video.getOptional("video")
+                fun video(): Optional<WhatsappMedia> = video.getOptional("video")
 
                 /**
                  * Returns the raw JSON value of [document].
@@ -7756,7 +6420,7 @@ private constructor(
                  */
                 @JsonProperty("document")
                 @ExcludeMissing
-                fun _document(): JsonField<Document> = document
+                fun _document(): JsonField<WhatsappMedia> = document
 
                 /**
                  * Returns the raw JSON value of [image].
@@ -7764,7 +6428,9 @@ private constructor(
                  * Unlike [image], this method doesn't throw if the JSON field has an unexpected
                  * type.
                  */
-                @JsonProperty("image") @ExcludeMissing fun _image(): JsonField<Image> = image
+                @JsonProperty("image")
+                @ExcludeMissing
+                fun _image(): JsonField<WhatsappMedia> = image
 
                 /**
                  * Returns the raw JSON value of [subText].
@@ -7790,7 +6456,9 @@ private constructor(
                  * Unlike [video], this method doesn't throw if the JSON field has an unexpected
                  * type.
                  */
-                @JsonProperty("video") @ExcludeMissing fun _video(): JsonField<Video> = video
+                @JsonProperty("video")
+                @ExcludeMissing
+                fun _video(): JsonField<WhatsappMedia> = video
 
                 @JsonAnySetter
                 private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -7813,11 +6481,11 @@ private constructor(
                 /** A builder for [Header]. */
                 class Builder internal constructor() {
 
-                    private var document: JsonField<Document> = JsonMissing.of()
-                    private var image: JsonField<Image> = JsonMissing.of()
+                    private var document: JsonField<WhatsappMedia> = JsonMissing.of()
+                    private var image: JsonField<WhatsappMedia> = JsonMissing.of()
                     private var subText: JsonField<String> = JsonMissing.of()
                     private var text: JsonField<String> = JsonMissing.of()
-                    private var video: JsonField<Video> = JsonMissing.of()
+                    private var video: JsonField<WhatsappMedia> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -7830,27 +6498,29 @@ private constructor(
                         additionalProperties = header.additionalProperties.toMutableMap()
                     }
 
-                    fun document(document: Document) = document(JsonField.of(document))
+                    fun document(document: WhatsappMedia) = document(JsonField.of(document))
 
                     /**
                      * Sets [Builder.document] to an arbitrary JSON value.
                      *
-                     * You should usually call [Builder.document] with a well-typed [Document] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
+                     * You should usually call [Builder.document] with a well-typed [WhatsappMedia]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
                      */
-                    fun document(document: JsonField<Document>) = apply { this.document = document }
+                    fun document(document: JsonField<WhatsappMedia>) = apply {
+                        this.document = document
+                    }
 
-                    fun image(image: Image) = image(JsonField.of(image))
+                    fun image(image: WhatsappMedia) = image(JsonField.of(image))
 
                     /**
                      * Sets [Builder.image] to an arbitrary JSON value.
                      *
-                     * You should usually call [Builder.image] with a well-typed [Image] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
+                     * You should usually call [Builder.image] with a well-typed [WhatsappMedia]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
                      */
-                    fun image(image: JsonField<Image>) = apply { this.image = image }
+                    fun image(image: JsonField<WhatsappMedia>) = apply { this.image = image }
 
                     fun subText(subText: String) = subText(JsonField.of(subText))
 
@@ -7875,16 +6545,16 @@ private constructor(
                      */
                     fun text(text: JsonField<String>) = apply { this.text = text }
 
-                    fun video(video: Video) = video(JsonField.of(video))
+                    fun video(video: WhatsappMedia) = video(JsonField.of(video))
 
                     /**
                      * Sets [Builder.video] to an arbitrary JSON value.
                      *
-                     * You should usually call [Builder.video] with a well-typed [Video] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
+                     * You should usually call [Builder.video] with a well-typed [WhatsappMedia]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
                      */
-                    fun video(video: JsonField<Video>) = apply { this.video = video }
+                    fun video(video: JsonField<WhatsappMedia>) = apply { this.video = video }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -7960,834 +6630,6 @@ private constructor(
                         (if (subText.asKnown().isPresent) 1 else 0) +
                         (if (text.asKnown().isPresent) 1 else 0) +
                         (video.asKnown().getOrNull()?.validity() ?: 0)
-
-                class Document
-                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-                private constructor(
-                    private val caption: JsonField<String>,
-                    private val filename: JsonField<String>,
-                    private val link: JsonField<String>,
-                    private val voice: JsonField<Boolean>,
-                    private val additionalProperties: MutableMap<String, JsonValue>,
-                ) {
-
-                    @JsonCreator
-                    private constructor(
-                        @JsonProperty("caption")
-                        @ExcludeMissing
-                        caption: JsonField<String> = JsonMissing.of(),
-                        @JsonProperty("filename")
-                        @ExcludeMissing
-                        filename: JsonField<String> = JsonMissing.of(),
-                        @JsonProperty("link")
-                        @ExcludeMissing
-                        link: JsonField<String> = JsonMissing.of(),
-                        @JsonProperty("voice")
-                        @ExcludeMissing
-                        voice: JsonField<Boolean> = JsonMissing.of(),
-                    ) : this(caption, filename, link, voice, mutableMapOf())
-
-                    /**
-                     * media caption
-                     *
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   (e.g. if the server responded with an unexpected value).
-                     */
-                    fun caption(): Optional<String> = caption.getOptional("caption")
-
-                    /**
-                     * file name with extension
-                     *
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   (e.g. if the server responded with an unexpected value).
-                     */
-                    fun filename(): Optional<String> = filename.getOptional("filename")
-
-                    /**
-                     * media URL
-                     *
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   (e.g. if the server responded with an unexpected value).
-                     */
-                    fun link(): Optional<String> = link.getOptional("link")
-
-                    /**
-                     * true if voice message
-                     *
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   (e.g. if the server responded with an unexpected value).
-                     */
-                    fun voice(): Optional<Boolean> = voice.getOptional("voice")
-
-                    /**
-                     * Returns the raw JSON value of [caption].
-                     *
-                     * Unlike [caption], this method doesn't throw if the JSON field has an
-                     * unexpected type.
-                     */
-                    @JsonProperty("caption")
-                    @ExcludeMissing
-                    fun _caption(): JsonField<String> = caption
-
-                    /**
-                     * Returns the raw JSON value of [filename].
-                     *
-                     * Unlike [filename], this method doesn't throw if the JSON field has an
-                     * unexpected type.
-                     */
-                    @JsonProperty("filename")
-                    @ExcludeMissing
-                    fun _filename(): JsonField<String> = filename
-
-                    /**
-                     * Returns the raw JSON value of [link].
-                     *
-                     * Unlike [link], this method doesn't throw if the JSON field has an unexpected
-                     * type.
-                     */
-                    @JsonProperty("link") @ExcludeMissing fun _link(): JsonField<String> = link
-
-                    /**
-                     * Returns the raw JSON value of [voice].
-                     *
-                     * Unlike [voice], this method doesn't throw if the JSON field has an unexpected
-                     * type.
-                     */
-                    @JsonProperty("voice") @ExcludeMissing fun _voice(): JsonField<Boolean> = voice
-
-                    @JsonAnySetter
-                    private fun putAdditionalProperty(key: String, value: JsonValue) {
-                        additionalProperties.put(key, value)
-                    }
-
-                    @JsonAnyGetter
-                    @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> =
-                        Collections.unmodifiableMap(additionalProperties)
-
-                    fun toBuilder() = Builder().from(this)
-
-                    companion object {
-
-                        /** Returns a mutable builder for constructing an instance of [Document]. */
-                        @JvmStatic fun builder() = Builder()
-                    }
-
-                    /** A builder for [Document]. */
-                    class Builder internal constructor() {
-
-                        private var caption: JsonField<String> = JsonMissing.of()
-                        private var filename: JsonField<String> = JsonMissing.of()
-                        private var link: JsonField<String> = JsonMissing.of()
-                        private var voice: JsonField<Boolean> = JsonMissing.of()
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
-
-                        @JvmSynthetic
-                        internal fun from(document: Document) = apply {
-                            caption = document.caption
-                            filename = document.filename
-                            link = document.link
-                            voice = document.voice
-                            additionalProperties = document.additionalProperties.toMutableMap()
-                        }
-
-                        /** media caption */
-                        fun caption(caption: String) = caption(JsonField.of(caption))
-
-                        /**
-                         * Sets [Builder.caption] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.caption] with a well-typed [String]
-                         * value instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun caption(caption: JsonField<String>) = apply { this.caption = caption }
-
-                        /** file name with extension */
-                        fun filename(filename: String) = filename(JsonField.of(filename))
-
-                        /**
-                         * Sets [Builder.filename] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.filename] with a well-typed [String]
-                         * value instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun filename(filename: JsonField<String>) = apply {
-                            this.filename = filename
-                        }
-
-                        /** media URL */
-                        fun link(link: String) = link(JsonField.of(link))
-
-                        /**
-                         * Sets [Builder.link] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.link] with a well-typed [String] value
-                         * instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun link(link: JsonField<String>) = apply { this.link = link }
-
-                        /** true if voice message */
-                        fun voice(voice: Boolean) = voice(JsonField.of(voice))
-
-                        /**
-                         * Sets [Builder.voice] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.voice] with a well-typed [Boolean] value
-                         * instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun voice(voice: JsonField<Boolean>) = apply { this.voice = voice }
-
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                putAllAdditionalProperties(additionalProperties)
-                            }
-
-                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            additionalProperties.put(key, value)
-                        }
-
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                        fun removeAdditionalProperty(key: String) = apply {
-                            additionalProperties.remove(key)
-                        }
-
-                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                            keys.forEach(::removeAdditionalProperty)
-                        }
-
-                        /**
-                         * Returns an immutable instance of [Document].
-                         *
-                         * Further updates to this [Builder] will not mutate the returned instance.
-                         */
-                        fun build(): Document =
-                            Document(
-                                caption,
-                                filename,
-                                link,
-                                voice,
-                                additionalProperties.toMutableMap(),
-                            )
-                    }
-
-                    private var validated: Boolean = false
-
-                    fun validate(): Document = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        caption()
-                        filename()
-                        link()
-                        voice()
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: TelnyxInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    @JvmSynthetic
-                    internal fun validity(): Int =
-                        (if (caption.asKnown().isPresent) 1 else 0) +
-                            (if (filename.asKnown().isPresent) 1 else 0) +
-                            (if (link.asKnown().isPresent) 1 else 0) +
-                            (if (voice.asKnown().isPresent) 1 else 0)
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Document &&
-                            caption == other.caption &&
-                            filename == other.filename &&
-                            link == other.link &&
-                            voice == other.voice &&
-                            additionalProperties == other.additionalProperties
-                    }
-
-                    private val hashCode: Int by lazy {
-                        Objects.hash(caption, filename, link, voice, additionalProperties)
-                    }
-
-                    override fun hashCode(): Int = hashCode
-
-                    override fun toString() =
-                        "Document{caption=$caption, filename=$filename, link=$link, voice=$voice, additionalProperties=$additionalProperties}"
-                }
-
-                class Image
-                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-                private constructor(
-                    private val caption: JsonField<String>,
-                    private val filename: JsonField<String>,
-                    private val link: JsonField<String>,
-                    private val voice: JsonField<Boolean>,
-                    private val additionalProperties: MutableMap<String, JsonValue>,
-                ) {
-
-                    @JsonCreator
-                    private constructor(
-                        @JsonProperty("caption")
-                        @ExcludeMissing
-                        caption: JsonField<String> = JsonMissing.of(),
-                        @JsonProperty("filename")
-                        @ExcludeMissing
-                        filename: JsonField<String> = JsonMissing.of(),
-                        @JsonProperty("link")
-                        @ExcludeMissing
-                        link: JsonField<String> = JsonMissing.of(),
-                        @JsonProperty("voice")
-                        @ExcludeMissing
-                        voice: JsonField<Boolean> = JsonMissing.of(),
-                    ) : this(caption, filename, link, voice, mutableMapOf())
-
-                    /**
-                     * media caption
-                     *
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   (e.g. if the server responded with an unexpected value).
-                     */
-                    fun caption(): Optional<String> = caption.getOptional("caption")
-
-                    /**
-                     * file name with extension
-                     *
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   (e.g. if the server responded with an unexpected value).
-                     */
-                    fun filename(): Optional<String> = filename.getOptional("filename")
-
-                    /**
-                     * media URL
-                     *
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   (e.g. if the server responded with an unexpected value).
-                     */
-                    fun link(): Optional<String> = link.getOptional("link")
-
-                    /**
-                     * true if voice message
-                     *
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   (e.g. if the server responded with an unexpected value).
-                     */
-                    fun voice(): Optional<Boolean> = voice.getOptional("voice")
-
-                    /**
-                     * Returns the raw JSON value of [caption].
-                     *
-                     * Unlike [caption], this method doesn't throw if the JSON field has an
-                     * unexpected type.
-                     */
-                    @JsonProperty("caption")
-                    @ExcludeMissing
-                    fun _caption(): JsonField<String> = caption
-
-                    /**
-                     * Returns the raw JSON value of [filename].
-                     *
-                     * Unlike [filename], this method doesn't throw if the JSON field has an
-                     * unexpected type.
-                     */
-                    @JsonProperty("filename")
-                    @ExcludeMissing
-                    fun _filename(): JsonField<String> = filename
-
-                    /**
-                     * Returns the raw JSON value of [link].
-                     *
-                     * Unlike [link], this method doesn't throw if the JSON field has an unexpected
-                     * type.
-                     */
-                    @JsonProperty("link") @ExcludeMissing fun _link(): JsonField<String> = link
-
-                    /**
-                     * Returns the raw JSON value of [voice].
-                     *
-                     * Unlike [voice], this method doesn't throw if the JSON field has an unexpected
-                     * type.
-                     */
-                    @JsonProperty("voice") @ExcludeMissing fun _voice(): JsonField<Boolean> = voice
-
-                    @JsonAnySetter
-                    private fun putAdditionalProperty(key: String, value: JsonValue) {
-                        additionalProperties.put(key, value)
-                    }
-
-                    @JsonAnyGetter
-                    @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> =
-                        Collections.unmodifiableMap(additionalProperties)
-
-                    fun toBuilder() = Builder().from(this)
-
-                    companion object {
-
-                        /** Returns a mutable builder for constructing an instance of [Image]. */
-                        @JvmStatic fun builder() = Builder()
-                    }
-
-                    /** A builder for [Image]. */
-                    class Builder internal constructor() {
-
-                        private var caption: JsonField<String> = JsonMissing.of()
-                        private var filename: JsonField<String> = JsonMissing.of()
-                        private var link: JsonField<String> = JsonMissing.of()
-                        private var voice: JsonField<Boolean> = JsonMissing.of()
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
-
-                        @JvmSynthetic
-                        internal fun from(image: Image) = apply {
-                            caption = image.caption
-                            filename = image.filename
-                            link = image.link
-                            voice = image.voice
-                            additionalProperties = image.additionalProperties.toMutableMap()
-                        }
-
-                        /** media caption */
-                        fun caption(caption: String) = caption(JsonField.of(caption))
-
-                        /**
-                         * Sets [Builder.caption] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.caption] with a well-typed [String]
-                         * value instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun caption(caption: JsonField<String>) = apply { this.caption = caption }
-
-                        /** file name with extension */
-                        fun filename(filename: String) = filename(JsonField.of(filename))
-
-                        /**
-                         * Sets [Builder.filename] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.filename] with a well-typed [String]
-                         * value instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun filename(filename: JsonField<String>) = apply {
-                            this.filename = filename
-                        }
-
-                        /** media URL */
-                        fun link(link: String) = link(JsonField.of(link))
-
-                        /**
-                         * Sets [Builder.link] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.link] with a well-typed [String] value
-                         * instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun link(link: JsonField<String>) = apply { this.link = link }
-
-                        /** true if voice message */
-                        fun voice(voice: Boolean) = voice(JsonField.of(voice))
-
-                        /**
-                         * Sets [Builder.voice] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.voice] with a well-typed [Boolean] value
-                         * instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun voice(voice: JsonField<Boolean>) = apply { this.voice = voice }
-
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                putAllAdditionalProperties(additionalProperties)
-                            }
-
-                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            additionalProperties.put(key, value)
-                        }
-
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                        fun removeAdditionalProperty(key: String) = apply {
-                            additionalProperties.remove(key)
-                        }
-
-                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                            keys.forEach(::removeAdditionalProperty)
-                        }
-
-                        /**
-                         * Returns an immutable instance of [Image].
-                         *
-                         * Further updates to this [Builder] will not mutate the returned instance.
-                         */
-                        fun build(): Image =
-                            Image(
-                                caption,
-                                filename,
-                                link,
-                                voice,
-                                additionalProperties.toMutableMap(),
-                            )
-                    }
-
-                    private var validated: Boolean = false
-
-                    fun validate(): Image = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        caption()
-                        filename()
-                        link()
-                        voice()
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: TelnyxInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    @JvmSynthetic
-                    internal fun validity(): Int =
-                        (if (caption.asKnown().isPresent) 1 else 0) +
-                            (if (filename.asKnown().isPresent) 1 else 0) +
-                            (if (link.asKnown().isPresent) 1 else 0) +
-                            (if (voice.asKnown().isPresent) 1 else 0)
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Image &&
-                            caption == other.caption &&
-                            filename == other.filename &&
-                            link == other.link &&
-                            voice == other.voice &&
-                            additionalProperties == other.additionalProperties
-                    }
-
-                    private val hashCode: Int by lazy {
-                        Objects.hash(caption, filename, link, voice, additionalProperties)
-                    }
-
-                    override fun hashCode(): Int = hashCode
-
-                    override fun toString() =
-                        "Image{caption=$caption, filename=$filename, link=$link, voice=$voice, additionalProperties=$additionalProperties}"
-                }
-
-                class Video
-                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-                private constructor(
-                    private val caption: JsonField<String>,
-                    private val filename: JsonField<String>,
-                    private val link: JsonField<String>,
-                    private val voice: JsonField<Boolean>,
-                    private val additionalProperties: MutableMap<String, JsonValue>,
-                ) {
-
-                    @JsonCreator
-                    private constructor(
-                        @JsonProperty("caption")
-                        @ExcludeMissing
-                        caption: JsonField<String> = JsonMissing.of(),
-                        @JsonProperty("filename")
-                        @ExcludeMissing
-                        filename: JsonField<String> = JsonMissing.of(),
-                        @JsonProperty("link")
-                        @ExcludeMissing
-                        link: JsonField<String> = JsonMissing.of(),
-                        @JsonProperty("voice")
-                        @ExcludeMissing
-                        voice: JsonField<Boolean> = JsonMissing.of(),
-                    ) : this(caption, filename, link, voice, mutableMapOf())
-
-                    /**
-                     * media caption
-                     *
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   (e.g. if the server responded with an unexpected value).
-                     */
-                    fun caption(): Optional<String> = caption.getOptional("caption")
-
-                    /**
-                     * file name with extension
-                     *
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   (e.g. if the server responded with an unexpected value).
-                     */
-                    fun filename(): Optional<String> = filename.getOptional("filename")
-
-                    /**
-                     * media URL
-                     *
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   (e.g. if the server responded with an unexpected value).
-                     */
-                    fun link(): Optional<String> = link.getOptional("link")
-
-                    /**
-                     * true if voice message
-                     *
-                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
-                     *   (e.g. if the server responded with an unexpected value).
-                     */
-                    fun voice(): Optional<Boolean> = voice.getOptional("voice")
-
-                    /**
-                     * Returns the raw JSON value of [caption].
-                     *
-                     * Unlike [caption], this method doesn't throw if the JSON field has an
-                     * unexpected type.
-                     */
-                    @JsonProperty("caption")
-                    @ExcludeMissing
-                    fun _caption(): JsonField<String> = caption
-
-                    /**
-                     * Returns the raw JSON value of [filename].
-                     *
-                     * Unlike [filename], this method doesn't throw if the JSON field has an
-                     * unexpected type.
-                     */
-                    @JsonProperty("filename")
-                    @ExcludeMissing
-                    fun _filename(): JsonField<String> = filename
-
-                    /**
-                     * Returns the raw JSON value of [link].
-                     *
-                     * Unlike [link], this method doesn't throw if the JSON field has an unexpected
-                     * type.
-                     */
-                    @JsonProperty("link") @ExcludeMissing fun _link(): JsonField<String> = link
-
-                    /**
-                     * Returns the raw JSON value of [voice].
-                     *
-                     * Unlike [voice], this method doesn't throw if the JSON field has an unexpected
-                     * type.
-                     */
-                    @JsonProperty("voice") @ExcludeMissing fun _voice(): JsonField<Boolean> = voice
-
-                    @JsonAnySetter
-                    private fun putAdditionalProperty(key: String, value: JsonValue) {
-                        additionalProperties.put(key, value)
-                    }
-
-                    @JsonAnyGetter
-                    @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> =
-                        Collections.unmodifiableMap(additionalProperties)
-
-                    fun toBuilder() = Builder().from(this)
-
-                    companion object {
-
-                        /** Returns a mutable builder for constructing an instance of [Video]. */
-                        @JvmStatic fun builder() = Builder()
-                    }
-
-                    /** A builder for [Video]. */
-                    class Builder internal constructor() {
-
-                        private var caption: JsonField<String> = JsonMissing.of()
-                        private var filename: JsonField<String> = JsonMissing.of()
-                        private var link: JsonField<String> = JsonMissing.of()
-                        private var voice: JsonField<Boolean> = JsonMissing.of()
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
-
-                        @JvmSynthetic
-                        internal fun from(video: Video) = apply {
-                            caption = video.caption
-                            filename = video.filename
-                            link = video.link
-                            voice = video.voice
-                            additionalProperties = video.additionalProperties.toMutableMap()
-                        }
-
-                        /** media caption */
-                        fun caption(caption: String) = caption(JsonField.of(caption))
-
-                        /**
-                         * Sets [Builder.caption] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.caption] with a well-typed [String]
-                         * value instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun caption(caption: JsonField<String>) = apply { this.caption = caption }
-
-                        /** file name with extension */
-                        fun filename(filename: String) = filename(JsonField.of(filename))
-
-                        /**
-                         * Sets [Builder.filename] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.filename] with a well-typed [String]
-                         * value instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun filename(filename: JsonField<String>) = apply {
-                            this.filename = filename
-                        }
-
-                        /** media URL */
-                        fun link(link: String) = link(JsonField.of(link))
-
-                        /**
-                         * Sets [Builder.link] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.link] with a well-typed [String] value
-                         * instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun link(link: JsonField<String>) = apply { this.link = link }
-
-                        /** true if voice message */
-                        fun voice(voice: Boolean) = voice(JsonField.of(voice))
-
-                        /**
-                         * Sets [Builder.voice] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.voice] with a well-typed [Boolean] value
-                         * instead. This method is primarily for setting the field to an
-                         * undocumented or not yet supported value.
-                         */
-                        fun voice(voice: JsonField<Boolean>) = apply { this.voice = voice }
-
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                putAllAdditionalProperties(additionalProperties)
-                            }
-
-                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            additionalProperties.put(key, value)
-                        }
-
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                        fun removeAdditionalProperty(key: String) = apply {
-                            additionalProperties.remove(key)
-                        }
-
-                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                            keys.forEach(::removeAdditionalProperty)
-                        }
-
-                        /**
-                         * Returns an immutable instance of [Video].
-                         *
-                         * Further updates to this [Builder] will not mutate the returned instance.
-                         */
-                        fun build(): Video =
-                            Video(
-                                caption,
-                                filename,
-                                link,
-                                voice,
-                                additionalProperties.toMutableMap(),
-                            )
-                    }
-
-                    private var validated: Boolean = false
-
-                    fun validate(): Video = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        caption()
-                        filename()
-                        link()
-                        voice()
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: TelnyxInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    @JvmSynthetic
-                    internal fun validity(): Int =
-                        (if (caption.asKnown().isPresent) 1 else 0) +
-                            (if (filename.asKnown().isPresent) 1 else 0) +
-                            (if (link.asKnown().isPresent) 1 else 0) +
-                            (if (voice.asKnown().isPresent) 1 else 0)
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Video &&
-                            caption == other.caption &&
-                            filename == other.filename &&
-                            link == other.link &&
-                            voice == other.voice &&
-                            additionalProperties == other.additionalProperties
-                    }
-
-                    private val hashCode: Int by lazy {
-                        Objects.hash(caption, filename, link, voice, additionalProperties)
-                    }
-
-                    override fun hashCode(): Int = hashCode
-
-                    override fun toString() =
-                        "Video{caption=$caption, filename=$filename, link=$link, voice=$voice, additionalProperties=$additionalProperties}"
-                }
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -9422,262 +7264,6 @@ private constructor(
                 "Reaction{emoji=$emoji, messageId=$messageId, additionalProperties=$additionalProperties}"
         }
 
-        class Sticker
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val caption: JsonField<String>,
-            private val filename: JsonField<String>,
-            private val link: JsonField<String>,
-            private val voice: JsonField<Boolean>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("caption")
-                @ExcludeMissing
-                caption: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("filename")
-                @ExcludeMissing
-                filename: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("link") @ExcludeMissing link: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("voice") @ExcludeMissing voice: JsonField<Boolean> = JsonMissing.of(),
-            ) : this(caption, filename, link, voice, mutableMapOf())
-
-            /**
-             * media caption
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun caption(): Optional<String> = caption.getOptional("caption")
-
-            /**
-             * file name with extension
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun filename(): Optional<String> = filename.getOptional("filename")
-
-            /**
-             * media URL
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun link(): Optional<String> = link.getOptional("link")
-
-            /**
-             * true if voice message
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun voice(): Optional<Boolean> = voice.getOptional("voice")
-
-            /**
-             * Returns the raw JSON value of [caption].
-             *
-             * Unlike [caption], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("caption") @ExcludeMissing fun _caption(): JsonField<String> = caption
-
-            /**
-             * Returns the raw JSON value of [filename].
-             *
-             * Unlike [filename], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("filename") @ExcludeMissing fun _filename(): JsonField<String> = filename
-
-            /**
-             * Returns the raw JSON value of [link].
-             *
-             * Unlike [link], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("link") @ExcludeMissing fun _link(): JsonField<String> = link
-
-            /**
-             * Returns the raw JSON value of [voice].
-             *
-             * Unlike [voice], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("voice") @ExcludeMissing fun _voice(): JsonField<Boolean> = voice
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Sticker]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Sticker]. */
-            class Builder internal constructor() {
-
-                private var caption: JsonField<String> = JsonMissing.of()
-                private var filename: JsonField<String> = JsonMissing.of()
-                private var link: JsonField<String> = JsonMissing.of()
-                private var voice: JsonField<Boolean> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(sticker: Sticker) = apply {
-                    caption = sticker.caption
-                    filename = sticker.filename
-                    link = sticker.link
-                    voice = sticker.voice
-                    additionalProperties = sticker.additionalProperties.toMutableMap()
-                }
-
-                /** media caption */
-                fun caption(caption: String) = caption(JsonField.of(caption))
-
-                /**
-                 * Sets [Builder.caption] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.caption] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun caption(caption: JsonField<String>) = apply { this.caption = caption }
-
-                /** file name with extension */
-                fun filename(filename: String) = filename(JsonField.of(filename))
-
-                /**
-                 * Sets [Builder.filename] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.filename] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun filename(filename: JsonField<String>) = apply { this.filename = filename }
-
-                /** media URL */
-                fun link(link: String) = link(JsonField.of(link))
-
-                /**
-                 * Sets [Builder.link] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.link] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun link(link: JsonField<String>) = apply { this.link = link }
-
-                /** true if voice message */
-                fun voice(voice: Boolean) = voice(JsonField.of(voice))
-
-                /**
-                 * Sets [Builder.voice] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.voice] with a well-typed [Boolean] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun voice(voice: JsonField<Boolean>) = apply { this.voice = voice }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Sticker].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Sticker =
-                    Sticker(caption, filename, link, voice, additionalProperties.toMutableMap())
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): Sticker = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                caption()
-                filename()
-                link()
-                voice()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (if (caption.asKnown().isPresent) 1 else 0) +
-                    (if (filename.asKnown().isPresent) 1 else 0) +
-                    (if (link.asKnown().isPresent) 1 else 0) +
-                    (if (voice.asKnown().isPresent) 1 else 0)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Sticker &&
-                    caption == other.caption &&
-                    filename == other.filename &&
-                    link == other.link &&
-                    voice == other.voice &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(caption, filename, link, voice, additionalProperties)
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Sticker{caption=$caption, filename=$filename, link=$link, voice=$voice, additionalProperties=$additionalProperties}"
-        }
-
         class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
@@ -9851,262 +7437,6 @@ private constructor(
             override fun hashCode() = value.hashCode()
 
             override fun toString() = value.toString()
-        }
-
-        class Video
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val caption: JsonField<String>,
-            private val filename: JsonField<String>,
-            private val link: JsonField<String>,
-            private val voice: JsonField<Boolean>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("caption")
-                @ExcludeMissing
-                caption: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("filename")
-                @ExcludeMissing
-                filename: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("link") @ExcludeMissing link: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("voice") @ExcludeMissing voice: JsonField<Boolean> = JsonMissing.of(),
-            ) : this(caption, filename, link, voice, mutableMapOf())
-
-            /**
-             * media caption
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun caption(): Optional<String> = caption.getOptional("caption")
-
-            /**
-             * file name with extension
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun filename(): Optional<String> = filename.getOptional("filename")
-
-            /**
-             * media URL
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun link(): Optional<String> = link.getOptional("link")
-
-            /**
-             * true if voice message
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun voice(): Optional<Boolean> = voice.getOptional("voice")
-
-            /**
-             * Returns the raw JSON value of [caption].
-             *
-             * Unlike [caption], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("caption") @ExcludeMissing fun _caption(): JsonField<String> = caption
-
-            /**
-             * Returns the raw JSON value of [filename].
-             *
-             * Unlike [filename], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("filename") @ExcludeMissing fun _filename(): JsonField<String> = filename
-
-            /**
-             * Returns the raw JSON value of [link].
-             *
-             * Unlike [link], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("link") @ExcludeMissing fun _link(): JsonField<String> = link
-
-            /**
-             * Returns the raw JSON value of [voice].
-             *
-             * Unlike [voice], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("voice") @ExcludeMissing fun _voice(): JsonField<Boolean> = voice
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Video]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Video]. */
-            class Builder internal constructor() {
-
-                private var caption: JsonField<String> = JsonMissing.of()
-                private var filename: JsonField<String> = JsonMissing.of()
-                private var link: JsonField<String> = JsonMissing.of()
-                private var voice: JsonField<Boolean> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(video: Video) = apply {
-                    caption = video.caption
-                    filename = video.filename
-                    link = video.link
-                    voice = video.voice
-                    additionalProperties = video.additionalProperties.toMutableMap()
-                }
-
-                /** media caption */
-                fun caption(caption: String) = caption(JsonField.of(caption))
-
-                /**
-                 * Sets [Builder.caption] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.caption] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun caption(caption: JsonField<String>) = apply { this.caption = caption }
-
-                /** file name with extension */
-                fun filename(filename: String) = filename(JsonField.of(filename))
-
-                /**
-                 * Sets [Builder.filename] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.filename] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun filename(filename: JsonField<String>) = apply { this.filename = filename }
-
-                /** media URL */
-                fun link(link: String) = link(JsonField.of(link))
-
-                /**
-                 * Sets [Builder.link] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.link] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun link(link: JsonField<String>) = apply { this.link = link }
-
-                /** true if voice message */
-                fun voice(voice: Boolean) = voice(JsonField.of(voice))
-
-                /**
-                 * Sets [Builder.voice] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.voice] with a well-typed [Boolean] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun voice(voice: JsonField<Boolean>) = apply { this.voice = voice }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Video].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Video =
-                    Video(caption, filename, link, voice, additionalProperties.toMutableMap())
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): Video = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                caption()
-                filename()
-                link()
-                voice()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (if (caption.asKnown().isPresent) 1 else 0) +
-                    (if (filename.asKnown().isPresent) 1 else 0) +
-                    (if (link.asKnown().isPresent) 1 else 0) +
-                    (if (voice.asKnown().isPresent) 1 else 0)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Video &&
-                    caption == other.caption &&
-                    filename == other.filename &&
-                    link == other.link &&
-                    voice == other.voice &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(caption, filename, link, voice, additionalProperties)
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Video{caption=$caption, filename=$filename, link=$link, voice=$voice, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
