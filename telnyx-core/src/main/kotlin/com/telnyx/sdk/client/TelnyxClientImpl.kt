@@ -256,6 +256,8 @@ import com.telnyx.sdk.services.blocking.SimCardService
 import com.telnyx.sdk.services.blocking.SimCardServiceImpl
 import com.telnyx.sdk.services.blocking.SiprecConnectorService
 import com.telnyx.sdk.services.blocking.SiprecConnectorServiceImpl
+import com.telnyx.sdk.services.blocking.SpeechToTextService
+import com.telnyx.sdk.services.blocking.SpeechToTextServiceImpl
 import com.telnyx.sdk.services.blocking.StorageService
 import com.telnyx.sdk.services.blocking.StorageServiceImpl
 import com.telnyx.sdk.services.blocking.SubNumberOrderService
@@ -860,6 +862,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         Messaging10dlcServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val speechToText: SpeechToTextService by lazy {
+        SpeechToTextServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1178,6 +1184,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun mobileVoiceConnections(): MobileVoiceConnectionService = mobileVoiceConnections
 
     override fun messaging10dlc(): Messaging10dlcService = messaging10dlc
+
+    override fun speechToText(): SpeechToTextService = speechToText
 
     override fun close() = clientOptions.close()
 
@@ -1794,6 +1802,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             Messaging10dlcServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val speechToText: SpeechToTextService.WithRawResponse by lazy {
+            SpeechToTextServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2160,5 +2172,7 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             mobileVoiceConnections
 
         override fun messaging10dlc(): Messaging10dlcService.WithRawResponse = messaging10dlc
+
+        override fun speechToText(): SpeechToTextService.WithRawResponse = speechToText
     }
 }

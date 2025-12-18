@@ -129,6 +129,7 @@ import com.telnyx.sdk.services.blocking.SimCardOrderPreviewService
 import com.telnyx.sdk.services.blocking.SimCardOrderService
 import com.telnyx.sdk.services.blocking.SimCardService
 import com.telnyx.sdk.services.blocking.SiprecConnectorService
+import com.telnyx.sdk.services.blocking.SpeechToTextService
 import com.telnyx.sdk.services.blocking.StorageService
 import com.telnyx.sdk.services.blocking.SubNumberOrderService
 import com.telnyx.sdk.services.blocking.SubNumberOrdersReportService
@@ -488,6 +489,8 @@ interface TelnyxClient {
 
     fun messaging10dlc(): Messaging10dlcService
 
+    fun speechToText(): SpeechToTextService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -809,5 +812,7 @@ interface TelnyxClient {
         fun mobileVoiceConnections(): MobileVoiceConnectionService.WithRawResponse
 
         fun messaging10dlc(): Messaging10dlcService.WithRawResponse
+
+        fun speechToText(): SpeechToTextService.WithRawResponse
     }
 }
