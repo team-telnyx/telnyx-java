@@ -23,6 +23,8 @@ import com.telnyx.sdk.services.async.texml.accounts.CallServiceAsync
 import com.telnyx.sdk.services.async.texml.accounts.CallServiceAsyncImpl
 import com.telnyx.sdk.services.async.texml.accounts.ConferenceServiceAsync
 import com.telnyx.sdk.services.async.texml.accounts.ConferenceServiceAsyncImpl
+import com.telnyx.sdk.services.async.texml.accounts.QueueServiceAsync
+import com.telnyx.sdk.services.async.texml.accounts.QueueServiceAsyncImpl
 import com.telnyx.sdk.services.async.texml.accounts.RecordingServiceAsync
 import com.telnyx.sdk.services.async.texml.accounts.RecordingServiceAsyncImpl
 import com.telnyx.sdk.services.async.texml.accounts.TranscriptionServiceAsync
@@ -52,6 +54,8 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
         TranscriptionServiceAsyncImpl(clientOptions)
     }
 
+    private val queues: QueueServiceAsync by lazy { QueueServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): AccountServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AccountServiceAsync =
@@ -64,6 +68,8 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun recordings(): RecordingServiceAsync = recordings
 
     override fun transcriptions(): TranscriptionServiceAsync = transcriptions
+
+    override fun queues(): QueueServiceAsync = queues
 
     override fun retrieveRecordingsJson(
         params: AccountRetrieveRecordingsJsonParams,
@@ -103,6 +109,10 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
             TranscriptionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val queues: QueueServiceAsync.WithRawResponse by lazy {
+            QueueServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AccountServiceAsync.WithRawResponse =
@@ -117,6 +127,8 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
         override fun recordings(): RecordingServiceAsync.WithRawResponse = recordings
 
         override fun transcriptions(): TranscriptionServiceAsync.WithRawResponse = transcriptions
+
+        override fun queues(): QueueServiceAsync.WithRawResponse = queues
 
         private val retrieveRecordingsJsonHandler: Handler<AccountRetrieveRecordingsJsonResponse> =
             jsonHandler<AccountRetrieveRecordingsJsonResponse>(clientOptions.jsonMapper)

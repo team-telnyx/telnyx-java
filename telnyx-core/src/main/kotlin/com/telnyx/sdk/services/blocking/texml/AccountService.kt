@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.texml.accounts.AccountRetrieveTranscriptionsJsonPar
 import com.telnyx.sdk.models.texml.accounts.AccountRetrieveTranscriptionsJsonResponse
 import com.telnyx.sdk.services.blocking.texml.accounts.CallService
 import com.telnyx.sdk.services.blocking.texml.accounts.ConferenceService
+import com.telnyx.sdk.services.blocking.texml.accounts.QueueService
 import com.telnyx.sdk.services.blocking.texml.accounts.RecordingService
 import com.telnyx.sdk.services.blocking.texml.accounts.TranscriptionService
 import java.util.function.Consumer
@@ -37,6 +38,8 @@ interface AccountService {
     fun recordings(): RecordingService
 
     fun transcriptions(): TranscriptionService
+
+    fun queues(): QueueService
 
     /** Returns multiple recording resources for an account. */
     fun retrieveRecordingsJson(accountSid: String): AccountRetrieveRecordingsJsonResponse =
@@ -143,6 +146,8 @@ interface AccountService {
         fun recordings(): RecordingService.WithRawResponse
 
         fun transcriptions(): TranscriptionService.WithRawResponse
+
+        fun queues(): QueueService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /texml/Accounts/{account_sid}/Recordings.json`, but
