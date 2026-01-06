@@ -50,6 +50,15 @@ internal class FqdnConnectionCreateParamsTest {
             )
             .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
             .microsoftTeamsSbc(true)
+            .noiseSuppression(FqdnConnectionCreateParams.NoiseSuppression.BOTH)
+            .noiseSuppressionDetails(
+                FqdnConnectionCreateParams.NoiseSuppressionDetails.builder()
+                    .attenuationLimit(80L)
+                    .engine(
+                        FqdnConnectionCreateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                    )
+                    .build()
+            )
             .onnetT38PassthroughEnabled(true)
             .outbound(
                 OutboundFqdn.builder()
@@ -128,6 +137,16 @@ internal class FqdnConnectionCreateParamsTest {
                 )
                 .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
                 .microsoftTeamsSbc(true)
+                .noiseSuppression(FqdnConnectionCreateParams.NoiseSuppression.BOTH)
+                .noiseSuppressionDetails(
+                    FqdnConnectionCreateParams.NoiseSuppressionDetails.builder()
+                        .attenuationLimit(80L)
+                        .engine(
+                            FqdnConnectionCreateParams.NoiseSuppressionDetails.Engine
+                                .DEEP_FILTER_NET
+                        )
+                        .build()
+                )
                 .onnetT38PassthroughEnabled(true)
                 .outbound(
                     OutboundFqdn.builder()
@@ -204,6 +223,17 @@ internal class FqdnConnectionCreateParamsTest {
             )
         assertThat(body.iosPushCredentialId()).contains("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
         assertThat(body.microsoftTeamsSbc()).contains(true)
+        assertThat(body.noiseSuppression())
+            .contains(FqdnConnectionCreateParams.NoiseSuppression.BOTH)
+        assertThat(body.noiseSuppressionDetails())
+            .contains(
+                FqdnConnectionCreateParams.NoiseSuppressionDetails.builder()
+                    .attenuationLimit(80L)
+                    .engine(
+                        FqdnConnectionCreateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                    )
+                    .build()
+            )
         assertThat(body.onnetT38PassthroughEnabled()).contains(true)
         assertThat(body.outbound())
             .contains(

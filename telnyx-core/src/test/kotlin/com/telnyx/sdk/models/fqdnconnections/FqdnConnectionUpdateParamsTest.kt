@@ -50,6 +50,15 @@ internal class FqdnConnectionUpdateParamsTest {
                     .build()
             )
             .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+            .noiseSuppression(FqdnConnectionUpdateParams.NoiseSuppression.BOTH)
+            .noiseSuppressionDetails(
+                FqdnConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                    .attenuationLimit(80L)
+                    .engine(
+                        FqdnConnectionUpdateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                    )
+                    .build()
+            )
             .onnetT38PassthroughEnabled(true)
             .outbound(
                 OutboundFqdn.builder()
@@ -137,6 +146,16 @@ internal class FqdnConnectionUpdateParamsTest {
                         .build()
                 )
                 .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                .noiseSuppression(FqdnConnectionUpdateParams.NoiseSuppression.BOTH)
+                .noiseSuppressionDetails(
+                    FqdnConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                        .attenuationLimit(80L)
+                        .engine(
+                            FqdnConnectionUpdateParams.NoiseSuppressionDetails.Engine
+                                .DEEP_FILTER_NET
+                        )
+                        .build()
+                )
                 .onnetT38PassthroughEnabled(true)
                 .outbound(
                     OutboundFqdn.builder()
@@ -212,6 +231,17 @@ internal class FqdnConnectionUpdateParamsTest {
                     .build()
             )
         assertThat(body.iosPushCredentialId()).contains("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+        assertThat(body.noiseSuppression())
+            .contains(FqdnConnectionUpdateParams.NoiseSuppression.BOTH)
+        assertThat(body.noiseSuppressionDetails())
+            .contains(
+                FqdnConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                    .attenuationLimit(80L)
+                    .engine(
+                        FqdnConnectionUpdateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                    )
+                    .build()
+            )
         assertThat(body.onnetT38PassthroughEnabled()).contains(true)
         assertThat(body.outbound())
             .contains(

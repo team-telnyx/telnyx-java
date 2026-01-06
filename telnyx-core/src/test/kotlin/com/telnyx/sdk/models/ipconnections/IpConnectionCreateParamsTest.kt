@@ -49,6 +49,13 @@ internal class IpConnectionCreateParamsTest {
                     .build()
             )
             .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+            .noiseSuppression(IpConnectionCreateParams.NoiseSuppression.BOTH)
+            .noiseSuppressionDetails(
+                IpConnectionCreateParams.NoiseSuppressionDetails.builder()
+                    .attenuationLimit(80L)
+                    .engine(IpConnectionCreateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                    .build()
+            )
             .onnetT38PassthroughEnabled(false)
             .outbound(
                 OutboundIp.builder()
@@ -125,6 +132,15 @@ internal class IpConnectionCreateParamsTest {
                         .build()
                 )
                 .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                .noiseSuppression(IpConnectionCreateParams.NoiseSuppression.BOTH)
+                .noiseSuppressionDetails(
+                    IpConnectionCreateParams.NoiseSuppressionDetails.builder()
+                        .attenuationLimit(80L)
+                        .engine(
+                            IpConnectionCreateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                        )
+                        .build()
+                )
                 .onnetT38PassthroughEnabled(false)
                 .outbound(
                     OutboundIp.builder()
@@ -195,6 +211,14 @@ internal class IpConnectionCreateParamsTest {
                     .build()
             )
         assertThat(body.iosPushCredentialId()).contains("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+        assertThat(body.noiseSuppression()).contains(IpConnectionCreateParams.NoiseSuppression.BOTH)
+        assertThat(body.noiseSuppressionDetails())
+            .contains(
+                IpConnectionCreateParams.NoiseSuppressionDetails.builder()
+                    .attenuationLimit(80L)
+                    .engine(IpConnectionCreateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                    .build()
+            )
         assertThat(body.onnetT38PassthroughEnabled()).contains(false)
         assertThat(body.outbound())
             .contains(

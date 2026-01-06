@@ -41,6 +41,16 @@ internal class CredentialConnectionDeleteResponseTest {
                                 .timeout2xxSecs(15L)
                                 .build()
                         )
+                        .noiseSuppression(CredentialConnection.NoiseSuppression.BOTH)
+                        .noiseSuppressionDetails(
+                            CredentialConnection.NoiseSuppressionDetails.builder()
+                                .attenuationLimit(80L)
+                                .engine(
+                                    CredentialConnection.NoiseSuppressionDetails.Engine
+                                        .DEEP_FILTER_NET
+                                )
+                                .build()
+                        )
                         .onnetT38PassthroughEnabled(true)
                         .outbound(
                             CredentialOutbound.builder()
@@ -106,6 +116,15 @@ internal class CredentialConnectionDeleteResponseTest {
                             .sipCompactHeadersEnabled(true)
                             .timeout1xxSecs(10L)
                             .timeout2xxSecs(15L)
+                            .build()
+                    )
+                    .noiseSuppression(CredentialConnection.NoiseSuppression.BOTH)
+                    .noiseSuppressionDetails(
+                        CredentialConnection.NoiseSuppressionDetails.builder()
+                            .attenuationLimit(80L)
+                            .engine(
+                                CredentialConnection.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                            )
                             .build()
                     )
                     .onnetT38PassthroughEnabled(true)
@@ -175,6 +194,16 @@ internal class CredentialConnectionDeleteResponseTest {
                                 .sipCompactHeadersEnabled(true)
                                 .timeout1xxSecs(10L)
                                 .timeout2xxSecs(15L)
+                                .build()
+                        )
+                        .noiseSuppression(CredentialConnection.NoiseSuppression.BOTH)
+                        .noiseSuppressionDetails(
+                            CredentialConnection.NoiseSuppressionDetails.builder()
+                                .attenuationLimit(80L)
+                                .engine(
+                                    CredentialConnection.NoiseSuppressionDetails.Engine
+                                        .DEEP_FILTER_NET
+                                )
                                 .build()
                         )
                         .onnetT38PassthroughEnabled(true)

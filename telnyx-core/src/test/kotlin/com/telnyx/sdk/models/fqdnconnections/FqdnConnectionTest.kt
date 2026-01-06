@@ -57,7 +57,13 @@ internal class FqdnConnectionTest {
                         .build()
                 )
                 .microsoftTeamsSbc(true)
-                .noiseSuppression(true)
+                .noiseSuppression(FqdnConnection.NoiseSuppression.BOTH)
+                .noiseSuppressionDetails(
+                    FqdnConnection.NoiseSuppressionDetails.builder()
+                        .attenuationLimit(80L)
+                        .engine(FqdnConnection.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                        .build()
+                )
                 .onnetT38PassthroughEnabled(true)
                 .outbound(
                     OutboundFqdn.builder()
@@ -146,7 +152,14 @@ internal class FqdnConnectionTest {
                     .build()
             )
         assertThat(fqdnConnection.microsoftTeamsSbc()).contains(true)
-        assertThat(fqdnConnection.noiseSuppression()).contains(true)
+        assertThat(fqdnConnection.noiseSuppression()).contains(FqdnConnection.NoiseSuppression.BOTH)
+        assertThat(fqdnConnection.noiseSuppressionDetails())
+            .contains(
+                FqdnConnection.NoiseSuppressionDetails.builder()
+                    .attenuationLimit(80L)
+                    .engine(FqdnConnection.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                    .build()
+            )
         assertThat(fqdnConnection.onnetT38PassthroughEnabled()).contains(true)
         assertThat(fqdnConnection.outbound())
             .contains(
@@ -241,7 +254,13 @@ internal class FqdnConnectionTest {
                         .build()
                 )
                 .microsoftTeamsSbc(true)
-                .noiseSuppression(true)
+                .noiseSuppression(FqdnConnection.NoiseSuppression.BOTH)
+                .noiseSuppressionDetails(
+                    FqdnConnection.NoiseSuppressionDetails.builder()
+                        .attenuationLimit(80L)
+                        .engine(FqdnConnection.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                        .build()
+                )
                 .onnetT38PassthroughEnabled(true)
                 .outbound(
                     OutboundFqdn.builder()

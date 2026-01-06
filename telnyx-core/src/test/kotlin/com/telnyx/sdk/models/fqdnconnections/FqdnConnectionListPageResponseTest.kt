@@ -60,7 +60,15 @@ internal class FqdnConnectionListPageResponseTest {
                                 .build()
                         )
                         .microsoftTeamsSbc(true)
-                        .noiseSuppression(true)
+                        .noiseSuppression(FqdnConnection.NoiseSuppression.BOTH)
+                        .noiseSuppressionDetails(
+                            FqdnConnection.NoiseSuppressionDetails.builder()
+                                .attenuationLimit(80L)
+                                .engine(
+                                    FqdnConnection.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                                )
+                                .build()
+                        )
                         .onnetT38PassthroughEnabled(true)
                         .outbound(
                             OutboundFqdn.builder()
@@ -161,7 +169,13 @@ internal class FqdnConnectionListPageResponseTest {
                             .build()
                     )
                     .microsoftTeamsSbc(true)
-                    .noiseSuppression(true)
+                    .noiseSuppression(FqdnConnection.NoiseSuppression.BOTH)
+                    .noiseSuppressionDetails(
+                        FqdnConnection.NoiseSuppressionDetails.builder()
+                            .attenuationLimit(80L)
+                            .engine(FqdnConnection.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                            .build()
+                    )
                     .onnetT38PassthroughEnabled(true)
                     .outbound(
                         OutboundFqdn.builder()
@@ -267,7 +281,15 @@ internal class FqdnConnectionListPageResponseTest {
                                 .build()
                         )
                         .microsoftTeamsSbc(true)
-                        .noiseSuppression(true)
+                        .noiseSuppression(FqdnConnection.NoiseSuppression.BOTH)
+                        .noiseSuppressionDetails(
+                            FqdnConnection.NoiseSuppressionDetails.builder()
+                                .attenuationLimit(80L)
+                                .engine(
+                                    FqdnConnection.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                                )
+                                .build()
+                        )
                         .onnetT38PassthroughEnabled(true)
                         .outbound(
                             OutboundFqdn.builder()
