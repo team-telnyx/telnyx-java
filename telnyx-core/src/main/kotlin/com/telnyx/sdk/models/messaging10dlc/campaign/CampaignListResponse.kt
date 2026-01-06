@@ -604,8 +604,8 @@ private constructor(
     fun subscriberOptout(): Optional<Boolean> = subscriberOptout.getOptional("subscriberOptout")
 
     /**
-     * Campaign sub-usecases. Must be of defined valid sub-usecase types. Use
-     * `/registry/enum/usecase` operation to retrieve list of valid sub-usecases
+     * Campaign sub-usecases. Must be of defined valid sub-usecase types. Use `/10dlc/enum/usecase`
+     * operation to retrieve list of valid sub-usecases
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -647,7 +647,7 @@ private constructor(
         termsAndConditionsLink.getOptional("termsAndConditionsLink")
 
     /**
-     * Campaign usecase. Must be of defined valid types. Use `/registry/enum/usecase` operation to
+     * Campaign usecase. Must be of defined valid types. Use `/10dlc/enum/usecase` operation to
      * retrieve usecases available for given brand.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1807,7 +1807,7 @@ private constructor(
 
         /**
          * Campaign sub-usecases. Must be of defined valid sub-usecase types. Use
-         * `/registry/enum/usecase` operation to retrieve list of valid sub-usecases
+         * `/10dlc/enum/usecase` operation to retrieve list of valid sub-usecases
          */
         fun subUsecases(subUsecases: List<String>) = subUsecases(JsonField.of(subUsecases))
 
@@ -1891,8 +1891,8 @@ private constructor(
         }
 
         /**
-         * Campaign usecase. Must be of defined valid types. Use `/registry/enum/usecase` operation
-         * to retrieve usecases available for given brand.
+         * Campaign usecase. Must be of defined valid types. Use `/10dlc/enum/usecase` operation to
+         * retrieve usecases available for given brand.
          */
         fun usecase(usecase: String) = usecase(JsonField.of(usecase))
 

@@ -66,7 +66,7 @@ private constructor(
     fun campaignId(): String = campaignId.getRequired("campaignId")
 
     /**
-     * Campaign usecase. Must be of defined valid types. Use `/registry/enum/usecase` operation to
+     * Campaign usecase. Must be of defined valid types. Use `/10dlc/enum/usecase` operation to
      * retrieve usecases available for given brand.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -204,8 +204,8 @@ private constructor(
         fun campaignId(campaignId: JsonField<String>) = apply { this.campaignId = campaignId }
 
         /**
-         * Campaign usecase. Must be of defined valid types. Use `/registry/enum/usecase` operation
-         * to retrieve usecases available for given brand.
+         * Campaign usecase. Must be of defined valid types. Use `/10dlc/enum/usecase` operation to
+         * retrieve usecases available for given brand.
          */
         fun usecase(usecase: String) = usecase(JsonField.of(usecase))
 
