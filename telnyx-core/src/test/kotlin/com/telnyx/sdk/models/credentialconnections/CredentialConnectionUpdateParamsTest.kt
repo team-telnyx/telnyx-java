@@ -38,6 +38,16 @@ internal class CredentialConnectionUpdateParamsTest {
                     .build()
             )
             .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+            .noiseSuppression(CredentialConnectionUpdateParams.NoiseSuppression.BOTH)
+            .noiseSuppressionDetails(
+                CredentialConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                    .attenuationLimit(80L)
+                    .engine(
+                        CredentialConnectionUpdateParams.NoiseSuppressionDetails.Engine
+                            .DEEP_FILTER_NET
+                    )
+                    .build()
+            )
             .onnetT38PassthroughEnabled(true)
             .outbound(
                 CredentialOutbound.builder()
@@ -113,6 +123,16 @@ internal class CredentialConnectionUpdateParamsTest {
                         .build()
                 )
                 .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                .noiseSuppression(CredentialConnectionUpdateParams.NoiseSuppression.BOTH)
+                .noiseSuppressionDetails(
+                    CredentialConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                        .attenuationLimit(80L)
+                        .engine(
+                            CredentialConnectionUpdateParams.NoiseSuppressionDetails.Engine
+                                .DEEP_FILTER_NET
+                        )
+                        .build()
+                )
                 .onnetT38PassthroughEnabled(true)
                 .outbound(
                     CredentialOutbound.builder()
@@ -176,6 +196,18 @@ internal class CredentialConnectionUpdateParamsTest {
                     .build()
             )
         assertThat(body.iosPushCredentialId()).contains("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+        assertThat(body.noiseSuppression())
+            .contains(CredentialConnectionUpdateParams.NoiseSuppression.BOTH)
+        assertThat(body.noiseSuppressionDetails())
+            .contains(
+                CredentialConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                    .attenuationLimit(80L)
+                    .engine(
+                        CredentialConnectionUpdateParams.NoiseSuppressionDetails.Engine
+                            .DEEP_FILTER_NET
+                    )
+                    .build()
+            )
         assertThat(body.onnetT38PassthroughEnabled()).contains(true)
         assertThat(body.outbound())
             .contains(

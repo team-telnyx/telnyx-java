@@ -60,6 +60,16 @@ internal class CredentialConnectionServiceAsyncTest {
                             .build()
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                    .noiseSuppression(CredentialConnectionCreateParams.NoiseSuppression.BOTH)
+                    .noiseSuppressionDetails(
+                        CredentialConnectionCreateParams.NoiseSuppressionDetails.builder()
+                            .attenuationLimit(80L)
+                            .engine(
+                                CredentialConnectionCreateParams.NoiseSuppressionDetails.Engine
+                                    .DEEP_FILTER_NET
+                            )
+                            .build()
+                    )
                     .onnetT38PassthroughEnabled(true)
                     .outbound(
                         CredentialOutbound.builder()
@@ -153,6 +163,16 @@ internal class CredentialConnectionServiceAsyncTest {
                             .build()
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                    .noiseSuppression(CredentialConnectionUpdateParams.NoiseSuppression.BOTH)
+                    .noiseSuppressionDetails(
+                        CredentialConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                            .attenuationLimit(80L)
+                            .engine(
+                                CredentialConnectionUpdateParams.NoiseSuppressionDetails.Engine
+                                    .DEEP_FILTER_NET
+                            )
+                            .build()
+                    )
                     .onnetT38PassthroughEnabled(true)
                     .outbound(
                         CredentialOutbound.builder()

@@ -70,6 +70,16 @@ internal class IpConnectionServiceTest {
                             .build()
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                    .noiseSuppression(IpConnectionCreateParams.NoiseSuppression.BOTH)
+                    .noiseSuppressionDetails(
+                        IpConnectionCreateParams.NoiseSuppressionDetails.builder()
+                            .attenuationLimit(80L)
+                            .engine(
+                                IpConnectionCreateParams.NoiseSuppressionDetails.Engine
+                                    .DEEP_FILTER_NET
+                            )
+                            .build()
+                    )
                     .onnetT38PassthroughEnabled(false)
                     .outbound(
                         OutboundIp.builder()
@@ -170,6 +180,16 @@ internal class IpConnectionServiceTest {
                             .build()
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                    .noiseSuppression(IpConnectionUpdateParams.NoiseSuppression.BOTH)
+                    .noiseSuppressionDetails(
+                        IpConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                            .attenuationLimit(80L)
+                            .engine(
+                                IpConnectionUpdateParams.NoiseSuppressionDetails.Engine
+                                    .DEEP_FILTER_NET
+                            )
+                            .build()
+                    )
                     .onnetT38PassthroughEnabled(false)
                     .outbound(
                         OutboundIp.builder()
