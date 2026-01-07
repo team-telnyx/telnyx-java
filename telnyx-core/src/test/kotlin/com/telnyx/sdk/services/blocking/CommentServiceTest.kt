@@ -4,9 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.comments.CommentCreateParams
 import com.telnyx.sdk.models.comments.CommentListParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -24,20 +22,7 @@ internal class CommentServiceTest {
                 .build()
         val commentService = client.comments()
 
-        val comment =
-            commentService.create(
-                CommentCreateParams.builder()
-                    .id("12ade33a-21c0-473b-b055-b3c836e1c292")
-                    .commentBody("Hi there, ....")
-                    .commentRecordId("8ffb3622-7c6b-4ccc-b65f-7a3dc0099576")
-                    .commentRecordType(CommentCreateParams.CommentRecordType.SUB_NUMBER_ORDER)
-                    .commenter("user@company.com")
-                    .commenterType(CommentCreateParams.CommenterType.USER)
-                    .createdAt(OffsetDateTime.parse("2018-01-01T00:00:00.000000Z"))
-                    .readAt(OffsetDateTime.parse("2018-01-01T00:00:00.000000Z"))
-                    .updatedAt(OffsetDateTime.parse("2018-01-01T00:00:00.000000Z"))
-                    .build()
-            )
+        val comment = commentService.create()
 
         comment.validate()
     }
