@@ -882,6 +882,21 @@ private constructor(
         fun addSendDtmfTool(sendDtmf: AssistantTool.DtmfTool.SendDtmf) =
             addTool(AssistantTool.DtmfTool.builder().sendDtmf(sendDtmf).build())
 
+        /** Alias for calling [addTool] with `AssistantTool.ofSendMessage(sendMessage)`. */
+        fun addTool(sendMessage: AssistantTool.SendMessage) =
+            addTool(AssistantTool.ofSendMessage(sendMessage))
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * AssistantTool.SendMessage.builder()
+         *     .sendMessage(sendMessage)
+         *     .build()
+         * ```
+         */
+        fun addSendMessageTool(sendMessage: AssistantTool.SendMessage.InnerSendMessage) =
+            addTool(AssistantTool.SendMessage.builder().sendMessage(sendMessage).build())
+
         fun transcription(transcription: TranscriptionSettings) =
             transcription(JsonField.of(transcription))
 

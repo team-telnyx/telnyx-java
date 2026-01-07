@@ -67,7 +67,15 @@ internal class AssistantServiceTest {
                     .telephonySettings(
                         TelephonySettings.builder()
                             .defaultTexmlAppId("default_texml_app_id")
+                            .noiseSuppression(TelephonySettings.NoiseSuppression.DEEPFILTERNET)
+                            .noiseSuppressionConfig(
+                                TelephonySettings.NoiseSuppressionConfig.builder()
+                                    .attenuationLimit(0L)
+                                    .mode(TelephonySettings.NoiseSuppressionConfig.Mode.ADVANCED)
+                                    .build()
+                            )
                             .supportsUnauthenticatedWebCalls(true)
+                            .timeLimitSecs(30L)
                             .build()
                     )
                     .addWebhookTool(
@@ -144,6 +152,7 @@ internal class AssistantServiceTest {
                             .region("region")
                             .settings(
                                 TranscriptionSettingsConfig.builder()
+                                    .eagerEotThreshold(0.3)
                                     .eotThreshold(0.0)
                                     .eotTimeoutMs(0L)
                                     .numerals(true)
@@ -160,6 +169,11 @@ internal class AssistantServiceTest {
                                 VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
                                     .SILENCE
                             )
+                            .similarityBoost(0.0)
+                            .speed(0.0)
+                            .style(0.0)
+                            .temperature(0.0)
+                            .useSpeakerBoost(true)
                             .voiceSpeed(0.0)
                             .build()
                     )
@@ -233,7 +247,15 @@ internal class AssistantServiceTest {
                     .telephonySettings(
                         TelephonySettings.builder()
                             .defaultTexmlAppId("default_texml_app_id")
+                            .noiseSuppression(TelephonySettings.NoiseSuppression.DEEPFILTERNET)
+                            .noiseSuppressionConfig(
+                                TelephonySettings.NoiseSuppressionConfig.builder()
+                                    .attenuationLimit(0L)
+                                    .mode(TelephonySettings.NoiseSuppressionConfig.Mode.ADVANCED)
+                                    .build()
+                            )
                             .supportsUnauthenticatedWebCalls(true)
+                            .timeLimitSecs(30L)
                             .build()
                     )
                     .addWebhookTool(
@@ -310,6 +332,7 @@ internal class AssistantServiceTest {
                             .region("region")
                             .settings(
                                 TranscriptionSettingsConfig.builder()
+                                    .eagerEotThreshold(0.3)
                                     .eotThreshold(0.0)
                                     .eotTimeoutMs(0L)
                                     .numerals(true)
@@ -326,6 +349,11 @@ internal class AssistantServiceTest {
                                 VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
                                     .SILENCE
                             )
+                            .similarityBoost(0.0)
+                            .speed(0.0)
+                            .style(0.0)
+                            .temperature(0.0)
+                            .useSpeakerBoost(true)
                             .voiceSpeed(0.0)
                             .build()
                     )

@@ -34,6 +34,11 @@ private constructor(
     private val voice: JsonField<String>,
     private val apiKeyRef: JsonField<String>,
     private val backgroundAudio: JsonField<BackgroundAudio>,
+    private val similarityBoost: JsonField<Double>,
+    private val speed: JsonField<Double>,
+    private val style: JsonField<Double>,
+    private val temperature: JsonField<Double>,
+    private val useSpeakerBoost: JsonField<Boolean>,
     private val voiceSpeed: JsonField<Double>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -47,10 +52,32 @@ private constructor(
         @JsonProperty("background_audio")
         @ExcludeMissing
         backgroundAudio: JsonField<BackgroundAudio> = JsonMissing.of(),
+        @JsonProperty("similarity_boost")
+        @ExcludeMissing
+        similarityBoost: JsonField<Double> = JsonMissing.of(),
+        @JsonProperty("speed") @ExcludeMissing speed: JsonField<Double> = JsonMissing.of(),
+        @JsonProperty("style") @ExcludeMissing style: JsonField<Double> = JsonMissing.of(),
+        @JsonProperty("temperature")
+        @ExcludeMissing
+        temperature: JsonField<Double> = JsonMissing.of(),
+        @JsonProperty("use_speaker_boost")
+        @ExcludeMissing
+        useSpeakerBoost: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("voice_speed")
         @ExcludeMissing
         voiceSpeed: JsonField<Double> = JsonMissing.of(),
-    ) : this(voice, apiKeyRef, backgroundAudio, voiceSpeed, mutableMapOf())
+    ) : this(
+        voice,
+        apiKeyRef,
+        backgroundAudio,
+        similarityBoost,
+        speed,
+        style,
+        temperature,
+        useSpeakerBoost,
+        voiceSpeed,
+        mutableMapOf(),
+    )
 
     /**
      * The voice to be used by the voice assistant. Check the full list of
@@ -88,6 +115,52 @@ private constructor(
         backgroundAudio.getOptional("background_audio")
 
     /**
+     * Determines how closely the AI should adhere to the original voice when attempting to
+     * replicate it. Only applicable when using ElevenLabs.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun similarityBoost(): Optional<Double> = similarityBoost.getOptional("similarity_boost")
+
+    /**
+     * Adjusts speech velocity. 1.0 is default speed; values less than 1.0 slow speech; values
+     * greater than 1.0 accelerate it. Only applicable when using ElevenLabs.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun speed(): Optional<Double> = speed.getOptional("speed")
+
+    /**
+     * Determines the style exaggeration of the voice. Amplifies speaker style but consumes
+     * additional resources when set above 0. Only applicable when using ElevenLabs.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun style(): Optional<Double> = style.getOptional("style")
+
+    /**
+     * Determines how stable the voice is and the randomness between each generation. Lower values
+     * create a broader emotional range; higher values produce more consistent, monotonous output.
+     * Only applicable when using ElevenLabs.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun temperature(): Optional<Double> = temperature.getOptional("temperature")
+
+    /**
+     * Amplifies similarity to the original speaker voice. Increases computational load and latency
+     * slightly. Only applicable when using ElevenLabs.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun useSpeakerBoost(): Optional<Boolean> = useSpeakerBoost.getOptional("use_speaker_boost")
+
+    /**
      * The speed of the voice in the range [0.25, 2.0]. 1.0 is deafult speed. Larger numbers make
      * the voice faster, smaller numbers make it slower. This is only applicable for Telnyx Natural
      * voices.
@@ -119,6 +192,45 @@ private constructor(
     @JsonProperty("background_audio")
     @ExcludeMissing
     fun _backgroundAudio(): JsonField<BackgroundAudio> = backgroundAudio
+
+    /**
+     * Returns the raw JSON value of [similarityBoost].
+     *
+     * Unlike [similarityBoost], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("similarity_boost")
+    @ExcludeMissing
+    fun _similarityBoost(): JsonField<Double> = similarityBoost
+
+    /**
+     * Returns the raw JSON value of [speed].
+     *
+     * Unlike [speed], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("speed") @ExcludeMissing fun _speed(): JsonField<Double> = speed
+
+    /**
+     * Returns the raw JSON value of [style].
+     *
+     * Unlike [style], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("style") @ExcludeMissing fun _style(): JsonField<Double> = style
+
+    /**
+     * Returns the raw JSON value of [temperature].
+     *
+     * Unlike [temperature], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("temperature") @ExcludeMissing fun _temperature(): JsonField<Double> = temperature
+
+    /**
+     * Returns the raw JSON value of [useSpeakerBoost].
+     *
+     * Unlike [useSpeakerBoost], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("use_speaker_boost")
+    @ExcludeMissing
+    fun _useSpeakerBoost(): JsonField<Boolean> = useSpeakerBoost
 
     /**
      * Returns the raw JSON value of [voiceSpeed].
@@ -158,6 +270,11 @@ private constructor(
         private var voice: JsonField<String>? = null
         private var apiKeyRef: JsonField<String> = JsonMissing.of()
         private var backgroundAudio: JsonField<BackgroundAudio> = JsonMissing.of()
+        private var similarityBoost: JsonField<Double> = JsonMissing.of()
+        private var speed: JsonField<Double> = JsonMissing.of()
+        private var style: JsonField<Double> = JsonMissing.of()
+        private var temperature: JsonField<Double> = JsonMissing.of()
+        private var useSpeakerBoost: JsonField<Boolean> = JsonMissing.of()
         private var voiceSpeed: JsonField<Double> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -166,6 +283,11 @@ private constructor(
             voice = voiceSettings.voice
             apiKeyRef = voiceSettings.apiKeyRef
             backgroundAudio = voiceSettings.backgroundAudio
+            similarityBoost = voiceSettings.similarityBoost
+            speed = voiceSettings.speed
+            style = voiceSettings.style
+            temperature = voiceSettings.temperature
+            useSpeakerBoost = voiceSettings.useSpeakerBoost
             voiceSpeed = voiceSettings.voiceSpeed
             additionalProperties = voiceSettings.additionalProperties.toMutableMap()
         }
@@ -275,6 +397,86 @@ private constructor(
             backgroundAudio(BackgroundAudio.MediaName.builder().value(value).build())
 
         /**
+         * Determines how closely the AI should adhere to the original voice when attempting to
+         * replicate it. Only applicable when using ElevenLabs.
+         */
+        fun similarityBoost(similarityBoost: Double) =
+            similarityBoost(JsonField.of(similarityBoost))
+
+        /**
+         * Sets [Builder.similarityBoost] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.similarityBoost] with a well-typed [Double] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun similarityBoost(similarityBoost: JsonField<Double>) = apply {
+            this.similarityBoost = similarityBoost
+        }
+
+        /**
+         * Adjusts speech velocity. 1.0 is default speed; values less than 1.0 slow speech; values
+         * greater than 1.0 accelerate it. Only applicable when using ElevenLabs.
+         */
+        fun speed(speed: Double) = speed(JsonField.of(speed))
+
+        /**
+         * Sets [Builder.speed] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.speed] with a well-typed [Double] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun speed(speed: JsonField<Double>) = apply { this.speed = speed }
+
+        /**
+         * Determines the style exaggeration of the voice. Amplifies speaker style but consumes
+         * additional resources when set above 0. Only applicable when using ElevenLabs.
+         */
+        fun style(style: Double) = style(JsonField.of(style))
+
+        /**
+         * Sets [Builder.style] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.style] with a well-typed [Double] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun style(style: JsonField<Double>) = apply { this.style = style }
+
+        /**
+         * Determines how stable the voice is and the randomness between each generation. Lower
+         * values create a broader emotional range; higher values produce more consistent,
+         * monotonous output. Only applicable when using ElevenLabs.
+         */
+        fun temperature(temperature: Double) = temperature(JsonField.of(temperature))
+
+        /**
+         * Sets [Builder.temperature] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.temperature] with a well-typed [Double] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun temperature(temperature: JsonField<Double>) = apply { this.temperature = temperature }
+
+        /**
+         * Amplifies similarity to the original speaker voice. Increases computational load and
+         * latency slightly. Only applicable when using ElevenLabs.
+         */
+        fun useSpeakerBoost(useSpeakerBoost: Boolean) =
+            useSpeakerBoost(JsonField.of(useSpeakerBoost))
+
+        /**
+         * Sets [Builder.useSpeakerBoost] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.useSpeakerBoost] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun useSpeakerBoost(useSpeakerBoost: JsonField<Boolean>) = apply {
+            this.useSpeakerBoost = useSpeakerBoost
+        }
+
+        /**
          * The speed of the voice in the range [0.25, 2.0]. 1.0 is deafult speed. Larger numbers
          * make the voice faster, smaller numbers make it slower. This is only applicable for Telnyx
          * Natural voices.
@@ -326,6 +528,11 @@ private constructor(
                 checkRequired("voice", voice),
                 apiKeyRef,
                 backgroundAudio,
+                similarityBoost,
+                speed,
+                style,
+                temperature,
+                useSpeakerBoost,
                 voiceSpeed,
                 additionalProperties.toMutableMap(),
             )
@@ -341,6 +548,11 @@ private constructor(
         voice()
         apiKeyRef()
         backgroundAudio().ifPresent { it.validate() }
+        similarityBoost()
+        speed()
+        style()
+        temperature()
+        useSpeakerBoost()
         voiceSpeed()
         validated = true
     }
@@ -363,6 +575,11 @@ private constructor(
         (if (voice.asKnown().isPresent) 1 else 0) +
             (if (apiKeyRef.asKnown().isPresent) 1 else 0) +
             (backgroundAudio.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (similarityBoost.asKnown().isPresent) 1 else 0) +
+            (if (speed.asKnown().isPresent) 1 else 0) +
+            (if (style.asKnown().isPresent) 1 else 0) +
+            (if (temperature.asKnown().isPresent) 1 else 0) +
+            (if (useSpeakerBoost.asKnown().isPresent) 1 else 0) +
             (if (voiceSpeed.asKnown().isPresent) 1 else 0)
 
     /**
@@ -1335,16 +1552,32 @@ private constructor(
             voice == other.voice &&
             apiKeyRef == other.apiKeyRef &&
             backgroundAudio == other.backgroundAudio &&
+            similarityBoost == other.similarityBoost &&
+            speed == other.speed &&
+            style == other.style &&
+            temperature == other.temperature &&
+            useSpeakerBoost == other.useSpeakerBoost &&
             voiceSpeed == other.voiceSpeed &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(voice, apiKeyRef, backgroundAudio, voiceSpeed, additionalProperties)
+        Objects.hash(
+            voice,
+            apiKeyRef,
+            backgroundAudio,
+            similarityBoost,
+            speed,
+            style,
+            temperature,
+            useSpeakerBoost,
+            voiceSpeed,
+            additionalProperties,
+        )
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "VoiceSettings{voice=$voice, apiKeyRef=$apiKeyRef, backgroundAudio=$backgroundAudio, voiceSpeed=$voiceSpeed, additionalProperties=$additionalProperties}"
+        "VoiceSettings{voice=$voice, apiKeyRef=$apiKeyRef, backgroundAudio=$backgroundAudio, similarityBoost=$similarityBoost, speed=$speed, style=$style, temperature=$temperature, useSpeakerBoost=$useSpeakerBoost, voiceSpeed=$voiceSpeed, additionalProperties=$additionalProperties}"
 }

@@ -658,6 +658,21 @@ private constructor(
             body.addSendDtmfTool(sendDtmf)
         }
 
+        /** Alias for calling [addTool] with `AssistantTool.ofSendMessage(sendMessage)`. */
+        fun addTool(sendMessage: AssistantTool.SendMessage) = apply { body.addTool(sendMessage) }
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * AssistantTool.SendMessage.builder()
+         *     .sendMessage(sendMessage)
+         *     .build()
+         * ```
+         */
+        fun addSendMessageTool(sendMessage: AssistantTool.SendMessage.InnerSendMessage) = apply {
+            body.addSendMessageTool(sendMessage)
+        }
+
         fun transcription(transcription: TranscriptionSettings) = apply {
             body.transcription(transcription)
         }
@@ -1621,6 +1636,21 @@ private constructor(
              */
             fun addSendDtmfTool(sendDtmf: AssistantTool.DtmfTool.SendDtmf) =
                 addTool(AssistantTool.DtmfTool.builder().sendDtmf(sendDtmf).build())
+
+            /** Alias for calling [addTool] with `AssistantTool.ofSendMessage(sendMessage)`. */
+            fun addTool(sendMessage: AssistantTool.SendMessage) =
+                addTool(AssistantTool.ofSendMessage(sendMessage))
+
+            /**
+             * Alias for calling [addTool] with the following:
+             * ```java
+             * AssistantTool.SendMessage.builder()
+             *     .sendMessage(sendMessage)
+             *     .build()
+             * ```
+             */
+            fun addSendMessageTool(sendMessage: AssistantTool.SendMessage.InnerSendMessage) =
+                addTool(AssistantTool.SendMessage.builder().sendMessage(sendMessage).build())
 
             fun transcription(transcription: TranscriptionSettings) =
                 transcription(JsonField.of(transcription))
