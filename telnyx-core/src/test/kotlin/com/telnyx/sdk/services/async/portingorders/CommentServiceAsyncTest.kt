@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async.portingorders
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.portingorders.comments.CommentCreateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -22,13 +21,7 @@ internal class CommentServiceAsyncTest {
                 .build()
         val commentServiceAsync = client.portingOrders().comments()
 
-        val commentFuture =
-            commentServiceAsync.create(
-                CommentCreateParams.builder()
-                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .commentBody("Please, let me know when the port completes")
-                    .build()
-            )
+        val commentFuture = commentServiceAsync.create("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
         val comment = commentFuture.get()
         comment.validate()

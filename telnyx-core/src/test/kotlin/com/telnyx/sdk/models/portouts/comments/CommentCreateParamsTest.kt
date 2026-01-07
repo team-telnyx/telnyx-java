@@ -9,10 +9,7 @@ internal class CommentCreateParamsTest {
 
     @Test
     fun create() {
-        CommentCreateParams.builder()
-            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .commentBody("body")
-            .build()
+        CommentCreateParams.builder().id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e").build()
     }
 
     @Test
@@ -23,26 +20,5 @@ internal class CommentCreateParamsTest {
         assertThat(params._pathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
-    }
-
-    @Test
-    fun body() {
-        val params =
-            CommentCreateParams.builder()
-                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .commentBody("body")
-                .build()
-
-        val body = params._body()
-
-        assertThat(body.commentBody()).contains("body")
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            CommentCreateParams.builder().id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e").build()
-
-        val body = params._body()
     }
 }
