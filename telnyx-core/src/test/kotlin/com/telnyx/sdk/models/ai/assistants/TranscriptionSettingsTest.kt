@@ -18,6 +18,7 @@ internal class TranscriptionSettingsTest {
                 .region("region")
                 .settings(
                     TranscriptionSettingsConfig.builder()
+                        .eagerEotThreshold(0.3)
                         .eotThreshold(0.0)
                         .eotTimeoutMs(0L)
                         .numerals(true)
@@ -33,6 +34,7 @@ internal class TranscriptionSettingsTest {
         assertThat(transcriptionSettings.settings())
             .contains(
                 TranscriptionSettingsConfig.builder()
+                    .eagerEotThreshold(0.3)
                     .eotThreshold(0.0)
                     .eotTimeoutMs(0L)
                     .numerals(true)
@@ -51,6 +53,7 @@ internal class TranscriptionSettingsTest {
                 .region("region")
                 .settings(
                     TranscriptionSettingsConfig.builder()
+                        .eagerEotThreshold(0.3)
                         .eotThreshold(0.0)
                         .eotTimeoutMs(0L)
                         .numerals(true)

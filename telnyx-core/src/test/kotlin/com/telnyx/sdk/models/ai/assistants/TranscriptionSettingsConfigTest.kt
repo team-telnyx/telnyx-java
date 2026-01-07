@@ -13,12 +13,14 @@ internal class TranscriptionSettingsConfigTest {
     fun create() {
         val transcriptionSettingsConfig =
             TranscriptionSettingsConfig.builder()
+                .eagerEotThreshold(0.3)
                 .eotThreshold(0.0)
                 .eotTimeoutMs(0L)
                 .numerals(true)
                 .smartFormat(true)
                 .build()
 
+        assertThat(transcriptionSettingsConfig.eagerEotThreshold()).contains(0.3)
         assertThat(transcriptionSettingsConfig.eotThreshold()).contains(0.0)
         assertThat(transcriptionSettingsConfig.eotTimeoutMs()).contains(0L)
         assertThat(transcriptionSettingsConfig.numerals()).contains(true)
@@ -30,6 +32,7 @@ internal class TranscriptionSettingsConfigTest {
         val jsonMapper = jsonMapper()
         val transcriptionSettingsConfig =
             TranscriptionSettingsConfig.builder()
+                .eagerEotThreshold(0.3)
                 .eotThreshold(0.0)
                 .eotTimeoutMs(0L)
                 .numerals(true)

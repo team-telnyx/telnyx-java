@@ -18,6 +18,7 @@ import java.util.Optional
 class TranscriptionSettingsConfig
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val eagerEotThreshold: JsonField<Double>,
     private val eotThreshold: JsonField<Double>,
     private val eotTimeoutMs: JsonField<Long>,
     private val numerals: JsonField<Boolean>,
@@ -27,6 +28,9 @@ private constructor(
 
     @JsonCreator
     private constructor(
+        @JsonProperty("eager_eot_threshold")
+        @ExcludeMissing
+        eagerEotThreshold: JsonField<Double> = JsonMissing.of(),
         @JsonProperty("eot_threshold")
         @ExcludeMissing
         eotThreshold: JsonField<Double> = JsonMissing.of(),
@@ -37,7 +41,17 @@ private constructor(
         @JsonProperty("smart_format")
         @ExcludeMissing
         smartFormat: JsonField<Boolean> = JsonMissing.of(),
-    ) : this(eotThreshold, eotTimeoutMs, numerals, smartFormat, mutableMapOf())
+    ) : this(eagerEotThreshold, eotThreshold, eotTimeoutMs, numerals, smartFormat, mutableMapOf())
+
+    /**
+     * Available only for deepgram/flux. Confidence threshold for eager end of turn detection. Must
+     * be lower than or equal to eot_threshold. Setting this equal to eot_threshold effectively
+     * disables eager end of turn.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun eagerEotThreshold(): Optional<Double> = eagerEotThreshold.getOptional("eager_eot_threshold")
 
     /**
      * Available only for deepgram/flux. Confidence required to trigger an end of turn. Higher
@@ -68,6 +82,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun smartFormat(): Optional<Boolean> = smartFormat.getOptional("smart_format")
+
+    /**
+     * Returns the raw JSON value of [eagerEotThreshold].
+     *
+     * Unlike [eagerEotThreshold], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("eager_eot_threshold")
+    @ExcludeMissing
+    fun _eagerEotThreshold(): JsonField<Double> = eagerEotThreshold
 
     /**
      * Returns the raw JSON value of [eotThreshold].
@@ -126,6 +150,7 @@ private constructor(
     /** A builder for [TranscriptionSettingsConfig]. */
     class Builder internal constructor() {
 
+        private var eagerEotThreshold: JsonField<Double> = JsonMissing.of()
         private var eotThreshold: JsonField<Double> = JsonMissing.of()
         private var eotTimeoutMs: JsonField<Long> = JsonMissing.of()
         private var numerals: JsonField<Boolean> = JsonMissing.of()
@@ -134,11 +159,31 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(transcriptionSettingsConfig: TranscriptionSettingsConfig) = apply {
+            eagerEotThreshold = transcriptionSettingsConfig.eagerEotThreshold
             eotThreshold = transcriptionSettingsConfig.eotThreshold
             eotTimeoutMs = transcriptionSettingsConfig.eotTimeoutMs
             numerals = transcriptionSettingsConfig.numerals
             smartFormat = transcriptionSettingsConfig.smartFormat
             additionalProperties = transcriptionSettingsConfig.additionalProperties.toMutableMap()
+        }
+
+        /**
+         * Available only for deepgram/flux. Confidence threshold for eager end of turn detection.
+         * Must be lower than or equal to eot_threshold. Setting this equal to eot_threshold
+         * effectively disables eager end of turn.
+         */
+        fun eagerEotThreshold(eagerEotThreshold: Double) =
+            eagerEotThreshold(JsonField.of(eagerEotThreshold))
+
+        /**
+         * Sets [Builder.eagerEotThreshold] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.eagerEotThreshold] with a well-typed [Double] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun eagerEotThreshold(eagerEotThreshold: JsonField<Double>) = apply {
+            this.eagerEotThreshold = eagerEotThreshold
         }
 
         /**
@@ -221,6 +266,7 @@ private constructor(
          */
         fun build(): TranscriptionSettingsConfig =
             TranscriptionSettingsConfig(
+                eagerEotThreshold,
                 eotThreshold,
                 eotTimeoutMs,
                 numerals,
@@ -236,6 +282,7 @@ private constructor(
             return@apply
         }
 
+        eagerEotThreshold()
         eotThreshold()
         eotTimeoutMs()
         numerals()
@@ -258,7 +305,8 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (eotThreshold.asKnown().isPresent) 1 else 0) +
+        (if (eagerEotThreshold.asKnown().isPresent) 1 else 0) +
+            (if (eotThreshold.asKnown().isPresent) 1 else 0) +
             (if (eotTimeoutMs.asKnown().isPresent) 1 else 0) +
             (if (numerals.asKnown().isPresent) 1 else 0) +
             (if (smartFormat.asKnown().isPresent) 1 else 0)
@@ -269,6 +317,7 @@ private constructor(
         }
 
         return other is TranscriptionSettingsConfig &&
+            eagerEotThreshold == other.eagerEotThreshold &&
             eotThreshold == other.eotThreshold &&
             eotTimeoutMs == other.eotTimeoutMs &&
             numerals == other.numerals &&
@@ -277,11 +326,18 @@ private constructor(
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(eotThreshold, eotTimeoutMs, numerals, smartFormat, additionalProperties)
+        Objects.hash(
+            eagerEotThreshold,
+            eotThreshold,
+            eotTimeoutMs,
+            numerals,
+            smartFormat,
+            additionalProperties,
+        )
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TranscriptionSettingsConfig{eotThreshold=$eotThreshold, eotTimeoutMs=$eotTimeoutMs, numerals=$numerals, smartFormat=$smartFormat, additionalProperties=$additionalProperties}"
+        "TranscriptionSettingsConfig{eagerEotThreshold=$eagerEotThreshold, eotThreshold=$eotThreshold, eotTimeoutMs=$eotTimeoutMs, numerals=$numerals, smartFormat=$smartFormat, additionalProperties=$additionalProperties}"
 }

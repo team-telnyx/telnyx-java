@@ -88,6 +88,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.transfer()).isEmpty
         assertThat(assistantTool.refer()).isEmpty
         assertThat(assistantTool.sendDtmf()).isEmpty
+        assertThat(assistantTool.sendMessage()).isEmpty
     }
 
     @Test
@@ -198,6 +199,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.transfer()).isEmpty
         assertThat(assistantTool.refer()).isEmpty
         assertThat(assistantTool.sendDtmf()).isEmpty
+        assertThat(assistantTool.sendMessage()).isEmpty
     }
 
     @Test
@@ -251,6 +253,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.transfer()).isEmpty
         assertThat(assistantTool.refer()).isEmpty
         assertThat(assistantTool.sendDtmf()).isEmpty
+        assertThat(assistantTool.sendMessage()).isEmpty
     }
 
     @Test
@@ -299,6 +302,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.transfer()).isEmpty
         assertThat(assistantTool.refer()).isEmpty
         assertThat(assistantTool.sendDtmf()).isEmpty
+        assertThat(assistantTool.sendMessage()).isEmpty
     }
 
     @Test
@@ -357,6 +361,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.transfer()).contains(transfer)
         assertThat(assistantTool.refer()).isEmpty
         assertThat(assistantTool.sendDtmf()).isEmpty
+        assertThat(assistantTool.sendMessage()).isEmpty
     }
 
     @Test
@@ -437,6 +442,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.transfer()).isEmpty
         assertThat(assistantTool.refer()).contains(refer)
         assertThat(assistantTool.sendDtmf()).isEmpty
+        assertThat(assistantTool.sendMessage()).isEmpty
     }
 
     @Test
@@ -503,6 +509,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.transfer()).isEmpty
         assertThat(assistantTool.refer()).isEmpty
         assertThat(assistantTool.sendDtmf()).contains(sendDtmf)
+        assertThat(assistantTool.sendMessage()).isEmpty
     }
 
     @Test
@@ -513,6 +520,52 @@ internal class AssistantToolTest {
                 AssistantTool.DtmfTool.builder()
                     .sendDtmf(
                         AssistantTool.DtmfTool.SendDtmf.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedAssistantTool =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(assistantTool),
+                jacksonTypeRef<AssistantTool>(),
+            )
+
+        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+    }
+
+    @Test
+    fun ofSendMessage() {
+        val sendMessage =
+            AssistantTool.SendMessage.builder()
+                .sendMessage(
+                    AssistantTool.SendMessage.InnerSendMessage.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
+                .build()
+
+        val assistantTool = AssistantTool.ofSendMessage(sendMessage)
+
+        assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.retrieval()).isEmpty
+        assertThat(assistantTool.handoff()).isEmpty
+        assertThat(assistantTool.hangup()).isEmpty
+        assertThat(assistantTool.transfer()).isEmpty
+        assertThat(assistantTool.refer()).isEmpty
+        assertThat(assistantTool.sendDtmf()).isEmpty
+        assertThat(assistantTool.sendMessage()).contains(sendMessage)
+    }
+
+    @Test
+    fun ofSendMessageRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val assistantTool =
+            AssistantTool.ofSendMessage(
+                AssistantTool.SendMessage.builder()
+                    .sendMessage(
+                        AssistantTool.SendMessage.InnerSendMessage.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
