@@ -51,12 +51,6 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun text(): String = body.text()
-
-    /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
     fun to(): String = body.to()
 
     /**
@@ -72,18 +66,17 @@ private constructor(
     fun shouldCreateConversation(): Optional<Boolean> = body.shouldCreateConversation()
 
     /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun text(): Optional<String> = body.text()
+
+    /**
      * Returns the raw JSON value of [from].
      *
      * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _from(): JsonField<String> = body._from()
-
-    /**
-     * Returns the raw JSON value of [text].
-     *
-     * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _text(): JsonField<String> = body._text()
 
     /**
      * Returns the raw JSON value of [to].
@@ -108,6 +101,13 @@ private constructor(
      */
     fun _shouldCreateConversation(): JsonField<Boolean> = body._shouldCreateConversation()
 
+    /**
+     * Returns the raw JSON value of [text].
+     *
+     * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _text(): JsonField<String> = body._text()
+
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     /** Additional headers to send with the request. */
@@ -126,7 +126,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .from()
-         * .text()
          * .to()
          * ```
          */
@@ -160,10 +159,10 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [from]
-         * - [text]
          * - [to]
          * - [conversationMetadata]
          * - [shouldCreateConversation]
+         * - [text]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -177,16 +176,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun from(from: JsonField<String>) = apply { body.from(from) }
-
-        fun text(text: String) = apply { body.text(text) }
-
-        /**
-         * Sets [Builder.text] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.text] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun text(text: JsonField<String>) = apply { body.text(text) }
 
         fun to(to: String) = apply { body.to(to) }
 
@@ -227,6 +216,16 @@ private constructor(
         fun shouldCreateConversation(shouldCreateConversation: JsonField<Boolean>) = apply {
             body.shouldCreateConversation(shouldCreateConversation)
         }
+
+        fun text(text: String) = apply { body.text(text) }
+
+        /**
+         * Sets [Builder.text] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.text] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun text(text: JsonField<String>) = apply { body.text(text) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -353,7 +352,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .from()
-         * .text()
          * .to()
          * ```
          *
@@ -384,17 +382,16 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val from: JsonField<String>,
-        private val text: JsonField<String>,
         private val to: JsonField<String>,
         private val conversationMetadata: JsonField<ConversationMetadata>,
         private val shouldCreateConversation: JsonField<Boolean>,
+        private val text: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("from") @ExcludeMissing from: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of(),
             @JsonProperty("to") @ExcludeMissing to: JsonField<String> = JsonMissing.of(),
             @JsonProperty("conversation_metadata")
             @ExcludeMissing
@@ -402,19 +399,14 @@ private constructor(
             @JsonProperty("should_create_conversation")
             @ExcludeMissing
             shouldCreateConversation: JsonField<Boolean> = JsonMissing.of(),
-        ) : this(from, text, to, conversationMetadata, shouldCreateConversation, mutableMapOf())
+            @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of(),
+        ) : this(from, to, conversationMetadata, shouldCreateConversation, text, mutableMapOf())
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun from(): String = from.getRequired("from")
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun text(): String = text.getRequired("text")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -437,18 +429,17 @@ private constructor(
             shouldCreateConversation.getOptional("should_create_conversation")
 
         /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun text(): Optional<String> = text.getOptional("text")
+
+        /**
          * Returns the raw JSON value of [from].
          *
          * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("from") @ExcludeMissing fun _from(): JsonField<String> = from
-
-        /**
-         * Returns the raw JSON value of [text].
-         *
-         * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("text") @ExcludeMissing fun _text(): JsonField<String> = text
 
         /**
          * Returns the raw JSON value of [to].
@@ -477,6 +468,13 @@ private constructor(
         @ExcludeMissing
         fun _shouldCreateConversation(): JsonField<Boolean> = shouldCreateConversation
 
+        /**
+         * Returns the raw JSON value of [text].
+         *
+         * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("text") @ExcludeMissing fun _text(): JsonField<String> = text
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -497,7 +495,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .from()
-             * .text()
              * .to()
              * ```
              */
@@ -508,19 +505,19 @@ private constructor(
         class Builder internal constructor() {
 
             private var from: JsonField<String>? = null
-            private var text: JsonField<String>? = null
             private var to: JsonField<String>? = null
             private var conversationMetadata: JsonField<ConversationMetadata> = JsonMissing.of()
             private var shouldCreateConversation: JsonField<Boolean> = JsonMissing.of()
+            private var text: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 from = body.from
-                text = body.text
                 to = body.to
                 conversationMetadata = body.conversationMetadata
                 shouldCreateConversation = body.shouldCreateConversation
+                text = body.text
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -534,17 +531,6 @@ private constructor(
              * value.
              */
             fun from(from: JsonField<String>) = apply { this.from = from }
-
-            fun text(text: String) = text(JsonField.of(text))
-
-            /**
-             * Sets [Builder.text] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.text] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun text(text: JsonField<String>) = apply { this.text = text }
 
             fun to(to: String) = to(JsonField.of(to))
 
@@ -586,6 +572,17 @@ private constructor(
                 this.shouldCreateConversation = shouldCreateConversation
             }
 
+            fun text(text: String) = text(JsonField.of(text))
+
+            /**
+             * Sets [Builder.text] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.text] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun text(text: JsonField<String>) = apply { this.text = text }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -613,7 +610,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .from()
-             * .text()
              * .to()
              * ```
              *
@@ -622,10 +618,10 @@ private constructor(
             fun build(): Body =
                 Body(
                     checkRequired("from", from),
-                    checkRequired("text", text),
                     checkRequired("to", to),
                     conversationMetadata,
                     shouldCreateConversation,
+                    text,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -638,10 +634,10 @@ private constructor(
             }
 
             from()
-            text()
             to()
             conversationMetadata().ifPresent { it.validate() }
             shouldCreateConversation()
+            text()
             validated = true
         }
 
@@ -662,10 +658,10 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (from.asKnown().isPresent) 1 else 0) +
-                (if (text.asKnown().isPresent) 1 else 0) +
                 (if (to.asKnown().isPresent) 1 else 0) +
                 (conversationMetadata.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (shouldCreateConversation.asKnown().isPresent) 1 else 0)
+                (if (shouldCreateConversation.asKnown().isPresent) 1 else 0) +
+                (if (text.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -674,20 +670,20 @@ private constructor(
 
             return other is Body &&
                 from == other.from &&
-                text == other.text &&
                 to == other.to &&
                 conversationMetadata == other.conversationMetadata &&
                 shouldCreateConversation == other.shouldCreateConversation &&
+                text == other.text &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
             Objects.hash(
                 from,
-                text,
                 to,
                 conversationMetadata,
                 shouldCreateConversation,
+                text,
                 additionalProperties,
             )
         }
@@ -695,7 +691,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{from=$from, text=$text, to=$to, conversationMetadata=$conversationMetadata, shouldCreateConversation=$shouldCreateConversation, additionalProperties=$additionalProperties}"
+            "Body{from=$from, to=$to, conversationMetadata=$conversationMetadata, shouldCreateConversation=$shouldCreateConversation, text=$text, additionalProperties=$additionalProperties}"
     }
 
     class ConversationMetadata
