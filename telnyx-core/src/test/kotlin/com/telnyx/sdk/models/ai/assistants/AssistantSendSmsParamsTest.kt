@@ -13,7 +13,6 @@ internal class AssistantSendSmsParamsTest {
         AssistantSendSmsParams.builder()
             .assistantId("assistant_id")
             .from("from")
-            .text("text")
             .to("to")
             .conversationMetadata(
                 AssistantSendSmsParams.ConversationMetadata.builder()
@@ -21,6 +20,7 @@ internal class AssistantSendSmsParamsTest {
                     .build()
             )
             .shouldCreateConversation(true)
+            .text("text")
             .build()
     }
 
@@ -30,7 +30,6 @@ internal class AssistantSendSmsParamsTest {
             AssistantSendSmsParams.builder()
                 .assistantId("assistant_id")
                 .from("from")
-                .text("text")
                 .to("to")
                 .build()
 
@@ -45,7 +44,6 @@ internal class AssistantSendSmsParamsTest {
             AssistantSendSmsParams.builder()
                 .assistantId("assistant_id")
                 .from("from")
-                .text("text")
                 .to("to")
                 .conversationMetadata(
                     AssistantSendSmsParams.ConversationMetadata.builder()
@@ -53,12 +51,12 @@ internal class AssistantSendSmsParamsTest {
                         .build()
                 )
                 .shouldCreateConversation(true)
+                .text("text")
                 .build()
 
         val body = params._body()
 
         assertThat(body.from()).isEqualTo("from")
-        assertThat(body.text()).isEqualTo("text")
         assertThat(body.to()).isEqualTo("to")
         assertThat(body.conversationMetadata())
             .contains(
@@ -67,6 +65,7 @@ internal class AssistantSendSmsParamsTest {
                     .build()
             )
         assertThat(body.shouldCreateConversation()).contains(true)
+        assertThat(body.text()).contains("text")
     }
 
     @Test
@@ -75,14 +74,12 @@ internal class AssistantSendSmsParamsTest {
             AssistantSendSmsParams.builder()
                 .assistantId("assistant_id")
                 .from("from")
-                .text("text")
                 .to("to")
                 .build()
 
         val body = params._body()
 
         assertThat(body.from()).isEqualTo("from")
-        assertThat(body.text()).isEqualTo("text")
         assertThat(body.to()).isEqualTo("to")
     }
 }

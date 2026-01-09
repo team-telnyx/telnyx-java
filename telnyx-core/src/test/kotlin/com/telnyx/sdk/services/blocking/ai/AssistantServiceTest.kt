@@ -481,7 +481,6 @@ internal class AssistantServiceTest {
                 AssistantSendSmsParams.builder()
                     .assistantId("assistant_id")
                     .from("from")
-                    .text("text")
                     .to("to")
                     .conversationMetadata(
                         AssistantSendSmsParams.ConversationMetadata.builder()
@@ -489,6 +488,7 @@ internal class AssistantServiceTest {
                             .build()
                     )
                     .shouldCreateConversation(true)
+                    .text("text")
                     .build()
             )
 
