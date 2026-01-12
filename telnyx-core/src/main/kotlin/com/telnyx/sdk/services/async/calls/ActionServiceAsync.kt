@@ -636,29 +636,19 @@ interface ActionServiceAsync {
      * **Expected Webhooks:**
      * - `call.sip_info.received` (to be received on the target call leg)
      */
-    fun sendSipInfo(callControlId: String): CompletableFuture<ActionSendSipInfoResponse> =
-        sendSipInfo(callControlId, ActionSendSipInfoParams.none())
-
-    /** @see sendSipInfo */
     fun sendSipInfo(
         callControlId: String,
-        params: ActionSendSipInfoParams = ActionSendSipInfoParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ActionSendSipInfoResponse> =
-        sendSipInfo(params.toBuilder().callControlId(callControlId).build(), requestOptions)
-
-    /** @see sendSipInfo */
-    fun sendSipInfo(
-        callControlId: String,
-        params: ActionSendSipInfoParams = ActionSendSipInfoParams.none(),
+        params: ActionSendSipInfoParams,
     ): CompletableFuture<ActionSendSipInfoResponse> =
         sendSipInfo(callControlId, params, RequestOptions.none())
 
     /** @see sendSipInfo */
     fun sendSipInfo(
+        callControlId: String,
         params: ActionSendSipInfoParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ActionSendSipInfoResponse>
+    ): CompletableFuture<ActionSendSipInfoResponse> =
+        sendSipInfo(params.toBuilder().callControlId(callControlId).build(), requestOptions)
 
     /** @see sendSipInfo */
     fun sendSipInfo(params: ActionSendSipInfoParams): CompletableFuture<ActionSendSipInfoResponse> =
@@ -666,10 +656,9 @@ interface ActionServiceAsync {
 
     /** @see sendSipInfo */
     fun sendSipInfo(
-        callControlId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<ActionSendSipInfoResponse> =
-        sendSipInfo(callControlId, ActionSendSipInfoParams.none(), requestOptions)
+        params: ActionSendSipInfoParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ActionSendSipInfoResponse>
 
     /**
      * Convert text to speech and play it back on the call. If multiple speak text commands are
@@ -2046,30 +2035,18 @@ interface ActionServiceAsync {
          * but is otherwise the same as [ActionServiceAsync.sendSipInfo].
          */
         fun sendSipInfo(
-            callControlId: String
-        ): CompletableFuture<HttpResponseFor<ActionSendSipInfoResponse>> =
-            sendSipInfo(callControlId, ActionSendSipInfoParams.none())
-
-        /** @see sendSipInfo */
-        fun sendSipInfo(
             callControlId: String,
-            params: ActionSendSipInfoParams = ActionSendSipInfoParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ActionSendSipInfoResponse>> =
-            sendSipInfo(params.toBuilder().callControlId(callControlId).build(), requestOptions)
-
-        /** @see sendSipInfo */
-        fun sendSipInfo(
-            callControlId: String,
-            params: ActionSendSipInfoParams = ActionSendSipInfoParams.none(),
+            params: ActionSendSipInfoParams,
         ): CompletableFuture<HttpResponseFor<ActionSendSipInfoResponse>> =
             sendSipInfo(callControlId, params, RequestOptions.none())
 
         /** @see sendSipInfo */
         fun sendSipInfo(
+            callControlId: String,
             params: ActionSendSipInfoParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ActionSendSipInfoResponse>>
+        ): CompletableFuture<HttpResponseFor<ActionSendSipInfoResponse>> =
+            sendSipInfo(params.toBuilder().callControlId(callControlId).build(), requestOptions)
 
         /** @see sendSipInfo */
         fun sendSipInfo(
@@ -2079,10 +2056,9 @@ interface ActionServiceAsync {
 
         /** @see sendSipInfo */
         fun sendSipInfo(
-            callControlId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ActionSendSipInfoResponse>> =
-            sendSipInfo(callControlId, ActionSendSipInfoParams.none(), requestOptions)
+            params: ActionSendSipInfoParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ActionSendSipInfoResponse>>
 
         /**
          * Returns a raw HTTP response for `post /calls/{call_control_id}/actions/speak`, but is

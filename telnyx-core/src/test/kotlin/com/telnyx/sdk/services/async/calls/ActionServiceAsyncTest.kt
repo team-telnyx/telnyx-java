@@ -29,6 +29,7 @@ import com.telnyx.sdk.models.calls.actions.ActionReferParams
 import com.telnyx.sdk.models.calls.actions.ActionRejectParams
 import com.telnyx.sdk.models.calls.actions.ActionResumeRecordingParams
 import com.telnyx.sdk.models.calls.actions.ActionSendDtmfParams
+import com.telnyx.sdk.models.calls.actions.ActionSendSipInfoParams
 import com.telnyx.sdk.models.calls.actions.ActionSpeakParams
 import com.telnyx.sdk.models.calls.actions.ActionStartAiAssistantParams
 import com.telnyx.sdk.models.calls.actions.ActionStartForkingParams
@@ -594,7 +595,16 @@ internal class ActionServiceAsyncTest {
                 .build()
         val actionServiceAsync = client.calls().actions()
 
-        val responseFuture = actionServiceAsync.sendSipInfo("call_control_id")
+        val responseFuture =
+            actionServiceAsync.sendSipInfo(
+                ActionSendSipInfoParams.builder()
+                    .callControlId("call_control_id")
+                    .sipInfoBody("{\"key\": \"value\", \"numValue\": 100}")
+                    .contentType("application/json")
+                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                    .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .build()
+            )
 
         val response = responseFuture.get()
         response.validate()

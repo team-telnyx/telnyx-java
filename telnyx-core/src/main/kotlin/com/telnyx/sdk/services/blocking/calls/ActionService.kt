@@ -596,28 +596,18 @@ interface ActionService {
      * **Expected Webhooks:**
      * - `call.sip_info.received` (to be received on the target call leg)
      */
-    fun sendSipInfo(callControlId: String): ActionSendSipInfoResponse =
-        sendSipInfo(callControlId, ActionSendSipInfoParams.none())
-
-    /** @see sendSipInfo */
     fun sendSipInfo(
         callControlId: String,
-        params: ActionSendSipInfoParams = ActionSendSipInfoParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ActionSendSipInfoResponse =
-        sendSipInfo(params.toBuilder().callControlId(callControlId).build(), requestOptions)
-
-    /** @see sendSipInfo */
-    fun sendSipInfo(
-        callControlId: String,
-        params: ActionSendSipInfoParams = ActionSendSipInfoParams.none(),
+        params: ActionSendSipInfoParams,
     ): ActionSendSipInfoResponse = sendSipInfo(callControlId, params, RequestOptions.none())
 
     /** @see sendSipInfo */
     fun sendSipInfo(
+        callControlId: String,
         params: ActionSendSipInfoParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ActionSendSipInfoResponse
+    ): ActionSendSipInfoResponse =
+        sendSipInfo(params.toBuilder().callControlId(callControlId).build(), requestOptions)
 
     /** @see sendSipInfo */
     fun sendSipInfo(params: ActionSendSipInfoParams): ActionSendSipInfoResponse =
@@ -625,10 +615,9 @@ interface ActionService {
 
     /** @see sendSipInfo */
     fun sendSipInfo(
-        callControlId: String,
-        requestOptions: RequestOptions,
-    ): ActionSendSipInfoResponse =
-        sendSipInfo(callControlId, ActionSendSipInfoParams.none(), requestOptions)
+        params: ActionSendSipInfoParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionSendSipInfoResponse
 
     /**
      * Convert text to speech and play it back on the call. If multiple speak text commands are
@@ -1996,32 +1985,20 @@ interface ActionService {
          * but is otherwise the same as [ActionService.sendSipInfo].
          */
         @MustBeClosed
-        fun sendSipInfo(callControlId: String): HttpResponseFor<ActionSendSipInfoResponse> =
-            sendSipInfo(callControlId, ActionSendSipInfoParams.none())
-
-        /** @see sendSipInfo */
-        @MustBeClosed
         fun sendSipInfo(
             callControlId: String,
-            params: ActionSendSipInfoParams = ActionSendSipInfoParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ActionSendSipInfoResponse> =
-            sendSipInfo(params.toBuilder().callControlId(callControlId).build(), requestOptions)
-
-        /** @see sendSipInfo */
-        @MustBeClosed
-        fun sendSipInfo(
-            callControlId: String,
-            params: ActionSendSipInfoParams = ActionSendSipInfoParams.none(),
+            params: ActionSendSipInfoParams,
         ): HttpResponseFor<ActionSendSipInfoResponse> =
             sendSipInfo(callControlId, params, RequestOptions.none())
 
         /** @see sendSipInfo */
         @MustBeClosed
         fun sendSipInfo(
+            callControlId: String,
             params: ActionSendSipInfoParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ActionSendSipInfoResponse>
+        ): HttpResponseFor<ActionSendSipInfoResponse> =
+            sendSipInfo(params.toBuilder().callControlId(callControlId).build(), requestOptions)
 
         /** @see sendSipInfo */
         @MustBeClosed
@@ -2032,10 +2009,9 @@ interface ActionService {
         /** @see sendSipInfo */
         @MustBeClosed
         fun sendSipInfo(
-            callControlId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ActionSendSipInfoResponse> =
-            sendSipInfo(callControlId, ActionSendSipInfoParams.none(), requestOptions)
+            params: ActionSendSipInfoParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionSendSipInfoResponse>
 
         /**
          * Returns a raw HTTP response for `post /calls/{call_control_id}/actions/speak`, but is
