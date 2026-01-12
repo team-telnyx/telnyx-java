@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking.portingorders
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.portingorders.comments.CommentCreateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,7 +22,13 @@ internal class CommentServiceTest {
                 .build()
         val commentService = client.portingOrders().comments()
 
-        val comment = commentService.create("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        val comment =
+            commentService.create(
+                CommentCreateParams.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .commentBody("Please, let me know when the port completes")
+                    .build()
+            )
 
         comment.validate()
     }
