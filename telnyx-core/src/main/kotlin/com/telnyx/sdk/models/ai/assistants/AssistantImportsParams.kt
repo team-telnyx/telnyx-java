@@ -12,12 +12,15 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
@@ -49,6 +52,15 @@ private constructor(
     fun provider(): Provider = body.provider()
 
     /**
+     * Optional list of assistant IDs to import from the external provider. If not provided, all
+     * assistants will be imported.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun importIds(): Optional<List<String>> = body.importIds()
+
+    /**
      * Returns the raw JSON value of [apiKeyRef].
      *
      * Unlike [apiKeyRef], this method doesn't throw if the JSON field has an unexpected type.
@@ -61,6 +73,13 @@ private constructor(
      * Unlike [provider], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _provider(): JsonField<Provider> = body._provider()
+
+    /**
+     * Returns the raw JSON value of [importIds].
+     *
+     * Unlike [importIds], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _importIds(): JsonField<List<String>> = body._importIds()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -107,6 +126,7 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [apiKeyRef]
          * - [provider]
+         * - [importIds]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -136,6 +156,28 @@ private constructor(
          * value.
          */
         fun provider(provider: JsonField<Provider>) = apply { body.provider(provider) }
+
+        /**
+         * Optional list of assistant IDs to import from the external provider. If not provided, all
+         * assistants will be imported.
+         */
+        fun importIds(importIds: List<String>) = apply { body.importIds(importIds) }
+
+        /**
+         * Sets [Builder.importIds] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.importIds] with a well-typed `List<String>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun importIds(importIds: JsonField<List<String>>) = apply { body.importIds(importIds) }
+
+        /**
+         * Adds a single [String] to [importIds].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addImportId(importId: String) = apply { body.addImportId(importId) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -286,6 +328,7 @@ private constructor(
     private constructor(
         private val apiKeyRef: JsonField<String>,
         private val provider: JsonField<Provider>,
+        private val importIds: JsonField<List<String>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -297,7 +340,10 @@ private constructor(
             @JsonProperty("provider")
             @ExcludeMissing
             provider: JsonField<Provider> = JsonMissing.of(),
-        ) : this(apiKeyRef, provider, mutableMapOf())
+            @JsonProperty("import_ids")
+            @ExcludeMissing
+            importIds: JsonField<List<String>> = JsonMissing.of(),
+        ) : this(apiKeyRef, provider, importIds, mutableMapOf())
 
         /**
          * Integration secret pointer that refers to the API key for the external provider. This
@@ -317,6 +363,15 @@ private constructor(
         fun provider(): Provider = provider.getRequired("provider")
 
         /**
+         * Optional list of assistant IDs to import from the external provider. If not provided, all
+         * assistants will be imported.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun importIds(): Optional<List<String>> = importIds.getOptional("import_ids")
+
+        /**
          * Returns the raw JSON value of [apiKeyRef].
          *
          * Unlike [apiKeyRef], this method doesn't throw if the JSON field has an unexpected type.
@@ -329,6 +384,15 @@ private constructor(
          * Unlike [provider], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("provider") @ExcludeMissing fun _provider(): JsonField<Provider> = provider
+
+        /**
+         * Returns the raw JSON value of [importIds].
+         *
+         * Unlike [importIds], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("import_ids")
+        @ExcludeMissing
+        fun _importIds(): JsonField<List<String>> = importIds
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -361,12 +425,14 @@ private constructor(
 
             private var apiKeyRef: JsonField<String>? = null
             private var provider: JsonField<Provider>? = null
+            private var importIds: JsonField<MutableList<String>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 apiKeyRef = body.apiKeyRef
                 provider = body.provider
+                importIds = body.importIds.map { it.toMutableList() }
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -397,6 +463,35 @@ private constructor(
              * supported value.
              */
             fun provider(provider: JsonField<Provider>) = apply { this.provider = provider }
+
+            /**
+             * Optional list of assistant IDs to import from the external provider. If not provided,
+             * all assistants will be imported.
+             */
+            fun importIds(importIds: List<String>) = importIds(JsonField.of(importIds))
+
+            /**
+             * Sets [Builder.importIds] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.importIds] with a well-typed `List<String>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun importIds(importIds: JsonField<List<String>>) = apply {
+                this.importIds = importIds.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [String] to [importIds].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addImportId(importId: String) = apply {
+                importIds =
+                    (importIds ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("importIds", it).add(importId)
+                    }
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -434,6 +529,7 @@ private constructor(
                 Body(
                     checkRequired("apiKeyRef", apiKeyRef),
                     checkRequired("provider", provider),
+                    (importIds ?: JsonMissing.of()).map { it.toImmutable() },
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -447,6 +543,7 @@ private constructor(
 
             apiKeyRef()
             provider().validate()
+            importIds()
             validated = true
         }
 
@@ -467,7 +564,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (apiKeyRef.asKnown().isPresent) 1 else 0) +
-                (provider.asKnown().getOrNull()?.validity() ?: 0)
+                (provider.asKnown().getOrNull()?.validity() ?: 0) +
+                (importIds.asKnown().getOrNull()?.size ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -477,17 +575,18 @@ private constructor(
             return other is Body &&
                 apiKeyRef == other.apiKeyRef &&
                 provider == other.provider &&
+                importIds == other.importIds &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(apiKeyRef, provider, additionalProperties)
+            Objects.hash(apiKeyRef, provider, importIds, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{apiKeyRef=$apiKeyRef, provider=$provider, additionalProperties=$additionalProperties}"
+            "Body{apiKeyRef=$apiKeyRef, provider=$provider, importIds=$importIds, additionalProperties=$additionalProperties}"
     }
 
     /** The external provider to import assistants from. */

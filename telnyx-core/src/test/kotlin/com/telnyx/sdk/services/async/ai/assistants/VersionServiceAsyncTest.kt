@@ -221,6 +221,33 @@ internal class VersionServiceAsyncTest {
                                     .voiceSpeed(0.0)
                                     .build()
                             )
+                            .widgetSettings(
+                                UpdateAssistant.WidgetSettings.builder()
+                                    .agentThinkingText("agent_thinking_text")
+                                    .audioVisualizerConfig(
+                                        UpdateAssistant.WidgetSettings.AudioVisualizerConfig
+                                            .builder()
+                                            .color(
+                                                UpdateAssistant.WidgetSettings.AudioVisualizerConfig
+                                                    .Color
+                                                    .VERDANT
+                                            )
+                                            .preset("preset")
+                                            .build()
+                                    )
+                                    .defaultState(
+                                        UpdateAssistant.WidgetSettings.DefaultState.EXPANDED
+                                    )
+                                    .giveFeedbackUrl("give_feedback_url")
+                                    .logoIconUrl("logo_icon_url")
+                                    .position(UpdateAssistant.WidgetSettings.Position.FIXED)
+                                    .reportIssueUrl("report_issue_url")
+                                    .speakToInterruptText("speak_to_interrupt_text")
+                                    .startCallText("start_call_text")
+                                    .theme(UpdateAssistant.WidgetSettings.Theme.LIGHT)
+                                    .viewHistoryUrl("view_history_url")
+                                    .build()
+                            )
                             .build()
                     )
                     .build()

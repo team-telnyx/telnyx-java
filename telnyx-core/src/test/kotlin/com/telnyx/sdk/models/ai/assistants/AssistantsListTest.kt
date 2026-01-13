@@ -167,6 +167,33 @@ internal class AssistantsListTest {
                                 .voiceSpeed(0.0)
                                 .build()
                         )
+                        .widgetSettings(
+                            InferenceEmbedding.WidgetSettings.builder()
+                                .agentThinkingText("agent_thinking_text")
+                                .audioVisualizerConfig(
+                                    InferenceEmbedding.WidgetSettings.AudioVisualizerConfig
+                                        .builder()
+                                        .color(
+                                            InferenceEmbedding.WidgetSettings.AudioVisualizerConfig
+                                                .Color
+                                                .VERDANT
+                                        )
+                                        .preset("preset")
+                                        .build()
+                                )
+                                .defaultState(
+                                    InferenceEmbedding.WidgetSettings.DefaultState.EXPANDED
+                                )
+                                .giveFeedbackUrl("give_feedback_url")
+                                .logoIconUrl("logo_icon_url")
+                                .position(InferenceEmbedding.WidgetSettings.Position.FIXED)
+                                .reportIssueUrl("report_issue_url")
+                                .speakToInterruptText("speak_to_interrupt_text")
+                                .startCallText("start_call_text")
+                                .theme(InferenceEmbedding.WidgetSettings.Theme.LIGHT)
+                                .viewHistoryUrl("view_history_url")
+                                .build()
+                        )
                         .build()
                 )
                 .build()
@@ -316,6 +343,30 @@ internal class AssistantsListTest {
                             .temperature(0.0)
                             .useSpeakerBoost(true)
                             .voiceSpeed(0.0)
+                            .build()
+                    )
+                    .widgetSettings(
+                        InferenceEmbedding.WidgetSettings.builder()
+                            .agentThinkingText("agent_thinking_text")
+                            .audioVisualizerConfig(
+                                InferenceEmbedding.WidgetSettings.AudioVisualizerConfig.builder()
+                                    .color(
+                                        InferenceEmbedding.WidgetSettings.AudioVisualizerConfig
+                                            .Color
+                                            .VERDANT
+                                    )
+                                    .preset("preset")
+                                    .build()
+                            )
+                            .defaultState(InferenceEmbedding.WidgetSettings.DefaultState.EXPANDED)
+                            .giveFeedbackUrl("give_feedback_url")
+                            .logoIconUrl("logo_icon_url")
+                            .position(InferenceEmbedding.WidgetSettings.Position.FIXED)
+                            .reportIssueUrl("report_issue_url")
+                            .speakToInterruptText("speak_to_interrupt_text")
+                            .startCallText("start_call_text")
+                            .theme(InferenceEmbedding.WidgetSettings.Theme.LIGHT)
+                            .viewHistoryUrl("view_history_url")
                             .build()
                     )
                     .build()
@@ -477,6 +528,33 @@ internal class AssistantsListTest {
                                 .temperature(0.0)
                                 .useSpeakerBoost(true)
                                 .voiceSpeed(0.0)
+                                .build()
+                        )
+                        .widgetSettings(
+                            InferenceEmbedding.WidgetSettings.builder()
+                                .agentThinkingText("agent_thinking_text")
+                                .audioVisualizerConfig(
+                                    InferenceEmbedding.WidgetSettings.AudioVisualizerConfig
+                                        .builder()
+                                        .color(
+                                            InferenceEmbedding.WidgetSettings.AudioVisualizerConfig
+                                                .Color
+                                                .VERDANT
+                                        )
+                                        .preset("preset")
+                                        .build()
+                                )
+                                .defaultState(
+                                    InferenceEmbedding.WidgetSettings.DefaultState.EXPANDED
+                                )
+                                .giveFeedbackUrl("give_feedback_url")
+                                .logoIconUrl("logo_icon_url")
+                                .position(InferenceEmbedding.WidgetSettings.Position.FIXED)
+                                .reportIssueUrl("report_issue_url")
+                                .speakToInterruptText("speak_to_interrupt_text")
+                                .startCallText("start_call_text")
+                                .theme(InferenceEmbedding.WidgetSettings.Theme.LIGHT)
+                                .viewHistoryUrl("view_history_url")
                                 .build()
                         )
                         .build()
