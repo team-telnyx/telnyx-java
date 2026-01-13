@@ -28,6 +28,7 @@ internal class FaxServiceAsyncTest {
                     .connectionId("234423")
                     .from("+13125790015")
                     .to("+13127367276")
+                    .blackThreshold(1L)
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .fromDisplayName("Company Name")
                     .mediaName("my_media_uploaded_to_media_storage_api")
