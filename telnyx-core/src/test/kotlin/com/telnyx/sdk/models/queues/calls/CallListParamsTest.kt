@@ -12,15 +12,9 @@ internal class CallListParamsTest {
     fun create() {
         CallListParams.builder()
             .queueName("queue_name")
-            .page(
-                CallListParams.Page.builder()
-                    .after("after")
-                    .before("before")
-                    .limit(1L)
-                    .number(1L)
-                    .size(1L)
-                    .build()
-            )
+            .page(CallListParams.Page.builder().after("after").before("before").limit(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -39,14 +33,10 @@ internal class CallListParamsTest {
             CallListParams.builder()
                 .queueName("queue_name")
                 .page(
-                    CallListParams.Page.builder()
-                        .after("after")
-                        .before("before")
-                        .limit(1L)
-                        .number(1L)
-                        .size(1L)
-                        .build()
+                    CallListParams.Page.builder().after("after").before("before").limit(1L).build()
                 )
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -57,8 +47,8 @@ internal class CallListParamsTest {
                     .put("page[after]", "after")
                     .put("page[before]", "before")
                     .put("page[limit]", "1")
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .build()
             )
     }

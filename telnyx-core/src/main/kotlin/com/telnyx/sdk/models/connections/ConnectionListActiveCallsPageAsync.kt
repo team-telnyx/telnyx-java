@@ -43,8 +43,8 @@ private constructor(
     override fun hasNextPage(): Boolean = items().isNotEmpty()
 
     fun nextPageParams(): ConnectionListActiveCallsParams {
-        val pageNumber = params.page().flatMap { it.number() }.getOrDefault(1)
-        return params.toBuilder().number(pageNumber + 1).build()
+        val pageNumber = params.pageNumber().getOrDefault(1)
+        return params.toBuilder().pageNumber(pageNumber + 1).build()
     }
 
     override fun nextPage(): CompletableFuture<ConnectionListActiveCallsPageAsync> =
