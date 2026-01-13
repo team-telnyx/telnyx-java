@@ -65,6 +65,15 @@ private constructor(
     fun to(): String = body.to()
 
     /**
+     * The black threshold percentage for monochrome faxes. Only applicable if `monochrome` is set
+     * to `true`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun blackThreshold(): Optional<Long> = body.blackThreshold()
+
+    /**
      * Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded
      * string.
      *
@@ -184,6 +193,14 @@ private constructor(
      * Unlike [to], this method doesn't throw if the multipart field has an unexpected type.
      */
     fun _to(): MultipartField<String> = body._to()
+
+    /**
+     * Returns the raw multipart value of [blackThreshold].
+     *
+     * Unlike [blackThreshold], this method doesn't throw if the multipart field has an unexpected
+     * type.
+     */
+    fun _blackThreshold(): MultipartField<Long> = body._blackThreshold()
 
     /**
      * Returns the raw multipart value of [clientState].
@@ -313,8 +330,8 @@ private constructor(
          * - [connectionId]
          * - [from]
          * - [to]
+         * - [blackThreshold]
          * - [clientState]
-         * - [fromDisplayName]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -354,6 +371,23 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun to(to: MultipartField<String>) = apply { body.to(to) }
+
+        /**
+         * The black threshold percentage for monochrome faxes. Only applicable if `monochrome` is
+         * set to `true`.
+         */
+        fun blackThreshold(blackThreshold: Long) = apply { body.blackThreshold(blackThreshold) }
+
+        /**
+         * Sets [Builder.blackThreshold] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.blackThreshold] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun blackThreshold(blackThreshold: MultipartField<Long>) = apply {
+            body.blackThreshold(blackThreshold)
+        }
 
         /**
          * Use this field to add state to every subsequent webhook. It must be a valid Base-64
@@ -662,6 +696,7 @@ private constructor(
                 "connection_id" to _connectionId(),
                 "from" to _from(),
                 "to" to _to(),
+                "black_threshold" to _blackThreshold(),
                 "client_state" to _clientState(),
                 "from_display_name" to _fromDisplayName(),
                 "media_name" to _mediaName(),
@@ -685,6 +720,7 @@ private constructor(
         private val connectionId: MultipartField<String>,
         private val from: MultipartField<String>,
         private val to: MultipartField<String>,
+        private val blackThreshold: MultipartField<Long>,
         private val clientState: MultipartField<String>,
         private val fromDisplayName: MultipartField<String>,
         private val mediaName: MultipartField<String>,
@@ -722,6 +758,15 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun to(): String = to.value.getRequired("to")
+
+        /**
+         * The black threshold percentage for monochrome faxes. Only applicable if `monochrome` is
+         * set to `true`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun blackThreshold(): Optional<Long> = blackThreshold.value.getOptional("black_threshold")
 
         /**
          * Use this field to add state to every subsequent webhook. It must be a valid Base-64
@@ -847,6 +892,16 @@ private constructor(
          * Unlike [to], this method doesn't throw if the multipart field has an unexpected type.
          */
         @JsonProperty("to") @ExcludeMissing fun _to(): MultipartField<String> = to
+
+        /**
+         * Returns the raw multipart value of [blackThreshold].
+         *
+         * Unlike [blackThreshold], this method doesn't throw if the multipart field has an
+         * unexpected type.
+         */
+        @JsonProperty("black_threshold")
+        @ExcludeMissing
+        fun _blackThreshold(): MultipartField<Long> = blackThreshold
 
         /**
          * Returns the raw multipart value of [clientState].
@@ -989,6 +1044,7 @@ private constructor(
             private var connectionId: MultipartField<String>? = null
             private var from: MultipartField<String>? = null
             private var to: MultipartField<String>? = null
+            private var blackThreshold: MultipartField<Long> = MultipartField.of(null)
             private var clientState: MultipartField<String> = MultipartField.of(null)
             private var fromDisplayName: MultipartField<String> = MultipartField.of(null)
             private var mediaName: MultipartField<String> = MultipartField.of(null)
@@ -1007,6 +1063,7 @@ private constructor(
                 connectionId = body.connectionId
                 from = body.from
                 to = body.to
+                blackThreshold = body.blackThreshold
                 clientState = body.clientState
                 fromDisplayName = body.fromDisplayName
                 mediaName = body.mediaName
@@ -1058,6 +1115,24 @@ private constructor(
              * value.
              */
             fun to(to: MultipartField<String>) = apply { this.to = to }
+
+            /**
+             * The black threshold percentage for monochrome faxes. Only applicable if `monochrome`
+             * is set to `true`.
+             */
+            fun blackThreshold(blackThreshold: Long) =
+                blackThreshold(MultipartField.of(blackThreshold))
+
+            /**
+             * Sets [Builder.blackThreshold] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.blackThreshold] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun blackThreshold(blackThreshold: MultipartField<Long>) = apply {
+                this.blackThreshold = blackThreshold
+            }
 
             /**
              * Use this field to add state to every subsequent webhook. It must be a valid Base-64
@@ -1273,6 +1348,7 @@ private constructor(
                     checkRequired("connectionId", connectionId),
                     checkRequired("from", from),
                     checkRequired("to", to),
+                    blackThreshold,
                     clientState,
                     fromDisplayName,
                     mediaName,
@@ -1298,6 +1374,7 @@ private constructor(
             connectionId()
             from()
             to()
+            blackThreshold()
             clientState()
             fromDisplayName()
             mediaName()
@@ -1329,6 +1406,7 @@ private constructor(
                 connectionId == other.connectionId &&
                 from == other.from &&
                 to == other.to &&
+                blackThreshold == other.blackThreshold &&
                 clientState == other.clientState &&
                 fromDisplayName == other.fromDisplayName &&
                 mediaName == other.mediaName &&
@@ -1348,6 +1426,7 @@ private constructor(
                 connectionId,
                 from,
                 to,
+                blackThreshold,
                 clientState,
                 fromDisplayName,
                 mediaName,
@@ -1366,7 +1445,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{connectionId=$connectionId, from=$from, to=$to, clientState=$clientState, fromDisplayName=$fromDisplayName, mediaName=$mediaName, mediaUrl=$mediaUrl, monochrome=$monochrome, previewFormat=$previewFormat, quality=$quality, storeMedia=$storeMedia, storePreview=$storePreview, t38Enabled=$t38Enabled, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+            "Body{connectionId=$connectionId, from=$from, to=$to, blackThreshold=$blackThreshold, clientState=$clientState, fromDisplayName=$fromDisplayName, mediaName=$mediaName, mediaUrl=$mediaUrl, monochrome=$monochrome, previewFormat=$previewFormat, quality=$quality, storeMedia=$storeMedia, storePreview=$storePreview, t38Enabled=$t38Enabled, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
     }
 
     /** The format for the preview file in case the `store_preview` is `true`. */
