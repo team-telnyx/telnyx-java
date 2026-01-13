@@ -156,6 +156,14 @@ private constructor(
     fun voiceSettings(): Optional<VoiceSettings> = body.voiceSettings()
 
     /**
+     * Configuration settings for the assistant's web widget.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun widgetSettings(): Optional<UpdateAssistant.WidgetSettings> = body.widgetSettings()
+
+    /**
      * Indicates whether the assistant should be promoted to the main version. Defaults to true.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -278,6 +286,13 @@ private constructor(
      * Unlike [voiceSettings], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _voiceSettings(): JsonField<VoiceSettings> = body._voiceSettings()
+
+    /**
+     * Returns the raw JSON value of [widgetSettings].
+     *
+     * Unlike [widgetSettings], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _widgetSettings(): JsonField<UpdateAssistant.WidgetSettings> = body._widgetSettings()
 
     /**
      * Returns the raw JSON value of [promoteToMain].
@@ -722,6 +737,22 @@ private constructor(
             body.voiceSettings(voiceSettings)
         }
 
+        /** Configuration settings for the assistant's web widget. */
+        fun widgetSettings(widgetSettings: UpdateAssistant.WidgetSettings) = apply {
+            body.widgetSettings(widgetSettings)
+        }
+
+        /**
+         * Sets [Builder.widgetSettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.widgetSettings] with a well-typed
+         * [UpdateAssistant.WidgetSettings] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun widgetSettings(widgetSettings: JsonField<UpdateAssistant.WidgetSettings>) = apply {
+            body.widgetSettings(widgetSettings)
+        }
+
         /**
          * Indicates whether the assistant should be promoted to the main version. Defaults to true.
          */
@@ -900,6 +931,7 @@ private constructor(
         private val tools: JsonField<List<AssistantTool>>,
         private val transcription: JsonField<TranscriptionSettings>,
         private val voiceSettings: JsonField<VoiceSettings>,
+        private val widgetSettings: JsonField<UpdateAssistant.WidgetSettings>,
         private val promoteToMain: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -950,6 +982,9 @@ private constructor(
             @JsonProperty("voice_settings")
             @ExcludeMissing
             voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
+            @JsonProperty("widget_settings")
+            @ExcludeMissing
+            widgetSettings: JsonField<UpdateAssistant.WidgetSettings> = JsonMissing.of(),
             @JsonProperty("promote_to_main")
             @ExcludeMissing
             promoteToMain: JsonField<Boolean> = JsonMissing.of(),
@@ -970,6 +1005,7 @@ private constructor(
             tools,
             transcription,
             voiceSettings,
+            widgetSettings,
             promoteToMain,
             mutableMapOf(),
         )
@@ -992,6 +1028,7 @@ private constructor(
                 .tools(tools)
                 .transcription(transcription)
                 .voiceSettings(voiceSettings)
+                .widgetSettings(widgetSettings)
                 .build()
 
         /**
@@ -1123,6 +1160,15 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun voiceSettings(): Optional<VoiceSettings> = voiceSettings.getOptional("voice_settings")
+
+        /**
+         * Configuration settings for the assistant's web widget.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun widgetSettings(): Optional<UpdateAssistant.WidgetSettings> =
+            widgetSettings.getOptional("widget_settings")
 
         /**
          * Indicates whether the assistant should be promoted to the main version. Defaults to true.
@@ -1280,6 +1326,16 @@ private constructor(
         fun _voiceSettings(): JsonField<VoiceSettings> = voiceSettings
 
         /**
+         * Returns the raw JSON value of [widgetSettings].
+         *
+         * Unlike [widgetSettings], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("widget_settings")
+        @ExcludeMissing
+        fun _widgetSettings(): JsonField<UpdateAssistant.WidgetSettings> = widgetSettings
+
+        /**
          * Returns the raw JSON value of [promoteToMain].
          *
          * Unlike [promoteToMain], this method doesn't throw if the JSON field has an unexpected
@@ -1327,6 +1383,7 @@ private constructor(
             private var tools: JsonField<MutableList<AssistantTool>>? = null
             private var transcription: JsonField<TranscriptionSettings> = JsonMissing.of()
             private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
+            private var widgetSettings: JsonField<UpdateAssistant.WidgetSettings> = JsonMissing.of()
             private var promoteToMain: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1348,6 +1405,7 @@ private constructor(
                 tools = body.tools.map { it.toMutableList() }
                 transcription = body.transcription
                 voiceSettings = body.voiceSettings
+                widgetSettings = body.widgetSettings
                 promoteToMain = body.promoteToMain
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -1751,6 +1809,21 @@ private constructor(
                 this.voiceSettings = voiceSettings
             }
 
+            /** Configuration settings for the assistant's web widget. */
+            fun widgetSettings(widgetSettings: UpdateAssistant.WidgetSettings) =
+                widgetSettings(JsonField.of(widgetSettings))
+
+            /**
+             * Sets [Builder.widgetSettings] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.widgetSettings] with a well-typed
+             * [UpdateAssistant.WidgetSettings] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun widgetSettings(widgetSettings: JsonField<UpdateAssistant.WidgetSettings>) = apply {
+                this.widgetSettings = widgetSettings
+            }
+
             /**
              * Indicates whether the assistant should be promoted to the main version. Defaults to
              * true.
@@ -1810,6 +1883,7 @@ private constructor(
                     (tools ?: JsonMissing.of()).map { it.toImmutable() },
                     transcription,
                     voiceSettings,
+                    widgetSettings,
                     promoteToMain,
                     additionalProperties.toMutableMap(),
                 )
@@ -1838,6 +1912,7 @@ private constructor(
             tools().ifPresent { it.forEach { it.validate() } }
             transcription().ifPresent { it.validate() }
             voiceSettings().ifPresent { it.validate() }
+            widgetSettings().ifPresent { it.validate() }
             promoteToMain()
             validated = true
         }
@@ -1874,6 +1949,7 @@ private constructor(
                 (tools.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (transcription.asKnown().getOrNull()?.validity() ?: 0) +
                 (voiceSettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (widgetSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (promoteToMain.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -1898,6 +1974,7 @@ private constructor(
                 tools == other.tools &&
                 transcription == other.transcription &&
                 voiceSettings == other.voiceSettings &&
+                widgetSettings == other.widgetSettings &&
                 promoteToMain == other.promoteToMain &&
                 additionalProperties == other.additionalProperties
         }
@@ -1920,6 +1997,7 @@ private constructor(
                 tools,
                 transcription,
                 voiceSettings,
+                widgetSettings,
                 promoteToMain,
                 additionalProperties,
             )
@@ -1928,7 +2006,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, model=$model, name=$name, privacySettings=$privacySettings, telephonySettings=$telephonySettings, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, promoteToMain=$promoteToMain, additionalProperties=$additionalProperties}"
+            "Body{description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, model=$model, name=$name, privacySettings=$privacySettings, telephonySettings=$telephonySettings, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, promoteToMain=$promoteToMain, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
