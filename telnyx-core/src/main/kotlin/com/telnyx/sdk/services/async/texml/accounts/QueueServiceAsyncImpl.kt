@@ -20,6 +20,8 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueDeleteParams
+import com.telnyx.sdk.models.texml.accounts.queues.QueueListParams
+import com.telnyx.sdk.models.texml.accounts.queues.QueueListResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueUpdateParams
@@ -60,6 +62,13 @@ class QueueServiceAsyncImpl internal constructor(private val clientOptions: Clie
     ): CompletableFuture<QueueUpdateResponse> =
         // post /texml/Accounts/{account_sid}/Queues/{queue_sid}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+
+    override fun list(
+        params: QueueListParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<QueueListResponse> =
+        // get /texml/Accounts/{account_sid}/Queues
+        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun delete(
         params: QueueDeleteParams,
@@ -185,6 +194,39 @@ class QueueServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val listHandler: Handler<QueueListResponse> =
+            jsonHandler<QueueListResponse>(clientOptions.jsonMapper)
+
+        override fun list(
+            params: QueueListParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<QueueListResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountSid", params.accountSid().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("texml", "Accounts", params._pathParam(0), "Queues")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { listHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
