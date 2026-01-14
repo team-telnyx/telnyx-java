@@ -47,11 +47,8 @@ private constructor(
 
         val pageNumber =
             meta().flatMap { it._pageNumber().getOptional("page_number") }.getOrDefault(1)
-        val pageCount =
-            meta()
-                .flatMap { it._totalPages().getOptional("total_pages") }
-                .getOrDefault(Long.MAX_VALUE)
-        return pageNumber < pageCount
+        val pageCount = meta().flatMap { it._totalPages().getOptional("total_pages") }.getOrNull()
+        return pageCount == null || pageNumber < pageCount
     }
 
     fun nextPageParams(): RoomCompositionListParams {

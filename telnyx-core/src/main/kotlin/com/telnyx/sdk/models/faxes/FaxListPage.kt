@@ -41,8 +41,8 @@ private constructor(
         }
 
         val pageNumber = meta()._additionalProperties().values.toList().getOrDefault(1)
-        val pageCount = meta()._additionalProperties().values.toList().getOrDefault(Long.MAX_VALUE)
-        return pageNumber < pageCount
+        val pageCount = meta()._additionalProperties().values.toList().getOrNull()
+        return pageCount == null || pageNumber < pageCount
     }
 
     fun nextPageParams(): FaxListParams {
