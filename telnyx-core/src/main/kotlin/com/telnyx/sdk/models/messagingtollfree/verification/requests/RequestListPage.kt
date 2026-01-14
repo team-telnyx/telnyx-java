@@ -8,7 +8,6 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.services.blocking.messagingtollfree.verification.RequestService
 import java.util.Objects
 import java.util.Optional
-import kotlin.jvm.optionals.getOrDefault
 import kotlin.jvm.optionals.getOrNull
 
 /** @see RequestService.list */
@@ -39,7 +38,7 @@ private constructor(
     override fun hasNextPage(): Boolean = items().isNotEmpty()
 
     fun nextPageParams(): RequestListParams {
-        val pageNumber = params.page().getOrDefault(1)
+        val pageNumber = params.page() // cc workaround for SDK-4053
         return params.toBuilder().page(pageNumber + 1).build()
     }
 

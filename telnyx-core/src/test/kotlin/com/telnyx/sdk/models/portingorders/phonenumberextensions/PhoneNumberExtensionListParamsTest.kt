@@ -17,7 +17,8 @@ internal class PhoneNumberExtensionListParamsTest {
                     .portingPhoneNumberId("04f8f1b9-310c-4a3c-963e-7dfc54765140")
                     .build()
             )
-            .page(PhoneNumberExtensionListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .sort(
                 PhoneNumberExtensionListParams.Sort.builder()
                     .value(PhoneNumberExtensionListParams.Sort.SortValue.CREATED_AT)
@@ -48,7 +49,8 @@ internal class PhoneNumberExtensionListParamsTest {
                         .portingPhoneNumberId("04f8f1b9-310c-4a3c-963e-7dfc54765140")
                         .build()
                 )
-                .page(PhoneNumberExtensionListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .sort(
                     PhoneNumberExtensionListParams.Sort.builder()
                         .value(PhoneNumberExtensionListParams.Sort.SortValue.CREATED_AT)
@@ -62,8 +64,8 @@ internal class PhoneNumberExtensionListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("filter[porting_phone_number_id]", "04f8f1b9-310c-4a3c-963e-7dfc54765140")
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .put("sort[value]", "created_at")
                     .build()
             )

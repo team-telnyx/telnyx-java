@@ -3,8 +3,8 @@
 package com.telnyx.sdk.models.faxes
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.Metadata
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -44,11 +44,11 @@ internal class FaxListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    FaxListPageResponse.Meta.builder()
-                        .putAdditionalProperty("page_number", JsonValue.from("bar"))
-                        .putAdditionalProperty("page_size", JsonValue.from("bar"))
-                        .putAdditionalProperty("total_pages", JsonValue.from("bar"))
-                        .putAdditionalProperty("total_results", JsonValue.from("bar"))
+                    Metadata.builder()
+                        .pageNumber(3)
+                        .totalPages(13)
+                        .pageSize(1)
+                        .totalResults(13)
                         .build()
                 )
                 .build()
@@ -83,12 +83,7 @@ internal class FaxListPageResponseTest {
             )
         assertThat(faxListPageResponse.meta())
             .contains(
-                FaxListPageResponse.Meta.builder()
-                    .putAdditionalProperty("page_number", JsonValue.from("bar"))
-                    .putAdditionalProperty("page_size", JsonValue.from("bar"))
-                    .putAdditionalProperty("total_pages", JsonValue.from("bar"))
-                    .putAdditionalProperty("total_results", JsonValue.from("bar"))
-                    .build()
+                Metadata.builder().pageNumber(3).totalPages(13).pageSize(1).totalResults(13).build()
             )
     }
 
@@ -125,11 +120,11 @@ internal class FaxListPageResponseTest {
                         .build()
                 )
                 .meta(
-                    FaxListPageResponse.Meta.builder()
-                        .putAdditionalProperty("page_number", JsonValue.from("bar"))
-                        .putAdditionalProperty("page_size", JsonValue.from("bar"))
-                        .putAdditionalProperty("total_pages", JsonValue.from("bar"))
-                        .putAdditionalProperty("total_results", JsonValue.from("bar"))
+                    Metadata.builder()
+                        .pageNumber(3)
+                        .totalPages(13)
+                        .pageSize(1)
+                        .totalResults(13)
                         .build()
                 )
                 .build()

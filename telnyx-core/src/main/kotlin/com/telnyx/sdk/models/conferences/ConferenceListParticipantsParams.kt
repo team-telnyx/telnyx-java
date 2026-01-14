@@ -18,7 +18,6 @@ class ConferenceListParticipantsParams
 private constructor(
     private val conferenceId: String?,
     private val filter: Filter?,
-    private val page: Page?,
     private val pageNumber: Long?,
     private val pageSize: Long?,
     private val region: Region?,
@@ -33,12 +32,6 @@ private constructor(
      * filter[whispering]
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
-
-    /**
-     * Consolidated page parameter (deepObject style). Originally: page[after], page[before],
-     * page[limit], page[size], page[number]
-     */
-    fun page(): Optional<Page> = Optional.ofNullable(page)
 
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
 
@@ -71,7 +64,6 @@ private constructor(
 
         private var conferenceId: String? = null
         private var filter: Filter? = null
-        private var page: Page? = null
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
         private var region: Region? = null
@@ -83,7 +75,6 @@ private constructor(
             apply {
                 conferenceId = conferenceListParticipantsParams.conferenceId
                 filter = conferenceListParticipantsParams.filter
-                page = conferenceListParticipantsParams.page
                 pageNumber = conferenceListParticipantsParams.pageNumber
                 pageSize = conferenceListParticipantsParams.pageSize
                 region = conferenceListParticipantsParams.region
@@ -105,15 +96,6 @@ private constructor(
 
         /** Alias for calling [Builder.filter] with `filter.orElse(null)`. */
         fun filter(filter: Optional<Filter>) = filter(filter.getOrNull())
-
-        /**
-         * Consolidated page parameter (deepObject style). Originally: page[after], page[before],
-         * page[limit], page[size], page[number]
-         */
-        fun page(page: Page?) = apply { this.page = page }
-
-        /** Alias for calling [Builder.page] with `page.orElse(null)`. */
-        fun page(page: Optional<Page>) = page(page.getOrNull())
 
         fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
@@ -252,7 +234,6 @@ private constructor(
             ConferenceListParticipantsParams(
                 conferenceId,
                 filter,
-                page,
                 pageNumber,
                 pageSize,
                 region,
@@ -279,16 +260,6 @@ private constructor(
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
                             put("filter[$key]", value)
-                        }
-                    }
-                }
-                page?.let {
-                    it.after().ifPresent { put("page[after]", it) }
-                    it.before().ifPresent { put("page[before]", it) }
-                    it.limit().ifPresent { put("page[limit]", it.toString()) }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("page[$key]", value)
                         }
                     }
                 }
@@ -465,158 +436,6 @@ private constructor(
             "Filter{muted=$muted, onHold=$onHold, whispering=$whispering, additionalProperties=$additionalProperties}"
     }
 
-    /**
-     * Consolidated page parameter (deepObject style). Originally: page[after], page[before],
-     * page[limit], page[size], page[number]
-     */
-    class Page
-    private constructor(
-        private val after: String?,
-        private val before: String?,
-        private val limit: Long?,
-        private val additionalProperties: QueryParams,
-    ) {
-
-        /** Opaque identifier of next page */
-        fun after(): Optional<String> = Optional.ofNullable(after)
-
-        /** Opaque identifier of previous page */
-        fun before(): Optional<String> = Optional.ofNullable(before)
-
-        /** Limit of records per single page */
-        fun limit(): Optional<Long> = Optional.ofNullable(limit)
-
-        /** Query params to send with the request. */
-        fun _additionalProperties(): QueryParams = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Page]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Page]. */
-        class Builder internal constructor() {
-
-            private var after: String? = null
-            private var before: String? = null
-            private var limit: Long? = null
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
-
-            @JvmSynthetic
-            internal fun from(page: Page) = apply {
-                after = page.after
-                before = page.before
-                limit = page.limit
-                additionalProperties = page.additionalProperties.toBuilder()
-            }
-
-            /** Opaque identifier of next page */
-            fun after(after: String?) = apply { this.after = after }
-
-            /** Alias for calling [Builder.after] with `after.orElse(null)`. */
-            fun after(after: Optional<String>) = after(after.getOrNull())
-
-            /** Opaque identifier of previous page */
-            fun before(before: String?) = apply { this.before = before }
-
-            /** Alias for calling [Builder.before] with `before.orElse(null)`. */
-            fun before(before: Optional<String>) = before(before.getOrNull())
-
-            /** Limit of records per single page */
-            fun limit(limit: Long?) = apply { this.limit = limit }
-
-            /**
-             * Alias for [Builder.limit].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun limit(limit: Long) = limit(limit as Long?)
-
-            /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
-            fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
-
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
-
-            /**
-             * Returns an immutable instance of [Page].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Page = Page(after, before, limit, additionalProperties.build())
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Page &&
-                after == other.after &&
-                before == other.before &&
-                limit == other.limit &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(after, before, limit, additionalProperties)
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Page{after=$after, before=$before, limit=$limit, additionalProperties=$additionalProperties}"
-    }
-
     /** Region where the conference data is located */
     class Region @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -763,7 +582,6 @@ private constructor(
         return other is ConferenceListParticipantsParams &&
             conferenceId == other.conferenceId &&
             filter == other.filter &&
-            page == other.page &&
             pageNumber == other.pageNumber &&
             pageSize == other.pageSize &&
             region == other.region &&
@@ -775,7 +593,6 @@ private constructor(
         Objects.hash(
             conferenceId,
             filter,
-            page,
             pageNumber,
             pageSize,
             region,
@@ -784,5 +601,5 @@ private constructor(
         )
 
     override fun toString() =
-        "ConferenceListParticipantsParams{conferenceId=$conferenceId, filter=$filter, page=$page, pageNumber=$pageNumber, pageSize=$pageSize, region=$region, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ConferenceListParticipantsParams{conferenceId=$conferenceId, filter=$filter, pageNumber=$pageNumber, pageSize=$pageSize, region=$region, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
