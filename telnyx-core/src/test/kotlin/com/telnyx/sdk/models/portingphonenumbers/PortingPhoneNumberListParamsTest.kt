@@ -18,7 +18,8 @@ internal class PortingPhoneNumberListParamsTest {
                     )
                     .build()
             )
-            .page(PortingPhoneNumberListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -33,7 +34,8 @@ internal class PortingPhoneNumberListParamsTest {
                         )
                         .build()
                 )
-                .page(PortingPhoneNumberListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -42,8 +44,8 @@ internal class PortingPhoneNumberListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("filter[porting_order_status]", "in-process")
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .build()
             )
     }

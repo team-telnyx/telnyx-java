@@ -17,7 +17,8 @@ internal class AdditionalDocumentListParamsTest {
                     .addDocumentType(AdditionalDocumentListParams.Filter.DocumentType.LOA)
                     .build()
             )
-            .page(AdditionalDocumentListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .sort(
                 AdditionalDocumentListParams.Sort.builder()
                     .value(AdditionalDocumentListParams.Sort.SortValue.CREATED_AT)
@@ -48,7 +49,8 @@ internal class AdditionalDocumentListParamsTest {
                         .addDocumentType(AdditionalDocumentListParams.Filter.DocumentType.LOA)
                         .build()
                 )
-                .page(AdditionalDocumentListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .sort(
                     AdditionalDocumentListParams.Sort.builder()
                         .value(AdditionalDocumentListParams.Sort.SortValue.CREATED_AT)
@@ -62,8 +64,8 @@ internal class AdditionalDocumentListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("filter[document_type]", listOf("loa").joinToString(","))
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .put("sort[value]", "created_at")
                     .build()
             )

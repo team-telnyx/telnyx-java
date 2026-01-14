@@ -25,7 +25,8 @@ internal class PhoneNumberConfigurationListParamsTest {
                     .addUserBundleId("5d6f7ede-1961-4717-bfb5-db392c5efc2d")
                     .build()
             )
-            .page(PhoneNumberConfigurationListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .sort(
                 PhoneNumberConfigurationListParams.Sort.builder()
                     .value(PhoneNumberConfigurationListParams.Sort.SortValue.CREATED_AT)
@@ -52,7 +53,8 @@ internal class PhoneNumberConfigurationListParamsTest {
                         .addUserBundleId("5d6f7ede-1961-4717-bfb5-db392c5efc2d")
                         .build()
                 )
-                .page(PhoneNumberConfigurationListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .sort(
                     PhoneNumberConfigurationListParams.Sort.builder()
                         .value(PhoneNumberConfigurationListParams.Sort.SortValue.CREATED_AT)
@@ -74,8 +76,8 @@ internal class PhoneNumberConfigurationListParamsTest {
                         "filter[user_bundle_id]",
                         listOf("5d6f7ede-1961-4717-bfb5-db392c5efc2d").joinToString(","),
                     )
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .put("sort[value]", "created_at")
                     .build()
             )
