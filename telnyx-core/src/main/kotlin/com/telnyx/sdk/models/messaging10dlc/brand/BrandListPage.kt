@@ -49,8 +49,8 @@ private constructor(
         }
 
         val pageNumber = page().getOrDefault(1)
-        val pageCount = totalRecords().getOrDefault(Long.MAX_VALUE)
-        return pageNumber < pageCount
+        val pageCount = totalRecords().getOrNull()
+        return pageCount == null || pageNumber < pageCount
     }
 
     fun nextPageParams(): BrandListParams {
