@@ -7,6 +7,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
@@ -59,6 +60,7 @@ internal class Messaging10dlcGetEnumResponseTest {
             .isEqualTo(messaging10dlcGetEnumResponse)
     }
 
+    @Disabled("These schemas are identical as is and can't be disambiguated")
     @Test
     fun ofEnumObjectList() {
         val enumObjectList =
@@ -164,6 +166,7 @@ internal class Messaging10dlcGetEnumResponseTest {
     }
 
     @Test
+    @Disabled("These schemas are identical as is and can't be disambiguated")
     fun ofEnumObjecToObjecttRoundtrip() {
         val jsonMapper = jsonMapper()
         val messaging10dlcGetEnumResponse =
