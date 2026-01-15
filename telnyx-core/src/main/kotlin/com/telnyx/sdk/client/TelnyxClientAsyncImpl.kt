@@ -186,6 +186,8 @@ import com.telnyx.sdk.services.async.OAuthServiceAsync
 import com.telnyx.sdk.services.async.OAuthServiceAsyncImpl
 import com.telnyx.sdk.services.async.OperatorConnectServiceAsync
 import com.telnyx.sdk.services.async.OperatorConnectServiceAsyncImpl
+import com.telnyx.sdk.services.async.OrganizationServiceAsync
+import com.telnyx.sdk.services.async.OrganizationServiceAsyncImpl
 import com.telnyx.sdk.services.async.OtaUpdateServiceAsync
 import com.telnyx.sdk.services.async.OtaUpdateServiceAsyncImpl
 import com.telnyx.sdk.services.async.OutboundVoiceProfileServiceAsync
@@ -908,6 +910,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         SpeechToTextServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val organizations: OrganizationServiceAsync by lazy {
+        OrganizationServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1241,6 +1247,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     override fun messaging10dlc(): Messaging10dlcServiceAsync = messaging10dlc
 
     override fun speechToText(): SpeechToTextServiceAsync = speechToText
+
+    override fun organizations(): OrganizationServiceAsync = organizations
 
     override fun close() = clientOptions.close()
 
@@ -1880,6 +1888,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             SpeechToTextServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val organizations: OrganizationServiceAsync.WithRawResponse by lazy {
+            OrganizationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -2260,5 +2272,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         override fun messaging10dlc(): Messaging10dlcServiceAsync.WithRawResponse = messaging10dlc
 
         override fun speechToText(): SpeechToTextServiceAsync.WithRawResponse = speechToText
+
+        override fun organizations(): OrganizationServiceAsync.WithRawResponse = organizations
     }
 }
