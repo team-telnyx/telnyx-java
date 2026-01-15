@@ -250,34 +250,36 @@ interface BrandServiceAsync {
         resend2faEmail(brandId, BrandResend2faEmailParams.none(), requestOptions)
 
     /**
-     * Query the status of an SMS OTP (One-Time Password) for Sole Proprietor brand verification.
+     * Query the status of an SMS OTP (One-Time Password) for Sole Proprietor brand verification
+     * using the Brand ID.
      *
      * This endpoint allows you to check the delivery and verification status of an OTP sent during
-     * the Sole Proprietor brand verification process. You can query by either:
-     * * `referenceId` - The reference ID returned when the OTP was initially triggered
-     * * `brandId` - Query parameter for portal users to look up OTP status by Brand ID
+     * the Sole Proprietor brand verification process by looking it up with the brand ID.
      *
      * The response includes delivery status, verification dates, and detailed delivery information.
+     *
+     * **Note:** This is an alternative to the `/10dlc/brand/smsOtp/{referenceId}` endpoint when you
+     * have the Brand ID but not the reference ID.
      */
     fun retrieveSmsOtpStatus(
-        referenceId: String
+        brandId: String
     ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
-        retrieveSmsOtpStatus(referenceId, BrandRetrieveSmsOtpStatusParams.none())
+        retrieveSmsOtpStatus(brandId, BrandRetrieveSmsOtpStatusParams.none())
 
     /** @see retrieveSmsOtpStatus */
     fun retrieveSmsOtpStatus(
-        referenceId: String,
+        brandId: String,
         params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
-        retrieveSmsOtpStatus(params.toBuilder().referenceId(referenceId).build(), requestOptions)
+        retrieveSmsOtpStatus(params.toBuilder().brandId(brandId).build(), requestOptions)
 
     /** @see retrieveSmsOtpStatus */
     fun retrieveSmsOtpStatus(
-        referenceId: String,
+        brandId: String,
         params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
     ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
-        retrieveSmsOtpStatus(referenceId, params, RequestOptions.none())
+        retrieveSmsOtpStatus(brandId, params, RequestOptions.none())
 
     /** @see retrieveSmsOtpStatus */
     fun retrieveSmsOtpStatus(
@@ -293,10 +295,10 @@ interface BrandServiceAsync {
 
     /** @see retrieveSmsOtpStatus */
     fun retrieveSmsOtpStatus(
-        referenceId: String,
+        brandId: String,
         requestOptions: RequestOptions,
     ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
-        retrieveSmsOtpStatus(referenceId, BrandRetrieveSmsOtpStatusParams.none(), requestOptions)
+        retrieveSmsOtpStatus(brandId, BrandRetrieveSmsOtpStatusParams.none(), requestOptions)
 
     /**
      * This operation allows you to revet the brand. However, revetting is allowed once after the
@@ -654,31 +656,28 @@ interface BrandServiceAsync {
             resend2faEmail(brandId, BrandResend2faEmailParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /10dlc/brand/smsOtp/{referenceId}`, but is otherwise
-         * the same as [BrandServiceAsync.retrieveSmsOtpStatus].
+         * Returns a raw HTTP response for `get /10dlc/brand/{brandId}/smsOtp`, but is otherwise the
+         * same as [BrandServiceAsync.retrieveSmsOtpStatus].
          */
         fun retrieveSmsOtpStatus(
-            referenceId: String
+            brandId: String
         ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> =
-            retrieveSmsOtpStatus(referenceId, BrandRetrieveSmsOtpStatusParams.none())
+            retrieveSmsOtpStatus(brandId, BrandRetrieveSmsOtpStatusParams.none())
 
         /** @see retrieveSmsOtpStatus */
         fun retrieveSmsOtpStatus(
-            referenceId: String,
+            brandId: String,
             params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> =
-            retrieveSmsOtpStatus(
-                params.toBuilder().referenceId(referenceId).build(),
-                requestOptions,
-            )
+            retrieveSmsOtpStatus(params.toBuilder().brandId(brandId).build(), requestOptions)
 
         /** @see retrieveSmsOtpStatus */
         fun retrieveSmsOtpStatus(
-            referenceId: String,
+            brandId: String,
             params: BrandRetrieveSmsOtpStatusParams = BrandRetrieveSmsOtpStatusParams.none(),
         ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> =
-            retrieveSmsOtpStatus(referenceId, params, RequestOptions.none())
+            retrieveSmsOtpStatus(brandId, params, RequestOptions.none())
 
         /** @see retrieveSmsOtpStatus */
         fun retrieveSmsOtpStatus(
@@ -694,14 +693,10 @@ interface BrandServiceAsync {
 
         /** @see retrieveSmsOtpStatus */
         fun retrieveSmsOtpStatus(
-            referenceId: String,
+            brandId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> =
-            retrieveSmsOtpStatus(
-                referenceId,
-                BrandRetrieveSmsOtpStatusParams.none(),
-                requestOptions,
-            )
+            retrieveSmsOtpStatus(brandId, BrandRetrieveSmsOtpStatusParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put /10dlc/brand/{brandId}/revet`, but is otherwise the

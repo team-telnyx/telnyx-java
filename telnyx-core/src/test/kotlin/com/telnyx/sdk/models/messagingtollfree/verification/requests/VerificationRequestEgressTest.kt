@@ -47,6 +47,7 @@ internal class VerificationRequestEgressTest {
                 .businessRegistrationCountry("US")
                 .businessRegistrationNumber("12-3456789")
                 .businessRegistrationType("EIN")
+                .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                 .doingBusinessAs("Acme Services")
                 .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
                 .helpMessageResponse(
@@ -105,6 +106,8 @@ internal class VerificationRequestEgressTest {
         assertThat(verificationRequestEgress.businessRegistrationCountry()).contains("US")
         assertThat(verificationRequestEgress.businessRegistrationNumber()).contains("12-3456789")
         assertThat(verificationRequestEgress.businessRegistrationType()).contains("EIN")
+        assertThat(verificationRequestEgress.campaignVerifyAuthorizationToken())
+            .contains("cv_token_abc123xyz")
         assertThat(verificationRequestEgress.doingBusinessAs()).contains("Acme Services")
         assertThat(verificationRequestEgress.entityType())
             .contains(TollFreeVerificationEntityType.PRIVATE_PROFIT)
@@ -163,6 +166,7 @@ internal class VerificationRequestEgressTest {
                 .businessRegistrationCountry("US")
                 .businessRegistrationNumber("12-3456789")
                 .businessRegistrationType("EIN")
+                .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                 .doingBusinessAs("Acme Services")
                 .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
                 .helpMessageResponse(

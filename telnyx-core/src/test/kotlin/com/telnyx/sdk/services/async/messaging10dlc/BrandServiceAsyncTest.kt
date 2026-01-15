@@ -7,7 +7,6 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.messaging10dlc.brand.AltBusinessIdType
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandCreateParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandIdentityStatus
-import com.telnyx.sdk.models.messaging10dlc.brand.BrandRetrieveSmsOtpStatusParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandTriggerSmsOtpParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandUpdateParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandVerifySmsOtpParams
@@ -200,12 +199,7 @@ internal class BrandServiceAsyncTest {
         val brandServiceAsync = client.messaging10dlc().brand()
 
         val responseFuture =
-            brandServiceAsync.retrieveSmsOtpStatus(
-                BrandRetrieveSmsOtpStatusParams.builder()
-                    .referenceId("OTP4B2001")
-                    .brandId("B123ABC")
-                    .build()
-            )
+            brandServiceAsync.retrieveSmsOtpStatus("4b20019b-043a-78f8-0657-b3be3f4b4002")
 
         val response = responseFuture.get()
         response.validate()

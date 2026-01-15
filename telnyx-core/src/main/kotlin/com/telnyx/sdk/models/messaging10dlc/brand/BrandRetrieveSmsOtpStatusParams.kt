@@ -10,26 +10,24 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Query the status of an SMS OTP (One-Time Password) for Sole Proprietor brand verification.
+ * Query the status of an SMS OTP (One-Time Password) for Sole Proprietor brand verification using
+ * the Brand ID.
  *
  * This endpoint allows you to check the delivery and verification status of an OTP sent during the
- * Sole Proprietor brand verification process. You can query by either:
- * * `referenceId` - The reference ID returned when the OTP was initially triggered
- * * `brandId` - Query parameter for portal users to look up OTP status by Brand ID
+ * Sole Proprietor brand verification process by looking it up with the brand ID.
  *
  * The response includes delivery status, verification dates, and detailed delivery information.
+ *
+ * **Note:** This is an alternative to the `/10dlc/brand/smsOtp/{referenceId}` endpoint when you
+ * have the Brand ID but not the reference ID.
  */
 class BrandRetrieveSmsOtpStatusParams
 private constructor(
-    private val referenceId: String?,
     private val brandId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun referenceId(): Optional<String> = Optional.ofNullable(referenceId)
-
-    /** Filter by Brand ID for easier lookup in portal applications */
     fun brandId(): Optional<String> = Optional.ofNullable(brandId)
 
     /** Additional headers to send with the request. */
@@ -54,7 +52,6 @@ private constructor(
     /** A builder for [BrandRetrieveSmsOtpStatusParams]. */
     class Builder internal constructor() {
 
-        private var referenceId: String? = null
         private var brandId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -62,19 +59,12 @@ private constructor(
         @JvmSynthetic
         internal fun from(brandRetrieveSmsOtpStatusParams: BrandRetrieveSmsOtpStatusParams) =
             apply {
-                referenceId = brandRetrieveSmsOtpStatusParams.referenceId
                 brandId = brandRetrieveSmsOtpStatusParams.brandId
                 additionalHeaders = brandRetrieveSmsOtpStatusParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     brandRetrieveSmsOtpStatusParams.additionalQueryParams.toBuilder()
             }
 
-        fun referenceId(referenceId: String?) = apply { this.referenceId = referenceId }
-
-        /** Alias for calling [Builder.referenceId] with `referenceId.orElse(null)`. */
-        fun referenceId(referenceId: Optional<String>) = referenceId(referenceId.getOrNull())
-
-        /** Filter by Brand ID for easier lookup in portal applications */
         fun brandId(brandId: String?) = apply { this.brandId = brandId }
 
         /** Alias for calling [Builder.brandId] with `brandId.orElse(null)`. */
@@ -185,7 +175,6 @@ private constructor(
          */
         fun build(): BrandRetrieveSmsOtpStatusParams =
             BrandRetrieveSmsOtpStatusParams(
-                referenceId,
                 brandId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -194,19 +183,13 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> referenceId ?: ""
+            0 -> brandId ?: ""
             else -> ""
         }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                brandId?.let { put("brandId", it) }
-                putAll(additionalQueryParams)
-            }
-            .build()
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -214,15 +197,13 @@ private constructor(
         }
 
         return other is BrandRetrieveSmsOtpStatusParams &&
-            referenceId == other.referenceId &&
             brandId == other.brandId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int =
-        Objects.hash(referenceId, brandId, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int = Objects.hash(brandId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "BrandRetrieveSmsOtpStatusParams{referenceId=$referenceId, brandId=$brandId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "BrandRetrieveSmsOtpStatusParams{brandId=$brandId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
