@@ -28,6 +28,7 @@ internal class MessagingProfileCreateParamsTest {
                     .stickySender(false)
                     .build()
             )
+            .smartEncoding(true)
             .urlShortenerSettings(
                 UrlShortenerSettings.builder()
                     .domain("example.ex")
@@ -64,6 +65,7 @@ internal class MessagingProfileCreateParamsTest {
                         .stickySender(false)
                         .build()
                 )
+                .smartEncoding(true)
                 .urlShortenerSettings(
                     UrlShortenerSettings.builder()
                         .domain("example.ex")
@@ -98,6 +100,7 @@ internal class MessagingProfileCreateParamsTest {
                     .stickySender(false)
                     .build()
             )
+        assertThat(body.smartEncoding()).contains(true)
         assertThat(body.urlShortenerSettings())
             .contains(
                 UrlShortenerSettings.builder()
