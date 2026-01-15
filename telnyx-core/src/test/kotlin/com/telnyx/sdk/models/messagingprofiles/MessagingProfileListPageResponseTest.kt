@@ -41,6 +41,7 @@ internal class MessagingProfileListPageResponseTest {
                         .recordType(MessagingProfile.RecordType.MESSAGING_PROFILE)
                         .redactionEnabled(false)
                         .redactionLevel(2L)
+                        .smartEncoding(true)
                         .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .urlShortenerSettings(
                             UrlShortenerSettings.builder()
@@ -93,6 +94,7 @@ internal class MessagingProfileListPageResponseTest {
                     .recordType(MessagingProfile.RecordType.MESSAGING_PROFILE)
                     .redactionEnabled(false)
                     .redactionLevel(2L)
+                    .smartEncoding(true)
                     .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                     .urlShortenerSettings(
                         UrlShortenerSettings.builder()
@@ -150,6 +152,7 @@ internal class MessagingProfileListPageResponseTest {
                         .recordType(MessagingProfile.RecordType.MESSAGING_PROFILE)
                         .redactionEnabled(false)
                         .redactionLevel(2L)
+                        .smartEncoding(true)
                         .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .urlShortenerSettings(
                             UrlShortenerSettings.builder()

@@ -33,6 +33,7 @@ internal class MessagingProfileUpdateParamsTest {
                     .build()
             )
             .recordType(MessagingProfileUpdateParams.RecordType.MESSAGING_PROFILE)
+            .smartEncoding(true)
             .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .urlShortenerSettings(
                 UrlShortenerSettings.builder()
@@ -87,6 +88,7 @@ internal class MessagingProfileUpdateParamsTest {
                         .build()
                 )
                 .recordType(MessagingProfileUpdateParams.RecordType.MESSAGING_PROFILE)
+                .smartEncoding(true)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .urlShortenerSettings(
                     UrlShortenerSettings.builder()
@@ -127,6 +129,7 @@ internal class MessagingProfileUpdateParamsTest {
             )
         assertThat(body.recordType())
             .contains(MessagingProfileUpdateParams.RecordType.MESSAGING_PROFILE)
+        assertThat(body.smartEncoding()).contains(true)
         assertThat(body.updatedAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.urlShortenerSettings())
             .contains(

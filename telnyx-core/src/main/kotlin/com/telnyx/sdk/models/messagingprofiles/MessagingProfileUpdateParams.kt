@@ -136,6 +136,16 @@ private constructor(
     fun recordType(): Optional<RecordType> = body.recordType()
 
     /**
+     * Enables automatic character encoding optimization for SMS messages. When enabled, the system
+     * automatically selects the most efficient encoding (GSM-7 or UCS-2) based on message content
+     * to maximize character limits and minimize costs.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun smartEncoding(): Optional<Boolean> = body.smartEncoding()
+
+    /**
      * ISO 8601 formatted date indicating when the resource was updated.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -288,6 +298,13 @@ private constructor(
      * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _recordType(): JsonField<RecordType> = body._recordType()
+
+    /**
+     * Returns the raw JSON value of [smartEncoding].
+     *
+     * Unlike [smartEncoding], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _smartEncoding(): JsonField<Boolean> = body._smartEncoding()
 
     /**
      * Returns the raw JSON value of [updatedAt].
@@ -581,6 +598,24 @@ private constructor(
          * supported value.
          */
         fun recordType(recordType: JsonField<RecordType>) = apply { body.recordType(recordType) }
+
+        /**
+         * Enables automatic character encoding optimization for SMS messages. When enabled, the
+         * system automatically selects the most efficient encoding (GSM-7 or UCS-2) based on
+         * message content to maximize character limits and minimize costs.
+         */
+        fun smartEncoding(smartEncoding: Boolean) = apply { body.smartEncoding(smartEncoding) }
+
+        /**
+         * Sets [Builder.smartEncoding] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.smartEncoding] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun smartEncoding(smartEncoding: JsonField<Boolean>) = apply {
+            body.smartEncoding(smartEncoding)
+        }
 
         /** ISO 8601 formatted date indicating when the resource was updated. */
         fun updatedAt(updatedAt: OffsetDateTime) = apply { body.updatedAt(updatedAt) }
@@ -884,6 +919,7 @@ private constructor(
         private val name: JsonField<String>,
         private val numberPoolSettings: JsonField<NumberPoolSettings>,
         private val recordType: JsonField<RecordType>,
+        private val smartEncoding: JsonField<Boolean>,
         private val updatedAt: JsonField<OffsetDateTime>,
         private val urlShortenerSettings: JsonField<UrlShortenerSettings>,
         private val v1Secret: JsonField<String>,
@@ -926,6 +962,9 @@ private constructor(
             @JsonProperty("record_type")
             @ExcludeMissing
             recordType: JsonField<RecordType> = JsonMissing.of(),
+            @JsonProperty("smart_encoding")
+            @ExcludeMissing
+            smartEncoding: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("updated_at")
             @ExcludeMissing
             updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -960,6 +999,7 @@ private constructor(
             name,
             numberPoolSettings,
             recordType,
+            smartEncoding,
             updatedAt,
             urlShortenerSettings,
             v1Secret,
@@ -1074,6 +1114,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun recordType(): Optional<RecordType> = recordType.getOptional("record_type")
+
+        /**
+         * Enables automatic character encoding optimization for SMS messages. When enabled, the
+         * system automatically selects the most efficient encoding (GSM-7 or UCS-2) based on
+         * message content to maximize character limits and minimize costs.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun smartEncoding(): Optional<Boolean> = smartEncoding.getOptional("smart_encoding")
 
         /**
          * ISO 8601 formatted date indicating when the resource was updated.
@@ -1255,6 +1305,16 @@ private constructor(
         fun _recordType(): JsonField<RecordType> = recordType
 
         /**
+         * Returns the raw JSON value of [smartEncoding].
+         *
+         * Unlike [smartEncoding], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("smart_encoding")
+        @ExcludeMissing
+        fun _smartEncoding(): JsonField<Boolean> = smartEncoding
+
+        /**
          * Returns the raw JSON value of [updatedAt].
          *
          * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -1352,6 +1412,7 @@ private constructor(
             private var name: JsonField<String> = JsonMissing.of()
             private var numberPoolSettings: JsonField<NumberPoolSettings> = JsonMissing.of()
             private var recordType: JsonField<RecordType> = JsonMissing.of()
+            private var smartEncoding: JsonField<Boolean> = JsonMissing.of()
             private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var urlShortenerSettings: JsonField<UrlShortenerSettings> = JsonMissing.of()
             private var v1Secret: JsonField<String> = JsonMissing.of()
@@ -1375,6 +1436,7 @@ private constructor(
                 name = body.name
                 numberPoolSettings = body.numberPoolSettings
                 recordType = body.recordType
+                smartEncoding = body.smartEncoding
                 updatedAt = body.updatedAt
                 urlShortenerSettings = body.urlShortenerSettings
                 v1Secret = body.v1Secret
@@ -1572,6 +1634,24 @@ private constructor(
                 this.recordType = recordType
             }
 
+            /**
+             * Enables automatic character encoding optimization for SMS messages. When enabled, the
+             * system automatically selects the most efficient encoding (GSM-7 or UCS-2) based on
+             * message content to maximize character limits and minimize costs.
+             */
+            fun smartEncoding(smartEncoding: Boolean) = smartEncoding(JsonField.of(smartEncoding))
+
+            /**
+             * Sets [Builder.smartEncoding] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.smartEncoding] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun smartEncoding(smartEncoding: JsonField<Boolean>) = apply {
+                this.smartEncoding = smartEncoding
+            }
+
             /** ISO 8601 formatted date indicating when the resource was updated. */
             fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
@@ -1758,6 +1838,7 @@ private constructor(
                     name,
                     numberPoolSettings,
                     recordType,
+                    smartEncoding,
                     updatedAt,
                     urlShortenerSettings,
                     v1Secret,
@@ -1788,6 +1869,7 @@ private constructor(
             name()
             numberPoolSettings().ifPresent { it.validate() }
             recordType().ifPresent { it.validate() }
+            smartEncoding()
             updatedAt()
             urlShortenerSettings().ifPresent { it.validate() }
             v1Secret()
@@ -1826,6 +1908,7 @@ private constructor(
                 (if (name.asKnown().isPresent) 1 else 0) +
                 (numberPoolSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (recordType.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (smartEncoding.asKnown().isPresent) 1 else 0) +
                 (if (updatedAt.asKnown().isPresent) 1 else 0) +
                 (urlShortenerSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (v1Secret.asKnown().isPresent) 1 else 0) +
@@ -1852,6 +1935,7 @@ private constructor(
                 name == other.name &&
                 numberPoolSettings == other.numberPoolSettings &&
                 recordType == other.recordType &&
+                smartEncoding == other.smartEncoding &&
                 updatedAt == other.updatedAt &&
                 urlShortenerSettings == other.urlShortenerSettings &&
                 v1Secret == other.v1Secret &&
@@ -1876,6 +1960,7 @@ private constructor(
                 name,
                 numberPoolSettings,
                 recordType,
+                smartEncoding,
                 updatedAt,
                 urlShortenerSettings,
                 v1Secret,
@@ -1890,7 +1975,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{id=$id, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
+            "Body{id=$id, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, smartEncoding=$smartEncoding, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
     }
 
     /** Identifies the type of the resource. */

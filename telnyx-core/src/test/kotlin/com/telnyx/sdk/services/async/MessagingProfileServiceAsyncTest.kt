@@ -47,6 +47,7 @@ internal class MessagingProfileServiceAsyncTest {
                             .stickySender(false)
                             .build()
                     )
+                    .smartEncoding(true)
                     .urlShortenerSettings(
                         UrlShortenerSettings.builder()
                             .domain("example.ex")
@@ -116,6 +117,7 @@ internal class MessagingProfileServiceAsyncTest {
                             .build()
                     )
                     .recordType(MessagingProfileUpdateParams.RecordType.MESSAGING_PROFILE)
+                    .smartEncoding(true)
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .urlShortenerSettings(
                         UrlShortenerSettings.builder()

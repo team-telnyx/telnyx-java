@@ -38,6 +38,7 @@ private constructor(
     private val recordType: JsonField<RecordType>,
     private val redactionEnabled: JsonField<Boolean>,
     private val redactionLevel: JsonField<Long>,
+    private val smartEncoding: JsonField<Boolean>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val urlShortenerSettings: JsonField<UrlShortenerSettings>,
     private val v1Secret: JsonField<String>,
@@ -89,6 +90,9 @@ private constructor(
         @JsonProperty("redaction_level")
         @ExcludeMissing
         redactionLevel: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("smart_encoding")
+        @ExcludeMissing
+        smartEncoding: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -124,6 +128,7 @@ private constructor(
         recordType,
         redactionEnabled,
         redactionLevel,
+        smartEncoding,
         updatedAt,
         urlShortenerSettings,
         v1Secret,
@@ -260,6 +265,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun redactionLevel(): Optional<Long> = redactionLevel.getOptional("redaction_level")
+
+    /**
+     * Enables automatic character encoding optimization for SMS messages. When enabled, the system
+     * automatically selects the most efficient encoding (GSM-7 or UCS-2) based on message content
+     * to maximize character limits and minimize costs.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun smartEncoding(): Optional<Boolean> = smartEncoding.getOptional("smart_encoding")
 
     /**
      * ISO 8601 formatted date indicating when the resource was updated.
@@ -463,6 +478,15 @@ private constructor(
     fun _redactionLevel(): JsonField<Long> = redactionLevel
 
     /**
+     * Returns the raw JSON value of [smartEncoding].
+     *
+     * Unlike [smartEncoding], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("smart_encoding")
+    @ExcludeMissing
+    fun _smartEncoding(): JsonField<Boolean> = smartEncoding
+
+    /**
      * Returns the raw JSON value of [updatedAt].
      *
      * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -561,6 +585,7 @@ private constructor(
         private var recordType: JsonField<RecordType> = JsonMissing.of()
         private var redactionEnabled: JsonField<Boolean> = JsonMissing.of()
         private var redactionLevel: JsonField<Long> = JsonMissing.of()
+        private var smartEncoding: JsonField<Boolean> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var urlShortenerSettings: JsonField<UrlShortenerSettings> = JsonMissing.of()
         private var v1Secret: JsonField<String> = JsonMissing.of()
@@ -587,6 +612,7 @@ private constructor(
             recordType = messagingProfile.recordType
             redactionEnabled = messagingProfile.redactionEnabled
             redactionLevel = messagingProfile.redactionLevel
+            smartEncoding = messagingProfile.smartEncoding
             updatedAt = messagingProfile.updatedAt
             urlShortenerSettings = messagingProfile.urlShortenerSettings
             v1Secret = messagingProfile.v1Secret
@@ -825,6 +851,24 @@ private constructor(
             this.redactionLevel = redactionLevel
         }
 
+        /**
+         * Enables automatic character encoding optimization for SMS messages. When enabled, the
+         * system automatically selects the most efficient encoding (GSM-7 or UCS-2) based on
+         * message content to maximize character limits and minimize costs.
+         */
+        fun smartEncoding(smartEncoding: Boolean) = smartEncoding(JsonField.of(smartEncoding))
+
+        /**
+         * Sets [Builder.smartEncoding] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.smartEncoding] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun smartEncoding(smartEncoding: JsonField<Boolean>) = apply {
+            this.smartEncoding = smartEncoding
+        }
+
         /** ISO 8601 formatted date indicating when the resource was updated. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
@@ -1007,6 +1051,7 @@ private constructor(
                 recordType,
                 redactionEnabled,
                 redactionLevel,
+                smartEncoding,
                 updatedAt,
                 urlShortenerSettings,
                 v1Secret,
@@ -1040,6 +1085,7 @@ private constructor(
         recordType().ifPresent { it.validate() }
         redactionEnabled()
         redactionLevel()
+        smartEncoding()
         updatedAt()
         urlShortenerSettings().ifPresent { it.validate() }
         v1Secret()
@@ -1080,6 +1126,7 @@ private constructor(
             (recordType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (redactionEnabled.asKnown().isPresent) 1 else 0) +
             (if (redactionLevel.asKnown().isPresent) 1 else 0) +
+            (if (smartEncoding.asKnown().isPresent) 1 else 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
             (urlShortenerSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (if (v1Secret.asKnown().isPresent) 1 else 0) +
@@ -1370,6 +1417,7 @@ private constructor(
             recordType == other.recordType &&
             redactionEnabled == other.redactionEnabled &&
             redactionLevel == other.redactionLevel &&
+            smartEncoding == other.smartEncoding &&
             updatedAt == other.updatedAt &&
             urlShortenerSettings == other.urlShortenerSettings &&
             v1Secret == other.v1Secret &&
@@ -1397,6 +1445,7 @@ private constructor(
             recordType,
             redactionEnabled,
             redactionLevel,
+            smartEncoding,
             updatedAt,
             urlShortenerSettings,
             v1Secret,
@@ -1411,5 +1460,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessagingProfile{id=$id, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, healthWebhookUrl=$healthWebhookUrl, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, redactionEnabled=$redactionEnabled, redactionLevel=$redactionLevel, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
+        "MessagingProfile{id=$id, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, healthWebhookUrl=$healthWebhookUrl, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, redactionEnabled=$redactionEnabled, redactionLevel=$redactionLevel, smartEncoding=$smartEncoding, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
 }
