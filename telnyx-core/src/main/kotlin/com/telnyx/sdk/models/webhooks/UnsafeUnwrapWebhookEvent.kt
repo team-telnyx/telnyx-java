@@ -92,9 +92,6 @@ private constructor(
     private val inboundMessage: InboundMessageWebhookEvent? = null,
     private val numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent? = null,
     private val replacedLinkClick: ReplacedLinkClickWebhookEvent? = null,
-    private val streamingFailed: StreamingFailedWebhookEvent? = null,
-    private val streamingStarted: StreamingStartedWebhookEvent? = null,
-    private val streamingStopped: StreamingStoppedWebhookEvent? = null,
     private val transcription: TranscriptionWebhookEvent? = null,
     private val _json: JsonValue? = null,
 ) {
@@ -269,15 +266,6 @@ private constructor(
     fun replacedLinkClick(): Optional<ReplacedLinkClickWebhookEvent> =
         Optional.ofNullable(replacedLinkClick)
 
-    fun streamingFailed(): Optional<StreamingFailedWebhookEvent> =
-        Optional.ofNullable(streamingFailed)
-
-    fun streamingStarted(): Optional<StreamingStartedWebhookEvent> =
-        Optional.ofNullable(streamingStarted)
-
-    fun streamingStopped(): Optional<StreamingStoppedWebhookEvent> =
-        Optional.ofNullable(streamingStopped)
-
     fun transcription(): Optional<TranscriptionWebhookEvent> = Optional.ofNullable(transcription)
 
     fun isCallAiGatherEnded(): Boolean = callAiGatherEnded != null
@@ -398,12 +386,6 @@ private constructor(
     fun isNumberOrderStatusUpdate(): Boolean = numberOrderStatusUpdate != null
 
     fun isReplacedLinkClick(): Boolean = replacedLinkClick != null
-
-    fun isStreamingFailed(): Boolean = streamingFailed != null
-
-    fun isStreamingStarted(): Boolean = streamingStarted != null
-
-    fun isStreamingStopped(): Boolean = streamingStopped != null
 
     fun isTranscription(): Boolean = transcription != null
 
@@ -572,15 +554,6 @@ private constructor(
     fun asReplacedLinkClick(): ReplacedLinkClickWebhookEvent =
         replacedLinkClick.getOrThrow("replacedLinkClick")
 
-    fun asStreamingFailed(): StreamingFailedWebhookEvent =
-        streamingFailed.getOrThrow("streamingFailed")
-
-    fun asStreamingStarted(): StreamingStartedWebhookEvent =
-        streamingStarted.getOrThrow("streamingStarted")
-
-    fun asStreamingStopped(): StreamingStoppedWebhookEvent =
-        streamingStopped.getOrThrow("streamingStopped")
-
     fun asTranscription(): TranscriptionWebhookEvent = transcription.getOrThrow("transcription")
 
     fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
@@ -669,9 +642,6 @@ private constructor(
             numberOrderStatusUpdate != null ->
                 visitor.visitNumberOrderStatusUpdate(numberOrderStatusUpdate)
             replacedLinkClick != null -> visitor.visitReplacedLinkClick(replacedLinkClick)
-            streamingFailed != null -> visitor.visitStreamingFailed(streamingFailed)
-            streamingStarted != null -> visitor.visitStreamingStarted(streamingStarted)
-            streamingStopped != null -> visitor.visitStreamingStopped(streamingStopped)
             transcription != null -> visitor.visitTranscription(transcription)
             else -> visitor.unknown(_json)
         }
@@ -999,18 +969,6 @@ private constructor(
                     replacedLinkClick.validate()
                 }
 
-                override fun visitStreamingFailed(streamingFailed: StreamingFailedWebhookEvent) {
-                    streamingFailed.validate()
-                }
-
-                override fun visitStreamingStarted(streamingStarted: StreamingStartedWebhookEvent) {
-                    streamingStarted.validate()
-                }
-
-                override fun visitStreamingStopped(streamingStopped: StreamingStoppedWebhookEvent) {
-                    streamingStopped.validate()
-                }
-
                 override fun visitTranscription(transcription: TranscriptionWebhookEvent) {
                     transcription.validate()
                 }
@@ -1251,15 +1209,6 @@ private constructor(
                     replacedLinkClick: ReplacedLinkClickWebhookEvent
                 ) = replacedLinkClick.validity()
 
-                override fun visitStreamingFailed(streamingFailed: StreamingFailedWebhookEvent) =
-                    streamingFailed.validity()
-
-                override fun visitStreamingStarted(streamingStarted: StreamingStartedWebhookEvent) =
-                    streamingStarted.validity()
-
-                override fun visitStreamingStopped(streamingStopped: StreamingStoppedWebhookEvent) =
-                    streamingStopped.validity()
-
                 override fun visitTranscription(transcription: TranscriptionWebhookEvent) =
                     transcription.validity()
 
@@ -1332,9 +1281,6 @@ private constructor(
             inboundMessage == other.inboundMessage &&
             numberOrderStatusUpdate == other.numberOrderStatusUpdate &&
             replacedLinkClick == other.replacedLinkClick &&
-            streamingFailed == other.streamingFailed &&
-            streamingStarted == other.streamingStarted &&
-            streamingStopped == other.streamingStopped &&
             transcription == other.transcription
     }
 
@@ -1399,9 +1345,6 @@ private constructor(
             inboundMessage,
             numberOrderStatusUpdate,
             replacedLinkClick,
-            streamingFailed,
-            streamingStarted,
-            streamingStopped,
             transcription,
         )
 
@@ -1508,11 +1451,6 @@ private constructor(
                 "UnsafeUnwrapWebhookEvent{numberOrderStatusUpdate=$numberOrderStatusUpdate}"
             replacedLinkClick != null ->
                 "UnsafeUnwrapWebhookEvent{replacedLinkClick=$replacedLinkClick}"
-            streamingFailed != null -> "UnsafeUnwrapWebhookEvent{streamingFailed=$streamingFailed}"
-            streamingStarted != null ->
-                "UnsafeUnwrapWebhookEvent{streamingStarted=$streamingStarted}"
-            streamingStopped != null ->
-                "UnsafeUnwrapWebhookEvent{streamingStopped=$streamingStopped}"
             transcription != null -> "UnsafeUnwrapWebhookEvent{transcription=$transcription}"
             _json != null -> "UnsafeUnwrapWebhookEvent{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid UnsafeUnwrapWebhookEvent")
@@ -1802,18 +1740,6 @@ private constructor(
             UnsafeUnwrapWebhookEvent(replacedLinkClick = replacedLinkClick)
 
         @JvmStatic
-        fun ofStreamingFailed(streamingFailed: StreamingFailedWebhookEvent) =
-            UnsafeUnwrapWebhookEvent(streamingFailed = streamingFailed)
-
-        @JvmStatic
-        fun ofStreamingStarted(streamingStarted: StreamingStartedWebhookEvent) =
-            UnsafeUnwrapWebhookEvent(streamingStarted = streamingStarted)
-
-        @JvmStatic
-        fun ofStreamingStopped(streamingStopped: StreamingStoppedWebhookEvent) =
-            UnsafeUnwrapWebhookEvent(streamingStopped = streamingStopped)
-
-        @JvmStatic
         fun ofTranscription(transcription: TranscriptionWebhookEvent) =
             UnsafeUnwrapWebhookEvent(transcription = transcription)
     }
@@ -1981,12 +1907,6 @@ private constructor(
         ): T
 
         fun visitReplacedLinkClick(replacedLinkClick: ReplacedLinkClickWebhookEvent): T
-
-        fun visitStreamingFailed(streamingFailed: StreamingFailedWebhookEvent): T
-
-        fun visitStreamingStarted(streamingStarted: StreamingStartedWebhookEvent): T
-
-        fun visitStreamingStopped(streamingStopped: StreamingStoppedWebhookEvent): T
 
         fun visitTranscription(transcription: TranscriptionWebhookEvent): T
 
@@ -2310,15 +2230,6 @@ private constructor(
                         tryDeserialize(node, jacksonTypeRef<ReplacedLinkClickWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(replacedLinkClick = it, _json = json)
                         },
-                        tryDeserialize(node, jacksonTypeRef<StreamingFailedWebhookEvent>())?.let {
-                            UnsafeUnwrapWebhookEvent(streamingFailed = it, _json = json)
-                        },
-                        tryDeserialize(node, jacksonTypeRef<StreamingStartedWebhookEvent>())?.let {
-                            UnsafeUnwrapWebhookEvent(streamingStarted = it, _json = json)
-                        },
-                        tryDeserialize(node, jacksonTypeRef<StreamingStoppedWebhookEvent>())?.let {
-                            UnsafeUnwrapWebhookEvent(streamingStopped = it, _json = json)
-                        },
                         tryDeserialize(node, jacksonTypeRef<TranscriptionWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(transcription = it, _json = json)
                         },
@@ -2433,9 +2344,6 @@ private constructor(
                 value.numberOrderStatusUpdate != null ->
                     generator.writeObject(value.numberOrderStatusUpdate)
                 value.replacedLinkClick != null -> generator.writeObject(value.replacedLinkClick)
-                value.streamingFailed != null -> generator.writeObject(value.streamingFailed)
-                value.streamingStarted != null -> generator.writeObject(value.streamingStarted)
-                value.streamingStopped != null -> generator.writeObject(value.streamingStopped)
                 value.transcription != null -> generator.writeObject(value.transcription)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid UnsafeUnwrapWebhookEvent")
