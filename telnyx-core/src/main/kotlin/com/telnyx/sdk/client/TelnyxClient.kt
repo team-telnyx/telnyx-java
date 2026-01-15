@@ -94,6 +94,7 @@ import com.telnyx.sdk.services.blocking.OAuthClientService
 import com.telnyx.sdk.services.blocking.OAuthGrantService
 import com.telnyx.sdk.services.blocking.OAuthService
 import com.telnyx.sdk.services.blocking.OperatorConnectService
+import com.telnyx.sdk.services.blocking.OrganizationService
 import com.telnyx.sdk.services.blocking.OtaUpdateService
 import com.telnyx.sdk.services.blocking.OutboundVoiceProfileService
 import com.telnyx.sdk.services.blocking.PaymentService
@@ -491,6 +492,8 @@ interface TelnyxClient {
 
     fun speechToText(): SpeechToTextService
 
+    fun organizations(): OrganizationService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -814,5 +817,7 @@ interface TelnyxClient {
         fun messaging10dlc(): Messaging10dlcService.WithRawResponse
 
         fun speechToText(): SpeechToTextService.WithRawResponse
+
+        fun organizations(): OrganizationService.WithRawResponse
     }
 }

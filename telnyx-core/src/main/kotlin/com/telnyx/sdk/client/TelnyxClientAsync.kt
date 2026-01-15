@@ -94,6 +94,7 @@ import com.telnyx.sdk.services.async.OAuthClientServiceAsync
 import com.telnyx.sdk.services.async.OAuthGrantServiceAsync
 import com.telnyx.sdk.services.async.OAuthServiceAsync
 import com.telnyx.sdk.services.async.OperatorConnectServiceAsync
+import com.telnyx.sdk.services.async.OrganizationServiceAsync
 import com.telnyx.sdk.services.async.OtaUpdateServiceAsync
 import com.telnyx.sdk.services.async.OutboundVoiceProfileServiceAsync
 import com.telnyx.sdk.services.async.PaymentServiceAsync
@@ -491,6 +492,8 @@ interface TelnyxClientAsync {
 
     fun speechToText(): SpeechToTextServiceAsync
 
+    fun organizations(): OrganizationServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -817,5 +820,7 @@ interface TelnyxClientAsync {
         fun messaging10dlc(): Messaging10dlcServiceAsync.WithRawResponse
 
         fun speechToText(): SpeechToTextServiceAsync.WithRawResponse
+
+        fun organizations(): OrganizationServiceAsync.WithRawResponse
     }
 }

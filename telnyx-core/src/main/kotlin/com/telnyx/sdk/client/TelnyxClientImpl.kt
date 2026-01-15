@@ -186,6 +186,8 @@ import com.telnyx.sdk.services.blocking.OAuthService
 import com.telnyx.sdk.services.blocking.OAuthServiceImpl
 import com.telnyx.sdk.services.blocking.OperatorConnectService
 import com.telnyx.sdk.services.blocking.OperatorConnectServiceImpl
+import com.telnyx.sdk.services.blocking.OrganizationService
+import com.telnyx.sdk.services.blocking.OrganizationServiceImpl
 import com.telnyx.sdk.services.blocking.OtaUpdateService
 import com.telnyx.sdk.services.blocking.OtaUpdateServiceImpl
 import com.telnyx.sdk.services.blocking.OutboundVoiceProfileService
@@ -866,6 +868,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         SpeechToTextServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val organizations: OrganizationService by lazy {
+        OrganizationServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1186,6 +1192,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun messaging10dlc(): Messaging10dlcService = messaging10dlc
 
     override fun speechToText(): SpeechToTextService = speechToText
+
+    override fun organizations(): OrganizationService = organizations
 
     override fun close() = clientOptions.close()
 
@@ -1806,6 +1814,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             SpeechToTextServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val organizations: OrganizationService.WithRawResponse by lazy {
+            OrganizationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2174,5 +2186,7 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         override fun messaging10dlc(): Messaging10dlcService.WithRawResponse = messaging10dlc
 
         override fun speechToText(): SpeechToTextService.WithRawResponse = speechToText
+
+        override fun organizations(): OrganizationService.WithRawResponse = organizations
     }
 }
