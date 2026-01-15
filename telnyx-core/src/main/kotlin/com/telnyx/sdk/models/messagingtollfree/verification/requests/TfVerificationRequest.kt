@@ -47,6 +47,7 @@ private constructor(
     private val businessRegistrationCountry: JsonField<String>,
     private val businessRegistrationNumber: JsonField<String>,
     private val businessRegistrationType: JsonField<String>,
+    private val campaignVerifyAuthorizationToken: JsonField<String>,
     private val doingBusinessAs: JsonField<String>,
     private val entityType: JsonField<TollFreeVerificationEntityType>,
     private val helpMessageResponse: JsonField<String>,
@@ -132,6 +133,9 @@ private constructor(
         @JsonProperty("businessRegistrationType")
         @ExcludeMissing
         businessRegistrationType: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("campaignVerifyAuthorizationToken")
+        @ExcludeMissing
+        campaignVerifyAuthorizationToken: JsonField<String> = JsonMissing.of(),
         @JsonProperty("doingBusinessAs")
         @ExcludeMissing
         doingBusinessAs: JsonField<String> = JsonMissing.of(),
@@ -179,6 +183,7 @@ private constructor(
         businessRegistrationCountry,
         businessRegistrationNumber,
         businessRegistrationType,
+        campaignVerifyAuthorizationToken,
         doingBusinessAs,
         entityType,
         helpMessageResponse,
@@ -393,6 +398,17 @@ private constructor(
      */
     fun businessRegistrationType(): Optional<String> =
         businessRegistrationType.getOptional("businessRegistrationType")
+
+    /**
+     * Campaign Verify Authorization Token required for Political use case submissions starting
+     * February 17, 2026. This token is validated by Zipwhip and must be provided for all Political
+     * use case verifications after the deadline.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun campaignVerifyAuthorizationToken(): Optional<String> =
+        campaignVerifyAuthorizationToken.getOptional("campaignVerifyAuthorizationToken")
 
     /**
      * Doing Business As (DBA) name if different from legal name
@@ -684,6 +700,16 @@ private constructor(
     fun _businessRegistrationType(): JsonField<String> = businessRegistrationType
 
     /**
+     * Returns the raw JSON value of [campaignVerifyAuthorizationToken].
+     *
+     * Unlike [campaignVerifyAuthorizationToken], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("campaignVerifyAuthorizationToken")
+    @ExcludeMissing
+    fun _campaignVerifyAuthorizationToken(): JsonField<String> = campaignVerifyAuthorizationToken
+
+    /**
      * Returns the raw JSON value of [doingBusinessAs].
      *
      * Unlike [doingBusinessAs], this method doesn't throw if the JSON field has an unexpected type.
@@ -827,6 +853,7 @@ private constructor(
         private var businessRegistrationCountry: JsonField<String> = JsonMissing.of()
         private var businessRegistrationNumber: JsonField<String> = JsonMissing.of()
         private var businessRegistrationType: JsonField<String> = JsonMissing.of()
+        private var campaignVerifyAuthorizationToken: JsonField<String> = JsonMissing.of()
         private var doingBusinessAs: JsonField<String> = JsonMissing.of()
         private var entityType: JsonField<TollFreeVerificationEntityType> = JsonMissing.of()
         private var helpMessageResponse: JsonField<String> = JsonMissing.of()
@@ -864,6 +891,8 @@ private constructor(
             businessRegistrationCountry = tfVerificationRequest.businessRegistrationCountry
             businessRegistrationNumber = tfVerificationRequest.businessRegistrationNumber
             businessRegistrationType = tfVerificationRequest.businessRegistrationType
+            campaignVerifyAuthorizationToken =
+                tfVerificationRequest.campaignVerifyAuthorizationToken
             doingBusinessAs = tfVerificationRequest.doingBusinessAs
             entityType = tfVerificationRequest.entityType
             helpMessageResponse = tfVerificationRequest.helpMessageResponse
@@ -1278,6 +1307,33 @@ private constructor(
             this.businessRegistrationType = businessRegistrationType
         }
 
+        /**
+         * Campaign Verify Authorization Token required for Political use case submissions starting
+         * February 17, 2026. This token is validated by Zipwhip and must be provided for all
+         * Political use case verifications after the deadline.
+         */
+        fun campaignVerifyAuthorizationToken(campaignVerifyAuthorizationToken: String?) =
+            campaignVerifyAuthorizationToken(JsonField.ofNullable(campaignVerifyAuthorizationToken))
+
+        /**
+         * Alias for calling [Builder.campaignVerifyAuthorizationToken] with
+         * `campaignVerifyAuthorizationToken.orElse(null)`.
+         */
+        fun campaignVerifyAuthorizationToken(campaignVerifyAuthorizationToken: Optional<String>) =
+            campaignVerifyAuthorizationToken(campaignVerifyAuthorizationToken.getOrNull())
+
+        /**
+         * Sets [Builder.campaignVerifyAuthorizationToken] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.campaignVerifyAuthorizationToken] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun campaignVerifyAuthorizationToken(campaignVerifyAuthorizationToken: JsonField<String>) =
+            apply {
+                this.campaignVerifyAuthorizationToken = campaignVerifyAuthorizationToken
+            }
+
         /** Doing Business As (DBA) name if different from legal name */
         fun doingBusinessAs(doingBusinessAs: String?) =
             doingBusinessAs(JsonField.ofNullable(doingBusinessAs))
@@ -1513,6 +1569,7 @@ private constructor(
                 businessRegistrationCountry,
                 businessRegistrationNumber,
                 businessRegistrationType,
+                campaignVerifyAuthorizationToken,
                 doingBusinessAs,
                 entityType,
                 helpMessageResponse,
@@ -1556,6 +1613,7 @@ private constructor(
         businessRegistrationCountry()
         businessRegistrationNumber()
         businessRegistrationType()
+        campaignVerifyAuthorizationToken()
         doingBusinessAs()
         entityType().ifPresent { it.validate() }
         helpMessageResponse()
@@ -1606,6 +1664,7 @@ private constructor(
             (if (businessRegistrationCountry.asKnown().isPresent) 1 else 0) +
             (if (businessRegistrationNumber.asKnown().isPresent) 1 else 0) +
             (if (businessRegistrationType.asKnown().isPresent) 1 else 0) +
+            (if (campaignVerifyAuthorizationToken.asKnown().isPresent) 1 else 0) +
             (if (doingBusinessAs.asKnown().isPresent) 1 else 0) +
             (entityType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (helpMessageResponse.asKnown().isPresent) 1 else 0) +
@@ -1645,6 +1704,7 @@ private constructor(
             businessRegistrationCountry == other.businessRegistrationCountry &&
             businessRegistrationNumber == other.businessRegistrationNumber &&
             businessRegistrationType == other.businessRegistrationType &&
+            campaignVerifyAuthorizationToken == other.campaignVerifyAuthorizationToken &&
             doingBusinessAs == other.doingBusinessAs &&
             entityType == other.entityType &&
             helpMessageResponse == other.helpMessageResponse &&
@@ -1682,6 +1742,7 @@ private constructor(
             businessRegistrationCountry,
             businessRegistrationNumber,
             businessRegistrationType,
+            campaignVerifyAuthorizationToken,
             doingBusinessAs,
             entityType,
             helpMessageResponse,
@@ -1697,5 +1758,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TfVerificationRequest{additionalInformation=$additionalInformation, businessAddr1=$businessAddr1, businessCity=$businessCity, businessContactEmail=$businessContactEmail, businessContactFirstName=$businessContactFirstName, businessContactLastName=$businessContactLastName, businessContactPhone=$businessContactPhone, businessName=$businessName, businessState=$businessState, businessZip=$businessZip, corporateWebsite=$corporateWebsite, isvReseller=$isvReseller, messageVolume=$messageVolume, optInWorkflow=$optInWorkflow, optInWorkflowImageUrls=$optInWorkflowImageUrls, phoneNumbers=$phoneNumbers, productionMessageContent=$productionMessageContent, useCase=$useCase, useCaseSummary=$useCaseSummary, ageGatedContent=$ageGatedContent, businessAddr2=$businessAddr2, businessRegistrationCountry=$businessRegistrationCountry, businessRegistrationNumber=$businessRegistrationNumber, businessRegistrationType=$businessRegistrationType, doingBusinessAs=$doingBusinessAs, entityType=$entityType, helpMessageResponse=$helpMessageResponse, optInConfirmationResponse=$optInConfirmationResponse, optInKeywords=$optInKeywords, privacyPolicyUrl=$privacyPolicyUrl, termsAndConditionUrl=$termsAndConditionUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "TfVerificationRequest{additionalInformation=$additionalInformation, businessAddr1=$businessAddr1, businessCity=$businessCity, businessContactEmail=$businessContactEmail, businessContactFirstName=$businessContactFirstName, businessContactLastName=$businessContactLastName, businessContactPhone=$businessContactPhone, businessName=$businessName, businessState=$businessState, businessZip=$businessZip, corporateWebsite=$corporateWebsite, isvReseller=$isvReseller, messageVolume=$messageVolume, optInWorkflow=$optInWorkflow, optInWorkflowImageUrls=$optInWorkflowImageUrls, phoneNumbers=$phoneNumbers, productionMessageContent=$productionMessageContent, useCase=$useCase, useCaseSummary=$useCaseSummary, ageGatedContent=$ageGatedContent, businessAddr2=$businessAddr2, businessRegistrationCountry=$businessRegistrationCountry, businessRegistrationNumber=$businessRegistrationNumber, businessRegistrationType=$businessRegistrationType, campaignVerifyAuthorizationToken=$campaignVerifyAuthorizationToken, doingBusinessAs=$doingBusinessAs, entityType=$entityType, helpMessageResponse=$helpMessageResponse, optInConfirmationResponse=$optInConfirmationResponse, optInKeywords=$optInKeywords, privacyPolicyUrl=$privacyPolicyUrl, termsAndConditionUrl=$termsAndConditionUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

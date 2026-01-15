@@ -112,7 +112,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
         params: BrandRetrieveSmsOtpStatusParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<BrandRetrieveSmsOtpStatusResponse> =
-        // get /10dlc/brand/smsOtp/{referenceId}
+        // get /10dlc/brand/{brandId}/smsOtp
         withRawResponse().retrieveSmsOtpStatus(params, requestOptions).thenApply { it.parse() }
 
     override fun revet(
@@ -388,12 +388,12 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
         ): CompletableFuture<HttpResponseFor<BrandRetrieveSmsOtpStatusResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("referenceId", params.referenceId().getOrNull())
+            checkRequired("brandId", params.brandId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("10dlc", "brand", "smsOtp", params._pathParam(0))
+                    .addPathSegments("10dlc", "brand", params._pathParam(0), "smsOtp")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

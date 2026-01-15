@@ -50,6 +50,7 @@ private constructor(
     private val businessRegistrationCountry: JsonField<String>,
     private val businessRegistrationNumber: JsonField<String>,
     private val businessRegistrationType: JsonField<String>,
+    private val campaignVerifyAuthorizationToken: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val doingBusinessAs: JsonField<String>,
     private val entityType: JsonField<TollFreeVerificationEntityType>,
@@ -142,6 +143,9 @@ private constructor(
         @JsonProperty("businessRegistrationType")
         @ExcludeMissing
         businessRegistrationType: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("campaignVerifyAuthorizationToken")
+        @ExcludeMissing
+        campaignVerifyAuthorizationToken: JsonField<String> = JsonMissing.of(),
         @JsonProperty("createdAt")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -198,6 +202,7 @@ private constructor(
         businessRegistrationCountry,
         businessRegistrationNumber,
         businessRegistrationType,
+        campaignVerifyAuthorizationToken,
         createdAt,
         doingBusinessAs,
         entityType,
@@ -381,6 +386,16 @@ private constructor(
      */
     fun businessRegistrationType(): Optional<String> =
         businessRegistrationType.getOptional("businessRegistrationType")
+
+    /**
+     * Campaign Verify Authorization Token required for Political use case submissions starting
+     * February 17, 2026
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun campaignVerifyAuthorizationToken(): Optional<String> =
+        campaignVerifyAuthorizationToken.getOptional("campaignVerifyAuthorizationToken")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -693,6 +708,16 @@ private constructor(
     fun _businessRegistrationType(): JsonField<String> = businessRegistrationType
 
     /**
+     * Returns the raw JSON value of [campaignVerifyAuthorizationToken].
+     *
+     * Unlike [campaignVerifyAuthorizationToken], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("campaignVerifyAuthorizationToken")
+    @ExcludeMissing
+    fun _campaignVerifyAuthorizationToken(): JsonField<String> = campaignVerifyAuthorizationToken
+
+    /**
      * Returns the raw JSON value of [createdAt].
      *
      * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -865,6 +890,7 @@ private constructor(
         private var businessRegistrationCountry: JsonField<String> = JsonMissing.of()
         private var businessRegistrationNumber: JsonField<String> = JsonMissing.of()
         private var businessRegistrationType: JsonField<String> = JsonMissing.of()
+        private var campaignVerifyAuthorizationToken: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var doingBusinessAs: JsonField<String> = JsonMissing.of()
         private var entityType: JsonField<TollFreeVerificationEntityType> = JsonMissing.of()
@@ -907,6 +933,8 @@ private constructor(
             businessRegistrationCountry = verificationRequestStatus.businessRegistrationCountry
             businessRegistrationNumber = verificationRequestStatus.businessRegistrationNumber
             businessRegistrationType = verificationRequestStatus.businessRegistrationType
+            campaignVerifyAuthorizationToken =
+                verificationRequestStatus.campaignVerifyAuthorizationToken
             createdAt = verificationRequestStatus.createdAt
             doingBusinessAs = verificationRequestStatus.doingBusinessAs
             entityType = verificationRequestStatus.entityType
@@ -1291,6 +1319,32 @@ private constructor(
             this.businessRegistrationType = businessRegistrationType
         }
 
+        /**
+         * Campaign Verify Authorization Token required for Political use case submissions starting
+         * February 17, 2026
+         */
+        fun campaignVerifyAuthorizationToken(campaignVerifyAuthorizationToken: String?) =
+            campaignVerifyAuthorizationToken(JsonField.ofNullable(campaignVerifyAuthorizationToken))
+
+        /**
+         * Alias for calling [Builder.campaignVerifyAuthorizationToken] with
+         * `campaignVerifyAuthorizationToken.orElse(null)`.
+         */
+        fun campaignVerifyAuthorizationToken(campaignVerifyAuthorizationToken: Optional<String>) =
+            campaignVerifyAuthorizationToken(campaignVerifyAuthorizationToken.getOrNull())
+
+        /**
+         * Sets [Builder.campaignVerifyAuthorizationToken] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.campaignVerifyAuthorizationToken] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun campaignVerifyAuthorizationToken(campaignVerifyAuthorizationToken: JsonField<String>) =
+            apply {
+                this.campaignVerifyAuthorizationToken = campaignVerifyAuthorizationToken
+            }
+
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -1513,6 +1567,7 @@ private constructor(
                 businessRegistrationCountry,
                 businessRegistrationNumber,
                 businessRegistrationType,
+                campaignVerifyAuthorizationToken,
                 createdAt,
                 doingBusinessAs,
                 entityType,
@@ -1561,6 +1616,7 @@ private constructor(
         businessRegistrationCountry()
         businessRegistrationNumber()
         businessRegistrationType()
+        campaignVerifyAuthorizationToken()
         createdAt()
         doingBusinessAs()
         entityType().ifPresent { it.validate() }
@@ -1616,6 +1672,7 @@ private constructor(
             (if (businessRegistrationCountry.asKnown().isPresent) 1 else 0) +
             (if (businessRegistrationNumber.asKnown().isPresent) 1 else 0) +
             (if (businessRegistrationType.asKnown().isPresent) 1 else 0) +
+            (if (campaignVerifyAuthorizationToken.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (doingBusinessAs.asKnown().isPresent) 1 else 0) +
             (entityType.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1660,6 +1717,7 @@ private constructor(
             businessRegistrationCountry == other.businessRegistrationCountry &&
             businessRegistrationNumber == other.businessRegistrationNumber &&
             businessRegistrationType == other.businessRegistrationType &&
+            campaignVerifyAuthorizationToken == other.campaignVerifyAuthorizationToken &&
             createdAt == other.createdAt &&
             doingBusinessAs == other.doingBusinessAs &&
             entityType == other.entityType &&
@@ -1702,6 +1760,7 @@ private constructor(
             businessRegistrationCountry,
             businessRegistrationNumber,
             businessRegistrationType,
+            campaignVerifyAuthorizationToken,
             createdAt,
             doingBusinessAs,
             entityType,
@@ -1720,5 +1779,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "VerificationRequestStatus{id=$id, additionalInformation=$additionalInformation, businessAddr1=$businessAddr1, businessCity=$businessCity, businessContactEmail=$businessContactEmail, businessContactFirstName=$businessContactFirstName, businessContactLastName=$businessContactLastName, businessContactPhone=$businessContactPhone, businessName=$businessName, businessState=$businessState, businessZip=$businessZip, corporateWebsite=$corporateWebsite, isvReseller=$isvReseller, messageVolume=$messageVolume, optInWorkflow=$optInWorkflow, optInWorkflowImageUrls=$optInWorkflowImageUrls, phoneNumbers=$phoneNumbers, productionMessageContent=$productionMessageContent, useCase=$useCase, useCaseSummary=$useCaseSummary, verificationStatus=$verificationStatus, ageGatedContent=$ageGatedContent, businessAddr2=$businessAddr2, businessRegistrationCountry=$businessRegistrationCountry, businessRegistrationNumber=$businessRegistrationNumber, businessRegistrationType=$businessRegistrationType, createdAt=$createdAt, doingBusinessAs=$doingBusinessAs, entityType=$entityType, helpMessageResponse=$helpMessageResponse, optInConfirmationResponse=$optInConfirmationResponse, optInKeywords=$optInKeywords, privacyPolicyUrl=$privacyPolicyUrl, reason=$reason, termsAndConditionUrl=$termsAndConditionUrl, updatedAt=$updatedAt, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "VerificationRequestStatus{id=$id, additionalInformation=$additionalInformation, businessAddr1=$businessAddr1, businessCity=$businessCity, businessContactEmail=$businessContactEmail, businessContactFirstName=$businessContactFirstName, businessContactLastName=$businessContactLastName, businessContactPhone=$businessContactPhone, businessName=$businessName, businessState=$businessState, businessZip=$businessZip, corporateWebsite=$corporateWebsite, isvReseller=$isvReseller, messageVolume=$messageVolume, optInWorkflow=$optInWorkflow, optInWorkflowImageUrls=$optInWorkflowImageUrls, phoneNumbers=$phoneNumbers, productionMessageContent=$productionMessageContent, useCase=$useCase, useCaseSummary=$useCaseSummary, verificationStatus=$verificationStatus, ageGatedContent=$ageGatedContent, businessAddr2=$businessAddr2, businessRegistrationCountry=$businessRegistrationCountry, businessRegistrationNumber=$businessRegistrationNumber, businessRegistrationType=$businessRegistrationType, campaignVerifyAuthorizationToken=$campaignVerifyAuthorizationToken, createdAt=$createdAt, doingBusinessAs=$doingBusinessAs, entityType=$entityType, helpMessageResponse=$helpMessageResponse, optInConfirmationResponse=$optInConfirmationResponse, optInKeywords=$optInKeywords, privacyPolicyUrl=$privacyPolicyUrl, reason=$reason, termsAndConditionUrl=$termsAndConditionUrl, updatedAt=$updatedAt, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

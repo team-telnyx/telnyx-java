@@ -45,6 +45,7 @@ internal class TfVerificationRequestTest {
                 .businessRegistrationCountry("US")
                 .businessRegistrationNumber("12-3456789")
                 .businessRegistrationType("EIN")
+                .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                 .doingBusinessAs("Acme Services")
                 .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
                 .helpMessageResponse(
@@ -98,6 +99,8 @@ internal class TfVerificationRequestTest {
         assertThat(tfVerificationRequest.businessRegistrationCountry()).contains("US")
         assertThat(tfVerificationRequest.businessRegistrationNumber()).contains("12-3456789")
         assertThat(tfVerificationRequest.businessRegistrationType()).contains("EIN")
+        assertThat(tfVerificationRequest.campaignVerifyAuthorizationToken())
+            .contains("cv_token_abc123xyz")
         assertThat(tfVerificationRequest.doingBusinessAs()).contains("Acme Services")
         assertThat(tfVerificationRequest.entityType())
             .contains(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
@@ -151,6 +154,7 @@ internal class TfVerificationRequestTest {
                 .businessRegistrationCountry("US")
                 .businessRegistrationNumber("12-3456789")
                 .businessRegistrationType("EIN")
+                .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                 .doingBusinessAs("Acme Services")
                 .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
                 .helpMessageResponse(

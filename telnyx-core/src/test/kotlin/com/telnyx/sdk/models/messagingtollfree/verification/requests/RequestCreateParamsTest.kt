@@ -46,6 +46,7 @@ internal class RequestCreateParamsTest {
                     .businessRegistrationCountry("US")
                     .businessRegistrationNumber("12-3456789")
                     .businessRegistrationType("EIN")
+                    .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                     .doingBusinessAs("Acme Services")
                     .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
                     .helpMessageResponse(
@@ -103,6 +104,7 @@ internal class RequestCreateParamsTest {
                         .businessRegistrationCountry("US")
                         .businessRegistrationNumber("12-3456789")
                         .businessRegistrationType("EIN")
+                        .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                         .doingBusinessAs("Acme Services")
                         .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
                         .helpMessageResponse(
@@ -158,6 +160,7 @@ internal class RequestCreateParamsTest {
                     .businessRegistrationCountry("US")
                     .businessRegistrationNumber("12-3456789")
                     .businessRegistrationType("EIN")
+                    .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                     .doingBusinessAs("Acme Services")
                     .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
                     .helpMessageResponse(
