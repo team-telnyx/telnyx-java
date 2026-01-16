@@ -1507,7 +1507,7 @@ private constructor(
                             return when (bestMatches.size) {
                                 // This can happen if what we're deserializing is completely
                                 // incompatible with all the possible variants (e.g. deserializing
-                                // from array).
+                                // from boolean).
                                 0 -> Result(_json = json)
                                 1 -> bestMatches.single()
                                 // If there's more than one match with the highest validity, then
