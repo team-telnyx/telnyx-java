@@ -65,6 +65,8 @@ internal class LoopcountTest {
     }
 
     enum class IncompatibleJsonShapeTestCase(val value: JsonValue) {
+        BOOLEAN(JsonValue.from(false)),
+        FLOAT(JsonValue.from(3.14)),
         OBJECT(JsonValue.from(mapOf("invalid" to "object"))),
         ARRAY(JsonValue.from(listOf("invalid", "array"))),
     }
