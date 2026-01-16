@@ -58,8 +58,8 @@ private constructor(
     fun direction(): Optional<Direction> = body.direction()
 
     /**
-     * The engine to use for noise suppression. For backward compatibility, engines A and B are also
-     * supported, but are deprecated: A - Denoiser B - DeepFilterNet
+     * The engine to use for noise suppression. For backward compatibility, engines A, B, and C are
+     * also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -216,8 +216,8 @@ private constructor(
         fun direction(direction: JsonField<Direction>) = apply { body.direction(direction) }
 
         /**
-         * The engine to use for noise suppression. For backward compatibility, engines A and B are
-         * also supported, but are deprecated: A - Denoiser B - DeepFilterNet
+         * The engine to use for noise suppression. For backward compatibility, engines A, B, and C
+         * are also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp
          */
         fun noiseSuppressionEngine(noiseSuppressionEngine: NoiseSuppressionEngine) = apply {
             body.noiseSuppressionEngine(noiseSuppressionEngine)
@@ -458,8 +458,8 @@ private constructor(
         fun direction(): Optional<Direction> = direction.getOptional("direction")
 
         /**
-         * The engine to use for noise suppression. For backward compatibility, engines A and B are
-         * also supported, but are deprecated: A - Denoiser B - DeepFilterNet
+         * The engine to use for noise suppression. For backward compatibility, engines A, B, and C
+         * are also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -606,8 +606,9 @@ private constructor(
             fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
             /**
-             * The engine to use for noise suppression. For backward compatibility, engines A and B
-             * are also supported, but are deprecated: A - Denoiser B - DeepFilterNet
+             * The engine to use for noise suppression. For backward compatibility, engines A, B,
+             * and C are also supported, but are deprecated: A - Denoiser B - DeepFilterNet C -
+             * Krisp
              */
             fun noiseSuppressionEngine(noiseSuppressionEngine: NoiseSuppressionEngine) =
                 noiseSuppressionEngine(JsonField.of(noiseSuppressionEngine))
@@ -878,8 +879,8 @@ private constructor(
     }
 
     /**
-     * The engine to use for noise suppression. For backward compatibility, engines A and B are also
-     * supported, but are deprecated: A - Denoiser B - DeepFilterNet
+     * The engine to use for noise suppression. For backward compatibility, engines A, B, and C are
+     * also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp
      */
     class NoiseSuppressionEngine
     @JsonCreator
@@ -901,6 +902,8 @@ private constructor(
 
             @JvmField val DEEP_FILTER_NET = of("DeepFilterNet")
 
+            @JvmField val KRISP = of("Krisp")
+
             @JvmStatic fun of(value: String) = NoiseSuppressionEngine(JsonField.of(value))
         }
 
@@ -908,6 +911,7 @@ private constructor(
         enum class Known {
             DENOISER,
             DEEP_FILTER_NET,
+            KRISP,
         }
 
         /**
@@ -924,6 +928,7 @@ private constructor(
         enum class Value {
             DENOISER,
             DEEP_FILTER_NET,
+            KRISP,
             /**
              * An enum member indicating that [NoiseSuppressionEngine] was instantiated with an
              * unknown value.
@@ -942,6 +947,7 @@ private constructor(
             when (this) {
                 DENOISER -> Value.DENOISER
                 DEEP_FILTER_NET -> Value.DEEP_FILTER_NET
+                KRISP -> Value.KRISP
                 else -> Value._UNKNOWN
             }
 
@@ -958,6 +964,7 @@ private constructor(
             when (this) {
                 DENOISER -> Known.DENOISER
                 DEEP_FILTER_NET -> Known.DEEP_FILTER_NET
+                KRISP -> Known.KRISP
                 else -> throw TelnyxInvalidDataException("Unknown NoiseSuppressionEngine: $value")
             }
 
