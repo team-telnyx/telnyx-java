@@ -8,7 +8,8 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":telnyx"))
+    implementation(project(":telnyx-core"))
+    implementation(project(":telnyx-client-okhttp"))
 }
 
 tasks.withType<JavaCompile>().configureEach {
