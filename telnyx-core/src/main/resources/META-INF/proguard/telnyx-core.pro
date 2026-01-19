@@ -30,3 +30,6 @@
     <init>(...);
     @com.fasterxml.jackson.annotation.* *;
 }
+
+# Jackson uses the IsMissing class as a valueFilter in @JsonInclude annotations via @ExcludeMissing.
+-keep class com.telnyx.sdk.core.JsonField$IsMissing { *; }

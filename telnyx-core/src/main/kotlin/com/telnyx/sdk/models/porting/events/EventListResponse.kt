@@ -8483,7 +8483,7 @@ private constructor(
                     ?: 0) +
                 (if (createdAt.asKnown().isPresent) 1 else 0) +
                 (eventType.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (payload.asKnown().isPresent) 1 else 0) +
+                (if (!payload.isMissing()) 1 else 0) +
                 (payloadStatus.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (portingOrderId.asKnown().isPresent) 1 else 0) +
                 (if (recordType.asKnown().isPresent) 1 else 0) +
