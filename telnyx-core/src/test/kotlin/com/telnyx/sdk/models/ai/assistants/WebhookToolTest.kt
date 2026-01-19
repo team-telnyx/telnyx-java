@@ -20,6 +20,7 @@ internal class WebhookToolTest {
                         .description("description")
                         .name("name")
                         .url("https://example.com/api/v1/function")
+                        .async(true)
                         .bodyParameters(
                             InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
                                 .properties(
@@ -71,6 +72,7 @@ internal class WebhookToolTest {
                                 )
                                 .build()
                         )
+                        .timeoutMs(500L)
                         .build()
                 )
                 .build()
@@ -82,6 +84,7 @@ internal class WebhookToolTest {
                     .description("description")
                     .name("name")
                     .url("https://example.com/api/v1/function")
+                    .async(true)
                     .bodyParameters(
                         InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
                             .properties(
@@ -127,6 +130,7 @@ internal class WebhookToolTest {
                             .type(InferenceEmbeddingWebhookToolParams.QueryParameters.Type.OBJECT)
                             .build()
                     )
+                    .timeoutMs(500L)
                     .build()
             )
     }
@@ -142,6 +146,7 @@ internal class WebhookToolTest {
                         .description("description")
                         .name("name")
                         .url("https://example.com/api/v1/function")
+                        .async(true)
                         .bodyParameters(
                             InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
                                 .properties(
@@ -193,6 +198,7 @@ internal class WebhookToolTest {
                                 )
                                 .build()
                         )
+                        .timeoutMs(500L)
                         .build()
                 )
                 .build()

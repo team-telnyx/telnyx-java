@@ -24,6 +24,7 @@ internal class AssistantToolTest {
                         .description("description")
                         .name("name")
                         .url("https://example.com/api/v1/function")
+                        .async(true)
                         .bodyParameters(
                             InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
                                 .properties(
@@ -75,6 +76,7 @@ internal class AssistantToolTest {
                                 )
                                 .build()
                         )
+                        .timeoutMs(500L)
                         .build()
                 )
                 .build()
@@ -103,6 +105,7 @@ internal class AssistantToolTest {
                             .description("description")
                             .name("name")
                             .url("https://example.com/api/v1/function")
+                            .async(true)
                             .bodyParameters(
                                 InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
                                     .properties(
@@ -163,6 +166,7 @@ internal class AssistantToolTest {
                                     )
                                     .build()
                             )
+                            .timeoutMs(500L)
                             .build()
                     )
                     .build()
