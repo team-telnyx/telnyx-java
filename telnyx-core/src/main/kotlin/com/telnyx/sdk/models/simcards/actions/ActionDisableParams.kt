@@ -16,7 +16,8 @@ import kotlin.jvm.optionals.getOrNull
  * consume data.<br/> The API will trigger an asynchronous operation called a SIM Card Action.
  * Transitioning to the disabled state may take a period of time. The status of the SIM Card Action
  * can be followed through the
- * [List SIM Card Action](https://developers.telnyx.com/api/wireless/list-sim-card-actions) API.
+ * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+ * API.
  */
 class ActionDisableParams
 private constructor(
