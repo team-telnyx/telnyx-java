@@ -103,7 +103,8 @@ interface ActionServiceAsync {
      * This API triggers an asynchronous operation to set a public IP for each of the specified SIM
      * cards.<br/> For each SIM Card a SIM Card Action will be generated. The status of the SIM Card
      * Action can be followed through the
-     * [List SIM Card Action](https://developers.telnyx.com/api/wireless/list-sim-card-actions) API.
+     * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+     * API.
      */
     fun bulkSetPublicIps(
         params: ActionBulkSetPublicIpsParams
@@ -121,7 +122,8 @@ interface ActionServiceAsync {
      * consume data.<br/> The API will trigger an asynchronous operation called a SIM Card Action.
      * Transitioning to the disabled state may take a period of time. The status of the SIM Card
      * Action can be followed through the
-     * [List SIM Card Action](https://developers.telnyx.com/api/wireless/list-sim-card-actions) API.
+     * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+     * API.
      */
     fun disable(id: String): CompletableFuture<ActionDisableResponse> =
         disable(id, ActionDisableParams.none())
@@ -162,7 +164,8 @@ interface ActionServiceAsync {
      * data.<br/> To enable a SIM card, it must be associated with a SIM card group.<br/> The API
      * will trigger an asynchronous operation called a SIM Card Action. Transitioning to the enabled
      * state may take a period of time. The status of the SIM Card Action can be followed through
-     * the [List SIM Card Action](https://developers.telnyx.com/api/wireless/list-sim-card-actions)
+     * the
+     * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
      * API.
      */
     fun enable(id: String): CompletableFuture<ActionEnableResponse> =
@@ -203,7 +206,8 @@ interface ActionServiceAsync {
      * This API removes an existing public IP from a SIM card. <br/><br/> The API will trigger an
      * asynchronous operation called a SIM Card Action. The status of the SIM Card Action can be
      * followed through the
-     * [List SIM Card Action](https://developers.telnyx.com/api/wireless/list-sim-card-actions) API.
+     * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+     * API.
      */
     fun removePublicIp(id: String): CompletableFuture<ActionRemovePublicIpResponse> =
         removePublicIp(id, ActionRemovePublicIpParams.none())
@@ -246,9 +250,9 @@ interface ActionServiceAsync {
      * This API makes a SIM card reachable on the public internet by mapping a random public IP to
      * the SIM card. <br/><br/> The API will trigger an asynchronous operation called a SIM Card
      * Action. The status of the SIM Card Action can be followed through the
-     * [List SIM Card Action](https://developers.telnyx.com/api/wireless/list-sim-card-actions) API.
-     * <br/><br/> Setting a Public IP to a SIM Card incurs a charge and will only succeed if the
-     * account has sufficient funds.
+     * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+     * API. <br/><br/> Setting a Public IP to a SIM Card incurs a charge and will only succeed if
+     * the account has sufficient funds.
      */
     fun setPublicIp(id: String): CompletableFuture<ActionSetPublicIpResponse> =
         setPublicIp(id, ActionSetPublicIpParams.none())
@@ -290,7 +294,8 @@ interface ActionServiceAsync {
      * it must be associated with SIM card group.<br/> The API will trigger an asynchronous
      * operation called a SIM Card Action. Transitioning to the standby state may take a period of
      * time. The status of the SIM Card Action can be followed through the
-     * [List SIM Card Action](https://developers.telnyx.com/api/wireless/list-sim-card-actions) API.
+     * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+     * API.
      */
     fun setStandby(id: String): CompletableFuture<ActionSetStandbyResponse> =
         setStandby(id, ActionSetStandbyParams.none())
