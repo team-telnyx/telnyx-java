@@ -42,6 +42,7 @@ internal class UpdateAssistantTest {
                 .llmApiKeyRef("llm_api_key_ref")
                 .messagingSettings(
                     MessagingSettings.builder()
+                        .conversationInactivityMinutes(1L)
                         .defaultMessagingProfileId("default_messaging_profile_id")
                         .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                         .build()
@@ -52,7 +53,7 @@ internal class UpdateAssistantTest {
                 .telephonySettings(
                     TelephonySettings.builder()
                         .defaultTexmlAppId("default_texml_app_id")
-                        .noiseSuppression(TelephonySettings.NoiseSuppression.DEEPFILTERNET)
+                        .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                         .noiseSuppressionConfig(
                             TelephonySettings.NoiseSuppressionConfig.builder()
                                 .attenuationLimit(0L)
@@ -61,6 +62,36 @@ internal class UpdateAssistantTest {
                         )
                         .supportsUnauthenticatedWebCalls(true)
                         .timeLimitSecs(30L)
+                        .userIdleTimeoutSecs(30L)
+                        .voicemailDetection(
+                            TelephonySettings.VoicemailDetection.builder()
+                                .onVoicemailDetected(
+                                    TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                        .builder()
+                                        .action(
+                                            TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                                .Action
+                                                .STOP_ASSISTANT
+                                        )
+                                        .voicemailMessage(
+                                            TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                                .VoicemailMessage
+                                                .builder()
+                                                .message("message")
+                                                .prompt("prompt")
+                                                .type(
+                                                    TelephonySettings.VoicemailDetection
+                                                        .OnVoicemailDetected
+                                                        .VoicemailMessage
+                                                        .Type
+                                                        .PROMPT
+                                                )
+                                                .build()
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
                         .build()
                 )
                 .addWebhookTool(
@@ -68,6 +99,7 @@ internal class UpdateAssistantTest {
                         .description("description")
                         .name("name")
                         .url("https://example.com/api/v1/function")
+                        .async(true)
                         .bodyParameters(
                             InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
                                 .properties(
@@ -119,6 +151,7 @@ internal class UpdateAssistantTest {
                                 )
                                 .build()
                         )
+                        .timeoutMs(500L)
                         .build()
                 )
                 .transcription(
@@ -197,6 +230,7 @@ internal class UpdateAssistantTest {
         assertThat(updateAssistant.messagingSettings())
             .contains(
                 MessagingSettings.builder()
+                    .conversationInactivityMinutes(1L)
                     .defaultMessagingProfileId("default_messaging_profile_id")
                     .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                     .build()
@@ -209,7 +243,7 @@ internal class UpdateAssistantTest {
             .contains(
                 TelephonySettings.builder()
                     .defaultTexmlAppId("default_texml_app_id")
-                    .noiseSuppression(TelephonySettings.NoiseSuppression.DEEPFILTERNET)
+                    .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                     .noiseSuppressionConfig(
                         TelephonySettings.NoiseSuppressionConfig.builder()
                             .attenuationLimit(0L)
@@ -218,6 +252,35 @@ internal class UpdateAssistantTest {
                     )
                     .supportsUnauthenticatedWebCalls(true)
                     .timeLimitSecs(30L)
+                    .userIdleTimeoutSecs(30L)
+                    .voicemailDetection(
+                        TelephonySettings.VoicemailDetection.builder()
+                            .onVoicemailDetected(
+                                TelephonySettings.VoicemailDetection.OnVoicemailDetected.builder()
+                                    .action(
+                                        TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                            .Action
+                                            .STOP_ASSISTANT
+                                    )
+                                    .voicemailMessage(
+                                        TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                            .VoicemailMessage
+                                            .builder()
+                                            .message("message")
+                                            .prompt("prompt")
+                                            .type(
+                                                TelephonySettings.VoicemailDetection
+                                                    .OnVoicemailDetected
+                                                    .VoicemailMessage
+                                                    .Type
+                                                    .PROMPT
+                                            )
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
                     .build()
             )
         assertThat(updateAssistant.tools().getOrNull())
@@ -230,6 +293,7 @@ internal class UpdateAssistantTest {
                                 .description("description")
                                 .name("name")
                                 .url("https://example.com/api/v1/function")
+                                .async(true)
                                 .bodyParameters(
                                     InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
                                         .properties(
@@ -293,6 +357,7 @@ internal class UpdateAssistantTest {
                                         )
                                         .build()
                                 )
+                                .timeoutMs(500L)
                                 .build()
                         )
                         .build()
@@ -377,6 +442,7 @@ internal class UpdateAssistantTest {
                 .llmApiKeyRef("llm_api_key_ref")
                 .messagingSettings(
                     MessagingSettings.builder()
+                        .conversationInactivityMinutes(1L)
                         .defaultMessagingProfileId("default_messaging_profile_id")
                         .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                         .build()
@@ -387,7 +453,7 @@ internal class UpdateAssistantTest {
                 .telephonySettings(
                     TelephonySettings.builder()
                         .defaultTexmlAppId("default_texml_app_id")
-                        .noiseSuppression(TelephonySettings.NoiseSuppression.DEEPFILTERNET)
+                        .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                         .noiseSuppressionConfig(
                             TelephonySettings.NoiseSuppressionConfig.builder()
                                 .attenuationLimit(0L)
@@ -396,6 +462,36 @@ internal class UpdateAssistantTest {
                         )
                         .supportsUnauthenticatedWebCalls(true)
                         .timeLimitSecs(30L)
+                        .userIdleTimeoutSecs(30L)
+                        .voicemailDetection(
+                            TelephonySettings.VoicemailDetection.builder()
+                                .onVoicemailDetected(
+                                    TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                        .builder()
+                                        .action(
+                                            TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                                .Action
+                                                .STOP_ASSISTANT
+                                        )
+                                        .voicemailMessage(
+                                            TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                                .VoicemailMessage
+                                                .builder()
+                                                .message("message")
+                                                .prompt("prompt")
+                                                .type(
+                                                    TelephonySettings.VoicemailDetection
+                                                        .OnVoicemailDetected
+                                                        .VoicemailMessage
+                                                        .Type
+                                                        .PROMPT
+                                                )
+                                                .build()
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
                         .build()
                 )
                 .addWebhookTool(
@@ -403,6 +499,7 @@ internal class UpdateAssistantTest {
                         .description("description")
                         .name("name")
                         .url("https://example.com/api/v1/function")
+                        .async(true)
                         .bodyParameters(
                             InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
                                 .properties(
@@ -454,6 +551,7 @@ internal class UpdateAssistantTest {
                                 )
                                 .build()
                         )
+                        .timeoutMs(500L)
                         .build()
                 )
                 .transcription(

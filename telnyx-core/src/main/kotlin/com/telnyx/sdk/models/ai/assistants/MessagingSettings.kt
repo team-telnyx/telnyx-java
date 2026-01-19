@@ -18,6 +18,7 @@ import java.util.Optional
 class MessagingSettings
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val conversationInactivityMinutes: JsonField<Long>,
     private val defaultMessagingProfileId: JsonField<String>,
     private val deliveryStatusWebhookUrl: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -25,13 +26,31 @@ private constructor(
 
     @JsonCreator
     private constructor(
+        @JsonProperty("conversation_inactivity_minutes")
+        @ExcludeMissing
+        conversationInactivityMinutes: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("default_messaging_profile_id")
         @ExcludeMissing
         defaultMessagingProfileId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("delivery_status_webhook_url")
         @ExcludeMissing
         deliveryStatusWebhookUrl: JsonField<String> = JsonMissing.of(),
-    ) : this(defaultMessagingProfileId, deliveryStatusWebhookUrl, mutableMapOf())
+    ) : this(
+        conversationInactivityMinutes,
+        defaultMessagingProfileId,
+        deliveryStatusWebhookUrl,
+        mutableMapOf(),
+    )
+
+    /**
+     * If more than this many minutes have passed since the last message, the assistant will start a
+     * new conversation instead of continuing the existing one.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun conversationInactivityMinutes(): Optional<Long> =
+        conversationInactivityMinutes.getOptional("conversation_inactivity_minutes")
 
     /**
      * Default Messaging Profile used for messaging exchanges with your assistant. This will be
@@ -51,6 +70,16 @@ private constructor(
      */
     fun deliveryStatusWebhookUrl(): Optional<String> =
         deliveryStatusWebhookUrl.getOptional("delivery_status_webhook_url")
+
+    /**
+     * Returns the raw JSON value of [conversationInactivityMinutes].
+     *
+     * Unlike [conversationInactivityMinutes], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("conversation_inactivity_minutes")
+    @ExcludeMissing
+    fun _conversationInactivityMinutes(): JsonField<Long> = conversationInactivityMinutes
 
     /**
      * Returns the raw JSON value of [defaultMessagingProfileId].
@@ -93,15 +122,35 @@ private constructor(
     /** A builder for [MessagingSettings]. */
     class Builder internal constructor() {
 
+        private var conversationInactivityMinutes: JsonField<Long> = JsonMissing.of()
         private var defaultMessagingProfileId: JsonField<String> = JsonMissing.of()
         private var deliveryStatusWebhookUrl: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(messagingSettings: MessagingSettings) = apply {
+            conversationInactivityMinutes = messagingSettings.conversationInactivityMinutes
             defaultMessagingProfileId = messagingSettings.defaultMessagingProfileId
             deliveryStatusWebhookUrl = messagingSettings.deliveryStatusWebhookUrl
             additionalProperties = messagingSettings.additionalProperties.toMutableMap()
+        }
+
+        /**
+         * If more than this many minutes have passed since the last message, the assistant will
+         * start a new conversation instead of continuing the existing one.
+         */
+        fun conversationInactivityMinutes(conversationInactivityMinutes: Long) =
+            conversationInactivityMinutes(JsonField.of(conversationInactivityMinutes))
+
+        /**
+         * Sets [Builder.conversationInactivityMinutes] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.conversationInactivityMinutes] with a well-typed [Long]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun conversationInactivityMinutes(conversationInactivityMinutes: JsonField<Long>) = apply {
+            this.conversationInactivityMinutes = conversationInactivityMinutes
         }
 
         /**
@@ -165,6 +214,7 @@ private constructor(
          */
         fun build(): MessagingSettings =
             MessagingSettings(
+                conversationInactivityMinutes,
                 defaultMessagingProfileId,
                 deliveryStatusWebhookUrl,
                 additionalProperties.toMutableMap(),
@@ -178,6 +228,7 @@ private constructor(
             return@apply
         }
 
+        conversationInactivityMinutes()
         defaultMessagingProfileId()
         deliveryStatusWebhookUrl()
         validated = true
@@ -198,7 +249,8 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (defaultMessagingProfileId.asKnown().isPresent) 1 else 0) +
+        (if (conversationInactivityMinutes.asKnown().isPresent) 1 else 0) +
+            (if (defaultMessagingProfileId.asKnown().isPresent) 1 else 0) +
             (if (deliveryStatusWebhookUrl.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
@@ -207,17 +259,23 @@ private constructor(
         }
 
         return other is MessagingSettings &&
+            conversationInactivityMinutes == other.conversationInactivityMinutes &&
             defaultMessagingProfileId == other.defaultMessagingProfileId &&
             deliveryStatusWebhookUrl == other.deliveryStatusWebhookUrl &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(defaultMessagingProfileId, deliveryStatusWebhookUrl, additionalProperties)
+        Objects.hash(
+            conversationInactivityMinutes,
+            defaultMessagingProfileId,
+            deliveryStatusWebhookUrl,
+            additionalProperties,
+        )
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessagingSettings{defaultMessagingProfileId=$defaultMessagingProfileId, deliveryStatusWebhookUrl=$deliveryStatusWebhookUrl, additionalProperties=$additionalProperties}"
+        "MessagingSettings{conversationInactivityMinutes=$conversationInactivityMinutes, defaultMessagingProfileId=$defaultMessagingProfileId, deliveryStatusWebhookUrl=$deliveryStatusWebhookUrl, additionalProperties=$additionalProperties}"
 }

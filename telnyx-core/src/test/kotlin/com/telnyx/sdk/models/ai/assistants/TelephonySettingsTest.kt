@@ -14,7 +14,7 @@ internal class TelephonySettingsTest {
         val telephonySettings =
             TelephonySettings.builder()
                 .defaultTexmlAppId("default_texml_app_id")
-                .noiseSuppression(TelephonySettings.NoiseSuppression.DEEPFILTERNET)
+                .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                 .noiseSuppressionConfig(
                     TelephonySettings.NoiseSuppressionConfig.builder()
                         .attenuationLimit(0L)
@@ -23,11 +23,38 @@ internal class TelephonySettingsTest {
                 )
                 .supportsUnauthenticatedWebCalls(true)
                 .timeLimitSecs(30L)
+                .userIdleTimeoutSecs(30L)
+                .voicemailDetection(
+                    TelephonySettings.VoicemailDetection.builder()
+                        .onVoicemailDetected(
+                            TelephonySettings.VoicemailDetection.OnVoicemailDetected.builder()
+                                .action(
+                                    TelephonySettings.VoicemailDetection.OnVoicemailDetected.Action
+                                        .STOP_ASSISTANT
+                                )
+                                .voicemailMessage(
+                                    TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                        .VoicemailMessage
+                                        .builder()
+                                        .message("message")
+                                        .prompt("prompt")
+                                        .type(
+                                            TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                                .VoicemailMessage
+                                                .Type
+                                                .PROMPT
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .build()
+                )
                 .build()
 
         assertThat(telephonySettings.defaultTexmlAppId()).contains("default_texml_app_id")
         assertThat(telephonySettings.noiseSuppression())
-            .contains(TelephonySettings.NoiseSuppression.DEEPFILTERNET)
+            .contains(TelephonySettings.NoiseSuppression.KRISP)
         assertThat(telephonySettings.noiseSuppressionConfig())
             .contains(
                 TelephonySettings.NoiseSuppressionConfig.builder()
@@ -37,6 +64,34 @@ internal class TelephonySettingsTest {
             )
         assertThat(telephonySettings.supportsUnauthenticatedWebCalls()).contains(true)
         assertThat(telephonySettings.timeLimitSecs()).contains(30L)
+        assertThat(telephonySettings.userIdleTimeoutSecs()).contains(30L)
+        assertThat(telephonySettings.voicemailDetection())
+            .contains(
+                TelephonySettings.VoicemailDetection.builder()
+                    .onVoicemailDetected(
+                        TelephonySettings.VoicemailDetection.OnVoicemailDetected.builder()
+                            .action(
+                                TelephonySettings.VoicemailDetection.OnVoicemailDetected.Action
+                                    .STOP_ASSISTANT
+                            )
+                            .voicemailMessage(
+                                TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                    .VoicemailMessage
+                                    .builder()
+                                    .message("message")
+                                    .prompt("prompt")
+                                    .type(
+                                        TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                            .VoicemailMessage
+                                            .Type
+                                            .PROMPT
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .build()
+            )
     }
 
     @Test
@@ -45,7 +100,7 @@ internal class TelephonySettingsTest {
         val telephonySettings =
             TelephonySettings.builder()
                 .defaultTexmlAppId("default_texml_app_id")
-                .noiseSuppression(TelephonySettings.NoiseSuppression.DEEPFILTERNET)
+                .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
                 .noiseSuppressionConfig(
                     TelephonySettings.NoiseSuppressionConfig.builder()
                         .attenuationLimit(0L)
@@ -54,6 +109,33 @@ internal class TelephonySettingsTest {
                 )
                 .supportsUnauthenticatedWebCalls(true)
                 .timeLimitSecs(30L)
+                .userIdleTimeoutSecs(30L)
+                .voicemailDetection(
+                    TelephonySettings.VoicemailDetection.builder()
+                        .onVoicemailDetected(
+                            TelephonySettings.VoicemailDetection.OnVoicemailDetected.builder()
+                                .action(
+                                    TelephonySettings.VoicemailDetection.OnVoicemailDetected.Action
+                                        .STOP_ASSISTANT
+                                )
+                                .voicemailMessage(
+                                    TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                        .VoicemailMessage
+                                        .builder()
+                                        .message("message")
+                                        .prompt("prompt")
+                                        .type(
+                                            TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                                .VoicemailMessage
+                                                .Type
+                                                .PROMPT
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .build()
+                )
                 .build()
 
         val roundtrippedTelephonySettings =
