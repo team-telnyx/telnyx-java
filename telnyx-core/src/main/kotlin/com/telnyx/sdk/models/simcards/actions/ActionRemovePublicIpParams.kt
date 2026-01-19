@@ -15,7 +15,8 @@ import kotlin.jvm.optionals.getOrNull
  * This API removes an existing public IP from a SIM card. <br/><br/> The API will trigger an
  * asynchronous operation called a SIM Card Action. The status of the SIM Card Action can be
  * followed through the
- * [List SIM Card Action](https://developers.telnyx.com/api/wireless/list-sim-card-actions) API.
+ * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+ * API.
  */
 class ActionRemovePublicIpParams
 private constructor(
