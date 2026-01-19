@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.0.1 (2026-01-19)
+
+Full Changelog: [v6.0.0...v6.0.1](https://github.com/team-telnyx/telnyx-java/compare/v6.0.0...v6.0.1)
+
+### Bug Fixes
+
+* correct broken link to List SIM Card Actions endpoint in SIM car… ([7980148](https://github.com/team-telnyx/telnyx-java/commit/79801483feea2fd3a0c54391457ecd1d586cd241))
+
 ## 6.0.0 (2026-01-19)
 
 Full Changelog: [v5.3.0...v6.0.0](https://github.com/team-telnyx/telnyx-java/compare/v5.3.0...v6.0.0)
