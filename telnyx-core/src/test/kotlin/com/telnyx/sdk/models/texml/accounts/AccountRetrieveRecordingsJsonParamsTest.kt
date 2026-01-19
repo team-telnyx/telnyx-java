@@ -13,7 +13,7 @@ internal class AccountRetrieveRecordingsJsonParamsTest {
     fun create() {
         AccountRetrieveRecordingsJsonParams.builder()
             .accountSid("account_sid")
-            .dateCreated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .dateCreated(OffsetDateTime.parse("2023-05-22T00:00:00Z"))
             .page(0L)
             .pageSize(0L)
             .build()
@@ -33,7 +33,7 @@ internal class AccountRetrieveRecordingsJsonParamsTest {
         val params =
             AccountRetrieveRecordingsJsonParams.builder()
                 .accountSid("account_sid")
-                .dateCreated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .dateCreated(OffsetDateTime.parse("2023-05-22T00:00:00Z"))
                 .page(0L)
                 .pageSize(0L)
                 .build()
@@ -43,7 +43,7 @@ internal class AccountRetrieveRecordingsJsonParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("DateCreated", "2019-12-27T18:11:19.117Z")
+                    .put("DateCreated", "2023-05-22T00:00:00Z")
                     .put("Page", "0")
                     .put("PageSize", "0")
                     .build()

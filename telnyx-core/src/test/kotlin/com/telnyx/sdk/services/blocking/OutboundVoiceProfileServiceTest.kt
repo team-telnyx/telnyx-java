@@ -6,7 +6,6 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundCallRecording
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileCreateParams
-import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileListParams
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileUpdateParams
 import com.telnyx.sdk.models.outboundvoiceprofiles.ServicePlan
 import com.telnyx.sdk.models.outboundvoiceprofiles.TrafficType
@@ -46,8 +45,8 @@ internal class OutboundVoiceProfileServiceTest {
                     .callingWindow(
                         OutboundVoiceProfileCreateParams.CallingWindow.builder()
                             .callsPerCld(5L)
-                            .endTime("18:11:19.117Z")
-                            .startTime("18:11:19.117Z")
+                            .endTime("20:00:00.00Z")
+                            .startTime("08:00:00.00Z")
                             .build()
                     )
                     .concurrentCallLimit(10L)
@@ -110,8 +109,8 @@ internal class OutboundVoiceProfileServiceTest {
                     .callingWindow(
                         OutboundVoiceProfileUpdateParams.CallingWindow.builder()
                             .callsPerCld(5L)
-                            .endTime("18:11:19.117Z")
-                            .startTime("18:11:19.117Z")
+                            .endTime("20:00:00.00Z")
+                            .startTime("08:00:00.00Z")
                             .build()
                     )
                     .concurrentCallLimit(10L)
@@ -140,24 +139,9 @@ internal class OutboundVoiceProfileServiceTest {
                 .build()
         val outboundVoiceProfileService = client.outboundVoiceProfiles()
 
-        val outboundVoiceProfiles =
-            outboundVoiceProfileService.list(
-                OutboundVoiceProfileListParams.builder()
-                    .filter(
-                        OutboundVoiceProfileListParams.Filter.builder()
-                            .name(
-                                OutboundVoiceProfileListParams.Filter.Name.builder()
-                                    .contains("office-profile")
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .page(OutboundVoiceProfileListParams.Page.builder().number(1L).size(1L).build())
-                    .sort(OutboundVoiceProfileListParams.Sort.NAME)
-                    .build()
-            )
+        val page = outboundVoiceProfileService.list()
 
-        outboundVoiceProfiles.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

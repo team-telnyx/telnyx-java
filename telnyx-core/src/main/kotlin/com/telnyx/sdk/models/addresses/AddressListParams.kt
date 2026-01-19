@@ -18,7 +18,8 @@ import kotlin.jvm.optionals.getOrNull
 class AddressListParams
 private constructor(
     private val filter: Filter?,
-    private val page: Page?,
+    private val pageNumber: Long?,
+    private val pageSize: Long?,
     private val sort: Sort?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -31,8 +32,9 @@ private constructor(
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
-    /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
-    fun page(): Optional<Page> = Optional.ofNullable(page)
+    fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
+
+    fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
     /**
      * Specifies the sort order for results. By default sorting direction is ascending. To have the
@@ -65,7 +67,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var filter: Filter? = null
-        private var page: Page? = null
+        private var pageNumber: Long? = null
+        private var pageSize: Long? = null
         private var sort: Sort? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -73,7 +76,8 @@ private constructor(
         @JvmSynthetic
         internal fun from(addressListParams: AddressListParams) = apply {
             filter = addressListParams.filter
-            page = addressListParams.page
+            pageNumber = addressListParams.pageNumber
+            pageSize = addressListParams.pageSize
             sort = addressListParams.sort
             additionalHeaders = addressListParams.additionalHeaders.toBuilder()
             additionalQueryParams = addressListParams.additionalQueryParams.toBuilder()
@@ -89,11 +93,29 @@ private constructor(
         /** Alias for calling [Builder.filter] with `filter.orElse(null)`. */
         fun filter(filter: Optional<Filter>) = filter(filter.getOrNull())
 
-        /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
-        fun page(page: Page?) = apply { this.page = page }
+        fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
-        /** Alias for calling [Builder.page] with `page.orElse(null)`. */
-        fun page(page: Optional<Page>) = page(page.getOrNull())
+        /**
+         * Alias for [Builder.pageNumber].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageNumber(pageNumber: Long) = pageNumber(pageNumber as Long?)
+
+        /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
+        fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
+
+        fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
+
+        /**
+         * Alias for [Builder.pageSize].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageSize(pageSize: Long) = pageSize(pageSize as Long?)
+
+        /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
+        fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
         /**
          * Specifies the sort order for results. By default sorting direction is ascending. To have
@@ -216,7 +238,8 @@ private constructor(
         fun build(): AddressListParams =
             AddressListParams(
                 filter,
-                page,
+                pageNumber,
+                pageSize,
                 sort,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -244,18 +267,18 @@ private constructor(
                                     put("filter[customer_reference]", string)
                                 }
 
-                                override fun visitUnionMember1(
-                                    unionMember1: Filter.CustomerReference.UnionMember1
+                                override fun visitMatcher(
+                                    matcher: Filter.CustomerReference.CustomerReferenceMatcher
                                 ) {
-                                    unionMember1.contains().ifPresent {
+                                    matcher.contains().ifPresent {
                                         put("filter[customer_reference][contains]", it)
                                     }
-                                    unionMember1.eq().ifPresent {
+                                    matcher.eq().ifPresent {
                                         put("filter[customer_reference][eq]", it)
                                     }
-                                    unionMember1._additionalProperties().keys().forEach { key ->
-                                        unionMember1._additionalProperties().values(key).forEach {
-                                            value ->
+                                    matcher._additionalProperties().keys().forEach { key ->
+                                        matcher._additionalProperties().values(key).forEach { value
+                                            ->
                                             put("filter[customer_reference][$key]", value)
                                         }
                                     }
@@ -278,15 +301,8 @@ private constructor(
                         }
                     }
                 }
-                page?.let {
-                    it.number().ifPresent { put("page[number]", it.toString()) }
-                    it.size().ifPresent { put("page[size]", it.toString()) }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("page[$key]", value)
-                        }
-                    }
-                }
+                pageNumber?.let { put("page[number]", it.toString()) }
+                pageSize?.let { put("page[size]", it.toString()) }
                 sort?.let { put("sort", it.toString()) }
                 putAll(additionalQueryParams)
             }
@@ -378,11 +394,10 @@ private constructor(
                 customerReference(CustomerReference.ofString(string))
 
             /**
-             * Alias for calling [customerReference] with
-             * `CustomerReference.ofUnionMember1(unionMember1)`.
+             * Alias for calling [customerReference] with `CustomerReference.ofMatcher(matcher)`.
              */
-            fun customerReference(unionMember1: CustomerReference.UnionMember1) =
-                customerReference(CustomerReference.ofUnionMember1(unionMember1))
+            fun customerReference(matcher: CustomerReference.CustomerReferenceMatcher) =
+                customerReference(CustomerReference.ofMatcher(matcher))
 
             fun streetAddress(streetAddress: StreetAddress?) = apply {
                 this.streetAddress = streetAddress
@@ -597,7 +612,7 @@ private constructor(
         class CustomerReference
         private constructor(
             private val string: String? = null,
-            private val unionMember1: UnionMember1? = null,
+            private val matcher: CustomerReferenceMatcher? = null,
         ) {
 
             /**
@@ -606,11 +621,11 @@ private constructor(
              */
             fun string(): Optional<String> = Optional.ofNullable(string)
 
-            fun unionMember1(): Optional<UnionMember1> = Optional.ofNullable(unionMember1)
+            fun matcher(): Optional<CustomerReferenceMatcher> = Optional.ofNullable(matcher)
 
             fun isString(): Boolean = string != null
 
-            fun isUnionMember1(): Boolean = unionMember1 != null
+            fun isMatcher(): Boolean = matcher != null
 
             /**
              * If present, addresses with <code>customer_reference</code> containing the given value
@@ -618,12 +633,12 @@ private constructor(
              */
             fun asString(): String = string.getOrThrow("string")
 
-            fun asUnionMember1(): UnionMember1 = unionMember1.getOrThrow("unionMember1")
+            fun asMatcher(): CustomerReferenceMatcher = matcher.getOrThrow("matcher")
 
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     string != null -> visitor.visitString(string)
-                    unionMember1 != null -> visitor.visitUnionMember1(unionMember1)
+                    matcher != null -> visitor.visitMatcher(matcher)
                     else -> throw IllegalStateException("Invalid CustomerReference")
                 }
 
@@ -634,15 +649,15 @@ private constructor(
 
                 return other is CustomerReference &&
                     string == other.string &&
-                    unionMember1 == other.unionMember1
+                    matcher == other.matcher
             }
 
-            override fun hashCode(): Int = Objects.hash(string, unionMember1)
+            override fun hashCode(): Int = Objects.hash(string, matcher)
 
             override fun toString(): String =
                 when {
                     string != null -> "CustomerReference{string=$string}"
-                    unionMember1 != null -> "CustomerReference{unionMember1=$unionMember1}"
+                    matcher != null -> "CustomerReference{matcher=$matcher}"
                     else -> throw IllegalStateException("Invalid CustomerReference")
                 }
 
@@ -655,8 +670,8 @@ private constructor(
                 @JvmStatic fun ofString(string: String) = CustomerReference(string = string)
 
                 @JvmStatic
-                fun ofUnionMember1(unionMember1: UnionMember1) =
-                    CustomerReference(unionMember1 = unionMember1)
+                fun ofMatcher(matcher: CustomerReferenceMatcher) =
+                    CustomerReference(matcher = matcher)
             }
 
             /**
@@ -671,10 +686,10 @@ private constructor(
                  */
                 fun visitString(string: String): T
 
-                fun visitUnionMember1(unionMember1: UnionMember1): T
+                fun visitMatcher(matcher: CustomerReferenceMatcher): T
             }
 
-            class UnionMember1
+            class CustomerReferenceMatcher
             private constructor(
                 private val contains: String?,
                 private val eq: String?,
@@ -694,11 +709,14 @@ private constructor(
 
                 companion object {
 
-                    /** Returns a mutable builder for constructing an instance of [UnionMember1]. */
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [CustomerReferenceMatcher].
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [UnionMember1]. */
+                /** A builder for [CustomerReferenceMatcher]. */
                 class Builder internal constructor() {
 
                     private var contains: String? = null
@@ -706,10 +724,11 @@ private constructor(
                     private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                     @JvmSynthetic
-                    internal fun from(unionMember1: UnionMember1) = apply {
-                        contains = unionMember1.contains
-                        eq = unionMember1.eq
-                        additionalProperties = unionMember1.additionalProperties.toBuilder()
+                    internal fun from(customerReferenceMatcher: CustomerReferenceMatcher) = apply {
+                        contains = customerReferenceMatcher.contains
+                        eq = customerReferenceMatcher.eq
+                        additionalProperties =
+                            customerReferenceMatcher.additionalProperties.toBuilder()
                     }
 
                     /** Partial match for customer_reference. Matching is not case-sensitive. */
@@ -776,12 +795,12 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [UnionMember1].
+                     * Returns an immutable instance of [CustomerReferenceMatcher].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): UnionMember1 =
-                        UnionMember1(contains, eq, additionalProperties.build())
+                    fun build(): CustomerReferenceMatcher =
+                        CustomerReferenceMatcher(contains, eq, additionalProperties.build())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -789,7 +808,7 @@ private constructor(
                         return true
                     }
 
-                    return other is UnionMember1 &&
+                    return other is CustomerReferenceMatcher &&
                         contains == other.contains &&
                         eq == other.eq &&
                         additionalProperties == other.additionalProperties
@@ -802,7 +821,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "UnionMember1{contains=$contains, eq=$eq, additionalProperties=$additionalProperties}"
+                    "CustomerReferenceMatcher{contains=$contains, eq=$eq, additionalProperties=$additionalProperties}"
             }
         }
 
@@ -955,147 +974,6 @@ private constructor(
 
         override fun toString() =
             "Filter{addressBook=$addressBook, customerReference=$customerReference, streetAddress=$streetAddress, usedAsEmergency=$usedAsEmergency, additionalProperties=$additionalProperties}"
-    }
-
-    /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
-    class Page
-    private constructor(
-        private val number: Long?,
-        private val size: Long?,
-        private val additionalProperties: QueryParams,
-    ) {
-
-        /** The page number to load */
-        fun number(): Optional<Long> = Optional.ofNullable(number)
-
-        /** The size of the page */
-        fun size(): Optional<Long> = Optional.ofNullable(size)
-
-        /** Query params to send with the request. */
-        fun _additionalProperties(): QueryParams = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Page]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Page]. */
-        class Builder internal constructor() {
-
-            private var number: Long? = null
-            private var size: Long? = null
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
-
-            @JvmSynthetic
-            internal fun from(page: Page) = apply {
-                number = page.number
-                size = page.size
-                additionalProperties = page.additionalProperties.toBuilder()
-            }
-
-            /** The page number to load */
-            fun number(number: Long?) = apply { this.number = number }
-
-            /**
-             * Alias for [Builder.number].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun number(number: Long) = number(number as Long?)
-
-            /** Alias for calling [Builder.number] with `number.orElse(null)`. */
-            fun number(number: Optional<Long>) = number(number.getOrNull())
-
-            /** The size of the page */
-            fun size(size: Long?) = apply { this.size = size }
-
-            /**
-             * Alias for [Builder.size].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun size(size: Long) = size(size as Long?)
-
-            /** Alias for calling [Builder.size] with `size.orElse(null)`. */
-            fun size(size: Optional<Long>) = size(size.getOrNull())
-
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
-
-            /**
-             * Returns an immutable instance of [Page].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Page = Page(number, size, additionalProperties.build())
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Page &&
-                number == other.number &&
-                size == other.size &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(number, size, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Page{number=$number, size=$size, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -1257,15 +1135,16 @@ private constructor(
 
         return other is AddressListParams &&
             filter == other.filter &&
-            page == other.page &&
+            pageNumber == other.pageNumber &&
+            pageSize == other.pageSize &&
             sort == other.sort &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(filter, page, sort, additionalHeaders, additionalQueryParams)
+        Objects.hash(filter, pageNumber, pageSize, sort, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "AddressListParams{filter=$filter, page=$page, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "AddressListParams{filter=$filter, pageNumber=$pageNumber, pageSize=$pageSize, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

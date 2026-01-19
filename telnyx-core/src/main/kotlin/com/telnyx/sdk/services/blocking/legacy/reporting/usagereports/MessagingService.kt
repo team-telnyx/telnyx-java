@@ -10,8 +10,8 @@ import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingCr
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingDeleteParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingDeleteResponse
+import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingListPage
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingListParams
-import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingRetrieveParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingRetrieveResponse
 import java.util.function.Consumer
@@ -72,20 +72,20 @@ interface MessagingService {
         retrieve(id, MessagingRetrieveParams.none(), requestOptions)
 
     /** Fetch all previous requests for MDR usage reports. */
-    fun list(): MessagingListResponse = list(MessagingListParams.none())
+    fun list(): MessagingListPage = list(MessagingListParams.none())
 
     /** @see list */
     fun list(
         params: MessagingListParams = MessagingListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessagingListResponse
+    ): MessagingListPage
 
     /** @see list */
-    fun list(params: MessagingListParams = MessagingListParams.none()): MessagingListResponse =
+    fun list(params: MessagingListParams = MessagingListParams.none()): MessagingListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): MessagingListResponse =
+    fun list(requestOptions: RequestOptions): MessagingListPage =
         list(MessagingListParams.none(), requestOptions)
 
     /** Deletes a specific V2 legacy usage MDR report request by ID */
@@ -192,24 +192,24 @@ interface MessagingService {
          * otherwise the same as [MessagingService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<MessagingListResponse> = list(MessagingListParams.none())
+        fun list(): HttpResponseFor<MessagingListPage> = list(MessagingListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MessagingListParams = MessagingListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessagingListResponse>
+        ): HttpResponseFor<MessagingListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MessagingListParams = MessagingListParams.none()
-        ): HttpResponseFor<MessagingListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<MessagingListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<MessagingListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<MessagingListPage> =
             list(MessagingListParams.none(), requestOptions)
 
         /**

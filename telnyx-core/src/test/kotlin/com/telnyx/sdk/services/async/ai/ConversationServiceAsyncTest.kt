@@ -142,7 +142,7 @@ internal class ConversationServiceAsyncTest {
                 .build()
         val conversationServiceAsync = client.ai().conversations()
 
-        val responseFuture =
+        val future =
             conversationServiceAsync.addMessage(
                 ConversationAddMessageParams.builder()
                     .conversationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -165,8 +165,7 @@ internal class ConversationServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val response = future.get()
     }
 
     @Disabled("Prism tests are disabled")

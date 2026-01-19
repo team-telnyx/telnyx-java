@@ -6,7 +6,6 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportCreateParams
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportFetchSyncParams
-import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportListParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -66,15 +65,10 @@ internal class MdrUsageReportServiceAsyncTest {
                 .build()
         val mdrUsageReportServiceAsync = client.reports().mdrUsageReports()
 
-        val mdrUsageReportsFuture =
-            mdrUsageReportServiceAsync.list(
-                MdrUsageReportListParams.builder()
-                    .page(MdrUsageReportListParams.Page.builder().number(0).size(0).build())
-                    .build()
-            )
+        val pageFuture = mdrUsageReportServiceAsync.list()
 
-        val mdrUsageReports = mdrUsageReportsFuture.get()
-        mdrUsageReports.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -107,7 +101,7 @@ internal class MdrUsageReportServiceAsyncTest {
         val responseFuture =
             mdrUsageReportServiceAsync.fetchSync(
                 MdrUsageReportFetchSyncParams.builder()
-                    .aggregationType(MdrUsageReportFetchSyncParams.AggregationType.NO_AGGREGATION)
+                    .aggregationType(MdrUsageReportFetchSyncParams.AggregationType.PROFILE)
                     .endDate(OffsetDateTime.parse("2020-07-01T00:00:00-06:00"))
                     .addProfile("My profile")
                     .startDate(OffsetDateTime.parse("2020-07-01T00:00:00-06:00"))

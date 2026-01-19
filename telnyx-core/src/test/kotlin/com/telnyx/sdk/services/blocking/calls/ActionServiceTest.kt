@@ -56,6 +56,7 @@ import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
 import com.telnyx.sdk.models.calls.actions.InterruptionSettings
 import com.telnyx.sdk.models.calls.actions.StopRecordingRequest
 import com.telnyx.sdk.models.calls.actions.TranscriptionConfig
+import com.telnyx.sdk.models.calls.actions.TranscriptionEngineGoogleConfig
 import com.telnyx.sdk.models.calls.actions.TranscriptionStartRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -105,7 +106,7 @@ internal class ActionServiceTest {
                     .soundModifications(
                         SoundModifications.builder()
                             .octaves(0.1)
-                            .pitch(0.0)
+                            .pitch(0.8)
                             .semitone(-2.0)
                             .track("both")
                             .build()
@@ -125,31 +126,23 @@ internal class ActionServiceTest {
                                 TranscriptionStartRequest.TranscriptionEngine.GOOGLE
                             )
                             .transcriptionEngineConfig(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
+                                TranscriptionEngineGoogleConfig.builder()
                                     .enableSpeakerDiarization(true)
                                     .addHint("string")
                                     .interimResults(true)
                                     .language(GoogleTranscriptionLanguage.EN)
                                     .maxSpeakerCount(4)
                                     .minSpeakerCount(4)
-                                    .model(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .Model
-                                            .LATEST_LONG
-                                    )
+                                    .model(TranscriptionEngineGoogleConfig.Model.LATEST_LONG)
                                     .profanityFilter(true)
                                     .addSpeechContext(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .SpeechContext
-                                            .builder()
+                                        TranscriptionEngineGoogleConfig.SpeechContext.builder()
                                             .boost(1.0)
                                             .addPhrase("string")
                                             .build()
                                     )
                                     .transcriptionEngine(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .TranscriptionEngine
-                                            .GOOGLE
+                                        TranscriptionEngineGoogleConfig.TranscriptionEngine.GOOGLE
                                     )
                                     .useEnhanced(true)
                                     .build()
@@ -178,8 +171,8 @@ internal class ActionServiceTest {
         val response =
             actionService.bridge(
                 ActionBridgeParams.builder()
-                    .pathCallControlId("call_control_id")
-                    .bodyCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+                    .callControlIdToBridge("call_control_id")
+                    .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .muteDtmf(ActionBridgeParams.MuteDtmf.OPPOSITE)
@@ -220,6 +213,7 @@ internal class ActionServiceTest {
                     .queueName("support")
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .keepAfterHangup(true)
                     .maxSize(20L)
                     .maxWaitTimeSecs(600L)
                     .build()
@@ -273,42 +267,23 @@ internal class ActionServiceTest {
                 ActionGatherUsingAiParams.builder()
                     .callControlId("call_control_id")
                     .parameters(
-                        JsonValue.from(
-                            mapOf(
-                                "properties" to
-                                    mapOf(
-                                        "age" to
-                                            mapOf(
-                                                "description" to "The age of the customer.",
-                                                "type" to "integer",
-                                            ),
-                                        "location" to
-                                            mapOf(
-                                                "description" to "The location of the customer.",
-                                                "type" to "string",
-                                            ),
-                                    ),
-                                "required" to listOf("age", "location"),
-                                "type" to "object",
-                            )
-                        )
+                        ActionGatherUsingAiParams.Parameters.builder()
+                            .putAdditionalProperty("properties", JsonValue.from("bar"))
+                            .putAdditionalProperty("required", JsonValue.from("bar"))
+                            .putAdditionalProperty("type", JsonValue.from("bar"))
+                            .build()
                     )
                     .assistant(
                         Assistant.builder()
                             .instructions("You are a friendly voice assistant.")
-                            .model("meta-llama/Meta-Llama-3.1-70B-Instruct")
+                            .model("Qwen/Qwen3-235B-A22B")
                             .openaiApiKeyRef("my_openai_api_key")
-                            .addTool(
-                                Assistant.Tool.BookAppointmentTool.builder()
-                                    .bookAppointment(
-                                        Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
-                                            .apiKeyRef("my_calcom_api_key")
-                                            .eventTypeId(0L)
-                                            .attendeeName("attendee_name")
-                                            .attendeeTimezone("attendee_timezone")
-                                            .build()
-                                    )
-                                    .type(Assistant.Tool.BookAppointmentTool.Type.BOOK_APPOINTMENT)
+                            .addBookAppointmentTool(
+                                Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
+                                    .apiKeyRef("my_calcom_api_key")
+                                    .eventTypeId(0L)
+                                    .attendeeName("attendee_name")
+                                    .attendeeTimezone("attendee_timezone")
                                     .build()
                             )
                             .build()
@@ -340,7 +315,10 @@ internal class ActionServiceTest {
                     .userResponseTimeoutMs(5000L)
                     .voice("Telnyx.KokoroTTS.af")
                     .voiceSettings(
-                        ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+                        ElevenLabsVoiceSettings.builder()
+                            .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                            .apiKeyRef("my_elevenlabs_api_key")
+                            .build()
                     )
                     .build()
             )
@@ -411,7 +389,10 @@ internal class ActionServiceTest {
                     .timeoutMillis(60000)
                     .validDigits("123")
                     .voiceSettings(
-                        ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+                        ElevenLabsVoiceSettings.builder()
+                            .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                            .apiKeyRef("my_elevenlabs_api_key")
+                            .build()
                     )
                     .build()
             )
@@ -604,7 +585,7 @@ internal class ActionServiceTest {
             actionService.sendSipInfo(
                 ActionSendSipInfoParams.builder()
                     .callControlId("call_control_id")
-                    .body("{\"key\": \"value\", \"numValue\": 100}")
+                    .sipInfoBody("{\"key\": \"value\", \"numValue\": 100}")
                     .contentType("application/json")
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
@@ -637,7 +618,10 @@ internal class ActionServiceTest {
                     .serviceLevel(ActionSpeakParams.ServiceLevel.BASIC)
                     .stop("current")
                     .voiceSettings(
-                        ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+                        ElevenLabsVoiceSettings.builder()
+                            .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                            .apiKeyRef("my_elevenlabs_api_key")
+                            .build()
                     )
                     .build()
             )
@@ -677,7 +661,10 @@ internal class ActionServiceTest {
                     )
                     .voice("Telnyx.KokoroTTS.af")
                     .voiceSettings(
-                        ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+                        ElevenLabsVoiceSettings.builder()
+                            .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                            .apiKeyRef("my_elevenlabs_api_key")
+                            .build()
                     )
                     .build()
             )
@@ -728,7 +715,12 @@ internal class ActionServiceTest {
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .direction(ActionStartNoiseSuppressionParams.Direction.BOTH)
                     .noiseSuppressionEngine(
-                        ActionStartNoiseSuppressionParams.NoiseSuppressionEngine.A
+                        ActionStartNoiseSuppressionParams.NoiseSuppressionEngine.DEEP_FILTER_NET
+                    )
+                    .noiseSuppressionEngineConfig(
+                        ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.builder()
+                            .attenuationLimit(100L)
+                            .build()
                     )
                     .build()
             )
@@ -858,7 +850,7 @@ internal class ActionServiceTest {
                     .enableDialogflow(false)
                     .streamBidirectionalCodec(StreamBidirectionalCodec.G722)
                     .streamBidirectionalMode(StreamBidirectionalMode.RTP)
-                    .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate._16000)
+                    .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate.RATE_16000)
                     .streamBidirectionalTargetLegs(StreamBidirectionalTargetLegs.BOTH)
                     .streamCodec(StreamCodec.PCMA)
                     .streamTrack(ActionStartStreamingParams.StreamTrack.BOTH_TRACKS)
@@ -891,31 +883,23 @@ internal class ActionServiceTest {
                                 TranscriptionStartRequest.TranscriptionEngine.GOOGLE
                             )
                             .transcriptionEngineConfig(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
+                                TranscriptionEngineGoogleConfig.builder()
                                     .enableSpeakerDiarization(true)
                                     .addHint("string")
                                     .interimResults(true)
                                     .language(GoogleTranscriptionLanguage.EN)
                                     .maxSpeakerCount(4)
                                     .minSpeakerCount(4)
-                                    .model(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .Model
-                                            .LATEST_LONG
-                                    )
+                                    .model(TranscriptionEngineGoogleConfig.Model.LATEST_LONG)
                                     .profanityFilter(true)
                                     .addSpeechContext(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .SpeechContext
-                                            .builder()
+                                        TranscriptionEngineGoogleConfig.SpeechContext.builder()
                                             .boost(1.0)
                                             .addPhrase("string")
                                             .build()
                                     )
                                     .transcriptionEngine(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .TranscriptionEngine
-                                            .GOOGLE
+                                        TranscriptionEngineGoogleConfig.TranscriptionEngine.GOOGLE
                                     )
                                     .useEnhanced(true)
                                     .build()
@@ -1218,11 +1202,12 @@ internal class ActionServiceTest {
                     .addSipHeader(
                         SipHeader.builder().name(SipHeader.Name.USER_TO_USER).value("value").build()
                     )
+                    .sipRegion(ActionTransferParams.SipRegion.CANADA)
                     .sipTransportProtocol(ActionTransferParams.SipTransportProtocol.TLS)
                     .soundModifications(
                         SoundModifications.builder()
                             .octaves(0.1)
-                            .pitch(0.0)
+                            .pitch(0.8)
                             .semitone(-2.0)
                             .track("both")
                             .build()

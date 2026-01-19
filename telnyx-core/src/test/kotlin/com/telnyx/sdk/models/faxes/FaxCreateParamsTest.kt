@@ -15,6 +15,7 @@ internal class FaxCreateParamsTest {
             .connectionId("234423")
             .from("+13125790015")
             .to("+13127367276")
+            .blackThreshold(1L)
             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
             .fromDisplayName("Company Name")
             .mediaName("my_media_uploaded_to_media_storage_api")
@@ -36,6 +37,7 @@ internal class FaxCreateParamsTest {
                 .connectionId("234423")
                 .from("+13125790015")
                 .to("+13127367276")
+                .blackThreshold(1L)
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .fromDisplayName("Company Name")
                 .mediaName("my_media_uploaded_to_media_storage_api")
@@ -64,6 +66,7 @@ internal class FaxCreateParamsTest {
                         "connection_id" to MultipartField.of("234423"),
                         "from" to MultipartField.of("+13125790015"),
                         "to" to MultipartField.of("+13127367276"),
+                        "black_threshold" to MultipartField.of(1L),
                         "client_state" to MultipartField.of("aGF2ZSBhIG5pY2UgZGF5ID1d"),
                         "from_display_name" to MultipartField.of("Company Name"),
                         "media_name" to MultipartField.of("my_media_uploaded_to_media_storage_api"),

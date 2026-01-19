@@ -29,12 +29,16 @@ private constructor(
     private val dailySpendLimit: JsonField<String>,
     private val dailySpendLimitEnabled: JsonField<Boolean>,
     private val enabled: JsonField<Boolean>,
+    private val healthWebhookUrl: JsonField<String>,
     private val mmsFallBackToSms: JsonField<Boolean>,
     private val mmsTranscoding: JsonField<Boolean>,
     private val mobileOnly: JsonField<Boolean>,
     private val name: JsonField<String>,
     private val numberPoolSettings: JsonField<NumberPoolSettings>,
     private val recordType: JsonField<RecordType>,
+    private val redactionEnabled: JsonField<Boolean>,
+    private val redactionLevel: JsonField<Long>,
+    private val smartEncoding: JsonField<Boolean>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val urlShortenerSettings: JsonField<UrlShortenerSettings>,
     private val v1Secret: JsonField<String>,
@@ -61,6 +65,9 @@ private constructor(
         @ExcludeMissing
         dailySpendLimitEnabled: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("enabled") @ExcludeMissing enabled: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("health_webhook_url")
+        @ExcludeMissing
+        healthWebhookUrl: JsonField<String> = JsonMissing.of(),
         @JsonProperty("mms_fall_back_to_sms")
         @ExcludeMissing
         mmsFallBackToSms: JsonField<Boolean> = JsonMissing.of(),
@@ -77,6 +84,15 @@ private constructor(
         @JsonProperty("record_type")
         @ExcludeMissing
         recordType: JsonField<RecordType> = JsonMissing.of(),
+        @JsonProperty("redaction_enabled")
+        @ExcludeMissing
+        redactionEnabled: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("redaction_level")
+        @ExcludeMissing
+        redactionLevel: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("smart_encoding")
+        @ExcludeMissing
+        smartEncoding: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -103,12 +119,16 @@ private constructor(
         dailySpendLimit,
         dailySpendLimitEnabled,
         enabled,
+        healthWebhookUrl,
         mmsFallBackToSms,
         mmsTranscoding,
         mobileOnly,
         name,
         numberPoolSettings,
         recordType,
+        redactionEnabled,
+        redactionLevel,
+        smartEncoding,
         updatedAt,
         urlShortenerSettings,
         v1Secret,
@@ -170,6 +190,14 @@ private constructor(
     fun enabled(): Optional<Boolean> = enabled.getOptional("enabled")
 
     /**
+     * DEPRECATED: health check url service checking
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun healthWebhookUrl(): Optional<String> = healthWebhookUrl.getOptional("health_webhook_url")
+
+    /**
      * enables SMS fallback for MMS messages.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -221,6 +249,32 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun recordType(): Optional<RecordType> = recordType.getOptional("record_type")
+
+    /**
+     * Indicates whether message content redaction is enabled for this profile.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun redactionEnabled(): Optional<Boolean> = redactionEnabled.getOptional("redaction_enabled")
+
+    /**
+     * Determines how much information is redacted in messages for privacy or compliance purposes.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun redactionLevel(): Optional<Long> = redactionLevel.getOptional("redaction_level")
+
+    /**
+     * Enables automatic character encoding optimization for SMS messages. When enabled, the system
+     * automatically selects the most efficient encoding (GSM-7 or UCS-2) based on message content
+     * to maximize character limits and minimize costs.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun smartEncoding(): Optional<Boolean> = smartEncoding.getOptional("smart_encoding")
 
     /**
      * ISO 8601 formatted date indicating when the resource was updated.
@@ -343,6 +397,16 @@ private constructor(
     @JsonProperty("enabled") @ExcludeMissing fun _enabled(): JsonField<Boolean> = enabled
 
     /**
+     * Returns the raw JSON value of [healthWebhookUrl].
+     *
+     * Unlike [healthWebhookUrl], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("health_webhook_url")
+    @ExcludeMissing
+    fun _healthWebhookUrl(): JsonField<String> = healthWebhookUrl
+
+    /**
      * Returns the raw JSON value of [mmsFallBackToSms].
      *
      * Unlike [mmsFallBackToSms], this method doesn't throw if the JSON field has an unexpected
@@ -393,6 +457,34 @@ private constructor(
     @JsonProperty("record_type")
     @ExcludeMissing
     fun _recordType(): JsonField<RecordType> = recordType
+
+    /**
+     * Returns the raw JSON value of [redactionEnabled].
+     *
+     * Unlike [redactionEnabled], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("redaction_enabled")
+    @ExcludeMissing
+    fun _redactionEnabled(): JsonField<Boolean> = redactionEnabled
+
+    /**
+     * Returns the raw JSON value of [redactionLevel].
+     *
+     * Unlike [redactionLevel], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("redaction_level")
+    @ExcludeMissing
+    fun _redactionLevel(): JsonField<Long> = redactionLevel
+
+    /**
+     * Returns the raw JSON value of [smartEncoding].
+     *
+     * Unlike [smartEncoding], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("smart_encoding")
+    @ExcludeMissing
+    fun _smartEncoding(): JsonField<Boolean> = smartEncoding
 
     /**
      * Returns the raw JSON value of [updatedAt].
@@ -484,12 +576,16 @@ private constructor(
         private var dailySpendLimit: JsonField<String> = JsonMissing.of()
         private var dailySpendLimitEnabled: JsonField<Boolean> = JsonMissing.of()
         private var enabled: JsonField<Boolean> = JsonMissing.of()
+        private var healthWebhookUrl: JsonField<String> = JsonMissing.of()
         private var mmsFallBackToSms: JsonField<Boolean> = JsonMissing.of()
         private var mmsTranscoding: JsonField<Boolean> = JsonMissing.of()
         private var mobileOnly: JsonField<Boolean> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var numberPoolSettings: JsonField<NumberPoolSettings> = JsonMissing.of()
         private var recordType: JsonField<RecordType> = JsonMissing.of()
+        private var redactionEnabled: JsonField<Boolean> = JsonMissing.of()
+        private var redactionLevel: JsonField<Long> = JsonMissing.of()
+        private var smartEncoding: JsonField<Boolean> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var urlShortenerSettings: JsonField<UrlShortenerSettings> = JsonMissing.of()
         private var v1Secret: JsonField<String> = JsonMissing.of()
@@ -507,12 +603,16 @@ private constructor(
             dailySpendLimit = messagingProfile.dailySpendLimit
             dailySpendLimitEnabled = messagingProfile.dailySpendLimitEnabled
             enabled = messagingProfile.enabled
+            healthWebhookUrl = messagingProfile.healthWebhookUrl
             mmsFallBackToSms = messagingProfile.mmsFallBackToSms
             mmsTranscoding = messagingProfile.mmsTranscoding
             mobileOnly = messagingProfile.mobileOnly
             name = messagingProfile.name
             numberPoolSettings = messagingProfile.numberPoolSettings
             recordType = messagingProfile.recordType
+            redactionEnabled = messagingProfile.redactionEnabled
+            redactionLevel = messagingProfile.redactionLevel
+            smartEncoding = messagingProfile.smartEncoding
             updatedAt = messagingProfile.updatedAt
             urlShortenerSettings = messagingProfile.urlShortenerSettings
             v1Secret = messagingProfile.v1Secret
@@ -609,6 +709,25 @@ private constructor(
          */
         fun enabled(enabled: JsonField<Boolean>) = apply { this.enabled = enabled }
 
+        /** DEPRECATED: health check url service checking */
+        fun healthWebhookUrl(healthWebhookUrl: String?) =
+            healthWebhookUrl(JsonField.ofNullable(healthWebhookUrl))
+
+        /** Alias for calling [Builder.healthWebhookUrl] with `healthWebhookUrl.orElse(null)`. */
+        fun healthWebhookUrl(healthWebhookUrl: Optional<String>) =
+            healthWebhookUrl(healthWebhookUrl.getOrNull())
+
+        /**
+         * Sets [Builder.healthWebhookUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.healthWebhookUrl] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun healthWebhookUrl(healthWebhookUrl: JsonField<String>) = apply {
+            this.healthWebhookUrl = healthWebhookUrl
+        }
+
         /** enables SMS fallback for MMS messages. */
         fun mmsFallBackToSms(mmsFallBackToSms: Boolean) =
             mmsFallBackToSms(JsonField.of(mmsFallBackToSms))
@@ -699,6 +818,56 @@ private constructor(
          * supported value.
          */
         fun recordType(recordType: JsonField<RecordType>) = apply { this.recordType = recordType }
+
+        /** Indicates whether message content redaction is enabled for this profile. */
+        fun redactionEnabled(redactionEnabled: Boolean) =
+            redactionEnabled(JsonField.of(redactionEnabled))
+
+        /**
+         * Sets [Builder.redactionEnabled] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.redactionEnabled] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun redactionEnabled(redactionEnabled: JsonField<Boolean>) = apply {
+            this.redactionEnabled = redactionEnabled
+        }
+
+        /**
+         * Determines how much information is redacted in messages for privacy or compliance
+         * purposes.
+         */
+        fun redactionLevel(redactionLevel: Long) = redactionLevel(JsonField.of(redactionLevel))
+
+        /**
+         * Sets [Builder.redactionLevel] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.redactionLevel] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun redactionLevel(redactionLevel: JsonField<Long>) = apply {
+            this.redactionLevel = redactionLevel
+        }
+
+        /**
+         * Enables automatic character encoding optimization for SMS messages. When enabled, the
+         * system automatically selects the most efficient encoding (GSM-7 or UCS-2) based on
+         * message content to maximize character limits and minimize costs.
+         */
+        fun smartEncoding(smartEncoding: Boolean) = smartEncoding(JsonField.of(smartEncoding))
+
+        /**
+         * Sets [Builder.smartEncoding] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.smartEncoding] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun smartEncoding(smartEncoding: JsonField<Boolean>) = apply {
+            this.smartEncoding = smartEncoding
+        }
 
         /** ISO 8601 formatted date indicating when the resource was updated. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
@@ -873,12 +1042,16 @@ private constructor(
                 dailySpendLimit,
                 dailySpendLimitEnabled,
                 enabled,
+                healthWebhookUrl,
                 mmsFallBackToSms,
                 mmsTranscoding,
                 mobileOnly,
                 name,
                 numberPoolSettings,
                 recordType,
+                redactionEnabled,
+                redactionLevel,
+                smartEncoding,
                 updatedAt,
                 urlShortenerSettings,
                 v1Secret,
@@ -903,12 +1076,16 @@ private constructor(
         dailySpendLimit()
         dailySpendLimitEnabled()
         enabled()
+        healthWebhookUrl()
         mmsFallBackToSms()
         mmsTranscoding()
         mobileOnly()
         name()
         numberPoolSettings().ifPresent { it.validate() }
         recordType().ifPresent { it.validate() }
+        redactionEnabled()
+        redactionLevel()
+        smartEncoding()
         updatedAt()
         urlShortenerSettings().ifPresent { it.validate() }
         v1Secret()
@@ -940,12 +1117,16 @@ private constructor(
             (if (dailySpendLimit.asKnown().isPresent) 1 else 0) +
             (if (dailySpendLimitEnabled.asKnown().isPresent) 1 else 0) +
             (if (enabled.asKnown().isPresent) 1 else 0) +
+            (if (healthWebhookUrl.asKnown().isPresent) 1 else 0) +
             (if (mmsFallBackToSms.asKnown().isPresent) 1 else 0) +
             (if (mmsTranscoding.asKnown().isPresent) 1 else 0) +
             (if (mobileOnly.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (numberPoolSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (recordType.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (redactionEnabled.asKnown().isPresent) 1 else 0) +
+            (if (redactionLevel.asKnown().isPresent) 1 else 0) +
+            (if (smartEncoding.asKnown().isPresent) 1 else 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
             (urlShortenerSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (if (v1Secret.asKnown().isPresent) 1 else 0) +
@@ -1095,20 +1276,20 @@ private constructor(
 
         companion object {
 
-            @JvmField val _1 = of("1")
+            @JvmField val V1 = of("1")
 
-            @JvmField val _2 = of("2")
+            @JvmField val V2 = of("2")
 
-            @JvmField val _2010_04_01 = of("2010-04-01")
+            @JvmField val V2010_04_01 = of("2010-04-01")
 
             @JvmStatic fun of(value: String) = WebhookApiVersion(JsonField.of(value))
         }
 
         /** An enum containing [WebhookApiVersion]'s known values. */
         enum class Known {
-            _1,
-            _2,
-            _2010_04_01,
+            V1,
+            V2,
+            V2010_04_01,
         }
 
         /**
@@ -1121,9 +1302,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            _1,
-            _2,
-            _2010_04_01,
+            V1,
+            V2,
+            V2010_04_01,
             /**
              * An enum member indicating that [WebhookApiVersion] was instantiated with an unknown
              * value.
@@ -1140,9 +1321,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                _1 -> Value._1
-                _2 -> Value._2
-                _2010_04_01 -> Value._2010_04_01
+                V1 -> Value.V1
+                V2 -> Value.V2
+                V2010_04_01 -> Value.V2010_04_01
                 else -> Value._UNKNOWN
             }
 
@@ -1157,9 +1338,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                _1 -> Known._1
-                _2 -> Known._2
-                _2010_04_01 -> Known._2010_04_01
+                V1 -> Known.V1
+                V2 -> Known.V2
+                V2010_04_01 -> Known.V2010_04_01
                 else -> throw TelnyxInvalidDataException("Unknown WebhookApiVersion: $value")
             }
 
@@ -1227,12 +1408,16 @@ private constructor(
             dailySpendLimit == other.dailySpendLimit &&
             dailySpendLimitEnabled == other.dailySpendLimitEnabled &&
             enabled == other.enabled &&
+            healthWebhookUrl == other.healthWebhookUrl &&
             mmsFallBackToSms == other.mmsFallBackToSms &&
             mmsTranscoding == other.mmsTranscoding &&
             mobileOnly == other.mobileOnly &&
             name == other.name &&
             numberPoolSettings == other.numberPoolSettings &&
             recordType == other.recordType &&
+            redactionEnabled == other.redactionEnabled &&
+            redactionLevel == other.redactionLevel &&
+            smartEncoding == other.smartEncoding &&
             updatedAt == other.updatedAt &&
             urlShortenerSettings == other.urlShortenerSettings &&
             v1Secret == other.v1Secret &&
@@ -1251,12 +1436,16 @@ private constructor(
             dailySpendLimit,
             dailySpendLimitEnabled,
             enabled,
+            healthWebhookUrl,
             mmsFallBackToSms,
             mmsTranscoding,
             mobileOnly,
             name,
             numberPoolSettings,
             recordType,
+            redactionEnabled,
+            redactionLevel,
+            smartEncoding,
             updatedAt,
             urlShortenerSettings,
             v1Secret,
@@ -1271,5 +1460,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessagingProfile{id=$id, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
+        "MessagingProfile{id=$id, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, healthWebhookUrl=$healthWebhookUrl, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, redactionEnabled=$redactionEnabled, redactionLevel=$redactionLevel, smartEncoding=$smartEncoding, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
 }

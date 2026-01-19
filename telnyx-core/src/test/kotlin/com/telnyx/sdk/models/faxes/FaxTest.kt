@@ -17,7 +17,7 @@ internal class FaxTest {
                 .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .connectionId("c-1")
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdAt(OffsetDateTime.parse("2020-05-05T09:59:12Z"))
                 .direction(Fax.Direction.OUTBOUND)
                 .from("+123")
                 .fromDisplayName("Company Name")
@@ -34,7 +34,7 @@ internal class FaxTest {
                     "https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51"
                 )
                 .to("+456")
-                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .updatedAt(OffsetDateTime.parse("2020-05-05T09:59:12Z"))
                 .webhookFailoverUrl("")
                 .webhookUrl("http://www.example.com/webhooks")
                 .build()
@@ -42,7 +42,7 @@ internal class FaxTest {
         assertThat(fax.id()).contains("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
         assertThat(fax.clientState()).contains("aGF2ZSBhIG5pY2UgZGF5ID1d")
         assertThat(fax.connectionId()).contains("c-1")
-        assertThat(fax.createdAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(fax.createdAt()).contains(OffsetDateTime.parse("2020-05-05T09:59:12Z"))
         assertThat(fax.direction()).contains(Fax.Direction.OUTBOUND)
         assertThat(fax.from()).contains("+123")
         assertThat(fax.fromDisplayName()).contains("Company Name")
@@ -61,7 +61,7 @@ internal class FaxTest {
                 "https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51"
             )
         assertThat(fax.to()).contains("+456")
-        assertThat(fax.updatedAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(fax.updatedAt()).contains(OffsetDateTime.parse("2020-05-05T09:59:12Z"))
         assertThat(fax.webhookFailoverUrl()).contains("")
         assertThat(fax.webhookUrl()).contains("http://www.example.com/webhooks")
     }
@@ -74,7 +74,7 @@ internal class FaxTest {
                 .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .connectionId("c-1")
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdAt(OffsetDateTime.parse("2020-05-05T09:59:12Z"))
                 .direction(Fax.Direction.OUTBOUND)
                 .from("+123")
                 .fromDisplayName("Company Name")
@@ -91,7 +91,7 @@ internal class FaxTest {
                     "https://s3.amazonaws.com/faxes-dev/user-1/cf4a6b52-bf8e-4945-9f49-611d0d2b083b.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=xxxxxxxxxx%2F20200505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200505T095917Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=fac2af40464fcc77673ad762db86e34f9c1b91a82699b5578c5327f53874df51"
                 )
                 .to("+456")
-                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .updatedAt(OffsetDateTime.parse("2020-05-05T09:59:12Z"))
                 .webhookFailoverUrl("")
                 .webhookUrl("http://www.example.com/webhooks")
                 .build()

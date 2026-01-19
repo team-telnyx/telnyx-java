@@ -24,6 +24,7 @@ class OutboundMessagePayload
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
+    private val cc: JsonField<List<Cc>>,
     private val completedAt: JsonField<OffsetDateTime>,
     private val cost: JsonField<Cost>,
     private val costBreakdown: JsonField<CostBreakdown>,
@@ -55,6 +56,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("cc") @ExcludeMissing cc: JsonField<List<Cc>> = JsonMissing.of(),
         @JsonProperty("completed_at")
         @ExcludeMissing
         completedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -112,6 +114,7 @@ private constructor(
         webhookUrl: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
+        cc,
         completedAt,
         cost,
         costBreakdown,
@@ -147,6 +150,12 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun id(): Optional<String> = id.getOptional("id")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun cc(): Optional<List<Cc>> = cc.getOptional("cc")
 
     /**
      * ISO 8601 formatted date indicating when the message was finalized.
@@ -356,6 +365,13 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [cc].
+     *
+     * Unlike [cc], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("cc") @ExcludeMissing fun _cc(): JsonField<List<Cc>> = cc
 
     /**
      * Returns the raw JSON value of [completedAt].
@@ -580,6 +596,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String> = JsonMissing.of()
+        private var cc: JsonField<MutableList<Cc>>? = null
         private var completedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var cost: JsonField<Cost> = JsonMissing.of()
         private var costBreakdown: JsonField<CostBreakdown> = JsonMissing.of()
@@ -610,6 +627,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(outboundMessagePayload: OutboundMessagePayload) = apply {
             id = outboundMessagePayload.id
+            cc = outboundMessagePayload.cc.map { it.toMutableList() }
             completedAt = outboundMessagePayload.completedAt
             cost = outboundMessagePayload.cost
             costBreakdown = outboundMessagePayload.costBreakdown
@@ -649,8 +667,33 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
+        fun cc(cc: List<Cc>) = cc(JsonField.of(cc))
+
+        /**
+         * Sets [Builder.cc] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cc] with a well-typed `List<Cc>` value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun cc(cc: JsonField<List<Cc>>) = apply { this.cc = cc.map { it.toMutableList() } }
+
+        /**
+         * Adds a single [Cc] to [Builder.cc].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addCc(cc: Cc) = apply {
+            this.cc =
+                (this.cc ?: JsonField.of(mutableListOf())).also { checkKnown("cc", it).add(cc) }
+        }
+
         /** ISO 8601 formatted date indicating when the message was finalized. */
-        fun completedAt(completedAt: OffsetDateTime) = completedAt(JsonField.of(completedAt))
+        fun completedAt(completedAt: OffsetDateTime?) =
+            completedAt(JsonField.ofNullable(completedAt))
+
+        /** Alias for calling [Builder.completedAt] with `completedAt.orElse(null)`. */
+        fun completedAt(completedAt: Optional<OffsetDateTime>) =
+            completedAt(completedAt.getOrNull())
 
         /**
          * Sets [Builder.completedAt] to an arbitrary JSON value.
@@ -852,7 +895,10 @@ private constructor(
         fun recordType(recordType: JsonField<RecordType>) = apply { this.recordType = recordType }
 
         /** ISO 8601 formatted date indicating when the message was sent. */
-        fun sentAt(sentAt: OffsetDateTime) = sentAt(JsonField.of(sentAt))
+        fun sentAt(sentAt: OffsetDateTime?) = sentAt(JsonField.ofNullable(sentAt))
+
+        /** Alias for calling [Builder.sentAt] with `sentAt.orElse(null)`. */
+        fun sentAt(sentAt: Optional<OffsetDateTime>) = sentAt(sentAt.getOrNull())
 
         /**
          * Sets [Builder.sentAt] to an arbitrary JSON value.
@@ -1088,6 +1134,7 @@ private constructor(
         fun build(): OutboundMessagePayload =
             OutboundMessagePayload(
                 id,
+                (cc ?: JsonMissing.of()).map { it.toImmutable() },
                 completedAt,
                 cost,
                 costBreakdown,
@@ -1125,6 +1172,7 @@ private constructor(
         }
 
         id()
+        cc().ifPresent { it.forEach { it.validate() } }
         completedAt()
         cost().ifPresent { it.validate() }
         costBreakdown().ifPresent { it.validate() }
@@ -1169,6 +1217,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
+            (cc.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (completedAt.asKnown().isPresent) 1 else 0) +
             (cost.asKnown().getOrNull()?.validity() ?: 0) +
             (costBreakdown.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1194,6 +1243,573 @@ private constructor(
             (if (validUntil.asKnown().isPresent) 1 else 0) +
             (if (webhookFailoverUrl.asKnown().isPresent) 1 else 0) +
             (if (webhookUrl.asKnown().isPresent) 1 else 0)
+
+    class Cc
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val carrier: JsonField<String>,
+        private val lineType: JsonField<LineType>,
+        private val phoneNumber: JsonField<String>,
+        private val status: JsonField<Status>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("carrier") @ExcludeMissing carrier: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line_type")
+            @ExcludeMissing
+            lineType: JsonField<LineType> = JsonMissing.of(),
+            @JsonProperty("phone_number")
+            @ExcludeMissing
+            phoneNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        ) : this(carrier, lineType, phoneNumber, status, mutableMapOf())
+
+        /**
+         * The carrier of the receiver.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun carrier(): Optional<String> = carrier.getOptional("carrier")
+
+        /**
+         * The line-type of the receiver.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun lineType(): Optional<LineType> = lineType.getOptional("line_type")
+
+        /**
+         * Receiving address (+E.164 formatted phone number or short code).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun phoneNumber(): Optional<String> = phoneNumber.getOptional("phone_number")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun status(): Optional<Status> = status.getOptional("status")
+
+        /**
+         * Returns the raw JSON value of [carrier].
+         *
+         * Unlike [carrier], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("carrier") @ExcludeMissing fun _carrier(): JsonField<String> = carrier
+
+        /**
+         * Returns the raw JSON value of [lineType].
+         *
+         * Unlike [lineType], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("line_type") @ExcludeMissing fun _lineType(): JsonField<LineType> = lineType
+
+        /**
+         * Returns the raw JSON value of [phoneNumber].
+         *
+         * Unlike [phoneNumber], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("phone_number")
+        @ExcludeMissing
+        fun _phoneNumber(): JsonField<String> = phoneNumber
+
+        /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Cc]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Cc]. */
+        class Builder internal constructor() {
+
+            private var carrier: JsonField<String> = JsonMissing.of()
+            private var lineType: JsonField<LineType> = JsonMissing.of()
+            private var phoneNumber: JsonField<String> = JsonMissing.of()
+            private var status: JsonField<Status> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(cc: Cc) = apply {
+                carrier = cc.carrier
+                lineType = cc.lineType
+                phoneNumber = cc.phoneNumber
+                status = cc.status
+                additionalProperties = cc.additionalProperties.toMutableMap()
+            }
+
+            /** The carrier of the receiver. */
+            fun carrier(carrier: String) = carrier(JsonField.of(carrier))
+
+            /**
+             * Sets [Builder.carrier] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.carrier] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun carrier(carrier: JsonField<String>) = apply { this.carrier = carrier }
+
+            /** The line-type of the receiver. */
+            fun lineType(lineType: LineType) = lineType(JsonField.of(lineType))
+
+            /**
+             * Sets [Builder.lineType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.lineType] with a well-typed [LineType] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun lineType(lineType: JsonField<LineType>) = apply { this.lineType = lineType }
+
+            /** Receiving address (+E.164 formatted phone number or short code). */
+            fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
+
+            /**
+             * Sets [Builder.phoneNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.phoneNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun phoneNumber(phoneNumber: JsonField<String>) = apply {
+                this.phoneNumber = phoneNumber
+            }
+
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Cc].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Cc =
+                Cc(carrier, lineType, phoneNumber, status, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Cc = apply {
+            if (validated) {
+                return@apply
+            }
+
+            carrier()
+            lineType().ifPresent { it.validate() }
+            phoneNumber()
+            status().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (carrier.asKnown().isPresent) 1 else 0) +
+                (lineType.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (phoneNumber.asKnown().isPresent) 1 else 0) +
+                (status.asKnown().getOrNull()?.validity() ?: 0)
+
+        /** The line-type of the receiver. */
+        class LineType @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val WIRELINE = of("Wireline")
+
+                @JvmField val WIRELESS = of("Wireless")
+
+                @JvmField val VO_WI_FI = of("VoWiFi")
+
+                @JvmField val VO_IP = of("VoIP")
+
+                @JvmField val PRE_PAID_WIRELESS = of("Pre-Paid Wireless")
+
+                @JvmField val EMPTY = of("")
+
+                @JvmStatic fun of(value: String) = LineType(JsonField.of(value))
+            }
+
+            /** An enum containing [LineType]'s known values. */
+            enum class Known {
+                WIRELINE,
+                WIRELESS,
+                VO_WI_FI,
+                VO_IP,
+                PRE_PAID_WIRELESS,
+                EMPTY,
+            }
+
+            /**
+             * An enum containing [LineType]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [LineType] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                WIRELINE,
+                WIRELESS,
+                VO_WI_FI,
+                VO_IP,
+                PRE_PAID_WIRELESS,
+                EMPTY,
+                /**
+                 * An enum member indicating that [LineType] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    WIRELINE -> Value.WIRELINE
+                    WIRELESS -> Value.WIRELESS
+                    VO_WI_FI -> Value.VO_WI_FI
+                    VO_IP -> Value.VO_IP
+                    PRE_PAID_WIRELESS -> Value.PRE_PAID_WIRELESS
+                    EMPTY -> Value.EMPTY
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    WIRELINE -> Known.WIRELINE
+                    WIRELESS -> Known.WIRELESS
+                    VO_WI_FI -> Known.VO_WI_FI
+                    VO_IP -> Known.VO_IP
+                    PRE_PAID_WIRELESS -> Known.PRE_PAID_WIRELESS
+                    EMPTY -> Known.EMPTY
+                    else -> throw TelnyxInvalidDataException("Unknown LineType: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): LineType = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is LineType && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val QUEUED = of("queued")
+
+                @JvmField val SENDING = of("sending")
+
+                @JvmField val SENT = of("sent")
+
+                @JvmField val DELIVERED = of("delivered")
+
+                @JvmField val SENDING_FAILED = of("sending_failed")
+
+                @JvmField val DELIVERY_FAILED = of("delivery_failed")
+
+                @JvmField val DELIVERY_UNCONFIRMED = of("delivery_unconfirmed")
+
+                @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+            }
+
+            /** An enum containing [Status]'s known values. */
+            enum class Known {
+                QUEUED,
+                SENDING,
+                SENT,
+                DELIVERED,
+                SENDING_FAILED,
+                DELIVERY_FAILED,
+                DELIVERY_UNCONFIRMED,
+            }
+
+            /**
+             * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Status] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                QUEUED,
+                SENDING,
+                SENT,
+                DELIVERED,
+                SENDING_FAILED,
+                DELIVERY_FAILED,
+                DELIVERY_UNCONFIRMED,
+                /**
+                 * An enum member indicating that [Status] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    QUEUED -> Value.QUEUED
+                    SENDING -> Value.SENDING
+                    SENT -> Value.SENT
+                    DELIVERED -> Value.DELIVERED
+                    SENDING_FAILED -> Value.SENDING_FAILED
+                    DELIVERY_FAILED -> Value.DELIVERY_FAILED
+                    DELIVERY_UNCONFIRMED -> Value.DELIVERY_UNCONFIRMED
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    QUEUED -> Known.QUEUED
+                    SENDING -> Known.SENDING
+                    SENT -> Known.SENT
+                    DELIVERED -> Known.DELIVERED
+                    SENDING_FAILED -> Known.SENDING_FAILED
+                    DELIVERY_FAILED -> Known.DELIVERY_FAILED
+                    DELIVERY_UNCONFIRMED -> Known.DELIVERY_UNCONFIRMED
+                    else -> throw TelnyxInvalidDataException("Unknown Status: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Status = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Status && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Cc &&
+                carrier == other.carrier &&
+                lineType == other.lineType &&
+                phoneNumber == other.phoneNumber &&
+                status == other.status &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(carrier, lineType, phoneNumber, status, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Cc{carrier=$carrier, lineType=$lineType, phoneNumber=$phoneNumber, status=$status, additionalProperties=$additionalProperties}"
+    }
 
     class Cost
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -3533,6 +4149,7 @@ private constructor(
 
         return other is OutboundMessagePayload &&
             id == other.id &&
+            cc == other.cc &&
             completedAt == other.completedAt &&
             cost == other.cost &&
             costBreakdown == other.costBreakdown &&
@@ -3564,6 +4181,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            cc,
             completedAt,
             cost,
             costBreakdown,
@@ -3596,5 +4214,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "OutboundMessagePayload{id=$id, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, text=$text, to=$to, type=$type, validUntil=$validUntil, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "OutboundMessagePayload{id=$id, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, text=$text, to=$to, type=$type, validUntil=$validUntil, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

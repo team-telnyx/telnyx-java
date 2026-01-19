@@ -119,6 +119,16 @@ private constructor(
     fun numberPoolSettings(): Optional<NumberPoolSettings> = body.numberPoolSettings()
 
     /**
+     * Enables automatic character encoding optimization for SMS messages. When enabled, the system
+     * automatically selects the most efficient encoding (GSM-7 or UCS-2) based on message content
+     * to maximize character limits and minimize costs.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun smartEncoding(): Optional<Boolean> = body.smartEncoding()
+
+    /**
      * The URL shortener feature allows automatic replacement of URLs that were generated using a
      * public URL shortener service. Some examples include bit.do, bit.ly, goo.gl, ht.ly, is.gd,
      * ow.ly, rebrand.ly, t.co, tiny.cc, and tinyurl.com. Such URLs are replaced with with links
@@ -230,6 +240,13 @@ private constructor(
      * type.
      */
     fun _numberPoolSettings(): JsonField<NumberPoolSettings> = body._numberPoolSettings()
+
+    /**
+     * Returns the raw JSON value of [smartEncoding].
+     *
+     * Unlike [smartEncoding], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _smartEncoding(): JsonField<Boolean> = body._smartEncoding()
 
     /**
      * Returns the raw JSON value of [urlShortenerSettings].
@@ -489,6 +506,24 @@ private constructor(
         }
 
         /**
+         * Enables automatic character encoding optimization for SMS messages. When enabled, the
+         * system automatically selects the most efficient encoding (GSM-7 or UCS-2) based on
+         * message content to maximize character limits and minimize costs.
+         */
+        fun smartEncoding(smartEncoding: Boolean) = apply { body.smartEncoding(smartEncoding) }
+
+        /**
+         * Sets [Builder.smartEncoding] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.smartEncoding] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun smartEncoding(smartEncoding: JsonField<Boolean>) = apply {
+            body.smartEncoding(smartEncoding)
+        }
+
+        /**
          * The URL shortener feature allows automatic replacement of URLs that were generated using
          * a public URL shortener service. Some examples include bit.do, bit.ly, goo.gl, ht.ly,
          * is.gd, ow.ly, rebrand.ly, t.co, tiny.cc, and tinyurl.com. Such URLs are replaced with
@@ -735,6 +770,7 @@ private constructor(
         private val mmsTranscoding: JsonField<Boolean>,
         private val mobileOnly: JsonField<Boolean>,
         private val numberPoolSettings: JsonField<NumberPoolSettings>,
+        private val smartEncoding: JsonField<Boolean>,
         private val urlShortenerSettings: JsonField<UrlShortenerSettings>,
         private val webhookApiVersion: JsonField<WebhookApiVersion>,
         private val webhookFailoverUrl: JsonField<String>,
@@ -770,6 +806,9 @@ private constructor(
             @JsonProperty("number_pool_settings")
             @ExcludeMissing
             numberPoolSettings: JsonField<NumberPoolSettings> = JsonMissing.of(),
+            @JsonProperty("smart_encoding")
+            @ExcludeMissing
+            smartEncoding: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("url_shortener_settings")
             @ExcludeMissing
             urlShortenerSettings: JsonField<UrlShortenerSettings> = JsonMissing.of(),
@@ -793,6 +832,7 @@ private constructor(
             mmsTranscoding,
             mobileOnly,
             numberPoolSettings,
+            smartEncoding,
             urlShortenerSettings,
             webhookApiVersion,
             webhookFailoverUrl,
@@ -891,6 +931,16 @@ private constructor(
          */
         fun numberPoolSettings(): Optional<NumberPoolSettings> =
             numberPoolSettings.getOptional("number_pool_settings")
+
+        /**
+         * Enables automatic character encoding optimization for SMS messages. When enabled, the
+         * system automatically selects the most efficient encoding (GSM-7 or UCS-2) based on
+         * message content to maximize character limits and minimize costs.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun smartEncoding(): Optional<Boolean> = smartEncoding.getOptional("smart_encoding")
 
         /**
          * The URL shortener feature allows automatic replacement of URLs that were generated using
@@ -1028,6 +1078,16 @@ private constructor(
         fun _numberPoolSettings(): JsonField<NumberPoolSettings> = numberPoolSettings
 
         /**
+         * Returns the raw JSON value of [smartEncoding].
+         *
+         * Unlike [smartEncoding], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("smart_encoding")
+        @ExcludeMissing
+        fun _smartEncoding(): JsonField<Boolean> = smartEncoding
+
+        /**
          * Returns the raw JSON value of [urlShortenerSettings].
          *
          * Unlike [urlShortenerSettings], this method doesn't throw if the JSON field has an
@@ -1105,6 +1165,7 @@ private constructor(
             private var mmsTranscoding: JsonField<Boolean> = JsonMissing.of()
             private var mobileOnly: JsonField<Boolean> = JsonMissing.of()
             private var numberPoolSettings: JsonField<NumberPoolSettings> = JsonMissing.of()
+            private var smartEncoding: JsonField<Boolean> = JsonMissing.of()
             private var urlShortenerSettings: JsonField<UrlShortenerSettings> = JsonMissing.of()
             private var webhookApiVersion: JsonField<WebhookApiVersion> = JsonMissing.of()
             private var webhookFailoverUrl: JsonField<String> = JsonMissing.of()
@@ -1123,6 +1184,7 @@ private constructor(
                 mmsTranscoding = body.mmsTranscoding
                 mobileOnly = body.mobileOnly
                 numberPoolSettings = body.numberPoolSettings
+                smartEncoding = body.smartEncoding
                 urlShortenerSettings = body.urlShortenerSettings
                 webhookApiVersion = body.webhookApiVersion
                 webhookFailoverUrl = body.webhookFailoverUrl
@@ -1309,6 +1371,24 @@ private constructor(
             }
 
             /**
+             * Enables automatic character encoding optimization for SMS messages. When enabled, the
+             * system automatically selects the most efficient encoding (GSM-7 or UCS-2) based on
+             * message content to maximize character limits and minimize costs.
+             */
+            fun smartEncoding(smartEncoding: Boolean) = smartEncoding(JsonField.of(smartEncoding))
+
+            /**
+             * Sets [Builder.smartEncoding] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.smartEncoding] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun smartEncoding(smartEncoding: JsonField<Boolean>) = apply {
+                this.smartEncoding = smartEncoding
+            }
+
+            /**
              * The URL shortener feature allows automatic replacement of URLs that were generated
              * using a public URL shortener service. Some examples include bit.do, bit.ly, goo.gl,
              * ht.ly, is.gd, ow.ly, rebrand.ly, t.co, tiny.cc, and tinyurl.com. Such URLs are
@@ -1443,6 +1523,7 @@ private constructor(
                     mmsTranscoding,
                     mobileOnly,
                     numberPoolSettings,
+                    smartEncoding,
                     urlShortenerSettings,
                     webhookApiVersion,
                     webhookFailoverUrl,
@@ -1468,6 +1549,7 @@ private constructor(
             mmsTranscoding()
             mobileOnly()
             numberPoolSettings().ifPresent { it.validate() }
+            smartEncoding()
             urlShortenerSettings().ifPresent { it.validate() }
             webhookApiVersion().ifPresent { it.validate() }
             webhookFailoverUrl()
@@ -1501,6 +1583,7 @@ private constructor(
                 (if (mmsTranscoding.asKnown().isPresent) 1 else 0) +
                 (if (mobileOnly.asKnown().isPresent) 1 else 0) +
                 (numberPoolSettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (smartEncoding.asKnown().isPresent) 1 else 0) +
                 (urlShortenerSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (webhookApiVersion.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (webhookFailoverUrl.asKnown().isPresent) 1 else 0) +
@@ -1522,6 +1605,7 @@ private constructor(
                 mmsTranscoding == other.mmsTranscoding &&
                 mobileOnly == other.mobileOnly &&
                 numberPoolSettings == other.numberPoolSettings &&
+                smartEncoding == other.smartEncoding &&
                 urlShortenerSettings == other.urlShortenerSettings &&
                 webhookApiVersion == other.webhookApiVersion &&
                 webhookFailoverUrl == other.webhookFailoverUrl &&
@@ -1541,6 +1625,7 @@ private constructor(
                 mmsTranscoding,
                 mobileOnly,
                 numberPoolSettings,
+                smartEncoding,
                 urlShortenerSettings,
                 webhookApiVersion,
                 webhookFailoverUrl,
@@ -1552,7 +1637,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{name=$name, whitelistedDestinations=$whitelistedDestinations, alphaSender=$alphaSender, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, numberPoolSettings=$numberPoolSettings, urlShortenerSettings=$urlShortenerSettings, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+            "Body{name=$name, whitelistedDestinations=$whitelistedDestinations, alphaSender=$alphaSender, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, numberPoolSettings=$numberPoolSettings, smartEncoding=$smartEncoding, urlShortenerSettings=$urlShortenerSettings, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -1574,20 +1659,20 @@ private constructor(
 
         companion object {
 
-            @JvmField val _1 = of("1")
+            @JvmField val V1 = of("1")
 
-            @JvmField val _2 = of("2")
+            @JvmField val V2 = of("2")
 
-            @JvmField val _2010_04_01 = of("2010-04-01")
+            @JvmField val V2010_04_01 = of("2010-04-01")
 
             @JvmStatic fun of(value: String) = WebhookApiVersion(JsonField.of(value))
         }
 
         /** An enum containing [WebhookApiVersion]'s known values. */
         enum class Known {
-            _1,
-            _2,
-            _2010_04_01,
+            V1,
+            V2,
+            V2010_04_01,
         }
 
         /**
@@ -1600,9 +1685,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            _1,
-            _2,
-            _2010_04_01,
+            V1,
+            V2,
+            V2010_04_01,
             /**
              * An enum member indicating that [WebhookApiVersion] was instantiated with an unknown
              * value.
@@ -1619,9 +1704,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                _1 -> Value._1
-                _2 -> Value._2
-                _2010_04_01 -> Value._2010_04_01
+                V1 -> Value.V1
+                V2 -> Value.V2
+                V2010_04_01 -> Value.V2010_04_01
                 else -> Value._UNKNOWN
             }
 
@@ -1636,9 +1721,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                _1 -> Known._1
-                _2 -> Known._2
-                _2010_04_01 -> Known._2010_04_01
+                V1 -> Known.V1
+                V2 -> Known.V2
+                V2010_04_01 -> Known.V2010_04_01
                 else -> throw TelnyxInvalidDataException("Unknown WebhookApiVersion: $value")
             }
 

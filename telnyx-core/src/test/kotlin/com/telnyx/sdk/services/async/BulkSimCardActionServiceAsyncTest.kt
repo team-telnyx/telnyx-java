@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -39,18 +38,9 @@ internal class BulkSimCardActionServiceAsyncTest {
                 .build()
         val bulkSimCardActionServiceAsync = client.bulkSimCardActions()
 
-        val bulkSimCardActionsFuture =
-            bulkSimCardActionServiceAsync.list(
-                BulkSimCardActionListParams.builder()
-                    .filterActionType(
-                        BulkSimCardActionListParams.FilterActionType.BULK_SET_PUBLIC_IPS
-                    )
-                    .pageNumber(1L)
-                    .pageSize(1L)
-                    .build()
-            )
+        val pageFuture = bulkSimCardActionServiceAsync.list()
 
-        val bulkSimCardActions = bulkSimCardActionsFuture.get()
-        bulkSimCardActions.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

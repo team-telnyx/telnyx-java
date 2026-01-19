@@ -10,7 +10,7 @@ internal class CustomerServiceRecordVerifyPhoneNumberCoverageParamsTest {
     @Test
     fun create() {
         CustomerServiceRecordVerifyPhoneNumberCoverageParams.builder()
-            .addPhoneNumber("+1234567890")
+            .addPhoneNumber("+13035553000")
             .build()
     }
 
@@ -18,11 +18,11 @@ internal class CustomerServiceRecordVerifyPhoneNumberCoverageParamsTest {
     fun body() {
         val params =
             CustomerServiceRecordVerifyPhoneNumberCoverageParams.builder()
-                .addPhoneNumber("+1234567890")
+                .addPhoneNumber("+13035553000")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.phoneNumbers()).containsExactly("+1234567890")
+        assertThat(body.phoneNumbers()).containsExactly("+13035553000")
     }
 }

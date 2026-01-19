@@ -24,11 +24,12 @@ import com.telnyx.sdk.models.ai.assistants.AssistantCreateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteParams
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantGetTexmlParams
-import com.telnyx.sdk.models.ai.assistants.AssistantImportParams
+import com.telnyx.sdk.models.ai.assistants.AssistantImportsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantListParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
+import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
+import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
-import com.telnyx.sdk.models.ai.assistants.AssistantUpdateResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.async.ai.assistants.CanaryDeployServiceAsync
@@ -98,7 +99,7 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun update(
         params: AssistantUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AssistantUpdateResponse> =
+    ): CompletableFuture<InferenceEmbedding> =
         // post /ai/assistants/{assistant_id}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -137,12 +138,19 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
         // get /ai/assistants/{assistant_id}/texml
         withRawResponse().getTexml(params, requestOptions).thenApply { it.parse() }
 
-    override fun import_(
-        params: AssistantImportParams,
+    override fun imports(
+        params: AssistantImportsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AssistantsList> =
         // post /ai/assistants/import
-        withRawResponse().import_(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().imports(params, requestOptions).thenApply { it.parse() }
+
+    override fun sendSms(
+        params: AssistantSendSmsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<AssistantSendSmsResponse> =
+        // post /ai/assistants/{assistant_id}/chat/sms
+        withRawResponse().sendSms(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AssistantServiceAsync.WithRawResponse {
@@ -251,13 +259,13 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
-        private val updateHandler: Handler<AssistantUpdateResponse> =
-            jsonHandler<AssistantUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<InferenceEmbedding> =
+            jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)
 
         override fun update(
             params: AssistantUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AssistantUpdateResponse>> {
+        ): CompletableFuture<HttpResponseFor<InferenceEmbedding>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("assistantId", params.assistantId().getOrNull())
@@ -443,11 +451,11 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
-        private val importHandler: Handler<AssistantsList> =
+        private val importsHandler: Handler<AssistantsList> =
             jsonHandler<AssistantsList>(clientOptions.jsonMapper)
 
-        override fun import_(
-            params: AssistantImportParams,
+        override fun imports(
+            params: AssistantImportsParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AssistantsList>> {
             val request =
@@ -464,7 +472,41 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { importHandler.handle(it) }
+                            .use { importsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val sendSmsHandler: Handler<AssistantSendSmsResponse> =
+            jsonHandler<AssistantSendSmsResponse>(clientOptions.jsonMapper)
+
+        override fun sendSms(
+            params: AssistantSendSmsParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<AssistantSendSmsResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("assistantId", params.assistantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants", params._pathParam(0), "chat", "sms")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { sendSmsHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

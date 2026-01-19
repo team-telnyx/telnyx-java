@@ -34,6 +34,7 @@ internal class CustomStorageCredentialServiceTest {
                             .backend(CustomStorageConfiguration.Backend.GCS)
                             .configuration(
                                 GcsConfigurationData.builder()
+                                    .backend(GcsConfigurationData.Backend.GCS)
                                     .bucket("example-bucket")
                                     .credentials("OPAQUE_CREDENTIALS_TOKEN")
                                     .build()
@@ -80,6 +81,7 @@ internal class CustomStorageCredentialServiceTest {
                             .backend(CustomStorageConfiguration.Backend.GCS)
                             .configuration(
                                 GcsConfigurationData.builder()
+                                    .backend(GcsConfigurationData.Backend.GCS)
                                     .bucket("example-bucket")
                                     .credentials("OPAQUE_CREDENTIALS_TOKEN")
                                     .build()

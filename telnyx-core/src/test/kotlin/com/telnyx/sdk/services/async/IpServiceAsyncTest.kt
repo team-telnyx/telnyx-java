@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.ips.IpCreateParams
-import com.telnyx.sdk.models.ips.IpListParams
 import com.telnyx.sdk.models.ips.IpUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -87,22 +86,10 @@ internal class IpServiceAsyncTest {
                 .build()
         val ipServiceAsync = client.ips()
 
-        val ipsFuture =
-            ipServiceAsync.list(
-                IpListParams.builder()
-                    .filter(
-                        IpListParams.Filter.builder()
-                            .connectionId("connection_id")
-                            .ipAddress("192.168.0.0")
-                            .port(5060L)
-                            .build()
-                    )
-                    .page(IpListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = ipServiceAsync.list()
 
-        val ips = ipsFuture.get()
-        ips.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

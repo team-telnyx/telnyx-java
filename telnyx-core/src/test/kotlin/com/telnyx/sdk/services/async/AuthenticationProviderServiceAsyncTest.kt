@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderCreateParams
-import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderListParams
 import com.telnyx.sdk.models.authenticationproviders.AuthenticationProviderUpdateParams
 import com.telnyx.sdk.models.authenticationproviders.Settings
 import org.junit.jupiter.api.Disabled
@@ -112,18 +111,10 @@ internal class AuthenticationProviderServiceAsyncTest {
                 .build()
         val authenticationProviderServiceAsync = client.authenticationProviders()
 
-        val authenticationProvidersFuture =
-            authenticationProviderServiceAsync.list(
-                AuthenticationProviderListParams.builder()
-                    .page(
-                        AuthenticationProviderListParams.Page.builder().number(1L).size(1L).build()
-                    )
-                    .sort(AuthenticationProviderListParams.Sort.NAME)
-                    .build()
-            )
+        val pageFuture = authenticationProviderServiceAsync.list()
 
-        val authenticationProviders = authenticationProvidersFuture.get()
-        authenticationProviders.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

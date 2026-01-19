@@ -16,8 +16,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobListPage
+import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobListPageResponse
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobListParams
-import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobListResponse
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobRetrieveParams
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobRetrieveResponse
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobUpdateParams
@@ -54,7 +55,7 @@ class ActivationJobServiceImpl internal constructor(private val clientOptions: C
     override fun list(
         params: ActivationJobListParams,
         requestOptions: RequestOptions,
-    ): ActivationJobListResponse =
+    ): ActivationJobListPage =
         // get /porting_orders/{id}/activation_jobs
         withRawResponse().list(params, requestOptions).parse()
 
@@ -142,13 +143,13 @@ class ActivationJobServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val listHandler: Handler<ActivationJobListResponse> =
-            jsonHandler<ActivationJobListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ActivationJobListPageResponse> =
+            jsonHandler<ActivationJobListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ActivationJobListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ActivationJobListResponse> {
+        ): HttpResponseFor<ActivationJobListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -168,6 +169,13 @@ class ActivationJobServiceImpl internal constructor(private val clientOptions: C
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ActivationJobListPage.builder()
+                            .service(ActivationJobServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

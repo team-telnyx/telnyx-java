@@ -23,7 +23,7 @@ internal class UserAddressCreateParamsTest {
             .neighborhood("Ciudad de los deportes")
             .phoneNumber("+12125559000")
             .postalCode("78701")
-            .skipAddressVerification("skip_address_verification")
+            .skipAddressVerification(true)
             .build()
     }
 
@@ -44,7 +44,7 @@ internal class UserAddressCreateParamsTest {
                 .neighborhood("Ciudad de los deportes")
                 .phoneNumber("+12125559000")
                 .postalCode("78701")
-                .skipAddressVerification("skip_address_verification")
+                .skipAddressVerification(true)
                 .build()
 
         val body = params._body()
@@ -62,7 +62,7 @@ internal class UserAddressCreateParamsTest {
         assertThat(body.neighborhood()).contains("Ciudad de los deportes")
         assertThat(body.phoneNumber()).contains("+12125559000")
         assertThat(body.postalCode()).contains("78701")
-        assertThat(body.skipAddressVerification()).contains("skip_address_verification")
+        assertThat(body.skipAddressVerification()).contains(true)
     }
 
     @Test

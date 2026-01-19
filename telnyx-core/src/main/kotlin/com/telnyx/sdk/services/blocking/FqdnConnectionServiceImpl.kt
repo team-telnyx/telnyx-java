@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionCreateParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionCreateResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionDeleteParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionDeleteResponse
+import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListPage
+import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListPageResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListParams
-import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionRetrieveParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionRetrieveResponse
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionUpdateParams
@@ -65,7 +66,7 @@ class FqdnConnectionServiceImpl internal constructor(private val clientOptions: 
     override fun list(
         params: FqdnConnectionListParams,
         requestOptions: RequestOptions,
-    ): FqdnConnectionListResponse =
+    ): FqdnConnectionListPage =
         // get /fqdn_connections
         withRawResponse().list(params, requestOptions).parse()
 
@@ -178,13 +179,13 @@ class FqdnConnectionServiceImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val listHandler: Handler<FqdnConnectionListResponse> =
-            jsonHandler<FqdnConnectionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<FqdnConnectionListPageResponse> =
+            jsonHandler<FqdnConnectionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: FqdnConnectionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<FqdnConnectionListResponse> {
+        ): HttpResponseFor<FqdnConnectionListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -201,6 +202,13 @@ class FqdnConnectionServiceImpl internal constructor(private val clientOptions: 
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        FqdnConnectionListPage.builder()
+                            .service(FqdnConnectionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

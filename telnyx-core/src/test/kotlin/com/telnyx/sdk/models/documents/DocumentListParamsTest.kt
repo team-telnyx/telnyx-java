@@ -23,8 +23,8 @@ internal class DocumentListParamsTest {
                     .customerReference(
                         DocumentListParams.Filter.CustomerReference.builder()
                             .eq("MY REF 001")
-                            .addIn("REF001")
-                            .addIn("REF002")
+                            .addInList("REF001")
+                            .addInList("REF002")
                             .build()
                     )
                     .filename(
@@ -32,7 +32,8 @@ internal class DocumentListParamsTest {
                     )
                     .build()
             )
-            .page(DocumentListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .addSort(DocumentListParams.Sort.FILENAME)
             .build()
     }
@@ -52,8 +53,8 @@ internal class DocumentListParamsTest {
                         .customerReference(
                             DocumentListParams.Filter.CustomerReference.builder()
                                 .eq("MY REF 001")
-                                .addIn("REF001")
-                                .addIn("REF002")
+                                .addInList("REF001")
+                                .addInList("REF002")
                                 .build()
                         )
                         .filename(
@@ -61,7 +62,8 @@ internal class DocumentListParamsTest {
                         )
                         .build()
                 )
-                .page(DocumentListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .addSort(DocumentListParams.Sort.FILENAME)
                 .build()
 
@@ -78,8 +80,8 @@ internal class DocumentListParamsTest {
                         listOf("REF001", "REF002").joinToString(","),
                     )
                     .put("filter[filename][contains]", "invoice")
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .put("sort", listOf("filename").joinToString(","))
                     .build()
             )

@@ -13,10 +13,13 @@ import com.telnyx.sdk.core.http.HttpRequest
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.messages.rcs.RcGenerateDeeplinkParams
 import com.telnyx.sdk.models.messages.rcs.RcGenerateDeeplinkResponse
+import com.telnyx.sdk.models.messages.rcs.RcSendParams
+import com.telnyx.sdk.models.messages.rcs.RcSendResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -39,6 +42,13 @@ class RcServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     ): CompletableFuture<RcGenerateDeeplinkResponse> =
         // get /messages/rcs/deeplinks/{agent_id}
         withRawResponse().generateDeeplink(params, requestOptions).thenApply { it.parse() }
+
+    override fun send(
+        params: RcSendParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<RcSendResponse> =
+        // post /messages/rcs
+        withRawResponse().send(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         RcServiceAsync.WithRawResponse {
@@ -77,6 +87,37 @@ class RcServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                     errorHandler.handle(response).parseable {
                         response
                             .use { generateDeeplinkHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val sendHandler: Handler<RcSendResponse> =
+            jsonHandler<RcSendResponse>(clientOptions.jsonMapper)
+
+        override fun send(
+            params: RcSendParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<RcSendResponse>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("messages", "rcs")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { sendHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

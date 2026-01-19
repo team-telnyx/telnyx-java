@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking.queues
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -13,12 +14,16 @@ import com.telnyx.sdk.core.http.HttpRequest
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.queues.calls.CallListPage
+import com.telnyx.sdk.models.queues.calls.CallListPageResponse
 import com.telnyx.sdk.models.queues.calls.CallListParams
-import com.telnyx.sdk.models.queues.calls.CallListResponse
+import com.telnyx.sdk.models.queues.calls.CallRemoveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveParams
 import com.telnyx.sdk.models.queues.calls.CallRetrieveResponse
+import com.telnyx.sdk.models.queues.calls.CallUpdateParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -40,9 +45,19 @@ class CallServiceImpl internal constructor(private val clientOptions: ClientOpti
         // get /queues/{queue_name}/calls/{call_control_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(params: CallListParams, requestOptions: RequestOptions): CallListResponse =
+    override fun update(params: CallUpdateParams, requestOptions: RequestOptions) {
+        // patch /queues/{queue_name}/calls/{call_control_id}
+        withRawResponse().update(params, requestOptions)
+    }
+
+    override fun list(params: CallListParams, requestOptions: RequestOptions): CallListPage =
         // get /queues/{queue_name}/calls
         withRawResponse().list(params, requestOptions).parse()
+
+    override fun remove(params: CallRemoveParams, requestOptions: RequestOptions) {
+        // delete /queues/{queue_name}/calls/{call_control_id}
+        withRawResponse().remove(params, requestOptions)
+    }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CallService.WithRawResponse {
@@ -87,13 +102,37 @@ class CallServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val listHandler: Handler<CallListResponse> =
-            jsonHandler<CallListResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<Void?> = emptyHandler()
+
+        override fun update(
+            params: CallUpdateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("callControlId", params.callControlId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("queues", params._pathParam(0), "calls", params._pathParam(1))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { updateHandler.handle(it) }
+            }
+        }
+
+        private val listHandler: Handler<CallListPageResponse> =
+            jsonHandler<CallListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CallListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CallListResponse> {
+        ): HttpResponseFor<CallListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("queueName", params.queueName().getOrNull())
@@ -114,6 +153,37 @@ class CallServiceImpl internal constructor(private val clientOptions: ClientOpti
                             it.validate()
                         }
                     }
+                    .let {
+                        CallListPage.builder()
+                            .service(CallServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
+            }
+        }
+
+        private val removeHandler: Handler<Void?> = emptyHandler()
+
+        override fun remove(
+            params: CallRemoveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("callControlId", params.callControlId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("queues", params._pathParam(0), "calls", params._pathParam(1))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { removeHandler.handle(it) }
             }
         }
     }

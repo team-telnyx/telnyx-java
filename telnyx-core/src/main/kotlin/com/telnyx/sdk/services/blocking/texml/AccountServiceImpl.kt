@@ -23,6 +23,8 @@ import com.telnyx.sdk.services.blocking.texml.accounts.CallService
 import com.telnyx.sdk.services.blocking.texml.accounts.CallServiceImpl
 import com.telnyx.sdk.services.blocking.texml.accounts.ConferenceService
 import com.telnyx.sdk.services.blocking.texml.accounts.ConferenceServiceImpl
+import com.telnyx.sdk.services.blocking.texml.accounts.QueueService
+import com.telnyx.sdk.services.blocking.texml.accounts.QueueServiceImpl
 import com.telnyx.sdk.services.blocking.texml.accounts.RecordingService
 import com.telnyx.sdk.services.blocking.texml.accounts.RecordingServiceImpl
 import com.telnyx.sdk.services.blocking.texml.accounts.TranscriptionService
@@ -47,6 +49,8 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
         TranscriptionServiceImpl(clientOptions)
     }
 
+    private val queues: QueueService by lazy { QueueServiceImpl(clientOptions) }
+
     override fun withRawResponse(): AccountService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AccountService =
@@ -59,6 +63,8 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
     override fun recordings(): RecordingService = recordings
 
     override fun transcriptions(): TranscriptionService = transcriptions
+
+    override fun queues(): QueueService = queues
 
     override fun retrieveRecordingsJson(
         params: AccountRetrieveRecordingsJsonParams,
@@ -96,6 +102,10 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
             TranscriptionServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val queues: QueueService.WithRawResponse by lazy {
+            QueueServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AccountService.WithRawResponse =
@@ -110,6 +120,8 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
         override fun recordings(): RecordingService.WithRawResponse = recordings
 
         override fun transcriptions(): TranscriptionService.WithRawResponse = transcriptions
+
+        override fun queues(): QueueService.WithRawResponse = queues
 
         private val retrieveRecordingsJsonHandler: Handler<AccountRetrieveRecordingsJsonResponse> =
             jsonHandler<AccountRetrieveRecordingsJsonResponse>(clientOptions.jsonMapper)

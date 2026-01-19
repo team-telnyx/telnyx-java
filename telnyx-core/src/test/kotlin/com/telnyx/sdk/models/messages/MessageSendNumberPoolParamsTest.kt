@@ -12,7 +12,7 @@ internal class MessageSendNumberPoolParamsTest {
     fun create() {
         MessageSendNumberPoolParams.builder()
             .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
-            .to("to")
+            .to("+13125550002")
             .autoDetect(true)
             .addMediaUrl("http://example.com")
             .subject("From Telnyx!")
@@ -29,7 +29,7 @@ internal class MessageSendNumberPoolParamsTest {
         val params =
             MessageSendNumberPoolParams.builder()
                 .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
-                .to("to")
+                .to("+13125550002")
                 .autoDetect(true)
                 .addMediaUrl("http://example.com")
                 .subject("From Telnyx!")
@@ -43,7 +43,7 @@ internal class MessageSendNumberPoolParamsTest {
         val body = params._body()
 
         assertThat(body.messagingProfileId()).isEqualTo("abc85f64-5717-4562-b3fc-2c9600000000")
-        assertThat(body.to()).isEqualTo("to")
+        assertThat(body.to()).isEqualTo("+13125550002")
         assertThat(body.autoDetect()).contains(true)
         assertThat(body.mediaUrls().getOrNull()).containsExactly("http://example.com")
         assertThat(body.subject()).contains("From Telnyx!")
@@ -59,12 +59,12 @@ internal class MessageSendNumberPoolParamsTest {
         val params =
             MessageSendNumberPoolParams.builder()
                 .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
-                .to("to")
+                .to("+13125550002")
                 .build()
 
         val body = params._body()
 
         assertThat(body.messagingProfileId()).isEqualTo("abc85f64-5717-4562-b3fc-2c9600000000")
-        assertThat(body.to()).isEqualTo("to")
+        assertThat(body.to()).isEqualTo("+13125550002")
     }
 }

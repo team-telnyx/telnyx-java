@@ -19,8 +19,9 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.accessipranges.AccessIpRange
 import com.telnyx.sdk.models.accessipranges.AccessIpRangeCreateParams
 import com.telnyx.sdk.models.accessipranges.AccessIpRangeDeleteParams
+import com.telnyx.sdk.models.accessipranges.AccessIpRangeListPageAsync
+import com.telnyx.sdk.models.accessipranges.AccessIpRangeListPageResponse
 import com.telnyx.sdk.models.accessipranges.AccessIpRangeListParams
-import com.telnyx.sdk.models.accessipranges.AccessIpRangeListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -47,7 +48,7 @@ class AccessIpRangeServiceAsyncImpl internal constructor(private val clientOptio
     override fun list(
         params: AccessIpRangeListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AccessIpRangeListResponse> =
+    ): CompletableFuture<AccessIpRangeListPageAsync> =
         // get /access_ip_ranges
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -102,13 +103,13 @@ class AccessIpRangeServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val listHandler: Handler<AccessIpRangeListResponse> =
-            jsonHandler<AccessIpRangeListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccessIpRangeListPageResponse> =
+            jsonHandler<AccessIpRangeListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AccessIpRangeListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AccessIpRangeListResponse>> {
+        ): CompletableFuture<HttpResponseFor<AccessIpRangeListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -127,6 +128,14 @@ class AccessIpRangeServiceAsyncImpl internal constructor(private val clientOptio
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                AccessIpRangeListPageAsync.builder()
+                                    .service(AccessIpRangeServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

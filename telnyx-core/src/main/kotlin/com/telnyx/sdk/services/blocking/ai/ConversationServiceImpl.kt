@@ -19,7 +19,6 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.conversations.Conversation
 import com.telnyx.sdk.models.ai.conversations.ConversationAddMessageParams
-import com.telnyx.sdk.models.ai.conversations.ConversationAddMessageResponse
 import com.telnyx.sdk.models.ai.conversations.ConversationCreateParams
 import com.telnyx.sdk.models.ai.conversations.ConversationDeleteParams
 import com.telnyx.sdk.models.ai.conversations.ConversationListParams
@@ -98,12 +97,10 @@ class ConversationServiceImpl internal constructor(private val clientOptions: Cl
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun addMessage(
-        params: ConversationAddMessageParams,
-        requestOptions: RequestOptions,
-    ): ConversationAddMessageResponse =
+    override fun addMessage(params: ConversationAddMessageParams, requestOptions: RequestOptions) {
         // post /ai/conversations/{conversation_id}/message
-        withRawResponse().addMessage(params, requestOptions).parse()
+        withRawResponse().addMessage(params, requestOptions)
+    }
 
     override fun retrieveConversationsInsights(
         params: ConversationRetrieveConversationsInsightsParams,
@@ -283,13 +280,12 @@ class ConversationServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val addMessageHandler: Handler<ConversationAddMessageResponse> =
-            jsonHandler<ConversationAddMessageResponse>(clientOptions.jsonMapper)
+        private val addMessageHandler: Handler<Void?> = emptyHandler()
 
         override fun addMessage(
             params: ConversationAddMessageParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConversationAddMessageResponse> {
+        ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("conversationId", params.conversationId().getOrNull())
@@ -304,13 +300,7 @@ class ConversationServiceImpl internal constructor(private val clientOptions: Cl
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response
-                    .use { addMessageHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
+                response.use { addMessageHandler.handle(it) }
             }
         }
 

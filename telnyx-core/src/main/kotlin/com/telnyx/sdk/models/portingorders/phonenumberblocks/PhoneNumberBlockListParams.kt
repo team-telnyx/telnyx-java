@@ -20,7 +20,8 @@ class PhoneNumberBlockListParams
 private constructor(
     private val portingOrderId: String?,
     private val filter: Filter?,
-    private val page: Page?,
+    private val pageNumber: Long?,
+    private val pageSize: Long?,
     private val sort: Sort?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -35,8 +36,9 @@ private constructor(
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
-    /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-    fun page(): Optional<Page> = Optional.ofNullable(page)
+    fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
+
+    fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
     /** Consolidated sort parameter (deepObject style). Originally: sort[value] */
     fun sort(): Optional<Sort> = Optional.ofNullable(sort)
@@ -64,7 +66,8 @@ private constructor(
 
         private var portingOrderId: String? = null
         private var filter: Filter? = null
-        private var page: Page? = null
+        private var pageNumber: Long? = null
+        private var pageSize: Long? = null
         private var sort: Sort? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -73,7 +76,8 @@ private constructor(
         internal fun from(phoneNumberBlockListParams: PhoneNumberBlockListParams) = apply {
             portingOrderId = phoneNumberBlockListParams.portingOrderId
             filter = phoneNumberBlockListParams.filter
-            page = phoneNumberBlockListParams.page
+            pageNumber = phoneNumberBlockListParams.pageNumber
+            pageSize = phoneNumberBlockListParams.pageSize
             sort = phoneNumberBlockListParams.sort
             additionalHeaders = phoneNumberBlockListParams.additionalHeaders.toBuilder()
             additionalQueryParams = phoneNumberBlockListParams.additionalQueryParams.toBuilder()
@@ -95,11 +99,29 @@ private constructor(
         /** Alias for calling [Builder.filter] with `filter.orElse(null)`. */
         fun filter(filter: Optional<Filter>) = filter(filter.getOrNull())
 
-        /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        fun page(page: Page?) = apply { this.page = page }
+        fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
-        /** Alias for calling [Builder.page] with `page.orElse(null)`. */
-        fun page(page: Optional<Page>) = page(page.getOrNull())
+        /**
+         * Alias for [Builder.pageNumber].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageNumber(pageNumber: Long) = pageNumber(pageNumber as Long?)
+
+        /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
+        fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
+
+        fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
+
+        /**
+         * Alias for [Builder.pageSize].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageSize(pageSize: Long) = pageSize(pageSize as Long?)
+
+        /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
+        fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
         /** Consolidated sort parameter (deepObject style). Originally: sort[value] */
         fun sort(sort: Sort?) = apply { this.sort = sort }
@@ -214,7 +236,8 @@ private constructor(
             PhoneNumberBlockListParams(
                 portingOrderId,
                 filter,
-                page,
+                pageNumber,
+                pageSize,
                 sort,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -246,21 +269,19 @@ private constructor(
                     it.status().ifPresent {
                         it.accept(
                             object : Filter.Status.Visitor<Unit> {
-                                override fun visitUnionMember0(
-                                    unionMember0: Filter.Status.UnionMember0
+                                override fun visitPortingOrderSingle(
+                                    portingOrderSingle: Filter.Status.PortingOrderSingleStatus
                                 ) {
-                                    put("filter[status]", unionMember0.toString())
+                                    put("filter[status]", portingOrderSingle.toString())
                                 }
 
-                                override fun visitUnnamedSchemaWithArrayParent2s(
-                                    unnamedSchemaWithArrayParent2s:
-                                        List<Filter.Status.UnnamedSchemaWithArrayParent2>
+                                override fun visitPortingOrderStatusLists(
+                                    portingOrderStatusLists:
+                                        List<Filter.Status.PortingOrderStatusList>
                                 ) {
                                     put(
                                         "filter[status]",
-                                        unnamedSchemaWithArrayParent2s.joinToString(",") {
-                                            it.toString()
-                                        },
+                                        portingOrderStatusLists.joinToString(",") { it.toString() },
                                     )
                                 }
                             }
@@ -285,15 +306,8 @@ private constructor(
                         }
                     }
                 }
-                page?.let {
-                    it.number().ifPresent { put("page[number]", it.toString()) }
-                    it.size().ifPresent { put("page[size]", it.toString()) }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("page[$key]", value)
-                        }
-                    }
-                }
+                pageNumber?.let { put("page[number]", it.toString()) }
+                pageSize?.let { put("page[size]", it.toString()) }
                 sort?.let {
                     it.value().ifPresent { put("sort[value]", it.toString()) }
                     it._additionalProperties().keys().forEach { key ->
@@ -444,17 +458,19 @@ private constructor(
             /** Alias for calling [Builder.status] with `status.orElse(null)`. */
             fun status(status: Optional<Status>) = status(status.getOrNull())
 
-            /** Alias for calling [status] with `Status.ofUnionMember0(unionMember0)`. */
-            fun status(unionMember0: Status.UnionMember0) =
-                status(Status.ofUnionMember0(unionMember0))
+            /**
+             * Alias for calling [status] with `Status.ofPortingOrderSingle(portingOrderSingle)`.
+             */
+            fun status(portingOrderSingle: Status.PortingOrderSingleStatus) =
+                status(Status.ofPortingOrderSingle(portingOrderSingle))
 
             /**
              * Alias for calling [status] with
-             * `Status.ofUnnamedSchemaWithArrayParent2s(unnamedSchemaWithArrayParent2s)`.
+             * `Status.ofPortingOrderStatusLists(portingOrderStatusLists)`.
              */
-            fun statusOfUnnamedSchemaWithArrayParent2s(
-                unnamedSchemaWithArrayParent2s: List<Status.UnnamedSchemaWithArrayParent2>
-            ) = status(Status.ofUnnamedSchemaWithArrayParent2s(unnamedSchemaWithArrayParent2s))
+            fun statusOfPortingOrderStatusLists(
+                portingOrderStatusLists: List<Status.PortingOrderStatusList>
+            ) = status(Status.ofPortingOrderStatusLists(portingOrderStatusLists))
 
             /**
              * Filter results by support key(s). Originally: filter[support_key][eq],
@@ -881,33 +897,36 @@ private constructor(
         /** Filter porting orders by status(es). Originally: filter[status], filter[status][in][] */
         class Status
         private constructor(
-            private val unionMember0: UnionMember0? = null,
-            private val unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>? = null,
+            private val portingOrderSingle: PortingOrderSingleStatus? = null,
+            private val portingOrderStatusLists: List<PortingOrderStatusList>? = null,
         ) {
 
             /** Filter by single status */
-            fun unionMember0(): Optional<UnionMember0> = Optional.ofNullable(unionMember0)
+            fun portingOrderSingle(): Optional<PortingOrderSingleStatus> =
+                Optional.ofNullable(portingOrderSingle)
 
             /** Filter by multiple statuses (in operation) */
-            fun unnamedSchemaWithArrayParent2s(): Optional<List<UnnamedSchemaWithArrayParent2>> =
-                Optional.ofNullable(unnamedSchemaWithArrayParent2s)
+            fun portingOrderStatusLists(): Optional<List<PortingOrderStatusList>> =
+                Optional.ofNullable(portingOrderStatusLists)
 
-            fun isUnionMember0(): Boolean = unionMember0 != null
+            fun isPortingOrderSingle(): Boolean = portingOrderSingle != null
 
-            fun isUnnamedSchemaWithArrayParent2s(): Boolean = unnamedSchemaWithArrayParent2s != null
+            fun isPortingOrderStatusLists(): Boolean = portingOrderStatusLists != null
 
             /** Filter by single status */
-            fun asUnionMember0(): UnionMember0 = unionMember0.getOrThrow("unionMember0")
+            fun asPortingOrderSingle(): PortingOrderSingleStatus =
+                portingOrderSingle.getOrThrow("portingOrderSingle")
 
             /** Filter by multiple statuses (in operation) */
-            fun asUnnamedSchemaWithArrayParent2s(): List<UnnamedSchemaWithArrayParent2> =
-                unnamedSchemaWithArrayParent2s.getOrThrow("unnamedSchemaWithArrayParent2s")
+            fun asPortingOrderStatusLists(): List<PortingOrderStatusList> =
+                portingOrderStatusLists.getOrThrow("portingOrderStatusLists")
 
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
-                    unionMember0 != null -> visitor.visitUnionMember0(unionMember0)
-                    unnamedSchemaWithArrayParent2s != null ->
-                        visitor.visitUnnamedSchemaWithArrayParent2s(unnamedSchemaWithArrayParent2s)
+                    portingOrderSingle != null ->
+                        visitor.visitPortingOrderSingle(portingOrderSingle)
+                    portingOrderStatusLists != null ->
+                        visitor.visitPortingOrderStatusLists(portingOrderStatusLists)
                     else -> throw IllegalStateException("Invalid Status")
                 }
 
@@ -917,18 +936,17 @@ private constructor(
                 }
 
                 return other is Status &&
-                    unionMember0 == other.unionMember0 &&
-                    unnamedSchemaWithArrayParent2s == other.unnamedSchemaWithArrayParent2s
+                    portingOrderSingle == other.portingOrderSingle &&
+                    portingOrderStatusLists == other.portingOrderStatusLists
             }
 
-            override fun hashCode(): Int =
-                Objects.hash(unionMember0, unnamedSchemaWithArrayParent2s)
+            override fun hashCode(): Int = Objects.hash(portingOrderSingle, portingOrderStatusLists)
 
             override fun toString(): String =
                 when {
-                    unionMember0 != null -> "Status{unionMember0=$unionMember0}"
-                    unnamedSchemaWithArrayParent2s != null ->
-                        "Status{unnamedSchemaWithArrayParent2s=$unnamedSchemaWithArrayParent2s}"
+                    portingOrderSingle != null -> "Status{portingOrderSingle=$portingOrderSingle}"
+                    portingOrderStatusLists != null ->
+                        "Status{portingOrderStatusLists=$portingOrderStatusLists}"
                     else -> throw IllegalStateException("Invalid Status")
                 }
 
@@ -936,17 +954,14 @@ private constructor(
 
                 /** Filter by single status */
                 @JvmStatic
-                fun ofUnionMember0(unionMember0: UnionMember0) = Status(unionMember0 = unionMember0)
+                fun ofPortingOrderSingle(portingOrderSingle: PortingOrderSingleStatus) =
+                    Status(portingOrderSingle = portingOrderSingle)
 
                 /** Filter by multiple statuses (in operation) */
                 @JvmStatic
-                fun ofUnnamedSchemaWithArrayParent2s(
-                    unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>
-                ) =
-                    Status(
-                        unnamedSchemaWithArrayParent2s =
-                            unnamedSchemaWithArrayParent2s.toImmutable()
-                    )
+                fun ofPortingOrderStatusLists(
+                    portingOrderStatusLists: List<PortingOrderStatusList>
+                ) = Status(portingOrderStatusLists = portingOrderStatusLists.toImmutable())
             }
 
             /**
@@ -955,16 +970,16 @@ private constructor(
             interface Visitor<out T> {
 
                 /** Filter by single status */
-                fun visitUnionMember0(unionMember0: UnionMember0): T
+                fun visitPortingOrderSingle(portingOrderSingle: PortingOrderSingleStatus): T
 
                 /** Filter by multiple statuses (in operation) */
-                fun visitUnnamedSchemaWithArrayParent2s(
-                    unnamedSchemaWithArrayParent2s: List<UnnamedSchemaWithArrayParent2>
+                fun visitPortingOrderStatusLists(
+                    portingOrderStatusLists: List<PortingOrderStatusList>
                 ): T
             }
 
             /** Filter by single status */
-            class UnionMember0
+            class PortingOrderSingleStatus
             @JsonCreator
             private constructor(private val value: JsonField<String>) : Enum {
 
@@ -996,10 +1011,10 @@ private constructor(
 
                     @JvmField val CANCELLED = of("cancelled")
 
-                    @JvmStatic fun of(value: String) = UnionMember0(JsonField.of(value))
+                    @JvmStatic fun of(value: String) = PortingOrderSingleStatus(JsonField.of(value))
                 }
 
-                /** An enum containing [UnionMember0]'s known values. */
+                /** An enum containing [PortingOrderSingleStatus]'s known values. */
                 enum class Known {
                     DRAFT,
                     IN_PROCESS,
@@ -1012,180 +1027,10 @@ private constructor(
                 }
 
                 /**
-                 * An enum containing [UnionMember0]'s known values, as well as an [_UNKNOWN]
-                 * member.
-                 *
-                 * An instance of [UnionMember0] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    DRAFT,
-                    IN_PROCESS,
-                    SUBMITTED,
-                    EXCEPTION,
-                    FOC_DATE_CONFIRMED,
-                    CANCEL_PENDING,
-                    PORTED,
-                    CANCELLED,
-                    /**
-                     * An enum member indicating that [UnionMember0] was instantiated with an
-                     * unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        DRAFT -> Value.DRAFT
-                        IN_PROCESS -> Value.IN_PROCESS
-                        SUBMITTED -> Value.SUBMITTED
-                        EXCEPTION -> Value.EXCEPTION
-                        FOC_DATE_CONFIRMED -> Value.FOC_DATE_CONFIRMED
-                        CANCEL_PENDING -> Value.CANCEL_PENDING
-                        PORTED -> Value.PORTED
-                        CANCELLED -> Value.CANCELLED
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        DRAFT -> Known.DRAFT
-                        IN_PROCESS -> Known.IN_PROCESS
-                        SUBMITTED -> Known.SUBMITTED
-                        EXCEPTION -> Known.EXCEPTION
-                        FOC_DATE_CONFIRMED -> Known.FOC_DATE_CONFIRMED
-                        CANCEL_PENDING -> Known.CANCEL_PENDING
-                        PORTED -> Known.PORTED
-                        CANCELLED -> Known.CANCELLED
-                        else -> throw TelnyxInvalidDataException("Unknown UnionMember0: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                fun validate(): UnionMember0 = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is UnionMember0 && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            class UnnamedSchemaWithArrayParent2
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val DRAFT = of("draft")
-
-                    @JvmField val IN_PROCESS = of("in-process")
-
-                    @JvmField val SUBMITTED = of("submitted")
-
-                    @JvmField val EXCEPTION = of("exception")
-
-                    @JvmField val FOC_DATE_CONFIRMED = of("foc-date-confirmed")
-
-                    @JvmField val CANCEL_PENDING = of("cancel-pending")
-
-                    @JvmField val PORTED = of("ported")
-
-                    @JvmField val CANCELLED = of("cancelled")
-
-                    @JvmStatic
-                    fun of(value: String) = UnnamedSchemaWithArrayParent2(JsonField.of(value))
-                }
-
-                /** An enum containing [UnnamedSchemaWithArrayParent2]'s known values. */
-                enum class Known {
-                    DRAFT,
-                    IN_PROCESS,
-                    SUBMITTED,
-                    EXCEPTION,
-                    FOC_DATE_CONFIRMED,
-                    CANCEL_PENDING,
-                    PORTED,
-                    CANCELLED,
-                }
-
-                /**
-                 * An enum containing [UnnamedSchemaWithArrayParent2]'s known values, as well as an
+                 * An enum containing [PortingOrderSingleStatus]'s known values, as well as an
                  * [_UNKNOWN] member.
                  *
-                 * An instance of [UnnamedSchemaWithArrayParent2] can contain an unknown value in a
+                 * An instance of [PortingOrderSingleStatus] can contain an unknown value in a
                  * couple of cases:
                  * - It was deserialized from data that doesn't match any known member. For example,
                  *   if the SDK is on an older version than the API, then the API may respond with
@@ -1202,8 +1047,8 @@ private constructor(
                     PORTED,
                     CANCELLED,
                     /**
-                     * An enum member indicating that [UnnamedSchemaWithArrayParent2] was
-                     * instantiated with an unknown value.
+                     * An enum member indicating that [PortingOrderSingleStatus] was instantiated
+                     * with an unknown value.
                      */
                     _UNKNOWN,
                 }
@@ -1249,7 +1094,7 @@ private constructor(
                         CANCELLED -> Known.CANCELLED
                         else ->
                             throw TelnyxInvalidDataException(
-                                "Unknown UnnamedSchemaWithArrayParent2: $value"
+                                "Unknown PortingOrderSingleStatus: $value"
                             )
                     }
 
@@ -1269,7 +1114,7 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                fun validate(): UnnamedSchemaWithArrayParent2 = apply {
+                fun validate(): PortingOrderSingleStatus = apply {
                     if (validated) {
                         return@apply
                     }
@@ -1299,7 +1144,180 @@ private constructor(
                         return true
                     }
 
-                    return other is UnnamedSchemaWithArrayParent2 && value == other.value
+                    return other is PortingOrderSingleStatus && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            class PortingOrderStatusList
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val DRAFT = of("draft")
+
+                    @JvmField val IN_PROCESS = of("in-process")
+
+                    @JvmField val SUBMITTED = of("submitted")
+
+                    @JvmField val EXCEPTION = of("exception")
+
+                    @JvmField val FOC_DATE_CONFIRMED = of("foc-date-confirmed")
+
+                    @JvmField val CANCEL_PENDING = of("cancel-pending")
+
+                    @JvmField val PORTED = of("ported")
+
+                    @JvmField val CANCELLED = of("cancelled")
+
+                    @JvmStatic fun of(value: String) = PortingOrderStatusList(JsonField.of(value))
+                }
+
+                /** An enum containing [PortingOrderStatusList]'s known values. */
+                enum class Known {
+                    DRAFT,
+                    IN_PROCESS,
+                    SUBMITTED,
+                    EXCEPTION,
+                    FOC_DATE_CONFIRMED,
+                    CANCEL_PENDING,
+                    PORTED,
+                    CANCELLED,
+                }
+
+                /**
+                 * An enum containing [PortingOrderStatusList]'s known values, as well as an
+                 * [_UNKNOWN] member.
+                 *
+                 * An instance of [PortingOrderStatusList] can contain an unknown value in a couple
+                 * of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    DRAFT,
+                    IN_PROCESS,
+                    SUBMITTED,
+                    EXCEPTION,
+                    FOC_DATE_CONFIRMED,
+                    CANCEL_PENDING,
+                    PORTED,
+                    CANCELLED,
+                    /**
+                     * An enum member indicating that [PortingOrderStatusList] was instantiated with
+                     * an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        DRAFT -> Value.DRAFT
+                        IN_PROCESS -> Value.IN_PROCESS
+                        SUBMITTED -> Value.SUBMITTED
+                        EXCEPTION -> Value.EXCEPTION
+                        FOC_DATE_CONFIRMED -> Value.FOC_DATE_CONFIRMED
+                        CANCEL_PENDING -> Value.CANCEL_PENDING
+                        PORTED -> Value.PORTED
+                        CANCELLED -> Value.CANCELLED
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        DRAFT -> Known.DRAFT
+                        IN_PROCESS -> Known.IN_PROCESS
+                        SUBMITTED -> Known.SUBMITTED
+                        EXCEPTION -> Known.EXCEPTION
+                        FOC_DATE_CONFIRMED -> Known.FOC_DATE_CONFIRMED
+                        CANCEL_PENDING -> Known.CANCEL_PENDING
+                        PORTED -> Known.PORTED
+                        CANCELLED -> Known.CANCELLED
+                        else ->
+                            throw TelnyxInvalidDataException(
+                                "Unknown PortingOrderStatusList: $value"
+                            )
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws TelnyxInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        TelnyxInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): PortingOrderStatusList = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is PortingOrderStatusList && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -1415,156 +1433,18 @@ private constructor(
             "Filter{activationStatus=$activationStatus, phoneNumber=$phoneNumber, portabilityStatus=$portabilityStatus, portingOrderId=$portingOrderId, status=$status, supportKey=$supportKey, additionalProperties=$additionalProperties}"
     }
 
-    /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-    class Page
-    private constructor(
-        private val number: Long?,
-        private val size: Long?,
-        private val additionalProperties: QueryParams,
-    ) {
-
-        /** The page number to load */
-        fun number(): Optional<Long> = Optional.ofNullable(number)
-
-        /** The size of the page */
-        fun size(): Optional<Long> = Optional.ofNullable(size)
-
-        /** Query params to send with the request. */
-        fun _additionalProperties(): QueryParams = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Page]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Page]. */
-        class Builder internal constructor() {
-
-            private var number: Long? = null
-            private var size: Long? = null
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
-
-            @JvmSynthetic
-            internal fun from(page: Page) = apply {
-                number = page.number
-                size = page.size
-                additionalProperties = page.additionalProperties.toBuilder()
-            }
-
-            /** The page number to load */
-            fun number(number: Long?) = apply { this.number = number }
-
-            /**
-             * Alias for [Builder.number].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun number(number: Long) = number(number as Long?)
-
-            /** Alias for calling [Builder.number] with `number.orElse(null)`. */
-            fun number(number: Optional<Long>) = number(number.getOrNull())
-
-            /** The size of the page */
-            fun size(size: Long?) = apply { this.size = size }
-
-            /**
-             * Alias for [Builder.size].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun size(size: Long) = size(size as Long?)
-
-            /** Alias for calling [Builder.size] with `size.orElse(null)`. */
-            fun size(size: Optional<Long>) = size(size.getOrNull())
-
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
-
-            /**
-             * Returns an immutable instance of [Page].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Page = Page(number, size, additionalProperties.build())
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Page &&
-                number == other.number &&
-                size == other.size &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(number, size, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Page{number=$number, size=$size, additionalProperties=$additionalProperties}"
-    }
-
     /** Consolidated sort parameter (deepObject style). Originally: sort[value] */
     class Sort
-    private constructor(private val value: Value_?, private val additionalProperties: QueryParams) {
+    private constructor(
+        private val value: SortValue?,
+        private val additionalProperties: QueryParams,
+    ) {
 
         /**
          * Specifies the sort order for results. If not given, results are sorted by created_at in
          * descending order
          */
-        fun value(): Optional<Value_> = Optional.ofNullable(value)
+        fun value(): Optional<SortValue> = Optional.ofNullable(value)
 
         /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
@@ -1580,7 +1460,7 @@ private constructor(
         /** A builder for [Sort]. */
         class Builder internal constructor() {
 
-            private var value: Value_? = null
+            private var value: SortValue? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
@@ -1593,10 +1473,10 @@ private constructor(
              * Specifies the sort order for results. If not given, results are sorted by created_at
              * in descending order
              */
-            fun value(value: Value_?) = apply { this.value = value }
+            fun value(value: SortValue?) = apply { this.value = value }
 
             /** Alias for calling [Builder.value] with `value.orElse(null)`. */
-            fun value(value: Optional<Value_>) = value(value.getOrNull())
+            fun value(value: Optional<SortValue>) = value(value.getOrNull())
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
@@ -1659,7 +1539,8 @@ private constructor(
          * Specifies the sort order for results. If not given, results are sorted by created_at in
          * descending order
          */
-        class Value_ @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+        class SortValue @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1677,19 +1558,19 @@ private constructor(
 
                 @JvmField val CREATED_AT = of("created_at")
 
-                @JvmStatic fun of(value: String) = Value_(JsonField.of(value))
+                @JvmStatic fun of(value: String) = SortValue(JsonField.of(value))
             }
 
-            /** An enum containing [Value_]'s known values. */
+            /** An enum containing [SortValue]'s known values. */
             enum class Known {
                 CREATED_AT_DESC,
                 CREATED_AT,
             }
 
             /**
-             * An enum containing [Value_]'s known values, as well as an [_UNKNOWN] member.
+             * An enum containing [SortValue]'s known values, as well as an [_UNKNOWN] member.
              *
-             * An instance of [Value_] can contain an unknown value in a couple of cases:
+             * An instance of [SortValue] can contain an unknown value in a couple of cases:
              * - It was deserialized from data that doesn't match any known member. For example, if
              *   the SDK is on an older version than the API, then the API may respond with new
              *   members that the SDK is unaware of.
@@ -1699,7 +1580,8 @@ private constructor(
                 CREATED_AT_DESC,
                 CREATED_AT,
                 /**
-                 * An enum member indicating that [Value_] was instantiated with an unknown value.
+                 * An enum member indicating that [SortValue] was instantiated with an unknown
+                 * value.
                  */
                 _UNKNOWN,
             }
@@ -1731,7 +1613,7 @@ private constructor(
                 when (this) {
                     CREATED_AT_DESC -> Known.CREATED_AT_DESC
                     CREATED_AT -> Known.CREATED_AT
-                    else -> throw TelnyxInvalidDataException("Unknown Value_: $value")
+                    else -> throw TelnyxInvalidDataException("Unknown SortValue: $value")
                 }
 
             /**
@@ -1750,7 +1632,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): Value_ = apply {
+            fun validate(): SortValue = apply {
                 if (validated) {
                     return@apply
                 }
@@ -1780,7 +1662,7 @@ private constructor(
                     return true
                 }
 
-                return other is Value_ && value == other.value
+                return other is SortValue && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1813,15 +1695,24 @@ private constructor(
         return other is PhoneNumberBlockListParams &&
             portingOrderId == other.portingOrderId &&
             filter == other.filter &&
-            page == other.page &&
+            pageNumber == other.pageNumber &&
+            pageSize == other.pageSize &&
             sort == other.sort &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(portingOrderId, filter, page, sort, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            portingOrderId,
+            filter,
+            pageNumber,
+            pageSize,
+            sort,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "PhoneNumberBlockListParams{portingOrderId=$portingOrderId, filter=$filter, page=$page, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PhoneNumberBlockListParams{portingOrderId=$portingOrderId, filter=$filter, pageNumber=$pageNumber, pageSize=$pageSize, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

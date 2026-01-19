@@ -10,13 +10,10 @@ internal class DocumentUploadJsonParamsTest {
     @Test
     fun create() {
         DocumentUploadJsonParams.builder()
-            .body(
-                DocumentUploadJsonParams.Body.DocServiceDocumentUploadUrl.builder()
-                    .url("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")
-                    .customerReference("MY REF 001")
-                    .filename("test-document.pdf")
-                    .build()
-            )
+            .customerReference("MY REF 001")
+            .file("ZXhhbXBsZSBvZiBlbmNvZGVkIGNvbnRlbnQ=")
+            .filename("test-document.pdf")
+            .url("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")
             .build()
     }
 
@@ -24,57 +21,25 @@ internal class DocumentUploadJsonParamsTest {
     fun body() {
         val params =
             DocumentUploadJsonParams.builder()
-                .body(
-                    DocumentUploadJsonParams.Body.DocServiceDocumentUploadUrl.builder()
-                        .url(
-                            "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-                        )
-                        .customerReference("MY REF 001")
-                        .filename("test-document.pdf")
-                        .build()
-                )
+                .customerReference("MY REF 001")
+                .file("ZXhhbXBsZSBvZiBlbmNvZGVkIGNvbnRlbnQ=")
+                .filename("test-document.pdf")
+                .url("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")
                 .build()
 
         val body = params._body()
 
-        assertThat(body)
-            .isEqualTo(
-                DocumentUploadJsonParams.Body.ofDocServiceDocumentUploadUrl(
-                    DocumentUploadJsonParams.Body.DocServiceDocumentUploadUrl.builder()
-                        .url(
-                            "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-                        )
-                        .customerReference("MY REF 001")
-                        .filename("test-document.pdf")
-                        .build()
-                )
-            )
+        assertThat(body.customerReference()).contains("MY REF 001")
+        assertThat(body.file()).contains("ZXhhbXBsZSBvZiBlbmNvZGVkIGNvbnRlbnQ=")
+        assertThat(body.filename()).contains("test-document.pdf")
+        assertThat(body.url())
+            .contains("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params =
-            DocumentUploadJsonParams.builder()
-                .body(
-                    DocumentUploadJsonParams.Body.DocServiceDocumentUploadUrl.builder()
-                        .url(
-                            "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-                        )
-                        .build()
-                )
-                .build()
+        val params = DocumentUploadJsonParams.builder().build()
 
         val body = params._body()
-
-        assertThat(body)
-            .isEqualTo(
-                DocumentUploadJsonParams.Body.ofDocServiceDocumentUploadUrl(
-                    DocumentUploadJsonParams.Body.DocServiceDocumentUploadUrl.builder()
-                        .url(
-                            "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-                        )
-                        .build()
-                )
-            )
     }
 }

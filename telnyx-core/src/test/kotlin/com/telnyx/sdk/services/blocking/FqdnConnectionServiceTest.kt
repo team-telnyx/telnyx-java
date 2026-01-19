@@ -9,7 +9,6 @@ import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
 import com.telnyx.sdk.models.credentialconnections.DtmfType
 import com.telnyx.sdk.models.credentialconnections.EncryptedMedia
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionCreateParams
-import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionListParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionUpdateParams
 import com.telnyx.sdk.models.fqdnconnections.InboundFqdn
 import com.telnyx.sdk.models.fqdnconnections.OutboundFqdn
@@ -39,6 +38,7 @@ internal class FqdnConnectionServiceTest {
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                     .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+                    .callCostInWebhooks(false)
                     .defaultOnHoldComfortNoiseEnabled(true)
                     .dtmfType(DtmfType.RFC_2833)
                     .encodeContactHeaderEnabled(true)
@@ -69,6 +69,16 @@ internal class FqdnConnectionServiceTest {
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
                     .microsoftTeamsSbc(true)
+                    .noiseSuppression(FqdnConnectionCreateParams.NoiseSuppression.BOTH)
+                    .noiseSuppressionDetails(
+                        FqdnConnectionCreateParams.NoiseSuppressionDetails.builder()
+                            .attenuationLimit(80L)
+                            .engine(
+                                FqdnConnectionCreateParams.NoiseSuppressionDetails.Engine
+                                    .DEEP_FILTER_NET
+                            )
+                            .build()
+                    )
                     .onnetT38PassthroughEnabled(true)
                     .outbound(
                         OutboundFqdn.builder()
@@ -101,7 +111,7 @@ internal class FqdnConnectionServiceTest {
                     .addTag("tag1")
                     .addTag("tag2")
                     .transportProtocol(TransportProtocol.UDP)
-                    .webhookApiVersion(WebhookApiVersion._1)
+                    .webhookApiVersion(WebhookApiVersion.V1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookEventUrl("https://example.com")
                     .webhookTimeoutSecs(25L)
@@ -143,6 +153,7 @@ internal class FqdnConnectionServiceTest {
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                     .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+                    .callCostInWebhooks(true)
                     .connectionName("string")
                     .defaultOnHoldComfortNoiseEnabled(true)
                     .dtmfType(DtmfType.RFC_2833)
@@ -173,6 +184,16 @@ internal class FqdnConnectionServiceTest {
                             .build()
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                    .noiseSuppression(FqdnConnectionUpdateParams.NoiseSuppression.BOTH)
+                    .noiseSuppressionDetails(
+                        FqdnConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                            .attenuationLimit(80L)
+                            .engine(
+                                FqdnConnectionUpdateParams.NoiseSuppressionDetails.Engine
+                                    .DEEP_FILTER_NET
+                            )
+                            .build()
+                    )
                     .onnetT38PassthroughEnabled(true)
                     .outbound(
                         OutboundFqdn.builder()
@@ -205,7 +226,7 @@ internal class FqdnConnectionServiceTest {
                     .addTag("tag1")
                     .addTag("tag2")
                     .transportProtocol(TransportProtocol.UDP)
-                    .webhookApiVersion(WebhookApiVersion._1)
+                    .webhookApiVersion(WebhookApiVersion.V1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookEventUrl("https://example.com")
                     .webhookTimeoutSecs(25L)
@@ -225,26 +246,9 @@ internal class FqdnConnectionServiceTest {
                 .build()
         val fqdnConnectionService = client.fqdnConnections()
 
-        val fqdnConnections =
-            fqdnConnectionService.list(
-                FqdnConnectionListParams.builder()
-                    .filter(
-                        FqdnConnectionListParams.Filter.builder()
-                            .connectionName(
-                                FqdnConnectionListParams.Filter.ConnectionName.builder()
-                                    .contains("contains")
-                                    .build()
-                            )
-                            .fqdn("fqdn")
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
-                            .build()
-                    )
-                    .page(FqdnConnectionListParams.Page.builder().number(1L).size(1L).build())
-                    .sort(FqdnConnectionListParams.Sort.CONNECTION_NAME)
-                    .build()
-            )
+        val page = fqdnConnectionService.list()
 
-        fqdnConnections.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

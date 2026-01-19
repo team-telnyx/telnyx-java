@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async.phonenumberblocks
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.phonenumberblocks.jobs.JobDeletePhoneNumberBlockParams
-import com.telnyx.sdk.models.phonenumberblocks.jobs.JobListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -39,22 +38,10 @@ internal class JobServiceAsyncTest {
                 .build()
         val jobServiceAsync = client.phoneNumberBlocks().jobs()
 
-        val jobsFuture =
-            jobServiceAsync.list(
-                JobListParams.builder()
-                    .filter(
-                        JobListParams.Filter.builder()
-                            .status(JobListParams.Filter.Status.IN_PROGRESS)
-                            .type(JobListParams.Filter.Type.DELETE_PHONE_NUMBER_BLOCK)
-                            .build()
-                    )
-                    .page(JobListParams.Page.builder().number(1L).size(1L).build())
-                    .sort(JobListParams.Sort.CREATED_AT)
-                    .build()
-            )
+        val pageFuture = jobServiceAsync.list()
 
-        val jobs = jobsFuture.get()
-        jobs.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

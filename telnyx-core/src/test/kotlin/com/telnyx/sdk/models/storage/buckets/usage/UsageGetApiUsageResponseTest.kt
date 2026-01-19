@@ -19,22 +19,23 @@ internal class UsageGetApiUsageResponseTest {
                     UsageGetApiUsageResponse.Data.builder()
                         .addCategory(
                             UsageGetApiUsageResponse.Data.Category.builder()
-                                .bytesReceived(0L)
-                                .bytesSent(0L)
+                                .bytesReceived(123456L)
+                                .bytesSent(123456L)
                                 .category(
-                                    UsageGetApiUsageResponse.Data.Category.InnerCategory.LIST_BUCKET
+                                    UsageGetApiUsageResponse.Data.Category.BucketOperationCategory
+                                        .PUT_OBJ
                                 )
-                                .ops(0L)
-                                .successfulOps(0L)
+                                .ops(123456L)
+                                .successfulOps(123456L)
                                 .build()
                         )
-                        .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .timestamp(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
                         .total(
                             UsageGetApiUsageResponse.Data.Total.builder()
-                                .bytesReceived(0L)
-                                .bytesSent(0L)
-                                .ops(0L)
-                                .successfulOps(0L)
+                                .bytesReceived(123456L)
+                                .bytesSent(123456L)
+                                .ops(123456L)
+                                .successfulOps(123456L)
                                 .build()
                         )
                         .build()
@@ -46,22 +47,23 @@ internal class UsageGetApiUsageResponseTest {
                 UsageGetApiUsageResponse.Data.builder()
                     .addCategory(
                         UsageGetApiUsageResponse.Data.Category.builder()
-                            .bytesReceived(0L)
-                            .bytesSent(0L)
+                            .bytesReceived(123456L)
+                            .bytesSent(123456L)
                             .category(
-                                UsageGetApiUsageResponse.Data.Category.InnerCategory.LIST_BUCKET
+                                UsageGetApiUsageResponse.Data.Category.BucketOperationCategory
+                                    .PUT_OBJ
                             )
-                            .ops(0L)
-                            .successfulOps(0L)
+                            .ops(123456L)
+                            .successfulOps(123456L)
                             .build()
                     )
-                    .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .timestamp(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
                     .total(
                         UsageGetApiUsageResponse.Data.Total.builder()
-                            .bytesReceived(0L)
-                            .bytesSent(0L)
-                            .ops(0L)
-                            .successfulOps(0L)
+                            .bytesReceived(123456L)
+                            .bytesSent(123456L)
+                            .ops(123456L)
+                            .successfulOps(123456L)
                             .build()
                     )
                     .build()
@@ -77,22 +79,23 @@ internal class UsageGetApiUsageResponseTest {
                     UsageGetApiUsageResponse.Data.builder()
                         .addCategory(
                             UsageGetApiUsageResponse.Data.Category.builder()
-                                .bytesReceived(0L)
-                                .bytesSent(0L)
+                                .bytesReceived(123456L)
+                                .bytesSent(123456L)
                                 .category(
-                                    UsageGetApiUsageResponse.Data.Category.InnerCategory.LIST_BUCKET
+                                    UsageGetApiUsageResponse.Data.Category.BucketOperationCategory
+                                        .PUT_OBJ
                                 )
-                                .ops(0L)
-                                .successfulOps(0L)
+                                .ops(123456L)
+                                .successfulOps(123456L)
                                 .build()
                         )
-                        .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .timestamp(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
                         .total(
                             UsageGetApiUsageResponse.Data.Total.builder()
-                                .bytesReceived(0L)
-                                .bytesSent(0L)
-                                .ops(0L)
-                                .successfulOps(0L)
+                                .bytesReceived(123456L)
+                                .bytesSent(123456L)
+                                .ops(123456L)
+                                .successfulOps(123456L)
                                 .build()
                         )
                         .build()

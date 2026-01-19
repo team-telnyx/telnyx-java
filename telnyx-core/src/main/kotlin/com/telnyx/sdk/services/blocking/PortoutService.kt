@@ -6,10 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.portouts.PortoutListPage
 import com.telnyx.sdk.models.portouts.PortoutListParams
 import com.telnyx.sdk.models.portouts.PortoutListRejectionCodesParams
 import com.telnyx.sdk.models.portouts.PortoutListRejectionCodesResponse
-import com.telnyx.sdk.models.portouts.PortoutListResponse
 import com.telnyx.sdk.models.portouts.PortoutRetrieveParams
 import com.telnyx.sdk.models.portouts.PortoutRetrieveResponse
 import com.telnyx.sdk.models.portouts.PortoutUpdateStatusParams
@@ -73,20 +73,20 @@ interface PortoutService {
         retrieve(id, PortoutRetrieveParams.none(), requestOptions)
 
     /** Returns the portout requests according to filters */
-    fun list(): PortoutListResponse = list(PortoutListParams.none())
+    fun list(): PortoutListPage = list(PortoutListParams.none())
 
     /** @see list */
     fun list(
         params: PortoutListParams = PortoutListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PortoutListResponse
+    ): PortoutListPage
 
     /** @see list */
-    fun list(params: PortoutListParams = PortoutListParams.none()): PortoutListResponse =
+    fun list(params: PortoutListParams = PortoutListParams.none()): PortoutListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): PortoutListResponse =
+    fun list(requestOptions: RequestOptions): PortoutListPage =
         list(PortoutListParams.none(), requestOptions)
 
     /** Given a port-out ID, list rejection codes that are eligible for that port-out */
@@ -216,25 +216,24 @@ interface PortoutService {
          * Returns a raw HTTP response for `get /portouts`, but is otherwise the same as
          * [PortoutService.list].
          */
-        @MustBeClosed
-        fun list(): HttpResponseFor<PortoutListResponse> = list(PortoutListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<PortoutListPage> = list(PortoutListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PortoutListParams = PortoutListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PortoutListResponse>
+        ): HttpResponseFor<PortoutListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PortoutListParams = PortoutListParams.none()
-        ): HttpResponseFor<PortoutListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<PortoutListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<PortoutListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<PortoutListPage> =
             list(PortoutListParams.none(), requestOptions)
 
         /**

@@ -11,7 +11,7 @@ internal class NotificationProfileUpdateParamsTest {
     @Test
     fun create() {
         NotificationProfileUpdateParams.builder()
-            .pathId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .notificationProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .notificationProfile(
                 NotificationProfile.builder()
                     .id("12455643-3cf1-4683-ad23-1cd32f7d5e0a")
@@ -27,7 +27,7 @@ internal class NotificationProfileUpdateParamsTest {
     fun pathParams() {
         val params =
             NotificationProfileUpdateParams.builder()
-                .pathId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .notificationProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .notificationProfile(NotificationProfile.builder().build())
                 .build()
 
@@ -40,7 +40,7 @@ internal class NotificationProfileUpdateParamsTest {
     fun body() {
         val params =
             NotificationProfileUpdateParams.builder()
-                .pathId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .notificationProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .notificationProfile(
                     NotificationProfile.builder()
                         .id("12455643-3cf1-4683-ad23-1cd32f7d5e0a")
@@ -68,7 +68,7 @@ internal class NotificationProfileUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             NotificationProfileUpdateParams.builder()
-                .pathId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .notificationProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .notificationProfile(NotificationProfile.builder().build())
                 .build()
 

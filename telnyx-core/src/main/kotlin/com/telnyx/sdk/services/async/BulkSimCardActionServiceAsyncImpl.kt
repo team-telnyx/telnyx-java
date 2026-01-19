@@ -15,8 +15,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionListPageAsync
+import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionListPageResponse
 import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionListParams
-import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionListResponse
 import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionRetrieveParams
 import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -47,7 +48,7 @@ internal constructor(private val clientOptions: ClientOptions) : BulkSimCardActi
     override fun list(
         params: BulkSimCardActionListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BulkSimCardActionListResponse> =
+    ): CompletableFuture<BulkSimCardActionListPageAsync> =
         // get /bulk_sim_card_actions
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -97,13 +98,13 @@ internal constructor(private val clientOptions: ClientOptions) : BulkSimCardActi
                 }
         }
 
-        private val listHandler: Handler<BulkSimCardActionListResponse> =
-            jsonHandler<BulkSimCardActionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BulkSimCardActionListPageResponse> =
+            jsonHandler<BulkSimCardActionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: BulkSimCardActionListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BulkSimCardActionListResponse>> {
+        ): CompletableFuture<HttpResponseFor<BulkSimCardActionListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -122,6 +123,14 @@ internal constructor(private val clientOptions: ClientOptions) : BulkSimCardActi
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                BulkSimCardActionListPageAsync.builder()
+                                    .service(BulkSimCardActionServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

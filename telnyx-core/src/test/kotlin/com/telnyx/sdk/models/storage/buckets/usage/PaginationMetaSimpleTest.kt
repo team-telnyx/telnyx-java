@@ -13,16 +13,16 @@ internal class PaginationMetaSimpleTest {
     fun create() {
         val paginationMetaSimple =
             PaginationMetaSimple.builder()
-                .pageNumber(0L)
-                .pageSize(0L)
-                .totalPages(0L)
-                .totalResults(0L)
+                .pageNumber(2L)
+                .totalPages(3L)
+                .pageSize(25L)
+                .totalResults(55L)
                 .build()
 
-        assertThat(paginationMetaSimple.pageNumber()).contains(0L)
-        assertThat(paginationMetaSimple.pageSize()).contains(0L)
-        assertThat(paginationMetaSimple.totalPages()).contains(0L)
-        assertThat(paginationMetaSimple.totalResults()).contains(0L)
+        assertThat(paginationMetaSimple.pageNumber()).isEqualTo(2L)
+        assertThat(paginationMetaSimple.totalPages()).isEqualTo(3L)
+        assertThat(paginationMetaSimple.pageSize()).contains(25L)
+        assertThat(paginationMetaSimple.totalResults()).contains(55L)
     }
 
     @Test
@@ -30,10 +30,10 @@ internal class PaginationMetaSimpleTest {
         val jsonMapper = jsonMapper()
         val paginationMetaSimple =
             PaginationMetaSimple.builder()
-                .pageNumber(0L)
-                .pageSize(0L)
-                .totalPages(0L)
-                .totalResults(0L)
+                .pageNumber(2L)
+                .totalPages(3L)
+                .pageSize(25L)
+                .totalResults(55L)
                 .build()
 
         val roundtrippedPaginationMetaSimple =

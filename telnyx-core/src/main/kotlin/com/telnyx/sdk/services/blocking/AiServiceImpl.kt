@@ -33,6 +33,10 @@ import com.telnyx.sdk.services.blocking.ai.EmbeddingService
 import com.telnyx.sdk.services.blocking.ai.EmbeddingServiceImpl
 import com.telnyx.sdk.services.blocking.ai.FineTuningService
 import com.telnyx.sdk.services.blocking.ai.FineTuningServiceImpl
+import com.telnyx.sdk.services.blocking.ai.IntegrationService
+import com.telnyx.sdk.services.blocking.ai.IntegrationServiceImpl
+import com.telnyx.sdk.services.blocking.ai.McpServerService
+import com.telnyx.sdk.services.blocking.ai.McpServerServiceImpl
 import java.util.function.Consumer
 
 class AiServiceImpl internal constructor(private val clientOptions: ClientOptions) : AiService {
@@ -57,6 +61,10 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
     private val fineTuning: FineTuningService by lazy { FineTuningServiceImpl(clientOptions) }
 
+    private val integrations: IntegrationService by lazy { IntegrationServiceImpl(clientOptions) }
+
+    private val mcpServers: McpServerService by lazy { McpServerServiceImpl(clientOptions) }
+
     override fun withRawResponse(): AiService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiService =
@@ -75,6 +83,10 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
     override fun embeddings(): EmbeddingService = embeddings
 
     override fun fineTuning(): FineTuningService = fineTuning
+
+    override fun integrations(): IntegrationService = integrations
+
+    override fun mcpServers(): McpServerService = mcpServers
 
     override fun retrieveModels(
         params: AiRetrieveModelsParams,
@@ -124,6 +136,14 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
             FineTuningServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val integrations: IntegrationService.WithRawResponse by lazy {
+            IntegrationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val mcpServers: McpServerService.WithRawResponse by lazy {
+            McpServerServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AiService.WithRawResponse =
@@ -144,6 +164,10 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
         override fun embeddings(): EmbeddingService.WithRawResponse = embeddings
 
         override fun fineTuning(): FineTuningService.WithRawResponse = fineTuning
+
+        override fun integrations(): IntegrationService.WithRawResponse = integrations
+
+        override fun mcpServers(): McpServerService.WithRawResponse = mcpServers
 
         private val retrieveModelsHandler: Handler<AiRetrieveModelsResponse> =
             jsonHandler<AiRetrieveModelsResponse>(clientOptions.jsonMapper)

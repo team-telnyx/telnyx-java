@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai.conversations
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -18,9 +19,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.ai.conversations.insights.InsightCreateParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightDeleteParams
-import com.telnyx.sdk.models.ai.conversations.insights.InsightDeleteResponse
+import com.telnyx.sdk.models.ai.conversations.insights.InsightListPageAsync
+import com.telnyx.sdk.models.ai.conversations.insights.InsightListPageResponse
 import com.telnyx.sdk.models.ai.conversations.insights.InsightListParams
-import com.telnyx.sdk.models.ai.conversations.insights.InsightListResponse
 import com.telnyx.sdk.models.ai.conversations.insights.InsightRetrieveParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightTemplateDetail
 import com.telnyx.sdk.models.ai.conversations.insights.InsightUpdateParams
@@ -64,16 +65,16 @@ class InsightServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: InsightListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InsightListResponse> =
+    ): CompletableFuture<InsightListPageAsync> =
         // get /ai/conversations/insights
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun delete(
         params: InsightDeleteParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InsightDeleteResponse> =
+    ): CompletableFuture<Void?> =
         // delete /ai/conversations/insights/{insight_id}
-        withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().delete(params, requestOptions).thenAccept {}
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         InsightServiceAsync.WithRawResponse {
@@ -186,13 +187,13 @@ class InsightServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<InsightListResponse> =
-            jsonHandler<InsightListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InsightListPageResponse> =
+            jsonHandler<InsightListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InsightListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InsightListResponse>> {
+        ): CompletableFuture<HttpResponseFor<InsightListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -212,17 +213,24 @@ class InsightServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                     it.validate()
                                 }
                             }
+                            .let {
+                                InsightListPageAsync.builder()
+                                    .service(InsightServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
+                            }
                     }
                 }
         }
 
-        private val deleteHandler: Handler<InsightDeleteResponse> =
-            jsonHandler<InsightDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
         override fun delete(
             params: InsightDeleteParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InsightDeleteResponse>> {
+        ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("insightId", params.insightId().getOrNull())
@@ -239,13 +247,7 @@ class InsightServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response
-                            .use { deleteHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
+                        response.use { deleteHandler.handle(it) }
                     }
                 }
         }

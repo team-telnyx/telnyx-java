@@ -136,30 +136,27 @@ internal class ConversationServiceTest {
                 .build()
         val conversationService = client.ai().conversations()
 
-        val response =
-            conversationService.addMessage(
-                ConversationAddMessageParams.builder()
-                    .conversationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .role("role")
-                    .content("content")
-                    .metadata(
-                        ConversationAddMessageParams.Metadata.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("string"))
-                            .build()
-                    )
-                    .name("name")
-                    .sentAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .toolCallId("tool_call_id")
-                    .addToolCall(
-                        ConversationAddMessageParams.ToolCall.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
-                    )
-                    .toolChoice("string")
-                    .build()
-            )
-
-        response.validate()
+        conversationService.addMessage(
+            ConversationAddMessageParams.builder()
+                .conversationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .role("role")
+                .content("content")
+                .metadata(
+                    ConversationAddMessageParams.Metadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
+                .name("name")
+                .sentAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .toolCallId("tool_call_id")
+                .addToolCall(
+                    ConversationAddMessageParams.ToolCall.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
+                .toolChoice("string")
+                .build()
+        )
     }
 
     @Disabled("Prism tests are disabled")

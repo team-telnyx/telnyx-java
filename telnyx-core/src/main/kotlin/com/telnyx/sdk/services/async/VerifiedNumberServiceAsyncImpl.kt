@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberCreateParams
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberCreateResponse
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberDataWrapper
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberDeleteParams
+import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberListPageAsync
+import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberListPageResponse
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberListParams
-import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberListResponse
 import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberRetrieveParams
 import com.telnyx.sdk.services.async.verifiednumbers.ActionServiceAsync
 import com.telnyx.sdk.services.async.verifiednumbers.ActionServiceAsyncImpl
@@ -64,7 +65,7 @@ internal constructor(private val clientOptions: ClientOptions) : VerifiedNumberS
     override fun list(
         params: VerifiedNumberListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VerifiedNumberListResponse> =
+    ): CompletableFuture<VerifiedNumberListPageAsync> =
         // get /verified_numbers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -158,13 +159,13 @@ internal constructor(private val clientOptions: ClientOptions) : VerifiedNumberS
                 }
         }
 
-        private val listHandler: Handler<VerifiedNumberListResponse> =
-            jsonHandler<VerifiedNumberListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<VerifiedNumberListPageResponse> =
+            jsonHandler<VerifiedNumberListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: VerifiedNumberListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VerifiedNumberListResponse>> {
+        ): CompletableFuture<HttpResponseFor<VerifiedNumberListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -183,6 +184,14 @@ internal constructor(private val clientOptions: ClientOptions) : VerifiedNumberS
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                VerifiedNumberListPageAsync.builder()
+                                    .service(VerifiedNumberServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

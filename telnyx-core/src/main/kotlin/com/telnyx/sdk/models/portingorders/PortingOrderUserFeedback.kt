@@ -14,6 +14,7 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 class PortingOrderUserFeedback
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -97,7 +98,10 @@ private constructor(
         }
 
         /** A comment related to the customer rating. */
-        fun userComment(userComment: String) = userComment(JsonField.of(userComment))
+        fun userComment(userComment: String?) = userComment(JsonField.ofNullable(userComment))
+
+        /** Alias for calling [Builder.userComment] with `userComment.orElse(null)`. */
+        fun userComment(userComment: Optional<String>) = userComment(userComment.getOrNull())
 
         /**
          * Sets [Builder.userComment] to an arbitrary JSON value.
@@ -112,7 +116,17 @@ private constructor(
          * Once an order is ported, cancellation is requested or the request is cancelled, the user
          * may rate their experience
          */
-        fun userRating(userRating: Long) = userRating(JsonField.of(userRating))
+        fun userRating(userRating: Long?) = userRating(JsonField.ofNullable(userRating))
+
+        /**
+         * Alias for [Builder.userRating].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun userRating(userRating: Long) = userRating(userRating as Long?)
+
+        /** Alias for calling [Builder.userRating] with `userRating.orElse(null)`. */
+        fun userRating(userRating: Optional<Long>) = userRating(userRating.getOrNull())
 
         /**
          * Sets [Builder.userRating] to an arbitrary JSON value.

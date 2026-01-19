@@ -13,10 +13,12 @@ internal class MessagingSettingsTest {
     fun create() {
         val messagingSettings =
             MessagingSettings.builder()
+                .conversationInactivityMinutes(1L)
                 .defaultMessagingProfileId("default_messaging_profile_id")
                 .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                 .build()
 
+        assertThat(messagingSettings.conversationInactivityMinutes()).contains(1L)
         assertThat(messagingSettings.defaultMessagingProfileId())
             .contains("default_messaging_profile_id")
         assertThat(messagingSettings.deliveryStatusWebhookUrl())
@@ -28,6 +30,7 @@ internal class MessagingSettingsTest {
         val jsonMapper = jsonMapper()
         val messagingSettings =
             MessagingSettings.builder()
+                .conversationInactivityMinutes(1L)
                 .defaultMessagingProfileId("default_messaging_profile_id")
                 .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                 .build()

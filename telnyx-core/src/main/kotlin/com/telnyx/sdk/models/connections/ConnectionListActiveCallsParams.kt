@@ -17,18 +17,17 @@ import kotlin.jvm.optionals.getOrNull
 class ConnectionListActiveCallsParams
 private constructor(
     private val connectionId: String?,
-    private val page: Page?,
+    private val pageNumber: Long?,
+    private val pageSize: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun connectionId(): Optional<String> = Optional.ofNullable(connectionId)
 
-    /**
-     * Consolidated page parameter (deepObject style). Originally: page[after], page[before],
-     * page[limit], page[size], page[number]
-     */
-    fun page(): Optional<Page> = Optional.ofNullable(page)
+    fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
+
+    fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -53,7 +52,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var connectionId: String? = null
-        private var page: Page? = null
+        private var pageNumber: Long? = null
+        private var pageSize: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -61,7 +61,8 @@ private constructor(
         internal fun from(connectionListActiveCallsParams: ConnectionListActiveCallsParams) =
             apply {
                 connectionId = connectionListActiveCallsParams.connectionId
-                page = connectionListActiveCallsParams.page
+                pageNumber = connectionListActiveCallsParams.pageNumber
+                pageSize = connectionListActiveCallsParams.pageSize
                 additionalHeaders = connectionListActiveCallsParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     connectionListActiveCallsParams.additionalQueryParams.toBuilder()
@@ -72,14 +73,29 @@ private constructor(
         /** Alias for calling [Builder.connectionId] with `connectionId.orElse(null)`. */
         fun connectionId(connectionId: Optional<String>) = connectionId(connectionId.getOrNull())
 
-        /**
-         * Consolidated page parameter (deepObject style). Originally: page[after], page[before],
-         * page[limit], page[size], page[number]
-         */
-        fun page(page: Page?) = apply { this.page = page }
+        fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
-        /** Alias for calling [Builder.page] with `page.orElse(null)`. */
-        fun page(page: Optional<Page>) = page(page.getOrNull())
+        /**
+         * Alias for [Builder.pageNumber].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageNumber(pageNumber: Long) = pageNumber(pageNumber as Long?)
+
+        /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
+        fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
+
+        fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
+
+        /**
+         * Alias for [Builder.pageSize].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageSize(pageSize: Long) = pageSize(pageSize as Long?)
+
+        /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
+        fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -187,7 +203,8 @@ private constructor(
         fun build(): ConnectionListActiveCallsParams =
             ConnectionListActiveCallsParams(
                 connectionId,
-                page,
+                pageNumber,
+                pageSize,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -204,214 +221,11 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
-                page?.let {
-                    it.after().ifPresent { put("page[after]", it) }
-                    it.before().ifPresent { put("page[before]", it) }
-                    it.limit().ifPresent { put("page[limit]", it.toString()) }
-                    it.number().ifPresent { put("page[number]", it.toString()) }
-                    it.size().ifPresent { put("page[size]", it.toString()) }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("page[$key]", value)
-                        }
-                    }
-                }
+                pageNumber?.let { put("page[number]", it.toString()) }
+                pageSize?.let { put("page[size]", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()
-
-    /**
-     * Consolidated page parameter (deepObject style). Originally: page[after], page[before],
-     * page[limit], page[size], page[number]
-     */
-    class Page
-    private constructor(
-        private val after: String?,
-        private val before: String?,
-        private val limit: Long?,
-        private val number: Long?,
-        private val size: Long?,
-        private val additionalProperties: QueryParams,
-    ) {
-
-        /** Opaque identifier of next page */
-        fun after(): Optional<String> = Optional.ofNullable(after)
-
-        /** Opaque identifier of previous page */
-        fun before(): Optional<String> = Optional.ofNullable(before)
-
-        /** Limit of records per single page */
-        fun limit(): Optional<Long> = Optional.ofNullable(limit)
-
-        /** The page number to load */
-        fun number(): Optional<Long> = Optional.ofNullable(number)
-
-        /** The size of the page */
-        fun size(): Optional<Long> = Optional.ofNullable(size)
-
-        /** Query params to send with the request. */
-        fun _additionalProperties(): QueryParams = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Page]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Page]. */
-        class Builder internal constructor() {
-
-            private var after: String? = null
-            private var before: String? = null
-            private var limit: Long? = null
-            private var number: Long? = null
-            private var size: Long? = null
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
-
-            @JvmSynthetic
-            internal fun from(page: Page) = apply {
-                after = page.after
-                before = page.before
-                limit = page.limit
-                number = page.number
-                size = page.size
-                additionalProperties = page.additionalProperties.toBuilder()
-            }
-
-            /** Opaque identifier of next page */
-            fun after(after: String?) = apply { this.after = after }
-
-            /** Alias for calling [Builder.after] with `after.orElse(null)`. */
-            fun after(after: Optional<String>) = after(after.getOrNull())
-
-            /** Opaque identifier of previous page */
-            fun before(before: String?) = apply { this.before = before }
-
-            /** Alias for calling [Builder.before] with `before.orElse(null)`. */
-            fun before(before: Optional<String>) = before(before.getOrNull())
-
-            /** Limit of records per single page */
-            fun limit(limit: Long?) = apply { this.limit = limit }
-
-            /**
-             * Alias for [Builder.limit].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun limit(limit: Long) = limit(limit as Long?)
-
-            /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
-            fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
-
-            /** The page number to load */
-            fun number(number: Long?) = apply { this.number = number }
-
-            /**
-             * Alias for [Builder.number].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun number(number: Long) = number(number as Long?)
-
-            /** Alias for calling [Builder.number] with `number.orElse(null)`. */
-            fun number(number: Optional<Long>) = number(number.getOrNull())
-
-            /** The size of the page */
-            fun size(size: Long?) = apply { this.size = size }
-
-            /**
-             * Alias for [Builder.size].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun size(size: Long) = size(size as Long?)
-
-            /** Alias for calling [Builder.size] with `size.orElse(null)`. */
-            fun size(size: Optional<Long>) = size(size.getOrNull())
-
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
-
-            /**
-             * Returns an immutable instance of [Page].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Page =
-                Page(after, before, limit, number, size, additionalProperties.build())
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Page &&
-                after == other.after &&
-                before == other.before &&
-                limit == other.limit &&
-                number == other.number &&
-                size == other.size &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(after, before, limit, number, size, additionalProperties)
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Page{after=$after, before=$before, limit=$limit, number=$number, size=$size, additionalProperties=$additionalProperties}"
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -420,14 +234,15 @@ private constructor(
 
         return other is ConnectionListActiveCallsParams &&
             connectionId == other.connectionId &&
-            page == other.page &&
+            pageNumber == other.pageNumber &&
+            pageSize == other.pageSize &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(connectionId, page, additionalHeaders, additionalQueryParams)
+        Objects.hash(connectionId, pageNumber, pageSize, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ConnectionListActiveCallsParams{connectionId=$connectionId, page=$page, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ConnectionListActiveCallsParams{connectionId=$connectionId, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

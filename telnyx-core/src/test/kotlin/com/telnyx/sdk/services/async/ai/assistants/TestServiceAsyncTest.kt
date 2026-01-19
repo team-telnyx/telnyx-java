@@ -6,7 +6,6 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.ai.assistants.tests.TelnyxConversationChannel
 import com.telnyx.sdk.models.ai.assistants.tests.TestCreateParams
-import com.telnyx.sdk.models.ai.assistants.tests.TestListParams
 import com.telnyx.sdk.models.ai.assistants.tests.TestUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -28,15 +27,26 @@ internal class TestServiceAsyncTest {
         val assistantTestFuture =
             testServiceAsync.create(
                 TestCreateParams.builder()
-                    .destination("x")
-                    .instructions("x")
-                    .name("x")
+                    .destination("+15551234567")
+                    .instructions(
+                        "Act as a frustrated customer who received a damaged product. Ask for a refund and escalate if not satisfied with the initial response."
+                    )
+                    .name("Customer Support Bot Test")
                     .addRubric(
-                        TestCreateParams.Rubric.builder().criteria("criteria").name("name").build()
+                        TestCreateParams.Rubric.builder()
+                            .criteria("Assistant responds within 30 seconds")
+                            .name("Response Time")
+                            .build()
+                    )
+                    .addRubric(
+                        TestCreateParams.Rubric.builder()
+                            .criteria("Provides correct product information")
+                            .name("Accuracy")
+                            .build()
                     )
                     .description("description")
                     .maxDurationSeconds(1L)
-                    .telnyxConversationChannel(TelnyxConversationChannel.PHONE_CALL)
+                    .telnyxConversationChannel(TelnyxConversationChannel.WEB_CHAT)
                     .testSuite("test_suite")
                     .build()
             )
@@ -102,18 +112,10 @@ internal class TestServiceAsyncTest {
                 .build()
         val testServiceAsync = client.ai().assistants().tests()
 
-        val testsFuture =
-            testServiceAsync.list(
-                TestListParams.builder()
-                    .destination("destination")
-                    .page(TestListParams.Page.builder().number(1L).size(1L).build())
-                    .telnyxConversationChannel("telnyx_conversation_channel")
-                    .testSuite("test_suite")
-                    .build()
-            )
+        val pageFuture = testServiceAsync.list()
 
-        val tests = testsFuture.get()
-        tests.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -126,9 +128,8 @@ internal class TestServiceAsyncTest {
                 .build()
         val testServiceAsync = client.ai().assistants().tests()
 
-        val testFuture = testServiceAsync.delete("test_id")
+        val future = testServiceAsync.delete("test_id")
 
-        val test = testFuture.get()
-        test.validate()
+        val response = future.get()
     }
 }

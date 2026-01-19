@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking.ai.assistants
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -18,9 +19,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventCreateParams
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventDeleteParams
-import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventDeleteResponse
+import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListPage
+import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListPageResponse
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListParams
-import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListResponse
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventResponse
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventRetrieveParams
 import java.util.function.Consumer
@@ -55,16 +56,14 @@ class ScheduledEventServiceImpl internal constructor(private val clientOptions: 
     override fun list(
         params: ScheduledEventListParams,
         requestOptions: RequestOptions,
-    ): ScheduledEventListResponse =
+    ): ScheduledEventListPage =
         // get /ai/assistants/{assistant_id}/scheduled_events
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun delete(
-        params: ScheduledEventDeleteParams,
-        requestOptions: RequestOptions,
-    ): ScheduledEventDeleteResponse =
+    override fun delete(params: ScheduledEventDeleteParams, requestOptions: RequestOptions) {
         // delete /ai/assistants/{assistant_id}/scheduled_events/{event_id}
-        withRawResponse().delete(params, requestOptions).parse()
+        withRawResponse().delete(params, requestOptions)
+    }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ScheduledEventService.WithRawResponse {
@@ -146,13 +145,13 @@ class ScheduledEventServiceImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val listHandler: Handler<ScheduledEventListResponse> =
-            jsonHandler<ScheduledEventListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ScheduledEventListPageResponse> =
+            jsonHandler<ScheduledEventListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ScheduledEventListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ScheduledEventListResponse> {
+        ): HttpResponseFor<ScheduledEventListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("assistantId", params.assistantId().getOrNull())
@@ -173,16 +172,22 @@ class ScheduledEventServiceImpl internal constructor(private val clientOptions: 
                             it.validate()
                         }
                     }
+                    .let {
+                        ScheduledEventListPage.builder()
+                            .service(ScheduledEventServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
 
-        private val deleteHandler: Handler<ScheduledEventDeleteResponse> =
-            jsonHandler<ScheduledEventDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
         override fun delete(
             params: ScheduledEventDeleteParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ScheduledEventDeleteResponse> {
+        ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("eventId", params.eventId().getOrNull())
@@ -203,13 +208,7 @@ class ScheduledEventServiceImpl internal constructor(private val clientOptions: 
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response
-                    .use { deleteHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
+                response.use { deleteHandler.handle(it) }
             }
         }
     }

@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.shortcodes.ShortCodeListParams
 import com.telnyx.sdk.models.shortcodes.ShortCodeUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -44,6 +43,7 @@ internal class ShortCodeServiceAsyncTest {
                 ShortCodeUpdateParams.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
+                    .addTag("test_customer")
                     .build()
             )
 
@@ -61,19 +61,9 @@ internal class ShortCodeServiceAsyncTest {
                 .build()
         val shortCodeServiceAsync = client.shortCodes()
 
-        val shortCodesFuture =
-            shortCodeServiceAsync.list(
-                ShortCodeListParams.builder()
-                    .filter(
-                        ShortCodeListParams.Filter.builder()
-                            .messagingProfileId("messaging_profile_id")
-                            .build()
-                    )
-                    .page(ShortCodeListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = shortCodeServiceAsync.list()
 
-        val shortCodes = shortCodesFuture.get()
-        shortCodes.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

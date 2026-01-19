@@ -20,14 +20,17 @@ internal class PhoneNumberBlockListParamsTest {
                         PhoneNumberBlockListParams.Filter.PortabilityStatus.CONFIRMED
                     )
                     .addPortingOrderId("f3575e15-32ce-400e-a4c0-dd78800c20b0")
-                    .status(PhoneNumberBlockListParams.Filter.Status.UnionMember0.IN_PROCESS)
+                    .status(
+                        PhoneNumberBlockListParams.Filter.Status.PortingOrderSingleStatus.IN_PROCESS
+                    )
                     .supportKey("sr_a12345")
                     .build()
             )
-            .page(PhoneNumberBlockListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .sort(
                 PhoneNumberBlockListParams.Sort.builder()
-                    .value(PhoneNumberBlockListParams.Sort.Value_.CREATED_AT_DESC)
+                    .value(PhoneNumberBlockListParams.Sort.SortValue.CREATED_AT)
                     .build()
             )
             .build()
@@ -58,14 +61,18 @@ internal class PhoneNumberBlockListParamsTest {
                             PhoneNumberBlockListParams.Filter.PortabilityStatus.CONFIRMED
                         )
                         .addPortingOrderId("f3575e15-32ce-400e-a4c0-dd78800c20b0")
-                        .status(PhoneNumberBlockListParams.Filter.Status.UnionMember0.IN_PROCESS)
+                        .status(
+                            PhoneNumberBlockListParams.Filter.Status.PortingOrderSingleStatus
+                                .IN_PROCESS
+                        )
                         .supportKey("sr_a12345")
                         .build()
                 )
-                .page(PhoneNumberBlockListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .sort(
                     PhoneNumberBlockListParams.Sort.builder()
-                        .value(PhoneNumberBlockListParams.Sort.Value_.CREATED_AT_DESC)
+                        .value(PhoneNumberBlockListParams.Sort.SortValue.CREATED_AT)
                         .build()
                 )
                 .build()
@@ -84,9 +91,9 @@ internal class PhoneNumberBlockListParamsTest {
                     )
                     .put("filter[status]", "in-process")
                     .put("filter[support_key]", "sr_a12345")
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
-                    .put("sort[value]", "-created_at")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
+                    .put("sort[value]", "created_at")
                     .build()
             )
     }

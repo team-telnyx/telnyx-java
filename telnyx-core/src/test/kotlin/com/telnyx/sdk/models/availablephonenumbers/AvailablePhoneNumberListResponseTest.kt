@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.availablephonenumbers
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.AvailablePhoneNumbersMetadata
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -54,7 +55,13 @@ internal class AvailablePhoneNumberListResponseTest {
                         .build()
                 )
                 .meta(
-                    AvailablePhoneNumberListResponse.Meta.builder()
+                    AvailablePhoneNumbersMetadata.builder()
+                        .bestEffortResults(50L)
+                        .totalResults(100L)
+                        .build()
+                )
+                .metadata(
+                    AvailablePhoneNumbersMetadata.builder()
                         .bestEffortResults(50L)
                         .totalResults(100L)
                         .build()
@@ -100,7 +107,14 @@ internal class AvailablePhoneNumberListResponseTest {
             )
         assertThat(availablePhoneNumberListResponse.meta())
             .contains(
-                AvailablePhoneNumberListResponse.Meta.builder()
+                AvailablePhoneNumbersMetadata.builder()
+                    .bestEffortResults(50L)
+                    .totalResults(100L)
+                    .build()
+            )
+        assertThat(availablePhoneNumberListResponse.metadata())
+            .contains(
+                AvailablePhoneNumbersMetadata.builder()
                     .bestEffortResults(50L)
                     .totalResults(100L)
                     .build()
@@ -152,7 +166,13 @@ internal class AvailablePhoneNumberListResponseTest {
                         .build()
                 )
                 .meta(
-                    AvailablePhoneNumberListResponse.Meta.builder()
+                    AvailablePhoneNumbersMetadata.builder()
+                        .bestEffortResults(50L)
+                        .totalResults(100L)
+                        .build()
+                )
+                .metadata(
+                    AvailablePhoneNumbersMetadata.builder()
                         .bestEffortResults(50L)
                         .totalResults(100L)
                         .build()

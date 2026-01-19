@@ -14,8 +14,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListPage
+import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListPageResponse
 import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListParams
-import com.telnyx.sdk.models.networkcoverage.NetworkCoverageListResponse
 import java.util.function.Consumer
 
 class NetworkCoverageServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -33,7 +34,7 @@ class NetworkCoverageServiceImpl internal constructor(private val clientOptions:
     override fun list(
         params: NetworkCoverageListParams,
         requestOptions: RequestOptions,
-    ): NetworkCoverageListResponse =
+    ): NetworkCoverageListPage =
         // get /network_coverage
         withRawResponse().list(params, requestOptions).parse()
 
@@ -50,13 +51,13 @@ class NetworkCoverageServiceImpl internal constructor(private val clientOptions:
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<NetworkCoverageListResponse> =
-            jsonHandler<NetworkCoverageListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<NetworkCoverageListPageResponse> =
+            jsonHandler<NetworkCoverageListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: NetworkCoverageListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<NetworkCoverageListResponse> {
+        ): HttpResponseFor<NetworkCoverageListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -73,6 +74,13 @@ class NetworkCoverageServiceImpl internal constructor(private val clientOptions:
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        NetworkCoverageListPage.builder()
+                            .service(NetworkCoverageServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

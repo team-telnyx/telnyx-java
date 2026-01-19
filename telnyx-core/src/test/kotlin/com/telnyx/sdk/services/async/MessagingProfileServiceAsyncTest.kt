@@ -5,9 +5,6 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateParams
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListParams
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersParams
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateParams
 import com.telnyx.sdk.models.messagingprofiles.NumberPoolSettings
 import com.telnyx.sdk.models.messagingprofiles.UrlShortenerSettings
@@ -50,6 +47,7 @@ internal class MessagingProfileServiceAsyncTest {
                             .stickySender(false)
                             .build()
                     )
+                    .smartEncoding(true)
                     .urlShortenerSettings(
                         UrlShortenerSettings.builder()
                             .domain("example.ex")
@@ -58,7 +56,7 @@ internal class MessagingProfileServiceAsyncTest {
                             .sendWebhooks(false)
                             .build()
                     )
-                    .webhookApiVersion(MessagingProfileCreateParams.WebhookApiVersion._2)
+                    .webhookApiVersion(MessagingProfileCreateParams.WebhookApiVersion.V2)
                     .webhookFailoverUrl("https://backup.example.com/hooks")
                     .webhookUrl("https://www.example.com/hooks")
                     .build()
@@ -98,8 +96,8 @@ internal class MessagingProfileServiceAsyncTest {
         val messagingProfileFuture =
             messagingProfileServiceAsync.update(
                 MessagingProfileUpdateParams.builder()
-                    .pathId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .bodyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .alphaSender("sqF")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .dailySpendLimit("269125115713")
@@ -119,6 +117,7 @@ internal class MessagingProfileServiceAsyncTest {
                             .build()
                     )
                     .recordType(MessagingProfileUpdateParams.RecordType.MESSAGING_PROFILE)
+                    .smartEncoding(true)
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .urlShortenerSettings(
                         UrlShortenerSettings.builder()
@@ -129,7 +128,7 @@ internal class MessagingProfileServiceAsyncTest {
                             .build()
                     )
                     .v1Secret("rP1VamejkU2v0qIUxntqLW2c")
-                    .webhookApiVersion(MessagingProfileUpdateParams.WebhookApiVersion._2)
+                    .webhookApiVersion(MessagingProfileUpdateParams.WebhookApiVersion.V2)
                     .webhookFailoverUrl("https://backup.example.com/hooks")
                     .webhookUrl("https://www.example.com/hooks")
                     .addWhitelistedDestination("US")
@@ -150,16 +149,10 @@ internal class MessagingProfileServiceAsyncTest {
                 .build()
         val messagingProfileServiceAsync = client.messagingProfiles()
 
-        val messagingProfilesFuture =
-            messagingProfileServiceAsync.list(
-                MessagingProfileListParams.builder()
-                    .filter(MessagingProfileListParams.Filter.builder().name("name").build())
-                    .page(MessagingProfileListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = messagingProfileServiceAsync.list()
 
-        val messagingProfiles = messagingProfilesFuture.get()
-        messagingProfiles.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -189,21 +182,11 @@ internal class MessagingProfileServiceAsyncTest {
                 .build()
         val messagingProfileServiceAsync = client.messagingProfiles()
 
-        val responseFuture =
-            messagingProfileServiceAsync.listPhoneNumbers(
-                MessagingProfileListPhoneNumbersParams.builder()
-                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .page(
-                        MessagingProfileListPhoneNumbersParams.Page.builder()
-                            .number(1L)
-                            .size(1L)
-                            .build()
-                    )
-                    .build()
-            )
+        val pageFuture =
+            messagingProfileServiceAsync.listPhoneNumbers("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        val response = responseFuture.get()
-        response.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -216,20 +199,10 @@ internal class MessagingProfileServiceAsyncTest {
                 .build()
         val messagingProfileServiceAsync = client.messagingProfiles()
 
-        val responseFuture =
-            messagingProfileServiceAsync.listShortCodes(
-                MessagingProfileListShortCodesParams.builder()
-                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .page(
-                        MessagingProfileListShortCodesParams.Page.builder()
-                            .number(1L)
-                            .size(1L)
-                            .build()
-                    )
-                    .build()
-            )
+        val pageFuture =
+            messagingProfileServiceAsync.listShortCodes("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        val response = responseFuture.get()
-        response.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

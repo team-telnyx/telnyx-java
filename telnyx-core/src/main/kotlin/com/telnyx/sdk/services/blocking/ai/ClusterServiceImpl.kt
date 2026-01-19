@@ -21,9 +21,9 @@ import com.telnyx.sdk.models.ai.clusters.ClusterComputeParams
 import com.telnyx.sdk.models.ai.clusters.ClusterComputeResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterDeleteParams
 import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphParams
-import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphResponse
+import com.telnyx.sdk.models.ai.clusters.ClusterListPage
+import com.telnyx.sdk.models.ai.clusters.ClusterListPageResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterListParams
-import com.telnyx.sdk.models.ai.clusters.ClusterListResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveParams
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveResponse
 import java.util.function.Consumer
@@ -48,10 +48,7 @@ class ClusterServiceImpl internal constructor(private val clientOptions: ClientO
         // get /ai/clusters/{task_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: ClusterListParams,
-        requestOptions: RequestOptions,
-    ): ClusterListResponse =
+    override fun list(params: ClusterListParams, requestOptions: RequestOptions): ClusterListPage =
         // get /ai/clusters
         withRawResponse().list(params, requestOptions).parse()
 
@@ -70,9 +67,9 @@ class ClusterServiceImpl internal constructor(private val clientOptions: ClientO
     override fun fetchGraph(
         params: ClusterFetchGraphParams,
         requestOptions: RequestOptions,
-    ): ClusterFetchGraphResponse =
+    ): HttpResponse =
         // get /ai/clusters/{task_id}/graph
-        withRawResponse().fetchGraph(params, requestOptions).parse()
+        withRawResponse().fetchGraph(params, requestOptions)
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ClusterService.WithRawResponse {
@@ -117,13 +114,13 @@ class ClusterServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<ClusterListResponse> =
-            jsonHandler<ClusterListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ClusterListPageResponse> =
+            jsonHandler<ClusterListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ClusterListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ClusterListResponse> {
+        ): HttpResponseFor<ClusterListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -140,6 +137,13 @@ class ClusterServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ClusterListPage.builder()
+                            .service(ClusterServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }
@@ -196,13 +200,10 @@ class ClusterServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val fetchGraphHandler: Handler<ClusterFetchGraphResponse> =
-            jsonHandler<ClusterFetchGraphResponse>(clientOptions.jsonMapper)
-
         override fun fetchGraph(
             params: ClusterFetchGraphParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ClusterFetchGraphResponse> {
+        ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("taskId", params.taskId().getOrNull())
@@ -215,15 +216,7 @@ class ClusterServiceImpl internal constructor(private val clientOptions: ClientO
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { fetchGraphHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+            return errorHandler.handle(response)
         }
     }
 }

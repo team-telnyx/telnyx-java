@@ -13,10 +13,10 @@ import com.telnyx.sdk.models.simcards.SimCardGetDeviceDetailsParams
 import com.telnyx.sdk.models.simcards.SimCardGetDeviceDetailsResponse
 import com.telnyx.sdk.models.simcards.SimCardGetPublicIpParams
 import com.telnyx.sdk.models.simcards.SimCardGetPublicIpResponse
+import com.telnyx.sdk.models.simcards.SimCardListPageAsync
 import com.telnyx.sdk.models.simcards.SimCardListParams
-import com.telnyx.sdk.models.simcards.SimCardListResponse
+import com.telnyx.sdk.models.simcards.SimCardListWirelessConnectivityLogsPageAsync
 import com.telnyx.sdk.models.simcards.SimCardListWirelessConnectivityLogsParams
-import com.telnyx.sdk.models.simcards.SimCardListWirelessConnectivityLogsResponse
 import com.telnyx.sdk.models.simcards.SimCardRetrieveParams
 import com.telnyx.sdk.models.simcards.SimCardRetrieveResponse
 import com.telnyx.sdk.models.simcards.SimCardUpdateParams
@@ -78,17 +78,17 @@ interface SimCardServiceAsync {
 
     /** Updates SIM card data */
     fun update(
-        pathId: String,
+        simCardId: String,
         params: SimCardUpdateParams,
-    ): CompletableFuture<SimCardUpdateResponse> = update(pathId, params, RequestOptions.none())
+    ): CompletableFuture<SimCardUpdateResponse> = update(simCardId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        pathId: String,
+        simCardId: String,
         params: SimCardUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimCardUpdateResponse> =
-        update(params.toBuilder().pathId(pathId).build(), requestOptions)
+        update(params.toBuilder().simCardId(simCardId).build(), requestOptions)
 
     /** @see update */
     fun update(params: SimCardUpdateParams): CompletableFuture<SimCardUpdateResponse> =
@@ -101,21 +101,21 @@ interface SimCardServiceAsync {
     ): CompletableFuture<SimCardUpdateResponse>
 
     /** Get all SIM cards belonging to the user that match the given filters. */
-    fun list(): CompletableFuture<SimCardListResponse> = list(SimCardListParams.none())
+    fun list(): CompletableFuture<SimCardListPageAsync> = list(SimCardListParams.none())
 
     /** @see list */
     fun list(
         params: SimCardListParams = SimCardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SimCardListResponse>
+    ): CompletableFuture<SimCardListPageAsync>
 
     /** @see list */
     fun list(
         params: SimCardListParams = SimCardListParams.none()
-    ): CompletableFuture<SimCardListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<SimCardListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<SimCardListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<SimCardListPageAsync> =
         list(SimCardListParams.none(), requestOptions)
 
     /**
@@ -283,7 +283,7 @@ interface SimCardServiceAsync {
      */
     fun listWirelessConnectivityLogs(
         id: String
-    ): CompletableFuture<SimCardListWirelessConnectivityLogsResponse> =
+    ): CompletableFuture<SimCardListWirelessConnectivityLogsPageAsync> =
         listWirelessConnectivityLogs(id, SimCardListWirelessConnectivityLogsParams.none())
 
     /** @see listWirelessConnectivityLogs */
@@ -292,7 +292,7 @@ interface SimCardServiceAsync {
         params: SimCardListWirelessConnectivityLogsParams =
             SimCardListWirelessConnectivityLogsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SimCardListWirelessConnectivityLogsResponse> =
+    ): CompletableFuture<SimCardListWirelessConnectivityLogsPageAsync> =
         listWirelessConnectivityLogs(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see listWirelessConnectivityLogs */
@@ -300,26 +300,26 @@ interface SimCardServiceAsync {
         id: String,
         params: SimCardListWirelessConnectivityLogsParams =
             SimCardListWirelessConnectivityLogsParams.none(),
-    ): CompletableFuture<SimCardListWirelessConnectivityLogsResponse> =
+    ): CompletableFuture<SimCardListWirelessConnectivityLogsPageAsync> =
         listWirelessConnectivityLogs(id, params, RequestOptions.none())
 
     /** @see listWirelessConnectivityLogs */
     fun listWirelessConnectivityLogs(
         params: SimCardListWirelessConnectivityLogsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SimCardListWirelessConnectivityLogsResponse>
+    ): CompletableFuture<SimCardListWirelessConnectivityLogsPageAsync>
 
     /** @see listWirelessConnectivityLogs */
     fun listWirelessConnectivityLogs(
         params: SimCardListWirelessConnectivityLogsParams
-    ): CompletableFuture<SimCardListWirelessConnectivityLogsResponse> =
+    ): CompletableFuture<SimCardListWirelessConnectivityLogsPageAsync> =
         listWirelessConnectivityLogs(params, RequestOptions.none())
 
     /** @see listWirelessConnectivityLogs */
     fun listWirelessConnectivityLogs(
         id: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SimCardListWirelessConnectivityLogsResponse> =
+    ): CompletableFuture<SimCardListWirelessConnectivityLogsPageAsync> =
         listWirelessConnectivityLogs(
             id,
             SimCardListWirelessConnectivityLogsParams.none(),
@@ -388,18 +388,18 @@ interface SimCardServiceAsync {
          * [SimCardServiceAsync.update].
          */
         fun update(
-            pathId: String,
+            simCardId: String,
             params: SimCardUpdateParams,
         ): CompletableFuture<HttpResponseFor<SimCardUpdateResponse>> =
-            update(pathId, params, RequestOptions.none())
+            update(simCardId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
-            pathId: String,
+            simCardId: String,
             params: SimCardUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<SimCardUpdateResponse>> =
-            update(params.toBuilder().pathId(pathId).build(), requestOptions)
+            update(params.toBuilder().simCardId(simCardId).build(), requestOptions)
 
         /** @see update */
         fun update(
@@ -417,25 +417,25 @@ interface SimCardServiceAsync {
          * Returns a raw HTTP response for `get /sim_cards`, but is otherwise the same as
          * [SimCardServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<SimCardListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<SimCardListPageAsync>> =
             list(SimCardListParams.none())
 
         /** @see list */
         fun list(
             params: SimCardListParams = SimCardListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SimCardListResponse>>
+        ): CompletableFuture<HttpResponseFor<SimCardListPageAsync>>
 
         /** @see list */
         fun list(
             params: SimCardListParams = SimCardListParams.none()
-        ): CompletableFuture<HttpResponseFor<SimCardListResponse>> =
+        ): CompletableFuture<HttpResponseFor<SimCardListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<SimCardListResponse>> =
+        ): CompletableFuture<HttpResponseFor<SimCardListPageAsync>> =
             list(SimCardListParams.none(), requestOptions)
 
         /**
@@ -614,7 +614,7 @@ interface SimCardServiceAsync {
          */
         fun listWirelessConnectivityLogs(
             id: String
-        ): CompletableFuture<HttpResponseFor<SimCardListWirelessConnectivityLogsResponse>> =
+        ): CompletableFuture<HttpResponseFor<SimCardListWirelessConnectivityLogsPageAsync>> =
             listWirelessConnectivityLogs(id, SimCardListWirelessConnectivityLogsParams.none())
 
         /** @see listWirelessConnectivityLogs */
@@ -623,7 +623,7 @@ interface SimCardServiceAsync {
             params: SimCardListWirelessConnectivityLogsParams =
                 SimCardListWirelessConnectivityLogsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SimCardListWirelessConnectivityLogsResponse>> =
+        ): CompletableFuture<HttpResponseFor<SimCardListWirelessConnectivityLogsPageAsync>> =
             listWirelessConnectivityLogs(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see listWirelessConnectivityLogs */
@@ -631,26 +631,26 @@ interface SimCardServiceAsync {
             id: String,
             params: SimCardListWirelessConnectivityLogsParams =
                 SimCardListWirelessConnectivityLogsParams.none(),
-        ): CompletableFuture<HttpResponseFor<SimCardListWirelessConnectivityLogsResponse>> =
+        ): CompletableFuture<HttpResponseFor<SimCardListWirelessConnectivityLogsPageAsync>> =
             listWirelessConnectivityLogs(id, params, RequestOptions.none())
 
         /** @see listWirelessConnectivityLogs */
         fun listWirelessConnectivityLogs(
             params: SimCardListWirelessConnectivityLogsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SimCardListWirelessConnectivityLogsResponse>>
+        ): CompletableFuture<HttpResponseFor<SimCardListWirelessConnectivityLogsPageAsync>>
 
         /** @see listWirelessConnectivityLogs */
         fun listWirelessConnectivityLogs(
             params: SimCardListWirelessConnectivityLogsParams
-        ): CompletableFuture<HttpResponseFor<SimCardListWirelessConnectivityLogsResponse>> =
+        ): CompletableFuture<HttpResponseFor<SimCardListWirelessConnectivityLogsPageAsync>> =
             listWirelessConnectivityLogs(params, RequestOptions.none())
 
         /** @see listWirelessConnectivityLogs */
         fun listWirelessConnectivityLogs(
             id: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SimCardListWirelessConnectivityLogsResponse>> =
+        ): CompletableFuture<HttpResponseFor<SimCardListWirelessConnectivityLogsPageAsync>> =
             listWirelessConnectivityLogs(
                 id,
                 SimCardListWirelessConnectivityLogsParams.none(),

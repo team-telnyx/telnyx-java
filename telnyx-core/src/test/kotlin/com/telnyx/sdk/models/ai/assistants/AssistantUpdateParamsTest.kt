@@ -28,6 +28,7 @@ internal class AssistantUpdateParamsTest {
             .llmApiKeyRef("llm_api_key_ref")
             .messagingSettings(
                 MessagingSettings.builder()
+                    .conversationInactivityMinutes(1L)
                     .defaultMessagingProfileId("default_messaging_profile_id")
                     .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                     .build()
@@ -38,74 +39,39 @@ internal class AssistantUpdateParamsTest {
             .telephonySettings(
                 TelephonySettings.builder()
                     .defaultTexmlAppId("default_texml_app_id")
+                    .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
+                    .noiseSuppressionConfig(
+                        TelephonySettings.NoiseSuppressionConfig.builder()
+                            .attenuationLimit(0L)
+                            .mode(TelephonySettings.NoiseSuppressionConfig.Mode.ADVANCED)
+                            .build()
+                    )
                     .supportsUnauthenticatedWebCalls(true)
-                    .build()
-            )
-            .addTool(
-                WebhookTool.builder()
-                    .type(WebhookTool.Type.WEBHOOK)
-                    .webhook(
-                        InferenceEmbeddingWebhookToolParams.builder()
-                            .description("description")
-                            .name("name")
-                            .url("https://example.com/api/v1/function")
-                            .bodyParameters(
-                                InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
-                                    .properties(
-                                        InferenceEmbeddingWebhookToolParams.BodyParameters
-                                            .Properties
+                    .timeLimitSecs(30L)
+                    .userIdleTimeoutSecs(30L)
+                    .voicemailDetection(
+                        TelephonySettings.VoicemailDetection.builder()
+                            .onVoicemailDetected(
+                                TelephonySettings.VoicemailDetection.OnVoicemailDetected.builder()
+                                    .action(
+                                        TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                            .Action
+                                            .STOP_ASSISTANT
+                                    )
+                                    .voicemailMessage(
+                                        TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                            .VoicemailMessage
                                             .builder()
-                                            .putAdditionalProperty("age", JsonValue.from("bar"))
-                                            .putAdditionalProperty(
-                                                "location",
-                                                JsonValue.from("bar"),
+                                            .message("message")
+                                            .prompt("prompt")
+                                            .type(
+                                                TelephonySettings.VoicemailDetection
+                                                    .OnVoicemailDetected
+                                                    .VoicemailMessage
+                                                    .Type
+                                                    .PROMPT
                                             )
                                             .build()
-                                    )
-                                    .addRequired("age")
-                                    .addRequired("location")
-                                    .type(
-                                        InferenceEmbeddingWebhookToolParams.BodyParameters.Type
-                                            .OBJECT
-                                    )
-                                    .build()
-                            )
-                            .addHeader(
-                                InferenceEmbeddingWebhookToolParams.Header.builder()
-                                    .name("name")
-                                    .value("value")
-                                    .build()
-                            )
-                            .method(InferenceEmbeddingWebhookToolParams.Method.GET)
-                            .pathParameters(
-                                InferenceEmbeddingWebhookToolParams.PathParameters.builder()
-                                    .properties(
-                                        InferenceEmbeddingWebhookToolParams.PathParameters
-                                            .Properties
-                                            .builder()
-                                            .putAdditionalProperty("id", JsonValue.from("bar"))
-                                            .build()
-                                    )
-                                    .addRequired("id")
-                                    .type(
-                                        InferenceEmbeddingWebhookToolParams.PathParameters.Type
-                                            .OBJECT
-                                    )
-                                    .build()
-                            )
-                            .queryParameters(
-                                InferenceEmbeddingWebhookToolParams.QueryParameters.builder()
-                                    .properties(
-                                        InferenceEmbeddingWebhookToolParams.QueryParameters
-                                            .Properties
-                                            .builder()
-                                            .putAdditionalProperty("page", JsonValue.from("bar"))
-                                            .build()
-                                    )
-                                    .addRequired("page")
-                                    .type(
-                                        InferenceEmbeddingWebhookToolParams.QueryParameters.Type
-                                            .OBJECT
                                     )
                                     .build()
                             )
@@ -113,20 +79,111 @@ internal class AssistantUpdateParamsTest {
                     )
                     .build()
             )
+            .addWebhookTool(
+                InferenceEmbeddingWebhookToolParams.builder()
+                    .description("description")
+                    .name("name")
+                    .url("https://example.com/api/v1/function")
+                    .async(true)
+                    .bodyParameters(
+                        InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
+                            .properties(
+                                InferenceEmbeddingWebhookToolParams.BodyParameters.Properties
+                                    .builder()
+                                    .putAdditionalProperty("age", JsonValue.from("bar"))
+                                    .putAdditionalProperty("location", JsonValue.from("bar"))
+                                    .build()
+                            )
+                            .addRequired("age")
+                            .addRequired("location")
+                            .type(InferenceEmbeddingWebhookToolParams.BodyParameters.Type.OBJECT)
+                            .build()
+                    )
+                    .addHeader(
+                        InferenceEmbeddingWebhookToolParams.Header.builder()
+                            .name("name")
+                            .value("value")
+                            .build()
+                    )
+                    .method(InferenceEmbeddingWebhookToolParams.Method.GET)
+                    .pathParameters(
+                        InferenceEmbeddingWebhookToolParams.PathParameters.builder()
+                            .properties(
+                                InferenceEmbeddingWebhookToolParams.PathParameters.Properties
+                                    .builder()
+                                    .putAdditionalProperty("id", JsonValue.from("bar"))
+                                    .build()
+                            )
+                            .addRequired("id")
+                            .type(InferenceEmbeddingWebhookToolParams.PathParameters.Type.OBJECT)
+                            .build()
+                    )
+                    .queryParameters(
+                        InferenceEmbeddingWebhookToolParams.QueryParameters.builder()
+                            .properties(
+                                InferenceEmbeddingWebhookToolParams.QueryParameters.Properties
+                                    .builder()
+                                    .putAdditionalProperty("page", JsonValue.from("bar"))
+                                    .build()
+                            )
+                            .addRequired("page")
+                            .type(InferenceEmbeddingWebhookToolParams.QueryParameters.Type.OBJECT)
+                            .build()
+                    )
+                    .timeoutMs(500L)
+                    .build()
+            )
             .transcription(
-                TranscriptionSettings.builder().language("language").model("model").build()
+                TranscriptionSettings.builder()
+                    .language("language")
+                    .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
+                    .region("region")
+                    .settings(
+                        TranscriptionSettingsConfig.builder()
+                            .eagerEotThreshold(0.3)
+                            .eotThreshold(0.0)
+                            .eotTimeoutMs(0L)
+                            .numerals(true)
+                            .smartFormat(true)
+                            .build()
+                    )
+                    .build()
             )
             .voiceSettings(
                 VoiceSettings.builder()
                     .voice("voice")
                     .apiKeyRef("api_key_ref")
-                    .backgroundAudio(
-                        VoiceSettings.BackgroundAudio.UnionMember0.builder()
-                            .type(VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA)
-                            .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
+                    .predefinedMediaBackgroundAudio(
+                        VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue.SILENCE
+                    )
+                    .similarityBoost(0.0)
+                    .speed(0.0)
+                    .style(0.0)
+                    .temperature(0.0)
+                    .useSpeakerBoost(true)
+                    .voiceSpeed(0.0)
+                    .build()
+            )
+            .widgetSettings(
+                UpdateAssistant.WidgetSettings.builder()
+                    .agentThinkingText("agent_thinking_text")
+                    .audioVisualizerConfig(
+                        UpdateAssistant.WidgetSettings.AudioVisualizerConfig.builder()
+                            .color(
+                                UpdateAssistant.WidgetSettings.AudioVisualizerConfig.Color.VERDANT
+                            )
+                            .preset("preset")
                             .build()
                     )
-                    .voiceSpeed(0.0)
+                    .defaultState(UpdateAssistant.WidgetSettings.DefaultState.EXPANDED)
+                    .giveFeedbackUrl("give_feedback_url")
+                    .logoIconUrl("logo_icon_url")
+                    .position(UpdateAssistant.WidgetSettings.Position.FIXED)
+                    .reportIssueUrl("report_issue_url")
+                    .speakToInterruptText("speak_to_interrupt_text")
+                    .startCallText("start_call_text")
+                    .theme(UpdateAssistant.WidgetSettings.Theme.LIGHT)
+                    .viewHistoryUrl("view_history_url")
                     .build()
             )
             .promoteToMain(true)
@@ -163,6 +220,7 @@ internal class AssistantUpdateParamsTest {
                 .llmApiKeyRef("llm_api_key_ref")
                 .messagingSettings(
                     MessagingSettings.builder()
+                        .conversationInactivityMinutes(1L)
                         .defaultMessagingProfileId("default_messaging_profile_id")
                         .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                         .build()
@@ -173,77 +231,40 @@ internal class AssistantUpdateParamsTest {
                 .telephonySettings(
                     TelephonySettings.builder()
                         .defaultTexmlAppId("default_texml_app_id")
+                        .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
+                        .noiseSuppressionConfig(
+                            TelephonySettings.NoiseSuppressionConfig.builder()
+                                .attenuationLimit(0L)
+                                .mode(TelephonySettings.NoiseSuppressionConfig.Mode.ADVANCED)
+                                .build()
+                        )
                         .supportsUnauthenticatedWebCalls(true)
-                        .build()
-                )
-                .addTool(
-                    WebhookTool.builder()
-                        .type(WebhookTool.Type.WEBHOOK)
-                        .webhook(
-                            InferenceEmbeddingWebhookToolParams.builder()
-                                .description("description")
-                                .name("name")
-                                .url("https://example.com/api/v1/function")
-                                .bodyParameters(
-                                    InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.BodyParameters
-                                                .Properties
+                        .timeLimitSecs(30L)
+                        .userIdleTimeoutSecs(30L)
+                        .voicemailDetection(
+                            TelephonySettings.VoicemailDetection.builder()
+                                .onVoicemailDetected(
+                                    TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                        .builder()
+                                        .action(
+                                            TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                                .Action
+                                                .STOP_ASSISTANT
+                                        )
+                                        .voicemailMessage(
+                                            TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                                .VoicemailMessage
                                                 .builder()
-                                                .putAdditionalProperty("age", JsonValue.from("bar"))
-                                                .putAdditionalProperty(
-                                                    "location",
-                                                    JsonValue.from("bar"),
+                                                .message("message")
+                                                .prompt("prompt")
+                                                .type(
+                                                    TelephonySettings.VoicemailDetection
+                                                        .OnVoicemailDetected
+                                                        .VoicemailMessage
+                                                        .Type
+                                                        .PROMPT
                                                 )
                                                 .build()
-                                        )
-                                        .addRequired("age")
-                                        .addRequired("location")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.BodyParameters.Type
-                                                .OBJECT
-                                        )
-                                        .build()
-                                )
-                                .addHeader(
-                                    InferenceEmbeddingWebhookToolParams.Header.builder()
-                                        .name("name")
-                                        .value("value")
-                                        .build()
-                                )
-                                .method(InferenceEmbeddingWebhookToolParams.Method.GET)
-                                .pathParameters(
-                                    InferenceEmbeddingWebhookToolParams.PathParameters.builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.PathParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty("id", JsonValue.from("bar"))
-                                                .build()
-                                        )
-                                        .addRequired("id")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.PathParameters.Type
-                                                .OBJECT
-                                        )
-                                        .build()
-                                )
-                                .queryParameters(
-                                    InferenceEmbeddingWebhookToolParams.QueryParameters.builder()
-                                        .properties(
-                                            InferenceEmbeddingWebhookToolParams.QueryParameters
-                                                .Properties
-                                                .builder()
-                                                .putAdditionalProperty(
-                                                    "page",
-                                                    JsonValue.from("bar"),
-                                                )
-                                                .build()
-                                        )
-                                        .addRequired("page")
-                                        .type(
-                                            InferenceEmbeddingWebhookToolParams.QueryParameters.Type
-                                                .OBJECT
                                         )
                                         .build()
                                 )
@@ -251,22 +272,119 @@ internal class AssistantUpdateParamsTest {
                         )
                         .build()
                 )
+                .addWebhookTool(
+                    InferenceEmbeddingWebhookToolParams.builder()
+                        .description("description")
+                        .name("name")
+                        .url("https://example.com/api/v1/function")
+                        .async(true)
+                        .bodyParameters(
+                            InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
+                                .properties(
+                                    InferenceEmbeddingWebhookToolParams.BodyParameters.Properties
+                                        .builder()
+                                        .putAdditionalProperty("age", JsonValue.from("bar"))
+                                        .putAdditionalProperty("location", JsonValue.from("bar"))
+                                        .build()
+                                )
+                                .addRequired("age")
+                                .addRequired("location")
+                                .type(
+                                    InferenceEmbeddingWebhookToolParams.BodyParameters.Type.OBJECT
+                                )
+                                .build()
+                        )
+                        .addHeader(
+                            InferenceEmbeddingWebhookToolParams.Header.builder()
+                                .name("name")
+                                .value("value")
+                                .build()
+                        )
+                        .method(InferenceEmbeddingWebhookToolParams.Method.GET)
+                        .pathParameters(
+                            InferenceEmbeddingWebhookToolParams.PathParameters.builder()
+                                .properties(
+                                    InferenceEmbeddingWebhookToolParams.PathParameters.Properties
+                                        .builder()
+                                        .putAdditionalProperty("id", JsonValue.from("bar"))
+                                        .build()
+                                )
+                                .addRequired("id")
+                                .type(
+                                    InferenceEmbeddingWebhookToolParams.PathParameters.Type.OBJECT
+                                )
+                                .build()
+                        )
+                        .queryParameters(
+                            InferenceEmbeddingWebhookToolParams.QueryParameters.builder()
+                                .properties(
+                                    InferenceEmbeddingWebhookToolParams.QueryParameters.Properties
+                                        .builder()
+                                        .putAdditionalProperty("page", JsonValue.from("bar"))
+                                        .build()
+                                )
+                                .addRequired("page")
+                                .type(
+                                    InferenceEmbeddingWebhookToolParams.QueryParameters.Type.OBJECT
+                                )
+                                .build()
+                        )
+                        .timeoutMs(500L)
+                        .build()
+                )
                 .transcription(
-                    TranscriptionSettings.builder().language("language").model("model").build()
+                    TranscriptionSettings.builder()
+                        .language("language")
+                        .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
+                        .region("region")
+                        .settings(
+                            TranscriptionSettingsConfig.builder()
+                                .eagerEotThreshold(0.3)
+                                .eotThreshold(0.0)
+                                .eotTimeoutMs(0L)
+                                .numerals(true)
+                                .smartFormat(true)
+                                .build()
+                        )
+                        .build()
                 )
                 .voiceSettings(
                     VoiceSettings.builder()
                         .voice("voice")
                         .apiKeyRef("api_key_ref")
-                        .backgroundAudio(
-                            VoiceSettings.BackgroundAudio.UnionMember0.builder()
-                                .type(
-                                    VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA
+                        .predefinedMediaBackgroundAudio(
+                            VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
+                                .SILENCE
+                        )
+                        .similarityBoost(0.0)
+                        .speed(0.0)
+                        .style(0.0)
+                        .temperature(0.0)
+                        .useSpeakerBoost(true)
+                        .voiceSpeed(0.0)
+                        .build()
+                )
+                .widgetSettings(
+                    UpdateAssistant.WidgetSettings.builder()
+                        .agentThinkingText("agent_thinking_text")
+                        .audioVisualizerConfig(
+                            UpdateAssistant.WidgetSettings.AudioVisualizerConfig.builder()
+                                .color(
+                                    UpdateAssistant.WidgetSettings.AudioVisualizerConfig.Color
+                                        .VERDANT
                                 )
-                                .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
+                                .preset("preset")
                                 .build()
                         )
-                        .voiceSpeed(0.0)
+                        .defaultState(UpdateAssistant.WidgetSettings.DefaultState.EXPANDED)
+                        .giveFeedbackUrl("give_feedback_url")
+                        .logoIconUrl("logo_icon_url")
+                        .position(UpdateAssistant.WidgetSettings.Position.FIXED)
+                        .reportIssueUrl("report_issue_url")
+                        .speakToInterruptText("speak_to_interrupt_text")
+                        .startCallText("start_call_text")
+                        .theme(UpdateAssistant.WidgetSettings.Theme.LIGHT)
+                        .viewHistoryUrl("view_history_url")
                         .build()
                 )
                 .promoteToMain(true)
@@ -291,6 +409,7 @@ internal class AssistantUpdateParamsTest {
         assertThat(body.messagingSettings())
             .contains(
                 MessagingSettings.builder()
+                    .conversationInactivityMinutes(1L)
                     .defaultMessagingProfileId("default_messaging_profile_id")
                     .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                     .build()
@@ -303,7 +422,44 @@ internal class AssistantUpdateParamsTest {
             .contains(
                 TelephonySettings.builder()
                     .defaultTexmlAppId("default_texml_app_id")
+                    .noiseSuppression(TelephonySettings.NoiseSuppression.KRISP)
+                    .noiseSuppressionConfig(
+                        TelephonySettings.NoiseSuppressionConfig.builder()
+                            .attenuationLimit(0L)
+                            .mode(TelephonySettings.NoiseSuppressionConfig.Mode.ADVANCED)
+                            .build()
+                    )
                     .supportsUnauthenticatedWebCalls(true)
+                    .timeLimitSecs(30L)
+                    .userIdleTimeoutSecs(30L)
+                    .voicemailDetection(
+                        TelephonySettings.VoicemailDetection.builder()
+                            .onVoicemailDetected(
+                                TelephonySettings.VoicemailDetection.OnVoicemailDetected.builder()
+                                    .action(
+                                        TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                            .Action
+                                            .STOP_ASSISTANT
+                                    )
+                                    .voicemailMessage(
+                                        TelephonySettings.VoicemailDetection.OnVoicemailDetected
+                                            .VoicemailMessage
+                                            .builder()
+                                            .message("message")
+                                            .prompt("prompt")
+                                            .type(
+                                                TelephonySettings.VoicemailDetection
+                                                    .OnVoicemailDetected
+                                                    .VoicemailMessage
+                                                    .Type
+                                                    .PROMPT
+                                            )
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
                     .build()
             )
         assertThat(body.tools().getOrNull())
@@ -316,6 +472,7 @@ internal class AssistantUpdateParamsTest {
                                 .description("description")
                                 .name("name")
                                 .url("https://example.com/api/v1/function")
+                                .async(true)
                                 .bodyParameters(
                                     InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
                                         .properties(
@@ -379,25 +536,66 @@ internal class AssistantUpdateParamsTest {
                                         )
                                         .build()
                                 )
+                                .timeoutMs(500L)
                                 .build()
                         )
                         .build()
                 )
             )
         assertThat(body.transcription())
-            .contains(TranscriptionSettings.builder().language("language").model("model").build())
+            .contains(
+                TranscriptionSettings.builder()
+                    .language("language")
+                    .model(TranscriptionSettings.Model.DEEPGRAM_FLUX)
+                    .region("region")
+                    .settings(
+                        TranscriptionSettingsConfig.builder()
+                            .eagerEotThreshold(0.3)
+                            .eotThreshold(0.0)
+                            .eotTimeoutMs(0L)
+                            .numerals(true)
+                            .smartFormat(true)
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(body.voiceSettings())
             .contains(
                 VoiceSettings.builder()
                     .voice("voice")
                     .apiKeyRef("api_key_ref")
-                    .backgroundAudio(
-                        VoiceSettings.BackgroundAudio.UnionMember0.builder()
-                            .type(VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA)
-                            .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
+                    .predefinedMediaBackgroundAudio(
+                        VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue.SILENCE
+                    )
+                    .similarityBoost(0.0)
+                    .speed(0.0)
+                    .style(0.0)
+                    .temperature(0.0)
+                    .useSpeakerBoost(true)
+                    .voiceSpeed(0.0)
+                    .build()
+            )
+        assertThat(body.widgetSettings())
+            .contains(
+                UpdateAssistant.WidgetSettings.builder()
+                    .agentThinkingText("agent_thinking_text")
+                    .audioVisualizerConfig(
+                        UpdateAssistant.WidgetSettings.AudioVisualizerConfig.builder()
+                            .color(
+                                UpdateAssistant.WidgetSettings.AudioVisualizerConfig.Color.VERDANT
+                            )
+                            .preset("preset")
                             .build()
                     )
-                    .voiceSpeed(0.0)
+                    .defaultState(UpdateAssistant.WidgetSettings.DefaultState.EXPANDED)
+                    .giveFeedbackUrl("give_feedback_url")
+                    .logoIconUrl("logo_icon_url")
+                    .position(UpdateAssistant.WidgetSettings.Position.FIXED)
+                    .reportIssueUrl("report_issue_url")
+                    .speakToInterruptText("speak_to_interrupt_text")
+                    .startCallText("start_call_text")
+                    .theme(UpdateAssistant.WidgetSettings.Theme.LIGHT)
+                    .viewHistoryUrl("view_history_url")
                     .build()
             )
         assertThat(body.promoteToMain()).contains(true)

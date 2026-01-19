@@ -15,25 +15,28 @@ internal class EventRetrieveResponseTest {
         val eventRetrieveResponse =
             EventRetrieveResponse.builder()
                 .data(
-                    EventRetrieveResponse.Data.builder()
+                    EventRetrieveResponse.Data.WebhookPortoutStatusChanged.builder()
                         .id("eef3340b-8903-4466-b445-89b697315a3a")
                         .addAvailableNotificationMethod(
-                            EventRetrieveResponse.Data.AvailableNotificationMethod.EMAIL
+                            EventRetrieveResponse.Data.WebhookPortoutStatusChanged
+                                .AvailableNotificationMethod
+                                .EMAIL
                         )
                         .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                        .eventType(EventRetrieveResponse.Data.EventType.PORTOUT_STATUS_CHANGED)
+                        .eventType(
+                            EventRetrieveResponse.Data.WebhookPortoutStatusChanged.EventType
+                                .PORTOUT_STATUS_CHANGED
+                        )
                         .payload(
-                            EventRetrieveResponse.Data.Payload.WebhookPortoutStatusChangedPayload
-                                .builder()
+                            EventRetrieveResponse.Data.WebhookPortoutStatusChanged.Payload.builder()
                                 .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                 .attemptedPin("1234")
                                 .carrierName("Testing Carrier")
                                 .addPhoneNumber("+35312345678")
-                                .rejectionReason("rejection_reason")
+                                .rejectionReason(null)
                                 .spid("987H")
                                 .status(
-                                    EventRetrieveResponse.Data.Payload
-                                        .WebhookPortoutStatusChangedPayload
+                                    EventRetrieveResponse.Data.WebhookPortoutStatusChanged.Payload
                                         .Status
                                         .AUTHORIZED
                                 )
@@ -41,7 +44,10 @@ internal class EventRetrieveResponseTest {
                                 .userId("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                 .build()
                         )
-                        .payloadStatus(EventRetrieveResponse.Data.PayloadStatus.CREATED)
+                        .payloadStatus(
+                            EventRetrieveResponse.Data.WebhookPortoutStatusChanged.PayloadStatus
+                                .CREATED
+                        )
                         .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                         .recordType("portout_event")
                         .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
@@ -51,37 +57,45 @@ internal class EventRetrieveResponseTest {
 
         assertThat(eventRetrieveResponse.data())
             .contains(
-                EventRetrieveResponse.Data.builder()
-                    .id("eef3340b-8903-4466-b445-89b697315a3a")
-                    .addAvailableNotificationMethod(
-                        EventRetrieveResponse.Data.AvailableNotificationMethod.EMAIL
-                    )
-                    .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .eventType(EventRetrieveResponse.Data.EventType.PORTOUT_STATUS_CHANGED)
-                    .payload(
-                        EventRetrieveResponse.Data.Payload.WebhookPortoutStatusChangedPayload
-                            .builder()
-                            .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
-                            .attemptedPin("1234")
-                            .carrierName("Testing Carrier")
-                            .addPhoneNumber("+35312345678")
-                            .rejectionReason("rejection_reason")
-                            .spid("987H")
-                            .status(
-                                EventRetrieveResponse.Data.Payload
-                                    .WebhookPortoutStatusChangedPayload
-                                    .Status
-                                    .AUTHORIZED
-                            )
-                            .subscriberName("John Doe")
-                            .userId("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
-                            .build()
-                    )
-                    .payloadStatus(EventRetrieveResponse.Data.PayloadStatus.CREATED)
-                    .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
-                    .recordType("portout_event")
-                    .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .build()
+                EventRetrieveResponse.Data.ofWebhookPortoutStatusChanged(
+                    EventRetrieveResponse.Data.WebhookPortoutStatusChanged.builder()
+                        .id("eef3340b-8903-4466-b445-89b697315a3a")
+                        .addAvailableNotificationMethod(
+                            EventRetrieveResponse.Data.WebhookPortoutStatusChanged
+                                .AvailableNotificationMethod
+                                .EMAIL
+                        )
+                        .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                        .eventType(
+                            EventRetrieveResponse.Data.WebhookPortoutStatusChanged.EventType
+                                .PORTOUT_STATUS_CHANGED
+                        )
+                        .payload(
+                            EventRetrieveResponse.Data.WebhookPortoutStatusChanged.Payload.builder()
+                                .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
+                                .attemptedPin("1234")
+                                .carrierName("Testing Carrier")
+                                .addPhoneNumber("+35312345678")
+                                .rejectionReason(null)
+                                .spid("987H")
+                                .status(
+                                    EventRetrieveResponse.Data.WebhookPortoutStatusChanged.Payload
+                                        .Status
+                                        .AUTHORIZED
+                                )
+                                .subscriberName("John Doe")
+                                .userId("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
+                                .build()
+                        )
+                        .payloadStatus(
+                            EventRetrieveResponse.Data.WebhookPortoutStatusChanged.PayloadStatus
+                                .CREATED
+                        )
+                        .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
+                        .recordType("portout_event")
+                        .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                        .build()
+                )
             )
     }
 
@@ -91,25 +105,28 @@ internal class EventRetrieveResponseTest {
         val eventRetrieveResponse =
             EventRetrieveResponse.builder()
                 .data(
-                    EventRetrieveResponse.Data.builder()
+                    EventRetrieveResponse.Data.WebhookPortoutStatusChanged.builder()
                         .id("eef3340b-8903-4466-b445-89b697315a3a")
                         .addAvailableNotificationMethod(
-                            EventRetrieveResponse.Data.AvailableNotificationMethod.EMAIL
+                            EventRetrieveResponse.Data.WebhookPortoutStatusChanged
+                                .AvailableNotificationMethod
+                                .EMAIL
                         )
                         .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                        .eventType(EventRetrieveResponse.Data.EventType.PORTOUT_STATUS_CHANGED)
+                        .eventType(
+                            EventRetrieveResponse.Data.WebhookPortoutStatusChanged.EventType
+                                .PORTOUT_STATUS_CHANGED
+                        )
                         .payload(
-                            EventRetrieveResponse.Data.Payload.WebhookPortoutStatusChangedPayload
-                                .builder()
+                            EventRetrieveResponse.Data.WebhookPortoutStatusChanged.Payload.builder()
                                 .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                 .attemptedPin("1234")
                                 .carrierName("Testing Carrier")
                                 .addPhoneNumber("+35312345678")
-                                .rejectionReason("rejection_reason")
+                                .rejectionReason(null)
                                 .spid("987H")
                                 .status(
-                                    EventRetrieveResponse.Data.Payload
-                                        .WebhookPortoutStatusChangedPayload
+                                    EventRetrieveResponse.Data.WebhookPortoutStatusChanged.Payload
                                         .Status
                                         .AUTHORIZED
                                 )
@@ -117,7 +134,10 @@ internal class EventRetrieveResponseTest {
                                 .userId("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                 .build()
                         )
-                        .payloadStatus(EventRetrieveResponse.Data.PayloadStatus.CREATED)
+                        .payloadStatus(
+                            EventRetrieveResponse.Data.WebhookPortoutStatusChanged.PayloadStatus
+                                .CREATED
+                        )
                         .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                         .recordType("portout_event")
                         .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))

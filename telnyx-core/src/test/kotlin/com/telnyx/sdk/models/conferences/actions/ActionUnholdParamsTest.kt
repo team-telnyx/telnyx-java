@@ -12,6 +12,7 @@ internal class ActionUnholdParamsTest {
         ActionUnholdParams.builder()
             .id("id")
             .addCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+            .region(ActionUnholdParams.Region.US)
             .build()
     }
 
@@ -30,6 +31,22 @@ internal class ActionUnholdParamsTest {
 
     @Test
     fun body() {
+        val params =
+            ActionUnholdParams.builder()
+                .id("id")
+                .addCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+                .region(ActionUnholdParams.Region.US)
+                .build()
+
+        val body = params._body()
+
+        assertThat(body.callControlIds())
+            .containsExactly("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+        assertThat(body.region()).contains(ActionUnholdParams.Region.US)
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
         val params =
             ActionUnholdParams.builder()
                 .id("id")

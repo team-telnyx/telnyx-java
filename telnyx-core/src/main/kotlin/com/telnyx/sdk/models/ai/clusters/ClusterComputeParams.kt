@@ -24,7 +24,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Starts a background task to compute how the data in an
- * [embedded storage bucket](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding)
+ * [embedded storage bucket](https://developers.telnyx.com/api-reference/embeddings/embed-documents)
  * is clustered. This helps identify common themes and patterns in the data.
  */
 class ClusterComputeParams

@@ -5,9 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordCreateParams
-import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordListParams
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordVerifyPhoneNumberCoverageParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -28,7 +26,7 @@ internal class CustomerServiceRecordServiceAsyncTest {
         val customerServiceRecordFuture =
             customerServiceRecordServiceAsync.create(
                 CustomerServiceRecordCreateParams.builder()
-                    .phoneNumber("+1234567890")
+                    .phoneNumber("+13035553000")
                     .additionalData(
                         CustomerServiceRecordCreateParams.AdditionalData.builder()
                             .accountNumber("123456789")
@@ -78,44 +76,10 @@ internal class CustomerServiceRecordServiceAsyncTest {
                 .build()
         val customerServiceRecordServiceAsync = client.customerServiceRecords()
 
-        val customerServiceRecordsFuture =
-            customerServiceRecordServiceAsync.list(
-                CustomerServiceRecordListParams.builder()
-                    .filter(
-                        CustomerServiceRecordListParams.Filter.builder()
-                            .createdAt(
-                                CustomerServiceRecordListParams.Filter.CreatedAt.builder()
-                                    .gt(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
-                                    .lt(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
-                                    .build()
-                            )
-                            .phoneNumber(
-                                CustomerServiceRecordListParams.Filter.PhoneNumber.builder()
-                                    .eq("+12441239999")
-                                    .addIn("+12441239999")
-                                    .build()
-                            )
-                            .status(
-                                CustomerServiceRecordListParams.Filter.Status.builder()
-                                    .eq(CustomerServiceRecordListParams.Filter.Status.Eq.PENDING)
-                                    .addIn(CustomerServiceRecordListParams.Filter.Status.In.PENDING)
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .page(
-                        CustomerServiceRecordListParams.Page.builder().number(1L).size(1L).build()
-                    )
-                    .sort(
-                        CustomerServiceRecordListParams.Sort.builder()
-                            .value(CustomerServiceRecordListParams.Sort.Value_.CREATED_AT)
-                            .build()
-                    )
-                    .build()
-            )
+        val pageFuture = customerServiceRecordServiceAsync.list()
 
-        val customerServiceRecords = customerServiceRecordsFuture.get()
-        customerServiceRecords.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -131,7 +95,7 @@ internal class CustomerServiceRecordServiceAsyncTest {
         val responseFuture =
             customerServiceRecordServiceAsync.verifyPhoneNumberCoverage(
                 CustomerServiceRecordVerifyPhoneNumberCoverageParams.builder()
-                    .addPhoneNumber("+1234567890")
+                    .addPhoneNumber("+13035553000")
                     .build()
             )
 

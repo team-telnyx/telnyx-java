@@ -17,7 +17,10 @@ internal class CampaignStatusUpdateWebhookEventTest {
                 .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
                 .createDate("createDate")
                 .cspId("cspId")
+                .description("Campaign has been marked as dormant")
                 .isTMobileRegistered(true)
+                .status(CampaignStatusUpdateWebhookEvent.Status.DORMANT)
+                .type(CampaignStatusUpdateWebhookEvent.Type.TELNYX_EVENT)
                 .build()
 
         assertThat(campaignStatusUpdateWebhookEvent.brandId())
@@ -26,7 +29,13 @@ internal class CampaignStatusUpdateWebhookEventTest {
             .contains("4b300178-131c-d902-d54e-72d90ba1620j")
         assertThat(campaignStatusUpdateWebhookEvent.createDate()).contains("createDate")
         assertThat(campaignStatusUpdateWebhookEvent.cspId()).contains("cspId")
+        assertThat(campaignStatusUpdateWebhookEvent.description())
+            .contains("Campaign has been marked as dormant")
         assertThat(campaignStatusUpdateWebhookEvent.isTMobileRegistered()).contains(true)
+        assertThat(campaignStatusUpdateWebhookEvent.status())
+            .contains(CampaignStatusUpdateWebhookEvent.Status.DORMANT)
+        assertThat(campaignStatusUpdateWebhookEvent.type())
+            .contains(CampaignStatusUpdateWebhookEvent.Type.TELNYX_EVENT)
     }
 
     @Test
@@ -38,7 +47,10 @@ internal class CampaignStatusUpdateWebhookEventTest {
                 .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
                 .createDate("createDate")
                 .cspId("cspId")
+                .description("Campaign has been marked as dormant")
                 .isTMobileRegistered(true)
+                .status(CampaignStatusUpdateWebhookEvent.Status.DORMANT)
+                .type(CampaignStatusUpdateWebhookEvent.Type.TELNYX_EVENT)
                 .build()
 
         val roundtrippedCampaignStatusUpdateWebhookEvent =

@@ -959,10 +959,7 @@ private constructor(
                     fun request(request: JsonField<Request>) = apply { this.request = request }
 
                     /** Response details, optional. */
-                    fun response(response: Response?) = response(JsonField.ofNullable(response))
-
-                    /** Alias for calling [Builder.response] with `response.orElse(null)`. */
-                    fun response(response: Optional<Response>) = response(response.getOrNull())
+                    fun response(response: Response) = response(JsonField.of(response))
 
                     /**
                      * Sets [Builder.response] to an arbitrary JSON value.
@@ -1806,7 +1803,7 @@ private constructor(
             private val id: JsonField<String>,
             private val eventType: JsonField<String>,
             private val occurredAt: JsonField<OffsetDateTime>,
-            private val payload: JsonValue,
+            private val payload: JsonField<Payload>,
             private val recordType: JsonField<RecordType>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -1820,7 +1817,9 @@ private constructor(
                 @JsonProperty("occurred_at")
                 @ExcludeMissing
                 occurredAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-                @JsonProperty("payload") @ExcludeMissing payload: JsonValue = JsonMissing.of(),
+                @JsonProperty("payload")
+                @ExcludeMissing
+                payload: JsonField<Payload> = JsonMissing.of(),
                 @JsonProperty("record_type")
                 @ExcludeMissing
                 recordType: JsonField<RecordType> = JsonMissing.of(),
@@ -1850,7 +1849,11 @@ private constructor(
              */
             fun occurredAt(): Optional<OffsetDateTime> = occurredAt.getOptional("occurred_at")
 
-            @JsonProperty("payload") @ExcludeMissing fun _payload(): JsonValue = payload
+            /**
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun payload(): Optional<Payload> = payload.getOptional("payload")
 
             /**
              * Identifies the type of the resource.
@@ -1888,6 +1891,13 @@ private constructor(
             fun _occurredAt(): JsonField<OffsetDateTime> = occurredAt
 
             /**
+             * Returns the raw JSON value of [payload].
+             *
+             * Unlike [payload], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("payload") @ExcludeMissing fun _payload(): JsonField<Payload> = payload
+
+            /**
              * Returns the raw JSON value of [recordType].
              *
              * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected
@@ -1921,7 +1931,7 @@ private constructor(
                 private var id: JsonField<String> = JsonMissing.of()
                 private var eventType: JsonField<String> = JsonMissing.of()
                 private var occurredAt: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var payload: JsonValue = JsonMissing.of()
+                private var payload: JsonField<Payload> = JsonMissing.of()
                 private var recordType: JsonField<RecordType> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1973,7 +1983,16 @@ private constructor(
                     this.occurredAt = occurredAt
                 }
 
-                fun payload(payload: JsonValue) = apply { this.payload = payload }
+                fun payload(payload: Payload) = payload(JsonField.of(payload))
+
+                /**
+                 * Sets [Builder.payload] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.payload] with a well-typed [Payload] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun payload(payload: JsonField<Payload>) = apply { this.payload = payload }
 
                 /** Identifies the type of the resource. */
                 fun recordType(recordType: RecordType) = recordType(JsonField.of(recordType))
@@ -2037,6 +2056,7 @@ private constructor(
                 id()
                 eventType()
                 occurredAt()
+                payload().ifPresent { it.validate() }
                 recordType().ifPresent { it.validate() }
                 validated = true
             }
@@ -2060,7 +2080,112 @@ private constructor(
                 (if (id.asKnown().isPresent) 1 else 0) +
                     (if (eventType.asKnown().isPresent) 1 else 0) +
                     (if (occurredAt.asKnown().isPresent) 1 else 0) +
+                    (payload.asKnown().getOrNull()?.validity() ?: 0) +
                     (recordType.asKnown().getOrNull()?.validity() ?: 0)
+
+            class Payload
+            @JsonCreator
+            private constructor(
+                @com.fasterxml.jackson.annotation.JsonValue
+                private val additionalProperties: Map<String, JsonValue>
+            ) {
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [Payload]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Payload]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(payload: Payload) = apply {
+                        additionalProperties = payload.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Payload].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): Payload = Payload(additionalProperties.toImmutable())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Payload = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    additionalProperties.count { (_, value) ->
+                        !value.isNull() && !value.isMissing()
+                    }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Payload && additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() = "Payload{additionalProperties=$additionalProperties}"
+            }
 
             /** Identifies the type of the resource. */
             class RecordType

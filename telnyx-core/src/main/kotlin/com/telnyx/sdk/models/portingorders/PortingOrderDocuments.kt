@@ -14,6 +14,7 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Can be specified directly or via the `requirement_group_id` parameter. */
 class PortingOrderDocuments
@@ -93,7 +94,10 @@ private constructor(
         }
 
         /** Returned ID of the submitted Invoice via the Documents endpoint */
-        fun invoice(invoice: String) = invoice(JsonField.of(invoice))
+        fun invoice(invoice: String?) = invoice(JsonField.ofNullable(invoice))
+
+        /** Alias for calling [Builder.invoice] with `invoice.orElse(null)`. */
+        fun invoice(invoice: Optional<String>) = invoice(invoice.getOrNull())
 
         /**
          * Sets [Builder.invoice] to an arbitrary JSON value.
@@ -104,7 +108,10 @@ private constructor(
         fun invoice(invoice: JsonField<String>) = apply { this.invoice = invoice }
 
         /** Returned ID of the submitted LOA via the Documents endpoint */
-        fun loa(loa: String) = loa(JsonField.of(loa))
+        fun loa(loa: String?) = loa(JsonField.ofNullable(loa))
+
+        /** Alias for calling [Builder.loa] with `loa.orElse(null)`. */
+        fun loa(loa: Optional<String>) = loa(loa.getOrNull())
 
         /**
          * Sets [Builder.loa] to an arbitrary JSON value.

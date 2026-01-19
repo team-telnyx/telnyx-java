@@ -6,10 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.connections.ConnectionListActiveCallsPage
 import com.telnyx.sdk.models.connections.ConnectionListActiveCallsParams
-import com.telnyx.sdk.models.connections.ConnectionListActiveCallsResponse
+import com.telnyx.sdk.models.connections.ConnectionListPage
 import com.telnyx.sdk.models.connections.ConnectionListParams
-import com.telnyx.sdk.models.connections.ConnectionListResponse
 import com.telnyx.sdk.models.connections.ConnectionRetrieveParams
 import com.telnyx.sdk.models.connections.ConnectionRetrieveResponse
 import java.util.function.Consumer
@@ -63,20 +63,20 @@ interface ConnectionService {
         retrieve(id, ConnectionRetrieveParams.none(), requestOptions)
 
     /** Returns a list of your connections irrespective of type. */
-    fun list(): ConnectionListResponse = list(ConnectionListParams.none())
+    fun list(): ConnectionListPage = list(ConnectionListParams.none())
 
     /** @see list */
     fun list(
         params: ConnectionListParams = ConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConnectionListResponse
+    ): ConnectionListPage
 
     /** @see list */
-    fun list(params: ConnectionListParams = ConnectionListParams.none()): ConnectionListResponse =
+    fun list(params: ConnectionListParams = ConnectionListParams.none()): ConnectionListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): ConnectionListResponse =
+    fun list(requestOptions: RequestOptions): ConnectionListPage =
         list(ConnectionListParams.none(), requestOptions)
 
     /**
@@ -84,7 +84,7 @@ interface ConnectionService {
      * connections with webhook_url or xml_request_url, call control or texml. Returned results are
      * cursor paginated.
      */
-    fun listActiveCalls(connectionId: String): ConnectionListActiveCallsResponse =
+    fun listActiveCalls(connectionId: String): ConnectionListActiveCallsPage =
         listActiveCalls(connectionId, ConnectionListActiveCallsParams.none())
 
     /** @see listActiveCalls */
@@ -92,32 +92,30 @@ interface ConnectionService {
         connectionId: String,
         params: ConnectionListActiveCallsParams = ConnectionListActiveCallsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConnectionListActiveCallsResponse =
+    ): ConnectionListActiveCallsPage =
         listActiveCalls(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
     /** @see listActiveCalls */
     fun listActiveCalls(
         connectionId: String,
         params: ConnectionListActiveCallsParams = ConnectionListActiveCallsParams.none(),
-    ): ConnectionListActiveCallsResponse =
-        listActiveCalls(connectionId, params, RequestOptions.none())
+    ): ConnectionListActiveCallsPage = listActiveCalls(connectionId, params, RequestOptions.none())
 
     /** @see listActiveCalls */
     fun listActiveCalls(
         params: ConnectionListActiveCallsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConnectionListActiveCallsResponse
+    ): ConnectionListActiveCallsPage
 
     /** @see listActiveCalls */
-    fun listActiveCalls(
-        params: ConnectionListActiveCallsParams
-    ): ConnectionListActiveCallsResponse = listActiveCalls(params, RequestOptions.none())
+    fun listActiveCalls(params: ConnectionListActiveCallsParams): ConnectionListActiveCallsPage =
+        listActiveCalls(params, RequestOptions.none())
 
     /** @see listActiveCalls */
     fun listActiveCalls(
         connectionId: String,
         requestOptions: RequestOptions,
-    ): ConnectionListActiveCallsResponse =
+    ): ConnectionListActiveCallsPage =
         listActiveCalls(connectionId, ConnectionListActiveCallsParams.none(), requestOptions)
 
     /** A view of [ConnectionService] that provides access to raw HTTP responses for each method. */
@@ -182,24 +180,24 @@ interface ConnectionService {
          * [ConnectionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<ConnectionListResponse> = list(ConnectionListParams.none())
+        fun list(): HttpResponseFor<ConnectionListPage> = list(ConnectionListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ConnectionListParams = ConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConnectionListResponse>
+        ): HttpResponseFor<ConnectionListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ConnectionListParams = ConnectionListParams.none()
-        ): HttpResponseFor<ConnectionListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<ConnectionListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<ConnectionListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ConnectionListPage> =
             list(ConnectionListParams.none(), requestOptions)
 
         /**
@@ -207,9 +205,7 @@ interface ConnectionService {
          * otherwise the same as [ConnectionService.listActiveCalls].
          */
         @MustBeClosed
-        fun listActiveCalls(
-            connectionId: String
-        ): HttpResponseFor<ConnectionListActiveCallsResponse> =
+        fun listActiveCalls(connectionId: String): HttpResponseFor<ConnectionListActiveCallsPage> =
             listActiveCalls(connectionId, ConnectionListActiveCallsParams.none())
 
         /** @see listActiveCalls */
@@ -218,7 +214,7 @@ interface ConnectionService {
             connectionId: String,
             params: ConnectionListActiveCallsParams = ConnectionListActiveCallsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConnectionListActiveCallsResponse> =
+        ): HttpResponseFor<ConnectionListActiveCallsPage> =
             listActiveCalls(params.toBuilder().connectionId(connectionId).build(), requestOptions)
 
         /** @see listActiveCalls */
@@ -226,7 +222,7 @@ interface ConnectionService {
         fun listActiveCalls(
             connectionId: String,
             params: ConnectionListActiveCallsParams = ConnectionListActiveCallsParams.none(),
-        ): HttpResponseFor<ConnectionListActiveCallsResponse> =
+        ): HttpResponseFor<ConnectionListActiveCallsPage> =
             listActiveCalls(connectionId, params, RequestOptions.none())
 
         /** @see listActiveCalls */
@@ -234,13 +230,13 @@ interface ConnectionService {
         fun listActiveCalls(
             params: ConnectionListActiveCallsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConnectionListActiveCallsResponse>
+        ): HttpResponseFor<ConnectionListActiveCallsPage>
 
         /** @see listActiveCalls */
         @MustBeClosed
         fun listActiveCalls(
             params: ConnectionListActiveCallsParams
-        ): HttpResponseFor<ConnectionListActiveCallsResponse> =
+        ): HttpResponseFor<ConnectionListActiveCallsPage> =
             listActiveCalls(params, RequestOptions.none())
 
         /** @see listActiveCalls */
@@ -248,7 +244,7 @@ interface ConnectionService {
         fun listActiveCalls(
             connectionId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConnectionListActiveCallsResponse> =
+        ): HttpResponseFor<ConnectionListActiveCallsPage> =
             listActiveCalls(connectionId, ConnectionListActiveCallsParams.none(), requestOptions)
     }
 }

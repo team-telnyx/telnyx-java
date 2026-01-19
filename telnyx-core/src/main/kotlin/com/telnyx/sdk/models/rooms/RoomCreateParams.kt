@@ -17,7 +17,6 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
-import kotlin.jvm.optionals.getOrNull
 
 /** Synchronously create a Room. */
 class RoomCreateParams
@@ -217,16 +216,9 @@ private constructor(
          * The failover URL where webhooks related to this room will be sent if sending to the
          * primary URL fails. Must include a scheme, such as 'https'.
          */
-        fun webhookEventFailoverUrl(webhookEventFailoverUrl: String?) = apply {
+        fun webhookEventFailoverUrl(webhookEventFailoverUrl: String) = apply {
             body.webhookEventFailoverUrl(webhookEventFailoverUrl)
         }
-
-        /**
-         * Alias for calling [Builder.webhookEventFailoverUrl] with
-         * `webhookEventFailoverUrl.orElse(null)`.
-         */
-        fun webhookEventFailoverUrl(webhookEventFailoverUrl: Optional<String>) =
-            webhookEventFailoverUrl(webhookEventFailoverUrl.getOrNull())
 
         /**
          * Sets [Builder.webhookEventFailoverUrl] to an arbitrary JSON value.
@@ -259,23 +251,9 @@ private constructor(
         }
 
         /** Specifies how many seconds to wait before timing out a webhook. */
-        fun webhookTimeoutSecs(webhookTimeoutSecs: Long?) = apply {
+        fun webhookTimeoutSecs(webhookTimeoutSecs: Long) = apply {
             body.webhookTimeoutSecs(webhookTimeoutSecs)
         }
-
-        /**
-         * Alias for [Builder.webhookTimeoutSecs].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun webhookTimeoutSecs(webhookTimeoutSecs: Long) =
-            webhookTimeoutSecs(webhookTimeoutSecs as Long?)
-
-        /**
-         * Alias for calling [Builder.webhookTimeoutSecs] with `webhookTimeoutSecs.orElse(null)`.
-         */
-        fun webhookTimeoutSecs(webhookTimeoutSecs: Optional<Long>) =
-            webhookTimeoutSecs(webhookTimeoutSecs.getOrNull())
 
         /**
          * Sets [Builder.webhookTimeoutSecs] to an arbitrary JSON value.
@@ -663,15 +641,8 @@ private constructor(
              * The failover URL where webhooks related to this room will be sent if sending to the
              * primary URL fails. Must include a scheme, such as 'https'.
              */
-            fun webhookEventFailoverUrl(webhookEventFailoverUrl: String?) =
-                webhookEventFailoverUrl(JsonField.ofNullable(webhookEventFailoverUrl))
-
-            /**
-             * Alias for calling [Builder.webhookEventFailoverUrl] with
-             * `webhookEventFailoverUrl.orElse(null)`.
-             */
-            fun webhookEventFailoverUrl(webhookEventFailoverUrl: Optional<String>) =
-                webhookEventFailoverUrl(webhookEventFailoverUrl.getOrNull())
+            fun webhookEventFailoverUrl(webhookEventFailoverUrl: String) =
+                webhookEventFailoverUrl(JsonField.of(webhookEventFailoverUrl))
 
             /**
              * Sets [Builder.webhookEventFailoverUrl] to an arbitrary JSON value.
@@ -703,23 +674,8 @@ private constructor(
             }
 
             /** Specifies how many seconds to wait before timing out a webhook. */
-            fun webhookTimeoutSecs(webhookTimeoutSecs: Long?) =
-                webhookTimeoutSecs(JsonField.ofNullable(webhookTimeoutSecs))
-
-            /**
-             * Alias for [Builder.webhookTimeoutSecs].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
             fun webhookTimeoutSecs(webhookTimeoutSecs: Long) =
-                webhookTimeoutSecs(webhookTimeoutSecs as Long?)
-
-            /**
-             * Alias for calling [Builder.webhookTimeoutSecs] with
-             * `webhookTimeoutSecs.orElse(null)`.
-             */
-            fun webhookTimeoutSecs(webhookTimeoutSecs: Optional<Long>) =
-                webhookTimeoutSecs(webhookTimeoutSecs.getOrNull())
+                webhookTimeoutSecs(JsonField.of(webhookTimeoutSecs))
 
             /**
              * Sets [Builder.webhookTimeoutSecs] to an arbitrary JSON value.

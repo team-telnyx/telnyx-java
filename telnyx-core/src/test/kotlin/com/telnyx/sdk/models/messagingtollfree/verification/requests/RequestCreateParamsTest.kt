@@ -24,7 +24,7 @@ internal class RequestCreateParamsTest {
                     .businessZip("78701")
                     .corporateWebsite("http://example.com")
                     .isvReseller("isvReseller")
-                    .messageVolume(Volume._100_000)
+                    .messageVolume(Volume.V_100000)
                     .optInWorkflow(
                         "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
                     )
@@ -37,7 +37,7 @@ internal class RequestCreateParamsTest {
                     .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554398").build())
                     .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554399").build())
                     .productionMessageContent("Your Telnyx OTP is XXXX")
-                    .useCase(UseCaseCategories._2_FA)
+                    .useCase(UseCaseCategories.TWO_FA)
                     .useCaseSummary(
                         "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                     )
@@ -46,6 +46,7 @@ internal class RequestCreateParamsTest {
                     .businessRegistrationCountry("US")
                     .businessRegistrationNumber("12-3456789")
                     .businessRegistrationType("EIN")
+                    .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                     .doingBusinessAs("Acme Services")
                     .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
                     .helpMessageResponse(
@@ -81,7 +82,7 @@ internal class RequestCreateParamsTest {
                         .businessZip("78701")
                         .corporateWebsite("http://example.com")
                         .isvReseller("isvReseller")
-                        .messageVolume(Volume._100_000)
+                        .messageVolume(Volume.V_100000)
                         .optInWorkflow(
                             "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
                         )
@@ -94,7 +95,7 @@ internal class RequestCreateParamsTest {
                         .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554398").build())
                         .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554399").build())
                         .productionMessageContent("Your Telnyx OTP is XXXX")
-                        .useCase(UseCaseCategories._2_FA)
+                        .useCase(UseCaseCategories.TWO_FA)
                         .useCaseSummary(
                             "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                         )
@@ -103,6 +104,7 @@ internal class RequestCreateParamsTest {
                         .businessRegistrationCountry("US")
                         .businessRegistrationNumber("12-3456789")
                         .businessRegistrationType("EIN")
+                        .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                         .doingBusinessAs("Acme Services")
                         .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
                         .helpMessageResponse(
@@ -136,7 +138,7 @@ internal class RequestCreateParamsTest {
                     .businessZip("78701")
                     .corporateWebsite("http://example.com")
                     .isvReseller("isvReseller")
-                    .messageVolume(Volume._100_000)
+                    .messageVolume(Volume.V_100000)
                     .optInWorkflow(
                         "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
                     )
@@ -149,7 +151,7 @@ internal class RequestCreateParamsTest {
                     .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554398").build())
                     .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554399").build())
                     .productionMessageContent("Your Telnyx OTP is XXXX")
-                    .useCase(UseCaseCategories._2_FA)
+                    .useCase(UseCaseCategories.TWO_FA)
                     .useCaseSummary(
                         "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                     )
@@ -158,6 +160,7 @@ internal class RequestCreateParamsTest {
                     .businessRegistrationCountry("US")
                     .businessRegistrationNumber("12-3456789")
                     .businessRegistrationType("EIN")
+                    .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                     .doingBusinessAs("Acme Services")
                     .entityType(TollFreeVerificationEntityType.SOLE_PROPRIETOR)
                     .helpMessageResponse(
@@ -192,7 +195,7 @@ internal class RequestCreateParamsTest {
                         .businessZip("78701")
                         .corporateWebsite("http://example.com")
                         .isvReseller("isvReseller")
-                        .messageVolume(Volume._100_000)
+                        .messageVolume(Volume.V_100000)
                         .optInWorkflow(
                             "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
                         )
@@ -205,7 +208,7 @@ internal class RequestCreateParamsTest {
                         .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554398").build())
                         .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554399").build())
                         .productionMessageContent("Your Telnyx OTP is XXXX")
-                        .useCase(UseCaseCategories._2_FA)
+                        .useCase(UseCaseCategories.TWO_FA)
                         .useCaseSummary(
                             "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                         )
@@ -230,7 +233,7 @@ internal class RequestCreateParamsTest {
                     .businessZip("78701")
                     .corporateWebsite("http://example.com")
                     .isvReseller("isvReseller")
-                    .messageVolume(Volume._100_000)
+                    .messageVolume(Volume.V_100000)
                     .optInWorkflow(
                         "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
                     )
@@ -243,7 +246,7 @@ internal class RequestCreateParamsTest {
                     .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554398").build())
                     .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554399").build())
                     .productionMessageContent("Your Telnyx OTP is XXXX")
-                    .useCase(UseCaseCategories._2_FA)
+                    .useCase(UseCaseCategories.TWO_FA)
                     .useCaseSummary(
                         "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                     )

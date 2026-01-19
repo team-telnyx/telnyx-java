@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.externalconnections.ExternalConnectionCreateParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionCreateResponse
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionDeleteParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionDeleteResponse
+import com.telnyx.sdk.models.externalconnections.ExternalConnectionListPageAsync
+import com.telnyx.sdk.models.externalconnections.ExternalConnectionListPageResponse
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionListParams
-import com.telnyx.sdk.models.externalconnections.ExternalConnectionListResponse
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionRetrieveParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionRetrieveResponse
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionUpdateLocationParams
@@ -108,7 +109,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalConnect
     override fun list(
         params: ExternalConnectionListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ExternalConnectionListResponse> =
+    ): CompletableFuture<ExternalConnectionListPageAsync> =
         // get /external_connections
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -267,13 +268,13 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalConnect
                 }
         }
 
-        private val listHandler: Handler<ExternalConnectionListResponse> =
-            jsonHandler<ExternalConnectionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ExternalConnectionListPageResponse> =
+            jsonHandler<ExternalConnectionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ExternalConnectionListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ExternalConnectionListResponse>> {
+        ): CompletableFuture<HttpResponseFor<ExternalConnectionListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -292,6 +293,14 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalConnect
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                ExternalConnectionListPageAsync.builder()
+                                    .service(ExternalConnectionServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

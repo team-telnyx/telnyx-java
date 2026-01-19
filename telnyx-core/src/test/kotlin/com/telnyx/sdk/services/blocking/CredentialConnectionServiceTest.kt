@@ -7,7 +7,6 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
 import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionCreateParams
-import com.telnyx.sdk.models.credentialconnections.CredentialConnectionListParams
 import com.telnyx.sdk.models.credentialconnections.CredentialConnectionUpdateParams
 import com.telnyx.sdk.models.credentialconnections.CredentialInbound
 import com.telnyx.sdk.models.credentialconnections.CredentialOutbound
@@ -39,6 +38,7 @@ internal class CredentialConnectionServiceTest {
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                     .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+                    .callCostInWebhooks(false)
                     .defaultOnHoldComfortNoiseEnabled(false)
                     .dtmfType(DtmfType.RFC_2833)
                     .encodeContactHeaderEnabled(true)
@@ -47,18 +47,29 @@ internal class CredentialConnectionServiceTest {
                         CredentialInbound.builder()
                             .aniNumberFormat(CredentialInbound.AniNumberFormat.PLUS_E_164)
                             .channelLimit(10L)
-                            .addCodec("string")
+                            .addCodec("G722")
                             .dnisNumberFormat(CredentialInbound.DnisNumberFormat.PLUS_E164)
                             .generateRingbackTone(true)
                             .isupHeadersEnabled(true)
                             .prackEnabled(true)
                             .shakenStirEnabled(true)
+                            .simultaneousRinging(CredentialInbound.SimultaneousRinging.DISABLED)
                             .sipCompactHeadersEnabled(true)
                             .timeout1xxSecs(10L)
                             .timeout2xxSecs(20L)
                             .build()
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                    .noiseSuppression(CredentialConnectionCreateParams.NoiseSuppression.BOTH)
+                    .noiseSuppressionDetails(
+                        CredentialConnectionCreateParams.NoiseSuppressionDetails.builder()
+                            .attenuationLimit(80L)
+                            .engine(
+                                CredentialConnectionCreateParams.NoiseSuppressionDetails.Engine
+                                    .DEEP_FILTER_NET
+                            )
+                            .build()
+                    )
                     .onnetT38PassthroughEnabled(true)
                     .outbound(
                         CredentialOutbound.builder()
@@ -85,7 +96,7 @@ internal class CredentialConnectionServiceTest {
                     )
                     .addTag("tag1")
                     .addTag("tag2")
-                    .webhookApiVersion(CredentialConnectionCreateParams.WebhookApiVersion._1)
+                    .webhookApiVersion(CredentialConnectionCreateParams.WebhookApiVersion.V1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookEventUrl("https://example.com")
                     .webhookTimeoutSecs(25L)
@@ -127,6 +138,7 @@ internal class CredentialConnectionServiceTest {
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                     .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+                    .callCostInWebhooks(false)
                     .connectionName("my name")
                     .defaultOnHoldComfortNoiseEnabled(false)
                     .dtmfType(DtmfType.RFC_2833)
@@ -136,18 +148,29 @@ internal class CredentialConnectionServiceTest {
                         CredentialInbound.builder()
                             .aniNumberFormat(CredentialInbound.AniNumberFormat.PLUS_E_164)
                             .channelLimit(10L)
-                            .addCodec("string")
+                            .addCodec("G722")
                             .dnisNumberFormat(CredentialInbound.DnisNumberFormat.PLUS_E164)
                             .generateRingbackTone(true)
                             .isupHeadersEnabled(true)
                             .prackEnabled(true)
                             .shakenStirEnabled(true)
+                            .simultaneousRinging(CredentialInbound.SimultaneousRinging.DISABLED)
                             .sipCompactHeadersEnabled(true)
                             .timeout1xxSecs(10L)
                             .timeout2xxSecs(20L)
                             .build()
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                    .noiseSuppression(CredentialConnectionUpdateParams.NoiseSuppression.BOTH)
+                    .noiseSuppressionDetails(
+                        CredentialConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                            .attenuationLimit(80L)
+                            .engine(
+                                CredentialConnectionUpdateParams.NoiseSuppressionDetails.Engine
+                                    .DEEP_FILTER_NET
+                            )
+                            .build()
+                    )
                     .onnetT38PassthroughEnabled(true)
                     .outbound(
                         CredentialOutbound.builder()
@@ -176,7 +199,7 @@ internal class CredentialConnectionServiceTest {
                     .addTag("tag1")
                     .addTag("tag2")
                     .userName("myusername123")
-                    .webhookApiVersion(CredentialConnectionUpdateParams.WebhookApiVersion._1)
+                    .webhookApiVersion(CredentialConnectionUpdateParams.WebhookApiVersion.V1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookEventUrl("https://example.com")
                     .webhookTimeoutSecs(25L)
@@ -196,26 +219,9 @@ internal class CredentialConnectionServiceTest {
                 .build()
         val credentialConnectionService = client.credentialConnections()
 
-        val credentialConnections =
-            credentialConnectionService.list(
-                CredentialConnectionListParams.builder()
-                    .filter(
-                        CredentialConnectionListParams.Filter.builder()
-                            .connectionName(
-                                CredentialConnectionListParams.Filter.ConnectionName.builder()
-                                    .contains("contains")
-                                    .build()
-                            )
-                            .fqdn("fqdn")
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
-                            .build()
-                    )
-                    .page(CredentialConnectionListParams.Page.builder().number(1L).size(1L).build())
-                    .sort(CredentialConnectionListParams.Sort.CONNECTION_NAME)
-                    .build()
-            )
+        val page = credentialConnectionService.list()
 
-        credentialConnections.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

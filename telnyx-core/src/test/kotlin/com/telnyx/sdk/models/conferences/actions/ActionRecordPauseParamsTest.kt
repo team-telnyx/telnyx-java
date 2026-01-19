@@ -13,6 +13,7 @@ internal class ActionRecordPauseParamsTest {
             .id("id")
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .recordingId("891510ac-f3e4-11e8-af5b-de00688a4901")
+            .region(ActionRecordPauseParams.Region.US)
             .build()
     }
 
@@ -32,12 +33,14 @@ internal class ActionRecordPauseParamsTest {
                 .id("id")
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .recordingId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                .region(ActionRecordPauseParams.Region.US)
                 .build()
 
         val body = params._body()
 
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
         assertThat(body.recordingId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
+        assertThat(body.region()).contains(ActionRecordPauseParams.Region.US)
     }
 
     @Test

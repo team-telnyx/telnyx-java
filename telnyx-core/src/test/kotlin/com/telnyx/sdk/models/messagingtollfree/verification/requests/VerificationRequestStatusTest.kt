@@ -27,7 +27,7 @@ internal class VerificationRequestStatusTest {
                 .businessZip("78701")
                 .corporateWebsite("http://example.com")
                 .isvReseller("Yes")
-                .messageVolume(Volume._100_000)
+                .messageVolume(Volume.V_100000)
                 .optInWorkflow(
                     "User signs into the Telnyx portal, enters number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
                 )
@@ -38,16 +38,17 @@ internal class VerificationRequestStatusTest {
                 .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554398").build())
                 .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554399").build())
                 .productionMessageContent("Your Telnyx OTP is XXXX")
-                .useCase(UseCaseCategories._2_FA)
+                .useCase(UseCaseCategories.TWO_FA)
                 .useCaseSummary(
                     "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                 )
-                .verificationStatus(TfVerificationStatus.VERIFIED)
+                .verificationStatus(TfVerificationStatus.WAITING_FOR_CUSTOMER)
                 .ageGatedContent(false)
                 .businessAddr2("14th Floor")
                 .businessRegistrationCountry("US")
                 .businessRegistrationNumber("12-3456789")
                 .businessRegistrationType("EIN")
+                .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                 .createdAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
                 .doingBusinessAs("Acme Services")
                 .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
@@ -81,7 +82,7 @@ internal class VerificationRequestStatusTest {
         assertThat(verificationRequestStatus.businessZip()).isEqualTo("78701")
         assertThat(verificationRequestStatus.corporateWebsite()).isEqualTo("http://example.com")
         assertThat(verificationRequestStatus.isvReseller()).isEqualTo("Yes")
-        assertThat(verificationRequestStatus.messageVolume()).isEqualTo(Volume._100_000)
+        assertThat(verificationRequestStatus.messageVolume()).isEqualTo(Volume.V_100000)
         assertThat(verificationRequestStatus.optInWorkflow())
             .isEqualTo(
                 "User signs into the Telnyx portal, enters number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
@@ -98,18 +99,20 @@ internal class VerificationRequestStatusTest {
             )
         assertThat(verificationRequestStatus.productionMessageContent())
             .isEqualTo("Your Telnyx OTP is XXXX")
-        assertThat(verificationRequestStatus.useCase()).isEqualTo(UseCaseCategories._2_FA)
+        assertThat(verificationRequestStatus.useCase()).isEqualTo(UseCaseCategories.TWO_FA)
         assertThat(verificationRequestStatus.useCaseSummary())
             .isEqualTo(
                 "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
             )
         assertThat(verificationRequestStatus.verificationStatus())
-            .isEqualTo(TfVerificationStatus.VERIFIED)
+            .isEqualTo(TfVerificationStatus.WAITING_FOR_CUSTOMER)
         assertThat(verificationRequestStatus.ageGatedContent()).contains(false)
         assertThat(verificationRequestStatus.businessAddr2()).contains("14th Floor")
         assertThat(verificationRequestStatus.businessRegistrationCountry()).contains("US")
         assertThat(verificationRequestStatus.businessRegistrationNumber()).contains("12-3456789")
         assertThat(verificationRequestStatus.businessRegistrationType()).contains("EIN")
+        assertThat(verificationRequestStatus.campaignVerifyAuthorizationToken())
+            .contains("cv_token_abc123xyz")
         assertThat(verificationRequestStatus.createdAt())
             .contains(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
         assertThat(verificationRequestStatus.doingBusinessAs()).contains("Acme Services")
@@ -153,7 +156,7 @@ internal class VerificationRequestStatusTest {
                 .businessZip("78701")
                 .corporateWebsite("http://example.com")
                 .isvReseller("Yes")
-                .messageVolume(Volume._100_000)
+                .messageVolume(Volume.V_100000)
                 .optInWorkflow(
                     "User signs into the Telnyx portal, enters number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
                 )
@@ -164,16 +167,17 @@ internal class VerificationRequestStatusTest {
                 .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554398").build())
                 .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554399").build())
                 .productionMessageContent("Your Telnyx OTP is XXXX")
-                .useCase(UseCaseCategories._2_FA)
+                .useCase(UseCaseCategories.TWO_FA)
                 .useCaseSummary(
                     "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                 )
-                .verificationStatus(TfVerificationStatus.VERIFIED)
+                .verificationStatus(TfVerificationStatus.WAITING_FOR_CUSTOMER)
                 .ageGatedContent(false)
                 .businessAddr2("14th Floor")
                 .businessRegistrationCountry("US")
                 .businessRegistrationNumber("12-3456789")
                 .businessRegistrationType("EIN")
+                .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                 .createdAt(OffsetDateTime.parse("2024-01-23T18:10:02.574Z"))
                 .doingBusinessAs("Acme Services")
                 .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)

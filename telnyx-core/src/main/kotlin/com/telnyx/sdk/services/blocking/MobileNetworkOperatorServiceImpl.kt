@@ -14,8 +14,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListPage
+import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListPageResponse
 import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListParams
-import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListResponse
 import java.util.function.Consumer
 
 class MobileNetworkOperatorServiceImpl
@@ -35,7 +36,7 @@ internal constructor(private val clientOptions: ClientOptions) : MobileNetworkOp
     override fun list(
         params: MobileNetworkOperatorListParams,
         requestOptions: RequestOptions,
-    ): MobileNetworkOperatorListResponse =
+    ): MobileNetworkOperatorListPage =
         // get /mobile_network_operators
         withRawResponse().list(params, requestOptions).parse()
 
@@ -52,13 +53,13 @@ internal constructor(private val clientOptions: ClientOptions) : MobileNetworkOp
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<MobileNetworkOperatorListResponse> =
-            jsonHandler<MobileNetworkOperatorListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MobileNetworkOperatorListPageResponse> =
+            jsonHandler<MobileNetworkOperatorListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: MobileNetworkOperatorListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MobileNetworkOperatorListResponse> {
+        ): HttpResponseFor<MobileNetworkOperatorListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -75,6 +76,13 @@ internal constructor(private val clientOptions: ClientOptions) : MobileNetworkOp
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        MobileNetworkOperatorListPage.builder()
+                            .service(MobileNetworkOperatorServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

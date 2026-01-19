@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.shortcodes.ShortCodeListPageAsync
 import com.telnyx.sdk.models.shortcodes.ShortCodeListParams
-import com.telnyx.sdk.models.shortcodes.ShortCodeListResponse
 import com.telnyx.sdk.models.shortcodes.ShortCodeRetrieveParams
 import com.telnyx.sdk.models.shortcodes.ShortCodeRetrieveResponse
 import com.telnyx.sdk.models.shortcodes.ShortCodeUpdateParams
@@ -65,7 +65,8 @@ interface ShortCodeServiceAsync {
 
     /**
      * Update the settings for a specific short code. To unbind a short code from a profile, set the
-     * `messaging_profile_id` to `null` or an empty string.
+     * `messaging_profile_id` to `null` or an empty string. To add or update tags, include the tags
+     * field as an array of strings.
      */
     fun update(
         id: String,
@@ -91,21 +92,21 @@ interface ShortCodeServiceAsync {
     ): CompletableFuture<ShortCodeUpdateResponse>
 
     /** List short codes */
-    fun list(): CompletableFuture<ShortCodeListResponse> = list(ShortCodeListParams.none())
+    fun list(): CompletableFuture<ShortCodeListPageAsync> = list(ShortCodeListParams.none())
 
     /** @see list */
     fun list(
         params: ShortCodeListParams = ShortCodeListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ShortCodeListResponse>
+    ): CompletableFuture<ShortCodeListPageAsync>
 
     /** @see list */
     fun list(
         params: ShortCodeListParams = ShortCodeListParams.none()
-    ): CompletableFuture<ShortCodeListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<ShortCodeListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<ShortCodeListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<ShortCodeListPageAsync> =
         list(ShortCodeListParams.none(), requestOptions)
 
     /**
@@ -197,25 +198,25 @@ interface ShortCodeServiceAsync {
          * Returns a raw HTTP response for `get /short_codes`, but is otherwise the same as
          * [ShortCodeServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<ShortCodeListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<ShortCodeListPageAsync>> =
             list(ShortCodeListParams.none())
 
         /** @see list */
         fun list(
             params: ShortCodeListParams = ShortCodeListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ShortCodeListResponse>>
+        ): CompletableFuture<HttpResponseFor<ShortCodeListPageAsync>>
 
         /** @see list */
         fun list(
             params: ShortCodeListParams = ShortCodeListParams.none()
-        ): CompletableFuture<HttpResponseFor<ShortCodeListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ShortCodeListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<ShortCodeListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ShortCodeListPageAsync>> =
             list(ShortCodeListParams.none(), requestOptions)
     }
 }

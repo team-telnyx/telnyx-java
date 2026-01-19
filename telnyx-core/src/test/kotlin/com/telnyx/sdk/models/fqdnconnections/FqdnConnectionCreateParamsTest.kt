@@ -19,6 +19,7 @@ internal class FqdnConnectionCreateParamsTest {
             .active(true)
             .anchorsiteOverride(AnchorsiteOverride.LATENCY)
             .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+            .callCostInWebhooks(false)
             .defaultOnHoldComfortNoiseEnabled(true)
             .dtmfType(DtmfType.RFC_2833)
             .encodeContactHeaderEnabled(true)
@@ -49,6 +50,15 @@ internal class FqdnConnectionCreateParamsTest {
             )
             .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
             .microsoftTeamsSbc(true)
+            .noiseSuppression(FqdnConnectionCreateParams.NoiseSuppression.BOTH)
+            .noiseSuppressionDetails(
+                FqdnConnectionCreateParams.NoiseSuppressionDetails.builder()
+                    .attenuationLimit(80L)
+                    .engine(
+                        FqdnConnectionCreateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                    )
+                    .build()
+            )
             .onnetT38PassthroughEnabled(true)
             .outbound(
                 OutboundFqdn.builder()
@@ -81,7 +91,7 @@ internal class FqdnConnectionCreateParamsTest {
             .addTag("tag1")
             .addTag("tag2")
             .transportProtocol(TransportProtocol.UDP)
-            .webhookApiVersion(WebhookApiVersion._1)
+            .webhookApiVersion(WebhookApiVersion.V1)
             .webhookEventFailoverUrl("https://failover.example.com")
             .webhookEventUrl("https://example.com")
             .webhookTimeoutSecs(25L)
@@ -96,6 +106,7 @@ internal class FqdnConnectionCreateParamsTest {
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                 .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+                .callCostInWebhooks(false)
                 .defaultOnHoldComfortNoiseEnabled(true)
                 .dtmfType(DtmfType.RFC_2833)
                 .encodeContactHeaderEnabled(true)
@@ -126,6 +137,16 @@ internal class FqdnConnectionCreateParamsTest {
                 )
                 .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
                 .microsoftTeamsSbc(true)
+                .noiseSuppression(FqdnConnectionCreateParams.NoiseSuppression.BOTH)
+                .noiseSuppressionDetails(
+                    FqdnConnectionCreateParams.NoiseSuppressionDetails.builder()
+                        .attenuationLimit(80L)
+                        .engine(
+                            FqdnConnectionCreateParams.NoiseSuppressionDetails.Engine
+                                .DEEP_FILTER_NET
+                        )
+                        .build()
+                )
                 .onnetT38PassthroughEnabled(true)
                 .outbound(
                     OutboundFqdn.builder()
@@ -158,7 +179,7 @@ internal class FqdnConnectionCreateParamsTest {
                 .addTag("tag1")
                 .addTag("tag2")
                 .transportProtocol(TransportProtocol.UDP)
-                .webhookApiVersion(WebhookApiVersion._1)
+                .webhookApiVersion(WebhookApiVersion.V1)
                 .webhookEventFailoverUrl("https://failover.example.com")
                 .webhookEventUrl("https://example.com")
                 .webhookTimeoutSecs(25L)
@@ -170,6 +191,7 @@ internal class FqdnConnectionCreateParamsTest {
         assertThat(body.active()).contains(true)
         assertThat(body.anchorsiteOverride()).contains(AnchorsiteOverride.LATENCY)
         assertThat(body.androidPushCredentialId()).contains("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+        assertThat(body.callCostInWebhooks()).contains(false)
         assertThat(body.defaultOnHoldComfortNoiseEnabled()).contains(true)
         assertThat(body.dtmfType()).contains(DtmfType.RFC_2833)
         assertThat(body.encodeContactHeaderEnabled()).contains(true)
@@ -201,6 +223,17 @@ internal class FqdnConnectionCreateParamsTest {
             )
         assertThat(body.iosPushCredentialId()).contains("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
         assertThat(body.microsoftTeamsSbc()).contains(true)
+        assertThat(body.noiseSuppression())
+            .contains(FqdnConnectionCreateParams.NoiseSuppression.BOTH)
+        assertThat(body.noiseSuppressionDetails())
+            .contains(
+                FqdnConnectionCreateParams.NoiseSuppressionDetails.builder()
+                    .attenuationLimit(80L)
+                    .engine(
+                        FqdnConnectionCreateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                    )
+                    .build()
+            )
         assertThat(body.onnetT38PassthroughEnabled()).contains(true)
         assertThat(body.outbound())
             .contains(
@@ -234,7 +267,7 @@ internal class FqdnConnectionCreateParamsTest {
             )
         assertThat(body.tags().getOrNull()).containsExactly("tag1", "tag2")
         assertThat(body.transportProtocol()).contains(TransportProtocol.UDP)
-        assertThat(body.webhookApiVersion()).contains(WebhookApiVersion._1)
+        assertThat(body.webhookApiVersion()).contains(WebhookApiVersion.V1)
         assertThat(body.webhookEventFailoverUrl()).contains("https://failover.example.com")
         assertThat(body.webhookEventUrl()).contains("https://example.com")
         assertThat(body.webhookTimeoutSecs()).contains(25L)

@@ -11,7 +11,9 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
@@ -28,6 +30,7 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val recordType: JsonField<RecordType>,
     private val shortCode: JsonField<String>,
+    private val tags: JsonField<List<String>>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -48,6 +51,7 @@ private constructor(
         @ExcludeMissing
         recordType: JsonField<RecordType> = JsonMissing.of(),
         @JsonProperty("short_code") @ExcludeMissing shortCode: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("tags") @ExcludeMissing tags: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -58,6 +62,7 @@ private constructor(
         createdAt,
         recordType,
         shortCode,
+        tags,
         updatedAt,
         mutableMapOf(),
     )
@@ -110,6 +115,12 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun shortCode(): Optional<String> = shortCode.getOptional("short_code")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun tags(): Optional<List<String>> = tags.getOptional("tags")
 
     /**
      * ISO 8601 formatted date indicating when the resource was updated.
@@ -171,6 +182,13 @@ private constructor(
     @JsonProperty("short_code") @ExcludeMissing fun _shortCode(): JsonField<String> = shortCode
 
     /**
+     * Returns the raw JSON value of [tags].
+     *
+     * Unlike [tags], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("tags") @ExcludeMissing fun _tags(): JsonField<List<String>> = tags
+
+    /**
      * Returns the raw JSON value of [updatedAt].
      *
      * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -213,6 +231,7 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var recordType: JsonField<RecordType> = JsonMissing.of()
         private var shortCode: JsonField<String> = JsonMissing.of()
+        private var tags: JsonField<MutableList<String>>? = null
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -224,6 +243,7 @@ private constructor(
             createdAt = shortCode.createdAt
             recordType = shortCode.recordType
             this.shortCode = shortCode.shortCode
+            tags = shortCode.tags.map { it.toMutableList() }
             updatedAt = shortCode.updatedAt
             additionalProperties = shortCode.additionalProperties.toMutableMap()
         }
@@ -308,6 +328,28 @@ private constructor(
          */
         fun shortCode(shortCode: JsonField<String>) = apply { this.shortCode = shortCode }
 
+        fun tags(tags: List<String>) = tags(JsonField.of(tags))
+
+        /**
+         * Sets [Builder.tags] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.tags] with a well-typed `List<String>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun tags(tags: JsonField<List<String>>) = apply {
+            this.tags = tags.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [String] to [tags].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addTag(tag: String) = apply {
+            tags = (tags ?: JsonField.of(mutableListOf())).also { checkKnown("tags", it).add(tag) }
+        }
+
         /** ISO 8601 formatted date indicating when the resource was updated. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
@@ -359,6 +401,7 @@ private constructor(
                 createdAt,
                 recordType,
                 shortCode,
+                (tags ?: JsonMissing.of()).map { it.toImmutable() },
                 updatedAt,
                 additionalProperties.toMutableMap(),
             )
@@ -377,6 +420,7 @@ private constructor(
         createdAt()
         recordType().ifPresent { it.validate() }
         shortCode()
+        tags()
         updatedAt()
         validated = true
     }
@@ -402,6 +446,7 @@ private constructor(
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (recordType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (shortCode.asKnown().isPresent) 1 else 0) +
+            (tags.asKnown().getOrNull()?.size ?: 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0)
 
     /** Identifies the type of the resource. */
@@ -538,6 +583,7 @@ private constructor(
             createdAt == other.createdAt &&
             recordType == other.recordType &&
             shortCode == other.shortCode &&
+            tags == other.tags &&
             updatedAt == other.updatedAt &&
             additionalProperties == other.additionalProperties
     }
@@ -550,6 +596,7 @@ private constructor(
             createdAt,
             recordType,
             shortCode,
+            tags,
             updatedAt,
             additionalProperties,
         )
@@ -558,5 +605,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ShortCode{messagingProfileId=$messagingProfileId, id=$id, countryCode=$countryCode, createdAt=$createdAt, recordType=$recordType, shortCode=$shortCode, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "ShortCode{messagingProfileId=$messagingProfileId, id=$id, countryCode=$countryCode, createdAt=$createdAt, recordType=$recordType, shortCode=$shortCode, tags=$tags, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

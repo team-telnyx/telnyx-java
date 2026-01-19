@@ -4,12 +4,12 @@ package com.telnyx.sdk.services.async.ai.assistants
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventCreateParams
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventDeleteParams
-import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventDeleteResponse
+import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListPageAsync
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListParams
-import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventListResponse
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventResponse
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -79,7 +79,7 @@ interface ScheduledEventServiceAsync {
     ): CompletableFuture<ScheduledEventResponse>
 
     /** Get scheduled events for an assistant with pagination and filtering */
-    fun list(assistantId: String): CompletableFuture<ScheduledEventListResponse> =
+    fun list(assistantId: String): CompletableFuture<ScheduledEventListPageAsync> =
         list(assistantId, ScheduledEventListParams.none())
 
     /** @see list */
@@ -87,41 +87,38 @@ interface ScheduledEventServiceAsync {
         assistantId: String,
         params: ScheduledEventListParams = ScheduledEventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ScheduledEventListResponse> =
+    ): CompletableFuture<ScheduledEventListPageAsync> =
         list(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
     /** @see list */
     fun list(
         assistantId: String,
         params: ScheduledEventListParams = ScheduledEventListParams.none(),
-    ): CompletableFuture<ScheduledEventListResponse> =
+    ): CompletableFuture<ScheduledEventListPageAsync> =
         list(assistantId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: ScheduledEventListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ScheduledEventListResponse>
+    ): CompletableFuture<ScheduledEventListPageAsync>
 
     /** @see list */
-    fun list(params: ScheduledEventListParams): CompletableFuture<ScheduledEventListResponse> =
+    fun list(params: ScheduledEventListParams): CompletableFuture<ScheduledEventListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         assistantId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ScheduledEventListResponse> =
+    ): CompletableFuture<ScheduledEventListPageAsync> =
         list(assistantId, ScheduledEventListParams.none(), requestOptions)
 
     /**
      * If the event is pending, this will cancel the event. Otherwise, this will simply remove the
      * record of the event.
      */
-    fun delete(
-        eventId: String,
-        params: ScheduledEventDeleteParams,
-    ): CompletableFuture<ScheduledEventDeleteResponse> =
+    fun delete(eventId: String, params: ScheduledEventDeleteParams): CompletableFuture<Void?> =
         delete(eventId, params, RequestOptions.none())
 
     /** @see delete */
@@ -129,19 +126,18 @@ interface ScheduledEventServiceAsync {
         eventId: String,
         params: ScheduledEventDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ScheduledEventDeleteResponse> =
+    ): CompletableFuture<Void?> =
         delete(params.toBuilder().eventId(eventId).build(), requestOptions)
 
     /** @see delete */
-    fun delete(
-        params: ScheduledEventDeleteParams
-    ): CompletableFuture<ScheduledEventDeleteResponse> = delete(params, RequestOptions.none())
+    fun delete(params: ScheduledEventDeleteParams): CompletableFuture<Void?> =
+        delete(params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: ScheduledEventDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ScheduledEventDeleteResponse>
+    ): CompletableFuture<Void?>
 
     /**
      * A view of [ScheduledEventServiceAsync] that provides access to raw HTTP responses for each
@@ -225,7 +221,7 @@ interface ScheduledEventServiceAsync {
          */
         fun list(
             assistantId: String
-        ): CompletableFuture<HttpResponseFor<ScheduledEventListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ScheduledEventListPageAsync>> =
             list(assistantId, ScheduledEventListParams.none())
 
         /** @see list */
@@ -233,33 +229,33 @@ interface ScheduledEventServiceAsync {
             assistantId: String,
             params: ScheduledEventListParams = ScheduledEventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ScheduledEventListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ScheduledEventListPageAsync>> =
             list(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
         /** @see list */
         fun list(
             assistantId: String,
             params: ScheduledEventListParams = ScheduledEventListParams.none(),
-        ): CompletableFuture<HttpResponseFor<ScheduledEventListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ScheduledEventListPageAsync>> =
             list(assistantId, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: ScheduledEventListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ScheduledEventListResponse>>
+        ): CompletableFuture<HttpResponseFor<ScheduledEventListPageAsync>>
 
         /** @see list */
         fun list(
             params: ScheduledEventListParams
-        ): CompletableFuture<HttpResponseFor<ScheduledEventListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ScheduledEventListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             assistantId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ScheduledEventListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ScheduledEventListPageAsync>> =
             list(assistantId, ScheduledEventListParams.none(), requestOptions)
 
         /**
@@ -270,27 +266,24 @@ interface ScheduledEventServiceAsync {
         fun delete(
             eventId: String,
             params: ScheduledEventDeleteParams,
-        ): CompletableFuture<HttpResponseFor<ScheduledEventDeleteResponse>> =
-            delete(eventId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponse> = delete(eventId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             eventId: String,
             params: ScheduledEventDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ScheduledEventDeleteResponse>> =
+        ): CompletableFuture<HttpResponse> =
             delete(params.toBuilder().eventId(eventId).build(), requestOptions)
 
         /** @see delete */
-        fun delete(
-            params: ScheduledEventDeleteParams
-        ): CompletableFuture<HttpResponseFor<ScheduledEventDeleteResponse>> =
+        fun delete(params: ScheduledEventDeleteParams): CompletableFuture<HttpResponse> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             params: ScheduledEventDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ScheduledEventDeleteResponse>>
+        ): CompletableFuture<HttpResponse>
     }
 }

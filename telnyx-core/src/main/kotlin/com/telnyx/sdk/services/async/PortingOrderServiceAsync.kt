@@ -9,16 +9,16 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.portingorders.PortingOrderCreateParams
 import com.telnyx.sdk.models.portingorders.PortingOrderCreateResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderDeleteParams
+import com.telnyx.sdk.models.portingorders.PortingOrderListPageAsync
 import com.telnyx.sdk.models.portingorders.PortingOrderListParams
-import com.telnyx.sdk.models.portingorders.PortingOrderListResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveAllowedFocWindowsParams
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveAllowedFocWindowsResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveExceptionTypesParams
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveExceptionTypesResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveLoaTemplateParams
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveParams
+import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveRequirementsPageAsync
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveRequirementsParams
-import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveRequirementsResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveResponse
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveSubRequestParams
 import com.telnyx.sdk.models.portingorders.PortingOrderRetrieveSubRequestResponse
@@ -162,21 +162,21 @@ interface PortingOrderServiceAsync {
         update(id, PortingOrderUpdateParams.none(), requestOptions)
 
     /** Returns a list of your porting order. */
-    fun list(): CompletableFuture<PortingOrderListResponse> = list(PortingOrderListParams.none())
+    fun list(): CompletableFuture<PortingOrderListPageAsync> = list(PortingOrderListParams.none())
 
     /** @see list */
     fun list(
         params: PortingOrderListParams = PortingOrderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PortingOrderListResponse>
+    ): CompletableFuture<PortingOrderListPageAsync>
 
     /** @see list */
     fun list(
         params: PortingOrderListParams = PortingOrderListParams.none()
-    ): CompletableFuture<PortingOrderListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<PortingOrderListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<PortingOrderListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<PortingOrderListPageAsync> =
         list(PortingOrderListParams.none(), requestOptions)
 
     /**
@@ -322,7 +322,7 @@ interface PortingOrderServiceAsync {
     /** Returns a list of all requirements based on country/number type for this porting order. */
     fun retrieveRequirements(
         id: String
-    ): CompletableFuture<PortingOrderRetrieveRequirementsResponse> =
+    ): CompletableFuture<PortingOrderRetrieveRequirementsPageAsync> =
         retrieveRequirements(id, PortingOrderRetrieveRequirementsParams.none())
 
     /** @see retrieveRequirements */
@@ -331,7 +331,7 @@ interface PortingOrderServiceAsync {
         params: PortingOrderRetrieveRequirementsParams =
             PortingOrderRetrieveRequirementsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PortingOrderRetrieveRequirementsResponse> =
+    ): CompletableFuture<PortingOrderRetrieveRequirementsPageAsync> =
         retrieveRequirements(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieveRequirements */
@@ -339,26 +339,26 @@ interface PortingOrderServiceAsync {
         id: String,
         params: PortingOrderRetrieveRequirementsParams =
             PortingOrderRetrieveRequirementsParams.none(),
-    ): CompletableFuture<PortingOrderRetrieveRequirementsResponse> =
+    ): CompletableFuture<PortingOrderRetrieveRequirementsPageAsync> =
         retrieveRequirements(id, params, RequestOptions.none())
 
     /** @see retrieveRequirements */
     fun retrieveRequirements(
         params: PortingOrderRetrieveRequirementsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PortingOrderRetrieveRequirementsResponse>
+    ): CompletableFuture<PortingOrderRetrieveRequirementsPageAsync>
 
     /** @see retrieveRequirements */
     fun retrieveRequirements(
         params: PortingOrderRetrieveRequirementsParams
-    ): CompletableFuture<PortingOrderRetrieveRequirementsResponse> =
+    ): CompletableFuture<PortingOrderRetrieveRequirementsPageAsync> =
         retrieveRequirements(params, RequestOptions.none())
 
     /** @see retrieveRequirements */
     fun retrieveRequirements(
         id: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PortingOrderRetrieveRequirementsResponse> =
+    ): CompletableFuture<PortingOrderRetrieveRequirementsPageAsync> =
         retrieveRequirements(id, PortingOrderRetrieveRequirementsParams.none(), requestOptions)
 
     /** Retrieve the associated V1 sub_request_id and port_request_id */
@@ -535,25 +535,25 @@ interface PortingOrderServiceAsync {
          * Returns a raw HTTP response for `get /porting_orders`, but is otherwise the same as
          * [PortingOrderServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<PortingOrderListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<PortingOrderListPageAsync>> =
             list(PortingOrderListParams.none())
 
         /** @see list */
         fun list(
             params: PortingOrderListParams = PortingOrderListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PortingOrderListResponse>>
+        ): CompletableFuture<HttpResponseFor<PortingOrderListPageAsync>>
 
         /** @see list */
         fun list(
             params: PortingOrderListParams = PortingOrderListParams.none()
-        ): CompletableFuture<HttpResponseFor<PortingOrderListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PortingOrderListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<PortingOrderListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PortingOrderListPageAsync>> =
             list(PortingOrderListParams.none(), requestOptions)
 
         /**
@@ -715,7 +715,7 @@ interface PortingOrderServiceAsync {
          */
         fun retrieveRequirements(
             id: String
-        ): CompletableFuture<HttpResponseFor<PortingOrderRetrieveRequirementsResponse>> =
+        ): CompletableFuture<HttpResponseFor<PortingOrderRetrieveRequirementsPageAsync>> =
             retrieveRequirements(id, PortingOrderRetrieveRequirementsParams.none())
 
         /** @see retrieveRequirements */
@@ -724,7 +724,7 @@ interface PortingOrderServiceAsync {
             params: PortingOrderRetrieveRequirementsParams =
                 PortingOrderRetrieveRequirementsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PortingOrderRetrieveRequirementsResponse>> =
+        ): CompletableFuture<HttpResponseFor<PortingOrderRetrieveRequirementsPageAsync>> =
             retrieveRequirements(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieveRequirements */
@@ -732,26 +732,26 @@ interface PortingOrderServiceAsync {
             id: String,
             params: PortingOrderRetrieveRequirementsParams =
                 PortingOrderRetrieveRequirementsParams.none(),
-        ): CompletableFuture<HttpResponseFor<PortingOrderRetrieveRequirementsResponse>> =
+        ): CompletableFuture<HttpResponseFor<PortingOrderRetrieveRequirementsPageAsync>> =
             retrieveRequirements(id, params, RequestOptions.none())
 
         /** @see retrieveRequirements */
         fun retrieveRequirements(
             params: PortingOrderRetrieveRequirementsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PortingOrderRetrieveRequirementsResponse>>
+        ): CompletableFuture<HttpResponseFor<PortingOrderRetrieveRequirementsPageAsync>>
 
         /** @see retrieveRequirements */
         fun retrieveRequirements(
             params: PortingOrderRetrieveRequirementsParams
-        ): CompletableFuture<HttpResponseFor<PortingOrderRetrieveRequirementsResponse>> =
+        ): CompletableFuture<HttpResponseFor<PortingOrderRetrieveRequirementsPageAsync>> =
             retrieveRequirements(params, RequestOptions.none())
 
         /** @see retrieveRequirements */
         fun retrieveRequirements(
             id: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PortingOrderRetrieveRequirementsResponse>> =
+        ): CompletableFuture<HttpResponseFor<PortingOrderRetrieveRequirementsPageAsync>> =
             retrieveRequirements(id, PortingOrderRetrieveRequirementsParams.none(), requestOptions)
 
         /**

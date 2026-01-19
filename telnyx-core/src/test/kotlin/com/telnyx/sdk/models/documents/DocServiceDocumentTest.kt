@@ -14,6 +14,7 @@ internal class DocServiceDocumentTest {
         val docServiceDocument =
             DocServiceDocument.builder()
                 .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .avScanStatus(DocServiceDocument.AvScanStatus.SCANNED)
                 .contentType("application/pdf")
                 .createdAt("2018-02-02T22:25:27.521Z")
                 .customerReference("MY REF 001")
@@ -26,6 +27,8 @@ internal class DocServiceDocumentTest {
                 .build()
 
         assertThat(docServiceDocument.id()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(docServiceDocument.avScanStatus())
+            .contains(DocServiceDocument.AvScanStatus.SCANNED)
         assertThat(docServiceDocument.contentType()).contains("application/pdf")
         assertThat(docServiceDocument.createdAt()).contains("2018-02-02T22:25:27.521Z")
         assertThat(docServiceDocument.customerReference()).contains("MY REF 001")
@@ -45,6 +48,7 @@ internal class DocServiceDocumentTest {
         val docServiceDocument =
             DocServiceDocument.builder()
                 .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .avScanStatus(DocServiceDocument.AvScanStatus.SCANNED)
                 .contentType("application/pdf")
                 .createdAt("2018-02-02T22:25:27.521Z")
                 .customerReference("MY REF 001")

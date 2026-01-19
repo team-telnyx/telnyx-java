@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking.ai.conversations
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -17,10 +18,10 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupDeleteParams
-import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupDeleteResponse
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupInsightGroupsParams
+import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsPage
+import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsPageResponse
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsParams
-import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsResponse
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupUpdateParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightTemplateGroupDetail
@@ -59,12 +60,10 @@ class InsightGroupServiceImpl internal constructor(private val clientOptions: Cl
         // put /ai/conversations/insight-groups/{group_id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun delete(
-        params: InsightGroupDeleteParams,
-        requestOptions: RequestOptions,
-    ): InsightGroupDeleteResponse =
+    override fun delete(params: InsightGroupDeleteParams, requestOptions: RequestOptions) {
         // delete /ai/conversations/insight-groups/{group_id}
-        withRawResponse().delete(params, requestOptions).parse()
+        withRawResponse().delete(params, requestOptions)
+    }
 
     override fun insightGroups(
         params: InsightGroupInsightGroupsParams,
@@ -76,7 +75,7 @@ class InsightGroupServiceImpl internal constructor(private val clientOptions: Cl
     override fun retrieveInsightGroups(
         params: InsightGroupRetrieveInsightGroupsParams,
         requestOptions: RequestOptions,
-    ): InsightGroupRetrieveInsightGroupsResponse =
+    ): InsightGroupRetrieveInsightGroupsPage =
         // get /ai/conversations/insight-groups
         withRawResponse().retrieveInsightGroups(params, requestOptions).parse()
 
@@ -160,13 +159,12 @@ class InsightGroupServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val deleteHandler: Handler<InsightGroupDeleteResponse> =
-            jsonHandler<InsightGroupDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
         override fun delete(
             params: InsightGroupDeleteParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InsightGroupDeleteResponse> {
+        ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("groupId", params.groupId().getOrNull())
@@ -181,13 +179,7 @@ class InsightGroupServiceImpl internal constructor(private val clientOptions: Cl
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response
-                    .use { deleteHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
+                response.use { deleteHandler.handle(it) }
             }
         }
 
@@ -220,13 +212,13 @@ class InsightGroupServiceImpl internal constructor(private val clientOptions: Cl
         }
 
         private val retrieveInsightGroupsHandler:
-            Handler<InsightGroupRetrieveInsightGroupsResponse> =
-            jsonHandler<InsightGroupRetrieveInsightGroupsResponse>(clientOptions.jsonMapper)
+            Handler<InsightGroupRetrieveInsightGroupsPageResponse> =
+            jsonHandler<InsightGroupRetrieveInsightGroupsPageResponse>(clientOptions.jsonMapper)
 
         override fun retrieveInsightGroups(
             params: InsightGroupRetrieveInsightGroupsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InsightGroupRetrieveInsightGroupsResponse> {
+        ): HttpResponseFor<InsightGroupRetrieveInsightGroupsPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -243,6 +235,13 @@ class InsightGroupServiceImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        InsightGroupRetrieveInsightGroupsPage.builder()
+                            .service(InsightGroupServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

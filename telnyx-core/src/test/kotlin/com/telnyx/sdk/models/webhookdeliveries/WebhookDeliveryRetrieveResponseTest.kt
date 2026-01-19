@@ -28,7 +28,7 @@ internal class WebhookDeliveryRetrieveResponseTest {
                                             WebhookDeliveryRetrieveResponse.Data.Attempt.Http
                                                 .Request
                                                 .builder()
-                                                .addHeader(listOf("string"))
+                                                .addHeader(listOf("Accept", "*/*"))
                                                 .url("https://fallback.example.com/webhooks")
                                                 .build()
                                         )
@@ -37,7 +37,7 @@ internal class WebhookDeliveryRetrieveResponseTest {
                                                 .Response
                                                 .builder()
                                                 .body("All good.")
-                                                .addHeader(listOf("string"))
+                                                .addHeader(listOf("Content-Type", "text/html"))
                                                 .status(200L)
                                                 .build()
                                         )
@@ -51,7 +51,7 @@ internal class WebhookDeliveryRetrieveResponseTest {
                         )
                         .addAttempt(
                             WebhookDeliveryRetrieveResponse.Data.Attempt.builder()
-                                .addError(0L)
+                                .addError(75499L)
                                 .finishedAt(OffsetDateTime.parse("2020-08-10T14:00:05.360Z"))
                                 .http(
                                     WebhookDeliveryRetrieveResponse.Data.Attempt.Http.builder()
@@ -59,7 +59,7 @@ internal class WebhookDeliveryRetrieveResponseTest {
                                             WebhookDeliveryRetrieveResponse.Data.Attempt.Http
                                                 .Request
                                                 .builder()
-                                                .addHeader(listOf("string"))
+                                                .addHeader(listOf("Accept", "*/*"))
                                                 .url("https://typo.example.com/webhooks")
                                                 .build()
                                         )
@@ -68,8 +68,8 @@ internal class WebhookDeliveryRetrieveResponseTest {
                                                 .Response
                                                 .builder()
                                                 .body("Oops. Not found.")
-                                                .addHeader(listOf("string"))
-                                                .addHeader(listOf("string"))
+                                                .addHeader(listOf("Content-Type", "text/html"))
+                                                .addHeader(listOf("Pragma", "no-cache"))
                                                 .status(404L)
                                                 .build()
                                         )
@@ -89,7 +89,11 @@ internal class WebhookDeliveryRetrieveResponseTest {
                                 .id("C9C0797E-901D-4349-A33C-C2C8F31A92C2")
                                 .eventType("call_initiated")
                                 .occurredAt(OffsetDateTime.parse("2020-08-10T13:02:01.000Z"))
-                                .payload(JsonValue.from(mapOf("useful" to "information")))
+                                .payload(
+                                    WebhookDeliveryRetrieveResponse.Data.Webhook.Payload.builder()
+                                        .putAdditionalProperty("useful", JsonValue.from("bar"))
+                                        .build()
+                                )
                                 .recordType(
                                     WebhookDeliveryRetrieveResponse.Data.Webhook.RecordType.EVENT
                                 )
@@ -112,7 +116,7 @@ internal class WebhookDeliveryRetrieveResponseTest {
                                     .request(
                                         WebhookDeliveryRetrieveResponse.Data.Attempt.Http.Request
                                             .builder()
-                                            .addHeader(listOf("string"))
+                                            .addHeader(listOf("Accept", "*/*"))
                                             .url("https://fallback.example.com/webhooks")
                                             .build()
                                     )
@@ -120,7 +124,7 @@ internal class WebhookDeliveryRetrieveResponseTest {
                                         WebhookDeliveryRetrieveResponse.Data.Attempt.Http.Response
                                             .builder()
                                             .body("All good.")
-                                            .addHeader(listOf("string"))
+                                            .addHeader(listOf("Content-Type", "text/html"))
                                             .status(200L)
                                             .build()
                                     )
@@ -132,14 +136,14 @@ internal class WebhookDeliveryRetrieveResponseTest {
                     )
                     .addAttempt(
                         WebhookDeliveryRetrieveResponse.Data.Attempt.builder()
-                            .addError(0L)
+                            .addError(75499L)
                             .finishedAt(OffsetDateTime.parse("2020-08-10T14:00:05.360Z"))
                             .http(
                                 WebhookDeliveryRetrieveResponse.Data.Attempt.Http.builder()
                                     .request(
                                         WebhookDeliveryRetrieveResponse.Data.Attempt.Http.Request
                                             .builder()
-                                            .addHeader(listOf("string"))
+                                            .addHeader(listOf("Accept", "*/*"))
                                             .url("https://typo.example.com/webhooks")
                                             .build()
                                     )
@@ -147,8 +151,8 @@ internal class WebhookDeliveryRetrieveResponseTest {
                                         WebhookDeliveryRetrieveResponse.Data.Attempt.Http.Response
                                             .builder()
                                             .body("Oops. Not found.")
-                                            .addHeader(listOf("string"))
-                                            .addHeader(listOf("string"))
+                                            .addHeader(listOf("Content-Type", "text/html"))
+                                            .addHeader(listOf("Pragma", "no-cache"))
                                             .status(404L)
                                             .build()
                                     )
@@ -168,7 +172,11 @@ internal class WebhookDeliveryRetrieveResponseTest {
                             .id("C9C0797E-901D-4349-A33C-C2C8F31A92C2")
                             .eventType("call_initiated")
                             .occurredAt(OffsetDateTime.parse("2020-08-10T13:02:01.000Z"))
-                            .payload(JsonValue.from(mapOf("useful" to "information")))
+                            .payload(
+                                WebhookDeliveryRetrieveResponse.Data.Webhook.Payload.builder()
+                                    .putAdditionalProperty("useful", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .recordType(
                                 WebhookDeliveryRetrieveResponse.Data.Webhook.RecordType.EVENT
                             )
@@ -196,7 +204,7 @@ internal class WebhookDeliveryRetrieveResponseTest {
                                             WebhookDeliveryRetrieveResponse.Data.Attempt.Http
                                                 .Request
                                                 .builder()
-                                                .addHeader(listOf("string"))
+                                                .addHeader(listOf("Accept", "*/*"))
                                                 .url("https://fallback.example.com/webhooks")
                                                 .build()
                                         )
@@ -205,7 +213,7 @@ internal class WebhookDeliveryRetrieveResponseTest {
                                                 .Response
                                                 .builder()
                                                 .body("All good.")
-                                                .addHeader(listOf("string"))
+                                                .addHeader(listOf("Content-Type", "text/html"))
                                                 .status(200L)
                                                 .build()
                                         )
@@ -219,7 +227,7 @@ internal class WebhookDeliveryRetrieveResponseTest {
                         )
                         .addAttempt(
                             WebhookDeliveryRetrieveResponse.Data.Attempt.builder()
-                                .addError(0L)
+                                .addError(75499L)
                                 .finishedAt(OffsetDateTime.parse("2020-08-10T14:00:05.360Z"))
                                 .http(
                                     WebhookDeliveryRetrieveResponse.Data.Attempt.Http.builder()
@@ -227,7 +235,7 @@ internal class WebhookDeliveryRetrieveResponseTest {
                                             WebhookDeliveryRetrieveResponse.Data.Attempt.Http
                                                 .Request
                                                 .builder()
-                                                .addHeader(listOf("string"))
+                                                .addHeader(listOf("Accept", "*/*"))
                                                 .url("https://typo.example.com/webhooks")
                                                 .build()
                                         )
@@ -236,8 +244,8 @@ internal class WebhookDeliveryRetrieveResponseTest {
                                                 .Response
                                                 .builder()
                                                 .body("Oops. Not found.")
-                                                .addHeader(listOf("string"))
-                                                .addHeader(listOf("string"))
+                                                .addHeader(listOf("Content-Type", "text/html"))
+                                                .addHeader(listOf("Pragma", "no-cache"))
                                                 .status(404L)
                                                 .build()
                                         )
@@ -257,7 +265,11 @@ internal class WebhookDeliveryRetrieveResponseTest {
                                 .id("C9C0797E-901D-4349-A33C-C2C8F31A92C2")
                                 .eventType("call_initiated")
                                 .occurredAt(OffsetDateTime.parse("2020-08-10T13:02:01.000Z"))
-                                .payload(JsonValue.from(mapOf("useful" to "information")))
+                                .payload(
+                                    WebhookDeliveryRetrieveResponse.Data.Webhook.Payload.builder()
+                                        .putAdditionalProperty("useful", JsonValue.from("bar"))
+                                        .build()
+                                )
                                 .recordType(
                                     WebhookDeliveryRetrieveResponse.Data.Webhook.RecordType.EVENT
                                 )

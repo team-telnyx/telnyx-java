@@ -7,7 +7,6 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
 import com.telnyx.sdk.models.credentialconnections.DtmfType
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationCreateParams
-import com.telnyx.sdk.models.texmlapplications.TexmlApplicationListParams
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -33,6 +32,7 @@ internal class TexmlApplicationServiceTest {
                     .voiceUrl("https://example.com")
                     .active(false)
                     .anchorsiteOverride(AnchorsiteOverride.AMSTERDAM_NETHERLANDS)
+                    .callCostInWebhooks(false)
                     .dtmfType(DtmfType.INBAND)
                     .firstCommandTimeout(true)
                     .firstCommandTimeoutSecs(10L)
@@ -98,6 +98,7 @@ internal class TexmlApplicationServiceTest {
                     .voiceUrl("https://example.com")
                     .active(false)
                     .anchorsiteOverride(AnchorsiteOverride.AMSTERDAM_NETHERLANDS)
+                    .callCostInWebhooks(false)
                     .dtmfType(DtmfType.INBAND)
                     .firstCommandTimeout(true)
                     .firstCommandTimeoutSecs(10L)
@@ -140,21 +141,9 @@ internal class TexmlApplicationServiceTest {
                 .build()
         val texmlApplicationService = client.texmlApplications()
 
-        val texmlApplications =
-            texmlApplicationService.list(
-                TexmlApplicationListParams.builder()
-                    .filter(
-                        TexmlApplicationListParams.Filter.builder()
-                            .friendlyName("friendly_name")
-                            .outboundVoiceProfileId("1293384261075731499")
-                            .build()
-                    )
-                    .page(TexmlApplicationListParams.Page.builder().number(1L).size(1L).build())
-                    .sort(TexmlApplicationListParams.Sort.FRIENDLY_NAME)
-                    .build()
-            )
+        val page = texmlApplicationService.list()
 
-        texmlApplications.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

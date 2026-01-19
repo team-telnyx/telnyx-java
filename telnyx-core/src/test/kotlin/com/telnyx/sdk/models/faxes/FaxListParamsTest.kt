@@ -27,7 +27,8 @@ internal class FaxListParamsTest {
                     .to(FaxListParams.Filter.To.builder().eq("+13127367276").build())
                     .build()
             )
-            .page(FaxListParams.Page.builder().number(2L).size(2L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -50,7 +51,8 @@ internal class FaxListParamsTest {
                         .to(FaxListParams.Filter.To.builder().eq("+13127367276").build())
                         .build()
                 )
-                .page(FaxListParams.Page.builder().number(2L).size(2L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -65,8 +67,8 @@ internal class FaxListParamsTest {
                     .put("filter[direction][eq]", "inbound")
                     .put("filter[from][eq]", "+13127367276")
                     .put("filter[to][eq]", "+13127367276")
-                    .put("page[number]", "2")
-                    .put("page[size]", "2")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .build()
             )
     }

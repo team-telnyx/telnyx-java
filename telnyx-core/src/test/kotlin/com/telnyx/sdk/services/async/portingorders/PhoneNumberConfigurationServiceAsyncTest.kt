@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.async.portingorders
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationCreateParams
-import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -51,39 +50,9 @@ internal class PhoneNumberConfigurationServiceAsyncTest {
         val phoneNumberConfigurationServiceAsync =
             client.portingOrders().phoneNumberConfigurations()
 
-        val phoneNumberConfigurationsFuture =
-            phoneNumberConfigurationServiceAsync.list(
-                PhoneNumberConfigurationListParams.builder()
-                    .filter(
-                        PhoneNumberConfigurationListParams.Filter.builder()
-                            .portingOrder(
-                                PhoneNumberConfigurationListParams.Filter.PortingOrder.builder()
-                                    .addStatus(
-                                        PhoneNumberConfigurationListParams.Filter.PortingOrder
-                                            .Status
-                                            .ACTIVATION_IN_PROGRESS
-                                    )
-                                    .build()
-                            )
-                            .addPortingPhoneNumber("5d6f7ede-1961-4717-bfb5-db392c5efc2d")
-                            .addUserBundleId("5d6f7ede-1961-4717-bfb5-db392c5efc2d")
-                            .build()
-                    )
-                    .page(
-                        PhoneNumberConfigurationListParams.Page.builder()
-                            .number(1L)
-                            .size(1L)
-                            .build()
-                    )
-                    .sort(
-                        PhoneNumberConfigurationListParams.Sort.builder()
-                            .value(PhoneNumberConfigurationListParams.Sort.Value_.CREATED_AT)
-                            .build()
-                    )
-                    .build()
-            )
+        val pageFuture = phoneNumberConfigurationServiceAsync.list()
 
-        val phoneNumberConfigurations = phoneNumberConfigurationsFuture.get()
-        phoneNumberConfigurations.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

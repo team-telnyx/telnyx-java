@@ -11,13 +11,15 @@ internal class AwsVoiceSettingsTest {
 
     @Test
     fun create() {
-        val awsVoiceSettings = AwsVoiceSettings.builder().build()
+        val awsVoiceSettings = AwsVoiceSettings.builder().type(AwsVoiceSettings.Type.AWS).build()
+
+        assertThat(awsVoiceSettings.type()).isEqualTo(AwsVoiceSettings.Type.AWS)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val awsVoiceSettings = AwsVoiceSettings.builder().build()
+        val awsVoiceSettings = AwsVoiceSettings.builder().type(AwsVoiceSettings.Type.AWS).build()
 
         val roundtrippedAwsVoiceSettings =
             jsonMapper.readValue(

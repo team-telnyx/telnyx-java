@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.InboundMessagePayload
 import com.telnyx.sdk.models.SubNumberOrderRegulatoryRequirementWithValue
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.SipHeader
@@ -69,7 +70,12 @@ internal class UnwrapWebhookEventTest {
                                         )
                                         .build()
                                 )
-                                .result(JsonValue.from(mapOf("age" to 29, "city" to "Paris")))
+                                .result(
+                                    CallAiGatherEndedWebhookEvent.Data.Payload.Result.builder()
+                                        .putAdditionalProperty("age", JsonValue.from("bar"))
+                                        .putAdditionalProperty("city", JsonValue.from("bar"))
+                                        .build()
+                                )
                                 .status(CallAiGatherEndedWebhookEvent.Data.Payload.Status.VALID)
                                 .to("+35319605860")
                                 .build()
@@ -84,7 +90,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).contains(callAiGatherEnded)
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -141,9 +146,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -196,7 +198,12 @@ internal class UnwrapWebhookEventTest {
                                             )
                                             .build()
                                     )
-                                    .result(JsonValue.from(mapOf("age" to 29, "city" to "Paris")))
+                                    .result(
+                                        CallAiGatherEndedWebhookEvent.Data.Payload.Result.builder()
+                                            .putAdditionalProperty("age", JsonValue.from("bar"))
+                                            .putAdditionalProperty("city", JsonValue.from("bar"))
+                                            .build()
+                                    )
                                     .status(CallAiGatherEndedWebhookEvent.Data.Payload.Status.VALID)
                                     .to("+35319605860")
                                     .build()
@@ -287,7 +294,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated())
             .contains(callAiGatherMessageHistoryUpdated)
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -344,9 +350,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -475,7 +478,12 @@ internal class UnwrapWebhookEventTest {
                                         .build()
                                 )
                                 .partialResults(
-                                    JsonValue.from(mapOf("age" to 29, "city" to "Paris"))
+                                    CallAiGatherPartialResultsWebhookEvent.Data.Payload
+                                        .PartialResults
+                                        .builder()
+                                        .putAdditionalProperty("age", JsonValue.from("bar"))
+                                        .putAdditionalProperty("city", JsonValue.from("bar"))
+                                        .build()
                                 )
                                 .to("+35319605860")
                                 .build()
@@ -492,7 +500,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults())
             .contains(callAiGatherPartialResults)
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -549,9 +556,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -608,7 +612,12 @@ internal class UnwrapWebhookEventTest {
                                             .build()
                                     )
                                     .partialResults(
-                                        JsonValue.from(mapOf("age" to 29, "city" to "Paris"))
+                                        CallAiGatherPartialResultsWebhookEvent.Data.Payload
+                                            .PartialResults
+                                            .builder()
+                                            .putAdditionalProperty("age", JsonValue.from("bar"))
+                                            .putAdditionalProperty("city", JsonValue.from("bar"))
+                                            .build()
                                     )
                                     .to("+35319605860")
                                     .build()
@@ -616,165 +625,6 @@ internal class UnwrapWebhookEventTest {
                             .recordType(
                                 CallAiGatherPartialResultsWebhookEvent.Data.RecordType.EVENT
                             )
-                            .build()
-                    )
-                    .build()
-            )
-
-        val roundtrippedUnwrapWebhookEvent =
-            jsonMapper.readValue(
-                jsonMapper.writeValueAsString(unwrapWebhookEvent),
-                jacksonTypeRef<UnwrapWebhookEvent>(),
-            )
-
-        assertThat(roundtrippedUnwrapWebhookEvent).isEqualTo(unwrapWebhookEvent)
-    }
-
-    @Test
-    fun ofCustomerServiceRecordStatusChanged() {
-        val customerServiceRecordStatusChanged =
-            CustomerServiceRecordStatusChangedWebhookEvent.builder()
-                .data(
-                    CustomerServiceRecordStatusChangedWebhookEvent.Data.builder()
-                        .id("d3c462b5-8afa-4d48-9af1-4f9b1f00e7bd")
-                        .eventType(
-                            CustomerServiceRecordStatusChangedWebhookEvent.Data.EventType
-                                .CUSTOMER_SERVICE_RECORD_STATUS_CHANGED
-                        )
-                        .occurredAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
-                        .payload(
-                            CustomerServiceRecordStatusChangedWebhookEvent.Data.Payload.builder()
-                                .id("f1486bae-f067-460c-ad43-73a92848f902")
-                                .phoneNumber("+12065551212")
-                                .status(
-                                    CustomerServiceRecordStatusChangedWebhookEvent.Data.Payload
-                                        .Status
-                                        .COMPLETED
-                                )
-                                .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
-                                .build()
-                        )
-                        .recordType(
-                            CustomerServiceRecordStatusChangedWebhookEvent.Data.RecordType.EVENT
-                        )
-                        .build()
-                )
-                .meta(
-                    CustomerServiceRecordStatusChangedWebhookEvent.Meta.builder()
-                        .attempt(1L)
-                        .deliveredTo("https://example.com/webhook")
-                        .build()
-                )
-                .build()
-
-        val unwrapWebhookEvent =
-            UnwrapWebhookEvent.ofCustomerServiceRecordStatusChanged(
-                customerServiceRecordStatusChanged
-            )
-
-        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
-        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged())
-            .contains(customerServiceRecordStatusChanged)
-        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
-        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
-        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
-        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
-        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
-        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
-        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
-        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
-        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
-        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
-        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
-        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
-        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
-        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
-        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
-        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
-        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
-        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
-        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
-        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
-        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
-        assertThat(unwrapWebhookEvent.transcription()).isEmpty
-    }
-
-    @Test
-    fun ofCustomerServiceRecordStatusChangedRoundtrip() {
-        val jsonMapper = jsonMapper()
-        val unwrapWebhookEvent =
-            UnwrapWebhookEvent.ofCustomerServiceRecordStatusChanged(
-                CustomerServiceRecordStatusChangedWebhookEvent.builder()
-                    .data(
-                        CustomerServiceRecordStatusChangedWebhookEvent.Data.builder()
-                            .id("d3c462b5-8afa-4d48-9af1-4f9b1f00e7bd")
-                            .eventType(
-                                CustomerServiceRecordStatusChangedWebhookEvent.Data.EventType
-                                    .CUSTOMER_SERVICE_RECORD_STATUS_CHANGED
-                            )
-                            .occurredAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
-                            .payload(
-                                CustomerServiceRecordStatusChangedWebhookEvent.Data.Payload
-                                    .builder()
-                                    .id("f1486bae-f067-460c-ad43-73a92848f902")
-                                    .phoneNumber("+12065551212")
-                                    .status(
-                                        CustomerServiceRecordStatusChangedWebhookEvent.Data.Payload
-                                            .Status
-                                            .COMPLETED
-                                    )
-                                    .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
-                                    .build()
-                            )
-                            .recordType(
-                                CustomerServiceRecordStatusChangedWebhookEvent.Data.RecordType.EVENT
-                            )
-                            .build()
-                    )
-                    .meta(
-                        CustomerServiceRecordStatusChangedWebhookEvent.Meta.builder()
-                            .attempt(1L)
-                            .deliveredTo("https://example.com/webhook")
                             .build()
                     )
                     .build()
@@ -843,7 +693,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).contains(callAnswered)
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -900,9 +749,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -1005,7 +851,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).contains(callBridged)
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -1062,9 +907,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -1158,7 +1000,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).contains(callConversationEnded)
@@ -1215,9 +1056,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -1310,13 +1148,11 @@ internal class UnwrapWebhookEventTest {
                                 .insightGroupId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .addResult(
                                     CallConversationInsightsGeneratedWebhookEvent.Data.Payload
-                                        .Result
+                                        .InsightResult
                                         .builder()
                                         .insightId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                         .result(
-                                            JsonValue.from(
-                                                "The user inquired about the menu at Ember & Oak. The menu offers various options, including vegetarian, vegan, and gluten-free dishes, as well as a children's menu. The restaurant also has a daily happy hour from 4 PM to 6 PM and offers takeaway and delivery services. The user found the information helpful but had to leave without making any further decisions or requests. No specific preferences or goals were expressed beyond inquiring about the menu."
-                                            )
+                                            "The user inquired about the menu at Ember & Oak. The menu offers various options, including vegetarian, vegan, and gluten-free dishes, as well as a children's menu. The restaurant also has a daily happy hour from 4 PM to 6 PM and offers takeaway and delivery services. The user found the information helpful but had to leave without making any further decisions or requests. No specific preferences or goals were expressed beyond inquiring about the menu."
                                         )
                                         .build()
                                 )
@@ -1337,7 +1173,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -1395,9 +1230,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -1432,13 +1264,11 @@ internal class UnwrapWebhookEventTest {
                                     .insightGroupId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                     .addResult(
                                         CallConversationInsightsGeneratedWebhookEvent.Data.Payload
-                                            .Result
+                                            .InsightResult
                                             .builder()
                                             .insightId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                             .result(
-                                                JsonValue.from(
-                                                    "The user inquired about the menu at Ember & Oak. The menu offers various options, including vegetarian, vegan, and gluten-free dishes, as well as a children's menu. The restaurant also has a daily happy hour from 4 PM to 6 PM and offers takeaway and delivery services. The user found the information helpful but had to leave without making any further decisions or requests. No specific preferences or goals were expressed beyond inquiring about the menu."
-                                                )
+                                                "The user inquired about the menu at Ember & Oak. The menu offers various options, including vegetarian, vegan, and gluten-free dishes, as well as a children's menu. The restaurant also has a daily happy hour from 4 PM to 6 PM and offers takeaway and delivery services. The user found the information helpful but had to leave without making any further decisions or requests. No specific preferences or goals were expressed beyond inquiring about the menu."
                                             )
                                             .build()
                                     )
@@ -1494,7 +1324,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -1551,9 +1380,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -1632,7 +1458,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -1689,9 +1514,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -1768,7 +1590,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -1825,9 +1646,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -1905,7 +1723,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -1962,9 +1779,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -2043,7 +1857,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -2100,9 +1913,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -2231,7 +2041,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -2288,9 +2097,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -2456,7 +2262,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -2513,9 +2318,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -2629,7 +2431,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -2686,9 +2487,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -2772,7 +2570,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -2830,9 +2627,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -2921,7 +2715,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -2978,9 +2771,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -3072,7 +2862,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -3130,9 +2919,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -3227,7 +3013,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -3285,9 +3070,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -3377,7 +3159,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -3434,9 +3215,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -3523,7 +3301,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -3580,9 +3357,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -3664,7 +3438,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -3721,9 +3494,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -3822,7 +3592,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -3879,9 +3648,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -3993,7 +3759,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -4051,9 +3816,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -4149,7 +3911,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -4206,9 +3967,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -4287,7 +4045,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -4344,9 +4101,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -4423,7 +4177,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -4480,9 +4233,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -4557,7 +4307,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -4614,9 +4363,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -4684,7 +4430,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -4741,9 +4486,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -4811,7 +4553,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -4868,9 +4609,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -4941,7 +4679,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -4998,9 +4735,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -5074,7 +4808,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -5131,9 +4864,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -5181,12 +4911,12 @@ internal class UnwrapWebhookEventTest {
         val callStreamingFailed =
             CallStreamingFailedWebhookEvent.builder()
                 .data(
-                    CallStreamingFailedWebhookEvent.Data.builder()
+                    CallStreamingFailed.builder()
                         .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                        .eventType(CallStreamingFailedWebhookEvent.Data.EventType.STREAMING_FAILED)
+                        .eventType(CallStreamingFailed.EventType.STREAMING_FAILED)
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                         .payload(
-                            CallStreamingFailedWebhookEvent.Data.Payload.builder()
+                            CallStreamingFailed.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -5195,24 +4925,18 @@ internal class UnwrapWebhookEventTest {
                                 .failureReason("connection_failed")
                                 .streamId("1edb94f9-7ef0-4150-b502-e0ebadfd9491")
                                 .streamParams(
-                                    CallStreamingFailedWebhookEvent.Data.Payload.StreamParams
-                                        .builder()
+                                    CallStreamingFailed.Payload.StreamParams.builder()
                                         .streamUrl("wss://www.example.com/websocket")
                                         .track(
-                                            CallStreamingFailedWebhookEvent.Data.Payload
-                                                .StreamParams
-                                                .Track
+                                            CallStreamingFailed.Payload.StreamParams.Track
                                                 .INBOUND_TRACK
                                         )
                                         .build()
                                 )
-                                .streamType(
-                                    CallStreamingFailedWebhookEvent.Data.Payload.StreamType
-                                        .WEBSOCKET
-                                )
+                                .streamType(CallStreamingFailed.Payload.StreamType.WEBSOCKET)
                                 .build()
                         )
-                        .recordType(CallStreamingFailedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallStreamingFailed.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -5222,7 +4946,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -5279,9 +5002,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -5292,14 +5012,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallStreamingFailed(
                 CallStreamingFailedWebhookEvent.builder()
                     .data(
-                        CallStreamingFailedWebhookEvent.Data.builder()
+                        CallStreamingFailed.builder()
                             .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                            .eventType(
-                                CallStreamingFailedWebhookEvent.Data.EventType.STREAMING_FAILED
-                            )
+                            .eventType(CallStreamingFailed.EventType.STREAMING_FAILED)
                             .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                             .payload(
-                                CallStreamingFailedWebhookEvent.Data.Payload.builder()
+                                CallStreamingFailed.Payload.builder()
                                     .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                     .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                     .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -5308,24 +5026,18 @@ internal class UnwrapWebhookEventTest {
                                     .failureReason("connection_failed")
                                     .streamId("1edb94f9-7ef0-4150-b502-e0ebadfd9491")
                                     .streamParams(
-                                        CallStreamingFailedWebhookEvent.Data.Payload.StreamParams
-                                            .builder()
+                                        CallStreamingFailed.Payload.StreamParams.builder()
                                             .streamUrl("wss://www.example.com/websocket")
                                             .track(
-                                                CallStreamingFailedWebhookEvent.Data.Payload
-                                                    .StreamParams
-                                                    .Track
+                                                CallStreamingFailed.Payload.StreamParams.Track
                                                     .INBOUND_TRACK
                                             )
                                             .build()
                                     )
-                                    .streamType(
-                                        CallStreamingFailedWebhookEvent.Data.Payload.StreamType
-                                            .WEBSOCKET
-                                    )
+                                    .streamType(CallStreamingFailed.Payload.StreamType.WEBSOCKET)
                                     .build()
                             )
-                            .recordType(CallStreamingFailedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallStreamingFailed.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -5345,14 +5057,12 @@ internal class UnwrapWebhookEventTest {
         val callStreamingStarted =
             CallStreamingStartedWebhookEvent.builder()
                 .data(
-                    CallStreamingStartedWebhookEvent.Data.builder()
+                    CallStreamingStarted.builder()
                         .id("7d743d69-f7e8-4761-b7d4-8cacf9d3c031")
-                        .eventType(
-                            CallStreamingStartedWebhookEvent.Data.EventType.STREAMING_STARTED
-                        )
+                        .eventType(CallStreamingStarted.EventType.STREAMING_STARTED)
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:06:32.059436Z"))
                         .payload(
-                            CallStreamingStartedWebhookEvent.Data.Payload.builder()
+                            CallStreamingStarted.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -5361,7 +5071,7 @@ internal class UnwrapWebhookEventTest {
                                 .streamUrl("wss://www.example.com/websocket")
                                 .build()
                         )
-                        .recordType(CallStreamingStartedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallStreamingStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -5371,7 +5081,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -5428,9 +5137,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -5441,14 +5147,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallStreamingStarted(
                 CallStreamingStartedWebhookEvent.builder()
                     .data(
-                        CallStreamingStartedWebhookEvent.Data.builder()
+                        CallStreamingStarted.builder()
                             .id("7d743d69-f7e8-4761-b7d4-8cacf9d3c031")
-                            .eventType(
-                                CallStreamingStartedWebhookEvent.Data.EventType.STREAMING_STARTED
-                            )
+                            .eventType(CallStreamingStarted.EventType.STREAMING_STARTED)
                             .occurredAt(OffsetDateTime.parse("2021-12-15T14:06:32.059436Z"))
                             .payload(
-                                CallStreamingStartedWebhookEvent.Data.Payload.builder()
+                                CallStreamingStarted.Payload.builder()
                                     .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                     .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                     .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -5457,7 +5161,7 @@ internal class UnwrapWebhookEventTest {
                                     .streamUrl("wss://www.example.com/websocket")
                                     .build()
                             )
-                            .recordType(CallStreamingStartedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallStreamingStarted.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -5477,14 +5181,12 @@ internal class UnwrapWebhookEventTest {
         val callStreamingStopped =
             CallStreamingStoppedWebhookEvent.builder()
                 .data(
-                    CallStreamingStoppedWebhookEvent.Data.builder()
+                    CallStreamingStopped.builder()
                         .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                        .eventType(
-                            CallStreamingStoppedWebhookEvent.Data.EventType.STREAMING_STOPPED
-                        )
+                        .eventType(CallStreamingStopped.EventType.STREAMING_STOPPED)
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                         .payload(
-                            CallStreamingStoppedWebhookEvent.Data.Payload.builder()
+                            CallStreamingStopped.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -5493,7 +5195,7 @@ internal class UnwrapWebhookEventTest {
                                 .streamUrl("wss://www.example.com/websocket")
                                 .build()
                         )
-                        .recordType(CallStreamingStoppedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallStreamingStopped.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -5503,7 +5205,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -5560,9 +5261,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -5573,14 +5271,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallStreamingStopped(
                 CallStreamingStoppedWebhookEvent.builder()
                     .data(
-                        CallStreamingStoppedWebhookEvent.Data.builder()
+                        CallStreamingStopped.builder()
                             .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                            .eventType(
-                                CallStreamingStoppedWebhookEvent.Data.EventType.STREAMING_STOPPED
-                            )
+                            .eventType(CallStreamingStopped.EventType.STREAMING_STOPPED)
                             .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                             .payload(
-                                CallStreamingStoppedWebhookEvent.Data.Payload.builder()
+                                CallStreamingStopped.Payload.builder()
                                     .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                     .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                     .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -5589,7 +5285,7 @@ internal class UnwrapWebhookEventTest {
                                     .streamUrl("wss://www.example.com/websocket")
                                     .build()
                             )
-                            .recordType(CallStreamingStoppedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallStreamingStopped.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -5612,7 +5308,10 @@ internal class UnwrapWebhookEventTest {
                 .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
                 .createDate("createDate")
                 .cspId("cspId")
+                .description("Campaign has been marked as dormant")
                 .isTMobileRegistered(true)
+                .status(CampaignStatusUpdateWebhookEvent.Status.DORMANT)
+                .type(CampaignStatusUpdateWebhookEvent.Type.TELNYX_EVENT)
                 .build()
 
         val unwrapWebhookEvent = UnwrapWebhookEvent.ofCampaignStatusUpdate(campaignStatusUpdate)
@@ -5620,7 +5319,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -5677,9 +5375,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -5693,7 +5388,10 @@ internal class UnwrapWebhookEventTest {
                     .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
                     .createDate("createDate")
                     .cspId("cspId")
+                    .description("Campaign has been marked as dormant")
                     .isTMobileRegistered(true)
+                    .status(CampaignStatusUpdateWebhookEvent.Status.DORMANT)
+                    .type(CampaignStatusUpdateWebhookEvent.Type.TELNYX_EVENT)
                     .build()
             )
 
@@ -5737,7 +5435,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -5794,9 +5491,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -5872,7 +5566,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -5929,9 +5622,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -6001,7 +5691,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -6058,9 +5747,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -6135,7 +5821,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -6193,9 +5878,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -6277,7 +5959,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -6335,9 +6016,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -6424,7 +6102,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -6482,9 +6159,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -6577,7 +6251,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -6635,9 +6308,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -6727,7 +6397,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -6785,9 +6454,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -6875,7 +6541,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -6933,9 +6598,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -7015,7 +6677,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -7072,9 +6733,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -7148,7 +6806,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -7206,9 +6863,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -7312,7 +6966,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -7369,9 +7022,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -7472,7 +7122,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -7529,9 +7178,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -7600,7 +7246,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -7657,9 +7302,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -7707,14 +7349,22 @@ internal class UnwrapWebhookEventTest {
                     DeliveryUpdateWebhookEvent.Data.builder()
                         .id("86f58db9-0fe3-4adc-9d1f-46e66e6e9323")
                         .eventType(DeliveryUpdateWebhookEvent.Data.EventType.MESSAGE_SENT)
-                        .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
                             OutboundMessagePayload.builder()
                                 .id("40385f64-5717-4562-b3fc-2c963f66afa6")
-                                .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .addCc(
+                                    OutboundMessagePayload.Cc.builder()
+                                        .carrier("carrier")
+                                        .lineType(OutboundMessagePayload.Cc.LineType.WIRELINE)
+                                        .phoneNumber("phone_number")
+                                        .status(OutboundMessagePayload.Cc.Status.QUEUED)
+                                        .build()
+                                )
+                                .completedAt(null)
                                 .cost(
                                     OutboundMessagePayload.Cost.builder()
-                                        .amount("amount")
+                                        .amount("0.0051")
                                         .currency("USD")
                                         .build()
                                 )
@@ -7723,13 +7373,13 @@ internal class UnwrapWebhookEventTest {
                                         .carrierFee(
                                             OutboundMessagePayload.CostBreakdown.CarrierFee
                                                 .builder()
-                                                .amount("amount")
+                                                .amount("0.00305")
                                                 .currency("USD")
                                                 .build()
                                         )
                                         .rate(
                                             OutboundMessagePayload.CostBreakdown.Rate.builder()
-                                                .amount("amount")
+                                                .amount("0.00205")
                                                 .currency("USD")
                                                 .build()
                                         )
@@ -7742,7 +7392,11 @@ internal class UnwrapWebhookEventTest {
                                         .code("code")
                                         .title("title")
                                         .detail("detail")
-                                        .meta(JsonValue.from(mapOf<String, Any>()))
+                                        .meta(
+                                            MessagingError.Meta.builder()
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                                .build()
+                                        )
                                         .source(
                                             MessagingError.Source.builder()
                                                 .parameter("parameter")
@@ -7773,7 +7427,7 @@ internal class UnwrapWebhookEventTest {
                                 .parts(1L)
                                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                                 .recordType(OutboundMessagePayload.RecordType.MESSAGE)
-                                .sentAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .sentAt(null)
                                 .subject("From Telnyx!")
                                 .addTag("Greetings")
                                 .tcrCampaignBillable(true)
@@ -7810,7 +7464,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -7867,9 +7520,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -7883,14 +7533,22 @@ internal class UnwrapWebhookEventTest {
                         DeliveryUpdateWebhookEvent.Data.builder()
                             .id("86f58db9-0fe3-4adc-9d1f-46e66e6e9323")
                             .eventType(DeliveryUpdateWebhookEvent.Data.EventType.MESSAGE_SENT)
-                            .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                             .payload(
                                 OutboundMessagePayload.builder()
                                     .id("40385f64-5717-4562-b3fc-2c963f66afa6")
-                                    .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .addCc(
+                                        OutboundMessagePayload.Cc.builder()
+                                            .carrier("carrier")
+                                            .lineType(OutboundMessagePayload.Cc.LineType.WIRELINE)
+                                            .phoneNumber("phone_number")
+                                            .status(OutboundMessagePayload.Cc.Status.QUEUED)
+                                            .build()
+                                    )
+                                    .completedAt(null)
                                     .cost(
                                         OutboundMessagePayload.Cost.builder()
-                                            .amount("amount")
+                                            .amount("0.0051")
                                             .currency("USD")
                                             .build()
                                     )
@@ -7899,13 +7557,13 @@ internal class UnwrapWebhookEventTest {
                                             .carrierFee(
                                                 OutboundMessagePayload.CostBreakdown.CarrierFee
                                                     .builder()
-                                                    .amount("amount")
+                                                    .amount("0.00305")
                                                     .currency("USD")
                                                     .build()
                                             )
                                             .rate(
                                                 OutboundMessagePayload.CostBreakdown.Rate.builder()
-                                                    .amount("amount")
+                                                    .amount("0.00205")
                                                     .currency("USD")
                                                     .build()
                                             )
@@ -7918,7 +7576,14 @@ internal class UnwrapWebhookEventTest {
                                             .code("code")
                                             .title("title")
                                             .detail("detail")
-                                            .meta(JsonValue.from(mapOf<String, Any>()))
+                                            .meta(
+                                                MessagingError.Meta.builder()
+                                                    .putAdditionalProperty(
+                                                        "foo",
+                                                        JsonValue.from("bar"),
+                                                    )
+                                                    .build()
+                                            )
                                             .source(
                                                 MessagingError.Source.builder()
                                                     .parameter("parameter")
@@ -7949,7 +7614,7 @@ internal class UnwrapWebhookEventTest {
                                     .parts(1L)
                                     .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                                     .recordType(OutboundMessagePayload.RecordType.MESSAGE)
-                                    .sentAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .sentAt(null)
                                     .subject("From Telnyx!")
                                     .addTag("Greetings")
                                     .tcrCampaignBillable(true)
@@ -8012,7 +7677,7 @@ internal class UnwrapWebhookEventTest {
                         .pageCount(2L)
                         .status(FaxDeliveredWebhookEvent.Payload.Status.DELIVERED)
                         .to("+13127367276")
-                        .userId("yfff7c54-4df3-4bca-a65a-3da1ecc777f0")
+                        .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
                         .build()
                 )
                 .recordType(FaxDeliveredWebhookEvent.RecordType.EVENT)
@@ -8023,7 +7688,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -8080,9 +7744,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -8109,7 +7770,7 @@ internal class UnwrapWebhookEventTest {
                             .pageCount(2L)
                             .status(FaxDeliveredWebhookEvent.Payload.Status.DELIVERED)
                             .to("+13127367276")
-                            .userId("yfff7c54-4df3-4bca-a65a-3da1ecc777f0")
+                            .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
                             .build()
                     )
                     .recordType(FaxDeliveredWebhookEvent.RecordType.EVENT)
@@ -8145,7 +7806,7 @@ internal class UnwrapWebhookEventTest {
                         )
                         .status(FaxFailedWebhookEvent.Payload.Status.FAILED)
                         .to("+13127367276")
-                        .userId("yfff7c54-4df3-4bca-a65a-3da1ecc777f0")
+                        .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
                         .build()
                 )
                 .recordType(FaxFailedWebhookEvent.RecordType.EVENT)
@@ -8156,7 +7817,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -8213,9 +7873,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -8241,7 +7898,7 @@ internal class UnwrapWebhookEventTest {
                             )
                             .status(FaxFailedWebhookEvent.Payload.Status.FAILED)
                             .to("+13127367276")
-                            .userId("yfff7c54-4df3-4bca-a65a-3da1ecc777f0")
+                            .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
                             .build()
                     )
                     .recordType(FaxFailedWebhookEvent.RecordType.EVENT)
@@ -8276,7 +7933,7 @@ internal class UnwrapWebhookEventTest {
                         )
                         .status(FaxMediaProcessedWebhookEvent.Payload.Status.MEDIA_PROCESSED)
                         .to("+13127367276")
-                        .userId("yfff7c54-4df3-4bca-a65a-3da1ecc777f0")
+                        .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
                         .build()
                 )
                 .recordType(FaxMediaProcessedWebhookEvent.RecordType.EVENT)
@@ -8287,7 +7944,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -8344,9 +8000,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -8371,7 +8024,7 @@ internal class UnwrapWebhookEventTest {
                             )
                             .status(FaxMediaProcessedWebhookEvent.Payload.Status.MEDIA_PROCESSED)
                             .to("+13127367276")
-                            .userId("yfff7c54-4df3-4bca-a65a-3da1ecc777f0")
+                            .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
                             .build()
                     )
                     .recordType(FaxMediaProcessedWebhookEvent.RecordType.EVENT)
@@ -8406,7 +8059,7 @@ internal class UnwrapWebhookEventTest {
                         )
                         .status(FaxQueuedWebhookEvent.Payload.Status.QUEUED)
                         .to("+13127367276")
-                        .userId("yfff7c54-4df3-4bca-a65a-3da1ecc777f0")
+                        .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
                         .build()
                 )
                 .recordType(FaxQueuedWebhookEvent.RecordType.EVENT)
@@ -8417,7 +8070,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -8474,9 +8126,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -8501,7 +8150,7 @@ internal class UnwrapWebhookEventTest {
                             )
                             .status(FaxQueuedWebhookEvent.Payload.Status.QUEUED)
                             .to("+13127367276")
-                            .userId("yfff7c54-4df3-4bca-a65a-3da1ecc777f0")
+                            .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
                             .build()
                     )
                     .recordType(FaxQueuedWebhookEvent.RecordType.EVENT)
@@ -8536,7 +8185,7 @@ internal class UnwrapWebhookEventTest {
                         )
                         .status(FaxSendingStartedWebhookEvent.Payload.Status.SENDING)
                         .to("+13127367276")
-                        .userId("yfff7c54-4df3-4bca-a65a-3da1ecc777f0")
+                        .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
                         .build()
                 )
                 .recordType(FaxSendingStartedWebhookEvent.RecordType.EVENT)
@@ -8547,7 +8196,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -8604,9 +8252,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -8631,7 +8276,7 @@ internal class UnwrapWebhookEventTest {
                             )
                             .status(FaxSendingStartedWebhookEvent.Payload.Status.SENDING)
                             .to("+13127367276")
-                            .userId("yfff7c54-4df3-4bca-a65a-3da1ecc777f0")
+                            .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
                             .build()
                     )
                     .recordType(FaxSendingStartedWebhookEvent.RecordType.EVENT)
@@ -8655,60 +8300,53 @@ internal class UnwrapWebhookEventTest {
                     InboundMessageWebhookEvent.Data.builder()
                         .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
                         .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
-                        .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
-                            InboundMessageWebhookEvent.Data.Payload.builder()
+                            InboundMessagePayload.builder()
                                 .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
                                 .addCc(
-                                    InboundMessageWebhookEvent.Data.Payload.Cc.builder()
+                                    InboundMessagePayload.Cc.builder()
                                         .carrier("carrier")
-                                        .lineType(
-                                            InboundMessageWebhookEvent.Data.Payload.Cc.LineType
-                                                .WIRELINE
-                                        )
+                                        .lineType(InboundMessagePayload.Cc.LineType.WIRELINE)
                                         .phoneNumber("phone_number")
-                                        .status(
-                                            InboundMessageWebhookEvent.Data.Payload.Cc.Status.QUEUED
-                                        )
+                                        .status(InboundMessagePayload.Cc.Status.QUEUED)
                                         .build()
                                 )
                                 .completedAt(null)
                                 .cost(
-                                    InboundMessageWebhookEvent.Data.Payload.Cost.builder()
-                                        .amount("amount")
+                                    InboundMessagePayload.Cost.builder()
+                                        .amount("0.0051")
                                         .currency("USD")
                                         .build()
                                 )
                                 .costBreakdown(
-                                    InboundMessageWebhookEvent.Data.Payload.CostBreakdown.builder()
+                                    InboundMessagePayload.CostBreakdown.builder()
                                         .carrierFee(
-                                            InboundMessageWebhookEvent.Data.Payload.CostBreakdown
-                                                .CarrierFee
-                                                .builder()
-                                                .amount("amount")
+                                            InboundMessagePayload.CostBreakdown.CarrierFee.builder()
+                                                .amount("0.00305")
                                                 .currency("USD")
                                                 .build()
                                         )
                                         .rate(
-                                            InboundMessageWebhookEvent.Data.Payload.CostBreakdown
-                                                .Rate
-                                                .builder()
-                                                .amount("amount")
+                                            InboundMessagePayload.CostBreakdown.Rate.builder()
+                                                .amount("0.00205")
                                                 .currency("USD")
                                                 .build()
                                         )
                                         .build()
                                 )
-                                .direction(
-                                    InboundMessageWebhookEvent.Data.Payload.Direction.INBOUND
-                                )
+                                .direction(InboundMessagePayload.Direction.INBOUND)
                                 .encoding("GSM-7")
                                 .addError(
                                     MessagingError.builder()
                                         .code("code")
                                         .title("title")
                                         .detail("detail")
-                                        .meta(JsonValue.from(mapOf<String, Any>()))
+                                        .meta(
+                                            MessagingError.Meta.builder()
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                                .build()
+                                        )
                                         .source(
                                             MessagingError.Source.builder()
                                                 .parameter("parameter")
@@ -8718,21 +8356,15 @@ internal class UnwrapWebhookEventTest {
                                         .build()
                                 )
                                 .from(
-                                    InboundMessageWebhookEvent.Data.Payload.From.builder()
+                                    InboundMessagePayload.From.builder()
                                         .carrier("T-MOBILE USA, INC.")
-                                        .lineType(
-                                            InboundMessageWebhookEvent.Data.Payload.From.LineType
-                                                .WIRELESS
-                                        )
+                                        .lineType(InboundMessagePayload.From.LineType.WIRELESS)
                                         .phoneNumber("+18665550001")
-                                        .status(
-                                            InboundMessageWebhookEvent.Data.Payload.From.Status
-                                                .RECEIVED
-                                        )
+                                        .status(InboundMessagePayload.From.Status.RECEIVED)
                                         .build()
                                 )
                                 .addMedia(
-                                    InboundMessageWebhookEvent.Data.Payload.Media.builder()
+                                    InboundMessagePayload.Media.builder()
                                         .contentType("content_type")
                                         .hashSha256("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
                                         .size(0L)
@@ -8740,32 +8372,26 @@ internal class UnwrapWebhookEventTest {
                                         .build()
                                 )
                                 .messagingProfileId("0f512bda-ae1e-4597-8e11-e5f5686b97d3")
+                                .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
                                 .parts(1L)
                                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
-                                .recordType(
-                                    InboundMessageWebhookEvent.Data.Payload.RecordType.MESSAGE
-                                )
+                                .recordType(InboundMessagePayload.RecordType.MESSAGE)
                                 .sentAt(null)
+                                .subject("From Telnyx!")
                                 .addTag("Greetings")
                                 .tcrCampaignBillable(true)
                                 .tcrCampaignId("TCPA3X7")
                                 .tcrCampaignRegistered("REGISTERED")
                                 .text("Hello, World!")
                                 .addTo(
-                                    InboundMessageWebhookEvent.Data.Payload.To.builder()
+                                    InboundMessagePayload.To.builder()
                                         .carrier("TELNYX LLC")
-                                        .lineType(
-                                            InboundMessageWebhookEvent.Data.Payload.To.LineType
-                                                .VO_IP
-                                        )
+                                        .lineType(InboundMessagePayload.To.LineType.VO_IP)
                                         .phoneNumber("+18445550001")
-                                        .status(
-                                            InboundMessageWebhookEvent.Data.Payload.To.Status
-                                                .DELIVERED
-                                        )
+                                        .status(InboundMessagePayload.To.Status.DELIVERED)
                                         .build()
                                 )
-                                .type(InboundMessageWebhookEvent.Data.Payload.Type.SMS)
+                                .type(InboundMessagePayload.Type.SMS)
                                 .validUntil(null)
                                 .webhookFailoverUrl("https://backup.example.com/hooks")
                                 .webhookUrl("https://www.example.com/hooks")
@@ -8781,7 +8407,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -8838,9 +8463,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).contains(inboundMessage)
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -8854,64 +8476,57 @@ internal class UnwrapWebhookEventTest {
                         InboundMessageWebhookEvent.Data.builder()
                             .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
                             .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
-                            .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                             .payload(
-                                InboundMessageWebhookEvent.Data.Payload.builder()
+                                InboundMessagePayload.builder()
                                     .id("7ee4241c-f127-47e5-9c34-3aac291f8058")
                                     .addCc(
-                                        InboundMessageWebhookEvent.Data.Payload.Cc.builder()
+                                        InboundMessagePayload.Cc.builder()
                                             .carrier("carrier")
-                                            .lineType(
-                                                InboundMessageWebhookEvent.Data.Payload.Cc.LineType
-                                                    .WIRELINE
-                                            )
+                                            .lineType(InboundMessagePayload.Cc.LineType.WIRELINE)
                                             .phoneNumber("phone_number")
-                                            .status(
-                                                InboundMessageWebhookEvent.Data.Payload.Cc.Status
-                                                    .QUEUED
-                                            )
+                                            .status(InboundMessagePayload.Cc.Status.QUEUED)
                                             .build()
                                     )
                                     .completedAt(null)
                                     .cost(
-                                        InboundMessageWebhookEvent.Data.Payload.Cost.builder()
-                                            .amount("amount")
+                                        InboundMessagePayload.Cost.builder()
+                                            .amount("0.0051")
                                             .currency("USD")
                                             .build()
                                     )
                                     .costBreakdown(
-                                        InboundMessageWebhookEvent.Data.Payload.CostBreakdown
-                                            .builder()
+                                        InboundMessagePayload.CostBreakdown.builder()
                                             .carrierFee(
-                                                InboundMessageWebhookEvent.Data.Payload
-                                                    .CostBreakdown
-                                                    .CarrierFee
+                                                InboundMessagePayload.CostBreakdown.CarrierFee
                                                     .builder()
-                                                    .amount("amount")
+                                                    .amount("0.00305")
                                                     .currency("USD")
                                                     .build()
                                             )
                                             .rate(
-                                                InboundMessageWebhookEvent.Data.Payload
-                                                    .CostBreakdown
-                                                    .Rate
-                                                    .builder()
-                                                    .amount("amount")
+                                                InboundMessagePayload.CostBreakdown.Rate.builder()
+                                                    .amount("0.00205")
                                                     .currency("USD")
                                                     .build()
                                             )
                                             .build()
                                     )
-                                    .direction(
-                                        InboundMessageWebhookEvent.Data.Payload.Direction.INBOUND
-                                    )
+                                    .direction(InboundMessagePayload.Direction.INBOUND)
                                     .encoding("GSM-7")
                                     .addError(
                                         MessagingError.builder()
                                             .code("code")
                                             .title("title")
                                             .detail("detail")
-                                            .meta(JsonValue.from(mapOf<String, Any>()))
+                                            .meta(
+                                                MessagingError.Meta.builder()
+                                                    .putAdditionalProperty(
+                                                        "foo",
+                                                        JsonValue.from("bar"),
+                                                    )
+                                                    .build()
+                                            )
                                             .source(
                                                 MessagingError.Source.builder()
                                                     .parameter("parameter")
@@ -8921,22 +8536,15 @@ internal class UnwrapWebhookEventTest {
                                             .build()
                                     )
                                     .from(
-                                        InboundMessageWebhookEvent.Data.Payload.From.builder()
+                                        InboundMessagePayload.From.builder()
                                             .carrier("T-MOBILE USA, INC.")
-                                            .lineType(
-                                                InboundMessageWebhookEvent.Data.Payload.From
-                                                    .LineType
-                                                    .WIRELESS
-                                            )
+                                            .lineType(InboundMessagePayload.From.LineType.WIRELESS)
                                             .phoneNumber("+18665550001")
-                                            .status(
-                                                InboundMessageWebhookEvent.Data.Payload.From.Status
-                                                    .RECEIVED
-                                            )
+                                            .status(InboundMessagePayload.From.Status.RECEIVED)
                                             .build()
                                     )
                                     .addMedia(
-                                        InboundMessageWebhookEvent.Data.Payload.Media.builder()
+                                        InboundMessagePayload.Media.builder()
                                             .contentType("content_type")
                                             .hashSha256("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
                                             .size(0L)
@@ -8944,32 +8552,26 @@ internal class UnwrapWebhookEventTest {
                                             .build()
                                     )
                                     .messagingProfileId("0f512bda-ae1e-4597-8e11-e5f5686b97d3")
+                                    .organizationId("b448f9cc-a842-4784-98e9-03c1a5872950")
                                     .parts(1L)
                                     .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
-                                    .recordType(
-                                        InboundMessageWebhookEvent.Data.Payload.RecordType.MESSAGE
-                                    )
+                                    .recordType(InboundMessagePayload.RecordType.MESSAGE)
                                     .sentAt(null)
+                                    .subject("From Telnyx!")
                                     .addTag("Greetings")
                                     .tcrCampaignBillable(true)
                                     .tcrCampaignId("TCPA3X7")
                                     .tcrCampaignRegistered("REGISTERED")
                                     .text("Hello, World!")
                                     .addTo(
-                                        InboundMessageWebhookEvent.Data.Payload.To.builder()
+                                        InboundMessagePayload.To.builder()
                                             .carrier("TELNYX LLC")
-                                            .lineType(
-                                                InboundMessageWebhookEvent.Data.Payload.To.LineType
-                                                    .VO_IP
-                                            )
+                                            .lineType(InboundMessagePayload.To.LineType.VO_IP)
                                             .phoneNumber("+18445550001")
-                                            .status(
-                                                InboundMessageWebhookEvent.Data.Payload.To.Status
-                                                    .DELIVERED
-                                            )
+                                            .status(InboundMessagePayload.To.Status.DELIVERED)
                                             .build()
                                     )
-                                    .type(InboundMessageWebhookEvent.Data.Payload.Type.SMS)
+                                    .type(InboundMessagePayload.Type.SMS)
                                     .validUntil(null)
                                     .webhookFailoverUrl("https://backup.example.com/hooks")
                                     .webhookUrl("https://www.example.com/hooks")
@@ -9060,7 +8662,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -9117,9 +8718,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).contains(numberOrderStatusUpdate)
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -9226,7 +8824,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -9283,9 +8880,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).contains(replacedLinkClick)
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).isEmpty
     }
 
@@ -9317,425 +8911,6 @@ internal class UnwrapWebhookEventTest {
     }
 
     @Test
-    fun ofStreamingFailed() {
-        val streamingFailed =
-            StreamingFailedWebhookEvent.builder()
-                .data(
-                    StreamingFailedWebhookEvent.Data.builder()
-                        .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                        .eventType(StreamingFailedWebhookEvent.Data.EventType.STREAMING_FAILED)
-                        .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
-                        .payload(
-                            StreamingFailedWebhookEvent.Data.Payload.builder()
-                                .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                                .connectionId("7267xxxxxxxxxxxxxx")
-                                .failureReason("connection_failed")
-                                .streamId("1edb94f9-7ef0-4150-b502-e0ebadfd9491")
-                                .streamParams(
-                                    StreamingFailedWebhookEvent.Data.Payload.StreamParams.builder()
-                                        .streamUrl("wss://www.example.com/websocket")
-                                        .track(
-                                            StreamingFailedWebhookEvent.Data.Payload.StreamParams
-                                                .Track
-                                                .INBOUND_TRACK
-                                        )
-                                        .build()
-                                )
-                                .streamType(
-                                    StreamingFailedWebhookEvent.Data.Payload.StreamType.WEBSOCKET
-                                )
-                                .build()
-                        )
-                        .recordType(StreamingFailedWebhookEvent.Data.RecordType.EVENT)
-                        .build()
-                )
-                .build()
-
-        val unwrapWebhookEvent = UnwrapWebhookEvent.ofStreamingFailed(streamingFailed)
-
-        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
-        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
-        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
-        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
-        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
-        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
-        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
-        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
-        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
-        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
-        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
-        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
-        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
-        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
-        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
-        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
-        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
-        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
-        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
-        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
-        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
-        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
-        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).contains(streamingFailed)
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
-        assertThat(unwrapWebhookEvent.transcription()).isEmpty
-    }
-
-    @Test
-    fun ofStreamingFailedRoundtrip() {
-        val jsonMapper = jsonMapper()
-        val unwrapWebhookEvent =
-            UnwrapWebhookEvent.ofStreamingFailed(
-                StreamingFailedWebhookEvent.builder()
-                    .data(
-                        StreamingFailedWebhookEvent.Data.builder()
-                            .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                            .eventType(StreamingFailedWebhookEvent.Data.EventType.STREAMING_FAILED)
-                            .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
-                            .payload(
-                                StreamingFailedWebhookEvent.Data.Payload.builder()
-                                    .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                    .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                    .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                                    .connectionId("7267xxxxxxxxxxxxxx")
-                                    .failureReason("connection_failed")
-                                    .streamId("1edb94f9-7ef0-4150-b502-e0ebadfd9491")
-                                    .streamParams(
-                                        StreamingFailedWebhookEvent.Data.Payload.StreamParams
-                                            .builder()
-                                            .streamUrl("wss://www.example.com/websocket")
-                                            .track(
-                                                StreamingFailedWebhookEvent.Data.Payload
-                                                    .StreamParams
-                                                    .Track
-                                                    .INBOUND_TRACK
-                                            )
-                                            .build()
-                                    )
-                                    .streamType(
-                                        StreamingFailedWebhookEvent.Data.Payload.StreamType
-                                            .WEBSOCKET
-                                    )
-                                    .build()
-                            )
-                            .recordType(StreamingFailedWebhookEvent.Data.RecordType.EVENT)
-                            .build()
-                    )
-                    .build()
-            )
-
-        val roundtrippedUnwrapWebhookEvent =
-            jsonMapper.readValue(
-                jsonMapper.writeValueAsString(unwrapWebhookEvent),
-                jacksonTypeRef<UnwrapWebhookEvent>(),
-            )
-
-        assertThat(roundtrippedUnwrapWebhookEvent).isEqualTo(unwrapWebhookEvent)
-    }
-
-    @Test
-    fun ofStreamingStarted() {
-        val streamingStarted =
-            StreamingStartedWebhookEvent.builder()
-                .data(
-                    StreamingStartedWebhookEvent.Data.builder()
-                        .id("7d743d69-f7e8-4761-b7d4-8cacf9d3c031")
-                        .eventType(StreamingStartedWebhookEvent.Data.EventType.STREAMING_STARTED)
-                        .occurredAt(OffsetDateTime.parse("2021-12-15T14:06:32.059436Z"))
-                        .payload(
-                            StreamingStartedWebhookEvent.Data.Payload.builder()
-                                .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                                .connectionId("7267xxxxxxxxxxxxxx")
-                                .streamUrl("wss://www.example.com/websocket")
-                                .build()
-                        )
-                        .recordType(StreamingStartedWebhookEvent.Data.RecordType.EVENT)
-                        .build()
-                )
-                .build()
-
-        val unwrapWebhookEvent = UnwrapWebhookEvent.ofStreamingStarted(streamingStarted)
-
-        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
-        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
-        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
-        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
-        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
-        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
-        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
-        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
-        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
-        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
-        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
-        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
-        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
-        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
-        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
-        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
-        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
-        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
-        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
-        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
-        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
-        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
-        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).contains(streamingStarted)
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
-        assertThat(unwrapWebhookEvent.transcription()).isEmpty
-    }
-
-    @Test
-    fun ofStreamingStartedRoundtrip() {
-        val jsonMapper = jsonMapper()
-        val unwrapWebhookEvent =
-            UnwrapWebhookEvent.ofStreamingStarted(
-                StreamingStartedWebhookEvent.builder()
-                    .data(
-                        StreamingStartedWebhookEvent.Data.builder()
-                            .id("7d743d69-f7e8-4761-b7d4-8cacf9d3c031")
-                            .eventType(
-                                StreamingStartedWebhookEvent.Data.EventType.STREAMING_STARTED
-                            )
-                            .occurredAt(OffsetDateTime.parse("2021-12-15T14:06:32.059436Z"))
-                            .payload(
-                                StreamingStartedWebhookEvent.Data.Payload.builder()
-                                    .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                    .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                    .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                                    .connectionId("7267xxxxxxxxxxxxxx")
-                                    .streamUrl("wss://www.example.com/websocket")
-                                    .build()
-                            )
-                            .recordType(StreamingStartedWebhookEvent.Data.RecordType.EVENT)
-                            .build()
-                    )
-                    .build()
-            )
-
-        val roundtrippedUnwrapWebhookEvent =
-            jsonMapper.readValue(
-                jsonMapper.writeValueAsString(unwrapWebhookEvent),
-                jacksonTypeRef<UnwrapWebhookEvent>(),
-            )
-
-        assertThat(roundtrippedUnwrapWebhookEvent).isEqualTo(unwrapWebhookEvent)
-    }
-
-    @Test
-    fun ofStreamingStopped() {
-        val streamingStopped =
-            StreamingStoppedWebhookEvent.builder()
-                .data(
-                    StreamingStoppedWebhookEvent.Data.builder()
-                        .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                        .eventType(StreamingStoppedWebhookEvent.Data.EventType.STREAMING_STOPPED)
-                        .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
-                        .payload(
-                            StreamingStoppedWebhookEvent.Data.Payload.builder()
-                                .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                                .connectionId("7267xxxxxxxxxxxxxx")
-                                .streamUrl("wss://www.example.com/websocket")
-                                .build()
-                        )
-                        .recordType(StreamingStoppedWebhookEvent.Data.RecordType.EVENT)
-                        .build()
-                )
-                .build()
-
-        val unwrapWebhookEvent = UnwrapWebhookEvent.ofStreamingStopped(streamingStopped)
-
-        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
-        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
-        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
-        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
-        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
-        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
-        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
-        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
-        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
-        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
-        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
-        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
-        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
-        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
-        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
-        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
-        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
-        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
-        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
-        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
-        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
-        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
-        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
-        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).contains(streamingStopped)
-        assertThat(unwrapWebhookEvent.transcription()).isEmpty
-    }
-
-    @Test
-    fun ofStreamingStoppedRoundtrip() {
-        val jsonMapper = jsonMapper()
-        val unwrapWebhookEvent =
-            UnwrapWebhookEvent.ofStreamingStopped(
-                StreamingStoppedWebhookEvent.builder()
-                    .data(
-                        StreamingStoppedWebhookEvent.Data.builder()
-                            .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                            .eventType(
-                                StreamingStoppedWebhookEvent.Data.EventType.STREAMING_STOPPED
-                            )
-                            .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
-                            .payload(
-                                StreamingStoppedWebhookEvent.Data.Payload.builder()
-                                    .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                    .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                    .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
-                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                                    .connectionId("7267xxxxxxxxxxxxxx")
-                                    .streamUrl("wss://www.example.com/websocket")
-                                    .build()
-                            )
-                            .recordType(StreamingStoppedWebhookEvent.Data.RecordType.EVENT)
-                            .build()
-                    )
-                    .build()
-            )
-
-        val roundtrippedUnwrapWebhookEvent =
-            jsonMapper.readValue(
-                jsonMapper.writeValueAsString(unwrapWebhookEvent),
-                jacksonTypeRef<UnwrapWebhookEvent>(),
-            )
-
-        assertThat(roundtrippedUnwrapWebhookEvent).isEqualTo(unwrapWebhookEvent)
-    }
-
-    @Test
     fun ofTranscription() {
         val transcription =
             TranscriptionWebhookEvent.builder()
@@ -9751,7 +8926,7 @@ internal class UnwrapWebhookEventTest {
                                 )
                                 .callLegId("5ca81340-5beb-11eb-ae45-02420a0f8b69")
                                 .callSessionId("5ca81eee-5beb-11eb-ba6c-02420a0f8b69")
-                                .clientState("client_state")
+                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("1240401930086254526")
                                 .transcriptionData(
                                     TranscriptionWebhookEvent.Data.Payload.TranscriptionData
@@ -9778,7 +8953,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
         assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
-        assertThat(unwrapWebhookEvent.customerServiceRecordStatusChanged()).isEmpty
         assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
@@ -9835,9 +9009,6 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
         assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
         assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingFailed()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStarted()).isEmpty
-        assertThat(unwrapWebhookEvent.streamingStopped()).isEmpty
         assertThat(unwrapWebhookEvent.transcription()).contains(transcription)
     }
 
@@ -9859,7 +9030,7 @@ internal class UnwrapWebhookEventTest {
                                     )
                                     .callLegId("5ca81340-5beb-11eb-ae45-02420a0f8b69")
                                     .callSessionId("5ca81eee-5beb-11eb-ba6c-02420a0f8b69")
-                                    .clientState("client_state")
+                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("1240401930086254526")
                                     .transcriptionData(
                                         TranscriptionWebhookEvent.Data.Payload.TranscriptionData

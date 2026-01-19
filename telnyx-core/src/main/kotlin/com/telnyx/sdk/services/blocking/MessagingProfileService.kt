@@ -10,12 +10,12 @@ import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileDeleteParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileDeleteResponse
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPage
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersPage
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersParams
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersResponse
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListResponse
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesPage
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesParams
-import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateParams
@@ -50,22 +50,23 @@ interface MessagingProfileService {
     ): MessagingProfileCreateResponse
 
     /** Retrieve a messaging profile */
-    fun retrieve(id: String): MessagingProfileRetrieveResponse =
-        retrieve(id, MessagingProfileRetrieveParams.none())
+    fun retrieve(messagingProfileId: String): MessagingProfileRetrieveResponse =
+        retrieve(messagingProfileId, MessagingProfileRetrieveParams.none())
 
     /** @see retrieve */
     fun retrieve(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileRetrieveParams = MessagingProfileRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MessagingProfileRetrieveResponse =
-        retrieve(params.toBuilder().id(id).build(), requestOptions)
+        retrieve(params.toBuilder().messagingProfileId(messagingProfileId).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileRetrieveParams = MessagingProfileRetrieveParams.none(),
-    ): MessagingProfileRetrieveResponse = retrieve(id, params, RequestOptions.none())
+    ): MessagingProfileRetrieveResponse =
+        retrieve(messagingProfileId, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
@@ -78,26 +79,29 @@ interface MessagingProfileService {
         retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(id: String, requestOptions: RequestOptions): MessagingProfileRetrieveResponse =
-        retrieve(id, MessagingProfileRetrieveParams.none(), requestOptions)
+    fun retrieve(
+        messagingProfileId: String,
+        requestOptions: RequestOptions,
+    ): MessagingProfileRetrieveResponse =
+        retrieve(messagingProfileId, MessagingProfileRetrieveParams.none(), requestOptions)
 
     /** Update a messaging profile */
-    fun update(pathId: String): MessagingProfileUpdateResponse =
-        update(pathId, MessagingProfileUpdateParams.none())
+    fun update(messagingProfileId: String): MessagingProfileUpdateResponse =
+        update(messagingProfileId, MessagingProfileUpdateParams.none())
 
     /** @see update */
     fun update(
-        pathId: String,
+        messagingProfileId: String,
         params: MessagingProfileUpdateParams = MessagingProfileUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MessagingProfileUpdateResponse =
-        update(params.toBuilder().pathId(pathId).build(), requestOptions)
+        update(params.toBuilder().messagingProfileId(messagingProfileId).build(), requestOptions)
 
     /** @see update */
     fun update(
-        pathId: String,
+        messagingProfileId: String,
         params: MessagingProfileUpdateParams = MessagingProfileUpdateParams.none(),
-    ): MessagingProfileUpdateResponse = update(pathId, params, RequestOptions.none())
+    ): MessagingProfileUpdateResponse = update(messagingProfileId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
@@ -110,43 +114,47 @@ interface MessagingProfileService {
         update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(pathId: String, requestOptions: RequestOptions): MessagingProfileUpdateResponse =
-        update(pathId, MessagingProfileUpdateParams.none(), requestOptions)
+    fun update(
+        messagingProfileId: String,
+        requestOptions: RequestOptions,
+    ): MessagingProfileUpdateResponse =
+        update(messagingProfileId, MessagingProfileUpdateParams.none(), requestOptions)
 
     /** List messaging profiles */
-    fun list(): MessagingProfileListResponse = list(MessagingProfileListParams.none())
+    fun list(): MessagingProfileListPage = list(MessagingProfileListParams.none())
 
     /** @see list */
     fun list(
         params: MessagingProfileListParams = MessagingProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessagingProfileListResponse
+    ): MessagingProfileListPage
 
     /** @see list */
     fun list(
         params: MessagingProfileListParams = MessagingProfileListParams.none()
-    ): MessagingProfileListResponse = list(params, RequestOptions.none())
+    ): MessagingProfileListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): MessagingProfileListResponse =
+    fun list(requestOptions: RequestOptions): MessagingProfileListPage =
         list(MessagingProfileListParams.none(), requestOptions)
 
     /** Delete a messaging profile */
-    fun delete(id: String): MessagingProfileDeleteResponse =
-        delete(id, MessagingProfileDeleteParams.none())
+    fun delete(messagingProfileId: String): MessagingProfileDeleteResponse =
+        delete(messagingProfileId, MessagingProfileDeleteParams.none())
 
     /** @see delete */
     fun delete(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileDeleteParams = MessagingProfileDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessagingProfileDeleteResponse = delete(params.toBuilder().id(id).build(), requestOptions)
+    ): MessagingProfileDeleteResponse =
+        delete(params.toBuilder().messagingProfileId(messagingProfileId).build(), requestOptions)
 
     /** @see delete */
     fun delete(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileDeleteParams = MessagingProfileDeleteParams.none(),
-    ): MessagingProfileDeleteResponse = delete(id, params, RequestOptions.none())
+    ): MessagingProfileDeleteResponse = delete(messagingProfileId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
@@ -159,83 +167,101 @@ interface MessagingProfileService {
         delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(id: String, requestOptions: RequestOptions): MessagingProfileDeleteResponse =
-        delete(id, MessagingProfileDeleteParams.none(), requestOptions)
+    fun delete(
+        messagingProfileId: String,
+        requestOptions: RequestOptions,
+    ): MessagingProfileDeleteResponse =
+        delete(messagingProfileId, MessagingProfileDeleteParams.none(), requestOptions)
 
     /** List phone numbers associated with a messaging profile */
-    fun listPhoneNumbers(id: String): MessagingProfileListPhoneNumbersResponse =
-        listPhoneNumbers(id, MessagingProfileListPhoneNumbersParams.none())
+    fun listPhoneNumbers(messagingProfileId: String): MessagingProfileListPhoneNumbersPage =
+        listPhoneNumbers(messagingProfileId, MessagingProfileListPhoneNumbersParams.none())
 
     /** @see listPhoneNumbers */
     fun listPhoneNumbers(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileListPhoneNumbersParams =
             MessagingProfileListPhoneNumbersParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessagingProfileListPhoneNumbersResponse =
-        listPhoneNumbers(params.toBuilder().id(id).build(), requestOptions)
+    ): MessagingProfileListPhoneNumbersPage =
+        listPhoneNumbers(
+            params.toBuilder().messagingProfileId(messagingProfileId).build(),
+            requestOptions,
+        )
 
     /** @see listPhoneNumbers */
     fun listPhoneNumbers(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileListPhoneNumbersParams =
             MessagingProfileListPhoneNumbersParams.none(),
-    ): MessagingProfileListPhoneNumbersResponse =
-        listPhoneNumbers(id, params, RequestOptions.none())
+    ): MessagingProfileListPhoneNumbersPage =
+        listPhoneNumbers(messagingProfileId, params, RequestOptions.none())
 
     /** @see listPhoneNumbers */
     fun listPhoneNumbers(
         params: MessagingProfileListPhoneNumbersParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessagingProfileListPhoneNumbersResponse
+    ): MessagingProfileListPhoneNumbersPage
 
     /** @see listPhoneNumbers */
     fun listPhoneNumbers(
         params: MessagingProfileListPhoneNumbersParams
-    ): MessagingProfileListPhoneNumbersResponse = listPhoneNumbers(params, RequestOptions.none())
+    ): MessagingProfileListPhoneNumbersPage = listPhoneNumbers(params, RequestOptions.none())
 
     /** @see listPhoneNumbers */
     fun listPhoneNumbers(
-        id: String,
+        messagingProfileId: String,
         requestOptions: RequestOptions,
-    ): MessagingProfileListPhoneNumbersResponse =
-        listPhoneNumbers(id, MessagingProfileListPhoneNumbersParams.none(), requestOptions)
+    ): MessagingProfileListPhoneNumbersPage =
+        listPhoneNumbers(
+            messagingProfileId,
+            MessagingProfileListPhoneNumbersParams.none(),
+            requestOptions,
+        )
 
     /** List short codes associated with a messaging profile */
-    fun listShortCodes(id: String): MessagingProfileListShortCodesResponse =
-        listShortCodes(id, MessagingProfileListShortCodesParams.none())
+    fun listShortCodes(messagingProfileId: String): MessagingProfileListShortCodesPage =
+        listShortCodes(messagingProfileId, MessagingProfileListShortCodesParams.none())
 
     /** @see listShortCodes */
     fun listShortCodes(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileListShortCodesParams = MessagingProfileListShortCodesParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessagingProfileListShortCodesResponse =
-        listShortCodes(params.toBuilder().id(id).build(), requestOptions)
+    ): MessagingProfileListShortCodesPage =
+        listShortCodes(
+            params.toBuilder().messagingProfileId(messagingProfileId).build(),
+            requestOptions,
+        )
 
     /** @see listShortCodes */
     fun listShortCodes(
-        id: String,
+        messagingProfileId: String,
         params: MessagingProfileListShortCodesParams = MessagingProfileListShortCodesParams.none(),
-    ): MessagingProfileListShortCodesResponse = listShortCodes(id, params, RequestOptions.none())
+    ): MessagingProfileListShortCodesPage =
+        listShortCodes(messagingProfileId, params, RequestOptions.none())
 
     /** @see listShortCodes */
     fun listShortCodes(
         params: MessagingProfileListShortCodesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessagingProfileListShortCodesResponse
+    ): MessagingProfileListShortCodesPage
 
     /** @see listShortCodes */
     fun listShortCodes(
         params: MessagingProfileListShortCodesParams
-    ): MessagingProfileListShortCodesResponse = listShortCodes(params, RequestOptions.none())
+    ): MessagingProfileListShortCodesPage = listShortCodes(params, RequestOptions.none())
 
     /** @see listShortCodes */
     fun listShortCodes(
-        id: String,
+        messagingProfileId: String,
         requestOptions: RequestOptions,
-    ): MessagingProfileListShortCodesResponse =
-        listShortCodes(id, MessagingProfileListShortCodesParams.none(), requestOptions)
+    ): MessagingProfileListShortCodesPage =
+        listShortCodes(
+            messagingProfileId,
+            MessagingProfileListShortCodesParams.none(),
+            requestOptions,
+        )
 
     /**
      * A view of [MessagingProfileService] that provides access to raw HTTP responses for each
@@ -275,25 +301,30 @@ interface MessagingProfileService {
          * as [MessagingProfileService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(id: String): HttpResponseFor<MessagingProfileRetrieveResponse> =
-            retrieve(id, MessagingProfileRetrieveParams.none())
+        fun retrieve(
+            messagingProfileId: String
+        ): HttpResponseFor<MessagingProfileRetrieveResponse> =
+            retrieve(messagingProfileId, MessagingProfileRetrieveParams.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileRetrieveParams = MessagingProfileRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<MessagingProfileRetrieveResponse> =
-            retrieve(params.toBuilder().id(id).build(), requestOptions)
+            retrieve(
+                params.toBuilder().messagingProfileId(messagingProfileId).build(),
+                requestOptions,
+            )
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileRetrieveParams = MessagingProfileRetrieveParams.none(),
         ): HttpResponseFor<MessagingProfileRetrieveResponse> =
-            retrieve(id, params, RequestOptions.none())
+            retrieve(messagingProfileId, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
@@ -312,35 +343,38 @@ interface MessagingProfileService {
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
-            id: String,
+            messagingProfileId: String,
             requestOptions: RequestOptions,
         ): HttpResponseFor<MessagingProfileRetrieveResponse> =
-            retrieve(id, MessagingProfileRetrieveParams.none(), requestOptions)
+            retrieve(messagingProfileId, MessagingProfileRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /messaging_profiles/{id}`, but is otherwise the
          * same as [MessagingProfileService.update].
          */
         @MustBeClosed
-        fun update(pathId: String): HttpResponseFor<MessagingProfileUpdateResponse> =
-            update(pathId, MessagingProfileUpdateParams.none())
+        fun update(messagingProfileId: String): HttpResponseFor<MessagingProfileUpdateResponse> =
+            update(messagingProfileId, MessagingProfileUpdateParams.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
-            pathId: String,
+            messagingProfileId: String,
             params: MessagingProfileUpdateParams = MessagingProfileUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<MessagingProfileUpdateResponse> =
-            update(params.toBuilder().pathId(pathId).build(), requestOptions)
+            update(
+                params.toBuilder().messagingProfileId(messagingProfileId).build(),
+                requestOptions,
+            )
 
         /** @see update */
         @MustBeClosed
         fun update(
-            pathId: String,
+            messagingProfileId: String,
             params: MessagingProfileUpdateParams = MessagingProfileUpdateParams.none(),
         ): HttpResponseFor<MessagingProfileUpdateResponse> =
-            update(pathId, params, RequestOptions.none())
+            update(messagingProfileId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
@@ -358,17 +392,17 @@ interface MessagingProfileService {
         /** @see update */
         @MustBeClosed
         fun update(
-            pathId: String,
+            messagingProfileId: String,
             requestOptions: RequestOptions,
         ): HttpResponseFor<MessagingProfileUpdateResponse> =
-            update(pathId, MessagingProfileUpdateParams.none(), requestOptions)
+            update(messagingProfileId, MessagingProfileUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /messaging_profiles`, but is otherwise the same as
          * [MessagingProfileService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<MessagingProfileListResponse> =
+        fun list(): HttpResponseFor<MessagingProfileListPage> =
             list(MessagingProfileListParams.none())
 
         /** @see list */
@@ -376,17 +410,17 @@ interface MessagingProfileService {
         fun list(
             params: MessagingProfileListParams = MessagingProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessagingProfileListResponse>
+        ): HttpResponseFor<MessagingProfileListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MessagingProfileListParams = MessagingProfileListParams.none()
-        ): HttpResponseFor<MessagingProfileListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<MessagingProfileListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<MessagingProfileListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<MessagingProfileListPage> =
             list(MessagingProfileListParams.none(), requestOptions)
 
         /**
@@ -394,25 +428,28 @@ interface MessagingProfileService {
          * same as [MessagingProfileService.delete].
          */
         @MustBeClosed
-        fun delete(id: String): HttpResponseFor<MessagingProfileDeleteResponse> =
-            delete(id, MessagingProfileDeleteParams.none())
+        fun delete(messagingProfileId: String): HttpResponseFor<MessagingProfileDeleteResponse> =
+            delete(messagingProfileId, MessagingProfileDeleteParams.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileDeleteParams = MessagingProfileDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<MessagingProfileDeleteResponse> =
-            delete(params.toBuilder().id(id).build(), requestOptions)
+            delete(
+                params.toBuilder().messagingProfileId(messagingProfileId).build(),
+                requestOptions,
+            )
 
         /** @see delete */
         @MustBeClosed
         fun delete(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileDeleteParams = MessagingProfileDeleteParams.none(),
         ): HttpResponseFor<MessagingProfileDeleteResponse> =
-            delete(id, params, RequestOptions.none())
+            delete(messagingProfileId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
@@ -430,10 +467,10 @@ interface MessagingProfileService {
         /** @see delete */
         @MustBeClosed
         fun delete(
-            id: String,
+            messagingProfileId: String,
             requestOptions: RequestOptions,
         ): HttpResponseFor<MessagingProfileDeleteResponse> =
-            delete(id, MessagingProfileDeleteParams.none(), requestOptions)
+            delete(messagingProfileId, MessagingProfileDeleteParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /messaging_profiles/{id}/phone_numbers`, but is
@@ -441,98 +478,114 @@ interface MessagingProfileService {
          */
         @MustBeClosed
         fun listPhoneNumbers(
-            id: String
-        ): HttpResponseFor<MessagingProfileListPhoneNumbersResponse> =
-            listPhoneNumbers(id, MessagingProfileListPhoneNumbersParams.none())
+            messagingProfileId: String
+        ): HttpResponseFor<MessagingProfileListPhoneNumbersPage> =
+            listPhoneNumbers(messagingProfileId, MessagingProfileListPhoneNumbersParams.none())
 
         /** @see listPhoneNumbers */
         @MustBeClosed
         fun listPhoneNumbers(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileListPhoneNumbersParams =
                 MessagingProfileListPhoneNumbersParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessagingProfileListPhoneNumbersResponse> =
-            listPhoneNumbers(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponseFor<MessagingProfileListPhoneNumbersPage> =
+            listPhoneNumbers(
+                params.toBuilder().messagingProfileId(messagingProfileId).build(),
+                requestOptions,
+            )
 
         /** @see listPhoneNumbers */
         @MustBeClosed
         fun listPhoneNumbers(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileListPhoneNumbersParams =
                 MessagingProfileListPhoneNumbersParams.none(),
-        ): HttpResponseFor<MessagingProfileListPhoneNumbersResponse> =
-            listPhoneNumbers(id, params, RequestOptions.none())
+        ): HttpResponseFor<MessagingProfileListPhoneNumbersPage> =
+            listPhoneNumbers(messagingProfileId, params, RequestOptions.none())
 
         /** @see listPhoneNumbers */
         @MustBeClosed
         fun listPhoneNumbers(
             params: MessagingProfileListPhoneNumbersParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessagingProfileListPhoneNumbersResponse>
+        ): HttpResponseFor<MessagingProfileListPhoneNumbersPage>
 
         /** @see listPhoneNumbers */
         @MustBeClosed
         fun listPhoneNumbers(
             params: MessagingProfileListPhoneNumbersParams
-        ): HttpResponseFor<MessagingProfileListPhoneNumbersResponse> =
+        ): HttpResponseFor<MessagingProfileListPhoneNumbersPage> =
             listPhoneNumbers(params, RequestOptions.none())
 
         /** @see listPhoneNumbers */
         @MustBeClosed
         fun listPhoneNumbers(
-            id: String,
+            messagingProfileId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MessagingProfileListPhoneNumbersResponse> =
-            listPhoneNumbers(id, MessagingProfileListPhoneNumbersParams.none(), requestOptions)
+        ): HttpResponseFor<MessagingProfileListPhoneNumbersPage> =
+            listPhoneNumbers(
+                messagingProfileId,
+                MessagingProfileListPhoneNumbersParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /messaging_profiles/{id}/short_codes`, but is
          * otherwise the same as [MessagingProfileService.listShortCodes].
          */
         @MustBeClosed
-        fun listShortCodes(id: String): HttpResponseFor<MessagingProfileListShortCodesResponse> =
-            listShortCodes(id, MessagingProfileListShortCodesParams.none())
+        fun listShortCodes(
+            messagingProfileId: String
+        ): HttpResponseFor<MessagingProfileListShortCodesPage> =
+            listShortCodes(messagingProfileId, MessagingProfileListShortCodesParams.none())
 
         /** @see listShortCodes */
         @MustBeClosed
         fun listShortCodes(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileListShortCodesParams =
                 MessagingProfileListShortCodesParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessagingProfileListShortCodesResponse> =
-            listShortCodes(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponseFor<MessagingProfileListShortCodesPage> =
+            listShortCodes(
+                params.toBuilder().messagingProfileId(messagingProfileId).build(),
+                requestOptions,
+            )
 
         /** @see listShortCodes */
         @MustBeClosed
         fun listShortCodes(
-            id: String,
+            messagingProfileId: String,
             params: MessagingProfileListShortCodesParams =
                 MessagingProfileListShortCodesParams.none(),
-        ): HttpResponseFor<MessagingProfileListShortCodesResponse> =
-            listShortCodes(id, params, RequestOptions.none())
+        ): HttpResponseFor<MessagingProfileListShortCodesPage> =
+            listShortCodes(messagingProfileId, params, RequestOptions.none())
 
         /** @see listShortCodes */
         @MustBeClosed
         fun listShortCodes(
             params: MessagingProfileListShortCodesParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessagingProfileListShortCodesResponse>
+        ): HttpResponseFor<MessagingProfileListShortCodesPage>
 
         /** @see listShortCodes */
         @MustBeClosed
         fun listShortCodes(
             params: MessagingProfileListShortCodesParams
-        ): HttpResponseFor<MessagingProfileListShortCodesResponse> =
+        ): HttpResponseFor<MessagingProfileListShortCodesPage> =
             listShortCodes(params, RequestOptions.none())
 
         /** @see listShortCodes */
         @MustBeClosed
         fun listShortCodes(
-            id: String,
+            messagingProfileId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<MessagingProfileListShortCodesResponse> =
-            listShortCodes(id, MessagingProfileListShortCodesParams.none(), requestOptions)
+        ): HttpResponseFor<MessagingProfileListShortCodesPage> =
+            listShortCodes(
+                messagingProfileId,
+                MessagingProfileListShortCodesParams.none(),
+                requestOptions,
+            )
     }
 }

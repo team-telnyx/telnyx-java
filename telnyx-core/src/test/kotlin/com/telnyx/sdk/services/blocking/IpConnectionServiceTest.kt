@@ -10,7 +10,6 @@ import com.telnyx.sdk.models.credentialconnections.DtmfType
 import com.telnyx.sdk.models.credentialconnections.EncryptedMedia
 import com.telnyx.sdk.models.ipconnections.InboundIp
 import com.telnyx.sdk.models.ipconnections.IpConnectionCreateParams
-import com.telnyx.sdk.models.ipconnections.IpConnectionListParams
 import com.telnyx.sdk.models.ipconnections.IpConnectionUpdateParams
 import com.telnyx.sdk.models.ipconnections.OutboundIp
 import org.junit.jupiter.api.Disabled
@@ -36,6 +35,7 @@ internal class IpConnectionServiceTest {
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                     .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+                    .callCostInWebhooks(false)
                     .connectionName("string")
                     .defaultOnHoldComfortNoiseEnabled(true)
                     .dtmfType(DtmfType.RFC_2833)
@@ -47,7 +47,7 @@ internal class IpConnectionServiceTest {
                                 IpConnectionCreateParams.Inbound.AniNumberFormat.PLUS_E_164
                             )
                             .channelLimit(10L)
-                            .addCodec("string")
+                            .addCodec("G722")
                             .defaultRoutingMethod(
                                 IpConnectionCreateParams.Inbound.DefaultRoutingMethod.SEQUENTIAL
                             )
@@ -70,6 +70,16 @@ internal class IpConnectionServiceTest {
                             .build()
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                    .noiseSuppression(IpConnectionCreateParams.NoiseSuppression.BOTH)
+                    .noiseSuppressionDetails(
+                        IpConnectionCreateParams.NoiseSuppressionDetails.builder()
+                            .attenuationLimit(80L)
+                            .engine(
+                                IpConnectionCreateParams.NoiseSuppressionDetails.Engine
+                                    .DEEP_FILTER_NET
+                            )
+                            .build()
+                    )
                     .onnetT38PassthroughEnabled(false)
                     .outbound(
                         OutboundIp.builder()
@@ -97,7 +107,7 @@ internal class IpConnectionServiceTest {
                     .addTag("tag1")
                     .addTag("tag2")
                     .transportProtocol(IpConnectionCreateParams.TransportProtocol.UDP)
-                    .webhookApiVersion(IpConnectionCreateParams.WebhookApiVersion._1)
+                    .webhookApiVersion(IpConnectionCreateParams.WebhookApiVersion.V1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookEventUrl("https://example.com")
                     .webhookTimeoutSecs(25L)
@@ -139,6 +149,7 @@ internal class IpConnectionServiceTest {
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                     .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+                    .callCostInWebhooks(false)
                     .connectionName("string")
                     .defaultOnHoldComfortNoiseEnabled(true)
                     .dtmfType(DtmfType.RFC_2833)
@@ -148,7 +159,7 @@ internal class IpConnectionServiceTest {
                         InboundIp.builder()
                             .aniNumberFormat(InboundIp.AniNumberFormat.PLUS_E_164)
                             .channelLimit(10L)
-                            .addCodec("string")
+                            .addCodec("G722")
                             .defaultPrimaryIpId("192.168.0.0")
                             .defaultRoutingMethod(InboundIp.DefaultRoutingMethod.SEQUENTIAL)
                             .defaultSecondaryIpId("192.168.0.0")
@@ -169,6 +180,16 @@ internal class IpConnectionServiceTest {
                             .build()
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                    .noiseSuppression(IpConnectionUpdateParams.NoiseSuppression.BOTH)
+                    .noiseSuppressionDetails(
+                        IpConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                            .attenuationLimit(80L)
+                            .engine(
+                                IpConnectionUpdateParams.NoiseSuppressionDetails.Engine
+                                    .DEEP_FILTER_NET
+                            )
+                            .build()
+                    )
                     .onnetT38PassthroughEnabled(false)
                     .outbound(
                         OutboundIp.builder()
@@ -196,7 +217,7 @@ internal class IpConnectionServiceTest {
                     .addTag("tag1")
                     .addTag("tag2")
                     .transportProtocol(IpConnectionUpdateParams.TransportProtocol.UDP)
-                    .webhookApiVersion(IpConnectionUpdateParams.WebhookApiVersion._1)
+                    .webhookApiVersion(IpConnectionUpdateParams.WebhookApiVersion.V1)
                     .webhookEventFailoverUrl("https://failover.example.com")
                     .webhookEventUrl("https://example.com")
                     .webhookTimeoutSecs(25L)
@@ -216,26 +237,9 @@ internal class IpConnectionServiceTest {
                 .build()
         val ipConnectionService = client.ipConnections()
 
-        val ipConnections =
-            ipConnectionService.list(
-                IpConnectionListParams.builder()
-                    .filter(
-                        IpConnectionListParams.Filter.builder()
-                            .connectionName(
-                                IpConnectionListParams.Filter.ConnectionName.builder()
-                                    .contains("contains")
-                                    .build()
-                            )
-                            .fqdn("fqdn")
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
-                            .build()
-                    )
-                    .page(IpConnectionListParams.Page.builder().number(1L).size(1L).build())
-                    .sort(IpConnectionListParams.Sort.CONNECTION_NAME)
-                    .build()
-            )
+        val page = ipConnectionService.list()
 
-        ipConnections.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

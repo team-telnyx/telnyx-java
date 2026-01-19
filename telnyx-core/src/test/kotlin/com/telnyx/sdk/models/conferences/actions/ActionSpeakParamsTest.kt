@@ -19,8 +19,12 @@ internal class ActionSpeakParamsTest {
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .language(ActionSpeakParams.Language.EN_US)
             .payloadType(ActionSpeakParams.PayloadType.TEXT)
+            .region(ActionSpeakParams.Region.US)
             .voiceSettings(
-                ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+                ElevenLabsVoiceSettings.builder()
+                    .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                    .apiKeyRef("my_elevenlabs_api_key")
+                    .build()
             )
             .build()
     }
@@ -50,8 +54,12 @@ internal class ActionSpeakParamsTest {
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .language(ActionSpeakParams.Language.EN_US)
                 .payloadType(ActionSpeakParams.PayloadType.TEXT)
+                .region(ActionSpeakParams.Region.US)
                 .voiceSettings(
-                    ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+                    ElevenLabsVoiceSettings.builder()
+                        .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                        .apiKeyRef("my_elevenlabs_api_key")
+                        .build()
                 )
                 .build()
 
@@ -64,10 +72,14 @@ internal class ActionSpeakParamsTest {
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
         assertThat(body.language()).contains(ActionSpeakParams.Language.EN_US)
         assertThat(body.payloadType()).contains(ActionSpeakParams.PayloadType.TEXT)
+        assertThat(body.region()).contains(ActionSpeakParams.Region.US)
         assertThat(body.voiceSettings())
             .contains(
-                ActionSpeakParams.VoiceSettings.ofElevenLabs(
-                    ElevenLabsVoiceSettings.builder().apiKeyRef("my_elevenlabs_api_key").build()
+                ActionSpeakParams.VoiceSettings.ofElevenlabs(
+                    ElevenLabsVoiceSettings.builder()
+                        .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
+                        .apiKeyRef("my_elevenlabs_api_key")
+                        .build()
                 )
             )
     }

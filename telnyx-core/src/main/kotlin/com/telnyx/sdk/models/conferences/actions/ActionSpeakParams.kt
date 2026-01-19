@@ -21,7 +21,6 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
-import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.getOrThrow
@@ -122,6 +121,15 @@ private constructor(
     fun payloadType(): Optional<PayloadType> = body.payloadType()
 
     /**
+     * Region where the conference data is located. Defaults to the region defined in user's data
+     * locality settings (Europe or US).
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun region(): Optional<Region> = body.region()
+
+    /**
      * The settings associated with the voice selected
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -170,6 +178,13 @@ private constructor(
      * Unlike [payloadType], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _payloadType(): JsonField<PayloadType> = body._payloadType()
+
+    /**
+     * Returns the raw JSON value of [region].
+     *
+     * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _region(): JsonField<Region> = body._region()
 
     /**
      * Returns the raw JSON value of [voiceSettings].
@@ -357,6 +372,20 @@ private constructor(
             body.payloadType(payloadType)
         }
 
+        /**
+         * Region where the conference data is located. Defaults to the region defined in user's
+         * data locality settings (Europe or US).
+         */
+        fun region(region: Region) = apply { body.region(region) }
+
+        /**
+         * Sets [Builder.region] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.region] with a well-typed [Region] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun region(region: JsonField<Region>) = apply { body.region(region) }
+
         /** The settings associated with the voice selected */
         fun voiceSettings(voiceSettings: VoiceSettings) = apply {
             body.voiceSettings(voiceSettings)
@@ -373,9 +402,9 @@ private constructor(
             body.voiceSettings(voiceSettings)
         }
 
-        /** Alias for calling [voiceSettings] with `VoiceSettings.ofElevenLabs(elevenLabs)`. */
-        fun voiceSettings(elevenLabs: ElevenLabsVoiceSettings) = apply {
-            body.voiceSettings(elevenLabs)
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofElevenlabs(elevenlabs)`. */
+        fun voiceSettings(elevenlabs: ElevenLabsVoiceSettings) = apply {
+            body.voiceSettings(elevenlabs)
         }
 
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofTelnyx(telnyx)`. */
@@ -544,6 +573,7 @@ private constructor(
         private val commandId: JsonField<String>,
         private val language: JsonField<Language>,
         private val payloadType: JsonField<PayloadType>,
+        private val region: JsonField<Region>,
         private val voiceSettings: JsonField<VoiceSettings>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -564,6 +594,7 @@ private constructor(
             @JsonProperty("payload_type")
             @ExcludeMissing
             payloadType: JsonField<PayloadType> = JsonMissing.of(),
+            @JsonProperty("region") @ExcludeMissing region: JsonField<Region> = JsonMissing.of(),
             @JsonProperty("voice_settings")
             @ExcludeMissing
             voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
@@ -574,6 +605,7 @@ private constructor(
             commandId,
             language,
             payloadType,
+            region,
             voiceSettings,
             mutableMapOf(),
         )
@@ -655,6 +687,15 @@ private constructor(
         fun payloadType(): Optional<PayloadType> = payloadType.getOptional("payload_type")
 
         /**
+         * Region where the conference data is located. Defaults to the region defined in user's
+         * data locality settings (Europe or US).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun region(): Optional<Region> = region.getOptional("region")
+
+        /**
          * The settings associated with the voice selected
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -710,6 +751,13 @@ private constructor(
         fun _payloadType(): JsonField<PayloadType> = payloadType
 
         /**
+         * Returns the raw JSON value of [region].
+         *
+         * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<Region> = region
+
+        /**
          * Returns the raw JSON value of [voiceSettings].
          *
          * Unlike [voiceSettings], this method doesn't throw if the JSON field has an unexpected
@@ -754,6 +802,7 @@ private constructor(
             private var commandId: JsonField<String> = JsonMissing.of()
             private var language: JsonField<Language> = JsonMissing.of()
             private var payloadType: JsonField<PayloadType> = JsonMissing.of()
+            private var region: JsonField<Region> = JsonMissing.of()
             private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -765,6 +814,7 @@ private constructor(
                 commandId = body.commandId
                 language = body.language
                 payloadType = body.payloadType
+                region = body.region
                 voiceSettings = body.voiceSettings
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -896,6 +946,21 @@ private constructor(
                 this.payloadType = payloadType
             }
 
+            /**
+             * Region where the conference data is located. Defaults to the region defined in user's
+             * data locality settings (Europe or US).
+             */
+            fun region(region: Region) = region(JsonField.of(region))
+
+            /**
+             * Sets [Builder.region] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.region] with a well-typed [Region] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun region(region: JsonField<Region>) = apply { this.region = region }
+
             /** The settings associated with the voice selected */
             fun voiceSettings(voiceSettings: VoiceSettings) =
                 voiceSettings(JsonField.of(voiceSettings))
@@ -911,9 +976,9 @@ private constructor(
                 this.voiceSettings = voiceSettings
             }
 
-            /** Alias for calling [voiceSettings] with `VoiceSettings.ofElevenLabs(elevenLabs)`. */
-            fun voiceSettings(elevenLabs: ElevenLabsVoiceSettings) =
-                voiceSettings(VoiceSettings.ofElevenLabs(elevenLabs))
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofElevenlabs(elevenlabs)`. */
+            fun voiceSettings(elevenlabs: ElevenLabsVoiceSettings) =
+                voiceSettings(VoiceSettings.ofElevenlabs(elevenlabs))
 
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofTelnyx(telnyx)`. */
             fun voiceSettings(telnyx: TelnyxVoiceSettings) =
@@ -962,6 +1027,7 @@ private constructor(
                     commandId,
                     language,
                     payloadType,
+                    region,
                     voiceSettings,
                     additionalProperties.toMutableMap(),
                 )
@@ -980,6 +1046,7 @@ private constructor(
             commandId()
             language().ifPresent { it.validate() }
             payloadType().ifPresent { it.validate() }
+            region().ifPresent { it.validate() }
             voiceSettings().ifPresent { it.validate() }
             validated = true
         }
@@ -1006,6 +1073,7 @@ private constructor(
                 (if (commandId.asKnown().isPresent) 1 else 0) +
                 (language.asKnown().getOrNull()?.validity() ?: 0) +
                 (payloadType.asKnown().getOrNull()?.validity() ?: 0) +
+                (region.asKnown().getOrNull()?.validity() ?: 0) +
                 (voiceSettings.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -1020,6 +1088,7 @@ private constructor(
                 commandId == other.commandId &&
                 language == other.language &&
                 payloadType == other.payloadType &&
+                region == other.region &&
                 voiceSettings == other.voiceSettings &&
                 additionalProperties == other.additionalProperties
         }
@@ -1032,6 +1101,7 @@ private constructor(
                 commandId,
                 language,
                 payloadType,
+                region,
                 voiceSettings,
                 additionalProperties,
             )
@@ -1040,7 +1110,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{payload=$payload, voice=$voice, callControlIds=$callControlIds, commandId=$commandId, language=$language, payloadType=$payloadType, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+            "Body{payload=$payload, voice=$voice, callControlIds=$callControlIds, commandId=$commandId, language=$language, payloadType=$payloadType, region=$region, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -1465,30 +1535,171 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * Region where the conference data is located. Defaults to the region defined in user's data
+     * locality settings (Europe or US).
+     */
+    class Region @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val AUSTRALIA = of("Australia")
+
+            @JvmField val EUROPE = of("Europe")
+
+            @JvmField val MIDDLE_EAST = of("Middle East")
+
+            @JvmField val US = of("US")
+
+            @JvmStatic fun of(value: String) = Region(JsonField.of(value))
+        }
+
+        /** An enum containing [Region]'s known values. */
+        enum class Known {
+            AUSTRALIA,
+            EUROPE,
+            MIDDLE_EAST,
+            US,
+        }
+
+        /**
+         * An enum containing [Region]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Region] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            AUSTRALIA,
+            EUROPE,
+            MIDDLE_EAST,
+            US,
+            /** An enum member indicating that [Region] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                AUSTRALIA -> Value.AUSTRALIA
+                EUROPE -> Value.EUROPE
+                MIDDLE_EAST -> Value.MIDDLE_EAST
+                US -> Value.US
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                AUSTRALIA -> Known.AUSTRALIA
+                EUROPE -> Known.EUROPE
+                MIDDLE_EAST -> Known.MIDDLE_EAST
+                US -> Known.US
+                else -> throw TelnyxInvalidDataException("Unknown Region: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): Region = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Region && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     /** The settings associated with the voice selected */
     @JsonDeserialize(using = VoiceSettings.Deserializer::class)
     @JsonSerialize(using = VoiceSettings.Serializer::class)
     class VoiceSettings
     private constructor(
-        private val elevenLabs: ElevenLabsVoiceSettings? = null,
+        private val elevenlabs: ElevenLabsVoiceSettings? = null,
         private val telnyx: TelnyxVoiceSettings? = null,
         private val aws: AwsVoiceSettings? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun elevenLabs(): Optional<ElevenLabsVoiceSettings> = Optional.ofNullable(elevenLabs)
+        fun elevenlabs(): Optional<ElevenLabsVoiceSettings> = Optional.ofNullable(elevenlabs)
 
         fun telnyx(): Optional<TelnyxVoiceSettings> = Optional.ofNullable(telnyx)
 
         fun aws(): Optional<AwsVoiceSettings> = Optional.ofNullable(aws)
 
-        fun isElevenLabs(): Boolean = elevenLabs != null
+        fun isElevenlabs(): Boolean = elevenlabs != null
 
         fun isTelnyx(): Boolean = telnyx != null
 
         fun isAws(): Boolean = aws != null
 
-        fun asElevenLabs(): ElevenLabsVoiceSettings = elevenLabs.getOrThrow("elevenLabs")
+        fun asElevenlabs(): ElevenLabsVoiceSettings = elevenlabs.getOrThrow("elevenlabs")
 
         fun asTelnyx(): TelnyxVoiceSettings = telnyx.getOrThrow("telnyx")
 
@@ -1498,7 +1709,7 @@ private constructor(
 
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                elevenLabs != null -> visitor.visitElevenLabs(elevenLabs)
+                elevenlabs != null -> visitor.visitElevenlabs(elevenlabs)
                 telnyx != null -> visitor.visitTelnyx(telnyx)
                 aws != null -> visitor.visitAws(aws)
                 else -> visitor.unknown(_json)
@@ -1513,8 +1724,8 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitElevenLabs(elevenLabs: ElevenLabsVoiceSettings) {
-                        elevenLabs.validate()
+                    override fun visitElevenlabs(elevenlabs: ElevenLabsVoiceSettings) {
+                        elevenlabs.validate()
                     }
 
                     override fun visitTelnyx(telnyx: TelnyxVoiceSettings) {
@@ -1547,8 +1758,8 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitElevenLabs(elevenLabs: ElevenLabsVoiceSettings) =
-                        elevenLabs.validity()
+                    override fun visitElevenlabs(elevenlabs: ElevenLabsVoiceSettings) =
+                        elevenlabs.validity()
 
                     override fun visitTelnyx(telnyx: TelnyxVoiceSettings) = telnyx.validity()
 
@@ -1564,16 +1775,16 @@ private constructor(
             }
 
             return other is VoiceSettings &&
-                elevenLabs == other.elevenLabs &&
+                elevenlabs == other.elevenlabs &&
                 telnyx == other.telnyx &&
                 aws == other.aws
         }
 
-        override fun hashCode(): Int = Objects.hash(elevenLabs, telnyx, aws)
+        override fun hashCode(): Int = Objects.hash(elevenlabs, telnyx, aws)
 
         override fun toString(): String =
             when {
-                elevenLabs != null -> "VoiceSettings{elevenLabs=$elevenLabs}"
+                elevenlabs != null -> "VoiceSettings{elevenlabs=$elevenlabs}"
                 telnyx != null -> "VoiceSettings{telnyx=$telnyx}"
                 aws != null -> "VoiceSettings{aws=$aws}"
                 _json != null -> "VoiceSettings{_unknown=$_json}"
@@ -1583,8 +1794,8 @@ private constructor(
         companion object {
 
             @JvmStatic
-            fun ofElevenLabs(elevenLabs: ElevenLabsVoiceSettings) =
-                VoiceSettings(elevenLabs = elevenLabs)
+            fun ofElevenlabs(elevenlabs: ElevenLabsVoiceSettings) =
+                VoiceSettings(elevenlabs = elevenlabs)
 
             @JvmStatic fun ofTelnyx(telnyx: TelnyxVoiceSettings) = VoiceSettings(telnyx = telnyx)
 
@@ -1597,7 +1808,7 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitElevenLabs(elevenLabs: ElevenLabsVoiceSettings): T
+            fun visitElevenlabs(elevenlabs: ElevenLabsVoiceSettings): T
 
             fun visitTelnyx(telnyx: TelnyxVoiceSettings): T
 
@@ -1622,32 +1833,27 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): VoiceSettings {
                 val json = JsonValue.fromJsonNode(node)
+                val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<ElevenLabsVoiceSettings>())?.let {
-                                VoiceSettings(elevenLabs = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<TelnyxVoiceSettings>())?.let {
-                                VoiceSettings(telnyx = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<AwsVoiceSettings>())?.let {
-                                VoiceSettings(aws = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants.
-                    0 -> VoiceSettings(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (type) {
+                    "elevenlabs" -> {
+                        return tryDeserialize(node, jacksonTypeRef<ElevenLabsVoiceSettings>())
+                            ?.let { VoiceSettings(elevenlabs = it, _json = json) }
+                            ?: VoiceSettings(_json = json)
+                    }
+                    "telnyx" -> {
+                        return tryDeserialize(node, jacksonTypeRef<TelnyxVoiceSettings>())?.let {
+                            VoiceSettings(telnyx = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
+                    "aws" -> {
+                        return tryDeserialize(node, jacksonTypeRef<AwsVoiceSettings>())?.let {
+                            VoiceSettings(aws = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
                 }
+
+                return VoiceSettings(_json = json)
             }
         }
 
@@ -1659,7 +1865,7 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.elevenLabs != null -> generator.writeObject(value.elevenLabs)
+                    value.elevenlabs != null -> generator.writeObject(value.elevenlabs)
                     value.telnyx != null -> generator.writeObject(value.telnyx)
                     value.aws != null -> generator.writeObject(value.aws)
                     value._json != null -> generator.writeObject(value._json)

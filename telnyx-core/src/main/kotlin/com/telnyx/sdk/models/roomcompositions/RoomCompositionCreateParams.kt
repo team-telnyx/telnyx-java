@@ -188,10 +188,7 @@ private constructor(
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
         /** The desired format of the room composition. */
-        fun format(format: String?) = apply { body.format(format) }
-
-        /** Alias for calling [Builder.format] with `format.orElse(null)`. */
-        fun format(format: Optional<String>) = format(format.getOrNull())
+        fun format(format: String) = apply { body.format(format) }
 
         /**
          * Sets [Builder.format] to an arbitrary JSON value.
@@ -206,10 +203,7 @@ private constructor(
          * composition. Both width and height are required to be between 16 and 1280; and width *
          * height should not exceed 1280 * 720
          */
-        fun resolution(resolution: String?) = apply { body.resolution(resolution) }
-
-        /** Alias for calling [Builder.resolution] with `resolution.orElse(null)`. */
-        fun resolution(resolution: Optional<String>) = resolution(resolution.getOrNull())
+        fun resolution(resolution: String) = apply { body.resolution(resolution) }
 
         /**
          * Sets [Builder.resolution] to an arbitrary JSON value.
@@ -221,10 +215,7 @@ private constructor(
         fun resolution(resolution: JsonField<String>) = apply { body.resolution(resolution) }
 
         /** id of the room session associated with the room composition. */
-        fun sessionId(sessionId: String?) = apply { body.sessionId(sessionId) }
-
-        /** Alias for calling [Builder.sessionId] with `sessionId.orElse(null)`. */
-        fun sessionId(sessionId: Optional<String>) = sessionId(sessionId.getOrNull())
+        fun sessionId(sessionId: String) = apply { body.sessionId(sessionId) }
 
         /**
          * Sets [Builder.sessionId] to an arbitrary JSON value.
@@ -253,16 +244,9 @@ private constructor(
          * The failover URL where webhooks related to this room composition will be sent if sending
          * to the primary URL fails. Must include a scheme, such as 'https'.
          */
-        fun webhookEventFailoverUrl(webhookEventFailoverUrl: String?) = apply {
+        fun webhookEventFailoverUrl(webhookEventFailoverUrl: String) = apply {
             body.webhookEventFailoverUrl(webhookEventFailoverUrl)
         }
-
-        /**
-         * Alias for calling [Builder.webhookEventFailoverUrl] with
-         * `webhookEventFailoverUrl.orElse(null)`.
-         */
-        fun webhookEventFailoverUrl(webhookEventFailoverUrl: Optional<String>) =
-            webhookEventFailoverUrl(webhookEventFailoverUrl.getOrNull())
 
         /**
          * Sets [Builder.webhookEventFailoverUrl] to an arbitrary JSON value.
@@ -295,23 +279,9 @@ private constructor(
         }
 
         /** Specifies how many seconds to wait before timing out a webhook. */
-        fun webhookTimeoutSecs(webhookTimeoutSecs: Long?) = apply {
+        fun webhookTimeoutSecs(webhookTimeoutSecs: Long) = apply {
             body.webhookTimeoutSecs(webhookTimeoutSecs)
         }
-
-        /**
-         * Alias for [Builder.webhookTimeoutSecs].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun webhookTimeoutSecs(webhookTimeoutSecs: Long) =
-            webhookTimeoutSecs(webhookTimeoutSecs as Long?)
-
-        /**
-         * Alias for calling [Builder.webhookTimeoutSecs] with `webhookTimeoutSecs.orElse(null)`.
-         */
-        fun webhookTimeoutSecs(webhookTimeoutSecs: Optional<Long>) =
-            webhookTimeoutSecs(webhookTimeoutSecs.getOrNull())
 
         /**
          * Sets [Builder.webhookTimeoutSecs] to an arbitrary JSON value.
@@ -672,10 +642,7 @@ private constructor(
             }
 
             /** The desired format of the room composition. */
-            fun format(format: String?) = format(JsonField.ofNullable(format))
-
-            /** Alias for calling [Builder.format] with `format.orElse(null)`. */
-            fun format(format: Optional<String>) = format(format.getOrNull())
+            fun format(format: String) = format(JsonField.of(format))
 
             /**
              * Sets [Builder.format] to an arbitrary JSON value.
@@ -691,10 +658,7 @@ private constructor(
              * composition. Both width and height are required to be between 16 and 1280; and
              * width * height should not exceed 1280 * 720
              */
-            fun resolution(resolution: String?) = resolution(JsonField.ofNullable(resolution))
-
-            /** Alias for calling [Builder.resolution] with `resolution.orElse(null)`. */
-            fun resolution(resolution: Optional<String>) = resolution(resolution.getOrNull())
+            fun resolution(resolution: String) = resolution(JsonField.of(resolution))
 
             /**
              * Sets [Builder.resolution] to an arbitrary JSON value.
@@ -706,10 +670,7 @@ private constructor(
             fun resolution(resolution: JsonField<String>) = apply { this.resolution = resolution }
 
             /** id of the room session associated with the room composition. */
-            fun sessionId(sessionId: String?) = sessionId(JsonField.ofNullable(sessionId))
-
-            /** Alias for calling [Builder.sessionId] with `sessionId.orElse(null)`. */
-            fun sessionId(sessionId: Optional<String>) = sessionId(sessionId.getOrNull())
+            fun sessionId(sessionId: String) = sessionId(JsonField.of(sessionId))
 
             /**
              * Sets [Builder.sessionId] to an arbitrary JSON value.
@@ -738,15 +699,8 @@ private constructor(
              * The failover URL where webhooks related to this room composition will be sent if
              * sending to the primary URL fails. Must include a scheme, such as 'https'.
              */
-            fun webhookEventFailoverUrl(webhookEventFailoverUrl: String?) =
-                webhookEventFailoverUrl(JsonField.ofNullable(webhookEventFailoverUrl))
-
-            /**
-             * Alias for calling [Builder.webhookEventFailoverUrl] with
-             * `webhookEventFailoverUrl.orElse(null)`.
-             */
-            fun webhookEventFailoverUrl(webhookEventFailoverUrl: Optional<String>) =
-                webhookEventFailoverUrl(webhookEventFailoverUrl.getOrNull())
+            fun webhookEventFailoverUrl(webhookEventFailoverUrl: String) =
+                webhookEventFailoverUrl(JsonField.of(webhookEventFailoverUrl))
 
             /**
              * Sets [Builder.webhookEventFailoverUrl] to an arbitrary JSON value.
@@ -778,23 +732,8 @@ private constructor(
             }
 
             /** Specifies how many seconds to wait before timing out a webhook. */
-            fun webhookTimeoutSecs(webhookTimeoutSecs: Long?) =
-                webhookTimeoutSecs(JsonField.ofNullable(webhookTimeoutSecs))
-
-            /**
-             * Alias for [Builder.webhookTimeoutSecs].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
             fun webhookTimeoutSecs(webhookTimeoutSecs: Long) =
-                webhookTimeoutSecs(webhookTimeoutSecs as Long?)
-
-            /**
-             * Alias for calling [Builder.webhookTimeoutSecs] with
-             * `webhookTimeoutSecs.orElse(null)`.
-             */
-            fun webhookTimeoutSecs(webhookTimeoutSecs: Optional<Long>) =
-                webhookTimeoutSecs(webhookTimeoutSecs.getOrNull())
+                webhookTimeoutSecs(JsonField.of(webhookTimeoutSecs))
 
             /**
              * Sets [Builder.webhookTimeoutSecs] to an arbitrary JSON value.

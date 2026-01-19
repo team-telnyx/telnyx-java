@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.externalconnections.uploads.UploadCreateParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadCreateResponse
+import com.telnyx.sdk.models.externalconnections.uploads.UploadListPage
 import com.telnyx.sdk.models.externalconnections.uploads.UploadListParams
-import com.telnyx.sdk.models.externalconnections.uploads.UploadListResponse
 import com.telnyx.sdk.models.externalconnections.uploads.UploadPendingCountParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadPendingCountResponse
 import com.telnyx.sdk.models.externalconnections.uploads.UploadRefreshStatusParams
@@ -82,30 +82,30 @@ interface UploadService {
     ): UploadRetrieveResponse
 
     /** Returns a list of your Upload requests for the given external connection. */
-    fun list(id: String): UploadListResponse = list(id, UploadListParams.none())
+    fun list(id: String): UploadListPage = list(id, UploadListParams.none())
 
     /** @see list */
     fun list(
         id: String,
         params: UploadListParams = UploadListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UploadListResponse = list(params.toBuilder().id(id).build(), requestOptions)
+    ): UploadListPage = list(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see list */
-    fun list(id: String, params: UploadListParams = UploadListParams.none()): UploadListResponse =
+    fun list(id: String, params: UploadListParams = UploadListParams.none()): UploadListPage =
         list(id, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: UploadListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UploadListResponse
+    ): UploadListPage
 
     /** @see list */
-    fun list(params: UploadListParams): UploadListResponse = list(params, RequestOptions.none())
+    fun list(params: UploadListParams): UploadListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(id: String, requestOptions: RequestOptions): UploadListResponse =
+    fun list(id: String, requestOptions: RequestOptions): UploadListPage =
         list(id, UploadListParams.none(), requestOptions)
 
     /** Returns the count of all pending upload requests for the given external connection. */
@@ -275,8 +275,7 @@ interface UploadService {
          * otherwise the same as [UploadService.list].
          */
         @MustBeClosed
-        fun list(id: String): HttpResponseFor<UploadListResponse> =
-            list(id, UploadListParams.none())
+        fun list(id: String): HttpResponseFor<UploadListPage> = list(id, UploadListParams.none())
 
         /** @see list */
         @MustBeClosed
@@ -284,31 +283,30 @@ interface UploadService {
             id: String,
             params: UploadListParams = UploadListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UploadListResponse> =
-            list(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponseFor<UploadListPage> = list(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see list */
         @MustBeClosed
         fun list(
             id: String,
             params: UploadListParams = UploadListParams.none(),
-        ): HttpResponseFor<UploadListResponse> = list(id, params, RequestOptions.none())
+        ): HttpResponseFor<UploadListPage> = list(id, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: UploadListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UploadListResponse>
+        ): HttpResponseFor<UploadListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: UploadListParams): HttpResponseFor<UploadListResponse> =
+        fun list(params: UploadListParams): HttpResponseFor<UploadListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(id: String, requestOptions: RequestOptions): HttpResponseFor<UploadListResponse> =
+        fun list(id: String, requestOptions: RequestOptions): HttpResponseFor<UploadListPage> =
             list(id, UploadListParams.none(), requestOptions)
 
         /**

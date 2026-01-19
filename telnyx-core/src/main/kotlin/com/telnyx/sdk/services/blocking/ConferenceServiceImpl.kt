@@ -18,10 +18,12 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.conferences.ConferenceCreateParams
 import com.telnyx.sdk.models.conferences.ConferenceCreateResponse
+import com.telnyx.sdk.models.conferences.ConferenceListPage
+import com.telnyx.sdk.models.conferences.ConferenceListPageResponse
 import com.telnyx.sdk.models.conferences.ConferenceListParams
+import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPage
+import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPageResponse
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsParams
-import com.telnyx.sdk.models.conferences.ConferenceListParticipantsResponse
-import com.telnyx.sdk.models.conferences.ConferenceListResponse
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParams
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveResponse
 import com.telnyx.sdk.services.blocking.conferences.ActionService
@@ -62,14 +64,14 @@ class ConferenceServiceImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: ConferenceListParams,
         requestOptions: RequestOptions,
-    ): ConferenceListResponse =
+    ): ConferenceListPage =
         // get /conferences
         withRawResponse().list(params, requestOptions).parse()
 
     override fun listParticipants(
         params: ConferenceListParticipantsParams,
         requestOptions: RequestOptions,
-    ): ConferenceListParticipantsResponse =
+    ): ConferenceListParticipantsPage =
         // get /conferences/{conference_id}/participants
         withRawResponse().listParticipants(params, requestOptions).parse()
 
@@ -150,13 +152,13 @@ class ConferenceServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val listHandler: Handler<ConferenceListResponse> =
-            jsonHandler<ConferenceListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ConferenceListPageResponse> =
+            jsonHandler<ConferenceListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ConferenceListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConferenceListResponse> {
+        ): HttpResponseFor<ConferenceListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -174,16 +176,23 @@ class ConferenceServiceImpl internal constructor(private val clientOptions: Clie
                             it.validate()
                         }
                     }
+                    .let {
+                        ConferenceListPage.builder()
+                            .service(ConferenceServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
 
-        private val listParticipantsHandler: Handler<ConferenceListParticipantsResponse> =
-            jsonHandler<ConferenceListParticipantsResponse>(clientOptions.jsonMapper)
+        private val listParticipantsHandler: Handler<ConferenceListParticipantsPageResponse> =
+            jsonHandler<ConferenceListParticipantsPageResponse>(clientOptions.jsonMapper)
 
         override fun listParticipants(
             params: ConferenceListParticipantsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConferenceListParticipantsResponse> {
+        ): HttpResponseFor<ConferenceListParticipantsPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("conferenceId", params.conferenceId().getOrNull())
@@ -203,6 +212,13 @@ class ConferenceServiceImpl internal constructor(private val clientOptions: Clie
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ConferenceListParticipantsPage.builder()
+                            .service(ConferenceServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

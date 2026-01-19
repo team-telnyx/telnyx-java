@@ -5,12 +5,12 @@ package com.telnyx.sdk.services.blocking.ai.conversations
 import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.ai.conversations.insights.InsightCreateParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightDeleteParams
-import com.telnyx.sdk.models.ai.conversations.insights.InsightDeleteResponse
+import com.telnyx.sdk.models.ai.conversations.insights.InsightListPage
 import com.telnyx.sdk.models.ai.conversations.insights.InsightListParams
-import com.telnyx.sdk.models.ai.conversations.insights.InsightListResponse
 import com.telnyx.sdk.models.ai.conversations.insights.InsightRetrieveParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightTemplateDetail
 import com.telnyx.sdk.models.ai.conversations.insights.InsightUpdateParams
@@ -105,52 +105,44 @@ interface InsightService {
         update(insightId, InsightUpdateParams.none(), requestOptions)
 
     /** Get all insights */
-    fun list(): InsightListResponse = list(InsightListParams.none())
+    fun list(): InsightListPage = list(InsightListParams.none())
 
     /** @see list */
     fun list(
         params: InsightListParams = InsightListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InsightListResponse
+    ): InsightListPage
 
     /** @see list */
-    fun list(params: InsightListParams = InsightListParams.none()): InsightListResponse =
+    fun list(params: InsightListParams = InsightListParams.none()): InsightListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): InsightListResponse =
+    fun list(requestOptions: RequestOptions): InsightListPage =
         list(InsightListParams.none(), requestOptions)
 
     /** Delete insight by ID */
-    fun delete(insightId: String): InsightDeleteResponse =
-        delete(insightId, InsightDeleteParams.none())
+    fun delete(insightId: String) = delete(insightId, InsightDeleteParams.none())
 
     /** @see delete */
     fun delete(
         insightId: String,
         params: InsightDeleteParams = InsightDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InsightDeleteResponse =
-        delete(params.toBuilder().insightId(insightId).build(), requestOptions)
+    ) = delete(params.toBuilder().insightId(insightId).build(), requestOptions)
 
     /** @see delete */
-    fun delete(
-        insightId: String,
-        params: InsightDeleteParams = InsightDeleteParams.none(),
-    ): InsightDeleteResponse = delete(insightId, params, RequestOptions.none())
+    fun delete(insightId: String, params: InsightDeleteParams = InsightDeleteParams.none()) =
+        delete(insightId, params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        params: InsightDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): InsightDeleteResponse
+    fun delete(params: InsightDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** @see delete */
-    fun delete(params: InsightDeleteParams): InsightDeleteResponse =
-        delete(params, RequestOptions.none())
+    fun delete(params: InsightDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(insightId: String, requestOptions: RequestOptions): InsightDeleteResponse =
+    fun delete(insightId: String, requestOptions: RequestOptions) =
         delete(insightId, InsightDeleteParams.none(), requestOptions)
 
     /** A view of [InsightService] that provides access to raw HTTP responses for each method. */
@@ -271,25 +263,24 @@ interface InsightService {
          * Returns a raw HTTP response for `get /ai/conversations/insights`, but is otherwise the
          * same as [InsightService.list].
          */
-        @MustBeClosed
-        fun list(): HttpResponseFor<InsightListResponse> = list(InsightListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<InsightListPage> = list(InsightListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: InsightListParams = InsightListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InsightListResponse>
+        ): HttpResponseFor<InsightListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: InsightListParams = InsightListParams.none()
-        ): HttpResponseFor<InsightListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<InsightListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<InsightListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<InsightListPage> =
             list(InsightListParams.none(), requestOptions)
 
         /**
@@ -297,8 +288,7 @@ interface InsightService {
          * otherwise the same as [InsightService.delete].
          */
         @MustBeClosed
-        fun delete(insightId: String): HttpResponseFor<InsightDeleteResponse> =
-            delete(insightId, InsightDeleteParams.none())
+        fun delete(insightId: String): HttpResponse = delete(insightId, InsightDeleteParams.none())
 
         /** @see delete */
         @MustBeClosed
@@ -306,34 +296,30 @@ interface InsightService {
             insightId: String,
             params: InsightDeleteParams = InsightDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InsightDeleteResponse> =
-            delete(params.toBuilder().insightId(insightId).build(), requestOptions)
+        ): HttpResponse = delete(params.toBuilder().insightId(insightId).build(), requestOptions)
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             insightId: String,
             params: InsightDeleteParams = InsightDeleteParams.none(),
-        ): HttpResponseFor<InsightDeleteResponse> = delete(insightId, params, RequestOptions.none())
+        ): HttpResponse = delete(insightId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             params: InsightDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InsightDeleteResponse>
+        ): HttpResponse
 
         /** @see delete */
         @MustBeClosed
-        fun delete(params: InsightDeleteParams): HttpResponseFor<InsightDeleteResponse> =
+        fun delete(params: InsightDeleteParams): HttpResponse =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            insightId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<InsightDeleteResponse> =
+        fun delete(insightId: String, requestOptions: RequestOptions): HttpResponse =
             delete(insightId, InsightDeleteParams.none(), requestOptions)
     }
 }

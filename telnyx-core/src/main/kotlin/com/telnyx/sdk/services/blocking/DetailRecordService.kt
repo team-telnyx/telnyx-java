@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.detailrecords.DetailRecordListPage
 import com.telnyx.sdk.models.detailrecords.DetailRecordListParams
-import com.telnyx.sdk.models.detailrecords.DetailRecordListResponse
 import java.util.function.Consumer
 
 interface DetailRecordService {
@@ -25,21 +25,20 @@ interface DetailRecordService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DetailRecordService
 
     /** Search for any detail record across the Telnyx Platform */
-    fun list(): DetailRecordListResponse = list(DetailRecordListParams.none())
+    fun list(): DetailRecordListPage = list(DetailRecordListParams.none())
 
     /** @see list */
     fun list(
         params: DetailRecordListParams = DetailRecordListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DetailRecordListResponse
+    ): DetailRecordListPage
 
     /** @see list */
-    fun list(
-        params: DetailRecordListParams = DetailRecordListParams.none()
-    ): DetailRecordListResponse = list(params, RequestOptions.none())
+    fun list(params: DetailRecordListParams = DetailRecordListParams.none()): DetailRecordListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): DetailRecordListResponse =
+    fun list(requestOptions: RequestOptions): DetailRecordListPage =
         list(DetailRecordListParams.none(), requestOptions)
 
     /**
@@ -61,24 +60,24 @@ interface DetailRecordService {
          * [DetailRecordService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<DetailRecordListResponse> = list(DetailRecordListParams.none())
+        fun list(): HttpResponseFor<DetailRecordListPage> = list(DetailRecordListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DetailRecordListParams = DetailRecordListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DetailRecordListResponse>
+        ): HttpResponseFor<DetailRecordListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DetailRecordListParams = DetailRecordListParams.none()
-        ): HttpResponseFor<DetailRecordListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<DetailRecordListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<DetailRecordListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<DetailRecordListPage> =
             list(DetailRecordListParams.none(), requestOptions)
     }
 }

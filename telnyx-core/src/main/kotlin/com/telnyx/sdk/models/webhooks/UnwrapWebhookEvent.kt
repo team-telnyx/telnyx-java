@@ -26,9 +26,6 @@ private constructor(
     private val callAiGatherMessageHistoryUpdated: CallAiGatherMessageHistoryUpdatedWebhookEvent? =
         null,
     private val callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent? = null,
-    private val customerServiceRecordStatusChanged:
-        CustomerServiceRecordStatusChangedWebhookEvent? =
-        null,
     private val callAnswered: CallAnsweredWebhookEvent? = null,
     private val callBridged: CallBridgedWebhookEvent? = null,
     private val callConversationEnded: CallConversationEndedWebhookEvent? = null,
@@ -95,9 +92,6 @@ private constructor(
     private val inboundMessage: InboundMessageWebhookEvent? = null,
     private val numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent? = null,
     private val replacedLinkClick: ReplacedLinkClickWebhookEvent? = null,
-    private val streamingFailed: StreamingFailedWebhookEvent? = null,
-    private val streamingStarted: StreamingStartedWebhookEvent? = null,
-    private val streamingStopped: StreamingStoppedWebhookEvent? = null,
     private val transcription: TranscriptionWebhookEvent? = null,
     private val _json: JsonValue? = null,
 ) {
@@ -111,10 +105,6 @@ private constructor(
 
     fun callAiGatherPartialResults(): Optional<CallAiGatherPartialResultsWebhookEvent> =
         Optional.ofNullable(callAiGatherPartialResults)
-
-    fun customerServiceRecordStatusChanged():
-        Optional<CustomerServiceRecordStatusChangedWebhookEvent> =
-        Optional.ofNullable(customerServiceRecordStatusChanged)
 
     fun callAnswered(): Optional<CallAnsweredWebhookEvent> = Optional.ofNullable(callAnswered)
 
@@ -276,15 +266,6 @@ private constructor(
     fun replacedLinkClick(): Optional<ReplacedLinkClickWebhookEvent> =
         Optional.ofNullable(replacedLinkClick)
 
-    fun streamingFailed(): Optional<StreamingFailedWebhookEvent> =
-        Optional.ofNullable(streamingFailed)
-
-    fun streamingStarted(): Optional<StreamingStartedWebhookEvent> =
-        Optional.ofNullable(streamingStarted)
-
-    fun streamingStopped(): Optional<StreamingStoppedWebhookEvent> =
-        Optional.ofNullable(streamingStopped)
-
     fun transcription(): Optional<TranscriptionWebhookEvent> = Optional.ofNullable(transcription)
 
     fun isCallAiGatherEnded(): Boolean = callAiGatherEnded != null
@@ -292,8 +273,6 @@ private constructor(
     fun isCallAiGatherMessageHistoryUpdated(): Boolean = callAiGatherMessageHistoryUpdated != null
 
     fun isCallAiGatherPartialResults(): Boolean = callAiGatherPartialResults != null
-
-    fun isCustomerServiceRecordStatusChanged(): Boolean = customerServiceRecordStatusChanged != null
 
     fun isCallAnswered(): Boolean = callAnswered != null
 
@@ -408,12 +387,6 @@ private constructor(
 
     fun isReplacedLinkClick(): Boolean = replacedLinkClick != null
 
-    fun isStreamingFailed(): Boolean = streamingFailed != null
-
-    fun isStreamingStarted(): Boolean = streamingStarted != null
-
-    fun isStreamingStopped(): Boolean = streamingStopped != null
-
     fun isTranscription(): Boolean = transcription != null
 
     fun asCallAiGatherEnded(): CallAiGatherEndedWebhookEvent =
@@ -424,9 +397,6 @@ private constructor(
 
     fun asCallAiGatherPartialResults(): CallAiGatherPartialResultsWebhookEvent =
         callAiGatherPartialResults.getOrThrow("callAiGatherPartialResults")
-
-    fun asCustomerServiceRecordStatusChanged(): CustomerServiceRecordStatusChangedWebhookEvent =
-        customerServiceRecordStatusChanged.getOrThrow("customerServiceRecordStatusChanged")
 
     fun asCallAnswered(): CallAnsweredWebhookEvent = callAnswered.getOrThrow("callAnswered")
 
@@ -584,15 +554,6 @@ private constructor(
     fun asReplacedLinkClick(): ReplacedLinkClickWebhookEvent =
         replacedLinkClick.getOrThrow("replacedLinkClick")
 
-    fun asStreamingFailed(): StreamingFailedWebhookEvent =
-        streamingFailed.getOrThrow("streamingFailed")
-
-    fun asStreamingStarted(): StreamingStartedWebhookEvent =
-        streamingStarted.getOrThrow("streamingStarted")
-
-    fun asStreamingStopped(): StreamingStoppedWebhookEvent =
-        streamingStopped.getOrThrow("streamingStopped")
-
     fun asTranscription(): TranscriptionWebhookEvent = transcription.getOrThrow("transcription")
 
     fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
@@ -604,8 +565,6 @@ private constructor(
                 visitor.visitCallAiGatherMessageHistoryUpdated(callAiGatherMessageHistoryUpdated)
             callAiGatherPartialResults != null ->
                 visitor.visitCallAiGatherPartialResults(callAiGatherPartialResults)
-            customerServiceRecordStatusChanged != null ->
-                visitor.visitCustomerServiceRecordStatusChanged(customerServiceRecordStatusChanged)
             callAnswered != null -> visitor.visitCallAnswered(callAnswered)
             callBridged != null -> visitor.visitCallBridged(callBridged)
             callConversationEnded != null ->
@@ -683,9 +642,6 @@ private constructor(
             numberOrderStatusUpdate != null ->
                 visitor.visitNumberOrderStatusUpdate(numberOrderStatusUpdate)
             replacedLinkClick != null -> visitor.visitReplacedLinkClick(replacedLinkClick)
-            streamingFailed != null -> visitor.visitStreamingFailed(streamingFailed)
-            streamingStarted != null -> visitor.visitStreamingStarted(streamingStarted)
-            streamingStopped != null -> visitor.visitStreamingStopped(streamingStopped)
             transcription != null -> visitor.visitTranscription(transcription)
             else -> visitor.unknown(_json)
         }
@@ -715,13 +671,6 @@ private constructor(
                     callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent
                 ) {
                     callAiGatherPartialResults.validate()
-                }
-
-                override fun visitCustomerServiceRecordStatusChanged(
-                    customerServiceRecordStatusChanged:
-                        CustomerServiceRecordStatusChangedWebhookEvent
-                ) {
-                    customerServiceRecordStatusChanged.validate()
                 }
 
                 override fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent) {
@@ -1020,18 +969,6 @@ private constructor(
                     replacedLinkClick.validate()
                 }
 
-                override fun visitStreamingFailed(streamingFailed: StreamingFailedWebhookEvent) {
-                    streamingFailed.validate()
-                }
-
-                override fun visitStreamingStarted(streamingStarted: StreamingStartedWebhookEvent) {
-                    streamingStarted.validate()
-                }
-
-                override fun visitStreamingStopped(streamingStopped: StreamingStoppedWebhookEvent) {
-                    streamingStopped.validate()
-                }
-
                 override fun visitTranscription(transcription: TranscriptionWebhookEvent) {
                     transcription.validate()
                 }
@@ -1068,11 +1005,6 @@ private constructor(
                 override fun visitCallAiGatherPartialResults(
                     callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent
                 ) = callAiGatherPartialResults.validity()
-
-                override fun visitCustomerServiceRecordStatusChanged(
-                    customerServiceRecordStatusChanged:
-                        CustomerServiceRecordStatusChangedWebhookEvent
-                ) = customerServiceRecordStatusChanged.validity()
 
                 override fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent) =
                     callAnswered.validity()
@@ -1277,15 +1209,6 @@ private constructor(
                     replacedLinkClick: ReplacedLinkClickWebhookEvent
                 ) = replacedLinkClick.validity()
 
-                override fun visitStreamingFailed(streamingFailed: StreamingFailedWebhookEvent) =
-                    streamingFailed.validity()
-
-                override fun visitStreamingStarted(streamingStarted: StreamingStartedWebhookEvent) =
-                    streamingStarted.validity()
-
-                override fun visitStreamingStopped(streamingStopped: StreamingStoppedWebhookEvent) =
-                    streamingStopped.validity()
-
                 override fun visitTranscription(transcription: TranscriptionWebhookEvent) =
                     transcription.validity()
 
@@ -1302,7 +1225,6 @@ private constructor(
             callAiGatherEnded == other.callAiGatherEnded &&
             callAiGatherMessageHistoryUpdated == other.callAiGatherMessageHistoryUpdated &&
             callAiGatherPartialResults == other.callAiGatherPartialResults &&
-            customerServiceRecordStatusChanged == other.customerServiceRecordStatusChanged &&
             callAnswered == other.callAnswered &&
             callBridged == other.callBridged &&
             callConversationEnded == other.callConversationEnded &&
@@ -1359,9 +1281,6 @@ private constructor(
             inboundMessage == other.inboundMessage &&
             numberOrderStatusUpdate == other.numberOrderStatusUpdate &&
             replacedLinkClick == other.replacedLinkClick &&
-            streamingFailed == other.streamingFailed &&
-            streamingStarted == other.streamingStarted &&
-            streamingStopped == other.streamingStopped &&
             transcription == other.transcription
     }
 
@@ -1370,7 +1289,6 @@ private constructor(
             callAiGatherEnded,
             callAiGatherMessageHistoryUpdated,
             callAiGatherPartialResults,
-            customerServiceRecordStatusChanged,
             callAnswered,
             callBridged,
             callConversationEnded,
@@ -1427,9 +1345,6 @@ private constructor(
             inboundMessage,
             numberOrderStatusUpdate,
             replacedLinkClick,
-            streamingFailed,
-            streamingStarted,
-            streamingStopped,
             transcription,
         )
 
@@ -1440,8 +1355,6 @@ private constructor(
                 "UnwrapWebhookEvent{callAiGatherMessageHistoryUpdated=$callAiGatherMessageHistoryUpdated}"
             callAiGatherPartialResults != null ->
                 "UnwrapWebhookEvent{callAiGatherPartialResults=$callAiGatherPartialResults}"
-            customerServiceRecordStatusChanged != null ->
-                "UnwrapWebhookEvent{customerServiceRecordStatusChanged=$customerServiceRecordStatusChanged}"
             callAnswered != null -> "UnwrapWebhookEvent{callAnswered=$callAnswered}"
             callBridged != null -> "UnwrapWebhookEvent{callBridged=$callBridged}"
             callConversationEnded != null ->
@@ -1526,9 +1439,6 @@ private constructor(
             numberOrderStatusUpdate != null ->
                 "UnwrapWebhookEvent{numberOrderStatusUpdate=$numberOrderStatusUpdate}"
             replacedLinkClick != null -> "UnwrapWebhookEvent{replacedLinkClick=$replacedLinkClick}"
-            streamingFailed != null -> "UnwrapWebhookEvent{streamingFailed=$streamingFailed}"
-            streamingStarted != null -> "UnwrapWebhookEvent{streamingStarted=$streamingStarted}"
-            streamingStopped != null -> "UnwrapWebhookEvent{streamingStopped=$streamingStopped}"
             transcription != null -> "UnwrapWebhookEvent{transcription=$transcription}"
             _json != null -> "UnwrapWebhookEvent{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid UnwrapWebhookEvent")
@@ -1552,14 +1462,6 @@ private constructor(
         fun ofCallAiGatherPartialResults(
             callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent
         ) = UnwrapWebhookEvent(callAiGatherPartialResults = callAiGatherPartialResults)
-
-        @JvmStatic
-        fun ofCustomerServiceRecordStatusChanged(
-            customerServiceRecordStatusChanged: CustomerServiceRecordStatusChangedWebhookEvent
-        ) =
-            UnwrapWebhookEvent(
-                customerServiceRecordStatusChanged = customerServiceRecordStatusChanged
-            )
 
         @JvmStatic
         fun ofCallAnswered(callAnswered: CallAnsweredWebhookEvent) =
@@ -1814,18 +1716,6 @@ private constructor(
             UnwrapWebhookEvent(replacedLinkClick = replacedLinkClick)
 
         @JvmStatic
-        fun ofStreamingFailed(streamingFailed: StreamingFailedWebhookEvent) =
-            UnwrapWebhookEvent(streamingFailed = streamingFailed)
-
-        @JvmStatic
-        fun ofStreamingStarted(streamingStarted: StreamingStartedWebhookEvent) =
-            UnwrapWebhookEvent(streamingStarted = streamingStarted)
-
-        @JvmStatic
-        fun ofStreamingStopped(streamingStopped: StreamingStoppedWebhookEvent) =
-            UnwrapWebhookEvent(streamingStopped = streamingStopped)
-
-        @JvmStatic
         fun ofTranscription(transcription: TranscriptionWebhookEvent) =
             UnwrapWebhookEvent(transcription = transcription)
     }
@@ -1844,10 +1734,6 @@ private constructor(
 
         fun visitCallAiGatherPartialResults(
             callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent
-        ): T
-
-        fun visitCustomerServiceRecordStatusChanged(
-            customerServiceRecordStatusChanged: CustomerServiceRecordStatusChangedWebhookEvent
         ): T
 
         fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent): T
@@ -1998,12 +1884,6 @@ private constructor(
 
         fun visitReplacedLinkClick(replacedLinkClick: ReplacedLinkClickWebhookEvent): T
 
-        fun visitStreamingFailed(streamingFailed: StreamingFailedWebhookEvent): T
-
-        fun visitStreamingStarted(streamingStarted: StreamingStartedWebhookEvent): T
-
-        fun visitStreamingStopped(streamingStopped: StreamingStoppedWebhookEvent): T
-
         fun visitTranscription(transcription: TranscriptionWebhookEvent): T
 
         /**
@@ -2047,16 +1927,6 @@ private constructor(
                             )
                             ?.let {
                                 UnwrapWebhookEvent(callAiGatherPartialResults = it, _json = json)
-                            },
-                        tryDeserialize(
-                                node,
-                                jacksonTypeRef<CustomerServiceRecordStatusChangedWebhookEvent>(),
-                            )
-                            ?.let {
-                                UnwrapWebhookEvent(
-                                    customerServiceRecordStatusChanged = it,
-                                    _json = json,
-                                )
                             },
                         tryDeserialize(node, jacksonTypeRef<CallAnsweredWebhookEvent>())?.let {
                             UnwrapWebhookEvent(callAnswered = it, _json = json)
@@ -2290,15 +2160,6 @@ private constructor(
                         tryDeserialize(node, jacksonTypeRef<ReplacedLinkClickWebhookEvent>())?.let {
                             UnwrapWebhookEvent(replacedLinkClick = it, _json = json)
                         },
-                        tryDeserialize(node, jacksonTypeRef<StreamingFailedWebhookEvent>())?.let {
-                            UnwrapWebhookEvent(streamingFailed = it, _json = json)
-                        },
-                        tryDeserialize(node, jacksonTypeRef<StreamingStartedWebhookEvent>())?.let {
-                            UnwrapWebhookEvent(streamingStarted = it, _json = json)
-                        },
-                        tryDeserialize(node, jacksonTypeRef<StreamingStoppedWebhookEvent>())?.let {
-                            UnwrapWebhookEvent(streamingStopped = it, _json = json)
-                        },
                         tryDeserialize(node, jacksonTypeRef<TranscriptionWebhookEvent>())?.let {
                             UnwrapWebhookEvent(transcription = it, _json = json)
                         },
@@ -2331,8 +2192,6 @@ private constructor(
                     generator.writeObject(value.callAiGatherMessageHistoryUpdated)
                 value.callAiGatherPartialResults != null ->
                     generator.writeObject(value.callAiGatherPartialResults)
-                value.customerServiceRecordStatusChanged != null ->
-                    generator.writeObject(value.customerServiceRecordStatusChanged)
                 value.callAnswered != null -> generator.writeObject(value.callAnswered)
                 value.callBridged != null -> generator.writeObject(value.callBridged)
                 value.callConversationEnded != null ->
@@ -2414,9 +2273,6 @@ private constructor(
                 value.numberOrderStatusUpdate != null ->
                     generator.writeObject(value.numberOrderStatusUpdate)
                 value.replacedLinkClick != null -> generator.writeObject(value.replacedLinkClick)
-                value.streamingFailed != null -> generator.writeObject(value.streamingFailed)
-                value.streamingStarted != null -> generator.writeObject(value.streamingStarted)
-                value.streamingStopped != null -> generator.writeObject(value.streamingStopped)
                 value.transcription != null -> generator.writeObject(value.transcription)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid UnwrapWebhookEvent")

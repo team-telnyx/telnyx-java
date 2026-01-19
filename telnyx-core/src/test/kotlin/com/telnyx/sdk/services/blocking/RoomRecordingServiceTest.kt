@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingDeleteBulkParams
-import com.telnyx.sdk.models.roomrecordings.RoomRecordingListParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -39,38 +38,9 @@ internal class RoomRecordingServiceTest {
                 .build()
         val roomRecordingService = client.roomRecordings()
 
-        val roomRecordings =
-            roomRecordingService.list(
-                RoomRecordingListParams.builder()
-                    .filter(
-                        RoomRecordingListParams.Filter.builder()
-                            .dateEndedAt(
-                                RoomRecordingListParams.Filter.DateEndedAt.builder()
-                                    .eq(LocalDate.parse("2021-04-25"))
-                                    .gte(LocalDate.parse("2021-04-25"))
-                                    .lte(LocalDate.parse("2021-04-25"))
-                                    .build()
-                            )
-                            .dateStartedAt(
-                                RoomRecordingListParams.Filter.DateStartedAt.builder()
-                                    .eq(LocalDate.parse("2021-04-25"))
-                                    .gte(LocalDate.parse("2021-04-25"))
-                                    .lte(LocalDate.parse("2021-04-25"))
-                                    .build()
-                            )
-                            .durationSecs(20L)
-                            .participantId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .roomId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .sessionId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .status("completed")
-                            .type("audio")
-                            .build()
-                    )
-                    .page(RoomRecordingListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val page = roomRecordingService.list()
 
-        roomRecordings.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -123,7 +93,8 @@ internal class RoomRecordingServiceTest {
                             .type("audio")
                             .build()
                     )
-                    .page(RoomRecordingDeleteBulkParams.Page.builder().number(1L).size(1L).build())
+                    .pageNumber(0L)
+                    .pageSize(0L)
                     .build()
             )
 

@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.calls
 
 import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
+import com.telnyx.sdk.models.calls.actions.TranscriptionEngineGoogleConfig
 import com.telnyx.sdk.models.calls.actions.TranscriptionStartRequest
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -89,18 +90,19 @@ internal class CallDialParamsTest {
             .addSipHeader(
                 SipHeader.builder().name(SipHeader.Name.USER_TO_USER).value("12345").build()
             )
+            .sipRegion(CallDialParams.SipRegion.CANADA)
             .sipTransportProtocol(CallDialParams.SipTransportProtocol.TLS)
             .soundModifications(
                 SoundModifications.builder()
                     .octaves(0.1)
-                    .pitch(0.0)
+                    .pitch(0.8)
                     .semitone(-2.0)
                     .track("both")
                     .build()
             )
             .streamBidirectionalCodec(StreamBidirectionalCodec.G722)
             .streamBidirectionalMode(StreamBidirectionalMode.RTP)
-            .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate._16000)
+            .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate.RATE_16000)
             .streamBidirectionalTargetLegs(StreamBidirectionalTargetLegs.BOTH)
             .streamCodec(StreamCodec.PCMA)
             .streamEstablishBeforeCallOriginate(true)
@@ -117,30 +119,23 @@ internal class CallDialParamsTest {
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.GOOGLE)
                     .transcriptionEngineConfig(
-                        TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
+                        TranscriptionEngineGoogleConfig.builder()
                             .enableSpeakerDiarization(true)
                             .addHint("string")
                             .interimResults(true)
                             .language(GoogleTranscriptionLanguage.EN)
                             .maxSpeakerCount(4)
                             .minSpeakerCount(4)
-                            .model(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.Model
-                                    .LATEST_LONG
-                            )
+                            .model(TranscriptionEngineGoogleConfig.Model.LATEST_LONG)
                             .profanityFilter(true)
                             .addSpeechContext(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                    .SpeechContext
-                                    .builder()
+                                TranscriptionEngineGoogleConfig.SpeechContext.builder()
                                     .boost(1.0)
                                     .addPhrase("string")
                                     .build()
                             )
                             .transcriptionEngine(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                    .TranscriptionEngine
-                                    .GOOGLE
+                                TranscriptionEngineGoogleConfig.TranscriptionEngine.GOOGLE
                             )
                             .useEnhanced(true)
                             .build()
@@ -233,18 +228,19 @@ internal class CallDialParamsTest {
                 .addSipHeader(
                     SipHeader.builder().name(SipHeader.Name.USER_TO_USER).value("12345").build()
                 )
+                .sipRegion(CallDialParams.SipRegion.CANADA)
                 .sipTransportProtocol(CallDialParams.SipTransportProtocol.TLS)
                 .soundModifications(
                     SoundModifications.builder()
                         .octaves(0.1)
-                        .pitch(0.0)
+                        .pitch(0.8)
                         .semitone(-2.0)
                         .track("both")
                         .build()
                 )
                 .streamBidirectionalCodec(StreamBidirectionalCodec.G722)
                 .streamBidirectionalMode(StreamBidirectionalMode.RTP)
-                .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate._16000)
+                .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate.RATE_16000)
                 .streamBidirectionalTargetLegs(StreamBidirectionalTargetLegs.BOTH)
                 .streamCodec(StreamCodec.PCMA)
                 .streamEstablishBeforeCallOriginate(true)
@@ -261,30 +257,23 @@ internal class CallDialParamsTest {
                         .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                         .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.GOOGLE)
                         .transcriptionEngineConfig(
-                            TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
+                            TranscriptionEngineGoogleConfig.builder()
                                 .enableSpeakerDiarization(true)
                                 .addHint("string")
                                 .interimResults(true)
                                 .language(GoogleTranscriptionLanguage.EN)
                                 .maxSpeakerCount(4)
                                 .minSpeakerCount(4)
-                                .model(
-                                    TranscriptionStartRequest.TranscriptionEngineConfig.Google.Model
-                                        .LATEST_LONG
-                                )
+                                .model(TranscriptionEngineGoogleConfig.Model.LATEST_LONG)
                                 .profanityFilter(true)
                                 .addSpeechContext(
-                                    TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                        .SpeechContext
-                                        .builder()
+                                    TranscriptionEngineGoogleConfig.SpeechContext.builder()
                                         .boost(1.0)
                                         .addPhrase("string")
                                         .build()
                                 )
                                 .transcriptionEngine(
-                                    TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                        .TranscriptionEngine
-                                        .GOOGLE
+                                    TranscriptionEngineGoogleConfig.TranscriptionEngine.GOOGLE
                                 )
                                 .useEnhanced(true)
                                 .build()
@@ -384,12 +373,13 @@ internal class CallDialParamsTest {
             .containsExactly(
                 SipHeader.builder().name(SipHeader.Name.USER_TO_USER).value("12345").build()
             )
+        assertThat(body.sipRegion()).contains(CallDialParams.SipRegion.CANADA)
         assertThat(body.sipTransportProtocol()).contains(CallDialParams.SipTransportProtocol.TLS)
         assertThat(body.soundModifications())
             .contains(
                 SoundModifications.builder()
                     .octaves(0.1)
-                    .pitch(0.0)
+                    .pitch(0.8)
                     .semitone(-2.0)
                     .track("both")
                     .build()
@@ -397,7 +387,7 @@ internal class CallDialParamsTest {
         assertThat(body.streamBidirectionalCodec()).contains(StreamBidirectionalCodec.G722)
         assertThat(body.streamBidirectionalMode()).contains(StreamBidirectionalMode.RTP)
         assertThat(body.streamBidirectionalSamplingRate())
-            .contains(StreamBidirectionalSamplingRate._16000)
+            .contains(StreamBidirectionalSamplingRate.RATE_16000)
         assertThat(body.streamBidirectionalTargetLegs())
             .contains(StreamBidirectionalTargetLegs.BOTH)
         assertThat(body.streamCodec()).contains(StreamCodec.PCMA)
@@ -417,30 +407,23 @@ internal class CallDialParamsTest {
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .transcriptionEngine(TranscriptionStartRequest.TranscriptionEngine.GOOGLE)
                     .transcriptionEngineConfig(
-                        TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
+                        TranscriptionEngineGoogleConfig.builder()
                             .enableSpeakerDiarization(true)
                             .addHint("string")
                             .interimResults(true)
                             .language(GoogleTranscriptionLanguage.EN)
                             .maxSpeakerCount(4)
                             .minSpeakerCount(4)
-                            .model(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.Model
-                                    .LATEST_LONG
-                            )
+                            .model(TranscriptionEngineGoogleConfig.Model.LATEST_LONG)
                             .profanityFilter(true)
                             .addSpeechContext(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                    .SpeechContext
-                                    .builder()
+                                TranscriptionEngineGoogleConfig.SpeechContext.builder()
                                     .boost(1.0)
                                     .addPhrase("string")
                                     .build()
                             )
                             .transcriptionEngine(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                    .TranscriptionEngine
-                                    .GOOGLE
+                                TranscriptionEngineGoogleConfig.TranscriptionEngine.GOOGLE
                             )
                             .useEnhanced(true)
                             .build()

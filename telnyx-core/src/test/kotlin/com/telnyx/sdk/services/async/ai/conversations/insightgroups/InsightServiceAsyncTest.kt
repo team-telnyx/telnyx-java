@@ -23,7 +23,7 @@ internal class InsightServiceAsyncTest {
                 .build()
         val insightServiceAsync = client.ai().conversations().insightGroups().insights()
 
-        val responseFuture =
+        val future =
             insightServiceAsync.assign(
                 InsightAssignParams.builder()
                     .groupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -31,8 +31,7 @@ internal class InsightServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val response = future.get()
     }
 
     @Disabled("Prism tests are disabled")
@@ -45,7 +44,7 @@ internal class InsightServiceAsyncTest {
                 .build()
         val insightServiceAsync = client.ai().conversations().insightGroups().insights()
 
-        val responseFuture =
+        val future =
             insightServiceAsync.deleteUnassign(
                 InsightDeleteUnassignParams.builder()
                     .groupId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -53,7 +52,6 @@ internal class InsightServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val response = future.get()
     }
 }

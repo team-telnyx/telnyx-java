@@ -25,13 +25,13 @@ class MdrUsageReportResponseLegacy
 private constructor(
     private val id: JsonField<String>,
     private val aggregationType: JsonField<Int>,
-    private val connections: JsonField<List<Long>>,
+    private val connections: JsonField<List<String>>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val endTime: JsonField<OffsetDateTime>,
     private val profiles: JsonField<List<String>>,
     private val recordType: JsonField<String>,
     private val reportUrl: JsonField<String>,
-    private val result: JsonValue,
+    private val result: JsonField<Result>,
     private val startTime: JsonField<OffsetDateTime>,
     private val status: JsonField<Int>,
     private val updatedAt: JsonField<OffsetDateTime>,
@@ -46,7 +46,7 @@ private constructor(
         aggregationType: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("connections")
         @ExcludeMissing
-        connections: JsonField<List<Long>> = JsonMissing.of(),
+        connections: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -60,7 +60,7 @@ private constructor(
         @ExcludeMissing
         recordType: JsonField<String> = JsonMissing.of(),
         @JsonProperty("report_url") @ExcludeMissing reportUrl: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("result") @ExcludeMissing result: JsonValue = JsonMissing.of(),
+        @JsonProperty("result") @ExcludeMissing result: JsonField<Result> = JsonMissing.of(),
         @JsonProperty("start_time")
         @ExcludeMissing
         startTime: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -104,7 +104,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun connections(): Optional<List<Long>> = connections.getOptional("connections")
+    fun connections(): Optional<List<String>> = connections.getOptional("connections")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -138,7 +138,11 @@ private constructor(
      */
     fun reportUrl(): Optional<String> = reportUrl.getOptional("report_url")
 
-    @JsonProperty("result") @ExcludeMissing fun _result(): JsonValue = result
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun result(): Optional<Result> = result.getOptional("result")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -183,7 +187,7 @@ private constructor(
      */
     @JsonProperty("connections")
     @ExcludeMissing
-    fun _connections(): JsonField<List<Long>> = connections
+    fun _connections(): JsonField<List<String>> = connections
 
     /**
      * Returns the raw JSON value of [createdAt].
@@ -221,6 +225,13 @@ private constructor(
      * Unlike [reportUrl], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("report_url") @ExcludeMissing fun _reportUrl(): JsonField<String> = reportUrl
+
+    /**
+     * Returns the raw JSON value of [result].
+     *
+     * Unlike [result], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("result") @ExcludeMissing fun _result(): JsonField<Result> = result
 
     /**
      * Returns the raw JSON value of [startTime].
@@ -272,13 +283,13 @@ private constructor(
 
         private var id: JsonField<String> = JsonMissing.of()
         private var aggregationType: JsonField<Int> = JsonMissing.of()
-        private var connections: JsonField<MutableList<Long>>? = null
+        private var connections: JsonField<MutableList<String>>? = null
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var endTime: JsonField<OffsetDateTime> = JsonMissing.of()
         private var profiles: JsonField<MutableList<String>>? = null
         private var recordType: JsonField<String> = JsonMissing.of()
         private var reportUrl: JsonField<String> = JsonMissing.of()
-        private var result: JsonValue = JsonMissing.of()
+        private var result: JsonField<Result> = JsonMissing.of()
         private var startTime: JsonField<OffsetDateTime> = JsonMissing.of()
         private var status: JsonField<Int> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -326,25 +337,25 @@ private constructor(
             this.aggregationType = aggregationType
         }
 
-        fun connections(connections: List<Long>) = connections(JsonField.of(connections))
+        fun connections(connections: List<String>) = connections(JsonField.of(connections))
 
         /**
          * Sets [Builder.connections] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.connections] with a well-typed `List<Long>` value
+         * You should usually call [Builder.connections] with a well-typed `List<String>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun connections(connections: JsonField<List<Long>>) = apply {
+        fun connections(connections: JsonField<List<String>>) = apply {
             this.connections = connections.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Long] to [connections].
+         * Adds a single [String] to [connections].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addConnection(connection: Long) = apply {
+        fun addConnection(connection: String) = apply {
             connections =
                 (connections ?: JsonField.of(mutableListOf())).also {
                     checkKnown("connections", it).add(connection)
@@ -421,7 +432,15 @@ private constructor(
          */
         fun reportUrl(reportUrl: JsonField<String>) = apply { this.reportUrl = reportUrl }
 
-        fun result(result: JsonValue) = apply { this.result = result }
+        fun result(result: Result) = result(JsonField.of(result))
+
+        /**
+         * Sets [Builder.result] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.result] with a well-typed [Result] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun result(result: JsonField<Result>) = apply { this.result = result }
 
         fun startTime(startTime: OffsetDateTime) = startTime(JsonField.of(startTime))
 
@@ -513,6 +532,7 @@ private constructor(
         profiles()
         recordType()
         reportUrl()
+        result().ifPresent { it.validate() }
         startTime()
         status()
         updatedAt()
@@ -542,9 +562,109 @@ private constructor(
             (profiles.asKnown().getOrNull()?.size ?: 0) +
             (if (recordType.asKnown().isPresent) 1 else 0) +
             (if (reportUrl.asKnown().isPresent) 1 else 0) +
+            (result.asKnown().getOrNull()?.validity() ?: 0) +
             (if (startTime.asKnown().isPresent) 1 else 0) +
             (if (status.asKnown().isPresent) 1 else 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0)
+
+    class Result
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Result]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Result]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(result: Result) = apply {
+                additionalProperties = result.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Result].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Result = Result(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Result = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Result && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Result{additionalProperties=$additionalProperties}"
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

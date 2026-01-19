@@ -18,7 +18,7 @@ internal class GlobalIpHealthCheckDeleteResponseTest {
                     GlobalIpHealthCheckDeleteResponse.Data.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
-                        .recordType("global_ip_health_check")
+                        .recordType("sample_record_type")
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .globalIpId("a836125b-20b6-452e-9c03-2653f09c7ed7")
                         .healthCheckParams(
@@ -37,7 +37,7 @@ internal class GlobalIpHealthCheckDeleteResponseTest {
                 GlobalIpHealthCheckDeleteResponse.Data.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
-                    .recordType("global_ip_health_check")
+                    .recordType("sample_record_type")
                     .updatedAt("2018-02-02T22:25:27.521Z")
                     .globalIpId("a836125b-20b6-452e-9c03-2653f09c7ed7")
                     .healthCheckParams(
@@ -60,7 +60,7 @@ internal class GlobalIpHealthCheckDeleteResponseTest {
                     GlobalIpHealthCheckDeleteResponse.Data.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
-                        .recordType("global_ip_health_check")
+                        .recordType("sample_record_type")
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .globalIpId("a836125b-20b6-452e-9c03-2653f09c7ed7")
                         .healthCheckParams(

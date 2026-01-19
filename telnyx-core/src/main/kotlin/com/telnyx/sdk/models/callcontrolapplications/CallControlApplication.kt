@@ -26,6 +26,7 @@ private constructor(
     private val active: JsonField<Boolean>,
     private val anchorsiteOverride: JsonField<AnchorsiteOverride>,
     private val applicationName: JsonField<String>,
+    private val callCostInWebhooks: JsonField<Boolean>,
     private val createdAt: JsonField<String>,
     private val dtmfType: JsonField<DtmfType>,
     private val firstCommandTimeout: JsonField<Boolean>,
@@ -53,6 +54,9 @@ private constructor(
         @JsonProperty("application_name")
         @ExcludeMissing
         applicationName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("call_cost_in_webhooks")
+        @ExcludeMissing
+        callCostInWebhooks: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<String> = JsonMissing.of(),
         @JsonProperty("dtmf_type") @ExcludeMissing dtmfType: JsonField<DtmfType> = JsonMissing.of(),
         @JsonProperty("first_command_timeout")
@@ -92,6 +96,7 @@ private constructor(
         active,
         anchorsiteOverride,
         applicationName,
+        callCostInWebhooks,
         createdAt,
         dtmfType,
         firstCommandTimeout,
@@ -124,9 +129,9 @@ private constructor(
     fun active(): Optional<Boolean> = active.getOptional("active")
 
     /**
-     * `Latency` directs Telnyx to route media through the site with the lowest round-trip time to
-     * the user's connection. Telnyx calculates this time using ICMP ping messages. This can be
-     * disabled by specifying a site to handle all media.
+     * <code>Latency</code> directs Telnyx to route media through the site with the lowest
+     * round-trip time to the user's connection. Telnyx calculates this time using ICMP ping
+     * messages. This can be disabled by specifying a site to handle all media.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -141,6 +146,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun applicationName(): Optional<String> = applicationName.getOptional("application_name")
+
+    /**
+     * Specifies if call cost webhooks should be sent for this Call Control Application.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun callCostInWebhooks(): Optional<Boolean> =
+        callCostInWebhooks.getOptional("call_cost_in_webhooks")
 
     /**
      * ISO 8601 formatted date of when the resource was created
@@ -291,6 +305,16 @@ private constructor(
     fun _applicationName(): JsonField<String> = applicationName
 
     /**
+     * Returns the raw JSON value of [callCostInWebhooks].
+     *
+     * Unlike [callCostInWebhooks], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("call_cost_in_webhooks")
+    @ExcludeMissing
+    fun _callCostInWebhooks(): JsonField<Boolean> = callCostInWebhooks
+
+    /**
      * Returns the raw JSON value of [createdAt].
      *
      * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -439,6 +463,7 @@ private constructor(
         private var active: JsonField<Boolean> = JsonMissing.of()
         private var anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of()
         private var applicationName: JsonField<String> = JsonMissing.of()
+        private var callCostInWebhooks: JsonField<Boolean> = JsonMissing.of()
         private var createdAt: JsonField<String> = JsonMissing.of()
         private var dtmfType: JsonField<DtmfType> = JsonMissing.of()
         private var firstCommandTimeout: JsonField<Boolean> = JsonMissing.of()
@@ -461,6 +486,7 @@ private constructor(
             active = callControlApplication.active
             anchorsiteOverride = callControlApplication.anchorsiteOverride
             applicationName = callControlApplication.applicationName
+            callCostInWebhooks = callControlApplication.callCostInWebhooks
             createdAt = callControlApplication.createdAt
             dtmfType = callControlApplication.dtmfType
             firstCommandTimeout = callControlApplication.firstCommandTimeout
@@ -500,9 +526,9 @@ private constructor(
         fun active(active: JsonField<Boolean>) = apply { this.active = active }
 
         /**
-         * `Latency` directs Telnyx to route media through the site with the lowest round-trip time
-         * to the user's connection. Telnyx calculates this time using ICMP ping messages. This can
-         * be disabled by specifying a site to handle all media.
+         * <code>Latency</code> directs Telnyx to route media through the site with the lowest
+         * round-trip time to the user's connection. Telnyx calculates this time using ICMP ping
+         * messages. This can be disabled by specifying a site to handle all media.
          */
         fun anchorsiteOverride(anchorsiteOverride: AnchorsiteOverride) =
             anchorsiteOverride(JsonField.of(anchorsiteOverride))
@@ -531,6 +557,21 @@ private constructor(
          */
         fun applicationName(applicationName: JsonField<String>) = apply {
             this.applicationName = applicationName
+        }
+
+        /** Specifies if call cost webhooks should be sent for this Call Control Application. */
+        fun callCostInWebhooks(callCostInWebhooks: Boolean) =
+            callCostInWebhooks(JsonField.of(callCostInWebhooks))
+
+        /**
+         * Sets [Builder.callCostInWebhooks] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.callCostInWebhooks] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun callCostInWebhooks(callCostInWebhooks: JsonField<Boolean>) = apply {
+            this.callCostInWebhooks = callCostInWebhooks
         }
 
         /** ISO 8601 formatted date of when the resource was created */
@@ -799,6 +840,7 @@ private constructor(
                 active,
                 anchorsiteOverride,
                 applicationName,
+                callCostInWebhooks,
                 createdAt,
                 dtmfType,
                 firstCommandTimeout,
@@ -828,6 +870,7 @@ private constructor(
         active()
         anchorsiteOverride().ifPresent { it.validate() }
         applicationName()
+        callCostInWebhooks()
         createdAt()
         dtmfType().ifPresent { it.validate() }
         firstCommandTimeout()
@@ -864,6 +907,7 @@ private constructor(
             (if (active.asKnown().isPresent) 1 else 0) +
             (anchorsiteOverride.asKnown().getOrNull()?.validity() ?: 0) +
             (if (applicationName.asKnown().isPresent) 1 else 0) +
+            (if (callCostInWebhooks.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (dtmfType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (firstCommandTimeout.asKnown().isPresent) 1 else 0) +
@@ -880,9 +924,9 @@ private constructor(
             (if (webhookTimeoutSecs.asKnown().isPresent) 1 else 0)
 
     /**
-     * `Latency` directs Telnyx to route media through the site with the lowest round-trip time to
-     * the user's connection. Telnyx calculates this time using ICMP ping messages. This can be
-     * disabled by specifying a site to handle all media.
+     * <code>Latency</code> directs Telnyx to route media through the site with the lowest
+     * round-trip time to the user's connection. Telnyx calculates this time using ICMP ping
+     * messages. This can be disabled by specifying a site to handle all media.
      */
     class AnchorsiteOverride
     @JsonCreator
@@ -900,13 +944,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val LATENCY = of("\"Latency\"")
+            @JvmField val LATENCY = of("Latency")
 
-            @JvmField val CHICAGO_IL = of("\"Chicago, IL\"")
+            @JvmField val CHICAGO_IL = of("Chicago, IL")
 
-            @JvmField val ASHBURN_VA = of("\"Ashburn, VA\"")
+            @JvmField val ASHBURN_VA = of("Ashburn, VA")
 
-            @JvmField val SAN_JOSE_CA = of("\"San Jose, CA\"")
+            @JvmField val SAN_JOSE_CA = of("San Jose, CA")
+
+            @JvmField val LONDON_UK = of("London, UK")
+
+            @JvmField val CHENNAI_IN = of("Chennai, IN")
+
+            @JvmField val AMSTERDAM_NETHERLANDS = of("Amsterdam, Netherlands")
+
+            @JvmField val TORONTO_CANADA = of("Toronto, Canada")
+
+            @JvmField val SYDNEY_AUSTRALIA = of("Sydney, Australia")
 
             @JvmStatic fun of(value: String) = AnchorsiteOverride(JsonField.of(value))
         }
@@ -917,6 +971,11 @@ private constructor(
             CHICAGO_IL,
             ASHBURN_VA,
             SAN_JOSE_CA,
+            LONDON_UK,
+            CHENNAI_IN,
+            AMSTERDAM_NETHERLANDS,
+            TORONTO_CANADA,
+            SYDNEY_AUSTRALIA,
         }
 
         /**
@@ -933,6 +992,11 @@ private constructor(
             CHICAGO_IL,
             ASHBURN_VA,
             SAN_JOSE_CA,
+            LONDON_UK,
+            CHENNAI_IN,
+            AMSTERDAM_NETHERLANDS,
+            TORONTO_CANADA,
+            SYDNEY_AUSTRALIA,
             /**
              * An enum member indicating that [AnchorsiteOverride] was instantiated with an unknown
              * value.
@@ -953,6 +1017,11 @@ private constructor(
                 CHICAGO_IL -> Value.CHICAGO_IL
                 ASHBURN_VA -> Value.ASHBURN_VA
                 SAN_JOSE_CA -> Value.SAN_JOSE_CA
+                LONDON_UK -> Value.LONDON_UK
+                CHENNAI_IN -> Value.CHENNAI_IN
+                AMSTERDAM_NETHERLANDS -> Value.AMSTERDAM_NETHERLANDS
+                TORONTO_CANADA -> Value.TORONTO_CANADA
+                SYDNEY_AUSTRALIA -> Value.SYDNEY_AUSTRALIA
                 else -> Value._UNKNOWN
             }
 
@@ -971,6 +1040,11 @@ private constructor(
                 CHICAGO_IL -> Known.CHICAGO_IL
                 ASHBURN_VA -> Known.ASHBURN_VA
                 SAN_JOSE_CA -> Known.SAN_JOSE_CA
+                LONDON_UK -> Known.LONDON_UK
+                CHENNAI_IN -> Known.CHENNAI_IN
+                AMSTERDAM_NETHERLANDS -> Known.AMSTERDAM_NETHERLANDS
+                TORONTO_CANADA -> Known.TORONTO_CANADA
+                SYDNEY_AUSTRALIA -> Known.SYDNEY_AUSTRALIA
                 else -> throw TelnyxInvalidDataException("Unknown AnchorsiteOverride: $value")
             }
 
@@ -1298,17 +1372,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val _1 = of("1")
+            @JvmField val V1 = of("1")
 
-            @JvmField val _2 = of("2")
+            @JvmField val V2 = of("2")
 
             @JvmStatic fun of(value: String) = WebhookApiVersion(JsonField.of(value))
         }
 
         /** An enum containing [WebhookApiVersion]'s known values. */
         enum class Known {
-            _1,
-            _2,
+            V1,
+            V2,
         }
 
         /**
@@ -1321,8 +1395,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            _1,
-            _2,
+            V1,
+            V2,
             /**
              * An enum member indicating that [WebhookApiVersion] was instantiated with an unknown
              * value.
@@ -1339,8 +1413,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                _1 -> Value._1
-                _2 -> Value._2
+                V1 -> Value.V1
+                V2 -> Value.V2
                 else -> Value._UNKNOWN
             }
 
@@ -1355,8 +1429,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                _1 -> Known._1
-                _2 -> Known._2
+                V1 -> Known.V1
+                V2 -> Known.V2
                 else -> throw TelnyxInvalidDataException("Unknown WebhookApiVersion: $value")
             }
 
@@ -1422,6 +1496,7 @@ private constructor(
             active == other.active &&
             anchorsiteOverride == other.anchorsiteOverride &&
             applicationName == other.applicationName &&
+            callCostInWebhooks == other.callCostInWebhooks &&
             createdAt == other.createdAt &&
             dtmfType == other.dtmfType &&
             firstCommandTimeout == other.firstCommandTimeout &&
@@ -1445,6 +1520,7 @@ private constructor(
             active,
             anchorsiteOverride,
             applicationName,
+            callCostInWebhooks,
             createdAt,
             dtmfType,
             firstCommandTimeout,
@@ -1466,5 +1542,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CallControlApplication{id=$id, active=$active, anchorsiteOverride=$anchorsiteOverride, applicationName=$applicationName, createdAt=$createdAt, dtmfType=$dtmfType, firstCommandTimeout=$firstCommandTimeout, firstCommandTimeoutSecs=$firstCommandTimeoutSecs, inbound=$inbound, outbound=$outbound, recordType=$recordType, redactDtmfDebugLogging=$redactDtmfDebugLogging, tags=$tags, updatedAt=$updatedAt, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
+        "CallControlApplication{id=$id, active=$active, anchorsiteOverride=$anchorsiteOverride, applicationName=$applicationName, callCostInWebhooks=$callCostInWebhooks, createdAt=$createdAt, dtmfType=$dtmfType, firstCommandTimeout=$firstCommandTimeout, firstCommandTimeoutSecs=$firstCommandTimeoutSecs, inbound=$inbound, outbound=$outbound, recordType=$recordType, redactDtmfDebugLogging=$redactDtmfDebugLogging, tags=$tags, updatedAt=$updatedAt, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
 }

@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async.phonenumbers
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.phonenumbers.voice.VoiceListPageAsync
 import com.telnyx.sdk.models.phonenumbers.voice.VoiceListParams
-import com.telnyx.sdk.models.phonenumbers.voice.VoiceListResponse
 import com.telnyx.sdk.models.phonenumbers.voice.VoiceRetrieveParams
 import com.telnyx.sdk.models.phonenumbers.voice.VoiceRetrieveResponse
 import com.telnyx.sdk.models.phonenumbers.voice.VoiceUpdateParams
@@ -86,21 +86,21 @@ interface VoiceServiceAsync {
     ): CompletableFuture<VoiceUpdateResponse>
 
     /** List phone numbers with voice settings */
-    fun list(): CompletableFuture<VoiceListResponse> = list(VoiceListParams.none())
+    fun list(): CompletableFuture<VoiceListPageAsync> = list(VoiceListParams.none())
 
     /** @see list */
     fun list(
         params: VoiceListParams = VoiceListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VoiceListResponse>
+    ): CompletableFuture<VoiceListPageAsync>
 
     /** @see list */
     fun list(
         params: VoiceListParams = VoiceListParams.none()
-    ): CompletableFuture<VoiceListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<VoiceListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<VoiceListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<VoiceListPageAsync> =
         list(VoiceListParams.none(), requestOptions)
 
     /** A view of [VoiceServiceAsync] that provides access to raw HTTP responses for each method. */
@@ -190,25 +190,25 @@ interface VoiceServiceAsync {
          * Returns a raw HTTP response for `get /phone_numbers/voice`, but is otherwise the same as
          * [VoiceServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<VoiceListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<VoiceListPageAsync>> =
             list(VoiceListParams.none())
 
         /** @see list */
         fun list(
             params: VoiceListParams = VoiceListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VoiceListResponse>>
+        ): CompletableFuture<HttpResponseFor<VoiceListPageAsync>>
 
         /** @see list */
         fun list(
             params: VoiceListParams = VoiceListParams.none()
-        ): CompletableFuture<HttpResponseFor<VoiceListResponse>> =
+        ): CompletableFuture<HttpResponseFor<VoiceListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<VoiceListResponse>> =
+        ): CompletableFuture<HttpResponseFor<VoiceListPageAsync>> =
             list(VoiceListParams.none(), requestOptions)
     }
 }

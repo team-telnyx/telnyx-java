@@ -15,14 +15,11 @@ import com.telnyx.sdk.services.async.AvailablePhoneNumberBlockServiceAsync
 import com.telnyx.sdk.services.async.AvailablePhoneNumberServiceAsync
 import com.telnyx.sdk.services.async.BalanceServiceAsync
 import com.telnyx.sdk.services.async.BillingGroupServiceAsync
-import com.telnyx.sdk.services.async.BrandServiceAsync
 import com.telnyx.sdk.services.async.BulkSimCardActionServiceAsync
 import com.telnyx.sdk.services.async.BundlePricingServiceAsync
 import com.telnyx.sdk.services.async.CallControlApplicationServiceAsync
 import com.telnyx.sdk.services.async.CallEventServiceAsync
 import com.telnyx.sdk.services.async.CallServiceAsync
-import com.telnyx.sdk.services.async.CampaignBuilderServiceAsync
-import com.telnyx.sdk.services.async.CampaignServiceAsync
 import com.telnyx.sdk.services.async.ChannelZoneServiceAsync
 import com.telnyx.sdk.services.async.ChargesBreakdownServiceAsync
 import com.telnyx.sdk.services.async.ChargesSummaryServiceAsync
@@ -39,7 +36,6 @@ import com.telnyx.sdk.services.async.DocumentLinkServiceAsync
 import com.telnyx.sdk.services.async.DocumentServiceAsync
 import com.telnyx.sdk.services.async.DynamicEmergencyAddressServiceAsync
 import com.telnyx.sdk.services.async.DynamicEmergencyEndpointServiceAsync
-import com.telnyx.sdk.services.async.EnumServiceAsync
 import com.telnyx.sdk.services.async.ExternalConnectionServiceAsync
 import com.telnyx.sdk.services.async.FaxApplicationServiceAsync
 import com.telnyx.sdk.services.async.FaxServiceAsync
@@ -56,6 +52,7 @@ import com.telnyx.sdk.services.async.GlobalIpProtocolServiceAsync
 import com.telnyx.sdk.services.async.GlobalIpServiceAsync
 import com.telnyx.sdk.services.async.GlobalIpUsageServiceAsync
 import com.telnyx.sdk.services.async.InboundChannelServiceAsync
+import com.telnyx.sdk.services.async.InexplicitNumberOrderServiceAsync
 import com.telnyx.sdk.services.async.IntegrationSecretServiceAsync
 import com.telnyx.sdk.services.async.InventoryCoverageServiceAsync
 import com.telnyx.sdk.services.async.InvoiceServiceAsync
@@ -67,6 +64,7 @@ import com.telnyx.sdk.services.async.ListServiceAsync
 import com.telnyx.sdk.services.async.ManagedAccountServiceAsync
 import com.telnyx.sdk.services.async.MediaServiceAsync
 import com.telnyx.sdk.services.async.MessageServiceAsync
+import com.telnyx.sdk.services.async.Messaging10dlcServiceAsync
 import com.telnyx.sdk.services.async.MessagingHostedNumberOrderServiceAsync
 import com.telnyx.sdk.services.async.MessagingHostedNumberServiceAsync
 import com.telnyx.sdk.services.async.MessagingNumbersBulkUpdateServiceAsync
@@ -75,9 +73,10 @@ import com.telnyx.sdk.services.async.MessagingProfileServiceAsync
 import com.telnyx.sdk.services.async.MessagingServiceAsync
 import com.telnyx.sdk.services.async.MessagingTollfreeServiceAsync
 import com.telnyx.sdk.services.async.MessagingUrlDomainServiceAsync
-import com.telnyx.sdk.services.async.MesssageServiceAsync
 import com.telnyx.sdk.services.async.MobileNetworkOperatorServiceAsync
+import com.telnyx.sdk.services.async.MobilePhoneNumberServiceAsync
 import com.telnyx.sdk.services.async.MobilePushCredentialServiceAsync
+import com.telnyx.sdk.services.async.MobileVoiceConnectionServiceAsync
 import com.telnyx.sdk.services.async.NetworkCoverageServiceAsync
 import com.telnyx.sdk.services.async.NetworkServiceAsync
 import com.telnyx.sdk.services.async.NotificationChannelServiceAsync
@@ -95,13 +94,11 @@ import com.telnyx.sdk.services.async.OAuthClientServiceAsync
 import com.telnyx.sdk.services.async.OAuthGrantServiceAsync
 import com.telnyx.sdk.services.async.OAuthServiceAsync
 import com.telnyx.sdk.services.async.OperatorConnectServiceAsync
+import com.telnyx.sdk.services.async.OrganizationServiceAsync
 import com.telnyx.sdk.services.async.OtaUpdateServiceAsync
 import com.telnyx.sdk.services.async.OutboundVoiceProfileServiceAsync
-import com.telnyx.sdk.services.async.PartnerCampaignServiceAsync
 import com.telnyx.sdk.services.async.PaymentServiceAsync
-import com.telnyx.sdk.services.async.PhoneNumberAssignmentByProfileServiceAsync
 import com.telnyx.sdk.services.async.PhoneNumberBlockServiceAsync
-import com.telnyx.sdk.services.async.PhoneNumberCampaignServiceAsync
 import com.telnyx.sdk.services.async.PhoneNumberServiceAsync
 import com.telnyx.sdk.services.async.PhoneNumbersRegulatoryRequirementServiceAsync
 import com.telnyx.sdk.services.async.PortabilityCheckServiceAsync
@@ -133,6 +130,7 @@ import com.telnyx.sdk.services.async.SimCardOrderPreviewServiceAsync
 import com.telnyx.sdk.services.async.SimCardOrderServiceAsync
 import com.telnyx.sdk.services.async.SimCardServiceAsync
 import com.telnyx.sdk.services.async.SiprecConnectorServiceAsync
+import com.telnyx.sdk.services.async.SpeechToTextServiceAsync
 import com.telnyx.sdk.services.async.StorageServiceAsync
 import com.telnyx.sdk.services.async.SubNumberOrderServiceAsync
 import com.telnyx.sdk.services.async.SubNumberOrdersReportServiceAsync
@@ -228,8 +226,6 @@ interface TelnyxClientAsync {
 
     fun billingGroups(): BillingGroupServiceAsync
 
-    fun brand(): BrandServiceAsync
-
     fun bulkSimCardActions(): BulkSimCardActionServiceAsync
 
     fun bundlePricing(): BundlePricingServiceAsync
@@ -239,10 +235,6 @@ interface TelnyxClientAsync {
     fun callEvents(): CallEventServiceAsync
 
     fun calls(): CallServiceAsync
-
-    fun campaign(): CampaignServiceAsync
-
-    fun campaignBuilder(): CampaignBuilderServiceAsync
 
     fun channelZones(): ChannelZoneServiceAsync
 
@@ -275,8 +267,6 @@ interface TelnyxClientAsync {
     fun dynamicEmergencyAddresses(): DynamicEmergencyAddressServiceAsync
 
     fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointServiceAsync
-
-    fun enum_(): EnumServiceAsync
 
     fun externalConnections(): ExternalConnectionServiceAsync
 
@@ -346,8 +336,6 @@ interface TelnyxClientAsync {
 
     fun messagingUrlDomains(): MessagingUrlDomainServiceAsync
 
-    fun messsages(): MesssageServiceAsync
-
     fun mobileNetworkOperators(): MobileNetworkOperatorServiceAsync
 
     fun mobilePushCredentials(): MobilePushCredentialServiceAsync
@@ -386,11 +374,7 @@ interface TelnyxClientAsync {
 
     fun payment(): PaymentServiceAsync
 
-    fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileServiceAsync
-
     fun phoneNumberBlocks(): PhoneNumberBlockServiceAsync
-
-    fun phoneNumberCampaigns(): PhoneNumberCampaignServiceAsync
 
     fun phoneNumbers(): PhoneNumberServiceAsync
 
@@ -496,9 +480,19 @@ interface TelnyxClientAsync {
 
     fun wirelessBlocklists(): WirelessBlocklistServiceAsync
 
-    fun partnerCampaigns(): PartnerCampaignServiceAsync
-
     fun wellKnown(): WellKnownServiceAsync
+
+    fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync
+
+    fun mobilePhoneNumbers(): MobilePhoneNumberServiceAsync
+
+    fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync
+
+    fun messaging10dlc(): Messaging10dlcServiceAsync
+
+    fun speechToText(): SpeechToTextServiceAsync
+
+    fun organizations(): OrganizationServiceAsync
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -559,8 +553,6 @@ interface TelnyxClientAsync {
 
         fun billingGroups(): BillingGroupServiceAsync.WithRawResponse
 
-        fun brand(): BrandServiceAsync.WithRawResponse
-
         fun bulkSimCardActions(): BulkSimCardActionServiceAsync.WithRawResponse
 
         fun bundlePricing(): BundlePricingServiceAsync.WithRawResponse
@@ -570,10 +562,6 @@ interface TelnyxClientAsync {
         fun callEvents(): CallEventServiceAsync.WithRawResponse
 
         fun calls(): CallServiceAsync.WithRawResponse
-
-        fun campaign(): CampaignServiceAsync.WithRawResponse
-
-        fun campaignBuilder(): CampaignBuilderServiceAsync.WithRawResponse
 
         fun channelZones(): ChannelZoneServiceAsync.WithRawResponse
 
@@ -606,8 +594,6 @@ interface TelnyxClientAsync {
         fun dynamicEmergencyAddresses(): DynamicEmergencyAddressServiceAsync.WithRawResponse
 
         fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointServiceAsync.WithRawResponse
-
-        fun enum_(): EnumServiceAsync.WithRawResponse
 
         fun externalConnections(): ExternalConnectionServiceAsync.WithRawResponse
 
@@ -677,8 +663,6 @@ interface TelnyxClientAsync {
 
         fun messagingUrlDomains(): MessagingUrlDomainServiceAsync.WithRawResponse
 
-        fun messsages(): MesssageServiceAsync.WithRawResponse
-
         fun mobileNetworkOperators(): MobileNetworkOperatorServiceAsync.WithRawResponse
 
         fun mobilePushCredentials(): MobilePushCredentialServiceAsync.WithRawResponse
@@ -717,12 +701,7 @@ interface TelnyxClientAsync {
 
         fun payment(): PaymentServiceAsync.WithRawResponse
 
-        fun phoneNumberAssignmentByProfile():
-            PhoneNumberAssignmentByProfileServiceAsync.WithRawResponse
-
         fun phoneNumberBlocks(): PhoneNumberBlockServiceAsync.WithRawResponse
-
-        fun phoneNumberCampaigns(): PhoneNumberCampaignServiceAsync.WithRawResponse
 
         fun phoneNumbers(): PhoneNumberServiceAsync.WithRawResponse
 
@@ -830,8 +809,18 @@ interface TelnyxClientAsync {
 
         fun wirelessBlocklists(): WirelessBlocklistServiceAsync.WithRawResponse
 
-        fun partnerCampaigns(): PartnerCampaignServiceAsync.WithRawResponse
-
         fun wellKnown(): WellKnownServiceAsync.WithRawResponse
+
+        fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync.WithRawResponse
+
+        fun mobilePhoneNumbers(): MobilePhoneNumberServiceAsync.WithRawResponse
+
+        fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync.WithRawResponse
+
+        fun messaging10dlc(): Messaging10dlcServiceAsync.WithRawResponse
+
+        fun speechToText(): SpeechToTextServiceAsync.WithRawResponse
+
+        fun organizations(): OrganizationServiceAsync.WithRawResponse
     }
 }

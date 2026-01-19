@@ -10,7 +10,7 @@ internal class CustomerServiceRecordCreateParamsTest {
     @Test
     fun create() {
         CustomerServiceRecordCreateParams.builder()
-            .phoneNumber("+1234567890")
+            .phoneNumber("+13035553000")
             .additionalData(
                 CustomerServiceRecordCreateParams.AdditionalData.builder()
                     .accountNumber("123456789")
@@ -33,7 +33,7 @@ internal class CustomerServiceRecordCreateParamsTest {
     fun body() {
         val params =
             CustomerServiceRecordCreateParams.builder()
-                .phoneNumber("+1234567890")
+                .phoneNumber("+13035553000")
                 .additionalData(
                     CustomerServiceRecordCreateParams.AdditionalData.builder()
                         .accountNumber("123456789")
@@ -53,7 +53,7 @@ internal class CustomerServiceRecordCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body.phoneNumber()).isEqualTo("+1234567890")
+        assertThat(body.phoneNumber()).isEqualTo("+13035553000")
         assertThat(body.additionalData())
             .contains(
                 CustomerServiceRecordCreateParams.AdditionalData.builder()
@@ -74,10 +74,10 @@ internal class CustomerServiceRecordCreateParamsTest {
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = CustomerServiceRecordCreateParams.builder().phoneNumber("+1234567890").build()
+        val params = CustomerServiceRecordCreateParams.builder().phoneNumber("+13035553000").build()
 
         val body = params._body()
 
-        assertThat(body.phoneNumber()).isEqualTo("+1234567890")
+        assertThat(body.phoneNumber()).isEqualTo("+13035553000")
     }
 }

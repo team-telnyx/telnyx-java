@@ -20,7 +20,7 @@ internal class GlobalIpAssignmentHealthRetrieveResponseTest {
                         .globalIp(
                             GlobalIpAssignmentHealthRetrieveResponse.Data.GlobalIp.builder()
                                 .id("a836125b-20b6-452e-9c03-2653f09c7ed7")
-                                .ipAddress("ip_address")
+                                .ipAddress("192.0.2.1")
                                 .build()
                         )
                         .globalIpAssignment(
@@ -55,7 +55,7 @@ internal class GlobalIpAssignmentHealthRetrieveResponseTest {
                     .globalIp(
                         GlobalIpAssignmentHealthRetrieveResponse.Data.GlobalIp.builder()
                             .id("a836125b-20b6-452e-9c03-2653f09c7ed7")
-                            .ipAddress("ip_address")
+                            .ipAddress("192.0.2.1")
                             .build()
                     )
                     .globalIpAssignment(
@@ -93,7 +93,7 @@ internal class GlobalIpAssignmentHealthRetrieveResponseTest {
                         .globalIp(
                             GlobalIpAssignmentHealthRetrieveResponse.Data.GlobalIp.builder()
                                 .id("a836125b-20b6-452e-9c03-2653f09c7ed7")
-                                .ipAddress("ip_address")
+                                .ipAddress("192.0.2.1")
                                 .build()
                         )
                         .globalIpAssignment(

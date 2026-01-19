@@ -28,6 +28,7 @@ internal class MessagingProfileCreateParamsTest {
                     .stickySender(false)
                     .build()
             )
+            .smartEncoding(true)
             .urlShortenerSettings(
                 UrlShortenerSettings.builder()
                     .domain("example.ex")
@@ -36,7 +37,7 @@ internal class MessagingProfileCreateParamsTest {
                     .sendWebhooks(false)
                     .build()
             )
-            .webhookApiVersion(MessagingProfileCreateParams.WebhookApiVersion._2)
+            .webhookApiVersion(MessagingProfileCreateParams.WebhookApiVersion.V2)
             .webhookFailoverUrl("https://backup.example.com/hooks")
             .webhookUrl("https://www.example.com/hooks")
             .build()
@@ -64,6 +65,7 @@ internal class MessagingProfileCreateParamsTest {
                         .stickySender(false)
                         .build()
                 )
+                .smartEncoding(true)
                 .urlShortenerSettings(
                     UrlShortenerSettings.builder()
                         .domain("example.ex")
@@ -72,7 +74,7 @@ internal class MessagingProfileCreateParamsTest {
                         .sendWebhooks(false)
                         .build()
                 )
-                .webhookApiVersion(MessagingProfileCreateParams.WebhookApiVersion._2)
+                .webhookApiVersion(MessagingProfileCreateParams.WebhookApiVersion.V2)
                 .webhookFailoverUrl("https://backup.example.com/hooks")
                 .webhookUrl("https://www.example.com/hooks")
                 .build()
@@ -98,6 +100,7 @@ internal class MessagingProfileCreateParamsTest {
                     .stickySender(false)
                     .build()
             )
+        assertThat(body.smartEncoding()).contains(true)
         assertThat(body.urlShortenerSettings())
             .contains(
                 UrlShortenerSettings.builder()
@@ -108,7 +111,7 @@ internal class MessagingProfileCreateParamsTest {
                     .build()
             )
         assertThat(body.webhookApiVersion())
-            .contains(MessagingProfileCreateParams.WebhookApiVersion._2)
+            .contains(MessagingProfileCreateParams.WebhookApiVersion.V2)
         assertThat(body.webhookFailoverUrl()).contains("https://backup.example.com/hooks")
         assertThat(body.webhookUrl()).contains("https://www.example.com/hooks")
     }

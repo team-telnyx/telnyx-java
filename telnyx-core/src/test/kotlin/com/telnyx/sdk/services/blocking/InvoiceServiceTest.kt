@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.invoices.InvoiceListParams
 import com.telnyx.sdk.models.invoices.InvoiceRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -44,14 +43,8 @@ internal class InvoiceServiceTest {
                 .build()
         val invoiceService = client.invoices()
 
-        val invoices =
-            invoiceService.list(
-                InvoiceListParams.builder()
-                    .page(InvoiceListParams.Page.builder().number(1L).size(1L).build())
-                    .sort(InvoiceListParams.Sort.PERIOD_START)
-                    .build()
-            )
+        val page = invoiceService.list()
 
-        invoices.validate()
+        page.response().validate()
     }
 }

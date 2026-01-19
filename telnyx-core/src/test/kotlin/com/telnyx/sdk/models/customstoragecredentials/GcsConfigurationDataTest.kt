@@ -13,10 +13,12 @@ internal class GcsConfigurationDataTest {
     fun create() {
         val gcsConfigurationData =
             GcsConfigurationData.builder()
+                .backend(GcsConfigurationData.Backend.GCS)
                 .bucket("example-bucket")
                 .credentials("OPAQUE_CREDENTIALS_TOKEN")
                 .build()
 
+        assertThat(gcsConfigurationData.backend()).isEqualTo(GcsConfigurationData.Backend.GCS)
         assertThat(gcsConfigurationData.bucket()).contains("example-bucket")
         assertThat(gcsConfigurationData.credentials()).contains("OPAQUE_CREDENTIALS_TOKEN")
     }
@@ -26,6 +28,7 @@ internal class GcsConfigurationDataTest {
         val jsonMapper = jsonMapper()
         val gcsConfigurationData =
             GcsConfigurationData.builder()
+                .backend(GcsConfigurationData.Backend.GCS)
                 .bucket("example-bucket")
                 .credentials("OPAQUE_CREDENTIALS_TOKEN")
                 .build()

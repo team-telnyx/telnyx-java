@@ -151,10 +151,7 @@ private constructor(
     fun minP(): Optional<Double> = body.minP()
 
     /**
-     * The language model to chat with. If you are optimizing for speed + price, try
-     * `meta-llama/Meta-Llama-3.1-8B-Instruct`. For quality, try
-     * `meta-llama/Meta-Llama-3.1-70B-Instruct`. Or explore our
-     * [LLM Library](https://telnyx.com/products/llm-library).
+     * The language model to chat with.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -213,7 +210,7 @@ private constructor(
      * The `function` tool type follows the same schema as the
      * [OpenAI Chat Completions API](https://platform.openai.com/docs/api-reference/chat). The
      * `retrieval` tool type is unique to Telnyx. You may pass a list of
-     * [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding)
+     * [embedded storage buckets](https://developers.telnyx.com/api-reference/embeddings/embed-documents)
      * for retrieval-augmented generation.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -643,12 +640,7 @@ private constructor(
          */
         fun minP(minP: JsonField<Double>) = apply { body.minP(minP) }
 
-        /**
-         * The language model to chat with. If you are optimizing for speed + price, try
-         * `meta-llama/Meta-Llama-3.1-8B-Instruct`. For quality, try
-         * `meta-llama/Meta-Llama-3.1-70B-Instruct`. Or explore our
-         * [LLM Library](https://telnyx.com/products/llm-library).
-         */
+        /** The language model to chat with. */
         fun model(model: String) = apply { body.model(model) }
 
         /**
@@ -746,7 +738,7 @@ private constructor(
          * The `function` tool type follows the same schema as the
          * [OpenAI Chat Completions API](https://platform.openai.com/docs/api-reference/chat). The
          * `retrieval` tool type is unique to Telnyx. You may pass a list of
-         * [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding)
+         * [embedded storage buckets](https://developers.telnyx.com/api-reference/embeddings/embed-documents)
          * for retrieval-augmented generation.
          */
         fun tools(tools: List<Tool>) = apply { body.tools(tools) }
@@ -767,16 +759,35 @@ private constructor(
          */
         fun addTool(tool: Tool) = apply { body.addTool(tool) }
 
+        /** Alias for calling [addTool] with `Tool.ofFunction(function)`. */
+        fun addTool(function: Tool.ChatCompletionTool) = apply { body.addTool(function) }
+
         /**
-         * Alias for calling [addTool] with
-         * `Tool.ofChatCompletionToolParam(chatCompletionToolParam)`.
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * Tool.ChatCompletionTool.builder()
+         *     .function(function)
+         *     .build()
+         * ```
          */
-        fun addTool(chatCompletionToolParam: Tool.ChatCompletionToolParam) = apply {
-            body.addTool(chatCompletionToolParam)
+        fun addFunctionTool(function: Tool.ChatCompletionTool.Function) = apply {
+            body.addFunctionTool(function)
         }
 
         /** Alias for calling [addTool] with `Tool.ofRetrieval(retrieval)`. */
         fun addTool(retrieval: Tool.Retrieval) = apply { body.addTool(retrieval) }
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * Tool.Retrieval.builder()
+         *     .retrieval(retrieval)
+         *     .build()
+         * ```
+         */
+        fun addRetrievalTool(retrieval: InferenceEmbeddingBucketIds) = apply {
+            body.addRetrievalTool(retrieval)
+        }
 
         /**
          * This is used with `logprobs`. An integer between 0 and 20 specifying the number of most
@@ -1186,10 +1197,7 @@ private constructor(
         fun minP(): Optional<Double> = minP.getOptional("min_p")
 
         /**
-         * The language model to chat with. If you are optimizing for speed + price, try
-         * `meta-llama/Meta-Llama-3.1-8B-Instruct`. For quality, try
-         * `meta-llama/Meta-Llama-3.1-70B-Instruct`. Or explore our
-         * [LLM Library](https://telnyx.com/products/llm-library).
+         * The language model to chat with.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1249,7 +1257,7 @@ private constructor(
          * The `function` tool type follows the same schema as the
          * [OpenAI Chat Completions API](https://platform.openai.com/docs/api-reference/chat). The
          * `retrieval` tool type is unique to Telnyx. You may pass a list of
-         * [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding)
+         * [embedded storage buckets](https://developers.telnyx.com/api-reference/embeddings/embed-documents)
          * for retrieval-augmented generation.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1763,12 +1771,7 @@ private constructor(
              */
             fun minP(minP: JsonField<Double>) = apply { this.minP = minP }
 
-            /**
-             * The language model to chat with. If you are optimizing for speed + price, try
-             * `meta-llama/Meta-Llama-3.1-8B-Instruct`. For quality, try
-             * `meta-llama/Meta-Llama-3.1-70B-Instruct`. Or explore our
-             * [LLM Library](https://telnyx.com/products/llm-library).
-             */
+            /** The language model to chat with. */
             fun model(model: String) = model(JsonField.of(model))
 
             /**
@@ -1871,7 +1874,7 @@ private constructor(
              * The `function` tool type follows the same schema as the
              * [OpenAI Chat Completions API](https://platform.openai.com/docs/api-reference/chat).
              * The `retrieval` tool type is unique to Telnyx. You may pass a list of
-             * [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding)
+             * [embedded storage buckets](https://developers.telnyx.com/api-reference/embeddings/embed-documents)
              * for retrieval-augmented generation.
              */
             fun tools(tools: List<Tool>) = tools(JsonField.of(tools))
@@ -1899,15 +1902,33 @@ private constructor(
                     }
             }
 
+            /** Alias for calling [addTool] with `Tool.ofFunction(function)`. */
+            fun addTool(function: Tool.ChatCompletionTool) = addTool(Tool.ofFunction(function))
+
             /**
-             * Alias for calling [addTool] with
-             * `Tool.ofChatCompletionToolParam(chatCompletionToolParam)`.
+             * Alias for calling [addTool] with the following:
+             * ```java
+             * Tool.ChatCompletionTool.builder()
+             *     .function(function)
+             *     .build()
+             * ```
              */
-            fun addTool(chatCompletionToolParam: Tool.ChatCompletionToolParam) =
-                addTool(Tool.ofChatCompletionToolParam(chatCompletionToolParam))
+            fun addFunctionTool(function: Tool.ChatCompletionTool.Function) =
+                addTool(Tool.ChatCompletionTool.builder().function(function).build())
 
             /** Alias for calling [addTool] with `Tool.ofRetrieval(retrieval)`. */
             fun addTool(retrieval: Tool.Retrieval) = addTool(Tool.ofRetrieval(retrieval))
+
+            /**
+             * Alias for calling [addTool] with the following:
+             * ```java
+             * Tool.Retrieval.builder()
+             *     .retrieval(retrieval)
+             *     .build()
+             * ```
+             */
+            fun addRetrievalTool(retrieval: InferenceEmbeddingBucketIds) =
+                addTool(Tool.Retrieval.builder().retrieval(retrieval).build())
 
             /**
              * This is used with `logprobs`. An integer between 0 and 20 specifying the number of
@@ -2255,9 +2276,8 @@ private constructor(
             /**
              * Alias for calling [content] with `Content.ofTextAndImageArray(textAndImageArray)`.
              */
-            fun contentOfTextAndImageArray(
-                textAndImageArray: List<Content.UnnamedSchemaWithArrayParent1>
-            ) = content(Content.ofTextAndImageArray(textAndImageArray))
+            fun contentOfTextAndImageArray(textAndImageArray: List<Content.TextAndImage>) =
+                content(Content.ofTextAndImageArray(textAndImageArray))
 
             fun role(role: Role) = role(JsonField.of(role))
 
@@ -2346,13 +2366,13 @@ private constructor(
         class Content
         private constructor(
             private val string: String? = null,
-            private val textAndImageArray: List<UnnamedSchemaWithArrayParent1>? = null,
+            private val textAndImageArray: List<TextAndImage>? = null,
             private val _json: JsonValue? = null,
         ) {
 
             fun string(): Optional<String> = Optional.ofNullable(string)
 
-            fun textAndImageArray(): Optional<List<UnnamedSchemaWithArrayParent1>> =
+            fun textAndImageArray(): Optional<List<TextAndImage>> =
                 Optional.ofNullable(textAndImageArray)
 
             fun isString(): Boolean = string != null
@@ -2361,7 +2381,7 @@ private constructor(
 
             fun asString(): String = string.getOrThrow("string")
 
-            fun asTextAndImageArray(): List<UnnamedSchemaWithArrayParent1> =
+            fun asTextAndImageArray(): List<TextAndImage> =
                 textAndImageArray.getOrThrow("textAndImageArray")
 
             fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
@@ -2384,9 +2404,7 @@ private constructor(
                     object : Visitor<Unit> {
                         override fun visitString(string: String) {}
 
-                        override fun visitTextAndImageArray(
-                            textAndImageArray: List<UnnamedSchemaWithArrayParent1>
-                        ) {
+                        override fun visitTextAndImageArray(textAndImageArray: List<TextAndImage>) {
                             textAndImageArray.forEach { it.validate() }
                         }
                     }
@@ -2414,9 +2432,8 @@ private constructor(
                     object : Visitor<Int> {
                         override fun visitString(string: String) = 1
 
-                        override fun visitTextAndImageArray(
-                            textAndImageArray: List<UnnamedSchemaWithArrayParent1>
-                        ) = textAndImageArray.sumOf { it.validity().toInt() }
+                        override fun visitTextAndImageArray(textAndImageArray: List<TextAndImage>) =
+                            textAndImageArray.sumOf { it.validity().toInt() }
 
                         override fun unknown(json: JsonValue?) = 0
                     }
@@ -2447,7 +2464,7 @@ private constructor(
                 @JvmStatic fun ofString(string: String) = Content(string = string)
 
                 @JvmStatic
-                fun ofTextAndImageArray(textAndImageArray: List<UnnamedSchemaWithArrayParent1>) =
+                fun ofTextAndImageArray(textAndImageArray: List<TextAndImage>) =
                     Content(textAndImageArray = textAndImageArray.toImmutable())
             }
 
@@ -2459,9 +2476,7 @@ private constructor(
 
                 fun visitString(string: String): T
 
-                fun visitTextAndImageArray(
-                    textAndImageArray: List<UnnamedSchemaWithArrayParent1>
-                ): T
+                fun visitTextAndImageArray(textAndImageArray: List<TextAndImage>): T
 
                 /**
                  * Maps an unknown variant of [Content] to a value of type [T].
@@ -2488,18 +2503,16 @@ private constructor(
                                 tryDeserialize(node, jacksonTypeRef<String>())?.let {
                                     Content(string = it, _json = json)
                                 },
-                                tryDeserialize(
-                                        node,
-                                        jacksonTypeRef<List<UnnamedSchemaWithArrayParent1>>(),
-                                    )
-                                    ?.let { Content(textAndImageArray = it, _json = json) },
+                                tryDeserialize(node, jacksonTypeRef<List<TextAndImage>>())?.let {
+                                    Content(textAndImageArray = it, _json = json)
+                                },
                             )
                             .filterNotNull()
                             .allMaxBy { it.validity() }
                             .toList()
                     return when (bestMatches.size) {
                         // This can happen if what we're deserializing is completely incompatible
-                        // with all the possible variants (e.g. deserializing from object).
+                        // with all the possible variants (e.g. deserializing from boolean).
                         0 -> Content(_json = json)
                         1 -> bestMatches.single()
                         // If there's more than one match with the highest validity, then use the
@@ -2527,7 +2540,7 @@ private constructor(
                 }
             }
 
-            class UnnamedSchemaWithArrayParent1
+            class TextAndImage
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val type: JsonField<Type>,
@@ -2605,8 +2618,7 @@ private constructor(
                 companion object {
 
                     /**
-                     * Returns a mutable builder for constructing an instance of
-                     * [UnnamedSchemaWithArrayParent1].
+                     * Returns a mutable builder for constructing an instance of [TextAndImage].
                      *
                      * The following fields are required:
                      * ```java
@@ -2616,7 +2628,7 @@ private constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [UnnamedSchemaWithArrayParent1]. */
+                /** A builder for [TextAndImage]. */
                 class Builder internal constructor() {
 
                     private var type: JsonField<Type>? = null
@@ -2625,14 +2637,11 @@ private constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(
-                        unnamedSchemaWithArrayParent1: UnnamedSchemaWithArrayParent1
-                    ) = apply {
-                        type = unnamedSchemaWithArrayParent1.type
-                        imageUrl = unnamedSchemaWithArrayParent1.imageUrl
-                        text = unnamedSchemaWithArrayParent1.text
-                        additionalProperties =
-                            unnamedSchemaWithArrayParent1.additionalProperties.toMutableMap()
+                    internal fun from(textAndImage: TextAndImage) = apply {
+                        type = textAndImage.type
+                        imageUrl = textAndImage.imageUrl
+                        text = textAndImage.text
+                        additionalProperties = textAndImage.additionalProperties.toMutableMap()
                     }
 
                     fun type(type: Type) = type(JsonField.of(type))
@@ -2691,7 +2700,7 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [UnnamedSchemaWithArrayParent1].
+                     * Returns an immutable instance of [TextAndImage].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      *
@@ -2702,8 +2711,8 @@ private constructor(
                      *
                      * @throws IllegalStateException if any required field is unset.
                      */
-                    fun build(): UnnamedSchemaWithArrayParent1 =
-                        UnnamedSchemaWithArrayParent1(
+                    fun build(): TextAndImage =
+                        TextAndImage(
                             checkRequired("type", type),
                             imageUrl,
                             text,
@@ -2713,7 +2722,7 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                fun validate(): UnnamedSchemaWithArrayParent1 = apply {
+                fun validate(): TextAndImage = apply {
                     if (validated) {
                         return@apply
                     }
@@ -2882,7 +2891,7 @@ private constructor(
                         return true
                     }
 
-                    return other is UnnamedSchemaWithArrayParent1 &&
+                    return other is TextAndImage &&
                         type == other.type &&
                         imageUrl == other.imageUrl &&
                         text == other.text &&
@@ -2896,7 +2905,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "UnnamedSchemaWithArrayParent1{type=$type, imageUrl=$imageUrl, text=$text, additionalProperties=$additionalProperties}"
+                    "TextAndImage{type=$type, imageUrl=$imageUrl, text=$text, additionalProperties=$additionalProperties}"
             }
         }
 
@@ -3579,22 +3588,20 @@ private constructor(
     @JsonSerialize(using = Tool.Serializer::class)
     class Tool
     private constructor(
-        private val chatCompletionToolParam: ChatCompletionToolParam? = null,
+        private val function: ChatCompletionTool? = null,
         private val retrieval: Retrieval? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun chatCompletionToolParam(): Optional<ChatCompletionToolParam> =
-            Optional.ofNullable(chatCompletionToolParam)
+        fun function(): Optional<ChatCompletionTool> = Optional.ofNullable(function)
 
         fun retrieval(): Optional<Retrieval> = Optional.ofNullable(retrieval)
 
-        fun isChatCompletionToolParam(): Boolean = chatCompletionToolParam != null
+        fun isFunction(): Boolean = function != null
 
         fun isRetrieval(): Boolean = retrieval != null
 
-        fun asChatCompletionToolParam(): ChatCompletionToolParam =
-            chatCompletionToolParam.getOrThrow("chatCompletionToolParam")
+        fun asFunction(): ChatCompletionTool = function.getOrThrow("function")
 
         fun asRetrieval(): Retrieval = retrieval.getOrThrow("retrieval")
 
@@ -3602,8 +3609,7 @@ private constructor(
 
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                chatCompletionToolParam != null ->
-                    visitor.visitChatCompletionToolParam(chatCompletionToolParam)
+                function != null -> visitor.visitFunction(function)
                 retrieval != null -> visitor.visitRetrieval(retrieval)
                 else -> visitor.unknown(_json)
             }
@@ -3617,10 +3623,8 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitChatCompletionToolParam(
-                        chatCompletionToolParam: ChatCompletionToolParam
-                    ) {
-                        chatCompletionToolParam.validate()
+                    override fun visitFunction(function: ChatCompletionTool) {
+                        function.validate()
                     }
 
                     override fun visitRetrieval(retrieval: Retrieval) {
@@ -3649,9 +3653,7 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitChatCompletionToolParam(
-                        chatCompletionToolParam: ChatCompletionToolParam
-                    ) = chatCompletionToolParam.validity()
+                    override fun visitFunction(function: ChatCompletionTool) = function.validity()
 
                     override fun visitRetrieval(retrieval: Retrieval) = retrieval.validity()
 
@@ -3664,17 +3666,14 @@ private constructor(
                 return true
             }
 
-            return other is Tool &&
-                chatCompletionToolParam == other.chatCompletionToolParam &&
-                retrieval == other.retrieval
+            return other is Tool && function == other.function && retrieval == other.retrieval
         }
 
-        override fun hashCode(): Int = Objects.hash(chatCompletionToolParam, retrieval)
+        override fun hashCode(): Int = Objects.hash(function, retrieval)
 
         override fun toString(): String =
             when {
-                chatCompletionToolParam != null ->
-                    "Tool{chatCompletionToolParam=$chatCompletionToolParam}"
+                function != null -> "Tool{function=$function}"
                 retrieval != null -> "Tool{retrieval=$retrieval}"
                 _json != null -> "Tool{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Tool")
@@ -3682,9 +3681,7 @@ private constructor(
 
         companion object {
 
-            @JvmStatic
-            fun ofChatCompletionToolParam(chatCompletionToolParam: ChatCompletionToolParam) =
-                Tool(chatCompletionToolParam = chatCompletionToolParam)
+            @JvmStatic fun ofFunction(function: ChatCompletionTool) = Tool(function = function)
 
             @JvmStatic fun ofRetrieval(retrieval: Retrieval) = Tool(retrieval = retrieval)
         }
@@ -3692,7 +3689,7 @@ private constructor(
         /** An interface that defines how to map each variant of [Tool] to a value of type [T]. */
         interface Visitor<out T> {
 
-            fun visitChatCompletionToolParam(chatCompletionToolParam: ChatCompletionToolParam): T
+            fun visitFunction(function: ChatCompletionTool): T
 
             fun visitRetrieval(retrieval: Retrieval): T
 
@@ -3714,29 +3711,22 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): Tool {
                 val json = JsonValue.fromJsonNode(node)
+                val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<ChatCompletionToolParam>())?.let {
-                                Tool(chatCompletionToolParam = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<Retrieval>())?.let {
-                                Tool(retrieval = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> Tool(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (type) {
+                    "function" -> {
+                        return tryDeserialize(node, jacksonTypeRef<ChatCompletionTool>())?.let {
+                            Tool(function = it, _json = json)
+                        } ?: Tool(_json = json)
+                    }
+                    "retrieval" -> {
+                        return tryDeserialize(node, jacksonTypeRef<Retrieval>())?.let {
+                            Tool(retrieval = it, _json = json)
+                        } ?: Tool(_json = json)
+                    }
                 }
+
+                return Tool(_json = json)
             }
         }
 
@@ -3748,8 +3738,7 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.chatCompletionToolParam != null ->
-                        generator.writeObject(value.chatCompletionToolParam)
+                    value.function != null -> generator.writeObject(value.function)
                     value.retrieval != null -> generator.writeObject(value.retrieval)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Tool")
@@ -3757,11 +3746,11 @@ private constructor(
             }
         }
 
-        class ChatCompletionToolParam
+        class ChatCompletionTool
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val function: JsonField<Function>,
-            private val type: JsonField<Type>,
+            private val type: JsonValue,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -3770,7 +3759,7 @@ private constructor(
                 @JsonProperty("function")
                 @ExcludeMissing
                 function: JsonField<Function> = JsonMissing.of(),
-                @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
             ) : this(function, type, mutableMapOf())
 
             /**
@@ -3781,11 +3770,15 @@ private constructor(
             fun function(): Function = function.getRequired("function")
 
             /**
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * Expected to always return the following:
+             * ```java
+             * JsonValue.from("function")
+             * ```
+             *
+             * However, this method can be useful for debugging and logging (e.g. if the server
+             * responded with an unexpected value).
              */
-            fun type(): Type = type.getRequired("type")
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
             /**
              * Returns the raw JSON value of [function].
@@ -3796,13 +3789,6 @@ private constructor(
             @JsonProperty("function")
             @ExcludeMissing
             fun _function(): JsonField<Function> = function
-
-            /**
-             * Returns the raw JSON value of [type].
-             *
-             * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -3819,31 +3805,28 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of
-                 * [ChatCompletionToolParam].
+                 * Returns a mutable builder for constructing an instance of [ChatCompletionTool].
                  *
                  * The following fields are required:
                  * ```java
                  * .function()
-                 * .type()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [ChatCompletionToolParam]. */
+            /** A builder for [ChatCompletionTool]. */
             class Builder internal constructor() {
 
                 private var function: JsonField<Function>? = null
-                private var type: JsonField<Type>? = null
+                private var type: JsonValue = JsonValue.from("function")
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(chatCompletionToolParam: ChatCompletionToolParam) = apply {
-                    function = chatCompletionToolParam.function
-                    type = chatCompletionToolParam.type
-                    additionalProperties =
-                        chatCompletionToolParam.additionalProperties.toMutableMap()
+                internal fun from(chatCompletionTool: ChatCompletionTool) = apply {
+                    function = chatCompletionTool.function
+                    type = chatCompletionTool.type
+                    additionalProperties = chatCompletionTool.additionalProperties.toMutableMap()
                 }
 
                 fun function(function: Function) = function(JsonField.of(function))
@@ -3857,16 +3840,19 @@ private constructor(
                  */
                 fun function(function: JsonField<Function>) = apply { this.function = function }
 
-                fun type(type: Type) = type(JsonField.of(type))
-
                 /**
-                 * Sets [Builder.type] to an arbitrary JSON value.
+                 * Sets the field to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.type] with a well-typed [Type] value instead.
+                 * It is usually unnecessary to call this method because the field defaults to the
+                 * following:
+                 * ```java
+                 * JsonValue.from("function")
+                 * ```
+                 *
                  * This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun type(type: JsonField<Type>) = apply { this.type = type }
+                fun type(type: JsonValue) = apply { this.type = type }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -3891,35 +3877,38 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [ChatCompletionToolParam].
+                 * Returns an immutable instance of [ChatCompletionTool].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
                  * The following fields are required:
                  * ```java
                  * .function()
-                 * .type()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): ChatCompletionToolParam =
-                    ChatCompletionToolParam(
+                fun build(): ChatCompletionTool =
+                    ChatCompletionTool(
                         checkRequired("function", function),
-                        checkRequired("type", type),
+                        type,
                         additionalProperties.toMutableMap(),
                     )
             }
 
             private var validated: Boolean = false
 
-            fun validate(): ChatCompletionToolParam = apply {
+            fun validate(): ChatCompletionTool = apply {
                 if (validated) {
                     return@apply
                 }
 
                 function().validate()
-                type().validate()
+                _type().let {
+                    if (it != JsonValue.from("function")) {
+                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                    }
+                }
                 validated = true
             }
 
@@ -3940,7 +3929,7 @@ private constructor(
             @JvmSynthetic
             internal fun validity(): Int =
                 (function.asKnown().getOrNull()?.validity() ?: 0) +
-                    (type.asKnown().getOrNull()?.validity() ?: 0)
+                    type.let { if (it == JsonValue.from("function")) 1 else 0 }
 
             class Function
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -4296,136 +4285,12 @@ private constructor(
                     "Function{name=$name, description=$description, parameters=$parameters, additionalProperties=$additionalProperties}"
             }
 
-            class Type @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val FUNCTION = of("function")
-
-                    @JvmStatic fun of(value: String) = Type(JsonField.of(value))
-                }
-
-                /** An enum containing [Type]'s known values. */
-                enum class Known {
-                    FUNCTION
-                }
-
-                /**
-                 * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Type] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    FUNCTION,
-                    /**
-                     * An enum member indicating that [Type] was instantiated with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        FUNCTION -> Value.FUNCTION
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        FUNCTION -> Known.FUNCTION
-                        else -> throw TelnyxInvalidDataException("Unknown Type: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                fun validate(): Type = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Type && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
                 }
 
-                return other is ChatCompletionToolParam &&
+                return other is ChatCompletionTool &&
                     function == other.function &&
                     type == other.type &&
                     additionalProperties == other.additionalProperties
@@ -4436,14 +4301,14 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "ChatCompletionToolParam{function=$function, type=$type, additionalProperties=$additionalProperties}"
+                "ChatCompletionTool{function=$function, type=$type, additionalProperties=$additionalProperties}"
         }
 
         class Retrieval
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val retrieval: JsonField<InferenceEmbeddingBucketIds>,
-            private val type: JsonField<Type>,
+            private val type: JsonValue,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -4452,7 +4317,7 @@ private constructor(
                 @JsonProperty("retrieval")
                 @ExcludeMissing
                 retrieval: JsonField<InferenceEmbeddingBucketIds> = JsonMissing.of(),
-                @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
             ) : this(retrieval, type, mutableMapOf())
 
             /**
@@ -4463,11 +4328,15 @@ private constructor(
             fun retrieval(): InferenceEmbeddingBucketIds = retrieval.getRequired("retrieval")
 
             /**
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * Expected to always return the following:
+             * ```java
+             * JsonValue.from("retrieval")
+             * ```
+             *
+             * However, this method can be useful for debugging and logging (e.g. if the server
+             * responded with an unexpected value).
              */
-            fun type(): Type = type.getRequired("type")
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
             /**
              * Returns the raw JSON value of [retrieval].
@@ -4478,13 +4347,6 @@ private constructor(
             @JsonProperty("retrieval")
             @ExcludeMissing
             fun _retrieval(): JsonField<InferenceEmbeddingBucketIds> = retrieval
-
-            /**
-             * Returns the raw JSON value of [type].
-             *
-             * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -4506,7 +4368,6 @@ private constructor(
                  * The following fields are required:
                  * ```java
                  * .retrieval()
-                 * .type()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
@@ -4516,7 +4377,7 @@ private constructor(
             class Builder internal constructor() {
 
                 private var retrieval: JsonField<InferenceEmbeddingBucketIds>? = null
-                private var type: JsonField<Type>? = null
+                private var type: JsonValue = JsonValue.from("retrieval")
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -4540,16 +4401,19 @@ private constructor(
                     this.retrieval = retrieval
                 }
 
-                fun type(type: Type) = type(JsonField.of(type))
-
                 /**
-                 * Sets [Builder.type] to an arbitrary JSON value.
+                 * Sets the field to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.type] with a well-typed [Type] value instead.
+                 * It is usually unnecessary to call this method because the field defaults to the
+                 * following:
+                 * ```java
+                 * JsonValue.from("retrieval")
+                 * ```
+                 *
                  * This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun type(type: JsonField<Type>) = apply { this.type = type }
+                fun type(type: JsonValue) = apply { this.type = type }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -4581,7 +4445,6 @@ private constructor(
                  * The following fields are required:
                  * ```java
                  * .retrieval()
-                 * .type()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
@@ -4589,7 +4452,7 @@ private constructor(
                 fun build(): Retrieval =
                     Retrieval(
                         checkRequired("retrieval", retrieval),
-                        checkRequired("type", type),
+                        type,
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -4602,7 +4465,11 @@ private constructor(
                 }
 
                 retrieval().validate()
-                type().validate()
+                _type().let {
+                    if (it != JsonValue.from("retrieval")) {
+                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                    }
+                }
                 validated = true
             }
 
@@ -4623,131 +4490,7 @@ private constructor(
             @JvmSynthetic
             internal fun validity(): Int =
                 (retrieval.asKnown().getOrNull()?.validity() ?: 0) +
-                    (type.asKnown().getOrNull()?.validity() ?: 0)
-
-            class Type @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val RETRIEVAL = of("retrieval")
-
-                    @JvmStatic fun of(value: String) = Type(JsonField.of(value))
-                }
-
-                /** An enum containing [Type]'s known values. */
-                enum class Known {
-                    RETRIEVAL
-                }
-
-                /**
-                 * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Type] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    RETRIEVAL,
-                    /**
-                     * An enum member indicating that [Type] was instantiated with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        RETRIEVAL -> Value.RETRIEVAL
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        RETRIEVAL -> Known.RETRIEVAL
-                        else -> throw TelnyxInvalidDataException("Unknown Type: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                fun validate(): Type = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Type && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
+                    type.let { if (it == JsonValue.from("retrieval")) 1 else 0 }
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {

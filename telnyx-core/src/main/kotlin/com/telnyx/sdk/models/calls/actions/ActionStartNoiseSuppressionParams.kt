@@ -58,12 +58,22 @@ private constructor(
     fun direction(): Optional<Direction> = body.direction()
 
     /**
-     * The engine to use for noise suppression. A - rnnoise engine B - deepfilter engine.
+     * The engine to use for noise suppression. For backward compatibility, engines A, B, and C are
+     * also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun noiseSuppressionEngine(): Optional<NoiseSuppressionEngine> = body.noiseSuppressionEngine()
+
+    /**
+     * Configuration parameters for noise suppression engines.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun noiseSuppressionEngineConfig(): Optional<NoiseSuppressionEngineConfig> =
+        body.noiseSuppressionEngineConfig()
 
     /**
      * Returns the raw JSON value of [clientState].
@@ -94,6 +104,15 @@ private constructor(
      */
     fun _noiseSuppressionEngine(): JsonField<NoiseSuppressionEngine> =
         body._noiseSuppressionEngine()
+
+    /**
+     * Returns the raw JSON value of [noiseSuppressionEngineConfig].
+     *
+     * Unlike [noiseSuppressionEngineConfig], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _noiseSuppressionEngineConfig(): JsonField<NoiseSuppressionEngineConfig> =
+        body._noiseSuppressionEngineConfig()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -149,6 +168,8 @@ private constructor(
          * - [commandId]
          * - [direction]
          * - [noiseSuppressionEngine]
+         * - [noiseSuppressionEngineConfig]
+         * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -194,7 +215,10 @@ private constructor(
          */
         fun direction(direction: JsonField<Direction>) = apply { body.direction(direction) }
 
-        /** The engine to use for noise suppression. A - rnnoise engine B - deepfilter engine. */
+        /**
+         * The engine to use for noise suppression. For backward compatibility, engines A, B, and C
+         * are also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp
+         */
         fun noiseSuppressionEngine(noiseSuppressionEngine: NoiseSuppressionEngine) = apply {
             body.noiseSuppressionEngine(noiseSuppressionEngine)
         }
@@ -210,6 +234,22 @@ private constructor(
             apply {
                 body.noiseSuppressionEngine(noiseSuppressionEngine)
             }
+
+        /** Configuration parameters for noise suppression engines. */
+        fun noiseSuppressionEngineConfig(
+            noiseSuppressionEngineConfig: NoiseSuppressionEngineConfig
+        ) = apply { body.noiseSuppressionEngineConfig(noiseSuppressionEngineConfig) }
+
+        /**
+         * Sets [Builder.noiseSuppressionEngineConfig] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.noiseSuppressionEngineConfig] with a well-typed
+         * [NoiseSuppressionEngineConfig] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun noiseSuppressionEngineConfig(
+            noiseSuppressionEngineConfig: JsonField<NoiseSuppressionEngineConfig>
+        ) = apply { body.noiseSuppressionEngineConfig(noiseSuppressionEngineConfig) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -361,6 +401,7 @@ private constructor(
         private val commandId: JsonField<String>,
         private val direction: JsonField<Direction>,
         private val noiseSuppressionEngine: JsonField<NoiseSuppressionEngine>,
+        private val noiseSuppressionEngineConfig: JsonField<NoiseSuppressionEngineConfig>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -378,7 +419,17 @@ private constructor(
             @JsonProperty("noise_suppression_engine")
             @ExcludeMissing
             noiseSuppressionEngine: JsonField<NoiseSuppressionEngine> = JsonMissing.of(),
-        ) : this(clientState, commandId, direction, noiseSuppressionEngine, mutableMapOf())
+            @JsonProperty("noise_suppression_engine_config")
+            @ExcludeMissing
+            noiseSuppressionEngineConfig: JsonField<NoiseSuppressionEngineConfig> = JsonMissing.of(),
+        ) : this(
+            clientState,
+            commandId,
+            direction,
+            noiseSuppressionEngine,
+            noiseSuppressionEngineConfig,
+            mutableMapOf(),
+        )
 
         /**
          * Use this field to add state to every subsequent webhook. It must be a valid Base-64
@@ -407,13 +458,23 @@ private constructor(
         fun direction(): Optional<Direction> = direction.getOptional("direction")
 
         /**
-         * The engine to use for noise suppression. A - rnnoise engine B - deepfilter engine.
+         * The engine to use for noise suppression. For backward compatibility, engines A, B, and C
+         * are also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun noiseSuppressionEngine(): Optional<NoiseSuppressionEngine> =
             noiseSuppressionEngine.getOptional("noise_suppression_engine")
+
+        /**
+         * Configuration parameters for noise suppression engines.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun noiseSuppressionEngineConfig(): Optional<NoiseSuppressionEngineConfig> =
+            noiseSuppressionEngineConfig.getOptional("noise_suppression_engine_config")
 
         /**
          * Returns the raw JSON value of [clientState].
@@ -450,6 +511,17 @@ private constructor(
         @ExcludeMissing
         fun _noiseSuppressionEngine(): JsonField<NoiseSuppressionEngine> = noiseSuppressionEngine
 
+        /**
+         * Returns the raw JSON value of [noiseSuppressionEngineConfig].
+         *
+         * Unlike [noiseSuppressionEngineConfig], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("noise_suppression_engine_config")
+        @ExcludeMissing
+        fun _noiseSuppressionEngineConfig(): JsonField<NoiseSuppressionEngineConfig> =
+            noiseSuppressionEngineConfig
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -475,6 +547,8 @@ private constructor(
             private var commandId: JsonField<String> = JsonMissing.of()
             private var direction: JsonField<Direction> = JsonMissing.of()
             private var noiseSuppressionEngine: JsonField<NoiseSuppressionEngine> = JsonMissing.of()
+            private var noiseSuppressionEngineConfig: JsonField<NoiseSuppressionEngineConfig> =
+                JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -483,6 +557,7 @@ private constructor(
                 commandId = body.commandId
                 direction = body.direction
                 noiseSuppressionEngine = body.noiseSuppressionEngine
+                noiseSuppressionEngineConfig = body.noiseSuppressionEngineConfig
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -531,7 +606,9 @@ private constructor(
             fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
             /**
-             * The engine to use for noise suppression. A - rnnoise engine B - deepfilter engine.
+             * The engine to use for noise suppression. For backward compatibility, engines A, B,
+             * and C are also supported, but are deprecated: A - Denoiser B - DeepFilterNet C -
+             * Krisp
              */
             fun noiseSuppressionEngine(noiseSuppressionEngine: NoiseSuppressionEngine) =
                 noiseSuppressionEngine(JsonField.of(noiseSuppressionEngine))
@@ -547,6 +624,22 @@ private constructor(
                 apply {
                     this.noiseSuppressionEngine = noiseSuppressionEngine
                 }
+
+            /** Configuration parameters for noise suppression engines. */
+            fun noiseSuppressionEngineConfig(
+                noiseSuppressionEngineConfig: NoiseSuppressionEngineConfig
+            ) = noiseSuppressionEngineConfig(JsonField.of(noiseSuppressionEngineConfig))
+
+            /**
+             * Sets [Builder.noiseSuppressionEngineConfig] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.noiseSuppressionEngineConfig] with a well-typed
+             * [NoiseSuppressionEngineConfig] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun noiseSuppressionEngineConfig(
+                noiseSuppressionEngineConfig: JsonField<NoiseSuppressionEngineConfig>
+            ) = apply { this.noiseSuppressionEngineConfig = noiseSuppressionEngineConfig }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -578,6 +671,7 @@ private constructor(
                     commandId,
                     direction,
                     noiseSuppressionEngine,
+                    noiseSuppressionEngineConfig,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -593,6 +687,7 @@ private constructor(
             commandId()
             direction().ifPresent { it.validate() }
             noiseSuppressionEngine().ifPresent { it.validate() }
+            noiseSuppressionEngineConfig().ifPresent { it.validate() }
             validated = true
         }
 
@@ -615,7 +710,8 @@ private constructor(
             (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
                 (direction.asKnown().getOrNull()?.validity() ?: 0) +
-                (noiseSuppressionEngine.asKnown().getOrNull()?.validity() ?: 0)
+                (noiseSuppressionEngine.asKnown().getOrNull()?.validity() ?: 0) +
+                (noiseSuppressionEngineConfig.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -627,6 +723,7 @@ private constructor(
                 commandId == other.commandId &&
                 direction == other.direction &&
                 noiseSuppressionEngine == other.noiseSuppressionEngine &&
+                noiseSuppressionEngineConfig == other.noiseSuppressionEngineConfig &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -636,6 +733,7 @@ private constructor(
                 commandId,
                 direction,
                 noiseSuppressionEngine,
+                noiseSuppressionEngineConfig,
                 additionalProperties,
             )
         }
@@ -643,7 +741,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{clientState=$clientState, commandId=$commandId, direction=$direction, noiseSuppressionEngine=$noiseSuppressionEngine, additionalProperties=$additionalProperties}"
+            "Body{clientState=$clientState, commandId=$commandId, direction=$direction, noiseSuppressionEngine=$noiseSuppressionEngine, noiseSuppressionEngineConfig=$noiseSuppressionEngineConfig, additionalProperties=$additionalProperties}"
     }
 
     /** The direction of the audio stream to be noise suppressed. */
@@ -780,7 +878,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** The engine to use for noise suppression. A - rnnoise engine B - deepfilter engine. */
+    /**
+     * The engine to use for noise suppression. For backward compatibility, engines A, B, and C are
+     * also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp
+     */
     class NoiseSuppressionEngine
     @JsonCreator
     private constructor(private val value: JsonField<String>) : Enum {
@@ -797,17 +898,20 @@ private constructor(
 
         companion object {
 
-            @JvmField val A = of("A")
+            @JvmField val DENOISER = of("Denoiser")
 
-            @JvmField val B = of("B")
+            @JvmField val DEEP_FILTER_NET = of("DeepFilterNet")
+
+            @JvmField val KRISP = of("Krisp")
 
             @JvmStatic fun of(value: String) = NoiseSuppressionEngine(JsonField.of(value))
         }
 
         /** An enum containing [NoiseSuppressionEngine]'s known values. */
         enum class Known {
-            A,
-            B,
+            DENOISER,
+            DEEP_FILTER_NET,
+            KRISP,
         }
 
         /**
@@ -822,8 +926,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            A,
-            B,
+            DENOISER,
+            DEEP_FILTER_NET,
+            KRISP,
             /**
              * An enum member indicating that [NoiseSuppressionEngine] was instantiated with an
              * unknown value.
@@ -840,8 +945,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                A -> Value.A
-                B -> Value.B
+                DENOISER -> Value.DENOISER
+                DEEP_FILTER_NET -> Value.DEEP_FILTER_NET
+                KRISP -> Value.KRISP
                 else -> Value._UNKNOWN
             }
 
@@ -856,8 +962,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                A -> Known.A
-                B -> Known.B
+                DENOISER -> Known.DENOISER
+                DEEP_FILTER_NET -> Known.DEEP_FILTER_NET
+                KRISP -> Known.KRISP
                 else -> throw TelnyxInvalidDataException("Unknown NoiseSuppressionEngine: $value")
             }
 
@@ -911,6 +1018,165 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    /** Configuration parameters for noise suppression engines. */
+    class NoiseSuppressionEngineConfig
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val attenuationLimit: JsonField<Long>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("attenuation_limit")
+            @ExcludeMissing
+            attenuationLimit: JsonField<Long> = JsonMissing.of()
+        ) : this(attenuationLimit, mutableMapOf())
+
+        /**
+         * The attenuation limit for noise suppression (0-100). Only applicable for DeepFilterNet.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun attenuationLimit(): Optional<Long> = attenuationLimit.getOptional("attenuation_limit")
+
+        /**
+         * Returns the raw JSON value of [attenuationLimit].
+         *
+         * Unlike [attenuationLimit], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("attenuation_limit")
+        @ExcludeMissing
+        fun _attenuationLimit(): JsonField<Long> = attenuationLimit
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [NoiseSuppressionEngineConfig].
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [NoiseSuppressionEngineConfig]. */
+        class Builder internal constructor() {
+
+            private var attenuationLimit: JsonField<Long> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(noiseSuppressionEngineConfig: NoiseSuppressionEngineConfig) = apply {
+                attenuationLimit = noiseSuppressionEngineConfig.attenuationLimit
+                additionalProperties =
+                    noiseSuppressionEngineConfig.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The attenuation limit for noise suppression (0-100). Only applicable for
+             * DeepFilterNet.
+             */
+            fun attenuationLimit(attenuationLimit: Long) =
+                attenuationLimit(JsonField.of(attenuationLimit))
+
+            /**
+             * Sets [Builder.attenuationLimit] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.attenuationLimit] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun attenuationLimit(attenuationLimit: JsonField<Long>) = apply {
+                this.attenuationLimit = attenuationLimit
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [NoiseSuppressionEngineConfig].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): NoiseSuppressionEngineConfig =
+                NoiseSuppressionEngineConfig(attenuationLimit, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): NoiseSuppressionEngineConfig = apply {
+            if (validated) {
+                return@apply
+            }
+
+            attenuationLimit()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int = (if (attenuationLimit.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is NoiseSuppressionEngineConfig &&
+                attenuationLimit == other.attenuationLimit &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(attenuationLimit, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "NoiseSuppressionEngineConfig{attenuationLimit=$attenuationLimit, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

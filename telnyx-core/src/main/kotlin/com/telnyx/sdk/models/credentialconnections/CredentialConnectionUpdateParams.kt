@@ -60,6 +60,14 @@ private constructor(
     fun androidPushCredentialId(): Optional<String> = body.androidPushCredentialId()
 
     /**
+     * Specifies if call cost webhooks should be sent for this connection.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun callCostInWebhooks(): Optional<Boolean> = body.callCostInWebhooks()
+
+    /**
      * A user-assigned name to help manage the connection.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -115,6 +123,29 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun iosPushCredentialId(): Optional<String> = body.iosPushCredentialId()
+
+    /**
+     * Controls when noise suppression is applied to calls. When set to 'inbound', noise suppression
+     * is applied to incoming audio. When set to 'outbound', it's applied to outgoing audio. When
+     * set to 'both', it's applied in both directions. When set to 'disabled', noise suppression is
+     * turned off.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun noiseSuppression(): Optional<NoiseSuppression> = body.noiseSuppression()
+
+    /**
+     * Configuration options for noise suppression. These settings are stored regardless of the
+     * noise_suppression value, but only take effect when noise_suppression is not 'disabled'. If
+     * you disable noise suppression and later re-enable it, the previously configured settings will
+     * be used.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun noiseSuppressionDetails(): Optional<NoiseSuppressionDetails> =
+        body.noiseSuppressionDetails()
 
     /**
      * Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if both are
@@ -233,6 +264,14 @@ private constructor(
     fun _androidPushCredentialId(): JsonField<String> = body._androidPushCredentialId()
 
     /**
+     * Returns the raw JSON value of [callCostInWebhooks].
+     *
+     * Unlike [callCostInWebhooks], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _callCostInWebhooks(): JsonField<Boolean> = body._callCostInWebhooks()
+
+    /**
      * Returns the raw JSON value of [connectionName].
      *
      * Unlike [connectionName], this method doesn't throw if the JSON field has an unexpected type.
@@ -284,6 +323,23 @@ private constructor(
      * type.
      */
     fun _iosPushCredentialId(): JsonField<String> = body._iosPushCredentialId()
+
+    /**
+     * Returns the raw JSON value of [noiseSuppression].
+     *
+     * Unlike [noiseSuppression], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _noiseSuppression(): JsonField<NoiseSuppression> = body._noiseSuppression()
+
+    /**
+     * Returns the raw JSON value of [noiseSuppressionDetails].
+     *
+     * Unlike [noiseSuppressionDetails], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _noiseSuppressionDetails(): JsonField<NoiseSuppressionDetails> =
+        body._noiseSuppressionDetails()
 
     /**
      * Returns the raw JSON value of [onnetT38PassthroughEnabled].
@@ -420,8 +476,8 @@ private constructor(
          * - [active]
          * - [anchorsiteOverride]
          * - [androidPushCredentialId]
+         * - [callCostInWebhooks]
          * - [connectionName]
-         * - [defaultOnHoldComfortNoiseEnabled]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -478,6 +534,22 @@ private constructor(
          */
         fun androidPushCredentialId(androidPushCredentialId: JsonField<String>) = apply {
             body.androidPushCredentialId(androidPushCredentialId)
+        }
+
+        /** Specifies if call cost webhooks should be sent for this connection. */
+        fun callCostInWebhooks(callCostInWebhooks: Boolean) = apply {
+            body.callCostInWebhooks(callCostInWebhooks)
+        }
+
+        /**
+         * Sets [Builder.callCostInWebhooks] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.callCostInWebhooks] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun callCostInWebhooks(callCostInWebhooks: JsonField<Boolean>) = apply {
+            body.callCostInWebhooks(callCostInWebhooks)
         }
 
         /** A user-assigned name to help manage the connection. */
@@ -599,6 +671,49 @@ private constructor(
         fun iosPushCredentialId(iosPushCredentialId: JsonField<String>) = apply {
             body.iosPushCredentialId(iosPushCredentialId)
         }
+
+        /**
+         * Controls when noise suppression is applied to calls. When set to 'inbound', noise
+         * suppression is applied to incoming audio. When set to 'outbound', it's applied to
+         * outgoing audio. When set to 'both', it's applied in both directions. When set to
+         * 'disabled', noise suppression is turned off.
+         */
+        fun noiseSuppression(noiseSuppression: NoiseSuppression) = apply {
+            body.noiseSuppression(noiseSuppression)
+        }
+
+        /**
+         * Sets [Builder.noiseSuppression] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.noiseSuppression] with a well-typed [NoiseSuppression]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun noiseSuppression(noiseSuppression: JsonField<NoiseSuppression>) = apply {
+            body.noiseSuppression(noiseSuppression)
+        }
+
+        /**
+         * Configuration options for noise suppression. These settings are stored regardless of the
+         * noise_suppression value, but only take effect when noise_suppression is not 'disabled'.
+         * If you disable noise suppression and later re-enable it, the previously configured
+         * settings will be used.
+         */
+        fun noiseSuppressionDetails(noiseSuppressionDetails: NoiseSuppressionDetails) = apply {
+            body.noiseSuppressionDetails(noiseSuppressionDetails)
+        }
+
+        /**
+         * Sets [Builder.noiseSuppressionDetails] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.noiseSuppressionDetails] with a well-typed
+         * [NoiseSuppressionDetails] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun noiseSuppressionDetails(noiseSuppressionDetails: JsonField<NoiseSuppressionDetails>) =
+            apply {
+                body.noiseSuppressionDetails(noiseSuppressionDetails)
+            }
 
         /**
          * Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if both
@@ -952,6 +1067,7 @@ private constructor(
         private val active: JsonField<Boolean>,
         private val anchorsiteOverride: JsonField<AnchorsiteOverride>,
         private val androidPushCredentialId: JsonField<String>,
+        private val callCostInWebhooks: JsonField<Boolean>,
         private val connectionName: JsonField<String>,
         private val defaultOnHoldComfortNoiseEnabled: JsonField<Boolean>,
         private val dtmfType: JsonField<DtmfType>,
@@ -959,6 +1075,8 @@ private constructor(
         private val encryptedMedia: JsonField<EncryptedMedia>,
         private val inbound: JsonField<CredentialInbound>,
         private val iosPushCredentialId: JsonField<String>,
+        private val noiseSuppression: JsonField<NoiseSuppression>,
+        private val noiseSuppressionDetails: JsonField<NoiseSuppressionDetails>,
         private val onnetT38PassthroughEnabled: JsonField<Boolean>,
         private val outbound: JsonField<CredentialOutbound>,
         private val password: JsonField<String>,
@@ -982,6 +1100,9 @@ private constructor(
             @JsonProperty("android_push_credential_id")
             @ExcludeMissing
             androidPushCredentialId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("call_cost_in_webhooks")
+            @ExcludeMissing
+            callCostInWebhooks: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("connection_name")
             @ExcludeMissing
             connectionName: JsonField<String> = JsonMissing.of(),
@@ -1003,6 +1124,12 @@ private constructor(
             @JsonProperty("ios_push_credential_id")
             @ExcludeMissing
             iosPushCredentialId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("noise_suppression")
+            @ExcludeMissing
+            noiseSuppression: JsonField<NoiseSuppression> = JsonMissing.of(),
+            @JsonProperty("noise_suppression_details")
+            @ExcludeMissing
+            noiseSuppressionDetails: JsonField<NoiseSuppressionDetails> = JsonMissing.of(),
             @JsonProperty("onnet_t38_passthrough_enabled")
             @ExcludeMissing
             onnetT38PassthroughEnabled: JsonField<Boolean> = JsonMissing.of(),
@@ -1038,6 +1165,7 @@ private constructor(
             active,
             anchorsiteOverride,
             androidPushCredentialId,
+            callCostInWebhooks,
             connectionName,
             defaultOnHoldComfortNoiseEnabled,
             dtmfType,
@@ -1045,6 +1173,8 @@ private constructor(
             encryptedMedia,
             inbound,
             iosPushCredentialId,
+            noiseSuppression,
+            noiseSuppressionDetails,
             onnetT38PassthroughEnabled,
             outbound,
             password,
@@ -1086,6 +1216,15 @@ private constructor(
          */
         fun androidPushCredentialId(): Optional<String> =
             androidPushCredentialId.getOptional("android_push_credential_id")
+
+        /**
+         * Specifies if call cost webhooks should be sent for this connection.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun callCostInWebhooks(): Optional<Boolean> =
+            callCostInWebhooks.getOptional("call_cost_in_webhooks")
 
         /**
          * A user-assigned name to help manage the connection.
@@ -1146,6 +1285,30 @@ private constructor(
          */
         fun iosPushCredentialId(): Optional<String> =
             iosPushCredentialId.getOptional("ios_push_credential_id")
+
+        /**
+         * Controls when noise suppression is applied to calls. When set to 'inbound', noise
+         * suppression is applied to incoming audio. When set to 'outbound', it's applied to
+         * outgoing audio. When set to 'both', it's applied in both directions. When set to
+         * 'disabled', noise suppression is turned off.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun noiseSuppression(): Optional<NoiseSuppression> =
+            noiseSuppression.getOptional("noise_suppression")
+
+        /**
+         * Configuration options for noise suppression. These settings are stored regardless of the
+         * noise_suppression value, but only take effect when noise_suppression is not 'disabled'.
+         * If you disable noise suppression and later re-enable it, the previously configured
+         * settings will be used.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun noiseSuppressionDetails(): Optional<NoiseSuppressionDetails> =
+            noiseSuppressionDetails.getOptional("noise_suppression_details")
 
         /**
          * Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if both
@@ -1273,6 +1436,16 @@ private constructor(
         fun _androidPushCredentialId(): JsonField<String> = androidPushCredentialId
 
         /**
+         * Returns the raw JSON value of [callCostInWebhooks].
+         *
+         * Unlike [callCostInWebhooks], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("call_cost_in_webhooks")
+        @ExcludeMissing
+        fun _callCostInWebhooks(): JsonField<Boolean> = callCostInWebhooks
+
+        /**
          * Returns the raw JSON value of [connectionName].
          *
          * Unlike [connectionName], this method doesn't throw if the JSON field has an unexpected
@@ -1338,6 +1511,26 @@ private constructor(
         @JsonProperty("ios_push_credential_id")
         @ExcludeMissing
         fun _iosPushCredentialId(): JsonField<String> = iosPushCredentialId
+
+        /**
+         * Returns the raw JSON value of [noiseSuppression].
+         *
+         * Unlike [noiseSuppression], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("noise_suppression")
+        @ExcludeMissing
+        fun _noiseSuppression(): JsonField<NoiseSuppression> = noiseSuppression
+
+        /**
+         * Returns the raw JSON value of [noiseSuppressionDetails].
+         *
+         * Unlike [noiseSuppressionDetails], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("noise_suppression_details")
+        @ExcludeMissing
+        fun _noiseSuppressionDetails(): JsonField<NoiseSuppressionDetails> = noiseSuppressionDetails
 
         /**
          * Returns the raw JSON value of [onnetT38PassthroughEnabled].
@@ -1463,6 +1656,7 @@ private constructor(
             private var active: JsonField<Boolean> = JsonMissing.of()
             private var anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of()
             private var androidPushCredentialId: JsonField<String> = JsonMissing.of()
+            private var callCostInWebhooks: JsonField<Boolean> = JsonMissing.of()
             private var connectionName: JsonField<String> = JsonMissing.of()
             private var defaultOnHoldComfortNoiseEnabled: JsonField<Boolean> = JsonMissing.of()
             private var dtmfType: JsonField<DtmfType> = JsonMissing.of()
@@ -1470,6 +1664,9 @@ private constructor(
             private var encryptedMedia: JsonField<EncryptedMedia> = JsonMissing.of()
             private var inbound: JsonField<CredentialInbound> = JsonMissing.of()
             private var iosPushCredentialId: JsonField<String> = JsonMissing.of()
+            private var noiseSuppression: JsonField<NoiseSuppression> = JsonMissing.of()
+            private var noiseSuppressionDetails: JsonField<NoiseSuppressionDetails> =
+                JsonMissing.of()
             private var onnetT38PassthroughEnabled: JsonField<Boolean> = JsonMissing.of()
             private var outbound: JsonField<CredentialOutbound> = JsonMissing.of()
             private var password: JsonField<String> = JsonMissing.of()
@@ -1489,6 +1686,7 @@ private constructor(
                 active = body.active
                 anchorsiteOverride = body.anchorsiteOverride
                 androidPushCredentialId = body.androidPushCredentialId
+                callCostInWebhooks = body.callCostInWebhooks
                 connectionName = body.connectionName
                 defaultOnHoldComfortNoiseEnabled = body.defaultOnHoldComfortNoiseEnabled
                 dtmfType = body.dtmfType
@@ -1496,6 +1694,8 @@ private constructor(
                 encryptedMedia = body.encryptedMedia
                 inbound = body.inbound
                 iosPushCredentialId = body.iosPushCredentialId
+                noiseSuppression = body.noiseSuppression
+                noiseSuppressionDetails = body.noiseSuppressionDetails
                 onnetT38PassthroughEnabled = body.onnetT38PassthroughEnabled
                 outbound = body.outbound
                 password = body.password
@@ -1561,6 +1761,21 @@ private constructor(
              */
             fun androidPushCredentialId(androidPushCredentialId: JsonField<String>) = apply {
                 this.androidPushCredentialId = androidPushCredentialId
+            }
+
+            /** Specifies if call cost webhooks should be sent for this connection. */
+            fun callCostInWebhooks(callCostInWebhooks: Boolean) =
+                callCostInWebhooks(JsonField.of(callCostInWebhooks))
+
+            /**
+             * Sets [Builder.callCostInWebhooks] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.callCostInWebhooks] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun callCostInWebhooks(callCostInWebhooks: JsonField<Boolean>) = apply {
+                this.callCostInWebhooks = callCostInWebhooks
             }
 
             /** A user-assigned name to help manage the connection. */
@@ -1683,6 +1898,46 @@ private constructor(
             fun iosPushCredentialId(iosPushCredentialId: JsonField<String>) = apply {
                 this.iosPushCredentialId = iosPushCredentialId
             }
+
+            /**
+             * Controls when noise suppression is applied to calls. When set to 'inbound', noise
+             * suppression is applied to incoming audio. When set to 'outbound', it's applied to
+             * outgoing audio. When set to 'both', it's applied in both directions. When set to
+             * 'disabled', noise suppression is turned off.
+             */
+            fun noiseSuppression(noiseSuppression: NoiseSuppression) =
+                noiseSuppression(JsonField.of(noiseSuppression))
+
+            /**
+             * Sets [Builder.noiseSuppression] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.noiseSuppression] with a well-typed
+             * [NoiseSuppression] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun noiseSuppression(noiseSuppression: JsonField<NoiseSuppression>) = apply {
+                this.noiseSuppression = noiseSuppression
+            }
+
+            /**
+             * Configuration options for noise suppression. These settings are stored regardless of
+             * the noise_suppression value, but only take effect when noise_suppression is not
+             * 'disabled'. If you disable noise suppression and later re-enable it, the previously
+             * configured settings will be used.
+             */
+            fun noiseSuppressionDetails(noiseSuppressionDetails: NoiseSuppressionDetails) =
+                noiseSuppressionDetails(JsonField.of(noiseSuppressionDetails))
+
+            /**
+             * Sets [Builder.noiseSuppressionDetails] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.noiseSuppressionDetails] with a well-typed
+             * [NoiseSuppressionDetails] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun noiseSuppressionDetails(
+                noiseSuppressionDetails: JsonField<NoiseSuppressionDetails>
+            ) = apply { this.noiseSuppressionDetails = noiseSuppressionDetails }
 
             /**
              * Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly if
@@ -1921,6 +2176,7 @@ private constructor(
                     active,
                     anchorsiteOverride,
                     androidPushCredentialId,
+                    callCostInWebhooks,
                     connectionName,
                     defaultOnHoldComfortNoiseEnabled,
                     dtmfType,
@@ -1928,6 +2184,8 @@ private constructor(
                     encryptedMedia,
                     inbound,
                     iosPushCredentialId,
+                    noiseSuppression,
+                    noiseSuppressionDetails,
                     onnetT38PassthroughEnabled,
                     outbound,
                     password,
@@ -1953,6 +2211,7 @@ private constructor(
             active()
             anchorsiteOverride().ifPresent { it.validate() }
             androidPushCredentialId()
+            callCostInWebhooks()
             connectionName()
             defaultOnHoldComfortNoiseEnabled()
             dtmfType().ifPresent { it.validate() }
@@ -1960,6 +2219,8 @@ private constructor(
             encryptedMedia().ifPresent { it.validate() }
             inbound().ifPresent { it.validate() }
             iosPushCredentialId()
+            noiseSuppression().ifPresent { it.validate() }
+            noiseSuppressionDetails().ifPresent { it.validate() }
             onnetT38PassthroughEnabled()
             outbound().ifPresent { it.validate() }
             password()
@@ -1993,6 +2254,7 @@ private constructor(
             (if (active.asKnown().isPresent) 1 else 0) +
                 (anchorsiteOverride.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (androidPushCredentialId.asKnown().isPresent) 1 else 0) +
+                (if (callCostInWebhooks.asKnown().isPresent) 1 else 0) +
                 (if (connectionName.asKnown().isPresent) 1 else 0) +
                 (if (defaultOnHoldComfortNoiseEnabled.asKnown().isPresent) 1 else 0) +
                 (dtmfType.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2000,6 +2262,8 @@ private constructor(
                 (encryptedMedia.asKnown().getOrNull()?.validity() ?: 0) +
                 (inbound.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (iosPushCredentialId.asKnown().isPresent) 1 else 0) +
+                (noiseSuppression.asKnown().getOrNull()?.validity() ?: 0) +
+                (noiseSuppressionDetails.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (onnetT38PassthroughEnabled.asKnown().isPresent) 1 else 0) +
                 (outbound.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (password.asKnown().isPresent) 1 else 0) +
@@ -2021,6 +2285,7 @@ private constructor(
                 active == other.active &&
                 anchorsiteOverride == other.anchorsiteOverride &&
                 androidPushCredentialId == other.androidPushCredentialId &&
+                callCostInWebhooks == other.callCostInWebhooks &&
                 connectionName == other.connectionName &&
                 defaultOnHoldComfortNoiseEnabled == other.defaultOnHoldComfortNoiseEnabled &&
                 dtmfType == other.dtmfType &&
@@ -2028,6 +2293,8 @@ private constructor(
                 encryptedMedia == other.encryptedMedia &&
                 inbound == other.inbound &&
                 iosPushCredentialId == other.iosPushCredentialId &&
+                noiseSuppression == other.noiseSuppression &&
+                noiseSuppressionDetails == other.noiseSuppressionDetails &&
                 onnetT38PassthroughEnabled == other.onnetT38PassthroughEnabled &&
                 outbound == other.outbound &&
                 password == other.password &&
@@ -2047,6 +2314,7 @@ private constructor(
                 active,
                 anchorsiteOverride,
                 androidPushCredentialId,
+                callCostInWebhooks,
                 connectionName,
                 defaultOnHoldComfortNoiseEnabled,
                 dtmfType,
@@ -2054,6 +2322,8 @@ private constructor(
                 encryptedMedia,
                 inbound,
                 iosPushCredentialId,
+                noiseSuppression,
+                noiseSuppressionDetails,
                 onnetT38PassthroughEnabled,
                 outbound,
                 password,
@@ -2072,7 +2342,535 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{active=$active, anchorsiteOverride=$anchorsiteOverride, androidPushCredentialId=$androidPushCredentialId, connectionName=$connectionName, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, inbound=$inbound, iosPushCredentialId=$iosPushCredentialId, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, rtcpSettings=$rtcpSettings, sipUriCallingPreference=$sipUriCallingPreference, tags=$tags, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
+            "Body{active=$active, anchorsiteOverride=$anchorsiteOverride, androidPushCredentialId=$androidPushCredentialId, callCostInWebhooks=$callCostInWebhooks, connectionName=$connectionName, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, inbound=$inbound, iosPushCredentialId=$iosPushCredentialId, noiseSuppression=$noiseSuppression, noiseSuppressionDetails=$noiseSuppressionDetails, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, rtcpSettings=$rtcpSettings, sipUriCallingPreference=$sipUriCallingPreference, tags=$tags, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Controls when noise suppression is applied to calls. When set to 'inbound', noise suppression
+     * is applied to incoming audio. When set to 'outbound', it's applied to outgoing audio. When
+     * set to 'both', it's applied in both directions. When set to 'disabled', noise suppression is
+     * turned off.
+     */
+    class NoiseSuppression @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val INBOUND = of("inbound")
+
+            @JvmField val OUTBOUND = of("outbound")
+
+            @JvmField val BOTH = of("both")
+
+            @JvmField val DISABLED = of("disabled")
+
+            @JvmStatic fun of(value: String) = NoiseSuppression(JsonField.of(value))
+        }
+
+        /** An enum containing [NoiseSuppression]'s known values. */
+        enum class Known {
+            INBOUND,
+            OUTBOUND,
+            BOTH,
+            DISABLED,
+        }
+
+        /**
+         * An enum containing [NoiseSuppression]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [NoiseSuppression] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            INBOUND,
+            OUTBOUND,
+            BOTH,
+            DISABLED,
+            /**
+             * An enum member indicating that [NoiseSuppression] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                INBOUND -> Value.INBOUND
+                OUTBOUND -> Value.OUTBOUND
+                BOTH -> Value.BOTH
+                DISABLED -> Value.DISABLED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                INBOUND -> Known.INBOUND
+                OUTBOUND -> Known.OUTBOUND
+                BOTH -> Known.BOTH
+                DISABLED -> Known.DISABLED
+                else -> throw TelnyxInvalidDataException("Unknown NoiseSuppression: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): NoiseSuppression = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is NoiseSuppression && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * Configuration options for noise suppression. These settings are stored regardless of the
+     * noise_suppression value, but only take effect when noise_suppression is not 'disabled'. If
+     * you disable noise suppression and later re-enable it, the previously configured settings will
+     * be used.
+     */
+    class NoiseSuppressionDetails
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val attenuationLimit: JsonField<Long>,
+        private val engine: JsonField<Engine>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("attenuation_limit")
+            @ExcludeMissing
+            attenuationLimit: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("engine") @ExcludeMissing engine: JsonField<Engine> = JsonMissing.of(),
+        ) : this(attenuationLimit, engine, mutableMapOf())
+
+        /**
+         * The attenuation limit value for the selected engine. Default values vary by engine: 0 for
+         * 'denoiser', 80 for 'deep_filter_net', 'deep_filter_net_large', and all Krisp engines
+         * ('krisp_viva_tel', 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss').
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun attenuationLimit(): Optional<Long> = attenuationLimit.getOptional("attenuation_limit")
+
+        /**
+         * The noise suppression engine to use. 'denoiser' is the default engine. 'deep_filter_net'
+         * and 'deep_filter_net_large' are alternative engines with different performance
+         * characteristics. Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite',
+         * 'krisp_viva_promodel', 'krisp_viva_ss') provide advanced noise suppression capabilities.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun engine(): Optional<Engine> = engine.getOptional("engine")
+
+        /**
+         * Returns the raw JSON value of [attenuationLimit].
+         *
+         * Unlike [attenuationLimit], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("attenuation_limit")
+        @ExcludeMissing
+        fun _attenuationLimit(): JsonField<Long> = attenuationLimit
+
+        /**
+         * Returns the raw JSON value of [engine].
+         *
+         * Unlike [engine], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("engine") @ExcludeMissing fun _engine(): JsonField<Engine> = engine
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [NoiseSuppressionDetails].
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [NoiseSuppressionDetails]. */
+        class Builder internal constructor() {
+
+            private var attenuationLimit: JsonField<Long> = JsonMissing.of()
+            private var engine: JsonField<Engine> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(noiseSuppressionDetails: NoiseSuppressionDetails) = apply {
+                attenuationLimit = noiseSuppressionDetails.attenuationLimit
+                engine = noiseSuppressionDetails.engine
+                additionalProperties = noiseSuppressionDetails.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The attenuation limit value for the selected engine. Default values vary by engine: 0
+             * for 'denoiser', 80 for 'deep_filter_net', 'deep_filter_net_large', and all Krisp
+             * engines ('krisp_viva_tel', 'krisp_viva_tel_lite', 'krisp_viva_promodel',
+             * 'krisp_viva_ss').
+             */
+            fun attenuationLimit(attenuationLimit: Long) =
+                attenuationLimit(JsonField.of(attenuationLimit))
+
+            /**
+             * Sets [Builder.attenuationLimit] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.attenuationLimit] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun attenuationLimit(attenuationLimit: JsonField<Long>) = apply {
+                this.attenuationLimit = attenuationLimit
+            }
+
+            /**
+             * The noise suppression engine to use. 'denoiser' is the default engine.
+             * 'deep_filter_net' and 'deep_filter_net_large' are alternative engines with different
+             * performance characteristics. Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite',
+             * 'krisp_viva_promodel', 'krisp_viva_ss') provide advanced noise suppression
+             * capabilities.
+             */
+            fun engine(engine: Engine) = engine(JsonField.of(engine))
+
+            /**
+             * Sets [Builder.engine] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.engine] with a well-typed [Engine] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun engine(engine: JsonField<Engine>) = apply { this.engine = engine }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [NoiseSuppressionDetails].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): NoiseSuppressionDetails =
+                NoiseSuppressionDetails(
+                    attenuationLimit,
+                    engine,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): NoiseSuppressionDetails = apply {
+            if (validated) {
+                return@apply
+            }
+
+            attenuationLimit()
+            engine().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (attenuationLimit.asKnown().isPresent) 1 else 0) +
+                (engine.asKnown().getOrNull()?.validity() ?: 0)
+
+        /**
+         * The noise suppression engine to use. 'denoiser' is the default engine. 'deep_filter_net'
+         * and 'deep_filter_net_large' are alternative engines with different performance
+         * characteristics. Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite',
+         * 'krisp_viva_promodel', 'krisp_viva_ss') provide advanced noise suppression capabilities.
+         */
+        class Engine @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val DENOISER = of("denoiser")
+
+                @JvmField val DEEP_FILTER_NET = of("deep_filter_net")
+
+                @JvmField val DEEP_FILTER_NET_LARGE = of("deep_filter_net_large")
+
+                @JvmField val KRISP_VIVA_TEL = of("krisp_viva_tel")
+
+                @JvmField val KRISP_VIVA_TEL_LITE = of("krisp_viva_tel_lite")
+
+                @JvmField val KRISP_VIVA_PROMODEL = of("krisp_viva_promodel")
+
+                @JvmField val KRISP_VIVA_SS = of("krisp_viva_ss")
+
+                @JvmStatic fun of(value: String) = Engine(JsonField.of(value))
+            }
+
+            /** An enum containing [Engine]'s known values. */
+            enum class Known {
+                DENOISER,
+                DEEP_FILTER_NET,
+                DEEP_FILTER_NET_LARGE,
+                KRISP_VIVA_TEL,
+                KRISP_VIVA_TEL_LITE,
+                KRISP_VIVA_PROMODEL,
+                KRISP_VIVA_SS,
+            }
+
+            /**
+             * An enum containing [Engine]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Engine] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                DENOISER,
+                DEEP_FILTER_NET,
+                DEEP_FILTER_NET_LARGE,
+                KRISP_VIVA_TEL,
+                KRISP_VIVA_TEL_LITE,
+                KRISP_VIVA_PROMODEL,
+                KRISP_VIVA_SS,
+                /**
+                 * An enum member indicating that [Engine] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    DENOISER -> Value.DENOISER
+                    DEEP_FILTER_NET -> Value.DEEP_FILTER_NET
+                    DEEP_FILTER_NET_LARGE -> Value.DEEP_FILTER_NET_LARGE
+                    KRISP_VIVA_TEL -> Value.KRISP_VIVA_TEL
+                    KRISP_VIVA_TEL_LITE -> Value.KRISP_VIVA_TEL_LITE
+                    KRISP_VIVA_PROMODEL -> Value.KRISP_VIVA_PROMODEL
+                    KRISP_VIVA_SS -> Value.KRISP_VIVA_SS
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    DENOISER -> Known.DENOISER
+                    DEEP_FILTER_NET -> Known.DEEP_FILTER_NET
+                    DEEP_FILTER_NET_LARGE -> Known.DEEP_FILTER_NET_LARGE
+                    KRISP_VIVA_TEL -> Known.KRISP_VIVA_TEL
+                    KRISP_VIVA_TEL_LITE -> Known.KRISP_VIVA_TEL_LITE
+                    KRISP_VIVA_PROMODEL -> Known.KRISP_VIVA_PROMODEL
+                    KRISP_VIVA_SS -> Known.KRISP_VIVA_SS
+                    else -> throw TelnyxInvalidDataException("Unknown Engine: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Engine = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Engine && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is NoiseSuppressionDetails &&
+                attenuationLimit == other.attenuationLimit &&
+                engine == other.engine &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(attenuationLimit, engine, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "NoiseSuppressionDetails{attenuationLimit=$attenuationLimit, engine=$engine, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -2235,17 +3033,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val _1 = of("1")
+            @JvmField val V1 = of("1")
 
-            @JvmField val _2 = of("2")
+            @JvmField val V2 = of("2")
 
             @JvmStatic fun of(value: String) = WebhookApiVersion(JsonField.of(value))
         }
 
         /** An enum containing [WebhookApiVersion]'s known values. */
         enum class Known {
-            _1,
-            _2,
+            V1,
+            V2,
         }
 
         /**
@@ -2258,8 +3056,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            _1,
-            _2,
+            V1,
+            V2,
             /**
              * An enum member indicating that [WebhookApiVersion] was instantiated with an unknown
              * value.
@@ -2276,8 +3074,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                _1 -> Value._1
-                _2 -> Value._2
+                V1 -> Value.V1
+                V2 -> Value.V2
                 else -> Value._UNKNOWN
             }
 
@@ -2292,8 +3090,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                _1 -> Known._1
-                _2 -> Known._2
+                V1 -> Known.V1
+                V2 -> Known.V2
                 else -> throw TelnyxInvalidDataException("Unknown WebhookApiVersion: $value")
             }
 

@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.useraddresses.UserAddressCreateParams
 import com.telnyx.sdk.models.useraddresses.UserAddressCreateResponse
+import com.telnyx.sdk.models.useraddresses.UserAddressListPageAsync
+import com.telnyx.sdk.models.useraddresses.UserAddressListPageResponse
 import com.telnyx.sdk.models.useraddresses.UserAddressListParams
-import com.telnyx.sdk.models.useraddresses.UserAddressListResponse
 import com.telnyx.sdk.models.useraddresses.UserAddressRetrieveParams
 import com.telnyx.sdk.models.useraddresses.UserAddressRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -55,7 +56,7 @@ class UserAddressServiceAsyncImpl internal constructor(private val clientOptions
     override fun list(
         params: UserAddressListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<UserAddressListResponse> =
+    ): CompletableFuture<UserAddressListPageAsync> =
         // get /user_addresses
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -136,13 +137,13 @@ class UserAddressServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val listHandler: Handler<UserAddressListResponse> =
-            jsonHandler<UserAddressListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<UserAddressListPageResponse> =
+            jsonHandler<UserAddressListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: UserAddressListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<UserAddressListResponse>> {
+        ): CompletableFuture<HttpResponseFor<UserAddressListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -161,6 +162,14 @@ class UserAddressServiceAsyncImpl internal constructor(private val clientOptions
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                UserAddressListPageAsync.builder()
+                                    .service(UserAddressServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

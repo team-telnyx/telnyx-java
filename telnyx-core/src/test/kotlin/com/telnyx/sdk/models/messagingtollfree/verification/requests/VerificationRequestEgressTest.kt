@@ -26,7 +26,7 @@ internal class VerificationRequestEgressTest {
                 .businessZip("78701")
                 .corporateWebsite("http://example.com")
                 .isvReseller("Yes")
-                .messageVolume(Volume._100_000)
+                .messageVolume(Volume.V_100000)
                 .optInWorkflow(
                     "User signs into the Telnyx portal, enters number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
                 )
@@ -37,7 +37,7 @@ internal class VerificationRequestEgressTest {
                 .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554398").build())
                 .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554399").build())
                 .productionMessageContent("Your Telnyx OTP is XXXX")
-                .useCase(UseCaseCategories._2_FA)
+                .useCase(UseCaseCategories.TWO_FA)
                 .useCaseSummary(
                     "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                 )
@@ -47,6 +47,7 @@ internal class VerificationRequestEgressTest {
                 .businessRegistrationCountry("US")
                 .businessRegistrationNumber("12-3456789")
                 .businessRegistrationType("EIN")
+                .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                 .doingBusinessAs("Acme Services")
                 .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
                 .helpMessageResponse(
@@ -76,7 +77,7 @@ internal class VerificationRequestEgressTest {
         assertThat(verificationRequestEgress.businessZip()).isEqualTo("78701")
         assertThat(verificationRequestEgress.corporateWebsite()).isEqualTo("http://example.com")
         assertThat(verificationRequestEgress.isvReseller()).isEqualTo("Yes")
-        assertThat(verificationRequestEgress.messageVolume()).isEqualTo(Volume._100_000)
+        assertThat(verificationRequestEgress.messageVolume()).isEqualTo(Volume.V_100000)
         assertThat(verificationRequestEgress.optInWorkflow())
             .isEqualTo(
                 "User signs into the Telnyx portal, enters number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
@@ -93,7 +94,7 @@ internal class VerificationRequestEgressTest {
             )
         assertThat(verificationRequestEgress.productionMessageContent())
             .isEqualTo("Your Telnyx OTP is XXXX")
-        assertThat(verificationRequestEgress.useCase()).isEqualTo(UseCaseCategories._2_FA)
+        assertThat(verificationRequestEgress.useCase()).isEqualTo(UseCaseCategories.TWO_FA)
         assertThat(verificationRequestEgress.useCaseSummary())
             .isEqualTo(
                 "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
@@ -105,6 +106,8 @@ internal class VerificationRequestEgressTest {
         assertThat(verificationRequestEgress.businessRegistrationCountry()).contains("US")
         assertThat(verificationRequestEgress.businessRegistrationNumber()).contains("12-3456789")
         assertThat(verificationRequestEgress.businessRegistrationType()).contains("EIN")
+        assertThat(verificationRequestEgress.campaignVerifyAuthorizationToken())
+            .contains("cv_token_abc123xyz")
         assertThat(verificationRequestEgress.doingBusinessAs()).contains("Acme Services")
         assertThat(verificationRequestEgress.entityType())
             .contains(TollFreeVerificationEntityType.PRIVATE_PROFIT)
@@ -142,7 +145,7 @@ internal class VerificationRequestEgressTest {
                 .businessZip("78701")
                 .corporateWebsite("http://example.com")
                 .isvReseller("Yes")
-                .messageVolume(Volume._100_000)
+                .messageVolume(Volume.V_100000)
                 .optInWorkflow(
                     "User signs into the Telnyx portal, enters number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
                 )
@@ -153,7 +156,7 @@ internal class VerificationRequestEgressTest {
                 .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554398").build())
                 .addPhoneNumber(TfPhoneNumber.builder().phoneNumber("+18773554399").build())
                 .productionMessageContent("Your Telnyx OTP is XXXX")
-                .useCase(UseCaseCategories._2_FA)
+                .useCase(UseCaseCategories.TWO_FA)
                 .useCaseSummary(
                     "This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal"
                 )
@@ -163,6 +166,7 @@ internal class VerificationRequestEgressTest {
                 .businessRegistrationCountry("US")
                 .businessRegistrationNumber("12-3456789")
                 .businessRegistrationType("EIN")
+                .campaignVerifyAuthorizationToken("cv_token_abc123xyz")
                 .doingBusinessAs("Acme Services")
                 .entityType(TollFreeVerificationEntityType.PRIVATE_PROFIT)
                 .helpMessageResponse(

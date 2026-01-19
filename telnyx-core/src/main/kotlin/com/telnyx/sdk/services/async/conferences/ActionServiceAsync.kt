@@ -331,18 +331,28 @@ interface ActionServiceAsync {
      * **Expected Webhooks:**
      * - `conference.recording.saved`
      */
-    fun recordStop(
-        id: String,
-        params: ActionRecordStopParams,
-    ): CompletableFuture<ActionRecordStopResponse> = recordStop(id, params, RequestOptions.none())
+    fun recordStop(id: String): CompletableFuture<ActionRecordStopResponse> =
+        recordStop(id, ActionRecordStopParams.none())
 
     /** @see recordStop */
     fun recordStop(
         id: String,
-        params: ActionRecordStopParams,
+        params: ActionRecordStopParams = ActionRecordStopParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ActionRecordStopResponse> =
         recordStop(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see recordStop */
+    fun recordStop(
+        id: String,
+        params: ActionRecordStopParams = ActionRecordStopParams.none(),
+    ): CompletableFuture<ActionRecordStopResponse> = recordStop(id, params, RequestOptions.none())
+
+    /** @see recordStop */
+    fun recordStop(
+        params: ActionRecordStopParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ActionRecordStopResponse>
 
     /** @see recordStop */
     fun recordStop(params: ActionRecordStopParams): CompletableFuture<ActionRecordStopResponse> =
@@ -350,9 +360,10 @@ interface ActionServiceAsync {
 
     /** @see recordStop */
     fun recordStop(
-        params: ActionRecordStopParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ActionRecordStopResponse>
+        id: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionRecordStopResponse> =
+        recordStop(id, ActionRecordStopParams.none(), requestOptions)
 
     /** Convert text to speech and play it to all or some participants. */
     fun speak(id: String, params: ActionSpeakParams): CompletableFuture<ActionSpeakResponse> =
@@ -801,19 +812,29 @@ interface ActionServiceAsync {
          * Returns a raw HTTP response for `post /conferences/{id}/actions/record_stop`, but is
          * otherwise the same as [ActionServiceAsync.recordStop].
          */
+        fun recordStop(id: String): CompletableFuture<HttpResponseFor<ActionRecordStopResponse>> =
+            recordStop(id, ActionRecordStopParams.none())
+
+        /** @see recordStop */
         fun recordStop(
             id: String,
-            params: ActionRecordStopParams,
+            params: ActionRecordStopParams = ActionRecordStopParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ActionRecordStopResponse>> =
+            recordStop(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see recordStop */
+        fun recordStop(
+            id: String,
+            params: ActionRecordStopParams = ActionRecordStopParams.none(),
         ): CompletableFuture<HttpResponseFor<ActionRecordStopResponse>> =
             recordStop(id, params, RequestOptions.none())
 
         /** @see recordStop */
         fun recordStop(
-            id: String,
             params: ActionRecordStopParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ActionRecordStopResponse>> =
-            recordStop(params.toBuilder().id(id).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<ActionRecordStopResponse>>
 
         /** @see recordStop */
         fun recordStop(
@@ -823,9 +844,10 @@ interface ActionServiceAsync {
 
         /** @see recordStop */
         fun recordStop(
-            params: ActionRecordStopParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ActionRecordStopResponse>>
+            id: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionRecordStopResponse>> =
+            recordStop(id, ActionRecordStopParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /conferences/{id}/actions/speak`, but is otherwise

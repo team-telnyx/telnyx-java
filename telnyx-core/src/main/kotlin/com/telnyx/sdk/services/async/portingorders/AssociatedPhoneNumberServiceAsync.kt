@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhon
 import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberCreateResponse
 import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberDeleteParams
 import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberDeleteResponse
+import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberListPageAsync
 import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberListParams
-import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -63,7 +63,7 @@ interface AssociatedPhoneNumberServiceAsync {
      * are used for partial porting in GB to specify which phone numbers should be kept or
      * disconnected.
      */
-    fun list(portingOrderId: String): CompletableFuture<AssociatedPhoneNumberListResponse> =
+    fun list(portingOrderId: String): CompletableFuture<AssociatedPhoneNumberListPageAsync> =
         list(portingOrderId, AssociatedPhoneNumberListParams.none())
 
     /** @see list */
@@ -71,32 +71,32 @@ interface AssociatedPhoneNumberServiceAsync {
         portingOrderId: String,
         params: AssociatedPhoneNumberListParams = AssociatedPhoneNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AssociatedPhoneNumberListResponse> =
+    ): CompletableFuture<AssociatedPhoneNumberListPageAsync> =
         list(params.toBuilder().portingOrderId(portingOrderId).build(), requestOptions)
 
     /** @see list */
     fun list(
         portingOrderId: String,
         params: AssociatedPhoneNumberListParams = AssociatedPhoneNumberListParams.none(),
-    ): CompletableFuture<AssociatedPhoneNumberListResponse> =
+    ): CompletableFuture<AssociatedPhoneNumberListPageAsync> =
         list(portingOrderId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: AssociatedPhoneNumberListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AssociatedPhoneNumberListResponse>
+    ): CompletableFuture<AssociatedPhoneNumberListPageAsync>
 
     /** @see list */
     fun list(
         params: AssociatedPhoneNumberListParams
-    ): CompletableFuture<AssociatedPhoneNumberListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<AssociatedPhoneNumberListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         portingOrderId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AssociatedPhoneNumberListResponse> =
+    ): CompletableFuture<AssociatedPhoneNumberListPageAsync> =
         list(portingOrderId, AssociatedPhoneNumberListParams.none(), requestOptions)
 
     /** Deletes an associated phone number from a porting order. */
@@ -179,7 +179,7 @@ interface AssociatedPhoneNumberServiceAsync {
          */
         fun list(
             portingOrderId: String
-        ): CompletableFuture<HttpResponseFor<AssociatedPhoneNumberListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssociatedPhoneNumberListPageAsync>> =
             list(portingOrderId, AssociatedPhoneNumberListParams.none())
 
         /** @see list */
@@ -187,33 +187,33 @@ interface AssociatedPhoneNumberServiceAsync {
             portingOrderId: String,
             params: AssociatedPhoneNumberListParams = AssociatedPhoneNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AssociatedPhoneNumberListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssociatedPhoneNumberListPageAsync>> =
             list(params.toBuilder().portingOrderId(portingOrderId).build(), requestOptions)
 
         /** @see list */
         fun list(
             portingOrderId: String,
             params: AssociatedPhoneNumberListParams = AssociatedPhoneNumberListParams.none(),
-        ): CompletableFuture<HttpResponseFor<AssociatedPhoneNumberListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssociatedPhoneNumberListPageAsync>> =
             list(portingOrderId, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: AssociatedPhoneNumberListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AssociatedPhoneNumberListResponse>>
+        ): CompletableFuture<HttpResponseFor<AssociatedPhoneNumberListPageAsync>>
 
         /** @see list */
         fun list(
             params: AssociatedPhoneNumberListParams
-        ): CompletableFuture<HttpResponseFor<AssociatedPhoneNumberListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssociatedPhoneNumberListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             portingOrderId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AssociatedPhoneNumberListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssociatedPhoneNumberListPageAsync>> =
             list(portingOrderId, AssociatedPhoneNumberListParams.none(), requestOptions)
 
         /**

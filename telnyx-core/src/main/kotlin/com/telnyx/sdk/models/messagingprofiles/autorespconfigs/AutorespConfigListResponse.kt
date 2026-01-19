@@ -14,7 +14,7 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
+import com.telnyx.sdk.models.MessagingPaginationMeta
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -24,7 +24,7 @@ class AutorespConfigListResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<AutoRespConfig>>,
-    private val meta: JsonField<PaginationMeta>,
+    private val meta: JsonField<MessagingPaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -33,7 +33,9 @@ private constructor(
         @JsonProperty("data")
         @ExcludeMissing
         data: JsonField<List<AutoRespConfig>> = JsonMissing.of(),
-        @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
+        @JsonProperty("meta")
+        @ExcludeMissing
+        meta: JsonField<MessagingPaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
     /**
@@ -46,7 +48,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun meta(): PaginationMeta = meta.getRequired("meta")
+    fun meta(): MessagingPaginationMeta = meta.getRequired("meta")
 
     /**
      * Returns the raw JSON value of [data].
@@ -60,7 +62,7 @@ private constructor(
      *
      * Unlike [meta], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<PaginationMeta> = meta
+    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<MessagingPaginationMeta> = meta
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -92,7 +94,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var data: JsonField<MutableList<AutoRespConfig>>? = null
-        private var meta: JsonField<PaginationMeta>? = null
+        private var meta: JsonField<MessagingPaginationMeta>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -127,16 +129,16 @@ private constructor(
                 }
         }
 
-        fun meta(meta: PaginationMeta) = meta(JsonField.of(meta))
+        fun meta(meta: MessagingPaginationMeta) = meta(JsonField.of(meta))
 
         /**
          * Sets [Builder.meta] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.meta] with a well-typed [PaginationMeta] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.meta] with a well-typed [MessagingPaginationMeta] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun meta(meta: JsonField<PaginationMeta>) = apply { this.meta = meta }
+        fun meta(meta: JsonField<MessagingPaginationMeta>) = apply { this.meta = meta }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

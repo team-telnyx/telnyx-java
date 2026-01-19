@@ -25,7 +25,6 @@ internal class JobDeletePhoneNumberBlockResponseTest {
                                 .addError(
                                     JobError.builder()
                                         .code("10007")
-                                        .title("Unexpected error")
                                         .detail("An unexpected error occured.")
                                         .meta(
                                             JobError.Meta.builder()
@@ -40,6 +39,7 @@ internal class JobDeletePhoneNumberBlockResponseTest {
                                                 .pointer("/base")
                                                 .build()
                                         )
+                                        .title("Unexpected error")
                                         .build()
                                 )
                                 .phoneNumber("phone_number")
@@ -71,7 +71,6 @@ internal class JobDeletePhoneNumberBlockResponseTest {
                             .addError(
                                 JobError.builder()
                                     .code("10007")
-                                    .title("Unexpected error")
                                     .detail("An unexpected error occured.")
                                     .meta(
                                         JobError.Meta.builder()
@@ -86,6 +85,7 @@ internal class JobDeletePhoneNumberBlockResponseTest {
                                             .pointer("/base")
                                             .build()
                                     )
+                                    .title("Unexpected error")
                                     .build()
                             )
                             .phoneNumber("phone_number")
@@ -121,7 +121,6 @@ internal class JobDeletePhoneNumberBlockResponseTest {
                                 .addError(
                                     JobError.builder()
                                         .code("10007")
-                                        .title("Unexpected error")
                                         .detail("An unexpected error occured.")
                                         .meta(
                                             JobError.Meta.builder()
@@ -136,6 +135,7 @@ internal class JobDeletePhoneNumberBlockResponseTest {
                                                 .pointer("/base")
                                                 .build()
                                         )
+                                        .title("Unexpected error")
                                         .build()
                                 )
                                 .phoneNumber("phone_number")

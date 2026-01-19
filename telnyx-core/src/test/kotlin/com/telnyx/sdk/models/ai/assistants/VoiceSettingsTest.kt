@@ -15,12 +15,14 @@ internal class VoiceSettingsTest {
             VoiceSettings.builder()
                 .voice("voice")
                 .apiKeyRef("api_key_ref")
-                .backgroundAudio(
-                    VoiceSettings.BackgroundAudio.UnionMember0.builder()
-                        .type(VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA)
-                        .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
-                        .build()
+                .predefinedMediaBackgroundAudio(
+                    VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue.SILENCE
                 )
+                .similarityBoost(0.0)
+                .speed(0.0)
+                .style(0.0)
+                .temperature(0.0)
+                .useSpeakerBoost(true)
                 .voiceSpeed(0.0)
                 .build()
 
@@ -28,13 +30,20 @@ internal class VoiceSettingsTest {
         assertThat(voiceSettings.apiKeyRef()).contains("api_key_ref")
         assertThat(voiceSettings.backgroundAudio())
             .contains(
-                VoiceSettings.BackgroundAudio.ofUnionMember0(
-                    VoiceSettings.BackgroundAudio.UnionMember0.builder()
-                        .type(VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA)
-                        .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
+                VoiceSettings.BackgroundAudio.ofPredefinedMedia(
+                    VoiceSettings.BackgroundAudio.PredefinedMedia.builder()
+                        .value(
+                            VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
+                                .SILENCE
+                        )
                         .build()
                 )
             )
+        assertThat(voiceSettings.similarityBoost()).contains(0.0)
+        assertThat(voiceSettings.speed()).contains(0.0)
+        assertThat(voiceSettings.style()).contains(0.0)
+        assertThat(voiceSettings.temperature()).contains(0.0)
+        assertThat(voiceSettings.useSpeakerBoost()).contains(true)
         assertThat(voiceSettings.voiceSpeed()).contains(0.0)
     }
 
@@ -45,12 +54,14 @@ internal class VoiceSettingsTest {
             VoiceSettings.builder()
                 .voice("voice")
                 .apiKeyRef("api_key_ref")
-                .backgroundAudio(
-                    VoiceSettings.BackgroundAudio.UnionMember0.builder()
-                        .type(VoiceSettings.BackgroundAudio.UnionMember0.Type.PREDEFINED_MEDIA)
-                        .value(VoiceSettings.BackgroundAudio.UnionMember0.Value_.SILENCE)
-                        .build()
+                .predefinedMediaBackgroundAudio(
+                    VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue.SILENCE
                 )
+                .similarityBoost(0.0)
+                .speed(0.0)
+                .style(0.0)
+                .temperature(0.0)
+                .useSpeakerBoost(true)
                 .voiceSpeed(0.0)
                 .build()
 

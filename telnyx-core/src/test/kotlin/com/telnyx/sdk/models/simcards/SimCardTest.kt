@@ -60,14 +60,18 @@ internal class SimCardTest {
                         .build()
                 )
                 .recordType("sim_card")
-                .addResourcesWithInProgressAction(JsonValue.from(mapOf<String, Any>()))
+                .addResourcesWithInProgressAction(
+                    SimCard.ResourcesWithInProgressAction.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .simCardGroupId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .status(
                     SimCardStatus.builder()
                         .reason(
                             "The SIM card is active, ready to connect to networks and consume data."
                         )
-                        .value(SimCardStatus.Value_.ENABLED)
+                        .value(SimCardStatus.SimCardStatusValue.ENABLED)
                         .build()
                 )
                 .tags(listOf("personal", "customers", "active-customers"))
@@ -124,7 +128,11 @@ internal class SimCardTest {
             )
         assertThat(simCard.recordType()).contains("sim_card")
         assertThat(simCard.resourcesWithInProgressActions().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+            .containsExactly(
+                SimCard.ResourcesWithInProgressAction.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
         assertThat(simCard.simCardGroupId()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
         assertThat(simCard.status())
             .contains(
@@ -132,7 +140,7 @@ internal class SimCardTest {
                     .reason(
                         "The SIM card is active, ready to connect to networks and consume data."
                     )
-                    .value(SimCardStatus.Value_.ENABLED)
+                    .value(SimCardStatus.SimCardStatusValue.ENABLED)
                     .build()
             )
         assertThat(simCard.tags().getOrNull())
@@ -191,14 +199,18 @@ internal class SimCardTest {
                         .build()
                 )
                 .recordType("sim_card")
-                .addResourcesWithInProgressAction(JsonValue.from(mapOf<String, Any>()))
+                .addResourcesWithInProgressAction(
+                    SimCard.ResourcesWithInProgressAction.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .simCardGroupId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .status(
                     SimCardStatus.builder()
                         .reason(
                             "The SIM card is active, ready to connect to networks and consume data."
                         )
-                        .value(SimCardStatus.Value_.ENABLED)
+                        .value(SimCardStatus.SimCardStatusValue.ENABLED)
                         .build()
                 )
                 .tags(listOf("personal", "customers", "active-customers"))

@@ -14,8 +14,8 @@ import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOr
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderCreateVerificationCodesResponse
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderDeleteParams
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderDeleteResponse
+import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderListPage
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderListParams
-import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderListResponse
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderRetrieveParams
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderRetrieveResponse
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderValidateCodesParams
@@ -99,22 +99,22 @@ interface MessagingHostedNumberOrderService {
         retrieve(id, MessagingHostedNumberOrderRetrieveParams.none(), requestOptions)
 
     /** List messaging hosted number orders */
-    fun list(): MessagingHostedNumberOrderListResponse =
+    fun list(): MessagingHostedNumberOrderListPage =
         list(MessagingHostedNumberOrderListParams.none())
 
     /** @see list */
     fun list(
         params: MessagingHostedNumberOrderListParams = MessagingHostedNumberOrderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): MessagingHostedNumberOrderListResponse
+    ): MessagingHostedNumberOrderListPage
 
     /** @see list */
     fun list(
         params: MessagingHostedNumberOrderListParams = MessagingHostedNumberOrderListParams.none()
-    ): MessagingHostedNumberOrderListResponse = list(params, RequestOptions.none())
+    ): MessagingHostedNumberOrderListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): MessagingHostedNumberOrderListResponse =
+    fun list(requestOptions: RequestOptions): MessagingHostedNumberOrderListPage =
         list(MessagingHostedNumberOrderListParams.none(), requestOptions)
 
     /** Delete a messaging hosted number order and all associated phone numbers. */
@@ -155,7 +155,7 @@ interface MessagingHostedNumberOrderService {
     ): MessagingHostedNumberOrderDeleteResponse =
         delete(id, MessagingHostedNumberOrderDeleteParams.none(), requestOptions)
 
-    /** Check eligibility of phone numbers for hosted messaging */
+    /** Check hosted messaging eligibility */
     fun checkEligibility(
         params: MessagingHostedNumberOrderCheckEligibilityParams
     ): MessagingHostedNumberOrderCheckEligibilityResponse =
@@ -329,7 +329,7 @@ interface MessagingHostedNumberOrderService {
          * the same as [MessagingHostedNumberOrderService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<MessagingHostedNumberOrderListResponse> =
+        fun list(): HttpResponseFor<MessagingHostedNumberOrderListPage> =
             list(MessagingHostedNumberOrderListParams.none())
 
         /** @see list */
@@ -338,21 +338,20 @@ interface MessagingHostedNumberOrderService {
             params: MessagingHostedNumberOrderListParams =
                 MessagingHostedNumberOrderListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MessagingHostedNumberOrderListResponse>
+        ): HttpResponseFor<MessagingHostedNumberOrderListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MessagingHostedNumberOrderListParams =
                 MessagingHostedNumberOrderListParams.none()
-        ): HttpResponseFor<MessagingHostedNumberOrderListResponse> =
-            list(params, RequestOptions.none())
+        ): HttpResponseFor<MessagingHostedNumberOrderListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<MessagingHostedNumberOrderListResponse> =
+        ): HttpResponseFor<MessagingHostedNumberOrderListPage> =
             list(MessagingHostedNumberOrderListParams.none(), requestOptions)
 
         /**

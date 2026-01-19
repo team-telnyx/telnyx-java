@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.calls.StreamBidirectionalSamplingRate
 import com.telnyx.sdk.models.calls.StreamBidirectionalTargetLegs
 import com.telnyx.sdk.models.calls.StreamCodec
 import com.telnyx.sdk.models.calls.actions.GoogleTranscriptionLanguage
+import com.telnyx.sdk.models.calls.actions.TranscriptionEngineGoogleConfig
 import com.telnyx.sdk.models.calls.actions.TranscriptionStartRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -116,18 +117,19 @@ internal class CallServiceAsyncTest {
                     .addSipHeader(
                         SipHeader.builder().name(SipHeader.Name.USER_TO_USER).value("12345").build()
                     )
+                    .sipRegion(CallDialParams.SipRegion.CANADA)
                     .sipTransportProtocol(CallDialParams.SipTransportProtocol.TLS)
                     .soundModifications(
                         SoundModifications.builder()
                             .octaves(0.1)
-                            .pitch(0.0)
+                            .pitch(0.8)
                             .semitone(-2.0)
                             .track("both")
                             .build()
                     )
                     .streamBidirectionalCodec(StreamBidirectionalCodec.G722)
                     .streamBidirectionalMode(StreamBidirectionalMode.RTP)
-                    .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate._16000)
+                    .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate.RATE_16000)
                     .streamBidirectionalTargetLegs(StreamBidirectionalTargetLegs.BOTH)
                     .streamCodec(StreamCodec.PCMA)
                     .streamEstablishBeforeCallOriginate(true)
@@ -148,31 +150,23 @@ internal class CallServiceAsyncTest {
                                 TranscriptionStartRequest.TranscriptionEngine.GOOGLE
                             )
                             .transcriptionEngineConfig(
-                                TranscriptionStartRequest.TranscriptionEngineConfig.Google.builder()
+                                TranscriptionEngineGoogleConfig.builder()
                                     .enableSpeakerDiarization(true)
                                     .addHint("string")
                                     .interimResults(true)
                                     .language(GoogleTranscriptionLanguage.EN)
                                     .maxSpeakerCount(4)
                                     .minSpeakerCount(4)
-                                    .model(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .Model
-                                            .LATEST_LONG
-                                    )
+                                    .model(TranscriptionEngineGoogleConfig.Model.LATEST_LONG)
                                     .profanityFilter(true)
                                     .addSpeechContext(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .SpeechContext
-                                            .builder()
+                                        TranscriptionEngineGoogleConfig.SpeechContext.builder()
                                             .boost(1.0)
                                             .addPhrase("string")
                                             .build()
                                     )
                                     .transcriptionEngine(
-                                        TranscriptionStartRequest.TranscriptionEngineConfig.Google
-                                            .TranscriptionEngine
-                                            .GOOGLE
+                                        TranscriptionEngineGoogleConfig.TranscriptionEngine.GOOGLE
                                     )
                                     .useEnhanced(true)
                                     .build()

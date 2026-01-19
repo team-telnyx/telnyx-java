@@ -21,9 +21,9 @@ import com.telnyx.sdk.models.ai.clusters.ClusterComputeParams
 import com.telnyx.sdk.models.ai.clusters.ClusterComputeResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterDeleteParams
 import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphParams
-import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphResponse
+import com.telnyx.sdk.models.ai.clusters.ClusterListPageAsync
+import com.telnyx.sdk.models.ai.clusters.ClusterListPageResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterListParams
-import com.telnyx.sdk.models.ai.clusters.ClusterListResponse
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveParams
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -52,7 +52,7 @@ class ClusterServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: ClusterListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ClusterListResponse> =
+    ): CompletableFuture<ClusterListPageAsync> =
         // get /ai/clusters
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -73,9 +73,9 @@ class ClusterServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun fetchGraph(
         params: ClusterFetchGraphParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ClusterFetchGraphResponse> =
+    ): CompletableFuture<HttpResponse> =
         // get /ai/clusters/{task_id}/graph
-        withRawResponse().fetchGraph(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().fetchGraph(params, requestOptions)
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ClusterServiceAsync.WithRawResponse {
@@ -123,13 +123,13 @@ class ClusterServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<ClusterListResponse> =
-            jsonHandler<ClusterListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ClusterListPageResponse> =
+            jsonHandler<ClusterListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ClusterListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ClusterListResponse>> {
+        ): CompletableFuture<HttpResponseFor<ClusterListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -148,6 +148,14 @@ class ClusterServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                ClusterListPageAsync.builder()
+                                    .service(ClusterServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }
@@ -211,13 +219,10 @@ class ClusterServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val fetchGraphHandler: Handler<ClusterFetchGraphResponse> =
-            jsonHandler<ClusterFetchGraphResponse>(clientOptions.jsonMapper)
-
         override fun fetchGraph(
             params: ClusterFetchGraphParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ClusterFetchGraphResponse>> {
+        ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("taskId", params.taskId().getOrNull())
@@ -231,17 +236,7 @@ class ClusterServiceAsyncImpl internal constructor(private val clientOptions: Cl
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { fetchGraphHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
+                .thenApply { response -> errorHandler.handle(response) }
         }
     }
 }

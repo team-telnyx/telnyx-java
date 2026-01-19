@@ -15,25 +15,20 @@ internal class AssistantTest {
         val assistant =
             Assistant.builder()
                 .instructions("You are a friendly voice assistant.")
-                .model("meta-llama/Meta-Llama-3.1-70B-Instruct")
+                .model("Qwen/Qwen3-235B-A22B")
                 .openaiApiKeyRef("my_openai_api_key")
-                .addTool(
-                    Assistant.Tool.BookAppointmentTool.builder()
-                        .bookAppointment(
-                            Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
-                                .apiKeyRef("my_calcom_api_key")
-                                .eventTypeId(0L)
-                                .attendeeName("attendee_name")
-                                .attendeeTimezone("attendee_timezone")
-                                .build()
-                        )
-                        .type(Assistant.Tool.BookAppointmentTool.Type.BOOK_APPOINTMENT)
+                .addBookAppointmentTool(
+                    Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
+                        .apiKeyRef("my_calcom_api_key")
+                        .eventTypeId(0L)
+                        .attendeeName("attendee_name")
+                        .attendeeTimezone("attendee_timezone")
                         .build()
                 )
                 .build()
 
         assertThat(assistant.instructions()).contains("You are a friendly voice assistant.")
-        assertThat(assistant.model()).contains("meta-llama/Meta-Llama-3.1-70B-Instruct")
+        assertThat(assistant.model()).contains("Qwen/Qwen3-235B-A22B")
         assertThat(assistant.openaiApiKeyRef()).contains("my_openai_api_key")
         assertThat(assistant.tools().getOrNull())
             .containsExactly(
@@ -47,7 +42,6 @@ internal class AssistantTest {
                                 .attendeeTimezone("attendee_timezone")
                                 .build()
                         )
-                        .type(Assistant.Tool.BookAppointmentTool.Type.BOOK_APPOINTMENT)
                         .build()
                 )
             )
@@ -59,19 +53,14 @@ internal class AssistantTest {
         val assistant =
             Assistant.builder()
                 .instructions("You are a friendly voice assistant.")
-                .model("meta-llama/Meta-Llama-3.1-70B-Instruct")
+                .model("Qwen/Qwen3-235B-A22B")
                 .openaiApiKeyRef("my_openai_api_key")
-                .addTool(
-                    Assistant.Tool.BookAppointmentTool.builder()
-                        .bookAppointment(
-                            Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
-                                .apiKeyRef("my_calcom_api_key")
-                                .eventTypeId(0L)
-                                .attendeeName("attendee_name")
-                                .attendeeTimezone("attendee_timezone")
-                                .build()
-                        )
-                        .type(Assistant.Tool.BookAppointmentTool.Type.BOOK_APPOINTMENT)
+                .addBookAppointmentTool(
+                    Assistant.Tool.BookAppointmentTool.BookAppointment.builder()
+                        .apiKeyRef("my_calcom_api_key")
+                        .eventTypeId(0L)
+                        .attendeeName("attendee_name")
+                        .attendeeTimezone("attendee_timezone")
                         .build()
                 )
                 .build()

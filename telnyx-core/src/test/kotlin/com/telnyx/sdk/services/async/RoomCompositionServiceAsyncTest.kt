@@ -6,8 +6,6 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.roomcompositions.RoomCompositionCreateParams
-import com.telnyx.sdk.models.roomcompositions.RoomCompositionListParams
-import java.time.LocalDate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -88,28 +86,10 @@ internal class RoomCompositionServiceAsyncTest {
                 .build()
         val roomCompositionServiceAsync = client.roomCompositions()
 
-        val roomCompositionsFuture =
-            roomCompositionServiceAsync.list(
-                RoomCompositionListParams.builder()
-                    .filter(
-                        RoomCompositionListParams.Filter.builder()
-                            .dateCreatedAt(
-                                RoomCompositionListParams.Filter.DateCreatedAt.builder()
-                                    .eq(LocalDate.parse("2021-04-25"))
-                                    .gte(LocalDate.parse("2021-04-25"))
-                                    .lte(LocalDate.parse("2021-04-25"))
-                                    .build()
-                            )
-                            .sessionId("92e7d459-bcc5-4386-9f5f-6dd14a82588d")
-                            .status(RoomCompositionListParams.Filter.Status.COMPLETED)
-                            .build()
-                    )
-                    .page(RoomCompositionListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = roomCompositionServiceAsync.list()
 
-        val roomCompositions = roomCompositionsFuture.get()
-        roomCompositions.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

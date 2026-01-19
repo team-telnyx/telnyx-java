@@ -13,11 +13,12 @@ import com.telnyx.sdk.models.ai.assistants.AssistantCreateParams
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteParams
 import com.telnyx.sdk.models.ai.assistants.AssistantDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantGetTexmlParams
-import com.telnyx.sdk.models.ai.assistants.AssistantImportParams
+import com.telnyx.sdk.models.ai.assistants.AssistantImportsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantListParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
+import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
+import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
-import com.telnyx.sdk.models.ai.assistants.AssistantUpdateResponse
 import com.telnyx.sdk.models.ai.assistants.AssistantsList
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbedding
 import com.telnyx.sdk.services.blocking.ai.assistants.CanaryDeployService
@@ -94,7 +95,7 @@ interface AssistantService {
         retrieve(assistantId, AssistantRetrieveParams.none(), requestOptions)
 
     /** Update an AI Assistant's attributes. */
-    fun update(assistantId: String): AssistantUpdateResponse =
+    fun update(assistantId: String): InferenceEmbedding =
         update(assistantId, AssistantUpdateParams.none())
 
     /** @see update */
@@ -102,27 +103,27 @@ interface AssistantService {
         assistantId: String,
         params: AssistantUpdateParams = AssistantUpdateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssistantUpdateResponse =
+    ): InferenceEmbedding =
         update(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
     /** @see update */
     fun update(
         assistantId: String,
         params: AssistantUpdateParams = AssistantUpdateParams.none(),
-    ): AssistantUpdateResponse = update(assistantId, params, RequestOptions.none())
+    ): InferenceEmbedding = update(assistantId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: AssistantUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssistantUpdateResponse
+    ): InferenceEmbedding
 
     /** @see update */
-    fun update(params: AssistantUpdateParams): AssistantUpdateResponse =
+    fun update(params: AssistantUpdateParams): InferenceEmbedding =
         update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(assistantId: String, requestOptions: RequestOptions): AssistantUpdateResponse =
+    fun update(assistantId: String, requestOptions: RequestOptions): InferenceEmbedding =
         update(assistantId, AssistantUpdateParams.none(), requestOptions)
 
     /** Retrieve a list of all AI Assistants configured by the user. */
@@ -178,12 +179,12 @@ interface AssistantService {
      * This endpoint allows a client to send a chat message to a specific AI Assistant. The
      * assistant processes the message and returns a relevant reply based on the current
      * conversation context. Refer to the Conversation API to
-     * [create a conversation](https://developers.telnyx.com/api/inference/inference-embedding/create-new-conversation-public-conversations-post),
+     * [create a conversation](https://developers.telnyx.com/api-reference/conversations/create-a-conversation),
      * [filter existing
-     * conversations](https://developers.telnyx.com/api/inference/inference-embedding/get-conversations-public-conversations-get),
-     * [fetch messages for a conversation](https://developers.telnyx.com/api/inference/inference-embedding/get-conversations-public-conversation-id-messages-get),
+     * conversations](https://developers.telnyx.com/api-reference/conversations/list-conversations),
+     * [fetch messages for a conversation](https://developers.telnyx.com/api-reference/conversations/get-conversation-messages),
      * and
-     * [manually add messages to a conversation](https://developers.telnyx.com/api/inference/inference-embedding/add-new-message).
+     * [manually add messages to a conversation](https://developers.telnyx.com/api-reference/conversations/create-message).
      */
     fun chat(assistantId: String, params: AssistantChatParams): AssistantChatResponse =
         chat(assistantId, params, RequestOptions.none())
@@ -272,14 +273,45 @@ interface AssistantService {
      * Import assistants from external providers. Any assistant that has already been imported will
      * be overwritten with its latest version from the importing provider.
      */
-    fun import_(params: AssistantImportParams): AssistantsList =
-        import_(params, RequestOptions.none())
+    fun imports(params: AssistantImportsParams): AssistantsList =
+        imports(params, RequestOptions.none())
 
-    /** @see import_ */
-    fun import_(
-        params: AssistantImportParams,
+    /** @see imports */
+    fun imports(
+        params: AssistantImportsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AssistantsList
+
+    /**
+     * Send an SMS message for an assistant. This endpoint:
+     * 1. Validates the assistant exists and has messaging profile configured
+     * 2. If should_create_conversation is true, creates a new conversation with metadata
+     * 3. Sends the SMS message (If `text` is set, this will be sent. Otherwise, if this is the
+     *    first message in the conversation and the assistant has a `greeting` configured, this will
+     *    be sent. Otherwise the assistant will generate the text to send.)
+     * 4. Updates conversation metadata if provided
+     * 5. Returns the conversation ID
+     */
+    fun sendSms(assistantId: String, params: AssistantSendSmsParams): AssistantSendSmsResponse =
+        sendSms(assistantId, params, RequestOptions.none())
+
+    /** @see sendSms */
+    fun sendSms(
+        assistantId: String,
+        params: AssistantSendSmsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AssistantSendSmsResponse =
+        sendSms(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+    /** @see sendSms */
+    fun sendSms(params: AssistantSendSmsParams): AssistantSendSmsResponse =
+        sendSms(params, RequestOptions.none())
+
+    /** @see sendSms */
+    fun sendSms(
+        params: AssistantSendSmsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AssistantSendSmsResponse
 
     /** A view of [AssistantService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -366,7 +398,7 @@ interface AssistantService {
          * the same as [AssistantService.update].
          */
         @MustBeClosed
-        fun update(assistantId: String): HttpResponseFor<AssistantUpdateResponse> =
+        fun update(assistantId: String): HttpResponseFor<InferenceEmbedding> =
             update(assistantId, AssistantUpdateParams.none())
 
         /** @see update */
@@ -375,7 +407,7 @@ interface AssistantService {
             assistantId: String,
             params: AssistantUpdateParams = AssistantUpdateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AssistantUpdateResponse> =
+        ): HttpResponseFor<InferenceEmbedding> =
             update(params.toBuilder().assistantId(assistantId).build(), requestOptions)
 
         /** @see update */
@@ -383,19 +415,18 @@ interface AssistantService {
         fun update(
             assistantId: String,
             params: AssistantUpdateParams = AssistantUpdateParams.none(),
-        ): HttpResponseFor<AssistantUpdateResponse> =
-            update(assistantId, params, RequestOptions.none())
+        ): HttpResponseFor<InferenceEmbedding> = update(assistantId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: AssistantUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AssistantUpdateResponse>
+        ): HttpResponseFor<InferenceEmbedding>
 
         /** @see update */
         @MustBeClosed
-        fun update(params: AssistantUpdateParams): HttpResponseFor<AssistantUpdateResponse> =
+        fun update(params: AssistantUpdateParams): HttpResponseFor<InferenceEmbedding> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -403,7 +434,7 @@ interface AssistantService {
         fun update(
             assistantId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AssistantUpdateResponse> =
+        ): HttpResponseFor<InferenceEmbedding> =
             update(assistantId, AssistantUpdateParams.none(), requestOptions)
 
         /**
@@ -593,17 +624,49 @@ interface AssistantService {
 
         /**
          * Returns a raw HTTP response for `post /ai/assistants/import`, but is otherwise the same
-         * as [AssistantService.import_].
+         * as [AssistantService.imports].
          */
         @MustBeClosed
-        fun import_(params: AssistantImportParams): HttpResponseFor<AssistantsList> =
-            import_(params, RequestOptions.none())
+        fun imports(params: AssistantImportsParams): HttpResponseFor<AssistantsList> =
+            imports(params, RequestOptions.none())
 
-        /** @see import_ */
+        /** @see imports */
         @MustBeClosed
-        fun import_(
-            params: AssistantImportParams,
+        fun imports(
+            params: AssistantImportsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AssistantsList>
+
+        /**
+         * Returns a raw HTTP response for `post /ai/assistants/{assistant_id}/chat/sms`, but is
+         * otherwise the same as [AssistantService.sendSms].
+         */
+        @MustBeClosed
+        fun sendSms(
+            assistantId: String,
+            params: AssistantSendSmsParams,
+        ): HttpResponseFor<AssistantSendSmsResponse> =
+            sendSms(assistantId, params, RequestOptions.none())
+
+        /** @see sendSms */
+        @MustBeClosed
+        fun sendSms(
+            assistantId: String,
+            params: AssistantSendSmsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AssistantSendSmsResponse> =
+            sendSms(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+        /** @see sendSms */
+        @MustBeClosed
+        fun sendSms(params: AssistantSendSmsParams): HttpResponseFor<AssistantSendSmsResponse> =
+            sendSms(params, RequestOptions.none())
+
+        /** @see sendSms */
+        @MustBeClosed
+        fun sendSms(
+            params: AssistantSendSmsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AssistantSendSmsResponse>
     }
 }

@@ -12,8 +12,8 @@ internal class MessagingProfileUpdateParamsTest {
     @Test
     fun create() {
         MessagingProfileUpdateParams.builder()
-            .pathId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .bodyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .alphaSender("sqF")
             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .dailySpendLimit("269125115713")
@@ -33,6 +33,7 @@ internal class MessagingProfileUpdateParamsTest {
                     .build()
             )
             .recordType(MessagingProfileUpdateParams.RecordType.MESSAGING_PROFILE)
+            .smartEncoding(true)
             .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .urlShortenerSettings(
                 UrlShortenerSettings.builder()
@@ -43,7 +44,7 @@ internal class MessagingProfileUpdateParamsTest {
                     .build()
             )
             .v1Secret("rP1VamejkU2v0qIUxntqLW2c")
-            .webhookApiVersion(MessagingProfileUpdateParams.WebhookApiVersion._2)
+            .webhookApiVersion(MessagingProfileUpdateParams.WebhookApiVersion.V2)
             .webhookFailoverUrl("https://backup.example.com/hooks")
             .webhookUrl("https://www.example.com/hooks")
             .addWhitelistedDestination("US")
@@ -54,7 +55,7 @@ internal class MessagingProfileUpdateParamsTest {
     fun pathParams() {
         val params =
             MessagingProfileUpdateParams.builder()
-                .pathId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -66,8 +67,8 @@ internal class MessagingProfileUpdateParamsTest {
     fun body() {
         val params =
             MessagingProfileUpdateParams.builder()
-                .pathId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .bodyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .alphaSender("sqF")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .dailySpendLimit("269125115713")
@@ -87,6 +88,7 @@ internal class MessagingProfileUpdateParamsTest {
                         .build()
                 )
                 .recordType(MessagingProfileUpdateParams.RecordType.MESSAGING_PROFILE)
+                .smartEncoding(true)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .urlShortenerSettings(
                     UrlShortenerSettings.builder()
@@ -97,7 +99,7 @@ internal class MessagingProfileUpdateParamsTest {
                         .build()
                 )
                 .v1Secret("rP1VamejkU2v0qIUxntqLW2c")
-                .webhookApiVersion(MessagingProfileUpdateParams.WebhookApiVersion._2)
+                .webhookApiVersion(MessagingProfileUpdateParams.WebhookApiVersion.V2)
                 .webhookFailoverUrl("https://backup.example.com/hooks")
                 .webhookUrl("https://www.example.com/hooks")
                 .addWhitelistedDestination("US")
@@ -105,7 +107,7 @@ internal class MessagingProfileUpdateParamsTest {
 
         val body = params._body()
 
-        assertThat(body.bodyId()).contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(body.id()).contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.alphaSender()).contains("sqF")
         assertThat(body.createdAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.dailySpendLimit()).contains("269125115713")
@@ -127,6 +129,7 @@ internal class MessagingProfileUpdateParamsTest {
             )
         assertThat(body.recordType())
             .contains(MessagingProfileUpdateParams.RecordType.MESSAGING_PROFILE)
+        assertThat(body.smartEncoding()).contains(true)
         assertThat(body.updatedAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.urlShortenerSettings())
             .contains(
@@ -139,7 +142,7 @@ internal class MessagingProfileUpdateParamsTest {
             )
         assertThat(body.v1Secret()).contains("rP1VamejkU2v0qIUxntqLW2c")
         assertThat(body.webhookApiVersion())
-            .contains(MessagingProfileUpdateParams.WebhookApiVersion._2)
+            .contains(MessagingProfileUpdateParams.WebhookApiVersion.V2)
         assertThat(body.webhookFailoverUrl()).contains("https://backup.example.com/hooks")
         assertThat(body.webhookUrl()).contains("https://www.example.com/hooks")
         assertThat(body.whitelistedDestinations().getOrNull()).containsExactly("US")
@@ -149,7 +152,7 @@ internal class MessagingProfileUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             MessagingProfileUpdateParams.builder()
-                .pathId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
 
         val body = params._body()

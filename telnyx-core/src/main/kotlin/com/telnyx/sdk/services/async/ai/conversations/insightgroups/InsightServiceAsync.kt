@@ -4,11 +4,9 @@ package com.telnyx.sdk.services.async.ai.conversations.insightgroups
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
-import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.models.ai.conversations.insightgroups.insights.InsightAssignParams
-import com.telnyx.sdk.models.ai.conversations.insightgroups.insights.InsightAssignResponse
 import com.telnyx.sdk.models.ai.conversations.insightgroups.insights.InsightDeleteUnassignParams
-import com.telnyx.sdk.models.ai.conversations.insightgroups.insights.InsightDeleteUnassignResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -27,55 +25,50 @@ interface InsightServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): InsightServiceAsync
 
     /** Assign an insight to a group */
-    fun assign(
-        insightId: String,
-        params: InsightAssignParams,
-    ): CompletableFuture<InsightAssignResponse> = assign(insightId, params, RequestOptions.none())
+    fun assign(insightId: String, params: InsightAssignParams): CompletableFuture<Void?> =
+        assign(insightId, params, RequestOptions.none())
 
     /** @see assign */
     fun assign(
         insightId: String,
         params: InsightAssignParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InsightAssignResponse> =
+    ): CompletableFuture<Void?> =
         assign(params.toBuilder().insightId(insightId).build(), requestOptions)
 
     /** @see assign */
-    fun assign(params: InsightAssignParams): CompletableFuture<InsightAssignResponse> =
+    fun assign(params: InsightAssignParams): CompletableFuture<Void?> =
         assign(params, RequestOptions.none())
 
     /** @see assign */
     fun assign(
         params: InsightAssignParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InsightAssignResponse>
+    ): CompletableFuture<Void?>
 
     /** Remove an insight from a group */
     fun deleteUnassign(
         insightId: String,
         params: InsightDeleteUnassignParams,
-    ): CompletableFuture<InsightDeleteUnassignResponse> =
-        deleteUnassign(insightId, params, RequestOptions.none())
+    ): CompletableFuture<Void?> = deleteUnassign(insightId, params, RequestOptions.none())
 
     /** @see deleteUnassign */
     fun deleteUnassign(
         insightId: String,
         params: InsightDeleteUnassignParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InsightDeleteUnassignResponse> =
+    ): CompletableFuture<Void?> =
         deleteUnassign(params.toBuilder().insightId(insightId).build(), requestOptions)
 
     /** @see deleteUnassign */
-    fun deleteUnassign(
-        params: InsightDeleteUnassignParams
-    ): CompletableFuture<InsightDeleteUnassignResponse> =
+    fun deleteUnassign(params: InsightDeleteUnassignParams): CompletableFuture<Void?> =
         deleteUnassign(params, RequestOptions.none())
 
     /** @see deleteUnassign */
     fun deleteUnassign(
         params: InsightDeleteUnassignParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InsightDeleteUnassignResponse>
+    ): CompletableFuture<Void?>
 
     /**
      * A view of [InsightServiceAsync] that provides access to raw HTTP responses for each method.
@@ -99,28 +92,25 @@ interface InsightServiceAsync {
         fun assign(
             insightId: String,
             params: InsightAssignParams,
-        ): CompletableFuture<HttpResponseFor<InsightAssignResponse>> =
-            assign(insightId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponse> = assign(insightId, params, RequestOptions.none())
 
         /** @see assign */
         fun assign(
             insightId: String,
             params: InsightAssignParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InsightAssignResponse>> =
+        ): CompletableFuture<HttpResponse> =
             assign(params.toBuilder().insightId(insightId).build(), requestOptions)
 
         /** @see assign */
-        fun assign(
-            params: InsightAssignParams
-        ): CompletableFuture<HttpResponseFor<InsightAssignResponse>> =
+        fun assign(params: InsightAssignParams): CompletableFuture<HttpResponse> =
             assign(params, RequestOptions.none())
 
         /** @see assign */
         fun assign(
             params: InsightAssignParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InsightAssignResponse>>
+        ): CompletableFuture<HttpResponse>
 
         /**
          * Returns a raw HTTP response for `delete
@@ -130,7 +120,7 @@ interface InsightServiceAsync {
         fun deleteUnassign(
             insightId: String,
             params: InsightDeleteUnassignParams,
-        ): CompletableFuture<HttpResponseFor<InsightDeleteUnassignResponse>> =
+        ): CompletableFuture<HttpResponse> =
             deleteUnassign(insightId, params, RequestOptions.none())
 
         /** @see deleteUnassign */
@@ -138,19 +128,17 @@ interface InsightServiceAsync {
             insightId: String,
             params: InsightDeleteUnassignParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InsightDeleteUnassignResponse>> =
+        ): CompletableFuture<HttpResponse> =
             deleteUnassign(params.toBuilder().insightId(insightId).build(), requestOptions)
 
         /** @see deleteUnassign */
-        fun deleteUnassign(
-            params: InsightDeleteUnassignParams
-        ): CompletableFuture<HttpResponseFor<InsightDeleteUnassignResponse>> =
+        fun deleteUnassign(params: InsightDeleteUnassignParams): CompletableFuture<HttpResponse> =
             deleteUnassign(params, RequestOptions.none())
 
         /** @see deleteUnassign */
         fun deleteUnassign(
             params: InsightDeleteUnassignParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InsightDeleteUnassignResponse>>
+        ): CompletableFuture<HttpResponse>
     }
 }

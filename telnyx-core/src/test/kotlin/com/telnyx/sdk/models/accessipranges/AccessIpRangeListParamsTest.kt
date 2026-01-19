@@ -18,7 +18,8 @@ internal class AccessIpRangeListParamsTest {
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-            .page(AccessIpRangeListParams.Page.builder().number(0L).size(250L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -32,7 +33,8 @@ internal class AccessIpRangeListParamsTest {
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .page(AccessIpRangeListParams.Page.builder().number(0L).size(250L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -43,7 +45,7 @@ internal class AccessIpRangeListParamsTest {
                     .put("filter[cidr_block]", "string")
                     .put("filter[created_at]", "2019-12-27T18:11:19.117Z")
                     .put("page[number]", "0")
-                    .put("page[size]", "250")
+                    .put("page[size]", "0")
                     .build()
             )
     }

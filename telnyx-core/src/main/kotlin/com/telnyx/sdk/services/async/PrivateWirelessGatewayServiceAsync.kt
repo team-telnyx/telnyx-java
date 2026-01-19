@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayCreat
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayCreateResponse
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayDeleteParams
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayDeleteResponse
+import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayListPageAsync
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayListParams
-import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayListResponse
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayRetrieveParams
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -85,24 +85,24 @@ interface PrivateWirelessGatewayServiceAsync {
         retrieve(id, PrivateWirelessGatewayRetrieveParams.none(), requestOptions)
 
     /** Get all Private Wireless Gateways belonging to the user. */
-    fun list(): CompletableFuture<PrivateWirelessGatewayListResponse> =
+    fun list(): CompletableFuture<PrivateWirelessGatewayListPageAsync> =
         list(PrivateWirelessGatewayListParams.none())
 
     /** @see list */
     fun list(
         params: PrivateWirelessGatewayListParams = PrivateWirelessGatewayListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PrivateWirelessGatewayListResponse>
+    ): CompletableFuture<PrivateWirelessGatewayListPageAsync>
 
     /** @see list */
     fun list(
         params: PrivateWirelessGatewayListParams = PrivateWirelessGatewayListParams.none()
-    ): CompletableFuture<PrivateWirelessGatewayListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<PrivateWirelessGatewayListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         requestOptions: RequestOptions
-    ): CompletableFuture<PrivateWirelessGatewayListResponse> =
+    ): CompletableFuture<PrivateWirelessGatewayListPageAsync> =
         list(PrivateWirelessGatewayListParams.none(), requestOptions)
 
     /** Deletes the Private Wireless Gateway. */
@@ -222,25 +222,25 @@ interface PrivateWirelessGatewayServiceAsync {
          * Returns a raw HTTP response for `get /private_wireless_gateways`, but is otherwise the
          * same as [PrivateWirelessGatewayServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<PrivateWirelessGatewayListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<PrivateWirelessGatewayListPageAsync>> =
             list(PrivateWirelessGatewayListParams.none())
 
         /** @see list */
         fun list(
             params: PrivateWirelessGatewayListParams = PrivateWirelessGatewayListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PrivateWirelessGatewayListResponse>>
+        ): CompletableFuture<HttpResponseFor<PrivateWirelessGatewayListPageAsync>>
 
         /** @see list */
         fun list(
             params: PrivateWirelessGatewayListParams = PrivateWirelessGatewayListParams.none()
-        ): CompletableFuture<HttpResponseFor<PrivateWirelessGatewayListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PrivateWirelessGatewayListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<PrivateWirelessGatewayListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PrivateWirelessGatewayListPageAsync>> =
             list(PrivateWirelessGatewayListParams.none(), requestOptions)
 
         /**

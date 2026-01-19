@@ -11,6 +11,7 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -23,7 +24,7 @@ private constructor(
     private val code: JsonField<String>,
     private val title: JsonField<String>,
     private val detail: JsonField<String>,
-    private val meta: JsonValue,
+    private val meta: JsonField<Meta>,
     private val source: JsonField<Source>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -33,7 +34,7 @@ private constructor(
         @JsonProperty("code") @ExcludeMissing code: JsonField<String> = JsonMissing.of(),
         @JsonProperty("title") @ExcludeMissing title: JsonField<String> = JsonMissing.of(),
         @JsonProperty("detail") @ExcludeMissing detail: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("meta") @ExcludeMissing meta: JsonValue = JsonMissing.of(),
+        @JsonProperty("meta") @ExcludeMissing meta: JsonField<Meta> = JsonMissing.of(),
         @JsonProperty("source") @ExcludeMissing source: JsonField<Source> = JsonMissing.of(),
     ) : this(code, title, detail, meta, source, mutableMapOf())
 
@@ -55,7 +56,11 @@ private constructor(
      */
     fun detail(): Optional<String> = detail.getOptional("detail")
 
-    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonValue = meta
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun meta(): Optional<Meta> = meta.getOptional("meta")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -83,6 +88,13 @@ private constructor(
      * Unlike [detail], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("detail") @ExcludeMissing fun _detail(): JsonField<String> = detail
+
+    /**
+     * Returns the raw JSON value of [meta].
+     *
+     * Unlike [meta], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonField<Meta> = meta
 
     /**
      * Returns the raw JSON value of [source].
@@ -123,7 +135,7 @@ private constructor(
         private var code: JsonField<String>? = null
         private var title: JsonField<String>? = null
         private var detail: JsonField<String> = JsonMissing.of()
-        private var meta: JsonValue = JsonMissing.of()
+        private var meta: JsonField<Meta> = JsonMissing.of()
         private var source: JsonField<Source> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -167,7 +179,15 @@ private constructor(
          */
         fun detail(detail: JsonField<String>) = apply { this.detail = detail }
 
-        fun meta(meta: JsonValue) = apply { this.meta = meta }
+        fun meta(meta: Meta) = meta(JsonField.of(meta))
+
+        /**
+         * Sets [Builder.meta] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.meta] with a well-typed [Meta] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun meta(meta: JsonField<Meta>) = apply { this.meta = meta }
 
         fun source(source: Source) = source(JsonField.of(source))
 
@@ -232,6 +252,7 @@ private constructor(
         code()
         title()
         detail()
+        meta().ifPresent { it.validate() }
         source().ifPresent { it.validate() }
         validated = true
     }
@@ -254,7 +275,107 @@ private constructor(
         (if (code.asKnown().isPresent) 1 else 0) +
             (if (title.asKnown().isPresent) 1 else 0) +
             (if (detail.asKnown().isPresent) 1 else 0) +
+            (meta.asKnown().getOrNull()?.validity() ?: 0) +
             (source.asKnown().getOrNull()?.validity() ?: 0)
+
+    class Meta
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Meta]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Meta]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(meta: Meta) = apply {
+                additionalProperties = meta.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Meta].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Meta = Meta(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Meta = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Meta && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Meta{additionalProperties=$additionalProperties}"
+    }
 
     class Source
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)

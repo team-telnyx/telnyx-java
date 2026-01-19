@@ -3,152 +3,100 @@
 package com.telnyx.sdk.models.portouts.events
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
+import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.time.OffsetDateTime
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.EnumSource
 
 internal class EventListResponseTest {
 
     @Test
-    fun create() {
-        val eventListResponse =
-            EventListResponse.builder()
-                .addData(
-                    EventListResponse.Data.builder()
-                        .id("eef3340b-8903-4466-b445-89b697315a3a")
-                        .addAvailableNotificationMethod(
-                            EventListResponse.Data.AvailableNotificationMethod.EMAIL
+    fun ofWebhookPortoutStatusChanged() {
+        val webhookPortoutStatusChanged =
+            EventListResponse.WebhookPortoutStatusChanged.builder()
+                .id("eef3340b-8903-4466-b445-89b697315a3a")
+                .addAvailableNotificationMethod(
+                    EventListResponse.WebhookPortoutStatusChanged.AvailableNotificationMethod.EMAIL
+                )
+                .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                .eventType(
+                    EventListResponse.WebhookPortoutStatusChanged.EventType.PORTOUT_STATUS_CHANGED
+                )
+                .payload(
+                    EventListResponse.WebhookPortoutStatusChanged.Payload.builder()
+                        .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
+                        .attemptedPin("1234")
+                        .carrierName("Testing Carrier")
+                        .addPhoneNumber("+35312345678")
+                        .rejectionReason(null)
+                        .spid("987H")
+                        .status(
+                            EventListResponse.WebhookPortoutStatusChanged.Payload.Status.AUTHORIZED
                         )
-                        .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                        .eventType(EventListResponse.Data.EventType.PORTOUT_STATUS_CHANGED)
-                        .payload(
-                            EventListResponse.Data.Payload.WebhookPortoutStatusChangedPayload
-                                .builder()
-                                .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
-                                .attemptedPin("1234")
-                                .carrierName("Testing Carrier")
-                                .addPhoneNumber("+35312345678")
-                                .rejectionReason("rejection_reason")
-                                .spid("987H")
-                                .status(
-                                    EventListResponse.Data.Payload
-                                        .WebhookPortoutStatusChangedPayload
-                                        .Status
-                                        .AUTHORIZED
-                                )
-                                .subscriberName("John Doe")
-                                .userId("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
-                                .build()
-                        )
-                        .payloadStatus(EventListResponse.Data.PayloadStatus.CREATED)
-                        .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
-                        .recordType("portout_event")
-                        .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                        .subscriberName("John Doe")
+                        .userId("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                         .build()
                 )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .pageSize(25L)
-                        .totalPages(3L)
-                        .totalResults(55L)
-                        .build()
-                )
+                .payloadStatus(EventListResponse.WebhookPortoutStatusChanged.PayloadStatus.CREATED)
+                .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
+                .recordType("portout_event")
+                .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                 .build()
 
-        assertThat(eventListResponse.data().getOrNull())
-            .containsExactly(
-                EventListResponse.Data.builder()
+        val eventListResponse =
+            EventListResponse.ofWebhookPortoutStatusChanged(webhookPortoutStatusChanged)
+
+        assertThat(eventListResponse.webhookPortoutStatusChanged())
+            .contains(webhookPortoutStatusChanged)
+        assertThat(eventListResponse.webhookPortoutNewComment()).isEmpty
+        assertThat(eventListResponse.webhookPortoutFocDateChanged()).isEmpty
+    }
+
+    @Test
+    fun ofWebhookPortoutStatusChangedRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val eventListResponse =
+            EventListResponse.ofWebhookPortoutStatusChanged(
+                EventListResponse.WebhookPortoutStatusChanged.builder()
                     .id("eef3340b-8903-4466-b445-89b697315a3a")
                     .addAvailableNotificationMethod(
-                        EventListResponse.Data.AvailableNotificationMethod.EMAIL
+                        EventListResponse.WebhookPortoutStatusChanged.AvailableNotificationMethod
+                            .EMAIL
                     )
                     .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .eventType(EventListResponse.Data.EventType.PORTOUT_STATUS_CHANGED)
+                    .eventType(
+                        EventListResponse.WebhookPortoutStatusChanged.EventType
+                            .PORTOUT_STATUS_CHANGED
+                    )
                     .payload(
-                        EventListResponse.Data.Payload.WebhookPortoutStatusChangedPayload.builder()
+                        EventListResponse.WebhookPortoutStatusChanged.Payload.builder()
                             .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                             .attemptedPin("1234")
                             .carrierName("Testing Carrier")
                             .addPhoneNumber("+35312345678")
-                            .rejectionReason("rejection_reason")
+                            .rejectionReason(null)
                             .spid("987H")
                             .status(
-                                EventListResponse.Data.Payload.WebhookPortoutStatusChangedPayload
-                                    .Status
+                                EventListResponse.WebhookPortoutStatusChanged.Payload.Status
                                     .AUTHORIZED
                             )
                             .subscriberName("John Doe")
                             .userId("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                             .build()
                     )
-                    .payloadStatus(EventListResponse.Data.PayloadStatus.CREATED)
+                    .payloadStatus(
+                        EventListResponse.WebhookPortoutStatusChanged.PayloadStatus.CREATED
+                    )
                     .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                     .recordType("portout_event")
                     .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                     .build()
             )
-        assertThat(eventListResponse.meta())
-            .contains(
-                PaginationMeta.builder()
-                    .pageNumber(2L)
-                    .pageSize(25L)
-                    .totalPages(3L)
-                    .totalResults(55L)
-                    .build()
-            )
-    }
-
-    @Test
-    fun roundtrip() {
-        val jsonMapper = jsonMapper()
-        val eventListResponse =
-            EventListResponse.builder()
-                .addData(
-                    EventListResponse.Data.builder()
-                        .id("eef3340b-8903-4466-b445-89b697315a3a")
-                        .addAvailableNotificationMethod(
-                            EventListResponse.Data.AvailableNotificationMethod.EMAIL
-                        )
-                        .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                        .eventType(EventListResponse.Data.EventType.PORTOUT_STATUS_CHANGED)
-                        .payload(
-                            EventListResponse.Data.Payload.WebhookPortoutStatusChangedPayload
-                                .builder()
-                                .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
-                                .attemptedPin("1234")
-                                .carrierName("Testing Carrier")
-                                .addPhoneNumber("+35312345678")
-                                .rejectionReason("rejection_reason")
-                                .spid("987H")
-                                .status(
-                                    EventListResponse.Data.Payload
-                                        .WebhookPortoutStatusChangedPayload
-                                        .Status
-                                        .AUTHORIZED
-                                )
-                                .subscriberName("John Doe")
-                                .userId("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
-                                .build()
-                        )
-                        .payloadStatus(EventListResponse.Data.PayloadStatus.CREATED)
-                        .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
-                        .recordType("portout_event")
-                        .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                        .build()
-                )
-                .meta(
-                    PaginationMeta.builder()
-                        .pageNumber(2L)
-                        .pageSize(25L)
-                        .totalPages(3L)
-                        .totalResults(55L)
-                        .build()
-                )
-                .build()
 
         val roundtrippedEventListResponse =
             jsonMapper.readValue(
@@ -157,5 +105,170 @@ internal class EventListResponseTest {
             )
 
         assertThat(roundtrippedEventListResponse).isEqualTo(eventListResponse)
+    }
+
+    @Test
+    fun ofWebhookPortoutNewComment() {
+        val webhookPortoutNewComment =
+            EventListResponse.WebhookPortoutNewComment.builder()
+                .id("eef3340b-8903-4466-b445-89b697315a3a")
+                .addAvailableNotificationMethod(
+                    EventListResponse.WebhookPortoutNewComment.AvailableNotificationMethod.EMAIL
+                )
+                .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                .eventType(
+                    EventListResponse.WebhookPortoutNewComment.EventType.PORTOUT_STATUS_CHANGED
+                )
+                .payload(
+                    EventListResponse.WebhookPortoutNewComment.Payload.builder()
+                        .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
+                        .comment("This is a comment.")
+                        .portoutId("d26109e5-0605-4671-a235-d3c649cc8406")
+                        .userId("1c45c968-c2e0-4559-b1dd-db073962fc61")
+                        .build()
+                )
+                .payloadStatus(EventListResponse.WebhookPortoutNewComment.PayloadStatus.CREATED)
+                .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
+                .recordType("portout_event")
+                .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                .build()
+
+        val eventListResponse =
+            EventListResponse.ofWebhookPortoutNewComment(webhookPortoutNewComment)
+
+        assertThat(eventListResponse.webhookPortoutStatusChanged()).isEmpty
+        assertThat(eventListResponse.webhookPortoutNewComment()).contains(webhookPortoutNewComment)
+        assertThat(eventListResponse.webhookPortoutFocDateChanged()).isEmpty
+    }
+
+    @Test
+    fun ofWebhookPortoutNewCommentRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val eventListResponse =
+            EventListResponse.ofWebhookPortoutNewComment(
+                EventListResponse.WebhookPortoutNewComment.builder()
+                    .id("eef3340b-8903-4466-b445-89b697315a3a")
+                    .addAvailableNotificationMethod(
+                        EventListResponse.WebhookPortoutNewComment.AvailableNotificationMethod.EMAIL
+                    )
+                    .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                    .eventType(
+                        EventListResponse.WebhookPortoutNewComment.EventType.PORTOUT_STATUS_CHANGED
+                    )
+                    .payload(
+                        EventListResponse.WebhookPortoutNewComment.Payload.builder()
+                            .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
+                            .comment("This is a comment.")
+                            .portoutId("d26109e5-0605-4671-a235-d3c649cc8406")
+                            .userId("1c45c968-c2e0-4559-b1dd-db073962fc61")
+                            .build()
+                    )
+                    .payloadStatus(EventListResponse.WebhookPortoutNewComment.PayloadStatus.CREATED)
+                    .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
+                    .recordType("portout_event")
+                    .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                    .build()
+            )
+
+        val roundtrippedEventListResponse =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(eventListResponse),
+                jacksonTypeRef<EventListResponse>(),
+            )
+
+        assertThat(roundtrippedEventListResponse).isEqualTo(eventListResponse)
+    }
+
+    @Test
+    fun ofWebhookPortoutFocDateChanged() {
+        val webhookPortoutFocDateChanged =
+            EventListResponse.WebhookPortoutFocDateChanged.builder()
+                .id("eef3340b-8903-4466-b445-89b697315a3a")
+                .addAvailableNotificationMethod(
+                    EventListResponse.WebhookPortoutFocDateChanged.AvailableNotificationMethod.EMAIL
+                )
+                .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                .eventType(
+                    EventListResponse.WebhookPortoutFocDateChanged.EventType.PORTOUT_STATUS_CHANGED
+                )
+                .payload(
+                    EventListResponse.WebhookPortoutFocDateChanged.Payload.builder()
+                        .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
+                        .focDate(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                        .userId("0e19c89e-f0ce-458a-a36c-3c60bc2014b1")
+                        .build()
+                )
+                .payloadStatus(EventListResponse.WebhookPortoutFocDateChanged.PayloadStatus.CREATED)
+                .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
+                .recordType("portout_event")
+                .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                .build()
+
+        val eventListResponse =
+            EventListResponse.ofWebhookPortoutFocDateChanged(webhookPortoutFocDateChanged)
+
+        assertThat(eventListResponse.webhookPortoutStatusChanged()).isEmpty
+        assertThat(eventListResponse.webhookPortoutNewComment()).isEmpty
+        assertThat(eventListResponse.webhookPortoutFocDateChanged())
+            .contains(webhookPortoutFocDateChanged)
+    }
+
+    @Test
+    fun ofWebhookPortoutFocDateChangedRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val eventListResponse =
+            EventListResponse.ofWebhookPortoutFocDateChanged(
+                EventListResponse.WebhookPortoutFocDateChanged.builder()
+                    .id("eef3340b-8903-4466-b445-89b697315a3a")
+                    .addAvailableNotificationMethod(
+                        EventListResponse.WebhookPortoutFocDateChanged.AvailableNotificationMethod
+                            .EMAIL
+                    )
+                    .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                    .eventType(
+                        EventListResponse.WebhookPortoutFocDateChanged.EventType
+                            .PORTOUT_STATUS_CHANGED
+                    )
+                    .payload(
+                        EventListResponse.WebhookPortoutFocDateChanged.Payload.builder()
+                            .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
+                            .focDate(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                            .userId("0e19c89e-f0ce-458a-a36c-3c60bc2014b1")
+                            .build()
+                    )
+                    .payloadStatus(
+                        EventListResponse.WebhookPortoutFocDateChanged.PayloadStatus.CREATED
+                    )
+                    .portoutId("9471c873-e3eb-4ca1-957d-f9a451334d52")
+                    .recordType("portout_event")
+                    .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
+                    .build()
+            )
+
+        val roundtrippedEventListResponse =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(eventListResponse),
+                jacksonTypeRef<EventListResponse>(),
+            )
+
+        assertThat(roundtrippedEventListResponse).isEqualTo(eventListResponse)
+    }
+
+    enum class IncompatibleJsonShapeTestCase(val value: JsonValue) {
+        BOOLEAN(JsonValue.from(false)),
+        STRING(JsonValue.from("invalid")),
+        INTEGER(JsonValue.from(-1)),
+        FLOAT(JsonValue.from(3.14)),
+        ARRAY(JsonValue.from(listOf("invalid", "array"))),
+    }
+
+    @ParameterizedTest
+    @EnumSource
+    fun incompatibleJsonShapeDeserializesToUnknown(testCase: IncompatibleJsonShapeTestCase) {
+        val eventListResponse =
+            jsonMapper().convertValue(testCase.value, jacksonTypeRef<EventListResponse>())
+
+        val e = assertThrows<TelnyxInvalidDataException> { eventListResponse.validate() }
+        assertThat(e).hasMessageStartingWith("Unknown ")
     }
 }

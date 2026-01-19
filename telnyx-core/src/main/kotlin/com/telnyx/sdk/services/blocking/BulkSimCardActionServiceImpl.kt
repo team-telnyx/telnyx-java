@@ -15,8 +15,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionListPage
+import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionListPageResponse
 import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionListParams
-import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionListResponse
 import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionRetrieveParams
 import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionRetrieveResponse
 import java.util.function.Consumer
@@ -44,7 +45,7 @@ class BulkSimCardActionServiceImpl internal constructor(private val clientOption
     override fun list(
         params: BulkSimCardActionListParams,
         requestOptions: RequestOptions,
-    ): BulkSimCardActionListResponse =
+    ): BulkSimCardActionListPage =
         // get /bulk_sim_card_actions
         withRawResponse().list(params, requestOptions).parse()
 
@@ -91,13 +92,13 @@ class BulkSimCardActionServiceImpl internal constructor(private val clientOption
             }
         }
 
-        private val listHandler: Handler<BulkSimCardActionListResponse> =
-            jsonHandler<BulkSimCardActionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BulkSimCardActionListPageResponse> =
+            jsonHandler<BulkSimCardActionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: BulkSimCardActionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BulkSimCardActionListResponse> {
+        ): HttpResponseFor<BulkSimCardActionListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -114,6 +115,13 @@ class BulkSimCardActionServiceImpl internal constructor(private val clientOption
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        BulkSimCardActionListPage.builder()
+                            .service(BulkSimCardActionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

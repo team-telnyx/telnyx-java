@@ -20,7 +20,8 @@ import kotlin.jvm.optionals.getOrNull
 class CustomerServiceRecordListParams
 private constructor(
     private val filter: Filter?,
-    private val page: Page?,
+    private val pageNumber: Long?,
+    private val pageSize: Long?,
     private val sort: Sort?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -33,8 +34,9 @@ private constructor(
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
-    /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-    fun page(): Optional<Page> = Optional.ofNullable(page)
+    fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
+
+    fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
     /** Consolidated sort parameter (deepObject style). Originally: sort[value] */
     fun sort(): Optional<Sort> = Optional.ofNullable(sort)
@@ -62,7 +64,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var filter: Filter? = null
-        private var page: Page? = null
+        private var pageNumber: Long? = null
+        private var pageSize: Long? = null
         private var sort: Sort? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -71,7 +74,8 @@ private constructor(
         internal fun from(customerServiceRecordListParams: CustomerServiceRecordListParams) =
             apply {
                 filter = customerServiceRecordListParams.filter
-                page = customerServiceRecordListParams.page
+                pageNumber = customerServiceRecordListParams.pageNumber
+                pageSize = customerServiceRecordListParams.pageSize
                 sort = customerServiceRecordListParams.sort
                 additionalHeaders = customerServiceRecordListParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
@@ -88,11 +92,29 @@ private constructor(
         /** Alias for calling [Builder.filter] with `filter.orElse(null)`. */
         fun filter(filter: Optional<Filter>) = filter(filter.getOrNull())
 
-        /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        fun page(page: Page?) = apply { this.page = page }
+        fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
-        /** Alias for calling [Builder.page] with `page.orElse(null)`. */
-        fun page(page: Optional<Page>) = page(page.getOrNull())
+        /**
+         * Alias for [Builder.pageNumber].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageNumber(pageNumber: Long) = pageNumber(pageNumber as Long?)
+
+        /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
+        fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
+
+        fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
+
+        /**
+         * Alias for [Builder.pageSize].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageSize(pageSize: Long) = pageSize(pageSize as Long?)
+
+        /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
+        fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
         /** Consolidated sort parameter (deepObject style). Originally: sort[value] */
         fun sort(sort: Sort?) = apply { this.sort = sort }
@@ -206,7 +228,8 @@ private constructor(
         fun build(): CustomerServiceRecordListParams =
             CustomerServiceRecordListParams(
                 filter,
-                page,
+                pageNumber,
+                pageSize,
                 sort,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -240,7 +263,9 @@ private constructor(
                     }
                     it.phoneNumber().ifPresent {
                         it.eq().ifPresent { put("filter[phone_number][eq]", it) }
-                        it.in_().ifPresent { put("filter[phone_number][in]", it.joinToString(",")) }
+                        it.inList().ifPresent {
+                            put("filter[phone_number][in]", it.joinToString(","))
+                        }
                         it._additionalProperties().keys().forEach { key ->
                             it._additionalProperties().values(key).forEach { value ->
                                 put("filter[phone_number][$key]", value)
@@ -249,7 +274,7 @@ private constructor(
                     }
                     it.status().ifPresent {
                         it.eq().ifPresent { put("filter[status][eq]", it.toString()) }
-                        it.in_().ifPresent {
+                        it.inList().ifPresent {
                             put("filter[status][in]", it.joinToString(",") { it.toString() })
                         }
                         it._additionalProperties().keys().forEach { key ->
@@ -264,15 +289,8 @@ private constructor(
                         }
                     }
                 }
-                page?.let {
-                    it.number().ifPresent { put("page[number]", it.toString()) }
-                    it.size().ifPresent { put("page[size]", it.toString()) }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("page[$key]", value)
-                        }
-                    }
-                }
+                pageNumber?.let { put("page[number]", it.toString()) }
+                pageSize?.let { put("page[size]", it.toString()) }
                 sort?.let {
                     it.value().ifPresent { put("sort[value]", it.toString()) }
                     it._additionalProperties().keys().forEach { key ->
@@ -536,7 +554,7 @@ private constructor(
         class PhoneNumber
         private constructor(
             private val eq: String?,
-            private val in_: List<String>?,
+            private val inList: List<String>?,
             private val additionalProperties: QueryParams,
         ) {
 
@@ -544,7 +562,7 @@ private constructor(
             fun eq(): Optional<String> = Optional.ofNullable(eq)
 
             /** Filters records to those with at least one number in the list. */
-            fun in_(): Optional<List<String>> = Optional.ofNullable(in_)
+            fun inList(): Optional<List<String>> = Optional.ofNullable(inList)
 
             /** Query params to send with the request. */
             fun _additionalProperties(): QueryParams = additionalProperties
@@ -561,13 +579,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var eq: String? = null
-                private var in_: MutableList<String>? = null
+                private var inList: MutableList<String>? = null
                 private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(phoneNumber: PhoneNumber) = apply {
                     eq = phoneNumber.eq
-                    in_ = phoneNumber.in_?.toMutableList()
+                    inList = phoneNumber.inList?.toMutableList()
                     additionalProperties = phoneNumber.additionalProperties.toBuilder()
                 }
 
@@ -578,18 +596,18 @@ private constructor(
                 fun eq(eq: Optional<String>) = eq(eq.getOrNull())
 
                 /** Filters records to those with at least one number in the list. */
-                fun in_(in_: List<String>?) = apply { this.in_ = in_?.toMutableList() }
+                fun inList(inList: List<String>?) = apply { this.inList = inList?.toMutableList() }
 
-                /** Alias for calling [Builder.in_] with `in_.orElse(null)`. */
-                fun in_(in_: Optional<List<String>>) = in_(in_.getOrNull())
+                /** Alias for calling [Builder.inList] with `inList.orElse(null)`. */
+                fun inList(inList: Optional<List<String>>) = inList(inList.getOrNull())
 
                 /**
-                 * Adds a single [String] to [Builder.in_].
+                 * Adds a single [String] to [Builder.inList].
                  *
                  * @throws IllegalStateException if the field was previously set to a non-list.
                  */
-                fun addIn(in_: String) = apply {
-                    this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
+                fun addInList(inList: String) = apply {
+                    this.inList = (this.inList ?: mutableListOf()).apply { add(inList) }
                 }
 
                 fun additionalProperties(additionalProperties: QueryParams) = apply {
@@ -649,7 +667,7 @@ private constructor(
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
                 fun build(): PhoneNumber =
-                    PhoneNumber(eq, in_?.toImmutable(), additionalProperties.build())
+                    PhoneNumber(eq, inList?.toImmutable(), additionalProperties.build())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -659,22 +677,22 @@ private constructor(
 
                 return other is PhoneNumber &&
                     eq == other.eq &&
-                    in_ == other.in_ &&
+                    inList == other.inList &&
                     additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq, in_, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(eq, inList, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "PhoneNumber{eq=$eq, in_=$in_, additionalProperties=$additionalProperties}"
+                "PhoneNumber{eq=$eq, inList=$inList, additionalProperties=$additionalProperties}"
         }
 
         class Status
         private constructor(
             private val eq: Eq?,
-            private val in_: List<In>?,
+            private val inList: List<In>?,
             private val additionalProperties: QueryParams,
         ) {
 
@@ -682,7 +700,7 @@ private constructor(
             fun eq(): Optional<Eq> = Optional.ofNullable(eq)
 
             /** Filters records to those with a least one status in the list. */
-            fun in_(): Optional<List<In>> = Optional.ofNullable(in_)
+            fun inList(): Optional<List<In>> = Optional.ofNullable(inList)
 
             /** Query params to send with the request. */
             fun _additionalProperties(): QueryParams = additionalProperties
@@ -699,13 +717,13 @@ private constructor(
             class Builder internal constructor() {
 
                 private var eq: Eq? = null
-                private var in_: MutableList<In>? = null
+                private var inList: MutableList<In>? = null
                 private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
                 @JvmSynthetic
                 internal fun from(status: Status) = apply {
                     eq = status.eq
-                    in_ = status.in_?.toMutableList()
+                    inList = status.inList?.toMutableList()
                     additionalProperties = status.additionalProperties.toBuilder()
                 }
 
@@ -716,18 +734,18 @@ private constructor(
                 fun eq(eq: Optional<Eq>) = eq(eq.getOrNull())
 
                 /** Filters records to those with a least one status in the list. */
-                fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
+                fun inList(inList: List<In>?) = apply { this.inList = inList?.toMutableList() }
 
-                /** Alias for calling [Builder.in_] with `in_.orElse(null)`. */
-                fun in_(in_: Optional<List<In>>) = in_(in_.getOrNull())
+                /** Alias for calling [Builder.inList] with `inList.orElse(null)`. */
+                fun inList(inList: Optional<List<In>>) = inList(inList.getOrNull())
 
                 /**
-                 * Adds a single [In] to [Builder.in_].
+                 * Adds a single [In] to [Builder.inList].
                  *
                  * @throws IllegalStateException if the field was previously set to a non-list.
                  */
-                fun addIn(in_: In) = apply {
-                    this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
+                fun addInList(inList: In) = apply {
+                    this.inList = (this.inList ?: mutableListOf()).apply { add(inList) }
                 }
 
                 fun additionalProperties(additionalProperties: QueryParams) = apply {
@@ -786,7 +804,8 @@ private constructor(
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Status = Status(eq, in_?.toImmutable(), additionalProperties.build())
+                fun build(): Status =
+                    Status(eq, inList?.toImmutable(), additionalProperties.build())
             }
 
             /** Filters records to those with a specific status. */
@@ -1067,16 +1086,16 @@ private constructor(
 
                 return other is Status &&
                     eq == other.eq &&
-                    in_ == other.in_ &&
+                    inList == other.inList &&
                     additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(eq, in_, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(eq, inList, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Status{eq=$eq, in_=$in_, additionalProperties=$additionalProperties}"
+                "Status{eq=$eq, inList=$inList, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1101,156 +1120,18 @@ private constructor(
             "Filter{createdAt=$createdAt, phoneNumber=$phoneNumber, status=$status, additionalProperties=$additionalProperties}"
     }
 
-    /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-    class Page
-    private constructor(
-        private val number: Long?,
-        private val size: Long?,
-        private val additionalProperties: QueryParams,
-    ) {
-
-        /** The page number to load */
-        fun number(): Optional<Long> = Optional.ofNullable(number)
-
-        /** The size of the page */
-        fun size(): Optional<Long> = Optional.ofNullable(size)
-
-        /** Query params to send with the request. */
-        fun _additionalProperties(): QueryParams = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Page]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Page]. */
-        class Builder internal constructor() {
-
-            private var number: Long? = null
-            private var size: Long? = null
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
-
-            @JvmSynthetic
-            internal fun from(page: Page) = apply {
-                number = page.number
-                size = page.size
-                additionalProperties = page.additionalProperties.toBuilder()
-            }
-
-            /** The page number to load */
-            fun number(number: Long?) = apply { this.number = number }
-
-            /**
-             * Alias for [Builder.number].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun number(number: Long) = number(number as Long?)
-
-            /** Alias for calling [Builder.number] with `number.orElse(null)`. */
-            fun number(number: Optional<Long>) = number(number.getOrNull())
-
-            /** The size of the page */
-            fun size(size: Long?) = apply { this.size = size }
-
-            /**
-             * Alias for [Builder.size].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun size(size: Long) = size(size as Long?)
-
-            /** Alias for calling [Builder.size] with `size.orElse(null)`. */
-            fun size(size: Optional<Long>) = size(size.getOrNull())
-
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
-
-            /**
-             * Returns an immutable instance of [Page].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Page = Page(number, size, additionalProperties.build())
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Page &&
-                number == other.number &&
-                size == other.size &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(number, size, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Page{number=$number, size=$size, additionalProperties=$additionalProperties}"
-    }
-
     /** Consolidated sort parameter (deepObject style). Originally: sort[value] */
     class Sort
-    private constructor(private val value: Value_?, private val additionalProperties: QueryParams) {
+    private constructor(
+        private val value: SortValue?,
+        private val additionalProperties: QueryParams,
+    ) {
 
         /**
          * Specifies the sort order for results. If not given, results are sorted by created_at in
          * descending order.
          */
-        fun value(): Optional<Value_> = Optional.ofNullable(value)
+        fun value(): Optional<SortValue> = Optional.ofNullable(value)
 
         /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
@@ -1266,7 +1147,7 @@ private constructor(
         /** A builder for [Sort]. */
         class Builder internal constructor() {
 
-            private var value: Value_? = null
+            private var value: SortValue? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
@@ -1279,10 +1160,10 @@ private constructor(
              * Specifies the sort order for results. If not given, results are sorted by created_at
              * in descending order.
              */
-            fun value(value: Value_?) = apply { this.value = value }
+            fun value(value: SortValue?) = apply { this.value = value }
 
             /** Alias for calling [Builder.value] with `value.orElse(null)`. */
-            fun value(value: Optional<Value_>) = value(value.getOrNull())
+            fun value(value: Optional<SortValue>) = value(value.getOrNull())
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
@@ -1345,7 +1226,8 @@ private constructor(
          * Specifies the sort order for results. If not given, results are sorted by created_at in
          * descending order.
          */
-        class Value_ @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+        class SortValue @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1363,19 +1245,19 @@ private constructor(
 
                 @JvmField val CREATED_AT_DESC = of("-created_at")
 
-                @JvmStatic fun of(value: String) = Value_(JsonField.of(value))
+                @JvmStatic fun of(value: String) = SortValue(JsonField.of(value))
             }
 
-            /** An enum containing [Value_]'s known values. */
+            /** An enum containing [SortValue]'s known values. */
             enum class Known {
                 CREATED_AT,
                 CREATED_AT_DESC,
             }
 
             /**
-             * An enum containing [Value_]'s known values, as well as an [_UNKNOWN] member.
+             * An enum containing [SortValue]'s known values, as well as an [_UNKNOWN] member.
              *
-             * An instance of [Value_] can contain an unknown value in a couple of cases:
+             * An instance of [SortValue] can contain an unknown value in a couple of cases:
              * - It was deserialized from data that doesn't match any known member. For example, if
              *   the SDK is on an older version than the API, then the API may respond with new
              *   members that the SDK is unaware of.
@@ -1385,7 +1267,8 @@ private constructor(
                 CREATED_AT,
                 CREATED_AT_DESC,
                 /**
-                 * An enum member indicating that [Value_] was instantiated with an unknown value.
+                 * An enum member indicating that [SortValue] was instantiated with an unknown
+                 * value.
                  */
                 _UNKNOWN,
             }
@@ -1417,7 +1300,7 @@ private constructor(
                 when (this) {
                     CREATED_AT -> Known.CREATED_AT
                     CREATED_AT_DESC -> Known.CREATED_AT_DESC
-                    else -> throw TelnyxInvalidDataException("Unknown Value_: $value")
+                    else -> throw TelnyxInvalidDataException("Unknown SortValue: $value")
                 }
 
             /**
@@ -1436,7 +1319,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): Value_ = apply {
+            fun validate(): SortValue = apply {
                 if (validated) {
                     return@apply
                 }
@@ -1466,7 +1349,7 @@ private constructor(
                     return true
                 }
 
-                return other is Value_ && value == other.value
+                return other is SortValue && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1498,15 +1381,16 @@ private constructor(
 
         return other is CustomerServiceRecordListParams &&
             filter == other.filter &&
-            page == other.page &&
+            pageNumber == other.pageNumber &&
+            pageSize == other.pageSize &&
             sort == other.sort &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(filter, page, sort, additionalHeaders, additionalQueryParams)
+        Objects.hash(filter, pageNumber, pageSize, sort, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "CustomerServiceRecordListParams{filter=$filter, page=$page, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CustomerServiceRecordListParams{filter=$filter, pageNumber=$pageNumber, pageSize=$pageSize, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

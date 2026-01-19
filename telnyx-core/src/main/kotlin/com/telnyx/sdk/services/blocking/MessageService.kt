@@ -22,6 +22,8 @@ import com.telnyx.sdk.models.messages.MessageSendParams
 import com.telnyx.sdk.models.messages.MessageSendResponse
 import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeResponse
+import com.telnyx.sdk.models.messages.MessageSendWhatsappParams
+import com.telnyx.sdk.models.messages.MessageSendWhatsappResponse
 import com.telnyx.sdk.services.blocking.messages.RcService
 import java.util.function.Consumer
 
@@ -44,7 +46,7 @@ interface MessageService {
     /**
      * Note: This API endpoint can only retrieve messages that are no older than 10 days since their
      * creation. If you require messages older than this, please generate an
-     * [MDR report.](https://developers.telnyx.com/api/v1/mission-control/add-mdr-request)
+     * [MDR report.](https://developers.telnyx.com/api-reference/mdr-usage-reports/create-mdr-usage-report)
      */
     fun retrieve(id: String): MessageRetrieveResponse = retrieve(id, MessageRetrieveParams.none())
 
@@ -181,6 +183,16 @@ interface MessageService {
         params: MessageSendShortCodeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MessageSendShortCodeResponse
+
+    /** Send a Whatsapp message */
+    fun sendWhatsapp(params: MessageSendWhatsappParams): MessageSendWhatsappResponse =
+        sendWhatsapp(params, RequestOptions.none())
+
+    /** @see sendWhatsapp */
+    fun sendWhatsapp(
+        params: MessageSendWhatsappParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): MessageSendWhatsappResponse
 
     /** A view of [MessageService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -382,5 +394,22 @@ interface MessageService {
             params: MessageSendShortCodeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<MessageSendShortCodeResponse>
+
+        /**
+         * Returns a raw HTTP response for `post /messages/whatsapp`, but is otherwise the same as
+         * [MessageService.sendWhatsapp].
+         */
+        @MustBeClosed
+        fun sendWhatsapp(
+            params: MessageSendWhatsappParams
+        ): HttpResponseFor<MessageSendWhatsappResponse> =
+            sendWhatsapp(params, RequestOptions.none())
+
+        /** @see sendWhatsapp */
+        @MustBeClosed
+        fun sendWhatsapp(
+            params: MessageSendWhatsappParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<MessageSendWhatsappResponse>
     }
 }

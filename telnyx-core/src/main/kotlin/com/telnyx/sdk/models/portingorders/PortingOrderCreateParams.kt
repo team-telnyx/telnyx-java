@@ -163,9 +163,13 @@ private constructor(
         }
 
         /** A customer-specified reference number for customer bookkeeping purposes */
-        fun customerReference(customerReference: String) = apply {
+        fun customerReference(customerReference: String?) = apply {
             body.customerReference(customerReference)
         }
+
+        /** Alias for calling [Builder.customerReference] with `customerReference.orElse(null)`. */
+        fun customerReference(customerReference: Optional<String>) =
+            customerReference(customerReference.getOrNull())
 
         /**
          * Sets [Builder.customerReference] to an arbitrary JSON value.
@@ -482,8 +486,14 @@ private constructor(
             }
 
             /** A customer-specified reference number for customer bookkeeping purposes */
-            fun customerReference(customerReference: String) =
-                customerReference(JsonField.of(customerReference))
+            fun customerReference(customerReference: String?) =
+                customerReference(JsonField.ofNullable(customerReference))
+
+            /**
+             * Alias for calling [Builder.customerReference] with `customerReference.orElse(null)`.
+             */
+            fun customerReference(customerReference: Optional<String>) =
+                customerReference(customerReference.getOrNull())
 
             /**
              * Sets [Builder.customerReference] to an arbitrary JSON value.

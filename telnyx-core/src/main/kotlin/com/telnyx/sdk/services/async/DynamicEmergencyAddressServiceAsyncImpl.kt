@@ -20,8 +20,9 @@ import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressCr
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressCreateResponse
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressDeleteParams
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressDeleteResponse
+import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressListPageAsync
+import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressListPageResponse
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressListParams
-import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressListResponse
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressRetrieveParams
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -63,7 +64,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun list(
         params: DynamicEmergencyAddressListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<DynamicEmergencyAddressListResponse> =
+    ): CompletableFuture<DynamicEmergencyAddressListPageAsync> =
         // get /dynamic_emergency_addresses
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -151,13 +152,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 }
         }
 
-        private val listHandler: Handler<DynamicEmergencyAddressListResponse> =
-            jsonHandler<DynamicEmergencyAddressListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DynamicEmergencyAddressListPageResponse> =
+            jsonHandler<DynamicEmergencyAddressListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DynamicEmergencyAddressListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<DynamicEmergencyAddressListResponse>> {
+        ): CompletableFuture<HttpResponseFor<DynamicEmergencyAddressListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -176,6 +177,14 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                DynamicEmergencyAddressListPageAsync.builder()
+                                    .service(DynamicEmergencyAddressServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

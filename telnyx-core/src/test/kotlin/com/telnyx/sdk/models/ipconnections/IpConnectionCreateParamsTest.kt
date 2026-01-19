@@ -18,6 +18,7 @@ internal class IpConnectionCreateParamsTest {
             .active(true)
             .anchorsiteOverride(AnchorsiteOverride.LATENCY)
             .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+            .callCostInWebhooks(false)
             .connectionName("string")
             .defaultOnHoldComfortNoiseEnabled(true)
             .dtmfType(DtmfType.RFC_2833)
@@ -27,7 +28,7 @@ internal class IpConnectionCreateParamsTest {
                 IpConnectionCreateParams.Inbound.builder()
                     .aniNumberFormat(IpConnectionCreateParams.Inbound.AniNumberFormat.PLUS_E_164)
                     .channelLimit(10L)
-                    .addCodec("string")
+                    .addCodec("G722")
                     .defaultRoutingMethod(
                         IpConnectionCreateParams.Inbound.DefaultRoutingMethod.SEQUENTIAL
                     )
@@ -48,6 +49,13 @@ internal class IpConnectionCreateParamsTest {
                     .build()
             )
             .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+            .noiseSuppression(IpConnectionCreateParams.NoiseSuppression.BOTH)
+            .noiseSuppressionDetails(
+                IpConnectionCreateParams.NoiseSuppressionDetails.builder()
+                    .attenuationLimit(80L)
+                    .engine(IpConnectionCreateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                    .build()
+            )
             .onnetT38PassthroughEnabled(false)
             .outbound(
                 OutboundIp.builder()
@@ -75,7 +83,7 @@ internal class IpConnectionCreateParamsTest {
             .addTag("tag1")
             .addTag("tag2")
             .transportProtocol(IpConnectionCreateParams.TransportProtocol.UDP)
-            .webhookApiVersion(IpConnectionCreateParams.WebhookApiVersion._1)
+            .webhookApiVersion(IpConnectionCreateParams.WebhookApiVersion.V1)
             .webhookEventFailoverUrl("https://failover.example.com")
             .webhookEventUrl("https://example.com")
             .webhookTimeoutSecs(25L)
@@ -89,6 +97,7 @@ internal class IpConnectionCreateParamsTest {
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                 .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+                .callCostInWebhooks(false)
                 .connectionName("string")
                 .defaultOnHoldComfortNoiseEnabled(true)
                 .dtmfType(DtmfType.RFC_2833)
@@ -100,7 +109,7 @@ internal class IpConnectionCreateParamsTest {
                             IpConnectionCreateParams.Inbound.AniNumberFormat.PLUS_E_164
                         )
                         .channelLimit(10L)
-                        .addCodec("string")
+                        .addCodec("G722")
                         .defaultRoutingMethod(
                             IpConnectionCreateParams.Inbound.DefaultRoutingMethod.SEQUENTIAL
                         )
@@ -123,6 +132,15 @@ internal class IpConnectionCreateParamsTest {
                         .build()
                 )
                 .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                .noiseSuppression(IpConnectionCreateParams.NoiseSuppression.BOTH)
+                .noiseSuppressionDetails(
+                    IpConnectionCreateParams.NoiseSuppressionDetails.builder()
+                        .attenuationLimit(80L)
+                        .engine(
+                            IpConnectionCreateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                        )
+                        .build()
+                )
                 .onnetT38PassthroughEnabled(false)
                 .outbound(
                     OutboundIp.builder()
@@ -150,7 +168,7 @@ internal class IpConnectionCreateParamsTest {
                 .addTag("tag1")
                 .addTag("tag2")
                 .transportProtocol(IpConnectionCreateParams.TransportProtocol.UDP)
-                .webhookApiVersion(IpConnectionCreateParams.WebhookApiVersion._1)
+                .webhookApiVersion(IpConnectionCreateParams.WebhookApiVersion.V1)
                 .webhookEventFailoverUrl("https://failover.example.com")
                 .webhookEventUrl("https://example.com")
                 .webhookTimeoutSecs(25L)
@@ -161,6 +179,7 @@ internal class IpConnectionCreateParamsTest {
         assertThat(body.active()).contains(true)
         assertThat(body.anchorsiteOverride()).contains(AnchorsiteOverride.LATENCY)
         assertThat(body.androidPushCredentialId()).contains("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+        assertThat(body.callCostInWebhooks()).contains(false)
         assertThat(body.connectionName()).contains("string")
         assertThat(body.defaultOnHoldComfortNoiseEnabled()).contains(true)
         assertThat(body.dtmfType()).contains(DtmfType.RFC_2833)
@@ -171,7 +190,7 @@ internal class IpConnectionCreateParamsTest {
                 IpConnectionCreateParams.Inbound.builder()
                     .aniNumberFormat(IpConnectionCreateParams.Inbound.AniNumberFormat.PLUS_E_164)
                     .channelLimit(10L)
-                    .addCodec("string")
+                    .addCodec("G722")
                     .defaultRoutingMethod(
                         IpConnectionCreateParams.Inbound.DefaultRoutingMethod.SEQUENTIAL
                     )
@@ -192,6 +211,14 @@ internal class IpConnectionCreateParamsTest {
                     .build()
             )
         assertThat(body.iosPushCredentialId()).contains("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+        assertThat(body.noiseSuppression()).contains(IpConnectionCreateParams.NoiseSuppression.BOTH)
+        assertThat(body.noiseSuppressionDetails())
+            .contains(
+                IpConnectionCreateParams.NoiseSuppressionDetails.builder()
+                    .attenuationLimit(80L)
+                    .engine(IpConnectionCreateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                    .build()
+            )
         assertThat(body.onnetT38PassthroughEnabled()).contains(false)
         assertThat(body.outbound())
             .contains(
@@ -221,7 +248,7 @@ internal class IpConnectionCreateParamsTest {
         assertThat(body.tags().getOrNull()).containsExactly("tag1", "tag2")
         assertThat(body.transportProtocol())
             .contains(IpConnectionCreateParams.TransportProtocol.UDP)
-        assertThat(body.webhookApiVersion()).contains(IpConnectionCreateParams.WebhookApiVersion._1)
+        assertThat(body.webhookApiVersion()).contains(IpConnectionCreateParams.WebhookApiVersion.V1)
         assertThat(body.webhookEventFailoverUrl()).contains("https://failover.example.com")
         assertThat(body.webhookEventUrl()).contains("https://example.com")
         assertThat(body.webhookTimeoutSecs()).contains(25L)

@@ -23,15 +23,15 @@ class AiRetrieveModelsResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<Data>>,
-    private val object_: JsonField<String>,
+    private val modelObject: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("data") @ExcludeMissing data: JsonField<List<Data>> = JsonMissing.of(),
-        @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
-    ) : this(data, object_, mutableMapOf())
+        @JsonProperty("object") @ExcludeMissing modelObject: JsonField<String> = JsonMissing.of(),
+    ) : this(data, modelObject, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -43,7 +43,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun object_(): Optional<String> = object_.getOptional("object")
+    fun modelObject(): Optional<String> = modelObject.getOptional("object")
 
     /**
      * Returns the raw JSON value of [data].
@@ -53,11 +53,11 @@ private constructor(
     @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<Data>> = data
 
     /**
-     * Returns the raw JSON value of [object_].
+     * Returns the raw JSON value of [modelObject].
      *
-     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [modelObject], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
+    @JsonProperty("object") @ExcludeMissing fun _modelObject(): JsonField<String> = modelObject
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -88,13 +88,13 @@ private constructor(
     class Builder internal constructor() {
 
         private var data: JsonField<MutableList<Data>>? = null
-        private var object_: JsonField<String> = JsonMissing.of()
+        private var modelObject: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(aiRetrieveModelsResponse: AiRetrieveModelsResponse) = apply {
             data = aiRetrieveModelsResponse.data.map { it.toMutableList() }
-            object_ = aiRetrieveModelsResponse.object_
+            modelObject = aiRetrieveModelsResponse.modelObject
             additionalProperties = aiRetrieveModelsResponse.additionalProperties.toMutableMap()
         }
 
@@ -122,15 +122,16 @@ private constructor(
                 }
         }
 
-        fun object_(object_: String) = object_(JsonField.of(object_))
+        fun modelObject(modelObject: String) = modelObject(JsonField.of(modelObject))
 
         /**
-         * Sets [Builder.object_] to an arbitrary JSON value.
+         * Sets [Builder.modelObject] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.modelObject] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun modelObject(modelObject: JsonField<String>) = apply { this.modelObject = modelObject }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -166,7 +167,7 @@ private constructor(
         fun build(): AiRetrieveModelsResponse =
             AiRetrieveModelsResponse(
                 checkRequired("data", data).map { it.toImmutable() },
-                object_,
+                modelObject,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -179,7 +180,7 @@ private constructor(
         }
 
         data().forEach { it.validate() }
-        object_()
+        modelObject()
         validated = true
     }
 
@@ -199,7 +200,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (data.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-            (if (object_.asKnown().isPresent) 1 else 0)
+            (if (modelObject.asKnown().isPresent) 1 else 0)
 
     class Data
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -207,7 +208,7 @@ private constructor(
         private val id: JsonField<String>,
         private val created: JsonField<Long>,
         private val ownedBy: JsonField<String>,
-        private val object_: JsonField<String>,
+        private val modelObject: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -216,8 +217,10 @@ private constructor(
             @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("created") @ExcludeMissing created: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("owned_by") @ExcludeMissing ownedBy: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
-        ) : this(id, created, ownedBy, object_, mutableMapOf())
+            @JsonProperty("object")
+            @ExcludeMissing
+            modelObject: JsonField<String> = JsonMissing.of(),
+        ) : this(id, created, ownedBy, modelObject, mutableMapOf())
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -241,7 +244,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun object_(): Optional<String> = object_.getOptional("object")
+        fun modelObject(): Optional<String> = modelObject.getOptional("object")
 
         /**
          * Returns the raw JSON value of [id].
@@ -265,11 +268,11 @@ private constructor(
         @JsonProperty("owned_by") @ExcludeMissing fun _ownedBy(): JsonField<String> = ownedBy
 
         /**
-         * Returns the raw JSON value of [object_].
+         * Returns the raw JSON value of [modelObject].
          *
-         * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [modelObject], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
+        @JsonProperty("object") @ExcludeMissing fun _modelObject(): JsonField<String> = modelObject
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -304,7 +307,7 @@ private constructor(
             private var id: JsonField<String>? = null
             private var created: JsonField<Long>? = null
             private var ownedBy: JsonField<String>? = null
-            private var object_: JsonField<String> = JsonMissing.of()
+            private var modelObject: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -312,7 +315,7 @@ private constructor(
                 id = data.id
                 created = data.created
                 ownedBy = data.ownedBy
-                object_ = data.object_
+                modelObject = data.modelObject
                 additionalProperties = data.additionalProperties.toMutableMap()
             }
 
@@ -349,16 +352,18 @@ private constructor(
              */
             fun ownedBy(ownedBy: JsonField<String>) = apply { this.ownedBy = ownedBy }
 
-            fun object_(object_: String) = object_(JsonField.of(object_))
+            fun modelObject(modelObject: String) = modelObject(JsonField.of(modelObject))
 
             /**
-             * Sets [Builder.object_] to an arbitrary JSON value.
+             * Sets [Builder.modelObject] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.object_] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.modelObject] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+            fun modelObject(modelObject: JsonField<String>) = apply {
+                this.modelObject = modelObject
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -398,7 +403,7 @@ private constructor(
                     checkRequired("id", id),
                     checkRequired("created", created),
                     checkRequired("ownedBy", ownedBy),
-                    object_,
+                    modelObject,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -413,7 +418,7 @@ private constructor(
             id()
             created()
             ownedBy()
-            object_()
+            modelObject()
             validated = true
         }
 
@@ -436,7 +441,7 @@ private constructor(
             (if (id.asKnown().isPresent) 1 else 0) +
                 (if (created.asKnown().isPresent) 1 else 0) +
                 (if (ownedBy.asKnown().isPresent) 1 else 0) +
-                (if (object_.asKnown().isPresent) 1 else 0)
+                (if (modelObject.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -447,18 +452,18 @@ private constructor(
                 id == other.id &&
                 created == other.created &&
                 ownedBy == other.ownedBy &&
-                object_ == other.object_ &&
+                modelObject == other.modelObject &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(id, created, ownedBy, object_, additionalProperties)
+            Objects.hash(id, created, ownedBy, modelObject, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{id=$id, created=$created, ownedBy=$ownedBy, object_=$object_, additionalProperties=$additionalProperties}"
+            "Data{id=$id, created=$created, ownedBy=$ownedBy, modelObject=$modelObject, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -468,14 +473,14 @@ private constructor(
 
         return other is AiRetrieveModelsResponse &&
             data == other.data &&
-            object_ == other.object_ &&
+            modelObject == other.modelObject &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(data, object_, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(data, modelObject, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AiRetrieveModelsResponse{data=$data, object_=$object_, additionalProperties=$additionalProperties}"
+        "AiRetrieveModelsResponse{data=$data, modelObject=$modelObject, additionalProperties=$additionalProperties}"
 }

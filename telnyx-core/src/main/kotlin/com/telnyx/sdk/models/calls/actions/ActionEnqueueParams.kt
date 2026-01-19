@@ -59,6 +59,15 @@ private constructor(
     fun commandId(): Optional<String> = body.commandId()
 
     /**
+     * If set to true, the call will remain in the queue after hangup. In this case bridging to such
+     * call will fail with necessary information needed to re-establish the call.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun keepAfterHangup(): Optional<Boolean> = body.keepAfterHangup()
+
+    /**
      * The maximum number of calls allowed in the queue at a given time. Can't be modified for an
      * existing queue.
      *
@@ -95,6 +104,13 @@ private constructor(
      * Unlike [commandId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _commandId(): JsonField<String> = body._commandId()
+
+    /**
+     * Returns the raw JSON value of [keepAfterHangup].
+     *
+     * Unlike [keepAfterHangup], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _keepAfterHangup(): JsonField<Boolean> = body._keepAfterHangup()
 
     /**
      * Returns the raw JSON value of [maxSize].
@@ -163,8 +179,8 @@ private constructor(
          * - [queueName]
          * - [clientState]
          * - [commandId]
+         * - [keepAfterHangup]
          * - [maxSize]
-         * - [maxWaitTimeSecs]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -213,6 +229,25 @@ private constructor(
          * value.
          */
         fun commandId(commandId: JsonField<String>) = apply { body.commandId(commandId) }
+
+        /**
+         * If set to true, the call will remain in the queue after hangup. In this case bridging to
+         * such call will fail with necessary information needed to re-establish the call.
+         */
+        fun keepAfterHangup(keepAfterHangup: Boolean) = apply {
+            body.keepAfterHangup(keepAfterHangup)
+        }
+
+        /**
+         * Sets [Builder.keepAfterHangup] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.keepAfterHangup] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun keepAfterHangup(keepAfterHangup: JsonField<Boolean>) = apply {
+            body.keepAfterHangup(keepAfterHangup)
+        }
 
         /**
          * The maximum number of calls allowed in the queue at a given time. Can't be modified for
@@ -398,6 +433,7 @@ private constructor(
         private val queueName: JsonField<String>,
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
+        private val keepAfterHangup: JsonField<Boolean>,
         private val maxSize: JsonField<Long>,
         private val maxWaitTimeSecs: JsonField<Long>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -414,11 +450,22 @@ private constructor(
             @JsonProperty("command_id")
             @ExcludeMissing
             commandId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("keep_after_hangup")
+            @ExcludeMissing
+            keepAfterHangup: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("max_size") @ExcludeMissing maxSize: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("max_wait_time_secs")
             @ExcludeMissing
             maxWaitTimeSecs: JsonField<Long> = JsonMissing.of(),
-        ) : this(queueName, clientState, commandId, maxSize, maxWaitTimeSecs, mutableMapOf())
+        ) : this(
+            queueName,
+            clientState,
+            commandId,
+            keepAfterHangup,
+            maxSize,
+            maxWaitTimeSecs,
+            mutableMapOf(),
+        )
 
         /**
          * The name of the queue the call should be put in. If a queue with a given name doesn't
@@ -446,6 +493,15 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun commandId(): Optional<String> = commandId.getOptional("command_id")
+
+        /**
+         * If set to true, the call will remain in the queue after hangup. In this case bridging to
+         * such call will fail with necessary information needed to re-establish the call.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun keepAfterHangup(): Optional<Boolean> = keepAfterHangup.getOptional("keep_after_hangup")
 
         /**
          * The maximum number of calls allowed in the queue at a given time. Can't be modified for
@@ -486,6 +542,16 @@ private constructor(
          * Unlike [commandId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("command_id") @ExcludeMissing fun _commandId(): JsonField<String> = commandId
+
+        /**
+         * Returns the raw JSON value of [keepAfterHangup].
+         *
+         * Unlike [keepAfterHangup], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("keep_after_hangup")
+        @ExcludeMissing
+        fun _keepAfterHangup(): JsonField<Boolean> = keepAfterHangup
 
         /**
          * Returns the raw JSON value of [maxSize].
@@ -535,6 +601,7 @@ private constructor(
             private var queueName: JsonField<String>? = null
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
+            private var keepAfterHangup: JsonField<Boolean> = JsonMissing.of()
             private var maxSize: JsonField<Long> = JsonMissing.of()
             private var maxWaitTimeSecs: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -544,6 +611,7 @@ private constructor(
                 queueName = body.queueName
                 clientState = body.clientState
                 commandId = body.commandId
+                keepAfterHangup = body.keepAfterHangup
                 maxSize = body.maxSize
                 maxWaitTimeSecs = body.maxWaitTimeSecs
                 additionalProperties = body.additionalProperties.toMutableMap()
@@ -595,6 +663,24 @@ private constructor(
              * supported value.
              */
             fun commandId(commandId: JsonField<String>) = apply { this.commandId = commandId }
+
+            /**
+             * If set to true, the call will remain in the queue after hangup. In this case bridging
+             * to such call will fail with necessary information needed to re-establish the call.
+             */
+            fun keepAfterHangup(keepAfterHangup: Boolean) =
+                keepAfterHangup(JsonField.of(keepAfterHangup))
+
+            /**
+             * Sets [Builder.keepAfterHangup] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.keepAfterHangup] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun keepAfterHangup(keepAfterHangup: JsonField<Boolean>) = apply {
+                this.keepAfterHangup = keepAfterHangup
+            }
 
             /**
              * The maximum number of calls allowed in the queue at a given time. Can't be modified
@@ -662,6 +748,7 @@ private constructor(
                     checkRequired("queueName", queueName),
                     clientState,
                     commandId,
+                    keepAfterHangup,
                     maxSize,
                     maxWaitTimeSecs,
                     additionalProperties.toMutableMap(),
@@ -678,6 +765,7 @@ private constructor(
             queueName()
             clientState()
             commandId()
+            keepAfterHangup()
             maxSize()
             maxWaitTimeSecs()
             validated = true
@@ -702,6 +790,7 @@ private constructor(
             (if (queueName.asKnown().isPresent) 1 else 0) +
                 (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
+                (if (keepAfterHangup.asKnown().isPresent) 1 else 0) +
                 (if (maxSize.asKnown().isPresent) 1 else 0) +
                 (if (maxWaitTimeSecs.asKnown().isPresent) 1 else 0)
 
@@ -714,6 +803,7 @@ private constructor(
                 queueName == other.queueName &&
                 clientState == other.clientState &&
                 commandId == other.commandId &&
+                keepAfterHangup == other.keepAfterHangup &&
                 maxSize == other.maxSize &&
                 maxWaitTimeSecs == other.maxWaitTimeSecs &&
                 additionalProperties == other.additionalProperties
@@ -724,6 +814,7 @@ private constructor(
                 queueName,
                 clientState,
                 commandId,
+                keepAfterHangup,
                 maxSize,
                 maxWaitTimeSecs,
                 additionalProperties,
@@ -733,7 +824,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{queueName=$queueName, clientState=$clientState, commandId=$commandId, maxSize=$maxSize, maxWaitTimeSecs=$maxWaitTimeSecs, additionalProperties=$additionalProperties}"
+            "Body{queueName=$queueName, clientState=$clientState, commandId=$commandId, keepAfterHangup=$keepAfterHangup, maxSize=$maxSize, maxWaitTimeSecs=$maxWaitTimeSecs, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -17,7 +17,7 @@ internal class PhoneNumberConfigurationListParamsTest {
                         PhoneNumberConfigurationListParams.Filter.PortingOrder.builder()
                             .addStatus(
                                 PhoneNumberConfigurationListParams.Filter.PortingOrder.Status
-                                    .ACTIVATION_IN_PROGRESS
+                                    .IN_PROCESS
                             )
                             .build()
                     )
@@ -25,10 +25,11 @@ internal class PhoneNumberConfigurationListParamsTest {
                     .addUserBundleId("5d6f7ede-1961-4717-bfb5-db392c5efc2d")
                     .build()
             )
-            .page(PhoneNumberConfigurationListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .sort(
                 PhoneNumberConfigurationListParams.Sort.builder()
-                    .value(PhoneNumberConfigurationListParams.Sort.Value_.CREATED_AT)
+                    .value(PhoneNumberConfigurationListParams.Sort.SortValue.CREATED_AT)
                     .build()
             )
             .build()
@@ -44,7 +45,7 @@ internal class PhoneNumberConfigurationListParamsTest {
                             PhoneNumberConfigurationListParams.Filter.PortingOrder.builder()
                                 .addStatus(
                                     PhoneNumberConfigurationListParams.Filter.PortingOrder.Status
-                                        .ACTIVATION_IN_PROGRESS
+                                        .IN_PROCESS
                                 )
                                 .build()
                         )
@@ -52,10 +53,11 @@ internal class PhoneNumberConfigurationListParamsTest {
                         .addUserBundleId("5d6f7ede-1961-4717-bfb5-db392c5efc2d")
                         .build()
                 )
-                .page(PhoneNumberConfigurationListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .sort(
                     PhoneNumberConfigurationListParams.Sort.builder()
-                        .value(PhoneNumberConfigurationListParams.Sort.Value_.CREATED_AT)
+                        .value(PhoneNumberConfigurationListParams.Sort.SortValue.CREATED_AT)
                         .build()
                 )
                 .build()
@@ -65,10 +67,7 @@ internal class PhoneNumberConfigurationListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put(
-                        "filter[porting_order][status]",
-                        listOf("activation-in-progress").joinToString(","),
-                    )
+                    .put("filter[porting_order][status]", listOf("in-process").joinToString(","))
                     .put(
                         "filter[porting_phone_number]",
                         listOf("5d6f7ede-1961-4717-bfb5-db392c5efc2d").joinToString(","),
@@ -77,8 +76,8 @@ internal class PhoneNumberConfigurationListParamsTest {
                         "filter[user_bundle_id]",
                         listOf("5d6f7ede-1961-4717-bfb5-db392c5efc2d").joinToString(","),
                     )
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .put("sort[value]", "created_at")
                     .build()
             )

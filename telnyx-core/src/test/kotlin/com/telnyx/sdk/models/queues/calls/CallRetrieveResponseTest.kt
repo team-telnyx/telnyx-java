@@ -26,6 +26,7 @@ internal class CallRetrieveResponseTest {
                         .recordType(CallRetrieveResponse.Data.RecordType.QUEUE_CALL)
                         .to("+18005550102")
                         .waitTimeSecs(145L)
+                        .isAlive(true)
                         .build()
                 )
                 .build()
@@ -44,6 +45,7 @@ internal class CallRetrieveResponseTest {
                     .recordType(CallRetrieveResponse.Data.RecordType.QUEUE_CALL)
                     .to("+18005550102")
                     .waitTimeSecs(145L)
+                    .isAlive(true)
                     .build()
             )
     }
@@ -66,6 +68,7 @@ internal class CallRetrieveResponseTest {
                         .recordType(CallRetrieveResponse.Data.RecordType.QUEUE_CALL)
                         .to("+18005550102")
                         .waitTimeSecs(145L)
+                        .isAlive(true)
                         .build()
                 )
                 .build()

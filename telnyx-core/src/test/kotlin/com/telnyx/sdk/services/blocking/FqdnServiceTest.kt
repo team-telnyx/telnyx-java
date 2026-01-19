@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.fqdns.FqdnCreateParams
-import com.telnyx.sdk.models.fqdns.FqdnListParams
 import com.telnyx.sdk.models.fqdns.FqdnUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -86,22 +85,9 @@ internal class FqdnServiceTest {
                 .build()
         val fqdnService = client.fqdns()
 
-        val fqdns =
-            fqdnService.list(
-                FqdnListParams.builder()
-                    .filter(
-                        FqdnListParams.Filter.builder()
-                            .connectionId("connection_id")
-                            .dnsRecordType("a")
-                            .fqdn("example.com")
-                            .port(5060L)
-                            .build()
-                    )
-                    .page(FqdnListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val page = fqdnService.list()
 
-        fqdns.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

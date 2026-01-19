@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.otaupdates.OtaUpdateListPage
 import com.telnyx.sdk.models.otaupdates.OtaUpdateListParams
-import com.telnyx.sdk.models.otaupdates.OtaUpdateListResponse
 import com.telnyx.sdk.models.otaupdates.OtaUpdateRetrieveParams
 import com.telnyx.sdk.models.otaupdates.OtaUpdateRetrieveResponse
 import java.util.function.Consumer
@@ -58,20 +58,20 @@ interface OtaUpdateService {
         retrieve(id, OtaUpdateRetrieveParams.none(), requestOptions)
 
     /** List OTA updates */
-    fun list(): OtaUpdateListResponse = list(OtaUpdateListParams.none())
+    fun list(): OtaUpdateListPage = list(OtaUpdateListParams.none())
 
     /** @see list */
     fun list(
         params: OtaUpdateListParams = OtaUpdateListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): OtaUpdateListResponse
+    ): OtaUpdateListPage
 
     /** @see list */
-    fun list(params: OtaUpdateListParams = OtaUpdateListParams.none()): OtaUpdateListResponse =
+    fun list(params: OtaUpdateListParams = OtaUpdateListParams.none()): OtaUpdateListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): OtaUpdateListResponse =
+    fun list(requestOptions: RequestOptions): OtaUpdateListPage =
         list(OtaUpdateListParams.none(), requestOptions)
 
     /** A view of [OtaUpdateService] that provides access to raw HTTP responses for each method. */
@@ -133,24 +133,24 @@ interface OtaUpdateService {
          * [OtaUpdateService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<OtaUpdateListResponse> = list(OtaUpdateListParams.none())
+        fun list(): HttpResponseFor<OtaUpdateListPage> = list(OtaUpdateListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: OtaUpdateListParams = OtaUpdateListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<OtaUpdateListResponse>
+        ): HttpResponseFor<OtaUpdateListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: OtaUpdateListParams = OtaUpdateListParams.none()
-        ): HttpResponseFor<OtaUpdateListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<OtaUpdateListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<OtaUpdateListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<OtaUpdateListPage> =
             list(OtaUpdateListParams.none(), requestOptions)
     }
 }

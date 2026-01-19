@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async.phonenumbers
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.phonenumbers.messaging.MessagingListParams
 import com.telnyx.sdk.models.phonenumbers.messaging.MessagingUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -62,14 +61,9 @@ internal class MessagingServiceAsyncTest {
                 .build()
         val messagingServiceAsync = client.phoneNumbers().messaging()
 
-        val messagingsFuture =
-            messagingServiceAsync.list(
-                MessagingListParams.builder()
-                    .page(MessagingListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = messagingServiceAsync.list()
 
-        val messagings = messagingsFuture.get()
-        messagings.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

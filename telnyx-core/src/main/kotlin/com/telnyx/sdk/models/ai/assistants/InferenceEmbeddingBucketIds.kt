@@ -39,7 +39,7 @@ private constructor(
 
     /**
      * List of
-     * [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding)
+     * [embedded storage buckets](https://developers.telnyx.com/api-reference/embeddings/embed-documents)
      * to use for retrieval-augmented generation.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -114,7 +114,7 @@ private constructor(
 
         /**
          * List of
-         * [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding)
+         * [embedded storage buckets](https://developers.telnyx.com/api-reference/embeddings/embed-documents)
          * to use for retrieval-augmented generation.
          */
         fun bucketIds(bucketIds: List<String>) = bucketIds(JsonField.of(bucketIds))

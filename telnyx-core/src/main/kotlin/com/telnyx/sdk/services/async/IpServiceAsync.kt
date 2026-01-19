@@ -9,8 +9,8 @@ import com.telnyx.sdk.models.ips.IpCreateParams
 import com.telnyx.sdk.models.ips.IpCreateResponse
 import com.telnyx.sdk.models.ips.IpDeleteParams
 import com.telnyx.sdk.models.ips.IpDeleteResponse
+import com.telnyx.sdk.models.ips.IpListPageAsync
 import com.telnyx.sdk.models.ips.IpListParams
-import com.telnyx.sdk.models.ips.IpListResponse
 import com.telnyx.sdk.models.ips.IpRetrieveParams
 import com.telnyx.sdk.models.ips.IpRetrieveResponse
 import com.telnyx.sdk.models.ips.IpUpdateParams
@@ -99,20 +99,20 @@ interface IpServiceAsync {
     ): CompletableFuture<IpUpdateResponse>
 
     /** Get all IPs belonging to the user that match the given filters. */
-    fun list(): CompletableFuture<IpListResponse> = list(IpListParams.none())
+    fun list(): CompletableFuture<IpListPageAsync> = list(IpListParams.none())
 
     /** @see list */
     fun list(
         params: IpListParams = IpListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IpListResponse>
+    ): CompletableFuture<IpListPageAsync>
 
     /** @see list */
-    fun list(params: IpListParams = IpListParams.none()): CompletableFuture<IpListResponse> =
+    fun list(params: IpListParams = IpListParams.none()): CompletableFuture<IpListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<IpListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<IpListPageAsync> =
         list(IpListParams.none(), requestOptions)
 
     /** Delete an IP. */
@@ -242,23 +242,23 @@ interface IpServiceAsync {
          * Returns a raw HTTP response for `get /ips`, but is otherwise the same as
          * [IpServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<IpListResponse>> = list(IpListParams.none())
+        fun list(): CompletableFuture<HttpResponseFor<IpListPageAsync>> = list(IpListParams.none())
 
         /** @see list */
         fun list(
             params: IpListParams = IpListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IpListResponse>>
+        ): CompletableFuture<HttpResponseFor<IpListPageAsync>>
 
         /** @see list */
         fun list(
             params: IpListParams = IpListParams.none()
-        ): CompletableFuture<HttpResponseFor<IpListResponse>> = list(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<IpListPageAsync>> = list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<IpListResponse>> =
+        ): CompletableFuture<HttpResponseFor<IpListPageAsync>> =
             list(IpListParams.none(), requestOptions)
 
         /**

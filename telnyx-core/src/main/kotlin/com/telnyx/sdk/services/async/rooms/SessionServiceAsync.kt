@@ -5,13 +5,13 @@ package com.telnyx.sdk.services.async.rooms
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.rooms.sessions.SessionList0PageAsync
 import com.telnyx.sdk.models.rooms.sessions.SessionList0Params
-import com.telnyx.sdk.models.rooms.sessions.SessionList0Response
+import com.telnyx.sdk.models.rooms.sessions.SessionList1PageAsync
 import com.telnyx.sdk.models.rooms.sessions.SessionList1Params
-import com.telnyx.sdk.models.rooms.sessions.SessionList1Response
 import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParams
+import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParticipantsPageAsync
 import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParticipantsParams
-import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveParticipantsResponse
 import com.telnyx.sdk.models.rooms.sessions.SessionRetrieveResponse
 import com.telnyx.sdk.services.async.rooms.sessions.ActionServiceAsync
 import java.util.concurrent.CompletableFuture
@@ -70,25 +70,25 @@ interface SessionServiceAsync {
         retrieve(roomSessionId, SessionRetrieveParams.none(), requestOptions)
 
     /** View a list of room sessions. */
-    fun list0(): CompletableFuture<SessionList0Response> = list0(SessionList0Params.none())
+    fun list0(): CompletableFuture<SessionList0PageAsync> = list0(SessionList0Params.none())
 
     /** @see list0 */
     fun list0(
         params: SessionList0Params = SessionList0Params.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SessionList0Response>
+    ): CompletableFuture<SessionList0PageAsync>
 
     /** @see list0 */
     fun list0(
         params: SessionList0Params = SessionList0Params.none()
-    ): CompletableFuture<SessionList0Response> = list0(params, RequestOptions.none())
+    ): CompletableFuture<SessionList0PageAsync> = list0(params, RequestOptions.none())
 
     /** @see list0 */
-    fun list0(requestOptions: RequestOptions): CompletableFuture<SessionList0Response> =
+    fun list0(requestOptions: RequestOptions): CompletableFuture<SessionList0PageAsync> =
         list0(SessionList0Params.none(), requestOptions)
 
     /** View a list of room sessions. */
-    fun list1(roomId: String): CompletableFuture<SessionList1Response> =
+    fun list1(roomId: String): CompletableFuture<SessionList1PageAsync> =
         list1(roomId, SessionList1Params.none())
 
     /** @see list1 */
@@ -96,36 +96,36 @@ interface SessionServiceAsync {
         roomId: String,
         params: SessionList1Params = SessionList1Params.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SessionList1Response> =
+    ): CompletableFuture<SessionList1PageAsync> =
         list1(params.toBuilder().roomId(roomId).build(), requestOptions)
 
     /** @see list1 */
     fun list1(
         roomId: String,
         params: SessionList1Params = SessionList1Params.none(),
-    ): CompletableFuture<SessionList1Response> = list1(roomId, params, RequestOptions.none())
+    ): CompletableFuture<SessionList1PageAsync> = list1(roomId, params, RequestOptions.none())
 
     /** @see list1 */
     fun list1(
         params: SessionList1Params,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SessionList1Response>
+    ): CompletableFuture<SessionList1PageAsync>
 
     /** @see list1 */
-    fun list1(params: SessionList1Params): CompletableFuture<SessionList1Response> =
+    fun list1(params: SessionList1Params): CompletableFuture<SessionList1PageAsync> =
         list1(params, RequestOptions.none())
 
     /** @see list1 */
     fun list1(
         roomId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SessionList1Response> =
+    ): CompletableFuture<SessionList1PageAsync> =
         list1(roomId, SessionList1Params.none(), requestOptions)
 
     /** View a list of room participants. */
     fun retrieveParticipants(
         roomSessionId: String
-    ): CompletableFuture<SessionRetrieveParticipantsResponse> =
+    ): CompletableFuture<SessionRetrieveParticipantsPageAsync> =
         retrieveParticipants(roomSessionId, SessionRetrieveParticipantsParams.none())
 
     /** @see retrieveParticipants */
@@ -133,7 +133,7 @@ interface SessionServiceAsync {
         roomSessionId: String,
         params: SessionRetrieveParticipantsParams = SessionRetrieveParticipantsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SessionRetrieveParticipantsResponse> =
+    ): CompletableFuture<SessionRetrieveParticipantsPageAsync> =
         retrieveParticipants(
             params.toBuilder().roomSessionId(roomSessionId).build(),
             requestOptions,
@@ -143,26 +143,26 @@ interface SessionServiceAsync {
     fun retrieveParticipants(
         roomSessionId: String,
         params: SessionRetrieveParticipantsParams = SessionRetrieveParticipantsParams.none(),
-    ): CompletableFuture<SessionRetrieveParticipantsResponse> =
+    ): CompletableFuture<SessionRetrieveParticipantsPageAsync> =
         retrieveParticipants(roomSessionId, params, RequestOptions.none())
 
     /** @see retrieveParticipants */
     fun retrieveParticipants(
         params: SessionRetrieveParticipantsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SessionRetrieveParticipantsResponse>
+    ): CompletableFuture<SessionRetrieveParticipantsPageAsync>
 
     /** @see retrieveParticipants */
     fun retrieveParticipants(
         params: SessionRetrieveParticipantsParams
-    ): CompletableFuture<SessionRetrieveParticipantsResponse> =
+    ): CompletableFuture<SessionRetrieveParticipantsPageAsync> =
         retrieveParticipants(params, RequestOptions.none())
 
     /** @see retrieveParticipants */
     fun retrieveParticipants(
         roomSessionId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SessionRetrieveParticipantsResponse> =
+    ): CompletableFuture<SessionRetrieveParticipantsPageAsync> =
         retrieveParticipants(
             roomSessionId,
             SessionRetrieveParticipantsParams.none(),
@@ -232,32 +232,32 @@ interface SessionServiceAsync {
          * Returns a raw HTTP response for `get /room_sessions`, but is otherwise the same as
          * [SessionServiceAsync.list0].
          */
-        fun list0(): CompletableFuture<HttpResponseFor<SessionList0Response>> =
+        fun list0(): CompletableFuture<HttpResponseFor<SessionList0PageAsync>> =
             list0(SessionList0Params.none())
 
         /** @see list0 */
         fun list0(
             params: SessionList0Params = SessionList0Params.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SessionList0Response>>
+        ): CompletableFuture<HttpResponseFor<SessionList0PageAsync>>
 
         /** @see list0 */
         fun list0(
             params: SessionList0Params = SessionList0Params.none()
-        ): CompletableFuture<HttpResponseFor<SessionList0Response>> =
+        ): CompletableFuture<HttpResponseFor<SessionList0PageAsync>> =
             list0(params, RequestOptions.none())
 
         /** @see list0 */
         fun list0(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<SessionList0Response>> =
+        ): CompletableFuture<HttpResponseFor<SessionList0PageAsync>> =
             list0(SessionList0Params.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /rooms/{room_id}/sessions`, but is otherwise the
          * same as [SessionServiceAsync.list1].
          */
-        fun list1(roomId: String): CompletableFuture<HttpResponseFor<SessionList1Response>> =
+        fun list1(roomId: String): CompletableFuture<HttpResponseFor<SessionList1PageAsync>> =
             list1(roomId, SessionList1Params.none())
 
         /** @see list1 */
@@ -265,33 +265,33 @@ interface SessionServiceAsync {
             roomId: String,
             params: SessionList1Params = SessionList1Params.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SessionList1Response>> =
+        ): CompletableFuture<HttpResponseFor<SessionList1PageAsync>> =
             list1(params.toBuilder().roomId(roomId).build(), requestOptions)
 
         /** @see list1 */
         fun list1(
             roomId: String,
             params: SessionList1Params = SessionList1Params.none(),
-        ): CompletableFuture<HttpResponseFor<SessionList1Response>> =
+        ): CompletableFuture<HttpResponseFor<SessionList1PageAsync>> =
             list1(roomId, params, RequestOptions.none())
 
         /** @see list1 */
         fun list1(
             params: SessionList1Params,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SessionList1Response>>
+        ): CompletableFuture<HttpResponseFor<SessionList1PageAsync>>
 
         /** @see list1 */
         fun list1(
             params: SessionList1Params
-        ): CompletableFuture<HttpResponseFor<SessionList1Response>> =
+        ): CompletableFuture<HttpResponseFor<SessionList1PageAsync>> =
             list1(params, RequestOptions.none())
 
         /** @see list1 */
         fun list1(
             roomId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SessionList1Response>> =
+        ): CompletableFuture<HttpResponseFor<SessionList1PageAsync>> =
             list1(roomId, SessionList1Params.none(), requestOptions)
 
         /**
@@ -300,7 +300,7 @@ interface SessionServiceAsync {
          */
         fun retrieveParticipants(
             roomSessionId: String
-        ): CompletableFuture<HttpResponseFor<SessionRetrieveParticipantsResponse>> =
+        ): CompletableFuture<HttpResponseFor<SessionRetrieveParticipantsPageAsync>> =
             retrieveParticipants(roomSessionId, SessionRetrieveParticipantsParams.none())
 
         /** @see retrieveParticipants */
@@ -308,7 +308,7 @@ interface SessionServiceAsync {
             roomSessionId: String,
             params: SessionRetrieveParticipantsParams = SessionRetrieveParticipantsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SessionRetrieveParticipantsResponse>> =
+        ): CompletableFuture<HttpResponseFor<SessionRetrieveParticipantsPageAsync>> =
             retrieveParticipants(
                 params.toBuilder().roomSessionId(roomSessionId).build(),
                 requestOptions,
@@ -318,26 +318,26 @@ interface SessionServiceAsync {
         fun retrieveParticipants(
             roomSessionId: String,
             params: SessionRetrieveParticipantsParams = SessionRetrieveParticipantsParams.none(),
-        ): CompletableFuture<HttpResponseFor<SessionRetrieveParticipantsResponse>> =
+        ): CompletableFuture<HttpResponseFor<SessionRetrieveParticipantsPageAsync>> =
             retrieveParticipants(roomSessionId, params, RequestOptions.none())
 
         /** @see retrieveParticipants */
         fun retrieveParticipants(
             params: SessionRetrieveParticipantsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SessionRetrieveParticipantsResponse>>
+        ): CompletableFuture<HttpResponseFor<SessionRetrieveParticipantsPageAsync>>
 
         /** @see retrieveParticipants */
         fun retrieveParticipants(
             params: SessionRetrieveParticipantsParams
-        ): CompletableFuture<HttpResponseFor<SessionRetrieveParticipantsResponse>> =
+        ): CompletableFuture<HttpResponseFor<SessionRetrieveParticipantsPageAsync>> =
             retrieveParticipants(params, RequestOptions.none())
 
         /** @see retrieveParticipants */
         fun retrieveParticipants(
             roomSessionId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SessionRetrieveParticipantsResponse>> =
+        ): CompletableFuture<HttpResponseFor<SessionRetrieveParticipantsPageAsync>> =
             retrieveParticipants(
                 roomSessionId,
                 SessionRetrieveParticipantsParams.none(),

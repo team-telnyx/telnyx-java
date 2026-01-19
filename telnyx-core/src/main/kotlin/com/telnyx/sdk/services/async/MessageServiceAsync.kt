@@ -21,6 +21,8 @@ import com.telnyx.sdk.models.messages.MessageSendParams
 import com.telnyx.sdk.models.messages.MessageSendResponse
 import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeResponse
+import com.telnyx.sdk.models.messages.MessageSendWhatsappParams
+import com.telnyx.sdk.models.messages.MessageSendWhatsappResponse
 import com.telnyx.sdk.services.async.messages.RcServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -44,7 +46,7 @@ interface MessageServiceAsync {
     /**
      * Note: This API endpoint can only retrieve messages that are no older than 10 days since their
      * creation. If you require messages older than this, please generate an
-     * [MDR report.](https://developers.telnyx.com/api/v1/mission-control/add-mdr-request)
+     * [MDR report.](https://developers.telnyx.com/api-reference/mdr-usage-reports/create-mdr-usage-report)
      */
     fun retrieve(id: String): CompletableFuture<MessageRetrieveResponse> =
         retrieve(id, MessageRetrieveParams.none())
@@ -196,6 +198,17 @@ interface MessageServiceAsync {
         params: MessageSendShortCodeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessageSendShortCodeResponse>
+
+    /** Send a Whatsapp message */
+    fun sendWhatsapp(
+        params: MessageSendWhatsappParams
+    ): CompletableFuture<MessageSendWhatsappResponse> = sendWhatsapp(params, RequestOptions.none())
+
+    /** @see sendWhatsapp */
+    fun sendWhatsapp(
+        params: MessageSendWhatsappParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<MessageSendWhatsappResponse>
 
     /**
      * A view of [MessageServiceAsync] that provides access to raw HTTP responses for each method.
@@ -386,5 +399,20 @@ interface MessageServiceAsync {
             params: MessageSendShortCodeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<MessageSendShortCodeResponse>>
+
+        /**
+         * Returns a raw HTTP response for `post /messages/whatsapp`, but is otherwise the same as
+         * [MessageServiceAsync.sendWhatsapp].
+         */
+        fun sendWhatsapp(
+            params: MessageSendWhatsappParams
+        ): CompletableFuture<HttpResponseFor<MessageSendWhatsappResponse>> =
+            sendWhatsapp(params, RequestOptions.none())
+
+        /** @see sendWhatsapp */
+        fun sendWhatsapp(
+            params: MessageSendWhatsappParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<MessageSendWhatsappResponse>>
     }
 }

@@ -15,8 +15,9 @@ import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListPage
+import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListPageResponse
 import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListParams
-import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListResponse
 import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryRetrieveParams
 import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryRetrieveResponse
 import java.util.function.Consumer
@@ -44,7 +45,7 @@ class WebhookDeliveryServiceImpl internal constructor(private val clientOptions:
     override fun list(
         params: WebhookDeliveryListParams,
         requestOptions: RequestOptions,
-    ): WebhookDeliveryListResponse =
+    ): WebhookDeliveryListPage =
         // get /webhook_deliveries
         withRawResponse().list(params, requestOptions).parse()
 
@@ -91,13 +92,13 @@ class WebhookDeliveryServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val listHandler: Handler<WebhookDeliveryListResponse> =
-            jsonHandler<WebhookDeliveryListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<WebhookDeliveryListPageResponse> =
+            jsonHandler<WebhookDeliveryListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: WebhookDeliveryListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<WebhookDeliveryListResponse> {
+        ): HttpResponseFor<WebhookDeliveryListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -114,6 +115,13 @@ class WebhookDeliveryServiceImpl internal constructor(private val clientOptions:
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        WebhookDeliveryListPage.builder()
+                            .service(WebhookDeliveryServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

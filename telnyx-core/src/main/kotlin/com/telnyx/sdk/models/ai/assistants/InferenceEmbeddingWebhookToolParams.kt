@@ -26,11 +26,13 @@ private constructor(
     private val description: JsonField<String>,
     private val name: JsonField<String>,
     private val url: JsonField<String>,
+    private val async: JsonField<Boolean>,
     private val bodyParameters: JsonField<BodyParameters>,
     private val headers: JsonField<List<Header>>,
     private val method: JsonField<Method>,
     private val pathParameters: JsonField<PathParameters>,
     private val queryParameters: JsonField<QueryParameters>,
+    private val timeoutMs: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -41,6 +43,7 @@ private constructor(
         description: JsonField<String> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("async") @ExcludeMissing async: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("body_parameters")
         @ExcludeMissing
         bodyParameters: JsonField<BodyParameters> = JsonMissing.of(),
@@ -54,15 +57,18 @@ private constructor(
         @JsonProperty("query_parameters")
         @ExcludeMissing
         queryParameters: JsonField<QueryParameters> = JsonMissing.of(),
+        @JsonProperty("timeout_ms") @ExcludeMissing timeoutMs: JsonField<Long> = JsonMissing.of(),
     ) : this(
         description,
         name,
         url,
+        async,
         bodyParameters,
         headers,
         method,
         pathParameters,
         queryParameters,
+        timeoutMs,
         mutableMapOf(),
     )
 
@@ -92,6 +98,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun url(): String = url.getRequired("url")
+
+    /**
+     * If async, the assistant will move forward without waiting for your server to respond.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun async(): Optional<Boolean> = async.getOptional("async")
 
     /**
      * The body parameters the webhook tool accepts, described as a JSON Schema object. These
@@ -145,6 +159,15 @@ private constructor(
         queryParameters.getOptional("query_parameters")
 
     /**
+     * The maximum number of milliseconds to wait for the webhook to respond. Only applicable when
+     * async is false.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun timeoutMs(): Optional<Long> = timeoutMs.getOptional("timeout_ms")
+
+    /**
      * Returns the raw JSON value of [description].
      *
      * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
@@ -164,6 +187,13 @@ private constructor(
      * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
+
+    /**
+     * Returns the raw JSON value of [async].
+     *
+     * Unlike [async], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("async") @ExcludeMissing fun _async(): JsonField<Boolean> = async
 
     /**
      * Returns the raw JSON value of [bodyParameters].
@@ -206,6 +236,13 @@ private constructor(
     @ExcludeMissing
     fun _queryParameters(): JsonField<QueryParameters> = queryParameters
 
+    /**
+     * Returns the raw JSON value of [timeoutMs].
+     *
+     * Unlike [timeoutMs], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("timeout_ms") @ExcludeMissing fun _timeoutMs(): JsonField<Long> = timeoutMs
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -240,11 +277,13 @@ private constructor(
         private var description: JsonField<String>? = null
         private var name: JsonField<String>? = null
         private var url: JsonField<String>? = null
+        private var async: JsonField<Boolean> = JsonMissing.of()
         private var bodyParameters: JsonField<BodyParameters> = JsonMissing.of()
         private var headers: JsonField<MutableList<Header>>? = null
         private var method: JsonField<Method> = JsonMissing.of()
         private var pathParameters: JsonField<PathParameters> = JsonMissing.of()
         private var queryParameters: JsonField<QueryParameters> = JsonMissing.of()
+        private var timeoutMs: JsonField<Long> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -254,11 +293,13 @@ private constructor(
             description = inferenceEmbeddingWebhookToolParams.description
             name = inferenceEmbeddingWebhookToolParams.name
             url = inferenceEmbeddingWebhookToolParams.url
+            async = inferenceEmbeddingWebhookToolParams.async
             bodyParameters = inferenceEmbeddingWebhookToolParams.bodyParameters
             headers = inferenceEmbeddingWebhookToolParams.headers.map { it.toMutableList() }
             method = inferenceEmbeddingWebhookToolParams.method
             pathParameters = inferenceEmbeddingWebhookToolParams.pathParameters
             queryParameters = inferenceEmbeddingWebhookToolParams.queryParameters
+            timeoutMs = inferenceEmbeddingWebhookToolParams.timeoutMs
             additionalProperties =
                 inferenceEmbeddingWebhookToolParams.additionalProperties.toMutableMap()
         }
@@ -301,6 +342,17 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun url(url: JsonField<String>) = apply { this.url = url }
+
+        /** If async, the assistant will move forward without waiting for your server to respond. */
+        fun async(async: Boolean) = async(JsonField.of(async))
+
+        /**
+         * Sets [Builder.async] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.async] with a well-typed [Boolean] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun async(async: JsonField<Boolean>) = apply { this.async = async }
 
         /**
          * The body parameters the webhook tool accepts, described as a JSON Schema object. These
@@ -400,6 +452,20 @@ private constructor(
             this.queryParameters = queryParameters
         }
 
+        /**
+         * The maximum number of milliseconds to wait for the webhook to respond. Only applicable
+         * when async is false.
+         */
+        fun timeoutMs(timeoutMs: Long) = timeoutMs(JsonField.of(timeoutMs))
+
+        /**
+         * Sets [Builder.timeoutMs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.timeoutMs] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun timeoutMs(timeoutMs: JsonField<Long>) = apply { this.timeoutMs = timeoutMs }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -438,11 +504,13 @@ private constructor(
                 checkRequired("description", description),
                 checkRequired("name", name),
                 checkRequired("url", url),
+                async,
                 bodyParameters,
                 (headers ?: JsonMissing.of()).map { it.toImmutable() },
                 method,
                 pathParameters,
                 queryParameters,
+                timeoutMs,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -457,11 +525,13 @@ private constructor(
         description()
         name()
         url()
+        async()
         bodyParameters().ifPresent { it.validate() }
         headers().ifPresent { it.forEach { it.validate() } }
         method().ifPresent { it.validate() }
         pathParameters().ifPresent { it.validate() }
         queryParameters().ifPresent { it.validate() }
+        timeoutMs()
         validated = true
     }
 
@@ -483,11 +553,13 @@ private constructor(
         (if (description.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (if (url.asKnown().isPresent) 1 else 0) +
+            (if (async.asKnown().isPresent) 1 else 0) +
             (bodyParameters.asKnown().getOrNull()?.validity() ?: 0) +
             (headers.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (method.asKnown().getOrNull()?.validity() ?: 0) +
             (pathParameters.asKnown().getOrNull()?.validity() ?: 0) +
-            (queryParameters.asKnown().getOrNull()?.validity() ?: 0)
+            (queryParameters.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (timeoutMs.asKnown().isPresent) 1 else 0)
 
     /**
      * The body parameters the webhook tool accepts, described as a JSON Schema object. These
@@ -2237,11 +2309,13 @@ private constructor(
             description == other.description &&
             name == other.name &&
             url == other.url &&
+            async == other.async &&
             bodyParameters == other.bodyParameters &&
             headers == other.headers &&
             method == other.method &&
             pathParameters == other.pathParameters &&
             queryParameters == other.queryParameters &&
+            timeoutMs == other.timeoutMs &&
             additionalProperties == other.additionalProperties
     }
 
@@ -2250,11 +2324,13 @@ private constructor(
             description,
             name,
             url,
+            async,
             bodyParameters,
             headers,
             method,
             pathParameters,
             queryParameters,
+            timeoutMs,
             additionalProperties,
         )
     }
@@ -2262,5 +2338,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InferenceEmbeddingWebhookToolParams{description=$description, name=$name, url=$url, bodyParameters=$bodyParameters, headers=$headers, method=$method, pathParameters=$pathParameters, queryParameters=$queryParameters, additionalProperties=$additionalProperties}"
+        "InferenceEmbeddingWebhookToolParams{description=$description, name=$name, url=$url, async=$async, bodyParameters=$bodyParameters, headers=$headers, method=$method, pathParameters=$pathParameters, queryParameters=$queryParameters, timeoutMs=$timeoutMs, additionalProperties=$additionalProperties}"
 }

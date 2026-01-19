@@ -30,8 +30,8 @@ internal class OutboundVoiceProfileTest {
                 .callingWindow(
                     OutboundVoiceProfile.CallingWindow.builder()
                         .callsPerCld(5L)
-                        .endTime("20:00")
-                        .startTime("08:00")
+                        .endTime("20:00:00.00Z")
+                        .startTime("08:00:00.00Z")
                         .build()
                 )
                 .concurrentCallLimit(10L)
@@ -69,8 +69,8 @@ internal class OutboundVoiceProfileTest {
             .contains(
                 OutboundVoiceProfile.CallingWindow.builder()
                     .callsPerCld(5L)
-                    .endTime("20:00")
-                    .startTime("08:00")
+                    .endTime("20:00:00.00Z")
+                    .startTime("08:00:00.00Z")
                     .build()
             )
         assertThat(outboundVoiceProfile.concurrentCallLimit()).contains(10L)
@@ -111,8 +111,8 @@ internal class OutboundVoiceProfileTest {
                 .callingWindow(
                     OutboundVoiceProfile.CallingWindow.builder()
                         .callsPerCld(5L)
-                        .endTime("20:00")
-                        .startTime("08:00")
+                        .endTime("20:00:00.00Z")
+                        .startTime("08:00:00.00Z")
                         .build()
                 )
                 .concurrentCallLimit(10L)

@@ -12,8 +12,8 @@ import com.telnyx.sdk.models.documents.DocumentDeleteResponse
 import com.telnyx.sdk.models.documents.DocumentDownloadParams
 import com.telnyx.sdk.models.documents.DocumentGenerateDownloadLinkParams
 import com.telnyx.sdk.models.documents.DocumentGenerateDownloadLinkResponse
+import com.telnyx.sdk.models.documents.DocumentListPage
 import com.telnyx.sdk.models.documents.DocumentListParams
-import com.telnyx.sdk.models.documents.DocumentListResponse
 import com.telnyx.sdk.models.documents.DocumentRetrieveParams
 import com.telnyx.sdk.models.documents.DocumentRetrieveResponse
 import com.telnyx.sdk.models.documents.DocumentUpdateParams
@@ -69,15 +69,16 @@ interface DocumentService {
         retrieve(id, DocumentRetrieveParams.none(), requestOptions)
 
     /** Update a document. */
-    fun update(pathId: String, params: DocumentUpdateParams): DocumentUpdateResponse =
-        update(pathId, params, RequestOptions.none())
+    fun update(documentId: String, params: DocumentUpdateParams): DocumentUpdateResponse =
+        update(documentId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        pathId: String,
+        documentId: String,
         params: DocumentUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DocumentUpdateResponse = update(params.toBuilder().pathId(pathId).build(), requestOptions)
+    ): DocumentUpdateResponse =
+        update(params.toBuilder().documentId(documentId).build(), requestOptions)
 
     /** @see update */
     fun update(params: DocumentUpdateParams): DocumentUpdateResponse =
@@ -90,20 +91,20 @@ interface DocumentService {
     ): DocumentUpdateResponse
 
     /** List all documents ordered by created_at descending. */
-    fun list(): DocumentListResponse = list(DocumentListParams.none())
+    fun list(): DocumentListPage = list(DocumentListParams.none())
 
     /** @see list */
     fun list(
         params: DocumentListParams = DocumentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DocumentListResponse
+    ): DocumentListPage
 
     /** @see list */
-    fun list(params: DocumentListParams = DocumentListParams.none()): DocumentListResponse =
+    fun list(params: DocumentListParams = DocumentListParams.none()): DocumentListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): DocumentListResponse =
+    fun list(requestOptions: RequestOptions): DocumentListPage =
         list(DocumentListParams.none(), requestOptions)
 
     /**
@@ -219,27 +220,42 @@ interface DocumentService {
      * Upload a document.<br /><br />Uploaded files must be linked to a service within 30 minutes or
      * they will be automatically deleted.
      */
-    fun upload(params: DocumentUploadParams): DocumentUploadResponse =
-        upload(params, RequestOptions.none())
+    fun upload(): DocumentUploadResponse = upload(DocumentUploadParams.none())
 
     /** @see upload */
     fun upload(
-        params: DocumentUploadParams,
+        params: DocumentUploadParams = DocumentUploadParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentUploadResponse
+
+    /** @see upload */
+    fun upload(params: DocumentUploadParams = DocumentUploadParams.none()): DocumentUploadResponse =
+        upload(params, RequestOptions.none())
+
+    /** @see upload */
+    fun upload(requestOptions: RequestOptions): DocumentUploadResponse =
+        upload(DocumentUploadParams.none(), requestOptions)
 
     /**
      * Upload a document.<br /><br />Uploaded files must be linked to a service within 30 minutes or
      * they will be automatically deleted.
      */
-    fun uploadJson(params: DocumentUploadJsonParams): DocumentUploadJsonResponse =
-        uploadJson(params, RequestOptions.none())
+    fun uploadJson(): DocumentUploadJsonResponse = uploadJson(DocumentUploadJsonParams.none())
 
     /** @see uploadJson */
     fun uploadJson(
-        params: DocumentUploadJsonParams,
+        params: DocumentUploadJsonParams = DocumentUploadJsonParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentUploadJsonResponse
+
+    /** @see uploadJson */
+    fun uploadJson(
+        params: DocumentUploadJsonParams = DocumentUploadJsonParams.none()
+    ): DocumentUploadJsonResponse = uploadJson(params, RequestOptions.none())
+
+    /** @see uploadJson */
+    fun uploadJson(requestOptions: RequestOptions): DocumentUploadJsonResponse =
+        uploadJson(DocumentUploadJsonParams.none(), requestOptions)
 
     /** A view of [DocumentService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -301,18 +317,19 @@ interface DocumentService {
          */
         @MustBeClosed
         fun update(
-            pathId: String,
+            documentId: String,
             params: DocumentUpdateParams,
-        ): HttpResponseFor<DocumentUpdateResponse> = update(pathId, params, RequestOptions.none())
+        ): HttpResponseFor<DocumentUpdateResponse> =
+            update(documentId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
-            pathId: String,
+            documentId: String,
             params: DocumentUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DocumentUpdateResponse> =
-            update(params.toBuilder().pathId(pathId).build(), requestOptions)
+            update(params.toBuilder().documentId(documentId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
@@ -331,24 +348,24 @@ interface DocumentService {
          * [DocumentService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<DocumentListResponse> = list(DocumentListParams.none())
+        fun list(): HttpResponseFor<DocumentListPage> = list(DocumentListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DocumentListParams = DocumentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DocumentListResponse>
+        ): HttpResponseFor<DocumentListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DocumentListParams = DocumentListParams.none()
-        ): HttpResponseFor<DocumentListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<DocumentListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListPage> =
             list(DocumentListParams.none(), requestOptions)
 
         /**
@@ -488,30 +505,52 @@ interface DocumentService {
          * otherwise the same as [DocumentService.upload].
          */
         @MustBeClosed
-        fun upload(params: DocumentUploadParams): HttpResponseFor<DocumentUploadResponse> =
-            upload(params, RequestOptions.none())
+        fun upload(): HttpResponseFor<DocumentUploadResponse> = upload(DocumentUploadParams.none())
 
         /** @see upload */
         @MustBeClosed
         fun upload(
-            params: DocumentUploadParams,
+            params: DocumentUploadParams = DocumentUploadParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DocumentUploadResponse>
+
+        /** @see upload */
+        @MustBeClosed
+        fun upload(
+            params: DocumentUploadParams = DocumentUploadParams.none()
+        ): HttpResponseFor<DocumentUploadResponse> = upload(params, RequestOptions.none())
+
+        /** @see upload */
+        @MustBeClosed
+        fun upload(requestOptions: RequestOptions): HttpResponseFor<DocumentUploadResponse> =
+            upload(DocumentUploadParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /documents`, but is otherwise the same as
          * [DocumentService.uploadJson].
          */
         @MustBeClosed
+        fun uploadJson(): HttpResponseFor<DocumentUploadJsonResponse> =
+            uploadJson(DocumentUploadJsonParams.none())
+
+        /** @see uploadJson */
+        @MustBeClosed
         fun uploadJson(
-            params: DocumentUploadJsonParams
+            params: DocumentUploadJsonParams = DocumentUploadJsonParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DocumentUploadJsonResponse>
+
+        /** @see uploadJson */
+        @MustBeClosed
+        fun uploadJson(
+            params: DocumentUploadJsonParams = DocumentUploadJsonParams.none()
         ): HttpResponseFor<DocumentUploadJsonResponse> = uploadJson(params, RequestOptions.none())
 
         /** @see uploadJson */
         @MustBeClosed
         fun uploadJson(
-            params: DocumentUploadJsonParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DocumentUploadJsonResponse>
+            requestOptions: RequestOptions
+        ): HttpResponseFor<DocumentUploadJsonResponse> =
+            uploadJson(DocumentUploadJsonParams.none(), requestOptions)
     }
 }

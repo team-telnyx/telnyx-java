@@ -2,13 +2,22 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx/5.3.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx/6.0.0)
 
 <!-- x-release-please-end -->
 
 The Telnyx Java SDK provides convenient access to the Telnyx REST API from applications written in Java.
 
 It is generated with [Stainless](https://www.stainless.com/).
+
+## MCP Server
+
+Use the Telnyx MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.
+
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=telnyx-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInRlbG55eC1tY3AiXX0)
+[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22telnyx-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22telnyx-mcp%22%5D%7D)
+
+> Note: You may need to set environment variables in your MCP client.
 
 ## Installation
 
@@ -17,7 +26,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 ### Gradle
 
 ```kotlin
-implementation("com.telnyx.sdk:telnyx:5.3.0")
+implementation("com.telnyx.sdk:telnyx:6.0.0")
 ```
 
 ### Maven
@@ -26,7 +35,7 @@ implementation("com.telnyx.sdk:telnyx:5.3.0")
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>5.3.0</version>
+  <version>6.0.0</version>
 </dependency>
 ```
 
@@ -44,8 +53,8 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient;
 import com.telnyx.sdk.models.calls.CallDialParams;
 import com.telnyx.sdk.models.calls.CallDialResponse;
 
-// Configures using the `telnyx.apiKey`, `telnyx.publicKey` and `telnyx.baseUrl` system properties
-// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY` and `TELNYX_BASE_URL` environment variables
+// Configures using the `telnyx.apiKey`, `telnyx.publicKey`, `telnyx.clientId`, `telnyx.clientSecret` and `telnyx.baseUrl` system properties
+// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY`, `TELNYX_CLIENT_ID`, `TELNYX_CLIENT_SECRET` and `TELNYX_BASE_URL` environment variables
 TelnyxClient client = TelnyxOkHttpClient.fromEnv();
 
 CallDialParams params = CallDialParams.builder()
@@ -65,8 +74,8 @@ Configure the client using system properties or environment variables:
 import com.telnyx.sdk.client.TelnyxClient;
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient;
 
-// Configures using the `telnyx.apiKey`, `telnyx.publicKey` and `telnyx.baseUrl` system properties
-// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY` and `TELNYX_BASE_URL` environment variables
+// Configures using the `telnyx.apiKey`, `telnyx.publicKey`, `telnyx.clientId`, `telnyx.clientSecret` and `telnyx.baseUrl` system properties
+// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY`, `TELNYX_CLIENT_ID`, `TELNYX_CLIENT_SECRET` and `TELNYX_BASE_URL` environment variables
 TelnyxClient client = TelnyxOkHttpClient.fromEnv();
 ```
 
@@ -88,8 +97,8 @@ import com.telnyx.sdk.client.TelnyxClient;
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient;
 
 TelnyxClient client = TelnyxOkHttpClient.builder()
-    // Configures using the `telnyx.apiKey`, `telnyx.publicKey` and `telnyx.baseUrl` system properties
-    // Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY` and `TELNYX_BASE_URL` environment variables
+    // Configures using the `telnyx.apiKey`, `telnyx.publicKey`, `telnyx.clientId`, `telnyx.clientSecret` and `telnyx.baseUrl` system properties
+    // Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY`, `TELNYX_CLIENT_ID`, `TELNYX_CLIENT_SECRET` and `TELNYX_BASE_URL` environment variables
     .fromEnv()
     .apiKey("My API Key")
     .build();
@@ -97,11 +106,13 @@ TelnyxClient client = TelnyxOkHttpClient.builder()
 
 See this table for the available options:
 
-| Setter      | System property    | Environment variable | Required | Default value                 |
-| ----------- | ------------------ | -------------------- | -------- | ----------------------------- |
-| `apiKey`    | `telnyx.apiKey`    | `TELNYX_API_KEY`     | true     | -                             |
-| `publicKey` | `telnyx.publicKey` | `TELNYX_PUBLIC_KEY`  | false    | -                             |
-| `baseUrl`   | `telnyx.baseUrl`   | `TELNYX_BASE_URL`    | true     | `"https://api.telnyx.com/v2"` |
+| Setter         | System property       | Environment variable   | Required | Default value                 |
+| -------------- | --------------------- | ---------------------- | -------- | ----------------------------- |
+| `apiKey`       | `telnyx.apiKey`       | `TELNYX_API_KEY`       | false    | -                             |
+| `publicKey`    | `telnyx.publicKey`    | `TELNYX_PUBLIC_KEY`    | false    | -                             |
+| `clientId`     | `telnyx.clientId`     | `TELNYX_CLIENT_ID`     | false    | -                             |
+| `clientSecret` | `telnyx.clientSecret` | `TELNYX_CLIENT_SECRET` | false    | -                             |
+| `baseUrl`      | `telnyx.baseUrl`      | `TELNYX_BASE_URL`      | true     | `"https://api.telnyx.com/v2"` |
 
 System properties take precedence over environment variables.
 
@@ -149,8 +160,8 @@ import com.telnyx.sdk.models.calls.CallDialParams;
 import com.telnyx.sdk.models.calls.CallDialResponse;
 import java.util.concurrent.CompletableFuture;
 
-// Configures using the `telnyx.apiKey`, `telnyx.publicKey` and `telnyx.baseUrl` system properties
-// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY` and `TELNYX_BASE_URL` environment variables
+// Configures using the `telnyx.apiKey`, `telnyx.publicKey`, `telnyx.clientId`, `telnyx.clientSecret` and `telnyx.baseUrl` system properties
+// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY`, `TELNYX_CLIENT_ID`, `TELNYX_CLIENT_SECRET` and `TELNYX_BASE_URL` environment variables
 TelnyxClient client = TelnyxOkHttpClient.fromEnv();
 
 CallDialParams params = CallDialParams.builder()
@@ -171,8 +182,8 @@ import com.telnyx.sdk.models.calls.CallDialParams;
 import com.telnyx.sdk.models.calls.CallDialResponse;
 import java.util.concurrent.CompletableFuture;
 
-// Configures using the `telnyx.apiKey`, `telnyx.publicKey` and `telnyx.baseUrl` system properties
-// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY` and `TELNYX_BASE_URL` environment variables
+// Configures using the `telnyx.apiKey`, `telnyx.publicKey`, `telnyx.clientId`, `telnyx.clientSecret` and `telnyx.baseUrl` system properties
+// Or configures using the `TELNYX_API_KEY`, `TELNYX_PUBLIC_KEY`, `TELNYX_CLIENT_ID`, `TELNYX_CLIENT_SECRET` and `TELNYX_BASE_URL` environment variables
 TelnyxClientAsync client = TelnyxOkHttpClientAsync.fromEnv();
 
 CallDialParams params = CallDialParams.builder()
@@ -258,9 +269,9 @@ These methods return [`HttpResponse`](telnyx-core/src/main/kotlin/com/telnyx/sdk
 
 ```java
 import com.telnyx.sdk.core.http.HttpResponse;
-import com.telnyx.sdk.models.documents.DocumentDownloadParams;
+import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphParams;
 
-HttpResponse response = client.documents().download("6a09cdc3-8948-47f0-aa62-74ac943d6c58");
+HttpResponse response = client.ai().clusters().fetchGraph("task_id");
 ```
 
 To save the response content to a file, use the [`Files.copy(...)`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#copy-java.io.InputStream-java.nio.file.Path-java.nio.file.CopyOption...-) method:
@@ -271,7 +282,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-try (HttpResponse response = client.documents().download(params)) {
+try (HttpResponse response = client.ai().clusters().fetchGraph(params)) {
     Files.copy(
         response.body(),
         Paths.get(path),
@@ -290,7 +301,7 @@ import com.telnyx.sdk.core.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-try (HttpResponse response = client.documents().download(params)) {
+try (HttpResponse response = client.ai().clusters().fetchGraph(params)) {
     response.body().transferTo(Files.newOutputStream(Paths.get(path)));
 } catch (Exception e) {
     System.out.println("Something went wrong!");
@@ -354,6 +365,106 @@ The SDK throws custom unchecked exception types:
 
 - [`TelnyxException`](telnyx-core/src/main/kotlin/com/telnyx/sdk/errors/TelnyxException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
 
+## Pagination
+
+The SDK defines methods that return a paginated lists of results. It provides convenient ways to access the results either one page at a time or item-by-item across all pages.
+
+### Auto-pagination
+
+To iterate through all results across all pages, use the `autoPager()` method, which automatically fetches more pages as needed.
+
+When using the synchronous client, the method returns an [`Iterable`](https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html)
+
+```java
+import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListPage;
+import com.telnyx.sdk.models.accessipaddress.AccessIpAddressResponse;
+
+AccessIpAddressListPage page = client.accessIpAddress().list();
+
+// Process as an Iterable
+for (AccessIpAddressResponse accessIpAddress : page.autoPager()) {
+    System.out.println(accessIpAddress);
+}
+
+// Process as a Stream
+page.autoPager()
+    .stream()
+    .limit(50)
+    .forEach(accessIpAddress -> System.out.println(accessIpAddress));
+```
+
+When using the asynchronous client, the method returns an [`AsyncStreamResponse`](telnyx-core/src/main/kotlin/com/telnyx/sdk/core/http/AsyncStreamResponse.kt):
+
+```java
+import com.telnyx.sdk.core.http.AsyncStreamResponse;
+import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListPageAsync;
+import com.telnyx.sdk.models.accessipaddress.AccessIpAddressResponse;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+
+CompletableFuture<AccessIpAddressListPageAsync> pageFuture = client.async().accessIpAddress().list();
+
+pageFuture.thenRun(page -> page.autoPager().subscribe(accessIpAddress -> {
+    System.out.println(accessIpAddress);
+}));
+
+// If you need to handle errors or completion of the stream
+pageFuture.thenRun(page -> page.autoPager().subscribe(new AsyncStreamResponse.Handler<>() {
+    @Override
+    public void onNext(AccessIpAddressResponse accessIpAddress) {
+        System.out.println(accessIpAddress);
+    }
+
+    @Override
+    public void onComplete(Optional<Throwable> error) {
+        if (error.isPresent()) {
+            System.out.println("Something went wrong!");
+            throw new RuntimeException(error.get());
+        } else {
+            System.out.println("No more!");
+        }
+    }
+}));
+
+// Or use futures
+pageFuture.thenRun(page -> page.autoPager()
+    .subscribe(accessIpAddress -> {
+        System.out.println(accessIpAddress);
+    })
+    .onCompleteFuture()
+    .whenComplete((unused, error) -> {
+        if (error != null) {
+            System.out.println("Something went wrong!");
+            throw new RuntimeException(error);
+        } else {
+            System.out.println("No more!");
+        }
+    }));
+```
+
+### Manual pagination
+
+To access individual page items and manually request the next page, use the `items()`,
+`hasNextPage()`, and `nextPage()` methods:
+
+```java
+import com.telnyx.sdk.models.accessipaddress.AccessIpAddressListPage;
+import com.telnyx.sdk.models.accessipaddress.AccessIpAddressResponse;
+
+AccessIpAddressListPage page = client.accessIpAddress().list();
+while (true) {
+    for (AccessIpAddressResponse accessIpAddress : page.items()) {
+        System.out.println(accessIpAddress);
+    }
+
+    if (!page.hasNextPage()) {
+        break;
+    }
+
+    page = page.nextPage();
+}
+```
+
 ## Logging
 
 The SDK uses the standard [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).
@@ -361,13 +472,13 @@ The SDK uses the standard [OkHttp logging interceptor](https://github.com/square
 Enable logging by setting the `TELNYX_LOG` environment variable to `info`:
 
 ```sh
-$ export TELNYX_LOG=info
+export TELNYX_LOG=info
 ```
 
 Or to `debug` for more verbose logging:
 
 ```sh
-$ export TELNYX_LOG=debug
+export TELNYX_LOG=debug
 ```
 
 ## ProGuard and R8
@@ -386,6 +497,8 @@ If the SDK threw an exception, but you're _certain_ the version is compatible, t
 
 > [!CAUTION]
 > We make no guarantee that the SDK works correctly when the Jackson version check is disabled.
+
+Also note that there are bugs in older Jackson versions that can affect the SDK. We don't work around all Jackson bugs ([example](https://github.com/FasterXML/jackson-databind/issues/3240)) and expect users to upgrade Jackson for those instead.
 
 ## Network options
 
@@ -422,11 +535,9 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```java
-import com.telnyx.sdk.models.calls.CallDialResponse;
+import com.telnyx.sdk.models.numberorders.NumberOrderCreateResponse;
 
-CallDialResponse response = client.calls().dial(
-  params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
-);
+NumberOrderCreateResponse numberOrder = client.numberOrders().create(RequestOptions.builder().timeout(Duration.ofSeconds(30)).build());
 ```
 
 Or configure the default for all method calls at the client level:

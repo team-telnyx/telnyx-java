@@ -12,7 +12,8 @@ internal class ActivationJobListParamsTest {
     fun create() {
         ActivationJobListParams.builder()
             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .page(ActivationJobListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -31,14 +32,15 @@ internal class ActivationJobListParamsTest {
         val params =
             ActivationJobListParams.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .page(ActivationJobListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()
 
         assertThat(queryParams)
             .isEqualTo(
-                QueryParams.builder().put("page[number]", "1").put("page[size]", "1").build()
+                QueryParams.builder().put("page[number]", "0").put("page[size]", "0").build()
             )
     }
 

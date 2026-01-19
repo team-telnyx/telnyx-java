@@ -23,7 +23,7 @@ internal class NumberLookupRetrieveResponseTest {
                         )
                         .carrier(
                             NumberLookupRetrieveResponse.Data.Carrier.builder()
-                                .errorCode("error_code")
+                                .errorCode(null)
                                 .mobileCountryCode("US")
                                 .mobileNetworkCode("0866")
                                 .name("Telnyx/4")
@@ -32,7 +32,7 @@ internal class NumberLookupRetrieveResponseTest {
                                 .build()
                         )
                         .countryCode("US")
-                        .fraud("fraud")
+                        .fraud(null)
                         .nationalFormat("(0312) 945-7420")
                         .phoneNumber("+13129457420")
                         .portability(
@@ -70,7 +70,7 @@ internal class NumberLookupRetrieveResponseTest {
                     )
                     .carrier(
                         NumberLookupRetrieveResponse.Data.Carrier.builder()
-                            .errorCode("error_code")
+                            .errorCode(null)
                             .mobileCountryCode("US")
                             .mobileNetworkCode("0866")
                             .name("Telnyx/4")
@@ -79,7 +79,7 @@ internal class NumberLookupRetrieveResponseTest {
                             .build()
                     )
                     .countryCode("US")
-                    .fraud("fraud")
+                    .fraud(null)
                     .nationalFormat("(0312) 945-7420")
                     .phoneNumber("+13129457420")
                     .portability(
@@ -121,7 +121,7 @@ internal class NumberLookupRetrieveResponseTest {
                         )
                         .carrier(
                             NumberLookupRetrieveResponse.Data.Carrier.builder()
-                                .errorCode("error_code")
+                                .errorCode(null)
                                 .mobileCountryCode("US")
                                 .mobileNetworkCode("0866")
                                 .name("Telnyx/4")
@@ -130,7 +130,7 @@ internal class NumberLookupRetrieveResponseTest {
                                 .build()
                         )
                         .countryCode("US")
-                        .fraud("fraud")
+                        .fraud(null)
                         .nationalFormat("(0312) 945-7420")
                         .phoneNumber("+13129457420")
                         .portability(

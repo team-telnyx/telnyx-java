@@ -10,10 +10,11 @@ internal class DocumentUpdateParamsTest {
     @Test
     fun create() {
         DocumentUpdateParams.builder()
-            .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+            .documentId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .docServiceDocument(
                 DocServiceDocument.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .avScanStatus(DocServiceDocument.AvScanStatus.SCANNED)
                     .contentType("application/pdf")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .customerReference("MY REF 001")
@@ -32,7 +33,7 @@ internal class DocumentUpdateParamsTest {
     fun pathParams() {
         val params =
             DocumentUpdateParams.builder()
-                .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .documentId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .docServiceDocument(DocServiceDocument.builder().build())
                 .build()
 
@@ -45,10 +46,11 @@ internal class DocumentUpdateParamsTest {
     fun body() {
         val params =
             DocumentUpdateParams.builder()
-                .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .documentId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .docServiceDocument(
                     DocServiceDocument.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .avScanStatus(DocServiceDocument.AvScanStatus.SCANNED)
                         .contentType("application/pdf")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .customerReference("MY REF 001")
@@ -70,6 +72,7 @@ internal class DocumentUpdateParamsTest {
             .isEqualTo(
                 DocServiceDocument.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .avScanStatus(DocServiceDocument.AvScanStatus.SCANNED)
                     .contentType("application/pdf")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .customerReference("MY REF 001")
@@ -87,7 +90,7 @@ internal class DocumentUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             DocumentUpdateParams.builder()
-                .pathId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .documentId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .docServiceDocument(DocServiceDocument.builder().build())
                 .build()
 

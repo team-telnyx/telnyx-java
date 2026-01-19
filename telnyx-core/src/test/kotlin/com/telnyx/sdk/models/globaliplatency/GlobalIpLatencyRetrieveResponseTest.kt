@@ -20,7 +20,7 @@ internal class GlobalIpLatencyRetrieveResponseTest {
                         .globalIp(
                             GlobalIpLatencyRetrieveResponse.Data.GlobalIp.builder()
                                 .id("a836125b-20b6-452e-9c03-2653f09c7ed7")
-                                .ipAddress("ip_address")
+                                .ipAddress("192.0.2.1")
                                 .build()
                         )
                         .meanLatency(
@@ -32,49 +32,49 @@ internal class GlobalIpLatencyRetrieveResponseTest {
                         .percentileLatency(
                             GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.builder()
                                 .p0(
-                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._0
+                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P0
                                         .builder()
                                         .amount(100.0)
                                         .unit("ms")
                                         .build()
                                 )
                                 .p25(
-                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._25
+                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P25
                                         .builder()
                                         .amount(100.0)
                                         .unit("ms")
                                         .build()
                                 )
                                 .p50(
-                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._50
+                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P50
                                         .builder()
                                         .amount(100.0)
                                         .unit("ms")
                                         .build()
                                 )
                                 .p75(
-                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._75
+                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P75
                                         .builder()
                                         .amount(100.0)
                                         .unit("ms")
                                         .build()
                                 )
                                 .p90(
-                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._90
+                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P90
                                         .builder()
                                         .amount(100.0)
                                         .unit("ms")
                                         .build()
                                 )
                                 .p99(
-                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._99
+                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P99
                                         .builder()
                                         .amount(100.0)
                                         .unit("ms")
                                         .build()
                                 )
                                 .p100(
-                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._100
+                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P100
                                         .builder()
                                         .amount(100.0)
                                         .unit("ms")
@@ -84,7 +84,7 @@ internal class GlobalIpLatencyRetrieveResponseTest {
                         )
                         .proberLocation(
                             GlobalIpLatencyRetrieveResponse.Data.ProberLocation.builder()
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .id("a836125b-20b6-452e-9c03-2653f09c7ed7")
                                 .lat(52.370216)
                                 .lon(4.895168)
                                 .name("Amsterdam")
@@ -101,7 +101,7 @@ internal class GlobalIpLatencyRetrieveResponseTest {
                     .globalIp(
                         GlobalIpLatencyRetrieveResponse.Data.GlobalIp.builder()
                             .id("a836125b-20b6-452e-9c03-2653f09c7ed7")
-                            .ipAddress("ip_address")
+                            .ipAddress("192.0.2.1")
                             .build()
                     )
                     .meanLatency(
@@ -113,49 +113,43 @@ internal class GlobalIpLatencyRetrieveResponseTest {
                     .percentileLatency(
                         GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.builder()
                             .p0(
-                                GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._0
-                                    .builder()
+                                GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P0.builder()
                                     .amount(100.0)
                                     .unit("ms")
                                     .build()
                             )
                             .p25(
-                                GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._25
-                                    .builder()
+                                GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P25.builder()
                                     .amount(100.0)
                                     .unit("ms")
                                     .build()
                             )
                             .p50(
-                                GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._50
-                                    .builder()
+                                GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P50.builder()
                                     .amount(100.0)
                                     .unit("ms")
                                     .build()
                             )
                             .p75(
-                                GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._75
-                                    .builder()
+                                GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P75.builder()
                                     .amount(100.0)
                                     .unit("ms")
                                     .build()
                             )
                             .p90(
-                                GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._90
-                                    .builder()
+                                GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P90.builder()
                                     .amount(100.0)
                                     .unit("ms")
                                     .build()
                             )
                             .p99(
-                                GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._99
-                                    .builder()
+                                GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P99.builder()
                                     .amount(100.0)
                                     .unit("ms")
                                     .build()
                             )
                             .p100(
-                                GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._100
+                                GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P100
                                     .builder()
                                     .amount(100.0)
                                     .unit("ms")
@@ -165,7 +159,7 @@ internal class GlobalIpLatencyRetrieveResponseTest {
                     )
                     .proberLocation(
                         GlobalIpLatencyRetrieveResponse.Data.ProberLocation.builder()
-                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .id("a836125b-20b6-452e-9c03-2653f09c7ed7")
                             .lat(52.370216)
                             .lon(4.895168)
                             .name("Amsterdam")
@@ -186,7 +180,7 @@ internal class GlobalIpLatencyRetrieveResponseTest {
                         .globalIp(
                             GlobalIpLatencyRetrieveResponse.Data.GlobalIp.builder()
                                 .id("a836125b-20b6-452e-9c03-2653f09c7ed7")
-                                .ipAddress("ip_address")
+                                .ipAddress("192.0.2.1")
                                 .build()
                         )
                         .meanLatency(
@@ -198,49 +192,49 @@ internal class GlobalIpLatencyRetrieveResponseTest {
                         .percentileLatency(
                             GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.builder()
                                 .p0(
-                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._0
+                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P0
                                         .builder()
                                         .amount(100.0)
                                         .unit("ms")
                                         .build()
                                 )
                                 .p25(
-                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._25
+                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P25
                                         .builder()
                                         .amount(100.0)
                                         .unit("ms")
                                         .build()
                                 )
                                 .p50(
-                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._50
+                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P50
                                         .builder()
                                         .amount(100.0)
                                         .unit("ms")
                                         .build()
                                 )
                                 .p75(
-                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._75
+                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P75
                                         .builder()
                                         .amount(100.0)
                                         .unit("ms")
                                         .build()
                                 )
                                 .p90(
-                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._90
+                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P90
                                         .builder()
                                         .amount(100.0)
                                         .unit("ms")
                                         .build()
                                 )
                                 .p99(
-                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._99
+                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P99
                                         .builder()
                                         .amount(100.0)
                                         .unit("ms")
                                         .build()
                                 )
                                 .p100(
-                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency._100
+                                    GlobalIpLatencyRetrieveResponse.Data.PercentileLatency.P100
                                         .builder()
                                         .amount(100.0)
                                         .unit("ms")
@@ -250,7 +244,7 @@ internal class GlobalIpLatencyRetrieveResponseTest {
                         )
                         .proberLocation(
                             GlobalIpLatencyRetrieveResponse.Data.ProberLocation.builder()
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .id("a836125b-20b6-452e-9c03-2653f09c7ed7")
                                 .lat(52.370216)
                                 .lon(4.895168)
                                 .name("Amsterdam")

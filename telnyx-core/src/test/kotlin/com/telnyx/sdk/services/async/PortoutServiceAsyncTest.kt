@@ -4,10 +4,8 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.portouts.PortoutListParams
 import com.telnyx.sdk.models.portouts.PortoutListRejectionCodesParams
 import com.telnyx.sdk.models.portouts.PortoutUpdateStatusParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -41,42 +39,10 @@ internal class PortoutServiceAsyncTest {
                 .build()
         val portoutServiceAsync = client.portouts()
 
-        val portoutsFuture =
-            portoutServiceAsync.list(
-                PortoutListParams.builder()
-                    .filter(
-                        PortoutListParams.Filter.builder()
-                            .carrierName("carrier_name")
-                            .countryCode("US")
-                            .addCountryCodeIn("CA")
-                            .addCountryCodeIn("US")
-                            .focDate(OffsetDateTime.parse("2024-09-04T00:00:00.000Z"))
-                            .insertedAt(
-                                PortoutListParams.Filter.InsertedAt.builder()
-                                    .gte(OffsetDateTime.parse("2024-09-04T00:00:00.000Z"))
-                                    .lte(OffsetDateTime.parse("2024-09-04T00:00:00.000Z"))
-                                    .build()
-                            )
-                            .phoneNumber("+13035551212")
-                            .pon("pon")
-                            .portedOutAt(
-                                PortoutListParams.Filter.PortedOutAt.builder()
-                                    .gte(OffsetDateTime.parse("2024-09-04T00:00:00.000Z"))
-                                    .lte(OffsetDateTime.parse("2024-09-04T00:00:00.000Z"))
-                                    .build()
-                            )
-                            .spid("spid")
-                            .status(PortoutListParams.Filter.Status.PENDING)
-                            .addStatusIn(PortoutListParams.Filter.StatusIn.PENDING)
-                            .supportKey("PO_abc123")
-                            .build()
-                    )
-                    .page(PortoutListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val pageFuture = portoutServiceAsync.list()
 
-        val portouts = portoutsFuture.get()
-        portouts.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

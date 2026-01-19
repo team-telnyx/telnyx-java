@@ -25,7 +25,6 @@ internal class PhoneNumbersJobTest {
                         .addError(
                             JobError.builder()
                                 .code("10015")
-                                .title("Bad Request")
                                 .detail("The field is invalid.")
                                 .meta(
                                     JobError.Meta.builder()
@@ -40,6 +39,7 @@ internal class PhoneNumbersJobTest {
                                         .pointer("/emergency_address_id")
                                         .build()
                                 )
+                                .title("Bad Request")
                                 .build()
                         )
                         .phoneNumber("+19705551234")
@@ -99,7 +99,6 @@ internal class PhoneNumbersJobTest {
                     .addError(
                         JobError.builder()
                             .code("10015")
-                            .title("Bad Request")
                             .detail("The field is invalid.")
                             .meta(
                                 JobError.Meta.builder()
@@ -112,6 +111,7 @@ internal class PhoneNumbersJobTest {
                                     .pointer("/emergency_address_id")
                                     .build()
                             )
+                            .title("Bad Request")
                             .build()
                     )
                     .phoneNumber("+19705551234")
@@ -168,7 +168,6 @@ internal class PhoneNumbersJobTest {
                         .addError(
                             JobError.builder()
                                 .code("10015")
-                                .title("Bad Request")
                                 .detail("The field is invalid.")
                                 .meta(
                                     JobError.Meta.builder()
@@ -183,6 +182,7 @@ internal class PhoneNumbersJobTest {
                                         .pointer("/emergency_address_id")
                                         .build()
                                 )
+                                .title("Bad Request")
                                 .build()
                         )
                         .phoneNumber("+19705551234")

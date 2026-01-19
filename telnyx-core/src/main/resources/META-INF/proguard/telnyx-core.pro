@@ -30,3 +30,11 @@
     <init>(...);
     @com.fasterxml.jackson.annotation.* *;
 }
+
+# Keep model classes entirely so R8 preserves Kotlin metadata needed for default parameter values.
+-keep class com.telnyx.sdk.models.** { *; }
+
+# Jackson uses the IsMissing class as a valueFilter in @JsonInclude annotations via @ExcludeMissing.
+# The @ExcludeMissing annotation must be kept so Jackson can read the @JsonInclude meta-annotation inside it.
+-keep class com.telnyx.sdk.core.JsonField$IsMissing { *; }
+-keep @interface com.telnyx.sdk.core.ExcludeMissing

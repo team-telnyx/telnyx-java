@@ -23,7 +23,8 @@ internal class NumberBlockOrderListParamsTest {
                     .status("pending")
                     .build()
             )
-            .page(NumberBlockOrderListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -43,7 +44,8 @@ internal class NumberBlockOrderListParamsTest {
                         .status("pending")
                         .build()
                 )
-                .page(NumberBlockOrderListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -55,8 +57,8 @@ internal class NumberBlockOrderListParamsTest {
                     .put("filter[created_at][lt]", "2018-01-01T00:00:00.000000Z")
                     .put("filter[phone_numbers.starting_number]", "+19705555000")
                     .put("filter[status]", "pending")
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .build()
             )
     }

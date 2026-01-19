@@ -93,7 +93,7 @@ internal class OAuthServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism doesn't properly handle redirects")
+    @Disabled("Prism tests are disabled")
     @Test
     fun retrieveAuthorize() {
         val client =

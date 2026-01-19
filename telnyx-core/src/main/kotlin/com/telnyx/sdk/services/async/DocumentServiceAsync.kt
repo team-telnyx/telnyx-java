@@ -11,8 +11,8 @@ import com.telnyx.sdk.models.documents.DocumentDeleteResponse
 import com.telnyx.sdk.models.documents.DocumentDownloadParams
 import com.telnyx.sdk.models.documents.DocumentGenerateDownloadLinkParams
 import com.telnyx.sdk.models.documents.DocumentGenerateDownloadLinkResponse
+import com.telnyx.sdk.models.documents.DocumentListPageAsync
 import com.telnyx.sdk.models.documents.DocumentListParams
-import com.telnyx.sdk.models.documents.DocumentListResponse
 import com.telnyx.sdk.models.documents.DocumentRetrieveParams
 import com.telnyx.sdk.models.documents.DocumentRetrieveResponse
 import com.telnyx.sdk.models.documents.DocumentUpdateParams
@@ -75,17 +75,17 @@ interface DocumentServiceAsync {
 
     /** Update a document. */
     fun update(
-        pathId: String,
+        documentId: String,
         params: DocumentUpdateParams,
-    ): CompletableFuture<DocumentUpdateResponse> = update(pathId, params, RequestOptions.none())
+    ): CompletableFuture<DocumentUpdateResponse> = update(documentId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        pathId: String,
+        documentId: String,
         params: DocumentUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DocumentUpdateResponse> =
-        update(params.toBuilder().pathId(pathId).build(), requestOptions)
+        update(params.toBuilder().documentId(documentId).build(), requestOptions)
 
     /** @see update */
     fun update(params: DocumentUpdateParams): CompletableFuture<DocumentUpdateResponse> =
@@ -98,21 +98,21 @@ interface DocumentServiceAsync {
     ): CompletableFuture<DocumentUpdateResponse>
 
     /** List all documents ordered by created_at descending. */
-    fun list(): CompletableFuture<DocumentListResponse> = list(DocumentListParams.none())
+    fun list(): CompletableFuture<DocumentListPageAsync> = list(DocumentListParams.none())
 
     /** @see list */
     fun list(
         params: DocumentListParams = DocumentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DocumentListResponse>
+    ): CompletableFuture<DocumentListPageAsync>
 
     /** @see list */
     fun list(
         params: DocumentListParams = DocumentListParams.none()
-    ): CompletableFuture<DocumentListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<DocumentListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<DocumentListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<DocumentListPageAsync> =
         list(DocumentListParams.none(), requestOptions)
 
     /**
@@ -229,28 +229,44 @@ interface DocumentServiceAsync {
      * Upload a document.<br /><br />Uploaded files must be linked to a service within 30 minutes or
      * they will be automatically deleted.
      */
-    fun upload(params: DocumentUploadParams): CompletableFuture<DocumentUploadResponse> =
-        upload(params, RequestOptions.none())
+    fun upload(): CompletableFuture<DocumentUploadResponse> = upload(DocumentUploadParams.none())
 
     /** @see upload */
     fun upload(
-        params: DocumentUploadParams,
+        params: DocumentUploadParams = DocumentUploadParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DocumentUploadResponse>
+
+    /** @see upload */
+    fun upload(
+        params: DocumentUploadParams = DocumentUploadParams.none()
+    ): CompletableFuture<DocumentUploadResponse> = upload(params, RequestOptions.none())
+
+    /** @see upload */
+    fun upload(requestOptions: RequestOptions): CompletableFuture<DocumentUploadResponse> =
+        upload(DocumentUploadParams.none(), requestOptions)
 
     /**
      * Upload a document.<br /><br />Uploaded files must be linked to a service within 30 minutes or
      * they will be automatically deleted.
      */
-    fun uploadJson(
-        params: DocumentUploadJsonParams
-    ): CompletableFuture<DocumentUploadJsonResponse> = uploadJson(params, RequestOptions.none())
+    fun uploadJson(): CompletableFuture<DocumentUploadJsonResponse> =
+        uploadJson(DocumentUploadJsonParams.none())
 
     /** @see uploadJson */
     fun uploadJson(
-        params: DocumentUploadJsonParams,
+        params: DocumentUploadJsonParams = DocumentUploadJsonParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DocumentUploadJsonResponse>
+
+    /** @see uploadJson */
+    fun uploadJson(
+        params: DocumentUploadJsonParams = DocumentUploadJsonParams.none()
+    ): CompletableFuture<DocumentUploadJsonResponse> = uploadJson(params, RequestOptions.none())
+
+    /** @see uploadJson */
+    fun uploadJson(requestOptions: RequestOptions): CompletableFuture<DocumentUploadJsonResponse> =
+        uploadJson(DocumentUploadJsonParams.none(), requestOptions)
 
     /**
      * A view of [DocumentServiceAsync] that provides access to raw HTTP responses for each method.
@@ -312,18 +328,18 @@ interface DocumentServiceAsync {
          * [DocumentServiceAsync.update].
          */
         fun update(
-            pathId: String,
+            documentId: String,
             params: DocumentUpdateParams,
         ): CompletableFuture<HttpResponseFor<DocumentUpdateResponse>> =
-            update(pathId, params, RequestOptions.none())
+            update(documentId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
-            pathId: String,
+            documentId: String,
             params: DocumentUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DocumentUpdateResponse>> =
-            update(params.toBuilder().pathId(pathId).build(), requestOptions)
+            update(params.toBuilder().documentId(documentId).build(), requestOptions)
 
         /** @see update */
         fun update(
@@ -341,25 +357,25 @@ interface DocumentServiceAsync {
          * Returns a raw HTTP response for `get /documents`, but is otherwise the same as
          * [DocumentServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<DocumentListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<DocumentListPageAsync>> =
             list(DocumentListParams.none())
 
         /** @see list */
         fun list(
             params: DocumentListParams = DocumentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DocumentListResponse>>
+        ): CompletableFuture<HttpResponseFor<DocumentListPageAsync>>
 
         /** @see list */
         fun list(
             params: DocumentListParams = DocumentListParams.none()
-        ): CompletableFuture<HttpResponseFor<DocumentListResponse>> =
+        ): CompletableFuture<HttpResponseFor<DocumentListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<DocumentListResponse>> =
+        ): CompletableFuture<HttpResponseFor<DocumentListPageAsync>> =
             list(DocumentListParams.none(), requestOptions)
 
         /**
@@ -485,30 +501,50 @@ interface DocumentServiceAsync {
          * Returns a raw HTTP response for `post /documents?content-type=multipart`, but is
          * otherwise the same as [DocumentServiceAsync.upload].
          */
+        fun upload(): CompletableFuture<HttpResponseFor<DocumentUploadResponse>> =
+            upload(DocumentUploadParams.none())
+
+        /** @see upload */
         fun upload(
-            params: DocumentUploadParams
+            params: DocumentUploadParams = DocumentUploadParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<DocumentUploadResponse>>
+
+        /** @see upload */
+        fun upload(
+            params: DocumentUploadParams = DocumentUploadParams.none()
         ): CompletableFuture<HttpResponseFor<DocumentUploadResponse>> =
             upload(params, RequestOptions.none())
 
         /** @see upload */
         fun upload(
-            params: DocumentUploadParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DocumentUploadResponse>>
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<DocumentUploadResponse>> =
+            upload(DocumentUploadParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /documents`, but is otherwise the same as
          * [DocumentServiceAsync.uploadJson].
          */
+        fun uploadJson(): CompletableFuture<HttpResponseFor<DocumentUploadJsonResponse>> =
+            uploadJson(DocumentUploadJsonParams.none())
+
+        /** @see uploadJson */
         fun uploadJson(
-            params: DocumentUploadJsonParams
+            params: DocumentUploadJsonParams = DocumentUploadJsonParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<DocumentUploadJsonResponse>>
+
+        /** @see uploadJson */
+        fun uploadJson(
+            params: DocumentUploadJsonParams = DocumentUploadJsonParams.none()
         ): CompletableFuture<HttpResponseFor<DocumentUploadJsonResponse>> =
             uploadJson(params, RequestOptions.none())
 
         /** @see uploadJson */
         fun uploadJson(
-            params: DocumentUploadJsonParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DocumentUploadJsonResponse>>
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<DocumentUploadJsonResponse>> =
+            uploadJson(DocumentUploadJsonParams.none(), requestOptions)
     }
 }

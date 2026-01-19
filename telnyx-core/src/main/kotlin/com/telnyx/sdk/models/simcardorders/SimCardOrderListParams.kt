@@ -15,7 +15,8 @@ import kotlin.jvm.optionals.getOrNull
 class SimCardOrderListParams
 private constructor(
     private val filter: Filter?,
-    private val page: Page?,
+    private val pageNumber: Long?,
+    private val pageSize: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -30,10 +31,9 @@ private constructor(
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
-    /**
-     * Consolidated pagination parameter (deepObject style). Originally: page[number], page[size]
-     */
-    fun page(): Optional<Page> = Optional.ofNullable(page)
+    fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
+
+    fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -55,14 +55,16 @@ private constructor(
     class Builder internal constructor() {
 
         private var filter: Filter? = null
-        private var page: Page? = null
+        private var pageNumber: Long? = null
+        private var pageSize: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(simCardOrderListParams: SimCardOrderListParams) = apply {
             filter = simCardOrderListParams.filter
-            page = simCardOrderListParams.page
+            pageNumber = simCardOrderListParams.pageNumber
+            pageSize = simCardOrderListParams.pageSize
             additionalHeaders = simCardOrderListParams.additionalHeaders.toBuilder()
             additionalQueryParams = simCardOrderListParams.additionalQueryParams.toBuilder()
         }
@@ -80,14 +82,29 @@ private constructor(
         /** Alias for calling [Builder.filter] with `filter.orElse(null)`. */
         fun filter(filter: Optional<Filter>) = filter(filter.getOrNull())
 
-        /**
-         * Consolidated pagination parameter (deepObject style). Originally: page[number],
-         * page[size]
-         */
-        fun page(page: Page?) = apply { this.page = page }
+        fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
-        /** Alias for calling [Builder.page] with `page.orElse(null)`. */
-        fun page(page: Optional<Page>) = page(page.getOrNull())
+        /**
+         * Alias for [Builder.pageNumber].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageNumber(pageNumber: Long) = pageNumber(pageNumber as Long?)
+
+        /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
+        fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
+
+        fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
+
+        /**
+         * Alias for [Builder.pageSize].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageSize(pageSize: Long) = pageSize(pageSize as Long?)
+
+        /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
+        fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -195,7 +212,8 @@ private constructor(
         fun build(): SimCardOrderListParams =
             SimCardOrderListParams(
                 filter,
-                page,
+                pageNumber,
+                pageSize,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -207,33 +225,21 @@ private constructor(
         QueryParams.builder()
             .apply {
                 filter?.let {
-                    it.address().ifPresent {
-                        it.id().ifPresent { put("filter[address][id]", it) }
-                        it.administrativeArea().ifPresent {
-                            put("filter[address][administrative_area]", it)
-                        }
-                        it.countryCode().ifPresent { put("filter[address][country_code]", it) }
-                        it.extendedAddress().ifPresent {
-                            put("filter[address][extended_address]", it)
-                        }
-                        it.locality().ifPresent { put("filter[address][locality]", it) }
-                        it.postalCode().ifPresent { put("filter[address][postal_code]", it) }
-                        it.streetAddress().ifPresent { put("filter[address][street_address]", it) }
-                        it._additionalProperties().keys().forEach { key ->
-                            it._additionalProperties().values(key).forEach { value ->
-                                put("filter[address][$key]", value)
-                            }
-                        }
+                    it.addressAdministrativeArea().ifPresent {
+                        put("filter[address.administrative_area]", it)
                     }
-                    it.cost().ifPresent {
-                        it.amount().ifPresent { put("filter[cost][amount]", it) }
-                        it.currency().ifPresent { put("filter[cost][currency]", it) }
-                        it._additionalProperties().keys().forEach { key ->
-                            it._additionalProperties().values(key).forEach { value ->
-                                put("filter[cost][$key]", value)
-                            }
-                        }
+                    it.addressCountryCode().ifPresent { put("filter[address.country_code]", it) }
+                    it.addressExtendedAddress().ifPresent {
+                        put("filter[address.extended_address]", it)
                     }
+                    it.addressId().ifPresent { put("filter[address.id]", it) }
+                    it.addressLocality().ifPresent { put("filter[address.locality]", it) }
+                    it.addressPostalCode().ifPresent { put("filter[address.postal_code]", it) }
+                    it.addressStreetAddress().ifPresent {
+                        put("filter[address.street_address]", it)
+                    }
+                    it.costAmount().ifPresent { put("filter[cost.amount]", it) }
+                    it.costCurrency().ifPresent { put("filter[cost.currency]", it) }
                     it.createdAt().ifPresent {
                         put("filter[created_at]", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
                     }
@@ -247,15 +253,8 @@ private constructor(
                         }
                     }
                 }
-                page?.let {
-                    it.number().ifPresent { put("page[number]", it.toString()) }
-                    it.size().ifPresent { put("page[size]", it.toString()) }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("page[$key]", value)
-                        }
-                    }
-                }
+                pageNumber?.let { put("page[number]", it.toString()) }
+                pageSize?.let { put("page[size]", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -270,17 +269,48 @@ private constructor(
      */
     class Filter
     private constructor(
-        private val address: Address?,
-        private val cost: Cost?,
+        private val addressAdministrativeArea: String?,
+        private val addressCountryCode: String?,
+        private val addressExtendedAddress: String?,
+        private val addressId: String?,
+        private val addressLocality: String?,
+        private val addressPostalCode: String?,
+        private val addressStreetAddress: String?,
+        private val costAmount: String?,
+        private val costCurrency: String?,
         private val createdAt: OffsetDateTime?,
         private val quantity: Long?,
         private val updatedAt: OffsetDateTime?,
         private val additionalProperties: QueryParams,
     ) {
 
-        fun address(): Optional<Address> = Optional.ofNullable(address)
+        /** Filter by state or province where the address is located. */
+        fun addressAdministrativeArea(): Optional<String> =
+            Optional.ofNullable(addressAdministrativeArea)
 
-        fun cost(): Optional<Cost> = Optional.ofNullable(cost)
+        /** Filter by the mobile operator two-character (ISO 3166-1 alpha-2) origin country code. */
+        fun addressCountryCode(): Optional<String> = Optional.ofNullable(addressCountryCode)
+
+        /** Returns entries with matching name of the supplemental field for address information. */
+        fun addressExtendedAddress(): Optional<String> = Optional.ofNullable(addressExtendedAddress)
+
+        /** Uniquely identifies the address for the order. */
+        fun addressId(): Optional<String> = Optional.ofNullable(addressId)
+
+        /** Filter by the name of the city where the address is located. */
+        fun addressLocality(): Optional<String> = Optional.ofNullable(addressLocality)
+
+        /** Filter by postal code for the address. */
+        fun addressPostalCode(): Optional<String> = Optional.ofNullable(addressPostalCode)
+
+        /** Returns entries with matching name of the street where the address is located. */
+        fun addressStreetAddress(): Optional<String> = Optional.ofNullable(addressStreetAddress)
+
+        /** The total monetary amount of the order. */
+        fun costAmount(): Optional<String> = Optional.ofNullable(costAmount)
+
+        /** Filter by ISO 4217 currency string. */
+        fun costCurrency(): Optional<String> = Optional.ofNullable(costCurrency)
 
         /** Filter by ISO 8601 formatted date-time string matching resource creation date-time. */
         fun createdAt(): Optional<OffsetDateTime> = Optional.ofNullable(createdAt)
@@ -307,8 +337,15 @@ private constructor(
         /** A builder for [Filter]. */
         class Builder internal constructor() {
 
-            private var address: Address? = null
-            private var cost: Cost? = null
+            private var addressAdministrativeArea: String? = null
+            private var addressCountryCode: String? = null
+            private var addressExtendedAddress: String? = null
+            private var addressId: String? = null
+            private var addressLocality: String? = null
+            private var addressPostalCode: String? = null
+            private var addressStreetAddress: String? = null
+            private var costAmount: String? = null
+            private var costCurrency: String? = null
             private var createdAt: OffsetDateTime? = null
             private var quantity: Long? = null
             private var updatedAt: OffsetDateTime? = null
@@ -316,23 +353,111 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(filter: Filter) = apply {
-                address = filter.address
-                cost = filter.cost
+                addressAdministrativeArea = filter.addressAdministrativeArea
+                addressCountryCode = filter.addressCountryCode
+                addressExtendedAddress = filter.addressExtendedAddress
+                addressId = filter.addressId
+                addressLocality = filter.addressLocality
+                addressPostalCode = filter.addressPostalCode
+                addressStreetAddress = filter.addressStreetAddress
+                costAmount = filter.costAmount
+                costCurrency = filter.costCurrency
                 createdAt = filter.createdAt
                 quantity = filter.quantity
                 updatedAt = filter.updatedAt
                 additionalProperties = filter.additionalProperties.toBuilder()
             }
 
-            fun address(address: Address?) = apply { this.address = address }
+            /** Filter by state or province where the address is located. */
+            fun addressAdministrativeArea(addressAdministrativeArea: String?) = apply {
+                this.addressAdministrativeArea = addressAdministrativeArea
+            }
 
-            /** Alias for calling [Builder.address] with `address.orElse(null)`. */
-            fun address(address: Optional<Address>) = address(address.getOrNull())
+            /**
+             * Alias for calling [Builder.addressAdministrativeArea] with
+             * `addressAdministrativeArea.orElse(null)`.
+             */
+            fun addressAdministrativeArea(addressAdministrativeArea: Optional<String>) =
+                addressAdministrativeArea(addressAdministrativeArea.getOrNull())
 
-            fun cost(cost: Cost?) = apply { this.cost = cost }
+            /**
+             * Filter by the mobile operator two-character (ISO 3166-1 alpha-2) origin country code.
+             */
+            fun addressCountryCode(addressCountryCode: String?) = apply {
+                this.addressCountryCode = addressCountryCode
+            }
 
-            /** Alias for calling [Builder.cost] with `cost.orElse(null)`. */
-            fun cost(cost: Optional<Cost>) = cost(cost.getOrNull())
+            /**
+             * Alias for calling [Builder.addressCountryCode] with
+             * `addressCountryCode.orElse(null)`.
+             */
+            fun addressCountryCode(addressCountryCode: Optional<String>) =
+                addressCountryCode(addressCountryCode.getOrNull())
+
+            /**
+             * Returns entries with matching name of the supplemental field for address information.
+             */
+            fun addressExtendedAddress(addressExtendedAddress: String?) = apply {
+                this.addressExtendedAddress = addressExtendedAddress
+            }
+
+            /**
+             * Alias for calling [Builder.addressExtendedAddress] with
+             * `addressExtendedAddress.orElse(null)`.
+             */
+            fun addressExtendedAddress(addressExtendedAddress: Optional<String>) =
+                addressExtendedAddress(addressExtendedAddress.getOrNull())
+
+            /** Uniquely identifies the address for the order. */
+            fun addressId(addressId: String?) = apply { this.addressId = addressId }
+
+            /** Alias for calling [Builder.addressId] with `addressId.orElse(null)`. */
+            fun addressId(addressId: Optional<String>) = addressId(addressId.getOrNull())
+
+            /** Filter by the name of the city where the address is located. */
+            fun addressLocality(addressLocality: String?) = apply {
+                this.addressLocality = addressLocality
+            }
+
+            /** Alias for calling [Builder.addressLocality] with `addressLocality.orElse(null)`. */
+            fun addressLocality(addressLocality: Optional<String>) =
+                addressLocality(addressLocality.getOrNull())
+
+            /** Filter by postal code for the address. */
+            fun addressPostalCode(addressPostalCode: String?) = apply {
+                this.addressPostalCode = addressPostalCode
+            }
+
+            /**
+             * Alias for calling [Builder.addressPostalCode] with `addressPostalCode.orElse(null)`.
+             */
+            fun addressPostalCode(addressPostalCode: Optional<String>) =
+                addressPostalCode(addressPostalCode.getOrNull())
+
+            /** Returns entries with matching name of the street where the address is located. */
+            fun addressStreetAddress(addressStreetAddress: String?) = apply {
+                this.addressStreetAddress = addressStreetAddress
+            }
+
+            /**
+             * Alias for calling [Builder.addressStreetAddress] with
+             * `addressStreetAddress.orElse(null)`.
+             */
+            fun addressStreetAddress(addressStreetAddress: Optional<String>) =
+                addressStreetAddress(addressStreetAddress.getOrNull())
+
+            /** The total monetary amount of the order. */
+            fun costAmount(costAmount: String?) = apply { this.costAmount = costAmount }
+
+            /** Alias for calling [Builder.costAmount] with `costAmount.orElse(null)`. */
+            fun costAmount(costAmount: Optional<String>) = costAmount(costAmount.getOrNull())
+
+            /** Filter by ISO 4217 currency string. */
+            fun costCurrency(costCurrency: String?) = apply { this.costCurrency = costCurrency }
+
+            /** Alias for calling [Builder.costCurrency] with `costCurrency.orElse(null)`. */
+            fun costCurrency(costCurrency: Optional<String>) =
+                costCurrency(costCurrency.getOrNull())
 
             /**
              * Filter by ISO 8601 formatted date-time string matching resource creation date-time.
@@ -419,378 +544,21 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): Filter =
-                Filter(address, cost, createdAt, quantity, updatedAt, additionalProperties.build())
-        }
-
-        class Address
-        private constructor(
-            private val id: String?,
-            private val administrativeArea: String?,
-            private val countryCode: String?,
-            private val extendedAddress: String?,
-            private val locality: String?,
-            private val postalCode: String?,
-            private val streetAddress: String?,
-            private val additionalProperties: QueryParams,
-        ) {
-
-            /** Uniquely identifies the address for the order. */
-            fun id(): Optional<String> = Optional.ofNullable(id)
-
-            /** Filter by state or province where the address is located. */
-            fun administrativeArea(): Optional<String> = Optional.ofNullable(administrativeArea)
-
-            /**
-             * Filter by the mobile operator two-character (ISO 3166-1 alpha-2) origin country code.
-             */
-            fun countryCode(): Optional<String> = Optional.ofNullable(countryCode)
-
-            /**
-             * Returns entries with matching name of the supplemental field for address information.
-             */
-            fun extendedAddress(): Optional<String> = Optional.ofNullable(extendedAddress)
-
-            /** Filter by the name of the city where the address is located. */
-            fun locality(): Optional<String> = Optional.ofNullable(locality)
-
-            /** Filter by postal code for the address. */
-            fun postalCode(): Optional<String> = Optional.ofNullable(postalCode)
-
-            /** Returns entries with matching name of the street where the address is located. */
-            fun streetAddress(): Optional<String> = Optional.ofNullable(streetAddress)
-
-            /** Query params to send with the request. */
-            fun _additionalProperties(): QueryParams = additionalProperties
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Address]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Address]. */
-            class Builder internal constructor() {
-
-                private var id: String? = null
-                private var administrativeArea: String? = null
-                private var countryCode: String? = null
-                private var extendedAddress: String? = null
-                private var locality: String? = null
-                private var postalCode: String? = null
-                private var streetAddress: String? = null
-                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
-
-                @JvmSynthetic
-                internal fun from(address: Address) = apply {
-                    id = address.id
-                    administrativeArea = address.administrativeArea
-                    countryCode = address.countryCode
-                    extendedAddress = address.extendedAddress
-                    locality = address.locality
-                    postalCode = address.postalCode
-                    streetAddress = address.streetAddress
-                    additionalProperties = address.additionalProperties.toBuilder()
-                }
-
-                /** Uniquely identifies the address for the order. */
-                fun id(id: String?) = apply { this.id = id }
-
-                /** Alias for calling [Builder.id] with `id.orElse(null)`. */
-                fun id(id: Optional<String>) = id(id.getOrNull())
-
-                /** Filter by state or province where the address is located. */
-                fun administrativeArea(administrativeArea: String?) = apply {
-                    this.administrativeArea = administrativeArea
-                }
-
-                /**
-                 * Alias for calling [Builder.administrativeArea] with
-                 * `administrativeArea.orElse(null)`.
-                 */
-                fun administrativeArea(administrativeArea: Optional<String>) =
-                    administrativeArea(administrativeArea.getOrNull())
-
-                /**
-                 * Filter by the mobile operator two-character (ISO 3166-1 alpha-2) origin country
-                 * code.
-                 */
-                fun countryCode(countryCode: String?) = apply { this.countryCode = countryCode }
-
-                /** Alias for calling [Builder.countryCode] with `countryCode.orElse(null)`. */
-                fun countryCode(countryCode: Optional<String>) =
-                    countryCode(countryCode.getOrNull())
-
-                /**
-                 * Returns entries with matching name of the supplemental field for address
-                 * information.
-                 */
-                fun extendedAddress(extendedAddress: String?) = apply {
-                    this.extendedAddress = extendedAddress
-                }
-
-                /**
-                 * Alias for calling [Builder.extendedAddress] with `extendedAddress.orElse(null)`.
-                 */
-                fun extendedAddress(extendedAddress: Optional<String>) =
-                    extendedAddress(extendedAddress.getOrNull())
-
-                /** Filter by the name of the city where the address is located. */
-                fun locality(locality: String?) = apply { this.locality = locality }
-
-                /** Alias for calling [Builder.locality] with `locality.orElse(null)`. */
-                fun locality(locality: Optional<String>) = locality(locality.getOrNull())
-
-                /** Filter by postal code for the address. */
-                fun postalCode(postalCode: String?) = apply { this.postalCode = postalCode }
-
-                /** Alias for calling [Builder.postalCode] with `postalCode.orElse(null)`. */
-                fun postalCode(postalCode: Optional<String>) = postalCode(postalCode.getOrNull())
-
-                /**
-                 * Returns entries with matching name of the street where the address is located.
-                 */
-                fun streetAddress(streetAddress: String?) = apply {
-                    this.streetAddress = streetAddress
-                }
-
-                /** Alias for calling [Builder.streetAddress] with `streetAddress.orElse(null)`. */
-                fun streetAddress(streetAddress: Optional<String>) =
-                    streetAddress(streetAddress.getOrNull())
-
-                fun additionalProperties(additionalProperties: QueryParams) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
-                    apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                fun putAdditionalProperty(key: String, value: String) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                    additionalProperties.put(key, values)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-                fun putAllAdditionalProperties(
-                    additionalProperties: Map<String, Iterable<String>>
-                ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                fun replaceAdditionalProperties(key: String, value: String) = apply {
-                    additionalProperties.replace(key, value)
-                }
-
-                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                    additionalProperties.replace(key, values)
-                }
-
-                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                    this.additionalProperties.replaceAll(additionalProperties)
-                }
-
-                fun replaceAllAdditionalProperties(
-                    additionalProperties: Map<String, Iterable<String>>
-                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-                fun removeAdditionalProperties(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    additionalProperties.removeAll(keys)
-                }
-
-                /**
-                 * Returns an immutable instance of [Address].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Address =
-                    Address(
-                        id,
-                        administrativeArea,
-                        countryCode,
-                        extendedAddress,
-                        locality,
-                        postalCode,
-                        streetAddress,
-                        additionalProperties.build(),
-                    )
-            }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Address &&
-                    id == other.id &&
-                    administrativeArea == other.administrativeArea &&
-                    countryCode == other.countryCode &&
-                    extendedAddress == other.extendedAddress &&
-                    locality == other.locality &&
-                    postalCode == other.postalCode &&
-                    streetAddress == other.streetAddress &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(
-                    id,
-                    administrativeArea,
-                    countryCode,
-                    extendedAddress,
-                    locality,
-                    postalCode,
-                    streetAddress,
-                    additionalProperties,
+                Filter(
+                    addressAdministrativeArea,
+                    addressCountryCode,
+                    addressExtendedAddress,
+                    addressId,
+                    addressLocality,
+                    addressPostalCode,
+                    addressStreetAddress,
+                    costAmount,
+                    costCurrency,
+                    createdAt,
+                    quantity,
+                    updatedAt,
+                    additionalProperties.build(),
                 )
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Address{id=$id, administrativeArea=$administrativeArea, countryCode=$countryCode, extendedAddress=$extendedAddress, locality=$locality, postalCode=$postalCode, streetAddress=$streetAddress, additionalProperties=$additionalProperties}"
-        }
-
-        class Cost
-        private constructor(
-            private val amount: String?,
-            private val currency: String?,
-            private val additionalProperties: QueryParams,
-        ) {
-
-            /** The total monetary amount of the order. */
-            fun amount(): Optional<String> = Optional.ofNullable(amount)
-
-            /** Filter by ISO 4217 currency string. */
-            fun currency(): Optional<String> = Optional.ofNullable(currency)
-
-            /** Query params to send with the request. */
-            fun _additionalProperties(): QueryParams = additionalProperties
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Cost]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Cost]. */
-            class Builder internal constructor() {
-
-                private var amount: String? = null
-                private var currency: String? = null
-                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
-
-                @JvmSynthetic
-                internal fun from(cost: Cost) = apply {
-                    amount = cost.amount
-                    currency = cost.currency
-                    additionalProperties = cost.additionalProperties.toBuilder()
-                }
-
-                /** The total monetary amount of the order. */
-                fun amount(amount: String?) = apply { this.amount = amount }
-
-                /** Alias for calling [Builder.amount] with `amount.orElse(null)`. */
-                fun amount(amount: Optional<String>) = amount(amount.getOrNull())
-
-                /** Filter by ISO 4217 currency string. */
-                fun currency(currency: String?) = apply { this.currency = currency }
-
-                /** Alias for calling [Builder.currency] with `currency.orElse(null)`. */
-                fun currency(currency: Optional<String>) = currency(currency.getOrNull())
-
-                fun additionalProperties(additionalProperties: QueryParams) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
-                    apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                fun putAdditionalProperty(key: String, value: String) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                    additionalProperties.put(key, values)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-                fun putAllAdditionalProperties(
-                    additionalProperties: Map<String, Iterable<String>>
-                ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                fun replaceAdditionalProperties(key: String, value: String) = apply {
-                    additionalProperties.replace(key, value)
-                }
-
-                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                    additionalProperties.replace(key, values)
-                }
-
-                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                    this.additionalProperties.replaceAll(additionalProperties)
-                }
-
-                fun replaceAllAdditionalProperties(
-                    additionalProperties: Map<String, Iterable<String>>
-                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-                fun removeAdditionalProperties(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    additionalProperties.removeAll(keys)
-                }
-
-                /**
-                 * Returns an immutable instance of [Cost].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Cost = Cost(amount, currency, additionalProperties.build())
-            }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Cost &&
-                    amount == other.amount &&
-                    currency == other.currency &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(amount, currency, additionalProperties)
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Cost{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -799,8 +567,15 @@ private constructor(
             }
 
             return other is Filter &&
-                address == other.address &&
-                cost == other.cost &&
+                addressAdministrativeArea == other.addressAdministrativeArea &&
+                addressCountryCode == other.addressCountryCode &&
+                addressExtendedAddress == other.addressExtendedAddress &&
+                addressId == other.addressId &&
+                addressLocality == other.addressLocality &&
+                addressPostalCode == other.addressPostalCode &&
+                addressStreetAddress == other.addressStreetAddress &&
+                costAmount == other.costAmount &&
+                costCurrency == other.costCurrency &&
                 createdAt == other.createdAt &&
                 quantity == other.quantity &&
                 updatedAt == other.updatedAt &&
@@ -808,156 +583,27 @@ private constructor(
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(address, cost, createdAt, quantity, updatedAt, additionalProperties)
+            Objects.hash(
+                addressAdministrativeArea,
+                addressCountryCode,
+                addressExtendedAddress,
+                addressId,
+                addressLocality,
+                addressPostalCode,
+                addressStreetAddress,
+                costAmount,
+                costCurrency,
+                createdAt,
+                quantity,
+                updatedAt,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Filter{address=$address, cost=$cost, createdAt=$createdAt, quantity=$quantity, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
-    }
-
-    /**
-     * Consolidated pagination parameter (deepObject style). Originally: page[number], page[size]
-     */
-    class Page
-    private constructor(
-        private val number: Long?,
-        private val size: Long?,
-        private val additionalProperties: QueryParams,
-    ) {
-
-        /** The page number to load. */
-        fun number(): Optional<Long> = Optional.ofNullable(number)
-
-        /** The size of the page. */
-        fun size(): Optional<Long> = Optional.ofNullable(size)
-
-        /** Query params to send with the request. */
-        fun _additionalProperties(): QueryParams = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Page]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Page]. */
-        class Builder internal constructor() {
-
-            private var number: Long? = null
-            private var size: Long? = null
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
-
-            @JvmSynthetic
-            internal fun from(page: Page) = apply {
-                number = page.number
-                size = page.size
-                additionalProperties = page.additionalProperties.toBuilder()
-            }
-
-            /** The page number to load. */
-            fun number(number: Long?) = apply { this.number = number }
-
-            /**
-             * Alias for [Builder.number].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun number(number: Long) = number(number as Long?)
-
-            /** Alias for calling [Builder.number] with `number.orElse(null)`. */
-            fun number(number: Optional<Long>) = number(number.getOrNull())
-
-            /** The size of the page. */
-            fun size(size: Long?) = apply { this.size = size }
-
-            /**
-             * Alias for [Builder.size].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun size(size: Long) = size(size as Long?)
-
-            /** Alias for calling [Builder.size] with `size.orElse(null)`. */
-            fun size(size: Optional<Long>) = size(size.getOrNull())
-
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
-
-            /**
-             * Returns an immutable instance of [Page].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Page = Page(number, size, additionalProperties.build())
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Page &&
-                number == other.number &&
-                size == other.size &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(number, size, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Page{number=$number, size=$size, additionalProperties=$additionalProperties}"
+            "Filter{addressAdministrativeArea=$addressAdministrativeArea, addressCountryCode=$addressCountryCode, addressExtendedAddress=$addressExtendedAddress, addressId=$addressId, addressLocality=$addressLocality, addressPostalCode=$addressPostalCode, addressStreetAddress=$addressStreetAddress, costAmount=$costAmount, costCurrency=$costCurrency, createdAt=$createdAt, quantity=$quantity, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -967,14 +613,15 @@ private constructor(
 
         return other is SimCardOrderListParams &&
             filter == other.filter &&
-            page == other.page &&
+            pageNumber == other.pageNumber &&
+            pageSize == other.pageSize &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(filter, page, additionalHeaders, additionalQueryParams)
+        Objects.hash(filter, pageNumber, pageSize, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "SimCardOrderListParams{filter=$filter, page=$page, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "SimCardOrderListParams{filter=$filter, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

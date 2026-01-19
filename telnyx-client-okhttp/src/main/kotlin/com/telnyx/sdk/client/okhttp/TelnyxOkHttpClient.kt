@@ -8,6 +8,7 @@ import com.telnyx.sdk.client.TelnyxClientImpl
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.Sleeper
 import com.telnyx.sdk.core.Timeout
+import com.telnyx.sdk.core.http.AsyncStreamResponse
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.HttpClient
 import com.telnyx.sdk.core.http.QueryParams
@@ -16,6 +17,8 @@ import java.net.Proxy
 import java.time.Clock
 import java.time.Duration
 import java.util.Optional
+import java.util.concurrent.Executor
+import java.util.concurrent.ExecutorService
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.X509TrustManager
@@ -44,10 +47,30 @@ class TelnyxOkHttpClient private constructor() {
     class Builder internal constructor() {
 
         private var clientOptions: ClientOptions.Builder = ClientOptions.builder()
+        private var dispatcherExecutorService: ExecutorService? = null
         private var proxy: Proxy? = null
         private var sslSocketFactory: SSLSocketFactory? = null
         private var trustManager: X509TrustManager? = null
         private var hostnameVerifier: HostnameVerifier? = null
+
+        /**
+         * The executor service to use for running HTTP requests.
+         *
+         * Defaults to OkHttp's
+         * [default executor service](https://github.com/square/okhttp/blob/ace792f443b2ffb17974f5c0d1cecdf589309f26/okhttp/src/commonJvmAndroid/kotlin/okhttp3/Dispatcher.kt#L98-L104).
+         *
+         * This class takes ownership of the executor service and shuts it down when closed.
+         */
+        fun dispatcherExecutorService(dispatcherExecutorService: ExecutorService?) = apply {
+            this.dispatcherExecutorService = dispatcherExecutorService
+        }
+
+        /**
+         * Alias for calling [Builder.dispatcherExecutorService] with
+         * `dispatcherExecutorService.orElse(null)`.
+         */
+        fun dispatcherExecutorService(dispatcherExecutorService: Optional<ExecutorService>) =
+            dispatcherExecutorService(dispatcherExecutorService.getOrNull())
 
         fun proxy(proxy: Proxy?) = apply { this.proxy = proxy }
 
@@ -120,6 +143,17 @@ class TelnyxOkHttpClient private constructor() {
          * rarely needs to be overridden.
          */
         fun jsonMapper(jsonMapper: JsonMapper) = apply { clientOptions.jsonMapper(jsonMapper) }
+
+        /**
+         * The executor to use for running [AsyncStreamResponse.Handler] callbacks.
+         *
+         * Defaults to a dedicated cached thread pool.
+         *
+         * This class takes ownership of the executor and shuts it down, if possible, when closed.
+         */
+        fun streamHandlerExecutor(streamHandlerExecutor: Executor) = apply {
+            clientOptions.streamHandlerExecutor(streamHandlerExecutor)
+        }
 
         /**
          * The interface to use for delaying execution, like during retries.
@@ -195,12 +229,25 @@ class TelnyxOkHttpClient private constructor() {
          */
         fun maxRetries(maxRetries: Int) = apply { clientOptions.maxRetries(maxRetries) }
 
-        fun apiKey(apiKey: String) = apply { clientOptions.apiKey(apiKey) }
+        fun apiKey(apiKey: String?) = apply { clientOptions.apiKey(apiKey) }
+
+        /** Alias for calling [Builder.apiKey] with `apiKey.orElse(null)`. */
+        fun apiKey(apiKey: Optional<String>) = apiKey(apiKey.getOrNull())
 
         fun publicKey(publicKey: String?) = apply { clientOptions.publicKey(publicKey) }
 
         /** Alias for calling [Builder.publicKey] with `publicKey.orElse(null)`. */
         fun publicKey(publicKey: Optional<String>) = publicKey(publicKey.getOrNull())
+
+        fun clientId(clientId: String?) = apply { clientOptions.clientId(clientId) }
+
+        /** Alias for calling [Builder.clientId] with `clientId.orElse(null)`. */
+        fun clientId(clientId: Optional<String>) = clientId(clientId.getOrNull())
+
+        fun clientSecret(clientSecret: String?) = apply { clientOptions.clientSecret(clientSecret) }
+
+        /** Alias for calling [Builder.clientSecret] with `clientSecret.orElse(null)`. */
+        fun clientSecret(clientSecret: Optional<String>) = clientSecret(clientSecret.getOrNull())
 
         fun headers(headers: Headers) = apply { clientOptions.headers(headers) }
 
@@ -301,6 +348,7 @@ class TelnyxOkHttpClient private constructor() {
                         OkHttpClient.builder()
                             .timeout(clientOptions.timeout())
                             .proxy(proxy)
+                            .dispatcherExecutorService(dispatcherExecutorService)
                             .sslSocketFactory(sslSocketFactory)
                             .trustManager(trustManager)
                             .hostnameVerifier(hostnameVerifier)

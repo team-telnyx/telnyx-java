@@ -33,8 +33,8 @@ internal class OutboundVoiceProfileUpdateResponseTest {
                         .callingWindow(
                             OutboundVoiceProfile.CallingWindow.builder()
                                 .callsPerCld(5L)
-                                .endTime("20:00")
-                                .startTime("08:00")
+                                .endTime("20:00:00.00Z")
+                                .startTime("08:00:00.00Z")
                                 .build()
                         )
                         .concurrentCallLimit(10L)
@@ -74,8 +74,8 @@ internal class OutboundVoiceProfileUpdateResponseTest {
                     .callingWindow(
                         OutboundVoiceProfile.CallingWindow.builder()
                             .callsPerCld(5L)
-                            .endTime("20:00")
-                            .startTime("08:00")
+                            .endTime("20:00:00.00Z")
+                            .startTime("08:00:00.00Z")
                             .build()
                     )
                     .concurrentCallLimit(10L)
@@ -121,8 +121,8 @@ internal class OutboundVoiceProfileUpdateResponseTest {
                         .callingWindow(
                             OutboundVoiceProfile.CallingWindow.builder()
                                 .callsPerCld(5L)
-                                .endTime("20:00")
-                                .startTime("08:00")
+                                .endTime("20:00:00.00Z")
+                                .startTime("08:00:00.00Z")
                                 .build()
                         )
                         .concurrentCallLimit(10L)

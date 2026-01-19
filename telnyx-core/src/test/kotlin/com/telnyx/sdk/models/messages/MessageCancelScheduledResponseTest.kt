@@ -17,11 +17,19 @@ internal class MessageCancelScheduledResponseTest {
         val messageCancelScheduledResponse =
             MessageCancelScheduledResponse.builder()
                 .id("40385f64-5717-4562-b3fc-2c963f66afa6")
-                .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .addCc(
+                    MessageCancelScheduledResponse.Cc.builder()
+                        .carrier("carrier")
+                        .lineType(MessageCancelScheduledResponse.Cc.LineType.WIRELINE)
+                        .phoneNumber("phone_number")
+                        .status(MessageCancelScheduledResponse.Cc.Status.SCHEDULED)
+                        .build()
+                )
+                .completedAt(null)
                 .cost(
                     MessageCancelScheduledResponse.Cost.builder()
-                        .amount("amount")
-                        .currency("currency")
+                        .amount("0.0")
+                        .currency("USD")
                         .build()
                 )
                 .costBreakdown(
@@ -47,7 +55,11 @@ internal class MessageCancelScheduledResponseTest {
                         .code("code")
                         .title("title")
                         .detail("detail")
-                        .meta(JsonValue.from(mapOf<String, Any>()))
+                        .meta(
+                            MessagingError.Meta.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .source(
                             MessagingError.Source.builder()
                                 .parameter("parameter")
@@ -76,7 +88,7 @@ internal class MessageCancelScheduledResponseTest {
                 .parts(1L)
                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .recordType(MessageCancelScheduledResponse.RecordType.MESSAGE)
-                .sentAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .sentAt(null)
                 .subject("From Telnyx!")
                 .addTag("Greetings")
                 .tcrCampaignBillable(true)
@@ -99,14 +111,19 @@ internal class MessageCancelScheduledResponseTest {
 
         assertThat(messageCancelScheduledResponse.id())
             .contains("40385f64-5717-4562-b3fc-2c963f66afa6")
-        assertThat(messageCancelScheduledResponse.completedAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(messageCancelScheduledResponse.cc().getOrNull())
+            .containsExactly(
+                MessageCancelScheduledResponse.Cc.builder()
+                    .carrier("carrier")
+                    .lineType(MessageCancelScheduledResponse.Cc.LineType.WIRELINE)
+                    .phoneNumber("phone_number")
+                    .status(MessageCancelScheduledResponse.Cc.Status.SCHEDULED)
+                    .build()
+            )
+        assertThat(messageCancelScheduledResponse.completedAt()).isEmpty
         assertThat(messageCancelScheduledResponse.cost())
             .contains(
-                MessageCancelScheduledResponse.Cost.builder()
-                    .amount("amount")
-                    .currency("currency")
-                    .build()
+                MessageCancelScheduledResponse.Cost.builder().amount("0.0").currency("USD").build()
             )
         assertThat(messageCancelScheduledResponse.costBreakdown())
             .contains(
@@ -134,7 +151,11 @@ internal class MessageCancelScheduledResponseTest {
                     .code("code")
                     .title("title")
                     .detail("detail")
-                    .meta(JsonValue.from(mapOf<String, Any>()))
+                    .meta(
+                        MessagingError.Meta.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .source(
                         MessagingError.Source.builder()
                             .parameter("parameter")
@@ -169,8 +190,7 @@ internal class MessageCancelScheduledResponseTest {
             .contains(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
         assertThat(messageCancelScheduledResponse.recordType())
             .contains(MessageCancelScheduledResponse.RecordType.MESSAGE)
-        assertThat(messageCancelScheduledResponse.sentAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(messageCancelScheduledResponse.sentAt()).isEmpty
         assertThat(messageCancelScheduledResponse.subject()).contains("From Telnyx!")
         assertThat(messageCancelScheduledResponse.tags().getOrNull()).containsExactly("Greetings")
         assertThat(messageCancelScheduledResponse.tcrCampaignBillable()).contains(true)
@@ -201,11 +221,19 @@ internal class MessageCancelScheduledResponseTest {
         val messageCancelScheduledResponse =
             MessageCancelScheduledResponse.builder()
                 .id("40385f64-5717-4562-b3fc-2c963f66afa6")
-                .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .addCc(
+                    MessageCancelScheduledResponse.Cc.builder()
+                        .carrier("carrier")
+                        .lineType(MessageCancelScheduledResponse.Cc.LineType.WIRELINE)
+                        .phoneNumber("phone_number")
+                        .status(MessageCancelScheduledResponse.Cc.Status.SCHEDULED)
+                        .build()
+                )
+                .completedAt(null)
                 .cost(
                     MessageCancelScheduledResponse.Cost.builder()
-                        .amount("amount")
-                        .currency("currency")
+                        .amount("0.0")
+                        .currency("USD")
                         .build()
                 )
                 .costBreakdown(
@@ -231,7 +259,11 @@ internal class MessageCancelScheduledResponseTest {
                         .code("code")
                         .title("title")
                         .detail("detail")
-                        .meta(JsonValue.from(mapOf<String, Any>()))
+                        .meta(
+                            MessagingError.Meta.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .source(
                             MessagingError.Source.builder()
                                 .parameter("parameter")
@@ -260,7 +292,7 @@ internal class MessageCancelScheduledResponseTest {
                 .parts(1L)
                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .recordType(MessageCancelScheduledResponse.RecordType.MESSAGE)
-                .sentAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .sentAt(null)
                 .subject("From Telnyx!")
                 .addTag("Greetings")
                 .tcrCampaignBillable(true)

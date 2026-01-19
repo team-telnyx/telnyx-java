@@ -18,6 +18,7 @@ internal class InferenceEmbeddingWebhookToolParamsTest {
                 .description("description")
                 .name("name")
                 .url("https://example.com/api/v1/function")
+                .async(true)
                 .bodyParameters(
                     InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
                         .properties(
@@ -60,12 +61,14 @@ internal class InferenceEmbeddingWebhookToolParamsTest {
                         .type(InferenceEmbeddingWebhookToolParams.QueryParameters.Type.OBJECT)
                         .build()
                 )
+                .timeoutMs(500L)
                 .build()
 
         assertThat(inferenceEmbeddingWebhookToolParams.description()).isEqualTo("description")
         assertThat(inferenceEmbeddingWebhookToolParams.name()).isEqualTo("name")
         assertThat(inferenceEmbeddingWebhookToolParams.url())
             .isEqualTo("https://example.com/api/v1/function")
+        assertThat(inferenceEmbeddingWebhookToolParams.async()).contains(true)
         assertThat(inferenceEmbeddingWebhookToolParams.bodyParameters())
             .contains(
                 InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
@@ -113,6 +116,7 @@ internal class InferenceEmbeddingWebhookToolParamsTest {
                     .type(InferenceEmbeddingWebhookToolParams.QueryParameters.Type.OBJECT)
                     .build()
             )
+        assertThat(inferenceEmbeddingWebhookToolParams.timeoutMs()).contains(500L)
     }
 
     @Test
@@ -123,6 +127,7 @@ internal class InferenceEmbeddingWebhookToolParamsTest {
                 .description("description")
                 .name("name")
                 .url("https://example.com/api/v1/function")
+                .async(true)
                 .bodyParameters(
                     InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
                         .properties(
@@ -165,6 +170,7 @@ internal class InferenceEmbeddingWebhookToolParamsTest {
                         .type(InferenceEmbeddingWebhookToolParams.QueryParameters.Type.OBJECT)
                         .build()
                 )
+                .timeoutMs(500L)
                 .build()
 
         val roundtrippedInferenceEmbeddingWebhookToolParams =

@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantDeleteParams
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantDeleteResponse
+import com.telnyx.sdk.models.oauthgrants.OAuthGrantListPageAsync
+import com.telnyx.sdk.models.oauthgrants.OAuthGrantListPageResponse
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantListParams
-import com.telnyx.sdk.models.oauthgrants.OAuthGrantListResponse
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantRetrieveParams
 import com.telnyx.sdk.models.oauthgrants.OAuthGrantRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -48,7 +49,7 @@ class OAuthGrantServiceAsyncImpl internal constructor(private val clientOptions:
     override fun list(
         params: OAuthGrantListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<OAuthGrantListResponse> =
+    ): CompletableFuture<OAuthGrantListPageAsync> =
         // get /oauth_grants
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -105,13 +106,13 @@ class OAuthGrantServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val listHandler: Handler<OAuthGrantListResponse> =
-            jsonHandler<OAuthGrantListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<OAuthGrantListPageResponse> =
+            jsonHandler<OAuthGrantListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: OAuthGrantListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<OAuthGrantListResponse>> {
+        ): CompletableFuture<HttpResponseFor<OAuthGrantListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -130,6 +131,14 @@ class OAuthGrantServiceAsyncImpl internal constructor(private val clientOptions:
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                OAuthGrantListPageAsync.builder()
+                                    .service(OAuthGrantServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

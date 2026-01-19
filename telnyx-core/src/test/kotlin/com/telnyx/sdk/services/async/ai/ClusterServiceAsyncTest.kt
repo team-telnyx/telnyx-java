@@ -2,17 +2,26 @@
 
 package com.telnyx.sdk.services.async.ai
 
+import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
+import com.github.tomakehurst.wiremock.client.WireMock.get
+import com.github.tomakehurst.wiremock.client.WireMock.ok
+import com.github.tomakehurst.wiremock.client.WireMock.stubFor
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
+import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.ai.clusters.ClusterComputeParams
 import com.telnyx.sdk.models.ai.clusters.ClusterFetchGraphParams
-import com.telnyx.sdk.models.ai.clusters.ClusterListParams
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveParams
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.junit.jupiter.api.parallel.ResourceLock
 
 @ExtendWith(TestServerExtension::class)
+@WireMockTest
+@ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class ClusterServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
@@ -48,15 +57,10 @@ internal class ClusterServiceAsyncTest {
                 .build()
         val clusterServiceAsync = client.ai().clusters()
 
-        val clustersFuture =
-            clusterServiceAsync.list(
-                ClusterListParams.builder()
-                    .page(ClusterListParams.Page.builder().number(0L).size(0L).build())
-                    .build()
-            )
+        val pageFuture = clusterServiceAsync.list()
 
-        val clusters = clustersFuture.get()
-        clusters.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -99,15 +103,15 @@ internal class ClusterServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
     @Test
-    fun fetchGraph() {
+    fun fetchGraph(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .apiKey("My API Key")
                 .build()
         val clusterServiceAsync = client.ai().clusters()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
 
         val responseFuture =
             clusterServiceAsync.fetchGraph(
@@ -115,6 +119,6 @@ internal class ClusterServiceAsyncTest {
             )
 
         val response = responseFuture.get()
-        response.validate()
+        assertThat(response.body()).hasContent("abc")
     }
 }

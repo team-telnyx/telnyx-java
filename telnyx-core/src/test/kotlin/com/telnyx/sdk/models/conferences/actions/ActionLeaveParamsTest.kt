@@ -14,6 +14,7 @@ internal class ActionLeaveParamsTest {
             .callControlId("c46e06d7-b78f-4b13-96b6-c576af9640ff")
             .beepEnabled(ActionLeaveParams.BeepEnabled.NEVER)
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+            .region(ActionLeaveParams.Region.US)
             .build()
     }
 
@@ -38,6 +39,7 @@ internal class ActionLeaveParamsTest {
                 .callControlId("c46e06d7-b78f-4b13-96b6-c576af9640ff")
                 .beepEnabled(ActionLeaveParams.BeepEnabled.NEVER)
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                .region(ActionLeaveParams.Region.US)
                 .build()
 
         val body = params._body()
@@ -45,6 +47,7 @@ internal class ActionLeaveParamsTest {
         assertThat(body.callControlId()).isEqualTo("c46e06d7-b78f-4b13-96b6-c576af9640ff")
         assertThat(body.beepEnabled()).contains(ActionLeaveParams.BeepEnabled.NEVER)
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
+        assertThat(body.region()).contains(ActionLeaveParams.Region.US)
     }
 
     @Test

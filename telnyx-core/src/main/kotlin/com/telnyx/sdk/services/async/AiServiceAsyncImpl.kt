@@ -33,6 +33,10 @@ import com.telnyx.sdk.services.async.ai.EmbeddingServiceAsync
 import com.telnyx.sdk.services.async.ai.EmbeddingServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.FineTuningServiceAsync
 import com.telnyx.sdk.services.async.ai.FineTuningServiceAsyncImpl
+import com.telnyx.sdk.services.async.ai.IntegrationServiceAsync
+import com.telnyx.sdk.services.async.ai.IntegrationServiceAsyncImpl
+import com.telnyx.sdk.services.async.ai.McpServerServiceAsync
+import com.telnyx.sdk.services.async.ai.McpServerServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -65,6 +69,14 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         FineTuningServiceAsyncImpl(clientOptions)
     }
 
+    private val integrations: IntegrationServiceAsync by lazy {
+        IntegrationServiceAsyncImpl(clientOptions)
+    }
+
+    private val mcpServers: McpServerServiceAsync by lazy {
+        McpServerServiceAsyncImpl(clientOptions)
+    }
+
     override fun withRawResponse(): AiServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiServiceAsync =
@@ -83,6 +95,10 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     override fun embeddings(): EmbeddingServiceAsync = embeddings
 
     override fun fineTuning(): FineTuningServiceAsync = fineTuning
+
+    override fun integrations(): IntegrationServiceAsync = integrations
+
+    override fun mcpServers(): McpServerServiceAsync = mcpServers
 
     override fun retrieveModels(
         params: AiRetrieveModelsParams,
@@ -132,6 +148,14 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
             FineTuningServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val integrations: IntegrationServiceAsync.WithRawResponse by lazy {
+            IntegrationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val mcpServers: McpServerServiceAsync.WithRawResponse by lazy {
+            McpServerServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AiServiceAsync.WithRawResponse =
@@ -152,6 +176,10 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         override fun embeddings(): EmbeddingServiceAsync.WithRawResponse = embeddings
 
         override fun fineTuning(): FineTuningServiceAsync.WithRawResponse = fineTuning
+
+        override fun integrations(): IntegrationServiceAsync.WithRawResponse = integrations
+
+        override fun mcpServers(): McpServerServiceAsync.WithRawResponse = mcpServers
 
         private val retrieveModelsHandler: Handler<AiRetrieveModelsResponse> =
             jsonHandler<AiRetrieveModelsResponse>(clientOptions.jsonMapper)

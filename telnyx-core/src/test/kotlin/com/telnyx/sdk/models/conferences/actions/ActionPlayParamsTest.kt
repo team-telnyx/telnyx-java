@@ -17,6 +17,7 @@ internal class ActionPlayParamsTest {
             .addCallControlId("string")
             .loop("infinity")
             .mediaName("my_media_uploaded_to_media_storage_api")
+            .region(ActionPlayParams.Region.US)
             .build()
     }
 
@@ -38,6 +39,7 @@ internal class ActionPlayParamsTest {
                 .addCallControlId("string")
                 .loop("infinity")
                 .mediaName("my_media_uploaded_to_media_storage_api")
+                .region(ActionPlayParams.Region.US)
                 .build()
 
         val body = params._body()
@@ -46,6 +48,7 @@ internal class ActionPlayParamsTest {
         assertThat(body.callControlIds().getOrNull()).containsExactly("string")
         assertThat(body.loop()).contains(Loopcount.ofString("infinity"))
         assertThat(body.mediaName()).contains("my_media_uploaded_to_media_storage_api")
+        assertThat(body.region()).contains(ActionPlayParams.Region.US)
     }
 
     @Test

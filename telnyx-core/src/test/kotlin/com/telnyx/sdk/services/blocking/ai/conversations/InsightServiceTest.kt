@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking.ai.conversations
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ai.conversations.insights.InsightCreateParams
-import com.telnyx.sdk.models.ai.conversations.insights.InsightListParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -86,14 +85,9 @@ internal class InsightServiceTest {
                 .build()
         val insightService = client.ai().conversations().insights()
 
-        val insights =
-            insightService.list(
-                InsightListParams.builder()
-                    .page(InsightListParams.Page.builder().number(1L).size(1L).build())
-                    .build()
-            )
+        val page = insightService.list()
 
-        insights.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -106,8 +100,6 @@ internal class InsightServiceTest {
                 .build()
         val insightService = client.ai().conversations().insights()
 
-        val insight = insightService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-
-        insight.validate()
+        insightService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
     }
 }

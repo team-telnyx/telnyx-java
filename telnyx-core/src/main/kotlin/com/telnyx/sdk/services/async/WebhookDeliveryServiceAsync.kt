@@ -5,8 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListPageAsync
 import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListParams
-import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryListResponse
 import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryRetrieveParams
 import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -64,22 +64,22 @@ interface WebhookDeliveryServiceAsync {
         retrieve(id, WebhookDeliveryRetrieveParams.none(), requestOptions)
 
     /** Lists webhook_deliveries for the authenticated user */
-    fun list(): CompletableFuture<WebhookDeliveryListResponse> =
+    fun list(): CompletableFuture<WebhookDeliveryListPageAsync> =
         list(WebhookDeliveryListParams.none())
 
     /** @see list */
     fun list(
         params: WebhookDeliveryListParams = WebhookDeliveryListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<WebhookDeliveryListResponse>
+    ): CompletableFuture<WebhookDeliveryListPageAsync>
 
     /** @see list */
     fun list(
         params: WebhookDeliveryListParams = WebhookDeliveryListParams.none()
-    ): CompletableFuture<WebhookDeliveryListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<WebhookDeliveryListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<WebhookDeliveryListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<WebhookDeliveryListPageAsync> =
         list(WebhookDeliveryListParams.none(), requestOptions)
 
     /**
@@ -144,25 +144,25 @@ interface WebhookDeliveryServiceAsync {
          * Returns a raw HTTP response for `get /webhook_deliveries`, but is otherwise the same as
          * [WebhookDeliveryServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<WebhookDeliveryListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<WebhookDeliveryListPageAsync>> =
             list(WebhookDeliveryListParams.none())
 
         /** @see list */
         fun list(
             params: WebhookDeliveryListParams = WebhookDeliveryListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<WebhookDeliveryListResponse>>
+        ): CompletableFuture<HttpResponseFor<WebhookDeliveryListPageAsync>>
 
         /** @see list */
         fun list(
             params: WebhookDeliveryListParams = WebhookDeliveryListParams.none()
-        ): CompletableFuture<HttpResponseFor<WebhookDeliveryListResponse>> =
+        ): CompletableFuture<HttpResponseFor<WebhookDeliveryListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<WebhookDeliveryListResponse>> =
+        ): CompletableFuture<HttpResponseFor<WebhookDeliveryListPageAsync>> =
             list(WebhookDeliveryListParams.none(), requestOptions)
     }
 }

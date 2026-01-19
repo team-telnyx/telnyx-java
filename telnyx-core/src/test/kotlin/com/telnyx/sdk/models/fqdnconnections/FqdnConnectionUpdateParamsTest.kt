@@ -19,6 +19,7 @@ internal class FqdnConnectionUpdateParamsTest {
             .active(true)
             .anchorsiteOverride(AnchorsiteOverride.LATENCY)
             .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+            .callCostInWebhooks(true)
             .connectionName("string")
             .defaultOnHoldComfortNoiseEnabled(true)
             .dtmfType(DtmfType.RFC_2833)
@@ -49,6 +50,15 @@ internal class FqdnConnectionUpdateParamsTest {
                     .build()
             )
             .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+            .noiseSuppression(FqdnConnectionUpdateParams.NoiseSuppression.BOTH)
+            .noiseSuppressionDetails(
+                FqdnConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                    .attenuationLimit(80L)
+                    .engine(
+                        FqdnConnectionUpdateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                    )
+                    .build()
+            )
             .onnetT38PassthroughEnabled(true)
             .outbound(
                 OutboundFqdn.builder()
@@ -81,7 +91,7 @@ internal class FqdnConnectionUpdateParamsTest {
             .addTag("tag1")
             .addTag("tag2")
             .transportProtocol(TransportProtocol.UDP)
-            .webhookApiVersion(WebhookApiVersion._1)
+            .webhookApiVersion(WebhookApiVersion.V1)
             .webhookEventFailoverUrl("https://failover.example.com")
             .webhookEventUrl("https://example.com")
             .webhookTimeoutSecs(25L)
@@ -105,6 +115,7 @@ internal class FqdnConnectionUpdateParamsTest {
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                 .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+                .callCostInWebhooks(true)
                 .connectionName("string")
                 .defaultOnHoldComfortNoiseEnabled(true)
                 .dtmfType(DtmfType.RFC_2833)
@@ -135,6 +146,16 @@ internal class FqdnConnectionUpdateParamsTest {
                         .build()
                 )
                 .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                .noiseSuppression(FqdnConnectionUpdateParams.NoiseSuppression.BOTH)
+                .noiseSuppressionDetails(
+                    FqdnConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                        .attenuationLimit(80L)
+                        .engine(
+                            FqdnConnectionUpdateParams.NoiseSuppressionDetails.Engine
+                                .DEEP_FILTER_NET
+                        )
+                        .build()
+                )
                 .onnetT38PassthroughEnabled(true)
                 .outbound(
                     OutboundFqdn.builder()
@@ -167,7 +188,7 @@ internal class FqdnConnectionUpdateParamsTest {
                 .addTag("tag1")
                 .addTag("tag2")
                 .transportProtocol(TransportProtocol.UDP)
-                .webhookApiVersion(WebhookApiVersion._1)
+                .webhookApiVersion(WebhookApiVersion.V1)
                 .webhookEventFailoverUrl("https://failover.example.com")
                 .webhookEventUrl("https://example.com")
                 .webhookTimeoutSecs(25L)
@@ -178,6 +199,7 @@ internal class FqdnConnectionUpdateParamsTest {
         assertThat(body.active()).contains(true)
         assertThat(body.anchorsiteOverride()).contains(AnchorsiteOverride.LATENCY)
         assertThat(body.androidPushCredentialId()).contains("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
+        assertThat(body.callCostInWebhooks()).contains(true)
         assertThat(body.connectionName()).contains("string")
         assertThat(body.defaultOnHoldComfortNoiseEnabled()).contains(true)
         assertThat(body.dtmfType()).contains(DtmfType.RFC_2833)
@@ -209,6 +231,17 @@ internal class FqdnConnectionUpdateParamsTest {
                     .build()
             )
         assertThat(body.iosPushCredentialId()).contains("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+        assertThat(body.noiseSuppression())
+            .contains(FqdnConnectionUpdateParams.NoiseSuppression.BOTH)
+        assertThat(body.noiseSuppressionDetails())
+            .contains(
+                FqdnConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                    .attenuationLimit(80L)
+                    .engine(
+                        FqdnConnectionUpdateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                    )
+                    .build()
+            )
         assertThat(body.onnetT38PassthroughEnabled()).contains(true)
         assertThat(body.outbound())
             .contains(
@@ -242,7 +275,7 @@ internal class FqdnConnectionUpdateParamsTest {
             )
         assertThat(body.tags().getOrNull()).containsExactly("tag1", "tag2")
         assertThat(body.transportProtocol()).contains(TransportProtocol.UDP)
-        assertThat(body.webhookApiVersion()).contains(WebhookApiVersion._1)
+        assertThat(body.webhookApiVersion()).contains(WebhookApiVersion.V1)
         assertThat(body.webhookEventFailoverUrl()).contains("https://failover.example.com")
         assertThat(body.webhookEventUrl()).contains("https://example.com")
         assertThat(body.webhookTimeoutSecs()).contains(25L)

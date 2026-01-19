@@ -11,6 +11,7 @@ import com.telnyx.sdk.models.texml.accounts.AccountRetrieveTranscriptionsJsonPar
 import com.telnyx.sdk.models.texml.accounts.AccountRetrieveTranscriptionsJsonResponse
 import com.telnyx.sdk.services.async.texml.accounts.CallServiceAsync
 import com.telnyx.sdk.services.async.texml.accounts.ConferenceServiceAsync
+import com.telnyx.sdk.services.async.texml.accounts.QueueServiceAsync
 import com.telnyx.sdk.services.async.texml.accounts.RecordingServiceAsync
 import com.telnyx.sdk.services.async.texml.accounts.TranscriptionServiceAsync
 import java.util.concurrent.CompletableFuture
@@ -37,6 +38,8 @@ interface AccountServiceAsync {
     fun recordings(): RecordingServiceAsync
 
     fun transcriptions(): TranscriptionServiceAsync
+
+    fun queues(): QueueServiceAsync
 
     /** Returns multiple recording resources for an account. */
     fun retrieveRecordingsJson(
@@ -152,6 +155,8 @@ interface AccountServiceAsync {
         fun recordings(): RecordingServiceAsync.WithRawResponse
 
         fun transcriptions(): TranscriptionServiceAsync.WithRawResponse
+
+        fun queues(): QueueServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /texml/Accounts/{account_sid}/Recordings.json`, but

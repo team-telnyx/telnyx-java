@@ -6,10 +6,14 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
+import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupCreateResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupDeleteParams
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupListResponse
 import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveParams
+import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLookupRetrieveResponse
 import java.util.function.Consumer
 
 interface NumberLookupService {
@@ -27,66 +31,71 @@ interface NumberLookupService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberLookupService
 
     /** Submit a new telco data usage report */
-    fun create() = create(NumberLookupCreateParams.none())
+    fun create(): NumberLookupCreateResponse = create(NumberLookupCreateParams.none())
 
     /** @see create */
     fun create(
         params: NumberLookupCreateParams = NumberLookupCreateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    )
+    ): NumberLookupCreateResponse
 
     /** @see create */
-    fun create(params: NumberLookupCreateParams = NumberLookupCreateParams.none()) =
-        create(params, RequestOptions.none())
+    fun create(
+        params: NumberLookupCreateParams = NumberLookupCreateParams.none()
+    ): NumberLookupCreateResponse = create(params, RequestOptions.none())
 
     /** @see create */
-    fun create(requestOptions: RequestOptions) =
+    fun create(requestOptions: RequestOptions): NumberLookupCreateResponse =
         create(NumberLookupCreateParams.none(), requestOptions)
 
     /** Retrieve a specific telco data usage report by its ID */
-    fun retrieve(id: String) = retrieve(id, NumberLookupRetrieveParams.none())
+    fun retrieve(id: String): NumberLookupRetrieveResponse =
+        retrieve(id, NumberLookupRetrieveParams.none())
 
     /** @see retrieve */
     fun retrieve(
         id: String,
         params: NumberLookupRetrieveParams = NumberLookupRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    ): NumberLookupRetrieveResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         id: String,
         params: NumberLookupRetrieveParams = NumberLookupRetrieveParams.none(),
-    ) = retrieve(id, params, RequestOptions.none())
+    ): NumberLookupRetrieveResponse = retrieve(id, params, RequestOptions.none())
 
     /** @see retrieve */
     fun retrieve(
         params: NumberLookupRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    )
+    ): NumberLookupRetrieveResponse
 
     /** @see retrieve */
-    fun retrieve(params: NumberLookupRetrieveParams) = retrieve(params, RequestOptions.none())
+    fun retrieve(params: NumberLookupRetrieveParams): NumberLookupRetrieveResponse =
+        retrieve(params, RequestOptions.none())
 
     /** @see retrieve */
-    fun retrieve(id: String, requestOptions: RequestOptions) =
+    fun retrieve(id: String, requestOptions: RequestOptions): NumberLookupRetrieveResponse =
         retrieve(id, NumberLookupRetrieveParams.none(), requestOptions)
 
     /** Retrieve a paginated list of telco data usage reports */
-    fun list() = list(NumberLookupListParams.none())
+    fun list(): NumberLookupListResponse = list(NumberLookupListParams.none())
 
     /** @see list */
     fun list(
         params: NumberLookupListParams = NumberLookupListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    )
+    ): NumberLookupListResponse
 
     /** @see list */
-    fun list(params: NumberLookupListParams = NumberLookupListParams.none()) =
-        list(params, RequestOptions.none())
+    fun list(
+        params: NumberLookupListParams = NumberLookupListParams.none()
+    ): NumberLookupListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions) = list(NumberLookupListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): NumberLookupListResponse =
+        list(NumberLookupListParams.none(), requestOptions)
 
     /** Delete a specific telco data usage report by its ID */
     fun delete(id: String) = delete(id, NumberLookupDeleteParams.none())
@@ -133,24 +142,26 @@ interface NumberLookupService {
          * Returns a raw HTTP response for `post /legacy/reporting/usage_reports/number_lookup`, but
          * is otherwise the same as [NumberLookupService.create].
          */
-        @MustBeClosed fun create(): HttpResponse = create(NumberLookupCreateParams.none())
+        @MustBeClosed
+        fun create(): HttpResponseFor<NumberLookupCreateResponse> =
+            create(NumberLookupCreateParams.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
             params: NumberLookupCreateParams = NumberLookupCreateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
+        ): HttpResponseFor<NumberLookupCreateResponse>
 
         /** @see create */
         @MustBeClosed
         fun create(
             params: NumberLookupCreateParams = NumberLookupCreateParams.none()
-        ): HttpResponse = create(params, RequestOptions.none())
+        ): HttpResponseFor<NumberLookupCreateResponse> = create(params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
-        fun create(requestOptions: RequestOptions): HttpResponse =
+        fun create(requestOptions: RequestOptions): HttpResponseFor<NumberLookupCreateResponse> =
             create(NumberLookupCreateParams.none(), requestOptions)
 
         /**
@@ -158,7 +169,8 @@ interface NumberLookupService {
          * but is otherwise the same as [NumberLookupService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(id: String): HttpResponse = retrieve(id, NumberLookupRetrieveParams.none())
+        fun retrieve(id: String): HttpResponseFor<NumberLookupRetrieveResponse> =
+            retrieve(id, NumberLookupRetrieveParams.none())
 
         /** @see retrieve */
         @MustBeClosed
@@ -166,53 +178,61 @@ interface NumberLookupService {
             id: String,
             params: NumberLookupRetrieveParams = NumberLookupRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponseFor<NumberLookupRetrieveResponse> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             id: String,
             params: NumberLookupRetrieveParams = NumberLookupRetrieveParams.none(),
-        ): HttpResponse = retrieve(id, params, RequestOptions.none())
+        ): HttpResponseFor<NumberLookupRetrieveResponse> =
+            retrieve(id, params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: NumberLookupRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
+        ): HttpResponseFor<NumberLookupRetrieveResponse>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(params: NumberLookupRetrieveParams): HttpResponse =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(
+            params: NumberLookupRetrieveParams
+        ): HttpResponseFor<NumberLookupRetrieveResponse> = retrieve(params, RequestOptions.none())
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(id: String, requestOptions: RequestOptions): HttpResponse =
+        fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<NumberLookupRetrieveResponse> =
             retrieve(id, NumberLookupRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /legacy/reporting/usage_reports/number_lookup`, but
          * is otherwise the same as [NumberLookupService.list].
          */
-        @MustBeClosed fun list(): HttpResponse = list(NumberLookupListParams.none())
+        @MustBeClosed
+        fun list(): HttpResponseFor<NumberLookupListResponse> = list(NumberLookupListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: NumberLookupListParams = NumberLookupListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
+        ): HttpResponseFor<NumberLookupListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: NumberLookupListParams = NumberLookupListParams.none()): HttpResponse =
-            list(params, RequestOptions.none())
+        fun list(
+            params: NumberLookupListParams = NumberLookupListParams.none()
+        ): HttpResponseFor<NumberLookupListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponse =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<NumberLookupListResponse> =
             list(NumberLookupListParams.none(), requestOptions)
 
         /**

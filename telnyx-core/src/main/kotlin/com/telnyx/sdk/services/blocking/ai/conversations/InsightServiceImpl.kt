@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.blocking.ai.conversations
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
 import com.telnyx.sdk.core.handlers.jsonHandler
@@ -18,9 +19,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.ai.conversations.insights.InsightCreateParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightDeleteParams
-import com.telnyx.sdk.models.ai.conversations.insights.InsightDeleteResponse
+import com.telnyx.sdk.models.ai.conversations.insights.InsightListPage
+import com.telnyx.sdk.models.ai.conversations.insights.InsightListPageResponse
 import com.telnyx.sdk.models.ai.conversations.insights.InsightListParams
-import com.telnyx.sdk.models.ai.conversations.insights.InsightListResponse
 import com.telnyx.sdk.models.ai.conversations.insights.InsightRetrieveParams
 import com.telnyx.sdk.models.ai.conversations.insights.InsightTemplateDetail
 import com.telnyx.sdk.models.ai.conversations.insights.InsightUpdateParams
@@ -60,19 +61,14 @@ class InsightServiceImpl internal constructor(private val clientOptions: ClientO
         // put /ai/conversations/insights/{insight_id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(
-        params: InsightListParams,
-        requestOptions: RequestOptions,
-    ): InsightListResponse =
+    override fun list(params: InsightListParams, requestOptions: RequestOptions): InsightListPage =
         // get /ai/conversations/insights
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun delete(
-        params: InsightDeleteParams,
-        requestOptions: RequestOptions,
-    ): InsightDeleteResponse =
+    override fun delete(params: InsightDeleteParams, requestOptions: RequestOptions) {
         // delete /ai/conversations/insights/{insight_id}
-        withRawResponse().delete(params, requestOptions).parse()
+        withRawResponse().delete(params, requestOptions)
+    }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         InsightService.WithRawResponse {
@@ -176,13 +172,13 @@ class InsightServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<InsightListResponse> =
-            jsonHandler<InsightListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InsightListPageResponse> =
+            jsonHandler<InsightListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InsightListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InsightListResponse> {
+        ): HttpResponseFor<InsightListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -200,16 +196,22 @@ class InsightServiceImpl internal constructor(private val clientOptions: ClientO
                             it.validate()
                         }
                     }
+                    .let {
+                        InsightListPage.builder()
+                            .service(InsightServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
 
-        private val deleteHandler: Handler<InsightDeleteResponse> =
-            jsonHandler<InsightDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
         override fun delete(
             params: InsightDeleteParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InsightDeleteResponse> {
+        ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("insightId", params.insightId().getOrNull())
@@ -224,13 +226,7 @@ class InsightServiceImpl internal constructor(private val clientOptions: ClientO
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response
-                    .use { deleteHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
+                response.use { deleteHandler.handle(it) }
             }
         }
     }

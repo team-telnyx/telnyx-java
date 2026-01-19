@@ -9,7 +9,6 @@ import com.telnyx.sdk.models.phonenumbers.voice.CallRecording
 import com.telnyx.sdk.models.phonenumbers.voice.CnamListing
 import com.telnyx.sdk.models.phonenumbers.voice.MediaFeatures
 import com.telnyx.sdk.models.phonenumbers.voice.UpdateVoiceSettings
-import com.telnyx.sdk.models.phonenumbers.voice.VoiceListParams
 import com.telnyx.sdk.models.phonenumbers.voice.VoiceUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -107,29 +106,9 @@ internal class VoiceServiceAsyncTest {
                 .build()
         val voiceServiceAsync = client.phoneNumbers().voice()
 
-        val voicesFuture =
-            voiceServiceAsync.list(
-                VoiceListParams.builder()
-                    .filter(
-                        VoiceListParams.Filter.builder()
-                            .connectionName(
-                                VoiceListParams.Filter.ConnectionName.builder()
-                                    .contains("test")
-                                    .build()
-                            )
-                            .customerReference("customer_reference")
-                            .phoneNumber("phone_number")
-                            .voiceUsagePaymentMethod(
-                                VoiceListParams.Filter.VoiceUsagePaymentMethod.CHANNEL
-                            )
-                            .build()
-                    )
-                    .page(VoiceListParams.Page.builder().number(1L).size(1L).build())
-                    .sort(VoiceListParams.Sort.CONNECTION_NAME)
-                    .build()
-            )
+        val pageFuture = voiceServiceAsync.list()
 
-        val voices = voicesFuture.get()
-        voices.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

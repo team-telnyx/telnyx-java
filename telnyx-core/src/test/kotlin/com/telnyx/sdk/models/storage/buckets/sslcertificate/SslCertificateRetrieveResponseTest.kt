@@ -17,7 +17,7 @@ internal class SslCertificateRetrieveResponseTest {
                 .data(
                     SslCertificate.builder()
                         .id("id")
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .createdAt(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
                         .issuedBy(
                             SslCertificate.IssuedBy.builder()
                                 .commonName("common_name")
@@ -32,8 +32,8 @@ internal class SslCertificateRetrieveResponseTest {
                                 .organizationUnit("organization_unit")
                                 .build()
                         )
-                        .validFrom(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .validTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .validFrom(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
+                        .validTo(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
                         .build()
                 )
                 .build()
@@ -42,7 +42,7 @@ internal class SslCertificateRetrieveResponseTest {
             .contains(
                 SslCertificate.builder()
                     .id("id")
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
                     .issuedBy(
                         SslCertificate.IssuedBy.builder()
                             .commonName("common_name")
@@ -57,8 +57,8 @@ internal class SslCertificateRetrieveResponseTest {
                             .organizationUnit("organization_unit")
                             .build()
                     )
-                    .validFrom(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .validTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .validFrom(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
+                    .validTo(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
                     .build()
             )
     }
@@ -71,7 +71,7 @@ internal class SslCertificateRetrieveResponseTest {
                 .data(
                     SslCertificate.builder()
                         .id("id")
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .createdAt(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
                         .issuedBy(
                             SslCertificate.IssuedBy.builder()
                                 .commonName("common_name")
@@ -86,8 +86,8 @@ internal class SslCertificateRetrieveResponseTest {
                                 .organizationUnit("organization_unit")
                                 .build()
                         )
-                        .validFrom(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .validTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .validFrom(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
+                        .validTo(OffsetDateTime.parse("2020-01-01T00:00:00Z"))
                         .build()
                 )
                 .build()

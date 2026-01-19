@@ -5,7 +5,6 @@ package com.telnyx.sdk.services.blocking.ai.conversations
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupInsightGroupsParams
-import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupRetrieveInsightGroupsParams
 import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightGroupUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -63,9 +62,7 @@ internal class InsightGroupServiceTest {
                 .build()
         val insightGroupService = client.ai().conversations().insightGroups()
 
-        val insightGroup = insightGroupService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-
-        insightGroup.validate()
+        insightGroupService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
     }
 
     @Disabled("Prism tests are disabled")
@@ -100,18 +97,8 @@ internal class InsightGroupServiceTest {
                 .build()
         val insightGroupService = client.ai().conversations().insightGroups()
 
-        val response =
-            insightGroupService.retrieveInsightGroups(
-                InsightGroupRetrieveInsightGroupsParams.builder()
-                    .page(
-                        InsightGroupRetrieveInsightGroupsParams.Page.builder()
-                            .number(1L)
-                            .size(1L)
-                            .build()
-                    )
-                    .build()
-            )
+        val page = insightGroupService.retrieveInsightGroups()
 
-        response.validate()
+        page.response().validate()
     }
 }
