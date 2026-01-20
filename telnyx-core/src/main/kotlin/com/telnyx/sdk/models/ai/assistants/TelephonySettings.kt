@@ -127,6 +127,10 @@ private constructor(
 
     /**
      * Configuration for voicemail detection (AMD - Answering Machine Detection) on outgoing calls.
+     * These settings only apply if AMD is enabled on the Dial command. See
+     * [TeXML Dial documentation](https://developers.telnyx.com/api-reference/texml-rest-commands/initiate-an-outbound-call)
+     * for enabling AMD. Recommended settings: MachineDetection=Enable, AsyncAmd=true,
+     * DetectionMode=Premium.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -357,7 +361,10 @@ private constructor(
 
         /**
          * Configuration for voicemail detection (AMD - Answering Machine Detection) on outgoing
-         * calls.
+         * calls. These settings only apply if AMD is enabled on the Dial command. See
+         * [TeXML Dial documentation](https://developers.telnyx.com/api-reference/texml-rest-commands/initiate-an-outbound-call)
+         * for enabling AMD. Recommended settings: MachineDetection=Enable, AsyncAmd=true,
+         * DetectionMode=Premium.
          */
         fun voicemailDetection(voicemailDetection: VoicemailDetection) =
             voicemailDetection(JsonField.of(voicemailDetection))
@@ -904,6 +911,10 @@ private constructor(
 
     /**
      * Configuration for voicemail detection (AMD - Answering Machine Detection) on outgoing calls.
+     * These settings only apply if AMD is enabled on the Dial command. See
+     * [TeXML Dial documentation](https://developers.telnyx.com/api-reference/texml-rest-commands/initiate-an-outbound-call)
+     * for enabling AMD. Recommended settings: MachineDetection=Enable, AsyncAmd=true,
+     * DetectionMode=Premium.
      */
     class VoicemailDetection
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
