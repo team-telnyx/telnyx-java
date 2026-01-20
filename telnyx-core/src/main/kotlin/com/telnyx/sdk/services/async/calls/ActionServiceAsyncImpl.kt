@@ -16,6 +16,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.calls.actions.ActionAddAiAssistantMessagesParams
+import com.telnyx.sdk.models.calls.actions.ActionAddAiAssistantMessagesResponse
 import com.telnyx.sdk.models.calls.actions.ActionAnswerParams
 import com.telnyx.sdk.models.calls.actions.ActionAnswerResponse
 import com.telnyx.sdk.models.calls.actions.ActionBridgeParams
@@ -103,6 +105,13 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionServiceAsync =
         ActionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun addAiAssistantMessages(
+        params: ActionAddAiAssistantMessagesParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionAddAiAssistantMessagesResponse> =
+        // post /calls/{call_control_id}/actions/ai_assistant_add_messages
+        withRawResponse().addAiAssistantMessages(params, requestOptions).thenApply { it.parse() }
 
     override fun answer(
         params: ActionAnswerParams,
@@ -368,6 +377,45 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
             ActionServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        private val addAiAssistantMessagesHandler: Handler<ActionAddAiAssistantMessagesResponse> =
+            jsonHandler<ActionAddAiAssistantMessagesResponse>(clientOptions.jsonMapper)
+
+        override fun addAiAssistantMessages(
+            params: ActionAddAiAssistantMessagesParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionAddAiAssistantMessagesResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("callControlId", params.callControlId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "calls",
+                        params._pathParam(0),
+                        "actions",
+                        "ai_assistant_add_messages",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { addAiAssistantMessagesHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
 
         private val answerHandler: Handler<ActionAnswerResponse> =
             jsonHandler<ActionAnswerResponse>(clientOptions.jsonMapper)
