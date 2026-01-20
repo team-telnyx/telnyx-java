@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.1.0 (2026-01-20)
+
+Full Changelog: [v6.0.1...v6.1.0](https://github.com/team-telnyx/telnyx-java/compare/v6.0.1...v6.1.0)
+
+### Features
+
+* Update voicemail_detection description with AMD enablement info ([6234db5](https://github.com/team-telnyx/telnyx-java/commit/6234db54f19bddf650a7ebcd1a846ca9fbd81c00))
+
 ## 6.0.1 (2026-01-19)
 
 Full Changelog: [v6.0.0...v6.0.1](https://github.com/team-telnyx/telnyx-java/compare/v6.0.0...v6.0.1)
