@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.2.0 (2026-01-20)
+
+Full Changelog: [v6.1.0...v6.2.0](https://github.com/team-telnyx/telnyx-java/compare/v6.1.0...v6.2.0)
+
+### Features
+
+* Add Post /v2/calls/:call_control_id/actions/ai_assistant_add_messages ([be0d0f6](https://github.com/team-telnyx/telnyx-java/commit/be0d0f651a7654a251a38a550b6f98a6d3a19350))
+
 ## 6.1.0 (2026-01-20)
 
 Full Changelog: [v6.0.1...v6.1.0](https://github.com/team-telnyx/telnyx-java/compare/v6.0.1...v6.1.0)
