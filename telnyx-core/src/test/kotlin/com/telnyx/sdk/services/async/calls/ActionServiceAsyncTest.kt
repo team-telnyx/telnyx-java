@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.calls.StreamBidirectionalMode
 import com.telnyx.sdk.models.calls.StreamBidirectionalSamplingRate
 import com.telnyx.sdk.models.calls.StreamBidirectionalTargetLegs
 import com.telnyx.sdk.models.calls.StreamCodec
+import com.telnyx.sdk.models.calls.actions.ActionAddAiAssistantMessagesParams
 import com.telnyx.sdk.models.calls.actions.ActionAnswerParams
 import com.telnyx.sdk.models.calls.actions.ActionBridgeParams
 import com.telnyx.sdk.models.calls.actions.ActionEnqueueParams
@@ -64,6 +65,35 @@ import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
 internal class ActionServiceAsyncTest {
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun addAiAssistantMessages() {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val actionServiceAsync = client.calls().actions()
+
+        val responseFuture =
+            actionServiceAsync.addAiAssistantMessages(
+                ActionAddAiAssistantMessagesParams.builder()
+                    .callControlId("call_control_id")
+                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                    .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .addMessage(
+                        ActionAddAiAssistantMessagesParams.Message.System.builder()
+                            .content("Get the user's favorite color")
+                            .metadata(JsonValue.from(mapOf<String, Any>()))
+                            .build()
+                    )
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
+    }
 
     @Disabled("Prism tests are disabled")
     @Test

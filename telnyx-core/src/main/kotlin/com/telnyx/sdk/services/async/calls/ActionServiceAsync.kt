@@ -5,6 +5,8 @@ package com.telnyx.sdk.services.async.calls
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.calls.actions.ActionAddAiAssistantMessagesParams
+import com.telnyx.sdk.models.calls.actions.ActionAddAiAssistantMessagesResponse
 import com.telnyx.sdk.models.calls.actions.ActionAnswerParams
 import com.telnyx.sdk.models.calls.actions.ActionAnswerResponse
 import com.telnyx.sdk.models.calls.actions.ActionBridgeParams
@@ -93,6 +95,53 @@ interface ActionServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionServiceAsync
+
+    /** Add messages to the conversation started by an AI assistant on the call. */
+    fun addAiAssistantMessages(
+        callControlId: String
+    ): CompletableFuture<ActionAddAiAssistantMessagesResponse> =
+        addAiAssistantMessages(callControlId, ActionAddAiAssistantMessagesParams.none())
+
+    /** @see addAiAssistantMessages */
+    fun addAiAssistantMessages(
+        callControlId: String,
+        params: ActionAddAiAssistantMessagesParams = ActionAddAiAssistantMessagesParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ActionAddAiAssistantMessagesResponse> =
+        addAiAssistantMessages(
+            params.toBuilder().callControlId(callControlId).build(),
+            requestOptions,
+        )
+
+    /** @see addAiAssistantMessages */
+    fun addAiAssistantMessages(
+        callControlId: String,
+        params: ActionAddAiAssistantMessagesParams = ActionAddAiAssistantMessagesParams.none(),
+    ): CompletableFuture<ActionAddAiAssistantMessagesResponse> =
+        addAiAssistantMessages(callControlId, params, RequestOptions.none())
+
+    /** @see addAiAssistantMessages */
+    fun addAiAssistantMessages(
+        params: ActionAddAiAssistantMessagesParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ActionAddAiAssistantMessagesResponse>
+
+    /** @see addAiAssistantMessages */
+    fun addAiAssistantMessages(
+        params: ActionAddAiAssistantMessagesParams
+    ): CompletableFuture<ActionAddAiAssistantMessagesResponse> =
+        addAiAssistantMessages(params, RequestOptions.none())
+
+    /** @see addAiAssistantMessages */
+    fun addAiAssistantMessages(
+        callControlId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionAddAiAssistantMessagesResponse> =
+        addAiAssistantMessages(
+            callControlId,
+            ActionAddAiAssistantMessagesParams.none(),
+            requestOptions,
+        )
 
     /**
      * Answer an incoming call. You must issue this command before executing subsequent commands on
@@ -1507,6 +1556,57 @@ interface ActionServiceAsync {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): ActionServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /calls/{call_control_id}/actions/ai_assistant_add_messages`, but is otherwise the same as
+         * [ActionServiceAsync.addAiAssistantMessages].
+         */
+        fun addAiAssistantMessages(
+            callControlId: String
+        ): CompletableFuture<HttpResponseFor<ActionAddAiAssistantMessagesResponse>> =
+            addAiAssistantMessages(callControlId, ActionAddAiAssistantMessagesParams.none())
+
+        /** @see addAiAssistantMessages */
+        fun addAiAssistantMessages(
+            callControlId: String,
+            params: ActionAddAiAssistantMessagesParams = ActionAddAiAssistantMessagesParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ActionAddAiAssistantMessagesResponse>> =
+            addAiAssistantMessages(
+                params.toBuilder().callControlId(callControlId).build(),
+                requestOptions,
+            )
+
+        /** @see addAiAssistantMessages */
+        fun addAiAssistantMessages(
+            callControlId: String,
+            params: ActionAddAiAssistantMessagesParams = ActionAddAiAssistantMessagesParams.none(),
+        ): CompletableFuture<HttpResponseFor<ActionAddAiAssistantMessagesResponse>> =
+            addAiAssistantMessages(callControlId, params, RequestOptions.none())
+
+        /** @see addAiAssistantMessages */
+        fun addAiAssistantMessages(
+            params: ActionAddAiAssistantMessagesParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ActionAddAiAssistantMessagesResponse>>
+
+        /** @see addAiAssistantMessages */
+        fun addAiAssistantMessages(
+            params: ActionAddAiAssistantMessagesParams
+        ): CompletableFuture<HttpResponseFor<ActionAddAiAssistantMessagesResponse>> =
+            addAiAssistantMessages(params, RequestOptions.none())
+
+        /** @see addAiAssistantMessages */
+        fun addAiAssistantMessages(
+            callControlId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionAddAiAssistantMessagesResponse>> =
+            addAiAssistantMessages(
+                callControlId,
+                ActionAddAiAssistantMessagesParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `post /calls/{call_control_id}/actions/answer`, but is
