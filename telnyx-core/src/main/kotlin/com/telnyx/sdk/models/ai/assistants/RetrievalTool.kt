@@ -13,6 +13,7 @@ import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.ai.chat.BucketIds
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -20,7 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 class RetrievalTool
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val retrieval: JsonField<InferenceEmbeddingBucketIds>,
+    private val retrieval: JsonField<BucketIds>,
     private val type: JsonField<Type>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -29,7 +30,7 @@ private constructor(
     private constructor(
         @JsonProperty("retrieval")
         @ExcludeMissing
-        retrieval: JsonField<InferenceEmbeddingBucketIds> = JsonMissing.of(),
+        retrieval: JsonField<BucketIds> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
     ) : this(retrieval, type, mutableMapOf())
 
@@ -37,7 +38,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun retrieval(): InferenceEmbeddingBucketIds = retrieval.getRequired("retrieval")
+    fun retrieval(): BucketIds = retrieval.getRequired("retrieval")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -50,9 +51,7 @@ private constructor(
      *
      * Unlike [retrieval], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("retrieval")
-    @ExcludeMissing
-    fun _retrieval(): JsonField<InferenceEmbeddingBucketIds> = retrieval
+    @JsonProperty("retrieval") @ExcludeMissing fun _retrieval(): JsonField<BucketIds> = retrieval
 
     /**
      * Returns the raw JSON value of [type].
@@ -90,7 +89,7 @@ private constructor(
     /** A builder for [RetrievalTool]. */
     class Builder internal constructor() {
 
-        private var retrieval: JsonField<InferenceEmbeddingBucketIds>? = null
+        private var retrieval: JsonField<BucketIds>? = null
         private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -101,18 +100,16 @@ private constructor(
             additionalProperties = retrievalTool.additionalProperties.toMutableMap()
         }
 
-        fun retrieval(retrieval: InferenceEmbeddingBucketIds) = retrieval(JsonField.of(retrieval))
+        fun retrieval(retrieval: BucketIds) = retrieval(JsonField.of(retrieval))
 
         /**
          * Sets [Builder.retrieval] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.retrieval] with a well-typed
-         * [InferenceEmbeddingBucketIds] value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
+         * You should usually call [Builder.retrieval] with a well-typed [BucketIds] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun retrieval(retrieval: JsonField<InferenceEmbeddingBucketIds>) = apply {
-            this.retrieval = retrieval
-        }
+        fun retrieval(retrieval: JsonField<BucketIds>) = apply { this.retrieval = retrieval }
 
         fun type(type: Type) = type(JsonField.of(type))
 

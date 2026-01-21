@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.ai.assistants
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.ai.chat.BucketIds
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,22 +14,12 @@ internal class RetrievalToolTest {
     fun create() {
         val retrievalTool =
             RetrievalTool.builder()
-                .retrieval(
-                    InferenceEmbeddingBucketIds.builder()
-                        .addBucketId("string")
-                        .maxNumResults(0L)
-                        .build()
-                )
+                .retrieval(BucketIds.builder().addBucketId("string").maxNumResults(0L).build())
                 .type(RetrievalTool.Type.RETRIEVAL)
                 .build()
 
         assertThat(retrievalTool.retrieval())
-            .isEqualTo(
-                InferenceEmbeddingBucketIds.builder()
-                    .addBucketId("string")
-                    .maxNumResults(0L)
-                    .build()
-            )
+            .isEqualTo(BucketIds.builder().addBucketId("string").maxNumResults(0L).build())
         assertThat(retrievalTool.type()).isEqualTo(RetrievalTool.Type.RETRIEVAL)
     }
 
@@ -37,12 +28,7 @@ internal class RetrievalToolTest {
         val jsonMapper = jsonMapper()
         val retrievalTool =
             RetrievalTool.builder()
-                .retrieval(
-                    InferenceEmbeddingBucketIds.builder()
-                        .addBucketId("string")
-                        .maxNumResults(0L)
-                        .build()
-                )
+                .retrieval(BucketIds.builder().addBucketId("string").maxNumResults(0L).build())
                 .type(RetrievalTool.Type.RETRIEVAL)
                 .build()
 

@@ -29,7 +29,6 @@ import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
-import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingBucketIds
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -785,9 +784,7 @@ private constructor(
          *     .build()
          * ```
          */
-        fun addRetrievalTool(retrieval: InferenceEmbeddingBucketIds) = apply {
-            body.addRetrievalTool(retrieval)
-        }
+        fun addRetrievalTool(retrieval: BucketIds) = apply { body.addRetrievalTool(retrieval) }
 
         /**
          * This is used with `logprobs`. An integer between 0 and 20 specifying the number of most
@@ -1927,7 +1924,7 @@ private constructor(
              *     .build()
              * ```
              */
-            fun addRetrievalTool(retrieval: InferenceEmbeddingBucketIds) =
+            fun addRetrievalTool(retrieval: BucketIds) =
                 addTool(Tool.Retrieval.builder().retrieval(retrieval).build())
 
             /**
@@ -4307,7 +4304,7 @@ private constructor(
         class Retrieval
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val retrieval: JsonField<InferenceEmbeddingBucketIds>,
+            private val retrieval: JsonField<BucketIds>,
             private val type: JsonValue,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -4316,7 +4313,7 @@ private constructor(
             private constructor(
                 @JsonProperty("retrieval")
                 @ExcludeMissing
-                retrieval: JsonField<InferenceEmbeddingBucketIds> = JsonMissing.of(),
+                retrieval: JsonField<BucketIds> = JsonMissing.of(),
                 @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
             ) : this(retrieval, type, mutableMapOf())
 
@@ -4325,7 +4322,7 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun retrieval(): InferenceEmbeddingBucketIds = retrieval.getRequired("retrieval")
+            fun retrieval(): BucketIds = retrieval.getRequired("retrieval")
 
             /**
              * Expected to always return the following:
@@ -4346,7 +4343,7 @@ private constructor(
              */
             @JsonProperty("retrieval")
             @ExcludeMissing
-            fun _retrieval(): JsonField<InferenceEmbeddingBucketIds> = retrieval
+            fun _retrieval(): JsonField<BucketIds> = retrieval
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -4376,7 +4373,7 @@ private constructor(
             /** A builder for [Retrieval]. */
             class Builder internal constructor() {
 
-                private var retrieval: JsonField<InferenceEmbeddingBucketIds>? = null
+                private var retrieval: JsonField<BucketIds>? = null
                 private var type: JsonValue = JsonValue.from("retrieval")
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -4387,17 +4384,16 @@ private constructor(
                     additionalProperties = retrieval.additionalProperties.toMutableMap()
                 }
 
-                fun retrieval(retrieval: InferenceEmbeddingBucketIds) =
-                    retrieval(JsonField.of(retrieval))
+                fun retrieval(retrieval: BucketIds) = retrieval(JsonField.of(retrieval))
 
                 /**
                  * Sets [Builder.retrieval] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.retrieval] with a well-typed
-                 * [InferenceEmbeddingBucketIds] value instead. This method is primarily for setting
-                 * the field to an undocumented or not yet supported value.
+                 * You should usually call [Builder.retrieval] with a well-typed [BucketIds] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
-                fun retrieval(retrieval: JsonField<InferenceEmbeddingBucketIds>) = apply {
+                fun retrieval(retrieval: JsonField<BucketIds>) = apply {
                     this.retrieval = retrieval
                 }
 

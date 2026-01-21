@@ -14,22 +14,13 @@ internal class TransferToolTest {
         val transferTool =
             TransferTool.builder()
                 .transfer(
-                    InferenceEmbeddingTransferToolParams.builder()
+                    TransferTool.Transfer.builder()
                         .from("+35319605860")
                         .addTarget(
-                            InferenceEmbeddingTransferToolParams.Target.builder()
+                            TransferTool.Transfer.Target.builder()
                                 .name("Support")
                                 .to("+13129457420")
                                 .build()
-                        )
-                        .addCustomHeader(
-                            InferenceEmbeddingTransferToolParams.CustomHeader.builder()
-                                .name("name")
-                                .value("value")
-                                .build()
-                        )
-                        .warmTransferInstructions(
-                            "Briefly greet the transfer recipient and provide any relevant information from the call. Let them know you will bridge the call right after."
                         )
                         .build()
                 )
@@ -38,22 +29,13 @@ internal class TransferToolTest {
 
         assertThat(transferTool.transfer())
             .isEqualTo(
-                InferenceEmbeddingTransferToolParams.builder()
+                TransferTool.Transfer.builder()
                     .from("+35319605860")
                     .addTarget(
-                        InferenceEmbeddingTransferToolParams.Target.builder()
+                        TransferTool.Transfer.Target.builder()
                             .name("Support")
                             .to("+13129457420")
                             .build()
-                    )
-                    .addCustomHeader(
-                        InferenceEmbeddingTransferToolParams.CustomHeader.builder()
-                            .name("name")
-                            .value("value")
-                            .build()
-                    )
-                    .warmTransferInstructions(
-                        "Briefly greet the transfer recipient and provide any relevant information from the call. Let them know you will bridge the call right after."
                     )
                     .build()
             )
@@ -66,22 +48,13 @@ internal class TransferToolTest {
         val transferTool =
             TransferTool.builder()
                 .transfer(
-                    InferenceEmbeddingTransferToolParams.builder()
+                    TransferTool.Transfer.builder()
                         .from("+35319605860")
                         .addTarget(
-                            InferenceEmbeddingTransferToolParams.Target.builder()
+                            TransferTool.Transfer.Target.builder()
                                 .name("Support")
                                 .to("+13129457420")
                                 .build()
-                        )
-                        .addCustomHeader(
-                            InferenceEmbeddingTransferToolParams.CustomHeader.builder()
-                                .name("name")
-                                .value("value")
-                                .build()
-                        )
-                        .warmTransferInstructions(
-                            "Briefly greet the transfer recipient and provide any relevant information from the call. Let them know you will bridge the call right after."
                         )
                         .build()
                 )
