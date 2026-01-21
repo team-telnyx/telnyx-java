@@ -17,6 +17,7 @@ import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.ai.assistants.versions.UpdateAssistant
+import com.telnyx.sdk.models.ai.chat.BucketIds
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -164,7 +165,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun widgetSettings(): Optional<UpdateAssistant.WidgetSettings> = body.widgetSettings()
+    fun widgetSettings(): Optional<WidgetSettings> = body.widgetSettings()
 
     /**
      * Indicates whether the assistant should be promoted to the main version. Defaults to true.
@@ -295,7 +296,7 @@ private constructor(
      *
      * Unlike [widgetSettings], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _widgetSettings(): JsonField<UpdateAssistant.WidgetSettings> = body._widgetSettings()
+    fun _widgetSettings(): JsonField<WidgetSettings> = body._widgetSettings()
 
     /**
      * Returns the raw JSON value of [promoteToMain].
@@ -592,18 +593,18 @@ private constructor(
         fun addTool(tool: AssistantTool) = apply { body.addTool(tool) }
 
         /** Alias for calling [addTool] with `AssistantTool.ofWebhook(webhook)`. */
-        fun addTool(webhook: WebhookTool) = apply { body.addTool(webhook) }
+        fun addTool(webhook: InferenceEmbeddingWebhookToolParams) = apply { body.addTool(webhook) }
 
         /**
          * Alias for calling [addTool] with the following:
          * ```java
-         * WebhookTool.builder()
-         *     .type(WebhookTool.Type.WEBHOOK)
+         * InferenceEmbeddingWebhookToolParams.builder()
+         *     .type(InferenceEmbeddingWebhookToolParams.Type.WEBHOOK)
          *     .webhook(webhook)
          *     .build()
          * ```
          */
-        fun addWebhookTool(webhook: InferenceEmbeddingWebhookToolParams) = apply {
+        fun addWebhookTool(webhook: InferenceEmbeddingWebhookToolParams.Webhook) = apply {
             body.addWebhookTool(webhook)
         }
 
@@ -619,9 +620,7 @@ private constructor(
          *     .build()
          * ```
          */
-        fun addRetrievalTool(retrieval: InferenceEmbeddingBucketIds) = apply {
-            body.addRetrievalTool(retrieval)
-        }
+        fun addRetrievalTool(retrieval: BucketIds) = apply { body.addRetrievalTool(retrieval) }
 
         /** Alias for calling [addTool] with `AssistantTool.ofHandoff(handoff)`. */
         fun addTool(handoff: AssistantTool.HandoffTool) = apply { body.addTool(handoff) }
@@ -653,18 +652,17 @@ private constructor(
         fun addHangupTool(hangup: HangupToolParams) = apply { body.addHangupTool(hangup) }
 
         /** Alias for calling [addTool] with `AssistantTool.ofTransfer(transfer)`. */
-        fun addTool(transfer: TransferTool) = apply { body.addTool(transfer) }
+        fun addTool(transfer: AssistantTool.Transfer) = apply { body.addTool(transfer) }
 
         /**
          * Alias for calling [addTool] with the following:
          * ```java
-         * TransferTool.builder()
-         *     .type(TransferTool.Type.TRANSFER)
+         * AssistantTool.Transfer.builder()
          *     .transfer(transfer)
          *     .build()
          * ```
          */
-        fun addTransferTool(transfer: InferenceEmbeddingTransferToolParams) = apply {
+        fun addTransferTool(transfer: AssistantTool.Transfer.InnerTransfer) = apply {
             body.addTransferTool(transfer)
         }
 
@@ -744,18 +742,18 @@ private constructor(
         }
 
         /** Configuration settings for the assistant's web widget. */
-        fun widgetSettings(widgetSettings: UpdateAssistant.WidgetSettings) = apply {
+        fun widgetSettings(widgetSettings: WidgetSettings) = apply {
             body.widgetSettings(widgetSettings)
         }
 
         /**
          * Sets [Builder.widgetSettings] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.widgetSettings] with a well-typed
-         * [UpdateAssistant.WidgetSettings] value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
+         * You should usually call [Builder.widgetSettings] with a well-typed [WidgetSettings] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun widgetSettings(widgetSettings: JsonField<UpdateAssistant.WidgetSettings>) = apply {
+        fun widgetSettings(widgetSettings: JsonField<WidgetSettings>) = apply {
             body.widgetSettings(widgetSettings)
         }
 
@@ -937,7 +935,7 @@ private constructor(
         private val tools: JsonField<List<AssistantTool>>,
         private val transcription: JsonField<TranscriptionSettings>,
         private val voiceSettings: JsonField<VoiceSettings>,
-        private val widgetSettings: JsonField<UpdateAssistant.WidgetSettings>,
+        private val widgetSettings: JsonField<WidgetSettings>,
         private val promoteToMain: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -990,7 +988,7 @@ private constructor(
             voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
             @JsonProperty("widget_settings")
             @ExcludeMissing
-            widgetSettings: JsonField<UpdateAssistant.WidgetSettings> = JsonMissing.of(),
+            widgetSettings: JsonField<WidgetSettings> = JsonMissing.of(),
             @JsonProperty("promote_to_main")
             @ExcludeMissing
             promoteToMain: JsonField<Boolean> = JsonMissing.of(),
@@ -1176,7 +1174,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun widgetSettings(): Optional<UpdateAssistant.WidgetSettings> =
+        fun widgetSettings(): Optional<WidgetSettings> =
             widgetSettings.getOptional("widget_settings")
 
         /**
@@ -1342,7 +1340,7 @@ private constructor(
          */
         @JsonProperty("widget_settings")
         @ExcludeMissing
-        fun _widgetSettings(): JsonField<UpdateAssistant.WidgetSettings> = widgetSettings
+        fun _widgetSettings(): JsonField<WidgetSettings> = widgetSettings
 
         /**
          * Returns the raw JSON value of [promoteToMain].
@@ -1392,7 +1390,7 @@ private constructor(
             private var tools: JsonField<MutableList<AssistantTool>>? = null
             private var transcription: JsonField<TranscriptionSettings> = JsonMissing.of()
             private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
-            private var widgetSettings: JsonField<UpdateAssistant.WidgetSettings> = JsonMissing.of()
+            private var widgetSettings: JsonField<WidgetSettings> = JsonMissing.of()
             private var promoteToMain: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1663,20 +1661,24 @@ private constructor(
             }
 
             /** Alias for calling [addTool] with `AssistantTool.ofWebhook(webhook)`. */
-            fun addTool(webhook: WebhookTool) = addTool(AssistantTool.ofWebhook(webhook))
+            fun addTool(webhook: InferenceEmbeddingWebhookToolParams) =
+                addTool(AssistantTool.ofWebhook(webhook))
 
             /**
              * Alias for calling [addTool] with the following:
              * ```java
-             * WebhookTool.builder()
-             *     .type(WebhookTool.Type.WEBHOOK)
+             * InferenceEmbeddingWebhookToolParams.builder()
+             *     .type(InferenceEmbeddingWebhookToolParams.Type.WEBHOOK)
              *     .webhook(webhook)
              *     .build()
              * ```
              */
-            fun addWebhookTool(webhook: InferenceEmbeddingWebhookToolParams) =
+            fun addWebhookTool(webhook: InferenceEmbeddingWebhookToolParams.Webhook) =
                 addTool(
-                    WebhookTool.builder().type(WebhookTool.Type.WEBHOOK).webhook(webhook).build()
+                    InferenceEmbeddingWebhookToolParams.builder()
+                        .type(InferenceEmbeddingWebhookToolParams.Type.WEBHOOK)
+                        .webhook(webhook)
+                        .build()
                 )
 
             /** Alias for calling [addTool] with `AssistantTool.ofRetrieval(retrieval)`. */
@@ -1691,7 +1693,7 @@ private constructor(
              *     .build()
              * ```
              */
-            fun addRetrievalTool(retrieval: InferenceEmbeddingBucketIds) =
+            fun addRetrievalTool(retrieval: BucketIds) =
                 addTool(
                     RetrievalTool.builder()
                         .type(RetrievalTool.Type.RETRIEVAL)
@@ -1730,24 +1732,19 @@ private constructor(
                 addTool(HangupTool.builder().type(HangupTool.Type.HANGUP).hangup(hangup).build())
 
             /** Alias for calling [addTool] with `AssistantTool.ofTransfer(transfer)`. */
-            fun addTool(transfer: TransferTool) = addTool(AssistantTool.ofTransfer(transfer))
+            fun addTool(transfer: AssistantTool.Transfer) =
+                addTool(AssistantTool.ofTransfer(transfer))
 
             /**
              * Alias for calling [addTool] with the following:
              * ```java
-             * TransferTool.builder()
-             *     .type(TransferTool.Type.TRANSFER)
+             * AssistantTool.Transfer.builder()
              *     .transfer(transfer)
              *     .build()
              * ```
              */
-            fun addTransferTool(transfer: InferenceEmbeddingTransferToolParams) =
-                addTool(
-                    TransferTool.builder()
-                        .type(TransferTool.Type.TRANSFER)
-                        .transfer(transfer)
-                        .build()
-                )
+            fun addTransferTool(transfer: AssistantTool.Transfer.InnerTransfer) =
+                addTool(AssistantTool.Transfer.builder().transfer(transfer).build())
 
             /** Alias for calling [addTool] with `AssistantTool.ofRefer(refer)`. */
             fun addTool(refer: AssistantTool.SipReferTool) = addTool(AssistantTool.ofRefer(refer))
@@ -1822,17 +1819,17 @@ private constructor(
             }
 
             /** Configuration settings for the assistant's web widget. */
-            fun widgetSettings(widgetSettings: UpdateAssistant.WidgetSettings) =
+            fun widgetSettings(widgetSettings: WidgetSettings) =
                 widgetSettings(JsonField.of(widgetSettings))
 
             /**
              * Sets [Builder.widgetSettings] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.widgetSettings] with a well-typed
-             * [UpdateAssistant.WidgetSettings] value instead. This method is primarily for setting
-             * the field to an undocumented or not yet supported value.
+             * You should usually call [Builder.widgetSettings] with a well-typed [WidgetSettings]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
-            fun widgetSettings(widgetSettings: JsonField<UpdateAssistant.WidgetSettings>) = apply {
+            fun widgetSettings(widgetSettings: JsonField<WidgetSettings>) = apply {
                 this.widgetSettings = widgetSettings
             }
 

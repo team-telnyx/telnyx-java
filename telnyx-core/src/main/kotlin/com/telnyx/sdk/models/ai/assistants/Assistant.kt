@@ -272,7 +272,7 @@ private constructor(
          *     .build()
          * ```
          */
-        fun addWebhookTool(webhook: InferenceEmbeddingWebhookToolParams) =
+        fun addWebhookTool(webhook: WebhookTool.Webhook) =
             addTool(WebhookTool.builder().type(WebhookTool.Type.WEBHOOK).webhook(webhook).build())
 
         /** Alias for calling [addTool] with `Tool.ofHangup(hangup)`. */
@@ -302,30 +302,24 @@ private constructor(
          *     .build()
          * ```
          */
-        fun addTransferTool(transfer: InferenceEmbeddingTransferToolParams) =
+        fun addTransferTool(transfer: TransferTool.Transfer) =
             addTool(
                 TransferTool.builder().type(TransferTool.Type.TRANSFER).transfer(transfer).build()
             )
 
         /** Alias for calling [addTool] with `Tool.ofRetrieval(retrieval)`. */
-        fun addTool(retrieval: RetrievalTool) = addTool(Tool.ofRetrieval(retrieval))
+        fun addTool(retrieval: Tool.Retrieval) = addTool(Tool.ofRetrieval(retrieval))
 
         /**
          * Alias for calling [addTool] with the following:
          * ```java
-         * RetrievalTool.builder()
-         *     .type(RetrievalTool.Type.RETRIEVAL)
+         * Tool.Retrieval.builder()
          *     .retrieval(retrieval)
          *     .build()
          * ```
          */
-        fun addRetrievalTool(retrieval: InferenceEmbeddingBucketIds) =
-            addTool(
-                RetrievalTool.builder()
-                    .type(RetrievalTool.Type.RETRIEVAL)
-                    .retrieval(retrieval)
-                    .build()
-            )
+        fun addRetrievalTool(retrieval: Tool.Retrieval.InnerRetrieval) =
+            addTool(Tool.Retrieval.builder().retrieval(retrieval).build())
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -404,7 +398,7 @@ private constructor(
         private val webhook: WebhookTool? = null,
         private val hangup: HangupTool? = null,
         private val transfer: TransferTool? = null,
-        private val retrieval: RetrievalTool? = null,
+        private val retrieval: Retrieval? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -419,7 +413,7 @@ private constructor(
 
         fun transfer(): Optional<TransferTool> = Optional.ofNullable(transfer)
 
-        fun retrieval(): Optional<RetrievalTool> = Optional.ofNullable(retrieval)
+        fun retrieval(): Optional<Retrieval> = Optional.ofNullable(retrieval)
 
         fun isBookAppointment(): Boolean = bookAppointment != null
 
@@ -444,7 +438,7 @@ private constructor(
 
         fun asTransfer(): TransferTool = transfer.getOrThrow("transfer")
 
-        fun asRetrieval(): RetrievalTool = retrieval.getOrThrow("retrieval")
+        fun asRetrieval(): Retrieval = retrieval.getOrThrow("retrieval")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -488,7 +482,7 @@ private constructor(
                         transfer.validate()
                     }
 
-                    override fun visitRetrieval(retrieval: RetrievalTool) {
+                    override fun visitRetrieval(retrieval: Retrieval) {
                         retrieval.validate()
                     }
                 }
@@ -526,7 +520,7 @@ private constructor(
 
                     override fun visitTransfer(transfer: TransferTool) = transfer.validity()
 
-                    override fun visitRetrieval(retrieval: RetrievalTool) = retrieval.validity()
+                    override fun visitRetrieval(retrieval: Retrieval) = retrieval.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -577,7 +571,7 @@ private constructor(
 
             @JvmStatic fun ofTransfer(transfer: TransferTool) = Tool(transfer = transfer)
 
-            @JvmStatic fun ofRetrieval(retrieval: RetrievalTool) = Tool(retrieval = retrieval)
+            @JvmStatic fun ofRetrieval(retrieval: Retrieval) = Tool(retrieval = retrieval)
         }
 
         /** An interface that defines how to map each variant of [Tool] to a value of type [T]. */
@@ -593,7 +587,7 @@ private constructor(
 
             fun visitTransfer(transfer: TransferTool): T
 
-            fun visitRetrieval(retrieval: RetrievalTool): T
+            fun visitRetrieval(retrieval: Retrieval): T
 
             /**
              * Maps an unknown variant of [Tool] to a value of type [T].
@@ -642,7 +636,7 @@ private constructor(
                         } ?: Tool(_json = json)
                     }
                     "retrieval" -> {
-                        return tryDeserialize(node, jacksonTypeRef<RetrievalTool>())?.let {
+                        return tryDeserialize(node, jacksonTypeRef<Retrieval>())?.let {
                             Tool(retrieval = it, _json = json)
                         } ?: Tool(_json = json)
                     }
@@ -1659,6 +1653,442 @@ private constructor(
 
             override fun toString() =
                 "CheckAvailabilityTool{checkAvailability=$checkAvailability, type=$type, additionalProperties=$additionalProperties}"
+        }
+
+        class Retrieval
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val retrieval: JsonField<InnerRetrieval>,
+            private val type: JsonValue,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("retrieval")
+                @ExcludeMissing
+                retrieval: JsonField<InnerRetrieval> = JsonMissing.of(),
+                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+            ) : this(retrieval, type, mutableMapOf())
+
+            /**
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun retrieval(): InnerRetrieval = retrieval.getRequired("retrieval")
+
+            /**
+             * Expected to always return the following:
+             * ```java
+             * JsonValue.from("retrieval")
+             * ```
+             *
+             * However, this method can be useful for debugging and logging (e.g. if the server
+             * responded with an unexpected value).
+             */
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+            /**
+             * Returns the raw JSON value of [retrieval].
+             *
+             * Unlike [retrieval], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("retrieval")
+            @ExcludeMissing
+            fun _retrieval(): JsonField<InnerRetrieval> = retrieval
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Retrieval].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .retrieval()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Retrieval]. */
+            class Builder internal constructor() {
+
+                private var retrieval: JsonField<InnerRetrieval>? = null
+                private var type: JsonValue = JsonValue.from("retrieval")
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(retrieval: Retrieval) = apply {
+                    this.retrieval = retrieval.retrieval
+                    type = retrieval.type
+                    additionalProperties = retrieval.additionalProperties.toMutableMap()
+                }
+
+                fun retrieval(retrieval: InnerRetrieval) = retrieval(JsonField.of(retrieval))
+
+                /**
+                 * Sets [Builder.retrieval] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.retrieval] with a well-typed [InnerRetrieval]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun retrieval(retrieval: JsonField<InnerRetrieval>) = apply {
+                    this.retrieval = retrieval
+                }
+
+                /**
+                 * Sets the field to an arbitrary JSON value.
+                 *
+                 * It is usually unnecessary to call this method because the field defaults to the
+                 * following:
+                 * ```java
+                 * JsonValue.from("retrieval")
+                 * ```
+                 *
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun type(type: JsonValue) = apply { this.type = type }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Retrieval].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .retrieval()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Retrieval =
+                    Retrieval(
+                        checkRequired("retrieval", retrieval),
+                        type,
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Retrieval = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                retrieval().validate()
+                _type().let {
+                    if (it != JsonValue.from("retrieval")) {
+                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                    }
+                }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (retrieval.asKnown().getOrNull()?.validity() ?: 0) +
+                    type.let { if (it == JsonValue.from("retrieval")) 1 else 0 }
+
+            class InnerRetrieval
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val bucketIds: JsonField<List<String>>,
+                private val maxNumResults: JsonField<Long>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("bucket_ids")
+                    @ExcludeMissing
+                    bucketIds: JsonField<List<String>> = JsonMissing.of(),
+                    @JsonProperty("max_num_results")
+                    @ExcludeMissing
+                    maxNumResults: JsonField<Long> = JsonMissing.of(),
+                ) : this(bucketIds, maxNumResults, mutableMapOf())
+
+                /**
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun bucketIds(): List<String> = bucketIds.getRequired("bucket_ids")
+
+                /**
+                 * The maximum number of results to retrieve as context for the language model.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun maxNumResults(): Optional<Long> = maxNumResults.getOptional("max_num_results")
+
+                /**
+                 * Returns the raw JSON value of [bucketIds].
+                 *
+                 * Unlike [bucketIds], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("bucket_ids")
+                @ExcludeMissing
+                fun _bucketIds(): JsonField<List<String>> = bucketIds
+
+                /**
+                 * Returns the raw JSON value of [maxNumResults].
+                 *
+                 * Unlike [maxNumResults], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("max_num_results")
+                @ExcludeMissing
+                fun _maxNumResults(): JsonField<Long> = maxNumResults
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [InnerRetrieval].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .bucketIds()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [InnerRetrieval]. */
+                class Builder internal constructor() {
+
+                    private var bucketIds: JsonField<MutableList<String>>? = null
+                    private var maxNumResults: JsonField<Long> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(innerRetrieval: InnerRetrieval) = apply {
+                        bucketIds = innerRetrieval.bucketIds.map { it.toMutableList() }
+                        maxNumResults = innerRetrieval.maxNumResults
+                        additionalProperties = innerRetrieval.additionalProperties.toMutableMap()
+                    }
+
+                    fun bucketIds(bucketIds: List<String>) = bucketIds(JsonField.of(bucketIds))
+
+                    /**
+                     * Sets [Builder.bucketIds] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.bucketIds] with a well-typed `List<String>`
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun bucketIds(bucketIds: JsonField<List<String>>) = apply {
+                        this.bucketIds = bucketIds.map { it.toMutableList() }
+                    }
+
+                    /**
+                     * Adds a single [String] to [bucketIds].
+                     *
+                     * @throws IllegalStateException if the field was previously set to a non-list.
+                     */
+                    fun addBucketId(bucketId: String) = apply {
+                        bucketIds =
+                            (bucketIds ?: JsonField.of(mutableListOf())).also {
+                                checkKnown("bucketIds", it).add(bucketId)
+                            }
+                    }
+
+                    /**
+                     * The maximum number of results to retrieve as context for the language model.
+                     */
+                    fun maxNumResults(maxNumResults: Long) =
+                        maxNumResults(JsonField.of(maxNumResults))
+
+                    /**
+                     * Sets [Builder.maxNumResults] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.maxNumResults] with a well-typed [Long]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun maxNumResults(maxNumResults: JsonField<Long>) = apply {
+                        this.maxNumResults = maxNumResults
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [InnerRetrieval].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .bucketIds()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): InnerRetrieval =
+                        InnerRetrieval(
+                            checkRequired("bucketIds", bucketIds).map { it.toImmutable() },
+                            maxNumResults,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): InnerRetrieval = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    bucketIds()
+                    maxNumResults()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (bucketIds.asKnown().getOrNull()?.size ?: 0) +
+                        (if (maxNumResults.asKnown().isPresent) 1 else 0)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is InnerRetrieval &&
+                        bucketIds == other.bucketIds &&
+                        maxNumResults == other.maxNumResults &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(bucketIds, maxNumResults, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "InnerRetrieval{bucketIds=$bucketIds, maxNumResults=$maxNumResults, additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Retrieval &&
+                    retrieval == other.retrieval &&
+                    type == other.type &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(retrieval, type, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Retrieval{retrieval=$retrieval, type=$type, additionalProperties=$additionalProperties}"
         }
     }
 

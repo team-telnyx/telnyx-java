@@ -38,6 +38,10 @@ private constructor(
     ) : this(bucketIds, maxNumResults, mutableMapOf())
 
     /**
+     * List of
+     * [embedded storage buckets](https://developers.telnyx.com/api-reference/embeddings/embed-documents)
+     * to use for retrieval-augmented generation.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -108,6 +112,11 @@ private constructor(
             additionalProperties = bucketIds.additionalProperties.toMutableMap()
         }
 
+        /**
+         * List of
+         * [embedded storage buckets](https://developers.telnyx.com/api-reference/embeddings/embed-documents)
+         * to use for retrieval-augmented generation.
+         */
         fun bucketIds(bucketIds: List<String>) = bucketIds(JsonField.of(bucketIds))
 
         /**
