@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.3.0 (2026-01-21)
+
+Full Changelog: [v6.2.0...v6.3.0](https://github.com/team-telnyx/telnyx-java/compare/v6.2.0...v6.3.0)
+
+### Features
+
+* fix-redocly-lint-issues ([d086e37](https://github.com/team-telnyx/telnyx-java/commit/d086e37a3c853161ddd5abc6d91a89334c9a26db))
+
 ## 6.2.0 (2026-01-20)
 
 Full Changelog: [v6.1.0...v6.2.0](https://github.com/team-telnyx/telnyx-java/compare/v6.1.0...v6.2.0)
