@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.ipconnections
 
+import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
 import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
 import com.telnyx.sdk.models.credentialconnections.DtmfType
@@ -52,9 +53,9 @@ internal class IpConnectionUpdateParamsTest {
             .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
             .noiseSuppression(IpConnectionUpdateParams.NoiseSuppression.BOTH)
             .noiseSuppressionDetails(
-                IpConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                ConnectionNoiseSuppressionDetails.builder()
                     .attenuationLimit(80L)
-                    .engine(IpConnectionUpdateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                    .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
                     .build()
             )
             .onnetT38PassthroughEnabled(false)
@@ -141,11 +142,9 @@ internal class IpConnectionUpdateParamsTest {
                 .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
                 .noiseSuppression(IpConnectionUpdateParams.NoiseSuppression.BOTH)
                 .noiseSuppressionDetails(
-                    IpConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                    ConnectionNoiseSuppressionDetails.builder()
                         .attenuationLimit(80L)
-                        .engine(
-                            IpConnectionUpdateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
-                        )
+                        .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
                         .build()
                 )
                 .onnetT38PassthroughEnabled(false)
@@ -221,9 +220,9 @@ internal class IpConnectionUpdateParamsTest {
         assertThat(body.noiseSuppression()).contains(IpConnectionUpdateParams.NoiseSuppression.BOTH)
         assertThat(body.noiseSuppressionDetails())
             .contains(
-                IpConnectionUpdateParams.NoiseSuppressionDetails.builder()
+                ConnectionNoiseSuppressionDetails.builder()
                     .attenuationLimit(80L)
-                    .engine(IpConnectionUpdateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                    .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
                     .build()
             )
         assertThat(body.onnetT38PassthroughEnabled()).contains(false)

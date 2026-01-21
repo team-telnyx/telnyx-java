@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.ai.assistants.TelephonySettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
 import com.telnyx.sdk.models.ai.assistants.VoiceSettings
+import com.telnyx.sdk.models.ai.assistants.WidgetSettings
 import com.telnyx.sdk.models.ai.assistants.versions.UpdateAssistant
 import com.telnyx.sdk.models.ai.assistants.versions.VersionDeleteParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionPromoteParams
@@ -141,15 +142,17 @@ internal class VersionServiceAsyncTest {
                                     .build()
                             )
                             .addWebhookTool(
-                                InferenceEmbeddingWebhookToolParams.builder()
+                                InferenceEmbeddingWebhookToolParams.Webhook.builder()
                                     .description("description")
                                     .name("name")
                                     .url("https://example.com/api/v1/function")
                                     .async(true)
                                     .bodyParameters(
-                                        InferenceEmbeddingWebhookToolParams.BodyParameters.builder()
+                                        InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
+                                            .builder()
                                             .properties(
-                                                InferenceEmbeddingWebhookToolParams.BodyParameters
+                                                InferenceEmbeddingWebhookToolParams.Webhook
+                                                    .BodyParameters
                                                     .Properties
                                                     .builder()
                                                     .putAdditionalProperty(
@@ -165,23 +168,26 @@ internal class VersionServiceAsyncTest {
                                             .addRequired("age")
                                             .addRequired("location")
                                             .type(
-                                                InferenceEmbeddingWebhookToolParams.BodyParameters
+                                                InferenceEmbeddingWebhookToolParams.Webhook
+                                                    .BodyParameters
                                                     .Type
                                                     .OBJECT
                                             )
                                             .build()
                                     )
                                     .addHeader(
-                                        InferenceEmbeddingWebhookToolParams.Header.builder()
+                                        InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
                                             .name("name")
                                             .value("value")
                                             .build()
                                     )
-                                    .method(InferenceEmbeddingWebhookToolParams.Method.GET)
+                                    .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
                                     .pathParameters(
-                                        InferenceEmbeddingWebhookToolParams.PathParameters.builder()
+                                        InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
+                                            .builder()
                                             .properties(
-                                                InferenceEmbeddingWebhookToolParams.PathParameters
+                                                InferenceEmbeddingWebhookToolParams.Webhook
+                                                    .PathParameters
                                                     .Properties
                                                     .builder()
                                                     .putAdditionalProperty(
@@ -192,17 +198,19 @@ internal class VersionServiceAsyncTest {
                                             )
                                             .addRequired("id")
                                             .type(
-                                                InferenceEmbeddingWebhookToolParams.PathParameters
+                                                InferenceEmbeddingWebhookToolParams.Webhook
+                                                    .PathParameters
                                                     .Type
                                                     .OBJECT
                                             )
                                             .build()
                                     )
                                     .queryParameters(
-                                        InferenceEmbeddingWebhookToolParams.QueryParameters
+                                        InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
                                             .builder()
                                             .properties(
-                                                InferenceEmbeddingWebhookToolParams.QueryParameters
+                                                InferenceEmbeddingWebhookToolParams.Webhook
+                                                    .QueryParameters
                                                     .Properties
                                                     .builder()
                                                     .putAdditionalProperty(
@@ -213,7 +221,8 @@ internal class VersionServiceAsyncTest {
                                             )
                                             .addRequired("page")
                                             .type(
-                                                InferenceEmbeddingWebhookToolParams.QueryParameters
+                                                InferenceEmbeddingWebhookToolParams.Webhook
+                                                    .QueryParameters
                                                     .Type
                                                     .OBJECT
                                             )
@@ -256,29 +265,24 @@ internal class VersionServiceAsyncTest {
                                     .build()
                             )
                             .widgetSettings(
-                                UpdateAssistant.WidgetSettings.builder()
+                                WidgetSettings.builder()
                                     .agentThinkingText("agent_thinking_text")
                                     .audioVisualizerConfig(
-                                        UpdateAssistant.WidgetSettings.AudioVisualizerConfig
-                                            .builder()
+                                        WidgetSettings.AudioVisualizerConfig.builder()
                                             .color(
-                                                UpdateAssistant.WidgetSettings.AudioVisualizerConfig
-                                                    .Color
-                                                    .VERDANT
+                                                WidgetSettings.AudioVisualizerConfig.Color.VERDANT
                                             )
                                             .preset("preset")
                                             .build()
                                     )
-                                    .defaultState(
-                                        UpdateAssistant.WidgetSettings.DefaultState.EXPANDED
-                                    )
+                                    .defaultState(WidgetSettings.DefaultState.EXPANDED)
                                     .giveFeedbackUrl("give_feedback_url")
                                     .logoIconUrl("logo_icon_url")
-                                    .position(UpdateAssistant.WidgetSettings.Position.FIXED)
+                                    .position(WidgetSettings.Position.FIXED)
                                     .reportIssueUrl("report_issue_url")
                                     .speakToInterruptText("speak_to_interrupt_text")
                                     .startCallText("start_call_text")
-                                    .theme(UpdateAssistant.WidgetSettings.Theme.LIGHT)
+                                    .theme(WidgetSettings.Theme.LIGHT)
                                     .viewHistoryUrl("view_history_url")
                                     .build()
                             )
