@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.4.0 (2026-01-22)
+
+Full Changelog: [v6.3.0...v6.4.0](https://github.com/team-telnyx/telnyx-java/compare/v6.3.0...v6.4.0)
+
+### Features
+
+* **client:** send `X-Stainless-Kotlin-Version` header ([8140bc1](https://github.com/team-telnyx/telnyx-java/commit/8140bc126a0985afeec2c28649d7ca59601da647))
+
+
+### Chores
+
+* **internal:** update maven repo doc to include authentication ([da963d5](https://github.com/team-telnyx/telnyx-java/commit/da963d5863970e9059eb01c167fdaee7add81ae6))
+
 ## 6.3.0 (2026-01-21)
 
 Full Changelog: [v6.2.0...v6.3.0](https://github.com/team-telnyx/telnyx-java/compare/v6.2.0...v6.3.0)
