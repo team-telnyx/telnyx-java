@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.fqdnconnections
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import com.telnyx.sdk.models.ConnectionsPaginationMeta
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
 import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
@@ -62,11 +63,9 @@ internal class FqdnConnectionListPageResponseTest {
                         .microsoftTeamsSbc(true)
                         .noiseSuppression(FqdnConnection.NoiseSuppression.BOTH)
                         .noiseSuppressionDetails(
-                            FqdnConnection.NoiseSuppressionDetails.builder()
+                            ConnectionNoiseSuppressionDetails.builder()
                                 .attenuationLimit(80L)
-                                .engine(
-                                    FqdnConnection.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
-                                )
+                                .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
                                 .build()
                         )
                         .onnetT38PassthroughEnabled(true)
@@ -171,9 +170,9 @@ internal class FqdnConnectionListPageResponseTest {
                     .microsoftTeamsSbc(true)
                     .noiseSuppression(FqdnConnection.NoiseSuppression.BOTH)
                     .noiseSuppressionDetails(
-                        FqdnConnection.NoiseSuppressionDetails.builder()
+                        ConnectionNoiseSuppressionDetails.builder()
                             .attenuationLimit(80L)
-                            .engine(FqdnConnection.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                            .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
                             .build()
                     )
                     .onnetT38PassthroughEnabled(true)
@@ -283,11 +282,9 @@ internal class FqdnConnectionListPageResponseTest {
                         .microsoftTeamsSbc(true)
                         .noiseSuppression(FqdnConnection.NoiseSuppression.BOTH)
                         .noiseSuppressionDetails(
-                            FqdnConnection.NoiseSuppressionDetails.builder()
+                            ConnectionNoiseSuppressionDetails.builder()
                                 .attenuationLimit(80L)
-                                .engine(
-                                    FqdnConnection.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
-                                )
+                                .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
                                 .build()
                         )
                         .onnetT38PassthroughEnabled(true)

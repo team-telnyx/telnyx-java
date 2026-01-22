@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.ai.assistants.AssistantTool
+import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
 import com.telnyx.sdk.models.ai.assistants.MessagingSettings
@@ -14,6 +15,7 @@ import com.telnyx.sdk.models.ai.assistants.TelephonySettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
 import com.telnyx.sdk.models.ai.assistants.VoiceSettings
+import com.telnyx.sdk.models.ai.assistants.WidgetSettings
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -181,25 +183,22 @@ internal class UpdateAssistantTest {
                         .build()
                 )
                 .widgetSettings(
-                    UpdateAssistant.WidgetSettings.builder()
+                    WidgetSettings.builder()
                         .agentThinkingText("agent_thinking_text")
                         .audioVisualizerConfig(
-                            UpdateAssistant.WidgetSettings.AudioVisualizerConfig.builder()
-                                .color(
-                                    UpdateAssistant.WidgetSettings.AudioVisualizerConfig.Color
-                                        .VERDANT
-                                )
+                            AudioVisualizerConfig.builder()
+                                .color(AudioVisualizerConfig.Color.VERDANT)
                                 .preset("preset")
                                 .build()
                         )
-                        .defaultState(UpdateAssistant.WidgetSettings.DefaultState.EXPANDED)
+                        .defaultState(WidgetSettings.DefaultState.EXPANDED)
                         .giveFeedbackUrl("give_feedback_url")
                         .logoIconUrl("logo_icon_url")
-                        .position(UpdateAssistant.WidgetSettings.Position.FIXED)
+                        .position(WidgetSettings.Position.FIXED)
                         .reportIssueUrl("report_issue_url")
                         .speakToInterruptText("speak_to_interrupt_text")
                         .startCallText("start_call_text")
-                        .theme(UpdateAssistant.WidgetSettings.Theme.LIGHT)
+                        .theme(WidgetSettings.Theme.LIGHT)
                         .viewHistoryUrl("view_history_url")
                         .build()
                 )
@@ -391,24 +390,22 @@ internal class UpdateAssistantTest {
             )
         assertThat(updateAssistant.widgetSettings())
             .contains(
-                UpdateAssistant.WidgetSettings.builder()
+                WidgetSettings.builder()
                     .agentThinkingText("agent_thinking_text")
                     .audioVisualizerConfig(
-                        UpdateAssistant.WidgetSettings.AudioVisualizerConfig.builder()
-                            .color(
-                                UpdateAssistant.WidgetSettings.AudioVisualizerConfig.Color.VERDANT
-                            )
+                        AudioVisualizerConfig.builder()
+                            .color(AudioVisualizerConfig.Color.VERDANT)
                             .preset("preset")
                             .build()
                     )
-                    .defaultState(UpdateAssistant.WidgetSettings.DefaultState.EXPANDED)
+                    .defaultState(WidgetSettings.DefaultState.EXPANDED)
                     .giveFeedbackUrl("give_feedback_url")
                     .logoIconUrl("logo_icon_url")
-                    .position(UpdateAssistant.WidgetSettings.Position.FIXED)
+                    .position(WidgetSettings.Position.FIXED)
                     .reportIssueUrl("report_issue_url")
                     .speakToInterruptText("speak_to_interrupt_text")
                     .startCallText("start_call_text")
-                    .theme(UpdateAssistant.WidgetSettings.Theme.LIGHT)
+                    .theme(WidgetSettings.Theme.LIGHT)
                     .viewHistoryUrl("view_history_url")
                     .build()
             )
@@ -576,25 +573,22 @@ internal class UpdateAssistantTest {
                         .build()
                 )
                 .widgetSettings(
-                    UpdateAssistant.WidgetSettings.builder()
+                    WidgetSettings.builder()
                         .agentThinkingText("agent_thinking_text")
                         .audioVisualizerConfig(
-                            UpdateAssistant.WidgetSettings.AudioVisualizerConfig.builder()
-                                .color(
-                                    UpdateAssistant.WidgetSettings.AudioVisualizerConfig.Color
-                                        .VERDANT
-                                )
+                            AudioVisualizerConfig.builder()
+                                .color(AudioVisualizerConfig.Color.VERDANT)
                                 .preset("preset")
                                 .build()
                         )
-                        .defaultState(UpdateAssistant.WidgetSettings.DefaultState.EXPANDED)
+                        .defaultState(WidgetSettings.DefaultState.EXPANDED)
                         .giveFeedbackUrl("give_feedback_url")
                         .logoIconUrl("logo_icon_url")
-                        .position(UpdateAssistant.WidgetSettings.Position.FIXED)
+                        .position(WidgetSettings.Position.FIXED)
                         .reportIssueUrl("report_issue_url")
                         .speakToInterruptText("speak_to_interrupt_text")
                         .startCallText("start_call_text")
-                        .theme(UpdateAssistant.WidgetSettings.Theme.LIGHT)
+                        .theme(WidgetSettings.Theme.LIGHT)
                         .viewHistoryUrl("view_history_url")
                         .build()
                 )

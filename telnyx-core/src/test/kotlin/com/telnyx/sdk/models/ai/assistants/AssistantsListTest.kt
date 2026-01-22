@@ -203,29 +203,22 @@ internal class AssistantsListTest {
                                 .build()
                         )
                         .widgetSettings(
-                            InferenceEmbedding.WidgetSettings.builder()
+                            WidgetSettings.builder()
                                 .agentThinkingText("agent_thinking_text")
                                 .audioVisualizerConfig(
-                                    InferenceEmbedding.WidgetSettings.AudioVisualizerConfig
-                                        .builder()
-                                        .color(
-                                            InferenceEmbedding.WidgetSettings.AudioVisualizerConfig
-                                                .Color
-                                                .VERDANT
-                                        )
+                                    AudioVisualizerConfig.builder()
+                                        .color(AudioVisualizerConfig.Color.VERDANT)
                                         .preset("preset")
                                         .build()
                                 )
-                                .defaultState(
-                                    InferenceEmbedding.WidgetSettings.DefaultState.EXPANDED
-                                )
+                                .defaultState(WidgetSettings.DefaultState.EXPANDED)
                                 .giveFeedbackUrl("give_feedback_url")
                                 .logoIconUrl("logo_icon_url")
-                                .position(InferenceEmbedding.WidgetSettings.Position.FIXED)
+                                .position(WidgetSettings.Position.FIXED)
                                 .reportIssueUrl("report_issue_url")
                                 .speakToInterruptText("speak_to_interrupt_text")
                                 .startCallText("start_call_text")
-                                .theme(InferenceEmbedding.WidgetSettings.Theme.LIGHT)
+                                .theme(WidgetSettings.Theme.LIGHT)
                                 .viewHistoryUrl("view_history_url")
                                 .build()
                         )
@@ -414,26 +407,22 @@ internal class AssistantsListTest {
                             .build()
                     )
                     .widgetSettings(
-                        InferenceEmbedding.WidgetSettings.builder()
+                        WidgetSettings.builder()
                             .agentThinkingText("agent_thinking_text")
                             .audioVisualizerConfig(
-                                InferenceEmbedding.WidgetSettings.AudioVisualizerConfig.builder()
-                                    .color(
-                                        InferenceEmbedding.WidgetSettings.AudioVisualizerConfig
-                                            .Color
-                                            .VERDANT
-                                    )
+                                AudioVisualizerConfig.builder()
+                                    .color(AudioVisualizerConfig.Color.VERDANT)
                                     .preset("preset")
                                     .build()
                             )
-                            .defaultState(InferenceEmbedding.WidgetSettings.DefaultState.EXPANDED)
+                            .defaultState(WidgetSettings.DefaultState.EXPANDED)
                             .giveFeedbackUrl("give_feedback_url")
                             .logoIconUrl("logo_icon_url")
-                            .position(InferenceEmbedding.WidgetSettings.Position.FIXED)
+                            .position(WidgetSettings.Position.FIXED)
                             .reportIssueUrl("report_issue_url")
                             .speakToInterruptText("speak_to_interrupt_text")
                             .startCallText("start_call_text")
-                            .theme(InferenceEmbedding.WidgetSettings.Theme.LIGHT)
+                            .theme(WidgetSettings.Theme.LIGHT)
                             .viewHistoryUrl("view_history_url")
                             .build()
                     )
@@ -634,29 +623,22 @@ internal class AssistantsListTest {
                                 .build()
                         )
                         .widgetSettings(
-                            InferenceEmbedding.WidgetSettings.builder()
+                            WidgetSettings.builder()
                                 .agentThinkingText("agent_thinking_text")
                                 .audioVisualizerConfig(
-                                    InferenceEmbedding.WidgetSettings.AudioVisualizerConfig
-                                        .builder()
-                                        .color(
-                                            InferenceEmbedding.WidgetSettings.AudioVisualizerConfig
-                                                .Color
-                                                .VERDANT
-                                        )
+                                    AudioVisualizerConfig.builder()
+                                        .color(AudioVisualizerConfig.Color.VERDANT)
                                         .preset("preset")
                                         .build()
                                 )
-                                .defaultState(
-                                    InferenceEmbedding.WidgetSettings.DefaultState.EXPANDED
-                                )
+                                .defaultState(WidgetSettings.DefaultState.EXPANDED)
                                 .giveFeedbackUrl("give_feedback_url")
                                 .logoIconUrl("logo_icon_url")
-                                .position(InferenceEmbedding.WidgetSettings.Position.FIXED)
+                                .position(WidgetSettings.Position.FIXED)
                                 .reportIssueUrl("report_issue_url")
                                 .speakToInterruptText("speak_to_interrupt_text")
                                 .startCallText("start_call_text")
-                                .theme(InferenceEmbedding.WidgetSettings.Theme.LIGHT)
+                                .theme(WidgetSettings.Theme.LIGHT)
                                 .viewHistoryUrl("view_history_url")
                                 .build()
                         )
