@@ -36,8 +36,7 @@ internal class RoomRecordingDeleteBulkParamsTest {
                     .type("audio")
                     .build()
             )
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(RoomRecordingDeleteBulkParams.Page.builder().number(1L).size(1L).build())
             .build()
     }
 
@@ -69,8 +68,7 @@ internal class RoomRecordingDeleteBulkParamsTest {
                         .type("audio")
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(RoomRecordingDeleteBulkParams.Page.builder().number(1L).size(1L).build())
                 .build()
 
         val queryParams = params._queryParams()
@@ -90,8 +88,8 @@ internal class RoomRecordingDeleteBulkParamsTest {
                     .put("filter[session_id]", "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                     .put("filter[status]", "completed")
                     .put("filter[type]", "audio")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .build()
             )
     }

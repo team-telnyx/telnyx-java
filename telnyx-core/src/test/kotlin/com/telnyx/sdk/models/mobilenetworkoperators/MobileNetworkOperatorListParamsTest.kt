@@ -27,8 +27,7 @@ internal class MobileNetworkOperatorListParamsTest {
                     .tadig("USACG")
                     .build()
             )
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(MobileNetworkOperatorListParams.Page.builder().number(1L).size(1L).build())
             .build()
     }
 
@@ -52,8 +51,7 @@ internal class MobileNetworkOperatorListParamsTest {
                         .tadig("USACG")
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(MobileNetworkOperatorListParams.Page.builder().number(1L).size(1L).build())
                 .build()
 
         val queryParams = params._queryParams()
@@ -69,8 +67,8 @@ internal class MobileNetworkOperatorListParamsTest {
                     .put("filter[name][starts_with]", "AT")
                     .put("filter[network_preferences_enabled]", "true")
                     .put("filter[tadig]", "USACG")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .build()
             )
     }

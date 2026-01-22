@@ -4,7 +4,6 @@ package com.telnyx.sdk.models.credentialconnections
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import com.telnyx.sdk.models.ConnectionsPaginationMeta
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -46,9 +45,12 @@ internal class CredentialConnectionListPageResponseTest {
                         )
                         .noiseSuppression(CredentialConnection.NoiseSuppression.BOTH)
                         .noiseSuppressionDetails(
-                            ConnectionNoiseSuppressionDetails.builder()
+                            CredentialConnection.NoiseSuppressionDetails.builder()
                                 .attenuationLimit(80L)
-                                .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                                .engine(
+                                    CredentialConnection.NoiseSuppressionDetails.Engine
+                                        .DEEP_FILTER_NET
+                                )
                                 .build()
                         )
                         .onnetT38PassthroughEnabled(true)
@@ -128,9 +130,11 @@ internal class CredentialConnectionListPageResponseTest {
                     )
                     .noiseSuppression(CredentialConnection.NoiseSuppression.BOTH)
                     .noiseSuppressionDetails(
-                        ConnectionNoiseSuppressionDetails.builder()
+                        CredentialConnection.NoiseSuppressionDetails.builder()
                             .attenuationLimit(80L)
-                            .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                            .engine(
+                                CredentialConnection.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                            )
                             .build()
                     )
                     .onnetT38PassthroughEnabled(true)
@@ -213,9 +217,12 @@ internal class CredentialConnectionListPageResponseTest {
                         )
                         .noiseSuppression(CredentialConnection.NoiseSuppression.BOTH)
                         .noiseSuppressionDetails(
-                            ConnectionNoiseSuppressionDetails.builder()
+                            CredentialConnection.NoiseSuppressionDetails.builder()
                                 .attenuationLimit(80L)
-                                .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                                .engine(
+                                    CredentialConnection.NoiseSuppressionDetails.Engine
+                                        .DEEP_FILTER_NET
+                                )
                                 .build()
                         )
                         .onnetT38PassthroughEnabled(true)

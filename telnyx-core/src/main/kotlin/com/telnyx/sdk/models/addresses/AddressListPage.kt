@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.addresses
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.Page
 import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import com.telnyx.sdk.services.blocking.AddressService
 import java.util.Objects
@@ -48,8 +49,8 @@ private constructor(
     }
 
     fun nextPageParams(): AddressListParams {
-        val pageNumber = params.pageNumber().getOrDefault(1)
-        return params.toBuilder().pageNumber(pageNumber + 1).build()
+        val pageNumber = params.page().flatMap { it.number() }.getOrDefault(1)
+        return params.toBuilder().number(pageNumber + 1).build()
     }
 
     override fun nextPage(): AddressListPage = service.list(nextPageParams())

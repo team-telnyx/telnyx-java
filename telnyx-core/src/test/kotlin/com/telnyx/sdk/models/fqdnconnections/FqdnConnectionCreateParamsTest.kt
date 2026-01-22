@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.models.fqdnconnections
 
-import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
 import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
 import com.telnyx.sdk.models.credentialconnections.DtmfType
@@ -53,9 +52,11 @@ internal class FqdnConnectionCreateParamsTest {
             .microsoftTeamsSbc(true)
             .noiseSuppression(FqdnConnectionCreateParams.NoiseSuppression.BOTH)
             .noiseSuppressionDetails(
-                ConnectionNoiseSuppressionDetails.builder()
+                FqdnConnectionCreateParams.NoiseSuppressionDetails.builder()
                     .attenuationLimit(80L)
-                    .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                    .engine(
+                        FqdnConnectionCreateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                    )
                     .build()
             )
             .onnetT38PassthroughEnabled(true)
@@ -138,9 +139,12 @@ internal class FqdnConnectionCreateParamsTest {
                 .microsoftTeamsSbc(true)
                 .noiseSuppression(FqdnConnectionCreateParams.NoiseSuppression.BOTH)
                 .noiseSuppressionDetails(
-                    ConnectionNoiseSuppressionDetails.builder()
+                    FqdnConnectionCreateParams.NoiseSuppressionDetails.builder()
                         .attenuationLimit(80L)
-                        .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                        .engine(
+                            FqdnConnectionCreateParams.NoiseSuppressionDetails.Engine
+                                .DEEP_FILTER_NET
+                        )
                         .build()
                 )
                 .onnetT38PassthroughEnabled(true)
@@ -223,9 +227,11 @@ internal class FqdnConnectionCreateParamsTest {
             .contains(FqdnConnectionCreateParams.NoiseSuppression.BOTH)
         assertThat(body.noiseSuppressionDetails())
             .contains(
-                ConnectionNoiseSuppressionDetails.builder()
+                FqdnConnectionCreateParams.NoiseSuppressionDetails.builder()
                     .attenuationLimit(80L)
-                    .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                    .engine(
+                        FqdnConnectionCreateParams.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET
+                    )
                     .build()
             )
         assertThat(body.onnetT38PassthroughEnabled()).contains(true)
