@@ -1014,7 +1014,15 @@ private constructor(
              */
             @JsonProperty("role") @ExcludeMissing fun _role(): JsonValue = role
 
-            /** Metadata to add to the message */
+            /**
+             * Metadata to add to the message
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```java
+             * MyClass myObject = user.metadata().convert(MyClass.class);
+             * ```
+             */
             @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonValue = metadata
 
             /**
@@ -1238,7 +1246,15 @@ private constructor(
              */
             fun content(): Optional<String> = content.getOptional("content")
 
-            /** Metadata to add to the message */
+            /**
+             * Metadata to add to the message
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```java
+             * MyClass myObject = assistant.metadata().convert(MyClass.class);
+             * ```
+             */
             @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonValue = metadata
 
             /**
@@ -2054,7 +2070,15 @@ private constructor(
              */
             fun toolCallId(): String = toolCallId.getRequired("tool_call_id")
 
-            /** Metadata to add to the message */
+            /**
+             * Metadata to add to the message
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```java
+             * MyClass myObject = tool.metadata().convert(MyClass.class);
+             * ```
+             */
             @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonValue = metadata
 
             /**
@@ -2310,7 +2334,15 @@ private constructor(
              */
             @JsonProperty("role") @ExcludeMissing fun _role(): JsonValue = role
 
-            /** Metadata to add to the message */
+            /**
+             * Metadata to add to the message
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```java
+             * MyClass myObject = system.metadata().convert(MyClass.class);
+             * ```
+             */
             @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonValue = metadata
 
             /**
@@ -2534,7 +2566,15 @@ private constructor(
              */
             @JsonProperty("role") @ExcludeMissing fun _role(): JsonValue = role
 
-            /** Metadata to add to the message */
+            /**
+             * Metadata to add to the message
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```java
+             * MyClass myObject = developer.metadata().convert(MyClass.class);
+             * ```
+             */
             @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonValue = metadata
 
             /**
