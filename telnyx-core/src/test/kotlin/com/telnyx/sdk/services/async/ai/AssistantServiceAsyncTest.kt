@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantTool
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
+import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
 import com.telnyx.sdk.models.ai.assistants.MessagingSettings
@@ -20,6 +21,7 @@ import com.telnyx.sdk.models.ai.assistants.TelephonySettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettingsConfig
 import com.telnyx.sdk.models.ai.assistants.VoiceSettings
+import com.telnyx.sdk.models.ai.assistants.WidgetSettings
 import com.telnyx.sdk.models.ai.assistants.versions.UpdateAssistant
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -211,28 +213,22 @@ internal class AssistantServiceAsyncTest {
                             .build()
                     )
                     .widgetSettings(
-                        AssistantCreateParams.WidgetSettings.builder()
+                        WidgetSettings.builder()
                             .agentThinkingText("agent_thinking_text")
                             .audioVisualizerConfig(
-                                AssistantCreateParams.WidgetSettings.AudioVisualizerConfig.builder()
-                                    .color(
-                                        AssistantCreateParams.WidgetSettings.AudioVisualizerConfig
-                                            .Color
-                                            .VERDANT
-                                    )
+                                AudioVisualizerConfig.builder()
+                                    .color(AudioVisualizerConfig.Color.VERDANT)
                                     .preset("preset")
                                     .build()
                             )
-                            .defaultState(
-                                AssistantCreateParams.WidgetSettings.DefaultState.EXPANDED
-                            )
+                            .defaultState(WidgetSettings.DefaultState.EXPANDED)
                             .giveFeedbackUrl("give_feedback_url")
                             .logoIconUrl("logo_icon_url")
-                            .position(AssistantCreateParams.WidgetSettings.Position.FIXED)
+                            .position(WidgetSettings.Position.FIXED)
                             .reportIssueUrl("report_issue_url")
                             .speakToInterruptText("speak_to_interrupt_text")
                             .startCallText("start_call_text")
-                            .theme(AssistantCreateParams.WidgetSettings.Theme.LIGHT)
+                            .theme(WidgetSettings.Theme.LIGHT)
                             .viewHistoryUrl("view_history_url")
                             .build()
                     )
@@ -452,25 +448,22 @@ internal class AssistantServiceAsyncTest {
                             .build()
                     )
                     .widgetSettings(
-                        UpdateAssistant.WidgetSettings.builder()
+                        WidgetSettings.builder()
                             .agentThinkingText("agent_thinking_text")
                             .audioVisualizerConfig(
-                                UpdateAssistant.WidgetSettings.AudioVisualizerConfig.builder()
-                                    .color(
-                                        UpdateAssistant.WidgetSettings.AudioVisualizerConfig.Color
-                                            .VERDANT
-                                    )
+                                AudioVisualizerConfig.builder()
+                                    .color(AudioVisualizerConfig.Color.VERDANT)
                                     .preset("preset")
                                     .build()
                             )
-                            .defaultState(UpdateAssistant.WidgetSettings.DefaultState.EXPANDED)
+                            .defaultState(WidgetSettings.DefaultState.EXPANDED)
                             .giveFeedbackUrl("give_feedback_url")
                             .logoIconUrl("logo_icon_url")
-                            .position(UpdateAssistant.WidgetSettings.Position.FIXED)
+                            .position(WidgetSettings.Position.FIXED)
                             .reportIssueUrl("report_issue_url")
                             .speakToInterruptText("speak_to_interrupt_text")
                             .startCallText("start_call_text")
-                            .theme(UpdateAssistant.WidgetSettings.Theme.LIGHT)
+                            .theme(WidgetSettings.Theme.LIGHT)
                             .viewHistoryUrl("view_history_url")
                             .build()
                     )

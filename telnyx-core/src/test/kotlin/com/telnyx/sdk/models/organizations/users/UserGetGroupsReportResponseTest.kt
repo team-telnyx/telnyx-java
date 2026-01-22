@@ -20,7 +20,7 @@ internal class UserGetGroupsReportResponseTest {
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .email("user@example.com")
                         .addGroup(
-                            UserGetGroupsReportResponse.Data.Group.builder()
+                            UserGroupReference.builder()
                                 .id("7b09cdc3-8948-47f0-aa62-74ac943d6c59")
                                 .name("Engineering")
                                 .build()
@@ -40,7 +40,7 @@ internal class UserGetGroupsReportResponseTest {
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .email("user@example.com")
                     .addGroup(
-                        UserGetGroupsReportResponse.Data.Group.builder()
+                        UserGroupReference.builder()
                             .id("7b09cdc3-8948-47f0-aa62-74ac943d6c59")
                             .name("Engineering")
                             .build()
@@ -64,7 +64,7 @@ internal class UserGetGroupsReportResponseTest {
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .email("user@example.com")
                         .addGroup(
-                            UserGetGroupsReportResponse.Data.Group.builder()
+                            UserGroupReference.builder()
                                 .id("7b09cdc3-8948-47f0-aa62-74ac943d6c59")
                                 .name("Engineering")
                                 .build()
