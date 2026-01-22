@@ -167,7 +167,7 @@ private constructor(
         private val id: JsonField<String>,
         private val createdAt: JsonField<String>,
         private val email: JsonField<String>,
-        private val groups: JsonField<List<UserGroupReference>>,
+        private val groups: JsonField<List<Group>>,
         private val recordType: JsonField<String>,
         private val userStatus: JsonField<UserStatus>,
         private val lastSignInAt: JsonField<String>,
@@ -184,7 +184,7 @@ private constructor(
             @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
             @JsonProperty("groups")
             @ExcludeMissing
-            groups: JsonField<List<UserGroupReference>> = JsonMissing.of(),
+            groups: JsonField<List<Group>> = JsonMissing.of(),
             @JsonProperty("record_type")
             @ExcludeMissing
             recordType: JsonField<String> = JsonMissing.of(),
@@ -239,7 +239,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun groups(): List<UserGroupReference> = groups.getRequired("groups")
+        fun groups(): List<Group> = groups.getRequired("groups")
 
         /**
          * Identifies the type of the resource. Can be 'organization_owner' or
@@ -302,9 +302,7 @@ private constructor(
          *
          * Unlike [groups], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("groups")
-        @ExcludeMissing
-        fun _groups(): JsonField<List<UserGroupReference>> = groups
+        @JsonProperty("groups") @ExcludeMissing fun _groups(): JsonField<List<Group>> = groups
 
         /**
          * Returns the raw JSON value of [recordType].
@@ -380,7 +378,7 @@ private constructor(
             private var id: JsonField<String>? = null
             private var createdAt: JsonField<String>? = null
             private var email: JsonField<String>? = null
-            private var groups: JsonField<MutableList<UserGroupReference>>? = null
+            private var groups: JsonField<MutableList<Group>>? = null
             private var recordType: JsonField<String>? = null
             private var userStatus: JsonField<UserStatus>? = null
             private var lastSignInAt: JsonField<String> = JsonMissing.of()
@@ -437,25 +435,25 @@ private constructor(
             fun email(email: JsonField<String>) = apply { this.email = email }
 
             /** The groups the user belongs to. */
-            fun groups(groups: List<UserGroupReference>) = groups(JsonField.of(groups))
+            fun groups(groups: List<Group>) = groups(JsonField.of(groups))
 
             /**
              * Sets [Builder.groups] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.groups] with a well-typed `List<UserGroupReference>`
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.groups] with a well-typed `List<Group>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun groups(groups: JsonField<List<UserGroupReference>>) = apply {
+            fun groups(groups: JsonField<List<Group>>) = apply {
                 this.groups = groups.map { it.toMutableList() }
             }
 
             /**
-             * Adds a single [UserGroupReference] to [groups].
+             * Adds a single [Group] to [groups].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addGroup(group: UserGroupReference) = apply {
+            fun addGroup(group: Group) = apply {
                 groups =
                     (groups ?: JsonField.of(mutableListOf())).also {
                         checkKnown("groups", it).add(group)
@@ -623,6 +621,209 @@ private constructor(
                 (userStatus.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (lastSignInAt.asKnown().isPresent) 1 else 0) +
                 (if (organizationUserBypassesSso.asKnown().isPresent) 1 else 0)
+
+        /** A reference to a group that a user belongs to. */
+        class Group
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val id: JsonField<String>,
+            private val name: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            ) : this(id, name, mutableMapOf())
+
+            /**
+             * The unique identifier of the group.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun id(): String = id.getRequired("id")
+
+            /**
+             * The name of the group.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun name(): String = name.getRequired("name")
+
+            /**
+             * Returns the raw JSON value of [id].
+             *
+             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Group].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .name()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Group]. */
+            class Builder internal constructor() {
+
+                private var id: JsonField<String>? = null
+                private var name: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(group: Group) = apply {
+                    id = group.id
+                    name = group.name
+                    additionalProperties = group.additionalProperties.toMutableMap()
+                }
+
+                /** The unique identifier of the group. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /**
+                 * Sets [Builder.id] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.id] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun id(id: JsonField<String>) = apply { this.id = id }
+
+                /** The name of the group. */
+                fun name(name: String) = name(JsonField.of(name))
+
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun name(name: JsonField<String>) = apply { this.name = name }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Group].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .name()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Group =
+                    Group(
+                        checkRequired("id", id),
+                        checkRequired("name", name),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Group = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                id()
+                name()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (id.asKnown().isPresent) 1 else 0) + (if (name.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Group &&
+                    id == other.id &&
+                    name == other.name &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(id, name, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Group{id=$id, name=$name, additionalProperties=$additionalProperties}"
+        }
 
         /** The status of the account. */
         class UserStatus @JsonCreator private constructor(private val value: JsonField<String>) :

@@ -20,16 +20,15 @@ private constructor(
     private val filter: Filter?,
     private val filterSimCardGroupId: String?,
     private val includeSimCardGroup: Boolean?,
-    private val pageNumber: Long?,
-    private val pageSize: Long?,
+    private val page: Page?,
     private val sort: Sort?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /**
-     * Consolidated filter parameter for SIM cards (deepObject style). Originally: filter[tags],
-     * filter[iccid], filter[status]
+     * Consolidated filter parameter for SIM cards (deepObject style). Originally: filter[iccid],
+     * filter[msisdn], filter[status], filter[tags]
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
@@ -39,9 +38,10 @@ private constructor(
     /** It includes the associated SIM card group object in the response when present. */
     fun includeSimCardGroup(): Optional<Boolean> = Optional.ofNullable(includeSimCardGroup)
 
-    fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
-
-    fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
+    /**
+     * Consolidated pagination parameter (deepObject style). Originally: page[number], page[size]
+     */
+    fun page(): Optional<Page> = Optional.ofNullable(page)
 
     /**
      * Sorts SIM cards by the given field. Defaults to ascending order unless field is prefixed with
@@ -71,8 +71,7 @@ private constructor(
         private var filter: Filter? = null
         private var filterSimCardGroupId: String? = null
         private var includeSimCardGroup: Boolean? = null
-        private var pageNumber: Long? = null
-        private var pageSize: Long? = null
+        private var page: Page? = null
         private var sort: Sort? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -82,16 +81,15 @@ private constructor(
             filter = simCardListParams.filter
             filterSimCardGroupId = simCardListParams.filterSimCardGroupId
             includeSimCardGroup = simCardListParams.includeSimCardGroup
-            pageNumber = simCardListParams.pageNumber
-            pageSize = simCardListParams.pageSize
+            page = simCardListParams.page
             sort = simCardListParams.sort
             additionalHeaders = simCardListParams.additionalHeaders.toBuilder()
             additionalQueryParams = simCardListParams.additionalQueryParams.toBuilder()
         }
 
         /**
-         * Consolidated filter parameter for SIM cards (deepObject style). Originally: filter[tags],
-         * filter[iccid], filter[status]
+         * Consolidated filter parameter for SIM cards (deepObject style). Originally:
+         * filter[iccid], filter[msisdn], filter[status], filter[tags]
          */
         fun filter(filter: Filter?) = apply { this.filter = filter }
 
@@ -129,29 +127,14 @@ private constructor(
         fun includeSimCardGroup(includeSimCardGroup: Optional<Boolean>) =
             includeSimCardGroup(includeSimCardGroup.getOrNull())
 
-        fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
-
         /**
-         * Alias for [Builder.pageNumber].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
+         * Consolidated pagination parameter (deepObject style). Originally: page[number],
+         * page[size]
          */
-        fun pageNumber(pageNumber: Long) = pageNumber(pageNumber as Long?)
+        fun page(page: Page?) = apply { this.page = page }
 
-        /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
-        fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
-
-        fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
-
-        /**
-         * Alias for [Builder.pageSize].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun pageSize(pageSize: Long) = pageSize(pageSize as Long?)
-
-        /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
-        fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
+        /** Alias for calling [Builder.page] with `page.orElse(null)`. */
+        fun page(page: Optional<Page>) = page(page.getOrNull())
 
         /**
          * Sorts SIM cards by the given field. Defaults to ascending order unless field is prefixed
@@ -270,8 +253,7 @@ private constructor(
                 filter,
                 filterSimCardGroupId,
                 includeSimCardGroup,
-                pageNumber,
-                pageSize,
+                page,
                 sort,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -285,6 +267,7 @@ private constructor(
             .apply {
                 filter?.let {
                     it.iccid().ifPresent { put("filter[iccid]", it) }
+                    it.msisdn().ifPresent { put("filter[msisdn]", it) }
                     it.status().ifPresent {
                         put("filter[status]", it.joinToString(",") { it.toString() })
                     }
@@ -297,20 +280,28 @@ private constructor(
                 }
                 filterSimCardGroupId?.let { put("filter[sim_card_group_id]", it) }
                 includeSimCardGroup?.let { put("include_sim_card_group", it.toString()) }
-                pageNumber?.let { put("page[number]", it.toString()) }
-                pageSize?.let { put("page[size]", it.toString()) }
+                page?.let {
+                    it.number().ifPresent { put("page[number]", it.toString()) }
+                    it.size().ifPresent { put("page[size]", it.toString()) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("page[$key]", value)
+                        }
+                    }
+                }
                 sort?.let { put("sort", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()
 
     /**
-     * Consolidated filter parameter for SIM cards (deepObject style). Originally: filter[tags],
-     * filter[iccid], filter[status]
+     * Consolidated filter parameter for SIM cards (deepObject style). Originally: filter[iccid],
+     * filter[msisdn], filter[status], filter[tags]
      */
     class Filter
     private constructor(
         private val iccid: String?,
+        private val msisdn: String?,
         private val status: List<Status>?,
         private val tags: List<String>?,
         private val additionalProperties: QueryParams,
@@ -318,6 +309,9 @@ private constructor(
 
         /** A search string to partially match for the SIM card's ICCID. */
         fun iccid(): Optional<String> = Optional.ofNullable(iccid)
+
+        /** A search string to match for the SIM card's MSISDN. */
+        fun msisdn(): Optional<String> = Optional.ofNullable(msisdn)
 
         /** Filter by a SIM card's status. */
         fun status(): Optional<List<Status>> = Optional.ofNullable(status)
@@ -351,6 +345,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var iccid: String? = null
+            private var msisdn: String? = null
             private var status: MutableList<Status>? = null
             private var tags: MutableList<String>? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
@@ -358,6 +353,7 @@ private constructor(
             @JvmSynthetic
             internal fun from(filter: Filter) = apply {
                 iccid = filter.iccid
+                msisdn = filter.msisdn
                 status = filter.status?.toMutableList()
                 tags = filter.tags?.toMutableList()
                 additionalProperties = filter.additionalProperties.toBuilder()
@@ -368,6 +364,12 @@ private constructor(
 
             /** Alias for calling [Builder.iccid] with `iccid.orElse(null)`. */
             fun iccid(iccid: Optional<String>) = iccid(iccid.getOrNull())
+
+            /** A search string to match for the SIM card's MSISDN. */
+            fun msisdn(msisdn: String?) = apply { this.msisdn = msisdn }
+
+            /** Alias for calling [Builder.msisdn] with `msisdn.orElse(null)`. */
+            fun msisdn(msisdn: Optional<String>) = msisdn(msisdn.getOrNull())
 
             /** Filter by a SIM card's status. */
             fun status(status: List<Status>?) = apply { this.status = status?.toMutableList() }
@@ -465,6 +467,7 @@ private constructor(
             fun build(): Filter =
                 Filter(
                     iccid,
+                    msisdn,
                     status?.toImmutable(),
                     tags?.toImmutable(),
                     additionalProperties.build(),
@@ -625,19 +628,163 @@ private constructor(
 
             return other is Filter &&
                 iccid == other.iccid &&
+                msisdn == other.msisdn &&
                 status == other.status &&
                 tags == other.tags &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(iccid, status, tags, additionalProperties)
+            Objects.hash(iccid, msisdn, status, tags, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Filter{iccid=$iccid, status=$status, tags=$tags, additionalProperties=$additionalProperties}"
+            "Filter{iccid=$iccid, msisdn=$msisdn, status=$status, tags=$tags, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Consolidated pagination parameter (deepObject style). Originally: page[number], page[size]
+     */
+    class Page
+    private constructor(
+        private val number: Long?,
+        private val size: Long?,
+        private val additionalProperties: QueryParams,
+    ) {
+
+        /** The page number to load. */
+        fun number(): Optional<Long> = Optional.ofNullable(number)
+
+        /** The size of the page. */
+        fun size(): Optional<Long> = Optional.ofNullable(size)
+
+        /** Query params to send with the request. */
+        fun _additionalProperties(): QueryParams = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Page]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Page]. */
+        class Builder internal constructor() {
+
+            private var number: Long? = null
+            private var size: Long? = null
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+            @JvmSynthetic
+            internal fun from(page: Page) = apply {
+                number = page.number
+                size = page.size
+                additionalProperties = page.additionalProperties.toBuilder()
+            }
+
+            /** The page number to load. */
+            fun number(number: Long?) = apply { this.number = number }
+
+            /**
+             * Alias for [Builder.number].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun number(number: Long) = number(number as Long?)
+
+            /** Alias for calling [Builder.number] with `number.orElse(null)`. */
+            fun number(number: Optional<Long>) = number(number.getOrNull())
+
+            /** The size of the page. */
+            fun size(size: Long?) = apply { this.size = size }
+
+            /**
+             * Alias for [Builder.size].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun size(size: Long) = size(size as Long?)
+
+            /** Alias for calling [Builder.size] with `size.orElse(null)`. */
+            fun size(size: Optional<Long>) = size(size.getOrNull())
+
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            /**
+             * Returns an immutable instance of [Page].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Page = Page(number, size, additionalProperties.build())
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Page &&
+                number == other.number &&
+                size == other.size &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(number, size, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Page{number=$number, size=$size, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -786,8 +933,7 @@ private constructor(
             filter == other.filter &&
             filterSimCardGroupId == other.filterSimCardGroupId &&
             includeSimCardGroup == other.includeSimCardGroup &&
-            pageNumber == other.pageNumber &&
-            pageSize == other.pageSize &&
+            page == other.page &&
             sort == other.sort &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -798,13 +944,12 @@ private constructor(
             filter,
             filterSimCardGroupId,
             includeSimCardGroup,
-            pageNumber,
-            pageSize,
+            page,
             sort,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "SimCardListParams{filter=$filter, filterSimCardGroupId=$filterSimCardGroupId, includeSimCardGroup=$includeSimCardGroup, pageNumber=$pageNumber, pageSize=$pageSize, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "SimCardListParams{filter=$filter, filterSimCardGroupId=$filterSimCardGroupId, includeSimCardGroup=$includeSimCardGroup, page=$page, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

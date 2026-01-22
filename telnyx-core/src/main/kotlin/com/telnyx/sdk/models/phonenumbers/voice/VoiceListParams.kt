@@ -17,8 +17,7 @@ import kotlin.jvm.optionals.getOrNull
 class VoiceListParams
 private constructor(
     private val filter: Filter?,
-    private val pageNumber: Long?,
-    private val pageSize: Long?,
+    private val page: Page?,
     private val sort: Sort?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -30,9 +29,8 @@ private constructor(
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
-    fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
-
-    fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
+    /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    fun page(): Optional<Page> = Optional.ofNullable(page)
 
     /**
      * Specifies the sort order for results. If not given, results are sorted by created_at in
@@ -60,8 +58,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var filter: Filter? = null
-        private var pageNumber: Long? = null
-        private var pageSize: Long? = null
+        private var page: Page? = null
         private var sort: Sort? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -69,8 +66,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(voiceListParams: VoiceListParams) = apply {
             filter = voiceListParams.filter
-            pageNumber = voiceListParams.pageNumber
-            pageSize = voiceListParams.pageSize
+            page = voiceListParams.page
             sort = voiceListParams.sort
             additionalHeaders = voiceListParams.additionalHeaders.toBuilder()
             additionalQueryParams = voiceListParams.additionalQueryParams.toBuilder()
@@ -85,29 +81,11 @@ private constructor(
         /** Alias for calling [Builder.filter] with `filter.orElse(null)`. */
         fun filter(filter: Optional<Filter>) = filter(filter.getOrNull())
 
-        fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
+        /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        fun page(page: Page?) = apply { this.page = page }
 
-        /**
-         * Alias for [Builder.pageNumber].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun pageNumber(pageNumber: Long) = pageNumber(pageNumber as Long?)
-
-        /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
-        fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
-
-        fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
-
-        /**
-         * Alias for [Builder.pageSize].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun pageSize(pageSize: Long) = pageSize(pageSize as Long?)
-
-        /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
-        fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
+        /** Alias for calling [Builder.page] with `page.orElse(null)`. */
+        fun page(page: Optional<Page>) = page(page.getOrNull())
 
         /**
          * Specifies the sort order for results. If not given, results are sorted by created_at in
@@ -224,8 +202,7 @@ private constructor(
         fun build(): VoiceListParams =
             VoiceListParams(
                 filter,
-                pageNumber,
-                pageSize,
+                page,
                 sort,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -257,8 +234,15 @@ private constructor(
                         }
                     }
                 }
-                pageNumber?.let { put("page[number]", it.toString()) }
-                pageSize?.let { put("page[size]", it.toString()) }
+                page?.let {
+                    it.number().ifPresent { put("page[number]", it.toString()) }
+                    it.size().ifPresent { put("page[size]", it.toString()) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("page[$key]", value)
+                        }
+                    }
+                }
                 sort?.let { put("sort", it.toString()) }
                 putAll(additionalQueryParams)
             }
@@ -709,6 +693,147 @@ private constructor(
             "Filter{connectionName=$connectionName, customerReference=$customerReference, phoneNumber=$phoneNumber, voiceUsagePaymentMethod=$voiceUsagePaymentMethod, additionalProperties=$additionalProperties}"
     }
 
+    /** Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    class Page
+    private constructor(
+        private val number: Long?,
+        private val size: Long?,
+        private val additionalProperties: QueryParams,
+    ) {
+
+        /** The page number to load */
+        fun number(): Optional<Long> = Optional.ofNullable(number)
+
+        /** The size of the page */
+        fun size(): Optional<Long> = Optional.ofNullable(size)
+
+        /** Query params to send with the request. */
+        fun _additionalProperties(): QueryParams = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Page]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Page]. */
+        class Builder internal constructor() {
+
+            private var number: Long? = null
+            private var size: Long? = null
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+            @JvmSynthetic
+            internal fun from(page: Page) = apply {
+                number = page.number
+                size = page.size
+                additionalProperties = page.additionalProperties.toBuilder()
+            }
+
+            /** The page number to load */
+            fun number(number: Long?) = apply { this.number = number }
+
+            /**
+             * Alias for [Builder.number].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun number(number: Long) = number(number as Long?)
+
+            /** Alias for calling [Builder.number] with `number.orElse(null)`. */
+            fun number(number: Optional<Long>) = number(number.getOrNull())
+
+            /** The size of the page */
+            fun size(size: Long?) = apply { this.size = size }
+
+            /**
+             * Alias for [Builder.size].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun size(size: Long) = size(size as Long?)
+
+            /** Alias for calling [Builder.size] with `size.orElse(null)`. */
+            fun size(size: Optional<Long>) = size(size.getOrNull())
+
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            /**
+             * Returns an immutable instance of [Page].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Page = Page(number, size, additionalProperties.build())
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Page &&
+                number == other.number &&
+                size == other.size &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(number, size, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Page{number=$number, size=$size, additionalProperties=$additionalProperties}"
+    }
+
     /**
      * Specifies the sort order for results. If not given, results are sorted by created_at in
      * descending order.
@@ -857,16 +982,15 @@ private constructor(
 
         return other is VoiceListParams &&
             filter == other.filter &&
-            pageNumber == other.pageNumber &&
-            pageSize == other.pageSize &&
+            page == other.page &&
             sort == other.sort &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(filter, pageNumber, pageSize, sort, additionalHeaders, additionalQueryParams)
+        Objects.hash(filter, page, sort, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "VoiceListParams{filter=$filter, pageNumber=$pageNumber, pageSize=$pageSize, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "VoiceListParams{filter=$filter, page=$page, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

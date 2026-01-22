@@ -12,8 +12,7 @@ internal class NetworkListParamsTest {
     fun create() {
         NetworkListParams.builder()
             .filter(NetworkListParams.Filter.builder().name("test network").build())
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(NetworkListParams.Page.builder().number(1L).size(1L).build())
             .build()
     }
 
@@ -22,8 +21,7 @@ internal class NetworkListParamsTest {
         val params =
             NetworkListParams.builder()
                 .filter(NetworkListParams.Filter.builder().name("test network").build())
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(NetworkListParams.Page.builder().number(1L).size(1L).build())
                 .build()
 
         val queryParams = params._queryParams()
@@ -32,8 +30,8 @@ internal class NetworkListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("filter[name]", "test network")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .build()
             )
     }

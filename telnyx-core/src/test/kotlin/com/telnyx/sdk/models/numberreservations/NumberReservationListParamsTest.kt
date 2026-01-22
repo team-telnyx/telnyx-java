@@ -24,8 +24,7 @@ internal class NumberReservationListParamsTest {
                     .status("status")
                     .build()
             )
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(NumberReservationListParams.Page.builder().number(1L).size(1L).build())
             .build()
     }
 
@@ -46,8 +45,7 @@ internal class NumberReservationListParamsTest {
                         .status("status")
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(NumberReservationListParams.Page.builder().number(1L).size(1L).build())
                 .build()
 
         val queryParams = params._queryParams()
@@ -60,8 +58,8 @@ internal class NumberReservationListParamsTest {
                     .put("filter[customer_reference]", "customer_reference")
                     .put("filter[phone_numbers.phone_number]", "phone_numbers.phone_number")
                     .put("filter[status]", "status")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .build()
             )
     }

@@ -10,18 +10,23 @@ internal class GlobalIpAssignmentListParamsTest {
 
     @Test
     fun create() {
-        GlobalIpAssignmentListParams.builder().pageNumber(0L).pageSize(0L).build()
+        GlobalIpAssignmentListParams.builder()
+            .page(GlobalIpAssignmentListParams.Page.builder().number(1L).size(1L).build())
+            .build()
     }
 
     @Test
     fun queryParams() {
-        val params = GlobalIpAssignmentListParams.builder().pageNumber(0L).pageSize(0L).build()
+        val params =
+            GlobalIpAssignmentListParams.builder()
+                .page(GlobalIpAssignmentListParams.Page.builder().number(1L).size(1L).build())
+                .build()
 
         val queryParams = params._queryParams()
 
         assertThat(queryParams)
             .isEqualTo(
-                QueryParams.builder().put("page[number]", "0").put("page[size]", "0").build()
+                QueryParams.builder().put("page[number]", "1").put("page[size]", "1").build()
             )
     }
 

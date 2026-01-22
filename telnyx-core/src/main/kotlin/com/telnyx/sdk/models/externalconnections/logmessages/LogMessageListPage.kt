@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.externalconnections.logmessages
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.Page
 import com.telnyx.sdk.models.externalconnections.ExternalVoiceIntegrationsPaginationMeta
 import com.telnyx.sdk.services.blocking.externalconnections.LogMessageService
 import java.util.Objects
@@ -50,8 +51,8 @@ private constructor(
     }
 
     fun nextPageParams(): LogMessageListParams {
-        val pageNumber = params.pageNumber().getOrDefault(1)
-        return params.toBuilder().pageNumber(pageNumber + 1).build()
+        val pageNumber = params.page().flatMap { it.number() }.getOrDefault(1)
+        return params.toBuilder().number(pageNumber + 1).build()
     }
 
     override fun nextPage(): LogMessageListPage = service.list(nextPageParams())

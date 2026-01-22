@@ -15,8 +15,7 @@ class NetworkCoverageListParams
 private constructor(
     private val filter: Filter?,
     private val filters: Filters?,
-    private val pageNumber: Long?,
-    private val pageSize: Long?,
+    private val page: Page?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -33,9 +32,8 @@ private constructor(
      */
     fun filters(): Optional<Filters> = Optional.ofNullable(filters)
 
-    fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
-
-    fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
+    /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+    fun page(): Optional<Page> = Optional.ofNullable(page)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -60,8 +58,7 @@ private constructor(
 
         private var filter: Filter? = null
         private var filters: Filters? = null
-        private var pageNumber: Long? = null
-        private var pageSize: Long? = null
+        private var page: Page? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -69,8 +66,7 @@ private constructor(
         internal fun from(networkCoverageListParams: NetworkCoverageListParams) = apply {
             filter = networkCoverageListParams.filter
             filters = networkCoverageListParams.filters
-            pageNumber = networkCoverageListParams.pageNumber
-            pageSize = networkCoverageListParams.pageSize
+            page = networkCoverageListParams.page
             additionalHeaders = networkCoverageListParams.additionalHeaders.toBuilder()
             additionalQueryParams = networkCoverageListParams.additionalQueryParams.toBuilder()
         }
@@ -93,29 +89,11 @@ private constructor(
         /** Alias for calling [Builder.filters] with `filters.orElse(null)`. */
         fun filters(filters: Optional<Filters>) = filters(filters.getOrNull())
 
-        fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
+        /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        fun page(page: Page?) = apply { this.page = page }
 
-        /**
-         * Alias for [Builder.pageNumber].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun pageNumber(pageNumber: Long) = pageNumber(pageNumber as Long?)
-
-        /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
-        fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
-
-        fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
-
-        /**
-         * Alias for [Builder.pageSize].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun pageSize(pageSize: Long) = pageSize(pageSize as Long?)
-
-        /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
-        fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
+        /** Alias for calling [Builder.page] with `page.orElse(null)`. */
+        fun page(page: Optional<Page>) = page(page.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -224,8 +202,7 @@ private constructor(
             NetworkCoverageListParams(
                 filter,
                 filters,
-                pageNumber,
-                pageSize,
+                page,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -277,8 +254,15 @@ private constructor(
                         }
                     }
                 }
-                pageNumber?.let { put("page[number]", it.toString()) }
-                pageSize?.let { put("page[size]", it.toString()) }
+                page?.let {
+                    it.number().ifPresent { put("page[number]", it.toString()) }
+                    it.size().ifPresent { put("page[size]", it.toString()) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("page[$key]", value)
+                        }
+                    }
+                }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -785,6 +769,147 @@ private constructor(
             "Filters{availableServices=$availableServices, additionalProperties=$additionalProperties}"
     }
 
+    /** Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+    class Page
+    private constructor(
+        private val number: Long?,
+        private val size: Long?,
+        private val additionalProperties: QueryParams,
+    ) {
+
+        /** The page number to load */
+        fun number(): Optional<Long> = Optional.ofNullable(number)
+
+        /** The size of the page */
+        fun size(): Optional<Long> = Optional.ofNullable(size)
+
+        /** Query params to send with the request. */
+        fun _additionalProperties(): QueryParams = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Page]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Page]. */
+        class Builder internal constructor() {
+
+            private var number: Long? = null
+            private var size: Long? = null
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+            @JvmSynthetic
+            internal fun from(page: Page) = apply {
+                number = page.number
+                size = page.size
+                additionalProperties = page.additionalProperties.toBuilder()
+            }
+
+            /** The page number to load */
+            fun number(number: Long?) = apply { this.number = number }
+
+            /**
+             * Alias for [Builder.number].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun number(number: Long) = number(number as Long?)
+
+            /** Alias for calling [Builder.number] with `number.orElse(null)`. */
+            fun number(number: Optional<Long>) = number(number.getOrNull())
+
+            /** The size of the page */
+            fun size(size: Long?) = apply { this.size = size }
+
+            /**
+             * Alias for [Builder.size].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun size(size: Long) = size(size as Long?)
+
+            /** Alias for calling [Builder.size] with `size.orElse(null)`. */
+            fun size(size: Optional<Long>) = size(size.getOrNull())
+
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            /**
+             * Returns an immutable instance of [Page].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Page = Page(number, size, additionalProperties.build())
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Page &&
+                number == other.number &&
+                size == other.size &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(number, size, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Page{number=$number, size=$size, additionalProperties=$additionalProperties}"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -793,22 +918,14 @@ private constructor(
         return other is NetworkCoverageListParams &&
             filter == other.filter &&
             filters == other.filters &&
-            pageNumber == other.pageNumber &&
-            pageSize == other.pageSize &&
+            page == other.page &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(
-            filter,
-            filters,
-            pageNumber,
-            pageSize,
-            additionalHeaders,
-            additionalQueryParams,
-        )
+        Objects.hash(filter, filters, page, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "NetworkCoverageListParams{filter=$filter, filters=$filters, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "NetworkCoverageListParams{filter=$filter, filters=$filters, page=$page, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -19,8 +19,7 @@ internal class FqdnListParamsTest {
                     .port(5060L)
                     .build()
             )
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(FqdnListParams.Page.builder().number(1L).size(1L).build())
             .build()
     }
 
@@ -36,8 +35,7 @@ internal class FqdnListParamsTest {
                         .port(5060L)
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(FqdnListParams.Page.builder().number(1L).size(1L).build())
                 .build()
 
         val queryParams = params._queryParams()
@@ -49,8 +47,8 @@ internal class FqdnListParamsTest {
                     .put("filter[dns_record_type]", "a")
                     .put("filter[fqdn]", "example.com")
                     .put("filter[port]", "5060")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .build()
             )
     }

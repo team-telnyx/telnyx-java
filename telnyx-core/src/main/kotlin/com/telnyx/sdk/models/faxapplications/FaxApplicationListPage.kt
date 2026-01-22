@@ -49,8 +49,8 @@ private constructor(
     }
 
     fun nextPageParams(): FaxApplicationListParams {
-        val pageNumber = params.pageNumber().getOrDefault(1)
-        return params.toBuilder().pageNumber(pageNumber + 1).build()
+        val pageNumber = params.page().flatMap { it.number() }.getOrDefault(1)
+        return params.toBuilder().number(pageNumber + 1).build()
     }
 
     override fun nextPage(): FaxApplicationListPage = service.list(nextPageParams())
