@@ -813,7 +813,15 @@ private constructor(
                 @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
             ) : this(properties, required, type, mutableMapOf())
 
-            /** The properties of the body parameters. */
+            /**
+             * The properties of the body parameters.
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```java
+             * MyClass myObject = bodyParameters.properties().convert(MyClass.class);
+             * ```
+             */
             @JsonProperty("properties") @ExcludeMissing fun _properties(): JsonValue = properties
 
             /**
@@ -1493,7 +1501,15 @@ private constructor(
                 @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
             ) : this(properties, required, type, mutableMapOf())
 
-            /** The properties of the path parameters. */
+            /**
+             * The properties of the path parameters.
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```java
+             * MyClass myObject = pathParameters.properties().convert(MyClass.class);
+             * ```
+             */
             @JsonProperty("properties") @ExcludeMissing fun _properties(): JsonValue = properties
 
             /**
@@ -1840,7 +1856,15 @@ private constructor(
                 @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
             ) : this(properties, required, type, mutableMapOf())
 
-            /** The properties of the query parameters. */
+            /**
+             * The properties of the query parameters.
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```java
+             * MyClass myObject = queryParameters.properties().convert(MyClass.class);
+             * ```
+             */
             @JsonProperty("properties") @ExcludeMissing fun _properties(): JsonValue = properties
 
             /**
