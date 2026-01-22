@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.ipconnections
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import com.telnyx.sdk.models.ConnectionsPaginationMeta
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
 import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
@@ -57,9 +58,9 @@ internal class IpConnectionListPageResponseTest {
                         )
                         .noiseSuppression(IpConnection.NoiseSuppression.BOTH)
                         .noiseSuppressionDetails(
-                            IpConnection.NoiseSuppressionDetails.builder()
+                            ConnectionNoiseSuppressionDetails.builder()
                                 .attenuationLimit(80L)
-                                .engine(IpConnection.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                                .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
                                 .build()
                         )
                         .onnetT38PassthroughEnabled(true)
@@ -146,9 +147,9 @@ internal class IpConnectionListPageResponseTest {
                     )
                     .noiseSuppression(IpConnection.NoiseSuppression.BOTH)
                     .noiseSuppressionDetails(
-                        IpConnection.NoiseSuppressionDetails.builder()
+                        ConnectionNoiseSuppressionDetails.builder()
                             .attenuationLimit(80L)
-                            .engine(IpConnection.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                            .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
                             .build()
                     )
                     .onnetT38PassthroughEnabled(true)
@@ -240,9 +241,9 @@ internal class IpConnectionListPageResponseTest {
                         )
                         .noiseSuppression(IpConnection.NoiseSuppression.BOTH)
                         .noiseSuppressionDetails(
-                            IpConnection.NoiseSuppressionDetails.builder()
+                            ConnectionNoiseSuppressionDetails.builder()
                                 .attenuationLimit(80L)
-                                .engine(IpConnection.NoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                                .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
                                 .build()
                         )
                         .onnetT38PassthroughEnabled(true)
