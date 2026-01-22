@@ -18,8 +18,7 @@ internal class IpListParamsTest {
                     .port(5060L)
                     .build()
             )
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(IpListParams.Page.builder().number(1L).size(1L).build())
             .build()
     }
 
@@ -34,8 +33,7 @@ internal class IpListParamsTest {
                         .port(5060L)
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(IpListParams.Page.builder().number(1L).size(1L).build())
                 .build()
 
         val queryParams = params._queryParams()
@@ -46,8 +44,8 @@ internal class IpListParamsTest {
                     .put("filter[connection_id]", "connection_id")
                     .put("filter[ip_address]", "192.168.0.0")
                     .put("filter[port]", "5060")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .build()
             )
     }

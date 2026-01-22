@@ -4,7 +4,6 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
 import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
 import com.telnyx.sdk.models.credentialconnections.DtmfType
@@ -73,9 +72,12 @@ internal class IpConnectionServiceAsyncTest {
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
                     .noiseSuppression(IpConnectionCreateParams.NoiseSuppression.BOTH)
                     .noiseSuppressionDetails(
-                        ConnectionNoiseSuppressionDetails.builder()
+                        IpConnectionCreateParams.NoiseSuppressionDetails.builder()
                             .attenuationLimit(80L)
-                            .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                            .engine(
+                                IpConnectionCreateParams.NoiseSuppressionDetails.Engine
+                                    .DEEP_FILTER_NET
+                            )
                             .build()
                     )
                     .onnetT38PassthroughEnabled(false)
@@ -182,9 +184,12 @@ internal class IpConnectionServiceAsyncTest {
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
                     .noiseSuppression(IpConnectionUpdateParams.NoiseSuppression.BOTH)
                     .noiseSuppressionDetails(
-                        ConnectionNoiseSuppressionDetails.builder()
+                        IpConnectionUpdateParams.NoiseSuppressionDetails.builder()
                             .attenuationLimit(80L)
-                            .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                            .engine(
+                                IpConnectionUpdateParams.NoiseSuppressionDetails.Engine
+                                    .DEEP_FILTER_NET
+                            )
                             .build()
                     )
                     .onnetT38PassthroughEnabled(false)

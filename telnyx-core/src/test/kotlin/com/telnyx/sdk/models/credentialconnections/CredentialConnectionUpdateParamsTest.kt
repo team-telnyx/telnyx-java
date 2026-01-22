@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.models.credentialconnections
 
-import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -41,9 +40,12 @@ internal class CredentialConnectionUpdateParamsTest {
             .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
             .noiseSuppression(CredentialConnectionUpdateParams.NoiseSuppression.BOTH)
             .noiseSuppressionDetails(
-                ConnectionNoiseSuppressionDetails.builder()
+                CredentialConnectionUpdateParams.NoiseSuppressionDetails.builder()
                     .attenuationLimit(80L)
-                    .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                    .engine(
+                        CredentialConnectionUpdateParams.NoiseSuppressionDetails.Engine
+                            .DEEP_FILTER_NET
+                    )
                     .build()
             )
             .onnetT38PassthroughEnabled(true)
@@ -123,9 +125,12 @@ internal class CredentialConnectionUpdateParamsTest {
                 .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
                 .noiseSuppression(CredentialConnectionUpdateParams.NoiseSuppression.BOTH)
                 .noiseSuppressionDetails(
-                    ConnectionNoiseSuppressionDetails.builder()
+                    CredentialConnectionUpdateParams.NoiseSuppressionDetails.builder()
                         .attenuationLimit(80L)
-                        .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                        .engine(
+                            CredentialConnectionUpdateParams.NoiseSuppressionDetails.Engine
+                                .DEEP_FILTER_NET
+                        )
                         .build()
                 )
                 .onnetT38PassthroughEnabled(true)
@@ -195,9 +200,12 @@ internal class CredentialConnectionUpdateParamsTest {
             .contains(CredentialConnectionUpdateParams.NoiseSuppression.BOTH)
         assertThat(body.noiseSuppressionDetails())
             .contains(
-                ConnectionNoiseSuppressionDetails.builder()
+                CredentialConnectionUpdateParams.NoiseSuppressionDetails.builder()
                     .attenuationLimit(80L)
-                    .engine(ConnectionNoiseSuppressionDetails.Engine.DEEP_FILTER_NET)
+                    .engine(
+                        CredentialConnectionUpdateParams.NoiseSuppressionDetails.Engine
+                            .DEEP_FILTER_NET
+                    )
                     .build()
             )
         assertThat(body.onnetT38PassthroughEnabled()).contains(true)

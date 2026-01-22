@@ -165,7 +165,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun widgetSettings(): Optional<WidgetSettings> = body.widgetSettings()
+    fun widgetSettings(): Optional<UpdateAssistant.WidgetSettings> = body.widgetSettings()
 
     /**
      * Indicates whether the assistant should be promoted to the main version. Defaults to true.
@@ -296,7 +296,7 @@ private constructor(
      *
      * Unlike [widgetSettings], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _widgetSettings(): JsonField<WidgetSettings> = body._widgetSettings()
+    fun _widgetSettings(): JsonField<UpdateAssistant.WidgetSettings> = body._widgetSettings()
 
     /**
      * Returns the raw JSON value of [promoteToMain].
@@ -593,18 +593,17 @@ private constructor(
         fun addTool(tool: AssistantTool) = apply { body.addTool(tool) }
 
         /** Alias for calling [addTool] with `AssistantTool.ofWebhook(webhook)`. */
-        fun addTool(webhook: InferenceEmbeddingWebhookToolParams) = apply { body.addTool(webhook) }
+        fun addTool(webhook: AssistantTool.Webhook) = apply { body.addTool(webhook) }
 
         /**
          * Alias for calling [addTool] with the following:
          * ```java
-         * InferenceEmbeddingWebhookToolParams.builder()
-         *     .type(InferenceEmbeddingWebhookToolParams.Type.WEBHOOK)
+         * AssistantTool.Webhook.builder()
          *     .webhook(webhook)
          *     .build()
          * ```
          */
-        fun addWebhookTool(webhook: InferenceEmbeddingWebhookToolParams.Webhook) = apply {
+        fun addWebhookTool(webhook: AssistantTool.Webhook.InnerWebhook) = apply {
             body.addWebhookTool(webhook)
         }
 
@@ -742,18 +741,18 @@ private constructor(
         }
 
         /** Configuration settings for the assistant's web widget. */
-        fun widgetSettings(widgetSettings: WidgetSettings) = apply {
+        fun widgetSettings(widgetSettings: UpdateAssistant.WidgetSettings) = apply {
             body.widgetSettings(widgetSettings)
         }
 
         /**
          * Sets [Builder.widgetSettings] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.widgetSettings] with a well-typed [WidgetSettings] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.widgetSettings] with a well-typed
+         * [UpdateAssistant.WidgetSettings] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun widgetSettings(widgetSettings: JsonField<WidgetSettings>) = apply {
+        fun widgetSettings(widgetSettings: JsonField<UpdateAssistant.WidgetSettings>) = apply {
             body.widgetSettings(widgetSettings)
         }
 
@@ -935,7 +934,7 @@ private constructor(
         private val tools: JsonField<List<AssistantTool>>,
         private val transcription: JsonField<TranscriptionSettings>,
         private val voiceSettings: JsonField<VoiceSettings>,
-        private val widgetSettings: JsonField<WidgetSettings>,
+        private val widgetSettings: JsonField<UpdateAssistant.WidgetSettings>,
         private val promoteToMain: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -988,7 +987,7 @@ private constructor(
             voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
             @JsonProperty("widget_settings")
             @ExcludeMissing
-            widgetSettings: JsonField<WidgetSettings> = JsonMissing.of(),
+            widgetSettings: JsonField<UpdateAssistant.WidgetSettings> = JsonMissing.of(),
             @JsonProperty("promote_to_main")
             @ExcludeMissing
             promoteToMain: JsonField<Boolean> = JsonMissing.of(),
@@ -1174,7 +1173,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun widgetSettings(): Optional<WidgetSettings> =
+        fun widgetSettings(): Optional<UpdateAssistant.WidgetSettings> =
             widgetSettings.getOptional("widget_settings")
 
         /**
@@ -1340,7 +1339,7 @@ private constructor(
          */
         @JsonProperty("widget_settings")
         @ExcludeMissing
-        fun _widgetSettings(): JsonField<WidgetSettings> = widgetSettings
+        fun _widgetSettings(): JsonField<UpdateAssistant.WidgetSettings> = widgetSettings
 
         /**
          * Returns the raw JSON value of [promoteToMain].
@@ -1390,7 +1389,7 @@ private constructor(
             private var tools: JsonField<MutableList<AssistantTool>>? = null
             private var transcription: JsonField<TranscriptionSettings> = JsonMissing.of()
             private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
-            private var widgetSettings: JsonField<WidgetSettings> = JsonMissing.of()
+            private var widgetSettings: JsonField<UpdateAssistant.WidgetSettings> = JsonMissing.of()
             private var promoteToMain: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1661,25 +1660,18 @@ private constructor(
             }
 
             /** Alias for calling [addTool] with `AssistantTool.ofWebhook(webhook)`. */
-            fun addTool(webhook: InferenceEmbeddingWebhookToolParams) =
-                addTool(AssistantTool.ofWebhook(webhook))
+            fun addTool(webhook: AssistantTool.Webhook) = addTool(AssistantTool.ofWebhook(webhook))
 
             /**
              * Alias for calling [addTool] with the following:
              * ```java
-             * InferenceEmbeddingWebhookToolParams.builder()
-             *     .type(InferenceEmbeddingWebhookToolParams.Type.WEBHOOK)
+             * AssistantTool.Webhook.builder()
              *     .webhook(webhook)
              *     .build()
              * ```
              */
-            fun addWebhookTool(webhook: InferenceEmbeddingWebhookToolParams.Webhook) =
-                addTool(
-                    InferenceEmbeddingWebhookToolParams.builder()
-                        .type(InferenceEmbeddingWebhookToolParams.Type.WEBHOOK)
-                        .webhook(webhook)
-                        .build()
-                )
+            fun addWebhookTool(webhook: AssistantTool.Webhook.InnerWebhook) =
+                addTool(AssistantTool.Webhook.builder().webhook(webhook).build())
 
             /** Alias for calling [addTool] with `AssistantTool.ofRetrieval(retrieval)`. */
             fun addTool(retrieval: RetrievalTool) = addTool(AssistantTool.ofRetrieval(retrieval))
@@ -1819,17 +1811,17 @@ private constructor(
             }
 
             /** Configuration settings for the assistant's web widget. */
-            fun widgetSettings(widgetSettings: WidgetSettings) =
+            fun widgetSettings(widgetSettings: UpdateAssistant.WidgetSettings) =
                 widgetSettings(JsonField.of(widgetSettings))
 
             /**
              * Sets [Builder.widgetSettings] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.widgetSettings] with a well-typed [WidgetSettings]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.widgetSettings] with a well-typed
+             * [UpdateAssistant.WidgetSettings] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
              */
-            fun widgetSettings(widgetSettings: JsonField<WidgetSettings>) = apply {
+            fun widgetSettings(widgetSettings: JsonField<UpdateAssistant.WidgetSettings>) = apply {
                 this.widgetSettings = widgetSettings
             }
 

@@ -98,17 +98,15 @@ internal class AssistantsListTest {
                                 .build()
                         )
                         .addWebhookTool(
-                            InferenceEmbeddingWebhookToolParams.Webhook.builder()
+                            AssistantTool.Webhook.InnerWebhook.builder()
                                 .description("description")
                                 .name("name")
                                 .url("https://example.com/api/v1/function")
                                 .async(true)
                                 .bodyParameters(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                        .builder()
+                                    AssistantTool.Webhook.InnerWebhook.BodyParameters.builder()
                                         .properties(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .BodyParameters
+                                            AssistantTool.Webhook.InnerWebhook.BodyParameters
                                                 .Properties
                                                 .builder()
                                                 .putAdditionalProperty("age", JsonValue.from("bar"))
@@ -121,26 +119,22 @@ internal class AssistantsListTest {
                                         .addRequired("age")
                                         .addRequired("location")
                                         .type(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .BodyParameters
-                                                .Type
+                                            AssistantTool.Webhook.InnerWebhook.BodyParameters.Type
                                                 .OBJECT
                                         )
                                         .build()
                                 )
                                 .addHeader(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
+                                    AssistantTool.Webhook.InnerWebhook.Header.builder()
                                         .name("name")
                                         .value("value")
                                         .build()
                                 )
-                                .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
+                                .method(AssistantTool.Webhook.InnerWebhook.Method.GET)
                                 .pathParameters(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                        .builder()
+                                    AssistantTool.Webhook.InnerWebhook.PathParameters.builder()
                                         .properties(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .PathParameters
+                                            AssistantTool.Webhook.InnerWebhook.PathParameters
                                                 .Properties
                                                 .builder()
                                                 .putAdditionalProperty("id", JsonValue.from("bar"))
@@ -148,19 +142,15 @@ internal class AssistantsListTest {
                                         )
                                         .addRequired("id")
                                         .type(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .PathParameters
-                                                .Type
+                                            AssistantTool.Webhook.InnerWebhook.PathParameters.Type
                                                 .OBJECT
                                         )
                                         .build()
                                 )
                                 .queryParameters(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                        .builder()
+                                    AssistantTool.Webhook.InnerWebhook.QueryParameters.builder()
                                         .properties(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .QueryParameters
+                                            AssistantTool.Webhook.InnerWebhook.QueryParameters
                                                 .Properties
                                                 .builder()
                                                 .putAdditionalProperty(
@@ -171,9 +161,7 @@ internal class AssistantsListTest {
                                         )
                                         .addRequired("page")
                                         .type(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .QueryParameters
-                                                .Type
+                                            AssistantTool.Webhook.InnerWebhook.QueryParameters.Type
                                                 .OBJECT
                                         )
                                         .build()
@@ -215,22 +203,29 @@ internal class AssistantsListTest {
                                 .build()
                         )
                         .widgetSettings(
-                            WidgetSettings.builder()
+                            InferenceEmbedding.WidgetSettings.builder()
                                 .agentThinkingText("agent_thinking_text")
                                 .audioVisualizerConfig(
-                                    WidgetSettings.AudioVisualizerConfig.builder()
-                                        .color(WidgetSettings.AudioVisualizerConfig.Color.VERDANT)
+                                    InferenceEmbedding.WidgetSettings.AudioVisualizerConfig
+                                        .builder()
+                                        .color(
+                                            InferenceEmbedding.WidgetSettings.AudioVisualizerConfig
+                                                .Color
+                                                .VERDANT
+                                        )
                                         .preset("preset")
                                         .build()
                                 )
-                                .defaultState(WidgetSettings.DefaultState.EXPANDED)
+                                .defaultState(
+                                    InferenceEmbedding.WidgetSettings.DefaultState.EXPANDED
+                                )
                                 .giveFeedbackUrl("give_feedback_url")
                                 .logoIconUrl("logo_icon_url")
-                                .position(WidgetSettings.Position.FIXED)
+                                .position(InferenceEmbedding.WidgetSettings.Position.FIXED)
                                 .reportIssueUrl("report_issue_url")
                                 .speakToInterruptText("speak_to_interrupt_text")
                                 .startCallText("start_call_text")
-                                .theme(WidgetSettings.Theme.LIGHT)
+                                .theme(InferenceEmbedding.WidgetSettings.Theme.LIGHT)
                                 .viewHistoryUrl("view_history_url")
                                 .build()
                         )
@@ -320,16 +315,15 @@ internal class AssistantsListTest {
                             .build()
                     )
                     .addWebhookTool(
-                        InferenceEmbeddingWebhookToolParams.Webhook.builder()
+                        AssistantTool.Webhook.InnerWebhook.builder()
                             .description("description")
                             .name("name")
                             .url("https://example.com/api/v1/function")
                             .async(true)
                             .bodyParameters(
-                                InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters.builder()
+                                AssistantTool.Webhook.InnerWebhook.BodyParameters.builder()
                                     .properties(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                            .Properties
+                                        AssistantTool.Webhook.InnerWebhook.BodyParameters.Properties
                                             .builder()
                                             .putAdditionalProperty("age", JsonValue.from("bar"))
                                             .putAdditionalProperty(
@@ -341,41 +335,37 @@ internal class AssistantsListTest {
                                     .addRequired("age")
                                     .addRequired("location")
                                     .type(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                            .Type
+                                        AssistantTool.Webhook.InnerWebhook.BodyParameters.Type
                                             .OBJECT
                                     )
                                     .build()
                             )
                             .addHeader(
-                                InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
+                                AssistantTool.Webhook.InnerWebhook.Header.builder()
                                     .name("name")
                                     .value("value")
                                     .build()
                             )
-                            .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
+                            .method(AssistantTool.Webhook.InnerWebhook.Method.GET)
                             .pathParameters(
-                                InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.builder()
+                                AssistantTool.Webhook.InnerWebhook.PathParameters.builder()
                                     .properties(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                            .Properties
+                                        AssistantTool.Webhook.InnerWebhook.PathParameters.Properties
                                             .builder()
                                             .putAdditionalProperty("id", JsonValue.from("bar"))
                                             .build()
                                     )
                                     .addRequired("id")
                                     .type(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                            .Type
+                                        AssistantTool.Webhook.InnerWebhook.PathParameters.Type
                                             .OBJECT
                                     )
                                     .build()
                             )
                             .queryParameters(
-                                InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                    .builder()
+                                AssistantTool.Webhook.InnerWebhook.QueryParameters.builder()
                                     .properties(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
+                                        AssistantTool.Webhook.InnerWebhook.QueryParameters
                                             .Properties
                                             .builder()
                                             .putAdditionalProperty("page", JsonValue.from("bar"))
@@ -383,8 +373,7 @@ internal class AssistantsListTest {
                                     )
                                     .addRequired("page")
                                     .type(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                            .Type
+                                        AssistantTool.Webhook.InnerWebhook.QueryParameters.Type
                                             .OBJECT
                                     )
                                     .build()
@@ -425,22 +414,26 @@ internal class AssistantsListTest {
                             .build()
                     )
                     .widgetSettings(
-                        WidgetSettings.builder()
+                        InferenceEmbedding.WidgetSettings.builder()
                             .agentThinkingText("agent_thinking_text")
                             .audioVisualizerConfig(
-                                WidgetSettings.AudioVisualizerConfig.builder()
-                                    .color(WidgetSettings.AudioVisualizerConfig.Color.VERDANT)
+                                InferenceEmbedding.WidgetSettings.AudioVisualizerConfig.builder()
+                                    .color(
+                                        InferenceEmbedding.WidgetSettings.AudioVisualizerConfig
+                                            .Color
+                                            .VERDANT
+                                    )
                                     .preset("preset")
                                     .build()
                             )
-                            .defaultState(WidgetSettings.DefaultState.EXPANDED)
+                            .defaultState(InferenceEmbedding.WidgetSettings.DefaultState.EXPANDED)
                             .giveFeedbackUrl("give_feedback_url")
                             .logoIconUrl("logo_icon_url")
-                            .position(WidgetSettings.Position.FIXED)
+                            .position(InferenceEmbedding.WidgetSettings.Position.FIXED)
                             .reportIssueUrl("report_issue_url")
                             .speakToInterruptText("speak_to_interrupt_text")
                             .startCallText("start_call_text")
-                            .theme(WidgetSettings.Theme.LIGHT)
+                            .theme(InferenceEmbedding.WidgetSettings.Theme.LIGHT)
                             .viewHistoryUrl("view_history_url")
                             .build()
                     )
@@ -536,17 +529,15 @@ internal class AssistantsListTest {
                                 .build()
                         )
                         .addWebhookTool(
-                            InferenceEmbeddingWebhookToolParams.Webhook.builder()
+                            AssistantTool.Webhook.InnerWebhook.builder()
                                 .description("description")
                                 .name("name")
                                 .url("https://example.com/api/v1/function")
                                 .async(true)
                                 .bodyParameters(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                        .builder()
+                                    AssistantTool.Webhook.InnerWebhook.BodyParameters.builder()
                                         .properties(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .BodyParameters
+                                            AssistantTool.Webhook.InnerWebhook.BodyParameters
                                                 .Properties
                                                 .builder()
                                                 .putAdditionalProperty("age", JsonValue.from("bar"))
@@ -559,26 +550,22 @@ internal class AssistantsListTest {
                                         .addRequired("age")
                                         .addRequired("location")
                                         .type(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .BodyParameters
-                                                .Type
+                                            AssistantTool.Webhook.InnerWebhook.BodyParameters.Type
                                                 .OBJECT
                                         )
                                         .build()
                                 )
                                 .addHeader(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
+                                    AssistantTool.Webhook.InnerWebhook.Header.builder()
                                         .name("name")
                                         .value("value")
                                         .build()
                                 )
-                                .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
+                                .method(AssistantTool.Webhook.InnerWebhook.Method.GET)
                                 .pathParameters(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                        .builder()
+                                    AssistantTool.Webhook.InnerWebhook.PathParameters.builder()
                                         .properties(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .PathParameters
+                                            AssistantTool.Webhook.InnerWebhook.PathParameters
                                                 .Properties
                                                 .builder()
                                                 .putAdditionalProperty("id", JsonValue.from("bar"))
@@ -586,19 +573,15 @@ internal class AssistantsListTest {
                                         )
                                         .addRequired("id")
                                         .type(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .PathParameters
-                                                .Type
+                                            AssistantTool.Webhook.InnerWebhook.PathParameters.Type
                                                 .OBJECT
                                         )
                                         .build()
                                 )
                                 .queryParameters(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                        .builder()
+                                    AssistantTool.Webhook.InnerWebhook.QueryParameters.builder()
                                         .properties(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .QueryParameters
+                                            AssistantTool.Webhook.InnerWebhook.QueryParameters
                                                 .Properties
                                                 .builder()
                                                 .putAdditionalProperty(
@@ -609,9 +592,7 @@ internal class AssistantsListTest {
                                         )
                                         .addRequired("page")
                                         .type(
-                                            InferenceEmbeddingWebhookToolParams.Webhook
-                                                .QueryParameters
-                                                .Type
+                                            AssistantTool.Webhook.InnerWebhook.QueryParameters.Type
                                                 .OBJECT
                                         )
                                         .build()
@@ -653,22 +634,29 @@ internal class AssistantsListTest {
                                 .build()
                         )
                         .widgetSettings(
-                            WidgetSettings.builder()
+                            InferenceEmbedding.WidgetSettings.builder()
                                 .agentThinkingText("agent_thinking_text")
                                 .audioVisualizerConfig(
-                                    WidgetSettings.AudioVisualizerConfig.builder()
-                                        .color(WidgetSettings.AudioVisualizerConfig.Color.VERDANT)
+                                    InferenceEmbedding.WidgetSettings.AudioVisualizerConfig
+                                        .builder()
+                                        .color(
+                                            InferenceEmbedding.WidgetSettings.AudioVisualizerConfig
+                                                .Color
+                                                .VERDANT
+                                        )
                                         .preset("preset")
                                         .build()
                                 )
-                                .defaultState(WidgetSettings.DefaultState.EXPANDED)
+                                .defaultState(
+                                    InferenceEmbedding.WidgetSettings.DefaultState.EXPANDED
+                                )
                                 .giveFeedbackUrl("give_feedback_url")
                                 .logoIconUrl("logo_icon_url")
-                                .position(WidgetSettings.Position.FIXED)
+                                .position(InferenceEmbedding.WidgetSettings.Position.FIXED)
                                 .reportIssueUrl("report_issue_url")
                                 .speakToInterruptText("speak_to_interrupt_text")
                                 .startCallText("start_call_text")
-                                .theme(WidgetSettings.Theme.LIGHT)
+                                .theme(InferenceEmbedding.WidgetSettings.Theme.LIGHT)
                                 .viewHistoryUrl("view_history_url")
                                 .build()
                         )

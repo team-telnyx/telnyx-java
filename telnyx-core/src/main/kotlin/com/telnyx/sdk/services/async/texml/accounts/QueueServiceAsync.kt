@@ -9,8 +9,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueDeleteParams
-import com.telnyx.sdk.models.texml.accounts.queues.QueueListPageAsync
 import com.telnyx.sdk.models.texml.accounts.queues.QueueListParams
+import com.telnyx.sdk.models.texml.accounts.queues.QueueListResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueUpdateParams
@@ -116,7 +116,7 @@ interface QueueServiceAsync {
     ): CompletableFuture<QueueUpdateResponse>
 
     /** Lists queue resources. */
-    fun list(accountSid: String): CompletableFuture<QueueListPageAsync> =
+    fun list(accountSid: String): CompletableFuture<QueueListResponse> =
         list(accountSid, QueueListParams.none())
 
     /** @see list */
@@ -124,30 +124,30 @@ interface QueueServiceAsync {
         accountSid: String,
         params: QueueListParams = QueueListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<QueueListPageAsync> =
+    ): CompletableFuture<QueueListResponse> =
         list(params.toBuilder().accountSid(accountSid).build(), requestOptions)
 
     /** @see list */
     fun list(
         accountSid: String,
         params: QueueListParams = QueueListParams.none(),
-    ): CompletableFuture<QueueListPageAsync> = list(accountSid, params, RequestOptions.none())
+    ): CompletableFuture<QueueListResponse> = list(accountSid, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: QueueListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<QueueListPageAsync>
+    ): CompletableFuture<QueueListResponse>
 
     /** @see list */
-    fun list(params: QueueListParams): CompletableFuture<QueueListPageAsync> =
+    fun list(params: QueueListParams): CompletableFuture<QueueListResponse> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         accountSid: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<QueueListPageAsync> =
+    ): CompletableFuture<QueueListResponse> =
         list(accountSid, QueueListParams.none(), requestOptions)
 
     /** Delete a queue resource. */
@@ -289,7 +289,7 @@ interface QueueServiceAsync {
          * Returns a raw HTTP response for `get /texml/Accounts/{account_sid}/Queues`, but is
          * otherwise the same as [QueueServiceAsync.list].
          */
-        fun list(accountSid: String): CompletableFuture<HttpResponseFor<QueueListPageAsync>> =
+        fun list(accountSid: String): CompletableFuture<HttpResponseFor<QueueListResponse>> =
             list(accountSid, QueueListParams.none())
 
         /** @see list */
@@ -297,31 +297,31 @@ interface QueueServiceAsync {
             accountSid: String,
             params: QueueListParams = QueueListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<QueueListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<QueueListResponse>> =
             list(params.toBuilder().accountSid(accountSid).build(), requestOptions)
 
         /** @see list */
         fun list(
             accountSid: String,
             params: QueueListParams = QueueListParams.none(),
-        ): CompletableFuture<HttpResponseFor<QueueListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<QueueListResponse>> =
             list(accountSid, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: QueueListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<QueueListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<QueueListResponse>>
 
         /** @see list */
-        fun list(params: QueueListParams): CompletableFuture<HttpResponseFor<QueueListPageAsync>> =
+        fun list(params: QueueListParams): CompletableFuture<HttpResponseFor<QueueListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             accountSid: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<QueueListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<QueueListResponse>> =
             list(accountSid, QueueListParams.none(), requestOptions)
 
         /**

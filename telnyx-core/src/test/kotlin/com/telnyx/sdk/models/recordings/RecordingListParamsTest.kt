@@ -28,8 +28,7 @@ internal class RecordingListParamsTest {
                     .to("1234567890")
                     .build()
             )
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(RecordingListParams.Page.builder().number(1L).size(1L).build())
             .build()
     }
 
@@ -54,8 +53,7 @@ internal class RecordingListParamsTest {
                         .to("1234567890")
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(RecordingListParams.Page.builder().number(1L).size(1L).build())
                 .build()
 
         val queryParams = params._queryParams()
@@ -72,8 +70,8 @@ internal class RecordingListParamsTest {
                     .put("filter[from]", "1234567890")
                     .put("filter[sip_call_id]", "428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                     .put("filter[to]", "1234567890")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .build()
             )
     }

@@ -30,8 +30,7 @@ internal class ExternalConnectionListParamsTest {
                     )
                     .build()
             )
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(ExternalConnectionListParams.Page.builder().number(1L).size(1L).build())
             .build()
     }
 
@@ -58,8 +57,7 @@ internal class ExternalConnectionListParamsTest {
                         )
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(ExternalConnectionListParams.Page.builder().number(1L).size(1L).build())
                 .build()
 
         val queryParams = params._queryParams()
@@ -72,8 +70,8 @@ internal class ExternalConnectionListParamsTest {
                     .put("filter[created_at]", "2022-12-31")
                     .put("filter[external_sip_connection]", "zoom")
                     .put("filter[phone_number][contains]", "+15555555555")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .build()
             )
     }

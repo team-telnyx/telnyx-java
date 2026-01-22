@@ -17,8 +17,7 @@ internal class DynamicEmergencyAddressListParamsTest {
                     .status(DynamicEmergencyAddressListParams.Filter.Status.PENDING)
                     .build()
             )
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(DynamicEmergencyAddressListParams.Page.builder().number(1L).size(1L).build())
             .build()
     }
 
@@ -32,8 +31,7 @@ internal class DynamicEmergencyAddressListParamsTest {
                         .status(DynamicEmergencyAddressListParams.Filter.Status.PENDING)
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(DynamicEmergencyAddressListParams.Page.builder().number(1L).size(1L).build())
                 .build()
 
         val queryParams = params._queryParams()
@@ -43,8 +41,8 @@ internal class DynamicEmergencyAddressListParamsTest {
                 QueryParams.builder()
                     .put("filter[country_code]", "country_code")
                     .put("filter[status]", "pending")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .build()
             )
     }

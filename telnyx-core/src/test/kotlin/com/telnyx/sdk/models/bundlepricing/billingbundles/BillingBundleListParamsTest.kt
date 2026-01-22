@@ -18,8 +18,7 @@ internal class BillingBundleListParamsTest {
                     .addResource("+15617819942")
                     .build()
             )
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(BillingBundleListParams.Page.builder().number(1L).size(1L).build())
             .authorizationBearer("authorization_bearer")
             .build()
     }
@@ -34,8 +33,7 @@ internal class BillingBundleListParamsTest {
                         .addResource("+15617819942")
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(BillingBundleListParams.Page.builder().number(1L).size(1L).build())
                 .authorizationBearer("authorization_bearer")
                 .build()
 
@@ -66,8 +64,7 @@ internal class BillingBundleListParamsTest {
                         .addResource("+15617819942")
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(BillingBundleListParams.Page.builder().number(1L).size(1L).build())
                 .authorizationBearer("authorization_bearer")
                 .build()
 
@@ -78,8 +75,8 @@ internal class BillingBundleListParamsTest {
                 QueryParams.builder()
                     .put("filter[country_iso]", listOf("US").joinToString(","))
                     .put("filter[resource]", listOf("+15617819942").joinToString(","))
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .build()
             )
     }
