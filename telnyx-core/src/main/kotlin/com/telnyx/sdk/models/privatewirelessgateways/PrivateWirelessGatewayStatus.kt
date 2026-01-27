@@ -39,9 +39,8 @@ private constructor(
     ) : this(errorCode, errorDescription, value, mutableMapOf())
 
     /**
-     * This attribute is an
-     * [error code](https://developers.telnyx.com/development/api-fundamentals/api-errors) related
-     * to the failure reason.
+     * This attribute is an [error code](https://developers.telnyx.com/api/errors) related to the
+     * failure reason.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -135,9 +134,8 @@ private constructor(
         }
 
         /**
-         * This attribute is an
-         * [error code](https://developers.telnyx.com/development/api-fundamentals/api-errors)
-         * related to the failure reason.
+         * This attribute is an [error code](https://developers.telnyx.com/api/errors) related to
+         * the failure reason.
          */
         fun errorCode(errorCode: String?) = errorCode(JsonField.ofNullable(errorCode))
 
