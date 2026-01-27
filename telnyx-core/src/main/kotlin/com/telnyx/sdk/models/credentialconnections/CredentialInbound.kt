@@ -25,6 +25,7 @@ private constructor(
     private val aniNumberFormat: JsonField<AniNumberFormat>,
     private val channelLimit: JsonField<Long>,
     private val codecs: JsonField<List<String>>,
+    private val defaultRoutingMethod: JsonField<DefaultRoutingMethod>,
     private val dnisNumberFormat: JsonField<DnisNumberFormat>,
     private val generateRingbackTone: JsonField<Boolean>,
     private val isupHeadersEnabled: JsonField<Boolean>,
@@ -46,6 +47,9 @@ private constructor(
         @ExcludeMissing
         channelLimit: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("codecs") @ExcludeMissing codecs: JsonField<List<String>> = JsonMissing.of(),
+        @JsonProperty("default_routing_method")
+        @ExcludeMissing
+        defaultRoutingMethod: JsonField<DefaultRoutingMethod> = JsonMissing.of(),
         @JsonProperty("dnis_number_format")
         @ExcludeMissing
         dnisNumberFormat: JsonField<DnisNumberFormat> = JsonMissing.of(),
@@ -77,6 +81,7 @@ private constructor(
         aniNumberFormat,
         channelLimit,
         codecs,
+        defaultRoutingMethod,
         dnisNumberFormat,
         generateRingbackTone,
         isupHeadersEnabled,
@@ -118,6 +123,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun codecs(): Optional<List<String>> = codecs.getOptional("codecs")
+
+    /**
+     * Default routing method to be used when a number is associated with the connection. Must be
+     * one of the routing method types or left blank, other values are not allowed.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun defaultRoutingMethod(): Optional<DefaultRoutingMethod> =
+        defaultRoutingMethod.getOptional("default_routing_method")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -221,6 +236,16 @@ private constructor(
      * Unlike [codecs], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("codecs") @ExcludeMissing fun _codecs(): JsonField<List<String>> = codecs
+
+    /**
+     * Returns the raw JSON value of [defaultRoutingMethod].
+     *
+     * Unlike [defaultRoutingMethod], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("default_routing_method")
+    @ExcludeMissing
+    fun _defaultRoutingMethod(): JsonField<DefaultRoutingMethod> = defaultRoutingMethod
 
     /**
      * Returns the raw JSON value of [dnisNumberFormat].
@@ -333,6 +358,7 @@ private constructor(
         private var aniNumberFormat: JsonField<AniNumberFormat> = JsonMissing.of()
         private var channelLimit: JsonField<Long> = JsonMissing.of()
         private var codecs: JsonField<MutableList<String>>? = null
+        private var defaultRoutingMethod: JsonField<DefaultRoutingMethod> = JsonMissing.of()
         private var dnisNumberFormat: JsonField<DnisNumberFormat> = JsonMissing.of()
         private var generateRingbackTone: JsonField<Boolean> = JsonMissing.of()
         private var isupHeadersEnabled: JsonField<Boolean> = JsonMissing.of()
@@ -349,6 +375,7 @@ private constructor(
             aniNumberFormat = credentialInbound.aniNumberFormat
             channelLimit = credentialInbound.channelLimit
             codecs = credentialInbound.codecs.map { it.toMutableList() }
+            defaultRoutingMethod = credentialInbound.defaultRoutingMethod
             dnisNumberFormat = credentialInbound.dnisNumberFormat
             generateRingbackTone = credentialInbound.generateRingbackTone
             isupHeadersEnabled = credentialInbound.isupHeadersEnabled
@@ -423,6 +450,24 @@ private constructor(
                 (codecs ?: JsonField.of(mutableListOf())).also {
                     checkKnown("codecs", it).add(codec)
                 }
+        }
+
+        /**
+         * Default routing method to be used when a number is associated with the connection. Must
+         * be one of the routing method types or left blank, other values are not allowed.
+         */
+        fun defaultRoutingMethod(defaultRoutingMethod: DefaultRoutingMethod) =
+            defaultRoutingMethod(JsonField.of(defaultRoutingMethod))
+
+        /**
+         * Sets [Builder.defaultRoutingMethod] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.defaultRoutingMethod] with a well-typed
+         * [DefaultRoutingMethod] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun defaultRoutingMethod(defaultRoutingMethod: JsonField<DefaultRoutingMethod>) = apply {
+            this.defaultRoutingMethod = defaultRoutingMethod
         }
 
         fun dnisNumberFormat(dnisNumberFormat: DnisNumberFormat) =
@@ -591,6 +636,7 @@ private constructor(
                 aniNumberFormat,
                 channelLimit,
                 (codecs ?: JsonMissing.of()).map { it.toImmutable() },
+                defaultRoutingMethod,
                 dnisNumberFormat,
                 generateRingbackTone,
                 isupHeadersEnabled,
@@ -614,6 +660,7 @@ private constructor(
         aniNumberFormat().ifPresent { it.validate() }
         channelLimit()
         codecs()
+        defaultRoutingMethod().ifPresent { it.validate() }
         dnisNumberFormat().ifPresent { it.validate() }
         generateRingbackTone()
         isupHeadersEnabled()
@@ -644,6 +691,7 @@ private constructor(
         (aniNumberFormat.asKnown().getOrNull()?.validity() ?: 0) +
             (if (channelLimit.asKnown().isPresent) 1 else 0) +
             (codecs.asKnown().getOrNull()?.size ?: 0) +
+            (defaultRoutingMethod.asKnown().getOrNull()?.validity() ?: 0) +
             (dnisNumberFormat.asKnown().getOrNull()?.validity() ?: 0) +
             (if (generateRingbackTone.asKnown().isPresent) 1 else 0) +
             (if (isupHeadersEnabled.asKnown().isPresent) 1 else 0) +
@@ -792,6 +840,141 @@ private constructor(
             }
 
             return other is AniNumberFormat && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * Default routing method to be used when a number is associated with the connection. Must be
+     * one of the routing method types or left blank, other values are not allowed.
+     */
+    class DefaultRoutingMethod
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val SEQUENTIAL = of("sequential")
+
+            @JvmField val ROUND_ROBIN = of("round-robin")
+
+            @JvmStatic fun of(value: String) = DefaultRoutingMethod(JsonField.of(value))
+        }
+
+        /** An enum containing [DefaultRoutingMethod]'s known values. */
+        enum class Known {
+            SEQUENTIAL,
+            ROUND_ROBIN,
+        }
+
+        /**
+         * An enum containing [DefaultRoutingMethod]'s known values, as well as an [_UNKNOWN]
+         * member.
+         *
+         * An instance of [DefaultRoutingMethod] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            SEQUENTIAL,
+            ROUND_ROBIN,
+            /**
+             * An enum member indicating that [DefaultRoutingMethod] was instantiated with an
+             * unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                SEQUENTIAL -> Value.SEQUENTIAL
+                ROUND_ROBIN -> Value.ROUND_ROBIN
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                SEQUENTIAL -> Known.SEQUENTIAL
+                ROUND_ROBIN -> Known.ROUND_ROBIN
+                else -> throw TelnyxInvalidDataException("Unknown DefaultRoutingMethod: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): DefaultRoutingMethod = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DefaultRoutingMethod && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1080,6 +1263,7 @@ private constructor(
             aniNumberFormat == other.aniNumberFormat &&
             channelLimit == other.channelLimit &&
             codecs == other.codecs &&
+            defaultRoutingMethod == other.defaultRoutingMethod &&
             dnisNumberFormat == other.dnisNumberFormat &&
             generateRingbackTone == other.generateRingbackTone &&
             isupHeadersEnabled == other.isupHeadersEnabled &&
@@ -1097,6 +1281,7 @@ private constructor(
             aniNumberFormat,
             channelLimit,
             codecs,
+            defaultRoutingMethod,
             dnisNumberFormat,
             generateRingbackTone,
             isupHeadersEnabled,
@@ -1113,5 +1298,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CredentialInbound{aniNumberFormat=$aniNumberFormat, channelLimit=$channelLimit, codecs=$codecs, dnisNumberFormat=$dnisNumberFormat, generateRingbackTone=$generateRingbackTone, isupHeadersEnabled=$isupHeadersEnabled, prackEnabled=$prackEnabled, shakenStirEnabled=$shakenStirEnabled, simultaneousRinging=$simultaneousRinging, sipCompactHeadersEnabled=$sipCompactHeadersEnabled, timeout1xxSecs=$timeout1xxSecs, timeout2xxSecs=$timeout2xxSecs, additionalProperties=$additionalProperties}"
+        "CredentialInbound{aniNumberFormat=$aniNumberFormat, channelLimit=$channelLimit, codecs=$codecs, defaultRoutingMethod=$defaultRoutingMethod, dnisNumberFormat=$dnisNumberFormat, generateRingbackTone=$generateRingbackTone, isupHeadersEnabled=$isupHeadersEnabled, prackEnabled=$prackEnabled, shakenStirEnabled=$shakenStirEnabled, simultaneousRinging=$simultaneousRinging, sipCompactHeadersEnabled=$sipCompactHeadersEnabled, timeout1xxSecs=$timeout1xxSecs, timeout2xxSecs=$timeout2xxSecs, additionalProperties=$additionalProperties}"
 }
