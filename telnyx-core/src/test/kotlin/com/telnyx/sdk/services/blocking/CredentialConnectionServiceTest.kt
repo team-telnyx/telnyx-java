@@ -49,6 +49,7 @@ internal class CredentialConnectionServiceTest {
                             .aniNumberFormat(CredentialInbound.AniNumberFormat.PLUS_E_164)
                             .channelLimit(10L)
                             .addCodec("G722")
+                            .defaultRoutingMethod(CredentialInbound.DefaultRoutingMethod.SEQUENTIAL)
                             .dnisNumberFormat(CredentialInbound.DnisNumberFormat.PLUS_E164)
                             .generateRingbackTone(true)
                             .isupHeadersEnabled(true)
@@ -61,6 +62,13 @@ internal class CredentialConnectionServiceTest {
                             .build()
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                    .jitterBuffer(
+                        CredentialConnectionCreateParams.JitterBuffer.builder()
+                            .enableJitterBuffer(true)
+                            .jitterbufferMsecMax(200L)
+                            .jitterbufferMsecMin(60L)
+                            .build()
+                    )
                     .noiseSuppression(CredentialConnectionCreateParams.NoiseSuppression.BOTH)
                     .noiseSuppressionDetails(
                         ConnectionNoiseSuppressionDetails.builder()
@@ -147,6 +155,7 @@ internal class CredentialConnectionServiceTest {
                             .aniNumberFormat(CredentialInbound.AniNumberFormat.PLUS_E_164)
                             .channelLimit(10L)
                             .addCodec("G722")
+                            .defaultRoutingMethod(CredentialInbound.DefaultRoutingMethod.SEQUENTIAL)
                             .dnisNumberFormat(CredentialInbound.DnisNumberFormat.PLUS_E164)
                             .generateRingbackTone(true)
                             .isupHeadersEnabled(true)
@@ -159,6 +168,13 @@ internal class CredentialConnectionServiceTest {
                             .build()
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                    .jitterBuffer(
+                        CredentialConnectionUpdateParams.JitterBuffer.builder()
+                            .enableJitterBuffer(true)
+                            .jitterbufferMsecMax(200L)
+                            .jitterbufferMsecMin(60L)
+                            .build()
+                    )
                     .noiseSuppression(CredentialConnectionUpdateParams.NoiseSuppression.BOTH)
                     .noiseSuppressionDetails(
                         ConnectionNoiseSuppressionDetails.builder()

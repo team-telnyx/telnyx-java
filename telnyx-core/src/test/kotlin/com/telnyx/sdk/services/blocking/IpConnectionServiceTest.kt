@@ -71,6 +71,13 @@ internal class IpConnectionServiceTest {
                             .build()
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                    .jitterBuffer(
+                        IpConnectionCreateParams.JitterBuffer.builder()
+                            .enableJitterBuffer(true)
+                            .jitterbufferMsecMax(200L)
+                            .jitterbufferMsecMin(60L)
+                            .build()
+                    )
                     .noiseSuppression(IpConnectionCreateParams.NoiseSuppression.BOTH)
                     .noiseSuppressionDetails(
                         ConnectionNoiseSuppressionDetails.builder()
@@ -178,6 +185,13 @@ internal class IpConnectionServiceTest {
                             .build()
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                    .jitterBuffer(
+                        IpConnectionUpdateParams.JitterBuffer.builder()
+                            .enableJitterBuffer(true)
+                            .jitterbufferMsecMax(200L)
+                            .jitterbufferMsecMin(60L)
+                            .build()
+                    )
                     .noiseSuppression(IpConnectionUpdateParams.NoiseSuppression.BOTH)
                     .noiseSuppressionDetails(
                         ConnectionNoiseSuppressionDetails.builder()
