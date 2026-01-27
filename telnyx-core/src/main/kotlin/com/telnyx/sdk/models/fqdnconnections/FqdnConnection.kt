@@ -33,6 +33,7 @@ private constructor(
     private val active: JsonField<Boolean>,
     private val adjustDtmfTimestamp: JsonField<Boolean>,
     private val anchorsiteOverride: JsonField<AnchorsiteOverride>,
+    private val androidPushCredentialId: JsonField<String>,
     private val callCostEnabled: JsonField<Boolean>,
     private val callCostInWebhooks: JsonField<Boolean>,
     private val createdAt: JsonField<String>,
@@ -43,6 +44,8 @@ private constructor(
     private val ignoreDtmfDuration: JsonField<Boolean>,
     private val ignoreMarkBit: JsonField<Boolean>,
     private val inbound: JsonField<InboundFqdn>,
+    private val iosPushCredentialId: JsonField<String>,
+    private val jitterBuffer: JsonField<JitterBuffer>,
     private val microsoftTeamsSbc: JsonField<Boolean>,
     private val noiseSuppression: JsonField<NoiseSuppression>,
     private val noiseSuppressionDetails: JsonField<ConnectionNoiseSuppressionDetails>,
@@ -81,6 +84,9 @@ private constructor(
         @JsonProperty("anchorsite_override")
         @ExcludeMissing
         anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of(),
+        @JsonProperty("android_push_credential_id")
+        @ExcludeMissing
+        androidPushCredentialId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("call_cost_enabled")
         @ExcludeMissing
         callCostEnabled: JsonField<Boolean> = JsonMissing.of(),
@@ -105,6 +111,12 @@ private constructor(
         @ExcludeMissing
         ignoreMarkBit: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("inbound") @ExcludeMissing inbound: JsonField<InboundFqdn> = JsonMissing.of(),
+        @JsonProperty("ios_push_credential_id")
+        @ExcludeMissing
+        iosPushCredentialId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("jitter_buffer")
+        @ExcludeMissing
+        jitterBuffer: JsonField<JitterBuffer> = JsonMissing.of(),
         @JsonProperty("microsoft_teams_sbc")
         @ExcludeMissing
         microsoftTeamsSbc: JsonField<Boolean> = JsonMissing.of(),
@@ -163,6 +175,7 @@ private constructor(
         active,
         adjustDtmfTimestamp,
         anchorsiteOverride,
+        androidPushCredentialId,
         callCostEnabled,
         callCostInWebhooks,
         createdAt,
@@ -173,6 +186,8 @@ private constructor(
         ignoreDtmfDuration,
         ignoreMarkBit,
         inbound,
+        iosPushCredentialId,
+        jitterBuffer,
         microsoftTeamsSbc,
         noiseSuppression,
         noiseSuppressionDetails,
@@ -241,6 +256,15 @@ private constructor(
      */
     fun anchorsiteOverride(): Optional<AnchorsiteOverride> =
         anchorsiteOverride.getOptional("anchorsite_override")
+
+    /**
+     * The uuid of the push credential for Android
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun androidPushCredentialId(): Optional<String> =
+        androidPushCredentialId.getOptional("android_push_credential_id")
 
     /**
      * Indicates whether call cost calculation is enabled.
@@ -325,6 +349,26 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun inbound(): Optional<InboundFqdn> = inbound.getOptional("inbound")
+
+    /**
+     * The uuid of the push credential for Ios
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun iosPushCredentialId(): Optional<String> =
+        iosPushCredentialId.getOptional("ios_push_credential_id")
+
+    /**
+     * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams of SIP
+     * Trunking calls. The feature is off unless enabled. You may define min and max values in msec
+     * for customized buffering behaviors. Larger values add latency but tolerate more jitter, while
+     * smaller values reduce latency but are more sensitive to jitter and reordering.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun jitterBuffer(): Optional<JitterBuffer> = jitterBuffer.getOptional("jitter_buffer")
 
     /**
      * The connection is enabled for Microsoft Teams Direct Routing.
@@ -564,6 +608,16 @@ private constructor(
     fun _anchorsiteOverride(): JsonField<AnchorsiteOverride> = anchorsiteOverride
 
     /**
+     * Returns the raw JSON value of [androidPushCredentialId].
+     *
+     * Unlike [androidPushCredentialId], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("android_push_credential_id")
+    @ExcludeMissing
+    fun _androidPushCredentialId(): JsonField<String> = androidPushCredentialId
+
+    /**
      * Returns the raw JSON value of [callCostEnabled].
      *
      * Unlike [callCostEnabled], this method doesn't throw if the JSON field has an unexpected type.
@@ -650,6 +704,25 @@ private constructor(
      * Unlike [inbound], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("inbound") @ExcludeMissing fun _inbound(): JsonField<InboundFqdn> = inbound
+
+    /**
+     * Returns the raw JSON value of [iosPushCredentialId].
+     *
+     * Unlike [iosPushCredentialId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("ios_push_credential_id")
+    @ExcludeMissing
+    fun _iosPushCredentialId(): JsonField<String> = iosPushCredentialId
+
+    /**
+     * Returns the raw JSON value of [jitterBuffer].
+     *
+     * Unlike [jitterBuffer], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("jitter_buffer")
+    @ExcludeMissing
+    fun _jitterBuffer(): JsonField<JitterBuffer> = jitterBuffer
 
     /**
      * Returns the raw JSON value of [microsoftTeamsSbc].
@@ -876,6 +949,7 @@ private constructor(
         private var active: JsonField<Boolean> = JsonMissing.of()
         private var adjustDtmfTimestamp: JsonField<Boolean> = JsonMissing.of()
         private var anchorsiteOverride: JsonField<AnchorsiteOverride> = JsonMissing.of()
+        private var androidPushCredentialId: JsonField<String> = JsonMissing.of()
         private var callCostEnabled: JsonField<Boolean> = JsonMissing.of()
         private var callCostInWebhooks: JsonField<Boolean> = JsonMissing.of()
         private var createdAt: JsonField<String> = JsonMissing.of()
@@ -886,6 +960,8 @@ private constructor(
         private var ignoreDtmfDuration: JsonField<Boolean> = JsonMissing.of()
         private var ignoreMarkBit: JsonField<Boolean> = JsonMissing.of()
         private var inbound: JsonField<InboundFqdn> = JsonMissing.of()
+        private var iosPushCredentialId: JsonField<String> = JsonMissing.of()
+        private var jitterBuffer: JsonField<JitterBuffer> = JsonMissing.of()
         private var microsoftTeamsSbc: JsonField<Boolean> = JsonMissing.of()
         private var noiseSuppression: JsonField<NoiseSuppression> = JsonMissing.of()
         private var noiseSuppressionDetails: JsonField<ConnectionNoiseSuppressionDetails> =
@@ -918,6 +994,7 @@ private constructor(
             active = fqdnConnection.active
             adjustDtmfTimestamp = fqdnConnection.adjustDtmfTimestamp
             anchorsiteOverride = fqdnConnection.anchorsiteOverride
+            androidPushCredentialId = fqdnConnection.androidPushCredentialId
             callCostEnabled = fqdnConnection.callCostEnabled
             callCostInWebhooks = fqdnConnection.callCostInWebhooks
             createdAt = fqdnConnection.createdAt
@@ -928,6 +1005,8 @@ private constructor(
             ignoreDtmfDuration = fqdnConnection.ignoreDtmfDuration
             ignoreMarkBit = fqdnConnection.ignoreMarkBit
             inbound = fqdnConnection.inbound
+            iosPushCredentialId = fqdnConnection.iosPushCredentialId
+            jitterBuffer = fqdnConnection.jitterBuffer
             microsoftTeamsSbc = fqdnConnection.microsoftTeamsSbc
             noiseSuppression = fqdnConnection.noiseSuppression
             noiseSuppressionDetails = fqdnConnection.noiseSuppressionDetails
@@ -1021,6 +1100,28 @@ private constructor(
          */
         fun anchorsiteOverride(anchorsiteOverride: JsonField<AnchorsiteOverride>) = apply {
             this.anchorsiteOverride = anchorsiteOverride
+        }
+
+        /** The uuid of the push credential for Android */
+        fun androidPushCredentialId(androidPushCredentialId: String?) =
+            androidPushCredentialId(JsonField.ofNullable(androidPushCredentialId))
+
+        /**
+         * Alias for calling [Builder.androidPushCredentialId] with
+         * `androidPushCredentialId.orElse(null)`.
+         */
+        fun androidPushCredentialId(androidPushCredentialId: Optional<String>) =
+            androidPushCredentialId(androidPushCredentialId.getOrNull())
+
+        /**
+         * Sets [Builder.androidPushCredentialId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.androidPushCredentialId] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun androidPushCredentialId(androidPushCredentialId: JsonField<String>) = apply {
+            this.androidPushCredentialId = androidPushCredentialId
         }
 
         /** Indicates whether call cost calculation is enabled. */
@@ -1174,6 +1275,47 @@ private constructor(
          * value.
          */
         fun inbound(inbound: JsonField<InboundFqdn>) = apply { this.inbound = inbound }
+
+        /** The uuid of the push credential for Ios */
+        fun iosPushCredentialId(iosPushCredentialId: String?) =
+            iosPushCredentialId(JsonField.ofNullable(iosPushCredentialId))
+
+        /**
+         * Alias for calling [Builder.iosPushCredentialId] with `iosPushCredentialId.orElse(null)`.
+         */
+        fun iosPushCredentialId(iosPushCredentialId: Optional<String>) =
+            iosPushCredentialId(iosPushCredentialId.getOrNull())
+
+        /**
+         * Sets [Builder.iosPushCredentialId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.iosPushCredentialId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun iosPushCredentialId(iosPushCredentialId: JsonField<String>) = apply {
+            this.iosPushCredentialId = iosPushCredentialId
+        }
+
+        /**
+         * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams of SIP
+         * Trunking calls. The feature is off unless enabled. You may define min and max values in
+         * msec for customized buffering behaviors. Larger values add latency but tolerate more
+         * jitter, while smaller values reduce latency but are more sensitive to jitter and
+         * reordering.
+         */
+        fun jitterBuffer(jitterBuffer: JitterBuffer) = jitterBuffer(JsonField.of(jitterBuffer))
+
+        /**
+         * Sets [Builder.jitterBuffer] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.jitterBuffer] with a well-typed [JitterBuffer] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun jitterBuffer(jitterBuffer: JsonField<JitterBuffer>) = apply {
+            this.jitterBuffer = jitterBuffer
+        }
 
         /** The connection is enabled for Microsoft Teams Direct Routing. */
         fun microsoftTeamsSbc(microsoftTeamsSbc: Boolean) =
@@ -1564,6 +1706,7 @@ private constructor(
                 active,
                 adjustDtmfTimestamp,
                 anchorsiteOverride,
+                androidPushCredentialId,
                 callCostEnabled,
                 callCostInWebhooks,
                 createdAt,
@@ -1574,6 +1717,8 @@ private constructor(
                 ignoreDtmfDuration,
                 ignoreMarkBit,
                 inbound,
+                iosPushCredentialId,
+                jitterBuffer,
                 microsoftTeamsSbc,
                 noiseSuppression,
                 noiseSuppressionDetails,
@@ -1612,6 +1757,7 @@ private constructor(
         active()
         adjustDtmfTimestamp()
         anchorsiteOverride().ifPresent { it.validate() }
+        androidPushCredentialId()
         callCostEnabled()
         callCostInWebhooks()
         createdAt()
@@ -1622,6 +1768,8 @@ private constructor(
         ignoreDtmfDuration()
         ignoreMarkBit()
         inbound().ifPresent { it.validate() }
+        iosPushCredentialId()
+        jitterBuffer().ifPresent { it.validate() }
         microsoftTeamsSbc()
         noiseSuppression().ifPresent { it.validate() }
         noiseSuppressionDetails().ifPresent { it.validate() }
@@ -1667,6 +1815,7 @@ private constructor(
             (if (active.asKnown().isPresent) 1 else 0) +
             (if (adjustDtmfTimestamp.asKnown().isPresent) 1 else 0) +
             (anchorsiteOverride.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (androidPushCredentialId.asKnown().isPresent) 1 else 0) +
             (if (callCostEnabled.asKnown().isPresent) 1 else 0) +
             (if (callCostInWebhooks.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
@@ -1677,6 +1826,8 @@ private constructor(
             (if (ignoreDtmfDuration.asKnown().isPresent) 1 else 0) +
             (if (ignoreMarkBit.asKnown().isPresent) 1 else 0) +
             (inbound.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (iosPushCredentialId.asKnown().isPresent) 1 else 0) +
+            (jitterBuffer.asKnown().getOrNull()?.validity() ?: 0) +
             (if (microsoftTeamsSbc.asKnown().isPresent) 1 else 0) +
             (noiseSuppression.asKnown().getOrNull()?.validity() ?: 0) +
             (noiseSuppressionDetails.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1699,6 +1850,275 @@ private constructor(
             (if (webhookEventFailoverUrl.asKnown().isPresent) 1 else 0) +
             (if (webhookEventUrl.asKnown().isPresent) 1 else 0) +
             (if (webhookTimeoutSecs.asKnown().isPresent) 1 else 0)
+
+    /**
+     * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams of SIP
+     * Trunking calls. The feature is off unless enabled. You may define min and max values in msec
+     * for customized buffering behaviors. Larger values add latency but tolerate more jitter, while
+     * smaller values reduce latency but are more sensitive to jitter and reordering.
+     */
+    class JitterBuffer
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val enableJitterBuffer: JsonField<Boolean>,
+        private val jitterbufferMsecMax: JsonField<Long>,
+        private val jitterbufferMsecMin: JsonField<Long>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("enable_jitter_buffer")
+            @ExcludeMissing
+            enableJitterBuffer: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("jitterbuffer_msec_max")
+            @ExcludeMissing
+            jitterbufferMsecMax: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("jitterbuffer_msec_min")
+            @ExcludeMissing
+            jitterbufferMsecMin: JsonField<Long> = JsonMissing.of(),
+        ) : this(enableJitterBuffer, jitterbufferMsecMax, jitterbufferMsecMin, mutableMapOf())
+
+        /**
+         * Enables Jitter Buffer for RTP streams of SIP Trunking calls. The feature is off unless
+         * enabled.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun enableJitterBuffer(): Optional<Boolean> =
+            enableJitterBuffer.getOptional("enable_jitter_buffer")
+
+        /**
+         * The maximum jitter buffer size in milliseconds. Must be between 40 and 400. Has no effect
+         * if enable_jitter_buffer is not true.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun jitterbufferMsecMax(): Optional<Long> =
+            jitterbufferMsecMax.getOptional("jitterbuffer_msec_max")
+
+        /**
+         * The minimum jitter buffer size in milliseconds. Must be between 40 and 400. Has no effect
+         * if enable_jitter_buffer is not true.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun jitterbufferMsecMin(): Optional<Long> =
+            jitterbufferMsecMin.getOptional("jitterbuffer_msec_min")
+
+        /**
+         * Returns the raw JSON value of [enableJitterBuffer].
+         *
+         * Unlike [enableJitterBuffer], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("enable_jitter_buffer")
+        @ExcludeMissing
+        fun _enableJitterBuffer(): JsonField<Boolean> = enableJitterBuffer
+
+        /**
+         * Returns the raw JSON value of [jitterbufferMsecMax].
+         *
+         * Unlike [jitterbufferMsecMax], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("jitterbuffer_msec_max")
+        @ExcludeMissing
+        fun _jitterbufferMsecMax(): JsonField<Long> = jitterbufferMsecMax
+
+        /**
+         * Returns the raw JSON value of [jitterbufferMsecMin].
+         *
+         * Unlike [jitterbufferMsecMin], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("jitterbuffer_msec_min")
+        @ExcludeMissing
+        fun _jitterbufferMsecMin(): JsonField<Long> = jitterbufferMsecMin
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [JitterBuffer]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [JitterBuffer]. */
+        class Builder internal constructor() {
+
+            private var enableJitterBuffer: JsonField<Boolean> = JsonMissing.of()
+            private var jitterbufferMsecMax: JsonField<Long> = JsonMissing.of()
+            private var jitterbufferMsecMin: JsonField<Long> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(jitterBuffer: JitterBuffer) = apply {
+                enableJitterBuffer = jitterBuffer.enableJitterBuffer
+                jitterbufferMsecMax = jitterBuffer.jitterbufferMsecMax
+                jitterbufferMsecMin = jitterBuffer.jitterbufferMsecMin
+                additionalProperties = jitterBuffer.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * Enables Jitter Buffer for RTP streams of SIP Trunking calls. The feature is off
+             * unless enabled.
+             */
+            fun enableJitterBuffer(enableJitterBuffer: Boolean) =
+                enableJitterBuffer(JsonField.of(enableJitterBuffer))
+
+            /**
+             * Sets [Builder.enableJitterBuffer] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.enableJitterBuffer] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun enableJitterBuffer(enableJitterBuffer: JsonField<Boolean>) = apply {
+                this.enableJitterBuffer = enableJitterBuffer
+            }
+
+            /**
+             * The maximum jitter buffer size in milliseconds. Must be between 40 and 400. Has no
+             * effect if enable_jitter_buffer is not true.
+             */
+            fun jitterbufferMsecMax(jitterbufferMsecMax: Long) =
+                jitterbufferMsecMax(JsonField.of(jitterbufferMsecMax))
+
+            /**
+             * Sets [Builder.jitterbufferMsecMax] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.jitterbufferMsecMax] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun jitterbufferMsecMax(jitterbufferMsecMax: JsonField<Long>) = apply {
+                this.jitterbufferMsecMax = jitterbufferMsecMax
+            }
+
+            /**
+             * The minimum jitter buffer size in milliseconds. Must be between 40 and 400. Has no
+             * effect if enable_jitter_buffer is not true.
+             */
+            fun jitterbufferMsecMin(jitterbufferMsecMin: Long) =
+                jitterbufferMsecMin(JsonField.of(jitterbufferMsecMin))
+
+            /**
+             * Sets [Builder.jitterbufferMsecMin] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.jitterbufferMsecMin] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun jitterbufferMsecMin(jitterbufferMsecMin: JsonField<Long>) = apply {
+                this.jitterbufferMsecMin = jitterbufferMsecMin
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [JitterBuffer].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): JitterBuffer =
+                JitterBuffer(
+                    enableJitterBuffer,
+                    jitterbufferMsecMax,
+                    jitterbufferMsecMin,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): JitterBuffer = apply {
+            if (validated) {
+                return@apply
+            }
+
+            enableJitterBuffer()
+            jitterbufferMsecMax()
+            jitterbufferMsecMin()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (enableJitterBuffer.asKnown().isPresent) 1 else 0) +
+                (if (jitterbufferMsecMax.asKnown().isPresent) 1 else 0) +
+                (if (jitterbufferMsecMin.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is JitterBuffer &&
+                enableJitterBuffer == other.enableJitterBuffer &&
+                jitterbufferMsecMax == other.jitterbufferMsecMax &&
+                jitterbufferMsecMin == other.jitterbufferMsecMin &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                enableJitterBuffer,
+                jitterbufferMsecMax,
+                jitterbufferMsecMin,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "JitterBuffer{enableJitterBuffer=$enableJitterBuffer, jitterbufferMsecMax=$jitterbufferMsecMax, jitterbufferMsecMin=$jitterbufferMsecMin, additionalProperties=$additionalProperties}"
+    }
 
     /**
      * Controls when noise suppression is applied to calls. When set to 'inbound', noise suppression
@@ -1858,6 +2278,7 @@ private constructor(
             active == other.active &&
             adjustDtmfTimestamp == other.adjustDtmfTimestamp &&
             anchorsiteOverride == other.anchorsiteOverride &&
+            androidPushCredentialId == other.androidPushCredentialId &&
             callCostEnabled == other.callCostEnabled &&
             callCostInWebhooks == other.callCostInWebhooks &&
             createdAt == other.createdAt &&
@@ -1868,6 +2289,8 @@ private constructor(
             ignoreDtmfDuration == other.ignoreDtmfDuration &&
             ignoreMarkBit == other.ignoreMarkBit &&
             inbound == other.inbound &&
+            iosPushCredentialId == other.iosPushCredentialId &&
+            jitterBuffer == other.jitterBuffer &&
             microsoftTeamsSbc == other.microsoftTeamsSbc &&
             noiseSuppression == other.noiseSuppression &&
             noiseSuppressionDetails == other.noiseSuppressionDetails &&
@@ -1900,6 +2323,7 @@ private constructor(
             active,
             adjustDtmfTimestamp,
             anchorsiteOverride,
+            androidPushCredentialId,
             callCostEnabled,
             callCostInWebhooks,
             createdAt,
@@ -1910,6 +2334,8 @@ private constructor(
             ignoreDtmfDuration,
             ignoreMarkBit,
             inbound,
+            iosPushCredentialId,
+            jitterBuffer,
             microsoftTeamsSbc,
             noiseSuppression,
             noiseSuppressionDetails,
@@ -1939,5 +2365,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "FqdnConnection{connectionName=$connectionName, id=$id, active=$active, adjustDtmfTimestamp=$adjustDtmfTimestamp, anchorsiteOverride=$anchorsiteOverride, callCostEnabled=$callCostEnabled, callCostInWebhooks=$callCostInWebhooks, createdAt=$createdAt, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, ignoreDtmfDuration=$ignoreDtmfDuration, ignoreMarkBit=$ignoreMarkBit, inbound=$inbound, microsoftTeamsSbc=$microsoftTeamsSbc, noiseSuppression=$noiseSuppression, noiseSuppressionDetails=$noiseSuppressionDetails, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, recordType=$recordType, rtcpSettings=$rtcpSettings, rtpPassCodecsOnStreamChange=$rtpPassCodecsOnStreamChange, sendNormalizedTimestamps=$sendNormalizedTimestamps, tags=$tags, thirdPartyControlEnabled=$thirdPartyControlEnabled, transportProtocol=$transportProtocol, txtName=$txtName, txtTtl=$txtTtl, txtValue=$txtValue, updatedAt=$updatedAt, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
+        "FqdnConnection{connectionName=$connectionName, id=$id, active=$active, adjustDtmfTimestamp=$adjustDtmfTimestamp, anchorsiteOverride=$anchorsiteOverride, androidPushCredentialId=$androidPushCredentialId, callCostEnabled=$callCostEnabled, callCostInWebhooks=$callCostInWebhooks, createdAt=$createdAt, defaultOnHoldComfortNoiseEnabled=$defaultOnHoldComfortNoiseEnabled, dtmfType=$dtmfType, encodeContactHeaderEnabled=$encodeContactHeaderEnabled, encryptedMedia=$encryptedMedia, ignoreDtmfDuration=$ignoreDtmfDuration, ignoreMarkBit=$ignoreMarkBit, inbound=$inbound, iosPushCredentialId=$iosPushCredentialId, jitterBuffer=$jitterBuffer, microsoftTeamsSbc=$microsoftTeamsSbc, noiseSuppression=$noiseSuppression, noiseSuppressionDetails=$noiseSuppressionDetails, onnetT38PassthroughEnabled=$onnetT38PassthroughEnabled, outbound=$outbound, password=$password, recordType=$recordType, rtcpSettings=$rtcpSettings, rtpPassCodecsOnStreamChange=$rtpPassCodecsOnStreamChange, sendNormalizedTimestamps=$sendNormalizedTimestamps, tags=$tags, thirdPartyControlEnabled=$thirdPartyControlEnabled, transportProtocol=$transportProtocol, txtName=$txtName, txtTtl=$txtTtl, txtValue=$txtValue, updatedAt=$updatedAt, userName=$userName, webhookApiVersion=$webhookApiVersion, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
 }

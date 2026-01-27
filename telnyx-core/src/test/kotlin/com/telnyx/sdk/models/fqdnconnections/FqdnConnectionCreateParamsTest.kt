@@ -50,6 +50,13 @@ internal class FqdnConnectionCreateParamsTest {
                     .build()
             )
             .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+            .jitterBuffer(
+                FqdnConnectionCreateParams.JitterBuffer.builder()
+                    .enableJitterBuffer(true)
+                    .jitterbufferMsecMax(200L)
+                    .jitterbufferMsecMin(60L)
+                    .build()
+            )
             .microsoftTeamsSbc(true)
             .noiseSuppression(FqdnConnectionCreateParams.NoiseSuppression.BOTH)
             .noiseSuppressionDetails(
@@ -135,6 +142,13 @@ internal class FqdnConnectionCreateParamsTest {
                         .build()
                 )
                 .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                .jitterBuffer(
+                    FqdnConnectionCreateParams.JitterBuffer.builder()
+                        .enableJitterBuffer(true)
+                        .jitterbufferMsecMax(200L)
+                        .jitterbufferMsecMin(60L)
+                        .build()
+                )
                 .microsoftTeamsSbc(true)
                 .noiseSuppression(FqdnConnectionCreateParams.NoiseSuppression.BOTH)
                 .noiseSuppressionDetails(
@@ -218,6 +232,14 @@ internal class FqdnConnectionCreateParamsTest {
                     .build()
             )
         assertThat(body.iosPushCredentialId()).contains("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+        assertThat(body.jitterBuffer())
+            .contains(
+                FqdnConnectionCreateParams.JitterBuffer.builder()
+                    .enableJitterBuffer(true)
+                    .jitterbufferMsecMax(200L)
+                    .jitterbufferMsecMin(60L)
+                    .build()
+            )
         assertThat(body.microsoftTeamsSbc()).contains(true)
         assertThat(body.noiseSuppression())
             .contains(FqdnConnectionCreateParams.NoiseSuppression.BOTH)

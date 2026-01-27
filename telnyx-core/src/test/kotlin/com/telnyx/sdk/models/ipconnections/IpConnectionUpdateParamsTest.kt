@@ -51,6 +51,13 @@ internal class IpConnectionUpdateParamsTest {
                     .build()
             )
             .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+            .jitterBuffer(
+                IpConnectionUpdateParams.JitterBuffer.builder()
+                    .enableJitterBuffer(true)
+                    .jitterbufferMsecMax(200L)
+                    .jitterbufferMsecMin(60L)
+                    .build()
+            )
             .noiseSuppression(IpConnectionUpdateParams.NoiseSuppression.BOTH)
             .noiseSuppressionDetails(
                 ConnectionNoiseSuppressionDetails.builder()
@@ -140,6 +147,13 @@ internal class IpConnectionUpdateParamsTest {
                         .build()
                 )
                 .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+                .jitterBuffer(
+                    IpConnectionUpdateParams.JitterBuffer.builder()
+                        .enableJitterBuffer(true)
+                        .jitterbufferMsecMax(200L)
+                        .jitterbufferMsecMin(60L)
+                        .build()
+                )
                 .noiseSuppression(IpConnectionUpdateParams.NoiseSuppression.BOTH)
                 .noiseSuppressionDetails(
                     ConnectionNoiseSuppressionDetails.builder()
@@ -217,6 +231,14 @@ internal class IpConnectionUpdateParamsTest {
                     .build()
             )
         assertThat(body.iosPushCredentialId()).contains("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
+        assertThat(body.jitterBuffer())
+            .contains(
+                IpConnectionUpdateParams.JitterBuffer.builder()
+                    .enableJitterBuffer(true)
+                    .jitterbufferMsecMax(200L)
+                    .jitterbufferMsecMin(60L)
+                    .build()
+            )
         assertThat(body.noiseSuppression()).contains(IpConnectionUpdateParams.NoiseSuppression.BOTH)
         assertThat(body.noiseSuppressionDetails())
             .contains(
