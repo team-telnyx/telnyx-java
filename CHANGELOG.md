@@ -1,5 +1,32 @@
 # Changelog
 
+## 6.5.0 (2026-01-28)
+
+Full Changelog: [v6.4.0...v6.5.0](https://github.com/team-telnyx/telnyx-java/compare/v6.4.0...v6.5.0)
+
+### Features
+
+* **api:** manual updates ([6d4cc96](https://github.com/team-telnyx/telnyx-java/commit/6d4cc9657f98c6cf0dfa274da1d8841ef0361f68))
+* Deploy dev/mc vady wip ([e4514e9](https://github.com/team-telnyx/telnyx-java/commit/e4514e92495ef4c0169aa77a050dad1b6e25174d))
+* Deploy dev/mc vady wip ([97b3e15](https://github.com/team-telnyx/telnyx-java/commit/97b3e1505b5869bd98eef87fb3a0d727f849dc23))
+* jira-engdesk-49089 add new connection jitter buffer related fields ([11cd771](https://github.com/team-telnyx/telnyx-java/commit/11cd77132bbd19e8d28fbafaf5921765dfc0442f))
+
+
+### Bug Fixes
+
+* **client:** preserve time zone in lenient date-time parsing ([045de77](https://github.com/team-telnyx/telnyx-java/commit/045de772eb374514d11acac048d310f9c5985a7d))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([eb90fdf](https://github.com/team-telnyx/telnyx-java/commit/eb90fdf6fcc20a39fe5bfac9f44a96c3595e101b))
+* **internal:** correct cache invalidation for `SKIP_MOCK_TESTS` ([5af2184](https://github.com/team-telnyx/telnyx-java/commit/5af2184666e8e0d5bde1d897123d1a040633fc15))
+
+
+### Documentation
+
+* add comment for arbitrary value fields ([f67cf8e](https://github.com/team-telnyx/telnyx-java/commit/f67cf8ef8ed6b672fac9e7e5eb8f26d78b93e926))
+
 ## 6.4.0 (2026-01-22)
 
 Full Changelog: [v6.3.0...v6.4.0](https://github.com/team-telnyx/telnyx-java/compare/v6.3.0...v6.4.0)
