@@ -28,7 +28,8 @@ internal class SimCardOrderListParamsTest {
                     .updatedAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                     .build()
             )
-            .page(SimCardOrderListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -52,7 +53,8 @@ internal class SimCardOrderListParamsTest {
                         .updatedAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                         .build()
                 )
-                .page(SimCardOrderListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -72,8 +74,8 @@ internal class SimCardOrderListParamsTest {
                     .put("filter[created_at]", "2018-02-02T22:25:27.521Z")
                     .put("filter[quantity]", "21")
                     .put("filter[updated_at]", "2018-02-02T22:25:27.521Z")
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .build()
             )
     }

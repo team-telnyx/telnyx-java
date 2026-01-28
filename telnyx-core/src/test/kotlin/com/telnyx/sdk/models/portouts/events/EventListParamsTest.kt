@@ -24,7 +24,8 @@ internal class EventListParamsTest {
                     .portoutId("34dc46a9-53ed-4e01-9454-26227ea13326")
                     .build()
             )
-            .page(EventListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -44,7 +45,8 @@ internal class EventListParamsTest {
                         .portoutId("34dc46a9-53ed-4e01-9454-26227ea13326")
                         .build()
                 )
-                .page(EventListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -56,8 +58,8 @@ internal class EventListParamsTest {
                     .put("filter[created_at][lte]", "2021-01-01T00:00:00Z")
                     .put("filter[event_type]", "portout.status_changed")
                     .put("filter[portout_id]", "34dc46a9-53ed-4e01-9454-26227ea13326")
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .build()
             )
     }

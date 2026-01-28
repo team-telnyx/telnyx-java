@@ -20,7 +20,8 @@ internal class OutboundVoiceProfileListParamsTest {
                     )
                     .build()
             )
-            .page(OutboundVoiceProfileListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .sort(OutboundVoiceProfileListParams.Sort.NAME)
             .build()
     }
@@ -38,7 +39,8 @@ internal class OutboundVoiceProfileListParamsTest {
                         )
                         .build()
                 )
-                .page(OutboundVoiceProfileListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .sort(OutboundVoiceProfileListParams.Sort.NAME)
                 .build()
 
@@ -48,8 +50,8 @@ internal class OutboundVoiceProfileListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("filter[name][contains]", "office-profile")
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .put("sort", "name")
                     .build()
             )

@@ -805,18 +805,25 @@ private constructor(
         }
 
         /** Alias for calling [addTool] with `AssistantTool.ofWebhook(webhook)`. */
-        fun addTool(webhook: AssistantTool.Webhook) = addTool(AssistantTool.ofWebhook(webhook))
+        fun addTool(webhook: InferenceEmbeddingWebhookToolParams) =
+            addTool(AssistantTool.ofWebhook(webhook))
 
         /**
          * Alias for calling [addTool] with the following:
          * ```java
-         * AssistantTool.Webhook.builder()
+         * InferenceEmbeddingWebhookToolParams.builder()
+         *     .type(InferenceEmbeddingWebhookToolParams.Type.WEBHOOK)
          *     .webhook(webhook)
          *     .build()
          * ```
          */
-        fun addWebhookTool(webhook: AssistantTool.Webhook.InnerWebhook) =
-            addTool(AssistantTool.Webhook.builder().webhook(webhook).build())
+        fun addWebhookTool(webhook: InferenceEmbeddingWebhookToolParams.Webhook) =
+            addTool(
+                InferenceEmbeddingWebhookToolParams.builder()
+                    .type(InferenceEmbeddingWebhookToolParams.Type.WEBHOOK)
+                    .webhook(webhook)
+                    .build()
+            )
 
         /** Alias for calling [addTool] with `AssistantTool.ofRetrieval(retrieval)`. */
         fun addTool(retrieval: RetrievalTool) = addTool(AssistantTool.ofRetrieval(retrieval))
