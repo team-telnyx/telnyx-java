@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.5.1 (2026-01-28)
+
+Full Changelog: [v6.5.0...v6.5.1](https://github.com/team-telnyx/telnyx-java/compare/v6.5.0...v6.5.1)
+
+### Bug Fixes
+
+* add missing fields ([c613593](https://github.com/team-telnyx/telnyx-java/commit/c6135936ab7deac302739bab072c163ea4ead1ab))
+
 ## 6.5.0 (2026-01-28)
 
 Full Changelog: [v6.4.0...v6.5.0](https://github.com/team-telnyx/telnyx-java/compare/v6.4.0...v6.5.0)
