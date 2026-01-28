@@ -6,7 +6,6 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueDeleteParams
-import com.telnyx.sdk.models.texml.accounts.queues.QueueListParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -91,19 +90,9 @@ internal class QueueServiceTest {
                 .build()
         val queueService = client.texml().accounts().queues()
 
-        val queues =
-            queueService.list(
-                QueueListParams.builder()
-                    .accountSid("account_sid")
-                    .dateCreated("DateCreated")
-                    .dateUpdated("DateUpdated")
-                    .page(0L)
-                    .pageSize(0L)
-                    .pageToken("PageToken")
-                    .build()
-            )
+        val page = queueService.list("account_sid")
 
-        queues.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
