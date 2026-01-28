@@ -18,7 +18,8 @@ internal class OtaUpdateListParamsTest {
                     .type(OtaUpdateListParams.Filter.Type.SIM_CARD_NETWORK_PREFERENCES)
                     .build()
             )
-            .page(OtaUpdateListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -33,7 +34,8 @@ internal class OtaUpdateListParamsTest {
                         .type(OtaUpdateListParams.Filter.Type.SIM_CARD_NETWORK_PREFERENCES)
                         .build()
                 )
-                .page(OtaUpdateListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -44,8 +46,8 @@ internal class OtaUpdateListParamsTest {
                     .put("filter[sim_card_id]", "sim_card_id")
                     .put("filter[status]", "in-progress")
                     .put("filter[type]", "sim_card_network_preferences")
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .build()
             )
     }

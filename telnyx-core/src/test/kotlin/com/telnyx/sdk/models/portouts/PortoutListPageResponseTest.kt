@@ -48,10 +48,10 @@ internal class PortoutListPageResponseTest {
                 )
                 .meta(
                     Metadata.builder()
-                        .pageNumber(3.0)
-                        .totalPages(13.0)
-                        .pageSize(1.0)
-                        .totalResults(13.0)
+                        .pageNumber(3)
+                        .totalPages(13)
+                        .pageSize(1)
+                        .totalResults(13)
                         .build()
                 )
                 .build()
@@ -90,12 +90,7 @@ internal class PortoutListPageResponseTest {
             )
         assertThat(portoutListPageResponse.meta())
             .contains(
-                Metadata.builder()
-                    .pageNumber(3.0)
-                    .totalPages(13.0)
-                    .pageSize(1.0)
-                    .totalResults(13.0)
-                    .build()
+                Metadata.builder().pageNumber(3).totalPages(13).pageSize(1).totalResults(13).build()
             )
     }
 
@@ -137,10 +132,10 @@ internal class PortoutListPageResponseTest {
                 )
                 .meta(
                     Metadata.builder()
-                        .pageNumber(3.0)
-                        .totalPages(13.0)
-                        .pageSize(1.0)
-                        .totalResults(13.0)
+                        .pageNumber(3)
+                        .totalPages(13)
+                        .pageSize(1)
+                        .totalResults(13)
                         .build()
                 )
                 .build()
