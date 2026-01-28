@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.6.0 (2026-01-28)
+
+Full Changelog: [v6.5.2...v6.6.0](https://github.com/team-telnyx/telnyx-java/compare/v6.5.2...v6.6.0)
+
+### Features
+
+* Fix broken documentation links ([74e6426](https://github.com/team-telnyx/telnyx-java/commit/74e6426425be035beeb4a7567ec3ae7e7260c608))
+
 ## 6.5.2 (2026-01-28)
 
 Full Changelog: [v6.5.1...v6.5.2](https://github.com/team-telnyx/telnyx-java/compare/v6.5.1...v6.5.2)
