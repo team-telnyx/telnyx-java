@@ -57,7 +57,7 @@ private constructor(
     /**
      * If you are using an external inference provider like xAI or OpenAI, this field allows you to
      * pass along a reference to your API key. After creating an
-     * [integration secret](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+     * [integration secret](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
      * for you API key, pass the secret's `identifier` in this field.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -480,7 +480,7 @@ private constructor(
         /**
          * If you are using an external inference provider like xAI or OpenAI, this field allows you
          * to pass along a reference to your API key. After creating an
-         * [integration secret](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+         * [integration secret](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
          * for you API key, pass the secret's `identifier` in this field.
          */
         fun apiKeyRef(apiKeyRef: String) = apply { body.apiKeyRef(apiKeyRef) }
@@ -1100,7 +1100,7 @@ private constructor(
         /**
          * If you are using an external inference provider like xAI or OpenAI, this field allows you
          * to pass along a reference to your API key. After creating an
-         * [integration secret](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+         * [integration secret](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
          * for you API key, pass the secret's `identifier` in this field.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -1594,7 +1594,7 @@ private constructor(
             /**
              * If you are using an external inference provider like xAI or OpenAI, this field allows
              * you to pass along a reference to your API key. After creating an
-             * [integration secret](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+             * [integration secret](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
              * for you API key, pass the secret's `identifier` in this field.
              */
             fun apiKeyRef(apiKeyRef: String) = apiKeyRef(JsonField.of(apiKeyRef))

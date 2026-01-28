@@ -95,7 +95,7 @@ private constructor(
 
     /**
      * The `identifier` for an integration secret
-     * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+     * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
      * that refers to your ElevenLabs API key. Warning: Free plans are unlikely to work with this
      * integration.
      *
@@ -313,7 +313,7 @@ private constructor(
 
         /**
          * The `identifier` for an integration secret
-         * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+         * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
          * that refers to your ElevenLabs API key. Warning: Free plans are unlikely to work with
          * this integration.
          */

@@ -36,7 +36,7 @@ private constructor(
 
     /**
      * The embedded storage bucket to compute the clusters from. The bucket must already be
-     * [embedded](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding).
+     * [embedded](https://developers.telnyx.com/api-reference/embeddings/embed-documents).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -166,7 +166,7 @@ private constructor(
 
         /**
          * The embedded storage bucket to compute the clusters from. The bucket must already be
-         * [embedded](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding).
+         * [embedded](https://developers.telnyx.com/api-reference/embeddings/embed-documents).
          */
         fun bucket(bucket: String) = apply { body.bucket(bucket) }
 
@@ -415,7 +415,7 @@ private constructor(
 
         /**
          * The embedded storage bucket to compute the clusters from. The bucket must already be
-         * [embedded](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding).
+         * [embedded](https://developers.telnyx.com/api-reference/embeddings/embed-documents).
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -545,7 +545,7 @@ private constructor(
 
             /**
              * The embedded storage bucket to compute the clusters from. The bucket must already be
-             * [embedded](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding).
+             * [embedded](https://developers.telnyx.com/api-reference/embeddings/embed-documents).
              */
             fun bucket(bucket: String) = bucket(JsonField.of(bucket))
 
