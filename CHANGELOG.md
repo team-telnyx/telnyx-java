@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.5.2 (2026-01-28)
+
+Full Changelog: [v6.5.1...v6.5.2](https://github.com/team-telnyx/telnyx-java/compare/v6.5.1...v6.5.2)
+
+### Bug Fixes
+
+* **docs:** fix mcp installation instructions for remote servers ([ee14102](https://github.com/team-telnyx/telnyx-java/commit/ee141027fdf1d6c138a23af014210f240aa4aa45))
+
 ## 6.5.1 (2026-01-28)
 
 Full Changelog: [v6.5.0...v6.5.1](https://github.com/team-telnyx/telnyx-java/compare/v6.5.0...v6.5.1)
