@@ -1,5 +1,14 @@
 # Changelog
 
+## 6.7.0 (2026-01-29)
+
+Full Changelog: [v6.6.0...v6.7.0](https://github.com/team-telnyx/telnyx-java/compare/v6.6.0...v6.7.0)
+
+### Features
+
+* Add deepgram/nova-3 transcription engine option to record_start ([e7764e1](https://github.com/team-telnyx/telnyx-java/commit/e7764e1d2b6ec83cffb9e7b53803b8d72952e3ba))
+* **api:** revert bad update to spec ([799ed46](https://github.com/team-telnyx/telnyx-java/commit/799ed469bf9bec4ff3c283283b280e3c1a33799f))
+
 ## 6.6.0 (2026-01-28)
 
 Full Changelog: [v6.5.2...v6.6.0](https://github.com/team-telnyx/telnyx-java/compare/v6.5.2...v6.6.0)
