@@ -193,7 +193,7 @@ internal class ServiceParamsTest {
                 .streamUrl("wss://www.example.com/websocket")
                 .superviseCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                 .supervisorRole(CallDialParams.SupervisorRole.BARGE)
-                .timeLimitSecs(60)
+                .timeLimitSecs(600)
                 .timeoutSecs(60)
                 .transcription(true)
                 .transcriptionConfig(

@@ -39,7 +39,8 @@ internal class PortoutListParamsTest {
                     .supportKey("PO_abc123")
                     .build()
             )
-            .page(PortoutListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -74,7 +75,8 @@ internal class PortoutListParamsTest {
                         .supportKey("PO_abc123")
                         .build()
                 )
-                .page(PortoutListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -96,8 +98,8 @@ internal class PortoutListParamsTest {
                     .put("filter[status]", "pending")
                     .put("filter[status_in]", listOf("pending").joinToString(","))
                     .put("filter[support_key]", "PO_abc123")
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .build()
             )
     }

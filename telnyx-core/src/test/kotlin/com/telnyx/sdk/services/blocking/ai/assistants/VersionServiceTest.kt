@@ -5,9 +5,8 @@ package com.telnyx.sdk.services.blocking.ai.assistants
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.models.ai.assistants.AssistantTool
-import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
+import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
 import com.telnyx.sdk.models.ai.assistants.MessagingSettings
 import com.telnyx.sdk.models.ai.assistants.PrivacySettings
@@ -142,15 +141,17 @@ internal class VersionServiceTest {
                                     .build()
                             )
                             .addWebhookTool(
-                                AssistantTool.Webhook.InnerWebhook.builder()
+                                InferenceEmbeddingWebhookToolParams.Webhook.builder()
                                     .description("description")
                                     .name("name")
                                     .url("https://example.com/api/v1/function")
                                     .async(true)
                                     .bodyParameters(
-                                        AssistantTool.Webhook.InnerWebhook.BodyParameters.builder()
+                                        InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
+                                            .builder()
                                             .properties(
-                                                AssistantTool.Webhook.InnerWebhook.BodyParameters
+                                                InferenceEmbeddingWebhookToolParams.Webhook
+                                                    .BodyParameters
                                                     .Properties
                                                     .builder()
                                                     .putAdditionalProperty(
@@ -166,23 +167,26 @@ internal class VersionServiceTest {
                                             .addRequired("age")
                                             .addRequired("location")
                                             .type(
-                                                AssistantTool.Webhook.InnerWebhook.BodyParameters
+                                                InferenceEmbeddingWebhookToolParams.Webhook
+                                                    .BodyParameters
                                                     .Type
                                                     .OBJECT
                                             )
                                             .build()
                                     )
                                     .addHeader(
-                                        AssistantTool.Webhook.InnerWebhook.Header.builder()
+                                        InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
                                             .name("name")
                                             .value("value")
                                             .build()
                                     )
-                                    .method(AssistantTool.Webhook.InnerWebhook.Method.GET)
+                                    .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
                                     .pathParameters(
-                                        AssistantTool.Webhook.InnerWebhook.PathParameters.builder()
+                                        InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
+                                            .builder()
                                             .properties(
-                                                AssistantTool.Webhook.InnerWebhook.PathParameters
+                                                InferenceEmbeddingWebhookToolParams.Webhook
+                                                    .PathParameters
                                                     .Properties
                                                     .builder()
                                                     .putAdditionalProperty(
@@ -193,16 +197,19 @@ internal class VersionServiceTest {
                                             )
                                             .addRequired("id")
                                             .type(
-                                                AssistantTool.Webhook.InnerWebhook.PathParameters
+                                                InferenceEmbeddingWebhookToolParams.Webhook
+                                                    .PathParameters
                                                     .Type
                                                     .OBJECT
                                             )
                                             .build()
                                     )
                                     .queryParameters(
-                                        AssistantTool.Webhook.InnerWebhook.QueryParameters.builder()
+                                        InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
+                                            .builder()
                                             .properties(
-                                                AssistantTool.Webhook.InnerWebhook.QueryParameters
+                                                InferenceEmbeddingWebhookToolParams.Webhook
+                                                    .QueryParameters
                                                     .Properties
                                                     .builder()
                                                     .putAdditionalProperty(
@@ -213,7 +220,8 @@ internal class VersionServiceTest {
                                             )
                                             .addRequired("page")
                                             .type(
-                                                AssistantTool.Webhook.InnerWebhook.QueryParameters
+                                                InferenceEmbeddingWebhookToolParams.Webhook
+                                                    .QueryParameters
                                                     .Type
                                                     .OBJECT
                                             )
@@ -259,8 +267,10 @@ internal class VersionServiceTest {
                                 WidgetSettings.builder()
                                     .agentThinkingText("agent_thinking_text")
                                     .audioVisualizerConfig(
-                                        AudioVisualizerConfig.builder()
-                                            .color(AudioVisualizerConfig.Color.VERDANT)
+                                        WidgetSettings.AudioVisualizerConfig.builder()
+                                            .color(
+                                                WidgetSettings.AudioVisualizerConfig.Color.VERDANT
+                                            )
                                             .preset("preset")
                                             .build()
                                     )

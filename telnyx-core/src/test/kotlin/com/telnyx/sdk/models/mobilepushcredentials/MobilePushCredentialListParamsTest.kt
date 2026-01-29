@@ -17,7 +17,8 @@ internal class MobilePushCredentialListParamsTest {
                     .type(MobilePushCredentialListParams.Filter.Type.IOS)
                     .build()
             )
-            .page(MobilePushCredentialListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -31,7 +32,8 @@ internal class MobilePushCredentialListParamsTest {
                         .type(MobilePushCredentialListParams.Filter.Type.IOS)
                         .build()
                 )
-                .page(MobilePushCredentialListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -41,8 +43,8 @@ internal class MobilePushCredentialListParamsTest {
                 QueryParams.builder()
                     .put("filter[alias]", "LucyCredential")
                     .put("filter[type]", "ios")
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .build()
             )
     }

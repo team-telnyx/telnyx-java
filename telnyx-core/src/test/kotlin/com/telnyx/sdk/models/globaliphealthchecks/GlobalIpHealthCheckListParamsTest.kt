@@ -10,23 +10,18 @@ internal class GlobalIpHealthCheckListParamsTest {
 
     @Test
     fun create() {
-        GlobalIpHealthCheckListParams.builder()
-            .page(GlobalIpHealthCheckListParams.Page.builder().number(1L).size(1L).build())
-            .build()
+        GlobalIpHealthCheckListParams.builder().pageNumber(0L).pageSize(0L).build()
     }
 
     @Test
     fun queryParams() {
-        val params =
-            GlobalIpHealthCheckListParams.builder()
-                .page(GlobalIpHealthCheckListParams.Page.builder().number(1L).size(1L).build())
-                .build()
+        val params = GlobalIpHealthCheckListParams.builder().pageNumber(0L).pageSize(0L).build()
 
         val queryParams = params._queryParams()
 
         assertThat(queryParams)
             .isEqualTo(
-                QueryParams.builder().put("page[number]", "1").put("page[size]", "1").build()
+                QueryParams.builder().put("page[number]", "0").put("page[size]", "0").build()
             )
     }
 

@@ -38,7 +38,8 @@ internal class UploadListParamsTest {
                     )
                     .build()
             )
-            .page(UploadListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -82,7 +83,8 @@ internal class UploadListParamsTest {
                         )
                         .build()
                 )
-                .page(UploadListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -98,8 +100,8 @@ internal class UploadListParamsTest {
                         "filter[status][eq]",
                         listOf("pending_upload", "pending").joinToString(","),
                     )
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .build()
             )
     }

@@ -110,7 +110,7 @@ internal class CallDialParamsTest {
             .streamUrl("wss://www.example.com/websocket")
             .superviseCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
             .supervisorRole(CallDialParams.SupervisorRole.BARGE)
-            .timeLimitSecs(60)
+            .timeLimitSecs(600)
             .timeoutSecs(60)
             .transcription(true)
             .transcriptionConfig(
@@ -248,7 +248,7 @@ internal class CallDialParamsTest {
                 .streamUrl("wss://www.example.com/websocket")
                 .superviseCallControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                 .supervisorRole(CallDialParams.SupervisorRole.BARGE)
-                .timeLimitSecs(60)
+                .timeLimitSecs(600)
                 .timeoutSecs(60)
                 .transcription(true)
                 .transcriptionConfig(
@@ -397,7 +397,7 @@ internal class CallDialParamsTest {
         assertThat(body.superviseCallControlId())
             .contains("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
         assertThat(body.supervisorRole()).contains(CallDialParams.SupervisorRole.BARGE)
-        assertThat(body.timeLimitSecs()).contains(60)
+        assertThat(body.timeLimitSecs()).contains(600)
         assertThat(body.timeoutSecs()).contains(60)
         assertThat(body.transcription()).contains(true)
         assertThat(body.transcriptionConfig())

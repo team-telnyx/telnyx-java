@@ -20,8 +20,9 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueDeleteParams
+import com.telnyx.sdk.models.texml.accounts.queues.QueueListPage
+import com.telnyx.sdk.models.texml.accounts.queues.QueueListPageResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueListParams
-import com.telnyx.sdk.models.texml.accounts.queues.QueueListResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueUpdateParams
@@ -62,7 +63,7 @@ class QueueServiceImpl internal constructor(private val clientOptions: ClientOpt
         // post /texml/Accounts/{account_sid}/Queues/{queue_sid}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: QueueListParams, requestOptions: RequestOptions): QueueListResponse =
+    override fun list(params: QueueListParams, requestOptions: RequestOptions): QueueListPage =
         // get /texml/Accounts/{account_sid}/Queues
         withRawResponse().list(params, requestOptions).parse()
 
@@ -188,13 +189,13 @@ class QueueServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val listHandler: Handler<QueueListResponse> =
-            jsonHandler<QueueListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<QueueListPageResponse> =
+            jsonHandler<QueueListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: QueueListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<QueueListResponse> {
+        ): HttpResponseFor<QueueListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("accountSid", params.accountSid().getOrNull())
@@ -214,6 +215,13 @@ class QueueServiceImpl internal constructor(private val clientOptions: ClientOpt
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        QueueListPage.builder()
+                            .service(QueueServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }
