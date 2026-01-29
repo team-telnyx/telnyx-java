@@ -27,10 +27,10 @@ internal class CommentListResponseTest {
                 )
                 .meta(
                     Metadata.builder()
-                        .pageNumber(3)
-                        .totalPages(13)
-                        .pageSize(1)
-                        .totalResults(13)
+                        .pageNumber(3.0)
+                        .totalPages(13.0)
+                        .pageSize(1.0)
+                        .totalResults(13.0)
                         .build()
                 )
                 .build()
@@ -48,7 +48,12 @@ internal class CommentListResponseTest {
             )
         assertThat(commentListResponse.meta())
             .contains(
-                Metadata.builder().pageNumber(3).totalPages(13).pageSize(1).totalResults(13).build()
+                Metadata.builder()
+                    .pageNumber(3.0)
+                    .totalPages(13.0)
+                    .pageSize(1.0)
+                    .totalResults(13.0)
+                    .build()
             )
     }
 
@@ -69,10 +74,10 @@ internal class CommentListResponseTest {
                 )
                 .meta(
                     Metadata.builder()
-                        .pageNumber(3)
-                        .totalPages(13)
-                        .pageSize(1)
-                        .totalResults(13)
+                        .pageNumber(3.0)
+                        .totalPages(13.0)
+                        .pageSize(1.0)
+                        .totalResults(13.0)
                         .build()
                 )
                 .build()
