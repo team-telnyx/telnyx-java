@@ -10,8 +10,8 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueDeleteParams
+import com.telnyx.sdk.models.texml.accounts.queues.QueueListPage
 import com.telnyx.sdk.models.texml.accounts.queues.QueueListParams
-import com.telnyx.sdk.models.texml.accounts.queues.QueueListResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueUpdateParams
@@ -108,32 +108,30 @@ interface QueueService {
     ): QueueUpdateResponse
 
     /** Lists queue resources. */
-    fun list(accountSid: String): QueueListResponse = list(accountSid, QueueListParams.none())
+    fun list(accountSid: String): QueueListPage = list(accountSid, QueueListParams.none())
 
     /** @see list */
     fun list(
         accountSid: String,
         params: QueueListParams = QueueListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): QueueListResponse = list(params.toBuilder().accountSid(accountSid).build(), requestOptions)
+    ): QueueListPage = list(params.toBuilder().accountSid(accountSid).build(), requestOptions)
 
     /** @see list */
-    fun list(
-        accountSid: String,
-        params: QueueListParams = QueueListParams.none(),
-    ): QueueListResponse = list(accountSid, params, RequestOptions.none())
+    fun list(accountSid: String, params: QueueListParams = QueueListParams.none()): QueueListPage =
+        list(accountSid, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: QueueListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): QueueListResponse
+    ): QueueListPage
 
     /** @see list */
-    fun list(params: QueueListParams): QueueListResponse = list(params, RequestOptions.none())
+    fun list(params: QueueListParams): QueueListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(accountSid: String, requestOptions: RequestOptions): QueueListResponse =
+    fun list(accountSid: String, requestOptions: RequestOptions): QueueListPage =
         list(accountSid, QueueListParams.none(), requestOptions)
 
     /** Delete a queue resource. */
@@ -275,7 +273,7 @@ interface QueueService {
          * otherwise the same as [QueueService.list].
          */
         @MustBeClosed
-        fun list(accountSid: String): HttpResponseFor<QueueListResponse> =
+        fun list(accountSid: String): HttpResponseFor<QueueListPage> =
             list(accountSid, QueueListParams.none())
 
         /** @see list */
@@ -284,7 +282,7 @@ interface QueueService {
             accountSid: String,
             params: QueueListParams = QueueListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<QueueListResponse> =
+        ): HttpResponseFor<QueueListPage> =
             list(params.toBuilder().accountSid(accountSid).build(), requestOptions)
 
         /** @see list */
@@ -292,18 +290,18 @@ interface QueueService {
         fun list(
             accountSid: String,
             params: QueueListParams = QueueListParams.none(),
-        ): HttpResponseFor<QueueListResponse> = list(accountSid, params, RequestOptions.none())
+        ): HttpResponseFor<QueueListPage> = list(accountSid, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: QueueListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<QueueListResponse>
+        ): HttpResponseFor<QueueListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: QueueListParams): HttpResponseFor<QueueListResponse> =
+        fun list(params: QueueListParams): HttpResponseFor<QueueListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
@@ -311,8 +309,7 @@ interface QueueService {
         fun list(
             accountSid: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<QueueListResponse> =
-            list(accountSid, QueueListParams.none(), requestOptions)
+        ): HttpResponseFor<QueueListPage> = list(accountSid, QueueListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `delete

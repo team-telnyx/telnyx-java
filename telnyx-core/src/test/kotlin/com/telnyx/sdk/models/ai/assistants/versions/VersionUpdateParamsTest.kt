@@ -3,9 +3,8 @@
 package com.telnyx.sdk.models.ai.assistants.versions
 
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.models.ai.assistants.AssistantTool
-import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
+import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
 import com.telnyx.sdk.models.ai.assistants.MessagingSettings
 import com.telnyx.sdk.models.ai.assistants.PrivacySettings
@@ -97,15 +96,16 @@ internal class VersionUpdateParamsTest {
                             .build()
                     )
                     .addWebhookTool(
-                        AssistantTool.Webhook.InnerWebhook.builder()
+                        InferenceEmbeddingWebhookToolParams.Webhook.builder()
                             .description("description")
                             .name("name")
                             .url("https://example.com/api/v1/function")
                             .async(true)
                             .bodyParameters(
-                                AssistantTool.Webhook.InnerWebhook.BodyParameters.builder()
+                                InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters.builder()
                                     .properties(
-                                        AssistantTool.Webhook.InnerWebhook.BodyParameters.Properties
+                                        InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
+                                            .Properties
                                             .builder()
                                             .putAdditionalProperty("age", JsonValue.from("bar"))
                                             .putAdditionalProperty(
@@ -117,37 +117,41 @@ internal class VersionUpdateParamsTest {
                                     .addRequired("age")
                                     .addRequired("location")
                                     .type(
-                                        AssistantTool.Webhook.InnerWebhook.BodyParameters.Type
+                                        InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
+                                            .Type
                                             .OBJECT
                                     )
                                     .build()
                             )
                             .addHeader(
-                                AssistantTool.Webhook.InnerWebhook.Header.builder()
+                                InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
                                     .name("name")
                                     .value("value")
                                     .build()
                             )
-                            .method(AssistantTool.Webhook.InnerWebhook.Method.GET)
+                            .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
                             .pathParameters(
-                                AssistantTool.Webhook.InnerWebhook.PathParameters.builder()
+                                InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.builder()
                                     .properties(
-                                        AssistantTool.Webhook.InnerWebhook.PathParameters.Properties
+                                        InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
+                                            .Properties
                                             .builder()
                                             .putAdditionalProperty("id", JsonValue.from("bar"))
                                             .build()
                                     )
                                     .addRequired("id")
                                     .type(
-                                        AssistantTool.Webhook.InnerWebhook.PathParameters.Type
+                                        InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
+                                            .Type
                                             .OBJECT
                                     )
                                     .build()
                             )
                             .queryParameters(
-                                AssistantTool.Webhook.InnerWebhook.QueryParameters.builder()
+                                InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
+                                    .builder()
                                     .properties(
-                                        AssistantTool.Webhook.InnerWebhook.QueryParameters
+                                        InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
                                             .Properties
                                             .builder()
                                             .putAdditionalProperty("page", JsonValue.from("bar"))
@@ -155,7 +159,8 @@ internal class VersionUpdateParamsTest {
                                     )
                                     .addRequired("page")
                                     .type(
-                                        AssistantTool.Webhook.InnerWebhook.QueryParameters.Type
+                                        InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
+                                            .Type
                                             .OBJECT
                                     )
                                     .build()
@@ -199,8 +204,8 @@ internal class VersionUpdateParamsTest {
                         WidgetSettings.builder()
                             .agentThinkingText("agent_thinking_text")
                             .audioVisualizerConfig(
-                                AudioVisualizerConfig.builder()
-                                    .color(AudioVisualizerConfig.Color.VERDANT)
+                                WidgetSettings.AudioVisualizerConfig.builder()
+                                    .color(WidgetSettings.AudioVisualizerConfig.Color.VERDANT)
                                     .preset("preset")
                                     .build()
                             )
@@ -316,15 +321,17 @@ internal class VersionUpdateParamsTest {
                                 .build()
                         )
                         .addWebhookTool(
-                            AssistantTool.Webhook.InnerWebhook.builder()
+                            InferenceEmbeddingWebhookToolParams.Webhook.builder()
                                 .description("description")
                                 .name("name")
                                 .url("https://example.com/api/v1/function")
                                 .async(true)
                                 .bodyParameters(
-                                    AssistantTool.Webhook.InnerWebhook.BodyParameters.builder()
+                                    InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
+                                        .builder()
                                         .properties(
-                                            AssistantTool.Webhook.InnerWebhook.BodyParameters
+                                            InferenceEmbeddingWebhookToolParams.Webhook
+                                                .BodyParameters
                                                 .Properties
                                                 .builder()
                                                 .putAdditionalProperty("age", JsonValue.from("bar"))
@@ -337,22 +344,26 @@ internal class VersionUpdateParamsTest {
                                         .addRequired("age")
                                         .addRequired("location")
                                         .type(
-                                            AssistantTool.Webhook.InnerWebhook.BodyParameters.Type
+                                            InferenceEmbeddingWebhookToolParams.Webhook
+                                                .BodyParameters
+                                                .Type
                                                 .OBJECT
                                         )
                                         .build()
                                 )
                                 .addHeader(
-                                    AssistantTool.Webhook.InnerWebhook.Header.builder()
+                                    InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
                                         .name("name")
                                         .value("value")
                                         .build()
                                 )
-                                .method(AssistantTool.Webhook.InnerWebhook.Method.GET)
+                                .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
                                 .pathParameters(
-                                    AssistantTool.Webhook.InnerWebhook.PathParameters.builder()
+                                    InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
+                                        .builder()
                                         .properties(
-                                            AssistantTool.Webhook.InnerWebhook.PathParameters
+                                            InferenceEmbeddingWebhookToolParams.Webhook
+                                                .PathParameters
                                                 .Properties
                                                 .builder()
                                                 .putAdditionalProperty("id", JsonValue.from("bar"))
@@ -360,15 +371,19 @@ internal class VersionUpdateParamsTest {
                                         )
                                         .addRequired("id")
                                         .type(
-                                            AssistantTool.Webhook.InnerWebhook.PathParameters.Type
+                                            InferenceEmbeddingWebhookToolParams.Webhook
+                                                .PathParameters
+                                                .Type
                                                 .OBJECT
                                         )
                                         .build()
                                 )
                                 .queryParameters(
-                                    AssistantTool.Webhook.InnerWebhook.QueryParameters.builder()
+                                    InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
+                                        .builder()
                                         .properties(
-                                            AssistantTool.Webhook.InnerWebhook.QueryParameters
+                                            InferenceEmbeddingWebhookToolParams.Webhook
+                                                .QueryParameters
                                                 .Properties
                                                 .builder()
                                                 .putAdditionalProperty(
@@ -379,7 +394,9 @@ internal class VersionUpdateParamsTest {
                                         )
                                         .addRequired("page")
                                         .type(
-                                            AssistantTool.Webhook.InnerWebhook.QueryParameters.Type
+                                            InferenceEmbeddingWebhookToolParams.Webhook
+                                                .QueryParameters
+                                                .Type
                                                 .OBJECT
                                         )
                                         .build()
@@ -424,8 +441,8 @@ internal class VersionUpdateParamsTest {
                             WidgetSettings.builder()
                                 .agentThinkingText("agent_thinking_text")
                                 .audioVisualizerConfig(
-                                    AudioVisualizerConfig.builder()
-                                        .color(AudioVisualizerConfig.Color.VERDANT)
+                                    WidgetSettings.AudioVisualizerConfig.builder()
+                                        .color(WidgetSettings.AudioVisualizerConfig.Color.VERDANT)
                                         .preset("preset")
                                         .build()
                                 )
@@ -520,15 +537,16 @@ internal class VersionUpdateParamsTest {
                             .build()
                     )
                     .addWebhookTool(
-                        AssistantTool.Webhook.InnerWebhook.builder()
+                        InferenceEmbeddingWebhookToolParams.Webhook.builder()
                             .description("description")
                             .name("name")
                             .url("https://example.com/api/v1/function")
                             .async(true)
                             .bodyParameters(
-                                AssistantTool.Webhook.InnerWebhook.BodyParameters.builder()
+                                InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters.builder()
                                     .properties(
-                                        AssistantTool.Webhook.InnerWebhook.BodyParameters.Properties
+                                        InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
+                                            .Properties
                                             .builder()
                                             .putAdditionalProperty("age", JsonValue.from("bar"))
                                             .putAdditionalProperty(
@@ -540,37 +558,41 @@ internal class VersionUpdateParamsTest {
                                     .addRequired("age")
                                     .addRequired("location")
                                     .type(
-                                        AssistantTool.Webhook.InnerWebhook.BodyParameters.Type
+                                        InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
+                                            .Type
                                             .OBJECT
                                     )
                                     .build()
                             )
                             .addHeader(
-                                AssistantTool.Webhook.InnerWebhook.Header.builder()
+                                InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
                                     .name("name")
                                     .value("value")
                                     .build()
                             )
-                            .method(AssistantTool.Webhook.InnerWebhook.Method.GET)
+                            .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
                             .pathParameters(
-                                AssistantTool.Webhook.InnerWebhook.PathParameters.builder()
+                                InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.builder()
                                     .properties(
-                                        AssistantTool.Webhook.InnerWebhook.PathParameters.Properties
+                                        InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
+                                            .Properties
                                             .builder()
                                             .putAdditionalProperty("id", JsonValue.from("bar"))
                                             .build()
                                     )
                                     .addRequired("id")
                                     .type(
-                                        AssistantTool.Webhook.InnerWebhook.PathParameters.Type
+                                        InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
+                                            .Type
                                             .OBJECT
                                     )
                                     .build()
                             )
                             .queryParameters(
-                                AssistantTool.Webhook.InnerWebhook.QueryParameters.builder()
+                                InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
+                                    .builder()
                                     .properties(
-                                        AssistantTool.Webhook.InnerWebhook.QueryParameters
+                                        InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
                                             .Properties
                                             .builder()
                                             .putAdditionalProperty("page", JsonValue.from("bar"))
@@ -578,7 +600,8 @@ internal class VersionUpdateParamsTest {
                                     )
                                     .addRequired("page")
                                     .type(
-                                        AssistantTool.Webhook.InnerWebhook.QueryParameters.Type
+                                        InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
+                                            .Type
                                             .OBJECT
                                     )
                                     .build()
@@ -622,8 +645,8 @@ internal class VersionUpdateParamsTest {
                         WidgetSettings.builder()
                             .agentThinkingText("agent_thinking_text")
                             .audioVisualizerConfig(
-                                AudioVisualizerConfig.builder()
-                                    .color(AudioVisualizerConfig.Color.VERDANT)
+                                WidgetSettings.AudioVisualizerConfig.builder()
+                                    .color(WidgetSettings.AudioVisualizerConfig.Color.VERDANT)
                                     .preset("preset")
                                     .build()
                             )

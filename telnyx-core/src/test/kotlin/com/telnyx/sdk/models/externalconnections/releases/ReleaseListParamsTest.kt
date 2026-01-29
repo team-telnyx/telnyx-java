@@ -38,7 +38,8 @@ internal class ReleaseListParamsTest {
                     )
                     .build()
             )
-            .page(ReleaseListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -82,7 +83,8 @@ internal class ReleaseListParamsTest {
                         )
                         .build()
                 )
-                .page(ReleaseListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -95,8 +97,8 @@ internal class ReleaseListParamsTest {
                     .put("filter[phone_number][contains]", "+123")
                     .put("filter[phone_number][eq]", "+1234567890")
                     .put("filter[status][eq]", listOf("pending", "in_progress").joinToString(","))
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .build()
             )
     }
