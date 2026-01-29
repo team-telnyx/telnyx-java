@@ -131,15 +131,16 @@ private constructor(
     fun transcription(): Optional<Boolean> = body.transcription()
 
     /**
-     * Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`, `deepgram/nova-3` -
-     * `Deepgram Nova-3`. Note: `deepgram/nova-3` supports only `en` and `en-{Region}` languages.
+     * Engine to use for speech recognition. `A` - `Google`
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun transcriptionEngine(): Optional<TranscriptionEngine> = body.transcriptionEngine()
+    fun transcriptionEngine(): Optional<String> = body.transcriptionEngine()
 
     /**
+     * Language to use for speech recognition
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -263,7 +264,7 @@ private constructor(
      * Unlike [transcriptionEngine], this method doesn't throw if the JSON field has an unexpected
      * type.
      */
-    fun _transcriptionEngine(): JsonField<TranscriptionEngine> = body._transcriptionEngine()
+    fun _transcriptionEngine(): JsonField<String> = body._transcriptionEngine()
 
     /**
      * Returns the raw JSON value of [transcriptionLanguage].
@@ -524,26 +525,23 @@ private constructor(
             body.transcription(transcription)
         }
 
-        /**
-         * Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`, `deepgram/nova-3` -
-         * `Deepgram Nova-3`. Note: `deepgram/nova-3` supports only `en` and `en-{Region}`
-         * languages.
-         */
-        fun transcriptionEngine(transcriptionEngine: TranscriptionEngine) = apply {
+        /** Engine to use for speech recognition. `A` - `Google` */
+        fun transcriptionEngine(transcriptionEngine: String) = apply {
             body.transcriptionEngine(transcriptionEngine)
         }
 
         /**
          * Sets [Builder.transcriptionEngine] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.transcriptionEngine] with a well-typed
-         * [TranscriptionEngine] value instead. This method is primarily for setting the field to an
-         * undocumented or not yet supported value.
+         * You should usually call [Builder.transcriptionEngine] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun transcriptionEngine(transcriptionEngine: JsonField<TranscriptionEngine>) = apply {
+        fun transcriptionEngine(transcriptionEngine: JsonField<String>) = apply {
             body.transcriptionEngine(transcriptionEngine)
         }
 
+        /** Language to use for speech recognition */
         fun transcriptionLanguage(transcriptionLanguage: TranscriptionLanguage) = apply {
             body.transcriptionLanguage(transcriptionLanguage)
         }
@@ -806,7 +804,7 @@ private constructor(
         private val recordingTrack: JsonField<RecordingTrack>,
         private val timeoutSecs: JsonField<Int>,
         private val transcription: JsonField<Boolean>,
-        private val transcriptionEngine: JsonField<TranscriptionEngine>,
+        private val transcriptionEngine: JsonField<String>,
         private val transcriptionLanguage: JsonField<TranscriptionLanguage>,
         private val transcriptionMaxSpeakerCount: JsonField<Int>,
         private val transcriptionMinSpeakerCount: JsonField<Int>,
@@ -848,7 +846,7 @@ private constructor(
             transcription: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("transcription_engine")
             @ExcludeMissing
-            transcriptionEngine: JsonField<TranscriptionEngine> = JsonMissing.of(),
+            transcriptionEngine: JsonField<String> = JsonMissing.of(),
             @JsonProperty("transcription_language")
             @ExcludeMissing
             transcriptionLanguage: JsonField<TranscriptionLanguage> = JsonMissing.of(),
@@ -978,17 +976,17 @@ private constructor(
         fun transcription(): Optional<Boolean> = transcription.getOptional("transcription")
 
         /**
-         * Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`, `deepgram/nova-3` -
-         * `Deepgram Nova-3`. Note: `deepgram/nova-3` supports only `en` and `en-{Region}`
-         * languages.
+         * Engine to use for speech recognition. `A` - `Google`
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun transcriptionEngine(): Optional<TranscriptionEngine> =
+        fun transcriptionEngine(): Optional<String> =
             transcriptionEngine.getOptional("transcription_engine")
 
         /**
+         * Language to use for speech recognition
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -1131,7 +1129,7 @@ private constructor(
          */
         @JsonProperty("transcription_engine")
         @ExcludeMissing
-        fun _transcriptionEngine(): JsonField<TranscriptionEngine> = transcriptionEngine
+        fun _transcriptionEngine(): JsonField<String> = transcriptionEngine
 
         /**
          * Returns the raw JSON value of [transcriptionLanguage].
@@ -1229,7 +1227,7 @@ private constructor(
             private var recordingTrack: JsonField<RecordingTrack> = JsonMissing.of()
             private var timeoutSecs: JsonField<Int> = JsonMissing.of()
             private var transcription: JsonField<Boolean> = JsonMissing.of()
-            private var transcriptionEngine: JsonField<TranscriptionEngine> = JsonMissing.of()
+            private var transcriptionEngine: JsonField<String> = JsonMissing.of()
             private var transcriptionLanguage: JsonField<TranscriptionLanguage> = JsonMissing.of()
             private var transcriptionMaxSpeakerCount: JsonField<Int> = JsonMissing.of()
             private var transcriptionMinSpeakerCount: JsonField<Int> = JsonMissing.of()
@@ -1417,25 +1415,22 @@ private constructor(
                 this.transcription = transcription
             }
 
-            /**
-             * Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`,
-             * `deepgram/nova-3` - `Deepgram Nova-3`. Note: `deepgram/nova-3` supports only `en` and
-             * `en-{Region}` languages.
-             */
-            fun transcriptionEngine(transcriptionEngine: TranscriptionEngine) =
+            /** Engine to use for speech recognition. `A` - `Google` */
+            fun transcriptionEngine(transcriptionEngine: String) =
                 transcriptionEngine(JsonField.of(transcriptionEngine))
 
             /**
              * Sets [Builder.transcriptionEngine] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.transcriptionEngine] with a well-typed
-             * [TranscriptionEngine] value instead. This method is primarily for setting the field
-             * to an undocumented or not yet supported value.
+             * You should usually call [Builder.transcriptionEngine] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
-            fun transcriptionEngine(transcriptionEngine: JsonField<TranscriptionEngine>) = apply {
+            fun transcriptionEngine(transcriptionEngine: JsonField<String>) = apply {
                 this.transcriptionEngine = transcriptionEngine
             }
 
+            /** Language to use for speech recognition */
             fun transcriptionLanguage(transcriptionLanguage: TranscriptionLanguage) =
                 transcriptionLanguage(JsonField.of(transcriptionLanguage))
 
@@ -1605,7 +1600,7 @@ private constructor(
             recordingTrack().ifPresent { it.validate() }
             timeoutSecs()
             transcription()
-            transcriptionEngine().ifPresent { it.validate() }
+            transcriptionEngine()
             transcriptionLanguage().ifPresent { it.validate() }
             transcriptionMaxSpeakerCount()
             transcriptionMinSpeakerCount()
@@ -1641,7 +1636,7 @@ private constructor(
                 (recordingTrack.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (timeoutSecs.asKnown().isPresent) 1 else 0) +
                 (if (transcription.asKnown().isPresent) 1 else 0) +
-                (transcriptionEngine.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (transcriptionEngine.asKnown().isPresent) 1 else 0) +
                 (transcriptionLanguage.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (transcriptionMaxSpeakerCount.asKnown().isPresent) 1 else 0) +
                 (if (transcriptionMinSpeakerCount.asKnown().isPresent) 1 else 0) +
@@ -2099,146 +2094,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`, `deepgram/nova-3` -
-     * `Deepgram Nova-3`. Note: `deepgram/nova-3` supports only `en` and `en-{Region}` languages.
-     */
-    class TranscriptionEngine
-    @JsonCreator
-    private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val A = of("A")
-
-            @JvmField val B = of("B")
-
-            @JvmField val DEEPGRAM_NOVA_3 = of("deepgram/nova-3")
-
-            @JvmStatic fun of(value: String) = TranscriptionEngine(JsonField.of(value))
-        }
-
-        /** An enum containing [TranscriptionEngine]'s known values. */
-        enum class Known {
-            A,
-            B,
-            DEEPGRAM_NOVA_3,
-        }
-
-        /**
-         * An enum containing [TranscriptionEngine]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [TranscriptionEngine] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            A,
-            B,
-            DEEPGRAM_NOVA_3,
-            /**
-             * An enum member indicating that [TranscriptionEngine] was instantiated with an unknown
-             * value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                A -> Value.A
-                B -> Value.B
-                DEEPGRAM_NOVA_3 -> Value.DEEPGRAM_NOVA_3
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                A -> Known.A
-                B -> Known.B
-                DEEPGRAM_NOVA_3 -> Known.DEEPGRAM_NOVA_3
-                else -> throw TelnyxInvalidDataException("Unknown TranscriptionEngine: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws TelnyxInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        fun validate(): TranscriptionEngine = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is TranscriptionEngine && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
+    /** Language to use for speech recognition */
     class TranscriptionLanguage
     @JsonCreator
     private constructor(private val value: JsonField<String>) : Enum {
@@ -2545,206 +2401,6 @@ private constructor(
 
             @JvmField val ZU_ZA = of("zu-ZA")
 
-            @JvmField val EN = of("en")
-
-            @JvmField val DE = of("de")
-
-            @JvmField val ES = of("es")
-
-            @JvmField val RU = of("ru")
-
-            @JvmField val KO = of("ko")
-
-            @JvmField val FR = of("fr")
-
-            @JvmField val JA = of("ja")
-
-            @JvmField val PT = of("pt")
-
-            @JvmField val TR = of("tr")
-
-            @JvmField val PL = of("pl")
-
-            @JvmField val CA = of("ca")
-
-            @JvmField val NL = of("nl")
-
-            @JvmField val AR = of("ar")
-
-            @JvmField val SV = of("sv")
-
-            @JvmField val IT = of("it")
-
-            @JvmField val ID = of("id")
-
-            @JvmField val HI = of("hi")
-
-            @JvmField val FI = of("fi")
-
-            @JvmField val VI = of("vi")
-
-            @JvmField val HE = of("he")
-
-            @JvmField val UK = of("uk")
-
-            @JvmField val EL = of("el")
-
-            @JvmField val MS = of("ms")
-
-            @JvmField val CS = of("cs")
-
-            @JvmField val RO = of("ro")
-
-            @JvmField val DA = of("da")
-
-            @JvmField val HU = of("hu")
-
-            @JvmField val TA = of("ta")
-
-            @JvmField val NO = of("no")
-
-            @JvmField val TH = of("th")
-
-            @JvmField val UR = of("ur")
-
-            @JvmField val HR = of("hr")
-
-            @JvmField val BG = of("bg")
-
-            @JvmField val LT = of("lt")
-
-            @JvmField val LA = of("la")
-
-            @JvmField val MI = of("mi")
-
-            @JvmField val ML = of("ml")
-
-            @JvmField val CY = of("cy")
-
-            @JvmField val SK = of("sk")
-
-            @JvmField val TE = of("te")
-
-            @JvmField val FA = of("fa")
-
-            @JvmField val LV = of("lv")
-
-            @JvmField val BN = of("bn")
-
-            @JvmField val SR = of("sr")
-
-            @JvmField val AZ = of("az")
-
-            @JvmField val SL = of("sl")
-
-            @JvmField val KN = of("kn")
-
-            @JvmField val ET = of("et")
-
-            @JvmField val MK = of("mk")
-
-            @JvmField val BR = of("br")
-
-            @JvmField val EU = of("eu")
-
-            @JvmField val IS = of("is")
-
-            @JvmField val HY = of("hy")
-
-            @JvmField val NE = of("ne")
-
-            @JvmField val MN = of("mn")
-
-            @JvmField val BS = of("bs")
-
-            @JvmField val KK = of("kk")
-
-            @JvmField val SQ = of("sq")
-
-            @JvmField val SW = of("sw")
-
-            @JvmField val GL = of("gl")
-
-            @JvmField val MR = of("mr")
-
-            @JvmField val PA = of("pa")
-
-            @JvmField val SI = of("si")
-
-            @JvmField val KM = of("km")
-
-            @JvmField val SN = of("sn")
-
-            @JvmField val YO = of("yo")
-
-            @JvmField val SO = of("so")
-
-            @JvmField val AF = of("af")
-
-            @JvmField val OC = of("oc")
-
-            @JvmField val KA = of("ka")
-
-            @JvmField val BE = of("be")
-
-            @JvmField val TG = of("tg")
-
-            @JvmField val SD = of("sd")
-
-            @JvmField val GU = of("gu")
-
-            @JvmField val AM = of("am")
-
-            @JvmField val YI = of("yi")
-
-            @JvmField val LO = of("lo")
-
-            @JvmField val UZ = of("uz")
-
-            @JvmField val FO = of("fo")
-
-            @JvmField val HT = of("ht")
-
-            @JvmField val PS = of("ps")
-
-            @JvmField val TK = of("tk")
-
-            @JvmField val NN = of("nn")
-
-            @JvmField val MT = of("mt")
-
-            @JvmField val SA = of("sa")
-
-            @JvmField val LB = of("lb")
-
-            @JvmField val MY = of("my")
-
-            @JvmField val BO = of("bo")
-
-            @JvmField val TL = of("tl")
-
-            @JvmField val MG = of("mg")
-
-            @JvmField val AS = of("as")
-
-            @JvmField val TT = of("tt")
-
-            @JvmField val HAW = of("haw")
-
-            @JvmField val LN = of("ln")
-
-            @JvmField val HA = of("ha")
-
-            @JvmField val BA = of("ba")
-
-            @JvmField val JW = of("jw")
-
-            @JvmField val SU = of("su")
-
-            @JvmField val AUTO_DETECT = of("auto_detect")
-
-            @JvmField val ES_419 = of("es-419")
-
             @JvmStatic fun of(value: String) = TranscriptionLanguage(JsonField.of(value))
         }
 
@@ -2895,106 +2551,6 @@ private constructor(
             ZH,
             ZH_TW,
             ZU_ZA,
-            EN,
-            DE,
-            ES,
-            RU,
-            KO,
-            FR,
-            JA,
-            PT,
-            TR,
-            PL,
-            CA,
-            NL,
-            AR,
-            SV,
-            IT,
-            ID,
-            HI,
-            FI,
-            VI,
-            HE,
-            UK,
-            EL,
-            MS,
-            CS,
-            RO,
-            DA,
-            HU,
-            TA,
-            NO,
-            TH,
-            UR,
-            HR,
-            BG,
-            LT,
-            LA,
-            MI,
-            ML,
-            CY,
-            SK,
-            TE,
-            FA,
-            LV,
-            BN,
-            SR,
-            AZ,
-            SL,
-            KN,
-            ET,
-            MK,
-            BR,
-            EU,
-            IS,
-            HY,
-            NE,
-            MN,
-            BS,
-            KK,
-            SQ,
-            SW,
-            GL,
-            MR,
-            PA,
-            SI,
-            KM,
-            SN,
-            YO,
-            SO,
-            AF,
-            OC,
-            KA,
-            BE,
-            TG,
-            SD,
-            GU,
-            AM,
-            YI,
-            LO,
-            UZ,
-            FO,
-            HT,
-            PS,
-            TK,
-            NN,
-            MT,
-            SA,
-            LB,
-            MY,
-            BO,
-            TL,
-            MG,
-            AS,
-            TT,
-            HAW,
-            LN,
-            HA,
-            BA,
-            JW,
-            SU,
-            AUTO_DETECT,
-            ES_419,
         }
 
         /**
@@ -3153,106 +2709,6 @@ private constructor(
             ZH,
             ZH_TW,
             ZU_ZA,
-            EN,
-            DE,
-            ES,
-            RU,
-            KO,
-            FR,
-            JA,
-            PT,
-            TR,
-            PL,
-            CA,
-            NL,
-            AR,
-            SV,
-            IT,
-            ID,
-            HI,
-            FI,
-            VI,
-            HE,
-            UK,
-            EL,
-            MS,
-            CS,
-            RO,
-            DA,
-            HU,
-            TA,
-            NO,
-            TH,
-            UR,
-            HR,
-            BG,
-            LT,
-            LA,
-            MI,
-            ML,
-            CY,
-            SK,
-            TE,
-            FA,
-            LV,
-            BN,
-            SR,
-            AZ,
-            SL,
-            KN,
-            ET,
-            MK,
-            BR,
-            EU,
-            IS,
-            HY,
-            NE,
-            MN,
-            BS,
-            KK,
-            SQ,
-            SW,
-            GL,
-            MR,
-            PA,
-            SI,
-            KM,
-            SN,
-            YO,
-            SO,
-            AF,
-            OC,
-            KA,
-            BE,
-            TG,
-            SD,
-            GU,
-            AM,
-            YI,
-            LO,
-            UZ,
-            FO,
-            HT,
-            PS,
-            TK,
-            NN,
-            MT,
-            SA,
-            LB,
-            MY,
-            BO,
-            TL,
-            MG,
-            AS,
-            TT,
-            HAW,
-            LN,
-            HA,
-            BA,
-            JW,
-            SU,
-            AUTO_DETECT,
-            ES_419,
             /**
              * An enum member indicating that [TranscriptionLanguage] was instantiated with an
              * unknown value.
@@ -3414,106 +2870,6 @@ private constructor(
                 ZH -> Value.ZH
                 ZH_TW -> Value.ZH_TW
                 ZU_ZA -> Value.ZU_ZA
-                EN -> Value.EN
-                DE -> Value.DE
-                ES -> Value.ES
-                RU -> Value.RU
-                KO -> Value.KO
-                FR -> Value.FR
-                JA -> Value.JA
-                PT -> Value.PT
-                TR -> Value.TR
-                PL -> Value.PL
-                CA -> Value.CA
-                NL -> Value.NL
-                AR -> Value.AR
-                SV -> Value.SV
-                IT -> Value.IT
-                ID -> Value.ID
-                HI -> Value.HI
-                FI -> Value.FI
-                VI -> Value.VI
-                HE -> Value.HE
-                UK -> Value.UK
-                EL -> Value.EL
-                MS -> Value.MS
-                CS -> Value.CS
-                RO -> Value.RO
-                DA -> Value.DA
-                HU -> Value.HU
-                TA -> Value.TA
-                NO -> Value.NO
-                TH -> Value.TH
-                UR -> Value.UR
-                HR -> Value.HR
-                BG -> Value.BG
-                LT -> Value.LT
-                LA -> Value.LA
-                MI -> Value.MI
-                ML -> Value.ML
-                CY -> Value.CY
-                SK -> Value.SK
-                TE -> Value.TE
-                FA -> Value.FA
-                LV -> Value.LV
-                BN -> Value.BN
-                SR -> Value.SR
-                AZ -> Value.AZ
-                SL -> Value.SL
-                KN -> Value.KN
-                ET -> Value.ET
-                MK -> Value.MK
-                BR -> Value.BR
-                EU -> Value.EU
-                IS -> Value.IS
-                HY -> Value.HY
-                NE -> Value.NE
-                MN -> Value.MN
-                BS -> Value.BS
-                KK -> Value.KK
-                SQ -> Value.SQ
-                SW -> Value.SW
-                GL -> Value.GL
-                MR -> Value.MR
-                PA -> Value.PA
-                SI -> Value.SI
-                KM -> Value.KM
-                SN -> Value.SN
-                YO -> Value.YO
-                SO -> Value.SO
-                AF -> Value.AF
-                OC -> Value.OC
-                KA -> Value.KA
-                BE -> Value.BE
-                TG -> Value.TG
-                SD -> Value.SD
-                GU -> Value.GU
-                AM -> Value.AM
-                YI -> Value.YI
-                LO -> Value.LO
-                UZ -> Value.UZ
-                FO -> Value.FO
-                HT -> Value.HT
-                PS -> Value.PS
-                TK -> Value.TK
-                NN -> Value.NN
-                MT -> Value.MT
-                SA -> Value.SA
-                LB -> Value.LB
-                MY -> Value.MY
-                BO -> Value.BO
-                TL -> Value.TL
-                MG -> Value.MG
-                AS -> Value.AS
-                TT -> Value.TT
-                HAW -> Value.HAW
-                LN -> Value.LN
-                HA -> Value.HA
-                BA -> Value.BA
-                JW -> Value.JW
-                SU -> Value.SU
-                AUTO_DETECT -> Value.AUTO_DETECT
-                ES_419 -> Value.ES_419
                 else -> Value._UNKNOWN
             }
 
@@ -3673,106 +3029,6 @@ private constructor(
                 ZH -> Known.ZH
                 ZH_TW -> Known.ZH_TW
                 ZU_ZA -> Known.ZU_ZA
-                EN -> Known.EN
-                DE -> Known.DE
-                ES -> Known.ES
-                RU -> Known.RU
-                KO -> Known.KO
-                FR -> Known.FR
-                JA -> Known.JA
-                PT -> Known.PT
-                TR -> Known.TR
-                PL -> Known.PL
-                CA -> Known.CA
-                NL -> Known.NL
-                AR -> Known.AR
-                SV -> Known.SV
-                IT -> Known.IT
-                ID -> Known.ID
-                HI -> Known.HI
-                FI -> Known.FI
-                VI -> Known.VI
-                HE -> Known.HE
-                UK -> Known.UK
-                EL -> Known.EL
-                MS -> Known.MS
-                CS -> Known.CS
-                RO -> Known.RO
-                DA -> Known.DA
-                HU -> Known.HU
-                TA -> Known.TA
-                NO -> Known.NO
-                TH -> Known.TH
-                UR -> Known.UR
-                HR -> Known.HR
-                BG -> Known.BG
-                LT -> Known.LT
-                LA -> Known.LA
-                MI -> Known.MI
-                ML -> Known.ML
-                CY -> Known.CY
-                SK -> Known.SK
-                TE -> Known.TE
-                FA -> Known.FA
-                LV -> Known.LV
-                BN -> Known.BN
-                SR -> Known.SR
-                AZ -> Known.AZ
-                SL -> Known.SL
-                KN -> Known.KN
-                ET -> Known.ET
-                MK -> Known.MK
-                BR -> Known.BR
-                EU -> Known.EU
-                IS -> Known.IS
-                HY -> Known.HY
-                NE -> Known.NE
-                MN -> Known.MN
-                BS -> Known.BS
-                KK -> Known.KK
-                SQ -> Known.SQ
-                SW -> Known.SW
-                GL -> Known.GL
-                MR -> Known.MR
-                PA -> Known.PA
-                SI -> Known.SI
-                KM -> Known.KM
-                SN -> Known.SN
-                YO -> Known.YO
-                SO -> Known.SO
-                AF -> Known.AF
-                OC -> Known.OC
-                KA -> Known.KA
-                BE -> Known.BE
-                TG -> Known.TG
-                SD -> Known.SD
-                GU -> Known.GU
-                AM -> Known.AM
-                YI -> Known.YI
-                LO -> Known.LO
-                UZ -> Known.UZ
-                FO -> Known.FO
-                HT -> Known.HT
-                PS -> Known.PS
-                TK -> Known.TK
-                NN -> Known.NN
-                MT -> Known.MT
-                SA -> Known.SA
-                LB -> Known.LB
-                MY -> Known.MY
-                BO -> Known.BO
-                TL -> Known.TL
-                MG -> Known.MG
-                AS -> Known.AS
-                TT -> Known.TT
-                HAW -> Known.HAW
-                LN -> Known.LN
-                HA -> Known.HA
-                BA -> Known.BA
-                JW -> Known.JW
-                SU -> Known.SU
-                AUTO_DETECT -> Known.AUTO_DETECT
-                ES_419 -> Known.ES_419
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionLanguage: $value")
             }
 

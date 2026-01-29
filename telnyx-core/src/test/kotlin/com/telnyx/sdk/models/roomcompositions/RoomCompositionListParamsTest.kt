@@ -25,7 +25,8 @@ internal class RoomCompositionListParamsTest {
                     .status(RoomCompositionListParams.Filter.Status.COMPLETED)
                     .build()
             )
-            .page(RoomCompositionListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .build()
     }
 
@@ -46,7 +47,8 @@ internal class RoomCompositionListParamsTest {
                         .status(RoomCompositionListParams.Filter.Status.COMPLETED)
                         .build()
                 )
-                .page(RoomCompositionListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .build()
 
         val queryParams = params._queryParams()
@@ -59,8 +61,8 @@ internal class RoomCompositionListParamsTest {
                     .put("filter[date_created_at][lte]", "2021-04-25")
                     .put("filter[session_id]", "92e7d459-bcc5-4386-9f5f-6dd14a82588d")
                     .put("filter[status]", "completed")
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .build()
             )
     }

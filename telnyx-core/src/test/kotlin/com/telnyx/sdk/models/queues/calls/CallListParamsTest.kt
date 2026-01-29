@@ -10,12 +10,7 @@ internal class CallListParamsTest {
 
     @Test
     fun create() {
-        CallListParams.builder()
-            .queueName("queue_name")
-            .page(CallListParams.Page.builder().after("after").before("before").limit(1L).build())
-            .pageNumber(0L)
-            .pageSize(0L)
-            .build()
+        CallListParams.builder().queueName("queue_name").pageNumber(0L).pageSize(0L).build()
     }
 
     @Test
@@ -30,26 +25,13 @@ internal class CallListParamsTest {
     @Test
     fun queryParams() {
         val params =
-            CallListParams.builder()
-                .queueName("queue_name")
-                .page(
-                    CallListParams.Page.builder().after("after").before("before").limit(1L).build()
-                )
-                .pageNumber(0L)
-                .pageSize(0L)
-                .build()
+            CallListParams.builder().queueName("queue_name").pageNumber(0L).pageSize(0L).build()
 
         val queryParams = params._queryParams()
 
         assertThat(queryParams)
             .isEqualTo(
-                QueryParams.builder()
-                    .put("page[after]", "after")
-                    .put("page[before]", "before")
-                    .put("page[limit]", "1")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
-                    .build()
+                QueryParams.builder().put("page[number]", "0").put("page[size]", "0").build()
             )
     }
 

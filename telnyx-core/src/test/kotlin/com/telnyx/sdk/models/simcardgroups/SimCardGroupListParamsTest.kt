@@ -11,7 +11,7 @@ internal class SimCardGroupListParamsTest {
     @Test
     fun create() {
         SimCardGroupListParams.builder()
-            .filterName("My Test Group")
+            .filterName("1119e3cb-f39d-4254-ad38-9080d5fe90a9")
             .filterPrivateWirelessGatewayId("7606c6d3-ff7c-49c1-943d-68879e9d584d")
             .filterWirelessBlocklistId("0f3f490e-c4d3-4cf5-838a-9970f10ee259")
             .pageNumber(1L)
@@ -23,7 +23,7 @@ internal class SimCardGroupListParamsTest {
     fun queryParams() {
         val params =
             SimCardGroupListParams.builder()
-                .filterName("My Test Group")
+                .filterName("1119e3cb-f39d-4254-ad38-9080d5fe90a9")
                 .filterPrivateWirelessGatewayId("7606c6d3-ff7c-49c1-943d-68879e9d584d")
                 .filterWirelessBlocklistId("0f3f490e-c4d3-4cf5-838a-9970f10ee259")
                 .pageNumber(1L)
@@ -35,7 +35,7 @@ internal class SimCardGroupListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("filter[name]", "My Test Group")
+                    .put("filter[name]", "1119e3cb-f39d-4254-ad38-9080d5fe90a9")
                     .put(
                         "filter[private_wireless_gateway_id]",
                         "7606c6d3-ff7c-49c1-943d-68879e9d584d",

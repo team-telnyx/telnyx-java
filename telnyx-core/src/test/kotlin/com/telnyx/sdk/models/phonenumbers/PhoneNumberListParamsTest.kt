@@ -42,7 +42,8 @@ internal class PhoneNumberListParamsTest {
                     .build()
             )
             .handleMessagingProfileError(PhoneNumberListParams.HandleMessagingProfileError.FALSE)
-            .page(PhoneNumberListParams.Page.builder().number(1L).size(1L).build())
+            .pageNumber(0L)
+            .pageSize(0L)
             .sort(PhoneNumberListParams.Sort.CONNECTION_NAME)
             .build()
     }
@@ -84,7 +85,8 @@ internal class PhoneNumberListParamsTest {
                 .handleMessagingProfileError(
                     PhoneNumberListParams.HandleMessagingProfileError.FALSE
                 )
-                .page(PhoneNumberListParams.Page.builder().number(1L).size(1L).build())
+                .pageNumber(0L)
+                .pageSize(0L)
                 .sort(PhoneNumberListParams.Sort.CONNECTION_NAME)
                 .build()
 
@@ -110,8 +112,8 @@ internal class PhoneNumberListParamsTest {
                     .put("filter[voice.usage_payment_method]", "channel")
                     .put("filter[without_tags]", "true")
                     .put("handle_messaging_profile_error", "false")
-                    .put("page[number]", "1")
-                    .put("page[size]", "1")
+                    .put("page[number]", "0")
+                    .put("page[size]", "0")
                     .put("sort", "connection_name")
                     .build()
             )

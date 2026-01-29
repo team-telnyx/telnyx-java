@@ -52,8 +52,8 @@ private constructor(
     }
 
     fun nextPageParams(): WireguardPeerListParams {
-        val pageNumber = params.page().flatMap { it.number() }.getOrDefault(1)
-        return params.toBuilder().number(pageNumber + 1).build()
+        val pageNumber = params.pageNumber().getOrDefault(1)
+        return params.toBuilder().pageNumber(pageNumber + 1).build()
     }
 
     override fun nextPage(): CompletableFuture<WireguardPeerListPageAsync> =
