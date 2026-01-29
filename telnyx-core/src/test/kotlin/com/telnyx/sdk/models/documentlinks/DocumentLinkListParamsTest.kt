@@ -17,8 +17,7 @@ internal class DocumentLinkListParamsTest {
                     .linkedResourceId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .build()
             )
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(DocumentLinkListParams.Page.builder().number(1L).size(1L).build())
             .build()
     }
 
@@ -32,8 +31,7 @@ internal class DocumentLinkListParamsTest {
                         .linkedResourceId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(DocumentLinkListParams.Page.builder().number(1L).size(1L).build())
                 .build()
 
         val queryParams = params._queryParams()
@@ -43,8 +41,8 @@ internal class DocumentLinkListParamsTest {
                 QueryParams.builder()
                     .put("filter[linked_record_type]", "porting_order")
                     .put("filter[linked_resource_id]", "6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .build()
             )
     }

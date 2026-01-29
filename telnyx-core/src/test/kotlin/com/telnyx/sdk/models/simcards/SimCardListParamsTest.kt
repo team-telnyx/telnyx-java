@@ -14,14 +14,14 @@ internal class SimCardListParamsTest {
             .filter(
                 SimCardListParams.Filter.builder()
                     .iccid("89310410106543789301")
+                    .msisdn("+13109976224")
                     .addStatus(SimCardListParams.Filter.Status.ENABLED)
                     .tags(listOf("personal", "customers", "active-customers"))
                     .build()
             )
             .filterSimCardGroupId("47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9")
             .includeSimCardGroup(true)
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(SimCardListParams.Page.builder().number(1L).size(1L).build())
             .sort(SimCardListParams.Sort.CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT)
             .build()
     }
@@ -33,14 +33,14 @@ internal class SimCardListParamsTest {
                 .filter(
                     SimCardListParams.Filter.builder()
                         .iccid("89310410106543789301")
+                        .msisdn("+13109976224")
                         .addStatus(SimCardListParams.Filter.Status.ENABLED)
                         .tags(listOf("personal", "customers", "active-customers"))
                         .build()
                 )
                 .filterSimCardGroupId("47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9")
                 .includeSimCardGroup(true)
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(SimCardListParams.Page.builder().number(1L).size(1L).build())
                 .sort(SimCardListParams.Sort.CURRENT_BILLING_PERIOD_CONSUMED_DATA_AMOUNT)
                 .build()
 
@@ -50,6 +50,7 @@ internal class SimCardListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("filter[iccid]", "89310410106543789301")
+                    .put("filter[msisdn]", "+13109976224")
                     .put("filter[status]", listOf("enabled").joinToString(","))
                     .put(
                         "filter[tags]",
@@ -57,8 +58,8 @@ internal class SimCardListParamsTest {
                     )
                     .put("filter[sim_card_group_id]", "47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9")
                     .put("include_sim_card_group", "true")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .put("sort", "current_billing_period_consumed_data.amount")
                     .build()
             )

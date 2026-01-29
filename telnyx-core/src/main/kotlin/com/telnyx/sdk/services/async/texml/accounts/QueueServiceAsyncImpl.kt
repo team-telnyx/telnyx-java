@@ -20,9 +20,8 @@ import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueCreateResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueDeleteParams
-import com.telnyx.sdk.models.texml.accounts.queues.QueueListPageAsync
-import com.telnyx.sdk.models.texml.accounts.queues.QueueListPageResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueListParams
+import com.telnyx.sdk.models.texml.accounts.queues.QueueListResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueRetrieveResponse
 import com.telnyx.sdk.models.texml.accounts.queues.QueueUpdateParams
@@ -67,7 +66,7 @@ class QueueServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: QueueListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<QueueListPageAsync> =
+    ): CompletableFuture<QueueListResponse> =
         // get /texml/Accounts/{account_sid}/Queues
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -204,13 +203,13 @@ class QueueServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val listHandler: Handler<QueueListPageResponse> =
-            jsonHandler<QueueListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<QueueListResponse> =
+            jsonHandler<QueueListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: QueueListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<QueueListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<QueueListResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("accountSid", params.accountSid().getOrNull())
@@ -232,14 +231,6 @@ class QueueServiceAsyncImpl internal constructor(private val clientOptions: Clie
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                QueueListPageAsync.builder()
-                                    .service(QueueServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

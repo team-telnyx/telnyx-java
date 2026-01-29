@@ -98,8 +98,7 @@ internal class RoomRecordingServiceAsyncTest {
                             .type("audio")
                             .build()
                     )
-                    .pageNumber(0L)
-                    .pageSize(0L)
+                    .page(RoomRecordingDeleteBulkParams.Page.builder().number(1L).size(1L).build())
                     .build()
             )
 

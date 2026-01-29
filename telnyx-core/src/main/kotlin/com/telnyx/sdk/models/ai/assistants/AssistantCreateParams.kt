@@ -574,18 +574,17 @@ private constructor(
         fun addTool(tool: AssistantTool) = apply { body.addTool(tool) }
 
         /** Alias for calling [addTool] with `AssistantTool.ofWebhook(webhook)`. */
-        fun addTool(webhook: InferenceEmbeddingWebhookToolParams) = apply { body.addTool(webhook) }
+        fun addTool(webhook: AssistantTool.Webhook) = apply { body.addTool(webhook) }
 
         /**
          * Alias for calling [addTool] with the following:
          * ```java
-         * InferenceEmbeddingWebhookToolParams.builder()
-         *     .type(InferenceEmbeddingWebhookToolParams.Type.WEBHOOK)
+         * AssistantTool.Webhook.builder()
          *     .webhook(webhook)
          *     .build()
          * ```
          */
-        fun addWebhookTool(webhook: InferenceEmbeddingWebhookToolParams.Webhook) = apply {
+        fun addWebhookTool(webhook: AssistantTool.Webhook.InnerWebhook) = apply {
             body.addWebhookTool(webhook)
         }
 
@@ -1589,25 +1588,18 @@ private constructor(
             }
 
             /** Alias for calling [addTool] with `AssistantTool.ofWebhook(webhook)`. */
-            fun addTool(webhook: InferenceEmbeddingWebhookToolParams) =
-                addTool(AssistantTool.ofWebhook(webhook))
+            fun addTool(webhook: AssistantTool.Webhook) = addTool(AssistantTool.ofWebhook(webhook))
 
             /**
              * Alias for calling [addTool] with the following:
              * ```java
-             * InferenceEmbeddingWebhookToolParams.builder()
-             *     .type(InferenceEmbeddingWebhookToolParams.Type.WEBHOOK)
+             * AssistantTool.Webhook.builder()
              *     .webhook(webhook)
              *     .build()
              * ```
              */
-            fun addWebhookTool(webhook: InferenceEmbeddingWebhookToolParams.Webhook) =
-                addTool(
-                    InferenceEmbeddingWebhookToolParams.builder()
-                        .type(InferenceEmbeddingWebhookToolParams.Type.WEBHOOK)
-                        .webhook(webhook)
-                        .build()
-                )
+            fun addWebhookTool(webhook: AssistantTool.Webhook.InnerWebhook) =
+                addTool(AssistantTool.Webhook.builder().webhook(webhook).build())
 
             /** Alias for calling [addTool] with `AssistantTool.ofRetrieval(retrieval)`. */
             fun addTool(retrieval: RetrievalTool) = addTool(AssistantTool.ofRetrieval(retrieval))
