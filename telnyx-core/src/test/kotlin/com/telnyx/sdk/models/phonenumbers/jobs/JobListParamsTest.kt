@@ -16,8 +16,7 @@ internal class JobListParamsTest {
                     .type(JobListParams.Filter.Type.UPDATE_EMERGENCY_SETTINGS)
                     .build()
             )
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(JobListParams.Page.builder().number(1L).size(1L).build())
             .sort(JobListParams.Sort.CREATED_AT)
             .build()
     }
@@ -31,8 +30,7 @@ internal class JobListParamsTest {
                         .type(JobListParams.Filter.Type.UPDATE_EMERGENCY_SETTINGS)
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(JobListParams.Page.builder().number(1L).size(1L).build())
                 .sort(JobListParams.Sort.CREATED_AT)
                 .build()
 
@@ -42,8 +40,8 @@ internal class JobListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("filter[type]", "update_emergency_settings")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .put("sort", "created_at")
                     .build()
             )

@@ -10,18 +10,23 @@ internal class MessagingUrlDomainListParamsTest {
 
     @Test
     fun create() {
-        MessagingUrlDomainListParams.builder().pageNumber(0L).pageSize(0L).build()
+        MessagingUrlDomainListParams.builder()
+            .page(MessagingUrlDomainListParams.Page.builder().number(1L).size(1L).build())
+            .build()
     }
 
     @Test
     fun queryParams() {
-        val params = MessagingUrlDomainListParams.builder().pageNumber(0L).pageSize(0L).build()
+        val params =
+            MessagingUrlDomainListParams.builder()
+                .page(MessagingUrlDomainListParams.Page.builder().number(1L).size(1L).build())
+                .build()
 
         val queryParams = params._queryParams()
 
         assertThat(queryParams)
             .isEqualTo(
-                QueryParams.builder().put("page[number]", "0").put("page[size]", "0").build()
+                QueryParams.builder().put("page[number]", "1").put("page[size]", "1").build()
             )
     }
 

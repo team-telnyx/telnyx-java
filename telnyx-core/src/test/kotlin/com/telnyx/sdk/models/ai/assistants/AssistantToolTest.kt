@@ -18,19 +18,17 @@ internal class AssistantToolTest {
     @Test
     fun ofWebhook() {
         val webhook =
-            InferenceEmbeddingWebhookToolParams.builder()
-                .type(InferenceEmbeddingWebhookToolParams.Type.WEBHOOK)
+            AssistantTool.Webhook.builder()
                 .webhook(
-                    InferenceEmbeddingWebhookToolParams.Webhook.builder()
+                    AssistantTool.Webhook.InnerWebhook.builder()
                         .description("description")
                         .name("name")
                         .url("https://example.com/api/v1/function")
                         .async(true)
                         .bodyParameters(
-                            InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters.builder()
+                            AssistantTool.Webhook.InnerWebhook.BodyParameters.builder()
                                 .properties(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                        .Properties
+                                    AssistantTool.Webhook.InnerWebhook.BodyParameters.Properties
                                         .builder()
                                         .putAdditionalProperty("age", JsonValue.from("bar"))
                                         .putAdditionalProperty("location", JsonValue.from("bar"))
@@ -38,48 +36,39 @@ internal class AssistantToolTest {
                                 )
                                 .addRequired("age")
                                 .addRequired("location")
-                                .type(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters.Type
-                                        .OBJECT
-                                )
+                                .type(AssistantTool.Webhook.InnerWebhook.BodyParameters.Type.OBJECT)
                                 .build()
                         )
                         .addHeader(
-                            InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
+                            AssistantTool.Webhook.InnerWebhook.Header.builder()
                                 .name("name")
                                 .value("value")
                                 .build()
                         )
-                        .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
+                        .method(AssistantTool.Webhook.InnerWebhook.Method.GET)
                         .pathParameters(
-                            InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.builder()
+                            AssistantTool.Webhook.InnerWebhook.PathParameters.builder()
                                 .properties(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                        .Properties
+                                    AssistantTool.Webhook.InnerWebhook.PathParameters.Properties
                                         .builder()
                                         .putAdditionalProperty("id", JsonValue.from("bar"))
                                         .build()
                                 )
                                 .addRequired("id")
-                                .type(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.Type
-                                        .OBJECT
-                                )
+                                .type(AssistantTool.Webhook.InnerWebhook.PathParameters.Type.OBJECT)
                                 .build()
                         )
                         .queryParameters(
-                            InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters.builder()
+                            AssistantTool.Webhook.InnerWebhook.QueryParameters.builder()
                                 .properties(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                        .Properties
+                                    AssistantTool.Webhook.InnerWebhook.QueryParameters.Properties
                                         .builder()
                                         .putAdditionalProperty("page", JsonValue.from("bar"))
                                         .build()
                                 )
                                 .addRequired("page")
                                 .type(
-                                    InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters.Type
-                                        .OBJECT
+                                    AssistantTool.Webhook.InnerWebhook.QueryParameters.Type.OBJECT
                                 )
                                 .build()
                         )
@@ -105,19 +94,17 @@ internal class AssistantToolTest {
         val jsonMapper = jsonMapper()
         val assistantTool =
             AssistantTool.ofWebhook(
-                InferenceEmbeddingWebhookToolParams.builder()
-                    .type(InferenceEmbeddingWebhookToolParams.Type.WEBHOOK)
+                AssistantTool.Webhook.builder()
                     .webhook(
-                        InferenceEmbeddingWebhookToolParams.Webhook.builder()
+                        AssistantTool.Webhook.InnerWebhook.builder()
                             .description("description")
                             .name("name")
                             .url("https://example.com/api/v1/function")
                             .async(true)
                             .bodyParameters(
-                                InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters.builder()
+                                AssistantTool.Webhook.InnerWebhook.BodyParameters.builder()
                                     .properties(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                            .Properties
+                                        AssistantTool.Webhook.InnerWebhook.BodyParameters.Properties
                                             .builder()
                                             .putAdditionalProperty("age", JsonValue.from("bar"))
                                             .putAdditionalProperty(
@@ -129,41 +116,37 @@ internal class AssistantToolTest {
                                     .addRequired("age")
                                     .addRequired("location")
                                     .type(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.BodyParameters
-                                            .Type
+                                        AssistantTool.Webhook.InnerWebhook.BodyParameters.Type
                                             .OBJECT
                                     )
                                     .build()
                             )
                             .addHeader(
-                                InferenceEmbeddingWebhookToolParams.Webhook.Header.builder()
+                                AssistantTool.Webhook.InnerWebhook.Header.builder()
                                     .name("name")
                                     .value("value")
                                     .build()
                             )
-                            .method(InferenceEmbeddingWebhookToolParams.Webhook.Method.GET)
+                            .method(AssistantTool.Webhook.InnerWebhook.Method.GET)
                             .pathParameters(
-                                InferenceEmbeddingWebhookToolParams.Webhook.PathParameters.builder()
+                                AssistantTool.Webhook.InnerWebhook.PathParameters.builder()
                                     .properties(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                            .Properties
+                                        AssistantTool.Webhook.InnerWebhook.PathParameters.Properties
                                             .builder()
                                             .putAdditionalProperty("id", JsonValue.from("bar"))
                                             .build()
                                     )
                                     .addRequired("id")
                                     .type(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.PathParameters
-                                            .Type
+                                        AssistantTool.Webhook.InnerWebhook.PathParameters.Type
                                             .OBJECT
                                     )
                                     .build()
                             )
                             .queryParameters(
-                                InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                    .builder()
+                                AssistantTool.Webhook.InnerWebhook.QueryParameters.builder()
                                     .properties(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
+                                        AssistantTool.Webhook.InnerWebhook.QueryParameters
                                             .Properties
                                             .builder()
                                             .putAdditionalProperty("page", JsonValue.from("bar"))
@@ -171,8 +154,7 @@ internal class AssistantToolTest {
                                     )
                                     .addRequired("page")
                                     .type(
-                                        InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters
-                                            .Type
+                                        AssistantTool.Webhook.InnerWebhook.QueryParameters.Type
                                             .OBJECT
                                     )
                                     .build()

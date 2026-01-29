@@ -24,8 +24,7 @@ internal class NetworkCoverageListParamsTest {
                     .availableServices(AvailableService.CLOUD_VPN)
                     .build()
             )
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(NetworkCoverageListParams.Page.builder().number(1L).size(1L).build())
             .build()
     }
 
@@ -46,8 +45,7 @@ internal class NetworkCoverageListParamsTest {
                         .availableServices(AvailableService.CLOUD_VPN)
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(NetworkCoverageListParams.Page.builder().number(1L).size(1L).build())
                 .build()
 
         val queryParams = params._queryParams()
@@ -60,8 +58,8 @@ internal class NetworkCoverageListParamsTest {
                     .put("filter[location.region]", "AMER")
                     .put("filter[location.site]", "SJC")
                     .put("filters[available_services]", "cloud_vpn")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .build()
             )
     }

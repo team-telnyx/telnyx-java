@@ -12,8 +12,7 @@ internal class CommentListParamsTest {
     fun create() {
         CommentListParams.builder()
             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(CommentListParams.Page.builder().number(1L).size(1L).build())
             .build()
     }
 
@@ -31,15 +30,14 @@ internal class CommentListParamsTest {
         val params =
             CommentListParams.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(CommentListParams.Page.builder().number(1L).size(1L).build())
                 .build()
 
         val queryParams = params._queryParams()
 
         assertThat(queryParams)
             .isEqualTo(
-                QueryParams.builder().put("page[number]", "0").put("page[size]", "0").build()
+                QueryParams.builder().put("page[number]", "1").put("page[size]", "1").build()
             )
     }
 

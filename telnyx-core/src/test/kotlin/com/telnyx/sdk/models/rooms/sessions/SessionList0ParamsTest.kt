@@ -40,8 +40,7 @@ internal class SessionList0ParamsTest {
                     .build()
             )
             .includeParticipants(true)
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(SessionList0Params.Page.builder().number(1L).size(1L).build())
             .build()
     }
 
@@ -77,8 +76,7 @@ internal class SessionList0ParamsTest {
                         .build()
                 )
                 .includeParticipants(true)
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(SessionList0Params.Page.builder().number(1L).size(1L).build())
                 .build()
 
         val queryParams = params._queryParams()
@@ -98,8 +96,8 @@ internal class SessionList0ParamsTest {
                     .put("filter[date_updated_at][lte]", "2021-04-25")
                     .put("filter[room_id]", "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                     .put("include_participants", "true")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .build()
             )
     }

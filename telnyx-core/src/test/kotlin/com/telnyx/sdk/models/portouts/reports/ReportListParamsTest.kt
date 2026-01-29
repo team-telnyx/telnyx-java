@@ -17,8 +17,7 @@ internal class ReportListParamsTest {
                     .status(ReportListParams.Filter.Status.COMPLETED)
                     .build()
             )
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(ReportListParams.Page.builder().number(1L).size(1L).build())
             .build()
     }
 
@@ -32,8 +31,7 @@ internal class ReportListParamsTest {
                         .status(ReportListParams.Filter.Status.COMPLETED)
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(ReportListParams.Page.builder().number(1L).size(1L).build())
                 .build()
 
         val queryParams = params._queryParams()
@@ -43,8 +41,8 @@ internal class ReportListParamsTest {
                 QueryParams.builder()
                     .put("filter[report_type]", "export_portouts_csv")
                     .put("filter[status]", "completed")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .build()
             )
     }

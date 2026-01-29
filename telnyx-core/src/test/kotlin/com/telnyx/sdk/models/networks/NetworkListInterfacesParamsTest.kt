@@ -19,8 +19,7 @@ internal class NetworkListInterfacesParamsTest {
                     .type("wireguard_interface")
                     .build()
             )
-            .pageNumber(0L)
-            .pageSize(0L)
+            .page(NetworkListInterfacesParams.Page.builder().number(1L).size(1L).build())
             .build()
     }
 
@@ -46,8 +45,7 @@ internal class NetworkListInterfacesParamsTest {
                         .type("wireguard_interface")
                         .build()
                 )
-                .pageNumber(0L)
-                .pageSize(0L)
+                .page(NetworkListInterfacesParams.Page.builder().number(1L).size(1L).build())
                 .build()
 
         val queryParams = params._queryParams()
@@ -58,8 +56,8 @@ internal class NetworkListInterfacesParamsTest {
                     .put("filter[name]", "test interface")
                     .put("filter[status]", "provisioned")
                     .put("filter[type]", "wireguard_interface")
-                    .put("page[number]", "0")
-                    .put("page[size]", "0")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
                     .build()
             )
     }
