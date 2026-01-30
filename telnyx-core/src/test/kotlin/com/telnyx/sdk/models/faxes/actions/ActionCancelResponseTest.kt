@@ -11,15 +11,22 @@ internal class ActionCancelResponseTest {
 
     @Test
     fun create() {
-        val actionCancelResponse = ActionCancelResponse.builder().result("ok").build()
+        val actionCancelResponse =
+            ActionCancelResponse.builder()
+                .data(ActionCancelResponse.Data.builder().result("ok").build())
+                .build()
 
-        assertThat(actionCancelResponse.result()).contains("ok")
+        assertThat(actionCancelResponse.data())
+            .contains(ActionCancelResponse.Data.builder().result("ok").build())
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val actionCancelResponse = ActionCancelResponse.builder().result("ok").build()
+        val actionCancelResponse =
+            ActionCancelResponse.builder()
+                .data(ActionCancelResponse.Data.builder().result("ok").build())
+                .build()
 
         val roundtrippedActionCancelResponse =
             jsonMapper.readValue(
