@@ -11,15 +11,22 @@ internal class ActionRefreshResponseTest {
 
     @Test
     fun create() {
-        val actionRefreshResponse = ActionRefreshResponse.builder().result("ok").build()
+        val actionRefreshResponse =
+            ActionRefreshResponse.builder()
+                .data(ActionRefreshResponse.Data.builder().result("ok").build())
+                .build()
 
-        assertThat(actionRefreshResponse.result()).contains("ok")
+        assertThat(actionRefreshResponse.data())
+            .contains(ActionRefreshResponse.Data.builder().result("ok").build())
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val actionRefreshResponse = ActionRefreshResponse.builder().result("ok").build()
+        val actionRefreshResponse =
+            ActionRefreshResponse.builder()
+                .data(ActionRefreshResponse.Data.builder().result("ok").build())
+                .build()
 
         val roundtrippedActionRefreshResponse =
             jsonMapper.readValue(
