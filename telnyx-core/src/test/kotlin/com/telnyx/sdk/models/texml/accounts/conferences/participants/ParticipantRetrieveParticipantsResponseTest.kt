@@ -34,6 +34,7 @@ internal class ParticipantRetrieveParticipantsResponseTest {
                         .coachingCallSidLegacy(
                             "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ"
                         )
+                        .conferenceSid("cd5a70f4-759b-4d5e-9c06-88c00f16f3c1")
                         .dateCreated("Fri, 27 Oct 2023 07:41:58 +0000")
                         .dateUpdated("Fri, 27 Oct 2023 07:41:58 +0000")
                         .endConferenceOnExit(false)
@@ -73,6 +74,7 @@ internal class ParticipantRetrieveParticipantsResponseTest {
                     .coachingCallSidLegacy(
                         "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ"
                     )
+                    .conferenceSid("cd5a70f4-759b-4d5e-9c06-88c00f16f3c1")
                     .dateCreated("Fri, 27 Oct 2023 07:41:58 +0000")
                     .dateUpdated("Fri, 27 Oct 2023 07:41:58 +0000")
                     .endConferenceOnExit(false)
@@ -116,6 +118,7 @@ internal class ParticipantRetrieveParticipantsResponseTest {
                         .coachingCallSidLegacy(
                             "v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ"
                         )
+                        .conferenceSid("cd5a70f4-759b-4d5e-9c06-88c00f16f3c1")
                         .dateCreated("Fri, 27 Oct 2023 07:41:58 +0000")
                         .dateUpdated("Fri, 27 Oct 2023 07:41:58 +0000")
                         .endConferenceOnExit(false)

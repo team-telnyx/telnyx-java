@@ -27,6 +27,7 @@ private constructor(
     private val coaching: JsonField<Boolean>,
     private val coachingCallSid: JsonField<String>,
     private val coachingCallSidLegacy: JsonField<String>,
+    private val conferenceSid: JsonField<String>,
     private val dateCreated: JsonField<String>,
     private val dateUpdated: JsonField<String>,
     private val endConferenceOnExit: JsonField<Boolean>,
@@ -56,6 +57,9 @@ private constructor(
         @JsonProperty("coaching_call_sid_legacy")
         @ExcludeMissing
         coachingCallSidLegacy: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("conference_sid")
+        @ExcludeMissing
+        conferenceSid: JsonField<String> = JsonMissing.of(),
         @JsonProperty("date_created")
         @ExcludeMissing
         dateCreated: JsonField<String> = JsonMissing.of(),
@@ -77,6 +81,7 @@ private constructor(
         coaching,
         coachingCallSid,
         coachingCallSidLegacy,
+        conferenceSid,
         dateCreated,
         dateUpdated,
         endConferenceOnExit,
@@ -143,6 +148,14 @@ private constructor(
      */
     fun coachingCallSidLegacy(): Optional<String> =
         coachingCallSidLegacy.getOptional("coaching_call_sid_legacy")
+
+    /**
+     * The unique identifier for the conference.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun conferenceSid(): Optional<String> = conferenceSid.getOptional("conference_sid")
 
     /**
      * The timestamp of when the resource was created.
@@ -258,6 +271,15 @@ private constructor(
     fun _coachingCallSidLegacy(): JsonField<String> = coachingCallSidLegacy
 
     /**
+     * Returns the raw JSON value of [conferenceSid].
+     *
+     * Unlike [conferenceSid], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("conference_sid")
+    @ExcludeMissing
+    fun _conferenceSid(): JsonField<String> = conferenceSid
+
+    /**
      * Returns the raw JSON value of [dateCreated].
      *
      * Unlike [dateCreated], this method doesn't throw if the JSON field has an unexpected type.
@@ -343,6 +365,7 @@ private constructor(
         private var coaching: JsonField<Boolean> = JsonMissing.of()
         private var coachingCallSid: JsonField<String> = JsonMissing.of()
         private var coachingCallSidLegacy: JsonField<String> = JsonMissing.of()
+        private var conferenceSid: JsonField<String> = JsonMissing.of()
         private var dateCreated: JsonField<String> = JsonMissing.of()
         private var dateUpdated: JsonField<String> = JsonMissing.of()
         private var endConferenceOnExit: JsonField<Boolean> = JsonMissing.of()
@@ -361,6 +384,7 @@ private constructor(
             coaching = participantRetrieveResponse.coaching
             coachingCallSid = participantRetrieveResponse.coachingCallSid
             coachingCallSidLegacy = participantRetrieveResponse.coachingCallSidLegacy
+            conferenceSid = participantRetrieveResponse.conferenceSid
             dateCreated = participantRetrieveResponse.dateCreated
             dateUpdated = participantRetrieveResponse.dateUpdated
             endConferenceOnExit = participantRetrieveResponse.endConferenceOnExit
@@ -460,6 +484,20 @@ private constructor(
          */
         fun coachingCallSidLegacy(coachingCallSidLegacy: JsonField<String>) = apply {
             this.coachingCallSidLegacy = coachingCallSidLegacy
+        }
+
+        /** The unique identifier for the conference. */
+        fun conferenceSid(conferenceSid: String) = conferenceSid(JsonField.of(conferenceSid))
+
+        /**
+         * Sets [Builder.conferenceSid] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.conferenceSid] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun conferenceSid(conferenceSid: JsonField<String>) = apply {
+            this.conferenceSid = conferenceSid
         }
 
         /** The timestamp of when the resource was created. */
@@ -578,6 +616,7 @@ private constructor(
                 coaching,
                 coachingCallSid,
                 coachingCallSidLegacy,
+                conferenceSid,
                 dateCreated,
                 dateUpdated,
                 endConferenceOnExit,
@@ -603,6 +642,7 @@ private constructor(
         coaching()
         coachingCallSid()
         coachingCallSidLegacy()
+        conferenceSid()
         dateCreated()
         dateUpdated()
         endConferenceOnExit()
@@ -635,6 +675,7 @@ private constructor(
             (if (coaching.asKnown().isPresent) 1 else 0) +
             (if (coachingCallSid.asKnown().isPresent) 1 else 0) +
             (if (coachingCallSidLegacy.asKnown().isPresent) 1 else 0) +
+            (if (conferenceSid.asKnown().isPresent) 1 else 0) +
             (if (dateCreated.asKnown().isPresent) 1 else 0) +
             (if (dateUpdated.asKnown().isPresent) 1 else 0) +
             (if (endConferenceOnExit.asKnown().isPresent) 1 else 0) +
@@ -788,6 +829,7 @@ private constructor(
             coaching == other.coaching &&
             coachingCallSid == other.coachingCallSid &&
             coachingCallSidLegacy == other.coachingCallSidLegacy &&
+            conferenceSid == other.conferenceSid &&
             dateCreated == other.dateCreated &&
             dateUpdated == other.dateUpdated &&
             endConferenceOnExit == other.endConferenceOnExit &&
@@ -807,6 +849,7 @@ private constructor(
             coaching,
             coachingCallSid,
             coachingCallSidLegacy,
+            conferenceSid,
             dateCreated,
             dateUpdated,
             endConferenceOnExit,
@@ -821,5 +864,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ParticipantRetrieveResponse{accountSid=$accountSid, apiVersion=$apiVersion, callSid=$callSid, callSidLegacy=$callSidLegacy, coaching=$coaching, coachingCallSid=$coachingCallSid, coachingCallSidLegacy=$coachingCallSidLegacy, dateCreated=$dateCreated, dateUpdated=$dateUpdated, endConferenceOnExit=$endConferenceOnExit, hold=$hold, muted=$muted, status=$status, uri=$uri, additionalProperties=$additionalProperties}"
+        "ParticipantRetrieveResponse{accountSid=$accountSid, apiVersion=$apiVersion, callSid=$callSid, callSidLegacy=$callSidLegacy, coaching=$coaching, coachingCallSid=$coachingCallSid, coachingCallSidLegacy=$coachingCallSidLegacy, conferenceSid=$conferenceSid, dateCreated=$dateCreated, dateUpdated=$dateUpdated, endConferenceOnExit=$endConferenceOnExit, hold=$hold, muted=$muted, status=$status, uri=$uri, additionalProperties=$additionalProperties}"
 }
