@@ -14,6 +14,7 @@ internal class SimCardListParamsTest {
             .filter(
                 SimCardListParams.Filter.builder()
                     .iccid("89310410106543789301")
+                    .msisdn("+13109976224")
                     .addStatus(SimCardListParams.Filter.Status.ENABLED)
                     .tags(listOf("personal", "customers", "active-customers"))
                     .build()
@@ -33,6 +34,7 @@ internal class SimCardListParamsTest {
                 .filter(
                     SimCardListParams.Filter.builder()
                         .iccid("89310410106543789301")
+                        .msisdn("+13109976224")
                         .addStatus(SimCardListParams.Filter.Status.ENABLED)
                         .tags(listOf("personal", "customers", "active-customers"))
                         .build()
@@ -50,6 +52,7 @@ internal class SimCardListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("filter[iccid]", "89310410106543789301")
+                    .put("filter[msisdn]", "+13109976224")
                     .put("filter[status]", listOf("enabled").joinToString(","))
                     .put(
                         "filter[tags]",
