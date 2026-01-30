@@ -7660,27 +7660,36 @@ internal class UnwrapWebhookEventTest {
     fun ofFaxDelivered() {
         val faxDelivered =
             FaxDeliveredWebhookEvent.builder()
-                .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                .eventType(FaxDeliveredWebhookEvent.EventType.FAX_DELIVERED)
-                .payload(
-                    FaxDeliveredWebhookEvent.Payload.builder()
-                        .callDurationSecs(25L)
-                        .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                        .connectionId("234423")
-                        .direction(FaxDeliveredWebhookEvent.Payload.Direction.OUTBOUND)
-                        .faxId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .from("+13125790015")
-                        .mediaName("my_media_uploaded_to_media_storage_api")
-                        .originalMediaUrl(
-                            "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                .data(
+                    FaxDeliveredWebhookEvent.Data.builder()
+                        .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
+                        .eventType(FaxDeliveredWebhookEvent.Data.EventType.FAX_DELIVERED)
+                        .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
+                        .payload(
+                            FaxDeliveredWebhookEvent.Data.Payload.builder()
+                                .callDurationSecs(25L)
+                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                .connectionId("234423")
+                                .direction(FaxDeliveredWebhookEvent.Data.Payload.Direction.OUTBOUND)
+                                .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
+                                .from("+17733372107")
+                                .mediaName("my_media_uploaded_to_media_storage_api")
+                                .originalMediaUrl("http://www.example.com/fax.pdf")
+                                .pageCount(2L)
+                                .status(FaxDeliveredWebhookEvent.Data.Payload.Status.DELIVERED)
+                                .to("+15107882622")
+                                .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
+                                .build()
                         )
-                        .pageCount(2L)
-                        .status(FaxDeliveredWebhookEvent.Payload.Status.DELIVERED)
-                        .to("+13127367276")
-                        .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
+                        .recordType(FaxDeliveredWebhookEvent.Data.RecordType.EVENT)
                         .build()
                 )
-                .recordType(FaxDeliveredWebhookEvent.RecordType.EVENT)
+                .meta(
+                    FaxDeliveredWebhookEvent.Meta.builder()
+                        .attempt(1L)
+                        .deliveredTo("https://www.example.com/webhooks")
+                        .build()
+                )
                 .build()
 
         val unwrapWebhookEvent = UnwrapWebhookEvent.ofFaxDelivered(faxDelivered)
@@ -7753,27 +7762,38 @@ internal class UnwrapWebhookEventTest {
         val unwrapWebhookEvent =
             UnwrapWebhookEvent.ofFaxDelivered(
                 FaxDeliveredWebhookEvent.builder()
-                    .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(FaxDeliveredWebhookEvent.EventType.FAX_DELIVERED)
-                    .payload(
-                        FaxDeliveredWebhookEvent.Payload.builder()
-                            .callDurationSecs(25L)
-                            .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                            .connectionId("234423")
-                            .direction(FaxDeliveredWebhookEvent.Payload.Direction.OUTBOUND)
-                            .faxId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .from("+13125790015")
-                            .mediaName("my_media_uploaded_to_media_storage_api")
-                            .originalMediaUrl(
-                                "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                    .data(
+                        FaxDeliveredWebhookEvent.Data.builder()
+                            .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
+                            .eventType(FaxDeliveredWebhookEvent.Data.EventType.FAX_DELIVERED)
+                            .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
+                            .payload(
+                                FaxDeliveredWebhookEvent.Data.Payload.builder()
+                                    .callDurationSecs(25L)
+                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                    .connectionId("234423")
+                                    .direction(
+                                        FaxDeliveredWebhookEvent.Data.Payload.Direction.OUTBOUND
+                                    )
+                                    .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
+                                    .from("+17733372107")
+                                    .mediaName("my_media_uploaded_to_media_storage_api")
+                                    .originalMediaUrl("http://www.example.com/fax.pdf")
+                                    .pageCount(2L)
+                                    .status(FaxDeliveredWebhookEvent.Data.Payload.Status.DELIVERED)
+                                    .to("+15107882622")
+                                    .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
+                                    .build()
                             )
-                            .pageCount(2L)
-                            .status(FaxDeliveredWebhookEvent.Payload.Status.DELIVERED)
-                            .to("+13127367276")
-                            .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
+                            .recordType(FaxDeliveredWebhookEvent.Data.RecordType.EVENT)
                             .build()
                     )
-                    .recordType(FaxDeliveredWebhookEvent.RecordType.EVENT)
+                    .meta(
+                        FaxDeliveredWebhookEvent.Meta.builder()
+                            .attempt(1L)
+                            .deliveredTo("https://www.example.com/webhooks")
+                            .build()
+                    )
                     .build()
             )
 
@@ -7790,26 +7810,37 @@ internal class UnwrapWebhookEventTest {
     fun ofFaxFailed() {
         val faxFailed =
             FaxFailedWebhookEvent.builder()
-                .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                .eventType(FaxFailedWebhookEvent.EventType.FAX_FAILED)
-                .payload(
-                    FaxFailedWebhookEvent.Payload.builder()
-                        .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                        .connectionId("234423")
-                        .direction(FaxFailedWebhookEvent.Payload.Direction.OUTBOUND)
-                        .failureReason(FaxFailedWebhookEvent.Payload.FailureReason.REJECTED)
-                        .faxId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .from("+13125790015")
-                        .mediaName("my_media_uploaded_to_media_storage_api")
-                        .originalMediaUrl(
-                            "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                .data(
+                    FaxFailedWebhookEvent.Data.builder()
+                        .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
+                        .eventType(FaxFailedWebhookEvent.Data.EventType.FAX_FAILED)
+                        .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
+                        .payload(
+                            FaxFailedWebhookEvent.Data.Payload.builder()
+                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                .connectionId("234423")
+                                .direction(FaxFailedWebhookEvent.Data.Payload.Direction.OUTBOUND)
+                                .failureReason(
+                                    FaxFailedWebhookEvent.Data.Payload.FailureReason.REJECTED
+                                )
+                                .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
+                                .from("+17733372107")
+                                .mediaName("my_media_uploaded_to_media_storage_api")
+                                .originalMediaUrl("http://www.example.com/fax.pdf")
+                                .status(FaxFailedWebhookEvent.Data.Payload.Status.FAILED)
+                                .to("+15107882622")
+                                .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
+                                .build()
                         )
-                        .status(FaxFailedWebhookEvent.Payload.Status.FAILED)
-                        .to("+13127367276")
-                        .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
+                        .recordType(FaxFailedWebhookEvent.Data.RecordType.EVENT)
                         .build()
                 )
-                .recordType(FaxFailedWebhookEvent.RecordType.EVENT)
+                .meta(
+                    FaxFailedWebhookEvent.Meta.builder()
+                        .attempt(1L)
+                        .deliveredTo("https://www.example.com/webhooks")
+                        .build()
+                )
                 .build()
 
         val unwrapWebhookEvent = UnwrapWebhookEvent.ofFaxFailed(faxFailed)
@@ -7882,26 +7913,39 @@ internal class UnwrapWebhookEventTest {
         val unwrapWebhookEvent =
             UnwrapWebhookEvent.ofFaxFailed(
                 FaxFailedWebhookEvent.builder()
-                    .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(FaxFailedWebhookEvent.EventType.FAX_FAILED)
-                    .payload(
-                        FaxFailedWebhookEvent.Payload.builder()
-                            .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                            .connectionId("234423")
-                            .direction(FaxFailedWebhookEvent.Payload.Direction.OUTBOUND)
-                            .failureReason(FaxFailedWebhookEvent.Payload.FailureReason.REJECTED)
-                            .faxId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .from("+13125790015")
-                            .mediaName("my_media_uploaded_to_media_storage_api")
-                            .originalMediaUrl(
-                                "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                    .data(
+                        FaxFailedWebhookEvent.Data.builder()
+                            .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
+                            .eventType(FaxFailedWebhookEvent.Data.EventType.FAX_FAILED)
+                            .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
+                            .payload(
+                                FaxFailedWebhookEvent.Data.Payload.builder()
+                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                    .connectionId("234423")
+                                    .direction(
+                                        FaxFailedWebhookEvent.Data.Payload.Direction.OUTBOUND
+                                    )
+                                    .failureReason(
+                                        FaxFailedWebhookEvent.Data.Payload.FailureReason.REJECTED
+                                    )
+                                    .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
+                                    .from("+17733372107")
+                                    .mediaName("my_media_uploaded_to_media_storage_api")
+                                    .originalMediaUrl("http://www.example.com/fax.pdf")
+                                    .status(FaxFailedWebhookEvent.Data.Payload.Status.FAILED)
+                                    .to("+15107882622")
+                                    .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
+                                    .build()
                             )
-                            .status(FaxFailedWebhookEvent.Payload.Status.FAILED)
-                            .to("+13127367276")
-                            .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
+                            .recordType(FaxFailedWebhookEvent.Data.RecordType.EVENT)
                             .build()
                     )
-                    .recordType(FaxFailedWebhookEvent.RecordType.EVENT)
+                    .meta(
+                        FaxFailedWebhookEvent.Meta.builder()
+                            .attempt(1L)
+                            .deliveredTo("https://www.example.com/webhooks")
+                            .build()
+                    )
                     .build()
             )
 
@@ -7918,25 +7962,39 @@ internal class UnwrapWebhookEventTest {
     fun ofFaxMediaProcessed() {
         val faxMediaProcessed =
             FaxMediaProcessedWebhookEvent.builder()
-                .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                .eventType(FaxMediaProcessedWebhookEvent.EventType.FAX_MEDIA_PROCESSED)
-                .payload(
-                    FaxMediaProcessedWebhookEvent.Payload.builder()
-                        .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                        .connectionId("234423")
-                        .direction(FaxMediaProcessedWebhookEvent.Payload.Direction.OUTBOUND)
-                        .faxId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .from("+13125790015")
-                        .mediaName("my_media_uploaded_to_media_storage_api")
-                        .originalMediaUrl(
-                            "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                .data(
+                    FaxMediaProcessedWebhookEvent.Data.builder()
+                        .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
+                        .eventType(FaxMediaProcessedWebhookEvent.Data.EventType.FAX_MEDIA_PROCESSED)
+                        .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
+                        .payload(
+                            FaxMediaProcessedWebhookEvent.Data.Payload.builder()
+                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                .connectionId("234423")
+                                .direction(
+                                    FaxMediaProcessedWebhookEvent.Data.Payload.Direction.OUTBOUND
+                                )
+                                .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
+                                .from("+17733372107")
+                                .mediaName("my_media_uploaded_to_media_storage_api")
+                                .originalMediaUrl("http://www.example.com/fax.pdf")
+                                .status(
+                                    FaxMediaProcessedWebhookEvent.Data.Payload.Status
+                                        .MEDIA_PROCESSED
+                                )
+                                .to("+15107882622")
+                                .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
+                                .build()
                         )
-                        .status(FaxMediaProcessedWebhookEvent.Payload.Status.MEDIA_PROCESSED)
-                        .to("+13127367276")
-                        .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
+                        .recordType(FaxMediaProcessedWebhookEvent.Data.RecordType.EVENT)
                         .build()
                 )
-                .recordType(FaxMediaProcessedWebhookEvent.RecordType.EVENT)
+                .meta(
+                    FaxMediaProcessedWebhookEvent.Meta.builder()
+                        .attempt(1L)
+                        .deliveredTo("https://www.example.com/webhooks")
+                        .build()
+                )
                 .build()
 
         val unwrapWebhookEvent = UnwrapWebhookEvent.ofFaxMediaProcessed(faxMediaProcessed)
@@ -8009,25 +8067,42 @@ internal class UnwrapWebhookEventTest {
         val unwrapWebhookEvent =
             UnwrapWebhookEvent.ofFaxMediaProcessed(
                 FaxMediaProcessedWebhookEvent.builder()
-                    .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(FaxMediaProcessedWebhookEvent.EventType.FAX_MEDIA_PROCESSED)
-                    .payload(
-                        FaxMediaProcessedWebhookEvent.Payload.builder()
-                            .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                            .connectionId("234423")
-                            .direction(FaxMediaProcessedWebhookEvent.Payload.Direction.OUTBOUND)
-                            .faxId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .from("+13125790015")
-                            .mediaName("my_media_uploaded_to_media_storage_api")
-                            .originalMediaUrl(
-                                "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                    .data(
+                        FaxMediaProcessedWebhookEvent.Data.builder()
+                            .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
+                            .eventType(
+                                FaxMediaProcessedWebhookEvent.Data.EventType.FAX_MEDIA_PROCESSED
                             )
-                            .status(FaxMediaProcessedWebhookEvent.Payload.Status.MEDIA_PROCESSED)
-                            .to("+13127367276")
-                            .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
+                            .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
+                            .payload(
+                                FaxMediaProcessedWebhookEvent.Data.Payload.builder()
+                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                    .connectionId("234423")
+                                    .direction(
+                                        FaxMediaProcessedWebhookEvent.Data.Payload.Direction
+                                            .OUTBOUND
+                                    )
+                                    .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
+                                    .from("+17733372107")
+                                    .mediaName("my_media_uploaded_to_media_storage_api")
+                                    .originalMediaUrl("http://www.example.com/fax.pdf")
+                                    .status(
+                                        FaxMediaProcessedWebhookEvent.Data.Payload.Status
+                                            .MEDIA_PROCESSED
+                                    )
+                                    .to("+15107882622")
+                                    .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
+                                    .build()
+                            )
+                            .recordType(FaxMediaProcessedWebhookEvent.Data.RecordType.EVENT)
                             .build()
                     )
-                    .recordType(FaxMediaProcessedWebhookEvent.RecordType.EVENT)
+                    .meta(
+                        FaxMediaProcessedWebhookEvent.Meta.builder()
+                            .attempt(1L)
+                            .deliveredTo("https://www.example.com/webhooks")
+                            .build()
+                    )
                     .build()
             )
 
@@ -8044,25 +8119,34 @@ internal class UnwrapWebhookEventTest {
     fun ofFaxQueued() {
         val faxQueued =
             FaxQueuedWebhookEvent.builder()
-                .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                .eventType(FaxQueuedWebhookEvent.EventType.FAX_QUEUED)
-                .payload(
-                    FaxQueuedWebhookEvent.Payload.builder()
-                        .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                        .connectionId("234423")
-                        .direction(FaxQueuedWebhookEvent.Payload.Direction.OUTBOUND)
-                        .faxId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .from("+13125790015")
-                        .mediaName("my_media_uploaded_to_media_storage_api")
-                        .originalMediaUrl(
-                            "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                .data(
+                    FaxQueuedWebhookEvent.Data.builder()
+                        .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
+                        .eventType(FaxQueuedWebhookEvent.Data.EventType.FAX_QUEUED)
+                        .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
+                        .payload(
+                            FaxQueuedWebhookEvent.Data.Payload.builder()
+                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                .connectionId("234423")
+                                .direction(FaxQueuedWebhookEvent.Data.Payload.Direction.OUTBOUND)
+                                .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
+                                .from("+17733372107")
+                                .mediaName("my_media_uploaded_to_media_storage_api")
+                                .originalMediaUrl("http://www.example.com/fax.pdf")
+                                .status(FaxQueuedWebhookEvent.Data.Payload.Status.QUEUED)
+                                .to("+15107882622")
+                                .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
+                                .build()
                         )
-                        .status(FaxQueuedWebhookEvent.Payload.Status.QUEUED)
-                        .to("+13127367276")
-                        .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
+                        .recordType(FaxQueuedWebhookEvent.Data.RecordType.EVENT)
                         .build()
                 )
-                .recordType(FaxQueuedWebhookEvent.RecordType.EVENT)
+                .meta(
+                    FaxQueuedWebhookEvent.Meta.builder()
+                        .attempt(1L)
+                        .deliveredTo("https://www.example.com/webhooks")
+                        .build()
+                )
                 .build()
 
         val unwrapWebhookEvent = UnwrapWebhookEvent.ofFaxQueued(faxQueued)
@@ -8135,25 +8219,36 @@ internal class UnwrapWebhookEventTest {
         val unwrapWebhookEvent =
             UnwrapWebhookEvent.ofFaxQueued(
                 FaxQueuedWebhookEvent.builder()
-                    .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(FaxQueuedWebhookEvent.EventType.FAX_QUEUED)
-                    .payload(
-                        FaxQueuedWebhookEvent.Payload.builder()
-                            .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                            .connectionId("234423")
-                            .direction(FaxQueuedWebhookEvent.Payload.Direction.OUTBOUND)
-                            .faxId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .from("+13125790015")
-                            .mediaName("my_media_uploaded_to_media_storage_api")
-                            .originalMediaUrl(
-                                "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                    .data(
+                        FaxQueuedWebhookEvent.Data.builder()
+                            .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
+                            .eventType(FaxQueuedWebhookEvent.Data.EventType.FAX_QUEUED)
+                            .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
+                            .payload(
+                                FaxQueuedWebhookEvent.Data.Payload.builder()
+                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                    .connectionId("234423")
+                                    .direction(
+                                        FaxQueuedWebhookEvent.Data.Payload.Direction.OUTBOUND
+                                    )
+                                    .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
+                                    .from("+17733372107")
+                                    .mediaName("my_media_uploaded_to_media_storage_api")
+                                    .originalMediaUrl("http://www.example.com/fax.pdf")
+                                    .status(FaxQueuedWebhookEvent.Data.Payload.Status.QUEUED)
+                                    .to("+15107882622")
+                                    .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
+                                    .build()
                             )
-                            .status(FaxQueuedWebhookEvent.Payload.Status.QUEUED)
-                            .to("+13127367276")
-                            .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
+                            .recordType(FaxQueuedWebhookEvent.Data.RecordType.EVENT)
                             .build()
                     )
-                    .recordType(FaxQueuedWebhookEvent.RecordType.EVENT)
+                    .meta(
+                        FaxQueuedWebhookEvent.Meta.builder()
+                            .attempt(1L)
+                            .deliveredTo("https://www.example.com/webhooks")
+                            .build()
+                    )
                     .build()
             )
 
@@ -8170,25 +8265,36 @@ internal class UnwrapWebhookEventTest {
     fun ofFaxSendingStarted() {
         val faxSendingStarted =
             FaxSendingStartedWebhookEvent.builder()
-                .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                .eventType(FaxSendingStartedWebhookEvent.EventType.FAX_SENDING_STARTED)
-                .payload(
-                    FaxSendingStartedWebhookEvent.Payload.builder()
-                        .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                        .connectionId("234423")
-                        .direction(FaxSendingStartedWebhookEvent.Payload.Direction.OUTBOUND)
-                        .faxId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .from("+13125790015")
-                        .mediaName("my_media_uploaded_to_media_storage_api")
-                        .originalMediaUrl(
-                            "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                .data(
+                    FaxSendingStartedWebhookEvent.Data.builder()
+                        .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
+                        .eventType(FaxSendingStartedWebhookEvent.Data.EventType.FAX_SENDING_STARTED)
+                        .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
+                        .payload(
+                            FaxSendingStartedWebhookEvent.Data.Payload.builder()
+                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                .connectionId("234423")
+                                .direction(
+                                    FaxSendingStartedWebhookEvent.Data.Payload.Direction.OUTBOUND
+                                )
+                                .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
+                                .from("+17733372107")
+                                .mediaName("my_media_uploaded_to_media_storage_api")
+                                .originalMediaUrl("http://www.example.com/fax.pdf")
+                                .status(FaxSendingStartedWebhookEvent.Data.Payload.Status.SENDING)
+                                .to("+15107882622")
+                                .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
+                                .build()
                         )
-                        .status(FaxSendingStartedWebhookEvent.Payload.Status.SENDING)
-                        .to("+13127367276")
-                        .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
+                        .recordType(FaxSendingStartedWebhookEvent.Data.RecordType.EVENT)
                         .build()
                 )
-                .recordType(FaxSendingStartedWebhookEvent.RecordType.EVENT)
+                .meta(
+                    FaxSendingStartedWebhookEvent.Meta.builder()
+                        .attempt(1L)
+                        .deliveredTo("https://www.example.com/webhooks")
+                        .build()
+                )
                 .build()
 
         val unwrapWebhookEvent = UnwrapWebhookEvent.ofFaxSendingStarted(faxSendingStarted)
@@ -8261,25 +8367,41 @@ internal class UnwrapWebhookEventTest {
         val unwrapWebhookEvent =
             UnwrapWebhookEvent.ofFaxSendingStarted(
                 FaxSendingStartedWebhookEvent.builder()
-                    .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(FaxSendingStartedWebhookEvent.EventType.FAX_SENDING_STARTED)
-                    .payload(
-                        FaxSendingStartedWebhookEvent.Payload.builder()
-                            .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                            .connectionId("234423")
-                            .direction(FaxSendingStartedWebhookEvent.Payload.Direction.OUTBOUND)
-                            .faxId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .from("+13125790015")
-                            .mediaName("my_media_uploaded_to_media_storage_api")
-                            .originalMediaUrl(
-                                "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                    .data(
+                        FaxSendingStartedWebhookEvent.Data.builder()
+                            .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
+                            .eventType(
+                                FaxSendingStartedWebhookEvent.Data.EventType.FAX_SENDING_STARTED
                             )
-                            .status(FaxSendingStartedWebhookEvent.Payload.Status.SENDING)
-                            .to("+13127367276")
-                            .userId("a7f7c54a-4df3-4bca-a65a-3da1ecc777f0")
+                            .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
+                            .payload(
+                                FaxSendingStartedWebhookEvent.Data.Payload.builder()
+                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                    .connectionId("234423")
+                                    .direction(
+                                        FaxSendingStartedWebhookEvent.Data.Payload.Direction
+                                            .OUTBOUND
+                                    )
+                                    .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
+                                    .from("+17733372107")
+                                    .mediaName("my_media_uploaded_to_media_storage_api")
+                                    .originalMediaUrl("http://www.example.com/fax.pdf")
+                                    .status(
+                                        FaxSendingStartedWebhookEvent.Data.Payload.Status.SENDING
+                                    )
+                                    .to("+15107882622")
+                                    .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
+                                    .build()
+                            )
+                            .recordType(FaxSendingStartedWebhookEvent.Data.RecordType.EVENT)
                             .build()
                     )
-                    .recordType(FaxSendingStartedWebhookEvent.RecordType.EVENT)
+                    .meta(
+                        FaxSendingStartedWebhookEvent.Meta.builder()
+                            .attempt(1L)
+                            .deliveredTo("https://www.example.com/webhooks")
+                            .build()
+                    )
                     .build()
             )
 
