@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.7.2 (2026-01-30)
+
+Full Changelog: [v6.7.1...v6.7.2](https://github.com/team-telnyx/telnyx-java/compare/v6.7.1...v6.7.2)
+
+### Bug Fixes
+
+* use PaginationMeta schema for ListFaxesResponse.meta ([f586bc8](https://github.com/team-telnyx/telnyx-java/commit/f586bc847520f83fac94fdd0cc3e551097daabc3))
+
 ## 6.7.1 (2026-01-30)
 
 Full Changelog: [v6.7.0...v6.7.1](https://github.com/team-telnyx/telnyx-java/compare/v6.7.0...v6.7.1)
