@@ -19,8 +19,6 @@ import com.telnyx.sdk.models.texml.TexmlSecretsParams
 import com.telnyx.sdk.models.texml.TexmlSecretsResponse
 import com.telnyx.sdk.services.blocking.texml.AccountService
 import com.telnyx.sdk.services.blocking.texml.AccountServiceImpl
-import com.telnyx.sdk.services.blocking.texml.CallService
-import com.telnyx.sdk.services.blocking.texml.CallServiceImpl
 import java.util.function.Consumer
 
 class TexmlServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -32,16 +30,12 @@ class TexmlServiceImpl internal constructor(private val clientOptions: ClientOpt
 
     private val accounts: AccountService by lazy { AccountServiceImpl(clientOptions) }
 
-    private val calls: CallService by lazy { CallServiceImpl(clientOptions) }
-
     override fun withRawResponse(): TexmlService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TexmlService =
         TexmlServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun accounts(): AccountService = accounts
-
-    override fun calls(): CallService = calls
 
     override fun secrets(
         params: TexmlSecretsParams,
@@ -60,10 +54,6 @@ class TexmlServiceImpl internal constructor(private val clientOptions: ClientOpt
             AccountServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val calls: CallService.WithRawResponse by lazy {
-            CallServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TexmlService.WithRawResponse =
@@ -72,8 +62,6 @@ class TexmlServiceImpl internal constructor(private val clientOptions: ClientOpt
             )
 
         override fun accounts(): AccountService.WithRawResponse = accounts
-
-        override fun calls(): CallService.WithRawResponse = calls
 
         private val secretsHandler: Handler<TexmlSecretsResponse> =
             jsonHandler<TexmlSecretsResponse>(clientOptions.jsonMapper)
