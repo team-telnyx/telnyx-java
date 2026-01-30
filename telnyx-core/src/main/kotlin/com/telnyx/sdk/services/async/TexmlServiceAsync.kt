@@ -8,7 +8,6 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.texml.TexmlSecretsParams
 import com.telnyx.sdk.models.texml.TexmlSecretsResponse
 import com.telnyx.sdk.services.async.texml.AccountServiceAsync
-import com.telnyx.sdk.services.async.texml.CallServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -27,8 +26,6 @@ interface TexmlServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TexmlServiceAsync
 
     fun accounts(): AccountServiceAsync
-
-    fun calls(): CallServiceAsync
 
     /**
      * Create a TeXML secret which can be later used as a Dynamic Parameter for TeXML when using
@@ -58,8 +55,6 @@ interface TexmlServiceAsync {
         ): TexmlServiceAsync.WithRawResponse
 
         fun accounts(): AccountServiceAsync.WithRawResponse
-
-        fun calls(): CallServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /texml/secrets`, but is otherwise the same as
