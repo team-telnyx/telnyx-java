@@ -40,6 +40,8 @@ private constructor(
     /**
      * ID of the model to use. `distil-whisper/distil-large-v2` is lower latency but English-only.
      * `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher latency.
+     * `deepgram/nova-3` supports English variants (en, en-US, en-GB, en-AU, en-NZ, en-IN) and only
+     * accepts mp3/wav files.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -49,7 +51,7 @@ private constructor(
     /**
      * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga,
      * m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used together with
-     * `file_url`
+     * `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -58,12 +60,35 @@ private constructor(
 
     /**
      * Link to audio file in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or
-     * webm. Support for hosted files is limited to 100MB. Cannot be used together with `file`
+     * webm. Support for hosted files is limited to 100MB. Cannot be used together with `file`.
+     * Note: `deepgram/nova-3` only supports mp3 and wav formats.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun fileUrl(): Optional<String> = body.fileUrl()
+
+    /**
+     * The language of the audio to be transcribed. For `deepgram/nova-3`, only English variants are
+     * supported: `en`, `en-US`, `en-GB`, `en-AU`, `en-NZ`, `en-IN`. For
+     * `openai/whisper-large-v3-turbo`, supports multiple languages.
+     * `distil-whisper/distil-large-v2` does not support language parameter.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun language(): Optional<String> = body.language()
+
+    /**
+     * Additional model-specific configuration parameters. Only allowed with `deepgram/nova-3`
+     * model. Can include Deepgram-specific options such as `smart_format`, `punctuate`, `diarize`,
+     * `utterance`, `numerals`, and `language`. If `language` is provided both as a top-level
+     * parameter and in `model_config`, the top-level parameter takes precedence.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun modelConfig(): Optional<ModelConfig> = body.modelConfig()
 
     /**
      * The format of the transcript output. Use `verbose_json` to take advantage of timestamps.
@@ -102,6 +127,21 @@ private constructor(
      * Unlike [fileUrl], this method doesn't throw if the multipart field has an unexpected type.
      */
     fun _fileUrl(): MultipartField<String> = body._fileUrl()
+
+    /**
+     * Returns the raw multipart value of [language].
+     *
+     * Unlike [language], this method doesn't throw if the multipart field has an unexpected type.
+     */
+    fun _language(): MultipartField<String> = body._language()
+
+    /**
+     * Returns the raw multipart value of [modelConfig].
+     *
+     * Unlike [modelConfig], this method doesn't throw if the multipart field has an unexpected
+     * type.
+     */
+    fun _modelConfig(): MultipartField<ModelConfig> = body._modelConfig()
 
     /**
      * Returns the raw multipart value of [responseFormat].
@@ -165,8 +205,8 @@ private constructor(
          * - [model]
          * - [file]
          * - [fileUrl]
-         * - [responseFormat]
-         * - [timestampGranularities]
+         * - [language]
+         * - [modelConfig]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -174,7 +214,8 @@ private constructor(
         /**
          * ID of the model to use. `distil-whisper/distil-large-v2` is lower latency but
          * English-only. `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher
-         * latency.
+         * latency. `deepgram/nova-3` supports English variants (en, en-US, en-GB, en-AU, en-NZ,
+         * en-IN) and only accepts mp3/wav files.
          */
         fun model(model: Model) = apply { body.model(model) }
 
@@ -189,7 +230,7 @@ private constructor(
         /**
          * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga,
          * m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used together with
-         * `file_url`
+         * `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
          */
         fun file(file: InputStream) = apply { body.file(file) }
 
@@ -205,20 +246,21 @@ private constructor(
         /**
          * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga,
          * m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used together with
-         * `file_url`
+         * `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
          */
         fun file(file: ByteArray) = apply { body.file(file) }
 
         /**
          * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga,
          * m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used together with
-         * `file_url`
+         * `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
          */
         fun file(path: Path) = apply { body.file(path) }
 
         /**
          * Link to audio file in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or
-         * webm. Support for hosted files is limited to 100MB. Cannot be used together with `file`
+         * webm. Support for hosted files is limited to 100MB. Cannot be used together with `file`.
+         * Note: `deepgram/nova-3` only supports mp3 and wav formats.
          */
         fun fileUrl(fileUrl: String) = apply { body.fileUrl(fileUrl) }
 
@@ -229,6 +271,41 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun fileUrl(fileUrl: MultipartField<String>) = apply { body.fileUrl(fileUrl) }
+
+        /**
+         * The language of the audio to be transcribed. For `deepgram/nova-3`, only English variants
+         * are supported: `en`, `en-US`, `en-GB`, `en-AU`, `en-NZ`, `en-IN`. For
+         * `openai/whisper-large-v3-turbo`, supports multiple languages.
+         * `distil-whisper/distil-large-v2` does not support language parameter.
+         */
+        fun language(language: String) = apply { body.language(language) }
+
+        /**
+         * Sets [Builder.language] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.language] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun language(language: MultipartField<String>) = apply { body.language(language) }
+
+        /**
+         * Additional model-specific configuration parameters. Only allowed with `deepgram/nova-3`
+         * model. Can include Deepgram-specific options such as `smart_format`, `punctuate`,
+         * `diarize`, `utterance`, `numerals`, and `language`. If `language` is provided both as a
+         * top-level parameter and in `model_config`, the top-level parameter takes precedence.
+         */
+        fun modelConfig(modelConfig: ModelConfig) = apply { body.modelConfig(modelConfig) }
+
+        /**
+         * Sets [Builder.modelConfig] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.modelConfig] with a well-typed [ModelConfig] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun modelConfig(modelConfig: MultipartField<ModelConfig>) = apply {
+            body.modelConfig(modelConfig)
+        }
 
         /**
          * The format of the transcript output. Use `verbose_json` to take advantage of timestamps.
@@ -410,6 +487,8 @@ private constructor(
                 "model" to _model(),
                 "file" to _file(),
                 "file_url" to _fileUrl(),
+                "language" to _language(),
+                "model_config" to _modelConfig(),
                 "response_format" to _responseFormat(),
                 "timestamp_granularities[]" to _timestampGranularities(),
             ) + _additionalBodyProperties().mapValues { (_, value) -> MultipartField.of(value) })
@@ -424,6 +503,8 @@ private constructor(
         private val model: MultipartField<Model>,
         private val file: MultipartField<InputStream>,
         private val fileUrl: MultipartField<String>,
+        private val language: MultipartField<String>,
+        private val modelConfig: MultipartField<ModelConfig>,
         private val responseFormat: MultipartField<ResponseFormat>,
         private val timestampGranularities: MultipartField<TimestampGranularities>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -432,7 +513,8 @@ private constructor(
         /**
          * ID of the model to use. `distil-whisper/distil-large-v2` is lower latency but
          * English-only. `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher
-         * latency.
+         * latency. `deepgram/nova-3` supports English variants (en, en-US, en-GB, en-AU, en-NZ,
+         * en-IN) and only accepts mp3/wav files.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -442,7 +524,7 @@ private constructor(
         /**
          * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga,
          * m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used together with
-         * `file_url`
+         * `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -451,12 +533,35 @@ private constructor(
 
         /**
          * Link to audio file in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or
-         * webm. Support for hosted files is limited to 100MB. Cannot be used together with `file`
+         * webm. Support for hosted files is limited to 100MB. Cannot be used together with `file`.
+         * Note: `deepgram/nova-3` only supports mp3 and wav formats.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun fileUrl(): Optional<String> = fileUrl.value.getOptional("file_url")
+
+        /**
+         * The language of the audio to be transcribed. For `deepgram/nova-3`, only English variants
+         * are supported: `en`, `en-US`, `en-GB`, `en-AU`, `en-NZ`, `en-IN`. For
+         * `openai/whisper-large-v3-turbo`, supports multiple languages.
+         * `distil-whisper/distil-large-v2` does not support language parameter.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun language(): Optional<String> = language.value.getOptional("language")
+
+        /**
+         * Additional model-specific configuration parameters. Only allowed with `deepgram/nova-3`
+         * model. Can include Deepgram-specific options such as `smart_format`, `punctuate`,
+         * `diarize`, `utterance`, `numerals`, and `language`. If `language` is provided both as a
+         * top-level parameter and in `model_config`, the top-level parameter takes precedence.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun modelConfig(): Optional<ModelConfig> = modelConfig.value.getOptional("model_config")
 
         /**
          * The format of the transcript output. Use `verbose_json` to take advantage of timestamps.
@@ -498,6 +603,24 @@ private constructor(
          * type.
          */
         @JsonProperty("file_url") @ExcludeMissing fun _fileUrl(): MultipartField<String> = fileUrl
+
+        /**
+         * Returns the raw multipart value of [language].
+         *
+         * Unlike [language], this method doesn't throw if the multipart field has an unexpected
+         * type.
+         */
+        @JsonProperty("language") @ExcludeMissing fun _language(): MultipartField<String> = language
+
+        /**
+         * Returns the raw multipart value of [modelConfig].
+         *
+         * Unlike [modelConfig], this method doesn't throw if the multipart field has an unexpected
+         * type.
+         */
+        @JsonProperty("model_config")
+        @ExcludeMissing
+        fun _modelConfig(): MultipartField<ModelConfig> = modelConfig
 
         /**
          * Returns the raw multipart value of [responseFormat].
@@ -551,6 +674,8 @@ private constructor(
             private var model: MultipartField<Model>? = null
             private var file: MultipartField<InputStream> = MultipartField.of(null)
             private var fileUrl: MultipartField<String> = MultipartField.of(null)
+            private var language: MultipartField<String> = MultipartField.of(null)
+            private var modelConfig: MultipartField<ModelConfig> = MultipartField.of(null)
             private var responseFormat: MultipartField<ResponseFormat> = MultipartField.of(null)
             private var timestampGranularities: MultipartField<TimestampGranularities> =
                 MultipartField.of(null)
@@ -561,6 +686,8 @@ private constructor(
                 model = body.model
                 file = body.file
                 fileUrl = body.fileUrl
+                language = body.language
+                modelConfig = body.modelConfig
                 responseFormat = body.responseFormat
                 timestampGranularities = body.timestampGranularities
                 additionalProperties = body.additionalProperties.toMutableMap()
@@ -569,7 +696,8 @@ private constructor(
             /**
              * ID of the model to use. `distil-whisper/distil-large-v2` is lower latency but
              * English-only. `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher
-             * latency.
+             * latency. `deepgram/nova-3` supports English variants (en, en-US, en-GB, en-AU, en-NZ,
+             * en-IN) and only accepts mp3/wav files.
              */
             fun model(model: Model) = model(MultipartField.of(model))
 
@@ -585,7 +713,7 @@ private constructor(
             /**
              * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg,
              * mpga, m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used
-             * together with `file_url`
+             * together with `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
              */
             fun file(file: InputStream) = file(MultipartField.of(file))
 
@@ -601,14 +729,14 @@ private constructor(
             /**
              * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg,
              * mpga, m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used
-             * together with `file_url`
+             * together with `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
              */
             fun file(file: ByteArray) = file(file.inputStream())
 
             /**
              * The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg,
              * mpga, m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used
-             * together with `file_url`
+             * together with `file_url`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
              */
             fun file(path: Path) =
                 file(
@@ -621,7 +749,7 @@ private constructor(
             /**
              * Link to audio file in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg,
              * wav, or webm. Support for hosted files is limited to 100MB. Cannot be used together
-             * with `file`
+             * with `file`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
              */
             fun fileUrl(fileUrl: String) = fileUrl(MultipartField.of(fileUrl))
 
@@ -633,6 +761,43 @@ private constructor(
              * supported value.
              */
             fun fileUrl(fileUrl: MultipartField<String>) = apply { this.fileUrl = fileUrl }
+
+            /**
+             * The language of the audio to be transcribed. For `deepgram/nova-3`, only English
+             * variants are supported: `en`, `en-US`, `en-GB`, `en-AU`, `en-NZ`, `en-IN`. For
+             * `openai/whisper-large-v3-turbo`, supports multiple languages.
+             * `distil-whisper/distil-large-v2` does not support language parameter.
+             */
+            fun language(language: String) = language(MultipartField.of(language))
+
+            /**
+             * Sets [Builder.language] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.language] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun language(language: MultipartField<String>) = apply { this.language = language }
+
+            /**
+             * Additional model-specific configuration parameters. Only allowed with
+             * `deepgram/nova-3` model. Can include Deepgram-specific options such as
+             * `smart_format`, `punctuate`, `diarize`, `utterance`, `numerals`, and `language`. If
+             * `language` is provided both as a top-level parameter and in `model_config`, the
+             * top-level parameter takes precedence.
+             */
+            fun modelConfig(modelConfig: ModelConfig) = modelConfig(MultipartField.of(modelConfig))
+
+            /**
+             * Sets [Builder.modelConfig] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.modelConfig] with a well-typed [ModelConfig] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun modelConfig(modelConfig: MultipartField<ModelConfig>) = apply {
+                this.modelConfig = modelConfig
+            }
 
             /**
              * The format of the transcript output. Use `verbose_json` to take advantage of
@@ -707,6 +872,8 @@ private constructor(
                     checkRequired("model", model),
                     file,
                     fileUrl,
+                    language,
+                    modelConfig,
                     responseFormat,
                     timestampGranularities,
                     additionalProperties.toMutableMap(),
@@ -723,6 +890,8 @@ private constructor(
             model().validate()
             file()
             fileUrl()
+            language()
+            modelConfig().ifPresent { it.validate() }
             responseFormat().ifPresent { it.validate() }
             timestampGranularities().ifPresent { it.validate() }
             validated = true
@@ -745,6 +914,8 @@ private constructor(
                 model == other.model &&
                 file == other.file &&
                 fileUrl == other.fileUrl &&
+                language == other.language &&
+                modelConfig == other.modelConfig &&
                 responseFormat == other.responseFormat &&
                 timestampGranularities == other.timestampGranularities &&
                 additionalProperties == other.additionalProperties
@@ -755,6 +926,8 @@ private constructor(
                 model,
                 file,
                 fileUrl,
+                language,
+                modelConfig,
                 responseFormat,
                 timestampGranularities,
                 additionalProperties,
@@ -764,12 +937,14 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{model=$model, file=$file, fileUrl=$fileUrl, responseFormat=$responseFormat, timestampGranularities=$timestampGranularities, additionalProperties=$additionalProperties}"
+            "Body{model=$model, file=$file, fileUrl=$fileUrl, language=$language, modelConfig=$modelConfig, responseFormat=$responseFormat, timestampGranularities=$timestampGranularities, additionalProperties=$additionalProperties}"
     }
 
     /**
      * ID of the model to use. `distil-whisper/distil-large-v2` is lower latency but English-only.
      * `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher latency.
+     * `deepgram/nova-3` supports English variants (en, en-US, en-GB, en-AU, en-NZ, en-IN) and only
+     * accepts mp3/wav files.
      */
     class Model @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -789,6 +964,8 @@ private constructor(
 
             @JvmField val OPENAI_WHISPER_LARGE_V3_TURBO = of("openai/whisper-large-v3-turbo")
 
+            @JvmField val DEEPGRAM_NOVA_3 = of("deepgram/nova-3")
+
             @JvmStatic fun of(value: String) = Model(JsonField.of(value))
         }
 
@@ -796,6 +973,7 @@ private constructor(
         enum class Known {
             DISTIL_WHISPER_DISTIL_LARGE_V2,
             OPENAI_WHISPER_LARGE_V3_TURBO,
+            DEEPGRAM_NOVA_3,
         }
 
         /**
@@ -810,6 +988,7 @@ private constructor(
         enum class Value {
             DISTIL_WHISPER_DISTIL_LARGE_V2,
             OPENAI_WHISPER_LARGE_V3_TURBO,
+            DEEPGRAM_NOVA_3,
             /** An enum member indicating that [Model] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -825,6 +1004,7 @@ private constructor(
             when (this) {
                 DISTIL_WHISPER_DISTIL_LARGE_V2 -> Value.DISTIL_WHISPER_DISTIL_LARGE_V2
                 OPENAI_WHISPER_LARGE_V3_TURBO -> Value.OPENAI_WHISPER_LARGE_V3_TURBO
+                DEEPGRAM_NOVA_3 -> Value.DEEPGRAM_NOVA_3
                 else -> Value._UNKNOWN
             }
 
@@ -841,6 +1021,7 @@ private constructor(
             when (this) {
                 DISTIL_WHISPER_DISTIL_LARGE_V2 -> Known.DISTIL_WHISPER_DISTIL_LARGE_V2
                 OPENAI_WHISPER_LARGE_V3_TURBO -> Known.OPENAI_WHISPER_LARGE_V3_TURBO
+                DEEPGRAM_NOVA_3 -> Known.DEEPGRAM_NOVA_3
                 else -> throw TelnyxInvalidDataException("Unknown Model: $value")
             }
 
@@ -894,6 +1075,100 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    /**
+     * Additional model-specific configuration parameters. Only allowed with `deepgram/nova-3`
+     * model. Can include Deepgram-specific options such as `smart_format`, `punctuate`, `diarize`,
+     * `utterance`, `numerals`, and `language`. If `language` is provided both as a top-level
+     * parameter and in `model_config`, the top-level parameter takes precedence.
+     */
+    class ModelConfig
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [ModelConfig]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ModelConfig]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(modelConfig: ModelConfig) = apply {
+                additionalProperties = modelConfig.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ModelConfig].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): ModelConfig = ModelConfig(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): ModelConfig = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ModelConfig && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "ModelConfig{additionalProperties=$additionalProperties}"
     }
 
     /** The format of the transcript output. Use `verbose_json` to take advantage of timestamps. */

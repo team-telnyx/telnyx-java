@@ -24,6 +24,7 @@ private constructor(
     private val callSid: JsonField<String>,
     private val coaching: JsonField<Boolean>,
     private val coachingCallSid: JsonField<String>,
+    private val conferenceSid: JsonField<String>,
     private val endConferenceOnExit: JsonField<Boolean>,
     private val hold: JsonField<Boolean>,
     private val muted: JsonField<Boolean>,
@@ -42,6 +43,9 @@ private constructor(
         @JsonProperty("coaching_call_sid")
         @ExcludeMissing
         coachingCallSid: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("conference_sid")
+        @ExcludeMissing
+        conferenceSid: JsonField<String> = JsonMissing.of(),
         @JsonProperty("end_conference_on_exit")
         @ExcludeMissing
         endConferenceOnExit: JsonField<Boolean> = JsonMissing.of(),
@@ -54,6 +58,7 @@ private constructor(
         callSid,
         coaching,
         coachingCallSid,
+        conferenceSid,
         endConferenceOnExit,
         hold,
         muted,
@@ -93,6 +98,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun coachingCallSid(): Optional<String> = coachingCallSid.getOptional("coaching_call_sid")
+
+    /**
+     * The unique identifier for the conference.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun conferenceSid(): Optional<String> = conferenceSid.getOptional("conference_sid")
 
     /**
      * Whether the conference ends when the participant leaves.
@@ -166,6 +179,15 @@ private constructor(
     fun _coachingCallSid(): JsonField<String> = coachingCallSid
 
     /**
+     * Returns the raw JSON value of [conferenceSid].
+     *
+     * Unlike [conferenceSid], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("conference_sid")
+    @ExcludeMissing
+    fun _conferenceSid(): JsonField<String> = conferenceSid
+
+    /**
      * Returns the raw JSON value of [endConferenceOnExit].
      *
      * Unlike [endConferenceOnExit], this method doesn't throw if the JSON field has an unexpected
@@ -231,6 +253,7 @@ private constructor(
         private var callSid: JsonField<String> = JsonMissing.of()
         private var coaching: JsonField<Boolean> = JsonMissing.of()
         private var coachingCallSid: JsonField<String> = JsonMissing.of()
+        private var conferenceSid: JsonField<String> = JsonMissing.of()
         private var endConferenceOnExit: JsonField<Boolean> = JsonMissing.of()
         private var hold: JsonField<Boolean> = JsonMissing.of()
         private var muted: JsonField<Boolean> = JsonMissing.of()
@@ -245,6 +268,7 @@ private constructor(
                 callSid = participantParticipantsResponse.callSid
                 coaching = participantParticipantsResponse.coaching
                 coachingCallSid = participantParticipantsResponse.coachingCallSid
+                conferenceSid = participantParticipantsResponse.conferenceSid
                 endConferenceOnExit = participantParticipantsResponse.endConferenceOnExit
                 hold = participantParticipantsResponse.hold
                 muted = participantParticipantsResponse.muted
@@ -302,6 +326,20 @@ private constructor(
          */
         fun coachingCallSid(coachingCallSid: JsonField<String>) = apply {
             this.coachingCallSid = coachingCallSid
+        }
+
+        /** The unique identifier for the conference. */
+        fun conferenceSid(conferenceSid: String) = conferenceSid(JsonField.of(conferenceSid))
+
+        /**
+         * Sets [Builder.conferenceSid] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.conferenceSid] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun conferenceSid(conferenceSid: JsonField<String>) = apply {
+            this.conferenceSid = conferenceSid
         }
 
         /** Whether the conference ends when the participant leaves. */
@@ -393,6 +431,7 @@ private constructor(
                 callSid,
                 coaching,
                 coachingCallSid,
+                conferenceSid,
                 endConferenceOnExit,
                 hold,
                 muted,
@@ -413,6 +452,7 @@ private constructor(
         callSid()
         coaching()
         coachingCallSid()
+        conferenceSid()
         endConferenceOnExit()
         hold()
         muted()
@@ -440,6 +480,7 @@ private constructor(
             (if (callSid.asKnown().isPresent) 1 else 0) +
             (if (coaching.asKnown().isPresent) 1 else 0) +
             (if (coachingCallSid.asKnown().isPresent) 1 else 0) +
+            (if (conferenceSid.asKnown().isPresent) 1 else 0) +
             (if (endConferenceOnExit.asKnown().isPresent) 1 else 0) +
             (if (hold.asKnown().isPresent) 1 else 0) +
             (if (muted.asKnown().isPresent) 1 else 0) +
@@ -588,6 +629,7 @@ private constructor(
             callSid == other.callSid &&
             coaching == other.coaching &&
             coachingCallSid == other.coachingCallSid &&
+            conferenceSid == other.conferenceSid &&
             endConferenceOnExit == other.endConferenceOnExit &&
             hold == other.hold &&
             muted == other.muted &&
@@ -602,6 +644,7 @@ private constructor(
             callSid,
             coaching,
             coachingCallSid,
+            conferenceSid,
             endConferenceOnExit,
             hold,
             muted,
@@ -614,5 +657,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ParticipantParticipantsResponse{accountSid=$accountSid, callSid=$callSid, coaching=$coaching, coachingCallSid=$coachingCallSid, endConferenceOnExit=$endConferenceOnExit, hold=$hold, muted=$muted, status=$status, uri=$uri, additionalProperties=$additionalProperties}"
+        "ParticipantParticipantsResponse{accountSid=$accountSid, callSid=$callSid, coaching=$coaching, coachingCallSid=$coachingCallSid, conferenceSid=$conferenceSid, endConferenceOnExit=$endConferenceOnExit, hold=$hold, muted=$muted, status=$status, uri=$uri, additionalProperties=$additionalProperties}"
 }

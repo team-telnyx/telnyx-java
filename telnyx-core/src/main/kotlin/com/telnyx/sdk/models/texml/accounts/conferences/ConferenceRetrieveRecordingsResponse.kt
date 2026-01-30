@@ -27,6 +27,7 @@ private constructor(
     private val nextPageUri: JsonField<String>,
     private val page: JsonField<Long>,
     private val pageSize: JsonField<Long>,
+    private val participants: JsonField<List<JsonValue>>,
     private val recordings: JsonField<List<Recording>>,
     private val start: JsonField<Long>,
     private val uri: JsonField<String>,
@@ -44,12 +45,26 @@ private constructor(
         nextPageUri: JsonField<String> = JsonMissing.of(),
         @JsonProperty("page") @ExcludeMissing page: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("page_size") @ExcludeMissing pageSize: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("participants")
+        @ExcludeMissing
+        participants: JsonField<List<JsonValue>> = JsonMissing.of(),
         @JsonProperty("recordings")
         @ExcludeMissing
         recordings: JsonField<List<Recording>> = JsonMissing.of(),
         @JsonProperty("start") @ExcludeMissing start: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("uri") @ExcludeMissing uri: JsonField<String> = JsonMissing.of(),
-    ) : this(end, firstPageUri, nextPageUri, page, pageSize, recordings, start, uri, mutableMapOf())
+    ) : this(
+        end,
+        firstPageUri,
+        nextPageUri,
+        page,
+        pageSize,
+        participants,
+        recordings,
+        start,
+        uri,
+        mutableMapOf(),
+    )
 
     /**
      * The number of the last element on the page, zero-indexed.
@@ -90,6 +105,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun pageSize(): Optional<Long> = pageSize.getOptional("page_size")
+
+    /**
+     * List of participant resources.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun participants(): Optional<List<JsonValue>> = participants.getOptional("participants")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -153,6 +176,15 @@ private constructor(
     @JsonProperty("page_size") @ExcludeMissing fun _pageSize(): JsonField<Long> = pageSize
 
     /**
+     * Returns the raw JSON value of [participants].
+     *
+     * Unlike [participants], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("participants")
+    @ExcludeMissing
+    fun _participants(): JsonField<List<JsonValue>> = participants
+
+    /**
      * Returns the raw JSON value of [recordings].
      *
      * Unlike [recordings], this method doesn't throw if the JSON field has an unexpected type.
@@ -204,6 +236,7 @@ private constructor(
         private var nextPageUri: JsonField<String> = JsonMissing.of()
         private var page: JsonField<Long> = JsonMissing.of()
         private var pageSize: JsonField<Long> = JsonMissing.of()
+        private var participants: JsonField<MutableList<JsonValue>>? = null
         private var recordings: JsonField<MutableList<Recording>>? = null
         private var start: JsonField<Long> = JsonMissing.of()
         private var uri: JsonField<String> = JsonMissing.of()
@@ -218,6 +251,8 @@ private constructor(
             nextPageUri = conferenceRetrieveRecordingsResponse.nextPageUri
             page = conferenceRetrieveRecordingsResponse.page
             pageSize = conferenceRetrieveRecordingsResponse.pageSize
+            participants =
+                conferenceRetrieveRecordingsResponse.participants.map { it.toMutableList() }
             recordings = conferenceRetrieveRecordingsResponse.recordings.map { it.toMutableList() }
             start = conferenceRetrieveRecordingsResponse.start
             uri = conferenceRetrieveRecordingsResponse.uri
@@ -287,6 +322,32 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun pageSize(pageSize: JsonField<Long>) = apply { this.pageSize = pageSize }
+
+        /** List of participant resources. */
+        fun participants(participants: List<JsonValue>) = participants(JsonField.of(participants))
+
+        /**
+         * Sets [Builder.participants] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.participants] with a well-typed `List<JsonValue>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun participants(participants: JsonField<List<JsonValue>>) = apply {
+            this.participants = participants.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [JsonValue] to [participants].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addParticipant(participant: JsonValue) = apply {
+            participants =
+                (participants ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("participants", it).add(participant)
+                }
+        }
 
         fun recordings(recordings: List<Recording>) = recordings(JsonField.of(recordings))
 
@@ -366,6 +427,7 @@ private constructor(
                 nextPageUri,
                 page,
                 pageSize,
+                (participants ?: JsonMissing.of()).map { it.toImmutable() },
                 (recordings ?: JsonMissing.of()).map { it.toImmutable() },
                 start,
                 uri,
@@ -385,6 +447,7 @@ private constructor(
         nextPageUri()
         page()
         pageSize()
+        participants()
         recordings().ifPresent { it.forEach { it.validate() } }
         start()
         uri()
@@ -411,6 +474,7 @@ private constructor(
             (if (nextPageUri.asKnown().isPresent) 1 else 0) +
             (if (page.asKnown().isPresent) 1 else 0) +
             (if (pageSize.asKnown().isPresent) 1 else 0) +
+            (participants.asKnown().getOrNull()?.size ?: 0) +
             (recordings.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (start.asKnown().isPresent) 1 else 0) +
             (if (uri.asKnown().isPresent) 1 else 0)
@@ -1543,6 +1607,7 @@ private constructor(
             nextPageUri == other.nextPageUri &&
             page == other.page &&
             pageSize == other.pageSize &&
+            participants == other.participants &&
             recordings == other.recordings &&
             start == other.start &&
             uri == other.uri &&
@@ -1556,6 +1621,7 @@ private constructor(
             nextPageUri,
             page,
             pageSize,
+            participants,
             recordings,
             start,
             uri,
@@ -1566,5 +1632,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ConferenceRetrieveRecordingsResponse{end=$end, firstPageUri=$firstPageUri, nextPageUri=$nextPageUri, page=$page, pageSize=$pageSize, recordings=$recordings, start=$start, uri=$uri, additionalProperties=$additionalProperties}"
+        "ConferenceRetrieveRecordingsResponse{end=$end, firstPageUri=$firstPageUri, nextPageUri=$nextPageUri, page=$page, pageSize=$pageSize, participants=$participants, recordings=$recordings, start=$start, uri=$uri, additionalProperties=$additionalProperties}"
 }

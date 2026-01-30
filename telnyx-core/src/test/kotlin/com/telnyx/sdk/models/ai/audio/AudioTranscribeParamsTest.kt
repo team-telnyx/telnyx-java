@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.ai.audio
 
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.MultipartField
 import java.io.InputStream
 import org.assertj.core.api.Assertions.assertThat
@@ -15,6 +16,13 @@ internal class AudioTranscribeParamsTest {
             .model(AudioTranscribeParams.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
             .file("some content".byteInputStream())
             .fileUrl("https://example.com/file.mp3")
+            .language("en-US")
+            .modelConfig(
+                AudioTranscribeParams.ModelConfig.builder()
+                    .putAdditionalProperty("smart_format", JsonValue.from("bar"))
+                    .putAdditionalProperty("punctuate", JsonValue.from("bar"))
+                    .build()
+            )
             .responseFormat(AudioTranscribeParams.ResponseFormat.JSON)
             .timestampGranularities(AudioTranscribeParams.TimestampGranularities.SEGMENT)
             .build()
@@ -27,6 +35,13 @@ internal class AudioTranscribeParamsTest {
                 .model(AudioTranscribeParams.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
                 .file("some content".byteInputStream())
                 .fileUrl("https://example.com/file.mp3")
+                .language("en-US")
+                .modelConfig(
+                    AudioTranscribeParams.ModelConfig.builder()
+                        .putAdditionalProperty("smart_format", JsonValue.from("bar"))
+                        .putAdditionalProperty("punctuate", JsonValue.from("bar"))
+                        .build()
+                )
                 .responseFormat(AudioTranscribeParams.ResponseFormat.JSON)
                 .timestampGranularities(AudioTranscribeParams.TimestampGranularities.SEGMENT)
                 .build()
@@ -49,6 +64,14 @@ internal class AudioTranscribeParamsTest {
                             ),
                         "file" to MultipartField.of("some content".byteInputStream()),
                         "file_url" to MultipartField.of("https://example.com/file.mp3"),
+                        "language" to MultipartField.of("en-US"),
+                        "model_config" to
+                            MultipartField.of(
+                                AudioTranscribeParams.ModelConfig.builder()
+                                    .putAdditionalProperty("smart_format", JsonValue.from("bar"))
+                                    .putAdditionalProperty("punctuate", JsonValue.from("bar"))
+                                    .build()
+                            ),
                         "response_format" to
                             MultipartField.of(AudioTranscribeParams.ResponseFormat.JSON),
                         "timestamp_granularities[]" to

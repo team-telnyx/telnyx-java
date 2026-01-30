@@ -28,8 +28,8 @@ private constructor(
 ) : Params {
 
     /**
-     * Consolidated filter parameter for SIM cards (deepObject style). Originally: filter[tags],
-     * filter[iccid], filter[status]
+     * Consolidated filter parameter for SIM cards (deepObject style). Originally: filter[iccid],
+     * filter[msisdn], filter[status], filter[tags]
      */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
@@ -90,8 +90,8 @@ private constructor(
         }
 
         /**
-         * Consolidated filter parameter for SIM cards (deepObject style). Originally: filter[tags],
-         * filter[iccid], filter[status]
+         * Consolidated filter parameter for SIM cards (deepObject style). Originally:
+         * filter[iccid], filter[msisdn], filter[status], filter[tags]
          */
         fun filter(filter: Filter?) = apply { this.filter = filter }
 
@@ -285,6 +285,7 @@ private constructor(
             .apply {
                 filter?.let {
                     it.iccid().ifPresent { put("filter[iccid]", it) }
+                    it.msisdn().ifPresent { put("filter[msisdn]", it) }
                     it.status().ifPresent {
                         put("filter[status]", it.joinToString(",") { it.toString() })
                     }
@@ -305,12 +306,13 @@ private constructor(
             .build()
 
     /**
-     * Consolidated filter parameter for SIM cards (deepObject style). Originally: filter[tags],
-     * filter[iccid], filter[status]
+     * Consolidated filter parameter for SIM cards (deepObject style). Originally: filter[iccid],
+     * filter[msisdn], filter[status], filter[tags]
      */
     class Filter
     private constructor(
         private val iccid: String?,
+        private val msisdn: String?,
         private val status: List<Status>?,
         private val tags: List<String>?,
         private val additionalProperties: QueryParams,
@@ -318,6 +320,9 @@ private constructor(
 
         /** A search string to partially match for the SIM card's ICCID. */
         fun iccid(): Optional<String> = Optional.ofNullable(iccid)
+
+        /** A search string to match for the SIM card's MSISDN. */
+        fun msisdn(): Optional<String> = Optional.ofNullable(msisdn)
 
         /** Filter by a SIM card's status. */
         fun status(): Optional<List<Status>> = Optional.ofNullable(status)
@@ -351,6 +356,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var iccid: String? = null
+            private var msisdn: String? = null
             private var status: MutableList<Status>? = null
             private var tags: MutableList<String>? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
@@ -358,6 +364,7 @@ private constructor(
             @JvmSynthetic
             internal fun from(filter: Filter) = apply {
                 iccid = filter.iccid
+                msisdn = filter.msisdn
                 status = filter.status?.toMutableList()
                 tags = filter.tags?.toMutableList()
                 additionalProperties = filter.additionalProperties.toBuilder()
@@ -368,6 +375,12 @@ private constructor(
 
             /** Alias for calling [Builder.iccid] with `iccid.orElse(null)`. */
             fun iccid(iccid: Optional<String>) = iccid(iccid.getOrNull())
+
+            /** A search string to match for the SIM card's MSISDN. */
+            fun msisdn(msisdn: String?) = apply { this.msisdn = msisdn }
+
+            /** Alias for calling [Builder.msisdn] with `msisdn.orElse(null)`. */
+            fun msisdn(msisdn: Optional<String>) = msisdn(msisdn.getOrNull())
 
             /** Filter by a SIM card's status. */
             fun status(status: List<Status>?) = apply { this.status = status?.toMutableList() }
@@ -465,6 +478,7 @@ private constructor(
             fun build(): Filter =
                 Filter(
                     iccid,
+                    msisdn,
                     status?.toImmutable(),
                     tags?.toImmutable(),
                     additionalProperties.build(),
@@ -625,19 +639,20 @@ private constructor(
 
             return other is Filter &&
                 iccid == other.iccid &&
+                msisdn == other.msisdn &&
                 status == other.status &&
                 tags == other.tags &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(iccid, status, tags, additionalProperties)
+            Objects.hash(iccid, msisdn, status, tags, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Filter{iccid=$iccid, status=$status, tags=$tags, additionalProperties=$additionalProperties}"
+            "Filter{iccid=$iccid, msisdn=$msisdn, status=$status, tags=$tags, additionalProperties=$additionalProperties}"
     }
 
     /**
