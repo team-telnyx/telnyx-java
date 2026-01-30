@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.7.1 (2026-01-30)
+
+Full Changelog: [v6.7.0...v6.7.1](https://github.com/team-telnyx/telnyx-java/compare/v6.7.0...v6.7.1)
+
+### Bug Fixes
+
+* remove deprecated TeXML API endpoints from OpenAPI spec ([6a4fa8d](https://github.com/team-telnyx/telnyx-java/commit/6a4fa8d1c9e207d30ed19eeb6d90b0eda2af9108))
+
 ## 6.7.0 (2026-01-29)
 
 Full Changelog: [v6.6.0...v6.7.0](https://github.com/team-telnyx/telnyx-java/compare/v6.6.0...v6.7.0)
