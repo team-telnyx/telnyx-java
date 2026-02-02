@@ -125,12 +125,28 @@ private constructor(
     private fun buildAccessTokenRequest(): HttpRequest {
         val credentials = "$clientId:$clientSecret"
         val encodedCredentials = Base64.getEncoder().encodeToString(credentials.toByteArray())
+        val bodyContent = "grant_type=client_credentials".toByteArray()
 
         return HttpRequest.Builder()
             .baseUrl(tokenUrl)
             .method(HttpMethod.POST)
-            .putQueryParam("grant_type", "client_credentials")
+            .putHeader("Content-Type", "application/x-www-form-urlencoded")
             .putHeader("Authorization", "Basic $encodedCredentials")
+            .body(
+                object : HttpRequestBody {
+                    override fun writeTo(outputStream: java.io.OutputStream) {
+                        outputStream.write(bodyContent)
+                    }
+
+                    override fun contentType(): String = "application/x-www-form-urlencoded"
+
+                    override fun contentLength(): Long = bodyContent.size.toLong()
+
+                    override fun repeatable(): Boolean = true
+
+                    override fun close() {}
+                }
+            )
             .build()
     }
 
