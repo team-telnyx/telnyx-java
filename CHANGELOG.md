@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.8.1 (2026-02-02)
+
+Full Changelog: [v6.8.0...v6.8.1](https://github.com/team-telnyx/telnyx-java/compare/v6.8.0...v6.8.1)
+
+### Bug Fixes
+
+* **client/oauth:** send grant_type in the right location ([1652669](https://github.com/team-telnyx/telnyx-java/commit/165266915c275e6acd6ac483dfc7cbe6a06417dc))
+
+
+### Chores
+
+* **ci:** use runners with more memory ([c412fcc](https://github.com/team-telnyx/telnyx-java/commit/c412fcc6913382f951ebe4ad54da51549e9dc9c1))
+* **internal:** allow passing args to `./scripts/test` ([615d389](https://github.com/team-telnyx/telnyx-java/commit/615d3899d9372bf380841817a7ab0912bc823000))
+
 ## 6.8.0 (2026-01-30)
 
 Full Changelog: [v6.7.2...v6.8.0](https://github.com/team-telnyx/telnyx-java/compare/v6.7.2...v6.8.0)
