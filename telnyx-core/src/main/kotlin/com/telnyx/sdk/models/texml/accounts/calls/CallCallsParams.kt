@@ -337,6 +337,15 @@ private constructor(
     fun supervisingRole(): Optional<SupervisingRole> = body.supervisingRole()
 
     /**
+     * TeXML to be used as instructions for the call. If provided, the call will execute these
+     * instructions instead of fetching from the Url.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun texml(): Optional<String> = body.texml()
+
+    /**
      * Whether to trim any leading and trailing silence from the recording. Defaults to
      * `trim-silence`.
      *
@@ -623,6 +632,13 @@ private constructor(
      * Unlike [supervisingRole], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _supervisingRole(): JsonField<SupervisingRole> = body._supervisingRole()
+
+    /**
+     * Returns the raw JSON value of [texml].
+     *
+     * Unlike [texml], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _texml(): JsonField<String> = body._texml()
 
     /**
      * Returns the raw JSON value of [trim].
@@ -1279,6 +1295,20 @@ private constructor(
         }
 
         /**
+         * TeXML to be used as instructions for the call. If provided, the call will execute these
+         * instructions instead of fetching from the Url.
+         */
+        fun texml(texml: String) = apply { body.texml(texml) }
+
+        /**
+         * Sets [Builder.texml] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.texml] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun texml(texml: JsonField<String>) = apply { body.texml(texml) }
+
+        /**
          * Whether to trim any leading and trailing silence from the recording. Defaults to
          * `trim-silence`.
          */
@@ -1507,6 +1537,7 @@ private constructor(
         private val statusCallbackMethod: JsonField<StatusCallbackMethod>,
         private val superviseCallSid: JsonField<String>,
         private val supervisingRole: JsonField<SupervisingRole>,
+        private val texml: JsonField<String>,
         private val trim: JsonField<Trim>,
         private val url: JsonField<String>,
         private val urlMethod: JsonField<UrlMethod>,
@@ -1613,6 +1644,7 @@ private constructor(
             @JsonProperty("SupervisingRole")
             @ExcludeMissing
             supervisingRole: JsonField<SupervisingRole> = JsonMissing.of(),
+            @JsonProperty("Texml") @ExcludeMissing texml: JsonField<String> = JsonMissing.of(),
             @JsonProperty("Trim") @ExcludeMissing trim: JsonField<Trim> = JsonMissing.of(),
             @JsonProperty("Url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
             @JsonProperty("UrlMethod")
@@ -1653,6 +1685,7 @@ private constructor(
             statusCallbackMethod,
             superviseCallSid,
             supervisingRole,
+            texml,
             trim,
             url,
             urlMethod,
@@ -1970,6 +2003,15 @@ private constructor(
          */
         fun supervisingRole(): Optional<SupervisingRole> =
             supervisingRole.getOptional("SupervisingRole")
+
+        /**
+         * TeXML to be used as instructions for the call. If provided, the call will execute these
+         * instructions instead of fetching from the Url.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun texml(): Optional<String> = texml.getOptional("Texml")
 
         /**
          * Whether to trim any leading and trailing silence from the recording. Defaults to
@@ -2326,6 +2368,13 @@ private constructor(
         fun _supervisingRole(): JsonField<SupervisingRole> = supervisingRole
 
         /**
+         * Returns the raw JSON value of [texml].
+         *
+         * Unlike [texml], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("Texml") @ExcludeMissing fun _texml(): JsonField<String> = texml
+
+        /**
          * Returns the raw JSON value of [trim].
          *
          * Unlike [trim], this method doesn't throw if the JSON field has an unexpected type.
@@ -2414,6 +2463,7 @@ private constructor(
             private var statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of()
             private var superviseCallSid: JsonField<String> = JsonMissing.of()
             private var supervisingRole: JsonField<SupervisingRole> = JsonMissing.of()
+            private var texml: JsonField<String> = JsonMissing.of()
             private var trim: JsonField<Trim> = JsonMissing.of()
             private var url: JsonField<String> = JsonMissing.of()
             private var urlMethod: JsonField<UrlMethod> = JsonMissing.of()
@@ -2455,6 +2505,7 @@ private constructor(
                 statusCallbackMethod = body.statusCallbackMethod
                 superviseCallSid = body.superviseCallSid
                 supervisingRole = body.supervisingRole
+                texml = body.texml
                 trim = body.trim
                 url = body.url
                 urlMethod = body.urlMethod
@@ -3027,6 +3078,21 @@ private constructor(
             }
 
             /**
+             * TeXML to be used as instructions for the call. If provided, the call will execute
+             * these instructions instead of fetching from the Url.
+             */
+            fun texml(texml: String) = texml(JsonField.of(texml))
+
+            /**
+             * Sets [Builder.texml] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.texml] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun texml(texml: JsonField<String>) = apply { this.texml = texml }
+
+            /**
              * Whether to trim any leading and trailing silence from the recording. Defaults to
              * `trim-silence`.
              */
@@ -3137,6 +3203,7 @@ private constructor(
                     statusCallbackMethod,
                     superviseCallSid,
                     supervisingRole,
+                    texml,
                     trim,
                     url,
                     urlMethod,
@@ -3185,6 +3252,7 @@ private constructor(
             statusCallbackMethod().ifPresent { it.validate() }
             superviseCallSid()
             supervisingRole().ifPresent { it.validate() }
+            texml()
             trim().ifPresent { it.validate() }
             url()
             urlMethod().ifPresent { it.validate() }
@@ -3241,6 +3309,7 @@ private constructor(
                 (statusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (superviseCallSid.asKnown().isPresent) 1 else 0) +
                 (supervisingRole.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (texml.asKnown().isPresent) 1 else 0) +
                 (trim.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (url.asKnown().isPresent) 1 else 0) +
                 (urlMethod.asKnown().getOrNull()?.validity() ?: 0)
@@ -3285,6 +3354,7 @@ private constructor(
                 statusCallbackMethod == other.statusCallbackMethod &&
                 superviseCallSid == other.superviseCallSid &&
                 supervisingRole == other.supervisingRole &&
+                texml == other.texml &&
                 trim == other.trim &&
                 url == other.url &&
                 urlMethod == other.urlMethod &&
@@ -3327,6 +3397,7 @@ private constructor(
                 statusCallbackMethod,
                 superviseCallSid,
                 supervisingRole,
+                texml,
                 trim,
                 url,
                 urlMethod,
@@ -3337,7 +3408,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{applicationSid=$applicationSid, from=$from, to=$to, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+            "Body{applicationSid=$applicationSid, from=$from, to=$to, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
     }
 
     /**
