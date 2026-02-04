@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.9.0 (2026-02-04)
+
+Full Changelog: [v6.8.1...v6.9.0](https://github.com/team-telnyx/telnyx-java/compare/v6.8.1...v6.9.0)
+
+### Features
+
+* Add Texml parameter to create call endpoint [ENGDESK-49187] ([0f2bf52](https://github.com/team-telnyx/telnyx-java/commit/0f2bf5231ecfbf75fd90705e2dcefb62873e30d2))
+
 ## 6.8.1 (2026-02-02)
 
 Full Changelog: [v6.8.0...v6.8.1](https://github.com/team-telnyx/telnyx-java/compare/v6.8.0...v6.8.1)
