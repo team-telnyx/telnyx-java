@@ -51,6 +51,9 @@ internal class CallCallsParamsTest {
             .statusCallbackMethod(CallCallsParams.StatusCallbackMethod.GET)
             .superviseCallSid("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
             .supervisingRole(CallCallsParams.SupervisingRole.MONITOR)
+            .texml(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say>Hello</Say></Response>"
+            )
             .trim(CallCallsParams.Trim.TRIM_SILENCE)
             .url("https://www.example.com/texml.xml")
             .urlMethod(CallCallsParams.UrlMethod.GET)
@@ -116,6 +119,9 @@ internal class CallCallsParamsTest {
                 .statusCallbackMethod(CallCallsParams.StatusCallbackMethod.GET)
                 .superviseCallSid("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                 .supervisingRole(CallCallsParams.SupervisingRole.MONITOR)
+                .texml(
+                    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say>Hello</Say></Response>"
+                )
                 .trim(CallCallsParams.Trim.TRIM_SILENCE)
                 .url("https://www.example.com/texml.xml")
                 .urlMethod(CallCallsParams.UrlMethod.GET)
@@ -169,6 +175,10 @@ internal class CallCallsParamsTest {
         assertThat(body.superviseCallSid())
             .contains("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
         assertThat(body.supervisingRole()).contains(CallCallsParams.SupervisingRole.MONITOR)
+        assertThat(body.texml())
+            .contains(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say>Hello</Say></Response>"
+            )
         assertThat(body.trim()).contains(CallCallsParams.Trim.TRIM_SILENCE)
         assertThat(body.url()).contains("https://www.example.com/texml.xml")
         assertThat(body.urlMethod()).contains(CallCallsParams.UrlMethod.GET)
