@@ -11,6 +11,7 @@ import com.telnyx.sdk.models.ai.assistants.AssistantImportsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.AssistantSendSmsParams
 import com.telnyx.sdk.models.ai.assistants.AssistantUpdateParams
+import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
@@ -221,8 +222,8 @@ internal class AssistantServiceAsyncTest {
                         WidgetSettings.builder()
                             .agentThinkingText("agent_thinking_text")
                             .audioVisualizerConfig(
-                                WidgetSettings.AudioVisualizerConfig.builder()
-                                    .color(WidgetSettings.AudioVisualizerConfig.Color.VERDANT)
+                                AudioVisualizerConfig.builder()
+                                    .color(AudioVisualizerConfig.Color.VERDANT)
                                     .preset("preset")
                                     .build()
                             )
@@ -462,8 +463,8 @@ internal class AssistantServiceAsyncTest {
                         WidgetSettings.builder()
                             .agentThinkingText("agent_thinking_text")
                             .audioVisualizerConfig(
-                                WidgetSettings.AudioVisualizerConfig.builder()
-                                    .color(WidgetSettings.AudioVisualizerConfig.Color.VERDANT)
+                                AudioVisualizerConfig.builder()
+                                    .color(AudioVisualizerConfig.Color.VERDANT)
                                     .preset("preset")
                                     .build()
                             )

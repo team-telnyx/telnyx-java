@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.credentialconnections
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.ConnectionJitterBuffer
 import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -48,7 +49,7 @@ internal class CredentialConnectionCreateResponseTest {
                         )
                         .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
                         .jitterBuffer(
-                            CredentialConnection.JitterBuffer.builder()
+                            ConnectionJitterBuffer.builder()
                                 .enableJitterBuffer(true)
                                 .jitterbufferMsecMax(200L)
                                 .jitterbufferMsecMin(60L)
@@ -132,7 +133,7 @@ internal class CredentialConnectionCreateResponseTest {
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
                     .jitterBuffer(
-                        CredentialConnection.JitterBuffer.builder()
+                        ConnectionJitterBuffer.builder()
                             .enableJitterBuffer(true)
                             .jitterbufferMsecMax(200L)
                             .jitterbufferMsecMin(60L)
@@ -220,7 +221,7 @@ internal class CredentialConnectionCreateResponseTest {
                         )
                         .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
                         .jitterBuffer(
-                            CredentialConnection.JitterBuffer.builder()
+                            ConnectionJitterBuffer.builder()
                                 .enableJitterBuffer(true)
                                 .jitterbufferMsecMax(200L)
                                 .jitterbufferMsecMin(60L)

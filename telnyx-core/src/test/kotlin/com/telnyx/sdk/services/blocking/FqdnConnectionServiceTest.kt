@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.ConnectionJitterBuffer
 import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
 import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
@@ -70,7 +71,7 @@ internal class FqdnConnectionServiceTest {
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
                     .jitterBuffer(
-                        FqdnConnectionCreateParams.JitterBuffer.builder()
+                        ConnectionJitterBuffer.builder()
                             .enableJitterBuffer(true)
                             .jitterbufferMsecMax(200L)
                             .jitterbufferMsecMin(60L)
@@ -190,7 +191,7 @@ internal class FqdnConnectionServiceTest {
                     )
                     .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
                     .jitterBuffer(
-                        FqdnConnectionUpdateParams.JitterBuffer.builder()
+                        ConnectionJitterBuffer.builder()
                             .enableJitterBuffer(true)
                             .jitterbufferMsecMax(200L)
                             .jitterbufferMsecMin(60L)
