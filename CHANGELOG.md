@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.12.0 (2026-02-05)
+
+Full Changelog: [v6.11.0...v6.12.0](https://github.com/team-telnyx/telnyx-java/compare/v6.11.0...v6.12.0)
+
+### Features
+
+* **api:** Merge pull request [#23](https://github.com/team-telnyx/telnyx-java/issues/23) from stainless-sdks/fix/deepgram-nova3-enum-duplicates ([6c85ceb](https://github.com/team-telnyx/telnyx-java/commit/6c85cebb4d6c75ee12e0c5122f368e0f8f03ece5))
+
+
+### Bug Fixes
+
+* **client:** compilation error in page class ([3409aef](https://github.com/team-telnyx/telnyx-java/commit/3409aefcd30b8c70742905cae1340a1d74d3c0b1))
+
 ## 6.11.0 (2026-02-05)
 
 Full Changelog: [v6.10.0...v6.11.0](https://github.com/team-telnyx/telnyx-java/compare/v6.10.0...v6.11.0)
