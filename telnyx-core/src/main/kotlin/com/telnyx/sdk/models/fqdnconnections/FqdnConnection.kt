@@ -15,6 +15,7 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.ConnectionJitterBuffer
 import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
 import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
@@ -45,7 +46,7 @@ private constructor(
     private val ignoreMarkBit: JsonField<Boolean>,
     private val inbound: JsonField<InboundFqdn>,
     private val iosPushCredentialId: JsonField<String>,
-    private val jitterBuffer: JsonField<JitterBuffer>,
+    private val jitterBuffer: JsonField<ConnectionJitterBuffer>,
     private val microsoftTeamsSbc: JsonField<Boolean>,
     private val noiseSuppression: JsonField<NoiseSuppression>,
     private val noiseSuppressionDetails: JsonField<ConnectionNoiseSuppressionDetails>,
@@ -116,7 +117,7 @@ private constructor(
         iosPushCredentialId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("jitter_buffer")
         @ExcludeMissing
-        jitterBuffer: JsonField<JitterBuffer> = JsonMissing.of(),
+        jitterBuffer: JsonField<ConnectionJitterBuffer> = JsonMissing.of(),
         @JsonProperty("microsoft_teams_sbc")
         @ExcludeMissing
         microsoftTeamsSbc: JsonField<Boolean> = JsonMissing.of(),
@@ -368,7 +369,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun jitterBuffer(): Optional<JitterBuffer> = jitterBuffer.getOptional("jitter_buffer")
+    fun jitterBuffer(): Optional<ConnectionJitterBuffer> = jitterBuffer.getOptional("jitter_buffer")
 
     /**
      * The connection is enabled for Microsoft Teams Direct Routing.
@@ -722,7 +723,7 @@ private constructor(
      */
     @JsonProperty("jitter_buffer")
     @ExcludeMissing
-    fun _jitterBuffer(): JsonField<JitterBuffer> = jitterBuffer
+    fun _jitterBuffer(): JsonField<ConnectionJitterBuffer> = jitterBuffer
 
     /**
      * Returns the raw JSON value of [microsoftTeamsSbc].
@@ -961,7 +962,7 @@ private constructor(
         private var ignoreMarkBit: JsonField<Boolean> = JsonMissing.of()
         private var inbound: JsonField<InboundFqdn> = JsonMissing.of()
         private var iosPushCredentialId: JsonField<String> = JsonMissing.of()
-        private var jitterBuffer: JsonField<JitterBuffer> = JsonMissing.of()
+        private var jitterBuffer: JsonField<ConnectionJitterBuffer> = JsonMissing.of()
         private var microsoftTeamsSbc: JsonField<Boolean> = JsonMissing.of()
         private var noiseSuppression: JsonField<NoiseSuppression> = JsonMissing.of()
         private var noiseSuppressionDetails: JsonField<ConnectionNoiseSuppressionDetails> =
@@ -1304,16 +1305,17 @@ private constructor(
          * jitter, while smaller values reduce latency but are more sensitive to jitter and
          * reordering.
          */
-        fun jitterBuffer(jitterBuffer: JitterBuffer) = jitterBuffer(JsonField.of(jitterBuffer))
+        fun jitterBuffer(jitterBuffer: ConnectionJitterBuffer) =
+            jitterBuffer(JsonField.of(jitterBuffer))
 
         /**
          * Sets [Builder.jitterBuffer] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.jitterBuffer] with a well-typed [JitterBuffer] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.jitterBuffer] with a well-typed [ConnectionJitterBuffer]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun jitterBuffer(jitterBuffer: JsonField<JitterBuffer>) = apply {
+        fun jitterBuffer(jitterBuffer: JsonField<ConnectionJitterBuffer>) = apply {
             this.jitterBuffer = jitterBuffer
         }
 
@@ -1850,275 +1852,6 @@ private constructor(
             (if (webhookEventFailoverUrl.asKnown().isPresent) 1 else 0) +
             (if (webhookEventUrl.asKnown().isPresent) 1 else 0) +
             (if (webhookTimeoutSecs.asKnown().isPresent) 1 else 0)
-
-    /**
-     * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams of SIP
-     * Trunking calls. The feature is off unless enabled. You may define min and max values in msec
-     * for customized buffering behaviors. Larger values add latency but tolerate more jitter, while
-     * smaller values reduce latency but are more sensitive to jitter and reordering.
-     */
-    class JitterBuffer
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val enableJitterBuffer: JsonField<Boolean>,
-        private val jitterbufferMsecMax: JsonField<Long>,
-        private val jitterbufferMsecMin: JsonField<Long>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("enable_jitter_buffer")
-            @ExcludeMissing
-            enableJitterBuffer: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("jitterbuffer_msec_max")
-            @ExcludeMissing
-            jitterbufferMsecMax: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("jitterbuffer_msec_min")
-            @ExcludeMissing
-            jitterbufferMsecMin: JsonField<Long> = JsonMissing.of(),
-        ) : this(enableJitterBuffer, jitterbufferMsecMax, jitterbufferMsecMin, mutableMapOf())
-
-        /**
-         * Enables Jitter Buffer for RTP streams of SIP Trunking calls. The feature is off unless
-         * enabled.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun enableJitterBuffer(): Optional<Boolean> =
-            enableJitterBuffer.getOptional("enable_jitter_buffer")
-
-        /**
-         * The maximum jitter buffer size in milliseconds. Must be between 40 and 400. Has no effect
-         * if enable_jitter_buffer is not true.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun jitterbufferMsecMax(): Optional<Long> =
-            jitterbufferMsecMax.getOptional("jitterbuffer_msec_max")
-
-        /**
-         * The minimum jitter buffer size in milliseconds. Must be between 40 and 400. Has no effect
-         * if enable_jitter_buffer is not true.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun jitterbufferMsecMin(): Optional<Long> =
-            jitterbufferMsecMin.getOptional("jitterbuffer_msec_min")
-
-        /**
-         * Returns the raw JSON value of [enableJitterBuffer].
-         *
-         * Unlike [enableJitterBuffer], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("enable_jitter_buffer")
-        @ExcludeMissing
-        fun _enableJitterBuffer(): JsonField<Boolean> = enableJitterBuffer
-
-        /**
-         * Returns the raw JSON value of [jitterbufferMsecMax].
-         *
-         * Unlike [jitterbufferMsecMax], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("jitterbuffer_msec_max")
-        @ExcludeMissing
-        fun _jitterbufferMsecMax(): JsonField<Long> = jitterbufferMsecMax
-
-        /**
-         * Returns the raw JSON value of [jitterbufferMsecMin].
-         *
-         * Unlike [jitterbufferMsecMin], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("jitterbuffer_msec_min")
-        @ExcludeMissing
-        fun _jitterbufferMsecMin(): JsonField<Long> = jitterbufferMsecMin
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [JitterBuffer]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [JitterBuffer]. */
-        class Builder internal constructor() {
-
-            private var enableJitterBuffer: JsonField<Boolean> = JsonMissing.of()
-            private var jitterbufferMsecMax: JsonField<Long> = JsonMissing.of()
-            private var jitterbufferMsecMin: JsonField<Long> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(jitterBuffer: JitterBuffer) = apply {
-                enableJitterBuffer = jitterBuffer.enableJitterBuffer
-                jitterbufferMsecMax = jitterBuffer.jitterbufferMsecMax
-                jitterbufferMsecMin = jitterBuffer.jitterbufferMsecMin
-                additionalProperties = jitterBuffer.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * Enables Jitter Buffer for RTP streams of SIP Trunking calls. The feature is off
-             * unless enabled.
-             */
-            fun enableJitterBuffer(enableJitterBuffer: Boolean) =
-                enableJitterBuffer(JsonField.of(enableJitterBuffer))
-
-            /**
-             * Sets [Builder.enableJitterBuffer] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.enableJitterBuffer] with a well-typed [Boolean]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun enableJitterBuffer(enableJitterBuffer: JsonField<Boolean>) = apply {
-                this.enableJitterBuffer = enableJitterBuffer
-            }
-
-            /**
-             * The maximum jitter buffer size in milliseconds. Must be between 40 and 400. Has no
-             * effect if enable_jitter_buffer is not true.
-             */
-            fun jitterbufferMsecMax(jitterbufferMsecMax: Long) =
-                jitterbufferMsecMax(JsonField.of(jitterbufferMsecMax))
-
-            /**
-             * Sets [Builder.jitterbufferMsecMax] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.jitterbufferMsecMax] with a well-typed [Long] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun jitterbufferMsecMax(jitterbufferMsecMax: JsonField<Long>) = apply {
-                this.jitterbufferMsecMax = jitterbufferMsecMax
-            }
-
-            /**
-             * The minimum jitter buffer size in milliseconds. Must be between 40 and 400. Has no
-             * effect if enable_jitter_buffer is not true.
-             */
-            fun jitterbufferMsecMin(jitterbufferMsecMin: Long) =
-                jitterbufferMsecMin(JsonField.of(jitterbufferMsecMin))
-
-            /**
-             * Sets [Builder.jitterbufferMsecMin] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.jitterbufferMsecMin] with a well-typed [Long] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun jitterbufferMsecMin(jitterbufferMsecMin: JsonField<Long>) = apply {
-                this.jitterbufferMsecMin = jitterbufferMsecMin
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [JitterBuffer].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): JitterBuffer =
-                JitterBuffer(
-                    enableJitterBuffer,
-                    jitterbufferMsecMax,
-                    jitterbufferMsecMin,
-                    additionalProperties.toMutableMap(),
-                )
-        }
-
-        private var validated: Boolean = false
-
-        fun validate(): JitterBuffer = apply {
-            if (validated) {
-                return@apply
-            }
-
-            enableJitterBuffer()
-            jitterbufferMsecMax()
-            jitterbufferMsecMin()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (enableJitterBuffer.asKnown().isPresent) 1 else 0) +
-                (if (jitterbufferMsecMax.asKnown().isPresent) 1 else 0) +
-                (if (jitterbufferMsecMin.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is JitterBuffer &&
-                enableJitterBuffer == other.enableJitterBuffer &&
-                jitterbufferMsecMax == other.jitterbufferMsecMax &&
-                jitterbufferMsecMin == other.jitterbufferMsecMin &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(
-                enableJitterBuffer,
-                jitterbufferMsecMax,
-                jitterbufferMsecMin,
-                additionalProperties,
-            )
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "JitterBuffer{enableJitterBuffer=$enableJitterBuffer, jitterbufferMsecMax=$jitterbufferMsecMax, jitterbufferMsecMin=$jitterbufferMsecMin, additionalProperties=$additionalProperties}"
-    }
 
     /**
      * Controls when noise suppression is applied to calls. When set to 'inbound', noise suppression

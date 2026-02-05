@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.credentialconnections
 
+import com.telnyx.sdk.models.ConnectionJitterBuffer
 import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -41,7 +42,7 @@ internal class CredentialConnectionUpdateParamsTest {
             )
             .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
             .jitterBuffer(
-                CredentialConnectionUpdateParams.JitterBuffer.builder()
+                ConnectionJitterBuffer.builder()
                     .enableJitterBuffer(true)
                     .jitterbufferMsecMax(200L)
                     .jitterbufferMsecMin(60L)
@@ -131,7 +132,7 @@ internal class CredentialConnectionUpdateParamsTest {
                 )
                 .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
                 .jitterBuffer(
-                    CredentialConnectionUpdateParams.JitterBuffer.builder()
+                    ConnectionJitterBuffer.builder()
                         .enableJitterBuffer(true)
                         .jitterbufferMsecMax(200L)
                         .jitterbufferMsecMin(60L)
@@ -210,7 +211,7 @@ internal class CredentialConnectionUpdateParamsTest {
         assertThat(body.iosPushCredentialId()).contains("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
         assertThat(body.jitterBuffer())
             .contains(
-                CredentialConnectionUpdateParams.JitterBuffer.builder()
+                ConnectionJitterBuffer.builder()
                     .enableJitterBuffer(true)
                     .jitterbufferMsecMax(200L)
                     .jitterbufferMsecMin(60L)

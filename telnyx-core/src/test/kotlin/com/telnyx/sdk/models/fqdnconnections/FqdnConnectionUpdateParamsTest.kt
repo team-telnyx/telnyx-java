@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.fqdnconnections
 
+import com.telnyx.sdk.models.ConnectionJitterBuffer
 import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
 import com.telnyx.sdk.models.credentialconnections.ConnectionRtcpSettings
@@ -52,7 +53,7 @@ internal class FqdnConnectionUpdateParamsTest {
             )
             .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
             .jitterBuffer(
-                FqdnConnectionUpdateParams.JitterBuffer.builder()
+                ConnectionJitterBuffer.builder()
                     .enableJitterBuffer(true)
                     .jitterbufferMsecMax(200L)
                     .jitterbufferMsecMin(60L)
@@ -153,7 +154,7 @@ internal class FqdnConnectionUpdateParamsTest {
                 )
                 .iosPushCredentialId("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
                 .jitterBuffer(
-                    FqdnConnectionUpdateParams.JitterBuffer.builder()
+                    ConnectionJitterBuffer.builder()
                         .enableJitterBuffer(true)
                         .jitterbufferMsecMax(200L)
                         .jitterbufferMsecMin(60L)
@@ -243,7 +244,7 @@ internal class FqdnConnectionUpdateParamsTest {
         assertThat(body.iosPushCredentialId()).contains("ec0c8e5d-439e-4620-a0c1-9d9c8d02a836")
         assertThat(body.jitterBuffer())
             .contains(
-                FqdnConnectionUpdateParams.JitterBuffer.builder()
+                ConnectionJitterBuffer.builder()
                     .enableJitterBuffer(true)
                     .jitterbufferMsecMax(200L)
                     .jitterbufferMsecMin(60L)

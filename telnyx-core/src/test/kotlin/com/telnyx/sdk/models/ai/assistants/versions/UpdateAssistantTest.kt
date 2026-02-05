@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.ai.assistants.AssistantTool
+import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
@@ -196,8 +197,8 @@ internal class UpdateAssistantTest {
                     WidgetSettings.builder()
                         .agentThinkingText("agent_thinking_text")
                         .audioVisualizerConfig(
-                            WidgetSettings.AudioVisualizerConfig.builder()
-                                .color(WidgetSettings.AudioVisualizerConfig.Color.VERDANT)
+                            AudioVisualizerConfig.builder()
+                                .color(AudioVisualizerConfig.Color.VERDANT)
                                 .preset("preset")
                                 .build()
                         )
@@ -416,8 +417,8 @@ internal class UpdateAssistantTest {
                 WidgetSettings.builder()
                     .agentThinkingText("agent_thinking_text")
                     .audioVisualizerConfig(
-                        WidgetSettings.AudioVisualizerConfig.builder()
-                            .color(WidgetSettings.AudioVisualizerConfig.Color.VERDANT)
+                        AudioVisualizerConfig.builder()
+                            .color(AudioVisualizerConfig.Color.VERDANT)
                             .preset("preset")
                             .build()
                     )
@@ -609,8 +610,8 @@ internal class UpdateAssistantTest {
                     WidgetSettings.builder()
                         .agentThinkingText("agent_thinking_text")
                         .audioVisualizerConfig(
-                            WidgetSettings.AudioVisualizerConfig.builder()
-                                .color(WidgetSettings.AudioVisualizerConfig.Color.VERDANT)
+                            AudioVisualizerConfig.builder()
+                                .color(AudioVisualizerConfig.Color.VERDANT)
                                 .preset("preset")
                                 .build()
                         )
