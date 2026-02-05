@@ -17,12 +17,12 @@ internal class CallInitiatedWebhookEventTest {
         val callInitiatedWebhookEvent =
             CallInitiatedWebhookEvent.builder()
                 .data(
-                    CallInitiatedWebhookEvent.Data.builder()
+                    CallInitiated.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallInitiatedWebhookEvent.Data.EventType.CALL_INITIATED)
+                        .eventType(CallInitiated.EventType.CALL_INITIATED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallInitiatedWebhookEvent.Data.Payload.builder()
+                            CallInitiated.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -39,9 +39,7 @@ internal class CallInitiatedWebhookEventTest {
                                 .addCustomHeader(
                                     CustomSipHeader.builder().name("head_2").value("val_2").build()
                                 )
-                                .direction(
-                                    CallInitiatedWebhookEvent.Data.Payload.Direction.INCOMING
-                                )
+                                .direction(CallInitiated.Payload.Direction.INCOMING)
                                 .from("+35319605860")
                                 .offeredCodecs("G722,PCMU,PCMA")
                                 .shakenStirAttestation("A")
@@ -59,25 +57,25 @@ internal class CallInitiatedWebhookEventTest {
                                         .build()
                                 )
                                 .startTime(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
-                                .state(CallInitiatedWebhookEvent.Data.Payload.State.PARKED)
+                                .state(CallInitiated.Payload.State.PARKED)
                                 .addTag("tag-01")
                                 .addTag("tag-02")
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallInitiatedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallInitiated.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callInitiatedWebhookEvent.data())
             .contains(
-                CallInitiatedWebhookEvent.Data.builder()
+                CallInitiated.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(CallInitiatedWebhookEvent.Data.EventType.CALL_INITIATED)
+                    .eventType(CallInitiated.EventType.CALL_INITIATED)
                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                     .payload(
-                        CallInitiatedWebhookEvent.Data.Payload.builder()
+                        CallInitiated.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
@@ -94,7 +92,7 @@ internal class CallInitiatedWebhookEventTest {
                             .addCustomHeader(
                                 CustomSipHeader.builder().name("head_2").value("val_2").build()
                             )
-                            .direction(CallInitiatedWebhookEvent.Data.Payload.Direction.INCOMING)
+                            .direction(CallInitiated.Payload.Direction.INCOMING)
                             .from("+35319605860")
                             .offeredCodecs("G722,PCMU,PCMA")
                             .shakenStirAttestation("A")
@@ -112,13 +110,13 @@ internal class CallInitiatedWebhookEventTest {
                                     .build()
                             )
                             .startTime(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
-                            .state(CallInitiatedWebhookEvent.Data.Payload.State.PARKED)
+                            .state(CallInitiated.Payload.State.PARKED)
                             .addTag("tag-01")
                             .addTag("tag-02")
                             .to("+35319605860")
                             .build()
                     )
-                    .recordType(CallInitiatedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallInitiated.RecordType.EVENT)
                     .build()
             )
     }
@@ -129,12 +127,12 @@ internal class CallInitiatedWebhookEventTest {
         val callInitiatedWebhookEvent =
             CallInitiatedWebhookEvent.builder()
                 .data(
-                    CallInitiatedWebhookEvent.Data.builder()
+                    CallInitiated.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallInitiatedWebhookEvent.Data.EventType.CALL_INITIATED)
+                        .eventType(CallInitiated.EventType.CALL_INITIATED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallInitiatedWebhookEvent.Data.Payload.builder()
+                            CallInitiated.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -151,9 +149,7 @@ internal class CallInitiatedWebhookEventTest {
                                 .addCustomHeader(
                                     CustomSipHeader.builder().name("head_2").value("val_2").build()
                                 )
-                                .direction(
-                                    CallInitiatedWebhookEvent.Data.Payload.Direction.INCOMING
-                                )
+                                .direction(CallInitiated.Payload.Direction.INCOMING)
                                 .from("+35319605860")
                                 .offeredCodecs("G722,PCMU,PCMA")
                                 .shakenStirAttestation("A")
@@ -171,13 +167,13 @@ internal class CallInitiatedWebhookEventTest {
                                         .build()
                                 )
                                 .startTime(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
-                                .state(CallInitiatedWebhookEvent.Data.Payload.State.PARKED)
+                                .state(CallInitiated.Payload.State.PARKED)
                                 .addTag("tag-01")
                                 .addTag("tag-02")
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallInitiatedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallInitiated.RecordType.EVENT)
                         .build()
                 )
                 .build()

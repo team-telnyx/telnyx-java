@@ -15,14 +15,11 @@ internal class ConferencePlaybackEndedWebhookEventTest {
         val conferencePlaybackEndedWebhookEvent =
             ConferencePlaybackEndedWebhookEvent.builder()
                 .data(
-                    ConferencePlaybackEndedWebhookEvent.Data.builder()
+                    ConferencePlaybackEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            ConferencePlaybackEndedWebhookEvent.Data.EventType
-                                .CONFERENCE_PLAYBACK_ENDED
-                        )
+                        .eventType(ConferencePlaybackEnded.EventType.CONFERENCE_PLAYBACK_ENDED)
                         .payload(
-                            ConferencePlaybackEndedWebhookEvent.Data.Payload.builder()
+                            ConferencePlaybackEnded.Payload.builder()
                                 .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .creatorCallSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
@@ -31,20 +28,18 @@ internal class ConferencePlaybackEndedWebhookEventTest {
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                 .build()
                         )
-                        .recordType(ConferencePlaybackEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferencePlaybackEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(conferencePlaybackEndedWebhookEvent.data())
             .contains(
-                ConferencePlaybackEndedWebhookEvent.Data.builder()
+                ConferencePlaybackEnded.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(
-                        ConferencePlaybackEndedWebhookEvent.Data.EventType.CONFERENCE_PLAYBACK_ENDED
-                    )
+                    .eventType(ConferencePlaybackEnded.EventType.CONFERENCE_PLAYBACK_ENDED)
                     .payload(
-                        ConferencePlaybackEndedWebhookEvent.Data.Payload.builder()
+                        ConferencePlaybackEnded.Payload.builder()
                             .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                             .connectionId("7267xxxxxxxxxxxxxx")
                             .creatorCallSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
@@ -53,7 +48,7 @@ internal class ConferencePlaybackEndedWebhookEventTest {
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                             .build()
                     )
-                    .recordType(ConferencePlaybackEndedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(ConferencePlaybackEnded.RecordType.EVENT)
                     .build()
             )
     }
@@ -64,14 +59,11 @@ internal class ConferencePlaybackEndedWebhookEventTest {
         val conferencePlaybackEndedWebhookEvent =
             ConferencePlaybackEndedWebhookEvent.builder()
                 .data(
-                    ConferencePlaybackEndedWebhookEvent.Data.builder()
+                    ConferencePlaybackEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            ConferencePlaybackEndedWebhookEvent.Data.EventType
-                                .CONFERENCE_PLAYBACK_ENDED
-                        )
+                        .eventType(ConferencePlaybackEnded.EventType.CONFERENCE_PLAYBACK_ENDED)
                         .payload(
-                            ConferencePlaybackEndedWebhookEvent.Data.Payload.builder()
+                            ConferencePlaybackEnded.Payload.builder()
                                 .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .creatorCallSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
@@ -80,7 +72,7 @@ internal class ConferencePlaybackEndedWebhookEventTest {
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                 .build()
                         )
-                        .recordType(ConferencePlaybackEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferencePlaybackEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()

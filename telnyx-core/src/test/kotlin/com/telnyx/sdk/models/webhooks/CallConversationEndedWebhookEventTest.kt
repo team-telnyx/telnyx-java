@@ -15,15 +15,13 @@ internal class CallConversationEndedWebhookEventTest {
         val callConversationEndedWebhookEvent =
             CallConversationEndedWebhookEvent.builder()
                 .data(
-                    CallConversationEndedWebhookEvent.Data.builder()
+                    CallConversationEnded.builder()
                         .id("eb8775a6-634f-48b0-b177-d5465a8a8e9f")
                         .createdAt(OffsetDateTime.parse("2025-05-29T13:35:38.927621Z"))
-                        .eventType(
-                            CallConversationEndedWebhookEvent.Data.EventType.CALL_CONVERSATION_ENDED
-                        )
+                        .eventType(CallConversationEnded.EventType.CALL_CONVERSATION_ENDED)
                         .occurredAt(OffsetDateTime.parse("2025-05-29T13:35:38.817785Z"))
                         .payload(
-                            CallConversationEndedWebhookEvent.Data.Payload.builder()
+                            CallConversationEnded.Payload.builder()
                                 .assistantId("assistant-d9082b56-ba2d-4ad1-a50c-58661eb1463d")
                                 .callControlId(
                                     "v3:HDR1vQHx697hpP9xZ0bhlbUOWPFPDtPcxw-nuSMuC6mGVpb0euoklQ"
@@ -31,8 +29,7 @@ internal class CallConversationEndedWebhookEventTest {
                                 .callLegId("cc29cce6-3c91-11f0-a8e5-02420aef3d20")
                                 .callSessionId("cc29c8d6-3c91-11f0-aa7c-02420aef3d20")
                                 .callingPartyType(
-                                    CallConversationEndedWebhookEvent.Data.Payload.CallingPartyType
-                                        .SIP
+                                    CallConversationEnded.Payload.CallingPartyType.SIP
                                 )
                                 .clientState(
                                     "g3QAAAACbQAAAAtkYXRhX2NlbnRlcm0AAAADY2gxbQAAAApkZXBsb3ltZW50bQAAAARiYXNl"
@@ -51,31 +48,27 @@ internal class CallConversationEndedWebhookEventTest {
                                 .ttsVoiceId("Marissa")
                                 .build()
                         )
-                        .recordType(CallConversationEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallConversationEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callConversationEndedWebhookEvent.data())
             .contains(
-                CallConversationEndedWebhookEvent.Data.builder()
+                CallConversationEnded.builder()
                     .id("eb8775a6-634f-48b0-b177-d5465a8a8e9f")
                     .createdAt(OffsetDateTime.parse("2025-05-29T13:35:38.927621Z"))
-                    .eventType(
-                        CallConversationEndedWebhookEvent.Data.EventType.CALL_CONVERSATION_ENDED
-                    )
+                    .eventType(CallConversationEnded.EventType.CALL_CONVERSATION_ENDED)
                     .occurredAt(OffsetDateTime.parse("2025-05-29T13:35:38.817785Z"))
                     .payload(
-                        CallConversationEndedWebhookEvent.Data.Payload.builder()
+                        CallConversationEnded.Payload.builder()
                             .assistantId("assistant-d9082b56-ba2d-4ad1-a50c-58661eb1463d")
                             .callControlId(
                                 "v3:HDR1vQHx697hpP9xZ0bhlbUOWPFPDtPcxw-nuSMuC6mGVpb0euoklQ"
                             )
                             .callLegId("cc29cce6-3c91-11f0-a8e5-02420aef3d20")
                             .callSessionId("cc29c8d6-3c91-11f0-aa7c-02420aef3d20")
-                            .callingPartyType(
-                                CallConversationEndedWebhookEvent.Data.Payload.CallingPartyType.SIP
-                            )
+                            .callingPartyType(CallConversationEnded.Payload.CallingPartyType.SIP)
                             .clientState(
                                 "g3QAAAACbQAAAAtkYXRhX2NlbnRlcm0AAAADY2gxbQAAAApkZXBsb3ltZW50bQAAAARiYXNl"
                             )
@@ -93,7 +86,7 @@ internal class CallConversationEndedWebhookEventTest {
                             .ttsVoiceId("Marissa")
                             .build()
                     )
-                    .recordType(CallConversationEndedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallConversationEnded.RecordType.EVENT)
                     .build()
             )
     }
@@ -104,15 +97,13 @@ internal class CallConversationEndedWebhookEventTest {
         val callConversationEndedWebhookEvent =
             CallConversationEndedWebhookEvent.builder()
                 .data(
-                    CallConversationEndedWebhookEvent.Data.builder()
+                    CallConversationEnded.builder()
                         .id("eb8775a6-634f-48b0-b177-d5465a8a8e9f")
                         .createdAt(OffsetDateTime.parse("2025-05-29T13:35:38.927621Z"))
-                        .eventType(
-                            CallConversationEndedWebhookEvent.Data.EventType.CALL_CONVERSATION_ENDED
-                        )
+                        .eventType(CallConversationEnded.EventType.CALL_CONVERSATION_ENDED)
                         .occurredAt(OffsetDateTime.parse("2025-05-29T13:35:38.817785Z"))
                         .payload(
-                            CallConversationEndedWebhookEvent.Data.Payload.builder()
+                            CallConversationEnded.Payload.builder()
                                 .assistantId("assistant-d9082b56-ba2d-4ad1-a50c-58661eb1463d")
                                 .callControlId(
                                     "v3:HDR1vQHx697hpP9xZ0bhlbUOWPFPDtPcxw-nuSMuC6mGVpb0euoklQ"
@@ -120,8 +111,7 @@ internal class CallConversationEndedWebhookEventTest {
                                 .callLegId("cc29cce6-3c91-11f0-a8e5-02420aef3d20")
                                 .callSessionId("cc29c8d6-3c91-11f0-aa7c-02420aef3d20")
                                 .callingPartyType(
-                                    CallConversationEndedWebhookEvent.Data.Payload.CallingPartyType
-                                        .SIP
+                                    CallConversationEnded.Payload.CallingPartyType.SIP
                                 )
                                 .clientState(
                                     "g3QAAAACbQAAAAtkYXRhX2NlbnRlcm0AAAADY2gxbQAAAApkZXBsb3ltZW50bQAAAARiYXNl"
@@ -140,7 +130,7 @@ internal class CallConversationEndedWebhookEventTest {
                                 .ttsVoiceId("Marissa")
                                 .build()
                         )
-                        .recordType(CallConversationEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallConversationEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()

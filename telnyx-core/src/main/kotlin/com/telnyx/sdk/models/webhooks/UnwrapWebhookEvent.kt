@@ -62,10 +62,10 @@ private constructor(
     private val callStreamingFailed: CallStreamingFailedWebhookEvent? = null,
     private val callStreamingStarted: CallStreamingStartedWebhookEvent? = null,
     private val callStreamingStopped: CallStreamingStoppedWebhookEvent? = null,
-    private val campaignStatusUpdate: CampaignStatusUpdateWebhookEvent? = null,
+    private val campaignStatusUpdate: CampaignStatusUpdate? = null,
     private val conferenceCreated: ConferenceCreatedWebhookEvent? = null,
     private val conferenceEnded: ConferenceEndedWebhookEvent? = null,
-    private val conferenceFloorChanged: ConferenceFloorChangedWebhookEvent? = null,
+    private val conferenceFloorChanged: ConferenceFloorChanged? = null,
     private val conferenceParticipantJoined: ConferenceParticipantJoinedWebhookEvent? = null,
     private val conferenceParticipantLeft: ConferenceParticipantLeftWebhookEvent? = null,
     private val conferenceParticipantPlaybackEnded:
@@ -84,13 +84,13 @@ private constructor(
     private val conferenceSpeakEnded: ConferenceSpeakEndedWebhookEvent? = null,
     private val conferenceSpeakStarted: ConferenceSpeakStartedWebhookEvent? = null,
     private val deliveryUpdate: DeliveryUpdateWebhookEvent? = null,
-    private val faxDelivered: FaxDeliveredWebhookEvent? = null,
-    private val faxFailed: FaxFailedWebhookEvent? = null,
-    private val faxMediaProcessed: FaxMediaProcessedWebhookEvent? = null,
-    private val faxQueued: FaxQueuedWebhookEvent? = null,
-    private val faxSendingStarted: FaxSendingStartedWebhookEvent? = null,
+    private val faxDelivered: FaxDelivered? = null,
+    private val faxFailed: FaxFailed? = null,
+    private val faxMediaProcessed: FaxMediaProcessed? = null,
+    private val faxQueued: FaxQueued? = null,
+    private val faxSendingStarted: FaxSendingStarted? = null,
     private val inboundMessage: InboundMessageWebhookEvent? = null,
-    private val numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent? = null,
+    private val numberOrderStatusUpdate: NumberOrderStatusUpdate? = null,
     private val replacedLinkClick: ReplacedLinkClickWebhookEvent? = null,
     private val transcription: TranscriptionWebhookEvent? = null,
     private val _json: JsonValue? = null,
@@ -196,7 +196,7 @@ private constructor(
     fun callStreamingStopped(): Optional<CallStreamingStoppedWebhookEvent> =
         Optional.ofNullable(callStreamingStopped)
 
-    fun campaignStatusUpdate(): Optional<CampaignStatusUpdateWebhookEvent> =
+    fun campaignStatusUpdate(): Optional<CampaignStatusUpdate> =
         Optional.ofNullable(campaignStatusUpdate)
 
     fun conferenceCreated(): Optional<ConferenceCreatedWebhookEvent> =
@@ -205,7 +205,7 @@ private constructor(
     fun conferenceEnded(): Optional<ConferenceEndedWebhookEvent> =
         Optional.ofNullable(conferenceEnded)
 
-    fun conferenceFloorChanged(): Optional<ConferenceFloorChangedWebhookEvent> =
+    fun conferenceFloorChanged(): Optional<ConferenceFloorChanged> =
         Optional.ofNullable(conferenceFloorChanged)
 
     fun conferenceParticipantJoined(): Optional<ConferenceParticipantJoinedWebhookEvent> =
@@ -246,21 +246,19 @@ private constructor(
 
     fun deliveryUpdate(): Optional<DeliveryUpdateWebhookEvent> = Optional.ofNullable(deliveryUpdate)
 
-    fun faxDelivered(): Optional<FaxDeliveredWebhookEvent> = Optional.ofNullable(faxDelivered)
+    fun faxDelivered(): Optional<FaxDelivered> = Optional.ofNullable(faxDelivered)
 
-    fun faxFailed(): Optional<FaxFailedWebhookEvent> = Optional.ofNullable(faxFailed)
+    fun faxFailed(): Optional<FaxFailed> = Optional.ofNullable(faxFailed)
 
-    fun faxMediaProcessed(): Optional<FaxMediaProcessedWebhookEvent> =
-        Optional.ofNullable(faxMediaProcessed)
+    fun faxMediaProcessed(): Optional<FaxMediaProcessed> = Optional.ofNullable(faxMediaProcessed)
 
-    fun faxQueued(): Optional<FaxQueuedWebhookEvent> = Optional.ofNullable(faxQueued)
+    fun faxQueued(): Optional<FaxQueued> = Optional.ofNullable(faxQueued)
 
-    fun faxSendingStarted(): Optional<FaxSendingStartedWebhookEvent> =
-        Optional.ofNullable(faxSendingStarted)
+    fun faxSendingStarted(): Optional<FaxSendingStarted> = Optional.ofNullable(faxSendingStarted)
 
     fun inboundMessage(): Optional<InboundMessageWebhookEvent> = Optional.ofNullable(inboundMessage)
 
-    fun numberOrderStatusUpdate(): Optional<NumberOrderStatusUpdateWebhookEvent> =
+    fun numberOrderStatusUpdate(): Optional<NumberOrderStatusUpdate> =
         Optional.ofNullable(numberOrderStatusUpdate)
 
     fun replacedLinkClick(): Optional<ReplacedLinkClickWebhookEvent> =
@@ -487,7 +485,7 @@ private constructor(
     fun asCallStreamingStopped(): CallStreamingStoppedWebhookEvent =
         callStreamingStopped.getOrThrow("callStreamingStopped")
 
-    fun asCampaignStatusUpdate(): CampaignStatusUpdateWebhookEvent =
+    fun asCampaignStatusUpdate(): CampaignStatusUpdate =
         campaignStatusUpdate.getOrThrow("campaignStatusUpdate")
 
     fun asConferenceCreated(): ConferenceCreatedWebhookEvent =
@@ -496,7 +494,7 @@ private constructor(
     fun asConferenceEnded(): ConferenceEndedWebhookEvent =
         conferenceEnded.getOrThrow("conferenceEnded")
 
-    fun asConferenceFloorChanged(): ConferenceFloorChangedWebhookEvent =
+    fun asConferenceFloorChanged(): ConferenceFloorChanged =
         conferenceFloorChanged.getOrThrow("conferenceFloorChanged")
 
     fun asConferenceParticipantJoined(): ConferenceParticipantJoinedWebhookEvent =
@@ -534,21 +532,19 @@ private constructor(
 
     fun asDeliveryUpdate(): DeliveryUpdateWebhookEvent = deliveryUpdate.getOrThrow("deliveryUpdate")
 
-    fun asFaxDelivered(): FaxDeliveredWebhookEvent = faxDelivered.getOrThrow("faxDelivered")
+    fun asFaxDelivered(): FaxDelivered = faxDelivered.getOrThrow("faxDelivered")
 
-    fun asFaxFailed(): FaxFailedWebhookEvent = faxFailed.getOrThrow("faxFailed")
+    fun asFaxFailed(): FaxFailed = faxFailed.getOrThrow("faxFailed")
 
-    fun asFaxMediaProcessed(): FaxMediaProcessedWebhookEvent =
-        faxMediaProcessed.getOrThrow("faxMediaProcessed")
+    fun asFaxMediaProcessed(): FaxMediaProcessed = faxMediaProcessed.getOrThrow("faxMediaProcessed")
 
-    fun asFaxQueued(): FaxQueuedWebhookEvent = faxQueued.getOrThrow("faxQueued")
+    fun asFaxQueued(): FaxQueued = faxQueued.getOrThrow("faxQueued")
 
-    fun asFaxSendingStarted(): FaxSendingStartedWebhookEvent =
-        faxSendingStarted.getOrThrow("faxSendingStarted")
+    fun asFaxSendingStarted(): FaxSendingStarted = faxSendingStarted.getOrThrow("faxSendingStarted")
 
     fun asInboundMessage(): InboundMessageWebhookEvent = inboundMessage.getOrThrow("inboundMessage")
 
-    fun asNumberOrderStatusUpdate(): NumberOrderStatusUpdateWebhookEvent =
+    fun asNumberOrderStatusUpdate(): NumberOrderStatusUpdate =
         numberOrderStatusUpdate.getOrThrow("numberOrderStatusUpdate")
 
     fun asReplacedLinkClick(): ReplacedLinkClickWebhookEvent =
@@ -835,9 +831,7 @@ private constructor(
                     callStreamingStopped.validate()
                 }
 
-                override fun visitCampaignStatusUpdate(
-                    campaignStatusUpdate: CampaignStatusUpdateWebhookEvent
-                ) {
+                override fun visitCampaignStatusUpdate(campaignStatusUpdate: CampaignStatusUpdate) {
                     campaignStatusUpdate.validate()
                 }
 
@@ -852,7 +846,7 @@ private constructor(
                 }
 
                 override fun visitConferenceFloorChanged(
-                    conferenceFloorChanged: ConferenceFloorChangedWebhookEvent
+                    conferenceFloorChanged: ConferenceFloorChanged
                 ) {
                     conferenceFloorChanged.validate()
                 }
@@ -929,27 +923,23 @@ private constructor(
                     deliveryUpdate.validate()
                 }
 
-                override fun visitFaxDelivered(faxDelivered: FaxDeliveredWebhookEvent) {
+                override fun visitFaxDelivered(faxDelivered: FaxDelivered) {
                     faxDelivered.validate()
                 }
 
-                override fun visitFaxFailed(faxFailed: FaxFailedWebhookEvent) {
+                override fun visitFaxFailed(faxFailed: FaxFailed) {
                     faxFailed.validate()
                 }
 
-                override fun visitFaxMediaProcessed(
-                    faxMediaProcessed: FaxMediaProcessedWebhookEvent
-                ) {
+                override fun visitFaxMediaProcessed(faxMediaProcessed: FaxMediaProcessed) {
                     faxMediaProcessed.validate()
                 }
 
-                override fun visitFaxQueued(faxQueued: FaxQueuedWebhookEvent) {
+                override fun visitFaxQueued(faxQueued: FaxQueued) {
                     faxQueued.validate()
                 }
 
-                override fun visitFaxSendingStarted(
-                    faxSendingStarted: FaxSendingStartedWebhookEvent
-                ) {
+                override fun visitFaxSendingStarted(faxSendingStarted: FaxSendingStarted) {
                     faxSendingStarted.validate()
                 }
 
@@ -958,7 +948,7 @@ private constructor(
                 }
 
                 override fun visitNumberOrderStatusUpdate(
-                    numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent
+                    numberOrderStatusUpdate: NumberOrderStatusUpdate
                 ) {
                     numberOrderStatusUpdate.validate()
                 }
@@ -1119,9 +1109,8 @@ private constructor(
                     callStreamingStopped: CallStreamingStoppedWebhookEvent
                 ) = callStreamingStopped.validity()
 
-                override fun visitCampaignStatusUpdate(
-                    campaignStatusUpdate: CampaignStatusUpdateWebhookEvent
-                ) = campaignStatusUpdate.validity()
+                override fun visitCampaignStatusUpdate(campaignStatusUpdate: CampaignStatusUpdate) =
+                    campaignStatusUpdate.validity()
 
                 override fun visitConferenceCreated(
                     conferenceCreated: ConferenceCreatedWebhookEvent
@@ -1131,7 +1120,7 @@ private constructor(
                     conferenceEnded.validity()
 
                 override fun visitConferenceFloorChanged(
-                    conferenceFloorChanged: ConferenceFloorChangedWebhookEvent
+                    conferenceFloorChanged: ConferenceFloorChanged
                 ) = conferenceFloorChanged.validity()
 
                 override fun visitConferenceParticipantJoined(
@@ -1183,26 +1172,23 @@ private constructor(
                 override fun visitDeliveryUpdate(deliveryUpdate: DeliveryUpdateWebhookEvent) =
                     deliveryUpdate.validity()
 
-                override fun visitFaxDelivered(faxDelivered: FaxDeliveredWebhookEvent) =
-                    faxDelivered.validity()
+                override fun visitFaxDelivered(faxDelivered: FaxDelivered) = faxDelivered.validity()
 
-                override fun visitFaxFailed(faxFailed: FaxFailedWebhookEvent) = faxFailed.validity()
+                override fun visitFaxFailed(faxFailed: FaxFailed) = faxFailed.validity()
 
-                override fun visitFaxMediaProcessed(
-                    faxMediaProcessed: FaxMediaProcessedWebhookEvent
-                ) = faxMediaProcessed.validity()
+                override fun visitFaxMediaProcessed(faxMediaProcessed: FaxMediaProcessed) =
+                    faxMediaProcessed.validity()
 
-                override fun visitFaxQueued(faxQueued: FaxQueuedWebhookEvent) = faxQueued.validity()
+                override fun visitFaxQueued(faxQueued: FaxQueued) = faxQueued.validity()
 
-                override fun visitFaxSendingStarted(
-                    faxSendingStarted: FaxSendingStartedWebhookEvent
-                ) = faxSendingStarted.validity()
+                override fun visitFaxSendingStarted(faxSendingStarted: FaxSendingStarted) =
+                    faxSendingStarted.validity()
 
                 override fun visitInboundMessage(inboundMessage: InboundMessageWebhookEvent) =
                     inboundMessage.validity()
 
                 override fun visitNumberOrderStatusUpdate(
-                    numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent
+                    numberOrderStatusUpdate: NumberOrderStatusUpdate
                 ) = numberOrderStatusUpdate.validity()
 
                 override fun visitReplacedLinkClick(
@@ -1601,7 +1587,7 @@ private constructor(
             UnwrapWebhookEvent(callStreamingStopped = callStreamingStopped)
 
         @JvmStatic
-        fun ofCampaignStatusUpdate(campaignStatusUpdate: CampaignStatusUpdateWebhookEvent) =
+        fun ofCampaignStatusUpdate(campaignStatusUpdate: CampaignStatusUpdate) =
             UnwrapWebhookEvent(campaignStatusUpdate = campaignStatusUpdate)
 
         @JvmStatic
@@ -1613,7 +1599,7 @@ private constructor(
             UnwrapWebhookEvent(conferenceEnded = conferenceEnded)
 
         @JvmStatic
-        fun ofConferenceFloorChanged(conferenceFloorChanged: ConferenceFloorChangedWebhookEvent) =
+        fun ofConferenceFloorChanged(conferenceFloorChanged: ConferenceFloorChanged) =
             UnwrapWebhookEvent(conferenceFloorChanged = conferenceFloorChanged)
 
         @JvmStatic
@@ -1683,23 +1669,19 @@ private constructor(
             UnwrapWebhookEvent(deliveryUpdate = deliveryUpdate)
 
         @JvmStatic
-        fun ofFaxDelivered(faxDelivered: FaxDeliveredWebhookEvent) =
+        fun ofFaxDelivered(faxDelivered: FaxDelivered) =
             UnwrapWebhookEvent(faxDelivered = faxDelivered)
 
-        @JvmStatic
-        fun ofFaxFailed(faxFailed: FaxFailedWebhookEvent) =
-            UnwrapWebhookEvent(faxFailed = faxFailed)
+        @JvmStatic fun ofFaxFailed(faxFailed: FaxFailed) = UnwrapWebhookEvent(faxFailed = faxFailed)
 
         @JvmStatic
-        fun ofFaxMediaProcessed(faxMediaProcessed: FaxMediaProcessedWebhookEvent) =
+        fun ofFaxMediaProcessed(faxMediaProcessed: FaxMediaProcessed) =
             UnwrapWebhookEvent(faxMediaProcessed = faxMediaProcessed)
 
-        @JvmStatic
-        fun ofFaxQueued(faxQueued: FaxQueuedWebhookEvent) =
-            UnwrapWebhookEvent(faxQueued = faxQueued)
+        @JvmStatic fun ofFaxQueued(faxQueued: FaxQueued) = UnwrapWebhookEvent(faxQueued = faxQueued)
 
         @JvmStatic
-        fun ofFaxSendingStarted(faxSendingStarted: FaxSendingStartedWebhookEvent) =
+        fun ofFaxSendingStarted(faxSendingStarted: FaxSendingStarted) =
             UnwrapWebhookEvent(faxSendingStarted = faxSendingStarted)
 
         @JvmStatic
@@ -1707,9 +1689,8 @@ private constructor(
             UnwrapWebhookEvent(inboundMessage = inboundMessage)
 
         @JvmStatic
-        fun ofNumberOrderStatusUpdate(
-            numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent
-        ) = UnwrapWebhookEvent(numberOrderStatusUpdate = numberOrderStatusUpdate)
+        fun ofNumberOrderStatusUpdate(numberOrderStatusUpdate: NumberOrderStatusUpdate) =
+            UnwrapWebhookEvent(numberOrderStatusUpdate = numberOrderStatusUpdate)
 
         @JvmStatic
         fun ofReplacedLinkClick(replacedLinkClick: ReplacedLinkClickWebhookEvent) =
@@ -1812,15 +1793,13 @@ private constructor(
 
         fun visitCallStreamingStopped(callStreamingStopped: CallStreamingStoppedWebhookEvent): T
 
-        fun visitCampaignStatusUpdate(campaignStatusUpdate: CampaignStatusUpdateWebhookEvent): T
+        fun visitCampaignStatusUpdate(campaignStatusUpdate: CampaignStatusUpdate): T
 
         fun visitConferenceCreated(conferenceCreated: ConferenceCreatedWebhookEvent): T
 
         fun visitConferenceEnded(conferenceEnded: ConferenceEndedWebhookEvent): T
 
-        fun visitConferenceFloorChanged(
-            conferenceFloorChanged: ConferenceFloorChangedWebhookEvent
-        ): T
+        fun visitConferenceFloorChanged(conferenceFloorChanged: ConferenceFloorChanged): T
 
         fun visitConferenceParticipantJoined(
             conferenceParticipantJoined: ConferenceParticipantJoinedWebhookEvent
@@ -1866,21 +1845,19 @@ private constructor(
 
         fun visitDeliveryUpdate(deliveryUpdate: DeliveryUpdateWebhookEvent): T
 
-        fun visitFaxDelivered(faxDelivered: FaxDeliveredWebhookEvent): T
+        fun visitFaxDelivered(faxDelivered: FaxDelivered): T
 
-        fun visitFaxFailed(faxFailed: FaxFailedWebhookEvent): T
+        fun visitFaxFailed(faxFailed: FaxFailed): T
 
-        fun visitFaxMediaProcessed(faxMediaProcessed: FaxMediaProcessedWebhookEvent): T
+        fun visitFaxMediaProcessed(faxMediaProcessed: FaxMediaProcessed): T
 
-        fun visitFaxQueued(faxQueued: FaxQueuedWebhookEvent): T
+        fun visitFaxQueued(faxQueued: FaxQueued): T
 
-        fun visitFaxSendingStarted(faxSendingStarted: FaxSendingStartedWebhookEvent): T
+        fun visitFaxSendingStarted(faxSendingStarted: FaxSendingStarted): T
 
         fun visitInboundMessage(inboundMessage: InboundMessageWebhookEvent): T
 
-        fun visitNumberOrderStatusUpdate(
-            numberOrderStatusUpdate: NumberOrderStatusUpdateWebhookEvent
-        ): T
+        fun visitNumberOrderStatusUpdate(numberOrderStatusUpdate: NumberOrderStatusUpdate): T
 
         fun visitReplacedLinkClick(replacedLinkClick: ReplacedLinkClickWebhookEvent): T
 
@@ -2049,16 +2026,18 @@ private constructor(
                             ?.let { UnwrapWebhookEvent(callStreamingStarted = it, _json = json) },
                         tryDeserialize(node, jacksonTypeRef<CallStreamingStoppedWebhookEvent>())
                             ?.let { UnwrapWebhookEvent(callStreamingStopped = it, _json = json) },
-                        tryDeserialize(node, jacksonTypeRef<CampaignStatusUpdateWebhookEvent>())
-                            ?.let { UnwrapWebhookEvent(campaignStatusUpdate = it, _json = json) },
+                        tryDeserialize(node, jacksonTypeRef<CampaignStatusUpdate>())?.let {
+                            UnwrapWebhookEvent(campaignStatusUpdate = it, _json = json)
+                        },
                         tryDeserialize(node, jacksonTypeRef<ConferenceCreatedWebhookEvent>())?.let {
                             UnwrapWebhookEvent(conferenceCreated = it, _json = json)
                         },
                         tryDeserialize(node, jacksonTypeRef<ConferenceEndedWebhookEvent>())?.let {
                             UnwrapWebhookEvent(conferenceEnded = it, _json = json)
                         },
-                        tryDeserialize(node, jacksonTypeRef<ConferenceFloorChangedWebhookEvent>())
-                            ?.let { UnwrapWebhookEvent(conferenceFloorChanged = it, _json = json) },
+                        tryDeserialize(node, jacksonTypeRef<ConferenceFloorChanged>())?.let {
+                            UnwrapWebhookEvent(conferenceFloorChanged = it, _json = json)
+                        },
                         tryDeserialize(
                                 node,
                                 jacksonTypeRef<ConferenceParticipantJoinedWebhookEvent>(),
@@ -2135,28 +2114,27 @@ private constructor(
                         tryDeserialize(node, jacksonTypeRef<DeliveryUpdateWebhookEvent>())?.let {
                             UnwrapWebhookEvent(deliveryUpdate = it, _json = json)
                         },
-                        tryDeserialize(node, jacksonTypeRef<FaxDeliveredWebhookEvent>())?.let {
+                        tryDeserialize(node, jacksonTypeRef<FaxDelivered>())?.let {
                             UnwrapWebhookEvent(faxDelivered = it, _json = json)
                         },
-                        tryDeserialize(node, jacksonTypeRef<FaxFailedWebhookEvent>())?.let {
+                        tryDeserialize(node, jacksonTypeRef<FaxFailed>())?.let {
                             UnwrapWebhookEvent(faxFailed = it, _json = json)
                         },
-                        tryDeserialize(node, jacksonTypeRef<FaxMediaProcessedWebhookEvent>())?.let {
+                        tryDeserialize(node, jacksonTypeRef<FaxMediaProcessed>())?.let {
                             UnwrapWebhookEvent(faxMediaProcessed = it, _json = json)
                         },
-                        tryDeserialize(node, jacksonTypeRef<FaxQueuedWebhookEvent>())?.let {
+                        tryDeserialize(node, jacksonTypeRef<FaxQueued>())?.let {
                             UnwrapWebhookEvent(faxQueued = it, _json = json)
                         },
-                        tryDeserialize(node, jacksonTypeRef<FaxSendingStartedWebhookEvent>())?.let {
+                        tryDeserialize(node, jacksonTypeRef<FaxSendingStarted>())?.let {
                             UnwrapWebhookEvent(faxSendingStarted = it, _json = json)
                         },
                         tryDeserialize(node, jacksonTypeRef<InboundMessageWebhookEvent>())?.let {
                             UnwrapWebhookEvent(inboundMessage = it, _json = json)
                         },
-                        tryDeserialize(node, jacksonTypeRef<NumberOrderStatusUpdateWebhookEvent>())
-                            ?.let {
-                                UnwrapWebhookEvent(numberOrderStatusUpdate = it, _json = json)
-                            },
+                        tryDeserialize(node, jacksonTypeRef<NumberOrderStatusUpdate>())?.let {
+                            UnwrapWebhookEvent(numberOrderStatusUpdate = it, _json = json)
+                        },
                         tryDeserialize(node, jacksonTypeRef<ReplacedLinkClickWebhookEvent>())?.let {
                             UnwrapWebhookEvent(replacedLinkClick = it, _json = json)
                         },

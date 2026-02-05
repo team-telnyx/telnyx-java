@@ -15,12 +15,12 @@ internal class CallBridgedWebhookEventTest {
         val callBridgedWebhookEvent =
             CallBridgedWebhookEvent.builder()
                 .data(
-                    CallBridgedWebhookEvent.Data.builder()
+                    CallBridged.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallBridgedWebhookEvent.Data.EventType.CALL_BRIDGED)
+                        .eventType(CallBridged.EventType.CALL_BRIDGED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallBridgedWebhookEvent.Data.Payload.builder()
+                            CallBridged.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -32,19 +32,19 @@ internal class CallBridgedWebhookEventTest {
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallBridgedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallBridged.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callBridgedWebhookEvent.data())
             .contains(
-                CallBridgedWebhookEvent.Data.builder()
+                CallBridged.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(CallBridgedWebhookEvent.Data.EventType.CALL_BRIDGED)
+                    .eventType(CallBridged.EventType.CALL_BRIDGED)
                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                     .payload(
-                        CallBridgedWebhookEvent.Data.Payload.builder()
+                        CallBridged.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
@@ -56,7 +56,7 @@ internal class CallBridgedWebhookEventTest {
                             .to("+35319605860")
                             .build()
                     )
-                    .recordType(CallBridgedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallBridged.RecordType.EVENT)
                     .build()
             )
     }
@@ -67,12 +67,12 @@ internal class CallBridgedWebhookEventTest {
         val callBridgedWebhookEvent =
             CallBridgedWebhookEvent.builder()
                 .data(
-                    CallBridgedWebhookEvent.Data.builder()
+                    CallBridged.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallBridgedWebhookEvent.Data.EventType.CALL_BRIDGED)
+                        .eventType(CallBridged.EventType.CALL_BRIDGED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallBridgedWebhookEvent.Data.Payload.builder()
+                            CallBridged.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -84,7 +84,7 @@ internal class CallBridgedWebhookEventTest {
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallBridgedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallBridged.RecordType.EVENT)
                         .build()
                 )
                 .build()

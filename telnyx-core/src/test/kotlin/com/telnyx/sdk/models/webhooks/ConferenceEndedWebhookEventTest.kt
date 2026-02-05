@@ -15,11 +15,11 @@ internal class ConferenceEndedWebhookEventTest {
         val conferenceEndedWebhookEvent =
             ConferenceEndedWebhookEvent.builder()
                 .data(
-                    ConferenceEndedWebhookEvent.Data.builder()
+                    ConferenceEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(ConferenceEndedWebhookEvent.Data.EventType.CONFERENCE_ENDED)
+                        .eventType(ConferenceEnded.EventType.CONFERENCE_ENDED)
                         .payload(
-                            ConferenceEndedWebhookEvent.Data.Payload.builder()
+                            ConferenceEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -29,21 +29,21 @@ internal class ConferenceEndedWebhookEventTest {
                                 .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
-                                .reason(ConferenceEndedWebhookEvent.Data.Payload.Reason.HOST_LEFT)
+                                .reason(ConferenceEnded.Payload.Reason.HOST_LEFT)
                                 .build()
                         )
-                        .recordType(ConferenceEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferenceEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(conferenceEndedWebhookEvent.data())
             .contains(
-                ConferenceEndedWebhookEvent.Data.builder()
+                ConferenceEnded.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(ConferenceEndedWebhookEvent.Data.EventType.CONFERENCE_ENDED)
+                    .eventType(ConferenceEnded.EventType.CONFERENCE_ENDED)
                     .payload(
-                        ConferenceEndedWebhookEvent.Data.Payload.builder()
+                        ConferenceEnded.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
@@ -53,10 +53,10 @@ internal class ConferenceEndedWebhookEventTest {
                             .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                             .connectionId("7267xxxxxxxxxxxxxx")
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
-                            .reason(ConferenceEndedWebhookEvent.Data.Payload.Reason.HOST_LEFT)
+                            .reason(ConferenceEnded.Payload.Reason.HOST_LEFT)
                             .build()
                     )
-                    .recordType(ConferenceEndedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(ConferenceEnded.RecordType.EVENT)
                     .build()
             )
     }
@@ -67,11 +67,11 @@ internal class ConferenceEndedWebhookEventTest {
         val conferenceEndedWebhookEvent =
             ConferenceEndedWebhookEvent.builder()
                 .data(
-                    ConferenceEndedWebhookEvent.Data.builder()
+                    ConferenceEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(ConferenceEndedWebhookEvent.Data.EventType.CONFERENCE_ENDED)
+                        .eventType(ConferenceEnded.EventType.CONFERENCE_ENDED)
                         .payload(
-                            ConferenceEndedWebhookEvent.Data.Payload.builder()
+                            ConferenceEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -81,10 +81,10 @@ internal class ConferenceEndedWebhookEventTest {
                                 .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
-                                .reason(ConferenceEndedWebhookEvent.Data.Payload.Reason.HOST_LEFT)
+                                .reason(ConferenceEnded.Payload.Reason.HOST_LEFT)
                                 .build()
                         )
-                        .recordType(ConferenceEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferenceEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()

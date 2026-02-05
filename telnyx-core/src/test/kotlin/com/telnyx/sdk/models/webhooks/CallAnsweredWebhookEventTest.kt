@@ -17,12 +17,12 @@ internal class CallAnsweredWebhookEventTest {
         val callAnsweredWebhookEvent =
             CallAnsweredWebhookEvent.builder()
                 .data(
-                    CallAnsweredWebhookEvent.Data.builder()
+                    CallAnswered.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallAnsweredWebhookEvent.Data.EventType.CALL_ANSWERED)
+                        .eventType(CallAnswered.EventType.CALL_ANSWERED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallAnsweredWebhookEvent.Data.Payload.builder()
+                            CallAnswered.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -50,25 +50,25 @@ internal class CallAnsweredWebhookEventTest {
                                         .build()
                                 )
                                 .startTime(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
-                                .state(CallAnsweredWebhookEvent.Data.Payload.State.ANSWERED)
+                                .state(CallAnswered.Payload.State.ANSWERED)
                                 .addTag("tag-01")
                                 .addTag("tag-02")
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallAnsweredWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallAnswered.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callAnsweredWebhookEvent.data())
             .contains(
-                CallAnsweredWebhookEvent.Data.builder()
+                CallAnswered.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(CallAnsweredWebhookEvent.Data.EventType.CALL_ANSWERED)
+                    .eventType(CallAnswered.EventType.CALL_ANSWERED)
                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                     .payload(
-                        CallAnsweredWebhookEvent.Data.Payload.builder()
+                        CallAnswered.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
@@ -96,13 +96,13 @@ internal class CallAnsweredWebhookEventTest {
                                     .build()
                             )
                             .startTime(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
-                            .state(CallAnsweredWebhookEvent.Data.Payload.State.ANSWERED)
+                            .state(CallAnswered.Payload.State.ANSWERED)
                             .addTag("tag-01")
                             .addTag("tag-02")
                             .to("+35319605860")
                             .build()
                     )
-                    .recordType(CallAnsweredWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallAnswered.RecordType.EVENT)
                     .build()
             )
     }
@@ -113,12 +113,12 @@ internal class CallAnsweredWebhookEventTest {
         val callAnsweredWebhookEvent =
             CallAnsweredWebhookEvent.builder()
                 .data(
-                    CallAnsweredWebhookEvent.Data.builder()
+                    CallAnswered.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallAnsweredWebhookEvent.Data.EventType.CALL_ANSWERED)
+                        .eventType(CallAnswered.EventType.CALL_ANSWERED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallAnsweredWebhookEvent.Data.Payload.builder()
+                            CallAnswered.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -146,13 +146,13 @@ internal class CallAnsweredWebhookEventTest {
                                         .build()
                                 )
                                 .startTime(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
-                                .state(CallAnsweredWebhookEvent.Data.Payload.State.ANSWERED)
+                                .state(CallAnswered.Payload.State.ANSWERED)
                                 .addTag("tag-01")
                                 .addTag("tag-02")
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallAnsweredWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallAnswered.RecordType.EVENT)
                         .build()
                 )
                 .build()

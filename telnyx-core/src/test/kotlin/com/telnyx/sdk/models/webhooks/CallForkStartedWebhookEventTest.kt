@@ -15,12 +15,12 @@ internal class CallForkStartedWebhookEventTest {
         val callForkStartedWebhookEvent =
             CallForkStartedWebhookEvent.builder()
                 .data(
-                    CallForkStartedWebhookEvent.Data.builder()
+                    CallForkStarted.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallForkStartedWebhookEvent.Data.EventType.CALL_FORK_STARTED)
+                        .eventType(CallForkStarted.EventType.CALL_FORK_STARTED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallForkStartedWebhookEvent.Data.Payload.builder()
+                            CallForkStarted.Payload.builder()
                                 .callControlId(
                                     "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                 )
@@ -28,24 +28,22 @@ internal class CallForkStartedWebhookEventTest {
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
-                                .streamType(
-                                    CallForkStartedWebhookEvent.Data.Payload.StreamType.DECRYPTED
-                                )
+                                .streamType(CallForkStarted.Payload.StreamType.DECRYPTED)
                                 .build()
                         )
-                        .recordType(CallForkStartedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallForkStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callForkStartedWebhookEvent.data())
             .contains(
-                CallForkStartedWebhookEvent.Data.builder()
+                CallForkStarted.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(CallForkStartedWebhookEvent.Data.EventType.CALL_FORK_STARTED)
+                    .eventType(CallForkStarted.EventType.CALL_FORK_STARTED)
                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                     .payload(
-                        CallForkStartedWebhookEvent.Data.Payload.builder()
+                        CallForkStarted.Payload.builder()
                             .callControlId(
                                 "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                             )
@@ -53,12 +51,10 @@ internal class CallForkStartedWebhookEventTest {
                             .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                             .connectionId("7267xxxxxxxxxxxxxx")
-                            .streamType(
-                                CallForkStartedWebhookEvent.Data.Payload.StreamType.DECRYPTED
-                            )
+                            .streamType(CallForkStarted.Payload.StreamType.DECRYPTED)
                             .build()
                     )
-                    .recordType(CallForkStartedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallForkStarted.RecordType.EVENT)
                     .build()
             )
     }
@@ -69,12 +65,12 @@ internal class CallForkStartedWebhookEventTest {
         val callForkStartedWebhookEvent =
             CallForkStartedWebhookEvent.builder()
                 .data(
-                    CallForkStartedWebhookEvent.Data.builder()
+                    CallForkStarted.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallForkStartedWebhookEvent.Data.EventType.CALL_FORK_STARTED)
+                        .eventType(CallForkStarted.EventType.CALL_FORK_STARTED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallForkStartedWebhookEvent.Data.Payload.builder()
+                            CallForkStarted.Payload.builder()
                                 .callControlId(
                                     "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                 )
@@ -82,12 +78,10 @@ internal class CallForkStartedWebhookEventTest {
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
-                                .streamType(
-                                    CallForkStartedWebhookEvent.Data.Payload.StreamType.DECRYPTED
-                                )
+                                .streamType(CallForkStarted.Payload.StreamType.DECRYPTED)
                                 .build()
                         )
-                        .recordType(CallForkStartedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallForkStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()

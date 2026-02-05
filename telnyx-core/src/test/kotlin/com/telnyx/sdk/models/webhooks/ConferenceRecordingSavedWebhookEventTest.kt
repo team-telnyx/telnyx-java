@@ -15,32 +15,22 @@ internal class ConferenceRecordingSavedWebhookEventTest {
         val conferenceRecordingSavedWebhookEvent =
             ConferenceRecordingSavedWebhookEvent.builder()
                 .data(
-                    ConferenceRecordingSavedWebhookEvent.Data.builder()
+                    ConferenceRecordingSaved.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            ConferenceRecordingSavedWebhookEvent.Data.EventType
-                                .CONFERENCE_RECORDING_SAVED
-                        )
+                        .eventType(ConferenceRecordingSaved.EventType.CONFERENCE_RECORDING_SAVED)
                         .payload(
-                            ConferenceRecordingSavedWebhookEvent.Data.Payload.builder()
+                            ConferenceRecordingSaved.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                                .channels(
-                                    ConferenceRecordingSavedWebhookEvent.Data.Payload.Channels
-                                        .SINGLE
-                                )
+                                .channels(ConferenceRecordingSaved.Payload.Channels.SINGLE)
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .connectionId("7267xxxxxxxxxxxxxx")
-                                .format(
-                                    ConferenceRecordingSavedWebhookEvent.Data.Payload.Format.MP3
-                                )
+                                .format(ConferenceRecordingSaved.Payload.Format.MP3)
                                 .publicRecordingUrls(
-                                    ConferenceRecordingSavedWebhookEvent.Data.Payload
-                                        .PublicRecordingUrls
-                                        .builder()
+                                    ConferenceRecordingSaved.Payload.PublicRecordingUrls.builder()
                                         .mp3("http://example.com/recording.mp3")
                                         .wav("http://example.com/recording.wav")
                                         .build()
@@ -53,44 +43,36 @@ internal class ConferenceRecordingSavedWebhookEventTest {
                                     OffsetDateTime.parse("2021-05-11T10:17:03.692107Z")
                                 )
                                 .recordingUrls(
-                                    ConferenceRecordingSavedWebhookEvent.Data.Payload.RecordingUrls
-                                        .builder()
+                                    ConferenceRecordingSaved.Payload.RecordingUrls.builder()
                                         .mp3("http://example.com/recording.mp3")
                                         .wav("http://example.com/recording.wav")
                                         .build()
                                 )
                                 .build()
                         )
-                        .recordType(ConferenceRecordingSavedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferenceRecordingSaved.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(conferenceRecordingSavedWebhookEvent.data())
             .contains(
-                ConferenceRecordingSavedWebhookEvent.Data.builder()
+                ConferenceRecordingSaved.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(
-                        ConferenceRecordingSavedWebhookEvent.Data.EventType
-                            .CONFERENCE_RECORDING_SAVED
-                    )
+                    .eventType(ConferenceRecordingSaved.EventType.CONFERENCE_RECORDING_SAVED)
                     .payload(
-                        ConferenceRecordingSavedWebhookEvent.Data.Payload.builder()
+                        ConferenceRecordingSaved.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
                             .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                            .channels(
-                                ConferenceRecordingSavedWebhookEvent.Data.Payload.Channels.SINGLE
-                            )
+                            .channels(ConferenceRecordingSaved.Payload.Channels.SINGLE)
                             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                             .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                             .connectionId("7267xxxxxxxxxxxxxx")
-                            .format(ConferenceRecordingSavedWebhookEvent.Data.Payload.Format.MP3)
+                            .format(ConferenceRecordingSaved.Payload.Format.MP3)
                             .publicRecordingUrls(
-                                ConferenceRecordingSavedWebhookEvent.Data.Payload
-                                    .PublicRecordingUrls
-                                    .builder()
+                                ConferenceRecordingSaved.Payload.PublicRecordingUrls.builder()
                                     .mp3("http://example.com/recording.mp3")
                                     .wav("http://example.com/recording.wav")
                                     .build()
@@ -99,15 +81,14 @@ internal class ConferenceRecordingSavedWebhookEventTest {
                             .recordingId("4577f9a2-cf0e-44f3-ac57-9f95fb03fa47")
                             .recordingStartedAt(OffsetDateTime.parse("2021-05-11T10:17:03.692107Z"))
                             .recordingUrls(
-                                ConferenceRecordingSavedWebhookEvent.Data.Payload.RecordingUrls
-                                    .builder()
+                                ConferenceRecordingSaved.Payload.RecordingUrls.builder()
                                     .mp3("http://example.com/recording.mp3")
                                     .wav("http://example.com/recording.wav")
                                     .build()
                             )
                             .build()
                     )
-                    .recordType(ConferenceRecordingSavedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(ConferenceRecordingSaved.RecordType.EVENT)
                     .build()
             )
     }
@@ -118,32 +99,22 @@ internal class ConferenceRecordingSavedWebhookEventTest {
         val conferenceRecordingSavedWebhookEvent =
             ConferenceRecordingSavedWebhookEvent.builder()
                 .data(
-                    ConferenceRecordingSavedWebhookEvent.Data.builder()
+                    ConferenceRecordingSaved.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            ConferenceRecordingSavedWebhookEvent.Data.EventType
-                                .CONFERENCE_RECORDING_SAVED
-                        )
+                        .eventType(ConferenceRecordingSaved.EventType.CONFERENCE_RECORDING_SAVED)
                         .payload(
-                            ConferenceRecordingSavedWebhookEvent.Data.Payload.builder()
+                            ConferenceRecordingSaved.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                                .channels(
-                                    ConferenceRecordingSavedWebhookEvent.Data.Payload.Channels
-                                        .SINGLE
-                                )
+                                .channels(ConferenceRecordingSaved.Payload.Channels.SINGLE)
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .connectionId("7267xxxxxxxxxxxxxx")
-                                .format(
-                                    ConferenceRecordingSavedWebhookEvent.Data.Payload.Format.MP3
-                                )
+                                .format(ConferenceRecordingSaved.Payload.Format.MP3)
                                 .publicRecordingUrls(
-                                    ConferenceRecordingSavedWebhookEvent.Data.Payload
-                                        .PublicRecordingUrls
-                                        .builder()
+                                    ConferenceRecordingSaved.Payload.PublicRecordingUrls.builder()
                                         .mp3("http://example.com/recording.mp3")
                                         .wav("http://example.com/recording.wav")
                                         .build()
@@ -156,15 +127,14 @@ internal class ConferenceRecordingSavedWebhookEventTest {
                                     OffsetDateTime.parse("2021-05-11T10:17:03.692107Z")
                                 )
                                 .recordingUrls(
-                                    ConferenceRecordingSavedWebhookEvent.Data.Payload.RecordingUrls
-                                        .builder()
+                                    ConferenceRecordingSaved.Payload.RecordingUrls.builder()
                                         .mp3("http://example.com/recording.mp3")
                                         .wav("http://example.com/recording.wav")
                                         .build()
                                 )
                                 .build()
                         )
-                        .recordType(ConferenceRecordingSavedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferenceRecordingSaved.RecordType.EVENT)
                         .build()
                 )
                 .build()
