@@ -15,12 +15,12 @@ internal class TranscriptionWebhookEventTest {
         val transcriptionWebhookEvent =
             TranscriptionWebhookEvent.builder()
                 .data(
-                    TranscriptionWebhookEvent.Data.builder()
+                    Transcription.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(TranscriptionWebhookEvent.Data.EventType.CALL_TRANSCRIPTION)
+                        .eventType(Transcription.EventType.CALL_TRANSCRIPTION)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            TranscriptionWebhookEvent.Data.Payload.builder()
+                            Transcription.Payload.builder()
                                 .callControlId(
                                     "v2:7subYr8fLrXmaAXm8egeAMpoSJ72J3SGPUuome81-hQuaKRf9b7hKA"
                                 )
@@ -29,13 +29,12 @@ internal class TranscriptionWebhookEventTest {
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("1240401930086254526")
                                 .transcriptionData(
-                                    TranscriptionWebhookEvent.Data.Payload.TranscriptionData
-                                        .builder()
+                                    Transcription.Payload.TranscriptionData.builder()
                                         .confidence(0.977219)
                                         .isFinal(true)
                                         .transcript("hello this is a test speech")
                                         .transcriptionTrack(
-                                            TranscriptionWebhookEvent.Data.Payload.TranscriptionData
+                                            Transcription.Payload.TranscriptionData
                                                 .TranscriptionTrack
                                                 .INBOUND
                                         )
@@ -43,19 +42,19 @@ internal class TranscriptionWebhookEventTest {
                                 )
                                 .build()
                         )
-                        .recordType(TranscriptionWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(Transcription.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(transcriptionWebhookEvent.data())
             .contains(
-                TranscriptionWebhookEvent.Data.builder()
+                Transcription.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(TranscriptionWebhookEvent.Data.EventType.CALL_TRANSCRIPTION)
+                    .eventType(Transcription.EventType.CALL_TRANSCRIPTION)
                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                     .payload(
-                        TranscriptionWebhookEvent.Data.Payload.builder()
+                        Transcription.Payload.builder()
                             .callControlId(
                                 "v2:7subYr8fLrXmaAXm8egeAMpoSJ72J3SGPUuome81-hQuaKRf9b7hKA"
                             )
@@ -64,20 +63,19 @@ internal class TranscriptionWebhookEventTest {
                             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                             .connectionId("1240401930086254526")
                             .transcriptionData(
-                                TranscriptionWebhookEvent.Data.Payload.TranscriptionData.builder()
+                                Transcription.Payload.TranscriptionData.builder()
                                     .confidence(0.977219)
                                     .isFinal(true)
                                     .transcript("hello this is a test speech")
                                     .transcriptionTrack(
-                                        TranscriptionWebhookEvent.Data.Payload.TranscriptionData
-                                            .TranscriptionTrack
+                                        Transcription.Payload.TranscriptionData.TranscriptionTrack
                                             .INBOUND
                                     )
                                     .build()
                             )
                             .build()
                     )
-                    .recordType(TranscriptionWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(Transcription.RecordType.EVENT)
                     .build()
             )
     }
@@ -88,12 +86,12 @@ internal class TranscriptionWebhookEventTest {
         val transcriptionWebhookEvent =
             TranscriptionWebhookEvent.builder()
                 .data(
-                    TranscriptionWebhookEvent.Data.builder()
+                    Transcription.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(TranscriptionWebhookEvent.Data.EventType.CALL_TRANSCRIPTION)
+                        .eventType(Transcription.EventType.CALL_TRANSCRIPTION)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            TranscriptionWebhookEvent.Data.Payload.builder()
+                            Transcription.Payload.builder()
                                 .callControlId(
                                     "v2:7subYr8fLrXmaAXm8egeAMpoSJ72J3SGPUuome81-hQuaKRf9b7hKA"
                                 )
@@ -102,13 +100,12 @@ internal class TranscriptionWebhookEventTest {
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("1240401930086254526")
                                 .transcriptionData(
-                                    TranscriptionWebhookEvent.Data.Payload.TranscriptionData
-                                        .builder()
+                                    Transcription.Payload.TranscriptionData.builder()
                                         .confidence(0.977219)
                                         .isFinal(true)
                                         .transcript("hello this is a test speech")
                                         .transcriptionTrack(
-                                            TranscriptionWebhookEvent.Data.Payload.TranscriptionData
+                                            Transcription.Payload.TranscriptionData
                                                 .TranscriptionTrack
                                                 .INBOUND
                                         )
@@ -116,7 +113,7 @@ internal class TranscriptionWebhookEventTest {
                                 )
                                 .build()
                         )
-                        .recordType(TranscriptionWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(Transcription.RecordType.EVENT)
                         .build()
                 )
                 .build()

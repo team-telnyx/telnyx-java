@@ -15,14 +15,14 @@ internal class ConferenceParticipantSpeakEndedWebhookEventTest {
         val conferenceParticipantSpeakEndedWebhookEvent =
             ConferenceParticipantSpeakEndedWebhookEvent.builder()
                 .data(
-                    ConferenceParticipantSpeakEndedWebhookEvent.Data.builder()
+                    ConferenceParticipantSpeakEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            ConferenceParticipantSpeakEndedWebhookEvent.Data.EventType
+                            ConferenceParticipantSpeakEnded.EventType
                                 .CONFERENCE_PARTICIPANT_SPEAK_ENDED
                         )
                         .payload(
-                            ConferenceParticipantSpeakEndedWebhookEvent.Data.Payload.builder()
+                            ConferenceParticipantSpeakEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -35,23 +35,20 @@ internal class ConferenceParticipantSpeakEndedWebhookEventTest {
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                 .build()
                         )
-                        .recordType(
-                            ConferenceParticipantSpeakEndedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(ConferenceParticipantSpeakEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(conferenceParticipantSpeakEndedWebhookEvent.data())
             .contains(
-                ConferenceParticipantSpeakEndedWebhookEvent.Data.builder()
+                ConferenceParticipantSpeakEnded.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                     .eventType(
-                        ConferenceParticipantSpeakEndedWebhookEvent.Data.EventType
-                            .CONFERENCE_PARTICIPANT_SPEAK_ENDED
+                        ConferenceParticipantSpeakEnded.EventType.CONFERENCE_PARTICIPANT_SPEAK_ENDED
                     )
                     .payload(
-                        ConferenceParticipantSpeakEndedWebhookEvent.Data.Payload.builder()
+                        ConferenceParticipantSpeakEnded.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
@@ -64,7 +61,7 @@ internal class ConferenceParticipantSpeakEndedWebhookEventTest {
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                             .build()
                     )
-                    .recordType(ConferenceParticipantSpeakEndedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(ConferenceParticipantSpeakEnded.RecordType.EVENT)
                     .build()
             )
     }
@@ -75,14 +72,14 @@ internal class ConferenceParticipantSpeakEndedWebhookEventTest {
         val conferenceParticipantSpeakEndedWebhookEvent =
             ConferenceParticipantSpeakEndedWebhookEvent.builder()
                 .data(
-                    ConferenceParticipantSpeakEndedWebhookEvent.Data.builder()
+                    ConferenceParticipantSpeakEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            ConferenceParticipantSpeakEndedWebhookEvent.Data.EventType
+                            ConferenceParticipantSpeakEnded.EventType
                                 .CONFERENCE_PARTICIPANT_SPEAK_ENDED
                         )
                         .payload(
-                            ConferenceParticipantSpeakEndedWebhookEvent.Data.Payload.builder()
+                            ConferenceParticipantSpeakEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -95,9 +92,7 @@ internal class ConferenceParticipantSpeakEndedWebhookEventTest {
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                 .build()
                         )
-                        .recordType(
-                            ConferenceParticipantSpeakEndedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(ConferenceParticipantSpeakEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()

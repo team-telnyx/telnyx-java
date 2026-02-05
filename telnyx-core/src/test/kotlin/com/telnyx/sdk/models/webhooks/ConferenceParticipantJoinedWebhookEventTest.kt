@@ -15,15 +15,14 @@ internal class ConferenceParticipantJoinedWebhookEventTest {
         val conferenceParticipantJoinedWebhookEvent =
             ConferenceParticipantJoinedWebhookEvent.builder()
                 .data(
-                    ConferenceParticipantJoinedWebhookEvent.Data.builder()
+                    ConferenceParticipantJoined.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            ConferenceParticipantJoinedWebhookEvent.Data.EventType
-                                .CONFERENCE_PARTICIPANT_JOINED
+                            ConferenceParticipantJoined.EventType.CONFERENCE_PARTICIPANT_JOINED
                         )
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            ConferenceParticipantJoinedWebhookEvent.Data.Payload.builder()
+                            ConferenceParticipantJoined.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -34,22 +33,19 @@ internal class ConferenceParticipantJoinedWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .build()
                         )
-                        .recordType(ConferenceParticipantJoinedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferenceParticipantJoined.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(conferenceParticipantJoinedWebhookEvent.data())
             .contains(
-                ConferenceParticipantJoinedWebhookEvent.Data.builder()
+                ConferenceParticipantJoined.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(
-                        ConferenceParticipantJoinedWebhookEvent.Data.EventType
-                            .CONFERENCE_PARTICIPANT_JOINED
-                    )
+                    .eventType(ConferenceParticipantJoined.EventType.CONFERENCE_PARTICIPANT_JOINED)
                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                     .payload(
-                        ConferenceParticipantJoinedWebhookEvent.Data.Payload.builder()
+                        ConferenceParticipantJoined.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
@@ -60,7 +56,7 @@ internal class ConferenceParticipantJoinedWebhookEventTest {
                             .connectionId("7267xxxxxxxxxxxxxx")
                             .build()
                     )
-                    .recordType(ConferenceParticipantJoinedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(ConferenceParticipantJoined.RecordType.EVENT)
                     .build()
             )
     }
@@ -71,15 +67,14 @@ internal class ConferenceParticipantJoinedWebhookEventTest {
         val conferenceParticipantJoinedWebhookEvent =
             ConferenceParticipantJoinedWebhookEvent.builder()
                 .data(
-                    ConferenceParticipantJoinedWebhookEvent.Data.builder()
+                    ConferenceParticipantJoined.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            ConferenceParticipantJoinedWebhookEvent.Data.EventType
-                                .CONFERENCE_PARTICIPANT_JOINED
+                            ConferenceParticipantJoined.EventType.CONFERENCE_PARTICIPANT_JOINED
                         )
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            ConferenceParticipantJoinedWebhookEvent.Data.Payload.builder()
+                            ConferenceParticipantJoined.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -90,7 +85,7 @@ internal class ConferenceParticipantJoinedWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .build()
                         )
-                        .recordType(ConferenceParticipantJoinedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferenceParticipantJoined.RecordType.EVENT)
                         .build()
                 )
                 .build()

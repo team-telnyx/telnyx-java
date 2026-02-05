@@ -28,14 +28,12 @@ internal class UnwrapWebhookEventTest {
         val callAiGatherEnded =
             CallAiGatherEndedWebhookEvent.builder()
                 .data(
-                    CallAiGatherEndedWebhookEvent.Data.builder()
+                    CallAiGatherEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            CallAiGatherEndedWebhookEvent.Data.EventType.CALL_AI_GATHER_ENDED
-                        )
+                        .eventType(CallAiGatherEnded.EventType.CALL_AI_GATHER_ENDED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallAiGatherEndedWebhookEvent.Data.Payload.builder()
+                            CallAiGatherEnded.Payload.builder()
                                 .callControlId(
                                     "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
                                 )
@@ -45,42 +43,32 @@ internal class UnwrapWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .from("+35319605860")
                                 .addMessageHistory(
-                                    CallAiGatherEndedWebhookEvent.Data.Payload.MessageHistory
-                                        .builder()
+                                    CallAiGatherEnded.Payload.MessageHistory.builder()
                                         .content(
                                             "Hello, can you tell me your age and where you live?"
                                         )
                                         .role(
-                                            CallAiGatherEndedWebhookEvent.Data.Payload
-                                                .MessageHistory
-                                                .Role
-                                                .ASSISTANT
+                                            CallAiGatherEnded.Payload.MessageHistory.Role.ASSISTANT
                                         )
                                         .build()
                                 )
                                 .addMessageHistory(
-                                    CallAiGatherEndedWebhookEvent.Data.Payload.MessageHistory
-                                        .builder()
+                                    CallAiGatherEnded.Payload.MessageHistory.builder()
                                         .content("Hello, I'm 29 and I live in Paris?")
-                                        .role(
-                                            CallAiGatherEndedWebhookEvent.Data.Payload
-                                                .MessageHistory
-                                                .Role
-                                                .USER
-                                        )
+                                        .role(CallAiGatherEnded.Payload.MessageHistory.Role.USER)
                                         .build()
                                 )
                                 .result(
-                                    CallAiGatherEndedWebhookEvent.Data.Payload.Result.builder()
+                                    CallAiGatherEnded.Payload.Result.builder()
                                         .putAdditionalProperty("age", JsonValue.from("bar"))
                                         .putAdditionalProperty("city", JsonValue.from("bar"))
                                         .build()
                                 )
-                                .status(CallAiGatherEndedWebhookEvent.Data.Payload.Status.VALID)
+                                .status(CallAiGatherEnded.Payload.Status.VALID)
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallAiGatherEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallAiGatherEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -156,14 +144,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallAiGatherEnded(
                 CallAiGatherEndedWebhookEvent.builder()
                     .data(
-                        CallAiGatherEndedWebhookEvent.Data.builder()
+                        CallAiGatherEnded.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(
-                                CallAiGatherEndedWebhookEvent.Data.EventType.CALL_AI_GATHER_ENDED
-                            )
+                            .eventType(CallAiGatherEnded.EventType.CALL_AI_GATHER_ENDED)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallAiGatherEndedWebhookEvent.Data.Payload.builder()
+                                CallAiGatherEnded.Payload.builder()
                                     .callControlId(
                                         "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
                                     )
@@ -173,42 +159,35 @@ internal class UnwrapWebhookEventTest {
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .from("+35319605860")
                                     .addMessageHistory(
-                                        CallAiGatherEndedWebhookEvent.Data.Payload.MessageHistory
-                                            .builder()
+                                        CallAiGatherEnded.Payload.MessageHistory.builder()
                                             .content(
                                                 "Hello, can you tell me your age and where you live?"
                                             )
                                             .role(
-                                                CallAiGatherEndedWebhookEvent.Data.Payload
-                                                    .MessageHistory
-                                                    .Role
+                                                CallAiGatherEnded.Payload.MessageHistory.Role
                                                     .ASSISTANT
                                             )
                                             .build()
                                     )
                                     .addMessageHistory(
-                                        CallAiGatherEndedWebhookEvent.Data.Payload.MessageHistory
-                                            .builder()
+                                        CallAiGatherEnded.Payload.MessageHistory.builder()
                                             .content("Hello, I'm 29 and I live in Paris?")
                                             .role(
-                                                CallAiGatherEndedWebhookEvent.Data.Payload
-                                                    .MessageHistory
-                                                    .Role
-                                                    .USER
+                                                CallAiGatherEnded.Payload.MessageHistory.Role.USER
                                             )
                                             .build()
                                     )
                                     .result(
-                                        CallAiGatherEndedWebhookEvent.Data.Payload.Result.builder()
+                                        CallAiGatherEnded.Payload.Result.builder()
                                             .putAdditionalProperty("age", JsonValue.from("bar"))
                                             .putAdditionalProperty("city", JsonValue.from("bar"))
                                             .build()
                                     )
-                                    .status(CallAiGatherEndedWebhookEvent.Data.Payload.Status.VALID)
+                                    .status(CallAiGatherEnded.Payload.Status.VALID)
                                     .to("+35319605860")
                                     .build()
                             )
-                            .recordType(CallAiGatherEndedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallAiGatherEnded.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -228,15 +207,15 @@ internal class UnwrapWebhookEventTest {
         val callAiGatherMessageHistoryUpdated =
             CallAiGatherMessageHistoryUpdatedWebhookEvent.builder()
                 .data(
-                    CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.builder()
+                    CallAiGatherMessageHistoryUpdated.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.EventType
+                            CallAiGatherMessageHistoryUpdated.EventType
                                 .CALL_AI_GATHER_MESSAGE_HISTORY_UPDATED
                         )
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload.builder()
+                            CallAiGatherMessageHistoryUpdated.Payload.builder()
                                 .callControlId(
                                     "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
                                 )
@@ -246,30 +225,24 @@ internal class UnwrapWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .from("+35319605860")
                                 .addMessageHistory(
-                                    CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload
-                                        .MessageHistory
+                                    CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                         .builder()
                                         .content(
                                             "Hello, can you tell me your age and where you live?"
                                         )
                                         .role(
-                                            CallAiGatherMessageHistoryUpdatedWebhookEvent.Data
-                                                .Payload
-                                                .MessageHistory
+                                            CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                                 .Role
                                                 .ASSISTANT
                                         )
                                         .build()
                                 )
                                 .addMessageHistory(
-                                    CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload
-                                        .MessageHistory
+                                    CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                         .builder()
                                         .content("Hello, I'm 29 and I live in Paris?")
                                         .role(
-                                            CallAiGatherMessageHistoryUpdatedWebhookEvent.Data
-                                                .Payload
-                                                .MessageHistory
+                                            CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                                 .Role
                                                 .USER
                                         )
@@ -278,9 +251,7 @@ internal class UnwrapWebhookEventTest {
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(
-                            CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(CallAiGatherMessageHistoryUpdated.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -360,15 +331,15 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallAiGatherMessageHistoryUpdated(
                 CallAiGatherMessageHistoryUpdatedWebhookEvent.builder()
                     .data(
-                        CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.builder()
+                        CallAiGatherMessageHistoryUpdated.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                             .eventType(
-                                CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.EventType
+                                CallAiGatherMessageHistoryUpdated.EventType
                                     .CALL_AI_GATHER_MESSAGE_HISTORY_UPDATED
                             )
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload.builder()
+                                CallAiGatherMessageHistoryUpdated.Payload.builder()
                                     .callControlId(
                                         "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
                                     )
@@ -378,15 +349,13 @@ internal class UnwrapWebhookEventTest {
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .from("+35319605860")
                                     .addMessageHistory(
-                                        CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload
-                                            .MessageHistory
+                                        CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                             .builder()
                                             .content(
                                                 "Hello, can you tell me your age and where you live?"
                                             )
                                             .role(
-                                                CallAiGatherMessageHistoryUpdatedWebhookEvent.Data
-                                                    .Payload
+                                                CallAiGatherMessageHistoryUpdated.Payload
                                                     .MessageHistory
                                                     .Role
                                                     .ASSISTANT
@@ -394,13 +363,11 @@ internal class UnwrapWebhookEventTest {
                                             .build()
                                     )
                                     .addMessageHistory(
-                                        CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload
-                                            .MessageHistory
+                                        CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                             .builder()
                                             .content("Hello, I'm 29 and I live in Paris?")
                                             .role(
-                                                CallAiGatherMessageHistoryUpdatedWebhookEvent.Data
-                                                    .Payload
+                                                CallAiGatherMessageHistoryUpdated.Payload
                                                     .MessageHistory
                                                     .Role
                                                     .USER
@@ -410,9 +377,7 @@ internal class UnwrapWebhookEventTest {
                                     .to("+35319605860")
                                     .build()
                             )
-                            .recordType(
-                                CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.RecordType.EVENT
-                            )
+                            .recordType(CallAiGatherMessageHistoryUpdated.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -432,15 +397,14 @@ internal class UnwrapWebhookEventTest {
         val callAiGatherPartialResults =
             CallAiGatherPartialResultsWebhookEvent.builder()
                 .data(
-                    CallAiGatherPartialResultsWebhookEvent.Data.builder()
+                    CallAiGatherPartialResults.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            CallAiGatherPartialResultsWebhookEvent.Data.EventType
-                                .CALL_AI_GATHER_PARTIAL_RESULTS
+                            CallAiGatherPartialResults.EventType.CALL_AI_GATHER_PARTIAL_RESULTS
                         )
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallAiGatherPartialResultsWebhookEvent.Data.Payload.builder()
+                            CallAiGatherPartialResults.Payload.builder()
                                 .callControlId(
                                     "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
                                 )
@@ -450,37 +414,27 @@ internal class UnwrapWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .from("+35319605860")
                                 .addMessageHistory(
-                                    CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                        .MessageHistory
-                                        .builder()
+                                    CallAiGatherPartialResults.Payload.MessageHistory.builder()
                                         .content(
                                             "Hello, can you tell me your age and where you live?"
                                         )
                                         .role(
-                                            CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                                .MessageHistory
-                                                .Role
+                                            CallAiGatherPartialResults.Payload.MessageHistory.Role
                                                 .ASSISTANT
                                         )
                                         .build()
                                 )
                                 .addMessageHistory(
-                                    CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                        .MessageHistory
-                                        .builder()
+                                    CallAiGatherPartialResults.Payload.MessageHistory.builder()
                                         .content("Hello, I'm 29 and I live in Paris?")
                                         .role(
-                                            CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                                .MessageHistory
-                                                .Role
+                                            CallAiGatherPartialResults.Payload.MessageHistory.Role
                                                 .USER
                                         )
                                         .build()
                                 )
                                 .partialResults(
-                                    CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                        .PartialResults
-                                        .builder()
+                                    CallAiGatherPartialResults.Payload.PartialResults.builder()
                                         .putAdditionalProperty("age", JsonValue.from("bar"))
                                         .putAdditionalProperty("city", JsonValue.from("bar"))
                                         .build()
@@ -488,7 +442,7 @@ internal class UnwrapWebhookEventTest {
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallAiGatherPartialResultsWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallAiGatherPartialResults.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -566,15 +520,14 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallAiGatherPartialResults(
                 CallAiGatherPartialResultsWebhookEvent.builder()
                     .data(
-                        CallAiGatherPartialResultsWebhookEvent.Data.builder()
+                        CallAiGatherPartialResults.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                             .eventType(
-                                CallAiGatherPartialResultsWebhookEvent.Data.EventType
-                                    .CALL_AI_GATHER_PARTIAL_RESULTS
+                                CallAiGatherPartialResults.EventType.CALL_AI_GATHER_PARTIAL_RESULTS
                             )
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallAiGatherPartialResultsWebhookEvent.Data.Payload.builder()
+                                CallAiGatherPartialResults.Payload.builder()
                                     .callControlId(
                                         "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
                                     )
@@ -584,37 +537,29 @@ internal class UnwrapWebhookEventTest {
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .from("+35319605860")
                                     .addMessageHistory(
-                                        CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                            .MessageHistory
-                                            .builder()
+                                        CallAiGatherPartialResults.Payload.MessageHistory.builder()
                                             .content(
                                                 "Hello, can you tell me your age and where you live?"
                                             )
                                             .role(
-                                                CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                                    .MessageHistory
+                                                CallAiGatherPartialResults.Payload.MessageHistory
                                                     .Role
                                                     .ASSISTANT
                                             )
                                             .build()
                                     )
                                     .addMessageHistory(
-                                        CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                            .MessageHistory
-                                            .builder()
+                                        CallAiGatherPartialResults.Payload.MessageHistory.builder()
                                             .content("Hello, I'm 29 and I live in Paris?")
                                             .role(
-                                                CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                                    .MessageHistory
+                                                CallAiGatherPartialResults.Payload.MessageHistory
                                                     .Role
                                                     .USER
                                             )
                                             .build()
                                     )
                                     .partialResults(
-                                        CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                            .PartialResults
-                                            .builder()
+                                        CallAiGatherPartialResults.Payload.PartialResults.builder()
                                             .putAdditionalProperty("age", JsonValue.from("bar"))
                                             .putAdditionalProperty("city", JsonValue.from("bar"))
                                             .build()
@@ -622,9 +567,7 @@ internal class UnwrapWebhookEventTest {
                                     .to("+35319605860")
                                     .build()
                             )
-                            .recordType(
-                                CallAiGatherPartialResultsWebhookEvent.Data.RecordType.EVENT
-                            )
+                            .recordType(CallAiGatherPartialResults.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -644,12 +587,12 @@ internal class UnwrapWebhookEventTest {
         val callAnswered =
             CallAnsweredWebhookEvent.builder()
                 .data(
-                    CallAnsweredWebhookEvent.Data.builder()
+                    CallAnswered.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallAnsweredWebhookEvent.Data.EventType.CALL_ANSWERED)
+                        .eventType(CallAnswered.EventType.CALL_ANSWERED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallAnsweredWebhookEvent.Data.Payload.builder()
+                            CallAnswered.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -677,13 +620,13 @@ internal class UnwrapWebhookEventTest {
                                         .build()
                                 )
                                 .startTime(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
-                                .state(CallAnsweredWebhookEvent.Data.Payload.State.ANSWERED)
+                                .state(CallAnswered.Payload.State.ANSWERED)
                                 .addTag("tag-01")
                                 .addTag("tag-02")
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallAnsweredWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallAnswered.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -759,12 +702,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallAnswered(
                 CallAnsweredWebhookEvent.builder()
                     .data(
-                        CallAnsweredWebhookEvent.Data.builder()
+                        CallAnswered.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(CallAnsweredWebhookEvent.Data.EventType.CALL_ANSWERED)
+                            .eventType(CallAnswered.EventType.CALL_ANSWERED)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallAnsweredWebhookEvent.Data.Payload.builder()
+                                CallAnswered.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -798,13 +741,13 @@ internal class UnwrapWebhookEventTest {
                                             .build()
                                     )
                                     .startTime(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
-                                    .state(CallAnsweredWebhookEvent.Data.Payload.State.ANSWERED)
+                                    .state(CallAnswered.Payload.State.ANSWERED)
                                     .addTag("tag-01")
                                     .addTag("tag-02")
                                     .to("+35319605860")
                                     .build()
                             )
-                            .recordType(CallAnsweredWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallAnswered.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -824,12 +767,12 @@ internal class UnwrapWebhookEventTest {
         val callBridged =
             CallBridgedWebhookEvent.builder()
                 .data(
-                    CallBridgedWebhookEvent.Data.builder()
+                    CallBridged.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallBridgedWebhookEvent.Data.EventType.CALL_BRIDGED)
+                        .eventType(CallBridged.EventType.CALL_BRIDGED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallBridgedWebhookEvent.Data.Payload.builder()
+                            CallBridged.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -841,7 +784,7 @@ internal class UnwrapWebhookEventTest {
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallBridgedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallBridged.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -917,12 +860,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallBridged(
                 CallBridgedWebhookEvent.builder()
                     .data(
-                        CallBridgedWebhookEvent.Data.builder()
+                        CallBridged.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(CallBridgedWebhookEvent.Data.EventType.CALL_BRIDGED)
+                            .eventType(CallBridged.EventType.CALL_BRIDGED)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallBridgedWebhookEvent.Data.Payload.builder()
+                                CallBridged.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -934,7 +877,7 @@ internal class UnwrapWebhookEventTest {
                                     .to("+35319605860")
                                     .build()
                             )
-                            .recordType(CallBridgedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallBridged.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -954,15 +897,13 @@ internal class UnwrapWebhookEventTest {
         val callConversationEnded =
             CallConversationEndedWebhookEvent.builder()
                 .data(
-                    CallConversationEndedWebhookEvent.Data.builder()
+                    CallConversationEnded.builder()
                         .id("eb8775a6-634f-48b0-b177-d5465a8a8e9f")
                         .createdAt(OffsetDateTime.parse("2025-05-29T13:35:38.927621Z"))
-                        .eventType(
-                            CallConversationEndedWebhookEvent.Data.EventType.CALL_CONVERSATION_ENDED
-                        )
+                        .eventType(CallConversationEnded.EventType.CALL_CONVERSATION_ENDED)
                         .occurredAt(OffsetDateTime.parse("2025-05-29T13:35:38.817785Z"))
                         .payload(
-                            CallConversationEndedWebhookEvent.Data.Payload.builder()
+                            CallConversationEnded.Payload.builder()
                                 .assistantId("assistant-d9082b56-ba2d-4ad1-a50c-58661eb1463d")
                                 .callControlId(
                                     "v3:HDR1vQHx697hpP9xZ0bhlbUOWPFPDtPcxw-nuSMuC6mGVpb0euoklQ"
@@ -970,8 +911,7 @@ internal class UnwrapWebhookEventTest {
                                 .callLegId("cc29cce6-3c91-11f0-a8e5-02420aef3d20")
                                 .callSessionId("cc29c8d6-3c91-11f0-aa7c-02420aef3d20")
                                 .callingPartyType(
-                                    CallConversationEndedWebhookEvent.Data.Payload.CallingPartyType
-                                        .SIP
+                                    CallConversationEnded.Payload.CallingPartyType.SIP
                                 )
                                 .clientState(
                                     "g3QAAAACbQAAAAtkYXRhX2NlbnRlcm0AAAADY2gxbQAAAApkZXBsb3ltZW50bQAAAARiYXNl"
@@ -990,7 +930,7 @@ internal class UnwrapWebhookEventTest {
                                 .ttsVoiceId("Marissa")
                                 .build()
                         )
-                        .recordType(CallConversationEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallConversationEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -1066,16 +1006,13 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallConversationEnded(
                 CallConversationEndedWebhookEvent.builder()
                     .data(
-                        CallConversationEndedWebhookEvent.Data.builder()
+                        CallConversationEnded.builder()
                             .id("eb8775a6-634f-48b0-b177-d5465a8a8e9f")
                             .createdAt(OffsetDateTime.parse("2025-05-29T13:35:38.927621Z"))
-                            .eventType(
-                                CallConversationEndedWebhookEvent.Data.EventType
-                                    .CALL_CONVERSATION_ENDED
-                            )
+                            .eventType(CallConversationEnded.EventType.CALL_CONVERSATION_ENDED)
                             .occurredAt(OffsetDateTime.parse("2025-05-29T13:35:38.817785Z"))
                             .payload(
-                                CallConversationEndedWebhookEvent.Data.Payload.builder()
+                                CallConversationEnded.Payload.builder()
                                     .assistantId("assistant-d9082b56-ba2d-4ad1-a50c-58661eb1463d")
                                     .callControlId(
                                         "v3:HDR1vQHx697hpP9xZ0bhlbUOWPFPDtPcxw-nuSMuC6mGVpb0euoklQ"
@@ -1083,9 +1020,7 @@ internal class UnwrapWebhookEventTest {
                                     .callLegId("cc29cce6-3c91-11f0-a8e5-02420aef3d20")
                                     .callSessionId("cc29c8d6-3c91-11f0-aa7c-02420aef3d20")
                                     .callingPartyType(
-                                        CallConversationEndedWebhookEvent.Data.Payload
-                                            .CallingPartyType
-                                            .SIP
+                                        CallConversationEnded.Payload.CallingPartyType.SIP
                                     )
                                     .clientState(
                                         "g3QAAAACbQAAAAtkYXRhX2NlbnRlcm0AAAADY2gxbQAAAApkZXBsb3ltZW50bQAAAARiYXNl"
@@ -1104,7 +1039,7 @@ internal class UnwrapWebhookEventTest {
                                     .ttsVoiceId("Marissa")
                                     .build()
                             )
-                            .recordType(CallConversationEndedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallConversationEnded.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -1124,31 +1059,28 @@ internal class UnwrapWebhookEventTest {
         val callConversationInsightsGenerated =
             CallConversationInsightsGeneratedWebhookEvent.builder()
                 .data(
-                    CallConversationInsightsGeneratedWebhookEvent.Data.builder()
+                    CallConversationInsightsGenerated.builder()
                         .id("898e96ef-be63-45aa-9e7d-01332bff9a97")
                         .eventType(
-                            CallConversationInsightsGeneratedWebhookEvent.Data.EventType
+                            CallConversationInsightsGenerated.EventType
                                 .CALL_CONVERSATION_INSIGHTS_GENERATED
                         )
                         .occurredAt(OffsetDateTime.parse("2025-02-19T17:02:49.371454Z"))
                         .payload(
-                            CallConversationInsightsGeneratedWebhookEvent.Data.Payload.builder()
+                            CallConversationInsightsGenerated.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
                                 .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callingPartyType(
-                                    CallConversationInsightsGeneratedWebhookEvent.Data.Payload
-                                        .CallingPartyType
-                                        .PSTN
+                                    CallConversationInsightsGenerated.Payload.CallingPartyType.PSTN
                                 )
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .insightGroupId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .addResult(
-                                    CallConversationInsightsGeneratedWebhookEvent.Data.Payload
-                                        .InsightResult
+                                    CallConversationInsightsGenerated.Payload.InsightResult
                                         .builder()
                                         .insightId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                         .result(
@@ -1158,9 +1090,7 @@ internal class UnwrapWebhookEventTest {
                                 )
                                 .build()
                         )
-                        .recordType(
-                            CallConversationInsightsGeneratedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(CallConversationInsightsGenerated.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -1240,31 +1170,29 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallConversationInsightsGenerated(
                 CallConversationInsightsGeneratedWebhookEvent.builder()
                     .data(
-                        CallConversationInsightsGeneratedWebhookEvent.Data.builder()
+                        CallConversationInsightsGenerated.builder()
                             .id("898e96ef-be63-45aa-9e7d-01332bff9a97")
                             .eventType(
-                                CallConversationInsightsGeneratedWebhookEvent.Data.EventType
+                                CallConversationInsightsGenerated.EventType
                                     .CALL_CONVERSATION_INSIGHTS_GENERATED
                             )
                             .occurredAt(OffsetDateTime.parse("2025-02-19T17:02:49.371454Z"))
                             .payload(
-                                CallConversationInsightsGeneratedWebhookEvent.Data.Payload.builder()
+                                CallConversationInsightsGenerated.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
                                     .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                     .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                     .callingPartyType(
-                                        CallConversationInsightsGeneratedWebhookEvent.Data.Payload
-                                            .CallingPartyType
+                                        CallConversationInsightsGenerated.Payload.CallingPartyType
                                             .PSTN
                                     )
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .insightGroupId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                     .addResult(
-                                        CallConversationInsightsGeneratedWebhookEvent.Data.Payload
-                                            .InsightResult
+                                        CallConversationInsightsGenerated.Payload.InsightResult
                                             .builder()
                                             .insightId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                             .result(
@@ -1274,9 +1202,7 @@ internal class UnwrapWebhookEventTest {
                                     )
                                     .build()
                             )
-                            .recordType(
-                                CallConversationInsightsGeneratedWebhookEvent.Data.RecordType.EVENT
-                            )
+                            .recordType(CallConversationInsightsGenerated.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -1296,12 +1222,12 @@ internal class UnwrapWebhookEventTest {
         val callDtmfReceived =
             CallDtmfReceivedWebhookEvent.builder()
                 .data(
-                    CallDtmfReceivedWebhookEvent.Data.builder()
+                    CallDtmfReceived.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallDtmfReceivedWebhookEvent.Data.EventType.CALL_DTMF_RECEIVED)
+                        .eventType(CallDtmfReceived.EventType.CALL_DTMF_RECEIVED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallDtmfReceivedWebhookEvent.Data.Payload.builder()
+                            CallDtmfReceived.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -1314,7 +1240,7 @@ internal class UnwrapWebhookEventTest {
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallDtmfReceivedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallDtmfReceived.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -1390,14 +1316,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallDtmfReceived(
                 CallDtmfReceivedWebhookEvent.builder()
                     .data(
-                        CallDtmfReceivedWebhookEvent.Data.builder()
+                        CallDtmfReceived.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(
-                                CallDtmfReceivedWebhookEvent.Data.EventType.CALL_DTMF_RECEIVED
-                            )
+                            .eventType(CallDtmfReceived.EventType.CALL_DTMF_RECEIVED)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallDtmfReceivedWebhookEvent.Data.Payload.builder()
+                                CallDtmfReceived.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -1410,7 +1334,7 @@ internal class UnwrapWebhookEventTest {
                                     .to("+35319605860")
                                     .build()
                             )
-                            .recordType(CallDtmfReceivedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallDtmfReceived.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -1430,12 +1354,12 @@ internal class UnwrapWebhookEventTest {
         val callEnqueued =
             CallEnqueuedWebhookEvent.builder()
                 .data(
-                    CallEnqueuedWebhookEvent.Data.builder()
+                    CallEnqueued.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallEnqueuedWebhookEvent.Data.EventType.CALL_ENQUEUED)
+                        .eventType(CallEnqueued.EventType.CALL_ENQUEUED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallEnqueuedWebhookEvent.Data.Payload.builder()
+                            CallEnqueued.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -1448,7 +1372,7 @@ internal class UnwrapWebhookEventTest {
                                 .queueAvgWaitTimeSecs(60L)
                                 .build()
                         )
-                        .recordType(CallEnqueuedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallEnqueued.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -1524,12 +1448,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallEnqueued(
                 CallEnqueuedWebhookEvent.builder()
                     .data(
-                        CallEnqueuedWebhookEvent.Data.builder()
+                        CallEnqueued.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(CallEnqueuedWebhookEvent.Data.EventType.CALL_ENQUEUED)
+                            .eventType(CallEnqueued.EventType.CALL_ENQUEUED)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallEnqueuedWebhookEvent.Data.Payload.builder()
+                                CallEnqueued.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -1542,7 +1466,7 @@ internal class UnwrapWebhookEventTest {
                                     .queueAvgWaitTimeSecs(60L)
                                     .build()
                             )
-                            .recordType(CallEnqueuedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallEnqueued.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -1562,12 +1486,12 @@ internal class UnwrapWebhookEventTest {
         val callForkStarted =
             CallForkStartedWebhookEvent.builder()
                 .data(
-                    CallForkStartedWebhookEvent.Data.builder()
+                    CallForkStarted.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallForkStartedWebhookEvent.Data.EventType.CALL_FORK_STARTED)
+                        .eventType(CallForkStarted.EventType.CALL_FORK_STARTED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallForkStartedWebhookEvent.Data.Payload.builder()
+                            CallForkStarted.Payload.builder()
                                 .callControlId(
                                     "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                 )
@@ -1575,12 +1499,10 @@ internal class UnwrapWebhookEventTest {
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
-                                .streamType(
-                                    CallForkStartedWebhookEvent.Data.Payload.StreamType.DECRYPTED
-                                )
+                                .streamType(CallForkStarted.Payload.StreamType.DECRYPTED)
                                 .build()
                         )
-                        .recordType(CallForkStartedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallForkStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -1656,12 +1578,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallForkStarted(
                 CallForkStartedWebhookEvent.builder()
                     .data(
-                        CallForkStartedWebhookEvent.Data.builder()
+                        CallForkStarted.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(CallForkStartedWebhookEvent.Data.EventType.CALL_FORK_STARTED)
+                            .eventType(CallForkStarted.EventType.CALL_FORK_STARTED)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallForkStartedWebhookEvent.Data.Payload.builder()
+                                CallForkStarted.Payload.builder()
                                     .callControlId(
                                         "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                     )
@@ -1669,13 +1591,10 @@ internal class UnwrapWebhookEventTest {
                                     .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("7267xxxxxxxxxxxxxx")
-                                    .streamType(
-                                        CallForkStartedWebhookEvent.Data.Payload.StreamType
-                                            .DECRYPTED
-                                    )
+                                    .streamType(CallForkStarted.Payload.StreamType.DECRYPTED)
                                     .build()
                             )
-                            .recordType(CallForkStartedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallForkStarted.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -1695,12 +1614,12 @@ internal class UnwrapWebhookEventTest {
         val callForkStopped =
             CallForkStoppedWebhookEvent.builder()
                 .data(
-                    CallForkStoppedWebhookEvent.Data.builder()
+                    CallForkStopped.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallForkStoppedWebhookEvent.Data.EventType.CALL_FORK_STOPPED)
+                        .eventType(CallForkStopped.EventType.CALL_FORK_STOPPED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallForkStoppedWebhookEvent.Data.Payload.builder()
+                            CallForkStopped.Payload.builder()
                                 .callControlId(
                                     "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                 )
@@ -1708,12 +1627,10 @@ internal class UnwrapWebhookEventTest {
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
-                                .streamType(
-                                    CallForkStoppedWebhookEvent.Data.Payload.StreamType.DECRYPTED
-                                )
+                                .streamType(CallForkStopped.Payload.StreamType.DECRYPTED)
                                 .build()
                         )
-                        .recordType(CallForkStoppedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallForkStopped.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -1789,12 +1706,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallForkStopped(
                 CallForkStoppedWebhookEvent.builder()
                     .data(
-                        CallForkStoppedWebhookEvent.Data.builder()
+                        CallForkStopped.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(CallForkStoppedWebhookEvent.Data.EventType.CALL_FORK_STOPPED)
+                            .eventType(CallForkStopped.EventType.CALL_FORK_STOPPED)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallForkStoppedWebhookEvent.Data.Payload.builder()
+                                CallForkStopped.Payload.builder()
                                     .callControlId(
                                         "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                     )
@@ -1802,13 +1719,10 @@ internal class UnwrapWebhookEventTest {
                                     .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("7267xxxxxxxxxxxxxx")
-                                    .streamType(
-                                        CallForkStoppedWebhookEvent.Data.Payload.StreamType
-                                            .DECRYPTED
-                                    )
+                                    .streamType(CallForkStopped.Payload.StreamType.DECRYPTED)
                                     .build()
                             )
-                            .recordType(CallForkStoppedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallForkStopped.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -1828,12 +1742,12 @@ internal class UnwrapWebhookEventTest {
         val callGatherEnded =
             CallGatherEndedWebhookEvent.builder()
                 .data(
-                    CallGatherEndedWebhookEvent.Data.builder()
+                    CallGatherEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallGatherEndedWebhookEvent.Data.EventType.CALL_GATHER_ENDED)
+                        .eventType(CallGatherEnded.EventType.CALL_GATHER_ENDED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallGatherEndedWebhookEvent.Data.Payload.builder()
+                            CallGatherEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -1843,11 +1757,11 @@ internal class UnwrapWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .digits("123")
                                 .from("+35319605860")
-                                .status(CallGatherEndedWebhookEvent.Data.Payload.Status.VALID)
+                                .status(CallGatherEnded.Payload.Status.VALID)
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallGatherEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallGatherEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -1923,12 +1837,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallGatherEnded(
                 CallGatherEndedWebhookEvent.builder()
                     .data(
-                        CallGatherEndedWebhookEvent.Data.builder()
+                        CallGatherEnded.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(CallGatherEndedWebhookEvent.Data.EventType.CALL_GATHER_ENDED)
+                            .eventType(CallGatherEnded.EventType.CALL_GATHER_ENDED)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallGatherEndedWebhookEvent.Data.Payload.builder()
+                                CallGatherEnded.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -1938,11 +1852,11 @@ internal class UnwrapWebhookEventTest {
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .digits("123")
                                     .from("+35319605860")
-                                    .status(CallGatherEndedWebhookEvent.Data.Payload.Status.VALID)
+                                    .status(CallGatherEnded.Payload.Status.VALID)
                                     .to("+35319605860")
                                     .build()
                             )
-                            .recordType(CallGatherEndedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallGatherEnded.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -1962,22 +1876,20 @@ internal class UnwrapWebhookEventTest {
         val callHangup =
             CallHangupWebhookEvent.builder()
                 .data(
-                    CallHangupWebhookEvent.Data.builder()
+                    CallHangup.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallHangupWebhookEvent.Data.EventType.CALL_HANGUP)
+                        .eventType(CallHangup.EventType.CALL_HANGUP)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallHangupWebhookEvent.Data.Payload.builder()
+                            CallHangup.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
                                 .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callQualityStats(
-                                    CallHangupWebhookEvent.Data.Payload.CallQualityStats.builder()
+                                    CallHangup.Payload.CallQualityStats.builder()
                                         .inbound(
-                                            CallHangupWebhookEvent.Data.Payload.CallQualityStats
-                                                .Inbound
-                                                .builder()
+                                            CallHangup.Payload.CallQualityStats.Inbound.builder()
                                                 .jitterMaxVariance("2.74")
                                                 .jitterPacketCount("0")
                                                 .mos("4.50")
@@ -1986,9 +1898,7 @@ internal class UnwrapWebhookEventTest {
                                                 .build()
                                         )
                                         .outbound(
-                                            CallHangupWebhookEvent.Data.Payload.CallQualityStats
-                                                .Outbound
-                                                .builder()
+                                            CallHangup.Payload.CallQualityStats.Outbound.builder()
                                                 .packetCount("0")
                                                 .skipPacketCount("0")
                                                 .build()
@@ -2005,12 +1915,8 @@ internal class UnwrapWebhookEventTest {
                                     CustomSipHeader.builder().name("head_2").value("val_2").build()
                                 )
                                 .from("+35319605860")
-                                .hangupCause(
-                                    CallHangupWebhookEvent.Data.Payload.HangupCause.CALL_REJECTED
-                                )
-                                .hangupSource(
-                                    CallHangupWebhookEvent.Data.Payload.HangupSource.CALLER
-                                )
+                                .hangupCause(CallHangup.Payload.HangupCause.CALL_REJECTED)
+                                .hangupSource(CallHangup.Payload.HangupSource.CALLER)
                                 .sipHangupCause("603")
                                 .addSipHeader(
                                     SipHeader.builder()
@@ -2025,13 +1931,13 @@ internal class UnwrapWebhookEventTest {
                                         .build()
                                 )
                                 .startTime(OffsetDateTime.parse("2018-02-02T22:20:27.521992Z"))
-                                .state(CallHangupWebhookEvent.Data.Payload.State.HANGUP)
+                                .state(CallHangup.Payload.State.HANGUP)
                                 .addTag("tag-01")
                                 .addTag("tag-02")
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallHangupWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallHangup.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -2107,22 +2013,20 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallHangup(
                 CallHangupWebhookEvent.builder()
                     .data(
-                        CallHangupWebhookEvent.Data.builder()
+                        CallHangup.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(CallHangupWebhookEvent.Data.EventType.CALL_HANGUP)
+                            .eventType(CallHangup.EventType.CALL_HANGUP)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallHangupWebhookEvent.Data.Payload.builder()
+                                CallHangup.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
                                     .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                     .callQualityStats(
-                                        CallHangupWebhookEvent.Data.Payload.CallQualityStats
-                                            .builder()
+                                        CallHangup.Payload.CallQualityStats.builder()
                                             .inbound(
-                                                CallHangupWebhookEvent.Data.Payload.CallQualityStats
-                                                    .Inbound
+                                                CallHangup.Payload.CallQualityStats.Inbound
                                                     .builder()
                                                     .jitterMaxVariance("2.74")
                                                     .jitterPacketCount("0")
@@ -2132,8 +2036,7 @@ internal class UnwrapWebhookEventTest {
                                                     .build()
                                             )
                                             .outbound(
-                                                CallHangupWebhookEvent.Data.Payload.CallQualityStats
-                                                    .Outbound
+                                                CallHangup.Payload.CallQualityStats.Outbound
                                                     .builder()
                                                     .packetCount("0")
                                                     .skipPacketCount("0")
@@ -2157,13 +2060,8 @@ internal class UnwrapWebhookEventTest {
                                             .build()
                                     )
                                     .from("+35319605860")
-                                    .hangupCause(
-                                        CallHangupWebhookEvent.Data.Payload.HangupCause
-                                            .CALL_REJECTED
-                                    )
-                                    .hangupSource(
-                                        CallHangupWebhookEvent.Data.Payload.HangupSource.CALLER
-                                    )
+                                    .hangupCause(CallHangup.Payload.HangupCause.CALL_REJECTED)
+                                    .hangupSource(CallHangup.Payload.HangupSource.CALLER)
                                     .sipHangupCause("603")
                                     .addSipHeader(
                                         SipHeader.builder()
@@ -2178,13 +2076,13 @@ internal class UnwrapWebhookEventTest {
                                             .build()
                                     )
                                     .startTime(OffsetDateTime.parse("2018-02-02T22:20:27.521992Z"))
-                                    .state(CallHangupWebhookEvent.Data.Payload.State.HANGUP)
+                                    .state(CallHangup.Payload.State.HANGUP)
                                     .addTag("tag-01")
                                     .addTag("tag-02")
                                     .to("+35319605860")
                                     .build()
                             )
-                            .recordType(CallHangupWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallHangup.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -2204,12 +2102,12 @@ internal class UnwrapWebhookEventTest {
         val callInitiated =
             CallInitiatedWebhookEvent.builder()
                 .data(
-                    CallInitiatedWebhookEvent.Data.builder()
+                    CallInitiated.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallInitiatedWebhookEvent.Data.EventType.CALL_INITIATED)
+                        .eventType(CallInitiated.EventType.CALL_INITIATED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallInitiatedWebhookEvent.Data.Payload.builder()
+                            CallInitiated.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -2226,9 +2124,7 @@ internal class UnwrapWebhookEventTest {
                                 .addCustomHeader(
                                     CustomSipHeader.builder().name("head_2").value("val_2").build()
                                 )
-                                .direction(
-                                    CallInitiatedWebhookEvent.Data.Payload.Direction.INCOMING
-                                )
+                                .direction(CallInitiated.Payload.Direction.INCOMING)
                                 .from("+35319605860")
                                 .offeredCodecs("G722,PCMU,PCMA")
                                 .shakenStirAttestation("A")
@@ -2246,13 +2142,13 @@ internal class UnwrapWebhookEventTest {
                                         .build()
                                 )
                                 .startTime(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
-                                .state(CallInitiatedWebhookEvent.Data.Payload.State.PARKED)
+                                .state(CallInitiated.Payload.State.PARKED)
                                 .addTag("tag-01")
                                 .addTag("tag-02")
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallInitiatedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallInitiated.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -2328,12 +2224,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallInitiated(
                 CallInitiatedWebhookEvent.builder()
                     .data(
-                        CallInitiatedWebhookEvent.Data.builder()
+                        CallInitiated.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(CallInitiatedWebhookEvent.Data.EventType.CALL_INITIATED)
+                            .eventType(CallInitiated.EventType.CALL_INITIATED)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallInitiatedWebhookEvent.Data.Payload.builder()
+                                CallInitiated.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -2356,9 +2252,7 @@ internal class UnwrapWebhookEventTest {
                                             .value("val_2")
                                             .build()
                                     )
-                                    .direction(
-                                        CallInitiatedWebhookEvent.Data.Payload.Direction.INCOMING
-                                    )
+                                    .direction(CallInitiated.Payload.Direction.INCOMING)
                                     .from("+35319605860")
                                     .offeredCodecs("G722,PCMU,PCMA")
                                     .shakenStirAttestation("A")
@@ -2376,13 +2270,13 @@ internal class UnwrapWebhookEventTest {
                                             .build()
                                     )
                                     .startTime(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
-                                    .state(CallInitiatedWebhookEvent.Data.Payload.State.PARKED)
+                                    .state(CallInitiated.Payload.State.PARKED)
                                     .addTag("tag-01")
                                     .addTag("tag-02")
                                     .to("+35319605860")
                                     .build()
                             )
-                            .recordType(CallInitiatedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallInitiated.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -2402,12 +2296,12 @@ internal class UnwrapWebhookEventTest {
         val callLeftQueue =
             CallLeftQueueWebhookEvent.builder()
                 .data(
-                    CallLeftQueueWebhookEvent.Data.builder()
+                    CallLeftQueue.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallLeftQueueWebhookEvent.Data.EventType.CALL_DEQUEUED)
+                        .eventType(CallLeftQueue.EventType.CALL_DEQUEUED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallLeftQueueWebhookEvent.Data.Payload.builder()
+                            CallLeftQueue.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -2417,11 +2311,11 @@ internal class UnwrapWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .queue("support")
                                 .queuePosition(3L)
-                                .reason(CallLeftQueueWebhookEvent.Data.Payload.Reason.LEAVE)
+                                .reason(CallLeftQueue.Payload.Reason.LEAVE)
                                 .waitTimeSecs(60L)
                                 .build()
                         )
-                        .recordType(CallLeftQueueWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallLeftQueue.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -2497,12 +2391,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallLeftQueue(
                 CallLeftQueueWebhookEvent.builder()
                     .data(
-                        CallLeftQueueWebhookEvent.Data.builder()
+                        CallLeftQueue.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(CallLeftQueueWebhookEvent.Data.EventType.CALL_DEQUEUED)
+                            .eventType(CallLeftQueue.EventType.CALL_DEQUEUED)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallLeftQueueWebhookEvent.Data.Payload.builder()
+                                CallLeftQueue.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -2512,11 +2406,11 @@ internal class UnwrapWebhookEventTest {
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .queue("support")
                                     .queuePosition(3L)
-                                    .reason(CallLeftQueueWebhookEvent.Data.Payload.Reason.LEAVE)
+                                    .reason(CallLeftQueue.Payload.Reason.LEAVE)
                                     .waitTimeSecs(60L)
                                     .build()
                             )
-                            .recordType(CallLeftQueueWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallLeftQueue.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -2536,15 +2430,12 @@ internal class UnwrapWebhookEventTest {
         val callMachineDetectionEnded =
             CallMachineDetectionEndedWebhookEvent.builder()
                 .data(
-                    CallMachineDetectionEndedWebhookEvent.Data.builder()
+                    CallMachineDetectionEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            CallMachineDetectionEndedWebhookEvent.Data.EventType
-                                .CALL_MACHINE_DETECTION_ENDED
-                        )
+                        .eventType(CallMachineDetectionEnded.EventType.CALL_MACHINE_DETECTION_ENDED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallMachineDetectionEndedWebhookEvent.Data.Payload.builder()
+                            CallMachineDetectionEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -2553,13 +2444,11 @@ internal class UnwrapWebhookEventTest {
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .from("+35319605860")
-                                .result(
-                                    CallMachineDetectionEndedWebhookEvent.Data.Payload.Result.HUMAN
-                                )
+                                .result(CallMachineDetectionEnded.Payload.Result.HUMAN)
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallMachineDetectionEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallMachineDetectionEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -2637,15 +2526,14 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallMachineDetectionEnded(
                 CallMachineDetectionEndedWebhookEvent.builder()
                     .data(
-                        CallMachineDetectionEndedWebhookEvent.Data.builder()
+                        CallMachineDetectionEnded.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                             .eventType(
-                                CallMachineDetectionEndedWebhookEvent.Data.EventType
-                                    .CALL_MACHINE_DETECTION_ENDED
+                                CallMachineDetectionEnded.EventType.CALL_MACHINE_DETECTION_ENDED
                             )
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallMachineDetectionEndedWebhookEvent.Data.Payload.builder()
+                                CallMachineDetectionEnded.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -2654,14 +2542,11 @@ internal class UnwrapWebhookEventTest {
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .from("+35319605860")
-                                    .result(
-                                        CallMachineDetectionEndedWebhookEvent.Data.Payload.Result
-                                            .HUMAN
-                                    )
+                                    .result(CallMachineDetectionEnded.Payload.Result.HUMAN)
                                     .to("+35319605860")
                                     .build()
                             )
-                            .recordType(CallMachineDetectionEndedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallMachineDetectionEnded.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -2681,15 +2566,12 @@ internal class UnwrapWebhookEventTest {
         val callMachineGreetingEnded =
             CallMachineGreetingEndedWebhookEvent.builder()
                 .data(
-                    CallMachineGreetingEndedWebhookEvent.Data.builder()
+                    CallMachineGreetingEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            CallMachineGreetingEndedWebhookEvent.Data.EventType
-                                .CALL_MACHINE_GREETING_ENDED
-                        )
+                        .eventType(CallMachineGreetingEnded.EventType.CALL_MACHINE_GREETING_ENDED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallMachineGreetingEndedWebhookEvent.Data.Payload.builder()
+                            CallMachineGreetingEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -2698,13 +2580,11 @@ internal class UnwrapWebhookEventTest {
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .from("+35319605860")
-                                .result(
-                                    CallMachineGreetingEndedWebhookEvent.Data.Payload.Result.ENDED
-                                )
+                                .result(CallMachineGreetingEnded.Payload.Result.ENDED)
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallMachineGreetingEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallMachineGreetingEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -2781,15 +2661,14 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallMachineGreetingEnded(
                 CallMachineGreetingEndedWebhookEvent.builder()
                     .data(
-                        CallMachineGreetingEndedWebhookEvent.Data.builder()
+                        CallMachineGreetingEnded.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                             .eventType(
-                                CallMachineGreetingEndedWebhookEvent.Data.EventType
-                                    .CALL_MACHINE_GREETING_ENDED
+                                CallMachineGreetingEnded.EventType.CALL_MACHINE_GREETING_ENDED
                             )
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallMachineGreetingEndedWebhookEvent.Data.Payload.builder()
+                                CallMachineGreetingEnded.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -2798,14 +2677,11 @@ internal class UnwrapWebhookEventTest {
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .from("+35319605860")
-                                    .result(
-                                        CallMachineGreetingEndedWebhookEvent.Data.Payload.Result
-                                            .ENDED
-                                    )
+                                    .result(CallMachineGreetingEnded.Payload.Result.ENDED)
                                     .to("+35319605860")
                                     .build()
                             )
-                            .recordType(CallMachineGreetingEndedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallMachineGreetingEnded.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -2825,15 +2701,15 @@ internal class UnwrapWebhookEventTest {
         val callMachinePremiumDetectionEnded =
             CallMachinePremiumDetectionEndedWebhookEvent.builder()
                 .data(
-                    CallMachinePremiumDetectionEndedWebhookEvent.Data.builder()
+                    CallMachinePremiumDetectionEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            CallMachinePremiumDetectionEndedWebhookEvent.Data.EventType
+                            CallMachinePremiumDetectionEnded.EventType
                                 .CALL_MACHINE_PREMIUM_DETECTION_ENDED
                         )
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallMachinePremiumDetectionEndedWebhookEvent.Data.Payload.builder()
+                            CallMachinePremiumDetectionEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -2842,16 +2718,11 @@ internal class UnwrapWebhookEventTest {
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .from("+35319605860")
-                                .result(
-                                    CallMachinePremiumDetectionEndedWebhookEvent.Data.Payload.Result
-                                        .MACHINE
-                                )
+                                .result(CallMachinePremiumDetectionEnded.Payload.Result.MACHINE)
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(
-                            CallMachinePremiumDetectionEndedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(CallMachinePremiumDetectionEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -2929,15 +2800,15 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallMachinePremiumDetectionEnded(
                 CallMachinePremiumDetectionEndedWebhookEvent.builder()
                     .data(
-                        CallMachinePremiumDetectionEndedWebhookEvent.Data.builder()
+                        CallMachinePremiumDetectionEnded.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                             .eventType(
-                                CallMachinePremiumDetectionEndedWebhookEvent.Data.EventType
+                                CallMachinePremiumDetectionEnded.EventType
                                     .CALL_MACHINE_PREMIUM_DETECTION_ENDED
                             )
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallMachinePremiumDetectionEndedWebhookEvent.Data.Payload.builder()
+                                CallMachinePremiumDetectionEnded.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -2946,17 +2817,11 @@ internal class UnwrapWebhookEventTest {
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .from("+35319605860")
-                                    .result(
-                                        CallMachinePremiumDetectionEndedWebhookEvent.Data.Payload
-                                            .Result
-                                            .MACHINE
-                                    )
+                                    .result(CallMachinePremiumDetectionEnded.Payload.Result.MACHINE)
                                     .to("+35319605860")
                                     .build()
                             )
-                            .recordType(
-                                CallMachinePremiumDetectionEndedWebhookEvent.Data.RecordType.EVENT
-                            )
+                            .recordType(CallMachinePremiumDetectionEnded.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -2976,15 +2841,15 @@ internal class UnwrapWebhookEventTest {
         val callMachinePremiumGreetingEnded =
             CallMachinePremiumGreetingEndedWebhookEvent.builder()
                 .data(
-                    CallMachinePremiumGreetingEndedWebhookEvent.Data.builder()
+                    CallMachinePremiumGreetingEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            CallMachinePremiumGreetingEndedWebhookEvent.Data.EventType
+                            CallMachinePremiumGreetingEnded.EventType
                                 .CALL_MACHINE_PREMIUM_GREETING_ENDED
                         )
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallMachinePremiumGreetingEndedWebhookEvent.Data.Payload.builder()
+                            CallMachinePremiumGreetingEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -2994,15 +2859,12 @@ internal class UnwrapWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .from("+35319605860")
                                 .result(
-                                    CallMachinePremiumGreetingEndedWebhookEvent.Data.Payload.Result
-                                        .BEEP_DETECTED
+                                    CallMachinePremiumGreetingEnded.Payload.Result.BEEP_DETECTED
                                 )
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(
-                            CallMachinePremiumGreetingEndedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(CallMachinePremiumGreetingEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -3080,15 +2942,15 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallMachinePremiumGreetingEnded(
                 CallMachinePremiumGreetingEndedWebhookEvent.builder()
                     .data(
-                        CallMachinePremiumGreetingEndedWebhookEvent.Data.builder()
+                        CallMachinePremiumGreetingEnded.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                             .eventType(
-                                CallMachinePremiumGreetingEndedWebhookEvent.Data.EventType
+                                CallMachinePremiumGreetingEnded.EventType
                                     .CALL_MACHINE_PREMIUM_GREETING_ENDED
                             )
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallMachinePremiumGreetingEndedWebhookEvent.Data.Payload.builder()
+                                CallMachinePremiumGreetingEnded.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -3098,16 +2960,12 @@ internal class UnwrapWebhookEventTest {
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .from("+35319605860")
                                     .result(
-                                        CallMachinePremiumGreetingEndedWebhookEvent.Data.Payload
-                                            .Result
-                                            .BEEP_DETECTED
+                                        CallMachinePremiumGreetingEnded.Payload.Result.BEEP_DETECTED
                                     )
                                     .to("+35319605860")
                                     .build()
                             )
-                            .recordType(
-                                CallMachinePremiumGreetingEndedWebhookEvent.Data.RecordType.EVENT
-                            )
+                            .recordType(CallMachinePremiumGreetingEnded.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -3127,12 +2985,12 @@ internal class UnwrapWebhookEventTest {
         val callPlaybackEnded =
             CallPlaybackEndedWebhookEvent.builder()
                 .data(
-                    CallPlaybackEndedWebhookEvent.Data.builder()
+                    CallPlaybackEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallPlaybackEndedWebhookEvent.Data.EventType.CALL_PLAYBACK_ENDED)
+                        .eventType(CallPlaybackEnded.EventType.CALL_PLAYBACK_ENDED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallPlaybackEndedWebhookEvent.Data.Payload.builder()
+                            CallPlaybackEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -3143,13 +3001,13 @@ internal class UnwrapWebhookEventTest {
                                 .mediaName("my_media_uploaded_to_media_storage_api")
                                 .mediaUrl("http://example.com/audio.wav")
                                 .overlay(false)
-                                .status(CallPlaybackEndedWebhookEvent.Data.Payload.Status.COMPLETED)
+                                .status(CallPlaybackEnded.Payload.Status.COMPLETED)
                                 .statusDetail(
                                     "Received curl error 22 HTTP error code 404 trying to fetch http://mediaurl.com."
                                 )
                                 .build()
                         )
-                        .recordType(CallPlaybackEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallPlaybackEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -3225,14 +3083,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallPlaybackEnded(
                 CallPlaybackEndedWebhookEvent.builder()
                     .data(
-                        CallPlaybackEndedWebhookEvent.Data.builder()
+                        CallPlaybackEnded.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(
-                                CallPlaybackEndedWebhookEvent.Data.EventType.CALL_PLAYBACK_ENDED
-                            )
+                            .eventType(CallPlaybackEnded.EventType.CALL_PLAYBACK_ENDED)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallPlaybackEndedWebhookEvent.Data.Payload.builder()
+                                CallPlaybackEnded.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -3243,15 +3099,13 @@ internal class UnwrapWebhookEventTest {
                                     .mediaName("my_media_uploaded_to_media_storage_api")
                                     .mediaUrl("http://example.com/audio.wav")
                                     .overlay(false)
-                                    .status(
-                                        CallPlaybackEndedWebhookEvent.Data.Payload.Status.COMPLETED
-                                    )
+                                    .status(CallPlaybackEnded.Payload.Status.COMPLETED)
                                     .statusDetail(
                                         "Received curl error 22 HTTP error code 404 trying to fetch http://mediaurl.com."
                                     )
                                     .build()
                             )
-                            .recordType(CallPlaybackEndedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallPlaybackEnded.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -3271,14 +3125,12 @@ internal class UnwrapWebhookEventTest {
         val callPlaybackStarted =
             CallPlaybackStartedWebhookEvent.builder()
                 .data(
-                    CallPlaybackStartedWebhookEvent.Data.builder()
+                    CallPlaybackStarted.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            CallPlaybackStartedWebhookEvent.Data.EventType.CALL_PLAYBACK_STARTED
-                        )
+                        .eventType(CallPlaybackStarted.EventType.CALL_PLAYBACK_STARTED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallPlaybackStartedWebhookEvent.Data.Payload.builder()
+                            CallPlaybackStarted.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -3291,7 +3143,7 @@ internal class UnwrapWebhookEventTest {
                                 .overlay(false)
                                 .build()
                         )
-                        .recordType(CallPlaybackStartedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallPlaybackStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -3367,14 +3219,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallPlaybackStarted(
                 CallPlaybackStartedWebhookEvent.builder()
                     .data(
-                        CallPlaybackStartedWebhookEvent.Data.builder()
+                        CallPlaybackStarted.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(
-                                CallPlaybackStartedWebhookEvent.Data.EventType.CALL_PLAYBACK_STARTED
-                            )
+                            .eventType(CallPlaybackStarted.EventType.CALL_PLAYBACK_STARTED)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallPlaybackStartedWebhookEvent.Data.Payload.builder()
+                                CallPlaybackStarted.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -3387,7 +3237,7 @@ internal class UnwrapWebhookEventTest {
                                     .overlay(false)
                                     .build()
                             )
-                            .recordType(CallPlaybackStartedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallPlaybackStarted.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -3407,14 +3257,12 @@ internal class UnwrapWebhookEventTest {
         val callRecordingError =
             CallRecordingErrorWebhookEvent.builder()
                 .data(
-                    CallRecordingErrorWebhookEvent.Data.builder()
+                    CallRecordingError.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            CallRecordingErrorWebhookEvent.Data.EventType.CALL_RECORDING_ERROR
-                        )
+                        .eventType(CallRecordingError.EventType.CALL_RECORDING_ERROR)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallRecordingErrorWebhookEvent.Data.Payload.builder()
+                            CallRecordingError.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -3422,13 +3270,10 @@ internal class UnwrapWebhookEventTest {
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
-                                .reason(
-                                    CallRecordingErrorWebhookEvent.Data.Payload.Reason
-                                        .INTERNAL_SERVER_ERROR
-                                )
+                                .reason(CallRecordingError.Payload.Reason.INTERNAL_SERVER_ERROR)
                                 .build()
                         )
-                        .recordType(CallRecordingErrorWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallRecordingError.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -3504,14 +3349,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallRecordingError(
                 CallRecordingErrorWebhookEvent.builder()
                     .data(
-                        CallRecordingErrorWebhookEvent.Data.builder()
+                        CallRecordingError.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(
-                                CallRecordingErrorWebhookEvent.Data.EventType.CALL_RECORDING_ERROR
-                            )
+                            .eventType(CallRecordingError.EventType.CALL_RECORDING_ERROR)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallRecordingErrorWebhookEvent.Data.Payload.builder()
+                                CallRecordingError.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -3519,13 +3362,10 @@ internal class UnwrapWebhookEventTest {
                                     .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("7267xxxxxxxxxxxxxx")
-                                    .reason(
-                                        CallRecordingErrorWebhookEvent.Data.Payload.Reason
-                                            .INTERNAL_SERVER_ERROR
-                                    )
+                                    .reason(CallRecordingError.Payload.Reason.INTERNAL_SERVER_ERROR)
                                     .build()
                             )
-                            .recordType(CallRecordingErrorWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallRecordingError.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -3545,24 +3385,19 @@ internal class UnwrapWebhookEventTest {
         val callRecordingSaved =
             CallRecordingSavedWebhookEvent.builder()
                 .data(
-                    CallRecordingSavedWebhookEvent.Data.builder()
+                    CallRecordingSaved.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            CallRecordingSavedWebhookEvent.Data.EventType.CALL_RECORDING_SAVED
-                        )
+                        .eventType(CallRecordingSaved.EventType.CALL_RECORDING_SAVED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallRecordingSavedWebhookEvent.Data.Payload.builder()
+                            CallRecordingSaved.Payload.builder()
                                 .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                                .channels(
-                                    CallRecordingSavedWebhookEvent.Data.Payload.Channels.SINGLE
-                                )
+                                .channels(CallRecordingSaved.Payload.Channels.SINGLE)
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .publicRecordingUrls(
-                                    CallRecordingSavedWebhookEvent.Data.Payload.PublicRecordingUrls
-                                        .builder()
+                                    CallRecordingSaved.Payload.PublicRecordingUrls.builder()
                                         .mp3("http://example.com/recording.mp3")
                                         .wav("http://example.com/recording.wav")
                                         .build()
@@ -3574,15 +3409,14 @@ internal class UnwrapWebhookEventTest {
                                     OffsetDateTime.parse("2018-02-02T22:20:27.521992Z")
                                 )
                                 .recordingUrls(
-                                    CallRecordingSavedWebhookEvent.Data.Payload.RecordingUrls
-                                        .builder()
+                                    CallRecordingSaved.Payload.RecordingUrls.builder()
                                         .mp3("http://example.com/recording.mp3")
                                         .wav("http://example.com/recording.wav")
                                         .build()
                                 )
                                 .build()
                         )
-                        .recordType(CallRecordingSavedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallRecordingSaved.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -3658,25 +3492,19 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallRecordingSaved(
                 CallRecordingSavedWebhookEvent.builder()
                     .data(
-                        CallRecordingSavedWebhookEvent.Data.builder()
+                        CallRecordingSaved.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(
-                                CallRecordingSavedWebhookEvent.Data.EventType.CALL_RECORDING_SAVED
-                            )
+                            .eventType(CallRecordingSaved.EventType.CALL_RECORDING_SAVED)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallRecordingSavedWebhookEvent.Data.Payload.builder()
+                                CallRecordingSaved.Payload.builder()
                                     .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                     .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                                    .channels(
-                                        CallRecordingSavedWebhookEvent.Data.Payload.Channels.SINGLE
-                                    )
+                                    .channels(CallRecordingSaved.Payload.Channels.SINGLE)
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .publicRecordingUrls(
-                                        CallRecordingSavedWebhookEvent.Data.Payload
-                                            .PublicRecordingUrls
-                                            .builder()
+                                        CallRecordingSaved.Payload.PublicRecordingUrls.builder()
                                             .mp3("http://example.com/recording.mp3")
                                             .wav("http://example.com/recording.wav")
                                             .build()
@@ -3688,15 +3516,14 @@ internal class UnwrapWebhookEventTest {
                                         OffsetDateTime.parse("2018-02-02T22:20:27.521992Z")
                                     )
                                     .recordingUrls(
-                                        CallRecordingSavedWebhookEvent.Data.Payload.RecordingUrls
-                                            .builder()
+                                        CallRecordingSaved.Payload.RecordingUrls.builder()
                                             .mp3("http://example.com/recording.mp3")
                                             .wav("http://example.com/recording.wav")
                                             .build()
                                     )
                                     .build()
                             )
-                            .recordType(CallRecordingSavedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallRecordingSaved.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -3716,39 +3543,32 @@ internal class UnwrapWebhookEventTest {
         val callRecordingTranscriptionSaved =
             CallRecordingTranscriptionSavedWebhookEvent.builder()
                 .data(
-                    CallRecordingTranscriptionSavedWebhookEvent.Data.builder()
+                    CallRecordingTranscriptionSaved.builder()
                         .id("898e96ef-be63-45aa-9e7d-01332bff9a97")
                         .eventType(
-                            CallRecordingTranscriptionSavedWebhookEvent.Data.EventType
+                            CallRecordingTranscriptionSaved.EventType
                                 .CALL_RECORDING_TRANSCRIPTION_SAVED
                         )
                         .occurredAt(OffsetDateTime.parse("2025-02-19T17:02:49.371454Z"))
                         .payload(
-                            CallRecordingTranscriptionSavedWebhookEvent.Data.Payload.builder()
+                            CallRecordingTranscriptionSaved.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
                                 .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callingPartyType(
-                                    CallRecordingTranscriptionSavedWebhookEvent.Data.Payload
-                                        .CallingPartyType
-                                        .PSTN
+                                    CallRecordingTranscriptionSaved.Payload.CallingPartyType.PSTN
                                 )
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .recordingId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .recordingTranscriptionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                                .status(
-                                    CallRecordingTranscriptionSavedWebhookEvent.Data.Payload.Status
-                                        .COMPLETED
-                                )
+                                .status(CallRecordingTranscriptionSaved.Payload.Status.COMPLETED)
                                 .transcriptionText("Hi!")
                                 .build()
                         )
-                        .recordType(
-                            CallRecordingTranscriptionSavedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(CallRecordingTranscriptionSaved.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -3826,23 +3646,22 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallRecordingTranscriptionSaved(
                 CallRecordingTranscriptionSavedWebhookEvent.builder()
                     .data(
-                        CallRecordingTranscriptionSavedWebhookEvent.Data.builder()
+                        CallRecordingTranscriptionSaved.builder()
                             .id("898e96ef-be63-45aa-9e7d-01332bff9a97")
                             .eventType(
-                                CallRecordingTranscriptionSavedWebhookEvent.Data.EventType
+                                CallRecordingTranscriptionSaved.EventType
                                     .CALL_RECORDING_TRANSCRIPTION_SAVED
                             )
                             .occurredAt(OffsetDateTime.parse("2025-02-19T17:02:49.371454Z"))
                             .payload(
-                                CallRecordingTranscriptionSavedWebhookEvent.Data.Payload.builder()
+                                CallRecordingTranscriptionSaved.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
                                     .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                     .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                     .callingPartyType(
-                                        CallRecordingTranscriptionSavedWebhookEvent.Data.Payload
-                                            .CallingPartyType
+                                        CallRecordingTranscriptionSaved.Payload.CallingPartyType
                                             .PSTN
                                     )
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
@@ -3852,16 +3671,12 @@ internal class UnwrapWebhookEventTest {
                                         "428c31b6-7af4-4bcb-b7f5-5013ef9657c1"
                                     )
                                     .status(
-                                        CallRecordingTranscriptionSavedWebhookEvent.Data.Payload
-                                            .Status
-                                            .COMPLETED
+                                        CallRecordingTranscriptionSaved.Payload.Status.COMPLETED
                                     )
                                     .transcriptionText("Hi!")
                                     .build()
                             )
-                            .recordType(
-                                CallRecordingTranscriptionSavedWebhookEvent.Data.RecordType.EVENT
-                            )
+                            .recordType(CallRecordingTranscriptionSaved.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -3881,14 +3696,12 @@ internal class UnwrapWebhookEventTest {
         val callReferCompleted =
             CallReferCompletedWebhookEvent.builder()
                 .data(
-                    CallReferCompletedWebhookEvent.Data.builder()
+                    CallReferCompleted.builder()
                         .id("4ce4366d-8d87-44be-a00b-942154e9c5f5")
-                        .eventType(
-                            CallReferCompletedWebhookEvent.Data.EventType.CALL_REFER_COMPLETED
-                        )
+                        .eventType(CallReferCompleted.EventType.CALL_REFER_COMPLETED)
                         .occurredAt(OffsetDateTime.parse("2020-03-30T13:29:44.650000Z"))
                         .payload(
-                            CallReferCompletedWebhookEvent.Data.Payload.builder()
+                            CallReferCompleted.Payload.builder()
                                 .callControlId(
                                     "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                 )
@@ -3901,7 +3714,7 @@ internal class UnwrapWebhookEventTest {
                                 .to("+13129457420")
                                 .build()
                         )
-                        .recordType(CallReferCompletedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallReferCompleted.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -3977,14 +3790,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallReferCompleted(
                 CallReferCompletedWebhookEvent.builder()
                     .data(
-                        CallReferCompletedWebhookEvent.Data.builder()
+                        CallReferCompleted.builder()
                             .id("4ce4366d-8d87-44be-a00b-942154e9c5f5")
-                            .eventType(
-                                CallReferCompletedWebhookEvent.Data.EventType.CALL_REFER_COMPLETED
-                            )
+                            .eventType(CallReferCompleted.EventType.CALL_REFER_COMPLETED)
                             .occurredAt(OffsetDateTime.parse("2020-03-30T13:29:44.650000Z"))
                             .payload(
-                                CallReferCompletedWebhookEvent.Data.Payload.builder()
+                                CallReferCompleted.Payload.builder()
                                     .callControlId(
                                         "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                     )
@@ -3997,7 +3808,7 @@ internal class UnwrapWebhookEventTest {
                                     .to("+13129457420")
                                     .build()
                             )
-                            .recordType(CallReferCompletedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallReferCompleted.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -4017,12 +3828,12 @@ internal class UnwrapWebhookEventTest {
         val callReferFailed =
             CallReferFailedWebhookEvent.builder()
                 .data(
-                    CallReferFailedWebhookEvent.Data.builder()
+                    CallReferFailed.builder()
                         .id("fbeb70e0-54eb-4e26-8d19-56b43e66f754")
-                        .eventType(CallReferFailedWebhookEvent.Data.EventType.CALL_REFER_FAILED)
+                        .eventType(CallReferFailed.EventType.CALL_REFER_FAILED)
                         .occurredAt(OffsetDateTime.parse("2020-03-30T13:29:42.130013Z"))
                         .payload(
-                            CallReferFailedWebhookEvent.Data.Payload.builder()
+                            CallReferFailed.Payload.builder()
                                 .callControlId(
                                     "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                 )
@@ -4035,7 +3846,7 @@ internal class UnwrapWebhookEventTest {
                                 .to("+13129457420")
                                 .build()
                         )
-                        .recordType(CallReferFailedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallReferFailed.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -4111,12 +3922,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallReferFailed(
                 CallReferFailedWebhookEvent.builder()
                     .data(
-                        CallReferFailedWebhookEvent.Data.builder()
+                        CallReferFailed.builder()
                             .id("fbeb70e0-54eb-4e26-8d19-56b43e66f754")
-                            .eventType(CallReferFailedWebhookEvent.Data.EventType.CALL_REFER_FAILED)
+                            .eventType(CallReferFailed.EventType.CALL_REFER_FAILED)
                             .occurredAt(OffsetDateTime.parse("2020-03-30T13:29:42.130013Z"))
                             .payload(
-                                CallReferFailedWebhookEvent.Data.Payload.builder()
+                                CallReferFailed.Payload.builder()
                                     .callControlId(
                                         "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                     )
@@ -4129,7 +3940,7 @@ internal class UnwrapWebhookEventTest {
                                     .to("+13129457420")
                                     .build()
                             )
-                            .recordType(CallReferFailedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallReferFailed.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -4149,12 +3960,12 @@ internal class UnwrapWebhookEventTest {
         val callReferStarted =
             CallReferStartedWebhookEvent.builder()
                 .data(
-                    CallReferStartedWebhookEvent.Data.builder()
+                    CallReferStarted.builder()
                         .id("fbeb70e0-54eb-4e26-8d19-56b43e66f754")
-                        .eventType(CallReferStartedWebhookEvent.Data.EventType.CALL_REFER_STARTED)
+                        .eventType(CallReferStarted.EventType.CALL_REFER_STARTED)
                         .occurredAt(OffsetDateTime.parse("2020-03-30T13:29:42.130013Z"))
                         .payload(
-                            CallReferStartedWebhookEvent.Data.Payload.builder()
+                            CallReferStarted.Payload.builder()
                                 .callControlId(
                                     "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                 )
@@ -4167,7 +3978,7 @@ internal class UnwrapWebhookEventTest {
                                 .to("+13129457420")
                                 .build()
                         )
-                        .recordType(CallReferStartedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallReferStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -4243,14 +4054,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallReferStarted(
                 CallReferStartedWebhookEvent.builder()
                     .data(
-                        CallReferStartedWebhookEvent.Data.builder()
+                        CallReferStarted.builder()
                             .id("fbeb70e0-54eb-4e26-8d19-56b43e66f754")
-                            .eventType(
-                                CallReferStartedWebhookEvent.Data.EventType.CALL_REFER_STARTED
-                            )
+                            .eventType(CallReferStarted.EventType.CALL_REFER_STARTED)
                             .occurredAt(OffsetDateTime.parse("2020-03-30T13:29:42.130013Z"))
                             .payload(
-                                CallReferStartedWebhookEvent.Data.Payload.builder()
+                                CallReferStarted.Payload.builder()
                                     .callControlId(
                                         "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                     )
@@ -4263,7 +4072,7 @@ internal class UnwrapWebhookEventTest {
                                     .to("+13129457420")
                                     .build()
                             )
-                            .recordType(CallReferStartedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallReferStarted.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -4283,12 +4092,12 @@ internal class UnwrapWebhookEventTest {
         val callSiprecFailed =
             CallSiprecFailedWebhookEvent.builder()
                 .data(
-                    CallSiprecFailedWebhookEvent.Data.builder()
+                    CallSiprecFailed.builder()
                         .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                        .eventType(CallSiprecFailedWebhookEvent.Data.EventType.SIPREC_FAILED)
+                        .eventType(CallSiprecFailed.EventType.SIPREC_FAILED)
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                         .payload(
-                            CallSiprecFailedWebhookEvent.Data.Payload.builder()
+                            CallSiprecFailed.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -4297,7 +4106,7 @@ internal class UnwrapWebhookEventTest {
                                 .failureCause("no_answer")
                                 .build()
                         )
-                        .recordType(CallSiprecFailedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallSiprecFailed.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -4373,12 +4182,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallSiprecFailed(
                 CallSiprecFailedWebhookEvent.builder()
                     .data(
-                        CallSiprecFailedWebhookEvent.Data.builder()
+                        CallSiprecFailed.builder()
                             .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                            .eventType(CallSiprecFailedWebhookEvent.Data.EventType.SIPREC_FAILED)
+                            .eventType(CallSiprecFailed.EventType.SIPREC_FAILED)
                             .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                             .payload(
-                                CallSiprecFailedWebhookEvent.Data.Payload.builder()
+                                CallSiprecFailed.Payload.builder()
                                     .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                     .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                     .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -4387,7 +4196,7 @@ internal class UnwrapWebhookEventTest {
                                     .failureCause("no_answer")
                                     .build()
                             )
-                            .recordType(CallSiprecFailedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallSiprecFailed.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -4407,12 +4216,12 @@ internal class UnwrapWebhookEventTest {
         val callSiprecStarted =
             CallSiprecStartedWebhookEvent.builder()
                 .data(
-                    CallSiprecStartedWebhookEvent.Data.builder()
+                    CallSiprecStarted.builder()
                         .id("7d743d69-f7e8-4761-b7d4-8cacf9d3c031")
-                        .eventType(CallSiprecStartedWebhookEvent.Data.EventType.SIPREC_STARTED)
+                        .eventType(CallSiprecStarted.EventType.SIPREC_STARTED)
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:06:32.059436Z"))
                         .payload(
-                            CallSiprecStartedWebhookEvent.Data.Payload.builder()
+                            CallSiprecStarted.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -4420,7 +4229,7 @@ internal class UnwrapWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .build()
                         )
-                        .recordType(CallSiprecStartedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallSiprecStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -4496,12 +4305,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallSiprecStarted(
                 CallSiprecStartedWebhookEvent.builder()
                     .data(
-                        CallSiprecStartedWebhookEvent.Data.builder()
+                        CallSiprecStarted.builder()
                             .id("7d743d69-f7e8-4761-b7d4-8cacf9d3c031")
-                            .eventType(CallSiprecStartedWebhookEvent.Data.EventType.SIPREC_STARTED)
+                            .eventType(CallSiprecStarted.EventType.SIPREC_STARTED)
                             .occurredAt(OffsetDateTime.parse("2021-12-15T14:06:32.059436Z"))
                             .payload(
-                                CallSiprecStartedWebhookEvent.Data.Payload.builder()
+                                CallSiprecStarted.Payload.builder()
                                     .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                     .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                     .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -4509,7 +4318,7 @@ internal class UnwrapWebhookEventTest {
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .build()
                             )
-                            .recordType(CallSiprecStartedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallSiprecStarted.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -4529,12 +4338,12 @@ internal class UnwrapWebhookEventTest {
         val callSiprecStopped =
             CallSiprecStoppedWebhookEvent.builder()
                 .data(
-                    CallSiprecStoppedWebhookEvent.Data.builder()
+                    CallSiprecStopped.builder()
                         .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                        .eventType(CallSiprecStoppedWebhookEvent.Data.EventType.SIPREC_STOPPED)
+                        .eventType(CallSiprecStopped.EventType.SIPREC_STOPPED)
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                         .payload(
-                            CallSiprecStoppedWebhookEvent.Data.Payload.builder()
+                            CallSiprecStopped.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -4543,7 +4352,7 @@ internal class UnwrapWebhookEventTest {
                                 .hangupCause("normal_clearing")
                                 .build()
                         )
-                        .recordType(CallSiprecStoppedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallSiprecStopped.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -4619,12 +4428,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallSiprecStopped(
                 CallSiprecStoppedWebhookEvent.builder()
                     .data(
-                        CallSiprecStoppedWebhookEvent.Data.builder()
+                        CallSiprecStopped.builder()
                             .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                            .eventType(CallSiprecStoppedWebhookEvent.Data.EventType.SIPREC_STOPPED)
+                            .eventType(CallSiprecStopped.EventType.SIPREC_STOPPED)
                             .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                             .payload(
-                                CallSiprecStoppedWebhookEvent.Data.Payload.builder()
+                                CallSiprecStopped.Payload.builder()
                                     .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                     .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                     .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -4633,7 +4442,7 @@ internal class UnwrapWebhookEventTest {
                                     .hangupCause("normal_clearing")
                                     .build()
                             )
-                            .recordType(CallSiprecStoppedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallSiprecStopped.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -4653,12 +4462,12 @@ internal class UnwrapWebhookEventTest {
         val callSpeakEnded =
             CallSpeakEndedWebhookEvent.builder()
                 .data(
-                    CallSpeakEndedWebhookEvent.Data.builder()
+                    CallSpeakEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallSpeakEndedWebhookEvent.Data.EventType.CALL_SPEAK_ENDED)
+                        .eventType(CallSpeakEnded.EventType.CALL_SPEAK_ENDED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallSpeakEndedWebhookEvent.Data.Payload.builder()
+                            CallSpeakEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -4666,10 +4475,10 @@ internal class UnwrapWebhookEventTest {
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
-                                .status(CallSpeakEndedWebhookEvent.Data.Payload.Status.COMPLETED)
+                                .status(CallSpeakEnded.Payload.Status.COMPLETED)
                                 .build()
                         )
-                        .recordType(CallSpeakEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallSpeakEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -4745,12 +4554,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallSpeakEnded(
                 CallSpeakEndedWebhookEvent.builder()
                     .data(
-                        CallSpeakEndedWebhookEvent.Data.builder()
+                        CallSpeakEnded.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(CallSpeakEndedWebhookEvent.Data.EventType.CALL_SPEAK_ENDED)
+                            .eventType(CallSpeakEnded.EventType.CALL_SPEAK_ENDED)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallSpeakEndedWebhookEvent.Data.Payload.builder()
+                                CallSpeakEnded.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -4758,12 +4567,10 @@ internal class UnwrapWebhookEventTest {
                                     .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("7267xxxxxxxxxxxxxx")
-                                    .status(
-                                        CallSpeakEndedWebhookEvent.Data.Payload.Status.COMPLETED
-                                    )
+                                    .status(CallSpeakEnded.Payload.Status.COMPLETED)
                                     .build()
                             )
-                            .recordType(CallSpeakEndedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallSpeakEnded.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -4783,12 +4590,12 @@ internal class UnwrapWebhookEventTest {
         val callSpeakStarted =
             CallSpeakStartedWebhookEvent.builder()
                 .data(
-                    CallSpeakStartedWebhookEvent.Data.builder()
+                    CallSpeakStarted.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallSpeakStartedWebhookEvent.Data.EventType.CALL_SPEAK_STARTED)
+                        .eventType(CallSpeakStarted.EventType.CALL_SPEAK_STARTED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallSpeakStartedWebhookEvent.Data.Payload.builder()
+                            CallSpeakStarted.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -4798,7 +4605,7 @@ internal class UnwrapWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .build()
                         )
-                        .recordType(CallSpeakStartedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallSpeakStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -4874,14 +4681,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofCallSpeakStarted(
                 CallSpeakStartedWebhookEvent.builder()
                     .data(
-                        CallSpeakStartedWebhookEvent.Data.builder()
+                        CallSpeakStarted.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(
-                                CallSpeakStartedWebhookEvent.Data.EventType.CALL_SPEAK_STARTED
-                            )
+                            .eventType(CallSpeakStarted.EventType.CALL_SPEAK_STARTED)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                CallSpeakStartedWebhookEvent.Data.Payload.builder()
+                                CallSpeakStarted.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -4891,7 +4696,7 @@ internal class UnwrapWebhookEventTest {
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .build()
                             )
-                            .recordType(CallSpeakStartedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(CallSpeakStarted.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -5303,15 +5108,15 @@ internal class UnwrapWebhookEventTest {
     @Test
     fun ofCampaignStatusUpdate() {
         val campaignStatusUpdate =
-            CampaignStatusUpdateWebhookEvent.builder()
+            CampaignStatusUpdate.builder()
                 .brandId("d88dd2aa-1bb9-4ef0-9ec8-1752b80316a5")
                 .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
                 .createDate("createDate")
                 .cspId("cspId")
                 .description("Campaign has been marked as dormant")
                 .isTMobileRegistered(true)
-                .status(CampaignStatusUpdateWebhookEvent.Status.DORMANT)
-                .type(CampaignStatusUpdateWebhookEvent.Type.TELNYX_EVENT)
+                .status(CampaignStatusUpdate.Status.DORMANT)
+                .type(CampaignStatusUpdate.Type.TELNYX_EVENT)
                 .build()
 
         val unwrapWebhookEvent = UnwrapWebhookEvent.ofCampaignStatusUpdate(campaignStatusUpdate)
@@ -5383,15 +5188,15 @@ internal class UnwrapWebhookEventTest {
         val jsonMapper = jsonMapper()
         val unwrapWebhookEvent =
             UnwrapWebhookEvent.ofCampaignStatusUpdate(
-                CampaignStatusUpdateWebhookEvent.builder()
+                CampaignStatusUpdate.builder()
                     .brandId("d88dd2aa-1bb9-4ef0-9ec8-1752b80316a5")
                     .campaignId("4b300178-131c-d902-d54e-72d90ba1620j")
                     .createDate("createDate")
                     .cspId("cspId")
                     .description("Campaign has been marked as dormant")
                     .isTMobileRegistered(true)
-                    .status(CampaignStatusUpdateWebhookEvent.Status.DORMANT)
-                    .type(CampaignStatusUpdateWebhookEvent.Type.TELNYX_EVENT)
+                    .status(CampaignStatusUpdate.Status.DORMANT)
+                    .type(CampaignStatusUpdate.Type.TELNYX_EVENT)
                     .build()
             )
 
@@ -5409,11 +5214,11 @@ internal class UnwrapWebhookEventTest {
         val conferenceCreated =
             ConferenceCreatedWebhookEvent.builder()
                 .data(
-                    ConferenceCreatedWebhookEvent.Data.builder()
+                    ConferenceCreated.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(ConferenceCreatedWebhookEvent.Data.EventType.CONFERENCE_CREATED)
+                        .eventType(ConferenceCreated.EventType.CONFERENCE_CREATED)
                         .payload(
-                            ConferenceCreatedWebhookEvent.Data.Payload.builder()
+                            ConferenceCreated.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -5425,7 +5230,7 @@ internal class UnwrapWebhookEventTest {
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                 .build()
                         )
-                        .recordType(ConferenceCreatedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferenceCreated.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -5501,13 +5306,11 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofConferenceCreated(
                 ConferenceCreatedWebhookEvent.builder()
                     .data(
-                        ConferenceCreatedWebhookEvent.Data.builder()
+                        ConferenceCreated.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(
-                                ConferenceCreatedWebhookEvent.Data.EventType.CONFERENCE_CREATED
-                            )
+                            .eventType(ConferenceCreated.EventType.CONFERENCE_CREATED)
                             .payload(
-                                ConferenceCreatedWebhookEvent.Data.Payload.builder()
+                                ConferenceCreated.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -5519,7 +5322,7 @@ internal class UnwrapWebhookEventTest {
                                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                     .build()
                             )
-                            .recordType(ConferenceCreatedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(ConferenceCreated.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -5539,11 +5342,11 @@ internal class UnwrapWebhookEventTest {
         val conferenceEnded =
             ConferenceEndedWebhookEvent.builder()
                 .data(
-                    ConferenceEndedWebhookEvent.Data.builder()
+                    ConferenceEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(ConferenceEndedWebhookEvent.Data.EventType.CONFERENCE_ENDED)
+                        .eventType(ConferenceEnded.EventType.CONFERENCE_ENDED)
                         .payload(
-                            ConferenceEndedWebhookEvent.Data.Payload.builder()
+                            ConferenceEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -5553,10 +5356,10 @@ internal class UnwrapWebhookEventTest {
                                 .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
-                                .reason(ConferenceEndedWebhookEvent.Data.Payload.Reason.HOST_LEFT)
+                                .reason(ConferenceEnded.Payload.Reason.HOST_LEFT)
                                 .build()
                         )
-                        .recordType(ConferenceEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferenceEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -5632,11 +5435,11 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofConferenceEnded(
                 ConferenceEndedWebhookEvent.builder()
                     .data(
-                        ConferenceEndedWebhookEvent.Data.builder()
+                        ConferenceEnded.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(ConferenceEndedWebhookEvent.Data.EventType.CONFERENCE_ENDED)
+                            .eventType(ConferenceEnded.EventType.CONFERENCE_ENDED)
                             .payload(
-                                ConferenceEndedWebhookEvent.Data.Payload.builder()
+                                ConferenceEnded.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -5646,12 +5449,10 @@ internal class UnwrapWebhookEventTest {
                                     .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
-                                    .reason(
-                                        ConferenceEndedWebhookEvent.Data.Payload.Reason.HOST_LEFT
-                                    )
+                                    .reason(ConferenceEnded.Payload.Reason.HOST_LEFT)
                                     .build()
                             )
-                            .recordType(ConferenceEndedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(ConferenceEnded.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -5669,11 +5470,11 @@ internal class UnwrapWebhookEventTest {
     @Test
     fun ofConferenceFloorChanged() {
         val conferenceFloorChanged =
-            ConferenceFloorChangedWebhookEvent.builder()
+            ConferenceFloorChanged.builder()
                 .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                .eventType(ConferenceFloorChangedWebhookEvent.EventType.CONFERENCE_FLOOR_CHANGED)
+                .eventType(ConferenceFloorChanged.EventType.CONFERENCE_FLOOR_CHANGED)
                 .payload(
-                    ConferenceFloorChangedWebhookEvent.Payload.builder()
+                    ConferenceFloorChanged.Payload.builder()
                         .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                         .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                         .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
@@ -5683,7 +5484,7 @@ internal class UnwrapWebhookEventTest {
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                         .build()
                 )
-                .recordType(ConferenceFloorChangedWebhookEvent.RecordType.EVENT)
+                .recordType(ConferenceFloorChanged.RecordType.EVENT)
                 .build()
 
         val unwrapWebhookEvent = UnwrapWebhookEvent.ofConferenceFloorChanged(conferenceFloorChanged)
@@ -5755,13 +5556,11 @@ internal class UnwrapWebhookEventTest {
         val jsonMapper = jsonMapper()
         val unwrapWebhookEvent =
             UnwrapWebhookEvent.ofConferenceFloorChanged(
-                ConferenceFloorChangedWebhookEvent.builder()
+                ConferenceFloorChanged.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(
-                        ConferenceFloorChangedWebhookEvent.EventType.CONFERENCE_FLOOR_CHANGED
-                    )
+                    .eventType(ConferenceFloorChanged.EventType.CONFERENCE_FLOOR_CHANGED)
                     .payload(
-                        ConferenceFloorChangedWebhookEvent.Payload.builder()
+                        ConferenceFloorChanged.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
@@ -5773,7 +5572,7 @@ internal class UnwrapWebhookEventTest {
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                             .build()
                     )
-                    .recordType(ConferenceFloorChangedWebhookEvent.RecordType.EVENT)
+                    .recordType(ConferenceFloorChanged.RecordType.EVENT)
                     .build()
             )
 
@@ -5791,15 +5590,14 @@ internal class UnwrapWebhookEventTest {
         val conferenceParticipantJoined =
             ConferenceParticipantJoinedWebhookEvent.builder()
                 .data(
-                    ConferenceParticipantJoinedWebhookEvent.Data.builder()
+                    ConferenceParticipantJoined.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            ConferenceParticipantJoinedWebhookEvent.Data.EventType
-                                .CONFERENCE_PARTICIPANT_JOINED
+                            ConferenceParticipantJoined.EventType.CONFERENCE_PARTICIPANT_JOINED
                         )
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            ConferenceParticipantJoinedWebhookEvent.Data.Payload.builder()
+                            ConferenceParticipantJoined.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -5810,7 +5608,7 @@ internal class UnwrapWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .build()
                         )
-                        .recordType(ConferenceParticipantJoinedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferenceParticipantJoined.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -5888,15 +5686,14 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofConferenceParticipantJoined(
                 ConferenceParticipantJoinedWebhookEvent.builder()
                     .data(
-                        ConferenceParticipantJoinedWebhookEvent.Data.builder()
+                        ConferenceParticipantJoined.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                             .eventType(
-                                ConferenceParticipantJoinedWebhookEvent.Data.EventType
-                                    .CONFERENCE_PARTICIPANT_JOINED
+                                ConferenceParticipantJoined.EventType.CONFERENCE_PARTICIPANT_JOINED
                             )
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                ConferenceParticipantJoinedWebhookEvent.Data.Payload.builder()
+                                ConferenceParticipantJoined.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -5907,9 +5704,7 @@ internal class UnwrapWebhookEventTest {
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .build()
                             )
-                            .recordType(
-                                ConferenceParticipantJoinedWebhookEvent.Data.RecordType.EVENT
-                            )
+                            .recordType(ConferenceParticipantJoined.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -5929,15 +5724,12 @@ internal class UnwrapWebhookEventTest {
         val conferenceParticipantLeft =
             ConferenceParticipantLeftWebhookEvent.builder()
                 .data(
-                    ConferenceParticipantLeftWebhookEvent.Data.builder()
+                    ConferenceParticipantLeft.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            ConferenceParticipantLeftWebhookEvent.Data.EventType
-                                .CONFERENCE_PARTICIPANT_LEFT
-                        )
+                        .eventType(ConferenceParticipantLeft.EventType.CONFERENCE_PARTICIPANT_LEFT)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            ConferenceParticipantLeftWebhookEvent.Data.Payload.builder()
+                            ConferenceParticipantLeft.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -5948,7 +5740,7 @@ internal class UnwrapWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .build()
                         )
-                        .recordType(ConferenceParticipantLeftWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferenceParticipantLeft.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -6026,15 +5818,14 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofConferenceParticipantLeft(
                 ConferenceParticipantLeftWebhookEvent.builder()
                     .data(
-                        ConferenceParticipantLeftWebhookEvent.Data.builder()
+                        ConferenceParticipantLeft.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                             .eventType(
-                                ConferenceParticipantLeftWebhookEvent.Data.EventType
-                                    .CONFERENCE_PARTICIPANT_LEFT
+                                ConferenceParticipantLeft.EventType.CONFERENCE_PARTICIPANT_LEFT
                             )
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                ConferenceParticipantLeftWebhookEvent.Data.Payload.builder()
+                                ConferenceParticipantLeft.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -6045,7 +5836,7 @@ internal class UnwrapWebhookEventTest {
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .build()
                             )
-                            .recordType(ConferenceParticipantLeftWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(ConferenceParticipantLeft.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -6065,14 +5856,14 @@ internal class UnwrapWebhookEventTest {
         val conferenceParticipantPlaybackEnded =
             ConferenceParticipantPlaybackEndedWebhookEvent.builder()
                 .data(
-                    ConferenceParticipantPlaybackEndedWebhookEvent.Data.builder()
+                    ConferenceParticipantPlaybackEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            ConferenceParticipantPlaybackEndedWebhookEvent.Data.EventType
+                            ConferenceParticipantPlaybackEnded.EventType
                                 .CONFERENCE_PARTICIPANT_PLAYBACK_ENDED
                         )
                         .payload(
-                            ConferenceParticipantPlaybackEndedWebhookEvent.Data.Payload.builder()
+                            ConferenceParticipantPlaybackEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -6087,9 +5878,7 @@ internal class UnwrapWebhookEventTest {
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                 .build()
                         )
-                        .recordType(
-                            ConferenceParticipantPlaybackEndedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(ConferenceParticipantPlaybackEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -6169,15 +5958,14 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofConferenceParticipantPlaybackEnded(
                 ConferenceParticipantPlaybackEndedWebhookEvent.builder()
                     .data(
-                        ConferenceParticipantPlaybackEndedWebhookEvent.Data.builder()
+                        ConferenceParticipantPlaybackEnded.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                             .eventType(
-                                ConferenceParticipantPlaybackEndedWebhookEvent.Data.EventType
+                                ConferenceParticipantPlaybackEnded.EventType
                                     .CONFERENCE_PARTICIPANT_PLAYBACK_ENDED
                             )
                             .payload(
-                                ConferenceParticipantPlaybackEndedWebhookEvent.Data.Payload
-                                    .builder()
+                                ConferenceParticipantPlaybackEnded.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -6192,9 +5980,7 @@ internal class UnwrapWebhookEventTest {
                                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                     .build()
                             )
-                            .recordType(
-                                ConferenceParticipantPlaybackEndedWebhookEvent.Data.RecordType.EVENT
-                            )
+                            .recordType(ConferenceParticipantPlaybackEnded.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -6214,14 +6000,14 @@ internal class UnwrapWebhookEventTest {
         val conferenceParticipantPlaybackStarted =
             ConferenceParticipantPlaybackStartedWebhookEvent.builder()
                 .data(
-                    ConferenceParticipantPlaybackStartedWebhookEvent.Data.builder()
+                    ConferenceParticipantPlaybackStarted.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            ConferenceParticipantPlaybackStartedWebhookEvent.Data.EventType
+                            ConferenceParticipantPlaybackStarted.EventType
                                 .CONFERENCE_PARTICIPANT_PLAYBACK_STARTED
                         )
                         .payload(
-                            ConferenceParticipantPlaybackStartedWebhookEvent.Data.Payload.builder()
+                            ConferenceParticipantPlaybackStarted.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -6236,9 +6022,7 @@ internal class UnwrapWebhookEventTest {
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                 .build()
                         )
-                        .recordType(
-                            ConferenceParticipantPlaybackStartedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(ConferenceParticipantPlaybackStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -6318,15 +6102,14 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofConferenceParticipantPlaybackStarted(
                 ConferenceParticipantPlaybackStartedWebhookEvent.builder()
                     .data(
-                        ConferenceParticipantPlaybackStartedWebhookEvent.Data.builder()
+                        ConferenceParticipantPlaybackStarted.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                             .eventType(
-                                ConferenceParticipantPlaybackStartedWebhookEvent.Data.EventType
+                                ConferenceParticipantPlaybackStarted.EventType
                                     .CONFERENCE_PARTICIPANT_PLAYBACK_STARTED
                             )
                             .payload(
-                                ConferenceParticipantPlaybackStartedWebhookEvent.Data.Payload
-                                    .builder()
+                                ConferenceParticipantPlaybackStarted.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -6341,10 +6124,7 @@ internal class UnwrapWebhookEventTest {
                                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                     .build()
                             )
-                            .recordType(
-                                ConferenceParticipantPlaybackStartedWebhookEvent.Data.RecordType
-                                    .EVENT
-                            )
+                            .recordType(ConferenceParticipantPlaybackStarted.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -6364,14 +6144,14 @@ internal class UnwrapWebhookEventTest {
         val conferenceParticipantSpeakEnded =
             ConferenceParticipantSpeakEndedWebhookEvent.builder()
                 .data(
-                    ConferenceParticipantSpeakEndedWebhookEvent.Data.builder()
+                    ConferenceParticipantSpeakEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            ConferenceParticipantSpeakEndedWebhookEvent.Data.EventType
+                            ConferenceParticipantSpeakEnded.EventType
                                 .CONFERENCE_PARTICIPANT_SPEAK_ENDED
                         )
                         .payload(
-                            ConferenceParticipantSpeakEndedWebhookEvent.Data.Payload.builder()
+                            ConferenceParticipantSpeakEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -6384,9 +6164,7 @@ internal class UnwrapWebhookEventTest {
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                 .build()
                         )
-                        .recordType(
-                            ConferenceParticipantSpeakEndedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(ConferenceParticipantSpeakEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -6464,14 +6242,14 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofConferenceParticipantSpeakEnded(
                 ConferenceParticipantSpeakEndedWebhookEvent.builder()
                     .data(
-                        ConferenceParticipantSpeakEndedWebhookEvent.Data.builder()
+                        ConferenceParticipantSpeakEnded.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                             .eventType(
-                                ConferenceParticipantSpeakEndedWebhookEvent.Data.EventType
+                                ConferenceParticipantSpeakEnded.EventType
                                     .CONFERENCE_PARTICIPANT_SPEAK_ENDED
                             )
                             .payload(
-                                ConferenceParticipantSpeakEndedWebhookEvent.Data.Payload.builder()
+                                ConferenceParticipantSpeakEnded.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -6484,9 +6262,7 @@ internal class UnwrapWebhookEventTest {
                                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                     .build()
                             )
-                            .recordType(
-                                ConferenceParticipantSpeakEndedWebhookEvent.Data.RecordType.EVENT
-                            )
+                            .recordType(ConferenceParticipantSpeakEnded.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -6506,14 +6282,14 @@ internal class UnwrapWebhookEventTest {
         val conferenceParticipantSpeakStarted =
             ConferenceParticipantSpeakStartedWebhookEvent.builder()
                 .data(
-                    ConferenceParticipantSpeakStartedWebhookEvent.Data.builder()
+                    ConferenceParticipantSpeakStarted.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            ConferenceParticipantSpeakStartedWebhookEvent.Data.EventType
+                            ConferenceParticipantSpeakStarted.EventType
                                 .CONFERENCE_PARTICIPANT_SPEAK_STARTED
                         )
                         .payload(
-                            ConferenceParticipantSpeakStartedWebhookEvent.Data.Payload.builder()
+                            ConferenceParticipantSpeakStarted.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -6526,9 +6302,7 @@ internal class UnwrapWebhookEventTest {
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                 .build()
                         )
-                        .recordType(
-                            ConferenceParticipantSpeakStartedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(ConferenceParticipantSpeakStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -6608,14 +6382,14 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofConferenceParticipantSpeakStarted(
                 ConferenceParticipantSpeakStartedWebhookEvent.builder()
                     .data(
-                        ConferenceParticipantSpeakStartedWebhookEvent.Data.builder()
+                        ConferenceParticipantSpeakStarted.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                             .eventType(
-                                ConferenceParticipantSpeakStartedWebhookEvent.Data.EventType
+                                ConferenceParticipantSpeakStarted.EventType
                                     .CONFERENCE_PARTICIPANT_SPEAK_STARTED
                             )
                             .payload(
-                                ConferenceParticipantSpeakStartedWebhookEvent.Data.Payload.builder()
+                                ConferenceParticipantSpeakStarted.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
@@ -6628,9 +6402,7 @@ internal class UnwrapWebhookEventTest {
                                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                     .build()
                             )
-                            .recordType(
-                                ConferenceParticipantSpeakStartedWebhookEvent.Data.RecordType.EVENT
-                            )
+                            .recordType(ConferenceParticipantSpeakStarted.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -6650,14 +6422,11 @@ internal class UnwrapWebhookEventTest {
         val conferencePlaybackEnded =
             ConferencePlaybackEndedWebhookEvent.builder()
                 .data(
-                    ConferencePlaybackEndedWebhookEvent.Data.builder()
+                    ConferencePlaybackEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            ConferencePlaybackEndedWebhookEvent.Data.EventType
-                                .CONFERENCE_PLAYBACK_ENDED
-                        )
+                        .eventType(ConferencePlaybackEnded.EventType.CONFERENCE_PLAYBACK_ENDED)
                         .payload(
-                            ConferencePlaybackEndedWebhookEvent.Data.Payload.builder()
+                            ConferencePlaybackEnded.Payload.builder()
                                 .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .creatorCallSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
@@ -6666,7 +6435,7 @@ internal class UnwrapWebhookEventTest {
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                 .build()
                         )
-                        .recordType(ConferencePlaybackEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferencePlaybackEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -6743,14 +6512,11 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofConferencePlaybackEnded(
                 ConferencePlaybackEndedWebhookEvent.builder()
                     .data(
-                        ConferencePlaybackEndedWebhookEvent.Data.builder()
+                        ConferencePlaybackEnded.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(
-                                ConferencePlaybackEndedWebhookEvent.Data.EventType
-                                    .CONFERENCE_PLAYBACK_ENDED
-                            )
+                            .eventType(ConferencePlaybackEnded.EventType.CONFERENCE_PLAYBACK_ENDED)
                             .payload(
-                                ConferencePlaybackEndedWebhookEvent.Data.Payload.builder()
+                                ConferencePlaybackEnded.Payload.builder()
                                     .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .creatorCallSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
@@ -6759,7 +6525,7 @@ internal class UnwrapWebhookEventTest {
                                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                     .build()
                             )
-                            .recordType(ConferencePlaybackEndedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(ConferencePlaybackEnded.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -6779,14 +6545,11 @@ internal class UnwrapWebhookEventTest {
         val conferencePlaybackStarted =
             ConferencePlaybackStartedWebhookEvent.builder()
                 .data(
-                    ConferencePlaybackStartedWebhookEvent.Data.builder()
+                    ConferencePlaybackStarted.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            ConferencePlaybackStartedWebhookEvent.Data.EventType
-                                .CONFERENCE_PLAYBACK_STARTED
-                        )
+                        .eventType(ConferencePlaybackStarted.EventType.CONFERENCE_PLAYBACK_STARTED)
                         .payload(
-                            ConferencePlaybackStartedWebhookEvent.Data.Payload.builder()
+                            ConferencePlaybackStarted.Payload.builder()
                                 .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .creatorCallSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
@@ -6795,7 +6558,7 @@ internal class UnwrapWebhookEventTest {
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                 .build()
                         )
-                        .recordType(ConferencePlaybackStartedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferencePlaybackStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -6873,14 +6636,13 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofConferencePlaybackStarted(
                 ConferencePlaybackStartedWebhookEvent.builder()
                     .data(
-                        ConferencePlaybackStartedWebhookEvent.Data.builder()
+                        ConferencePlaybackStarted.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                             .eventType(
-                                ConferencePlaybackStartedWebhookEvent.Data.EventType
-                                    .CONFERENCE_PLAYBACK_STARTED
+                                ConferencePlaybackStarted.EventType.CONFERENCE_PLAYBACK_STARTED
                             )
                             .payload(
-                                ConferencePlaybackStartedWebhookEvent.Data.Payload.builder()
+                                ConferencePlaybackStarted.Payload.builder()
                                     .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .creatorCallSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
@@ -6889,7 +6651,7 @@ internal class UnwrapWebhookEventTest {
                                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                     .build()
                             )
-                            .recordType(ConferencePlaybackStartedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(ConferencePlaybackStarted.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -6909,32 +6671,22 @@ internal class UnwrapWebhookEventTest {
         val conferenceRecordingSaved =
             ConferenceRecordingSavedWebhookEvent.builder()
                 .data(
-                    ConferenceRecordingSavedWebhookEvent.Data.builder()
+                    ConferenceRecordingSaved.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            ConferenceRecordingSavedWebhookEvent.Data.EventType
-                                .CONFERENCE_RECORDING_SAVED
-                        )
+                        .eventType(ConferenceRecordingSaved.EventType.CONFERENCE_RECORDING_SAVED)
                         .payload(
-                            ConferenceRecordingSavedWebhookEvent.Data.Payload.builder()
+                            ConferenceRecordingSaved.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                                .channels(
-                                    ConferenceRecordingSavedWebhookEvent.Data.Payload.Channels
-                                        .SINGLE
-                                )
+                                .channels(ConferenceRecordingSaved.Payload.Channels.SINGLE)
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .connectionId("7267xxxxxxxxxxxxxx")
-                                .format(
-                                    ConferenceRecordingSavedWebhookEvent.Data.Payload.Format.MP3
-                                )
+                                .format(ConferenceRecordingSaved.Payload.Format.MP3)
                                 .publicRecordingUrls(
-                                    ConferenceRecordingSavedWebhookEvent.Data.Payload
-                                        .PublicRecordingUrls
-                                        .builder()
+                                    ConferenceRecordingSaved.Payload.PublicRecordingUrls.builder()
                                         .mp3("http://example.com/recording.mp3")
                                         .wav("http://example.com/recording.wav")
                                         .build()
@@ -6947,15 +6699,14 @@ internal class UnwrapWebhookEventTest {
                                     OffsetDateTime.parse("2021-05-11T10:17:03.692107Z")
                                 )
                                 .recordingUrls(
-                                    ConferenceRecordingSavedWebhookEvent.Data.Payload.RecordingUrls
-                                        .builder()
+                                    ConferenceRecordingSaved.Payload.RecordingUrls.builder()
                                         .mp3("http://example.com/recording.mp3")
                                         .wav("http://example.com/recording.wav")
                                         .build()
                                 )
                                 .build()
                         )
-                        .recordType(ConferenceRecordingSavedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferenceRecordingSaved.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -7032,31 +6783,24 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofConferenceRecordingSaved(
                 ConferenceRecordingSavedWebhookEvent.builder()
                     .data(
-                        ConferenceRecordingSavedWebhookEvent.Data.builder()
+                        ConferenceRecordingSaved.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                             .eventType(
-                                ConferenceRecordingSavedWebhookEvent.Data.EventType
-                                    .CONFERENCE_RECORDING_SAVED
+                                ConferenceRecordingSaved.EventType.CONFERENCE_RECORDING_SAVED
                             )
                             .payload(
-                                ConferenceRecordingSavedWebhookEvent.Data.Payload.builder()
+                                ConferenceRecordingSaved.Payload.builder()
                                     .callControlId(
                                         "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                     )
                                     .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                                    .channels(
-                                        ConferenceRecordingSavedWebhookEvent.Data.Payload.Channels
-                                            .SINGLE
-                                    )
+                                    .channels(ConferenceRecordingSaved.Payload.Channels.SINGLE)
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                     .connectionId("7267xxxxxxxxxxxxxx")
-                                    .format(
-                                        ConferenceRecordingSavedWebhookEvent.Data.Payload.Format.MP3
-                                    )
+                                    .format(ConferenceRecordingSaved.Payload.Format.MP3)
                                     .publicRecordingUrls(
-                                        ConferenceRecordingSavedWebhookEvent.Data.Payload
-                                            .PublicRecordingUrls
+                                        ConferenceRecordingSaved.Payload.PublicRecordingUrls
                                             .builder()
                                             .mp3("http://example.com/recording.mp3")
                                             .wav("http://example.com/recording.wav")
@@ -7070,16 +6814,14 @@ internal class UnwrapWebhookEventTest {
                                         OffsetDateTime.parse("2021-05-11T10:17:03.692107Z")
                                     )
                                     .recordingUrls(
-                                        ConferenceRecordingSavedWebhookEvent.Data.Payload
-                                            .RecordingUrls
-                                            .builder()
+                                        ConferenceRecordingSaved.Payload.RecordingUrls.builder()
                                             .mp3("http://example.com/recording.mp3")
                                             .wav("http://example.com/recording.wav")
                                             .build()
                                     )
                                     .build()
                             )
-                            .recordType(ConferenceRecordingSavedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(ConferenceRecordingSaved.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -7099,20 +6841,18 @@ internal class UnwrapWebhookEventTest {
         val conferenceSpeakEnded =
             ConferenceSpeakEndedWebhookEvent.builder()
                 .data(
-                    ConferenceSpeakEndedWebhookEvent.Data.builder()
+                    ConferenceSpeakEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            ConferenceSpeakEndedWebhookEvent.Data.EventType.CONFERENCE_SPEAK_ENDED
-                        )
+                        .eventType(ConferenceSpeakEnded.EventType.CONFERENCE_SPEAK_ENDED)
                         .payload(
-                            ConferenceSpeakEndedWebhookEvent.Data.Payload.builder()
+                            ConferenceSpeakEnded.Payload.builder()
                                 .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .creatorCallSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                 .build()
                         )
-                        .recordType(ConferenceSpeakEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferenceSpeakEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -7188,21 +6928,18 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofConferenceSpeakEnded(
                 ConferenceSpeakEndedWebhookEvent.builder()
                     .data(
-                        ConferenceSpeakEndedWebhookEvent.Data.builder()
+                        ConferenceSpeakEnded.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(
-                                ConferenceSpeakEndedWebhookEvent.Data.EventType
-                                    .CONFERENCE_SPEAK_ENDED
-                            )
+                            .eventType(ConferenceSpeakEnded.EventType.CONFERENCE_SPEAK_ENDED)
                             .payload(
-                                ConferenceSpeakEndedWebhookEvent.Data.Payload.builder()
+                                ConferenceSpeakEnded.Payload.builder()
                                     .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .creatorCallSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                     .build()
                             )
-                            .recordType(ConferenceSpeakEndedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(ConferenceSpeakEnded.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -7222,21 +6959,18 @@ internal class UnwrapWebhookEventTest {
         val conferenceSpeakStarted =
             ConferenceSpeakStartedWebhookEvent.builder()
                 .data(
-                    ConferenceSpeakStartedWebhookEvent.Data.builder()
+                    ConferenceSpeakStarted.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            ConferenceSpeakStartedWebhookEvent.Data.EventType
-                                .CONFERENCE_SPEAK_STARTED
-                        )
+                        .eventType(ConferenceSpeakStarted.EventType.CONFERENCE_SPEAK_STARTED)
                         .payload(
-                            ConferenceSpeakStartedWebhookEvent.Data.Payload.builder()
+                            ConferenceSpeakStarted.Payload.builder()
                                 .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .creatorCallSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                 .build()
                         )
-                        .recordType(ConferenceSpeakStartedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferenceSpeakStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -7312,21 +7046,18 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofConferenceSpeakStarted(
                 ConferenceSpeakStartedWebhookEvent.builder()
                     .data(
-                        ConferenceSpeakStartedWebhookEvent.Data.builder()
+                        ConferenceSpeakStarted.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(
-                                ConferenceSpeakStartedWebhookEvent.Data.EventType
-                                    .CONFERENCE_SPEAK_STARTED
-                            )
+                            .eventType(ConferenceSpeakStarted.EventType.CONFERENCE_SPEAK_STARTED)
                             .payload(
-                                ConferenceSpeakStartedWebhookEvent.Data.Payload.builder()
+                                ConferenceSpeakStarted.Payload.builder()
                                     .conferenceId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                     .connectionId("7267xxxxxxxxxxxxxx")
                                     .creatorCallSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                     .build()
                             )
-                            .recordType(ConferenceSpeakStartedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(ConferenceSpeakStarted.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -7346,9 +7077,9 @@ internal class UnwrapWebhookEventTest {
         val deliveryUpdate =
             DeliveryUpdateWebhookEvent.builder()
                 .data(
-                    DeliveryUpdateWebhookEvent.Data.builder()
+                    OutboundMessage.builder()
                         .id("86f58db9-0fe3-4adc-9d1f-46e66e6e9323")
-                        .eventType(DeliveryUpdateWebhookEvent.Data.EventType.MESSAGE_SENT)
+                        .eventType(OutboundMessage.EventType.MESSAGE_SENT)
                         .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
                             OutboundMessagePayload.builder()
@@ -7448,7 +7179,7 @@ internal class UnwrapWebhookEventTest {
                                 .webhookUrl("https://www.example.com/hooks")
                                 .build()
                         )
-                        .recordType(DeliveryUpdateWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(OutboundMessage.RecordType.EVENT)
                         .build()
                 )
                 .meta(
@@ -7530,9 +7261,9 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofDeliveryUpdate(
                 DeliveryUpdateWebhookEvent.builder()
                     .data(
-                        DeliveryUpdateWebhookEvent.Data.builder()
+                        OutboundMessage.builder()
                             .id("86f58db9-0fe3-4adc-9d1f-46e66e6e9323")
-                            .eventType(DeliveryUpdateWebhookEvent.Data.EventType.MESSAGE_SENT)
+                            .eventType(OutboundMessage.EventType.MESSAGE_SENT)
                             .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                             .payload(
                                 OutboundMessagePayload.builder()
@@ -7635,7 +7366,7 @@ internal class UnwrapWebhookEventTest {
                                     .webhookUrl("https://www.example.com/hooks")
                                     .build()
                             )
-                            .recordType(DeliveryUpdateWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(OutboundMessage.RecordType.EVENT)
                             .build()
                     )
                     .meta(
@@ -7659,33 +7390,33 @@ internal class UnwrapWebhookEventTest {
     @Test
     fun ofFaxDelivered() {
         val faxDelivered =
-            FaxDeliveredWebhookEvent.builder()
+            FaxDelivered.builder()
                 .data(
-                    FaxDeliveredWebhookEvent.Data.builder()
+                    FaxDelivered.Data.builder()
                         .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
-                        .eventType(FaxDeliveredWebhookEvent.Data.EventType.FAX_DELIVERED)
+                        .eventType(FaxDelivered.Data.EventType.FAX_DELIVERED)
                         .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
                         .payload(
-                            FaxDeliveredWebhookEvent.Data.Payload.builder()
+                            FaxDelivered.Data.Payload.builder()
                                 .callDurationSecs(25L)
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("234423")
-                                .direction(FaxDeliveredWebhookEvent.Data.Payload.Direction.OUTBOUND)
+                                .direction(FaxDelivered.Data.Payload.Direction.OUTBOUND)
                                 .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
                                 .from("+17733372107")
                                 .mediaName("my_media_uploaded_to_media_storage_api")
                                 .originalMediaUrl("http://www.example.com/fax.pdf")
                                 .pageCount(2L)
-                                .status(FaxDeliveredWebhookEvent.Data.Payload.Status.DELIVERED)
+                                .status(FaxDelivered.Data.Payload.Status.DELIVERED)
                                 .to("+15107882622")
                                 .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
                                 .build()
                         )
-                        .recordType(FaxDeliveredWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(FaxDelivered.Data.RecordType.EVENT)
                         .build()
                 )
                 .meta(
-                    FaxDeliveredWebhookEvent.Meta.builder()
+                    FaxDelivered.Meta.builder()
                         .attempt(1L)
                         .deliveredTo("https://www.example.com/webhooks")
                         .build()
@@ -7761,35 +7492,33 @@ internal class UnwrapWebhookEventTest {
         val jsonMapper = jsonMapper()
         val unwrapWebhookEvent =
             UnwrapWebhookEvent.ofFaxDelivered(
-                FaxDeliveredWebhookEvent.builder()
+                FaxDelivered.builder()
                     .data(
-                        FaxDeliveredWebhookEvent.Data.builder()
+                        FaxDelivered.Data.builder()
                             .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
-                            .eventType(FaxDeliveredWebhookEvent.Data.EventType.FAX_DELIVERED)
+                            .eventType(FaxDelivered.Data.EventType.FAX_DELIVERED)
                             .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
                             .payload(
-                                FaxDeliveredWebhookEvent.Data.Payload.builder()
+                                FaxDelivered.Data.Payload.builder()
                                     .callDurationSecs(25L)
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("234423")
-                                    .direction(
-                                        FaxDeliveredWebhookEvent.Data.Payload.Direction.OUTBOUND
-                                    )
+                                    .direction(FaxDelivered.Data.Payload.Direction.OUTBOUND)
                                     .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
                                     .from("+17733372107")
                                     .mediaName("my_media_uploaded_to_media_storage_api")
                                     .originalMediaUrl("http://www.example.com/fax.pdf")
                                     .pageCount(2L)
-                                    .status(FaxDeliveredWebhookEvent.Data.Payload.Status.DELIVERED)
+                                    .status(FaxDelivered.Data.Payload.Status.DELIVERED)
                                     .to("+15107882622")
                                     .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
                                     .build()
                             )
-                            .recordType(FaxDeliveredWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(FaxDelivered.Data.RecordType.EVENT)
                             .build()
                     )
                     .meta(
-                        FaxDeliveredWebhookEvent.Meta.builder()
+                        FaxDelivered.Meta.builder()
                             .attempt(1L)
                             .deliveredTo("https://www.example.com/webhooks")
                             .build()
@@ -7809,34 +7538,32 @@ internal class UnwrapWebhookEventTest {
     @Test
     fun ofFaxFailed() {
         val faxFailed =
-            FaxFailedWebhookEvent.builder()
+            FaxFailed.builder()
                 .data(
-                    FaxFailedWebhookEvent.Data.builder()
+                    FaxFailed.Data.builder()
                         .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
-                        .eventType(FaxFailedWebhookEvent.Data.EventType.FAX_FAILED)
+                        .eventType(FaxFailed.Data.EventType.FAX_FAILED)
                         .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
                         .payload(
-                            FaxFailedWebhookEvent.Data.Payload.builder()
+                            FaxFailed.Data.Payload.builder()
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("234423")
-                                .direction(FaxFailedWebhookEvent.Data.Payload.Direction.OUTBOUND)
-                                .failureReason(
-                                    FaxFailedWebhookEvent.Data.Payload.FailureReason.REJECTED
-                                )
+                                .direction(FaxFailed.Data.Payload.Direction.OUTBOUND)
+                                .failureReason(FaxFailed.Data.Payload.FailureReason.REJECTED)
                                 .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
                                 .from("+17733372107")
                                 .mediaName("my_media_uploaded_to_media_storage_api")
                                 .originalMediaUrl("http://www.example.com/fax.pdf")
-                                .status(FaxFailedWebhookEvent.Data.Payload.Status.FAILED)
+                                .status(FaxFailed.Data.Payload.Status.FAILED)
                                 .to("+15107882622")
                                 .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
                                 .build()
                         )
-                        .recordType(FaxFailedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(FaxFailed.Data.RecordType.EVENT)
                         .build()
                 )
                 .meta(
-                    FaxFailedWebhookEvent.Meta.builder()
+                    FaxFailed.Meta.builder()
                         .attempt(1L)
                         .deliveredTo("https://www.example.com/webhooks")
                         .build()
@@ -7912,36 +7639,32 @@ internal class UnwrapWebhookEventTest {
         val jsonMapper = jsonMapper()
         val unwrapWebhookEvent =
             UnwrapWebhookEvent.ofFaxFailed(
-                FaxFailedWebhookEvent.builder()
+                FaxFailed.builder()
                     .data(
-                        FaxFailedWebhookEvent.Data.builder()
+                        FaxFailed.Data.builder()
                             .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
-                            .eventType(FaxFailedWebhookEvent.Data.EventType.FAX_FAILED)
+                            .eventType(FaxFailed.Data.EventType.FAX_FAILED)
                             .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
                             .payload(
-                                FaxFailedWebhookEvent.Data.Payload.builder()
+                                FaxFailed.Data.Payload.builder()
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("234423")
-                                    .direction(
-                                        FaxFailedWebhookEvent.Data.Payload.Direction.OUTBOUND
-                                    )
-                                    .failureReason(
-                                        FaxFailedWebhookEvent.Data.Payload.FailureReason.REJECTED
-                                    )
+                                    .direction(FaxFailed.Data.Payload.Direction.OUTBOUND)
+                                    .failureReason(FaxFailed.Data.Payload.FailureReason.REJECTED)
                                     .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
                                     .from("+17733372107")
                                     .mediaName("my_media_uploaded_to_media_storage_api")
                                     .originalMediaUrl("http://www.example.com/fax.pdf")
-                                    .status(FaxFailedWebhookEvent.Data.Payload.Status.FAILED)
+                                    .status(FaxFailed.Data.Payload.Status.FAILED)
                                     .to("+15107882622")
                                     .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
                                     .build()
                             )
-                            .recordType(FaxFailedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(FaxFailed.Data.RecordType.EVENT)
                             .build()
                     )
                     .meta(
-                        FaxFailedWebhookEvent.Meta.builder()
+                        FaxFailed.Meta.builder()
                             .attempt(1L)
                             .deliveredTo("https://www.example.com/webhooks")
                             .build()
@@ -7961,36 +7684,31 @@ internal class UnwrapWebhookEventTest {
     @Test
     fun ofFaxMediaProcessed() {
         val faxMediaProcessed =
-            FaxMediaProcessedWebhookEvent.builder()
+            FaxMediaProcessed.builder()
                 .data(
-                    FaxMediaProcessedWebhookEvent.Data.builder()
+                    FaxMediaProcessed.Data.builder()
                         .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
-                        .eventType(FaxMediaProcessedWebhookEvent.Data.EventType.FAX_MEDIA_PROCESSED)
+                        .eventType(FaxMediaProcessed.Data.EventType.FAX_MEDIA_PROCESSED)
                         .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
                         .payload(
-                            FaxMediaProcessedWebhookEvent.Data.Payload.builder()
+                            FaxMediaProcessed.Data.Payload.builder()
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("234423")
-                                .direction(
-                                    FaxMediaProcessedWebhookEvent.Data.Payload.Direction.OUTBOUND
-                                )
+                                .direction(FaxMediaProcessed.Data.Payload.Direction.OUTBOUND)
                                 .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
                                 .from("+17733372107")
                                 .mediaName("my_media_uploaded_to_media_storage_api")
                                 .originalMediaUrl("http://www.example.com/fax.pdf")
-                                .status(
-                                    FaxMediaProcessedWebhookEvent.Data.Payload.Status
-                                        .MEDIA_PROCESSED
-                                )
+                                .status(FaxMediaProcessed.Data.Payload.Status.MEDIA_PROCESSED)
                                 .to("+15107882622")
                                 .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
                                 .build()
                         )
-                        .recordType(FaxMediaProcessedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(FaxMediaProcessed.Data.RecordType.EVENT)
                         .build()
                 )
                 .meta(
-                    FaxMediaProcessedWebhookEvent.Meta.builder()
+                    FaxMediaProcessed.Meta.builder()
                         .attempt(1L)
                         .deliveredTo("https://www.example.com/webhooks")
                         .build()
@@ -8066,39 +7784,31 @@ internal class UnwrapWebhookEventTest {
         val jsonMapper = jsonMapper()
         val unwrapWebhookEvent =
             UnwrapWebhookEvent.ofFaxMediaProcessed(
-                FaxMediaProcessedWebhookEvent.builder()
+                FaxMediaProcessed.builder()
                     .data(
-                        FaxMediaProcessedWebhookEvent.Data.builder()
+                        FaxMediaProcessed.Data.builder()
                             .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
-                            .eventType(
-                                FaxMediaProcessedWebhookEvent.Data.EventType.FAX_MEDIA_PROCESSED
-                            )
+                            .eventType(FaxMediaProcessed.Data.EventType.FAX_MEDIA_PROCESSED)
                             .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
                             .payload(
-                                FaxMediaProcessedWebhookEvent.Data.Payload.builder()
+                                FaxMediaProcessed.Data.Payload.builder()
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("234423")
-                                    .direction(
-                                        FaxMediaProcessedWebhookEvent.Data.Payload.Direction
-                                            .OUTBOUND
-                                    )
+                                    .direction(FaxMediaProcessed.Data.Payload.Direction.OUTBOUND)
                                     .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
                                     .from("+17733372107")
                                     .mediaName("my_media_uploaded_to_media_storage_api")
                                     .originalMediaUrl("http://www.example.com/fax.pdf")
-                                    .status(
-                                        FaxMediaProcessedWebhookEvent.Data.Payload.Status
-                                            .MEDIA_PROCESSED
-                                    )
+                                    .status(FaxMediaProcessed.Data.Payload.Status.MEDIA_PROCESSED)
                                     .to("+15107882622")
                                     .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
                                     .build()
                             )
-                            .recordType(FaxMediaProcessedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(FaxMediaProcessed.Data.RecordType.EVENT)
                             .build()
                     )
                     .meta(
-                        FaxMediaProcessedWebhookEvent.Meta.builder()
+                        FaxMediaProcessed.Meta.builder()
                             .attempt(1L)
                             .deliveredTo("https://www.example.com/webhooks")
                             .build()
@@ -8118,31 +7828,31 @@ internal class UnwrapWebhookEventTest {
     @Test
     fun ofFaxQueued() {
         val faxQueued =
-            FaxQueuedWebhookEvent.builder()
+            FaxQueued.builder()
                 .data(
-                    FaxQueuedWebhookEvent.Data.builder()
+                    FaxQueued.Data.builder()
                         .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
-                        .eventType(FaxQueuedWebhookEvent.Data.EventType.FAX_QUEUED)
+                        .eventType(FaxQueued.Data.EventType.FAX_QUEUED)
                         .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
                         .payload(
-                            FaxQueuedWebhookEvent.Data.Payload.builder()
+                            FaxQueued.Data.Payload.builder()
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("234423")
-                                .direction(FaxQueuedWebhookEvent.Data.Payload.Direction.OUTBOUND)
+                                .direction(FaxQueued.Data.Payload.Direction.OUTBOUND)
                                 .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
                                 .from("+17733372107")
                                 .mediaName("my_media_uploaded_to_media_storage_api")
                                 .originalMediaUrl("http://www.example.com/fax.pdf")
-                                .status(FaxQueuedWebhookEvent.Data.Payload.Status.QUEUED)
+                                .status(FaxQueued.Data.Payload.Status.QUEUED)
                                 .to("+15107882622")
                                 .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
                                 .build()
                         )
-                        .recordType(FaxQueuedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(FaxQueued.Data.RecordType.EVENT)
                         .build()
                 )
                 .meta(
-                    FaxQueuedWebhookEvent.Meta.builder()
+                    FaxQueued.Meta.builder()
                         .attempt(1L)
                         .deliveredTo("https://www.example.com/webhooks")
                         .build()
@@ -8218,33 +7928,31 @@ internal class UnwrapWebhookEventTest {
         val jsonMapper = jsonMapper()
         val unwrapWebhookEvent =
             UnwrapWebhookEvent.ofFaxQueued(
-                FaxQueuedWebhookEvent.builder()
+                FaxQueued.builder()
                     .data(
-                        FaxQueuedWebhookEvent.Data.builder()
+                        FaxQueued.Data.builder()
                             .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
-                            .eventType(FaxQueuedWebhookEvent.Data.EventType.FAX_QUEUED)
+                            .eventType(FaxQueued.Data.EventType.FAX_QUEUED)
                             .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
                             .payload(
-                                FaxQueuedWebhookEvent.Data.Payload.builder()
+                                FaxQueued.Data.Payload.builder()
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("234423")
-                                    .direction(
-                                        FaxQueuedWebhookEvent.Data.Payload.Direction.OUTBOUND
-                                    )
+                                    .direction(FaxQueued.Data.Payload.Direction.OUTBOUND)
                                     .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
                                     .from("+17733372107")
                                     .mediaName("my_media_uploaded_to_media_storage_api")
                                     .originalMediaUrl("http://www.example.com/fax.pdf")
-                                    .status(FaxQueuedWebhookEvent.Data.Payload.Status.QUEUED)
+                                    .status(FaxQueued.Data.Payload.Status.QUEUED)
                                     .to("+15107882622")
                                     .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
                                     .build()
                             )
-                            .recordType(FaxQueuedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(FaxQueued.Data.RecordType.EVENT)
                             .build()
                     )
                     .meta(
-                        FaxQueuedWebhookEvent.Meta.builder()
+                        FaxQueued.Meta.builder()
                             .attempt(1L)
                             .deliveredTo("https://www.example.com/webhooks")
                             .build()
@@ -8264,33 +7972,31 @@ internal class UnwrapWebhookEventTest {
     @Test
     fun ofFaxSendingStarted() {
         val faxSendingStarted =
-            FaxSendingStartedWebhookEvent.builder()
+            FaxSendingStarted.builder()
                 .data(
-                    FaxSendingStartedWebhookEvent.Data.builder()
+                    FaxSendingStarted.Data.builder()
                         .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
-                        .eventType(FaxSendingStartedWebhookEvent.Data.EventType.FAX_SENDING_STARTED)
+                        .eventType(FaxSendingStarted.Data.EventType.FAX_SENDING_STARTED)
                         .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
                         .payload(
-                            FaxSendingStartedWebhookEvent.Data.Payload.builder()
+                            FaxSendingStarted.Data.Payload.builder()
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("234423")
-                                .direction(
-                                    FaxSendingStartedWebhookEvent.Data.Payload.Direction.OUTBOUND
-                                )
+                                .direction(FaxSendingStarted.Data.Payload.Direction.OUTBOUND)
                                 .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
                                 .from("+17733372107")
                                 .mediaName("my_media_uploaded_to_media_storage_api")
                                 .originalMediaUrl("http://www.example.com/fax.pdf")
-                                .status(FaxSendingStartedWebhookEvent.Data.Payload.Status.SENDING)
+                                .status(FaxSendingStarted.Data.Payload.Status.SENDING)
                                 .to("+15107882622")
                                 .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
                                 .build()
                         )
-                        .recordType(FaxSendingStartedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(FaxSendingStarted.Data.RecordType.EVENT)
                         .build()
                 )
                 .meta(
-                    FaxSendingStartedWebhookEvent.Meta.builder()
+                    FaxSendingStarted.Meta.builder()
                         .attempt(1L)
                         .deliveredTo("https://www.example.com/webhooks")
                         .build()
@@ -8366,38 +8072,31 @@ internal class UnwrapWebhookEventTest {
         val jsonMapper = jsonMapper()
         val unwrapWebhookEvent =
             UnwrapWebhookEvent.ofFaxSendingStarted(
-                FaxSendingStartedWebhookEvent.builder()
+                FaxSendingStarted.builder()
                     .data(
-                        FaxSendingStartedWebhookEvent.Data.builder()
+                        FaxSendingStarted.Data.builder()
                             .id("95479a2e-b947-470a-a88f-2da6dd07ae0f")
-                            .eventType(
-                                FaxSendingStartedWebhookEvent.Data.EventType.FAX_SENDING_STARTED
-                            )
+                            .eventType(FaxSendingStarted.Data.EventType.FAX_SENDING_STARTED)
                             .occurredAt(OffsetDateTime.parse("2020-05-05T13:08:22.039204Z"))
                             .payload(
-                                FaxSendingStartedWebhookEvent.Data.Payload.builder()
+                                FaxSendingStarted.Data.Payload.builder()
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("234423")
-                                    .direction(
-                                        FaxSendingStartedWebhookEvent.Data.Payload.Direction
-                                            .OUTBOUND
-                                    )
+                                    .direction(FaxSendingStarted.Data.Payload.Direction.OUTBOUND)
                                     .faxId("f8338808-3dc6-4f2b-942a-5d1f39255784")
                                     .from("+17733372107")
                                     .mediaName("my_media_uploaded_to_media_storage_api")
                                     .originalMediaUrl("http://www.example.com/fax.pdf")
-                                    .status(
-                                        FaxSendingStartedWebhookEvent.Data.Payload.Status.SENDING
-                                    )
+                                    .status(FaxSendingStarted.Data.Payload.Status.SENDING)
                                     .to("+15107882622")
                                     .userId("19a75cea-02c6-4b9a-84fa-c9bc8341feb8")
                                     .build()
                             )
-                            .recordType(FaxSendingStartedWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(FaxSendingStarted.Data.RecordType.EVENT)
                             .build()
                     )
                     .meta(
-                        FaxSendingStartedWebhookEvent.Meta.builder()
+                        FaxSendingStarted.Meta.builder()
                             .attempt(1L)
                             .deliveredTo("https://www.example.com/webhooks")
                             .build()
@@ -8419,9 +8118,9 @@ internal class UnwrapWebhookEventTest {
         val inboundMessage =
             InboundMessageWebhookEvent.builder()
                 .data(
-                    InboundMessageWebhookEvent.Data.builder()
+                    InboundMessage.builder()
                         .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
-                        .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
+                        .eventType(InboundMessage.EventType.MESSAGE_RECEIVED)
                         .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
                             InboundMessagePayload.builder()
@@ -8519,7 +8218,7 @@ internal class UnwrapWebhookEventTest {
                                 .webhookUrl("https://www.example.com/hooks")
                                 .build()
                         )
-                        .recordType(InboundMessageWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(InboundMessage.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -8595,9 +8294,9 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofInboundMessage(
                 InboundMessageWebhookEvent.builder()
                     .data(
-                        InboundMessageWebhookEvent.Data.builder()
+                        InboundMessage.builder()
                             .id("bf6307bd-884d-4c1f-b6ea-c62b8c495d3c")
-                            .eventType(InboundMessageWebhookEvent.Data.EventType.MESSAGE_RECEIVED)
+                            .eventType(InboundMessage.EventType.MESSAGE_RECEIVED)
                             .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                             .payload(
                                 InboundMessagePayload.builder()
@@ -8699,7 +8398,7 @@ internal class UnwrapWebhookEventTest {
                                     .webhookUrl("https://www.example.com/hooks")
                                     .build()
                             )
-                            .recordType(InboundMessageWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(InboundMessage.RecordType.EVENT)
                             .build()
                     )
                     .build()
@@ -8717,9 +8416,9 @@ internal class UnwrapWebhookEventTest {
     @Test
     fun ofNumberOrderStatusUpdate() {
         val numberOrderStatusUpdate =
-            NumberOrderStatusUpdateWebhookEvent.builder()
+            NumberOrderStatusUpdate.builder()
                 .data(
-                    NumberOrderStatusUpdateWebhookEvent.Data.builder()
+                    NumberOrderStatusUpdate.Data.builder()
                         .id("d578b093-a0e7-4b64-b0d3-6b689a6ff170")
                         .eventType("number_order.complete")
                         .occurredAt(OffsetDateTime.parse("2025-08-22T16:23:54.496464Z"))
@@ -8771,7 +8470,7 @@ internal class UnwrapWebhookEventTest {
                         .build()
                 )
                 .meta(
-                    NumberOrderStatusUpdateWebhookEvent.Meta.builder()
+                    NumberOrderStatusUpdate.Meta.builder()
                         .attempt(1L)
                         .deliveredTo("https://sample-api.com/webhook")
                         .build()
@@ -8848,9 +8547,9 @@ internal class UnwrapWebhookEventTest {
         val jsonMapper = jsonMapper()
         val unwrapWebhookEvent =
             UnwrapWebhookEvent.ofNumberOrderStatusUpdate(
-                NumberOrderStatusUpdateWebhookEvent.builder()
+                NumberOrderStatusUpdate.builder()
                     .data(
-                        NumberOrderStatusUpdateWebhookEvent.Data.builder()
+                        NumberOrderStatusUpdate.Data.builder()
                             .id("d578b093-a0e7-4b64-b0d3-6b689a6ff170")
                             .eventType("number_order.complete")
                             .occurredAt(OffsetDateTime.parse("2025-08-22T16:23:54.496464Z"))
@@ -8909,7 +8608,7 @@ internal class UnwrapWebhookEventTest {
                             .build()
                     )
                     .meta(
-                        NumberOrderStatusUpdateWebhookEvent.Meta.builder()
+                        NumberOrderStatusUpdate.Meta.builder()
                             .attempt(1L)
                             .deliveredTo("https://sample-api.com/webhook")
                             .build()
@@ -8931,7 +8630,7 @@ internal class UnwrapWebhookEventTest {
         val replacedLinkClick =
             ReplacedLinkClickWebhookEvent.builder()
                 .data(
-                    ReplacedLinkClickWebhookEvent.Data.builder()
+                    ReplacedLinkClick.builder()
                         .messageId("7ee4241c-f127-47e5-9c34-3aac291f8058")
                         .recordType("link_clicked")
                         .timeClicked(OffsetDateTime.parse("2019-04-01T14:45:45.450Z"))
@@ -9012,7 +8711,7 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofReplacedLinkClick(
                 ReplacedLinkClickWebhookEvent.builder()
                     .data(
-                        ReplacedLinkClickWebhookEvent.Data.builder()
+                        ReplacedLinkClick.builder()
                             .messageId("7ee4241c-f127-47e5-9c34-3aac291f8058")
                             .recordType("link_clicked")
                             .timeClicked(OffsetDateTime.parse("2019-04-01T14:45:45.450Z"))
@@ -9037,12 +8736,12 @@ internal class UnwrapWebhookEventTest {
         val transcription =
             TranscriptionWebhookEvent.builder()
                 .data(
-                    TranscriptionWebhookEvent.Data.builder()
+                    Transcription.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(TranscriptionWebhookEvent.Data.EventType.CALL_TRANSCRIPTION)
+                        .eventType(Transcription.EventType.CALL_TRANSCRIPTION)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            TranscriptionWebhookEvent.Data.Payload.builder()
+                            Transcription.Payload.builder()
                                 .callControlId(
                                     "v2:7subYr8fLrXmaAXm8egeAMpoSJ72J3SGPUuome81-hQuaKRf9b7hKA"
                                 )
@@ -9051,13 +8750,12 @@ internal class UnwrapWebhookEventTest {
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("1240401930086254526")
                                 .transcriptionData(
-                                    TranscriptionWebhookEvent.Data.Payload.TranscriptionData
-                                        .builder()
+                                    Transcription.Payload.TranscriptionData.builder()
                                         .confidence(0.977219)
                                         .isFinal(true)
                                         .transcript("hello this is a test speech")
                                         .transcriptionTrack(
-                                            TranscriptionWebhookEvent.Data.Payload.TranscriptionData
+                                            Transcription.Payload.TranscriptionData
                                                 .TranscriptionTrack
                                                 .INBOUND
                                         )
@@ -9065,7 +8763,7 @@ internal class UnwrapWebhookEventTest {
                                 )
                                 .build()
                         )
-                        .recordType(TranscriptionWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(Transcription.RecordType.EVENT)
                         .build()
                 )
                 .build()
@@ -9141,12 +8839,12 @@ internal class UnwrapWebhookEventTest {
             UnwrapWebhookEvent.ofTranscription(
                 TranscriptionWebhookEvent.builder()
                     .data(
-                        TranscriptionWebhookEvent.Data.builder()
+                        Transcription.builder()
                             .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                            .eventType(TranscriptionWebhookEvent.Data.EventType.CALL_TRANSCRIPTION)
+                            .eventType(Transcription.EventType.CALL_TRANSCRIPTION)
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                             .payload(
-                                TranscriptionWebhookEvent.Data.Payload.builder()
+                                Transcription.Payload.builder()
                                     .callControlId(
                                         "v2:7subYr8fLrXmaAXm8egeAMpoSJ72J3SGPUuome81-hQuaKRf9b7hKA"
                                     )
@@ -9155,14 +8853,12 @@ internal class UnwrapWebhookEventTest {
                                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                     .connectionId("1240401930086254526")
                                     .transcriptionData(
-                                        TranscriptionWebhookEvent.Data.Payload.TranscriptionData
-                                            .builder()
+                                        Transcription.Payload.TranscriptionData.builder()
                                             .confidence(0.977219)
                                             .isFinal(true)
                                             .transcript("hello this is a test speech")
                                             .transcriptionTrack(
-                                                TranscriptionWebhookEvent.Data.Payload
-                                                    .TranscriptionData
+                                                Transcription.Payload.TranscriptionData
                                                     .TranscriptionTrack
                                                     .INBOUND
                                             )
@@ -9170,7 +8866,7 @@ internal class UnwrapWebhookEventTest {
                                     )
                                     .build()
                             )
-                            .recordType(TranscriptionWebhookEvent.Data.RecordType.EVENT)
+                            .recordType(Transcription.RecordType.EVENT)
                             .build()
                     )
                     .build()

@@ -15,12 +15,12 @@ internal class CallGatherEndedWebhookEventTest {
         val callGatherEndedWebhookEvent =
             CallGatherEndedWebhookEvent.builder()
                 .data(
-                    CallGatherEndedWebhookEvent.Data.builder()
+                    CallGatherEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallGatherEndedWebhookEvent.Data.EventType.CALL_GATHER_ENDED)
+                        .eventType(CallGatherEnded.EventType.CALL_GATHER_ENDED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallGatherEndedWebhookEvent.Data.Payload.builder()
+                            CallGatherEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -30,23 +30,23 @@ internal class CallGatherEndedWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .digits("123")
                                 .from("+35319605860")
-                                .status(CallGatherEndedWebhookEvent.Data.Payload.Status.VALID)
+                                .status(CallGatherEnded.Payload.Status.VALID)
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallGatherEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallGatherEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callGatherEndedWebhookEvent.data())
             .contains(
-                CallGatherEndedWebhookEvent.Data.builder()
+                CallGatherEnded.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(CallGatherEndedWebhookEvent.Data.EventType.CALL_GATHER_ENDED)
+                    .eventType(CallGatherEnded.EventType.CALL_GATHER_ENDED)
                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                     .payload(
-                        CallGatherEndedWebhookEvent.Data.Payload.builder()
+                        CallGatherEnded.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
@@ -56,11 +56,11 @@ internal class CallGatherEndedWebhookEventTest {
                             .connectionId("7267xxxxxxxxxxxxxx")
                             .digits("123")
                             .from("+35319605860")
-                            .status(CallGatherEndedWebhookEvent.Data.Payload.Status.VALID)
+                            .status(CallGatherEnded.Payload.Status.VALID)
                             .to("+35319605860")
                             .build()
                     )
-                    .recordType(CallGatherEndedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallGatherEnded.RecordType.EVENT)
                     .build()
             )
     }
@@ -71,12 +71,12 @@ internal class CallGatherEndedWebhookEventTest {
         val callGatherEndedWebhookEvent =
             CallGatherEndedWebhookEvent.builder()
                 .data(
-                    CallGatherEndedWebhookEvent.Data.builder()
+                    CallGatherEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallGatherEndedWebhookEvent.Data.EventType.CALL_GATHER_ENDED)
+                        .eventType(CallGatherEnded.EventType.CALL_GATHER_ENDED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallGatherEndedWebhookEvent.Data.Payload.builder()
+                            CallGatherEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -86,11 +86,11 @@ internal class CallGatherEndedWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .digits("123")
                                 .from("+35319605860")
-                                .status(CallGatherEndedWebhookEvent.Data.Payload.Status.VALID)
+                                .status(CallGatherEnded.Payload.Status.VALID)
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallGatherEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallGatherEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()

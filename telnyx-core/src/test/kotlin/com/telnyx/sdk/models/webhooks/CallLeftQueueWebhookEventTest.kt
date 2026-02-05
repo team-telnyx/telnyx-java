@@ -15,12 +15,12 @@ internal class CallLeftQueueWebhookEventTest {
         val callLeftQueueWebhookEvent =
             CallLeftQueueWebhookEvent.builder()
                 .data(
-                    CallLeftQueueWebhookEvent.Data.builder()
+                    CallLeftQueue.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallLeftQueueWebhookEvent.Data.EventType.CALL_DEQUEUED)
+                        .eventType(CallLeftQueue.EventType.CALL_DEQUEUED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallLeftQueueWebhookEvent.Data.Payload.builder()
+                            CallLeftQueue.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -30,23 +30,23 @@ internal class CallLeftQueueWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .queue("support")
                                 .queuePosition(3L)
-                                .reason(CallLeftQueueWebhookEvent.Data.Payload.Reason.LEAVE)
+                                .reason(CallLeftQueue.Payload.Reason.LEAVE)
                                 .waitTimeSecs(60L)
                                 .build()
                         )
-                        .recordType(CallLeftQueueWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallLeftQueue.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callLeftQueueWebhookEvent.data())
             .contains(
-                CallLeftQueueWebhookEvent.Data.builder()
+                CallLeftQueue.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(CallLeftQueueWebhookEvent.Data.EventType.CALL_DEQUEUED)
+                    .eventType(CallLeftQueue.EventType.CALL_DEQUEUED)
                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                     .payload(
-                        CallLeftQueueWebhookEvent.Data.Payload.builder()
+                        CallLeftQueue.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
@@ -56,11 +56,11 @@ internal class CallLeftQueueWebhookEventTest {
                             .connectionId("7267xxxxxxxxxxxxxx")
                             .queue("support")
                             .queuePosition(3L)
-                            .reason(CallLeftQueueWebhookEvent.Data.Payload.Reason.LEAVE)
+                            .reason(CallLeftQueue.Payload.Reason.LEAVE)
                             .waitTimeSecs(60L)
                             .build()
                     )
-                    .recordType(CallLeftQueueWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallLeftQueue.RecordType.EVENT)
                     .build()
             )
     }
@@ -71,12 +71,12 @@ internal class CallLeftQueueWebhookEventTest {
         val callLeftQueueWebhookEvent =
             CallLeftQueueWebhookEvent.builder()
                 .data(
-                    CallLeftQueueWebhookEvent.Data.builder()
+                    CallLeftQueue.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallLeftQueueWebhookEvent.Data.EventType.CALL_DEQUEUED)
+                        .eventType(CallLeftQueue.EventType.CALL_DEQUEUED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallLeftQueueWebhookEvent.Data.Payload.builder()
+                            CallLeftQueue.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -86,11 +86,11 @@ internal class CallLeftQueueWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .queue("support")
                                 .queuePosition(3L)
-                                .reason(CallLeftQueueWebhookEvent.Data.Payload.Reason.LEAVE)
+                                .reason(CallLeftQueue.Payload.Reason.LEAVE)
                                 .waitTimeSecs(60L)
                                 .build()
                         )
-                        .recordType(CallLeftQueueWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallLeftQueue.RecordType.EVENT)
                         .build()
                 )
                 .build()

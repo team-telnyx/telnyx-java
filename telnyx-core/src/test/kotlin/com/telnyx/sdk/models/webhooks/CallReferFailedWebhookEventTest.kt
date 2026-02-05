@@ -15,12 +15,12 @@ internal class CallReferFailedWebhookEventTest {
         val callReferFailedWebhookEvent =
             CallReferFailedWebhookEvent.builder()
                 .data(
-                    CallReferFailedWebhookEvent.Data.builder()
+                    CallReferFailed.builder()
                         .id("fbeb70e0-54eb-4e26-8d19-56b43e66f754")
-                        .eventType(CallReferFailedWebhookEvent.Data.EventType.CALL_REFER_FAILED)
+                        .eventType(CallReferFailed.EventType.CALL_REFER_FAILED)
                         .occurredAt(OffsetDateTime.parse("2020-03-30T13:29:42.130013Z"))
                         .payload(
-                            CallReferFailedWebhookEvent.Data.Payload.builder()
+                            CallReferFailed.Payload.builder()
                                 .callControlId(
                                     "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                 )
@@ -33,19 +33,19 @@ internal class CallReferFailedWebhookEventTest {
                                 .to("+13129457420")
                                 .build()
                         )
-                        .recordType(CallReferFailedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallReferFailed.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callReferFailedWebhookEvent.data())
             .contains(
-                CallReferFailedWebhookEvent.Data.builder()
+                CallReferFailed.builder()
                     .id("fbeb70e0-54eb-4e26-8d19-56b43e66f754")
-                    .eventType(CallReferFailedWebhookEvent.Data.EventType.CALL_REFER_FAILED)
+                    .eventType(CallReferFailed.EventType.CALL_REFER_FAILED)
                     .occurredAt(OffsetDateTime.parse("2020-03-30T13:29:42.130013Z"))
                     .payload(
-                        CallReferFailedWebhookEvent.Data.Payload.builder()
+                        CallReferFailed.Payload.builder()
                             .callControlId(
                                 "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                             )
@@ -58,7 +58,7 @@ internal class CallReferFailedWebhookEventTest {
                             .to("+13129457420")
                             .build()
                     )
-                    .recordType(CallReferFailedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallReferFailed.RecordType.EVENT)
                     .build()
             )
     }
@@ -69,12 +69,12 @@ internal class CallReferFailedWebhookEventTest {
         val callReferFailedWebhookEvent =
             CallReferFailedWebhookEvent.builder()
                 .data(
-                    CallReferFailedWebhookEvent.Data.builder()
+                    CallReferFailed.builder()
                         .id("fbeb70e0-54eb-4e26-8d19-56b43e66f754")
-                        .eventType(CallReferFailedWebhookEvent.Data.EventType.CALL_REFER_FAILED)
+                        .eventType(CallReferFailed.EventType.CALL_REFER_FAILED)
                         .occurredAt(OffsetDateTime.parse("2020-03-30T13:29:42.130013Z"))
                         .payload(
-                            CallReferFailedWebhookEvent.Data.Payload.builder()
+                            CallReferFailed.Payload.builder()
                                 .callControlId(
                                     "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                 )
@@ -87,7 +87,7 @@ internal class CallReferFailedWebhookEventTest {
                                 .to("+13129457420")
                                 .build()
                         )
-                        .recordType(CallReferFailedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallReferFailed.RecordType.EVENT)
                         .build()
                 )
                 .build()

@@ -1,0 +1,104 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.sdk.models.webhooks
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.jsonMapper
+import java.time.OffsetDateTime
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class CallRecordingTranscriptionSavedTest {
+
+    @Test
+    fun create() {
+        val callRecordingTranscriptionSaved =
+            CallRecordingTranscriptionSaved.builder()
+                .id("898e96ef-be63-45aa-9e7d-01332bff9a97")
+                .eventType(
+                    CallRecordingTranscriptionSaved.EventType.CALL_RECORDING_TRANSCRIPTION_SAVED
+                )
+                .occurredAt(OffsetDateTime.parse("2025-02-19T17:02:49.371454Z"))
+                .payload(
+                    CallRecordingTranscriptionSaved.Payload.builder()
+                        .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+                        .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                        .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                        .callingPartyType(
+                            CallRecordingTranscriptionSaved.Payload.CallingPartyType.PSTN
+                        )
+                        .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                        .connectionId("7267xxxxxxxxxxxxxx")
+                        .recordingId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                        .recordingTranscriptionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                        .status(CallRecordingTranscriptionSaved.Payload.Status.COMPLETED)
+                        .transcriptionText("Hi!")
+                        .build()
+                )
+                .recordType(CallRecordingTranscriptionSaved.RecordType.EVENT)
+                .build()
+
+        assertThat(callRecordingTranscriptionSaved.id())
+            .contains("898e96ef-be63-45aa-9e7d-01332bff9a97")
+        assertThat(callRecordingTranscriptionSaved.eventType())
+            .contains(CallRecordingTranscriptionSaved.EventType.CALL_RECORDING_TRANSCRIPTION_SAVED)
+        assertThat(callRecordingTranscriptionSaved.occurredAt())
+            .contains(OffsetDateTime.parse("2025-02-19T17:02:49.371454Z"))
+        assertThat(callRecordingTranscriptionSaved.payload())
+            .contains(
+                CallRecordingTranscriptionSaved.Payload.builder()
+                    .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+                    .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                    .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                    .callingPartyType(CallRecordingTranscriptionSaved.Payload.CallingPartyType.PSTN)
+                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                    .connectionId("7267xxxxxxxxxxxxxx")
+                    .recordingId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                    .recordingTranscriptionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                    .status(CallRecordingTranscriptionSaved.Payload.Status.COMPLETED)
+                    .transcriptionText("Hi!")
+                    .build()
+            )
+        assertThat(callRecordingTranscriptionSaved.recordType())
+            .contains(CallRecordingTranscriptionSaved.RecordType.EVENT)
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val callRecordingTranscriptionSaved =
+            CallRecordingTranscriptionSaved.builder()
+                .id("898e96ef-be63-45aa-9e7d-01332bff9a97")
+                .eventType(
+                    CallRecordingTranscriptionSaved.EventType.CALL_RECORDING_TRANSCRIPTION_SAVED
+                )
+                .occurredAt(OffsetDateTime.parse("2025-02-19T17:02:49.371454Z"))
+                .payload(
+                    CallRecordingTranscriptionSaved.Payload.builder()
+                        .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
+                        .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                        .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                        .callingPartyType(
+                            CallRecordingTranscriptionSaved.Payload.CallingPartyType.PSTN
+                        )
+                        .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                        .connectionId("7267xxxxxxxxxxxxxx")
+                        .recordingId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                        .recordingTranscriptionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                        .status(CallRecordingTranscriptionSaved.Payload.Status.COMPLETED)
+                        .transcriptionText("Hi!")
+                        .build()
+                )
+                .recordType(CallRecordingTranscriptionSaved.RecordType.EVENT)
+                .build()
+
+        val roundtrippedCallRecordingTranscriptionSaved =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(callRecordingTranscriptionSaved),
+                jacksonTypeRef<CallRecordingTranscriptionSaved>(),
+            )
+
+        assertThat(roundtrippedCallRecordingTranscriptionSaved)
+            .isEqualTo(callRecordingTranscriptionSaved)
+    }
+}

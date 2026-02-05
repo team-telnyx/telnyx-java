@@ -15,11 +15,11 @@ internal class ConferenceCreatedWebhookEventTest {
         val conferenceCreatedWebhookEvent =
             ConferenceCreatedWebhookEvent.builder()
                 .data(
-                    ConferenceCreatedWebhookEvent.Data.builder()
+                    ConferenceCreated.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(ConferenceCreatedWebhookEvent.Data.EventType.CONFERENCE_CREATED)
+                        .eventType(ConferenceCreated.EventType.CONFERENCE_CREATED)
                         .payload(
-                            ConferenceCreatedWebhookEvent.Data.Payload.builder()
+                            ConferenceCreated.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -31,18 +31,18 @@ internal class ConferenceCreatedWebhookEventTest {
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                 .build()
                         )
-                        .recordType(ConferenceCreatedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferenceCreated.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(conferenceCreatedWebhookEvent.data())
             .contains(
-                ConferenceCreatedWebhookEvent.Data.builder()
+                ConferenceCreated.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(ConferenceCreatedWebhookEvent.Data.EventType.CONFERENCE_CREATED)
+                    .eventType(ConferenceCreated.EventType.CONFERENCE_CREATED)
                     .payload(
-                        ConferenceCreatedWebhookEvent.Data.Payload.builder()
+                        ConferenceCreated.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
@@ -54,7 +54,7 @@ internal class ConferenceCreatedWebhookEventTest {
                             .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                             .build()
                     )
-                    .recordType(ConferenceCreatedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(ConferenceCreated.RecordType.EVENT)
                     .build()
             )
     }
@@ -65,11 +65,11 @@ internal class ConferenceCreatedWebhookEventTest {
         val conferenceCreatedWebhookEvent =
             ConferenceCreatedWebhookEvent.builder()
                 .data(
-                    ConferenceCreatedWebhookEvent.Data.builder()
+                    ConferenceCreated.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(ConferenceCreatedWebhookEvent.Data.EventType.CONFERENCE_CREATED)
+                        .eventType(ConferenceCreated.EventType.CONFERENCE_CREATED)
                         .payload(
-                            ConferenceCreatedWebhookEvent.Data.Payload.builder()
+                            ConferenceCreated.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -81,7 +81,7 @@ internal class ConferenceCreatedWebhookEventTest {
                                 .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                                 .build()
                         )
-                        .recordType(ConferenceCreatedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(ConferenceCreated.RecordType.EVENT)
                         .build()
                 )
                 .build()

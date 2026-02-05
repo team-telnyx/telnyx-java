@@ -15,15 +15,15 @@ internal class CallMachinePremiumGreetingEndedWebhookEventTest {
         val callMachinePremiumGreetingEndedWebhookEvent =
             CallMachinePremiumGreetingEndedWebhookEvent.builder()
                 .data(
-                    CallMachinePremiumGreetingEndedWebhookEvent.Data.builder()
+                    CallMachinePremiumGreetingEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            CallMachinePremiumGreetingEndedWebhookEvent.Data.EventType
+                            CallMachinePremiumGreetingEnded.EventType
                                 .CALL_MACHINE_PREMIUM_GREETING_ENDED
                         )
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallMachinePremiumGreetingEndedWebhookEvent.Data.Payload.builder()
+                            CallMachinePremiumGreetingEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -33,30 +33,27 @@ internal class CallMachinePremiumGreetingEndedWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .from("+35319605860")
                                 .result(
-                                    CallMachinePremiumGreetingEndedWebhookEvent.Data.Payload.Result
-                                        .BEEP_DETECTED
+                                    CallMachinePremiumGreetingEnded.Payload.Result.BEEP_DETECTED
                                 )
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(
-                            CallMachinePremiumGreetingEndedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(CallMachinePremiumGreetingEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callMachinePremiumGreetingEndedWebhookEvent.data())
             .contains(
-                CallMachinePremiumGreetingEndedWebhookEvent.Data.builder()
+                CallMachinePremiumGreetingEnded.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                     .eventType(
-                        CallMachinePremiumGreetingEndedWebhookEvent.Data.EventType
+                        CallMachinePremiumGreetingEnded.EventType
                             .CALL_MACHINE_PREMIUM_GREETING_ENDED
                     )
                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                     .payload(
-                        CallMachinePremiumGreetingEndedWebhookEvent.Data.Payload.builder()
+                        CallMachinePremiumGreetingEnded.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
@@ -65,14 +62,11 @@ internal class CallMachinePremiumGreetingEndedWebhookEventTest {
                             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                             .connectionId("7267xxxxxxxxxxxxxx")
                             .from("+35319605860")
-                            .result(
-                                CallMachinePremiumGreetingEndedWebhookEvent.Data.Payload.Result
-                                    .BEEP_DETECTED
-                            )
+                            .result(CallMachinePremiumGreetingEnded.Payload.Result.BEEP_DETECTED)
                             .to("+35319605860")
                             .build()
                     )
-                    .recordType(CallMachinePremiumGreetingEndedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallMachinePremiumGreetingEnded.RecordType.EVENT)
                     .build()
             )
     }
@@ -83,15 +77,15 @@ internal class CallMachinePremiumGreetingEndedWebhookEventTest {
         val callMachinePremiumGreetingEndedWebhookEvent =
             CallMachinePremiumGreetingEndedWebhookEvent.builder()
                 .data(
-                    CallMachinePremiumGreetingEndedWebhookEvent.Data.builder()
+                    CallMachinePremiumGreetingEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            CallMachinePremiumGreetingEndedWebhookEvent.Data.EventType
+                            CallMachinePremiumGreetingEnded.EventType
                                 .CALL_MACHINE_PREMIUM_GREETING_ENDED
                         )
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallMachinePremiumGreetingEndedWebhookEvent.Data.Payload.builder()
+                            CallMachinePremiumGreetingEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -101,15 +95,12 @@ internal class CallMachinePremiumGreetingEndedWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .from("+35319605860")
                                 .result(
-                                    CallMachinePremiumGreetingEndedWebhookEvent.Data.Payload.Result
-                                        .BEEP_DETECTED
+                                    CallMachinePremiumGreetingEnded.Payload.Result.BEEP_DETECTED
                                 )
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(
-                            CallMachinePremiumGreetingEndedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(CallMachinePremiumGreetingEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()

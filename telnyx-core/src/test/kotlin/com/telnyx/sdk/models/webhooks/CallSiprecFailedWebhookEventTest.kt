@@ -15,12 +15,12 @@ internal class CallSiprecFailedWebhookEventTest {
         val callSiprecFailedWebhookEvent =
             CallSiprecFailedWebhookEvent.builder()
                 .data(
-                    CallSiprecFailedWebhookEvent.Data.builder()
+                    CallSiprecFailed.builder()
                         .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                        .eventType(CallSiprecFailedWebhookEvent.Data.EventType.SIPREC_FAILED)
+                        .eventType(CallSiprecFailed.EventType.SIPREC_FAILED)
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                         .payload(
-                            CallSiprecFailedWebhookEvent.Data.Payload.builder()
+                            CallSiprecFailed.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -29,19 +29,19 @@ internal class CallSiprecFailedWebhookEventTest {
                                 .failureCause("no_answer")
                                 .build()
                         )
-                        .recordType(CallSiprecFailedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallSiprecFailed.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callSiprecFailedWebhookEvent.data())
             .contains(
-                CallSiprecFailedWebhookEvent.Data.builder()
+                CallSiprecFailed.builder()
                     .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                    .eventType(CallSiprecFailedWebhookEvent.Data.EventType.SIPREC_FAILED)
+                    .eventType(CallSiprecFailed.EventType.SIPREC_FAILED)
                     .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                     .payload(
-                        CallSiprecFailedWebhookEvent.Data.Payload.builder()
+                        CallSiprecFailed.Payload.builder()
                             .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                             .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                             .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -50,7 +50,7 @@ internal class CallSiprecFailedWebhookEventTest {
                             .failureCause("no_answer")
                             .build()
                     )
-                    .recordType(CallSiprecFailedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallSiprecFailed.RecordType.EVENT)
                     .build()
             )
     }
@@ -61,12 +61,12 @@ internal class CallSiprecFailedWebhookEventTest {
         val callSiprecFailedWebhookEvent =
             CallSiprecFailedWebhookEvent.builder()
                 .data(
-                    CallSiprecFailedWebhookEvent.Data.builder()
+                    CallSiprecFailed.builder()
                         .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                        .eventType(CallSiprecFailedWebhookEvent.Data.EventType.SIPREC_FAILED)
+                        .eventType(CallSiprecFailed.EventType.SIPREC_FAILED)
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                         .payload(
-                            CallSiprecFailedWebhookEvent.Data.Payload.builder()
+                            CallSiprecFailed.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -75,7 +75,7 @@ internal class CallSiprecFailedWebhookEventTest {
                                 .failureCause("no_answer")
                                 .build()
                         )
-                        .recordType(CallSiprecFailedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallSiprecFailed.RecordType.EVENT)
                         .build()
                 )
                 .build()

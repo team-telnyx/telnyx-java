@@ -15,12 +15,12 @@ internal class CallPlaybackEndedWebhookEventTest {
         val callPlaybackEndedWebhookEvent =
             CallPlaybackEndedWebhookEvent.builder()
                 .data(
-                    CallPlaybackEndedWebhookEvent.Data.builder()
+                    CallPlaybackEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallPlaybackEndedWebhookEvent.Data.EventType.CALL_PLAYBACK_ENDED)
+                        .eventType(CallPlaybackEnded.EventType.CALL_PLAYBACK_ENDED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallPlaybackEndedWebhookEvent.Data.Payload.builder()
+                            CallPlaybackEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -31,25 +31,25 @@ internal class CallPlaybackEndedWebhookEventTest {
                                 .mediaName("my_media_uploaded_to_media_storage_api")
                                 .mediaUrl("http://example.com/audio.wav")
                                 .overlay(false)
-                                .status(CallPlaybackEndedWebhookEvent.Data.Payload.Status.COMPLETED)
+                                .status(CallPlaybackEnded.Payload.Status.COMPLETED)
                                 .statusDetail(
                                     "Received curl error 22 HTTP error code 404 trying to fetch http://mediaurl.com."
                                 )
                                 .build()
                         )
-                        .recordType(CallPlaybackEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallPlaybackEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callPlaybackEndedWebhookEvent.data())
             .contains(
-                CallPlaybackEndedWebhookEvent.Data.builder()
+                CallPlaybackEnded.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(CallPlaybackEndedWebhookEvent.Data.EventType.CALL_PLAYBACK_ENDED)
+                    .eventType(CallPlaybackEnded.EventType.CALL_PLAYBACK_ENDED)
                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                     .payload(
-                        CallPlaybackEndedWebhookEvent.Data.Payload.builder()
+                        CallPlaybackEnded.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
@@ -60,13 +60,13 @@ internal class CallPlaybackEndedWebhookEventTest {
                             .mediaName("my_media_uploaded_to_media_storage_api")
                             .mediaUrl("http://example.com/audio.wav")
                             .overlay(false)
-                            .status(CallPlaybackEndedWebhookEvent.Data.Payload.Status.COMPLETED)
+                            .status(CallPlaybackEnded.Payload.Status.COMPLETED)
                             .statusDetail(
                                 "Received curl error 22 HTTP error code 404 trying to fetch http://mediaurl.com."
                             )
                             .build()
                     )
-                    .recordType(CallPlaybackEndedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallPlaybackEnded.RecordType.EVENT)
                     .build()
             )
     }
@@ -77,12 +77,12 @@ internal class CallPlaybackEndedWebhookEventTest {
         val callPlaybackEndedWebhookEvent =
             CallPlaybackEndedWebhookEvent.builder()
                 .data(
-                    CallPlaybackEndedWebhookEvent.Data.builder()
+                    CallPlaybackEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallPlaybackEndedWebhookEvent.Data.EventType.CALL_PLAYBACK_ENDED)
+                        .eventType(CallPlaybackEnded.EventType.CALL_PLAYBACK_ENDED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallPlaybackEndedWebhookEvent.Data.Payload.builder()
+                            CallPlaybackEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -93,13 +93,13 @@ internal class CallPlaybackEndedWebhookEventTest {
                                 .mediaName("my_media_uploaded_to_media_storage_api")
                                 .mediaUrl("http://example.com/audio.wav")
                                 .overlay(false)
-                                .status(CallPlaybackEndedWebhookEvent.Data.Payload.Status.COMPLETED)
+                                .status(CallPlaybackEnded.Payload.Status.COMPLETED)
                                 .statusDetail(
                                     "Received curl error 22 HTTP error code 404 trying to fetch http://mediaurl.com."
                                 )
                                 .build()
                         )
-                        .recordType(CallPlaybackEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallPlaybackEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
