@@ -15,8 +15,8 @@ internal class WidgetSettingsTest {
             WidgetSettings.builder()
                 .agentThinkingText("agent_thinking_text")
                 .audioVisualizerConfig(
-                    WidgetSettings.AudioVisualizerConfig.builder()
-                        .color(WidgetSettings.AudioVisualizerConfig.Color.VERDANT)
+                    AudioVisualizerConfig.builder()
+                        .color(AudioVisualizerConfig.Color.VERDANT)
                         .preset("preset")
                         .build()
                 )
@@ -34,8 +34,8 @@ internal class WidgetSettingsTest {
         assertThat(widgetSettings.agentThinkingText()).contains("agent_thinking_text")
         assertThat(widgetSettings.audioVisualizerConfig())
             .contains(
-                WidgetSettings.AudioVisualizerConfig.builder()
-                    .color(WidgetSettings.AudioVisualizerConfig.Color.VERDANT)
+                AudioVisualizerConfig.builder()
+                    .color(AudioVisualizerConfig.Color.VERDANT)
                     .preset("preset")
                     .build()
             )
@@ -57,8 +57,8 @@ internal class WidgetSettingsTest {
             WidgetSettings.builder()
                 .agentThinkingText("agent_thinking_text")
                 .audioVisualizerConfig(
-                    WidgetSettings.AudioVisualizerConfig.builder()
-                        .color(WidgetSettings.AudioVisualizerConfig.Color.VERDANT)
+                    AudioVisualizerConfig.builder()
+                        .color(AudioVisualizerConfig.Color.VERDANT)
                         .preset("preset")
                         .build()
                 )

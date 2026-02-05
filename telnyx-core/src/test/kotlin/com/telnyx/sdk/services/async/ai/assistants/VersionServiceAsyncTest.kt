@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async.ai.assistants
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
 import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
@@ -268,10 +269,8 @@ internal class VersionServiceAsyncTest {
                                 WidgetSettings.builder()
                                     .agentThinkingText("agent_thinking_text")
                                     .audioVisualizerConfig(
-                                        WidgetSettings.AudioVisualizerConfig.builder()
-                                            .color(
-                                                WidgetSettings.AudioVisualizerConfig.Color.VERDANT
-                                            )
+                                        AudioVisualizerConfig.builder()
+                                            .color(AudioVisualizerConfig.Color.VERDANT)
                                             .preset("preset")
                                             .build()
                                     )
