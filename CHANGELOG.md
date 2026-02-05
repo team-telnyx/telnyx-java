@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.10.0 (2026-02-05)
+
+Full Changelog: [v6.9.0...v6.10.0](https://github.com/team-telnyx/telnyx-java/compare/v6.9.0...v6.10.0)
+
+### Features
+
+* **api:** Merge pull request [#22](https://github.com/team-telnyx/telnyx-java/issues/22) from stainless-sdks/add-all-webhook-models ([4cdbc80](https://github.com/team-telnyx/telnyx-java/commit/4cdbc808a9b7b0420b3bc1d53ddeee2e498f348e))
+
 ## 6.9.0 (2026-02-04)
 
 Full Changelog: [v6.8.1...v6.9.0](https://github.com/team-telnyx/telnyx-java/compare/v6.8.1...v6.9.0)
