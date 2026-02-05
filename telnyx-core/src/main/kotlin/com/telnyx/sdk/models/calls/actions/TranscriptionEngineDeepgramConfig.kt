@@ -1739,8 +1739,6 @@ private constructor(
 
             companion object {
 
-                @JvmField val EN = of("en")
-
                 @JvmField val EN_US = of("en-US")
 
                 @JvmField val EN_AU = of("en-AU")
@@ -1755,11 +1753,7 @@ private constructor(
 
                 @JvmField val NL = of("nl")
 
-                @JvmField val SV = of("sv")
-
                 @JvmField val SV_SE = of("sv-SE")
-
-                @JvmField val DA = of("da")
 
                 @JvmField val DA_DK = of("da-DK")
 
@@ -1770,8 +1764,6 @@ private constructor(
                 @JvmField val FR = of("fr")
 
                 @JvmField val FR_CA = of("fr-CA")
-
-                @JvmField val PT = of("pt")
 
                 @JvmField val PT_BR = of("pt-BR")
 
@@ -1784,7 +1776,6 @@ private constructor(
 
             /** An enum containing [Language]'s known values. */
             enum class Known {
-                EN,
                 EN_US,
                 EN_AU,
                 EN_GB,
@@ -1792,15 +1783,12 @@ private constructor(
                 EN_NZ,
                 DE,
                 NL,
-                SV,
                 SV_SE,
-                DA,
                 DA_DK,
                 ES,
                 ES_419,
                 FR,
                 FR_CA,
-                PT,
                 PT_BR,
                 PT_PT,
                 AUTO_DETECT,
@@ -1816,7 +1804,6 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                EN,
                 EN_US,
                 EN_AU,
                 EN_GB,
@@ -1824,15 +1811,12 @@ private constructor(
                 EN_NZ,
                 DE,
                 NL,
-                SV,
                 SV_SE,
-                DA,
                 DA_DK,
                 ES,
                 ES_419,
                 FR,
                 FR_CA,
-                PT,
                 PT_BR,
                 PT_PT,
                 AUTO_DETECT,
@@ -1851,7 +1835,6 @@ private constructor(
              */
             fun value(): Value =
                 when (this) {
-                    EN -> Value.EN
                     EN_US -> Value.EN_US
                     EN_AU -> Value.EN_AU
                     EN_GB -> Value.EN_GB
@@ -1859,15 +1842,12 @@ private constructor(
                     EN_NZ -> Value.EN_NZ
                     DE -> Value.DE
                     NL -> Value.NL
-                    SV -> Value.SV
                     SV_SE -> Value.SV_SE
-                    DA -> Value.DA
                     DA_DK -> Value.DA_DK
                     ES -> Value.ES
                     ES_419 -> Value.ES_419
                     FR -> Value.FR
                     FR_CA -> Value.FR_CA
-                    PT -> Value.PT
                     PT_BR -> Value.PT_BR
                     PT_PT -> Value.PT_PT
                     AUTO_DETECT -> Value.AUTO_DETECT
@@ -1885,7 +1865,6 @@ private constructor(
              */
             fun known(): Known =
                 when (this) {
-                    EN -> Known.EN
                     EN_US -> Known.EN_US
                     EN_AU -> Known.EN_AU
                     EN_GB -> Known.EN_GB
@@ -1893,15 +1872,12 @@ private constructor(
                     EN_NZ -> Known.EN_NZ
                     DE -> Known.DE
                     NL -> Known.NL
-                    SV -> Known.SV
                     SV_SE -> Known.SV_SE
-                    DA -> Known.DA
                     DA_DK -> Known.DA_DK
                     ES -> Known.ES
                     ES_419 -> Known.ES_419
                     FR -> Known.FR
                     FR_CA -> Known.FR_CA
-                    PT -> Known.PT
                     PT_BR -> Known.PT_BR
                     PT_PT -> Known.PT_PT
                     AUTO_DETECT -> Known.AUTO_DETECT
