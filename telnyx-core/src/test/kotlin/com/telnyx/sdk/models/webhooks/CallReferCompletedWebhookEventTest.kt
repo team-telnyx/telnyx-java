@@ -15,14 +15,12 @@ internal class CallReferCompletedWebhookEventTest {
         val callReferCompletedWebhookEvent =
             CallReferCompletedWebhookEvent.builder()
                 .data(
-                    CallReferCompletedWebhookEvent.Data.builder()
+                    CallReferCompleted.builder()
                         .id("4ce4366d-8d87-44be-a00b-942154e9c5f5")
-                        .eventType(
-                            CallReferCompletedWebhookEvent.Data.EventType.CALL_REFER_COMPLETED
-                        )
+                        .eventType(CallReferCompleted.EventType.CALL_REFER_COMPLETED)
                         .occurredAt(OffsetDateTime.parse("2020-03-30T13:29:44.650000Z"))
                         .payload(
-                            CallReferCompletedWebhookEvent.Data.Payload.builder()
+                            CallReferCompleted.Payload.builder()
                                 .callControlId(
                                     "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                 )
@@ -35,19 +33,19 @@ internal class CallReferCompletedWebhookEventTest {
                                 .to("+13129457420")
                                 .build()
                         )
-                        .recordType(CallReferCompletedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallReferCompleted.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callReferCompletedWebhookEvent.data())
             .contains(
-                CallReferCompletedWebhookEvent.Data.builder()
+                CallReferCompleted.builder()
                     .id("4ce4366d-8d87-44be-a00b-942154e9c5f5")
-                    .eventType(CallReferCompletedWebhookEvent.Data.EventType.CALL_REFER_COMPLETED)
+                    .eventType(CallReferCompleted.EventType.CALL_REFER_COMPLETED)
                     .occurredAt(OffsetDateTime.parse("2020-03-30T13:29:44.650000Z"))
                     .payload(
-                        CallReferCompletedWebhookEvent.Data.Payload.builder()
+                        CallReferCompleted.Payload.builder()
                             .callControlId(
                                 "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                             )
@@ -60,7 +58,7 @@ internal class CallReferCompletedWebhookEventTest {
                             .to("+13129457420")
                             .build()
                     )
-                    .recordType(CallReferCompletedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallReferCompleted.RecordType.EVENT)
                     .build()
             )
     }
@@ -71,14 +69,12 @@ internal class CallReferCompletedWebhookEventTest {
         val callReferCompletedWebhookEvent =
             CallReferCompletedWebhookEvent.builder()
                 .data(
-                    CallReferCompletedWebhookEvent.Data.builder()
+                    CallReferCompleted.builder()
                         .id("4ce4366d-8d87-44be-a00b-942154e9c5f5")
-                        .eventType(
-                            CallReferCompletedWebhookEvent.Data.EventType.CALL_REFER_COMPLETED
-                        )
+                        .eventType(CallReferCompleted.EventType.CALL_REFER_COMPLETED)
                         .occurredAt(OffsetDateTime.parse("2020-03-30T13:29:44.650000Z"))
                         .payload(
-                            CallReferCompletedWebhookEvent.Data.Payload.builder()
+                            CallReferCompleted.Payload.builder()
                                 .callControlId(
                                     "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                 )
@@ -91,7 +87,7 @@ internal class CallReferCompletedWebhookEventTest {
                                 .to("+13129457420")
                                 .build()
                         )
-                        .recordType(CallReferCompletedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallReferCompleted.RecordType.EVENT)
                         .build()
                 )
                 .build()

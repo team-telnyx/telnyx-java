@@ -15,31 +15,28 @@ internal class CallConversationInsightsGeneratedWebhookEventTest {
         val callConversationInsightsGeneratedWebhookEvent =
             CallConversationInsightsGeneratedWebhookEvent.builder()
                 .data(
-                    CallConversationInsightsGeneratedWebhookEvent.Data.builder()
+                    CallConversationInsightsGenerated.builder()
                         .id("898e96ef-be63-45aa-9e7d-01332bff9a97")
                         .eventType(
-                            CallConversationInsightsGeneratedWebhookEvent.Data.EventType
+                            CallConversationInsightsGenerated.EventType
                                 .CALL_CONVERSATION_INSIGHTS_GENERATED
                         )
                         .occurredAt(OffsetDateTime.parse("2025-02-19T17:02:49.371454Z"))
                         .payload(
-                            CallConversationInsightsGeneratedWebhookEvent.Data.Payload.builder()
+                            CallConversationInsightsGenerated.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
                                 .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callingPartyType(
-                                    CallConversationInsightsGeneratedWebhookEvent.Data.Payload
-                                        .CallingPartyType
-                                        .PSTN
+                                    CallConversationInsightsGenerated.Payload.CallingPartyType.PSTN
                                 )
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .insightGroupId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .addResult(
-                                    CallConversationInsightsGeneratedWebhookEvent.Data.Payload
-                                        .InsightResult
+                                    CallConversationInsightsGenerated.Payload.InsightResult
                                         .builder()
                                         .insightId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                         .result(
@@ -49,41 +46,35 @@ internal class CallConversationInsightsGeneratedWebhookEventTest {
                                 )
                                 .build()
                         )
-                        .recordType(
-                            CallConversationInsightsGeneratedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(CallConversationInsightsGenerated.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callConversationInsightsGeneratedWebhookEvent.data())
             .contains(
-                CallConversationInsightsGeneratedWebhookEvent.Data.builder()
+                CallConversationInsightsGenerated.builder()
                     .id("898e96ef-be63-45aa-9e7d-01332bff9a97")
                     .eventType(
-                        CallConversationInsightsGeneratedWebhookEvent.Data.EventType
+                        CallConversationInsightsGenerated.EventType
                             .CALL_CONVERSATION_INSIGHTS_GENERATED
                     )
                     .occurredAt(OffsetDateTime.parse("2025-02-19T17:02:49.371454Z"))
                     .payload(
-                        CallConversationInsightsGeneratedWebhookEvent.Data.Payload.builder()
+                        CallConversationInsightsGenerated.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
                             .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                             .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                             .callingPartyType(
-                                CallConversationInsightsGeneratedWebhookEvent.Data.Payload
-                                    .CallingPartyType
-                                    .PSTN
+                                CallConversationInsightsGenerated.Payload.CallingPartyType.PSTN
                             )
                             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                             .connectionId("7267xxxxxxxxxxxxxx")
                             .insightGroupId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                             .addResult(
-                                CallConversationInsightsGeneratedWebhookEvent.Data.Payload
-                                    .InsightResult
-                                    .builder()
+                                CallConversationInsightsGenerated.Payload.InsightResult.builder()
                                     .insightId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                     .result(
                                         "The user inquired about the menu at Ember & Oak. The menu offers various options, including vegetarian, vegan, and gluten-free dishes, as well as a children's menu. The restaurant also has a daily happy hour from 4 PM to 6 PM and offers takeaway and delivery services. The user found the information helpful but had to leave without making any further decisions or requests. No specific preferences or goals were expressed beyond inquiring about the menu."
@@ -92,7 +83,7 @@ internal class CallConversationInsightsGeneratedWebhookEventTest {
                             )
                             .build()
                     )
-                    .recordType(CallConversationInsightsGeneratedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallConversationInsightsGenerated.RecordType.EVENT)
                     .build()
             )
     }
@@ -103,31 +94,28 @@ internal class CallConversationInsightsGeneratedWebhookEventTest {
         val callConversationInsightsGeneratedWebhookEvent =
             CallConversationInsightsGeneratedWebhookEvent.builder()
                 .data(
-                    CallConversationInsightsGeneratedWebhookEvent.Data.builder()
+                    CallConversationInsightsGenerated.builder()
                         .id("898e96ef-be63-45aa-9e7d-01332bff9a97")
                         .eventType(
-                            CallConversationInsightsGeneratedWebhookEvent.Data.EventType
+                            CallConversationInsightsGenerated.EventType
                                 .CALL_CONVERSATION_INSIGHTS_GENERATED
                         )
                         .occurredAt(OffsetDateTime.parse("2025-02-19T17:02:49.371454Z"))
                         .payload(
-                            CallConversationInsightsGeneratedWebhookEvent.Data.Payload.builder()
+                            CallConversationInsightsGenerated.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
                                 .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callingPartyType(
-                                    CallConversationInsightsGeneratedWebhookEvent.Data.Payload
-                                        .CallingPartyType
-                                        .PSTN
+                                    CallConversationInsightsGenerated.Payload.CallingPartyType.PSTN
                                 )
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .insightGroupId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                 .addResult(
-                                    CallConversationInsightsGeneratedWebhookEvent.Data.Payload
-                                        .InsightResult
+                                    CallConversationInsightsGenerated.Payload.InsightResult
                                         .builder()
                                         .insightId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
                                         .result(
@@ -137,9 +125,7 @@ internal class CallConversationInsightsGeneratedWebhookEventTest {
                                 )
                                 .build()
                         )
-                        .recordType(
-                            CallConversationInsightsGeneratedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(CallConversationInsightsGenerated.RecordType.EVENT)
                         .build()
                 )
                 .build()

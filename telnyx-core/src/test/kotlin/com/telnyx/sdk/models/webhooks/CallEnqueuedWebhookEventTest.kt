@@ -15,12 +15,12 @@ internal class CallEnqueuedWebhookEventTest {
         val callEnqueuedWebhookEvent =
             CallEnqueuedWebhookEvent.builder()
                 .data(
-                    CallEnqueuedWebhookEvent.Data.builder()
+                    CallEnqueued.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallEnqueuedWebhookEvent.Data.EventType.CALL_ENQUEUED)
+                        .eventType(CallEnqueued.EventType.CALL_ENQUEUED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallEnqueuedWebhookEvent.Data.Payload.builder()
+                            CallEnqueued.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -33,19 +33,19 @@ internal class CallEnqueuedWebhookEventTest {
                                 .queueAvgWaitTimeSecs(60L)
                                 .build()
                         )
-                        .recordType(CallEnqueuedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallEnqueued.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callEnqueuedWebhookEvent.data())
             .contains(
-                CallEnqueuedWebhookEvent.Data.builder()
+                CallEnqueued.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(CallEnqueuedWebhookEvent.Data.EventType.CALL_ENQUEUED)
+                    .eventType(CallEnqueued.EventType.CALL_ENQUEUED)
                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                     .payload(
-                        CallEnqueuedWebhookEvent.Data.Payload.builder()
+                        CallEnqueued.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
@@ -58,7 +58,7 @@ internal class CallEnqueuedWebhookEventTest {
                             .queueAvgWaitTimeSecs(60L)
                             .build()
                     )
-                    .recordType(CallEnqueuedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallEnqueued.RecordType.EVENT)
                     .build()
             )
     }
@@ -69,12 +69,12 @@ internal class CallEnqueuedWebhookEventTest {
         val callEnqueuedWebhookEvent =
             CallEnqueuedWebhookEvent.builder()
                 .data(
-                    CallEnqueuedWebhookEvent.Data.builder()
+                    CallEnqueued.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallEnqueuedWebhookEvent.Data.EventType.CALL_ENQUEUED)
+                        .eventType(CallEnqueued.EventType.CALL_ENQUEUED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallEnqueuedWebhookEvent.Data.Payload.builder()
+                            CallEnqueued.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -87,7 +87,7 @@ internal class CallEnqueuedWebhookEventTest {
                                 .queueAvgWaitTimeSecs(60L)
                                 .build()
                         )
-                        .recordType(CallEnqueuedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallEnqueued.RecordType.EVENT)
                         .build()
                 )
                 .build()

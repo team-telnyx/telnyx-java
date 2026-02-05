@@ -15,12 +15,12 @@ internal class CallSpeakEndedWebhookEventTest {
         val callSpeakEndedWebhookEvent =
             CallSpeakEndedWebhookEvent.builder()
                 .data(
-                    CallSpeakEndedWebhookEvent.Data.builder()
+                    CallSpeakEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallSpeakEndedWebhookEvent.Data.EventType.CALL_SPEAK_ENDED)
+                        .eventType(CallSpeakEnded.EventType.CALL_SPEAK_ENDED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallSpeakEndedWebhookEvent.Data.Payload.builder()
+                            CallSpeakEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -28,22 +28,22 @@ internal class CallSpeakEndedWebhookEventTest {
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
-                                .status(CallSpeakEndedWebhookEvent.Data.Payload.Status.COMPLETED)
+                                .status(CallSpeakEnded.Payload.Status.COMPLETED)
                                 .build()
                         )
-                        .recordType(CallSpeakEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallSpeakEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callSpeakEndedWebhookEvent.data())
             .contains(
-                CallSpeakEndedWebhookEvent.Data.builder()
+                CallSpeakEnded.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(CallSpeakEndedWebhookEvent.Data.EventType.CALL_SPEAK_ENDED)
+                    .eventType(CallSpeakEnded.EventType.CALL_SPEAK_ENDED)
                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                     .payload(
-                        CallSpeakEndedWebhookEvent.Data.Payload.builder()
+                        CallSpeakEnded.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
@@ -51,10 +51,10 @@ internal class CallSpeakEndedWebhookEventTest {
                             .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                             .connectionId("7267xxxxxxxxxxxxxx")
-                            .status(CallSpeakEndedWebhookEvent.Data.Payload.Status.COMPLETED)
+                            .status(CallSpeakEnded.Payload.Status.COMPLETED)
                             .build()
                     )
-                    .recordType(CallSpeakEndedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallSpeakEnded.RecordType.EVENT)
                     .build()
             )
     }
@@ -65,12 +65,12 @@ internal class CallSpeakEndedWebhookEventTest {
         val callSpeakEndedWebhookEvent =
             CallSpeakEndedWebhookEvent.builder()
                 .data(
-                    CallSpeakEndedWebhookEvent.Data.builder()
+                    CallSpeakEnded.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallSpeakEndedWebhookEvent.Data.EventType.CALL_SPEAK_ENDED)
+                        .eventType(CallSpeakEnded.EventType.CALL_SPEAK_ENDED)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallSpeakEndedWebhookEvent.Data.Payload.builder()
+                            CallSpeakEnded.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
@@ -78,10 +78,10 @@ internal class CallSpeakEndedWebhookEventTest {
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
-                                .status(CallSpeakEndedWebhookEvent.Data.Payload.Status.COMPLETED)
+                                .status(CallSpeakEnded.Payload.Status.COMPLETED)
                                 .build()
                         )
-                        .recordType(CallSpeakEndedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallSpeakEnded.RecordType.EVENT)
                         .build()
                 )
                 .build()

@@ -15,12 +15,12 @@ internal class CallSiprecStoppedWebhookEventTest {
         val callSiprecStoppedWebhookEvent =
             CallSiprecStoppedWebhookEvent.builder()
                 .data(
-                    CallSiprecStoppedWebhookEvent.Data.builder()
+                    CallSiprecStopped.builder()
                         .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                        .eventType(CallSiprecStoppedWebhookEvent.Data.EventType.SIPREC_STOPPED)
+                        .eventType(CallSiprecStopped.EventType.SIPREC_STOPPED)
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                         .payload(
-                            CallSiprecStoppedWebhookEvent.Data.Payload.builder()
+                            CallSiprecStopped.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -29,19 +29,19 @@ internal class CallSiprecStoppedWebhookEventTest {
                                 .hangupCause("normal_clearing")
                                 .build()
                         )
-                        .recordType(CallSiprecStoppedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallSiprecStopped.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callSiprecStoppedWebhookEvent.data())
             .contains(
-                CallSiprecStoppedWebhookEvent.Data.builder()
+                CallSiprecStopped.builder()
                     .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                    .eventType(CallSiprecStoppedWebhookEvent.Data.EventType.SIPREC_STOPPED)
+                    .eventType(CallSiprecStopped.EventType.SIPREC_STOPPED)
                     .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                     .payload(
-                        CallSiprecStoppedWebhookEvent.Data.Payload.builder()
+                        CallSiprecStopped.Payload.builder()
                             .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                             .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                             .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -50,7 +50,7 @@ internal class CallSiprecStoppedWebhookEventTest {
                             .hangupCause("normal_clearing")
                             .build()
                     )
-                    .recordType(CallSiprecStoppedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallSiprecStopped.RecordType.EVENT)
                     .build()
             )
     }
@@ -61,12 +61,12 @@ internal class CallSiprecStoppedWebhookEventTest {
         val callSiprecStoppedWebhookEvent =
             CallSiprecStoppedWebhookEvent.builder()
                 .data(
-                    CallSiprecStoppedWebhookEvent.Data.builder()
+                    CallSiprecStopped.builder()
                         .id("25dc3731-e51e-4927-a50d-a61cc25984b1")
-                        .eventType(CallSiprecStoppedWebhookEvent.Data.EventType.SIPREC_STOPPED)
+                        .eventType(CallSiprecStopped.EventType.SIPREC_STOPPED)
                         .occurredAt(OffsetDateTime.parse("2021-12-15T14:11:24.613295Z"))
                         .payload(
-                            CallSiprecStoppedWebhookEvent.Data.Payload.builder()
+                            CallSiprecStopped.Payload.builder()
                                 .callControlId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callLegId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
                                 .callSessionId("31f19208-5db0-11ec-9ea7-02420a0d3a69")
@@ -75,7 +75,7 @@ internal class CallSiprecStoppedWebhookEventTest {
                                 .hangupCause("normal_clearing")
                                 .build()
                         )
-                        .recordType(CallSiprecStoppedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallSiprecStopped.RecordType.EVENT)
                         .build()
                 )
                 .build()

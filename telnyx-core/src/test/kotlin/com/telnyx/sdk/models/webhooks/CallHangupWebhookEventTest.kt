@@ -17,22 +17,20 @@ internal class CallHangupWebhookEventTest {
         val callHangupWebhookEvent =
             CallHangupWebhookEvent.builder()
                 .data(
-                    CallHangupWebhookEvent.Data.builder()
+                    CallHangup.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallHangupWebhookEvent.Data.EventType.CALL_HANGUP)
+                        .eventType(CallHangup.EventType.CALL_HANGUP)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallHangupWebhookEvent.Data.Payload.builder()
+                            CallHangup.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
                                 .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callQualityStats(
-                                    CallHangupWebhookEvent.Data.Payload.CallQualityStats.builder()
+                                    CallHangup.Payload.CallQualityStats.builder()
                                         .inbound(
-                                            CallHangupWebhookEvent.Data.Payload.CallQualityStats
-                                                .Inbound
-                                                .builder()
+                                            CallHangup.Payload.CallQualityStats.Inbound.builder()
                                                 .jitterMaxVariance("2.74")
                                                 .jitterPacketCount("0")
                                                 .mos("4.50")
@@ -41,9 +39,7 @@ internal class CallHangupWebhookEventTest {
                                                 .build()
                                         )
                                         .outbound(
-                                            CallHangupWebhookEvent.Data.Payload.CallQualityStats
-                                                .Outbound
-                                                .builder()
+                                            CallHangup.Payload.CallQualityStats.Outbound.builder()
                                                 .packetCount("0")
                                                 .skipPacketCount("0")
                                                 .build()
@@ -60,12 +56,8 @@ internal class CallHangupWebhookEventTest {
                                     CustomSipHeader.builder().name("head_2").value("val_2").build()
                                 )
                                 .from("+35319605860")
-                                .hangupCause(
-                                    CallHangupWebhookEvent.Data.Payload.HangupCause.CALL_REJECTED
-                                )
-                                .hangupSource(
-                                    CallHangupWebhookEvent.Data.Payload.HangupSource.CALLER
-                                )
+                                .hangupCause(CallHangup.Payload.HangupCause.CALL_REJECTED)
+                                .hangupSource(CallHangup.Payload.HangupSource.CALLER)
                                 .sipHangupCause("603")
                                 .addSipHeader(
                                     SipHeader.builder()
@@ -80,34 +72,33 @@ internal class CallHangupWebhookEventTest {
                                         .build()
                                 )
                                 .startTime(OffsetDateTime.parse("2018-02-02T22:20:27.521992Z"))
-                                .state(CallHangupWebhookEvent.Data.Payload.State.HANGUP)
+                                .state(CallHangup.Payload.State.HANGUP)
                                 .addTag("tag-01")
                                 .addTag("tag-02")
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallHangupWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallHangup.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callHangupWebhookEvent.data())
             .contains(
-                CallHangupWebhookEvent.Data.builder()
+                CallHangup.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(CallHangupWebhookEvent.Data.EventType.CALL_HANGUP)
+                    .eventType(CallHangup.EventType.CALL_HANGUP)
                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                     .payload(
-                        CallHangupWebhookEvent.Data.Payload.builder()
+                        CallHangup.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
                             .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                             .callQualityStats(
-                                CallHangupWebhookEvent.Data.Payload.CallQualityStats.builder()
+                                CallHangup.Payload.CallQualityStats.builder()
                                     .inbound(
-                                        CallHangupWebhookEvent.Data.Payload.CallQualityStats.Inbound
-                                            .builder()
+                                        CallHangup.Payload.CallQualityStats.Inbound.builder()
                                             .jitterMaxVariance("2.74")
                                             .jitterPacketCount("0")
                                             .mos("4.50")
@@ -116,9 +107,7 @@ internal class CallHangupWebhookEventTest {
                                             .build()
                                     )
                                     .outbound(
-                                        CallHangupWebhookEvent.Data.Payload.CallQualityStats
-                                            .Outbound
-                                            .builder()
+                                        CallHangup.Payload.CallQualityStats.Outbound.builder()
                                             .packetCount("0")
                                             .skipPacketCount("0")
                                             .build()
@@ -135,10 +124,8 @@ internal class CallHangupWebhookEventTest {
                                 CustomSipHeader.builder().name("head_2").value("val_2").build()
                             )
                             .from("+35319605860")
-                            .hangupCause(
-                                CallHangupWebhookEvent.Data.Payload.HangupCause.CALL_REJECTED
-                            )
-                            .hangupSource(CallHangupWebhookEvent.Data.Payload.HangupSource.CALLER)
+                            .hangupCause(CallHangup.Payload.HangupCause.CALL_REJECTED)
+                            .hangupSource(CallHangup.Payload.HangupSource.CALLER)
                             .sipHangupCause("603")
                             .addSipHeader(
                                 SipHeader.builder()
@@ -153,13 +140,13 @@ internal class CallHangupWebhookEventTest {
                                     .build()
                             )
                             .startTime(OffsetDateTime.parse("2018-02-02T22:20:27.521992Z"))
-                            .state(CallHangupWebhookEvent.Data.Payload.State.HANGUP)
+                            .state(CallHangup.Payload.State.HANGUP)
                             .addTag("tag-01")
                             .addTag("tag-02")
                             .to("+35319605860")
                             .build()
                     )
-                    .recordType(CallHangupWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallHangup.RecordType.EVENT)
                     .build()
             )
     }
@@ -170,22 +157,20 @@ internal class CallHangupWebhookEventTest {
         val callHangupWebhookEvent =
             CallHangupWebhookEvent.builder()
                 .data(
-                    CallHangupWebhookEvent.Data.builder()
+                    CallHangup.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(CallHangupWebhookEvent.Data.EventType.CALL_HANGUP)
+                        .eventType(CallHangup.EventType.CALL_HANGUP)
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallHangupWebhookEvent.Data.Payload.builder()
+                            CallHangup.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
                                 .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callQualityStats(
-                                    CallHangupWebhookEvent.Data.Payload.CallQualityStats.builder()
+                                    CallHangup.Payload.CallQualityStats.builder()
                                         .inbound(
-                                            CallHangupWebhookEvent.Data.Payload.CallQualityStats
-                                                .Inbound
-                                                .builder()
+                                            CallHangup.Payload.CallQualityStats.Inbound.builder()
                                                 .jitterMaxVariance("2.74")
                                                 .jitterPacketCount("0")
                                                 .mos("4.50")
@@ -194,9 +179,7 @@ internal class CallHangupWebhookEventTest {
                                                 .build()
                                         )
                                         .outbound(
-                                            CallHangupWebhookEvent.Data.Payload.CallQualityStats
-                                                .Outbound
-                                                .builder()
+                                            CallHangup.Payload.CallQualityStats.Outbound.builder()
                                                 .packetCount("0")
                                                 .skipPacketCount("0")
                                                 .build()
@@ -213,12 +196,8 @@ internal class CallHangupWebhookEventTest {
                                     CustomSipHeader.builder().name("head_2").value("val_2").build()
                                 )
                                 .from("+35319605860")
-                                .hangupCause(
-                                    CallHangupWebhookEvent.Data.Payload.HangupCause.CALL_REJECTED
-                                )
-                                .hangupSource(
-                                    CallHangupWebhookEvent.Data.Payload.HangupSource.CALLER
-                                )
+                                .hangupCause(CallHangup.Payload.HangupCause.CALL_REJECTED)
+                                .hangupSource(CallHangup.Payload.HangupSource.CALLER)
                                 .sipHangupCause("603")
                                 .addSipHeader(
                                     SipHeader.builder()
@@ -233,13 +212,13 @@ internal class CallHangupWebhookEventTest {
                                         .build()
                                 )
                                 .startTime(OffsetDateTime.parse("2018-02-02T22:20:27.521992Z"))
-                                .state(CallHangupWebhookEvent.Data.Payload.State.HANGUP)
+                                .state(CallHangup.Payload.State.HANGUP)
                                 .addTag("tag-01")
                                 .addTag("tag-02")
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallHangupWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallHangup.RecordType.EVENT)
                         .build()
                 )
                 .build()

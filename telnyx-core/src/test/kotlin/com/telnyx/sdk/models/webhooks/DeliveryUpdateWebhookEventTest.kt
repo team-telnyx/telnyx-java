@@ -18,9 +18,9 @@ internal class DeliveryUpdateWebhookEventTest {
         val deliveryUpdateWebhookEvent =
             DeliveryUpdateWebhookEvent.builder()
                 .data(
-                    DeliveryUpdateWebhookEvent.Data.builder()
+                    OutboundMessage.builder()
                         .id("86f58db9-0fe3-4adc-9d1f-46e66e6e9323")
-                        .eventType(DeliveryUpdateWebhookEvent.Data.EventType.MESSAGE_SENT)
+                        .eventType(OutboundMessage.EventType.MESSAGE_SENT)
                         .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
                             OutboundMessagePayload.builder()
@@ -120,7 +120,7 @@ internal class DeliveryUpdateWebhookEventTest {
                                 .webhookUrl("https://www.example.com/hooks")
                                 .build()
                         )
-                        .recordType(DeliveryUpdateWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(OutboundMessage.RecordType.EVENT)
                         .build()
                 )
                 .meta(
@@ -133,9 +133,9 @@ internal class DeliveryUpdateWebhookEventTest {
 
         assertThat(deliveryUpdateWebhookEvent.data())
             .contains(
-                DeliveryUpdateWebhookEvent.Data.builder()
+                OutboundMessage.builder()
                     .id("86f58db9-0fe3-4adc-9d1f-46e66e6e9323")
-                    .eventType(DeliveryUpdateWebhookEvent.Data.EventType.MESSAGE_SENT)
+                    .eventType(OutboundMessage.EventType.MESSAGE_SENT)
                     .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                     .payload(
                         OutboundMessagePayload.builder()
@@ -234,7 +234,7 @@ internal class DeliveryUpdateWebhookEventTest {
                             .webhookUrl("https://www.example.com/hooks")
                             .build()
                     )
-                    .recordType(DeliveryUpdateWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(OutboundMessage.RecordType.EVENT)
                     .build()
             )
         assertThat(deliveryUpdateWebhookEvent.meta())
@@ -252,9 +252,9 @@ internal class DeliveryUpdateWebhookEventTest {
         val deliveryUpdateWebhookEvent =
             DeliveryUpdateWebhookEvent.builder()
                 .data(
-                    DeliveryUpdateWebhookEvent.Data.builder()
+                    OutboundMessage.builder()
                         .id("86f58db9-0fe3-4adc-9d1f-46e66e6e9323")
-                        .eventType(DeliveryUpdateWebhookEvent.Data.EventType.MESSAGE_SENT)
+                        .eventType(OutboundMessage.EventType.MESSAGE_SENT)
                         .occurredAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .payload(
                             OutboundMessagePayload.builder()
@@ -354,7 +354,7 @@ internal class DeliveryUpdateWebhookEventTest {
                                 .webhookUrl("https://www.example.com/hooks")
                                 .build()
                         )
-                        .recordType(DeliveryUpdateWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(OutboundMessage.RecordType.EVENT)
                         .build()
                 )
                 .meta(

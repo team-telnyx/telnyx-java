@@ -15,76 +15,63 @@ internal class CallRecordingTranscriptionSavedWebhookEventTest {
         val callRecordingTranscriptionSavedWebhookEvent =
             CallRecordingTranscriptionSavedWebhookEvent.builder()
                 .data(
-                    CallRecordingTranscriptionSavedWebhookEvent.Data.builder()
+                    CallRecordingTranscriptionSaved.builder()
                         .id("898e96ef-be63-45aa-9e7d-01332bff9a97")
                         .eventType(
-                            CallRecordingTranscriptionSavedWebhookEvent.Data.EventType
+                            CallRecordingTranscriptionSaved.EventType
                                 .CALL_RECORDING_TRANSCRIPTION_SAVED
                         )
                         .occurredAt(OffsetDateTime.parse("2025-02-19T17:02:49.371454Z"))
                         .payload(
-                            CallRecordingTranscriptionSavedWebhookEvent.Data.Payload.builder()
+                            CallRecordingTranscriptionSaved.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
                                 .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callingPartyType(
-                                    CallRecordingTranscriptionSavedWebhookEvent.Data.Payload
-                                        .CallingPartyType
-                                        .PSTN
+                                    CallRecordingTranscriptionSaved.Payload.CallingPartyType.PSTN
                                 )
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .recordingId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .recordingTranscriptionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                                .status(
-                                    CallRecordingTranscriptionSavedWebhookEvent.Data.Payload.Status
-                                        .COMPLETED
-                                )
+                                .status(CallRecordingTranscriptionSaved.Payload.Status.COMPLETED)
                                 .transcriptionText("Hi!")
                                 .build()
                         )
-                        .recordType(
-                            CallRecordingTranscriptionSavedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(CallRecordingTranscriptionSaved.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callRecordingTranscriptionSavedWebhookEvent.data())
             .contains(
-                CallRecordingTranscriptionSavedWebhookEvent.Data.builder()
+                CallRecordingTranscriptionSaved.builder()
                     .id("898e96ef-be63-45aa-9e7d-01332bff9a97")
                     .eventType(
-                        CallRecordingTranscriptionSavedWebhookEvent.Data.EventType
-                            .CALL_RECORDING_TRANSCRIPTION_SAVED
+                        CallRecordingTranscriptionSaved.EventType.CALL_RECORDING_TRANSCRIPTION_SAVED
                     )
                     .occurredAt(OffsetDateTime.parse("2025-02-19T17:02:49.371454Z"))
                     .payload(
-                        CallRecordingTranscriptionSavedWebhookEvent.Data.Payload.builder()
+                        CallRecordingTranscriptionSaved.Payload.builder()
                             .callControlId(
                                 "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                             )
                             .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                             .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                             .callingPartyType(
-                                CallRecordingTranscriptionSavedWebhookEvent.Data.Payload
-                                    .CallingPartyType
-                                    .PSTN
+                                CallRecordingTranscriptionSaved.Payload.CallingPartyType.PSTN
                             )
                             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                             .connectionId("7267xxxxxxxxxxxxxx")
                             .recordingId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                             .recordingTranscriptionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                            .status(
-                                CallRecordingTranscriptionSavedWebhookEvent.Data.Payload.Status
-                                    .COMPLETED
-                            )
+                            .status(CallRecordingTranscriptionSaved.Payload.Status.COMPLETED)
                             .transcriptionText("Hi!")
                             .build()
                     )
-                    .recordType(CallRecordingTranscriptionSavedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallRecordingTranscriptionSaved.RecordType.EVENT)
                     .build()
             )
     }
@@ -95,39 +82,32 @@ internal class CallRecordingTranscriptionSavedWebhookEventTest {
         val callRecordingTranscriptionSavedWebhookEvent =
             CallRecordingTranscriptionSavedWebhookEvent.builder()
                 .data(
-                    CallRecordingTranscriptionSavedWebhookEvent.Data.builder()
+                    CallRecordingTranscriptionSaved.builder()
                         .id("898e96ef-be63-45aa-9e7d-01332bff9a97")
                         .eventType(
-                            CallRecordingTranscriptionSavedWebhookEvent.Data.EventType
+                            CallRecordingTranscriptionSaved.EventType
                                 .CALL_RECORDING_TRANSCRIPTION_SAVED
                         )
                         .occurredAt(OffsetDateTime.parse("2025-02-19T17:02:49.371454Z"))
                         .payload(
-                            CallRecordingTranscriptionSavedWebhookEvent.Data.Payload.builder()
+                            CallRecordingTranscriptionSaved.Payload.builder()
                                 .callControlId(
                                     "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
                                 )
                                 .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .callingPartyType(
-                                    CallRecordingTranscriptionSavedWebhookEvent.Data.Payload
-                                        .CallingPartyType
-                                        .PSTN
+                                    CallRecordingTranscriptionSaved.Payload.CallingPartyType.PSTN
                                 )
                                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .recordingId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
                                 .recordingTranscriptionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                                .status(
-                                    CallRecordingTranscriptionSavedWebhookEvent.Data.Payload.Status
-                                        .COMPLETED
-                                )
+                                .status(CallRecordingTranscriptionSaved.Payload.Status.COMPLETED)
                                 .transcriptionText("Hi!")
                                 .build()
                         )
-                        .recordType(
-                            CallRecordingTranscriptionSavedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(CallRecordingTranscriptionSaved.RecordType.EVENT)
                         .build()
                 )
                 .build()

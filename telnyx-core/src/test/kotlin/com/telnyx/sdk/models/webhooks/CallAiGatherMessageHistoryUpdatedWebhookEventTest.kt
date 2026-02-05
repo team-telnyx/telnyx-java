@@ -15,15 +15,15 @@ internal class CallAiGatherMessageHistoryUpdatedWebhookEventTest {
         val callAiGatherMessageHistoryUpdatedWebhookEvent =
             CallAiGatherMessageHistoryUpdatedWebhookEvent.builder()
                 .data(
-                    CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.builder()
+                    CallAiGatherMessageHistoryUpdated.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.EventType
+                            CallAiGatherMessageHistoryUpdated.EventType
                                 .CALL_AI_GATHER_MESSAGE_HISTORY_UPDATED
                         )
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload.builder()
+                            CallAiGatherMessageHistoryUpdated.Payload.builder()
                                 .callControlId(
                                     "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
                                 )
@@ -33,30 +33,24 @@ internal class CallAiGatherMessageHistoryUpdatedWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .from("+35319605860")
                                 .addMessageHistory(
-                                    CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload
-                                        .MessageHistory
+                                    CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                         .builder()
                                         .content(
                                             "Hello, can you tell me your age and where you live?"
                                         )
                                         .role(
-                                            CallAiGatherMessageHistoryUpdatedWebhookEvent.Data
-                                                .Payload
-                                                .MessageHistory
+                                            CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                                 .Role
                                                 .ASSISTANT
                                         )
                                         .build()
                                 )
                                 .addMessageHistory(
-                                    CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload
-                                        .MessageHistory
+                                    CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                         .builder()
                                         .content("Hello, I'm 29 and I live in Paris?")
                                         .role(
-                                            CallAiGatherMessageHistoryUpdatedWebhookEvent.Data
-                                                .Payload
-                                                .MessageHistory
+                                            CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                                 .Role
                                                 .USER
                                         )
@@ -65,24 +59,22 @@ internal class CallAiGatherMessageHistoryUpdatedWebhookEventTest {
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(
-                            CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(CallAiGatherMessageHistoryUpdated.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callAiGatherMessageHistoryUpdatedWebhookEvent.data())
             .contains(
-                CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.builder()
+                CallAiGatherMessageHistoryUpdated.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                     .eventType(
-                        CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.EventType
+                        CallAiGatherMessageHistoryUpdated.EventType
                             .CALL_AI_GATHER_MESSAGE_HISTORY_UPDATED
                     )
                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                     .payload(
-                        CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload.builder()
+                        CallAiGatherMessageHistoryUpdated.Payload.builder()
                             .callControlId(
                                 "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
                             )
@@ -92,26 +84,20 @@ internal class CallAiGatherMessageHistoryUpdatedWebhookEventTest {
                             .connectionId("7267xxxxxxxxxxxxxx")
                             .from("+35319605860")
                             .addMessageHistory(
-                                CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload
-                                    .MessageHistory
-                                    .builder()
+                                CallAiGatherMessageHistoryUpdated.Payload.MessageHistory.builder()
                                     .content("Hello, can you tell me your age and where you live?")
                                     .role(
-                                        CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload
-                                            .MessageHistory
+                                        CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                             .Role
                                             .ASSISTANT
                                     )
                                     .build()
                             )
                             .addMessageHistory(
-                                CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload
-                                    .MessageHistory
-                                    .builder()
+                                CallAiGatherMessageHistoryUpdated.Payload.MessageHistory.builder()
                                     .content("Hello, I'm 29 and I live in Paris?")
                                     .role(
-                                        CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload
-                                            .MessageHistory
+                                        CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                             .Role
                                             .USER
                                     )
@@ -120,7 +106,7 @@ internal class CallAiGatherMessageHistoryUpdatedWebhookEventTest {
                             .to("+35319605860")
                             .build()
                     )
-                    .recordType(CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallAiGatherMessageHistoryUpdated.RecordType.EVENT)
                     .build()
             )
     }
@@ -131,15 +117,15 @@ internal class CallAiGatherMessageHistoryUpdatedWebhookEventTest {
         val callAiGatherMessageHistoryUpdatedWebhookEvent =
             CallAiGatherMessageHistoryUpdatedWebhookEvent.builder()
                 .data(
-                    CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.builder()
+                    CallAiGatherMessageHistoryUpdated.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.EventType
+                            CallAiGatherMessageHistoryUpdated.EventType
                                 .CALL_AI_GATHER_MESSAGE_HISTORY_UPDATED
                         )
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload.builder()
+                            CallAiGatherMessageHistoryUpdated.Payload.builder()
                                 .callControlId(
                                     "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
                                 )
@@ -149,30 +135,24 @@ internal class CallAiGatherMessageHistoryUpdatedWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .from("+35319605860")
                                 .addMessageHistory(
-                                    CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload
-                                        .MessageHistory
+                                    CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                         .builder()
                                         .content(
                                             "Hello, can you tell me your age and where you live?"
                                         )
                                         .role(
-                                            CallAiGatherMessageHistoryUpdatedWebhookEvent.Data
-                                                .Payload
-                                                .MessageHistory
+                                            CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                                 .Role
                                                 .ASSISTANT
                                         )
                                         .build()
                                 )
                                 .addMessageHistory(
-                                    CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.Payload
-                                        .MessageHistory
+                                    CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                         .builder()
                                         .content("Hello, I'm 29 and I live in Paris?")
                                         .role(
-                                            CallAiGatherMessageHistoryUpdatedWebhookEvent.Data
-                                                .Payload
-                                                .MessageHistory
+                                            CallAiGatherMessageHistoryUpdated.Payload.MessageHistory
                                                 .Role
                                                 .USER
                                         )
@@ -181,9 +161,7 @@ internal class CallAiGatherMessageHistoryUpdatedWebhookEventTest {
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(
-                            CallAiGatherMessageHistoryUpdatedWebhookEvent.Data.RecordType.EVENT
-                        )
+                        .recordType(CallAiGatherMessageHistoryUpdated.RecordType.EVENT)
                         .build()
                 )
                 .build()

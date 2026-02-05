@@ -16,15 +16,14 @@ internal class CallAiGatherPartialResultsWebhookEventTest {
         val callAiGatherPartialResultsWebhookEvent =
             CallAiGatherPartialResultsWebhookEvent.builder()
                 .data(
-                    CallAiGatherPartialResultsWebhookEvent.Data.builder()
+                    CallAiGatherPartialResults.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            CallAiGatherPartialResultsWebhookEvent.Data.EventType
-                                .CALL_AI_GATHER_PARTIAL_RESULTS
+                            CallAiGatherPartialResults.EventType.CALL_AI_GATHER_PARTIAL_RESULTS
                         )
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallAiGatherPartialResultsWebhookEvent.Data.Payload.builder()
+                            CallAiGatherPartialResults.Payload.builder()
                                 .callControlId(
                                     "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
                                 )
@@ -34,37 +33,27 @@ internal class CallAiGatherPartialResultsWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .from("+35319605860")
                                 .addMessageHistory(
-                                    CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                        .MessageHistory
-                                        .builder()
+                                    CallAiGatherPartialResults.Payload.MessageHistory.builder()
                                         .content(
                                             "Hello, can you tell me your age and where you live?"
                                         )
                                         .role(
-                                            CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                                .MessageHistory
-                                                .Role
+                                            CallAiGatherPartialResults.Payload.MessageHistory.Role
                                                 .ASSISTANT
                                         )
                                         .build()
                                 )
                                 .addMessageHistory(
-                                    CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                        .MessageHistory
-                                        .builder()
+                                    CallAiGatherPartialResults.Payload.MessageHistory.builder()
                                         .content("Hello, I'm 29 and I live in Paris?")
                                         .role(
-                                            CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                                .MessageHistory
-                                                .Role
+                                            CallAiGatherPartialResults.Payload.MessageHistory.Role
                                                 .USER
                                         )
                                         .build()
                                 )
                                 .partialResults(
-                                    CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                        .PartialResults
-                                        .builder()
+                                    CallAiGatherPartialResults.Payload.PartialResults.builder()
                                         .putAdditionalProperty("age", JsonValue.from("bar"))
                                         .putAdditionalProperty("city", JsonValue.from("bar"))
                                         .build()
@@ -72,22 +61,19 @@ internal class CallAiGatherPartialResultsWebhookEventTest {
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallAiGatherPartialResultsWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallAiGatherPartialResults.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callAiGatherPartialResultsWebhookEvent.data())
             .contains(
-                CallAiGatherPartialResultsWebhookEvent.Data.builder()
+                CallAiGatherPartialResults.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(
-                        CallAiGatherPartialResultsWebhookEvent.Data.EventType
-                            .CALL_AI_GATHER_PARTIAL_RESULTS
-                    )
+                    .eventType(CallAiGatherPartialResults.EventType.CALL_AI_GATHER_PARTIAL_RESULTS)
                     .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                     .payload(
-                        CallAiGatherPartialResultsWebhookEvent.Data.Payload.builder()
+                        CallAiGatherPartialResults.Payload.builder()
                             .callControlId(
                                 "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
                             )
@@ -97,32 +83,24 @@ internal class CallAiGatherPartialResultsWebhookEventTest {
                             .connectionId("7267xxxxxxxxxxxxxx")
                             .from("+35319605860")
                             .addMessageHistory(
-                                CallAiGatherPartialResultsWebhookEvent.Data.Payload.MessageHistory
-                                    .builder()
+                                CallAiGatherPartialResults.Payload.MessageHistory.builder()
                                     .content("Hello, can you tell me your age and where you live?")
                                     .role(
-                                        CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                            .MessageHistory
-                                            .Role
+                                        CallAiGatherPartialResults.Payload.MessageHistory.Role
                                             .ASSISTANT
                                     )
                                     .build()
                             )
                             .addMessageHistory(
-                                CallAiGatherPartialResultsWebhookEvent.Data.Payload.MessageHistory
-                                    .builder()
+                                CallAiGatherPartialResults.Payload.MessageHistory.builder()
                                     .content("Hello, I'm 29 and I live in Paris?")
                                     .role(
-                                        CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                            .MessageHistory
-                                            .Role
-                                            .USER
+                                        CallAiGatherPartialResults.Payload.MessageHistory.Role.USER
                                     )
                                     .build()
                             )
                             .partialResults(
-                                CallAiGatherPartialResultsWebhookEvent.Data.Payload.PartialResults
-                                    .builder()
+                                CallAiGatherPartialResults.Payload.PartialResults.builder()
                                     .putAdditionalProperty("age", JsonValue.from("bar"))
                                     .putAdditionalProperty("city", JsonValue.from("bar"))
                                     .build()
@@ -130,7 +108,7 @@ internal class CallAiGatherPartialResultsWebhookEventTest {
                             .to("+35319605860")
                             .build()
                     )
-                    .recordType(CallAiGatherPartialResultsWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallAiGatherPartialResults.RecordType.EVENT)
                     .build()
             )
     }
@@ -141,15 +119,14 @@ internal class CallAiGatherPartialResultsWebhookEventTest {
         val callAiGatherPartialResultsWebhookEvent =
             CallAiGatherPartialResultsWebhookEvent.builder()
                 .data(
-                    CallAiGatherPartialResultsWebhookEvent.Data.builder()
+                    CallAiGatherPartialResults.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .eventType(
-                            CallAiGatherPartialResultsWebhookEvent.Data.EventType
-                                .CALL_AI_GATHER_PARTIAL_RESULTS
+                            CallAiGatherPartialResults.EventType.CALL_AI_GATHER_PARTIAL_RESULTS
                         )
                         .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
                         .payload(
-                            CallAiGatherPartialResultsWebhookEvent.Data.Payload.builder()
+                            CallAiGatherPartialResults.Payload.builder()
                                 .callControlId(
                                     "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
                                 )
@@ -159,37 +136,27 @@ internal class CallAiGatherPartialResultsWebhookEventTest {
                                 .connectionId("7267xxxxxxxxxxxxxx")
                                 .from("+35319605860")
                                 .addMessageHistory(
-                                    CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                        .MessageHistory
-                                        .builder()
+                                    CallAiGatherPartialResults.Payload.MessageHistory.builder()
                                         .content(
                                             "Hello, can you tell me your age and where you live?"
                                         )
                                         .role(
-                                            CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                                .MessageHistory
-                                                .Role
+                                            CallAiGatherPartialResults.Payload.MessageHistory.Role
                                                 .ASSISTANT
                                         )
                                         .build()
                                 )
                                 .addMessageHistory(
-                                    CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                        .MessageHistory
-                                        .builder()
+                                    CallAiGatherPartialResults.Payload.MessageHistory.builder()
                                         .content("Hello, I'm 29 and I live in Paris?")
                                         .role(
-                                            CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                                .MessageHistory
-                                                .Role
+                                            CallAiGatherPartialResults.Payload.MessageHistory.Role
                                                 .USER
                                         )
                                         .build()
                                 )
                                 .partialResults(
-                                    CallAiGatherPartialResultsWebhookEvent.Data.Payload
-                                        .PartialResults
-                                        .builder()
+                                    CallAiGatherPartialResults.Payload.PartialResults.builder()
                                         .putAdditionalProperty("age", JsonValue.from("bar"))
                                         .putAdditionalProperty("city", JsonValue.from("bar"))
                                         .build()
@@ -197,7 +164,7 @@ internal class CallAiGatherPartialResultsWebhookEventTest {
                                 .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallAiGatherPartialResultsWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallAiGatherPartialResults.RecordType.EVENT)
                         .build()
                 )
                 .build()

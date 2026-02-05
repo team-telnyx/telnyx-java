@@ -15,12 +15,12 @@ internal class CallReferStartedWebhookEventTest {
         val callReferStartedWebhookEvent =
             CallReferStartedWebhookEvent.builder()
                 .data(
-                    CallReferStartedWebhookEvent.Data.builder()
+                    CallReferStarted.builder()
                         .id("fbeb70e0-54eb-4e26-8d19-56b43e66f754")
-                        .eventType(CallReferStartedWebhookEvent.Data.EventType.CALL_REFER_STARTED)
+                        .eventType(CallReferStarted.EventType.CALL_REFER_STARTED)
                         .occurredAt(OffsetDateTime.parse("2020-03-30T13:29:42.130013Z"))
                         .payload(
-                            CallReferStartedWebhookEvent.Data.Payload.builder()
+                            CallReferStarted.Payload.builder()
                                 .callControlId(
                                     "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                 )
@@ -33,19 +33,19 @@ internal class CallReferStartedWebhookEventTest {
                                 .to("+13129457420")
                                 .build()
                         )
-                        .recordType(CallReferStartedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallReferStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()
 
         assertThat(callReferStartedWebhookEvent.data())
             .contains(
-                CallReferStartedWebhookEvent.Data.builder()
+                CallReferStarted.builder()
                     .id("fbeb70e0-54eb-4e26-8d19-56b43e66f754")
-                    .eventType(CallReferStartedWebhookEvent.Data.EventType.CALL_REFER_STARTED)
+                    .eventType(CallReferStarted.EventType.CALL_REFER_STARTED)
                     .occurredAt(OffsetDateTime.parse("2020-03-30T13:29:42.130013Z"))
                     .payload(
-                        CallReferStartedWebhookEvent.Data.Payload.builder()
+                        CallReferStarted.Payload.builder()
                             .callControlId(
                                 "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                             )
@@ -58,7 +58,7 @@ internal class CallReferStartedWebhookEventTest {
                             .to("+13129457420")
                             .build()
                     )
-                    .recordType(CallReferStartedWebhookEvent.Data.RecordType.EVENT)
+                    .recordType(CallReferStarted.RecordType.EVENT)
                     .build()
             )
     }
@@ -69,12 +69,12 @@ internal class CallReferStartedWebhookEventTest {
         val callReferStartedWebhookEvent =
             CallReferStartedWebhookEvent.builder()
                 .data(
-                    CallReferStartedWebhookEvent.Data.builder()
+                    CallReferStarted.builder()
                         .id("fbeb70e0-54eb-4e26-8d19-56b43e66f754")
-                        .eventType(CallReferStartedWebhookEvent.Data.EventType.CALL_REFER_STARTED)
+                        .eventType(CallReferStarted.EventType.CALL_REFER_STARTED)
                         .occurredAt(OffsetDateTime.parse("2020-03-30T13:29:42.130013Z"))
                         .payload(
-                            CallReferStartedWebhookEvent.Data.Payload.builder()
+                            CallReferStarted.Payload.builder()
                                 .callControlId(
                                     "v2:OycMASgvIjsGIAVEx8x3n9rYeKnUJx6a3V8VGhs5futnr17KZhujZA"
                                 )
@@ -87,7 +87,7 @@ internal class CallReferStartedWebhookEventTest {
                                 .to("+13129457420")
                                 .build()
                         )
-                        .recordType(CallReferStartedWebhookEvent.Data.RecordType.EVENT)
+                        .recordType(CallReferStarted.RecordType.EVENT)
                         .build()
                 )
                 .build()
