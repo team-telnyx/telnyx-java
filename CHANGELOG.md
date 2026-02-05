@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.11.0 (2026-02-05)
+
+Full Changelog: [v6.10.0...v6.11.0](https://github.com/team-telnyx/telnyx-java/compare/v6.10.0...v6.11.0)
+
+### Features
+
+* **api:** manual updates ([c297b72](https://github.com/team-telnyx/telnyx-java/commit/c297b72bca286ecd9ee95b789633aeb7e0b6e994))
+
 ## 6.10.0 (2026-02-05)
 
 Full Changelog: [v6.9.0...v6.10.0](https://github.com/team-telnyx/telnyx-java/compare/v6.9.0...v6.10.0)
