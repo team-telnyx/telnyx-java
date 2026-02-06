@@ -28,7 +28,7 @@ internal class TranscriptionEngineDeepgramConfigTest {
                         .putAdditionalProperty("krieger", JsonValue.from(1))
                         .build()
                 )
-                .language(TranscriptionEngineDeepgramConfig.DeepgramNova2.Language.EN)
+                .language(TranscriptionEngineDeepgramConfig.DeepgramNova2.Language.BG)
                 .build()
 
         val transcriptionEngineDeepgramConfig =
@@ -54,7 +54,7 @@ internal class TranscriptionEngineDeepgramConfigTest {
                             .putAdditionalProperty("krieger", JsonValue.from(1))
                             .build()
                     )
-                    .language(TranscriptionEngineDeepgramConfig.DeepgramNova2.Language.EN)
+                    .language(TranscriptionEngineDeepgramConfig.DeepgramNova2.Language.BG)
                     .build()
             )
 

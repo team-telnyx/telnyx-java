@@ -1471,8 +1471,6 @@ private constructor(
 
                     @JvmField val CA = of("ca")
 
-                    @JvmField val ZH = of("zh")
-
                     @JvmField val ZH_CN = of("zh-CN")
 
                     @JvmField val ZH_HANS = of("zh-Hans")
@@ -1485,13 +1483,9 @@ private constructor(
 
                     @JvmField val CS = of("cs")
 
-                    @JvmField val DA = of("da")
-
                     @JvmField val DA_DK = of("da-DK")
 
-                    @JvmField val NL = of("nl")
-
-                    @JvmField val EN = of("en")
+                    @JvmField val NL_BE = of("nl-BE")
 
                     @JvmField val EN_US = of("en-US")
 
@@ -1507,13 +1501,9 @@ private constructor(
 
                     @JvmField val FI = of("fi")
 
-                    @JvmField val NL_BE = of("nl-BE")
-
                     @JvmField val FR = of("fr")
 
                     @JvmField val FR_CA = of("fr-CA")
-
-                    @JvmField val DE = of("de")
 
                     @JvmField val DE_CH = of("de-CH")
 
@@ -1529,8 +1519,6 @@ private constructor(
 
                     @JvmField val JA = of("ja")
 
-                    @JvmField val KO = of("ko")
-
                     @JvmField val KO_KR = of("ko-KR")
 
                     @JvmField val LV = of("lv")
@@ -1543,8 +1531,6 @@ private constructor(
 
                     @JvmField val PL = of("pl")
 
-                    @JvmField val PT = of("pt")
-
                     @JvmField val PT_BR = of("pt-BR")
 
                     @JvmField val PT_PT = of("pt-PT")
@@ -1555,15 +1541,9 @@ private constructor(
 
                     @JvmField val SK = of("sk")
 
-                    @JvmField val ES = of("es")
-
                     @JvmField val ES_419 = of("es-419")
 
-                    @JvmField val SV = of("sv")
-
                     @JvmField val SV_SE = of("sv-SE")
-
-                    @JvmField val TH = of("th")
 
                     @JvmField val TH_TH = of("th-TH")
 
@@ -1582,17 +1562,14 @@ private constructor(
                 enum class Known {
                     BG,
                     CA,
-                    ZH,
                     ZH_CN,
                     ZH_HANS,
                     ZH_TW,
                     ZH_HANT,
                     ZH_HK,
                     CS,
-                    DA,
                     DA_DK,
-                    NL,
-                    EN,
+                    NL_BE,
                     EN_US,
                     EN_AU,
                     EN_GB,
@@ -1600,10 +1577,8 @@ private constructor(
                     EN_IN,
                     ET,
                     FI,
-                    NL_BE,
                     FR,
                     FR_CA,
-                    DE,
                     DE_CH,
                     EL,
                     HI,
@@ -1611,24 +1586,19 @@ private constructor(
                     ID,
                     IT,
                     JA,
-                    KO,
                     KO_KR,
                     LV,
                     LT,
                     MS,
                     NO,
                     PL,
-                    PT,
                     PT_BR,
                     PT_PT,
                     RO,
                     RU,
                     SK,
-                    ES,
                     ES_419,
-                    SV,
                     SV_SE,
-                    TH,
                     TH_TH,
                     TR,
                     UK,
@@ -1648,17 +1618,14 @@ private constructor(
                 enum class Value {
                     BG,
                     CA,
-                    ZH,
                     ZH_CN,
                     ZH_HANS,
                     ZH_TW,
                     ZH_HANT,
                     ZH_HK,
                     CS,
-                    DA,
                     DA_DK,
-                    NL,
-                    EN,
+                    NL_BE,
                     EN_US,
                     EN_AU,
                     EN_GB,
@@ -1666,10 +1633,8 @@ private constructor(
                     EN_IN,
                     ET,
                     FI,
-                    NL_BE,
                     FR,
                     FR_CA,
-                    DE,
                     DE_CH,
                     EL,
                     HI,
@@ -1677,24 +1642,19 @@ private constructor(
                     ID,
                     IT,
                     JA,
-                    KO,
                     KO_KR,
                     LV,
                     LT,
                     MS,
                     NO,
                     PL,
-                    PT,
                     PT_BR,
                     PT_PT,
                     RO,
                     RU,
                     SK,
-                    ES,
                     ES_419,
-                    SV,
                     SV_SE,
-                    TH,
                     TH_TH,
                     TR,
                     UK,
@@ -1718,17 +1678,14 @@ private constructor(
                     when (this) {
                         BG -> Value.BG
                         CA -> Value.CA
-                        ZH -> Value.ZH
                         ZH_CN -> Value.ZH_CN
                         ZH_HANS -> Value.ZH_HANS
                         ZH_TW -> Value.ZH_TW
                         ZH_HANT -> Value.ZH_HANT
                         ZH_HK -> Value.ZH_HK
                         CS -> Value.CS
-                        DA -> Value.DA
                         DA_DK -> Value.DA_DK
-                        NL -> Value.NL
-                        EN -> Value.EN
+                        NL_BE -> Value.NL_BE
                         EN_US -> Value.EN_US
                         EN_AU -> Value.EN_AU
                         EN_GB -> Value.EN_GB
@@ -1736,10 +1693,8 @@ private constructor(
                         EN_IN -> Value.EN_IN
                         ET -> Value.ET
                         FI -> Value.FI
-                        NL_BE -> Value.NL_BE
                         FR -> Value.FR
                         FR_CA -> Value.FR_CA
-                        DE -> Value.DE
                         DE_CH -> Value.DE_CH
                         EL -> Value.EL
                         HI -> Value.HI
@@ -1747,24 +1702,19 @@ private constructor(
                         ID -> Value.ID
                         IT -> Value.IT
                         JA -> Value.JA
-                        KO -> Value.KO
                         KO_KR -> Value.KO_KR
                         LV -> Value.LV
                         LT -> Value.LT
                         MS -> Value.MS
                         NO -> Value.NO
                         PL -> Value.PL
-                        PT -> Value.PT
                         PT_BR -> Value.PT_BR
                         PT_PT -> Value.PT_PT
                         RO -> Value.RO
                         RU -> Value.RU
                         SK -> Value.SK
-                        ES -> Value.ES
                         ES_419 -> Value.ES_419
-                        SV -> Value.SV
                         SV_SE -> Value.SV_SE
-                        TH -> Value.TH
                         TH_TH -> Value.TH_TH
                         TR -> Value.TR
                         UK -> Value.UK
@@ -1786,17 +1736,14 @@ private constructor(
                     when (this) {
                         BG -> Known.BG
                         CA -> Known.CA
-                        ZH -> Known.ZH
                         ZH_CN -> Known.ZH_CN
                         ZH_HANS -> Known.ZH_HANS
                         ZH_TW -> Known.ZH_TW
                         ZH_HANT -> Known.ZH_HANT
                         ZH_HK -> Known.ZH_HK
                         CS -> Known.CS
-                        DA -> Known.DA
                         DA_DK -> Known.DA_DK
-                        NL -> Known.NL
-                        EN -> Known.EN
+                        NL_BE -> Known.NL_BE
                         EN_US -> Known.EN_US
                         EN_AU -> Known.EN_AU
                         EN_GB -> Known.EN_GB
@@ -1804,10 +1751,8 @@ private constructor(
                         EN_IN -> Known.EN_IN
                         ET -> Known.ET
                         FI -> Known.FI
-                        NL_BE -> Known.NL_BE
                         FR -> Known.FR
                         FR_CA -> Known.FR_CA
-                        DE -> Known.DE
                         DE_CH -> Known.DE_CH
                         EL -> Known.EL
                         HI -> Known.HI
@@ -1815,24 +1760,19 @@ private constructor(
                         ID -> Known.ID
                         IT -> Known.IT
                         JA -> Known.JA
-                        KO -> Known.KO
                         KO_KR -> Known.KO_KR
                         LV -> Known.LV
                         LT -> Known.LT
                         MS -> Known.MS
                         NO -> Known.NO
                         PL -> Known.PL
-                        PT -> Known.PT
                         PT_BR -> Known.PT_BR
                         PT_PT -> Known.PT_PT
                         RO -> Known.RO
                         RU -> Known.RU
                         SK -> Known.SK
-                        ES -> Known.ES
                         ES_419 -> Known.ES_419
-                        SV -> Known.SV
                         SV_SE -> Known.SV_SE
-                        TH -> Known.TH
                         TH_TH -> Known.TH_TH
                         TR -> Known.TR
                         UK -> Known.UK
