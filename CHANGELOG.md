@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.14.0 (2026-02-06)
+
+Full Changelog: [v6.13.0...v6.14.0](https://github.com/team-telnyx/telnyx-java/compare/v6.13.0...v6.14.0)
+
+### Features
+
+* **api:** add webhook signature verification ([aeaff9a](https://github.com/team-telnyx/telnyx-java/commit/aeaff9aee22557644b2c0e2cc118b58454f0824d))
+
 ## 6.13.0 (2026-02-06)
 
 Full Changelog: [v6.12.0...v6.13.0](https://github.com/team-telnyx/telnyx-java/compare/v6.12.0...v6.13.0)
