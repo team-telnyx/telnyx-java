@@ -23,6 +23,7 @@ private constructor(
     private val defaultTexmlAppId: JsonField<String>,
     private val noiseSuppression: JsonField<NoiseSuppression>,
     private val noiseSuppressionConfig: JsonField<NoiseSuppressionConfig>,
+    private val recordingSettings: JsonField<RecordingSettings>,
     private val supportsUnauthenticatedWebCalls: JsonField<Boolean>,
     private val timeLimitSecs: JsonField<Long>,
     private val userIdleTimeoutSecs: JsonField<Long>,
@@ -41,6 +42,9 @@ private constructor(
         @JsonProperty("noise_suppression_config")
         @ExcludeMissing
         noiseSuppressionConfig: JsonField<NoiseSuppressionConfig> = JsonMissing.of(),
+        @JsonProperty("recording_settings")
+        @ExcludeMissing
+        recordingSettings: JsonField<RecordingSettings> = JsonMissing.of(),
         @JsonProperty("supports_unauthenticated_web_calls")
         @ExcludeMissing
         supportsUnauthenticatedWebCalls: JsonField<Boolean> = JsonMissing.of(),
@@ -57,6 +61,7 @@ private constructor(
         defaultTexmlAppId,
         noiseSuppression,
         noiseSuppressionConfig,
+        recordingSettings,
         supportsUnauthenticatedWebCalls,
         timeLimitSecs,
         userIdleTimeoutSecs,
@@ -92,6 +97,15 @@ private constructor(
      */
     fun noiseSuppressionConfig(): Optional<NoiseSuppressionConfig> =
         noiseSuppressionConfig.getOptional("noise_suppression_config")
+
+    /**
+     * Configuration for call recording format and channel settings.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recordingSettings(): Optional<RecordingSettings> =
+        recordingSettings.getOptional("recording_settings")
 
     /**
      * When enabled, allows users to interact with your AI assistant directly from your website
@@ -169,6 +183,16 @@ private constructor(
     fun _noiseSuppressionConfig(): JsonField<NoiseSuppressionConfig> = noiseSuppressionConfig
 
     /**
+     * Returns the raw JSON value of [recordingSettings].
+     *
+     * Unlike [recordingSettings], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("recording_settings")
+    @ExcludeMissing
+    fun _recordingSettings(): JsonField<RecordingSettings> = recordingSettings
+
+    /**
      * Returns the raw JSON value of [supportsUnauthenticatedWebCalls].
      *
      * Unlike [supportsUnauthenticatedWebCalls], this method doesn't throw if the JSON field has an
@@ -231,6 +255,7 @@ private constructor(
         private var defaultTexmlAppId: JsonField<String> = JsonMissing.of()
         private var noiseSuppression: JsonField<NoiseSuppression> = JsonMissing.of()
         private var noiseSuppressionConfig: JsonField<NoiseSuppressionConfig> = JsonMissing.of()
+        private var recordingSettings: JsonField<RecordingSettings> = JsonMissing.of()
         private var supportsUnauthenticatedWebCalls: JsonField<Boolean> = JsonMissing.of()
         private var timeLimitSecs: JsonField<Long> = JsonMissing.of()
         private var userIdleTimeoutSecs: JsonField<Long> = JsonMissing.of()
@@ -242,6 +267,7 @@ private constructor(
             defaultTexmlAppId = telephonySettings.defaultTexmlAppId
             noiseSuppression = telephonySettings.noiseSuppression
             noiseSuppressionConfig = telephonySettings.noiseSuppressionConfig
+            recordingSettings = telephonySettings.recordingSettings
             supportsUnauthenticatedWebCalls = telephonySettings.supportsUnauthenticatedWebCalls
             timeLimitSecs = telephonySettings.timeLimitSecs
             userIdleTimeoutSecs = telephonySettings.userIdleTimeoutSecs
@@ -300,6 +326,21 @@ private constructor(
             apply {
                 this.noiseSuppressionConfig = noiseSuppressionConfig
             }
+
+        /** Configuration for call recording format and channel settings. */
+        fun recordingSettings(recordingSettings: RecordingSettings) =
+            recordingSettings(JsonField.of(recordingSettings))
+
+        /**
+         * Sets [Builder.recordingSettings] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recordingSettings] with a well-typed [RecordingSettings]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun recordingSettings(recordingSettings: JsonField<RecordingSettings>) = apply {
+            this.recordingSettings = recordingSettings
+        }
 
         /**
          * When enabled, allows users to interact with your AI assistant directly from your website
@@ -409,6 +450,7 @@ private constructor(
                 defaultTexmlAppId,
                 noiseSuppression,
                 noiseSuppressionConfig,
+                recordingSettings,
                 supportsUnauthenticatedWebCalls,
                 timeLimitSecs,
                 userIdleTimeoutSecs,
@@ -427,6 +469,7 @@ private constructor(
         defaultTexmlAppId()
         noiseSuppression().ifPresent { it.validate() }
         noiseSuppressionConfig().ifPresent { it.validate() }
+        recordingSettings().ifPresent { it.validate() }
         supportsUnauthenticatedWebCalls()
         timeLimitSecs()
         userIdleTimeoutSecs()
@@ -452,6 +495,7 @@ private constructor(
         (if (defaultTexmlAppId.asKnown().isPresent) 1 else 0) +
             (noiseSuppression.asKnown().getOrNull()?.validity() ?: 0) +
             (noiseSuppressionConfig.asKnown().getOrNull()?.validity() ?: 0) +
+            (recordingSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (if (supportsUnauthenticatedWebCalls.asKnown().isPresent) 1 else 0) +
             (if (timeLimitSecs.asKnown().isPresent) 1 else 0) +
             (if (userIdleTimeoutSecs.asKnown().isPresent) 1 else 0) +
@@ -907,6 +951,448 @@ private constructor(
 
         override fun toString() =
             "NoiseSuppressionConfig{attenuationLimit=$attenuationLimit, mode=$mode, additionalProperties=$additionalProperties}"
+    }
+
+    /** Configuration for call recording format and channel settings. */
+    class RecordingSettings
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val channels: JsonField<Channels>,
+        private val format: JsonField<Format>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("channels")
+            @ExcludeMissing
+            channels: JsonField<Channels> = JsonMissing.of(),
+            @JsonProperty("format") @ExcludeMissing format: JsonField<Format> = JsonMissing.of(),
+        ) : this(channels, format, mutableMapOf())
+
+        /**
+         * The number of channels for the recording. 'single' for mono, 'dual' for stereo.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun channels(): Optional<Channels> = channels.getOptional("channels")
+
+        /**
+         * The format of the recording file.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun format(): Optional<Format> = format.getOptional("format")
+
+        /**
+         * Returns the raw JSON value of [channels].
+         *
+         * Unlike [channels], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("channels") @ExcludeMissing fun _channels(): JsonField<Channels> = channels
+
+        /**
+         * Returns the raw JSON value of [format].
+         *
+         * Unlike [format], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("format") @ExcludeMissing fun _format(): JsonField<Format> = format
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [RecordingSettings]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [RecordingSettings]. */
+        class Builder internal constructor() {
+
+            private var channels: JsonField<Channels> = JsonMissing.of()
+            private var format: JsonField<Format> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(recordingSettings: RecordingSettings) = apply {
+                channels = recordingSettings.channels
+                format = recordingSettings.format
+                additionalProperties = recordingSettings.additionalProperties.toMutableMap()
+            }
+
+            /** The number of channels for the recording. 'single' for mono, 'dual' for stereo. */
+            fun channels(channels: Channels) = channels(JsonField.of(channels))
+
+            /**
+             * Sets [Builder.channels] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.channels] with a well-typed [Channels] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun channels(channels: JsonField<Channels>) = apply { this.channels = channels }
+
+            /** The format of the recording file. */
+            fun format(format: Format) = format(JsonField.of(format))
+
+            /**
+             * Sets [Builder.format] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.format] with a well-typed [Format] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun format(format: JsonField<Format>) = apply { this.format = format }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [RecordingSettings].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): RecordingSettings =
+                RecordingSettings(channels, format, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): RecordingSettings = apply {
+            if (validated) {
+                return@apply
+            }
+
+            channels().ifPresent { it.validate() }
+            format().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (channels.asKnown().getOrNull()?.validity() ?: 0) +
+                (format.asKnown().getOrNull()?.validity() ?: 0)
+
+        /** The number of channels for the recording. 'single' for mono, 'dual' for stereo. */
+        class Channels @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val SINGLE = of("single")
+
+                @JvmField val DUAL = of("dual")
+
+                @JvmStatic fun of(value: String) = Channels(JsonField.of(value))
+            }
+
+            /** An enum containing [Channels]'s known values. */
+            enum class Known {
+                SINGLE,
+                DUAL,
+            }
+
+            /**
+             * An enum containing [Channels]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Channels] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                SINGLE,
+                DUAL,
+                /**
+                 * An enum member indicating that [Channels] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    SINGLE -> Value.SINGLE
+                    DUAL -> Value.DUAL
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    SINGLE -> Known.SINGLE
+                    DUAL -> Known.DUAL
+                    else -> throw TelnyxInvalidDataException("Unknown Channels: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Channels = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Channels && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /** The format of the recording file. */
+        class Format @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val WAV = of("wav")
+
+                @JvmField val MP3 = of("mp3")
+
+                @JvmStatic fun of(value: String) = Format(JsonField.of(value))
+            }
+
+            /** An enum containing [Format]'s known values. */
+            enum class Known {
+                WAV,
+                MP3,
+            }
+
+            /**
+             * An enum containing [Format]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Format] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                WAV,
+                MP3,
+                /**
+                 * An enum member indicating that [Format] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    WAV -> Value.WAV
+                    MP3 -> Value.MP3
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    WAV -> Known.WAV
+                    MP3 -> Known.MP3
+                    else -> throw TelnyxInvalidDataException("Unknown Format: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Format = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Format && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is RecordingSettings &&
+                channels == other.channels &&
+                format == other.format &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(channels, format, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "RecordingSettings{channels=$channels, format=$format, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -1802,6 +2288,7 @@ private constructor(
             defaultTexmlAppId == other.defaultTexmlAppId &&
             noiseSuppression == other.noiseSuppression &&
             noiseSuppressionConfig == other.noiseSuppressionConfig &&
+            recordingSettings == other.recordingSettings &&
             supportsUnauthenticatedWebCalls == other.supportsUnauthenticatedWebCalls &&
             timeLimitSecs == other.timeLimitSecs &&
             userIdleTimeoutSecs == other.userIdleTimeoutSecs &&
@@ -1814,6 +2301,7 @@ private constructor(
             defaultTexmlAppId,
             noiseSuppression,
             noiseSuppressionConfig,
+            recordingSettings,
             supportsUnauthenticatedWebCalls,
             timeLimitSecs,
             userIdleTimeoutSecs,
@@ -1825,5 +2313,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TelephonySettings{defaultTexmlAppId=$defaultTexmlAppId, noiseSuppression=$noiseSuppression, noiseSuppressionConfig=$noiseSuppressionConfig, supportsUnauthenticatedWebCalls=$supportsUnauthenticatedWebCalls, timeLimitSecs=$timeLimitSecs, userIdleTimeoutSecs=$userIdleTimeoutSecs, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
+        "TelephonySettings{defaultTexmlAppId=$defaultTexmlAppId, noiseSuppression=$noiseSuppression, noiseSuppressionConfig=$noiseSuppressionConfig, recordingSettings=$recordingSettings, supportsUnauthenticatedWebCalls=$supportsUnauthenticatedWebCalls, timeLimitSecs=$timeLimitSecs, userIdleTimeoutSecs=$userIdleTimeoutSecs, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
 }
