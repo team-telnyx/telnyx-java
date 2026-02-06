@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.13.0 (2026-02-06)
+
+Full Changelog: [v6.12.0...v6.13.0](https://github.com/team-telnyx/telnyx-java/compare/v6.12.0...v6.13.0)
+
+### Features
+
+* Revert "fix emergency settings -schema" ([0c907b4](https://github.com/team-telnyx/telnyx-java/commit/0c907b4d328d0f5b15510dbf9461814381e585ea))
+
 ## 6.12.0 (2026-02-05)
 
 Full Changelog: [v6.11.0...v6.12.0](https://github.com/team-telnyx/telnyx-java/compare/v6.11.0...v6.12.0)
