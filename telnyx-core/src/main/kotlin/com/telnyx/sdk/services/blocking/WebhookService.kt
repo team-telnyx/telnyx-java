@@ -3,7 +3,9 @@
 package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.core.ClientOptions
+import com.telnyx.sdk.core.UnwrapWebhookParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.errors.TelnyxWebhookException
 import com.telnyx.sdk.models.webhooks.UnsafeUnwrapWebhookEvent
 import com.telnyx.sdk.models.webhooks.UnwrapWebhookEvent
 import java.util.function.Consumer
@@ -35,6 +37,14 @@ interface WebhookService {
      * @throws TelnyxInvalidDataException if the body could not be parsed.
      */
     fun unwrap(body: String): UnwrapWebhookEvent
+
+    /**
+     * Unwraps a webhook event from its JSON representation.
+     *
+     * @throws TelnyxInvalidDataException if the body could not be parsed.
+     * @throws TelnyxWebhookException if the webhook signature could not be verified
+     */
+    fun unwrap(unwrapParams: UnwrapWebhookParams): UnwrapWebhookEvent
 
     /** A view of [WebhookService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
