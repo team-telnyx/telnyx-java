@@ -61,6 +61,14 @@ internal class AssistantsListTest {
                                         )
                                         .build()
                                 )
+                                .recordingSettings(
+                                    TelephonySettings.RecordingSettings.builder()
+                                        .channels(
+                                            TelephonySettings.RecordingSettings.Channels.SINGLE
+                                        )
+                                        .format(TelephonySettings.RecordingSettings.Format.WAV)
+                                        .build()
+                                )
                                 .supportsUnauthenticatedWebCalls(true)
                                 .timeLimitSecs(30L)
                                 .userIdleTimeoutSecs(30L)
@@ -283,6 +291,12 @@ internal class AssistantsListTest {
                                     .mode(TelephonySettings.NoiseSuppressionConfig.Mode.ADVANCED)
                                     .build()
                             )
+                            .recordingSettings(
+                                TelephonySettings.RecordingSettings.builder()
+                                    .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                                    .format(TelephonySettings.RecordingSettings.Format.WAV)
+                                    .build()
+                            )
                             .supportsUnauthenticatedWebCalls(true)
                             .timeLimitSecs(30L)
                             .userIdleTimeoutSecs(30L)
@@ -497,6 +511,14 @@ internal class AssistantsListTest {
                                         .mode(
                                             TelephonySettings.NoiseSuppressionConfig.Mode.ADVANCED
                                         )
+                                        .build()
+                                )
+                                .recordingSettings(
+                                    TelephonySettings.RecordingSettings.builder()
+                                        .channels(
+                                            TelephonySettings.RecordingSettings.Channels.SINGLE
+                                        )
+                                        .format(TelephonySettings.RecordingSettings.Format.WAV)
                                         .build()
                                 )
                                 .supportsUnauthenticatedWebCalls(true)
