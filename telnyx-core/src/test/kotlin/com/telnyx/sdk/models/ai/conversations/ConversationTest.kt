@@ -20,10 +20,7 @@ internal class ConversationTest {
                 .lastMessageAt(OffsetDateTime.parse("2025-04-15T13:07:28.764Z"))
                 .metadata(
                     Conversation.Metadata.builder()
-                        .putAdditionalProperty(
-                            "telnyx_conversation_channel",
-                            JsonValue.from("phone_call"),
-                        )
+                        .putAdditionalProperty("telnyx_conversation_channel", JsonValue.from("sms"))
                         .putAdditionalProperty(
                             "telnyx_agent_target",
                             JsonValue.from("+13128675309"),
@@ -46,10 +43,7 @@ internal class ConversationTest {
         assertThat(conversation.metadata())
             .isEqualTo(
                 Conversation.Metadata.builder()
-                    .putAdditionalProperty(
-                        "telnyx_conversation_channel",
-                        JsonValue.from("phone_call"),
-                    )
+                    .putAdditionalProperty("telnyx_conversation_channel", JsonValue.from("sms"))
                     .putAdditionalProperty("telnyx_agent_target", JsonValue.from("+13128675309"))
                     .putAdditionalProperty("telnyx_end_user_target", JsonValue.from("+13128675309"))
                     .putAdditionalProperty("assistant_id", JsonValue.from("assistant-123"))
@@ -68,10 +62,7 @@ internal class ConversationTest {
                 .lastMessageAt(OffsetDateTime.parse("2025-04-15T13:07:28.764Z"))
                 .metadata(
                     Conversation.Metadata.builder()
-                        .putAdditionalProperty(
-                            "telnyx_conversation_channel",
-                            JsonValue.from("phone_call"),
-                        )
+                        .putAdditionalProperty("telnyx_conversation_channel", JsonValue.from("sms"))
                         .putAdditionalProperty(
                             "telnyx_agent_target",
                             JsonValue.from("+13128675309"),

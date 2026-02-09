@@ -32,7 +32,9 @@ private constructor(
     fun conversationId(): Optional<String> = Optional.ofNullable(conversationId)
 
     /**
-     * Metadata associated with the conversation.
+     * Metadata associated with the conversation. Set `ai_disabled` to `true` to stop AI from
+     * responding to messages (e.g., when a human agent takes over). Set to `false` to re-enable AI
+     * responses.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -95,7 +97,11 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** Metadata associated with the conversation. */
+        /**
+         * Metadata associated with the conversation. Set `ai_disabled` to `true` to stop AI from
+         * responding to messages (e.g., when a human agent takes over). Set to `false` to re-enable
+         * AI responses.
+         */
         fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /**
@@ -265,7 +271,9 @@ private constructor(
         ) : this(metadata, mutableMapOf())
 
         /**
-         * Metadata associated with the conversation.
+         * Metadata associated with the conversation. Set `ai_disabled` to `true` to stop AI from
+         * responding to messages (e.g., when a human agent takes over). Set to `false` to re-enable
+         * AI responses.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -309,7 +317,11 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** Metadata associated with the conversation. */
+            /**
+             * Metadata associated with the conversation. Set `ai_disabled` to `true` to stop AI
+             * from responding to messages (e.g., when a human agent takes over). Set to `false` to
+             * re-enable AI responses.
+             */
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
@@ -394,7 +406,11 @@ private constructor(
             "Body{metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
-    /** Metadata associated with the conversation. */
+    /**
+     * Metadata associated with the conversation. Set `ai_disabled` to `true` to stop AI from
+     * responding to messages (e.g., when a human agent takes over). Set to `false` to re-enable AI
+     * responses.
+     */
     class Metadata
     @JsonCreator
     private constructor(
