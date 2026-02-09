@@ -1362,6 +1362,7 @@ private constructor(
             private val from: JsonField<String>,
             private val targets: JsonField<List<Target>>,
             private val customHeaders: JsonField<List<CustomHeader>>,
+            private val voicemailDetection: JsonField<VoicemailDetection>,
             private val warmTransferInstructions: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -1375,10 +1376,20 @@ private constructor(
                 @JsonProperty("custom_headers")
                 @ExcludeMissing
                 customHeaders: JsonField<List<CustomHeader>> = JsonMissing.of(),
+                @JsonProperty("voicemail_detection")
+                @ExcludeMissing
+                voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of(),
                 @JsonProperty("warm_transfer_instructions")
                 @ExcludeMissing
                 warmTransferInstructions: JsonField<String> = JsonMissing.of(),
-            ) : this(from, targets, customHeaders, warmTransferInstructions, mutableMapOf())
+            ) : this(
+                from,
+                targets,
+                customHeaders,
+                voicemailDetection,
+                warmTransferInstructions,
+                mutableMapOf(),
+            )
 
             /**
              * Number or SIP URI placing the call.
@@ -1407,6 +1418,17 @@ private constructor(
              */
             fun customHeaders(): Optional<List<CustomHeader>> =
                 customHeaders.getOptional("custom_headers")
+
+            /**
+             * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
+             * transferred call. Allows the assistant to detect when a voicemail system answers the
+             * transferred call and take appropriate action.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun voicemailDetection(): Optional<VoicemailDetection> =
+                voicemailDetection.getOptional("voicemail_detection")
 
             /**
              * Natural language instructions for your agent for how to provide context for the
@@ -1443,6 +1465,16 @@ private constructor(
             @JsonProperty("custom_headers")
             @ExcludeMissing
             fun _customHeaders(): JsonField<List<CustomHeader>> = customHeaders
+
+            /**
+             * Returns the raw JSON value of [voicemailDetection].
+             *
+             * Unlike [voicemailDetection], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("voicemail_detection")
+            @ExcludeMissing
+            fun _voicemailDetection(): JsonField<VoicemailDetection> = voicemailDetection
 
             /**
              * Returns the raw JSON value of [warmTransferInstructions].
@@ -1486,6 +1518,7 @@ private constructor(
                 private var from: JsonField<String>? = null
                 private var targets: JsonField<MutableList<Target>>? = null
                 private var customHeaders: JsonField<MutableList<CustomHeader>>? = null
+                private var voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of()
                 private var warmTransferInstructions: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1494,6 +1527,7 @@ private constructor(
                     from = innerTransfer.from
                     targets = innerTransfer.targets.map { it.toMutableList() }
                     customHeaders = innerTransfer.customHeaders.map { it.toMutableList() }
+                    voicemailDetection = innerTransfer.voicemailDetection
                     warmTransferInstructions = innerTransfer.warmTransferInstructions
                     additionalProperties = innerTransfer.additionalProperties.toMutableMap()
                 }
@@ -1567,6 +1601,25 @@ private constructor(
                 }
 
                 /**
+                 * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
+                 * transferred call. Allows the assistant to detect when a voicemail system answers
+                 * the transferred call and take appropriate action.
+                 */
+                fun voicemailDetection(voicemailDetection: VoicemailDetection) =
+                    voicemailDetection(JsonField.of(voicemailDetection))
+
+                /**
+                 * Sets [Builder.voicemailDetection] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.voicemailDetection] with a well-typed
+                 * [VoicemailDetection] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun voicemailDetection(voicemailDetection: JsonField<VoicemailDetection>) = apply {
+                    this.voicemailDetection = voicemailDetection
+                }
+
+                /**
                  * Natural language instructions for your agent for how to provide context for the
                  * transfer recipient.
                  */
@@ -1624,6 +1677,7 @@ private constructor(
                         checkRequired("from", from),
                         checkRequired("targets", targets).map { it.toImmutable() },
                         (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
+                        voicemailDetection,
                         warmTransferInstructions,
                         additionalProperties.toMutableMap(),
                     )
@@ -1639,6 +1693,7 @@ private constructor(
                 from()
                 targets().forEach { it.validate() }
                 customHeaders().ifPresent { it.forEach { it.validate() } }
+                voicemailDetection().ifPresent { it.validate() }
                 warmTransferInstructions()
                 validated = true
             }
@@ -1662,6 +1717,7 @@ private constructor(
                 (if (from.asKnown().isPresent) 1 else 0) +
                     (targets.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                     (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                    (voicemailDetection.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (warmTransferInstructions.asKnown().isPresent) 1 else 0)
 
             class Target
@@ -2041,6 +2097,1835 @@ private constructor(
                     "CustomHeader{name=$name, value=$value, additionalProperties=$additionalProperties}"
             }
 
+            /**
+             * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
+             * transferred call. Allows the assistant to detect when a voicemail system answers the
+             * transferred call and take appropriate action.
+             */
+            class VoicemailDetection
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val detectionConfig: JsonField<DetectionConfig>,
+                private val detectionMode: JsonField<DetectionMode>,
+                private val onVoicemailDetected: JsonField<OnVoicemailDetected>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("detection_config")
+                    @ExcludeMissing
+                    detectionConfig: JsonField<DetectionConfig> = JsonMissing.of(),
+                    @JsonProperty("detection_mode")
+                    @ExcludeMissing
+                    detectionMode: JsonField<DetectionMode> = JsonMissing.of(),
+                    @JsonProperty("on_voicemail_detected")
+                    @ExcludeMissing
+                    onVoicemailDetected: JsonField<OnVoicemailDetected> = JsonMissing.of(),
+                ) : this(detectionConfig, detectionMode, onVoicemailDetected, mutableMapOf())
+
+                /**
+                 * Advanced AMD detection configuration parameters. All values are optional - Telnyx
+                 * will use defaults if not specified.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun detectionConfig(): Optional<DetectionConfig> =
+                    detectionConfig.getOptional("detection_config")
+
+                /**
+                 * The AMD detection mode to use. 'premium' provides the highest accuracy.
+                 * 'disabled' turns off AMD detection.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun detectionMode(): Optional<DetectionMode> =
+                    detectionMode.getOptional("detection_mode")
+
+                /**
+                 * Action to take when voicemail is detected on the transferred call.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun onVoicemailDetected(): Optional<OnVoicemailDetected> =
+                    onVoicemailDetected.getOptional("on_voicemail_detected")
+
+                /**
+                 * Returns the raw JSON value of [detectionConfig].
+                 *
+                 * Unlike [detectionConfig], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("detection_config")
+                @ExcludeMissing
+                fun _detectionConfig(): JsonField<DetectionConfig> = detectionConfig
+
+                /**
+                 * Returns the raw JSON value of [detectionMode].
+                 *
+                 * Unlike [detectionMode], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("detection_mode")
+                @ExcludeMissing
+                fun _detectionMode(): JsonField<DetectionMode> = detectionMode
+
+                /**
+                 * Returns the raw JSON value of [onVoicemailDetected].
+                 *
+                 * Unlike [onVoicemailDetected], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("on_voicemail_detected")
+                @ExcludeMissing
+                fun _onVoicemailDetected(): JsonField<OnVoicemailDetected> = onVoicemailDetected
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [VoicemailDetection].
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [VoicemailDetection]. */
+                class Builder internal constructor() {
+
+                    private var detectionConfig: JsonField<DetectionConfig> = JsonMissing.of()
+                    private var detectionMode: JsonField<DetectionMode> = JsonMissing.of()
+                    private var onVoicemailDetected: JsonField<OnVoicemailDetected> =
+                        JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(voicemailDetection: VoicemailDetection) = apply {
+                        detectionConfig = voicemailDetection.detectionConfig
+                        detectionMode = voicemailDetection.detectionMode
+                        onVoicemailDetected = voicemailDetection.onVoicemailDetected
+                        additionalProperties =
+                            voicemailDetection.additionalProperties.toMutableMap()
+                    }
+
+                    /**
+                     * Advanced AMD detection configuration parameters. All values are optional -
+                     * Telnyx will use defaults if not specified.
+                     */
+                    fun detectionConfig(detectionConfig: DetectionConfig) =
+                        detectionConfig(JsonField.of(detectionConfig))
+
+                    /**
+                     * Sets [Builder.detectionConfig] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.detectionConfig] with a well-typed
+                     * [DetectionConfig] value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
+                     */
+                    fun detectionConfig(detectionConfig: JsonField<DetectionConfig>) = apply {
+                        this.detectionConfig = detectionConfig
+                    }
+
+                    /**
+                     * The AMD detection mode to use. 'premium' provides the highest accuracy.
+                     * 'disabled' turns off AMD detection.
+                     */
+                    fun detectionMode(detectionMode: DetectionMode) =
+                        detectionMode(JsonField.of(detectionMode))
+
+                    /**
+                     * Sets [Builder.detectionMode] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.detectionMode] with a well-typed
+                     * [DetectionMode] value instead. This method is primarily for setting the field
+                     * to an undocumented or not yet supported value.
+                     */
+                    fun detectionMode(detectionMode: JsonField<DetectionMode>) = apply {
+                        this.detectionMode = detectionMode
+                    }
+
+                    /** Action to take when voicemail is detected on the transferred call. */
+                    fun onVoicemailDetected(onVoicemailDetected: OnVoicemailDetected) =
+                        onVoicemailDetected(JsonField.of(onVoicemailDetected))
+
+                    /**
+                     * Sets [Builder.onVoicemailDetected] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.onVoicemailDetected] with a well-typed
+                     * [OnVoicemailDetected] value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
+                     */
+                    fun onVoicemailDetected(onVoicemailDetected: JsonField<OnVoicemailDetected>) =
+                        apply {
+                            this.onVoicemailDetected = onVoicemailDetected
+                        }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [VoicemailDetection].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): VoicemailDetection =
+                        VoicemailDetection(
+                            detectionConfig,
+                            detectionMode,
+                            onVoicemailDetected,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): VoicemailDetection = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    detectionConfig().ifPresent { it.validate() }
+                    detectionMode().ifPresent { it.validate() }
+                    onVoicemailDetected().ifPresent { it.validate() }
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (detectionConfig.asKnown().getOrNull()?.validity() ?: 0) +
+                        (detectionMode.asKnown().getOrNull()?.validity() ?: 0) +
+                        (onVoicemailDetected.asKnown().getOrNull()?.validity() ?: 0)
+
+                /**
+                 * Advanced AMD detection configuration parameters. All values are optional - Telnyx
+                 * will use defaults if not specified.
+                 */
+                class DetectionConfig
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val afterGreetingSilenceMillis: JsonField<Long>,
+                    private val betweenWordsSilenceMillis: JsonField<Long>,
+                    private val greetingDurationMillis: JsonField<Long>,
+                    private val greetingSilenceDurationMillis: JsonField<Long>,
+                    private val greetingTotalAnalysisTimeMillis: JsonField<Long>,
+                    private val initialSilenceMillis: JsonField<Long>,
+                    private val maximumNumberOfWords: JsonField<Long>,
+                    private val maximumWordLengthMillis: JsonField<Long>,
+                    private val minWordLengthMillis: JsonField<Long>,
+                    private val silenceThreshold: JsonField<Long>,
+                    private val totalAnalysisTimeMillis: JsonField<Long>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("after_greeting_silence_millis")
+                        @ExcludeMissing
+                        afterGreetingSilenceMillis: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("between_words_silence_millis")
+                        @ExcludeMissing
+                        betweenWordsSilenceMillis: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("greeting_duration_millis")
+                        @ExcludeMissing
+                        greetingDurationMillis: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("greeting_silence_duration_millis")
+                        @ExcludeMissing
+                        greetingSilenceDurationMillis: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("greeting_total_analysis_time_millis")
+                        @ExcludeMissing
+                        greetingTotalAnalysisTimeMillis: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("initial_silence_millis")
+                        @ExcludeMissing
+                        initialSilenceMillis: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("maximum_number_of_words")
+                        @ExcludeMissing
+                        maximumNumberOfWords: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("maximum_word_length_millis")
+                        @ExcludeMissing
+                        maximumWordLengthMillis: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("min_word_length_millis")
+                        @ExcludeMissing
+                        minWordLengthMillis: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("silence_threshold")
+                        @ExcludeMissing
+                        silenceThreshold: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("total_analysis_time_millis")
+                        @ExcludeMissing
+                        totalAnalysisTimeMillis: JsonField<Long> = JsonMissing.of(),
+                    ) : this(
+                        afterGreetingSilenceMillis,
+                        betweenWordsSilenceMillis,
+                        greetingDurationMillis,
+                        greetingSilenceDurationMillis,
+                        greetingTotalAnalysisTimeMillis,
+                        initialSilenceMillis,
+                        maximumNumberOfWords,
+                        maximumWordLengthMillis,
+                        minWordLengthMillis,
+                        silenceThreshold,
+                        totalAnalysisTimeMillis,
+                        mutableMapOf(),
+                    )
+
+                    /**
+                     * Duration of silence after greeting detection before finalizing the result.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun afterGreetingSilenceMillis(): Optional<Long> =
+                        afterGreetingSilenceMillis.getOptional("after_greeting_silence_millis")
+
+                    /**
+                     * Maximum silence duration between words during greeting.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun betweenWordsSilenceMillis(): Optional<Long> =
+                        betweenWordsSilenceMillis.getOptional("between_words_silence_millis")
+
+                    /**
+                     * Expected duration of greeting speech.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun greetingDurationMillis(): Optional<Long> =
+                        greetingDurationMillis.getOptional("greeting_duration_millis")
+
+                    /**
+                     * Duration of silence after the greeting to wait before considering the
+                     * greeting complete.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun greetingSilenceDurationMillis(): Optional<Long> =
+                        greetingSilenceDurationMillis.getOptional(
+                            "greeting_silence_duration_millis"
+                        )
+
+                    /**
+                     * Maximum time to spend analyzing the greeting.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun greetingTotalAnalysisTimeMillis(): Optional<Long> =
+                        greetingTotalAnalysisTimeMillis.getOptional(
+                            "greeting_total_analysis_time_millis"
+                        )
+
+                    /**
+                     * Maximum silence duration at the start of the call before speech.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun initialSilenceMillis(): Optional<Long> =
+                        initialSilenceMillis.getOptional("initial_silence_millis")
+
+                    /**
+                     * Maximum number of words expected in a human greeting.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun maximumNumberOfWords(): Optional<Long> =
+                        maximumNumberOfWords.getOptional("maximum_number_of_words")
+
+                    /**
+                     * Maximum duration of a single word.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun maximumWordLengthMillis(): Optional<Long> =
+                        maximumWordLengthMillis.getOptional("maximum_word_length_millis")
+
+                    /**
+                     * Minimum duration for audio to be considered a word.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun minWordLengthMillis(): Optional<Long> =
+                        minWordLengthMillis.getOptional("min_word_length_millis")
+
+                    /**
+                     * Audio level threshold for silence detection.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun silenceThreshold(): Optional<Long> =
+                        silenceThreshold.getOptional("silence_threshold")
+
+                    /**
+                     * Total time allowed for AMD analysis.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun totalAnalysisTimeMillis(): Optional<Long> =
+                        totalAnalysisTimeMillis.getOptional("total_analysis_time_millis")
+
+                    /**
+                     * Returns the raw JSON value of [afterGreetingSilenceMillis].
+                     *
+                     * Unlike [afterGreetingSilenceMillis], this method doesn't throw if the JSON
+                     * field has an unexpected type.
+                     */
+                    @JsonProperty("after_greeting_silence_millis")
+                    @ExcludeMissing
+                    fun _afterGreetingSilenceMillis(): JsonField<Long> = afterGreetingSilenceMillis
+
+                    /**
+                     * Returns the raw JSON value of [betweenWordsSilenceMillis].
+                     *
+                     * Unlike [betweenWordsSilenceMillis], this method doesn't throw if the JSON
+                     * field has an unexpected type.
+                     */
+                    @JsonProperty("between_words_silence_millis")
+                    @ExcludeMissing
+                    fun _betweenWordsSilenceMillis(): JsonField<Long> = betweenWordsSilenceMillis
+
+                    /**
+                     * Returns the raw JSON value of [greetingDurationMillis].
+                     *
+                     * Unlike [greetingDurationMillis], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("greeting_duration_millis")
+                    @ExcludeMissing
+                    fun _greetingDurationMillis(): JsonField<Long> = greetingDurationMillis
+
+                    /**
+                     * Returns the raw JSON value of [greetingSilenceDurationMillis].
+                     *
+                     * Unlike [greetingSilenceDurationMillis], this method doesn't throw if the JSON
+                     * field has an unexpected type.
+                     */
+                    @JsonProperty("greeting_silence_duration_millis")
+                    @ExcludeMissing
+                    fun _greetingSilenceDurationMillis(): JsonField<Long> =
+                        greetingSilenceDurationMillis
+
+                    /**
+                     * Returns the raw JSON value of [greetingTotalAnalysisTimeMillis].
+                     *
+                     * Unlike [greetingTotalAnalysisTimeMillis], this method doesn't throw if the
+                     * JSON field has an unexpected type.
+                     */
+                    @JsonProperty("greeting_total_analysis_time_millis")
+                    @ExcludeMissing
+                    fun _greetingTotalAnalysisTimeMillis(): JsonField<Long> =
+                        greetingTotalAnalysisTimeMillis
+
+                    /**
+                     * Returns the raw JSON value of [initialSilenceMillis].
+                     *
+                     * Unlike [initialSilenceMillis], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("initial_silence_millis")
+                    @ExcludeMissing
+                    fun _initialSilenceMillis(): JsonField<Long> = initialSilenceMillis
+
+                    /**
+                     * Returns the raw JSON value of [maximumNumberOfWords].
+                     *
+                     * Unlike [maximumNumberOfWords], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("maximum_number_of_words")
+                    @ExcludeMissing
+                    fun _maximumNumberOfWords(): JsonField<Long> = maximumNumberOfWords
+
+                    /**
+                     * Returns the raw JSON value of [maximumWordLengthMillis].
+                     *
+                     * Unlike [maximumWordLengthMillis], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("maximum_word_length_millis")
+                    @ExcludeMissing
+                    fun _maximumWordLengthMillis(): JsonField<Long> = maximumWordLengthMillis
+
+                    /**
+                     * Returns the raw JSON value of [minWordLengthMillis].
+                     *
+                     * Unlike [minWordLengthMillis], this method doesn't throw if the JSON field has
+                     * an unexpected type.
+                     */
+                    @JsonProperty("min_word_length_millis")
+                    @ExcludeMissing
+                    fun _minWordLengthMillis(): JsonField<Long> = minWordLengthMillis
+
+                    /**
+                     * Returns the raw JSON value of [silenceThreshold].
+                     *
+                     * Unlike [silenceThreshold], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("silence_threshold")
+                    @ExcludeMissing
+                    fun _silenceThreshold(): JsonField<Long> = silenceThreshold
+
+                    /**
+                     * Returns the raw JSON value of [totalAnalysisTimeMillis].
+                     *
+                     * Unlike [totalAnalysisTimeMillis], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("total_analysis_time_millis")
+                    @ExcludeMissing
+                    fun _totalAnalysisTimeMillis(): JsonField<Long> = totalAnalysisTimeMillis
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [DetectionConfig].
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [DetectionConfig]. */
+                    class Builder internal constructor() {
+
+                        private var afterGreetingSilenceMillis: JsonField<Long> = JsonMissing.of()
+                        private var betweenWordsSilenceMillis: JsonField<Long> = JsonMissing.of()
+                        private var greetingDurationMillis: JsonField<Long> = JsonMissing.of()
+                        private var greetingSilenceDurationMillis: JsonField<Long> =
+                            JsonMissing.of()
+                        private var greetingTotalAnalysisTimeMillis: JsonField<Long> =
+                            JsonMissing.of()
+                        private var initialSilenceMillis: JsonField<Long> = JsonMissing.of()
+                        private var maximumNumberOfWords: JsonField<Long> = JsonMissing.of()
+                        private var maximumWordLengthMillis: JsonField<Long> = JsonMissing.of()
+                        private var minWordLengthMillis: JsonField<Long> = JsonMissing.of()
+                        private var silenceThreshold: JsonField<Long> = JsonMissing.of()
+                        private var totalAnalysisTimeMillis: JsonField<Long> = JsonMissing.of()
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(detectionConfig: DetectionConfig) = apply {
+                            afterGreetingSilenceMillis = detectionConfig.afterGreetingSilenceMillis
+                            betweenWordsSilenceMillis = detectionConfig.betweenWordsSilenceMillis
+                            greetingDurationMillis = detectionConfig.greetingDurationMillis
+                            greetingSilenceDurationMillis =
+                                detectionConfig.greetingSilenceDurationMillis
+                            greetingTotalAnalysisTimeMillis =
+                                detectionConfig.greetingTotalAnalysisTimeMillis
+                            initialSilenceMillis = detectionConfig.initialSilenceMillis
+                            maximumNumberOfWords = detectionConfig.maximumNumberOfWords
+                            maximumWordLengthMillis = detectionConfig.maximumWordLengthMillis
+                            minWordLengthMillis = detectionConfig.minWordLengthMillis
+                            silenceThreshold = detectionConfig.silenceThreshold
+                            totalAnalysisTimeMillis = detectionConfig.totalAnalysisTimeMillis
+                            additionalProperties =
+                                detectionConfig.additionalProperties.toMutableMap()
+                        }
+
+                        /**
+                         * Duration of silence after greeting detection before finalizing the
+                         * result.
+                         */
+                        fun afterGreetingSilenceMillis(afterGreetingSilenceMillis: Long) =
+                            afterGreetingSilenceMillis(JsonField.of(afterGreetingSilenceMillis))
+
+                        /**
+                         * Sets [Builder.afterGreetingSilenceMillis] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.afterGreetingSilenceMillis] with a
+                         * well-typed [Long] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun afterGreetingSilenceMillis(
+                            afterGreetingSilenceMillis: JsonField<Long>
+                        ) = apply { this.afterGreetingSilenceMillis = afterGreetingSilenceMillis }
+
+                        /** Maximum silence duration between words during greeting. */
+                        fun betweenWordsSilenceMillis(betweenWordsSilenceMillis: Long) =
+                            betweenWordsSilenceMillis(JsonField.of(betweenWordsSilenceMillis))
+
+                        /**
+                         * Sets [Builder.betweenWordsSilenceMillis] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.betweenWordsSilenceMillis] with a
+                         * well-typed [Long] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun betweenWordsSilenceMillis(betweenWordsSilenceMillis: JsonField<Long>) =
+                            apply {
+                                this.betweenWordsSilenceMillis = betweenWordsSilenceMillis
+                            }
+
+                        /** Expected duration of greeting speech. */
+                        fun greetingDurationMillis(greetingDurationMillis: Long) =
+                            greetingDurationMillis(JsonField.of(greetingDurationMillis))
+
+                        /**
+                         * Sets [Builder.greetingDurationMillis] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.greetingDurationMillis] with a
+                         * well-typed [Long] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun greetingDurationMillis(greetingDurationMillis: JsonField<Long>) =
+                            apply {
+                                this.greetingDurationMillis = greetingDurationMillis
+                            }
+
+                        /**
+                         * Duration of silence after the greeting to wait before considering the
+                         * greeting complete.
+                         */
+                        fun greetingSilenceDurationMillis(greetingSilenceDurationMillis: Long) =
+                            greetingSilenceDurationMillis(
+                                JsonField.of(greetingSilenceDurationMillis)
+                            )
+
+                        /**
+                         * Sets [Builder.greetingSilenceDurationMillis] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.greetingSilenceDurationMillis] with a
+                         * well-typed [Long] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun greetingSilenceDurationMillis(
+                            greetingSilenceDurationMillis: JsonField<Long>
+                        ) = apply {
+                            this.greetingSilenceDurationMillis = greetingSilenceDurationMillis
+                        }
+
+                        /** Maximum time to spend analyzing the greeting. */
+                        fun greetingTotalAnalysisTimeMillis(greetingTotalAnalysisTimeMillis: Long) =
+                            greetingTotalAnalysisTimeMillis(
+                                JsonField.of(greetingTotalAnalysisTimeMillis)
+                            )
+
+                        /**
+                         * Sets [Builder.greetingTotalAnalysisTimeMillis] to an arbitrary JSON
+                         * value.
+                         *
+                         * You should usually call [Builder.greetingTotalAnalysisTimeMillis] with a
+                         * well-typed [Long] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun greetingTotalAnalysisTimeMillis(
+                            greetingTotalAnalysisTimeMillis: JsonField<Long>
+                        ) = apply {
+                            this.greetingTotalAnalysisTimeMillis = greetingTotalAnalysisTimeMillis
+                        }
+
+                        /** Maximum silence duration at the start of the call before speech. */
+                        fun initialSilenceMillis(initialSilenceMillis: Long) =
+                            initialSilenceMillis(JsonField.of(initialSilenceMillis))
+
+                        /**
+                         * Sets [Builder.initialSilenceMillis] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.initialSilenceMillis] with a well-typed
+                         * [Long] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun initialSilenceMillis(initialSilenceMillis: JsonField<Long>) = apply {
+                            this.initialSilenceMillis = initialSilenceMillis
+                        }
+
+                        /** Maximum number of words expected in a human greeting. */
+                        fun maximumNumberOfWords(maximumNumberOfWords: Long) =
+                            maximumNumberOfWords(JsonField.of(maximumNumberOfWords))
+
+                        /**
+                         * Sets [Builder.maximumNumberOfWords] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.maximumNumberOfWords] with a well-typed
+                         * [Long] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun maximumNumberOfWords(maximumNumberOfWords: JsonField<Long>) = apply {
+                            this.maximumNumberOfWords = maximumNumberOfWords
+                        }
+
+                        /** Maximum duration of a single word. */
+                        fun maximumWordLengthMillis(maximumWordLengthMillis: Long) =
+                            maximumWordLengthMillis(JsonField.of(maximumWordLengthMillis))
+
+                        /**
+                         * Sets [Builder.maximumWordLengthMillis] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.maximumWordLengthMillis] with a
+                         * well-typed [Long] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun maximumWordLengthMillis(maximumWordLengthMillis: JsonField<Long>) =
+                            apply {
+                                this.maximumWordLengthMillis = maximumWordLengthMillis
+                            }
+
+                        /** Minimum duration for audio to be considered a word. */
+                        fun minWordLengthMillis(minWordLengthMillis: Long) =
+                            minWordLengthMillis(JsonField.of(minWordLengthMillis))
+
+                        /**
+                         * Sets [Builder.minWordLengthMillis] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.minWordLengthMillis] with a well-typed
+                         * [Long] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun minWordLengthMillis(minWordLengthMillis: JsonField<Long>) = apply {
+                            this.minWordLengthMillis = minWordLengthMillis
+                        }
+
+                        /** Audio level threshold for silence detection. */
+                        fun silenceThreshold(silenceThreshold: Long) =
+                            silenceThreshold(JsonField.of(silenceThreshold))
+
+                        /**
+                         * Sets [Builder.silenceThreshold] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.silenceThreshold] with a well-typed
+                         * [Long] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun silenceThreshold(silenceThreshold: JsonField<Long>) = apply {
+                            this.silenceThreshold = silenceThreshold
+                        }
+
+                        /** Total time allowed for AMD analysis. */
+                        fun totalAnalysisTimeMillis(totalAnalysisTimeMillis: Long) =
+                            totalAnalysisTimeMillis(JsonField.of(totalAnalysisTimeMillis))
+
+                        /**
+                         * Sets [Builder.totalAnalysisTimeMillis] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.totalAnalysisTimeMillis] with a
+                         * well-typed [Long] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun totalAnalysisTimeMillis(totalAnalysisTimeMillis: JsonField<Long>) =
+                            apply {
+                                this.totalAnalysisTimeMillis = totalAnalysisTimeMillis
+                            }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [DetectionConfig].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         */
+                        fun build(): DetectionConfig =
+                            DetectionConfig(
+                                afterGreetingSilenceMillis,
+                                betweenWordsSilenceMillis,
+                                greetingDurationMillis,
+                                greetingSilenceDurationMillis,
+                                greetingTotalAnalysisTimeMillis,
+                                initialSilenceMillis,
+                                maximumNumberOfWords,
+                                maximumWordLengthMillis,
+                                minWordLengthMillis,
+                                silenceThreshold,
+                                totalAnalysisTimeMillis,
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): DetectionConfig = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        afterGreetingSilenceMillis()
+                        betweenWordsSilenceMillis()
+                        greetingDurationMillis()
+                        greetingSilenceDurationMillis()
+                        greetingTotalAnalysisTimeMillis()
+                        initialSilenceMillis()
+                        maximumNumberOfWords()
+                        maximumWordLengthMillis()
+                        minWordLengthMillis()
+                        silenceThreshold()
+                        totalAnalysisTimeMillis()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (if (afterGreetingSilenceMillis.asKnown().isPresent) 1 else 0) +
+                            (if (betweenWordsSilenceMillis.asKnown().isPresent) 1 else 0) +
+                            (if (greetingDurationMillis.asKnown().isPresent) 1 else 0) +
+                            (if (greetingSilenceDurationMillis.asKnown().isPresent) 1 else 0) +
+                            (if (greetingTotalAnalysisTimeMillis.asKnown().isPresent) 1 else 0) +
+                            (if (initialSilenceMillis.asKnown().isPresent) 1 else 0) +
+                            (if (maximumNumberOfWords.asKnown().isPresent) 1 else 0) +
+                            (if (maximumWordLengthMillis.asKnown().isPresent) 1 else 0) +
+                            (if (minWordLengthMillis.asKnown().isPresent) 1 else 0) +
+                            (if (silenceThreshold.asKnown().isPresent) 1 else 0) +
+                            (if (totalAnalysisTimeMillis.asKnown().isPresent) 1 else 0)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is DetectionConfig &&
+                            afterGreetingSilenceMillis == other.afterGreetingSilenceMillis &&
+                            betweenWordsSilenceMillis == other.betweenWordsSilenceMillis &&
+                            greetingDurationMillis == other.greetingDurationMillis &&
+                            greetingSilenceDurationMillis == other.greetingSilenceDurationMillis &&
+                            greetingTotalAnalysisTimeMillis ==
+                                other.greetingTotalAnalysisTimeMillis &&
+                            initialSilenceMillis == other.initialSilenceMillis &&
+                            maximumNumberOfWords == other.maximumNumberOfWords &&
+                            maximumWordLengthMillis == other.maximumWordLengthMillis &&
+                            minWordLengthMillis == other.minWordLengthMillis &&
+                            silenceThreshold == other.silenceThreshold &&
+                            totalAnalysisTimeMillis == other.totalAnalysisTimeMillis &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(
+                            afterGreetingSilenceMillis,
+                            betweenWordsSilenceMillis,
+                            greetingDurationMillis,
+                            greetingSilenceDurationMillis,
+                            greetingTotalAnalysisTimeMillis,
+                            initialSilenceMillis,
+                            maximumNumberOfWords,
+                            maximumWordLengthMillis,
+                            minWordLengthMillis,
+                            silenceThreshold,
+                            totalAnalysisTimeMillis,
+                            additionalProperties,
+                        )
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "DetectionConfig{afterGreetingSilenceMillis=$afterGreetingSilenceMillis, betweenWordsSilenceMillis=$betweenWordsSilenceMillis, greetingDurationMillis=$greetingDurationMillis, greetingSilenceDurationMillis=$greetingSilenceDurationMillis, greetingTotalAnalysisTimeMillis=$greetingTotalAnalysisTimeMillis, initialSilenceMillis=$initialSilenceMillis, maximumNumberOfWords=$maximumNumberOfWords, maximumWordLengthMillis=$maximumWordLengthMillis, minWordLengthMillis=$minWordLengthMillis, silenceThreshold=$silenceThreshold, totalAnalysisTimeMillis=$totalAnalysisTimeMillis, additionalProperties=$additionalProperties}"
+                }
+
+                /**
+                 * The AMD detection mode to use. 'premium' provides the highest accuracy.
+                 * 'disabled' turns off AMD detection.
+                 */
+                class DetectionMode
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        @JvmField val PREMIUM = of("premium")
+
+                        @JvmField val DETECT = of("detect")
+
+                        @JvmField val DETECT_BEEP = of("detect_beep")
+
+                        @JvmField val DETECT_WORDS = of("detect_words")
+
+                        @JvmField val GREETING_END = of("greeting_end")
+
+                        @JvmField val DISABLED = of("disabled")
+
+                        @JvmStatic fun of(value: String) = DetectionMode(JsonField.of(value))
+                    }
+
+                    /** An enum containing [DetectionMode]'s known values. */
+                    enum class Known {
+                        PREMIUM,
+                        DETECT,
+                        DETECT_BEEP,
+                        DETECT_WORDS,
+                        GREETING_END,
+                        DISABLED,
+                    }
+
+                    /**
+                     * An enum containing [DetectionMode]'s known values, as well as an [_UNKNOWN]
+                     * member.
+                     *
+                     * An instance of [DetectionMode] can contain an unknown value in a couple of
+                     * cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        PREMIUM,
+                        DETECT,
+                        DETECT_BEEP,
+                        DETECT_WORDS,
+                        GREETING_END,
+                        DISABLED,
+                        /**
+                         * An enum member indicating that [DetectionMode] was instantiated with an
+                         * unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            PREMIUM -> Value.PREMIUM
+                            DETECT -> Value.DETECT
+                            DETECT_BEEP -> Value.DETECT_BEEP
+                            DETECT_WORDS -> Value.DETECT_WORDS
+                            GREETING_END -> Value.GREETING_END
+                            DISABLED -> Value.DISABLED
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                     *   known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            PREMIUM -> Known.PREMIUM
+                            DETECT -> Known.DETECT
+                            DETECT_BEEP -> Known.DETECT_BEEP
+                            DETECT_WORDS -> Known.DETECT_WORDS
+                            GREETING_END -> Known.GREETING_END
+                            DISABLED -> Known.DISABLED
+                            else ->
+                                throw TelnyxInvalidDataException("Unknown DetectionMode: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            TelnyxInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): DetectionMode = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is DetectionMode && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                /** Action to take when voicemail is detected on the transferred call. */
+                class OnVoicemailDetected
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val action: JsonField<Action>,
+                    private val voicemailMessage: JsonField<VoicemailMessage>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("action")
+                        @ExcludeMissing
+                        action: JsonField<Action> = JsonMissing.of(),
+                        @JsonProperty("voicemail_message")
+                        @ExcludeMissing
+                        voicemailMessage: JsonField<VoicemailMessage> = JsonMissing.of(),
+                    ) : this(action, voicemailMessage, mutableMapOf())
+
+                    /**
+                     * The action to take when voicemail is detected. 'stop_transfer' hangs up
+                     * immediately. 'leave_message_and_stop_transfer' leaves a message then hangs
+                     * up. 'continue_transfer' bridges the call despite voicemail detection.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun action(): Optional<Action> = action.getOptional("action")
+
+                    /**
+                     * Configuration for the voicemail message to leave. Only applicable when action
+                     * is 'leave_message_and_stop_transfer'.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun voicemailMessage(): Optional<VoicemailMessage> =
+                        voicemailMessage.getOptional("voicemail_message")
+
+                    /**
+                     * Returns the raw JSON value of [action].
+                     *
+                     * Unlike [action], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("action")
+                    @ExcludeMissing
+                    fun _action(): JsonField<Action> = action
+
+                    /**
+                     * Returns the raw JSON value of [voicemailMessage].
+                     *
+                     * Unlike [voicemailMessage], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("voicemail_message")
+                    @ExcludeMissing
+                    fun _voicemailMessage(): JsonField<VoicemailMessage> = voicemailMessage
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [OnVoicemailDetected].
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [OnVoicemailDetected]. */
+                    class Builder internal constructor() {
+
+                        private var action: JsonField<Action> = JsonMissing.of()
+                        private var voicemailMessage: JsonField<VoicemailMessage> = JsonMissing.of()
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(onVoicemailDetected: OnVoicemailDetected) = apply {
+                            action = onVoicemailDetected.action
+                            voicemailMessage = onVoicemailDetected.voicemailMessage
+                            additionalProperties =
+                                onVoicemailDetected.additionalProperties.toMutableMap()
+                        }
+
+                        /**
+                         * The action to take when voicemail is detected. 'stop_transfer' hangs up
+                         * immediately. 'leave_message_and_stop_transfer' leaves a message then
+                         * hangs up. 'continue_transfer' bridges the call despite voicemail
+                         * detection.
+                         */
+                        fun action(action: Action) = action(JsonField.of(action))
+
+                        /**
+                         * Sets [Builder.action] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.action] with a well-typed [Action] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun action(action: JsonField<Action>) = apply { this.action = action }
+
+                        /**
+                         * Configuration for the voicemail message to leave. Only applicable when
+                         * action is 'leave_message_and_stop_transfer'.
+                         */
+                        fun voicemailMessage(voicemailMessage: VoicemailMessage) =
+                            voicemailMessage(JsonField.of(voicemailMessage))
+
+                        /**
+                         * Sets [Builder.voicemailMessage] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.voicemailMessage] with a well-typed
+                         * [VoicemailMessage] value instead. This method is primarily for setting
+                         * the field to an undocumented or not yet supported value.
+                         */
+                        fun voicemailMessage(voicemailMessage: JsonField<VoicemailMessage>) =
+                            apply {
+                                this.voicemailMessage = voicemailMessage
+                            }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [OnVoicemailDetected].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         */
+                        fun build(): OnVoicemailDetected =
+                            OnVoicemailDetected(
+                                action,
+                                voicemailMessage,
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): OnVoicemailDetected = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        action().ifPresent { it.validate() }
+                        voicemailMessage().ifPresent { it.validate() }
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (action.asKnown().getOrNull()?.validity() ?: 0) +
+                            (voicemailMessage.asKnown().getOrNull()?.validity() ?: 0)
+
+                    /**
+                     * The action to take when voicemail is detected. 'stop_transfer' hangs up
+                     * immediately. 'leave_message_and_stop_transfer' leaves a message then hangs
+                     * up. 'continue_transfer' bridges the call despite voicemail detection.
+                     */
+                    class Action
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            @JvmField val STOP_TRANSFER = of("stop_transfer")
+
+                            @JvmField
+                            val LEAVE_MESSAGE_AND_STOP_TRANSFER =
+                                of("leave_message_and_stop_transfer")
+
+                            @JvmField val CONTINUE_TRANSFER = of("continue_transfer")
+
+                            @JvmStatic fun of(value: String) = Action(JsonField.of(value))
+                        }
+
+                        /** An enum containing [Action]'s known values. */
+                        enum class Known {
+                            STOP_TRANSFER,
+                            LEAVE_MESSAGE_AND_STOP_TRANSFER,
+                            CONTINUE_TRANSFER,
+                        }
+
+                        /**
+                         * An enum containing [Action]'s known values, as well as an [_UNKNOWN]
+                         * member.
+                         *
+                         * An instance of [Action] can contain an unknown value in a couple of
+                         * cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            STOP_TRANSFER,
+                            LEAVE_MESSAGE_AND_STOP_TRANSFER,
+                            CONTINUE_TRANSFER,
+                            /**
+                             * An enum member indicating that [Action] was instantiated with an
+                             * unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                STOP_TRANSFER -> Value.STOP_TRANSFER
+                                LEAVE_MESSAGE_AND_STOP_TRANSFER ->
+                                    Value.LEAVE_MESSAGE_AND_STOP_TRANSFER
+                                CONTINUE_TRANSFER -> Value.CONTINUE_TRANSFER
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws TelnyxInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                STOP_TRANSFER -> Known.STOP_TRANSFER
+                                LEAVE_MESSAGE_AND_STOP_TRANSFER ->
+                                    Known.LEAVE_MESSAGE_AND_STOP_TRANSFER
+                                CONTINUE_TRANSFER -> Known.CONTINUE_TRANSFER
+                                else -> throw TelnyxInvalidDataException("Unknown Action: $value")
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws TelnyxInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString().orElseThrow {
+                                TelnyxInvalidDataException("Value is not a String")
+                            }
+
+                        private var validated: Boolean = false
+
+                        fun validate(): Action = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: TelnyxInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is Action && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    /**
+                     * Configuration for the voicemail message to leave. Only applicable when action
+                     * is 'leave_message_and_stop_transfer'.
+                     */
+                    class VoicemailMessage
+                    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                    private constructor(
+                        private val message: JsonField<String>,
+                        private val type: JsonField<Type>,
+                        private val additionalProperties: MutableMap<String, JsonValue>,
+                    ) {
+
+                        @JsonCreator
+                        private constructor(
+                            @JsonProperty("message")
+                            @ExcludeMissing
+                            message: JsonField<String> = JsonMissing.of(),
+                            @JsonProperty("type")
+                            @ExcludeMissing
+                            type: JsonField<Type> = JsonMissing.of(),
+                        ) : this(message, type, mutableMapOf())
+
+                        /**
+                         * The specific message to leave as voicemail (converted to speech). Only
+                         * applicable when type is 'message'.
+                         *
+                         * @throws TelnyxInvalidDataException if the JSON field has an unexpected
+                         *   type (e.g. if the server responded with an unexpected value).
+                         */
+                        fun message(): Optional<String> = message.getOptional("message")
+
+                        /**
+                         * The type of voicemail message. Use 'message' to leave a specific TTS
+                         * message, or 'warm_transfer_instructions' to play the warm transfer audio.
+                         *
+                         * @throws TelnyxInvalidDataException if the JSON field has an unexpected
+                         *   type (e.g. if the server responded with an unexpected value).
+                         */
+                        fun type(): Optional<Type> = type.getOptional("type")
+
+                        /**
+                         * Returns the raw JSON value of [message].
+                         *
+                         * Unlike [message], this method doesn't throw if the JSON field has an
+                         * unexpected type.
+                         */
+                        @JsonProperty("message")
+                        @ExcludeMissing
+                        fun _message(): JsonField<String> = message
+
+                        /**
+                         * Returns the raw JSON value of [type].
+                         *
+                         * Unlike [type], this method doesn't throw if the JSON field has an
+                         * unexpected type.
+                         */
+                        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+                        @JsonAnySetter
+                        private fun putAdditionalProperty(key: String, value: JsonValue) {
+                            additionalProperties.put(key, value)
+                        }
+
+                        @JsonAnyGetter
+                        @ExcludeMissing
+                        fun _additionalProperties(): Map<String, JsonValue> =
+                            Collections.unmodifiableMap(additionalProperties)
+
+                        fun toBuilder() = Builder().from(this)
+
+                        companion object {
+
+                            /**
+                             * Returns a mutable builder for constructing an instance of
+                             * [VoicemailMessage].
+                             */
+                            @JvmStatic fun builder() = Builder()
+                        }
+
+                        /** A builder for [VoicemailMessage]. */
+                        class Builder internal constructor() {
+
+                            private var message: JsonField<String> = JsonMissing.of()
+                            private var type: JsonField<Type> = JsonMissing.of()
+                            private var additionalProperties: MutableMap<String, JsonValue> =
+                                mutableMapOf()
+
+                            @JvmSynthetic
+                            internal fun from(voicemailMessage: VoicemailMessage) = apply {
+                                message = voicemailMessage.message
+                                type = voicemailMessage.type
+                                additionalProperties =
+                                    voicemailMessage.additionalProperties.toMutableMap()
+                            }
+
+                            /**
+                             * The specific message to leave as voicemail (converted to speech).
+                             * Only applicable when type is 'message'.
+                             */
+                            fun message(message: String) = message(JsonField.of(message))
+
+                            /**
+                             * Sets [Builder.message] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.message] with a well-typed [String]
+                             * value instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
+                             */
+                            fun message(message: JsonField<String>) = apply {
+                                this.message = message
+                            }
+
+                            /**
+                             * The type of voicemail message. Use 'message' to leave a specific TTS
+                             * message, or 'warm_transfer_instructions' to play the warm transfer
+                             * audio.
+                             */
+                            fun type(type: Type) = type(JsonField.of(type))
+
+                            /**
+                             * Sets [Builder.type] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.type] with a well-typed [Type] value
+                             * instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
+                             */
+                            fun type(type: JsonField<Type>) = apply { this.type = type }
+
+                            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                                apply {
+                                    this.additionalProperties.clear()
+                                    putAllAdditionalProperties(additionalProperties)
+                                }
+
+                            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                additionalProperties.put(key, value)
+                            }
+
+                            fun putAllAdditionalProperties(
+                                additionalProperties: Map<String, JsonValue>
+                            ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                            fun removeAdditionalProperty(key: String) = apply {
+                                additionalProperties.remove(key)
+                            }
+
+                            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                                keys.forEach(::removeAdditionalProperty)
+                            }
+
+                            /**
+                             * Returns an immutable instance of [VoicemailMessage].
+                             *
+                             * Further updates to this [Builder] will not mutate the returned
+                             * instance.
+                             */
+                            fun build(): VoicemailMessage =
+                                VoicemailMessage(message, type, additionalProperties.toMutableMap())
+                        }
+
+                        private var validated: Boolean = false
+
+                        fun validate(): VoicemailMessage = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            message()
+                            type().ifPresent { it.validate() }
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: TelnyxInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int =
+                            (if (message.asKnown().isPresent) 1 else 0) +
+                                (type.asKnown().getOrNull()?.validity() ?: 0)
+
+                        /**
+                         * The type of voicemail message. Use 'message' to leave a specific TTS
+                         * message, or 'warm_transfer_instructions' to play the warm transfer audio.
+                         */
+                        class Type
+                        @JsonCreator
+                        private constructor(private val value: JsonField<String>) : Enum {
+
+                            /**
+                             * Returns this class instance's raw value.
+                             *
+                             * This is usually only useful if this instance was deserialized from
+                             * data that doesn't match any known member, and you want to know that
+                             * value. For example, if the SDK is on an older version than the API,
+                             * then the API may respond with new members that the SDK is unaware of.
+                             */
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            companion object {
+
+                                @JvmField val MESSAGE = of("message")
+
+                                @JvmField
+                                val WARM_TRANSFER_INSTRUCTIONS = of("warm_transfer_instructions")
+
+                                @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                            }
+
+                            /** An enum containing [Type]'s known values. */
+                            enum class Known {
+                                MESSAGE,
+                                WARM_TRANSFER_INSTRUCTIONS,
+                            }
+
+                            /**
+                             * An enum containing [Type]'s known values, as well as an [_UNKNOWN]
+                             * member.
+                             *
+                             * An instance of [Type] can contain an unknown value in a couple of
+                             * cases:
+                             * - It was deserialized from data that doesn't match any known member.
+                             *   For example, if the SDK is on an older version than the API, then
+                             *   the API may respond with new members that the SDK is unaware of.
+                             * - It was constructed with an arbitrary value using the [of] method.
+                             */
+                            enum class Value {
+                                MESSAGE,
+                                WARM_TRANSFER_INSTRUCTIONS,
+                                /**
+                                 * An enum member indicating that [Type] was instantiated with an
+                                 * unknown value.
+                                 */
+                                _UNKNOWN,
+                            }
+
+                            /**
+                             * Returns an enum member corresponding to this class instance's value,
+                             * or [Value._UNKNOWN] if the class was instantiated with an unknown
+                             * value.
+                             *
+                             * Use the [known] method instead if you're certain the value is always
+                             * known or if you want to throw for the unknown case.
+                             */
+                            fun value(): Value =
+                                when (this) {
+                                    MESSAGE -> Value.MESSAGE
+                                    WARM_TRANSFER_INSTRUCTIONS -> Value.WARM_TRANSFER_INSTRUCTIONS
+                                    else -> Value._UNKNOWN
+                                }
+
+                            /**
+                             * Returns an enum member corresponding to this class instance's value.
+                             *
+                             * Use the [value] method instead if you're uncertain the value is
+                             * always known and don't want to throw for the unknown case.
+                             *
+                             * @throws TelnyxInvalidDataException if this class instance's value is
+                             *   a not a known member.
+                             */
+                            fun known(): Known =
+                                when (this) {
+                                    MESSAGE -> Known.MESSAGE
+                                    WARM_TRANSFER_INSTRUCTIONS -> Known.WARM_TRANSFER_INSTRUCTIONS
+                                    else -> throw TelnyxInvalidDataException("Unknown Type: $value")
+                                }
+
+                            /**
+                             * Returns this class instance's primitive wire representation.
+                             *
+                             * This differs from the [toString] method because that method is
+                             * primarily for debugging and generally doesn't throw.
+                             *
+                             * @throws TelnyxInvalidDataException if this class instance's value
+                             *   does not have the expected primitive type.
+                             */
+                            fun asString(): String =
+                                _value().asString().orElseThrow {
+                                    TelnyxInvalidDataException("Value is not a String")
+                                }
+
+                            private var validated: Boolean = false
+
+                            fun validate(): Type = apply {
+                                if (validated) {
+                                    return@apply
+                                }
+
+                                known()
+                                validated = true
+                            }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: TelnyxInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            @JvmSynthetic
+                            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is Type && value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+                        }
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is VoicemailMessage &&
+                                message == other.message &&
+                                type == other.type &&
+                                additionalProperties == other.additionalProperties
+                        }
+
+                        private val hashCode: Int by lazy {
+                            Objects.hash(message, type, additionalProperties)
+                        }
+
+                        override fun hashCode(): Int = hashCode
+
+                        override fun toString() =
+                            "VoicemailMessage{message=$message, type=$type, additionalProperties=$additionalProperties}"
+                    }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is OnVoicemailDetected &&
+                            action == other.action &&
+                            voicemailMessage == other.voicemailMessage &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(action, voicemailMessage, additionalProperties)
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "OnVoicemailDetected{action=$action, voicemailMessage=$voicemailMessage, additionalProperties=$additionalProperties}"
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is VoicemailDetection &&
+                        detectionConfig == other.detectionConfig &&
+                        detectionMode == other.detectionMode &&
+                        onVoicemailDetected == other.onVoicemailDetected &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(
+                        detectionConfig,
+                        detectionMode,
+                        onVoicemailDetected,
+                        additionalProperties,
+                    )
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "VoicemailDetection{detectionConfig=$detectionConfig, detectionMode=$detectionMode, onVoicemailDetected=$onVoicemailDetected, additionalProperties=$additionalProperties}"
+            }
+
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
@@ -2050,6 +3935,7 @@ private constructor(
                     from == other.from &&
                     targets == other.targets &&
                     customHeaders == other.customHeaders &&
+                    voicemailDetection == other.voicemailDetection &&
                     warmTransferInstructions == other.warmTransferInstructions &&
                     additionalProperties == other.additionalProperties
             }
@@ -2059,6 +3945,7 @@ private constructor(
                     from,
                     targets,
                     customHeaders,
+                    voicemailDetection,
                     warmTransferInstructions,
                     additionalProperties,
                 )
@@ -2067,7 +3954,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "InnerTransfer{from=$from, targets=$targets, customHeaders=$customHeaders, warmTransferInstructions=$warmTransferInstructions, additionalProperties=$additionalProperties}"
+                "InnerTransfer{from=$from, targets=$targets, customHeaders=$customHeaders, voicemailDetection=$voicemailDetection, warmTransferInstructions=$warmTransferInstructions, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

@@ -29,7 +29,8 @@ private constructor(
 ) : Params {
 
     /**
-     * Metadata associated with the conversation.
+     * Metadata associated with the conversation. Set `ai_disabled` to `true` to create the
+     * conversation with AI message responses disabled.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -98,7 +99,10 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** Metadata associated with the conversation. */
+        /**
+         * Metadata associated with the conversation. Set `ai_disabled` to `true` to create the
+         * conversation with AI message responses disabled.
+         */
         fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /**
@@ -273,7 +277,8 @@ private constructor(
         ) : this(metadata, name, mutableMapOf())
 
         /**
-         * Metadata associated with the conversation.
+         * Metadata associated with the conversation. Set `ai_disabled` to `true` to create the
+         * conversation with AI message responses disabled.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -332,7 +337,10 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** Metadata associated with the conversation. */
+            /**
+             * Metadata associated with the conversation. Set `ai_disabled` to `true` to create the
+             * conversation with AI message responses disabled.
+             */
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
@@ -432,7 +440,10 @@ private constructor(
             "Body{metadata=$metadata, name=$name, additionalProperties=$additionalProperties}"
     }
 
-    /** Metadata associated with the conversation. */
+    /**
+     * Metadata associated with the conversation. Set `ai_disabled` to `true` to create the
+     * conversation with AI message responses disabled.
+     */
     class Metadata
     @JsonCreator
     private constructor(

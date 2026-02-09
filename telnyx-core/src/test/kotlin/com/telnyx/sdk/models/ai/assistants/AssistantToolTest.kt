@@ -349,6 +349,60 @@ internal class AssistantToolTest {
                                 .value("value")
                                 .build()
                         )
+                        .voicemailDetection(
+                            AssistantTool.Transfer.InnerTransfer.VoicemailDetection.builder()
+                                .detectionConfig(
+                                    AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                        .DetectionConfig
+                                        .builder()
+                                        .afterGreetingSilenceMillis(100L)
+                                        .betweenWordsSilenceMillis(10L)
+                                        .greetingDurationMillis(100L)
+                                        .greetingSilenceDurationMillis(500L)
+                                        .greetingTotalAnalysisTimeMillis(500L)
+                                        .initialSilenceMillis(100L)
+                                        .maximumNumberOfWords(1L)
+                                        .maximumWordLengthMillis(50L)
+                                        .minWordLengthMillis(1L)
+                                        .silenceThreshold(1L)
+                                        .totalAnalysisTimeMillis(500L)
+                                        .build()
+                                )
+                                .detectionMode(
+                                    AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                        .DetectionMode
+                                        .PREMIUM
+                                )
+                                .onVoicemailDetected(
+                                    AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                        .OnVoicemailDetected
+                                        .builder()
+                                        .action(
+                                            AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                                .OnVoicemailDetected
+                                                .Action
+                                                .STOP_TRANSFER
+                                        )
+                                        .voicemailMessage(
+                                            AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                                .OnVoicemailDetected
+                                                .VoicemailMessage
+                                                .builder()
+                                                .message("message")
+                                                .type(
+                                                    AssistantTool.Transfer.InnerTransfer
+                                                        .VoicemailDetection
+                                                        .OnVoicemailDetected
+                                                        .VoicemailMessage
+                                                        .Type
+                                                        .MESSAGE
+                                                )
+                                                .build()
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
                         .warmTransferInstructions(
                             "Briefly greet the transfer recipient and provide any relevant information from the call. Let them know you will bridge the call right after."
                         )
@@ -387,6 +441,62 @@ internal class AssistantToolTest {
                                 AssistantTool.Transfer.InnerTransfer.CustomHeader.builder()
                                     .name("name")
                                     .value("value")
+                                    .build()
+                            )
+                            .voicemailDetection(
+                                AssistantTool.Transfer.InnerTransfer.VoicemailDetection.builder()
+                                    .detectionConfig(
+                                        AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                            .DetectionConfig
+                                            .builder()
+                                            .afterGreetingSilenceMillis(100L)
+                                            .betweenWordsSilenceMillis(10L)
+                                            .greetingDurationMillis(100L)
+                                            .greetingSilenceDurationMillis(500L)
+                                            .greetingTotalAnalysisTimeMillis(500L)
+                                            .initialSilenceMillis(100L)
+                                            .maximumNumberOfWords(1L)
+                                            .maximumWordLengthMillis(50L)
+                                            .minWordLengthMillis(1L)
+                                            .silenceThreshold(1L)
+                                            .totalAnalysisTimeMillis(500L)
+                                            .build()
+                                    )
+                                    .detectionMode(
+                                        AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                            .DetectionMode
+                                            .PREMIUM
+                                    )
+                                    .onVoicemailDetected(
+                                        AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                            .OnVoicemailDetected
+                                            .builder()
+                                            .action(
+                                                AssistantTool.Transfer.InnerTransfer
+                                                    .VoicemailDetection
+                                                    .OnVoicemailDetected
+                                                    .Action
+                                                    .STOP_TRANSFER
+                                            )
+                                            .voicemailMessage(
+                                                AssistantTool.Transfer.InnerTransfer
+                                                    .VoicemailDetection
+                                                    .OnVoicemailDetected
+                                                    .VoicemailMessage
+                                                    .builder()
+                                                    .message("message")
+                                                    .type(
+                                                        AssistantTool.Transfer.InnerTransfer
+                                                            .VoicemailDetection
+                                                            .OnVoicemailDetected
+                                                            .VoicemailMessage
+                                                            .Type
+                                                            .MESSAGE
+                                                    )
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
                                     .build()
                             )
                             .warmTransferInstructions(

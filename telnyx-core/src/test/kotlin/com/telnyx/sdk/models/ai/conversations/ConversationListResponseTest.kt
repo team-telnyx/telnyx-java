@@ -24,7 +24,7 @@ internal class ConversationListResponseTest {
                             Conversation.Metadata.builder()
                                 .putAdditionalProperty(
                                     "telnyx_conversation_channel",
-                                    JsonValue.from("phone_call"),
+                                    JsonValue.from("sms"),
                                 )
                                 .putAdditionalProperty(
                                     "telnyx_agent_target",
@@ -55,7 +55,7 @@ internal class ConversationListResponseTest {
                         Conversation.Metadata.builder()
                             .putAdditionalProperty(
                                 "telnyx_conversation_channel",
-                                JsonValue.from("phone_call"),
+                                JsonValue.from("sms"),
                             )
                             .putAdditionalProperty(
                                 "telnyx_agent_target",
@@ -87,7 +87,7 @@ internal class ConversationListResponseTest {
                             Conversation.Metadata.builder()
                                 .putAdditionalProperty(
                                     "telnyx_conversation_channel",
-                                    JsonValue.from("phone_call"),
+                                    JsonValue.from("sms"),
                                 )
                                 .putAdditionalProperty(
                                     "telnyx_agent_target",
