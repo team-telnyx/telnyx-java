@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.15.0 (2026-02-09)
+
+Full Changelog: [v6.14.0...v6.15.0](https://github.com/team-telnyx/telnyx-java/compare/v6.14.0...v6.15.0)
+
+### Features
+
+* AI-2078 Feature: API endpoint to disable AI assistant mid-conversation ([1bb3b66](https://github.com/team-telnyx/telnyx-java/commit/1bb3b66ad40e8d0947da2c8eb84a6b99e70fe466))
+
+
+### Chores
+
+* **internal:** upgrade AssertJ ([c21ff0b](https://github.com/team-telnyx/telnyx-java/commit/c21ff0b0230e0f9aada08eb855df149127baeaef))
+
 ## 6.14.0 (2026-02-06)
 
 Full Changelog: [v6.13.0...v6.14.0](https://github.com/team-telnyx/telnyx-java/compare/v6.13.0...v6.14.0)
