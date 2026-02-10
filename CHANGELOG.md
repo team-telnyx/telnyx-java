@@ -1,5 +1,25 @@
 # Changelog
 
+## 6.16.0 (2026-02-10)
+
+Full Changelog: [v6.15.0...v6.16.0](https://github.com/team-telnyx/telnyx-java/compare/v6.15.0...v6.16.0)
+
+### Features
+
+* add Telnyx webhook verification with ED25519 signatures ([3e2ecde](https://github.com/team-telnyx/telnyx-java/commit/3e2ecdeaa58144fbfa796c28824590ebe8c76dc4))
+
+
+### Bug Fixes
+
+* reformat code to match Stainless ktfmt style ([30d1c07](https://github.com/team-telnyx/telnyx-java/commit/30d1c07c8fc5cfefb74055e79a0556ed33a014aa))
+* update async webhook tests to use ED25519 ([bc315d2](https://github.com/team-telnyx/telnyx-java/commit/bc315d2ef16903d4e5c5e808d33f3596b2c89072))
+* use single-line strings to match ktfmt style ([d652c5c](https://github.com/team-telnyx/telnyx-java/commit/d652c5c147bb7b4c864f3c97de9426c407a8dba1))
+
+
+### Styles
+
+* apply ktfmt formatting ([3f148b4](https://github.com/team-telnyx/telnyx-java/commit/3f148b4a7f8368e4c28ff1afe0f29b877ca1d2ec))
+
 ## 6.15.0 (2026-02-09)
 
 Full Changelog: [v6.14.0...v6.15.0](https://github.com/team-telnyx/telnyx-java/compare/v6.14.0...v6.15.0)
