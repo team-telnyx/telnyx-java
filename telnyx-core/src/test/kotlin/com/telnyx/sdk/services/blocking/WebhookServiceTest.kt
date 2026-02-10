@@ -240,9 +240,7 @@ internal class WebhookServiceTest {
         val signature = signPayload(timestamp, payload)
 
         val headers =
-            Headers.builder()
-                .putAll(mapOf("telnyx-signature-ed25519" to listOf(signature)))
-                .build()
+            Headers.builder().putAll(mapOf("telnyx-signature-ed25519" to listOf(signature))).build()
 
         assertThrows<TelnyxWebhookException> {
             webhookService.unwrap(

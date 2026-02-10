@@ -137,10 +137,7 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         }
     }
 
-    private fun getHeader(
-        headers: com.telnyx.sdk.core.http.Headers,
-        name: String,
-    ): String? {
+    private fun getHeader(headers: com.telnyx.sdk.core.http.Headers, name: String): String? {
         val values = headers.values(name)
         if (values.isNotEmpty()) {
             return values.first()
@@ -158,20 +155,7 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
 
     private fun wrapEd25519PublicKey(rawKey: ByteArray): ByteArray {
         val header =
-            byteArrayOf(
-                0x30,
-                0x2a,
-                0x30,
-                0x05,
-                0x06,
-                0x03,
-                0x2b,
-                0x65,
-                0x70,
-                0x03,
-                0x21,
-                0x00,
-            )
+            byteArrayOf(0x30, 0x2a, 0x30, 0x05, 0x06, 0x03, 0x2b, 0x65, 0x70, 0x03, 0x21, 0x00)
         return header + rawKey
     }
 
