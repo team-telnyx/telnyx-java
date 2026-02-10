@@ -41,10 +41,7 @@ internal class WebhookServiceTest {
         val webhookService = client.webhooks()
 
         val payload =
-            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\"," +
-                "\"event_type\":\"call.ai_gather.ended\"," +
-                "\"occurred_at\":\"2018-02-02T22:25:27.521992Z\"," +
-                "\"payload\":{},\"record_type\":\"event\"}}"
+            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\",\"event_type\":\"call.ai_gather.ended\",\"occurred_at\":\"2018-02-02T22:25:27.521992Z\",\"payload\":{},\"record_type\":\"event\"}}"
 
         webhookService.unsafeUnwrap(payload).validate()
     }
@@ -59,10 +56,7 @@ internal class WebhookServiceTest {
         val webhookService = client.webhooks()
 
         val payload =
-            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\"," +
-                "\"event_type\":\"call.ai_gather.ended\"," +
-                "\"occurred_at\":\"2018-02-02T22:25:27.521992Z\"," +
-                "\"payload\":{},\"record_type\":\"event\"}}"
+            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\",\"event_type\":\"call.ai_gather.ended\",\"occurred_at\":\"2018-02-02T22:25:27.521992Z\",\"payload\":{},\"record_type\":\"event\"}}"
 
         webhookService.unwrap(payload).validate()
     }
@@ -78,10 +72,7 @@ internal class WebhookServiceTest {
         val webhookService = client.webhooks()
 
         val payload =
-            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\"," +
-                "\"event_type\":\"call.ai_gather.ended\"," +
-                "\"occurred_at\":\"2018-02-02T22:25:27.521992Z\"," +
-                "\"payload\":{},\"record_type\":\"event\"}}"
+            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\",\"event_type\":\"call.ai_gather.ended\",\"occurred_at\":\"2018-02-02T22:25:27.521992Z\",\"payload\":{},\"record_type\":\"event\"}}"
 
         val timestamp = Instant.now().epochSecond
         val signature = signPayload(timestamp, payload)
@@ -117,10 +108,7 @@ internal class WebhookServiceTest {
         val webhookService = client.webhooks()
 
         val payload =
-            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\"," +
-                "\"event_type\":\"call.ai_gather.ended\"," +
-                "\"occurred_at\":\"2018-02-02T22:25:27.521992Z\"," +
-                "\"payload\":{},\"record_type\":\"event\"}}"
+            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\",\"event_type\":\"call.ai_gather.ended\",\"occurred_at\":\"2018-02-02T22:25:27.521992Z\",\"payload\":{},\"record_type\":\"event\"}}"
 
         val timestamp = Instant.now().epochSecond
         val signature = signPayload(timestamp, payload)
@@ -153,10 +141,7 @@ internal class WebhookServiceTest {
         val webhookService = client.webhooks()
 
         val payload =
-            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\"," +
-                "\"event_type\":\"call.ai_gather.ended\"," +
-                "\"occurred_at\":\"2018-02-02T22:25:27.521992Z\"," +
-                "\"payload\":{},\"record_type\":\"event\"}}"
+            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\",\"event_type\":\"call.ai_gather.ended\",\"occurred_at\":\"2018-02-02T22:25:27.521992Z\",\"payload\":{},\"record_type\":\"event\"}}"
 
         val timestamp = Instant.now().epochSecond
         val badSignature = signPayload(timestamp, "some other payload")
@@ -189,10 +174,7 @@ internal class WebhookServiceTest {
         val webhookService = client.webhooks()
 
         val payload =
-            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\"," +
-                "\"event_type\":\"call.ai_gather.ended\"," +
-                "\"occurred_at\":\"2018-02-02T22:25:27.521992Z\"," +
-                "\"payload\":{},\"record_type\":\"event\"}}"
+            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\",\"event_type\":\"call.ai_gather.ended\",\"occurred_at\":\"2018-02-02T22:25:27.521992Z\",\"payload\":{},\"record_type\":\"event\"}}"
 
         val oldTimestamp = Instant.now().epochSecond - 600
         val signature = signPayload(oldTimestamp, payload)
@@ -225,10 +207,7 @@ internal class WebhookServiceTest {
         val webhookService = client.webhooks()
 
         val payload =
-            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\"," +
-                "\"event_type\":\"call.ai_gather.ended\"," +
-                "\"occurred_at\":\"2018-02-02T22:25:27.521992Z\"," +
-                "\"payload\":{},\"record_type\":\"event\"}}"
+            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\",\"event_type\":\"call.ai_gather.ended\",\"occurred_at\":\"2018-02-02T22:25:27.521992Z\",\"payload\":{},\"record_type\":\"event\"}}"
 
         val timestamp = Instant.now().epochSecond
 
@@ -255,10 +234,7 @@ internal class WebhookServiceTest {
         val webhookService = client.webhooks()
 
         val payload =
-            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\"," +
-                "\"event_type\":\"call.ai_gather.ended\"," +
-                "\"occurred_at\":\"2018-02-02T22:25:27.521992Z\"," +
-                "\"payload\":{},\"record_type\":\"event\"}}"
+            "{\"data\":{\"id\":\"0ccc7b54-4df3-4bca-a65a-3da1ecc777f0\",\"event_type\":\"call.ai_gather.ended\",\"occurred_at\":\"2018-02-02T22:25:27.521992Z\",\"payload\":{},\"record_type\":\"event\"}}"
 
         val timestamp = Instant.now().epochSecond
         val signature = signPayload(timestamp, payload)
