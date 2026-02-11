@@ -371,7 +371,7 @@ internal class AssistantToolTest {
                                 .detectionMode(
                                     AssistantTool.Transfer.InnerTransfer.VoicemailDetection
                                         .DetectionMode
-                                        .PREMIUM
+                                        .DISABLED
                                 )
                                 .onVoicemailDetected(
                                     AssistantTool.Transfer.InnerTransfer.VoicemailDetection
@@ -465,7 +465,7 @@ internal class AssistantToolTest {
                                     .detectionMode(
                                         AssistantTool.Transfer.InnerTransfer.VoicemailDetection
                                             .DetectionMode
-                                            .PREMIUM
+                                            .DISABLED
                                     )
                                     .onVoicemailDetected(
                                         AssistantTool.Transfer.InnerTransfer.VoicemailDetection
