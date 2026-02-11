@@ -834,7 +834,7 @@ internal class ActionServiceAsyncTest {
                     .timeoutSecs(0)
                     .transcription(true)
                     .transcriptionEngine(ActionStartRecordingParams.TranscriptionEngine.B)
-                    .transcriptionLanguage(ActionStartRecordingParams.TranscriptionLanguage.EN_US)
+                    .transcriptionLanguage(ActionStartRecordingParams.TranscriptionLanguage.EN)
                     .transcriptionMaxSpeakerCount(4)
                     .transcriptionMinSpeakerCount(4)
                     .transcriptionProfanityFilter(true)
