@@ -37,6 +37,8 @@ import com.telnyx.sdk.services.async.ai.IntegrationServiceAsync
 import com.telnyx.sdk.services.async.ai.IntegrationServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.McpServerServiceAsync
 import com.telnyx.sdk.services.async.ai.McpServerServiceAsyncImpl
+import com.telnyx.sdk.services.async.ai.MissionServiceAsync
+import com.telnyx.sdk.services.async.ai.MissionServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.OpenAIServiceAsync
 import com.telnyx.sdk.services.async.ai.OpenAIServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -79,6 +81,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         McpServerServiceAsyncImpl(clientOptions)
     }
 
+    private val missions: MissionServiceAsync by lazy { MissionServiceAsyncImpl(clientOptions) }
+
     private val openai: OpenAIServiceAsync by lazy { OpenAIServiceAsyncImpl(clientOptions) }
 
     override fun withRawResponse(): AiServiceAsync.WithRawResponse = withRawResponse
@@ -103,6 +107,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     override fun integrations(): IntegrationServiceAsync = integrations
 
     override fun mcpServers(): McpServerServiceAsync = mcpServers
+
+    override fun missions(): MissionServiceAsync = missions
 
     override fun openai(): OpenAIServiceAsync = openai
 
@@ -162,6 +168,10 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
             McpServerServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val missions: MissionServiceAsync.WithRawResponse by lazy {
+            MissionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val openai: OpenAIServiceAsync.WithRawResponse by lazy {
             OpenAIServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -190,6 +200,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         override fun integrations(): IntegrationServiceAsync.WithRawResponse = integrations
 
         override fun mcpServers(): McpServerServiceAsync.WithRawResponse = mcpServers
+
+        override fun missions(): MissionServiceAsync.WithRawResponse = missions
 
         override fun openai(): OpenAIServiceAsync.WithRawResponse = openai
 

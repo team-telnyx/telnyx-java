@@ -37,6 +37,8 @@ import com.telnyx.sdk.services.blocking.ai.IntegrationService
 import com.telnyx.sdk.services.blocking.ai.IntegrationServiceImpl
 import com.telnyx.sdk.services.blocking.ai.McpServerService
 import com.telnyx.sdk.services.blocking.ai.McpServerServiceImpl
+import com.telnyx.sdk.services.blocking.ai.MissionService
+import com.telnyx.sdk.services.blocking.ai.MissionServiceImpl
 import com.telnyx.sdk.services.blocking.ai.OpenAIService
 import com.telnyx.sdk.services.blocking.ai.OpenAIServiceImpl
 import java.util.function.Consumer
@@ -67,6 +69,8 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
     private val mcpServers: McpServerService by lazy { McpServerServiceImpl(clientOptions) }
 
+    private val missions: MissionService by lazy { MissionServiceImpl(clientOptions) }
+
     private val openai: OpenAIService by lazy { OpenAIServiceImpl(clientOptions) }
 
     override fun withRawResponse(): AiService.WithRawResponse = withRawResponse
@@ -91,6 +95,8 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
     override fun integrations(): IntegrationService = integrations
 
     override fun mcpServers(): McpServerService = mcpServers
+
+    override fun missions(): MissionService = missions
 
     override fun openai(): OpenAIService = openai
 
@@ -150,6 +156,10 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
             McpServerServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val missions: MissionService.WithRawResponse by lazy {
+            MissionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val openai: OpenAIService.WithRawResponse by lazy {
             OpenAIServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -178,6 +188,8 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
         override fun integrations(): IntegrationService.WithRawResponse = integrations
 
         override fun mcpServers(): McpServerService.WithRawResponse = mcpServers
+
+        override fun missions(): MissionService.WithRawResponse = missions
 
         override fun openai(): OpenAIService.WithRawResponse = openai
 
