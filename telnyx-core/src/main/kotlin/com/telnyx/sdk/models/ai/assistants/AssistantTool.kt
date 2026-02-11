@@ -2135,8 +2135,9 @@ private constructor(
                     detectionConfig.getOptional("detection_config")
 
                 /**
-                 * The AMD detection mode to use. 'premium' provides the highest accuracy.
-                 * 'disabled' turns off AMD detection.
+                 * The AMD detection mode to use. 'detect' enables answering machine detection
+                 * (works best when warm transfer instructions are also set). 'disabled' turns off
+                 * AMD detection.
                  *
                  * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
                  *   if the server responded with an unexpected value).
@@ -2241,8 +2242,9 @@ private constructor(
                     }
 
                     /**
-                     * The AMD detection mode to use. 'premium' provides the highest accuracy.
-                     * 'disabled' turns off AMD detection.
+                     * The AMD detection mode to use. 'detect' enables answering machine detection
+                     * (works best when warm transfer instructions are also set). 'disabled' turns
+                     * off AMD detection.
                      */
                     fun detectionMode(detectionMode: DetectionMode) =
                         detectionMode(JsonField.of(detectionMode))
@@ -3011,8 +3013,9 @@ private constructor(
                 }
 
                 /**
-                 * The AMD detection mode to use. 'premium' provides the highest accuracy.
-                 * 'disabled' turns off AMD detection.
+                 * The AMD detection mode to use. 'detect' enables answering machine detection
+                 * (works best when warm transfer instructions are also set). 'disabled' turns off
+                 * AMD detection.
                  */
                 class DetectionMode
                 @JsonCreator
@@ -3031,29 +3034,17 @@ private constructor(
 
                     companion object {
 
-                        @JvmField val PREMIUM = of("premium")
+                        @JvmField val DISABLED = of("disabled")
 
                         @JvmField val DETECT = of("detect")
-
-                        @JvmField val DETECT_BEEP = of("detect_beep")
-
-                        @JvmField val DETECT_WORDS = of("detect_words")
-
-                        @JvmField val GREETING_END = of("greeting_end")
-
-                        @JvmField val DISABLED = of("disabled")
 
                         @JvmStatic fun of(value: String) = DetectionMode(JsonField.of(value))
                     }
 
                     /** An enum containing [DetectionMode]'s known values. */
                     enum class Known {
-                        PREMIUM,
-                        DETECT,
-                        DETECT_BEEP,
-                        DETECT_WORDS,
-                        GREETING_END,
                         DISABLED,
+                        DETECT,
                     }
 
                     /**
@@ -3068,12 +3059,8 @@ private constructor(
                      * - It was constructed with an arbitrary value using the [of] method.
                      */
                     enum class Value {
-                        PREMIUM,
-                        DETECT,
-                        DETECT_BEEP,
-                        DETECT_WORDS,
-                        GREETING_END,
                         DISABLED,
+                        DETECT,
                         /**
                          * An enum member indicating that [DetectionMode] was instantiated with an
                          * unknown value.
@@ -3090,12 +3077,8 @@ private constructor(
                      */
                     fun value(): Value =
                         when (this) {
-                            PREMIUM -> Value.PREMIUM
-                            DETECT -> Value.DETECT
-                            DETECT_BEEP -> Value.DETECT_BEEP
-                            DETECT_WORDS -> Value.DETECT_WORDS
-                            GREETING_END -> Value.GREETING_END
                             DISABLED -> Value.DISABLED
+                            DETECT -> Value.DETECT
                             else -> Value._UNKNOWN
                         }
 
@@ -3110,12 +3093,8 @@ private constructor(
                      */
                     fun known(): Known =
                         when (this) {
-                            PREMIUM -> Known.PREMIUM
-                            DETECT -> Known.DETECT
-                            DETECT_BEEP -> Known.DETECT_BEEP
-                            DETECT_WORDS -> Known.DETECT_WORDS
-                            GREETING_END -> Known.GREETING_END
                             DISABLED -> Known.DISABLED
+                            DETECT -> Known.DETECT
                             else ->
                                 throw TelnyxInvalidDataException("Unknown DetectionMode: $value")
                         }
