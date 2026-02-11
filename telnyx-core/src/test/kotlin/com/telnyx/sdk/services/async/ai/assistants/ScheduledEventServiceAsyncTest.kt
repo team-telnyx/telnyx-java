@@ -40,6 +40,11 @@ internal class ScheduledEventServiceAsyncTest {
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
+                    .dynamicVariables(
+                        ScheduledEventCreateParams.DynamicVariables.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
                     .text("text")
                     .build()
             )
