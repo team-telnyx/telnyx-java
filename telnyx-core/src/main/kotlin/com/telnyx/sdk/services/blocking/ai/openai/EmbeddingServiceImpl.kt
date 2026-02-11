@@ -15,10 +15,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateParams
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateResponse
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListModelsParams
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListModelsResponse
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateEmbeddingsParams
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateEmbeddingsResponse
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListEmbeddingModelsParams
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListEmbeddingModelsResponse
 import java.util.function.Consumer
 
 class EmbeddingServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -33,19 +33,19 @@ class EmbeddingServiceImpl internal constructor(private val clientOptions: Clien
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): EmbeddingService =
         EmbeddingServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(
-        params: EmbeddingCreateParams,
+    override fun createEmbeddings(
+        params: EmbeddingCreateEmbeddingsParams,
         requestOptions: RequestOptions,
-    ): EmbeddingCreateResponse =
+    ): EmbeddingCreateEmbeddingsResponse =
         // post /ai/openai/embeddings
-        withRawResponse().create(params, requestOptions).parse()
+        withRawResponse().createEmbeddings(params, requestOptions).parse()
 
-    override fun listModels(
-        params: EmbeddingListModelsParams,
+    override fun listEmbeddingModels(
+        params: EmbeddingListEmbeddingModelsParams,
         requestOptions: RequestOptions,
-    ): EmbeddingListModelsResponse =
+    ): EmbeddingListEmbeddingModelsResponse =
         // get /ai/openai/embeddings/models
-        withRawResponse().listModels(params, requestOptions).parse()
+        withRawResponse().listEmbeddingModels(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EmbeddingService.WithRawResponse {
@@ -60,13 +60,13 @@ class EmbeddingServiceImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<EmbeddingCreateResponse> =
-            jsonHandler<EmbeddingCreateResponse>(clientOptions.jsonMapper)
+        private val createEmbeddingsHandler: Handler<EmbeddingCreateEmbeddingsResponse> =
+            jsonHandler<EmbeddingCreateEmbeddingsResponse>(clientOptions.jsonMapper)
 
-        override fun create(
-            params: EmbeddingCreateParams,
+        override fun createEmbeddings(
+            params: EmbeddingCreateEmbeddingsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EmbeddingCreateResponse> {
+        ): HttpResponseFor<EmbeddingCreateEmbeddingsResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -79,7 +79,7 @@ class EmbeddingServiceImpl internal constructor(private val clientOptions: Clien
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { createHandler.handle(it) }
+                    .use { createEmbeddingsHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -88,13 +88,13 @@ class EmbeddingServiceImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val listModelsHandler: Handler<EmbeddingListModelsResponse> =
-            jsonHandler<EmbeddingListModelsResponse>(clientOptions.jsonMapper)
+        private val listEmbeddingModelsHandler: Handler<EmbeddingListEmbeddingModelsResponse> =
+            jsonHandler<EmbeddingListEmbeddingModelsResponse>(clientOptions.jsonMapper)
 
-        override fun listModels(
-            params: EmbeddingListModelsParams,
+        override fun listEmbeddingModels(
+            params: EmbeddingListEmbeddingModelsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EmbeddingListModelsResponse> {
+        ): HttpResponseFor<EmbeddingListEmbeddingModelsResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -106,7 +106,7 @@ class EmbeddingServiceImpl internal constructor(private val clientOptions: Clien
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { listModelsHandler.handle(it) }
+                    .use { listEmbeddingModelsHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

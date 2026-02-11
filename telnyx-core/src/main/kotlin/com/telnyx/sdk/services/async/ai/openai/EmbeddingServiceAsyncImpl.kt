@@ -15,10 +15,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateParams
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateResponse
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListModelsParams
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListModelsResponse
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateEmbeddingsParams
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateEmbeddingsResponse
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListEmbeddingModelsParams
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListEmbeddingModelsResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -34,19 +34,19 @@ class EmbeddingServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): EmbeddingServiceAsync =
         EmbeddingServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(
-        params: EmbeddingCreateParams,
+    override fun createEmbeddings(
+        params: EmbeddingCreateEmbeddingsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EmbeddingCreateResponse> =
+    ): CompletableFuture<EmbeddingCreateEmbeddingsResponse> =
         // post /ai/openai/embeddings
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().createEmbeddings(params, requestOptions).thenApply { it.parse() }
 
-    override fun listModels(
-        params: EmbeddingListModelsParams,
+    override fun listEmbeddingModels(
+        params: EmbeddingListEmbeddingModelsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EmbeddingListModelsResponse> =
+    ): CompletableFuture<EmbeddingListEmbeddingModelsResponse> =
         // get /ai/openai/embeddings/models
-        withRawResponse().listModels(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().listEmbeddingModels(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EmbeddingServiceAsync.WithRawResponse {
@@ -61,13 +61,13 @@ class EmbeddingServiceAsyncImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<EmbeddingCreateResponse> =
-            jsonHandler<EmbeddingCreateResponse>(clientOptions.jsonMapper)
+        private val createEmbeddingsHandler: Handler<EmbeddingCreateEmbeddingsResponse> =
+            jsonHandler<EmbeddingCreateEmbeddingsResponse>(clientOptions.jsonMapper)
 
-        override fun create(
-            params: EmbeddingCreateParams,
+        override fun createEmbeddings(
+            params: EmbeddingCreateEmbeddingsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EmbeddingCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<EmbeddingCreateEmbeddingsResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -82,7 +82,7 @@ class EmbeddingServiceAsyncImpl internal constructor(private val clientOptions: 
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { createHandler.handle(it) }
+                            .use { createEmbeddingsHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -92,13 +92,13 @@ class EmbeddingServiceAsyncImpl internal constructor(private val clientOptions: 
                 }
         }
 
-        private val listModelsHandler: Handler<EmbeddingListModelsResponse> =
-            jsonHandler<EmbeddingListModelsResponse>(clientOptions.jsonMapper)
+        private val listEmbeddingModelsHandler: Handler<EmbeddingListEmbeddingModelsResponse> =
+            jsonHandler<EmbeddingListEmbeddingModelsResponse>(clientOptions.jsonMapper)
 
-        override fun listModels(
-            params: EmbeddingListModelsParams,
+        override fun listEmbeddingModels(
+            params: EmbeddingListEmbeddingModelsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EmbeddingListModelsResponse>> {
+        ): CompletableFuture<HttpResponseFor<EmbeddingListEmbeddingModelsResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -112,7 +112,7 @@ class EmbeddingServiceAsyncImpl internal constructor(private val clientOptions: 
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { listModelsHandler.handle(it) }
+                            .use { listEmbeddingModelsHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
