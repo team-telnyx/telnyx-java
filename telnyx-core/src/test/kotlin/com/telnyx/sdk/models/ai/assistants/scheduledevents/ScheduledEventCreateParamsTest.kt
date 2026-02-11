@@ -22,6 +22,11 @@ internal class ScheduledEventCreateParamsTest {
                     .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
             )
+            .dynamicVariables(
+                ScheduledEventCreateParams.DynamicVariables.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
             .text("text")
             .build()
     }
@@ -56,6 +61,11 @@ internal class ScheduledEventCreateParamsTest {
                         .putAdditionalProperty("foo", JsonValue.from("string"))
                         .build()
                 )
+                .dynamicVariables(
+                    ScheduledEventCreateParams.DynamicVariables.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
                 .text("text")
                 .build()
 
@@ -69,6 +79,12 @@ internal class ScheduledEventCreateParamsTest {
         assertThat(body.conversationMetadata())
             .contains(
                 ScheduledEventCreateParams.ConversationMetadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
+        assertThat(body.dynamicVariables())
+            .contains(
+                ScheduledEventCreateParams.DynamicVariables.builder()
                     .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
             )

@@ -32,6 +32,7 @@ private constructor(
     private val conversationId: JsonField<String>,
     private val conversationMetadata: JsonField<ConversationMetadata>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val dynamicVariables: JsonField<DynamicVariables>,
     private val errors: JsonField<List<String>>,
     private val retryCount: JsonField<Long>,
     private val scheduledEventId: JsonField<String>,
@@ -66,6 +67,9 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("dynamic_variables")
+        @ExcludeMissing
+        dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of(),
         @JsonProperty("errors") @ExcludeMissing errors: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("retry_count") @ExcludeMissing retryCount: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("scheduled_event_id")
@@ -82,6 +86,7 @@ private constructor(
         conversationId,
         conversationMetadata,
         createdAt,
+        dynamicVariables,
         errors,
         retryCount,
         scheduledEventId,
@@ -145,6 +150,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("created_at")
+
+    /**
+     * A map of dynamic variable names to values. These variables can be referenced in the
+     * assistant's instructions and messages using {{variable_name}} syntax.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun dynamicVariables(): Optional<DynamicVariables> =
+        dynamicVariables.getOptional("dynamic_variables")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -255,6 +270,16 @@ private constructor(
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
+     * Returns the raw JSON value of [dynamicVariables].
+     *
+     * Unlike [dynamicVariables], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("dynamic_variables")
+    @ExcludeMissing
+    fun _dynamicVariables(): JsonField<DynamicVariables> = dynamicVariables
+
+    /**
      * Returns the raw JSON value of [errors].
      *
      * Unlike [errors], this method doesn't throw if the JSON field has an unexpected type.
@@ -327,6 +352,7 @@ private constructor(
         private var conversationId: JsonField<String> = JsonMissing.of()
         private var conversationMetadata: JsonField<ConversationMetadata> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var dynamicVariables: JsonField<DynamicVariables> = JsonMissing.of()
         private var errors: JsonField<MutableList<String>>? = null
         private var retryCount: JsonField<Long> = JsonMissing.of()
         private var scheduledEventId: JsonField<String> = JsonMissing.of()
@@ -344,6 +370,7 @@ private constructor(
             conversationId = scheduledSmsEventResponse.conversationId
             conversationMetadata = scheduledSmsEventResponse.conversationMetadata
             createdAt = scheduledSmsEventResponse.createdAt
+            dynamicVariables = scheduledSmsEventResponse.dynamicVariables
             errors = scheduledSmsEventResponse.errors.map { it.toMutableList() }
             retryCount = scheduledSmsEventResponse.retryCount
             scheduledEventId = scheduledSmsEventResponse.scheduledEventId
@@ -466,6 +493,24 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
+        /**
+         * A map of dynamic variable names to values. These variables can be referenced in the
+         * assistant's instructions and messages using {{variable_name}} syntax.
+         */
+        fun dynamicVariables(dynamicVariables: DynamicVariables) =
+            dynamicVariables(JsonField.of(dynamicVariables))
+
+        /**
+         * Sets [Builder.dynamicVariables] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dynamicVariables] with a well-typed [DynamicVariables]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun dynamicVariables(dynamicVariables: JsonField<DynamicVariables>) = apply {
+            this.dynamicVariables = dynamicVariables
+        }
+
         fun errors(errors: List<String>) = errors(JsonField.of(errors))
 
         /**
@@ -573,6 +618,7 @@ private constructor(
                 conversationId,
                 conversationMetadata,
                 createdAt,
+                dynamicVariables,
                 (errors ?: JsonMissing.of()).map { it.toImmutable() },
                 retryCount,
                 scheduledEventId,
@@ -597,6 +643,7 @@ private constructor(
         conversationId()
         conversationMetadata().ifPresent { it.validate() }
         createdAt()
+        dynamicVariables().ifPresent { it.validate() }
         errors()
         retryCount()
         scheduledEventId()
@@ -628,6 +675,7 @@ private constructor(
             (if (conversationId.asKnown().isPresent) 1 else 0) +
             (conversationMetadata.asKnown().getOrNull()?.validity() ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (dynamicVariables.asKnown().getOrNull()?.validity() ?: 0) +
             (errors.asKnown().getOrNull()?.size ?: 0) +
             (if (retryCount.asKnown().isPresent) 1 else 0) +
             (if (scheduledEventId.asKnown().isPresent) 1 else 0) +
@@ -734,6 +782,109 @@ private constructor(
         override fun toString() = "ConversationMetadata{additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * A map of dynamic variable names to values. These variables can be referenced in the
+     * assistant's instructions and messages using {{variable_name}} syntax.
+     */
+    class DynamicVariables
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [DynamicVariables]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [DynamicVariables]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(dynamicVariables: DynamicVariables) = apply {
+                additionalProperties = dynamicVariables.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [DynamicVariables].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): DynamicVariables = DynamicVariables(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): DynamicVariables = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DynamicVariables && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "DynamicVariables{additionalProperties=$additionalProperties}"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -749,6 +900,7 @@ private constructor(
             conversationId == other.conversationId &&
             conversationMetadata == other.conversationMetadata &&
             createdAt == other.createdAt &&
+            dynamicVariables == other.dynamicVariables &&
             errors == other.errors &&
             retryCount == other.retryCount &&
             scheduledEventId == other.scheduledEventId &&
@@ -767,6 +919,7 @@ private constructor(
             conversationId,
             conversationMetadata,
             createdAt,
+            dynamicVariables,
             errors,
             retryCount,
             scheduledEventId,
@@ -778,5 +931,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ScheduledSmsEventResponse{assistantId=$assistantId, scheduledAtFixedDatetime=$scheduledAtFixedDatetime, telnyxAgentTarget=$telnyxAgentTarget, telnyxConversationChannel=$telnyxConversationChannel, telnyxEndUserTarget=$telnyxEndUserTarget, text=$text, conversationId=$conversationId, conversationMetadata=$conversationMetadata, createdAt=$createdAt, errors=$errors, retryCount=$retryCount, scheduledEventId=$scheduledEventId, status=$status, additionalProperties=$additionalProperties}"
+        "ScheduledSmsEventResponse{assistantId=$assistantId, scheduledAtFixedDatetime=$scheduledAtFixedDatetime, telnyxAgentTarget=$telnyxAgentTarget, telnyxConversationChannel=$telnyxConversationChannel, telnyxEndUserTarget=$telnyxEndUserTarget, text=$text, conversationId=$conversationId, conversationMetadata=$conversationMetadata, createdAt=$createdAt, dynamicVariables=$dynamicVariables, errors=$errors, retryCount=$retryCount, scheduledEventId=$scheduledEventId, status=$status, additionalProperties=$additionalProperties}"
 }
