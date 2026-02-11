@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.17.0 (2026-02-11)
+
+Full Changelog: [v6.16.0...v6.17.0](https://github.com/team-telnyx/telnyx-java/compare/v6.16.0...v6.17.0)
+
+### Features
+
+* Limit detection_mode enum to disabled and detect only ([e07b9d8](https://github.com/team-telnyx/telnyx-java/commit/e07b9d87d49d3b84d2f4b98f4fb8f952e9e35e93))
+
 ## 6.16.0 (2026-02-10)
 
 Full Changelog: [v6.15.0...v6.16.0](https://github.com/team-telnyx/telnyx-java/compare/v6.15.0...v6.16.0)
