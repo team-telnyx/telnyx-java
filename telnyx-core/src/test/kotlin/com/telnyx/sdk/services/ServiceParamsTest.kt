@@ -177,9 +177,9 @@ internal class ServiceParamsTest {
                 .sipTransportProtocol(CallDialParams.SipTransportProtocol.TLS)
                 .soundModifications(
                     SoundModifications.builder()
-                        .octaves(0.1)
-                        .pitch(0.8)
-                        .semitone(-2.0)
+                        .octaves(0.1f)
+                        .pitch(0.8f)
+                        .semitone(-2.0f)
                         .track("both")
                         .build()
                 )

@@ -19,18 +19,18 @@ import java.util.Optional
 class SoundModifications
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val octaves: JsonField<Double>,
-    private val pitch: JsonField<Double>,
-    private val semitone: JsonField<Double>,
+    private val octaves: JsonField<Float>,
+    private val pitch: JsonField<Float>,
+    private val semitone: JsonField<Float>,
     private val track: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("octaves") @ExcludeMissing octaves: JsonField<Double> = JsonMissing.of(),
-        @JsonProperty("pitch") @ExcludeMissing pitch: JsonField<Double> = JsonMissing.of(),
-        @JsonProperty("semitone") @ExcludeMissing semitone: JsonField<Double> = JsonMissing.of(),
+        @JsonProperty("octaves") @ExcludeMissing octaves: JsonField<Float> = JsonMissing.of(),
+        @JsonProperty("pitch") @ExcludeMissing pitch: JsonField<Float> = JsonMissing.of(),
+        @JsonProperty("semitone") @ExcludeMissing semitone: JsonField<Float> = JsonMissing.of(),
         @JsonProperty("track") @ExcludeMissing track: JsonField<String> = JsonMissing.of(),
     ) : this(octaves, pitch, semitone, track, mutableMapOf())
 
@@ -40,7 +40,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun octaves(): Optional<Double> = octaves.getOptional("octaves")
+    fun octaves(): Optional<Float> = octaves.getOptional("octaves")
 
     /**
      * Set the pitch directly, value should be > 0, default 1 (lower = lower tone)
@@ -48,7 +48,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun pitch(): Optional<Double> = pitch.getOptional("pitch")
+    fun pitch(): Optional<Float> = pitch.getOptional("pitch")
 
     /**
      * Adjust the pitch in semitones, values should be between -14 and 14, default 0
@@ -56,7 +56,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun semitone(): Optional<Double> = semitone.getOptional("semitone")
+    fun semitone(): Optional<Float> = semitone.getOptional("semitone")
 
     /**
      * The track to which the sound modifications will be applied. Accepted values are `inbound` or
@@ -72,21 +72,21 @@ private constructor(
      *
      * Unlike [octaves], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("octaves") @ExcludeMissing fun _octaves(): JsonField<Double> = octaves
+    @JsonProperty("octaves") @ExcludeMissing fun _octaves(): JsonField<Float> = octaves
 
     /**
      * Returns the raw JSON value of [pitch].
      *
      * Unlike [pitch], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("pitch") @ExcludeMissing fun _pitch(): JsonField<Double> = pitch
+    @JsonProperty("pitch") @ExcludeMissing fun _pitch(): JsonField<Float> = pitch
 
     /**
      * Returns the raw JSON value of [semitone].
      *
      * Unlike [semitone], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("semitone") @ExcludeMissing fun _semitone(): JsonField<Double> = semitone
+    @JsonProperty("semitone") @ExcludeMissing fun _semitone(): JsonField<Float> = semitone
 
     /**
      * Returns the raw JSON value of [track].
@@ -116,9 +116,9 @@ private constructor(
     /** A builder for [SoundModifications]. */
     class Builder internal constructor() {
 
-        private var octaves: JsonField<Double> = JsonMissing.of()
-        private var pitch: JsonField<Double> = JsonMissing.of()
-        private var semitone: JsonField<Double> = JsonMissing.of()
+        private var octaves: JsonField<Float> = JsonMissing.of()
+        private var pitch: JsonField<Float> = JsonMissing.of()
+        private var semitone: JsonField<Float> = JsonMissing.of()
         private var track: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -132,37 +132,37 @@ private constructor(
         }
 
         /** Adjust the pitch in octaves, values should be between -1 and 1, default 0 */
-        fun octaves(octaves: Double) = octaves(JsonField.of(octaves))
+        fun octaves(octaves: Float) = octaves(JsonField.of(octaves))
 
         /**
          * Sets [Builder.octaves] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.octaves] with a well-typed [Double] value instead. This
+         * You should usually call [Builder.octaves] with a well-typed [Float] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun octaves(octaves: JsonField<Double>) = apply { this.octaves = octaves }
+        fun octaves(octaves: JsonField<Float>) = apply { this.octaves = octaves }
 
         /** Set the pitch directly, value should be > 0, default 1 (lower = lower tone) */
-        fun pitch(pitch: Double) = pitch(JsonField.of(pitch))
+        fun pitch(pitch: Float) = pitch(JsonField.of(pitch))
 
         /**
          * Sets [Builder.pitch] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.pitch] with a well-typed [Double] value instead. This
+         * You should usually call [Builder.pitch] with a well-typed [Float] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun pitch(pitch: JsonField<Double>) = apply { this.pitch = pitch }
+        fun pitch(pitch: JsonField<Float>) = apply { this.pitch = pitch }
 
         /** Adjust the pitch in semitones, values should be between -14 and 14, default 0 */
-        fun semitone(semitone: Double) = semitone(JsonField.of(semitone))
+        fun semitone(semitone: Float) = semitone(JsonField.of(semitone))
 
         /**
          * Sets [Builder.semitone] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.semitone] with a well-typed [Double] value instead. This
+         * You should usually call [Builder.semitone] with a well-typed [Float] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun semitone(semitone: JsonField<Double>) = apply { this.semitone = semitone }
+        fun semitone(semitone: JsonField<Float>) = apply { this.semitone = semitone }
 
         /**
          * The track to which the sound modifications will be applied. Accepted values are `inbound`
