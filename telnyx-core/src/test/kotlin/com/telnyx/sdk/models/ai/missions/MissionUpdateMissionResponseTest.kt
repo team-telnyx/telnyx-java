@@ -1,0 +1,89 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.sdk.models.ai.missions
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.jsonMapper
+import java.time.OffsetDateTime
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class MissionUpdateMissionResponseTest {
+
+    @Test
+    fun create() {
+        val missionUpdateMissionResponse =
+            MissionUpdateMissionResponse.builder()
+                .data(
+                    MissionUpdateMissionResponse.Data.builder()
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .executionMode(MissionUpdateMissionResponse.Data.ExecutionMode.EXTERNAL)
+                        .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .name("name")
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .description("description")
+                        .instructions("instructions")
+                        .metadata(
+                            MissionUpdateMissionResponse.Data.Metadata.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
+                        .model("model")
+                        .build()
+                )
+                .build()
+
+        assertThat(missionUpdateMissionResponse.data())
+            .isEqualTo(
+                MissionUpdateMissionResponse.Data.builder()
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .executionMode(MissionUpdateMissionResponse.Data.ExecutionMode.EXTERNAL)
+                    .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .name("name")
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .description("description")
+                    .instructions("instructions")
+                    .metadata(
+                        MissionUpdateMissionResponse.Data.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .model("model")
+                    .build()
+            )
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val missionUpdateMissionResponse =
+            MissionUpdateMissionResponse.builder()
+                .data(
+                    MissionUpdateMissionResponse.Data.builder()
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .executionMode(MissionUpdateMissionResponse.Data.ExecutionMode.EXTERNAL)
+                        .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .name("name")
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .description("description")
+                        .instructions("instructions")
+                        .metadata(
+                            MissionUpdateMissionResponse.Data.Metadata.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
+                        .model("model")
+                        .build()
+                )
+                .build()
+
+        val roundtrippedMissionUpdateMissionResponse =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(missionUpdateMissionResponse),
+                jacksonTypeRef<MissionUpdateMissionResponse>(),
+            )
+
+        assertThat(roundtrippedMissionUpdateMissionResponse).isEqualTo(missionUpdateMissionResponse)
+    }
+}

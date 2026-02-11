@@ -19,6 +19,7 @@ import com.telnyx.sdk.services.blocking.ai.EmbeddingService
 import com.telnyx.sdk.services.blocking.ai.FineTuningService
 import com.telnyx.sdk.services.blocking.ai.IntegrationService
 import com.telnyx.sdk.services.blocking.ai.McpServerService
+import com.telnyx.sdk.services.blocking.ai.MissionService
 import com.telnyx.sdk.services.blocking.ai.OpenAIService
 import java.util.function.Consumer
 
@@ -53,6 +54,8 @@ interface AiService {
     fun integrations(): IntegrationService
 
     fun mcpServers(): McpServerService
+
+    fun missions(): MissionService
 
     fun openai(): OpenAIService
 
@@ -125,6 +128,8 @@ interface AiService {
         fun integrations(): IntegrationService.WithRawResponse
 
         fun mcpServers(): McpServerService.WithRawResponse
+
+        fun missions(): MissionService.WithRawResponse
 
         fun openai(): OpenAIService.WithRawResponse
 

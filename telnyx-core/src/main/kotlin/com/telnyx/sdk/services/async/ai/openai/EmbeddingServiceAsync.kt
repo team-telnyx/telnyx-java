@@ -5,10 +5,10 @@ package com.telnyx.sdk.services.async.ai.openai
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateParams
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateResponse
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListModelsParams
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListModelsResponse
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateEmbeddingsParams
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateEmbeddingsResponse
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListEmbeddingModelsParams
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListEmbeddingModelsResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -32,36 +32,41 @@ interface EmbeddingServiceAsync {
      * used with the OpenAI JS or Python SDK by setting the base URL to
      * `https://api.telnyx.com/v2/ai/openai`.
      */
-    fun create(params: EmbeddingCreateParams): CompletableFuture<EmbeddingCreateResponse> =
-        create(params, RequestOptions.none())
+    fun createEmbeddings(
+        params: EmbeddingCreateEmbeddingsParams
+    ): CompletableFuture<EmbeddingCreateEmbeddingsResponse> =
+        createEmbeddings(params, RequestOptions.none())
 
-    /** @see create */
-    fun create(
-        params: EmbeddingCreateParams,
+    /** @see createEmbeddings */
+    fun createEmbeddings(
+        params: EmbeddingCreateEmbeddingsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EmbeddingCreateResponse>
+    ): CompletableFuture<EmbeddingCreateEmbeddingsResponse>
 
     /**
      * Returns a list of available embedding models. This endpoint is compatible with the OpenAI
      * Models API format.
      */
-    fun listModels(): CompletableFuture<EmbeddingListModelsResponse> =
-        listModels(EmbeddingListModelsParams.none())
+    fun listEmbeddingModels(): CompletableFuture<EmbeddingListEmbeddingModelsResponse> =
+        listEmbeddingModels(EmbeddingListEmbeddingModelsParams.none())
 
-    /** @see listModels */
-    fun listModels(
-        params: EmbeddingListModelsParams = EmbeddingListModelsParams.none(),
+    /** @see listEmbeddingModels */
+    fun listEmbeddingModels(
+        params: EmbeddingListEmbeddingModelsParams = EmbeddingListEmbeddingModelsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EmbeddingListModelsResponse>
+    ): CompletableFuture<EmbeddingListEmbeddingModelsResponse>
 
-    /** @see listModels */
-    fun listModels(
-        params: EmbeddingListModelsParams = EmbeddingListModelsParams.none()
-    ): CompletableFuture<EmbeddingListModelsResponse> = listModels(params, RequestOptions.none())
+    /** @see listEmbeddingModels */
+    fun listEmbeddingModels(
+        params: EmbeddingListEmbeddingModelsParams = EmbeddingListEmbeddingModelsParams.none()
+    ): CompletableFuture<EmbeddingListEmbeddingModelsResponse> =
+        listEmbeddingModels(params, RequestOptions.none())
 
-    /** @see listModels */
-    fun listModels(requestOptions: RequestOptions): CompletableFuture<EmbeddingListModelsResponse> =
-        listModels(EmbeddingListModelsParams.none(), requestOptions)
+    /** @see listEmbeddingModels */
+    fun listEmbeddingModels(
+        requestOptions: RequestOptions
+    ): CompletableFuture<EmbeddingListEmbeddingModelsResponse> =
+        listEmbeddingModels(EmbeddingListEmbeddingModelsParams.none(), requestOptions)
 
     /**
      * A view of [EmbeddingServiceAsync] that provides access to raw HTTP responses for each method.
@@ -79,42 +84,43 @@ interface EmbeddingServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post /ai/openai/embeddings`, but is otherwise the same
-         * as [EmbeddingServiceAsync.create].
+         * as [EmbeddingServiceAsync.createEmbeddings].
          */
-        fun create(
-            params: EmbeddingCreateParams
-        ): CompletableFuture<HttpResponseFor<EmbeddingCreateResponse>> =
-            create(params, RequestOptions.none())
+        fun createEmbeddings(
+            params: EmbeddingCreateEmbeddingsParams
+        ): CompletableFuture<HttpResponseFor<EmbeddingCreateEmbeddingsResponse>> =
+            createEmbeddings(params, RequestOptions.none())
 
-        /** @see create */
-        fun create(
-            params: EmbeddingCreateParams,
+        /** @see createEmbeddings */
+        fun createEmbeddings(
+            params: EmbeddingCreateEmbeddingsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EmbeddingCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<EmbeddingCreateEmbeddingsResponse>>
 
         /**
          * Returns a raw HTTP response for `get /ai/openai/embeddings/models`, but is otherwise the
-         * same as [EmbeddingServiceAsync.listModels].
+         * same as [EmbeddingServiceAsync.listEmbeddingModels].
          */
-        fun listModels(): CompletableFuture<HttpResponseFor<EmbeddingListModelsResponse>> =
-            listModels(EmbeddingListModelsParams.none())
+        fun listEmbeddingModels():
+            CompletableFuture<HttpResponseFor<EmbeddingListEmbeddingModelsResponse>> =
+            listEmbeddingModels(EmbeddingListEmbeddingModelsParams.none())
 
-        /** @see listModels */
-        fun listModels(
-            params: EmbeddingListModelsParams = EmbeddingListModelsParams.none(),
+        /** @see listEmbeddingModels */
+        fun listEmbeddingModels(
+            params: EmbeddingListEmbeddingModelsParams = EmbeddingListEmbeddingModelsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EmbeddingListModelsResponse>>
+        ): CompletableFuture<HttpResponseFor<EmbeddingListEmbeddingModelsResponse>>
 
-        /** @see listModels */
-        fun listModels(
-            params: EmbeddingListModelsParams = EmbeddingListModelsParams.none()
-        ): CompletableFuture<HttpResponseFor<EmbeddingListModelsResponse>> =
-            listModels(params, RequestOptions.none())
+        /** @see listEmbeddingModels */
+        fun listEmbeddingModels(
+            params: EmbeddingListEmbeddingModelsParams = EmbeddingListEmbeddingModelsParams.none()
+        ): CompletableFuture<HttpResponseFor<EmbeddingListEmbeddingModelsResponse>> =
+            listEmbeddingModels(params, RequestOptions.none())
 
-        /** @see listModels */
-        fun listModels(
+        /** @see listEmbeddingModels */
+        fun listEmbeddingModels(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<EmbeddingListModelsResponse>> =
-            listModels(EmbeddingListModelsParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<EmbeddingListEmbeddingModelsResponse>> =
+            listEmbeddingModels(EmbeddingListEmbeddingModelsParams.none(), requestOptions)
     }
 }

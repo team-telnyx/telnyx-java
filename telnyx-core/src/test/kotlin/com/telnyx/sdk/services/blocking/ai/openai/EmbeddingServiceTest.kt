@@ -4,7 +4,7 @@ package com.telnyx.sdk.services.blocking.ai.openai
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateParams
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateEmbeddingsParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,7 +14,7 @@ internal class EmbeddingServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun create() {
+    fun createEmbeddings() {
         val client =
             TelnyxOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -22,23 +22,23 @@ internal class EmbeddingServiceTest {
                 .build()
         val embeddingService = client.ai().openai().embeddings()
 
-        val embedding =
-            embeddingService.create(
-                EmbeddingCreateParams.builder()
+        val response =
+            embeddingService.createEmbeddings(
+                EmbeddingCreateEmbeddingsParams.builder()
                     .input("The quick brown fox jumps over the lazy dog")
                     .model("thenlper/gte-large")
                     .dimensions(0L)
-                    .encodingFormat(EmbeddingCreateParams.EncodingFormat.FLOAT)
+                    .encodingFormat(EmbeddingCreateEmbeddingsParams.EncodingFormat.FLOAT)
                     .user("user")
                     .build()
             )
 
-        embedding.validate()
+        response.validate()
     }
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun listModels() {
+    fun listEmbeddingModels() {
         val client =
             TelnyxOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -46,7 +46,7 @@ internal class EmbeddingServiceTest {
                 .build()
         val embeddingService = client.ai().openai().embeddings()
 
-        val response = embeddingService.listModels()
+        val response = embeddingService.listEmbeddingModels()
 
         response.validate()
     }

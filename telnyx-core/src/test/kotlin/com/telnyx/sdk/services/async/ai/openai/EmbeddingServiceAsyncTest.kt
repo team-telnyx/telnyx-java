@@ -4,7 +4,7 @@ package com.telnyx.sdk.services.async.ai.openai
 
 import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateParams
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateEmbeddingsParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,7 +14,7 @@ internal class EmbeddingServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun create() {
+    fun createEmbeddings() {
         val client =
             TelnyxOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -22,24 +22,24 @@ internal class EmbeddingServiceAsyncTest {
                 .build()
         val embeddingServiceAsync = client.ai().openai().embeddings()
 
-        val embeddingFuture =
-            embeddingServiceAsync.create(
-                EmbeddingCreateParams.builder()
+        val responseFuture =
+            embeddingServiceAsync.createEmbeddings(
+                EmbeddingCreateEmbeddingsParams.builder()
                     .input("The quick brown fox jumps over the lazy dog")
                     .model("thenlper/gte-large")
                     .dimensions(0L)
-                    .encodingFormat(EmbeddingCreateParams.EncodingFormat.FLOAT)
+                    .encodingFormat(EmbeddingCreateEmbeddingsParams.EncodingFormat.FLOAT)
                     .user("user")
                     .build()
             )
 
-        val embedding = embeddingFuture.get()
-        embedding.validate()
+        val response = responseFuture.get()
+        response.validate()
     }
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun listModels() {
+    fun listEmbeddingModels() {
         val client =
             TelnyxOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -47,7 +47,7 @@ internal class EmbeddingServiceAsyncTest {
                 .build()
         val embeddingServiceAsync = client.ai().openai().embeddings()
 
-        val responseFuture = embeddingServiceAsync.listModels()
+        val responseFuture = embeddingServiceAsync.listEmbeddingModels()
 
         val response = responseFuture.get()
         response.validate()

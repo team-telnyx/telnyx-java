@@ -6,10 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateParams
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateResponse
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListModelsParams
-import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListModelsResponse
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateEmbeddingsParams
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingCreateEmbeddingsResponse
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListEmbeddingModelsParams
+import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListEmbeddingModelsResponse
 import java.util.function.Consumer
 
 interface EmbeddingService {
@@ -32,35 +32,37 @@ interface EmbeddingService {
      * used with the OpenAI JS or Python SDK by setting the base URL to
      * `https://api.telnyx.com/v2/ai/openai`.
      */
-    fun create(params: EmbeddingCreateParams): EmbeddingCreateResponse =
-        create(params, RequestOptions.none())
+    fun createEmbeddings(
+        params: EmbeddingCreateEmbeddingsParams
+    ): EmbeddingCreateEmbeddingsResponse = createEmbeddings(params, RequestOptions.none())
 
-    /** @see create */
-    fun create(
-        params: EmbeddingCreateParams,
+    /** @see createEmbeddings */
+    fun createEmbeddings(
+        params: EmbeddingCreateEmbeddingsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EmbeddingCreateResponse
+    ): EmbeddingCreateEmbeddingsResponse
 
     /**
      * Returns a list of available embedding models. This endpoint is compatible with the OpenAI
      * Models API format.
      */
-    fun listModels(): EmbeddingListModelsResponse = listModels(EmbeddingListModelsParams.none())
+    fun listEmbeddingModels(): EmbeddingListEmbeddingModelsResponse =
+        listEmbeddingModels(EmbeddingListEmbeddingModelsParams.none())
 
-    /** @see listModels */
-    fun listModels(
-        params: EmbeddingListModelsParams = EmbeddingListModelsParams.none(),
+    /** @see listEmbeddingModels */
+    fun listEmbeddingModels(
+        params: EmbeddingListEmbeddingModelsParams = EmbeddingListEmbeddingModelsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EmbeddingListModelsResponse
+    ): EmbeddingListEmbeddingModelsResponse
 
-    /** @see listModels */
-    fun listModels(
-        params: EmbeddingListModelsParams = EmbeddingListModelsParams.none()
-    ): EmbeddingListModelsResponse = listModels(params, RequestOptions.none())
+    /** @see listEmbeddingModels */
+    fun listEmbeddingModels(
+        params: EmbeddingListEmbeddingModelsParams = EmbeddingListEmbeddingModelsParams.none()
+    ): EmbeddingListEmbeddingModelsResponse = listEmbeddingModels(params, RequestOptions.none())
 
-    /** @see listModels */
-    fun listModels(requestOptions: RequestOptions): EmbeddingListModelsResponse =
-        listModels(EmbeddingListModelsParams.none(), requestOptions)
+    /** @see listEmbeddingModels */
+    fun listEmbeddingModels(requestOptions: RequestOptions): EmbeddingListEmbeddingModelsResponse =
+        listEmbeddingModels(EmbeddingListEmbeddingModelsParams.none(), requestOptions)
 
     /** A view of [EmbeddingService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -74,45 +76,48 @@ interface EmbeddingService {
 
         /**
          * Returns a raw HTTP response for `post /ai/openai/embeddings`, but is otherwise the same
-         * as [EmbeddingService.create].
+         * as [EmbeddingService.createEmbeddings].
          */
         @MustBeClosed
-        fun create(params: EmbeddingCreateParams): HttpResponseFor<EmbeddingCreateResponse> =
-            create(params, RequestOptions.none())
+        fun createEmbeddings(
+            params: EmbeddingCreateEmbeddingsParams
+        ): HttpResponseFor<EmbeddingCreateEmbeddingsResponse> =
+            createEmbeddings(params, RequestOptions.none())
 
-        /** @see create */
+        /** @see createEmbeddings */
         @MustBeClosed
-        fun create(
-            params: EmbeddingCreateParams,
+        fun createEmbeddings(
+            params: EmbeddingCreateEmbeddingsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EmbeddingCreateResponse>
+        ): HttpResponseFor<EmbeddingCreateEmbeddingsResponse>
 
         /**
          * Returns a raw HTTP response for `get /ai/openai/embeddings/models`, but is otherwise the
-         * same as [EmbeddingService.listModels].
+         * same as [EmbeddingService.listEmbeddingModels].
          */
         @MustBeClosed
-        fun listModels(): HttpResponseFor<EmbeddingListModelsResponse> =
-            listModels(EmbeddingListModelsParams.none())
+        fun listEmbeddingModels(): HttpResponseFor<EmbeddingListEmbeddingModelsResponse> =
+            listEmbeddingModels(EmbeddingListEmbeddingModelsParams.none())
 
-        /** @see listModels */
+        /** @see listEmbeddingModels */
         @MustBeClosed
-        fun listModels(
-            params: EmbeddingListModelsParams = EmbeddingListModelsParams.none(),
+        fun listEmbeddingModels(
+            params: EmbeddingListEmbeddingModelsParams = EmbeddingListEmbeddingModelsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EmbeddingListModelsResponse>
+        ): HttpResponseFor<EmbeddingListEmbeddingModelsResponse>
 
-        /** @see listModels */
+        /** @see listEmbeddingModels */
         @MustBeClosed
-        fun listModels(
-            params: EmbeddingListModelsParams = EmbeddingListModelsParams.none()
-        ): HttpResponseFor<EmbeddingListModelsResponse> = listModels(params, RequestOptions.none())
+        fun listEmbeddingModels(
+            params: EmbeddingListEmbeddingModelsParams = EmbeddingListEmbeddingModelsParams.none()
+        ): HttpResponseFor<EmbeddingListEmbeddingModelsResponse> =
+            listEmbeddingModels(params, RequestOptions.none())
 
-        /** @see listModels */
+        /** @see listEmbeddingModels */
         @MustBeClosed
-        fun listModels(
+        fun listEmbeddingModels(
             requestOptions: RequestOptions
-        ): HttpResponseFor<EmbeddingListModelsResponse> =
-            listModels(EmbeddingListModelsParams.none(), requestOptions)
+        ): HttpResponseFor<EmbeddingListEmbeddingModelsResponse> =
+            listEmbeddingModels(EmbeddingListEmbeddingModelsParams.none(), requestOptions)
     }
 }

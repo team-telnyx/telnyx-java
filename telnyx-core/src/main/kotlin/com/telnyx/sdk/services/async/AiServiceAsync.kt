@@ -18,6 +18,7 @@ import com.telnyx.sdk.services.async.ai.EmbeddingServiceAsync
 import com.telnyx.sdk.services.async.ai.FineTuningServiceAsync
 import com.telnyx.sdk.services.async.ai.IntegrationServiceAsync
 import com.telnyx.sdk.services.async.ai.McpServerServiceAsync
+import com.telnyx.sdk.services.async.ai.MissionServiceAsync
 import com.telnyx.sdk.services.async.ai.OpenAIServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -53,6 +54,8 @@ interface AiServiceAsync {
     fun integrations(): IntegrationServiceAsync
 
     fun mcpServers(): McpServerServiceAsync
+
+    fun missions(): MissionServiceAsync
 
     fun openai(): OpenAIServiceAsync
 
@@ -128,6 +131,8 @@ interface AiServiceAsync {
         fun integrations(): IntegrationServiceAsync.WithRawResponse
 
         fun mcpServers(): McpServerServiceAsync.WithRawResponse
+
+        fun missions(): MissionServiceAsync.WithRawResponse
 
         fun openai(): OpenAIServiceAsync.WithRawResponse
 
