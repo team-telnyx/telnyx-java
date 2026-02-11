@@ -13,15 +13,15 @@ internal class SoundModificationsTest {
     fun create() {
         val soundModifications =
             SoundModifications.builder()
-                .octaves(0.1)
-                .pitch(0.8)
-                .semitone(-2.0)
+                .octaves(0.1f)
+                .pitch(0.8f)
+                .semitone(-2.0f)
                 .track("both")
                 .build()
 
-        assertThat(soundModifications.octaves()).contains(0.1)
-        assertThat(soundModifications.pitch()).contains(0.8)
-        assertThat(soundModifications.semitone()).contains(-2.0)
+        assertThat(soundModifications.octaves()).contains(0.1f)
+        assertThat(soundModifications.pitch()).contains(0.8f)
+        assertThat(soundModifications.semitone()).contains(-2.0f)
         assertThat(soundModifications.track()).contains("both")
     }
 
@@ -30,9 +30,9 @@ internal class SoundModificationsTest {
         val jsonMapper = jsonMapper()
         val soundModifications =
             SoundModifications.builder()
-                .octaves(0.1)
-                .pitch(0.8)
-                .semitone(-2.0)
+                .octaves(0.1f)
+                .pitch(0.8f)
+                .semitone(-2.0f)
                 .track("both")
                 .build()
 
