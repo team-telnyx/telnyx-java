@@ -37,6 +37,8 @@ import com.telnyx.sdk.services.async.ai.IntegrationServiceAsync
 import com.telnyx.sdk.services.async.ai.IntegrationServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.McpServerServiceAsync
 import com.telnyx.sdk.services.async.ai.McpServerServiceAsyncImpl
+import com.telnyx.sdk.services.async.ai.OpenAIServiceAsync
+import com.telnyx.sdk.services.async.ai.OpenAIServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -77,6 +79,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         McpServerServiceAsyncImpl(clientOptions)
     }
 
+    private val openai: OpenAIServiceAsync by lazy { OpenAIServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): AiServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiServiceAsync =
@@ -99,6 +103,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     override fun integrations(): IntegrationServiceAsync = integrations
 
     override fun mcpServers(): McpServerServiceAsync = mcpServers
+
+    override fun openai(): OpenAIServiceAsync = openai
 
     override fun retrieveModels(
         params: AiRetrieveModelsParams,
@@ -156,6 +162,10 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
             McpServerServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val openai: OpenAIServiceAsync.WithRawResponse by lazy {
+            OpenAIServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AiServiceAsync.WithRawResponse =
@@ -180,6 +190,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         override fun integrations(): IntegrationServiceAsync.WithRawResponse = integrations
 
         override fun mcpServers(): McpServerServiceAsync.WithRawResponse = mcpServers
+
+        override fun openai(): OpenAIServiceAsync.WithRawResponse = openai
 
         private val retrieveModelsHandler: Handler<AiRetrieveModelsResponse> =
             jsonHandler<AiRetrieveModelsResponse>(clientOptions.jsonMapper)
