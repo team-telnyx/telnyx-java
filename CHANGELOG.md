@@ -1,5 +1,23 @@
 # Changelog
 
+## 6.18.0 (2026-02-11)
+
+Full Changelog: [v6.17.0...v6.18.0](https://github.com/team-telnyx/telnyx-java/compare/v6.17.0...v6.18.0)
+
+### Features
+
+* Add dynamic_variables field to scheduled event schemas ([bfe33cd](https://github.com/team-telnyx/telnyx-java/commit/bfe33cdce097d44dac4437eaf2810d41bcaf619e))
+* Add OpenAI-compatible embeddings API spec ([b866708](https://github.com/team-telnyx/telnyx-java/commit/b86670840949d88b275489399c01789a12dc3aed))
+* AI-2086: Add AI Missions endpoints to inference spec ([17bacad](https://github.com/team-telnyx/telnyx-java/commit/17bacad71cabb9eddb3bc4c2076ef87d85ce8c36))
+* fix : remaining double in schema ([6a93560](https://github.com/team-telnyx/telnyx-java/commit/6a935609227b9f9498a86884121caf68a3be475c))
+* fix schema in emergency address schema ([36c20cf](https://github.com/team-telnyx/telnyx-java/commit/36c20cf51e513f11288448132cd9e8b921e44de8))
+
+
+### Bug Fixes
+
+* **client:** revert change to certain pagination metadata types ([22e6af3](https://github.com/team-telnyx/telnyx-java/commit/22e6af3ce64684456326a985d0b822f4ddf81a28))
+* remove invalid discriminators from string enum schemas ([f8560b6](https://github.com/team-telnyx/telnyx-java/commit/f8560b6e55ebe1f798cf893ccb026ca3d4025565))
+
 ## 6.17.0 (2026-02-11)
 
 Full Changelog: [v6.16.0...v6.17.0](https://github.com/team-telnyx/telnyx-java/compare/v6.16.0...v6.17.0)
