@@ -766,7 +766,7 @@ private constructor(
         class TranscriptionData
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val confidence: JsonField<Double>,
+            private val confidence: JsonField<Float>,
             private val isFinal: JsonField<Boolean>,
             private val transcript: JsonField<String>,
             private val transcriptionTrack: JsonField<TranscriptionTrack>,
@@ -777,7 +777,7 @@ private constructor(
             private constructor(
                 @JsonProperty("confidence")
                 @ExcludeMissing
-                confidence: JsonField<Double> = JsonMissing.of(),
+                confidence: JsonField<Float> = JsonMissing.of(),
                 @JsonProperty("is_final")
                 @ExcludeMissing
                 isFinal: JsonField<Boolean> = JsonMissing.of(),
@@ -795,7 +795,7 @@ private constructor(
              * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
              *   the server responded with an unexpected value).
              */
-            fun confidence(): Optional<Double> = confidence.getOptional("confidence")
+            fun confidence(): Optional<Float> = confidence.getOptional("confidence")
 
             /**
              * When false, it means that this is an interim result.
@@ -831,7 +831,7 @@ private constructor(
              */
             @JsonProperty("confidence")
             @ExcludeMissing
-            fun _confidence(): JsonField<Double> = confidence
+            fun _confidence(): JsonField<Float> = confidence
 
             /**
              * Returns the raw JSON value of [isFinal].
@@ -883,7 +883,7 @@ private constructor(
             /** A builder for [TranscriptionData]. */
             class Builder internal constructor() {
 
-                private var confidence: JsonField<Double> = JsonMissing.of()
+                private var confidence: JsonField<Float> = JsonMissing.of()
                 private var isFinal: JsonField<Boolean> = JsonMissing.of()
                 private var transcript: JsonField<String> = JsonMissing.of()
                 private var transcriptionTrack: JsonField<TranscriptionTrack> = JsonMissing.of()
@@ -899,16 +899,16 @@ private constructor(
                 }
 
                 /** Speech recognition confidence level. */
-                fun confidence(confidence: Double) = confidence(JsonField.of(confidence))
+                fun confidence(confidence: Float) = confidence(JsonField.of(confidence))
 
                 /**
                  * Sets [Builder.confidence] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.confidence] with a well-typed [Double] value
+                 * You should usually call [Builder.confidence] with a well-typed [Float] value
                  * instead. This method is primarily for setting the field to an undocumented or not
                  * yet supported value.
                  */
-                fun confidence(confidence: JsonField<Double>) = apply {
+                fun confidence(confidence: JsonField<Float>) = apply {
                     this.confidence = confidence
                 }
 

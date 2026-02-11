@@ -8785,7 +8785,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                 .connectionId("1240401930086254526")
                                 .transcriptionData(
                                     Transcription.Payload.TranscriptionData.builder()
-                                        .confidence(0.977219)
+                                        .confidence(0.977219f)
                                         .isFinal(true)
                                         .transcript("hello this is a test speech")
                                         .transcriptionTrack(
@@ -8888,7 +8888,7 @@ internal class UnsafeUnwrapWebhookEventTest {
                                     .connectionId("1240401930086254526")
                                     .transcriptionData(
                                         Transcription.Payload.TranscriptionData.builder()
-                                            .confidence(0.977219)
+                                            .confidence(0.977219f)
                                             .isFinal(true)
                                             .transcript("hello this is a test speech")
                                             .transcriptionTrack(
