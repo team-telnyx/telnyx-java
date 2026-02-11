@@ -18,6 +18,7 @@ import com.telnyx.sdk.services.async.ai.EmbeddingServiceAsync
 import com.telnyx.sdk.services.async.ai.FineTuningServiceAsync
 import com.telnyx.sdk.services.async.ai.IntegrationServiceAsync
 import com.telnyx.sdk.services.async.ai.McpServerServiceAsync
+import com.telnyx.sdk.services.async.ai.OpenAIServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -52,6 +53,8 @@ interface AiServiceAsync {
     fun integrations(): IntegrationServiceAsync
 
     fun mcpServers(): McpServerServiceAsync
+
+    fun openai(): OpenAIServiceAsync
 
     /**
      * This endpoint returns a list of Open Source and OpenAI models that are available for use. <br
@@ -125,6 +128,8 @@ interface AiServiceAsync {
         fun integrations(): IntegrationServiceAsync.WithRawResponse
 
         fun mcpServers(): McpServerServiceAsync.WithRawResponse
+
+        fun openai(): OpenAIServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /ai/models`, but is otherwise the same as
