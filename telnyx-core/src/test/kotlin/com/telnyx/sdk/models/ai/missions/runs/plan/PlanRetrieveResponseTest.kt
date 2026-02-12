@@ -16,15 +16,15 @@ internal class PlanRetrieveResponseTest {
         val planRetrieveResponse =
             PlanRetrieveResponse.builder()
                 .addData(
-                    PlanRetrieveResponse.Data.builder()
+                    PlanStepData.builder()
                         .description("description")
                         .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .sequence(0L)
-                        .status(PlanRetrieveResponse.Data.Status.PENDING)
+                        .status(PlanStepData.Status.PENDING)
                         .stepId("step_id")
                         .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .metadata(
-                            PlanRetrieveResponse.Data.Metadata.builder()
+                            PlanStepData.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -36,15 +36,15 @@ internal class PlanRetrieveResponseTest {
 
         assertThat(planRetrieveResponse.data())
             .containsExactly(
-                PlanRetrieveResponse.Data.builder()
+                PlanStepData.builder()
                     .description("description")
                     .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .sequence(0L)
-                    .status(PlanRetrieveResponse.Data.Status.PENDING)
+                    .status(PlanStepData.Status.PENDING)
                     .stepId("step_id")
                     .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .metadata(
-                        PlanRetrieveResponse.Data.Metadata.builder()
+                        PlanStepData.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -60,15 +60,15 @@ internal class PlanRetrieveResponseTest {
         val planRetrieveResponse =
             PlanRetrieveResponse.builder()
                 .addData(
-                    PlanRetrieveResponse.Data.builder()
+                    PlanStepData.builder()
                         .description("description")
                         .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .sequence(0L)
-                        .status(PlanRetrieveResponse.Data.Status.PENDING)
+                        .status(PlanStepData.Status.PENDING)
                         .stepId("step_id")
                         .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .metadata(
-                            PlanRetrieveResponse.Data.Metadata.builder()
+                            PlanStepData.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
