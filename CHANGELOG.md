@@ -1,5 +1,15 @@
 # Changelog
 
+## 6.19.0 (2026-02-12)
+
+Full Changelog: [v6.18.0...v6.19.0](https://github.com/team-telnyx/telnyx-java/compare/v6.18.0...v6.19.0)
+
+### Features
+
+* **api:** manual updates ([d11adc5](https://github.com/team-telnyx/telnyx-java/commit/d11adc5f34af5b8c2eaba1da2ec8b2fde7d84b4f))
+* **api:** manual updates ([8da5a5e](https://github.com/team-telnyx/telnyx-java/commit/8da5a5e952f647aa3e390994f8e6f95e87b20427))
+* **api:** manual updates to include models ([fe174bf](https://github.com/team-telnyx/telnyx-java/commit/fe174bfd8d1bd4775e93ba08fe4a44c9608c852e))
+
 ## 6.18.0 (2026-02-11)
 
 Full Changelog: [v6.17.0...v6.18.0](https://github.com/team-telnyx/telnyx-java/compare/v6.17.0...v6.18.0)
