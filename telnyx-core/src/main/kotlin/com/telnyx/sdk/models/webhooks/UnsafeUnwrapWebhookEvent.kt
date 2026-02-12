@@ -27,7 +27,7 @@ private constructor(
         null,
     private val callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent? = null,
     private val callAnswered: CallAnsweredWebhookEvent? = null,
-    private val callBridged: CallBridged? = null,
+    private val callBridged: CallBridgedWebhookEvent? = null,
     private val callConversationEnded: CallConversationEndedWebhookEvent? = null,
     private val callConversationInsightsGenerated: CallConversationInsightsGeneratedWebhookEvent? =
         null,
@@ -108,7 +108,7 @@ private constructor(
 
     fun callAnswered(): Optional<CallAnsweredWebhookEvent> = Optional.ofNullable(callAnswered)
 
-    fun callBridged(): Optional<CallBridged> = Optional.ofNullable(callBridged)
+    fun callBridged(): Optional<CallBridgedWebhookEvent> = Optional.ofNullable(callBridged)
 
     fun callConversationEnded(): Optional<CallConversationEndedWebhookEvent> =
         Optional.ofNullable(callConversationEnded)
@@ -398,7 +398,7 @@ private constructor(
 
     fun asCallAnswered(): CallAnsweredWebhookEvent = callAnswered.getOrThrow("callAnswered")
 
-    fun asCallBridged(): CallBridged = callBridged.getOrThrow("callBridged")
+    fun asCallBridged(): CallBridgedWebhookEvent = callBridged.getOrThrow("callBridged")
 
     fun asCallConversationEnded(): CallConversationEndedWebhookEvent =
         callConversationEnded.getOrThrow("callConversationEnded")
@@ -673,7 +673,7 @@ private constructor(
                     callAnswered.validate()
                 }
 
-                override fun visitCallBridged(callBridged: CallBridged) {
+                override fun visitCallBridged(callBridged: CallBridgedWebhookEvent) {
                     callBridged.validate()
                 }
 
@@ -999,7 +999,8 @@ private constructor(
                 override fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent) =
                     callAnswered.validity()
 
-                override fun visitCallBridged(callBridged: CallBridged) = callBridged.validity()
+                override fun visitCallBridged(callBridged: CallBridgedWebhookEvent) =
+                    callBridged.validity()
 
                 override fun visitCallConversationEnded(
                     callConversationEnded: CallConversationEndedWebhookEvent
@@ -1465,7 +1466,7 @@ private constructor(
             UnsafeUnwrapWebhookEvent(callAnswered = callAnswered)
 
         @JvmStatic
-        fun ofCallBridged(callBridged: CallBridged) =
+        fun ofCallBridged(callBridged: CallBridgedWebhookEvent) =
             UnsafeUnwrapWebhookEvent(callBridged = callBridged)
 
         @JvmStatic
@@ -1744,7 +1745,7 @@ private constructor(
 
         fun visitCallAnswered(callAnswered: CallAnsweredWebhookEvent): T
 
-        fun visitCallBridged(callBridged: CallBridged): T
+        fun visitCallBridged(callBridged: CallBridgedWebhookEvent): T
 
         fun visitCallConversationEnded(callConversationEnded: CallConversationEndedWebhookEvent): T
 
@@ -1937,7 +1938,7 @@ private constructor(
                         tryDeserialize(node, jacksonTypeRef<CallAnsweredWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(callAnswered = it, _json = json)
                         },
-                        tryDeserialize(node, jacksonTypeRef<CallBridged>())?.let {
+                        tryDeserialize(node, jacksonTypeRef<CallBridgedWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(callBridged = it, _json = json)
                         },
                         tryDeserialize(node, jacksonTypeRef<CallConversationEndedWebhookEvent>())
