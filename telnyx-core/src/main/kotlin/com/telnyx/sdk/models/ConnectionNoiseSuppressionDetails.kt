@@ -42,7 +42,8 @@ private constructor(
     /**
      * The attenuation limit value for the selected engine. Default values vary by engine: 0 for
      * 'denoiser', 80 for 'deep_filter_net', 'deep_filter_net_large', and all Krisp engines
-     * ('krisp_viva_tel', 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss').
+     * ('krisp_viva_tel', 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss'), 100 for
+     * 'quail_voice_focus'.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -53,7 +54,8 @@ private constructor(
      * The noise suppression engine to use. 'denoiser' is the default engine. 'deep_filter_net' and
      * 'deep_filter_net_large' are alternative engines with different performance characteristics.
      * Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite', 'krisp_viva_promodel',
-     * 'krisp_viva_ss') provide advanced noise suppression capabilities.
+     * 'krisp_viva_ss') provide advanced noise suppression capabilities. 'quail_voice_focus'
+     * provides Quail-based voice focus noise suppression.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -117,7 +119,8 @@ private constructor(
         /**
          * The attenuation limit value for the selected engine. Default values vary by engine: 0 for
          * 'denoiser', 80 for 'deep_filter_net', 'deep_filter_net_large', and all Krisp engines
-         * ('krisp_viva_tel', 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss').
+         * ('krisp_viva_tel', 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss'), 100
+         * for 'quail_voice_focus'.
          */
         fun attenuationLimit(attenuationLimit: Long) =
             attenuationLimit(JsonField.of(attenuationLimit))
@@ -138,6 +141,7 @@ private constructor(
          * and 'deep_filter_net_large' are alternative engines with different performance
          * characteristics. Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite',
          * 'krisp_viva_promodel', 'krisp_viva_ss') provide advanced noise suppression capabilities.
+         * 'quail_voice_focus' provides Quail-based voice focus noise suppression.
          */
         fun engine(engine: Engine) = engine(JsonField.of(engine))
 
@@ -215,7 +219,8 @@ private constructor(
      * The noise suppression engine to use. 'denoiser' is the default engine. 'deep_filter_net' and
      * 'deep_filter_net_large' are alternative engines with different performance characteristics.
      * Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite', 'krisp_viva_promodel',
-     * 'krisp_viva_ss') provide advanced noise suppression capabilities.
+     * 'krisp_viva_ss') provide advanced noise suppression capabilities. 'quail_voice_focus'
+     * provides Quail-based voice focus noise suppression.
      */
     class Engine @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -245,6 +250,8 @@ private constructor(
 
             @JvmField val KRISP_VIVA_SS = of("krisp_viva_ss")
 
+            @JvmField val QUAIL_VOICE_FOCUS = of("quail_voice_focus")
+
             @JvmStatic fun of(value: String) = Engine(JsonField.of(value))
         }
 
@@ -257,6 +264,7 @@ private constructor(
             KRISP_VIVA_TEL_LITE,
             KRISP_VIVA_PROMODEL,
             KRISP_VIVA_SS,
+            QUAIL_VOICE_FOCUS,
         }
 
         /**
@@ -276,6 +284,7 @@ private constructor(
             KRISP_VIVA_TEL_LITE,
             KRISP_VIVA_PROMODEL,
             KRISP_VIVA_SS,
+            QUAIL_VOICE_FOCUS,
             /** An enum member indicating that [Engine] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -296,6 +305,7 @@ private constructor(
                 KRISP_VIVA_TEL_LITE -> Value.KRISP_VIVA_TEL_LITE
                 KRISP_VIVA_PROMODEL -> Value.KRISP_VIVA_PROMODEL
                 KRISP_VIVA_SS -> Value.KRISP_VIVA_SS
+                QUAIL_VOICE_FOCUS -> Value.QUAIL_VOICE_FOCUS
                 else -> Value._UNKNOWN
             }
 
@@ -317,6 +327,7 @@ private constructor(
                 KRISP_VIVA_TEL_LITE -> Known.KRISP_VIVA_TEL_LITE
                 KRISP_VIVA_PROMODEL -> Known.KRISP_VIVA_PROMODEL
                 KRISP_VIVA_SS -> Known.KRISP_VIVA_SS
+                QUAIL_VOICE_FOCUS -> Known.QUAIL_VOICE_FOCUS
                 else -> throw TelnyxInvalidDataException("Unknown Engine: $value")
             }
 
