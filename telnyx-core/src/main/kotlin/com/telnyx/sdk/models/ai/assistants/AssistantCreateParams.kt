@@ -692,6 +692,21 @@ private constructor(
             body.addSendMessageTool(sendMessage)
         }
 
+        /** Alias for calling [addTool] with `AssistantTool.ofSkipTurn(skipTurn)`. */
+        fun addTool(skipTurn: AssistantTool.SkipTurn) = apply { body.addTool(skipTurn) }
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * AssistantTool.SkipTurn.builder()
+         *     .skipTurn(skipTurn)
+         *     .build()
+         * ```
+         */
+        fun addSkipTurnTool(skipTurn: AssistantTool.SkipTurn.InnerSkipTurn) = apply {
+            body.addSkipTurnTool(skipTurn)
+        }
+
         fun transcription(transcription: TranscriptionSettings) = apply {
             body.transcription(transcription)
         }
@@ -1717,6 +1732,21 @@ private constructor(
              */
             fun addSendMessageTool(sendMessage: AssistantTool.SendMessage.InnerSendMessage) =
                 addTool(AssistantTool.SendMessage.builder().sendMessage(sendMessage).build())
+
+            /** Alias for calling [addTool] with `AssistantTool.ofSkipTurn(skipTurn)`. */
+            fun addTool(skipTurn: AssistantTool.SkipTurn) =
+                addTool(AssistantTool.ofSkipTurn(skipTurn))
+
+            /**
+             * Alias for calling [addTool] with the following:
+             * ```java
+             * AssistantTool.SkipTurn.builder()
+             *     .skipTurn(skipTurn)
+             *     .build()
+             * ```
+             */
+            fun addSkipTurnTool(skipTurn: AssistantTool.SkipTurn.InnerSkipTurn) =
+                addTool(AssistantTool.SkipTurn.builder().skipTurn(skipTurn).build())
 
             fun transcription(transcription: TranscriptionSettings) =
                 transcription(JsonField.of(transcription))
