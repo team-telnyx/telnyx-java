@@ -16,16 +16,16 @@ internal class MissionRetrieveResponseTest {
         val missionRetrieveResponse =
             MissionRetrieveResponse.builder()
                 .data(
-                    MissionData.builder()
+                    MissionRetrieveResponse.Data.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .executionMode(MissionData.ExecutionMode.EXTERNAL)
+                        .executionMode(MissionRetrieveResponse.Data.ExecutionMode.EXTERNAL)
                         .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .name("name")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .description("description")
                         .instructions("instructions")
                         .metadata(
-                            MissionData.Metadata.builder()
+                            MissionRetrieveResponse.Data.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -36,16 +36,16 @@ internal class MissionRetrieveResponseTest {
 
         assertThat(missionRetrieveResponse.data())
             .isEqualTo(
-                MissionData.builder()
+                MissionRetrieveResponse.Data.builder()
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .executionMode(MissionData.ExecutionMode.EXTERNAL)
+                    .executionMode(MissionRetrieveResponse.Data.ExecutionMode.EXTERNAL)
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .name("name")
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .description("description")
                     .instructions("instructions")
                     .metadata(
-                        MissionData.Metadata.builder()
+                        MissionRetrieveResponse.Data.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -60,16 +60,16 @@ internal class MissionRetrieveResponseTest {
         val missionRetrieveResponse =
             MissionRetrieveResponse.builder()
                 .data(
-                    MissionData.builder()
+                    MissionRetrieveResponse.Data.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .executionMode(MissionData.ExecutionMode.EXTERNAL)
+                        .executionMode(MissionRetrieveResponse.Data.ExecutionMode.EXTERNAL)
                         .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .name("name")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .description("description")
                         .instructions("instructions")
                         .metadata(
-                            MissionData.Metadata.builder()
+                            MissionRetrieveResponse.Data.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )

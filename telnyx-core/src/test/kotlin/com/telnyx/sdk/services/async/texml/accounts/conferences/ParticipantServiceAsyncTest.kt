@@ -146,6 +146,7 @@ internal class ParticipantServiceAsyncTest {
                     .earlyMedia(true)
                     .endConferenceOnExit(true)
                     .from("+12065550200")
+                    .label("customer")
                     .machineDetection(ParticipantParticipantsParams.MachineDetection.ENABLE)
                     .machineDetectionSilenceTimeout(2000L)
                     .machineDetectionSpeechEndThreshold(2000L)
