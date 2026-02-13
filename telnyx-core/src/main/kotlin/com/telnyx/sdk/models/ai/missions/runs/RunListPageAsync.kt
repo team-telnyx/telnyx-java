@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: RunListParams,
     private val response: RunListPageResponse,
-) : PageAsync<MissionRunData> {
+) : PageAsync<RunListResponse> {
 
     /**
      * Delegates to [RunListPageResponse], but gracefully handles missing data.
      *
      * @see RunListPageResponse.data
      */
-    fun data(): List<MissionRunData> =
+    fun data(): List<RunListResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<Meta> = response._meta().getOptional("meta")
 
-    override fun items(): List<MissionRunData> = data()
+    override fun items(): List<RunListResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -58,7 +58,7 @@ private constructor(
 
     override fun nextPage(): CompletableFuture<RunListPageAsync> = service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<MissionRunData> =
+    fun autoPager(): AutoPagerAsync<RunListResponse> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

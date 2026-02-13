@@ -16,15 +16,15 @@ internal class PlanGetStepDetailsResponseTest {
         val planGetStepDetailsResponse =
             PlanGetStepDetailsResponse.builder()
                 .data(
-                    PlanStepData.builder()
+                    PlanGetStepDetailsResponse.Data.builder()
                         .description("description")
                         .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .sequence(0L)
-                        .status(PlanStepData.Status.PENDING)
+                        .status(PlanGetStepDetailsResponse.Data.Status.PENDING)
                         .stepId("step_id")
                         .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .metadata(
-                            PlanStepData.Metadata.builder()
+                            PlanGetStepDetailsResponse.Data.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -36,15 +36,15 @@ internal class PlanGetStepDetailsResponseTest {
 
         assertThat(planGetStepDetailsResponse.data())
             .isEqualTo(
-                PlanStepData.builder()
+                PlanGetStepDetailsResponse.Data.builder()
                     .description("description")
                     .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .sequence(0L)
-                    .status(PlanStepData.Status.PENDING)
+                    .status(PlanGetStepDetailsResponse.Data.Status.PENDING)
                     .stepId("step_id")
                     .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .metadata(
-                        PlanStepData.Metadata.builder()
+                        PlanGetStepDetailsResponse.Data.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -60,15 +60,15 @@ internal class PlanGetStepDetailsResponseTest {
         val planGetStepDetailsResponse =
             PlanGetStepDetailsResponse.builder()
                 .data(
-                    PlanStepData.builder()
+                    PlanGetStepDetailsResponse.Data.builder()
                         .description("description")
                         .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .sequence(0L)
-                        .status(PlanStepData.Status.PENDING)
+                        .status(PlanGetStepDetailsResponse.Data.Status.PENDING)
                         .stepId("step_id")
                         .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .metadata(
-                            PlanStepData.Metadata.builder()
+                            PlanGetStepDetailsResponse.Data.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )

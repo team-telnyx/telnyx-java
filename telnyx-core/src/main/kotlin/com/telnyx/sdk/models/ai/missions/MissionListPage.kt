@@ -18,14 +18,15 @@ private constructor(
     private val service: MissionService,
     private val params: MissionListParams,
     private val response: MissionListPageResponse,
-) : Page<MissionData> {
+) : Page<MissionListResponse> {
 
     /**
      * Delegates to [MissionListPageResponse], but gracefully handles missing data.
      *
      * @see MissionListPageResponse.data
      */
-    fun data(): List<MissionData> = response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<MissionListResponse> =
+        response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [MissionListPageResponse], but gracefully handles missing data.
@@ -34,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<Meta> = response._meta().getOptional("meta")
 
-    override fun items(): List<MissionData> = data()
+    override fun items(): List<MissionListResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -54,7 +55,7 @@ private constructor(
 
     override fun nextPage(): MissionListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<MissionData> = AutoPager.from(this)
+    fun autoPager(): AutoPager<MissionListResponse> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): MissionListParams = params

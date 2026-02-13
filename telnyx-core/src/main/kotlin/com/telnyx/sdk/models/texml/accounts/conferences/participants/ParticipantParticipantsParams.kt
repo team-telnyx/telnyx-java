@@ -232,6 +232,15 @@ private constructor(
     fun from(): Optional<String> = body.from()
 
     /**
+     * A unique label for the participant that will be added to the conference. The label can be
+     * used to reference the participant for updates via the TeXML REST API.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun label(): Optional<String> = body.label()
+
+    /**
      * Whether to detect if a human or an answering machine picked up the call. Use `Enable` if you
      * would like to ne notified as soon as the called party is identified. Use `DetectMessageEnd`,
      * if you would like to leave a message on an answering machine.
@@ -615,6 +624,13 @@ private constructor(
      * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _from(): JsonField<String> = body._from()
+
+    /**
+     * Returns the raw JSON value of [label].
+     *
+     * Unlike [label], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _label(): JsonField<String> = body._label()
 
     /**
      * Returns the raw JSON value of [machineDetection].
@@ -1247,6 +1263,20 @@ private constructor(
         fun from(from: JsonField<String>) = apply { body.from(from) }
 
         /**
+         * A unique label for the participant that will be added to the conference. The label can be
+         * used to reference the participant for updates via the TeXML REST API.
+         */
+        fun label(label: String) = apply { body.label(label) }
+
+        /**
+         * Sets [Builder.label] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.label] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun label(label: JsonField<String>) = apply { body.label(label) }
+
+        /**
          * Whether to detect if a human or an answering machine picked up the call. Use `Enable` if
          * you would like to ne notified as soon as the called party is identified. Use
          * `DetectMessageEnd`, if you would like to leave a message on an answering machine.
@@ -1825,6 +1855,7 @@ private constructor(
         private val earlyMedia: JsonField<Boolean>,
         private val endConferenceOnExit: JsonField<Boolean>,
         private val from: JsonField<String>,
+        private val label: JsonField<String>,
         private val machineDetection: JsonField<MachineDetection>,
         private val machineDetectionSilenceTimeout: JsonField<Long>,
         private val machineDetectionSpeechEndThreshold: JsonField<Long>,
@@ -1917,6 +1948,7 @@ private constructor(
             @ExcludeMissing
             endConferenceOnExit: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("From") @ExcludeMissing from: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("Label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
             @JsonProperty("MachineDetection")
             @ExcludeMissing
             machineDetection: JsonField<MachineDetection> = JsonMissing.of(),
@@ -2003,6 +2035,7 @@ private constructor(
             earlyMedia,
             endConferenceOnExit,
             from,
+            label,
             machineDetection,
             machineDetectionSilenceTimeout,
             machineDetectionSpeechEndThreshold,
@@ -2238,6 +2271,15 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun from(): Optional<String> = from.getOptional("From")
+
+        /**
+         * A unique label for the participant that will be added to the conference. The label can be
+         * used to reference the participant for updates via the TeXML REST API.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun label(): Optional<String> = label.getOptional("Label")
 
         /**
          * Whether to detect if a human or an answering machine picked up the call. Use `Enable` if
@@ -2672,6 +2714,13 @@ private constructor(
         @JsonProperty("From") @ExcludeMissing fun _from(): JsonField<String> = from
 
         /**
+         * Returns the raw JSON value of [label].
+         *
+         * Unlike [label], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("Label") @ExcludeMissing fun _label(): JsonField<String> = label
+
+        /**
          * Returns the raw JSON value of [machineDetection].
          *
          * Unlike [machineDetection], this method doesn't throw if the JSON field has an unexpected
@@ -2948,6 +2997,7 @@ private constructor(
             private var earlyMedia: JsonField<Boolean> = JsonMissing.of()
             private var endConferenceOnExit: JsonField<Boolean> = JsonMissing.of()
             private var from: JsonField<String> = JsonMissing.of()
+            private var label: JsonField<String> = JsonMissing.of()
             private var machineDetection: JsonField<MachineDetection> = JsonMissing.of()
             private var machineDetectionSilenceTimeout: JsonField<Long> = JsonMissing.of()
             private var machineDetectionSpeechEndThreshold: JsonField<Long> = JsonMissing.of()
@@ -3000,6 +3050,7 @@ private constructor(
                 earlyMedia = body.earlyMedia
                 endConferenceOnExit = body.endConferenceOnExit
                 from = body.from
+                label = body.label
                 machineDetection = body.machineDetection
                 machineDetectionSilenceTimeout = body.machineDetectionSilenceTimeout
                 machineDetectionSpeechEndThreshold = body.machineDetectionSpeechEndThreshold
@@ -3403,6 +3454,21 @@ private constructor(
              * value.
              */
             fun from(from: JsonField<String>) = apply { this.from = from }
+
+            /**
+             * A unique label for the participant that will be added to the conference. The label
+             * can be used to reference the participant for updates via the TeXML REST API.
+             */
+            fun label(label: String) = label(JsonField.of(label))
+
+            /**
+             * Sets [Builder.label] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.label] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun label(label: JsonField<String>) = apply { this.label = label }
 
             /**
              * Whether to detect if a human or an answering machine picked up the call. Use `Enable`
@@ -3851,6 +3917,7 @@ private constructor(
                     earlyMedia,
                     endConferenceOnExit,
                     from,
+                    label,
                     machineDetection,
                     machineDetectionSilenceTimeout,
                     machineDetectionSpeechEndThreshold,
@@ -3908,6 +3975,7 @@ private constructor(
             earlyMedia()
             endConferenceOnExit()
             from()
+            label()
             machineDetection().ifPresent { it.validate() }
             machineDetectionSilenceTimeout()
             machineDetectionSpeechEndThreshold()
@@ -3973,6 +4041,7 @@ private constructor(
                 (if (earlyMedia.asKnown().isPresent) 1 else 0) +
                 (if (endConferenceOnExit.asKnown().isPresent) 1 else 0) +
                 (if (from.asKnown().isPresent) 1 else 0) +
+                (if (label.asKnown().isPresent) 1 else 0) +
                 (machineDetection.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (machineDetectionSilenceTimeout.asKnown().isPresent) 1 else 0) +
                 (if (machineDetectionSpeechEndThreshold.asKnown().isPresent) 1 else 0) +
@@ -4028,6 +4097,7 @@ private constructor(
                 earlyMedia == other.earlyMedia &&
                 endConferenceOnExit == other.endConferenceOnExit &&
                 from == other.from &&
+                label == other.label &&
                 machineDetection == other.machineDetection &&
                 machineDetectionSilenceTimeout == other.machineDetectionSilenceTimeout &&
                 machineDetectionSpeechEndThreshold == other.machineDetectionSpeechEndThreshold &&
@@ -4079,6 +4149,7 @@ private constructor(
                 earlyMedia,
                 endConferenceOnExit,
                 from,
+                label,
                 machineDetection,
                 machineDetectionSilenceTimeout,
                 machineDetectionSpeechEndThreshold,
@@ -4111,7 +4182,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{amdStatusCallback=$amdStatusCallback, amdStatusCallbackMethod=$amdStatusCallbackMethod, beep=$beep, callerId=$callerId, callSidToCoach=$callSidToCoach, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, coaching=$coaching, conferenceRecord=$conferenceRecord, conferenceRecordingStatusCallback=$conferenceRecordingStatusCallback, conferenceRecordingStatusCallbackEvent=$conferenceRecordingStatusCallbackEvent, conferenceRecordingStatusCallbackMethod=$conferenceRecordingStatusCallbackMethod, conferenceRecordingTimeout=$conferenceRecordingTimeout, conferenceStatusCallback=$conferenceStatusCallback, conferenceStatusCallbackEvent=$conferenceStatusCallbackEvent, conferenceStatusCallbackMethod=$conferenceStatusCallbackMethod, conferenceTrim=$conferenceTrim, customHeaders=$customHeaders, earlyMedia=$earlyMedia, endConferenceOnExit=$endConferenceOnExit, from=$from, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, maxParticipants=$maxParticipants, muted=$muted, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTrack=$recordingTrack, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, startConferenceOnEnter=$startConferenceOnEnter, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, waitUrl=$waitUrl, additionalProperties=$additionalProperties}"
+            "Body{amdStatusCallback=$amdStatusCallback, amdStatusCallbackMethod=$amdStatusCallbackMethod, beep=$beep, callerId=$callerId, callSidToCoach=$callSidToCoach, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, coaching=$coaching, conferenceRecord=$conferenceRecord, conferenceRecordingStatusCallback=$conferenceRecordingStatusCallback, conferenceRecordingStatusCallbackEvent=$conferenceRecordingStatusCallbackEvent, conferenceRecordingStatusCallbackMethod=$conferenceRecordingStatusCallbackMethod, conferenceRecordingTimeout=$conferenceRecordingTimeout, conferenceStatusCallback=$conferenceStatusCallback, conferenceStatusCallbackEvent=$conferenceStatusCallbackEvent, conferenceStatusCallbackMethod=$conferenceStatusCallbackMethod, conferenceTrim=$conferenceTrim, customHeaders=$customHeaders, earlyMedia=$earlyMedia, endConferenceOnExit=$endConferenceOnExit, from=$from, label=$label, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, maxParticipants=$maxParticipants, muted=$muted, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTrack=$recordingTrack, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, startConferenceOnEnter=$startConferenceOnEnter, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, waitUrl=$waitUrl, additionalProperties=$additionalProperties}"
     }
 
     /** HTTP request type used for `AmdStatusCallback`. Defaults to `POST`. */

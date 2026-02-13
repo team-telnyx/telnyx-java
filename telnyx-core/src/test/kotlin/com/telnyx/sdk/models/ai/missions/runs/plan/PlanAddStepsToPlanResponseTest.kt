@@ -16,15 +16,15 @@ internal class PlanAddStepsToPlanResponseTest {
         val planAddStepsToPlanResponse =
             PlanAddStepsToPlanResponse.builder()
                 .addData(
-                    PlanStepData.builder()
+                    PlanAddStepsToPlanResponse.Data.builder()
                         .description("description")
                         .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .sequence(0L)
-                        .status(PlanStepData.Status.PENDING)
+                        .status(PlanAddStepsToPlanResponse.Data.Status.PENDING)
                         .stepId("step_id")
                         .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .metadata(
-                            PlanStepData.Metadata.builder()
+                            PlanAddStepsToPlanResponse.Data.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -36,15 +36,15 @@ internal class PlanAddStepsToPlanResponseTest {
 
         assertThat(planAddStepsToPlanResponse.data())
             .containsExactly(
-                PlanStepData.builder()
+                PlanAddStepsToPlanResponse.Data.builder()
                     .description("description")
                     .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .sequence(0L)
-                    .status(PlanStepData.Status.PENDING)
+                    .status(PlanAddStepsToPlanResponse.Data.Status.PENDING)
                     .stepId("step_id")
                     .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .metadata(
-                        PlanStepData.Metadata.builder()
+                        PlanAddStepsToPlanResponse.Data.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -60,15 +60,15 @@ internal class PlanAddStepsToPlanResponseTest {
         val planAddStepsToPlanResponse =
             PlanAddStepsToPlanResponse.builder()
                 .addData(
-                    PlanStepData.builder()
+                    PlanAddStepsToPlanResponse.Data.builder()
                         .description("description")
                         .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .sequence(0L)
-                        .status(PlanStepData.Status.PENDING)
+                        .status(PlanAddStepsToPlanResponse.Data.Status.PENDING)
                         .stepId("step_id")
                         .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .metadata(
-                            PlanStepData.Metadata.builder()
+                            PlanAddStepsToPlanResponse.Data.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
