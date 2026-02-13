@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class RunListRunsPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<MissionRunData>>,
+    private val data: JsonField<List<RunListRunsResponse>>,
     private val meta: JsonField<Meta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<MissionRunData>> = JsonMissing.of(),
+        data: JsonField<List<RunListRunsResponse>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<Meta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -39,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun data(): List<MissionRunData> = data.getRequired("data")
+    fun data(): List<RunListRunsResponse> = data.getRequired("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -52,7 +52,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<MissionRunData>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<RunListRunsResponse>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -90,7 +90,7 @@ private constructor(
     /** A builder for [RunListRunsPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<MissionRunData>>? = null
+        private var data: JsonField<MutableList<RunListRunsResponse>>? = null
         private var meta: JsonField<Meta>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -101,25 +101,25 @@ private constructor(
             additionalProperties = runListRunsPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<MissionRunData>) = data(JsonField.of(data))
+        fun data(data: List<RunListRunsResponse>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<MissionRunData>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.data] with a well-typed `List<RunListRunsResponse>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun data(data: JsonField<List<MissionRunData>>) = apply {
+        fun data(data: JsonField<List<RunListRunsResponse>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [MissionRunData] to [Builder.data].
+         * Adds a single [RunListRunsResponse] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: MissionRunData) = apply {
+        fun addData(data: RunListRunsResponse) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

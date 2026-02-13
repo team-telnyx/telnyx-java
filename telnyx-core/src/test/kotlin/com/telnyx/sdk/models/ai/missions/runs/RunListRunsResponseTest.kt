@@ -9,104 +9,105 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class MissionRunDataTest {
+internal class RunListRunsResponseTest {
 
     @Test
     fun create() {
-        val missionRunData =
-            MissionRunData.builder()
+        val runListRunsResponse =
+            RunListRunsResponse.builder()
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(MissionRunData.Status.PENDING)
+                .status(RunListRunsResponse.Status.PENDING)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .error("error")
                 .finishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .input(
-                    MissionRunData.Input.builder()
+                    RunListRunsResponse.Input.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .metadata(
-                    MissionRunData.Metadata.builder()
+                    RunListRunsResponse.Metadata.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .resultPayload(
-                    MissionRunData.ResultPayload.builder()
+                    RunListRunsResponse.ResultPayload.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .resultSummary("result_summary")
                 .build()
 
-        assertThat(missionRunData.missionId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(missionRunData.runId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(missionRunData.startedAt())
+        assertThat(runListRunsResponse.missionId())
+            .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(runListRunsResponse.runId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(runListRunsResponse.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(missionRunData.status()).isEqualTo(MissionRunData.Status.PENDING)
-        assertThat(missionRunData.updatedAt())
+        assertThat(runListRunsResponse.status()).isEqualTo(RunListRunsResponse.Status.PENDING)
+        assertThat(runListRunsResponse.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(missionRunData.error()).contains("error")
-        assertThat(missionRunData.finishedAt())
+        assertThat(runListRunsResponse.error()).contains("error")
+        assertThat(runListRunsResponse.finishedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(missionRunData.input())
+        assertThat(runListRunsResponse.input())
             .contains(
-                MissionRunData.Input.builder()
+                RunListRunsResponse.Input.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
-        assertThat(missionRunData.metadata())
+        assertThat(runListRunsResponse.metadata())
             .contains(
-                MissionRunData.Metadata.builder()
+                RunListRunsResponse.Metadata.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
-        assertThat(missionRunData.resultPayload())
+        assertThat(runListRunsResponse.resultPayload())
             .contains(
-                MissionRunData.ResultPayload.builder()
+                RunListRunsResponse.ResultPayload.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
-        assertThat(missionRunData.resultSummary()).contains("result_summary")
+        assertThat(runListRunsResponse.resultSummary()).contains("result_summary")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val missionRunData =
-            MissionRunData.builder()
+        val runListRunsResponse =
+            RunListRunsResponse.builder()
                 .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .runId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(MissionRunData.Status.PENDING)
+                .status(RunListRunsResponse.Status.PENDING)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .error("error")
                 .finishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .input(
-                    MissionRunData.Input.builder()
+                    RunListRunsResponse.Input.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .metadata(
-                    MissionRunData.Metadata.builder()
+                    RunListRunsResponse.Metadata.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .resultPayload(
-                    MissionRunData.ResultPayload.builder()
+                    RunListRunsResponse.ResultPayload.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .resultSummary("result_summary")
                 .build()
 
-        val roundtrippedMissionRunData =
+        val roundtrippedRunListRunsResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(missionRunData),
-                jacksonTypeRef<MissionRunData>(),
+                jsonMapper.writeValueAsString(runListRunsResponse),
+                jacksonTypeRef<RunListRunsResponse>(),
             )
 
-        assertThat(roundtrippedMissionRunData).isEqualTo(missionRunData)
+        assertThat(roundtrippedRunListRunsResponse).isEqualTo(runListRunsResponse)
     }
 }
