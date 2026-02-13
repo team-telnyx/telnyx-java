@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.21.0 (2026-02-13)
+
+Full Changelog: [v6.20.0...v6.21.0](https://github.com/team-telnyx/telnyx-java/compare/v6.20.0...v6.21.0)
+
+### Features
+
+* AI-2090: Add skip_turn tool type to assistant config schema ([97c8d9f](https://github.com/team-telnyx/telnyx-java/commit/97c8d9f6bc5d82802cff2af53a03161d7e4dcc1b))
+
 ## 6.20.0 (2026-02-13)
 
 Full Changelog: [v6.19.0...v6.20.0](https://github.com/team-telnyx/telnyx-java/compare/v6.19.0...v6.20.0)
