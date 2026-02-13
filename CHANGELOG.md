@@ -1,5 +1,14 @@
 # Changelog
 
+## 6.20.0 (2026-02-13)
+
+Full Changelog: [v6.19.0...v6.20.0](https://github.com/team-telnyx/telnyx-java/compare/v6.19.0...v6.20.0)
+
+### Features
+
+* Add Label parameter to Dial Conference Participant endpoint ([2c7cb34](https://github.com/team-telnyx/telnyx-java/commit/2c7cb3426bb77a777ae3d74249cab93d1b073b48))
+* ENGDESK-49554: Add quail_voice_focus to noise suppression engine enums ([5958e4f](https://github.com/team-telnyx/telnyx-java/commit/5958e4f4e1937d2a3273a42e11a2e81b44403dd1))
+
 ## 6.19.0 (2026-02-12)
 
 Full Changelog: [v6.18.0...v6.19.0](https://github.com/team-telnyx/telnyx-java/compare/v6.18.0...v6.19.0)
