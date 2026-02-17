@@ -33,11 +33,7 @@ internal class WebhookServiceTest {
 
     @Test
     fun unsafeUnwrap() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val webhookService = client.webhooks()
 
         val payload =
@@ -48,11 +44,7 @@ internal class WebhookServiceTest {
 
     @Test
     fun unwrapWithoutHeaders() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val webhookService = client.webhooks()
 
         val payload =
