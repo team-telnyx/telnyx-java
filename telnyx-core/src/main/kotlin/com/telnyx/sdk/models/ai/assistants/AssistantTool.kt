@@ -2171,9 +2171,8 @@ private constructor(
                     detectionConfig.getOptional("detection_config")
 
                 /**
-                 * The AMD detection mode to use. 'detect' enables answering machine detection
-                 * (works best when warm transfer instructions are also set). 'disabled' turns off
-                 * AMD detection.
+                 * The AMD detection mode to use. 'premium' enables premium answering machine
+                 * detection. 'disabled' turns off AMD detection.
                  *
                  * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
                  *   if the server responded with an unexpected value).
@@ -2278,9 +2277,8 @@ private constructor(
                     }
 
                     /**
-                     * The AMD detection mode to use. 'detect' enables answering machine detection
-                     * (works best when warm transfer instructions are also set). 'disabled' turns
-                     * off AMD detection.
+                     * The AMD detection mode to use. 'premium' enables premium answering machine
+                     * detection. 'disabled' turns off AMD detection.
                      */
                     fun detectionMode(detectionMode: DetectionMode) =
                         detectionMode(JsonField.of(detectionMode))
@@ -3049,9 +3047,8 @@ private constructor(
                 }
 
                 /**
-                 * The AMD detection mode to use. 'detect' enables answering machine detection
-                 * (works best when warm transfer instructions are also set). 'disabled' turns off
-                 * AMD detection.
+                 * The AMD detection mode to use. 'premium' enables premium answering machine
+                 * detection. 'disabled' turns off AMD detection.
                  */
                 class DetectionMode
                 @JsonCreator
@@ -3072,7 +3069,7 @@ private constructor(
 
                         @JvmField val DISABLED = of("disabled")
 
-                        @JvmField val DETECT = of("detect")
+                        @JvmField val PREMIUM = of("premium")
 
                         @JvmStatic fun of(value: String) = DetectionMode(JsonField.of(value))
                     }
@@ -3080,7 +3077,7 @@ private constructor(
                     /** An enum containing [DetectionMode]'s known values. */
                     enum class Known {
                         DISABLED,
-                        DETECT,
+                        PREMIUM,
                     }
 
                     /**
@@ -3096,7 +3093,7 @@ private constructor(
                      */
                     enum class Value {
                         DISABLED,
-                        DETECT,
+                        PREMIUM,
                         /**
                          * An enum member indicating that [DetectionMode] was instantiated with an
                          * unknown value.
@@ -3114,7 +3111,7 @@ private constructor(
                     fun value(): Value =
                         when (this) {
                             DISABLED -> Value.DISABLED
-                            DETECT -> Value.DETECT
+                            PREMIUM -> Value.PREMIUM
                             else -> Value._UNKNOWN
                         }
 
@@ -3130,7 +3127,7 @@ private constructor(
                     fun known(): Known =
                         when (this) {
                             DISABLED -> Known.DISABLED
-                            DETECT -> Known.DETECT
+                            PREMIUM -> Known.PREMIUM
                             else ->
                                 throw TelnyxInvalidDataException("Unknown DetectionMode: $value")
                         }
@@ -3212,7 +3209,7 @@ private constructor(
                     /**
                      * The action to take when voicemail is detected. 'stop_transfer' hangs up
                      * immediately. 'leave_message_and_stop_transfer' leaves a message then hangs
-                     * up. 'continue_transfer' bridges the call despite voicemail detection.
+                     * up.
                      *
                      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
@@ -3289,8 +3286,7 @@ private constructor(
                         /**
                          * The action to take when voicemail is detected. 'stop_transfer' hangs up
                          * immediately. 'leave_message_and_stop_transfer' leaves a message then
-                         * hangs up. 'continue_transfer' bridges the call despite voicemail
-                         * detection.
+                         * hangs up.
                          */
                         fun action(action: Action) = action(JsonField.of(action))
 
@@ -3391,7 +3387,7 @@ private constructor(
                     /**
                      * The action to take when voicemail is detected. 'stop_transfer' hangs up
                      * immediately. 'leave_message_and_stop_transfer' leaves a message then hangs
-                     * up. 'continue_transfer' bridges the call despite voicemail detection.
+                     * up.
                      */
                     class Action
                     @JsonCreator
@@ -3416,8 +3412,6 @@ private constructor(
                             val LEAVE_MESSAGE_AND_STOP_TRANSFER =
                                 of("leave_message_and_stop_transfer")
 
-                            @JvmField val CONTINUE_TRANSFER = of("continue_transfer")
-
                             @JvmStatic fun of(value: String) = Action(JsonField.of(value))
                         }
 
@@ -3425,7 +3419,6 @@ private constructor(
                         enum class Known {
                             STOP_TRANSFER,
                             LEAVE_MESSAGE_AND_STOP_TRANSFER,
-                            CONTINUE_TRANSFER,
                         }
 
                         /**
@@ -3442,7 +3435,6 @@ private constructor(
                         enum class Value {
                             STOP_TRANSFER,
                             LEAVE_MESSAGE_AND_STOP_TRANSFER,
-                            CONTINUE_TRANSFER,
                             /**
                              * An enum member indicating that [Action] was instantiated with an
                              * unknown value.
@@ -3462,7 +3454,6 @@ private constructor(
                                 STOP_TRANSFER -> Value.STOP_TRANSFER
                                 LEAVE_MESSAGE_AND_STOP_TRANSFER ->
                                     Value.LEAVE_MESSAGE_AND_STOP_TRANSFER
-                                CONTINUE_TRANSFER -> Value.CONTINUE_TRANSFER
                                 else -> Value._UNKNOWN
                             }
 
@@ -3480,7 +3471,6 @@ private constructor(
                                 STOP_TRANSFER -> Known.STOP_TRANSFER
                                 LEAVE_MESSAGE_AND_STOP_TRANSFER ->
                                     Known.LEAVE_MESSAGE_AND_STOP_TRANSFER
-                                CONTINUE_TRANSFER -> Known.CONTINUE_TRANSFER
                                 else -> throw TelnyxInvalidDataException("Unknown Action: $value")
                             }
 
