@@ -21,15 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: MissionListParams,
     private val response: MissionListPageResponse,
-) : PageAsync<MissionListResponse> {
+) : PageAsync<MissionData> {
 
     /**
      * Delegates to [MissionListPageResponse], but gracefully handles missing data.
      *
      * @see MissionListPageResponse.data
      */
-    fun data(): List<MissionListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<MissionData> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [MissionListPageResponse], but gracefully handles missing data.
@@ -38,7 +37,7 @@ private constructor(
      */
     fun meta(): Optional<Meta> = response._meta().getOptional("meta")
 
-    override fun items(): List<MissionListResponse> = data()
+    override fun items(): List<MissionData> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,8 +58,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<MissionListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<MissionListResponse> =
-        AutoPagerAsync.from(this, streamHandlerExecutor)
+    fun autoPager(): AutoPagerAsync<MissionData> = AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): MissionListParams = params
