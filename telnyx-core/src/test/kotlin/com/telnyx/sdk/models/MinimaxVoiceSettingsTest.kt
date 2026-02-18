@@ -14,12 +14,15 @@ internal class MinimaxVoiceSettingsTest {
         val minimaxVoiceSettings =
             MinimaxVoiceSettings.builder()
                 .type(MinimaxVoiceSettings.Type.MINIMAX)
+                .languageBoost(MinimaxVoiceSettings.LanguageBoost.AUTO)
                 .pitch(0L)
                 .speed(1.0f)
                 .vol(1.0f)
                 .build()
 
         assertThat(minimaxVoiceSettings.type()).isEqualTo(MinimaxVoiceSettings.Type.MINIMAX)
+        assertThat(minimaxVoiceSettings.languageBoost())
+            .contains(MinimaxVoiceSettings.LanguageBoost.AUTO)
         assertThat(minimaxVoiceSettings.pitch()).contains(0L)
         assertThat(minimaxVoiceSettings.speed()).contains(1.0f)
         assertThat(minimaxVoiceSettings.vol()).contains(1.0f)
@@ -31,6 +34,7 @@ internal class MinimaxVoiceSettingsTest {
         val minimaxVoiceSettings =
             MinimaxVoiceSettings.builder()
                 .type(MinimaxVoiceSettings.Type.MINIMAX)
+                .languageBoost(MinimaxVoiceSettings.LanguageBoost.AUTO)
                 .pitch(0L)
                 .speed(1.0f)
                 .vol(1.0f)

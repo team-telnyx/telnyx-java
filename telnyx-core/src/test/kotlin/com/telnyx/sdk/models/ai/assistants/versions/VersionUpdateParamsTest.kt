@@ -199,6 +199,7 @@ internal class VersionUpdateParamsTest {
                                 VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
                                     .SILENCE
                             )
+                            .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                             .similarityBoost(0.0)
                             .speed(0.0)
                             .style(0.0)
@@ -444,6 +445,7 @@ internal class VersionUpdateParamsTest {
                                         .PredefinedMediaValue
                                         .SILENCE
                                 )
+                                .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                                 .similarityBoost(0.0)
                                 .speed(0.0)
                                 .style(0.0)
@@ -654,6 +656,7 @@ internal class VersionUpdateParamsTest {
                                 VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
                                     .SILENCE
                             )
+                            .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                             .similarityBoost(0.0)
                             .speed(0.0)
                             .style(0.0)
