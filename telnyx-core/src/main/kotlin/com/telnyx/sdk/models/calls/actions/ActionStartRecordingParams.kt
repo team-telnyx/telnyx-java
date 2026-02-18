@@ -140,6 +140,9 @@ private constructor(
     fun transcriptionEngine(): Optional<TranscriptionEngine> = body.transcriptionEngine()
 
     /**
+     * Language code for transcription. Note: Not all languages are supported by all transcription
+     * engines (google, telnyx, deepgram). See engine-specific documentation for supported values.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -544,6 +547,11 @@ private constructor(
             body.transcriptionEngine(transcriptionEngine)
         }
 
+        /**
+         * Language code for transcription. Note: Not all languages are supported by all
+         * transcription engines (google, telnyx, deepgram). See engine-specific documentation for
+         * supported values.
+         */
         fun transcriptionLanguage(transcriptionLanguage: TranscriptionLanguage) = apply {
             body.transcriptionLanguage(transcriptionLanguage)
         }
@@ -989,6 +997,10 @@ private constructor(
             transcriptionEngine.getOptional("transcription_engine")
 
         /**
+         * Language code for transcription. Note: Not all languages are supported by all
+         * transcription engines (google, telnyx, deepgram). See engine-specific documentation for
+         * supported values.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -1436,6 +1448,11 @@ private constructor(
                 this.transcriptionEngine = transcriptionEngine
             }
 
+            /**
+             * Language code for transcription. Note: Not all languages are supported by all
+             * transcription engines (google, telnyx, deepgram). See engine-specific documentation
+             * for supported values.
+             */
             fun transcriptionLanguage(transcriptionLanguage: TranscriptionLanguage) =
                 transcriptionLanguage(JsonField.of(transcriptionLanguage))
 
@@ -2239,6 +2256,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * Language code for transcription. Note: Not all languages are supported by all transcription
+     * engines (google, telnyx, deepgram). See engine-specific documentation for supported values.
+     */
     class TranscriptionLanguage
     @JsonCreator
     private constructor(private val value: JsonField<String>) : Enum {
@@ -2255,9 +2276,15 @@ private constructor(
 
         companion object {
 
+            @JvmField val AF = of("af")
+
             @JvmField val AF_ZA = of("af-ZA")
 
+            @JvmField val AM = of("am")
+
             @JvmField val AM_ET = of("am-ET")
+
+            @JvmField val AR = of("ar")
 
             @JvmField val AR_AE = of("ar-AE")
 
@@ -2293,21 +2320,51 @@ private constructor(
 
             @JvmField val AR_YE = of("ar-YE")
 
+            @JvmField val AS = of("as")
+
+            @JvmField val AUTO_DETECT = of("auto_detect")
+
+            @JvmField val AZ = of("az")
+
             @JvmField val AZ_AZ = of("az-AZ")
 
+            @JvmField val BA = of("ba")
+
+            @JvmField val BE = of("be")
+
+            @JvmField val BG = of("bg")
+
             @JvmField val BG_BG = of("bg-BG")
+
+            @JvmField val BN = of("bn")
 
             @JvmField val BN_BD = of("bn-BD")
 
             @JvmField val BN_IN = of("bn-IN")
 
+            @JvmField val BO = of("bo")
+
+            @JvmField val BR = of("br")
+
+            @JvmField val BS = of("bs")
+
             @JvmField val BS_BA = of("bs-BA")
+
+            @JvmField val CA = of("ca")
 
             @JvmField val CA_ES = of("ca-ES")
 
+            @JvmField val CS = of("cs")
+
             @JvmField val CS_CZ = of("cs-CZ")
 
+            @JvmField val CY = of("cy")
+
+            @JvmField val DA = of("da")
+
             @JvmField val DA_DK = of("da-DK")
+
+            @JvmField val DE = of("de")
 
             @JvmField val DE_AT = of("de-AT")
 
@@ -2315,7 +2372,11 @@ private constructor(
 
             @JvmField val DE_DE = of("de-DE")
 
+            @JvmField val EL = of("el")
+
             @JvmField val EL_GR = of("el-GR")
+
+            @JvmField val EN = of("en")
 
             @JvmField val EN_AU = of("en-AU")
 
@@ -2348,6 +2409,10 @@ private constructor(
             @JvmField val EN_US = of("en-US")
 
             @JvmField val EN_ZA = of("en-ZA")
+
+            @JvmField val ES = of("es")
+
+            @JvmField val ES_419 = of("es-419")
 
             @JvmField val ES_AR = of("es-AR")
 
@@ -2389,15 +2454,27 @@ private constructor(
 
             @JvmField val ES_VE = of("es-VE")
 
+            @JvmField val ET = of("et")
+
             @JvmField val ET_EE = of("et-EE")
+
+            @JvmField val EU = of("eu")
 
             @JvmField val EU_ES = of("eu-ES")
 
+            @JvmField val FA = of("fa")
+
             @JvmField val FA_IR = of("fa-IR")
+
+            @JvmField val FI = of("fi")
 
             @JvmField val FI_FI = of("fi-FI")
 
             @JvmField val FIL_PH = of("fil-PH")
+
+            @JvmField val FO = of("fo")
+
+            @JvmField val FR = of("fr")
 
             @JvmField val FR_BE = of("fr-BE")
 
@@ -2407,21 +2484,47 @@ private constructor(
 
             @JvmField val FR_FR = of("fr-FR")
 
+            @JvmField val GL = of("gl")
+
             @JvmField val GL_ES = of("gl-ES")
+
+            @JvmField val GU = of("gu")
 
             @JvmField val GU_IN = of("gu-IN")
 
+            @JvmField val HA = of("ha")
+
+            @JvmField val HAW = of("haw")
+
+            @JvmField val HE = of("he")
+
+            @JvmField val HI = of("hi")
+
             @JvmField val HI_IN = of("hi-IN")
+
+            @JvmField val HR = of("hr")
 
             @JvmField val HR_HR = of("hr-HR")
 
+            @JvmField val HT = of("ht")
+
+            @JvmField val HU = of("hu")
+
             @JvmField val HU_HU = of("hu-HU")
+
+            @JvmField val HY = of("hy")
 
             @JvmField val HY_AM = of("hy-AM")
 
+            @JvmField val ID = of("id")
+
             @JvmField val ID_ID = of("id-ID")
 
+            @JvmField val IS = of("is")
+
             @JvmField val IS_IS = of("is-IS")
+
+            @JvmField val IT = of("it")
 
             @JvmField val IT_CH = of("it-CH")
 
@@ -2429,67 +2532,151 @@ private constructor(
 
             @JvmField val IW_IL = of("iw-IL")
 
+            @JvmField val JA = of("ja")
+
             @JvmField val JA_JP = of("ja-JP")
 
             @JvmField val JV_ID = of("jv-ID")
 
+            @JvmField val JW = of("jw")
+
+            @JvmField val KA = of("ka")
+
             @JvmField val KA_GE = of("ka-GE")
+
+            @JvmField val KK = of("kk")
 
             @JvmField val KK_KZ = of("kk-KZ")
 
+            @JvmField val KM = of("km")
+
             @JvmField val KM_KH = of("km-KH")
+
+            @JvmField val KN = of("kn")
 
             @JvmField val KN_IN = of("kn-IN")
 
+            @JvmField val KO = of("ko")
+
             @JvmField val KO_KR = of("ko-KR")
+
+            @JvmField val LA = of("la")
+
+            @JvmField val LB = of("lb")
+
+            @JvmField val LN = of("ln")
+
+            @JvmField val LO = of("lo")
 
             @JvmField val LO_LA = of("lo-LA")
 
+            @JvmField val LT = of("lt")
+
             @JvmField val LT_LT = of("lt-LT")
+
+            @JvmField val LV = of("lv")
 
             @JvmField val LV_LV = of("lv-LV")
 
+            @JvmField val MG = of("mg")
+
+            @JvmField val MI = of("mi")
+
+            @JvmField val MK = of("mk")
+
             @JvmField val MK_MK = of("mk-MK")
+
+            @JvmField val ML = of("ml")
 
             @JvmField val ML_IN = of("ml-IN")
 
+            @JvmField val MN = of("mn")
+
             @JvmField val MN_MN = of("mn-MN")
+
+            @JvmField val MR = of("mr")
 
             @JvmField val MR_IN = of("mr-IN")
 
+            @JvmField val MS = of("ms")
+
             @JvmField val MS_MY = of("ms-MY")
+
+            @JvmField val MT = of("mt")
+
+            @JvmField val MY = of("my")
 
             @JvmField val MY_MM = of("my-MM")
 
+            @JvmField val NE = of("ne")
+
             @JvmField val NE_NP = of("ne-NP")
+
+            @JvmField val NL = of("nl")
 
             @JvmField val NL_BE = of("nl-BE")
 
             @JvmField val NL_NL = of("nl-NL")
 
+            @JvmField val NN = of("nn")
+
+            @JvmField val NO = of("no")
+
             @JvmField val NO_NO = of("no-NO")
+
+            @JvmField val OC = of("oc")
+
+            @JvmField val PA = of("pa")
 
             @JvmField val PA_GURU_IN = of("pa-Guru-IN")
 
+            @JvmField val PL = of("pl")
+
             @JvmField val PL_PL = of("pl-PL")
+
+            @JvmField val PS = of("ps")
+
+            @JvmField val PT = of("pt")
 
             @JvmField val PT_BR = of("pt-BR")
 
             @JvmField val PT_PT = of("pt-PT")
 
+            @JvmField val RO = of("ro")
+
             @JvmField val RO_RO = of("ro-RO")
+
+            @JvmField val RU = of("ru")
 
             @JvmField val RU_RU = of("ru-RU")
 
             @JvmField val RW_RW = of("rw-RW")
 
+            @JvmField val SA = of("sa")
+
+            @JvmField val SD = of("sd")
+
+            @JvmField val SI = of("si")
+
             @JvmField val SI_LK = of("si-LK")
+
+            @JvmField val SK = of("sk")
 
             @JvmField val SK_SK = of("sk-SK")
 
+            @JvmField val SL = of("sl")
+
             @JvmField val SL_SI = of("sl-SI")
 
+            @JvmField val SN = of("sn")
+
+            @JvmField val SO = of("so")
+
+            @JvmField val SQ = of("sq")
+
             @JvmField val SQ_AL = of("sq-AL")
+
+            @JvmField val SR = of("sr")
 
             @JvmField val SR_RS = of("sr-RS")
 
@@ -2497,13 +2684,21 @@ private constructor(
 
             @JvmField val ST_ZA = of("st-ZA")
 
+            @JvmField val SU = of("su")
+
             @JvmField val SU_ID = of("su-ID")
 
+            @JvmField val SV = of("sv")
+
             @JvmField val SV_SE = of("sv-SE")
+
+            @JvmField val SW = of("sw")
 
             @JvmField val SW_KE = of("sw-KE")
 
             @JvmField val SW_TZ = of("sw-TZ")
+
+            @JvmField val TA = of("ta")
 
             @JvmField val TA_IN = of("ta-IN")
 
@@ -2513,29 +2708,55 @@ private constructor(
 
             @JvmField val TA_SG = of("ta-SG")
 
+            @JvmField val TE = of("te")
+
             @JvmField val TE_IN = of("te-IN")
+
+            @JvmField val TG = of("tg")
+
+            @JvmField val TH = of("th")
 
             @JvmField val TH_TH = of("th-TH")
 
+            @JvmField val TK = of("tk")
+
+            @JvmField val TL = of("tl")
+
             @JvmField val TN_LATN_ZA = of("tn-latn-za")
+
+            @JvmField val TR = of("tr")
 
             @JvmField val TR_TR = of("tr-TR")
 
             @JvmField val TS_ZA = of("ts-ZA")
 
+            @JvmField val TT = of("tt")
+
+            @JvmField val UK = of("uk")
+
             @JvmField val UK_UA = of("uk-UA")
+
+            @JvmField val UR = of("ur")
 
             @JvmField val UR_IN = of("ur-IN")
 
             @JvmField val UR_PK = of("ur-PK")
 
+            @JvmField val UZ = of("uz")
+
             @JvmField val UZ_UZ = of("uz-UZ")
 
             @JvmField val VE_ZA = of("ve-ZA")
 
+            @JvmField val VI = of("vi")
+
             @JvmField val VI_VN = of("vi-VN")
 
             @JvmField val XH_ZA = of("xh-ZA")
+
+            @JvmField val YI = of("yi")
+
+            @JvmField val YO = of("yo")
 
             @JvmField val YUE_HANT_HK = of("yue-Hant-HK")
 
@@ -2545,213 +2766,16 @@ private constructor(
 
             @JvmField val ZU_ZA = of("zu-ZA")
 
-            @JvmField val EN = of("en")
-
-            @JvmField val DE = of("de")
-
-            @JvmField val ES = of("es")
-
-            @JvmField val RU = of("ru")
-
-            @JvmField val KO = of("ko")
-
-            @JvmField val FR = of("fr")
-
-            @JvmField val JA = of("ja")
-
-            @JvmField val PT = of("pt")
-
-            @JvmField val TR = of("tr")
-
-            @JvmField val PL = of("pl")
-
-            @JvmField val CA = of("ca")
-
-            @JvmField val NL = of("nl")
-
-            @JvmField val AR = of("ar")
-
-            @JvmField val SV = of("sv")
-
-            @JvmField val IT = of("it")
-
-            @JvmField val ID = of("id")
-
-            @JvmField val HI = of("hi")
-
-            @JvmField val FI = of("fi")
-
-            @JvmField val VI = of("vi")
-
-            @JvmField val HE = of("he")
-
-            @JvmField val UK = of("uk")
-
-            @JvmField val EL = of("el")
-
-            @JvmField val MS = of("ms")
-
-            @JvmField val CS = of("cs")
-
-            @JvmField val RO = of("ro")
-
-            @JvmField val DA = of("da")
-
-            @JvmField val HU = of("hu")
-
-            @JvmField val TA = of("ta")
-
-            @JvmField val NO = of("no")
-
-            @JvmField val TH = of("th")
-
-            @JvmField val UR = of("ur")
-
-            @JvmField val HR = of("hr")
-
-            @JvmField val BG = of("bg")
-
-            @JvmField val LT = of("lt")
-
-            @JvmField val LA = of("la")
-
-            @JvmField val MI = of("mi")
-
-            @JvmField val ML = of("ml")
-
-            @JvmField val CY = of("cy")
-
-            @JvmField val SK = of("sk")
-
-            @JvmField val TE = of("te")
-
-            @JvmField val FA = of("fa")
-
-            @JvmField val LV = of("lv")
-
-            @JvmField val BN = of("bn")
-
-            @JvmField val SR = of("sr")
-
-            @JvmField val AZ = of("az")
-
-            @JvmField val SL = of("sl")
-
-            @JvmField val KN = of("kn")
-
-            @JvmField val ET = of("et")
-
-            @JvmField val MK = of("mk")
-
-            @JvmField val BR = of("br")
-
-            @JvmField val EU = of("eu")
-
-            @JvmField val IS = of("is")
-
-            @JvmField val HY = of("hy")
-
-            @JvmField val NE = of("ne")
-
-            @JvmField val MN = of("mn")
-
-            @JvmField val BS = of("bs")
-
-            @JvmField val KK = of("kk")
-
-            @JvmField val SQ = of("sq")
-
-            @JvmField val SW = of("sw")
-
-            @JvmField val GL = of("gl")
-
-            @JvmField val MR = of("mr")
-
-            @JvmField val PA = of("pa")
-
-            @JvmField val SI = of("si")
-
-            @JvmField val KM = of("km")
-
-            @JvmField val SN = of("sn")
-
-            @JvmField val YO = of("yo")
-
-            @JvmField val SO = of("so")
-
-            @JvmField val AF = of("af")
-
-            @JvmField val OC = of("oc")
-
-            @JvmField val KA = of("ka")
-
-            @JvmField val BE = of("be")
-
-            @JvmField val TG = of("tg")
-
-            @JvmField val SD = of("sd")
-
-            @JvmField val GU = of("gu")
-
-            @JvmField val AM = of("am")
-
-            @JvmField val YI = of("yi")
-
-            @JvmField val LO = of("lo")
-
-            @JvmField val UZ = of("uz")
-
-            @JvmField val FO = of("fo")
-
-            @JvmField val HT = of("ht")
-
-            @JvmField val PS = of("ps")
-
-            @JvmField val TK = of("tk")
-
-            @JvmField val NN = of("nn")
-
-            @JvmField val MT = of("mt")
-
-            @JvmField val SA = of("sa")
-
-            @JvmField val LB = of("lb")
-
-            @JvmField val MY = of("my")
-
-            @JvmField val BO = of("bo")
-
-            @JvmField val TL = of("tl")
-
-            @JvmField val MG = of("mg")
-
-            @JvmField val AS = of("as")
-
-            @JvmField val TT = of("tt")
-
-            @JvmField val HAW = of("haw")
-
-            @JvmField val LN = of("ln")
-
-            @JvmField val HA = of("ha")
-
-            @JvmField val BA = of("ba")
-
-            @JvmField val JW = of("jw")
-
-            @JvmField val SU = of("su")
-
-            @JvmField val AUTO_DETECT = of("auto_detect")
-
-            @JvmField val ES_419 = of("es-419")
-
             @JvmStatic fun of(value: String) = TranscriptionLanguage(JsonField.of(value))
         }
 
         /** An enum containing [TranscriptionLanguage]'s known values. */
         enum class Known {
+            AF,
             AF_ZA,
+            AM,
             AM_ET,
+            AR,
             AR_AE,
             AR_BH,
             AR_DZ,
@@ -2769,18 +2793,35 @@ private constructor(
             AR_SA,
             AR_TN,
             AR_YE,
+            AS,
+            AUTO_DETECT,
+            AZ,
             AZ_AZ,
+            BA,
+            BE,
+            BG,
             BG_BG,
+            BN,
             BN_BD,
             BN_IN,
+            BO,
+            BR,
+            BS,
             BS_BA,
+            CA,
             CA_ES,
+            CS,
             CS_CZ,
+            CY,
+            DA,
             DA_DK,
+            DE,
             DE_AT,
             DE_CH,
             DE_DE,
+            EL,
             EL_GR,
+            EN,
             EN_AU,
             EN_CA,
             EN_GB,
@@ -2797,6 +2838,8 @@ private constructor(
             EN_TZ,
             EN_US,
             EN_ZA,
+            ES,
+            ES_419,
             ES_AR,
             ES_BO,
             ES_CL,
@@ -2817,184 +2860,162 @@ private constructor(
             ES_US,
             ES_UY,
             ES_VE,
+            ET,
             ET_EE,
+            EU,
             EU_ES,
+            FA,
             FA_IR,
+            FI,
             FI_FI,
             FIL_PH,
+            FO,
+            FR,
             FR_BE,
             FR_CA,
             FR_CH,
             FR_FR,
+            GL,
             GL_ES,
+            GU,
             GU_IN,
+            HA,
+            HAW,
+            HE,
+            HI,
             HI_IN,
+            HR,
             HR_HR,
+            HT,
+            HU,
             HU_HU,
+            HY,
             HY_AM,
+            ID,
             ID_ID,
+            IS,
             IS_IS,
+            IT,
             IT_CH,
             IT_IT,
             IW_IL,
+            JA,
             JA_JP,
             JV_ID,
+            JW,
+            KA,
             KA_GE,
+            KK,
             KK_KZ,
+            KM,
             KM_KH,
+            KN,
             KN_IN,
+            KO,
             KO_KR,
+            LA,
+            LB,
+            LN,
+            LO,
             LO_LA,
+            LT,
             LT_LT,
+            LV,
             LV_LV,
+            MG,
+            MI,
+            MK,
             MK_MK,
+            ML,
             ML_IN,
+            MN,
             MN_MN,
+            MR,
             MR_IN,
+            MS,
             MS_MY,
+            MT,
+            MY,
             MY_MM,
+            NE,
             NE_NP,
+            NL,
             NL_BE,
             NL_NL,
+            NN,
+            NO,
             NO_NO,
+            OC,
+            PA,
             PA_GURU_IN,
+            PL,
             PL_PL,
+            PS,
+            PT,
             PT_BR,
             PT_PT,
+            RO,
             RO_RO,
+            RU,
             RU_RU,
             RW_RW,
+            SA,
+            SD,
+            SI,
             SI_LK,
+            SK,
             SK_SK,
+            SL,
             SL_SI,
+            SN,
+            SO,
+            SQ,
             SQ_AL,
+            SR,
             SR_RS,
             SS_LATN_ZA,
             ST_ZA,
+            SU,
             SU_ID,
+            SV,
             SV_SE,
+            SW,
             SW_KE,
             SW_TZ,
+            TA,
             TA_IN,
             TA_LK,
             TA_MY,
             TA_SG,
+            TE,
             TE_IN,
+            TG,
+            TH,
             TH_TH,
+            TK,
+            TL,
             TN_LATN_ZA,
+            TR,
             TR_TR,
             TS_ZA,
+            TT,
+            UK,
             UK_UA,
+            UR,
             UR_IN,
             UR_PK,
+            UZ,
             UZ_UZ,
             VE_ZA,
+            VI,
             VI_VN,
             XH_ZA,
+            YI,
+            YO,
             YUE_HANT_HK,
             ZH,
             ZH_TW,
             ZU_ZA,
-            EN,
-            DE,
-            ES,
-            RU,
-            KO,
-            FR,
-            JA,
-            PT,
-            TR,
-            PL,
-            CA,
-            NL,
-            AR,
-            SV,
-            IT,
-            ID,
-            HI,
-            FI,
-            VI,
-            HE,
-            UK,
-            EL,
-            MS,
-            CS,
-            RO,
-            DA,
-            HU,
-            TA,
-            NO,
-            TH,
-            UR,
-            HR,
-            BG,
-            LT,
-            LA,
-            MI,
-            ML,
-            CY,
-            SK,
-            TE,
-            FA,
-            LV,
-            BN,
-            SR,
-            AZ,
-            SL,
-            KN,
-            ET,
-            MK,
-            BR,
-            EU,
-            IS,
-            HY,
-            NE,
-            MN,
-            BS,
-            KK,
-            SQ,
-            SW,
-            GL,
-            MR,
-            PA,
-            SI,
-            KM,
-            SN,
-            YO,
-            SO,
-            AF,
-            OC,
-            KA,
-            BE,
-            TG,
-            SD,
-            GU,
-            AM,
-            YI,
-            LO,
-            UZ,
-            FO,
-            HT,
-            PS,
-            TK,
-            NN,
-            MT,
-            SA,
-            LB,
-            MY,
-            BO,
-            TL,
-            MG,
-            AS,
-            TT,
-            HAW,
-            LN,
-            HA,
-            BA,
-            JW,
-            SU,
-            AUTO_DETECT,
-            ES_419,
         }
 
         /**
@@ -3008,8 +3029,11 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            AF,
             AF_ZA,
+            AM,
             AM_ET,
+            AR,
             AR_AE,
             AR_BH,
             AR_DZ,
@@ -3027,18 +3051,35 @@ private constructor(
             AR_SA,
             AR_TN,
             AR_YE,
+            AS,
+            AUTO_DETECT,
+            AZ,
             AZ_AZ,
+            BA,
+            BE,
+            BG,
             BG_BG,
+            BN,
             BN_BD,
             BN_IN,
+            BO,
+            BR,
+            BS,
             BS_BA,
+            CA,
             CA_ES,
+            CS,
             CS_CZ,
+            CY,
+            DA,
             DA_DK,
+            DE,
             DE_AT,
             DE_CH,
             DE_DE,
+            EL,
             EL_GR,
+            EN,
             EN_AU,
             EN_CA,
             EN_GB,
@@ -3055,6 +3096,8 @@ private constructor(
             EN_TZ,
             EN_US,
             EN_ZA,
+            ES,
+            ES_419,
             ES_AR,
             ES_BO,
             ES_CL,
@@ -3075,184 +3118,162 @@ private constructor(
             ES_US,
             ES_UY,
             ES_VE,
+            ET,
             ET_EE,
+            EU,
             EU_ES,
+            FA,
             FA_IR,
+            FI,
             FI_FI,
             FIL_PH,
+            FO,
+            FR,
             FR_BE,
             FR_CA,
             FR_CH,
             FR_FR,
+            GL,
             GL_ES,
+            GU,
             GU_IN,
+            HA,
+            HAW,
+            HE,
+            HI,
             HI_IN,
+            HR,
             HR_HR,
+            HT,
+            HU,
             HU_HU,
+            HY,
             HY_AM,
+            ID,
             ID_ID,
+            IS,
             IS_IS,
+            IT,
             IT_CH,
             IT_IT,
             IW_IL,
+            JA,
             JA_JP,
             JV_ID,
+            JW,
+            KA,
             KA_GE,
+            KK,
             KK_KZ,
+            KM,
             KM_KH,
+            KN,
             KN_IN,
+            KO,
             KO_KR,
+            LA,
+            LB,
+            LN,
+            LO,
             LO_LA,
+            LT,
             LT_LT,
+            LV,
             LV_LV,
+            MG,
+            MI,
+            MK,
             MK_MK,
+            ML,
             ML_IN,
+            MN,
             MN_MN,
+            MR,
             MR_IN,
+            MS,
             MS_MY,
+            MT,
+            MY,
             MY_MM,
+            NE,
             NE_NP,
+            NL,
             NL_BE,
             NL_NL,
+            NN,
+            NO,
             NO_NO,
+            OC,
+            PA,
             PA_GURU_IN,
+            PL,
             PL_PL,
+            PS,
+            PT,
             PT_BR,
             PT_PT,
+            RO,
             RO_RO,
+            RU,
             RU_RU,
             RW_RW,
+            SA,
+            SD,
+            SI,
             SI_LK,
+            SK,
             SK_SK,
+            SL,
             SL_SI,
+            SN,
+            SO,
+            SQ,
             SQ_AL,
+            SR,
             SR_RS,
             SS_LATN_ZA,
             ST_ZA,
+            SU,
             SU_ID,
+            SV,
             SV_SE,
+            SW,
             SW_KE,
             SW_TZ,
+            TA,
             TA_IN,
             TA_LK,
             TA_MY,
             TA_SG,
+            TE,
             TE_IN,
+            TG,
+            TH,
             TH_TH,
+            TK,
+            TL,
             TN_LATN_ZA,
+            TR,
             TR_TR,
             TS_ZA,
+            TT,
+            UK,
             UK_UA,
+            UR,
             UR_IN,
             UR_PK,
+            UZ,
             UZ_UZ,
             VE_ZA,
+            VI,
             VI_VN,
             XH_ZA,
+            YI,
+            YO,
             YUE_HANT_HK,
             ZH,
             ZH_TW,
             ZU_ZA,
-            EN,
-            DE,
-            ES,
-            RU,
-            KO,
-            FR,
-            JA,
-            PT,
-            TR,
-            PL,
-            CA,
-            NL,
-            AR,
-            SV,
-            IT,
-            ID,
-            HI,
-            FI,
-            VI,
-            HE,
-            UK,
-            EL,
-            MS,
-            CS,
-            RO,
-            DA,
-            HU,
-            TA,
-            NO,
-            TH,
-            UR,
-            HR,
-            BG,
-            LT,
-            LA,
-            MI,
-            ML,
-            CY,
-            SK,
-            TE,
-            FA,
-            LV,
-            BN,
-            SR,
-            AZ,
-            SL,
-            KN,
-            ET,
-            MK,
-            BR,
-            EU,
-            IS,
-            HY,
-            NE,
-            MN,
-            BS,
-            KK,
-            SQ,
-            SW,
-            GL,
-            MR,
-            PA,
-            SI,
-            KM,
-            SN,
-            YO,
-            SO,
-            AF,
-            OC,
-            KA,
-            BE,
-            TG,
-            SD,
-            GU,
-            AM,
-            YI,
-            LO,
-            UZ,
-            FO,
-            HT,
-            PS,
-            TK,
-            NN,
-            MT,
-            SA,
-            LB,
-            MY,
-            BO,
-            TL,
-            MG,
-            AS,
-            TT,
-            HAW,
-            LN,
-            HA,
-            BA,
-            JW,
-            SU,
-            AUTO_DETECT,
-            ES_419,
             /**
              * An enum member indicating that [TranscriptionLanguage] was instantiated with an
              * unknown value.
@@ -3269,8 +3290,11 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                AF -> Value.AF
                 AF_ZA -> Value.AF_ZA
+                AM -> Value.AM
                 AM_ET -> Value.AM_ET
+                AR -> Value.AR
                 AR_AE -> Value.AR_AE
                 AR_BH -> Value.AR_BH
                 AR_DZ -> Value.AR_DZ
@@ -3288,18 +3312,35 @@ private constructor(
                 AR_SA -> Value.AR_SA
                 AR_TN -> Value.AR_TN
                 AR_YE -> Value.AR_YE
+                AS -> Value.AS
+                AUTO_DETECT -> Value.AUTO_DETECT
+                AZ -> Value.AZ
                 AZ_AZ -> Value.AZ_AZ
+                BA -> Value.BA
+                BE -> Value.BE
+                BG -> Value.BG
                 BG_BG -> Value.BG_BG
+                BN -> Value.BN
                 BN_BD -> Value.BN_BD
                 BN_IN -> Value.BN_IN
+                BO -> Value.BO
+                BR -> Value.BR
+                BS -> Value.BS
                 BS_BA -> Value.BS_BA
+                CA -> Value.CA
                 CA_ES -> Value.CA_ES
+                CS -> Value.CS
                 CS_CZ -> Value.CS_CZ
+                CY -> Value.CY
+                DA -> Value.DA
                 DA_DK -> Value.DA_DK
+                DE -> Value.DE
                 DE_AT -> Value.DE_AT
                 DE_CH -> Value.DE_CH
                 DE_DE -> Value.DE_DE
+                EL -> Value.EL
                 EL_GR -> Value.EL_GR
+                EN -> Value.EN
                 EN_AU -> Value.EN_AU
                 EN_CA -> Value.EN_CA
                 EN_GB -> Value.EN_GB
@@ -3316,6 +3357,8 @@ private constructor(
                 EN_TZ -> Value.EN_TZ
                 EN_US -> Value.EN_US
                 EN_ZA -> Value.EN_ZA
+                ES -> Value.ES
+                ES_419 -> Value.ES_419
                 ES_AR -> Value.ES_AR
                 ES_BO -> Value.ES_BO
                 ES_CL -> Value.ES_CL
@@ -3336,184 +3379,162 @@ private constructor(
                 ES_US -> Value.ES_US
                 ES_UY -> Value.ES_UY
                 ES_VE -> Value.ES_VE
+                ET -> Value.ET
                 ET_EE -> Value.ET_EE
+                EU -> Value.EU
                 EU_ES -> Value.EU_ES
+                FA -> Value.FA
                 FA_IR -> Value.FA_IR
+                FI -> Value.FI
                 FI_FI -> Value.FI_FI
                 FIL_PH -> Value.FIL_PH
+                FO -> Value.FO
+                FR -> Value.FR
                 FR_BE -> Value.FR_BE
                 FR_CA -> Value.FR_CA
                 FR_CH -> Value.FR_CH
                 FR_FR -> Value.FR_FR
+                GL -> Value.GL
                 GL_ES -> Value.GL_ES
+                GU -> Value.GU
                 GU_IN -> Value.GU_IN
+                HA -> Value.HA
+                HAW -> Value.HAW
+                HE -> Value.HE
+                HI -> Value.HI
                 HI_IN -> Value.HI_IN
+                HR -> Value.HR
                 HR_HR -> Value.HR_HR
+                HT -> Value.HT
+                HU -> Value.HU
                 HU_HU -> Value.HU_HU
+                HY -> Value.HY
                 HY_AM -> Value.HY_AM
+                ID -> Value.ID
                 ID_ID -> Value.ID_ID
+                IS -> Value.IS
                 IS_IS -> Value.IS_IS
+                IT -> Value.IT
                 IT_CH -> Value.IT_CH
                 IT_IT -> Value.IT_IT
                 IW_IL -> Value.IW_IL
+                JA -> Value.JA
                 JA_JP -> Value.JA_JP
                 JV_ID -> Value.JV_ID
+                JW -> Value.JW
+                KA -> Value.KA
                 KA_GE -> Value.KA_GE
+                KK -> Value.KK
                 KK_KZ -> Value.KK_KZ
+                KM -> Value.KM
                 KM_KH -> Value.KM_KH
+                KN -> Value.KN
                 KN_IN -> Value.KN_IN
+                KO -> Value.KO
                 KO_KR -> Value.KO_KR
+                LA -> Value.LA
+                LB -> Value.LB
+                LN -> Value.LN
+                LO -> Value.LO
                 LO_LA -> Value.LO_LA
+                LT -> Value.LT
                 LT_LT -> Value.LT_LT
+                LV -> Value.LV
                 LV_LV -> Value.LV_LV
+                MG -> Value.MG
+                MI -> Value.MI
+                MK -> Value.MK
                 MK_MK -> Value.MK_MK
+                ML -> Value.ML
                 ML_IN -> Value.ML_IN
+                MN -> Value.MN
                 MN_MN -> Value.MN_MN
+                MR -> Value.MR
                 MR_IN -> Value.MR_IN
+                MS -> Value.MS
                 MS_MY -> Value.MS_MY
+                MT -> Value.MT
+                MY -> Value.MY
                 MY_MM -> Value.MY_MM
+                NE -> Value.NE
                 NE_NP -> Value.NE_NP
+                NL -> Value.NL
                 NL_BE -> Value.NL_BE
                 NL_NL -> Value.NL_NL
+                NN -> Value.NN
+                NO -> Value.NO
                 NO_NO -> Value.NO_NO
+                OC -> Value.OC
+                PA -> Value.PA
                 PA_GURU_IN -> Value.PA_GURU_IN
+                PL -> Value.PL
                 PL_PL -> Value.PL_PL
+                PS -> Value.PS
+                PT -> Value.PT
                 PT_BR -> Value.PT_BR
                 PT_PT -> Value.PT_PT
+                RO -> Value.RO
                 RO_RO -> Value.RO_RO
+                RU -> Value.RU
                 RU_RU -> Value.RU_RU
                 RW_RW -> Value.RW_RW
+                SA -> Value.SA
+                SD -> Value.SD
+                SI -> Value.SI
                 SI_LK -> Value.SI_LK
+                SK -> Value.SK
                 SK_SK -> Value.SK_SK
+                SL -> Value.SL
                 SL_SI -> Value.SL_SI
+                SN -> Value.SN
+                SO -> Value.SO
+                SQ -> Value.SQ
                 SQ_AL -> Value.SQ_AL
+                SR -> Value.SR
                 SR_RS -> Value.SR_RS
                 SS_LATN_ZA -> Value.SS_LATN_ZA
                 ST_ZA -> Value.ST_ZA
+                SU -> Value.SU
                 SU_ID -> Value.SU_ID
+                SV -> Value.SV
                 SV_SE -> Value.SV_SE
+                SW -> Value.SW
                 SW_KE -> Value.SW_KE
                 SW_TZ -> Value.SW_TZ
+                TA -> Value.TA
                 TA_IN -> Value.TA_IN
                 TA_LK -> Value.TA_LK
                 TA_MY -> Value.TA_MY
                 TA_SG -> Value.TA_SG
+                TE -> Value.TE
                 TE_IN -> Value.TE_IN
+                TG -> Value.TG
+                TH -> Value.TH
                 TH_TH -> Value.TH_TH
+                TK -> Value.TK
+                TL -> Value.TL
                 TN_LATN_ZA -> Value.TN_LATN_ZA
+                TR -> Value.TR
                 TR_TR -> Value.TR_TR
                 TS_ZA -> Value.TS_ZA
+                TT -> Value.TT
+                UK -> Value.UK
                 UK_UA -> Value.UK_UA
+                UR -> Value.UR
                 UR_IN -> Value.UR_IN
                 UR_PK -> Value.UR_PK
+                UZ -> Value.UZ
                 UZ_UZ -> Value.UZ_UZ
                 VE_ZA -> Value.VE_ZA
+                VI -> Value.VI
                 VI_VN -> Value.VI_VN
                 XH_ZA -> Value.XH_ZA
+                YI -> Value.YI
+                YO -> Value.YO
                 YUE_HANT_HK -> Value.YUE_HANT_HK
                 ZH -> Value.ZH
                 ZH_TW -> Value.ZH_TW
                 ZU_ZA -> Value.ZU_ZA
-                EN -> Value.EN
-                DE -> Value.DE
-                ES -> Value.ES
-                RU -> Value.RU
-                KO -> Value.KO
-                FR -> Value.FR
-                JA -> Value.JA
-                PT -> Value.PT
-                TR -> Value.TR
-                PL -> Value.PL
-                CA -> Value.CA
-                NL -> Value.NL
-                AR -> Value.AR
-                SV -> Value.SV
-                IT -> Value.IT
-                ID -> Value.ID
-                HI -> Value.HI
-                FI -> Value.FI
-                VI -> Value.VI
-                HE -> Value.HE
-                UK -> Value.UK
-                EL -> Value.EL
-                MS -> Value.MS
-                CS -> Value.CS
-                RO -> Value.RO
-                DA -> Value.DA
-                HU -> Value.HU
-                TA -> Value.TA
-                NO -> Value.NO
-                TH -> Value.TH
-                UR -> Value.UR
-                HR -> Value.HR
-                BG -> Value.BG
-                LT -> Value.LT
-                LA -> Value.LA
-                MI -> Value.MI
-                ML -> Value.ML
-                CY -> Value.CY
-                SK -> Value.SK
-                TE -> Value.TE
-                FA -> Value.FA
-                LV -> Value.LV
-                BN -> Value.BN
-                SR -> Value.SR
-                AZ -> Value.AZ
-                SL -> Value.SL
-                KN -> Value.KN
-                ET -> Value.ET
-                MK -> Value.MK
-                BR -> Value.BR
-                EU -> Value.EU
-                IS -> Value.IS
-                HY -> Value.HY
-                NE -> Value.NE
-                MN -> Value.MN
-                BS -> Value.BS
-                KK -> Value.KK
-                SQ -> Value.SQ
-                SW -> Value.SW
-                GL -> Value.GL
-                MR -> Value.MR
-                PA -> Value.PA
-                SI -> Value.SI
-                KM -> Value.KM
-                SN -> Value.SN
-                YO -> Value.YO
-                SO -> Value.SO
-                AF -> Value.AF
-                OC -> Value.OC
-                KA -> Value.KA
-                BE -> Value.BE
-                TG -> Value.TG
-                SD -> Value.SD
-                GU -> Value.GU
-                AM -> Value.AM
-                YI -> Value.YI
-                LO -> Value.LO
-                UZ -> Value.UZ
-                FO -> Value.FO
-                HT -> Value.HT
-                PS -> Value.PS
-                TK -> Value.TK
-                NN -> Value.NN
-                MT -> Value.MT
-                SA -> Value.SA
-                LB -> Value.LB
-                MY -> Value.MY
-                BO -> Value.BO
-                TL -> Value.TL
-                MG -> Value.MG
-                AS -> Value.AS
-                TT -> Value.TT
-                HAW -> Value.HAW
-                LN -> Value.LN
-                HA -> Value.HA
-                BA -> Value.BA
-                JW -> Value.JW
-                SU -> Value.SU
-                AUTO_DETECT -> Value.AUTO_DETECT
-                ES_419 -> Value.ES_419
                 else -> Value._UNKNOWN
             }
 
@@ -3528,8 +3549,11 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                AF -> Known.AF
                 AF_ZA -> Known.AF_ZA
+                AM -> Known.AM
                 AM_ET -> Known.AM_ET
+                AR -> Known.AR
                 AR_AE -> Known.AR_AE
                 AR_BH -> Known.AR_BH
                 AR_DZ -> Known.AR_DZ
@@ -3547,18 +3571,35 @@ private constructor(
                 AR_SA -> Known.AR_SA
                 AR_TN -> Known.AR_TN
                 AR_YE -> Known.AR_YE
+                AS -> Known.AS
+                AUTO_DETECT -> Known.AUTO_DETECT
+                AZ -> Known.AZ
                 AZ_AZ -> Known.AZ_AZ
+                BA -> Known.BA
+                BE -> Known.BE
+                BG -> Known.BG
                 BG_BG -> Known.BG_BG
+                BN -> Known.BN
                 BN_BD -> Known.BN_BD
                 BN_IN -> Known.BN_IN
+                BO -> Known.BO
+                BR -> Known.BR
+                BS -> Known.BS
                 BS_BA -> Known.BS_BA
+                CA -> Known.CA
                 CA_ES -> Known.CA_ES
+                CS -> Known.CS
                 CS_CZ -> Known.CS_CZ
+                CY -> Known.CY
+                DA -> Known.DA
                 DA_DK -> Known.DA_DK
+                DE -> Known.DE
                 DE_AT -> Known.DE_AT
                 DE_CH -> Known.DE_CH
                 DE_DE -> Known.DE_DE
+                EL -> Known.EL
                 EL_GR -> Known.EL_GR
+                EN -> Known.EN
                 EN_AU -> Known.EN_AU
                 EN_CA -> Known.EN_CA
                 EN_GB -> Known.EN_GB
@@ -3575,6 +3616,8 @@ private constructor(
                 EN_TZ -> Known.EN_TZ
                 EN_US -> Known.EN_US
                 EN_ZA -> Known.EN_ZA
+                ES -> Known.ES
+                ES_419 -> Known.ES_419
                 ES_AR -> Known.ES_AR
                 ES_BO -> Known.ES_BO
                 ES_CL -> Known.ES_CL
@@ -3595,184 +3638,162 @@ private constructor(
                 ES_US -> Known.ES_US
                 ES_UY -> Known.ES_UY
                 ES_VE -> Known.ES_VE
+                ET -> Known.ET
                 ET_EE -> Known.ET_EE
+                EU -> Known.EU
                 EU_ES -> Known.EU_ES
+                FA -> Known.FA
                 FA_IR -> Known.FA_IR
+                FI -> Known.FI
                 FI_FI -> Known.FI_FI
                 FIL_PH -> Known.FIL_PH
+                FO -> Known.FO
+                FR -> Known.FR
                 FR_BE -> Known.FR_BE
                 FR_CA -> Known.FR_CA
                 FR_CH -> Known.FR_CH
                 FR_FR -> Known.FR_FR
+                GL -> Known.GL
                 GL_ES -> Known.GL_ES
+                GU -> Known.GU
                 GU_IN -> Known.GU_IN
+                HA -> Known.HA
+                HAW -> Known.HAW
+                HE -> Known.HE
+                HI -> Known.HI
                 HI_IN -> Known.HI_IN
+                HR -> Known.HR
                 HR_HR -> Known.HR_HR
+                HT -> Known.HT
+                HU -> Known.HU
                 HU_HU -> Known.HU_HU
+                HY -> Known.HY
                 HY_AM -> Known.HY_AM
+                ID -> Known.ID
                 ID_ID -> Known.ID_ID
+                IS -> Known.IS
                 IS_IS -> Known.IS_IS
+                IT -> Known.IT
                 IT_CH -> Known.IT_CH
                 IT_IT -> Known.IT_IT
                 IW_IL -> Known.IW_IL
+                JA -> Known.JA
                 JA_JP -> Known.JA_JP
                 JV_ID -> Known.JV_ID
+                JW -> Known.JW
+                KA -> Known.KA
                 KA_GE -> Known.KA_GE
+                KK -> Known.KK
                 KK_KZ -> Known.KK_KZ
+                KM -> Known.KM
                 KM_KH -> Known.KM_KH
+                KN -> Known.KN
                 KN_IN -> Known.KN_IN
+                KO -> Known.KO
                 KO_KR -> Known.KO_KR
+                LA -> Known.LA
+                LB -> Known.LB
+                LN -> Known.LN
+                LO -> Known.LO
                 LO_LA -> Known.LO_LA
+                LT -> Known.LT
                 LT_LT -> Known.LT_LT
+                LV -> Known.LV
                 LV_LV -> Known.LV_LV
+                MG -> Known.MG
+                MI -> Known.MI
+                MK -> Known.MK
                 MK_MK -> Known.MK_MK
+                ML -> Known.ML
                 ML_IN -> Known.ML_IN
+                MN -> Known.MN
                 MN_MN -> Known.MN_MN
+                MR -> Known.MR
                 MR_IN -> Known.MR_IN
+                MS -> Known.MS
                 MS_MY -> Known.MS_MY
+                MT -> Known.MT
+                MY -> Known.MY
                 MY_MM -> Known.MY_MM
+                NE -> Known.NE
                 NE_NP -> Known.NE_NP
+                NL -> Known.NL
                 NL_BE -> Known.NL_BE
                 NL_NL -> Known.NL_NL
+                NN -> Known.NN
+                NO -> Known.NO
                 NO_NO -> Known.NO_NO
+                OC -> Known.OC
+                PA -> Known.PA
                 PA_GURU_IN -> Known.PA_GURU_IN
+                PL -> Known.PL
                 PL_PL -> Known.PL_PL
+                PS -> Known.PS
+                PT -> Known.PT
                 PT_BR -> Known.PT_BR
                 PT_PT -> Known.PT_PT
+                RO -> Known.RO
                 RO_RO -> Known.RO_RO
+                RU -> Known.RU
                 RU_RU -> Known.RU_RU
                 RW_RW -> Known.RW_RW
+                SA -> Known.SA
+                SD -> Known.SD
+                SI -> Known.SI
                 SI_LK -> Known.SI_LK
+                SK -> Known.SK
                 SK_SK -> Known.SK_SK
+                SL -> Known.SL
                 SL_SI -> Known.SL_SI
+                SN -> Known.SN
+                SO -> Known.SO
+                SQ -> Known.SQ
                 SQ_AL -> Known.SQ_AL
+                SR -> Known.SR
                 SR_RS -> Known.SR_RS
                 SS_LATN_ZA -> Known.SS_LATN_ZA
                 ST_ZA -> Known.ST_ZA
+                SU -> Known.SU
                 SU_ID -> Known.SU_ID
+                SV -> Known.SV
                 SV_SE -> Known.SV_SE
+                SW -> Known.SW
                 SW_KE -> Known.SW_KE
                 SW_TZ -> Known.SW_TZ
+                TA -> Known.TA
                 TA_IN -> Known.TA_IN
                 TA_LK -> Known.TA_LK
                 TA_MY -> Known.TA_MY
                 TA_SG -> Known.TA_SG
+                TE -> Known.TE
                 TE_IN -> Known.TE_IN
+                TG -> Known.TG
+                TH -> Known.TH
                 TH_TH -> Known.TH_TH
+                TK -> Known.TK
+                TL -> Known.TL
                 TN_LATN_ZA -> Known.TN_LATN_ZA
+                TR -> Known.TR
                 TR_TR -> Known.TR_TR
                 TS_ZA -> Known.TS_ZA
+                TT -> Known.TT
+                UK -> Known.UK
                 UK_UA -> Known.UK_UA
+                UR -> Known.UR
                 UR_IN -> Known.UR_IN
                 UR_PK -> Known.UR_PK
+                UZ -> Known.UZ
                 UZ_UZ -> Known.UZ_UZ
                 VE_ZA -> Known.VE_ZA
+                VI -> Known.VI
                 VI_VN -> Known.VI_VN
                 XH_ZA -> Known.XH_ZA
+                YI -> Known.YI
+                YO -> Known.YO
                 YUE_HANT_HK -> Known.YUE_HANT_HK
                 ZH -> Known.ZH
                 ZH_TW -> Known.ZH_TW
                 ZU_ZA -> Known.ZU_ZA
-                EN -> Known.EN
-                DE -> Known.DE
-                ES -> Known.ES
-                RU -> Known.RU
-                KO -> Known.KO
-                FR -> Known.FR
-                JA -> Known.JA
-                PT -> Known.PT
-                TR -> Known.TR
-                PL -> Known.PL
-                CA -> Known.CA
-                NL -> Known.NL
-                AR -> Known.AR
-                SV -> Known.SV
-                IT -> Known.IT
-                ID -> Known.ID
-                HI -> Known.HI
-                FI -> Known.FI
-                VI -> Known.VI
-                HE -> Known.HE
-                UK -> Known.UK
-                EL -> Known.EL
-                MS -> Known.MS
-                CS -> Known.CS
-                RO -> Known.RO
-                DA -> Known.DA
-                HU -> Known.HU
-                TA -> Known.TA
-                NO -> Known.NO
-                TH -> Known.TH
-                UR -> Known.UR
-                HR -> Known.HR
-                BG -> Known.BG
-                LT -> Known.LT
-                LA -> Known.LA
-                MI -> Known.MI
-                ML -> Known.ML
-                CY -> Known.CY
-                SK -> Known.SK
-                TE -> Known.TE
-                FA -> Known.FA
-                LV -> Known.LV
-                BN -> Known.BN
-                SR -> Known.SR
-                AZ -> Known.AZ
-                SL -> Known.SL
-                KN -> Known.KN
-                ET -> Known.ET
-                MK -> Known.MK
-                BR -> Known.BR
-                EU -> Known.EU
-                IS -> Known.IS
-                HY -> Known.HY
-                NE -> Known.NE
-                MN -> Known.MN
-                BS -> Known.BS
-                KK -> Known.KK
-                SQ -> Known.SQ
-                SW -> Known.SW
-                GL -> Known.GL
-                MR -> Known.MR
-                PA -> Known.PA
-                SI -> Known.SI
-                KM -> Known.KM
-                SN -> Known.SN
-                YO -> Known.YO
-                SO -> Known.SO
-                AF -> Known.AF
-                OC -> Known.OC
-                KA -> Known.KA
-                BE -> Known.BE
-                TG -> Known.TG
-                SD -> Known.SD
-                GU -> Known.GU
-                AM -> Known.AM
-                YI -> Known.YI
-                LO -> Known.LO
-                UZ -> Known.UZ
-                FO -> Known.FO
-                HT -> Known.HT
-                PS -> Known.PS
-                TK -> Known.TK
-                NN -> Known.NN
-                MT -> Known.MT
-                SA -> Known.SA
-                LB -> Known.LB
-                MY -> Known.MY
-                BO -> Known.BO
-                TL -> Known.TL
-                MG -> Known.MG
-                AS -> Known.AS
-                TT -> Known.TT
-                HAW -> Known.HAW
-                LN -> Known.LN
-                HA -> Known.HA
-                BA -> Known.BA
-                JW -> Known.JW
-                SU -> Known.SU
-                AUTO_DETECT -> Known.AUTO_DETECT
-                ES_419 -> Known.ES_419
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionLanguage: $value")
             }
 
