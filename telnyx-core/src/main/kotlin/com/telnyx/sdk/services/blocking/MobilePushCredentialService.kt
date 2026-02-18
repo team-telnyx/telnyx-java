@@ -39,6 +39,55 @@ interface MobilePushCredentialService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PushCredentialResponse
 
+    /** @see create */
+    fun create(
+        createMobilePushCredentialRequest:
+            MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PushCredentialResponse =
+        create(
+            MobilePushCredentialCreateParams.builder()
+                .createMobilePushCredentialRequest(createMobilePushCredentialRequest)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(
+        createMobilePushCredentialRequest:
+            MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest
+    ): PushCredentialResponse = create(createMobilePushCredentialRequest, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        ios: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Ios,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PushCredentialResponse =
+        create(
+            MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.ofIos(ios),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(
+        ios: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Ios
+    ): PushCredentialResponse = create(ios, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        android: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Android,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PushCredentialResponse =
+        create(
+            MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.ofAndroid(android),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(
+        android: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Android
+    ): PushCredentialResponse = create(android, RequestOptions.none())
+
     /** Retrieves mobile push credential based on the given `push_credential_id` */
     fun retrieve(pushCredentialId: String): PushCredentialResponse =
         retrieve(pushCredentialId, MobilePushCredentialRetrieveParams.none())
@@ -149,6 +198,64 @@ interface MobilePushCredentialService {
             params: MobilePushCredentialCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PushCredentialResponse>
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            createMobilePushCredentialRequest:
+                MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PushCredentialResponse> =
+            create(
+                MobilePushCredentialCreateParams.builder()
+                    .createMobilePushCredentialRequest(createMobilePushCredentialRequest)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            createMobilePushCredentialRequest:
+                MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest
+        ): HttpResponseFor<PushCredentialResponse> =
+            create(createMobilePushCredentialRequest, RequestOptions.none())
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            ios: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Ios,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PushCredentialResponse> =
+            create(
+                MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.ofIos(ios),
+                requestOptions,
+            )
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            ios: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Ios
+        ): HttpResponseFor<PushCredentialResponse> = create(ios, RequestOptions.none())
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            android: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Android,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PushCredentialResponse> =
+            create(
+                MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.ofAndroid(
+                    android
+                ),
+                requestOptions,
+            )
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            android: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Android
+        ): HttpResponseFor<PushCredentialResponse> = create(android, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /mobile_push_credentials/{push_credential_id}`, but

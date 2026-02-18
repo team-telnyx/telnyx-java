@@ -24,18 +24,13 @@ internal class MobilePushCredentialServiceTest {
 
         val pushCredentialResponse =
             mobilePushCredentialService.create(
-                MobilePushCredentialCreateParams.builder()
-                    .createMobilePushCredentialRequest(
-                        MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Ios
-                            .builder()
-                            .alias("LucyIosCredential")
-                            .certificate(
-                                "-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----"
-                            )
-                            .privateKey(
-                                "-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----"
-                            )
-                            .build()
+                MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Ios.builder()
+                    .alias("LucyIosCredential")
+                    .certificate(
+                        "-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----"
+                    )
+                    .privateKey(
+                        "-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----"
                     )
                     .build()
             )
