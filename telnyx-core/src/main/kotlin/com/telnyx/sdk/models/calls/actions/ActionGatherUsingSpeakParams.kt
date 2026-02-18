@@ -79,12 +79,15 @@ private constructor(
      * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
      *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional.
      *   To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier
-     *   secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
-     *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-     *   for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-     *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-     *
-     * For service_level basic, you may define the gender of the speaker (male or female).
+     *   secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
+     *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+     * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+     * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g., `Minimax.speech-02-hd.Wise_Woman`).
+     *   Supported models: `speech-02-turbo`, `speech-02-hd`, `speech-2.6-turbo`,
+     *   `speech-2.8-turbo`. Optional parameters: `speed` (float, default 1.0), `vol` (float,
+     *   default 1.0), `pitch` (integer, default 0).
+     * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`). Supported
+     *   models: `Pro` (multilingual) and `Turbo` (English only).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -414,13 +417,15 @@ private constructor(
          * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
          *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is
          *   optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration
-         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
-         *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-         *   for details. Check
+         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
          *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-         *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-         *
-         * For service_level basic, you may define the gender of the speaker (male or female).
+         * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+         * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
+         *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
+         *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters: `speed`
+         *   (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer, default 0).
+         * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`).
+         *   Supported models: `Pro` (multilingual) and `Turbo` (English only).
          */
         fun voice(voice: String) = apply { body.voice(voice) }
 
@@ -662,6 +667,9 @@ private constructor(
 
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofAws(aws)`. */
         fun voiceSettings(aws: AwsVoiceSettings) = apply { body.voiceSettings(aws) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofMinimax(minimax)`. */
+        fun voiceSettings(minimax: VoiceSettings.Minimax) = apply { body.voiceSettings(minimax) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -928,13 +936,15 @@ private constructor(
          * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
          *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is
          *   optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration
-         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
-         *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-         *   for details. Check
+         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
          *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-         *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-         *
-         * For service_level basic, you may define the gender of the speaker (male or female).
+         * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+         * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
+         *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
+         *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters: `speed`
+         *   (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer, default 0).
+         * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`).
+         *   Supported models: `Pro` (multilingual) and `Turbo` (English only).
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1308,13 +1318,16 @@ private constructor(
              *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is
              *   optional. To use ElevenLabs, you must provide your ElevenLabs API key as an
              *   integration identifier secret in `"voice_settings": {"api_key_ref":
-             *   "<secret_identifier>"}`. See
-             *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-             *   for details. Check
+             *   "<secret_identifier>"}`. Check
              *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-             *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-             *
-             * For service_level basic, you may define the gender of the speaker (male or female).
+             * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+             * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
+             *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
+             *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters:
+             *   `speed` (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer, default
+             *   0).
+             * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`).
+             *   Supported models: `Pro` (multilingual) and `Turbo` (English only).
              */
             fun voice(voice: String) = voice(JsonField.of(voice))
 
@@ -1561,6 +1574,10 @@ private constructor(
 
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofAws(aws)`. */
             fun voiceSettings(aws: AwsVoiceSettings) = voiceSettings(VoiceSettings.ofAws(aws))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofMinimax(minimax)`. */
+            fun voiceSettings(minimax: VoiceSettings.Minimax) =
+                voiceSettings(VoiceSettings.ofMinimax(minimax))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2290,6 +2307,7 @@ private constructor(
         private val elevenlabs: ElevenLabsVoiceSettings? = null,
         private val telnyx: TelnyxVoiceSettings? = null,
         private val aws: AwsVoiceSettings? = null,
+        private val minimax: Minimax? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -2299,17 +2317,23 @@ private constructor(
 
         fun aws(): Optional<AwsVoiceSettings> = Optional.ofNullable(aws)
 
+        fun minimax(): Optional<Minimax> = Optional.ofNullable(minimax)
+
         fun isElevenlabs(): Boolean = elevenlabs != null
 
         fun isTelnyx(): Boolean = telnyx != null
 
         fun isAws(): Boolean = aws != null
 
+        fun isMinimax(): Boolean = minimax != null
+
         fun asElevenlabs(): ElevenLabsVoiceSettings = elevenlabs.getOrThrow("elevenlabs")
 
         fun asTelnyx(): TelnyxVoiceSettings = telnyx.getOrThrow("telnyx")
 
         fun asAws(): AwsVoiceSettings = aws.getOrThrow("aws")
+
+        fun asMinimax(): Minimax = minimax.getOrThrow("minimax")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -2318,6 +2342,7 @@ private constructor(
                 elevenlabs != null -> visitor.visitElevenlabs(elevenlabs)
                 telnyx != null -> visitor.visitTelnyx(telnyx)
                 aws != null -> visitor.visitAws(aws)
+                minimax != null -> visitor.visitMinimax(minimax)
                 else -> visitor.unknown(_json)
             }
 
@@ -2340,6 +2365,10 @@ private constructor(
 
                     override fun visitAws(aws: AwsVoiceSettings) {
                         aws.validate()
+                    }
+
+                    override fun visitMinimax(minimax: Minimax) {
+                        minimax.validate()
                     }
                 }
             )
@@ -2371,6 +2400,8 @@ private constructor(
 
                     override fun visitAws(aws: AwsVoiceSettings) = aws.validity()
 
+                    override fun visitMinimax(minimax: Minimax) = minimax.validity()
+
                     override fun unknown(json: JsonValue?) = 0
                 }
             )
@@ -2383,16 +2414,18 @@ private constructor(
             return other is VoiceSettings &&
                 elevenlabs == other.elevenlabs &&
                 telnyx == other.telnyx &&
-                aws == other.aws
+                aws == other.aws &&
+                minimax == other.minimax
         }
 
-        override fun hashCode(): Int = Objects.hash(elevenlabs, telnyx, aws)
+        override fun hashCode(): Int = Objects.hash(elevenlabs, telnyx, aws, minimax)
 
         override fun toString(): String =
             when {
                 elevenlabs != null -> "VoiceSettings{elevenlabs=$elevenlabs}"
                 telnyx != null -> "VoiceSettings{telnyx=$telnyx}"
                 aws != null -> "VoiceSettings{aws=$aws}"
+                minimax != null -> "VoiceSettings{minimax=$minimax}"
                 _json != null -> "VoiceSettings{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid VoiceSettings")
             }
@@ -2406,6 +2439,8 @@ private constructor(
             @JvmStatic fun ofTelnyx(telnyx: TelnyxVoiceSettings) = VoiceSettings(telnyx = telnyx)
 
             @JvmStatic fun ofAws(aws: AwsVoiceSettings) = VoiceSettings(aws = aws)
+
+            @JvmStatic fun ofMinimax(minimax: Minimax) = VoiceSettings(minimax = minimax)
         }
 
         /**
@@ -2419,6 +2454,8 @@ private constructor(
             fun visitTelnyx(telnyx: TelnyxVoiceSettings): T
 
             fun visitAws(aws: AwsVoiceSettings): T
+
+            fun visitMinimax(minimax: Minimax): T
 
             /**
              * Maps an unknown variant of [VoiceSettings] to a value of type [T].
@@ -2457,6 +2494,11 @@ private constructor(
                             VoiceSettings(aws = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
+                    "minimax" -> {
+                        return tryDeserialize(node, jacksonTypeRef<Minimax>())?.let {
+                            VoiceSettings(minimax = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
                 }
 
                 return VoiceSettings(_json = json)
@@ -2474,10 +2516,266 @@ private constructor(
                     value.elevenlabs != null -> generator.writeObject(value.elevenlabs)
                     value.telnyx != null -> generator.writeObject(value.telnyx)
                     value.aws != null -> generator.writeObject(value.aws)
+                    value.minimax != null -> generator.writeObject(value.minimax)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid VoiceSettings")
                 }
             }
+        }
+
+        class Minimax
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val type: JsonValue,
+            private val pitch: JsonField<Long>,
+            private val speed: JsonField<Float>,
+            private val vol: JsonField<Float>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+                @JsonProperty("pitch") @ExcludeMissing pitch: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("speed") @ExcludeMissing speed: JsonField<Float> = JsonMissing.of(),
+                @JsonProperty("vol") @ExcludeMissing vol: JsonField<Float> = JsonMissing.of(),
+            ) : this(type, pitch, speed, vol, mutableMapOf())
+
+            /**
+             * Voice settings provider type
+             *
+             * Expected to always return the following:
+             * ```java
+             * JsonValue.from("minimax")
+             * ```
+             *
+             * However, this method can be useful for debugging and logging (e.g. if the server
+             * responded with an unexpected value).
+             */
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+            /**
+             * Voice pitch adjustment. Default is 0.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun pitch(): Optional<Long> = pitch.getOptional("pitch")
+
+            /**
+             * Speech speed multiplier. Default is 1.0.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun speed(): Optional<Float> = speed.getOptional("speed")
+
+            /**
+             * Speech volume multiplier. Default is 1.0.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun vol(): Optional<Float> = vol.getOptional("vol")
+
+            /**
+             * Returns the raw JSON value of [pitch].
+             *
+             * Unlike [pitch], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("pitch") @ExcludeMissing fun _pitch(): JsonField<Long> = pitch
+
+            /**
+             * Returns the raw JSON value of [speed].
+             *
+             * Unlike [speed], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("speed") @ExcludeMissing fun _speed(): JsonField<Float> = speed
+
+            /**
+             * Returns the raw JSON value of [vol].
+             *
+             * Unlike [vol], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("vol") @ExcludeMissing fun _vol(): JsonField<Float> = vol
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [Minimax]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Minimax]. */
+            class Builder internal constructor() {
+
+                private var type: JsonValue = JsonValue.from("minimax")
+                private var pitch: JsonField<Long> = JsonMissing.of()
+                private var speed: JsonField<Float> = JsonMissing.of()
+                private var vol: JsonField<Float> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(minimax: Minimax) = apply {
+                    type = minimax.type
+                    pitch = minimax.pitch
+                    speed = minimax.speed
+                    vol = minimax.vol
+                    additionalProperties = minimax.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * Sets the field to an arbitrary JSON value.
+                 *
+                 * It is usually unnecessary to call this method because the field defaults to the
+                 * following:
+                 * ```java
+                 * JsonValue.from("minimax")
+                 * ```
+                 *
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun type(type: JsonValue) = apply { this.type = type }
+
+                /** Voice pitch adjustment. Default is 0. */
+                fun pitch(pitch: Long) = pitch(JsonField.of(pitch))
+
+                /**
+                 * Sets [Builder.pitch] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.pitch] with a well-typed [Long] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun pitch(pitch: JsonField<Long>) = apply { this.pitch = pitch }
+
+                /** Speech speed multiplier. Default is 1.0. */
+                fun speed(speed: Float) = speed(JsonField.of(speed))
+
+                /**
+                 * Sets [Builder.speed] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.speed] with a well-typed [Float] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun speed(speed: JsonField<Float>) = apply { this.speed = speed }
+
+                /** Speech volume multiplier. Default is 1.0. */
+                fun vol(vol: Float) = vol(JsonField.of(vol))
+
+                /**
+                 * Sets [Builder.vol] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.vol] with a well-typed [Float] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun vol(vol: JsonField<Float>) = apply { this.vol = vol }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Minimax].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): Minimax =
+                    Minimax(type, pitch, speed, vol, additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Minimax = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                _type().let {
+                    if (it != JsonValue.from("minimax")) {
+                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                    }
+                }
+                pitch()
+                speed()
+                vol()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                type.let { if (it == JsonValue.from("minimax")) 1 else 0 } +
+                    (if (pitch.asKnown().isPresent) 1 else 0) +
+                    (if (speed.asKnown().isPresent) 1 else 0) +
+                    (if (vol.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Minimax &&
+                    type == other.type &&
+                    pitch == other.pitch &&
+                    speed == other.speed &&
+                    vol == other.vol &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(type, pitch, speed, vol, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Minimax{type=$type, pitch=$pitch, speed=$speed, vol=$vol, additionalProperties=$additionalProperties}"
         }
     }
 
