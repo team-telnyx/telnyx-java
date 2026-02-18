@@ -6,7 +6,6 @@ import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.messaging10dlc.brand.AltBusinessIdType
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandCreateParams
-import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetSmsOtpByReferenceParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandIdentityStatus
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandTriggerSmsOtpParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandUpdateParams
@@ -163,27 +162,6 @@ internal class BrandServiceTest {
         val brandService = client.messaging10dlc().brand()
 
         val response = brandService.getFeedback("brandId")
-
-        response.validate()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun getSmsOtpByReference() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val brandService = client.messaging10dlc().brand()
-
-        val response =
-            brandService.getSmsOtpByReference(
-                BrandGetSmsOtpByReferenceParams.builder()
-                    .referenceId("OTP4B2001")
-                    .brandId("B123ABC")
-                    .build()
-            )
 
         response.validate()
     }

@@ -20,7 +20,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class MissionRunData
+class RunListRunsResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val missionId: JsonField<String>,
@@ -243,7 +243,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [MissionRunData].
+         * Returns a mutable builder for constructing an instance of [RunListRunsResponse].
          *
          * The following fields are required:
          * ```java
@@ -257,7 +257,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [MissionRunData]. */
+    /** A builder for [RunListRunsResponse]. */
     class Builder internal constructor() {
 
         private var missionId: JsonField<String>? = null
@@ -274,19 +274,19 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(missionRunData: MissionRunData) = apply {
-            missionId = missionRunData.missionId
-            runId = missionRunData.runId
-            startedAt = missionRunData.startedAt
-            status = missionRunData.status
-            updatedAt = missionRunData.updatedAt
-            error = missionRunData.error
-            finishedAt = missionRunData.finishedAt
-            input = missionRunData.input
-            metadata = missionRunData.metadata
-            resultPayload = missionRunData.resultPayload
-            resultSummary = missionRunData.resultSummary
-            additionalProperties = missionRunData.additionalProperties.toMutableMap()
+        internal fun from(runListRunsResponse: RunListRunsResponse) = apply {
+            missionId = runListRunsResponse.missionId
+            runId = runListRunsResponse.runId
+            startedAt = runListRunsResponse.startedAt
+            status = runListRunsResponse.status
+            updatedAt = runListRunsResponse.updatedAt
+            error = runListRunsResponse.error
+            finishedAt = runListRunsResponse.finishedAt
+            input = runListRunsResponse.input
+            metadata = runListRunsResponse.metadata
+            resultPayload = runListRunsResponse.resultPayload
+            resultSummary = runListRunsResponse.resultSummary
+            additionalProperties = runListRunsResponse.additionalProperties.toMutableMap()
         }
 
         fun missionId(missionId: String) = missionId(JsonField.of(missionId))
@@ -432,7 +432,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [MissionRunData].
+         * Returns an immutable instance of [RunListRunsResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -447,8 +447,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): MissionRunData =
-            MissionRunData(
+        fun build(): RunListRunsResponse =
+            RunListRunsResponse(
                 checkRequired("missionId", missionId),
                 checkRequired("runId", runId),
                 checkRequired("startedAt", startedAt),
@@ -466,7 +466,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): MissionRunData = apply {
+    fun validate(): RunListRunsResponse = apply {
         if (validated) {
             return@apply
         }
@@ -963,7 +963,7 @@ private constructor(
             return true
         }
 
-        return other is MissionRunData &&
+        return other is RunListRunsResponse &&
             missionId == other.missionId &&
             runId == other.runId &&
             startedAt == other.startedAt &&
@@ -998,5 +998,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MissionRunData{missionId=$missionId, runId=$runId, startedAt=$startedAt, status=$status, updatedAt=$updatedAt, error=$error, finishedAt=$finishedAt, input=$input, metadata=$metadata, resultPayload=$resultPayload, resultSummary=$resultSummary, additionalProperties=$additionalProperties}"
+        "RunListRunsResponse{missionId=$missionId, runId=$runId, startedAt=$startedAt, status=$status, updatedAt=$updatedAt, error=$error, finishedAt=$finishedAt, input=$input, metadata=$metadata, resultPayload=$resultPayload, resultSummary=$resultSummary, additionalProperties=$additionalProperties}"
 }

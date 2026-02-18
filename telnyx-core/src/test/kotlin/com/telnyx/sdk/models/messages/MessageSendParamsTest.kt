@@ -14,6 +14,7 @@ internal class MessageSendParamsTest {
         MessageSendParams.builder()
             .to("+18445550001")
             .autoDetect(true)
+            .encoding(MessageSendParams.Encoding.AUTO)
             .from("+18445550001")
             .addMediaUrl("http://example.com")
             .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
@@ -33,6 +34,7 @@ internal class MessageSendParamsTest {
             MessageSendParams.builder()
                 .to("+18445550001")
                 .autoDetect(true)
+                .encoding(MessageSendParams.Encoding.AUTO)
                 .from("+18445550001")
                 .addMediaUrl("http://example.com")
                 .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
@@ -49,6 +51,7 @@ internal class MessageSendParamsTest {
 
         assertThat(body.to()).isEqualTo("+18445550001")
         assertThat(body.autoDetect()).contains(true)
+        assertThat(body.encoding()).contains(MessageSendParams.Encoding.AUTO)
         assertThat(body.from()).contains("+18445550001")
         assertThat(body.mediaUrls().getOrNull()).containsExactly("http://example.com")
         assertThat(body.messagingProfileId()).contains("abc85f64-5717-4562-b3fc-2c9600000000")
