@@ -10,6 +10,8 @@ import com.telnyx.sdk.models.messaging10dlc.brand.BrandCreateParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandDeleteParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetFeedbackResponse
+import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetSmsOtpByReferenceParams
+import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetSmsOtpByReferenceResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandListPageAsync
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandListParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandResend2faEmailParams
@@ -216,6 +218,55 @@ interface BrandServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<BrandGetFeedbackResponse> =
         getFeedback(brandId, BrandGetFeedbackParams.none(), requestOptions)
+
+    /**
+     * Query the status of an SMS OTP (One-Time Password) for Sole Proprietor brand verification.
+     *
+     * This endpoint allows you to check the delivery and verification status of an OTP sent during
+     * the Sole Proprietor brand verification process. You can query by either:
+     * * `referenceId` - The reference ID returned when the OTP was initially triggered
+     * * `brandId` - Query parameter for portal users to look up OTP status by Brand ID
+     *
+     * The response includes delivery status, verification dates, and detailed delivery information.
+     */
+    fun getSmsOtpByReference(
+        referenceId: String
+    ): CompletableFuture<BrandGetSmsOtpByReferenceResponse> =
+        getSmsOtpByReference(referenceId, BrandGetSmsOtpByReferenceParams.none())
+
+    /** @see getSmsOtpByReference */
+    fun getSmsOtpByReference(
+        referenceId: String,
+        params: BrandGetSmsOtpByReferenceParams = BrandGetSmsOtpByReferenceParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BrandGetSmsOtpByReferenceResponse> =
+        getSmsOtpByReference(params.toBuilder().referenceId(referenceId).build(), requestOptions)
+
+    /** @see getSmsOtpByReference */
+    fun getSmsOtpByReference(
+        referenceId: String,
+        params: BrandGetSmsOtpByReferenceParams = BrandGetSmsOtpByReferenceParams.none(),
+    ): CompletableFuture<BrandGetSmsOtpByReferenceResponse> =
+        getSmsOtpByReference(referenceId, params, RequestOptions.none())
+
+    /** @see getSmsOtpByReference */
+    fun getSmsOtpByReference(
+        params: BrandGetSmsOtpByReferenceParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BrandGetSmsOtpByReferenceResponse>
+
+    /** @see getSmsOtpByReference */
+    fun getSmsOtpByReference(
+        params: BrandGetSmsOtpByReferenceParams
+    ): CompletableFuture<BrandGetSmsOtpByReferenceResponse> =
+        getSmsOtpByReference(params, RequestOptions.none())
+
+    /** @see getSmsOtpByReference */
+    fun getSmsOtpByReference(
+        referenceId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BrandGetSmsOtpByReferenceResponse> =
+        getSmsOtpByReference(referenceId, BrandGetSmsOtpByReferenceParams.none(), requestOptions)
 
     /** Resend brand 2FA email */
     fun resend2faEmail(brandId: String): CompletableFuture<Void?> =
@@ -616,6 +667,56 @@ interface BrandServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<BrandGetFeedbackResponse>> =
             getFeedback(brandId, BrandGetFeedbackParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /10dlc/brand/smsOtp/{referenceId}`, but is otherwise
+         * the same as [BrandServiceAsync.getSmsOtpByReference].
+         */
+        fun getSmsOtpByReference(
+            referenceId: String
+        ): CompletableFuture<HttpResponseFor<BrandGetSmsOtpByReferenceResponse>> =
+            getSmsOtpByReference(referenceId, BrandGetSmsOtpByReferenceParams.none())
+
+        /** @see getSmsOtpByReference */
+        fun getSmsOtpByReference(
+            referenceId: String,
+            params: BrandGetSmsOtpByReferenceParams = BrandGetSmsOtpByReferenceParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BrandGetSmsOtpByReferenceResponse>> =
+            getSmsOtpByReference(
+                params.toBuilder().referenceId(referenceId).build(),
+                requestOptions,
+            )
+
+        /** @see getSmsOtpByReference */
+        fun getSmsOtpByReference(
+            referenceId: String,
+            params: BrandGetSmsOtpByReferenceParams = BrandGetSmsOtpByReferenceParams.none(),
+        ): CompletableFuture<HttpResponseFor<BrandGetSmsOtpByReferenceResponse>> =
+            getSmsOtpByReference(referenceId, params, RequestOptions.none())
+
+        /** @see getSmsOtpByReference */
+        fun getSmsOtpByReference(
+            params: BrandGetSmsOtpByReferenceParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BrandGetSmsOtpByReferenceResponse>>
+
+        /** @see getSmsOtpByReference */
+        fun getSmsOtpByReference(
+            params: BrandGetSmsOtpByReferenceParams
+        ): CompletableFuture<HttpResponseFor<BrandGetSmsOtpByReferenceResponse>> =
+            getSmsOtpByReference(params, RequestOptions.none())
+
+        /** @see getSmsOtpByReference */
+        fun getSmsOtpByReference(
+            referenceId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BrandGetSmsOtpByReferenceResponse>> =
+            getSmsOtpByReference(
+                referenceId,
+                BrandGetSmsOtpByReferenceParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `post /10dlc/brand/{brandId}/2faEmail`, but is otherwise
