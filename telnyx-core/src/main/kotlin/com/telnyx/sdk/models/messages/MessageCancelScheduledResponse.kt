@@ -39,6 +39,7 @@ private constructor(
     private val receivedAt: JsonField<OffsetDateTime>,
     private val recordType: JsonField<RecordType>,
     private val sentAt: JsonField<OffsetDateTime>,
+    private val smartEncodingApplied: JsonField<Boolean>,
     private val subject: JsonField<String>,
     private val tags: JsonField<List<String>>,
     private val tcrCampaignBillable: JsonField<Boolean>,
@@ -89,6 +90,9 @@ private constructor(
         @JsonProperty("sent_at")
         @ExcludeMissing
         sentAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("smart_encoding_applied")
+        @ExcludeMissing
+        smartEncodingApplied: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("subject") @ExcludeMissing subject: JsonField<String> = JsonMissing.of(),
         @JsonProperty("tags") @ExcludeMissing tags: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("tcr_campaign_billable")
@@ -129,6 +133,7 @@ private constructor(
         receivedAt,
         recordType,
         sentAt,
+        smartEncodingApplied,
         subject,
         tags,
         tcrCampaignBillable,
@@ -265,6 +270,17 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun sentAt(): Optional<OffsetDateTime> = sentAt.getOptional("sent_at")
+
+    /**
+     * Indicates whether smart encoding was applied to this message. When `true`, one or more
+     * Unicode characters were automatically replaced with GSM-7 equivalents to reduce segment count
+     * and cost. The original message text is preserved in webhooks.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun smartEncodingApplied(): Optional<Boolean> =
+        smartEncodingApplied.getOptional("smart_encoding_applied")
 
     /**
      * Subject of multimedia message
@@ -485,6 +501,16 @@ private constructor(
     @JsonProperty("sent_at") @ExcludeMissing fun _sentAt(): JsonField<OffsetDateTime> = sentAt
 
     /**
+     * Returns the raw JSON value of [smartEncodingApplied].
+     *
+     * Unlike [smartEncodingApplied], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("smart_encoding_applied")
+    @ExcludeMissing
+    fun _smartEncodingApplied(): JsonField<Boolean> = smartEncodingApplied
+
+    /**
      * Returns the raw JSON value of [subject].
      *
      * Unlike [subject], this method doesn't throw if the JSON field has an unexpected type.
@@ -614,6 +640,7 @@ private constructor(
         private var receivedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var recordType: JsonField<RecordType> = JsonMissing.of()
         private var sentAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var smartEncodingApplied: JsonField<Boolean> = JsonMissing.of()
         private var subject: JsonField<String> = JsonMissing.of()
         private var tags: JsonField<MutableList<String>>? = null
         private var tcrCampaignBillable: JsonField<Boolean> = JsonMissing.of()
@@ -645,6 +672,7 @@ private constructor(
             receivedAt = messageCancelScheduledResponse.receivedAt
             recordType = messageCancelScheduledResponse.recordType
             sentAt = messageCancelScheduledResponse.sentAt
+            smartEncodingApplied = messageCancelScheduledResponse.smartEncodingApplied
             subject = messageCancelScheduledResponse.subject
             tags = messageCancelScheduledResponse.tags.map { it.toMutableList() }
             tcrCampaignBillable = messageCancelScheduledResponse.tcrCampaignBillable
@@ -913,6 +941,25 @@ private constructor(
          */
         fun sentAt(sentAt: JsonField<OffsetDateTime>) = apply { this.sentAt = sentAt }
 
+        /**
+         * Indicates whether smart encoding was applied to this message. When `true`, one or more
+         * Unicode characters were automatically replaced with GSM-7 equivalents to reduce segment
+         * count and cost. The original message text is preserved in webhooks.
+         */
+        fun smartEncodingApplied(smartEncodingApplied: Boolean) =
+            smartEncodingApplied(JsonField.of(smartEncodingApplied))
+
+        /**
+         * Sets [Builder.smartEncodingApplied] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.smartEncodingApplied] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun smartEncodingApplied(smartEncodingApplied: JsonField<Boolean>) = apply {
+            this.smartEncodingApplied = smartEncodingApplied
+        }
+
         /** Subject of multimedia message */
         fun subject(subject: String?) = subject(JsonField.ofNullable(subject))
 
@@ -1153,6 +1200,7 @@ private constructor(
                 receivedAt,
                 recordType,
                 sentAt,
+                smartEncodingApplied,
                 subject,
                 (tags ?: JsonMissing.of()).map { it.toImmutable() },
                 tcrCampaignBillable,
@@ -1191,6 +1239,7 @@ private constructor(
         receivedAt()
         recordType().ifPresent { it.validate() }
         sentAt()
+        smartEncodingApplied()
         subject()
         tags()
         tcrCampaignBillable()
@@ -1236,6 +1285,7 @@ private constructor(
             (if (receivedAt.asKnown().isPresent) 1 else 0) +
             (recordType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (sentAt.asKnown().isPresent) 1 else 0) +
+            (if (smartEncodingApplied.asKnown().isPresent) 1 else 0) +
             (if (subject.asKnown().isPresent) 1 else 0) +
             (tags.asKnown().getOrNull()?.size ?: 0) +
             (if (tcrCampaignBillable.asKnown().isPresent) 1 else 0) +
@@ -4202,6 +4252,7 @@ private constructor(
             receivedAt == other.receivedAt &&
             recordType == other.recordType &&
             sentAt == other.sentAt &&
+            smartEncodingApplied == other.smartEncodingApplied &&
             subject == other.subject &&
             tags == other.tags &&
             tcrCampaignBillable == other.tcrCampaignBillable &&
@@ -4234,6 +4285,7 @@ private constructor(
             receivedAt,
             recordType,
             sentAt,
+            smartEncodingApplied,
             subject,
             tags,
             tcrCampaignBillable,
@@ -4252,5 +4304,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessageCancelScheduledResponse{id=$id, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, text=$text, to=$to, type=$type, validUntil=$validUntil, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "MessageCancelScheduledResponse{id=$id, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, smartEncodingApplied=$smartEncodingApplied, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, text=$text, to=$to, type=$type, validUntil=$validUntil, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

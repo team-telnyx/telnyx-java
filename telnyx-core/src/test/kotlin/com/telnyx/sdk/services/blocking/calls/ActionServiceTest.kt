@@ -85,11 +85,7 @@ internal class ActionServiceTest {
                     .addMessage(
                         ActionAddAiAssistantMessagesParams.Message.System.builder()
                             .content("Get the user's favorite color")
-                            .metadata(
-                                ActionAddAiAssistantMessagesParams.Message.System.Metadata.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                    .build()
-                            )
+                            .metadata(JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .build()

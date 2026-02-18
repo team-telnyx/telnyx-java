@@ -89,6 +89,7 @@ internal class MessageCancelScheduledResponseTest {
                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .recordType(MessageCancelScheduledResponse.RecordType.MESSAGE)
                 .sentAt(null)
+                .smartEncodingApplied(true)
                 .subject("From Telnyx!")
                 .addTag("Greetings")
                 .tcrCampaignBillable(true)
@@ -191,6 +192,7 @@ internal class MessageCancelScheduledResponseTest {
         assertThat(messageCancelScheduledResponse.recordType())
             .contains(MessageCancelScheduledResponse.RecordType.MESSAGE)
         assertThat(messageCancelScheduledResponse.sentAt()).isEmpty
+        assertThat(messageCancelScheduledResponse.smartEncodingApplied()).contains(true)
         assertThat(messageCancelScheduledResponse.subject()).contains("From Telnyx!")
         assertThat(messageCancelScheduledResponse.tags().getOrNull()).containsExactly("Greetings")
         assertThat(messageCancelScheduledResponse.tcrCampaignBillable()).contains(true)
@@ -293,6 +295,7 @@ internal class MessageCancelScheduledResponseTest {
                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .recordType(MessageCancelScheduledResponse.RecordType.MESSAGE)
                 .sentAt(null)
+                .smartEncodingApplied(true)
                 .subject("From Telnyx!")
                 .addTag("Greetings")
                 .tcrCampaignBillable(true)
