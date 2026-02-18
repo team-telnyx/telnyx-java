@@ -18,7 +18,11 @@ internal class ActionAddAiAssistantMessagesParamsTest {
             .addMessage(
                 ActionAddAiAssistantMessagesParams.Message.System.builder()
                     .content("Get the user's favorite color")
-                    .metadata(JsonValue.from(mapOf<String, Any>()))
+                    .metadata(
+                        ActionAddAiAssistantMessagesParams.Message.System.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .build()
             )
             .build()
@@ -44,7 +48,11 @@ internal class ActionAddAiAssistantMessagesParamsTest {
                 .addMessage(
                     ActionAddAiAssistantMessagesParams.Message.System.builder()
                         .content("Get the user's favorite color")
-                        .metadata(JsonValue.from(mapOf<String, Any>()))
+                        .metadata(
+                            ActionAddAiAssistantMessagesParams.Message.System.Metadata.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
                 .build()
@@ -58,7 +66,11 @@ internal class ActionAddAiAssistantMessagesParamsTest {
                 ActionAddAiAssistantMessagesParams.Message.ofSystem(
                     ActionAddAiAssistantMessagesParams.Message.System.builder()
                         .content("Get the user's favorite color")
-                        .metadata(JsonValue.from(mapOf<String, Any>()))
+                        .metadata(
+                            ActionAddAiAssistantMessagesParams.Message.System.Metadata.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             )
