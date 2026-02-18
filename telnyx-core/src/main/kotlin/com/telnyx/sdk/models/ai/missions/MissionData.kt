@@ -20,7 +20,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class MissionListResponse
+class MissionData
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
@@ -209,7 +209,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [MissionListResponse].
+         * Returns a mutable builder for constructing an instance of [MissionData].
          *
          * The following fields are required:
          * ```java
@@ -223,7 +223,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [MissionListResponse]. */
+    /** A builder for [MissionData]. */
     class Builder internal constructor() {
 
         private var createdAt: JsonField<OffsetDateTime>? = null
@@ -238,17 +238,17 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(missionListResponse: MissionListResponse) = apply {
-            createdAt = missionListResponse.createdAt
-            executionMode = missionListResponse.executionMode
-            missionId = missionListResponse.missionId
-            name = missionListResponse.name
-            updatedAt = missionListResponse.updatedAt
-            description = missionListResponse.description
-            instructions = missionListResponse.instructions
-            metadata = missionListResponse.metadata
-            model = missionListResponse.model
-            additionalProperties = missionListResponse.additionalProperties.toMutableMap()
+        internal fun from(missionData: MissionData) = apply {
+            createdAt = missionData.createdAt
+            executionMode = missionData.executionMode
+            missionId = missionData.missionId
+            name = missionData.name
+            updatedAt = missionData.updatedAt
+            description = missionData.description
+            instructions = missionData.instructions
+            metadata = missionData.metadata
+            model = missionData.model
+            additionalProperties = missionData.additionalProperties.toMutableMap()
         }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
@@ -372,7 +372,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [MissionListResponse].
+         * Returns an immutable instance of [MissionData].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -387,8 +387,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): MissionListResponse =
-            MissionListResponse(
+        fun build(): MissionData =
+            MissionData(
                 checkRequired("createdAt", createdAt),
                 checkRequired("executionMode", executionMode),
                 checkRequired("missionId", missionId),
@@ -404,7 +404,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): MissionListResponse = apply {
+    fun validate(): MissionData = apply {
         if (validated) {
             return@apply
         }
@@ -679,7 +679,7 @@ private constructor(
             return true
         }
 
-        return other is MissionListResponse &&
+        return other is MissionData &&
             createdAt == other.createdAt &&
             executionMode == other.executionMode &&
             missionId == other.missionId &&
@@ -710,5 +710,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MissionListResponse{createdAt=$createdAt, executionMode=$executionMode, missionId=$missionId, name=$name, updatedAt=$updatedAt, description=$description, instructions=$instructions, metadata=$metadata, model=$model, additionalProperties=$additionalProperties}"
+        "MissionData{createdAt=$createdAt, executionMode=$executionMode, missionId=$missionId, name=$name, updatedAt=$updatedAt, description=$description, instructions=$instructions, metadata=$metadata, model=$model, additionalProperties=$additionalProperties}"
 }
