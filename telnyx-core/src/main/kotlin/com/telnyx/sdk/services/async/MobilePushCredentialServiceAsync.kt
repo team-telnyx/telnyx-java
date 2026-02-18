@@ -40,6 +40,56 @@ interface MobilePushCredentialServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PushCredentialResponse>
 
+    /** @see create */
+    fun create(
+        createMobilePushCredentialRequest:
+            MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PushCredentialResponse> =
+        create(
+            MobilePushCredentialCreateParams.builder()
+                .createMobilePushCredentialRequest(createMobilePushCredentialRequest)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(
+        createMobilePushCredentialRequest:
+            MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest
+    ): CompletableFuture<PushCredentialResponse> =
+        create(createMobilePushCredentialRequest, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        ios: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Ios,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PushCredentialResponse> =
+        create(
+            MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.ofIos(ios),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(
+        ios: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Ios
+    ): CompletableFuture<PushCredentialResponse> = create(ios, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        android: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Android,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PushCredentialResponse> =
+        create(
+            MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.ofAndroid(android),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(
+        android: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Android
+    ): CompletableFuture<PushCredentialResponse> = create(android, RequestOptions.none())
+
     /** Retrieves mobile push credential based on the given `push_credential_id` */
     fun retrieve(pushCredentialId: String): CompletableFuture<PushCredentialResponse> =
         retrieve(pushCredentialId, MobilePushCredentialRetrieveParams.none())
@@ -157,6 +207,60 @@ interface MobilePushCredentialServiceAsync {
             params: MobilePushCredentialCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PushCredentialResponse>>
+
+        /** @see create */
+        fun create(
+            createMobilePushCredentialRequest:
+                MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PushCredentialResponse>> =
+            create(
+                MobilePushCredentialCreateParams.builder()
+                    .createMobilePushCredentialRequest(createMobilePushCredentialRequest)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see create */
+        fun create(
+            createMobilePushCredentialRequest:
+                MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest
+        ): CompletableFuture<HttpResponseFor<PushCredentialResponse>> =
+            create(createMobilePushCredentialRequest, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            ios: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Ios,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PushCredentialResponse>> =
+            create(
+                MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.ofIos(ios),
+                requestOptions,
+            )
+
+        /** @see create */
+        fun create(
+            ios: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Ios
+        ): CompletableFuture<HttpResponseFor<PushCredentialResponse>> =
+            create(ios, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            android: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Android,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PushCredentialResponse>> =
+            create(
+                MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.ofAndroid(
+                    android
+                ),
+                requestOptions,
+            )
+
+        /** @see create */
+        fun create(
+            android: MobilePushCredentialCreateParams.CreateMobilePushCredentialRequest.Android
+        ): CompletableFuture<HttpResponseFor<PushCredentialResponse>> =
+            create(android, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /mobile_push_credentials/{push_credential_id}`, but
