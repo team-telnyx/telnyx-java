@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 internal class NetworkServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -30,7 +30,7 @@ internal class NetworkServiceTest {
         network.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -41,7 +41,7 @@ internal class NetworkServiceTest {
         network.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -66,7 +66,7 @@ internal class NetworkServiceTest {
         network.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -77,7 +77,7 @@ internal class NetworkServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -88,7 +88,7 @@ internal class NetworkServiceTest {
         network.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listInterfaces() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

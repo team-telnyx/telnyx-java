@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 
 internal class MissionServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -37,7 +37,7 @@ internal class MissionServiceAsyncTest {
         mission.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -49,7 +49,7 @@ internal class MissionServiceAsyncTest {
         mission.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -61,7 +61,7 @@ internal class MissionServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun cloneMission() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -73,7 +73,7 @@ internal class MissionServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun deleteMission() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -84,7 +84,7 @@ internal class MissionServiceAsyncTest {
         val response = future.get()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listEvents() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -96,7 +96,7 @@ internal class MissionServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun updateMission() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 internal class ExternalVettingServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -22,7 +22,7 @@ internal class ExternalVettingServiceAsyncTest {
         externalVettings.forEach { it.validate() }
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun imports() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -42,7 +42,7 @@ internal class ExternalVettingServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun order() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

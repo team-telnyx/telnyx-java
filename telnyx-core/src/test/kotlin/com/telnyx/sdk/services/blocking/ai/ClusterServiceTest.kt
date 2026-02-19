@@ -21,7 +21,7 @@ import org.junit.jupiter.api.parallel.ResourceLock
 @ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class ClusterServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -39,7 +39,7 @@ internal class ClusterServiceTest {
         cluster.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -50,7 +50,7 @@ internal class ClusterServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -59,7 +59,7 @@ internal class ClusterServiceTest {
         clusterService.delete("task_id")
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun compute() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

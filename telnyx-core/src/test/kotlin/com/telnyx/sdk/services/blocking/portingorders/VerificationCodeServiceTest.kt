@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 internal class VerificationCodeServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -21,7 +21,7 @@ internal class VerificationCodeServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun send() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -37,7 +37,7 @@ internal class VerificationCodeServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun verify() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

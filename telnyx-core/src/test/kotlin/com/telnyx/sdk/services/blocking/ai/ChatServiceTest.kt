@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 internal class ChatServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun createCompletion() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

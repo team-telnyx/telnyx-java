@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 
 internal class KnowledgeBaseServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun createKnowledgeBase() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -22,7 +22,7 @@ internal class KnowledgeBaseServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun deleteKnowledgeBase() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -36,7 +36,7 @@ internal class KnowledgeBaseServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getKnowledgeBase() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -53,7 +53,7 @@ internal class KnowledgeBaseServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listKnowledgeBases() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -64,7 +64,7 @@ internal class KnowledgeBaseServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun updateKnowledgeBase() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 internal class UsageServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getApiUsage() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -33,7 +33,7 @@ internal class UsageServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getBucketUsage() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

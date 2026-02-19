@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 
 internal class SpeechToTextServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun transcribe() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

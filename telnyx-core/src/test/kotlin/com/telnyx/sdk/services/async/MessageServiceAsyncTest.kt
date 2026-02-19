@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test
 
 internal class MessageServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -29,7 +29,7 @@ internal class MessageServiceAsyncTest {
         message.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun cancelScheduled() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -42,7 +42,7 @@ internal class MessageServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun schedule() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -70,7 +70,7 @@ internal class MessageServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun send() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -99,7 +99,7 @@ internal class MessageServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun sendGroupMms() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -124,7 +124,7 @@ internal class MessageServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun sendLongCode() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -151,7 +151,7 @@ internal class MessageServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun sendNumberPool() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -178,7 +178,7 @@ internal class MessageServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun sendShortCode() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -205,7 +205,7 @@ internal class MessageServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun sendWhatsapp() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

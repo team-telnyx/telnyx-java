@@ -38,7 +38,7 @@ internal class TextToSpeechServiceTest {
         assertThat(response.body()).hasContent("abc")
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listVoices() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

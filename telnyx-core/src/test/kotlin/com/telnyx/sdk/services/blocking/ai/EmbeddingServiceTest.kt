@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 
 internal class EmbeddingServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -32,7 +32,7 @@ internal class EmbeddingServiceTest {
         embeddingResponse.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -43,7 +43,7 @@ internal class EmbeddingServiceTest {
         embedding.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -55,7 +55,7 @@ internal class EmbeddingServiceTest {
         embeddings.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun similaritySearch() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -73,7 +73,7 @@ internal class EmbeddingServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun url() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

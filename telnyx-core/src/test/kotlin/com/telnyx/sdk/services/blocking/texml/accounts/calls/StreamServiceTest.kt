@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 
 internal class StreamServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun streamingSidJson() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

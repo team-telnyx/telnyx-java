@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 
 internal class PartnerCampaignServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -21,7 +21,7 @@ internal class PartnerCampaignServiceAsyncTest {
         telnyxDownstreamCampaign.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -40,7 +40,7 @@ internal class PartnerCampaignServiceAsyncTest {
         telnyxDownstreamCampaign.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -52,7 +52,7 @@ internal class PartnerCampaignServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listSharedByMe() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -64,7 +64,7 @@ internal class PartnerCampaignServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveSharingStatus() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

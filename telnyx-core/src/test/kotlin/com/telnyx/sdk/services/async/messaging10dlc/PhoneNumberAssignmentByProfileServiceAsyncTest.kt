@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 
 internal class PhoneNumberAssignmentByProfileServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun assign() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -31,7 +31,7 @@ internal class PhoneNumberAssignmentByProfileServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listPhoneNumberStatus() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -51,7 +51,7 @@ internal class PhoneNumberAssignmentByProfileServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrievePhoneNumberStatus() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -71,7 +71,7 @@ internal class PhoneNumberAssignmentByProfileServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveStatus() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

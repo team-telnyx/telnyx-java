@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 internal class InsightGroupServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -22,7 +22,7 @@ internal class InsightGroupServiceTest {
         insightTemplateGroupDetail.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -41,7 +41,7 @@ internal class InsightGroupServiceTest {
         insightTemplateGroupDetail.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -50,7 +50,7 @@ internal class InsightGroupServiceTest {
         insightGroupService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun insightGroups() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -68,7 +68,7 @@ internal class InsightGroupServiceTest {
         insightTemplateGroupDetail.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveInsightGroups() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

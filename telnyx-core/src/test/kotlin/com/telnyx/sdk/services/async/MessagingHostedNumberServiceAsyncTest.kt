@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 
 internal class MessagingHostedNumberServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

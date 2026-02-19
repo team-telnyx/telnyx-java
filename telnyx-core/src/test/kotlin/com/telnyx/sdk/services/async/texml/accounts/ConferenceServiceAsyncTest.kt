@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test
 
 internal class ConferenceServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -31,7 +31,7 @@ internal class ConferenceServiceAsyncTest {
         conference.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -52,7 +52,7 @@ internal class ConferenceServiceAsyncTest {
         conference.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveConferences() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -76,7 +76,7 @@ internal class ConferenceServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveRecordings() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -94,7 +94,7 @@ internal class ConferenceServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveRecordingsJson() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

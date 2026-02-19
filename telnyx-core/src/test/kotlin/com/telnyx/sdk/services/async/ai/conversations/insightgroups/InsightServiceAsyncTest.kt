@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 internal class InsightServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun assign() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -27,7 +27,7 @@ internal class InsightServiceAsyncTest {
         val response = future.get()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun deleteUnassign() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

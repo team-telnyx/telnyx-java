@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test
 
 internal class BrandServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -57,7 +57,7 @@ internal class BrandServiceTest {
         telnyxBrand.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -68,7 +68,7 @@ internal class BrandServiceTest {
         brand.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -109,7 +109,7 @@ internal class BrandServiceTest {
         telnyxBrand.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -120,7 +120,7 @@ internal class BrandServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -129,7 +129,7 @@ internal class BrandServiceTest {
         brandService.delete("brandId")
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getFeedback() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -140,7 +140,7 @@ internal class BrandServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getSmsOtpByReference() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -157,7 +157,7 @@ internal class BrandServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun resend2faEmail() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -166,7 +166,7 @@ internal class BrandServiceTest {
         brandService.resend2faEmail("brandId")
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveSmsOtpStatus() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -177,7 +177,7 @@ internal class BrandServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun revet() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -188,7 +188,7 @@ internal class BrandServiceTest {
         telnyxBrand.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun triggerSmsOtp() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -206,7 +206,7 @@ internal class BrandServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun verifySmsOtp() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

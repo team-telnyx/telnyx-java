@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 
 internal class NumberOrderPhoneNumberServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -25,7 +25,7 @@ internal class NumberOrderPhoneNumberServiceAsyncTest {
         numberOrderPhoneNumber.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -44,7 +44,7 @@ internal class NumberOrderPhoneNumberServiceAsyncTest {
         numberOrderPhoneNumbers.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun updateRequirementGroup() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -62,7 +62,7 @@ internal class NumberOrderPhoneNumberServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun updateRequirements() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

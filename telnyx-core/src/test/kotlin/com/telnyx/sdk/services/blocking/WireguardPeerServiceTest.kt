@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 
 internal class WireguardPeerServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -34,7 +34,7 @@ internal class WireguardPeerServiceTest {
         wireguardPeer.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -45,7 +45,7 @@ internal class WireguardPeerServiceTest {
         wireguardPeer.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -66,7 +66,7 @@ internal class WireguardPeerServiceTest {
         wireguardPeer.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -77,7 +77,7 @@ internal class WireguardPeerServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -88,7 +88,7 @@ internal class WireguardPeerServiceTest {
         wireguardPeer.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveConfig() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

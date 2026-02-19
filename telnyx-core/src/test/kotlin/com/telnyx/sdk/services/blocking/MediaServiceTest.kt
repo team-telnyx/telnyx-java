@@ -21,7 +21,7 @@ import org.junit.jupiter.api.parallel.ResourceLock
 @ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class MediaServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -32,7 +32,7 @@ internal class MediaServiceTest {
         media.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -50,7 +50,7 @@ internal class MediaServiceTest {
         media.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -68,7 +68,7 @@ internal class MediaServiceTest {
         media.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -92,7 +92,7 @@ internal class MediaServiceTest {
         assertThat(response.body()).hasContent("abc")
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun upload() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

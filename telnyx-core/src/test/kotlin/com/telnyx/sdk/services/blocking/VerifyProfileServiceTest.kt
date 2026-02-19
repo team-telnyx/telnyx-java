@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 
 internal class VerifyProfileServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -59,7 +59,7 @@ internal class VerifyProfileServiceTest {
         verifyProfileData.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -71,7 +71,7 @@ internal class VerifyProfileServiceTest {
         verifyProfileData.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -119,7 +119,7 @@ internal class VerifyProfileServiceTest {
         verifyProfileData.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -130,7 +130,7 @@ internal class VerifyProfileServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -141,7 +141,7 @@ internal class VerifyProfileServiceTest {
         verifyProfileData.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun createTemplate() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -157,7 +157,7 @@ internal class VerifyProfileServiceTest {
         messageTemplate.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveTemplates() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -168,7 +168,7 @@ internal class VerifyProfileServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun updateTemplate() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 
 internal class ManagedAccountServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -32,7 +32,7 @@ internal class ManagedAccountServiceAsyncTest {
         managedAccount.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -44,7 +44,7 @@ internal class ManagedAccountServiceAsyncTest {
         managedAccount.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -62,7 +62,7 @@ internal class ManagedAccountServiceAsyncTest {
         managedAccount.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -74,7 +74,7 @@ internal class ManagedAccountServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getAllocatableGlobalOutboundChannels() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -86,7 +86,7 @@ internal class ManagedAccountServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun updateGlobalChannelLimit() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

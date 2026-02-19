@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 internal class JsonServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun deleteRecordingSidJson() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -24,7 +24,7 @@ internal class JsonServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveRecordingSidJson() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

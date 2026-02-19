@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 
 internal class ActionServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun end() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -23,7 +23,7 @@ internal class ActionServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun kick() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -47,7 +47,7 @@ internal class ActionServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun mute() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -71,7 +71,7 @@ internal class ActionServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun unmute() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
