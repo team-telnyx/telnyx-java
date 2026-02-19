@@ -2,24 +2,17 @@
 
 package com.telnyx.sdk.services.blocking.texml.accounts.calls
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.texml.accounts.calls.siprec.SiprecSiprecSidJsonParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class SiprecServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun siprecSidJson() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val siprecService = client.texml().accounts().calls().siprec()
 
         val response =

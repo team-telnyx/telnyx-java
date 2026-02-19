@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking.ai.missions
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.missions.runs.RunCancelRunParams
@@ -13,19 +12,13 @@ import com.telnyx.sdk.models.ai.missions.runs.RunRetrieveParams
 import com.telnyx.sdk.models.ai.missions.runs.RunUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class RunServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().missions().runs()
 
         val run =
@@ -51,11 +44,7 @@ internal class RunServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().missions().runs()
 
         val run =
@@ -72,11 +61,7 @@ internal class RunServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().missions().runs()
 
         val run =
@@ -106,11 +91,7 @@ internal class RunServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().missions().runs()
 
         val page = runService.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -121,11 +102,7 @@ internal class RunServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun cancelRun() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().missions().runs()
 
         val response =
@@ -142,11 +119,7 @@ internal class RunServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun listRuns() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().missions().runs()
 
         val page = runService.listRuns()
@@ -157,11 +130,7 @@ internal class RunServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun pauseRun() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().missions().runs()
 
         val response =
@@ -178,11 +147,7 @@ internal class RunServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun resumeRun() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().missions().runs()
 
         val response =

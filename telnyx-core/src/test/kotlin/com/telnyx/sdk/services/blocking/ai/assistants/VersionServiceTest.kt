@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking.ai.assistants
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
@@ -23,19 +22,13 @@ import com.telnyx.sdk.models.ai.assistants.versions.VersionRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class VersionServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val versionService = client.ai().assistants().versions()
 
         val inferenceEmbedding =
@@ -53,11 +46,7 @@ internal class VersionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val versionService = client.ai().assistants().versions()
 
         val inferenceEmbedding =
@@ -304,11 +293,7 @@ internal class VersionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val versionService = client.ai().assistants().versions()
 
         val assistantsList = versionService.list("assistant_id")
@@ -319,11 +304,7 @@ internal class VersionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val versionService = client.ai().assistants().versions()
 
         versionService.delete(
@@ -337,11 +318,7 @@ internal class VersionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun promote() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val versionService = client.ai().assistants().versions()
 
         val inferenceEmbedding =

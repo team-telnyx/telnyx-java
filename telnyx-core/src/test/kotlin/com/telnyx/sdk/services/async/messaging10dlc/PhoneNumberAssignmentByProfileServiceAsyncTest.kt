@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.async.messaging10dlc
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.messaging10dlc.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileAssignParams
 import com.telnyx.sdk.models.messaging10dlc.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileListPhoneNumberStatusParams
 import com.telnyx.sdk.models.messaging10dlc.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class PhoneNumberAssignmentByProfileServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun assign() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val phoneNumberAssignmentByProfileServiceAsync =
             client.messaging10dlc().phoneNumberAssignmentByProfile()
 
@@ -41,11 +34,7 @@ internal class PhoneNumberAssignmentByProfileServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun listPhoneNumberStatus() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val phoneNumberAssignmentByProfileServiceAsync =
             client.messaging10dlc().phoneNumberAssignmentByProfile()
 
@@ -65,11 +54,7 @@ internal class PhoneNumberAssignmentByProfileServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrievePhoneNumberStatus() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val phoneNumberAssignmentByProfileServiceAsync =
             client.messaging10dlc().phoneNumberAssignmentByProfile()
 
@@ -89,11 +74,7 @@ internal class PhoneNumberAssignmentByProfileServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveStatus() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val phoneNumberAssignmentByProfileServiceAsync =
             client.messaging10dlc().phoneNumberAssignmentByProfile()
 

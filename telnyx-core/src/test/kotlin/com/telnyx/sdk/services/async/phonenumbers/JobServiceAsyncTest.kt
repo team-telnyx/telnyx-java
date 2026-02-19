@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async.phonenumbers
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.phonenumbers.jobs.JobDeleteBatchParams
 import com.telnyx.sdk.models.phonenumbers.jobs.JobUpdateBatchParams
@@ -14,19 +13,13 @@ import com.telnyx.sdk.models.phonenumbers.voice.MediaFeatures
 import com.telnyx.sdk.models.phonenumbers.voice.UpdateVoiceSettings
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class JobServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val jobServiceAsync = client.phoneNumbers().jobs()
 
         val jobFuture = jobServiceAsync.retrieve("id")
@@ -38,11 +31,7 @@ internal class JobServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val jobServiceAsync = client.phoneNumbers().jobs()
 
         val pageFuture = jobServiceAsync.list()
@@ -54,11 +43,7 @@ internal class JobServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun deleteBatch() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val jobServiceAsync = client.phoneNumbers().jobs()
 
         val responseFuture =
@@ -75,11 +60,7 @@ internal class JobServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun updateBatch() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val jobServiceAsync = client.phoneNumbers().jobs()
 
         val responseFuture =
@@ -169,11 +150,7 @@ internal class JobServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun updateEmergencySettingsBatch() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val jobServiceAsync = client.phoneNumbers().jobs()
 
         val responseFuture =

@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.numberorderphonenumbers.UpdateRegulatoryRequirement
 import com.telnyx.sdk.models.subnumberorders.SubNumberOrderListParams
@@ -11,19 +10,13 @@ import com.telnyx.sdk.models.subnumberorders.SubNumberOrderUpdateParams
 import com.telnyx.sdk.models.subnumberorders.SubNumberOrderUpdateRequirementGroupParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class SubNumberOrderServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val subNumberOrderService = client.subNumberOrders()
 
         val subNumberOrder =
@@ -44,11 +37,7 @@ internal class SubNumberOrderServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val subNumberOrderService = client.subNumberOrders()
 
         val subNumberOrder =
@@ -70,11 +59,7 @@ internal class SubNumberOrderServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val subNumberOrderService = client.subNumberOrders()
 
         val subNumberOrders =
@@ -98,11 +83,7 @@ internal class SubNumberOrderServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun cancel() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val subNumberOrderService = client.subNumberOrders()
 
         val response = subNumberOrderService.cancel("sub_number_order_id")
@@ -113,11 +94,7 @@ internal class SubNumberOrderServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun updateRequirementGroup() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val subNumberOrderService = client.subNumberOrders()
 
         val response =

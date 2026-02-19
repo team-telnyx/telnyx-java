@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.blocking.simcards
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.simcards.actions.ActionBulkSetPublicIpsParams
 import com.telnyx.sdk.models.simcards.actions.ActionSetPublicIpParams
 import com.telnyx.sdk.models.simcards.actions.ActionValidateRegistrationCodesParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ActionServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.simCards().actions()
 
         val action = actionService.retrieve("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -32,11 +25,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.simCards().actions()
 
         val page = actionService.list()
@@ -47,11 +36,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun bulkSetPublicIps() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.simCards().actions()
 
         val response =
@@ -67,11 +52,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun disable() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.simCards().actions()
 
         val response = actionService.disable("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -82,11 +63,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun enable() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.simCards().actions()
 
         val response = actionService.enable("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -97,11 +74,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun removePublicIp() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.simCards().actions()
 
         val response = actionService.removePublicIp("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -112,11 +85,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun setPublicIp() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.simCards().actions()
 
         val response =
@@ -133,11 +102,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun setStandby() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.simCards().actions()
 
         val response = actionService.setStandby("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -148,11 +113,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun validateRegistrationCodes() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.simCards().actions()
 
         val response =

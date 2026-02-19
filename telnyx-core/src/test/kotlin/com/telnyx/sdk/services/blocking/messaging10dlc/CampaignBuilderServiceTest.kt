@@ -2,24 +2,17 @@
 
 package com.telnyx.sdk.services.blocking.messaging10dlc
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.messaging10dlc.campaignbuilder.CampaignBuilderSubmitParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class CampaignBuilderServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun submit() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val campaignBuilderService = client.messaging10dlc().campaignBuilder()
 
         val telnyxCampaignCsp =

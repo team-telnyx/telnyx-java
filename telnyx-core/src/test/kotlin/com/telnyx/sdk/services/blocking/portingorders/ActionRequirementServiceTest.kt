@@ -2,24 +2,17 @@
 
 package com.telnyx.sdk.services.blocking.portingorders
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementInitiateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ActionRequirementServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionRequirementService = client.portingOrders().actionRequirements()
 
         val page = actionRequirementService.list("porting_order_id")
@@ -30,11 +23,7 @@ internal class ActionRequirementServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun initiate() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionRequirementService = client.portingOrders().actionRequirements()
 
         val response =

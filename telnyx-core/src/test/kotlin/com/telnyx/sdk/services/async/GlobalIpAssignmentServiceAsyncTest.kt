@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.async
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignment
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class GlobalIpAssignmentServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val globalIpAssignmentServiceAsync = client.globalIpAssignments()
 
         val globalIpAssignmentFuture =
@@ -40,11 +33,7 @@ internal class GlobalIpAssignmentServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val globalIpAssignmentServiceAsync = client.globalIpAssignments()
 
         val globalIpAssignmentFuture =
@@ -57,11 +46,7 @@ internal class GlobalIpAssignmentServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val globalIpAssignmentServiceAsync = client.globalIpAssignments()
 
         val globalIpAssignmentFuture =
@@ -84,11 +69,7 @@ internal class GlobalIpAssignmentServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val globalIpAssignmentServiceAsync = client.globalIpAssignments()
 
         val pageFuture = globalIpAssignmentServiceAsync.list()
@@ -100,11 +81,7 @@ internal class GlobalIpAssignmentServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val globalIpAssignmentServiceAsync = client.globalIpAssignments()
 
         val globalIpAssignmentFuture =

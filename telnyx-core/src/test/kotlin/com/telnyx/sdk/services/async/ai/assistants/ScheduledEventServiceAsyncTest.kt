@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async.ai.assistants
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ConversationChannelType
@@ -12,19 +11,13 @@ import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventRetriev
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ScheduledEventServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val scheduledEventServiceAsync = client.ai().assistants().scheduledEvents()
 
         val scheduledEventResponseFuture =
@@ -56,11 +49,7 @@ internal class ScheduledEventServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val scheduledEventServiceAsync = client.ai().assistants().scheduledEvents()
 
         val scheduledEventResponseFuture =
@@ -78,11 +67,7 @@ internal class ScheduledEventServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val scheduledEventServiceAsync = client.ai().assistants().scheduledEvents()
 
         val pageFuture = scheduledEventServiceAsync.list("assistant_id")
@@ -94,11 +79,7 @@ internal class ScheduledEventServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val scheduledEventServiceAsync = client.ai().assistants().scheduledEvents()
 
         val future =

@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.blocking.messaging10dlc
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.messaging10dlc.phonenumbercampaigns.PhoneNumberCampaignCreate
 import com.telnyx.sdk.models.messaging10dlc.phonenumbercampaigns.PhoneNumberCampaignUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class PhoneNumberCampaignServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberCampaignService = client.messaging10dlc().phoneNumberCampaigns()
 
         val phoneNumberCampaign =
@@ -37,11 +30,7 @@ internal class PhoneNumberCampaignServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberCampaignService = client.messaging10dlc().phoneNumberCampaigns()
 
         val phoneNumberCampaign = phoneNumberCampaignService.retrieve("phoneNumber")
@@ -52,11 +41,7 @@ internal class PhoneNumberCampaignServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberCampaignService = client.messaging10dlc().phoneNumberCampaigns()
 
         val phoneNumberCampaign =
@@ -78,11 +63,7 @@ internal class PhoneNumberCampaignServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberCampaignService = client.messaging10dlc().phoneNumberCampaigns()
 
         val page = phoneNumberCampaignService.list()
@@ -93,11 +74,7 @@ internal class PhoneNumberCampaignServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberCampaignService = client.messaging10dlc().phoneNumberCampaigns()
 
         val phoneNumberCampaign = phoneNumberCampaignService.delete("phoneNumber")

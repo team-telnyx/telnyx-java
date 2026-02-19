@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking.calls
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.Assistant
@@ -61,19 +60,13 @@ import com.telnyx.sdk.models.calls.actions.TranscriptionEngineGoogleConfig
 import com.telnyx.sdk.models.calls.actions.TranscriptionStartRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ActionServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun addAiAssistantMessages() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -101,11 +94,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun answer() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -194,11 +183,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun bridge() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -232,11 +217,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun enqueue() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -258,11 +239,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun gather() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -288,11 +265,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun gatherUsingAi() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -363,11 +336,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun gatherUsingAudio() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -396,11 +365,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun gatherUsingSpeak() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -437,11 +402,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun hangup() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -459,11 +420,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun leaveQueue() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -481,11 +438,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun pauseRecording() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -504,11 +457,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun refer() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -538,11 +487,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun reject() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -561,11 +506,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun resumeRecording() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -584,11 +525,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun sendDtmf() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -608,11 +545,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun sendSipInfo() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -632,11 +565,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun speak() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -668,11 +597,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun startAiAssistant() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -711,11 +636,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun startForking() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -736,11 +657,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun startNoiseSuppression() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -767,11 +684,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun startPlayback() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -798,11 +711,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun startRecording() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -835,11 +744,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun startSiprec() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -864,11 +769,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun startStreaming() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -913,11 +814,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun startTranscription() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -965,11 +862,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun stopAiAssistant() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -987,11 +880,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun stopForking() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -1010,11 +899,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun stopGather() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -1032,11 +917,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun stopNoiseSuppression() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -1054,11 +935,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun stopPlayback() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -1078,11 +955,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun stopRecording() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -1105,11 +978,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun stopSiprec() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -1127,11 +996,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun stopStreaming() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -1150,11 +1015,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun stopTranscription() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -1172,11 +1033,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun switchSupervisorRole() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -1193,11 +1050,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun transfer() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =
@@ -1297,11 +1150,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun updateClientState() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.calls().actions()
 
         val response =

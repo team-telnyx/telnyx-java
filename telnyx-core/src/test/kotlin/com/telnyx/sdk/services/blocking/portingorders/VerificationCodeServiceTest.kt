@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.blocking.portingorders
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeSendParams
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeVerifyParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class VerificationCodeServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val verificationCodeService = client.portingOrders().verificationCodes()
 
         val page = verificationCodeService.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -31,11 +24,7 @@ internal class VerificationCodeServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun send() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val verificationCodeService = client.portingOrders().verificationCodes()
 
         verificationCodeService.send(
@@ -51,11 +40,7 @@ internal class VerificationCodeServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun verify() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val verificationCodeService = client.portingOrders().verificationCodes()
 
         val response =

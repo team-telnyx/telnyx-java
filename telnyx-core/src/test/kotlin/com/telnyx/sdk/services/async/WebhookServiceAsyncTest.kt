@@ -3,7 +3,6 @@
 package com.telnyx.sdk.services.async
 
 import com.standardwebhooks.Webhook
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.UnwrapWebhookParams
 import com.telnyx.sdk.core.http.Headers
@@ -11,9 +10,7 @@ import com.telnyx.sdk.errors.TelnyxWebhookException
 import java.time.Instant
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class WebhookServiceAsyncTest {
 
     @Test

@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.async.phonenumbers
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.phonenumbers.voicemail.VoicemailCreateParams
 import com.telnyx.sdk.models.phonenumbers.voicemail.VoicemailRequest
 import com.telnyx.sdk.models.phonenumbers.voicemail.VoicemailUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class VoicemailServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val voicemailServiceAsync = client.phoneNumbers().voicemail()
 
         val voicemailFuture =
@@ -39,11 +32,7 @@ internal class VoicemailServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val voicemailServiceAsync = client.phoneNumbers().voicemail()
 
         val voicemailFuture = voicemailServiceAsync.retrieve("123455678900")
@@ -55,11 +44,7 @@ internal class VoicemailServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val voicemailServiceAsync = client.phoneNumbers().voicemail()
 
         val voicemailFuture =

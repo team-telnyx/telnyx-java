@@ -8,7 +8,6 @@ import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.documents.DocServiceDocument
 import com.telnyx.sdk.models.documents.DocumentUpdateParams
@@ -17,10 +16,8 @@ import com.telnyx.sdk.models.documents.DocumentUploadParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.parallel.ResourceLock
 
-@ExtendWith(TestServerExtension::class)
 @WireMockTest
 @ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class DocumentServiceAsyncTest {
@@ -28,11 +25,7 @@ internal class DocumentServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val documentServiceAsync = client.documents()
 
         val documentFuture = documentServiceAsync.retrieve("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -44,11 +37,7 @@ internal class DocumentServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val documentServiceAsync = client.documents()
 
         val documentFuture =
@@ -87,11 +76,7 @@ internal class DocumentServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val documentServiceAsync = client.documents()
 
         val pageFuture = documentServiceAsync.list()
@@ -103,11 +88,7 @@ internal class DocumentServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val documentServiceAsync = client.documents()
 
         val documentFuture = documentServiceAsync.delete("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -135,11 +116,7 @@ internal class DocumentServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun generateDownloadLink() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val documentServiceAsync = client.documents()
 
         val responseFuture =
@@ -152,11 +129,7 @@ internal class DocumentServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun upload() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val documentServiceAsync = client.documents()
 
         val responseFuture =
@@ -176,11 +149,7 @@ internal class DocumentServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun uploadJson() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val documentServiceAsync = client.documents()
 
         val responseFuture =

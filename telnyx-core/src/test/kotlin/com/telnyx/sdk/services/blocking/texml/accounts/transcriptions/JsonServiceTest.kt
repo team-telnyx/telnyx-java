@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.blocking.texml.accounts.transcriptions
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.texml.accounts.transcriptions.json.JsonDeleteRecordingTranscriptionSidJsonParams
 import com.telnyx.sdk.models.texml.accounts.transcriptions.json.JsonRetrieveRecordingTranscriptionSidJsonParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class JsonServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun deleteRecordingTranscriptionSidJson() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val jsonService = client.texml().accounts().transcriptions().json()
 
         jsonService.deleteRecordingTranscriptionSidJson(
@@ -34,11 +27,7 @@ internal class JsonServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveRecordingTranscriptionSidJson() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val jsonService = client.texml().accounts().transcriptions().json()
 
         val response =

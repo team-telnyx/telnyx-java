@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async.texml.accounts
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveConferencesParams
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveParams
@@ -11,19 +10,13 @@ import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceRetrieveRecord
 import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ConferenceServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val conferenceServiceAsync = client.texml().accounts().conferences()
 
         val conferenceFuture =
@@ -41,11 +34,7 @@ internal class ConferenceServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val conferenceServiceAsync = client.texml().accounts().conferences()
 
         val conferenceFuture =
@@ -66,11 +55,7 @@ internal class ConferenceServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveConferences() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val conferenceServiceAsync = client.texml().accounts().conferences()
 
         val responseFuture =
@@ -94,11 +79,7 @@ internal class ConferenceServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveRecordings() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val conferenceServiceAsync = client.texml().accounts().conferences()
 
         val responseFuture =
@@ -116,11 +97,7 @@ internal class ConferenceServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveRecordingsJson() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val conferenceServiceAsync = client.texml().accounts().conferences()
 
         val responseFuture =

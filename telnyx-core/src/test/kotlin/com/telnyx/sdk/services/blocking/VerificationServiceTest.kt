@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.blocking
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.verifications.VerificationTriggerCallParams
 import com.telnyx.sdk.models.verifications.VerificationTriggerFlashcallParams
 import com.telnyx.sdk.models.verifications.VerificationTriggerSmsParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class VerificationServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val verificationService = client.verifications()
 
         val verification = verificationService.retrieve("12ade33a-21c0-473b-b055-b3c836e1c292")
@@ -32,11 +25,7 @@ internal class VerificationServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun triggerCall() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val verificationService = client.verifications()
 
         val createVerificationResponse =
@@ -56,11 +45,7 @@ internal class VerificationServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun triggerFlashcall() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val verificationService = client.verifications()
 
         val createVerificationResponse =
@@ -78,11 +63,7 @@ internal class VerificationServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun triggerSms() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val verificationService = client.verifications()
 
         val createVerificationResponse =

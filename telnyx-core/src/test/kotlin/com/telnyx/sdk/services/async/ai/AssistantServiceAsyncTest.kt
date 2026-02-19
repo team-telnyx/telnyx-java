@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async.ai
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.AssistantChatParams
@@ -25,19 +24,13 @@ import com.telnyx.sdk.models.ai.assistants.WidgetSettings
 import com.telnyx.sdk.models.ai.assistants.versions.UpdateAssistant
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class AssistantServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val assistantServiceAsync = client.ai().assistants()
 
         val inferenceEmbeddingFuture =
@@ -255,11 +248,7 @@ internal class AssistantServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val assistantServiceAsync = client.ai().assistants()
 
         val inferenceEmbeddingFuture =
@@ -280,11 +269,7 @@ internal class AssistantServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val assistantServiceAsync = client.ai().assistants()
 
         val inferenceEmbeddingFuture =
@@ -504,11 +489,7 @@ internal class AssistantServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val assistantServiceAsync = client.ai().assistants()
 
         val assistantsListFuture = assistantServiceAsync.list()
@@ -520,11 +501,7 @@ internal class AssistantServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val assistantServiceAsync = client.ai().assistants()
 
         val assistantFuture = assistantServiceAsync.delete("assistant_id")
@@ -536,11 +513,7 @@ internal class AssistantServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun chat() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val assistantServiceAsync = client.ai().assistants()
 
         val responseFuture =
@@ -560,11 +533,7 @@ internal class AssistantServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun clone() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val assistantServiceAsync = client.ai().assistants()
 
         val inferenceEmbeddingFuture = assistantServiceAsync.clone("assistant_id")
@@ -576,11 +545,7 @@ internal class AssistantServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getTexml() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val assistantServiceAsync = client.ai().assistants()
 
         val responseFuture = assistantServiceAsync.getTexml("assistant_id")
@@ -591,11 +556,7 @@ internal class AssistantServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun imports() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val assistantServiceAsync = client.ai().assistants()
 
         val assistantsListFuture =
@@ -614,11 +575,7 @@ internal class AssistantServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun sendSms() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val assistantServiceAsync = client.ai().assistants()
 
         val responseFuture =

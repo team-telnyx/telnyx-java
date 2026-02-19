@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.numberorderphonenumbers.NumberOrderPhoneNumberListParams
 import com.telnyx.sdk.models.numberorderphonenumbers.NumberOrderPhoneNumberUpdateRequirementGroupParams
@@ -10,19 +9,13 @@ import com.telnyx.sdk.models.numberorderphonenumbers.NumberOrderPhoneNumberUpdat
 import com.telnyx.sdk.models.numberorderphonenumbers.UpdateRegulatoryRequirement
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class NumberOrderPhoneNumberServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val numberOrderPhoneNumberService = client.numberOrderPhoneNumbers()
 
         val numberOrderPhoneNumber =
@@ -34,11 +27,7 @@ internal class NumberOrderPhoneNumberServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val numberOrderPhoneNumberService = client.numberOrderPhoneNumbers()
 
         val numberOrderPhoneNumbers =
@@ -56,11 +45,7 @@ internal class NumberOrderPhoneNumberServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun updateRequirementGroup() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val numberOrderPhoneNumberService = client.numberOrderPhoneNumbers()
 
         val response =
@@ -77,11 +62,7 @@ internal class NumberOrderPhoneNumberServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun updateRequirements() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val numberOrderPhoneNumberService = client.numberOrderPhoneNumbers()
 
         val response =
