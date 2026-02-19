@@ -18,7 +18,7 @@ internal class ConnectionListPageResponseTest {
             ConnectionListPageResponse.builder()
                 .addData(
                     ConnectionListResponse.builder()
-                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .id("id")
                         .active(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                         .connectionName("string")
@@ -46,7 +46,7 @@ internal class ConnectionListPageResponseTest {
         assertThat(connectionListPageResponse.data().getOrNull())
             .containsExactly(
                 ConnectionListResponse.builder()
-                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .id("id")
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                     .connectionName("string")
@@ -79,7 +79,7 @@ internal class ConnectionListPageResponseTest {
             ConnectionListPageResponse.builder()
                 .addData(
                     ConnectionListResponse.builder()
-                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .id("id")
                         .active(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                         .connectionName("string")

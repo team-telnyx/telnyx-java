@@ -15,7 +15,7 @@ internal class AddressDeleteResponseTest {
             AddressDeleteResponse.builder()
                 .data(
                     Address.builder()
-                        .id("1293384261075731499")
+                        .id("id")
                         .addressBook(false)
                         .administrativeArea("TX")
                         .borough("Guadalajara")
@@ -41,7 +41,7 @@ internal class AddressDeleteResponseTest {
         assertThat(addressDeleteResponse.data())
             .contains(
                 Address.builder()
-                    .id("1293384261075731499")
+                    .id("id")
                     .addressBook(false)
                     .administrativeArea("TX")
                     .borough("Guadalajara")
@@ -71,7 +71,7 @@ internal class AddressDeleteResponseTest {
             AddressDeleteResponse.builder()
                 .data(
                     Address.builder()
-                        .id("1293384261075731499")
+                        .id("id")
                         .addressBook(false)
                         .administrativeArea("TX")
                         .borough("Guadalajara")

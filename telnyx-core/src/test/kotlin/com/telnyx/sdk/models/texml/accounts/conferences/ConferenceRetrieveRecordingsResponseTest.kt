@@ -22,11 +22,7 @@ internal class ConferenceRetrieveRecordingsResponseTest {
                 .nextPageUri("accepted")
                 .page(0L)
                 .pageSize(20L)
-                .addParticipant(
-                    ConferenceRetrieveRecordingsResponse.Participant.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                        .build()
-                )
+                .addParticipant(JsonValue.from(mapOf<String, Any>()))
                 .addRecording(
                     ConferenceRetrieveRecordingsResponse.Recording.builder()
                         .accountSid("4e71926f-8f13-450e-b91c-23c2ef786aa6")
@@ -70,11 +66,7 @@ internal class ConferenceRetrieveRecordingsResponseTest {
         assertThat(conferenceRetrieveRecordingsResponse.page()).contains(0L)
         assertThat(conferenceRetrieveRecordingsResponse.pageSize()).contains(20L)
         assertThat(conferenceRetrieveRecordingsResponse.participants().getOrNull())
-            .containsExactly(
-                ConferenceRetrieveRecordingsResponse.Participant.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                    .build()
-            )
+            .containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(conferenceRetrieveRecordingsResponse.recordings().getOrNull())
             .containsExactly(
                 ConferenceRetrieveRecordingsResponse.Recording.builder()
@@ -123,11 +115,7 @@ internal class ConferenceRetrieveRecordingsResponseTest {
                 .nextPageUri("accepted")
                 .page(0L)
                 .pageSize(20L)
-                .addParticipant(
-                    ConferenceRetrieveRecordingsResponse.Participant.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                        .build()
-                )
+                .addParticipant(JsonValue.from(mapOf<String, Any>()))
                 .addRecording(
                     ConferenceRetrieveRecordingsResponse.Recording.builder()
                         .accountSid("4e71926f-8f13-450e-b91c-23c2ef786aa6")

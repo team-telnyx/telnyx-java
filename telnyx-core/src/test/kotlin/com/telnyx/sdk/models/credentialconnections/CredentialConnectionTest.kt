@@ -16,7 +16,7 @@ internal class CredentialConnectionTest {
     fun create() {
         val credentialConnection =
             CredentialConnection.builder()
-                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .id("id")
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                 .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
@@ -93,7 +93,7 @@ internal class CredentialConnectionTest {
                 .webhookTimeoutSecs(25L)
                 .build()
 
-        assertThat(credentialConnection.id()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(credentialConnection.id()).contains("id")
         assertThat(credentialConnection.active()).contains(true)
         assertThat(credentialConnection.anchorsiteOverride()).contains(AnchorsiteOverride.LATENCY)
         assertThat(credentialConnection.androidPushCredentialId())
@@ -185,7 +185,7 @@ internal class CredentialConnectionTest {
         val jsonMapper = jsonMapper()
         val credentialConnection =
             CredentialConnection.builder()
-                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .id("id")
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                 .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")

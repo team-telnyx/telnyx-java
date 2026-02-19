@@ -21,8 +21,6 @@ import com.telnyx.sdk.models.messaging10dlc.brand.BrandCreateParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandDeleteParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetFeedbackParams
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetFeedbackResponse
-import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetSmsOtpByReferenceParams
-import com.telnyx.sdk.models.messaging10dlc.brand.BrandGetSmsOtpByReferenceResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandListPageAsync
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandListPageResponse
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandListParams
@@ -102,13 +100,6 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
     ): CompletableFuture<BrandGetFeedbackResponse> =
         // get /10dlc/brand/feedback/{brandId}
         withRawResponse().getFeedback(params, requestOptions).thenApply { it.parse() }
-
-    override fun getSmsOtpByReference(
-        params: BrandGetSmsOtpByReferenceParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<BrandGetSmsOtpByReferenceResponse> =
-        // get /10dlc/brand/smsOtp/{referenceId}
-        withRawResponse().getSmsOtpByReference(params, requestOptions).thenApply { it.parse() }
 
     override fun resend2faEmail(
         params: BrandResend2faEmailParams,
@@ -352,39 +343,6 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     errorHandler.handle(response).parseable {
                         response
                             .use { getFeedbackHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val getSmsOtpByReferenceHandler: Handler<BrandGetSmsOtpByReferenceResponse> =
-            jsonHandler<BrandGetSmsOtpByReferenceResponse>(clientOptions.jsonMapper)
-
-        override fun getSmsOtpByReference(
-            params: BrandGetSmsOtpByReferenceParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BrandGetSmsOtpByReferenceResponse>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("referenceId", params.referenceId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("10dlc", "brand", "smsOtp", params._pathParam(0))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { getSmsOtpByReferenceHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
