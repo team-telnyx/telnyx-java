@@ -12,8 +12,10 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.calls.DialogflowConfig
 import com.telnyx.sdk.models.calls.StreamBidirectionalCodec
@@ -63,6 +65,14 @@ private constructor(
     fun commandId(): Optional<String> = body.commandId()
 
     /**
+     * Custom parameters to be sent as part of the WebSocket connection.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun customParameters(): Optional<List<CustomParameter>> = body.customParameters()
+
+    /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -75,6 +85,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun enableDialogflow(): Optional<Boolean> = body.enableDialogflow()
+
+    /**
+     * An authentication token to be sent as part of the WebSocket connection. Maximum length is
+     * 4000 characters.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun streamAuthToken(): Optional<String> = body.streamAuthToken()
 
     /**
      * Indicates codec for bidirectional streaming RTP payloads. Used only with
@@ -153,6 +172,14 @@ private constructor(
     fun _commandId(): JsonField<String> = body._commandId()
 
     /**
+     * Returns the raw JSON value of [customParameters].
+     *
+     * Unlike [customParameters], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _customParameters(): JsonField<List<CustomParameter>> = body._customParameters()
+
+    /**
      * Returns the raw JSON value of [dialogflowConfig].
      *
      * Unlike [dialogflowConfig], this method doesn't throw if the JSON field has an unexpected
@@ -167,6 +194,13 @@ private constructor(
      * type.
      */
     fun _enableDialogflow(): JsonField<Boolean> = body._enableDialogflow()
+
+    /**
+     * Returns the raw JSON value of [streamAuthToken].
+     *
+     * Unlike [streamAuthToken], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _streamAuthToken(): JsonField<String> = body._streamAuthToken()
 
     /**
      * Returns the raw JSON value of [streamBidirectionalCodec].
@@ -274,9 +308,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [clientState]
          * - [commandId]
+         * - [customParameters]
          * - [dialogflowConfig]
          * - [enableDialogflow]
-         * - [streamBidirectionalCodec]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -311,6 +345,31 @@ private constructor(
          */
         fun commandId(commandId: JsonField<String>) = apply { body.commandId(commandId) }
 
+        /** Custom parameters to be sent as part of the WebSocket connection. */
+        fun customParameters(customParameters: List<CustomParameter>) = apply {
+            body.customParameters(customParameters)
+        }
+
+        /**
+         * Sets [Builder.customParameters] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.customParameters] with a well-typed
+         * `List<CustomParameter>` value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun customParameters(customParameters: JsonField<List<CustomParameter>>) = apply {
+            body.customParameters(customParameters)
+        }
+
+        /**
+         * Adds a single [CustomParameter] to [customParameters].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addCustomParameter(customParameter: CustomParameter) = apply {
+            body.addCustomParameter(customParameter)
+        }
+
         fun dialogflowConfig(dialogflowConfig: DialogflowConfig) = apply {
             body.dialogflowConfig(dialogflowConfig)
         }
@@ -340,6 +399,25 @@ private constructor(
          */
         fun enableDialogflow(enableDialogflow: JsonField<Boolean>) = apply {
             body.enableDialogflow(enableDialogflow)
+        }
+
+        /**
+         * An authentication token to be sent as part of the WebSocket connection. Maximum length is
+         * 4000 characters.
+         */
+        fun streamAuthToken(streamAuthToken: String) = apply {
+            body.streamAuthToken(streamAuthToken)
+        }
+
+        /**
+         * Sets [Builder.streamAuthToken] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.streamAuthToken] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun streamAuthToken(streamAuthToken: JsonField<String>) = apply {
+            body.streamAuthToken(streamAuthToken)
         }
 
         /**
@@ -601,8 +679,10 @@ private constructor(
     private constructor(
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
+        private val customParameters: JsonField<List<CustomParameter>>,
         private val dialogflowConfig: JsonField<DialogflowConfig>,
         private val enableDialogflow: JsonField<Boolean>,
+        private val streamAuthToken: JsonField<String>,
         private val streamBidirectionalCodec: JsonField<StreamBidirectionalCodec>,
         private val streamBidirectionalMode: JsonField<StreamBidirectionalMode>,
         private val streamBidirectionalSamplingRate: JsonField<StreamBidirectionalSamplingRate>,
@@ -621,12 +701,18 @@ private constructor(
             @JsonProperty("command_id")
             @ExcludeMissing
             commandId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("custom_parameters")
+            @ExcludeMissing
+            customParameters: JsonField<List<CustomParameter>> = JsonMissing.of(),
             @JsonProperty("dialogflow_config")
             @ExcludeMissing
             dialogflowConfig: JsonField<DialogflowConfig> = JsonMissing.of(),
             @JsonProperty("enable_dialogflow")
             @ExcludeMissing
             enableDialogflow: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("stream_auth_token")
+            @ExcludeMissing
+            streamAuthToken: JsonField<String> = JsonMissing.of(),
             @JsonProperty("stream_bidirectional_codec")
             @ExcludeMissing
             streamBidirectionalCodec: JsonField<StreamBidirectionalCodec> = JsonMissing.of(),
@@ -653,8 +739,10 @@ private constructor(
         ) : this(
             clientState,
             commandId,
+            customParameters,
             dialogflowConfig,
             enableDialogflow,
+            streamAuthToken,
             streamBidirectionalCodec,
             streamBidirectionalMode,
             streamBidirectionalSamplingRate,
@@ -684,6 +772,15 @@ private constructor(
         fun commandId(): Optional<String> = commandId.getOptional("command_id")
 
         /**
+         * Custom parameters to be sent as part of the WebSocket connection.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun customParameters(): Optional<List<CustomParameter>> =
+            customParameters.getOptional("custom_parameters")
+
+        /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
@@ -698,6 +795,15 @@ private constructor(
          */
         fun enableDialogflow(): Optional<Boolean> =
             enableDialogflow.getOptional("enable_dialogflow")
+
+        /**
+         * An authentication token to be sent as part of the WebSocket connection. Maximum length is
+         * 4000 characters.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun streamAuthToken(): Optional<String> = streamAuthToken.getOptional("stream_auth_token")
 
         /**
          * Indicates codec for bidirectional streaming RTP payloads. Used only with
@@ -778,6 +884,16 @@ private constructor(
         @JsonProperty("command_id") @ExcludeMissing fun _commandId(): JsonField<String> = commandId
 
         /**
+         * Returns the raw JSON value of [customParameters].
+         *
+         * Unlike [customParameters], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("custom_parameters")
+        @ExcludeMissing
+        fun _customParameters(): JsonField<List<CustomParameter>> = customParameters
+
+        /**
          * Returns the raw JSON value of [dialogflowConfig].
          *
          * Unlike [dialogflowConfig], this method doesn't throw if the JSON field has an unexpected
@@ -796,6 +912,16 @@ private constructor(
         @JsonProperty("enable_dialogflow")
         @ExcludeMissing
         fun _enableDialogflow(): JsonField<Boolean> = enableDialogflow
+
+        /**
+         * Returns the raw JSON value of [streamAuthToken].
+         *
+         * Unlike [streamAuthToken], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("stream_auth_token")
+        @ExcludeMissing
+        fun _streamAuthToken(): JsonField<String> = streamAuthToken
 
         /**
          * Returns the raw JSON value of [streamBidirectionalCodec].
@@ -888,8 +1014,10 @@ private constructor(
 
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
+            private var customParameters: JsonField<MutableList<CustomParameter>>? = null
             private var dialogflowConfig: JsonField<DialogflowConfig> = JsonMissing.of()
             private var enableDialogflow: JsonField<Boolean> = JsonMissing.of()
+            private var streamAuthToken: JsonField<String> = JsonMissing.of()
             private var streamBidirectionalCodec: JsonField<StreamBidirectionalCodec> =
                 JsonMissing.of()
             private var streamBidirectionalMode: JsonField<StreamBidirectionalMode> =
@@ -908,8 +1036,10 @@ private constructor(
             internal fun from(body: Body) = apply {
                 clientState = body.clientState
                 commandId = body.commandId
+                customParameters = body.customParameters.map { it.toMutableList() }
                 dialogflowConfig = body.dialogflowConfig
                 enableDialogflow = body.enableDialogflow
+                streamAuthToken = body.streamAuthToken
                 streamBidirectionalCodec = body.streamBidirectionalCodec
                 streamBidirectionalMode = body.streamBidirectionalMode
                 streamBidirectionalSamplingRate = body.streamBidirectionalSamplingRate
@@ -952,6 +1082,33 @@ private constructor(
              */
             fun commandId(commandId: JsonField<String>) = apply { this.commandId = commandId }
 
+            /** Custom parameters to be sent as part of the WebSocket connection. */
+            fun customParameters(customParameters: List<CustomParameter>) =
+                customParameters(JsonField.of(customParameters))
+
+            /**
+             * Sets [Builder.customParameters] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.customParameters] with a well-typed
+             * `List<CustomParameter>` value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun customParameters(customParameters: JsonField<List<CustomParameter>>) = apply {
+                this.customParameters = customParameters.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [CustomParameter] to [customParameters].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addCustomParameter(customParameter: CustomParameter) = apply {
+                customParameters =
+                    (customParameters ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("customParameters", it).add(customParameter)
+                    }
+            }
+
             fun dialogflowConfig(dialogflowConfig: DialogflowConfig) =
                 dialogflowConfig(JsonField.of(dialogflowConfig))
 
@@ -979,6 +1136,24 @@ private constructor(
              */
             fun enableDialogflow(enableDialogflow: JsonField<Boolean>) = apply {
                 this.enableDialogflow = enableDialogflow
+            }
+
+            /**
+             * An authentication token to be sent as part of the WebSocket connection. Maximum
+             * length is 4000 characters.
+             */
+            fun streamAuthToken(streamAuthToken: String) =
+                streamAuthToken(JsonField.of(streamAuthToken))
+
+            /**
+             * Sets [Builder.streamAuthToken] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.streamAuthToken] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun streamAuthToken(streamAuthToken: JsonField<String>) = apply {
+                this.streamAuthToken = streamAuthToken
             }
 
             /**
@@ -1117,8 +1292,10 @@ private constructor(
                 Body(
                     clientState,
                     commandId,
+                    (customParameters ?: JsonMissing.of()).map { it.toImmutable() },
                     dialogflowConfig,
                     enableDialogflow,
+                    streamAuthToken,
                     streamBidirectionalCodec,
                     streamBidirectionalMode,
                     streamBidirectionalSamplingRate,
@@ -1139,8 +1316,10 @@ private constructor(
 
             clientState()
             commandId()
+            customParameters().ifPresent { it.forEach { it.validate() } }
             dialogflowConfig().ifPresent { it.validate() }
             enableDialogflow()
+            streamAuthToken()
             streamBidirectionalCodec().ifPresent { it.validate() }
             streamBidirectionalMode().ifPresent { it.validate() }
             streamBidirectionalSamplingRate().ifPresent { it.validate() }
@@ -1169,8 +1348,10 @@ private constructor(
         internal fun validity(): Int =
             (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
+                (customParameters.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (dialogflowConfig.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (enableDialogflow.asKnown().isPresent) 1 else 0) +
+                (if (streamAuthToken.asKnown().isPresent) 1 else 0) +
                 (streamBidirectionalCodec.asKnown().getOrNull()?.validity() ?: 0) +
                 (streamBidirectionalMode.asKnown().getOrNull()?.validity() ?: 0) +
                 (streamBidirectionalSamplingRate.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1187,8 +1368,10 @@ private constructor(
             return other is Body &&
                 clientState == other.clientState &&
                 commandId == other.commandId &&
+                customParameters == other.customParameters &&
                 dialogflowConfig == other.dialogflowConfig &&
                 enableDialogflow == other.enableDialogflow &&
+                streamAuthToken == other.streamAuthToken &&
                 streamBidirectionalCodec == other.streamBidirectionalCodec &&
                 streamBidirectionalMode == other.streamBidirectionalMode &&
                 streamBidirectionalSamplingRate == other.streamBidirectionalSamplingRate &&
@@ -1203,8 +1386,10 @@ private constructor(
             Objects.hash(
                 clientState,
                 commandId,
+                customParameters,
                 dialogflowConfig,
                 enableDialogflow,
+                streamAuthToken,
                 streamBidirectionalCodec,
                 streamBidirectionalMode,
                 streamBidirectionalSamplingRate,
@@ -1219,7 +1404,184 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{clientState=$clientState, commandId=$commandId, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamTrack=$streamTrack, streamUrl=$streamUrl, additionalProperties=$additionalProperties}"
+            "Body{clientState=$clientState, commandId=$commandId, customParameters=$customParameters, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamTrack=$streamTrack, streamUrl=$streamUrl, additionalProperties=$additionalProperties}"
+    }
+
+    class CustomParameter
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val name: JsonField<String>,
+        private val value: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("value") @ExcludeMissing value: JsonField<String> = JsonMissing.of(),
+        ) : this(name, value, mutableMapOf())
+
+        /**
+         * The name of the custom parameter.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun name(): Optional<String> = name.getOptional("name")
+
+        /**
+         * The value of the custom parameter.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun value(): Optional<String> = value.getOptional("value")
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * Returns the raw JSON value of [value].
+         *
+         * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<String> = value
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [CustomParameter]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [CustomParameter]. */
+        class Builder internal constructor() {
+
+            private var name: JsonField<String> = JsonMissing.of()
+            private var value: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(customParameter: CustomParameter) = apply {
+                name = customParameter.name
+                value = customParameter.value
+                additionalProperties = customParameter.additionalProperties.toMutableMap()
+            }
+
+            /** The name of the custom parameter. */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            /** The value of the custom parameter. */
+            fun value(value: String) = value(JsonField.of(value))
+
+            /**
+             * Sets [Builder.value] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.value] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun value(value: JsonField<String>) = apply { this.value = value }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [CustomParameter].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): CustomParameter =
+                CustomParameter(name, value, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): CustomParameter = apply {
+            if (validated) {
+                return@apply
+            }
+
+            name()
+            value()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (name.asKnown().isPresent) 1 else 0) + (if (value.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CustomParameter &&
+                name == other.name &&
+                value == other.value &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(name, value, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "CustomParameter{name=$name, value=$value, additionalProperties=$additionalProperties}"
     }
 
     /** Specifies which track should be streamed. */

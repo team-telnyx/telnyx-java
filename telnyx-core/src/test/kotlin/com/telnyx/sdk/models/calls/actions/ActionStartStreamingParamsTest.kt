@@ -8,6 +8,7 @@ import com.telnyx.sdk.models.calls.StreamBidirectionalMode
 import com.telnyx.sdk.models.calls.StreamBidirectionalSamplingRate
 import com.telnyx.sdk.models.calls.StreamBidirectionalTargetLegs
 import com.telnyx.sdk.models.calls.StreamCodec
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -19,6 +20,18 @@ internal class ActionStartStreamingParamsTest {
             .callControlId("call_control_id")
             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+            .addCustomParameter(
+                ActionStartStreamingParams.CustomParameter.builder()
+                    .name("param1")
+                    .value("value1")
+                    .build()
+            )
+            .addCustomParameter(
+                ActionStartStreamingParams.CustomParameter.builder()
+                    .name("param2")
+                    .value("value2")
+                    .build()
+            )
             .dialogflowConfig(
                 DialogflowConfig.builder()
                     .analyzeSentiment(false)
@@ -26,6 +39,7 @@ internal class ActionStartStreamingParamsTest {
                     .build()
             )
             .enableDialogflow(false)
+            .streamAuthToken("your-auth-token")
             .streamBidirectionalCodec(StreamBidirectionalCodec.G722)
             .streamBidirectionalMode(StreamBidirectionalMode.RTP)
             .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate.RATE_16000)
@@ -52,6 +66,18 @@ internal class ActionStartStreamingParamsTest {
                 .callControlId("call_control_id")
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                .addCustomParameter(
+                    ActionStartStreamingParams.CustomParameter.builder()
+                        .name("param1")
+                        .value("value1")
+                        .build()
+                )
+                .addCustomParameter(
+                    ActionStartStreamingParams.CustomParameter.builder()
+                        .name("param2")
+                        .value("value2")
+                        .build()
+                )
                 .dialogflowConfig(
                     DialogflowConfig.builder()
                         .analyzeSentiment(false)
@@ -59,6 +85,7 @@ internal class ActionStartStreamingParamsTest {
                         .build()
                 )
                 .enableDialogflow(false)
+                .streamAuthToken("your-auth-token")
                 .streamBidirectionalCodec(StreamBidirectionalCodec.G722)
                 .streamBidirectionalMode(StreamBidirectionalMode.RTP)
                 .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate.RATE_16000)
@@ -72,6 +99,17 @@ internal class ActionStartStreamingParamsTest {
 
         assertThat(body.clientState()).contains("aGF2ZSBhIG5pY2UgZGF5ID1d")
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
+        assertThat(body.customParameters().getOrNull())
+            .containsExactly(
+                ActionStartStreamingParams.CustomParameter.builder()
+                    .name("param1")
+                    .value("value1")
+                    .build(),
+                ActionStartStreamingParams.CustomParameter.builder()
+                    .name("param2")
+                    .value("value2")
+                    .build(),
+            )
         assertThat(body.dialogflowConfig())
             .contains(
                 DialogflowConfig.builder()
@@ -80,6 +118,7 @@ internal class ActionStartStreamingParamsTest {
                     .build()
             )
         assertThat(body.enableDialogflow()).contains(false)
+        assertThat(body.streamAuthToken()).contains("your-auth-token")
         assertThat(body.streamBidirectionalCodec()).contains(StreamBidirectionalCodec.G722)
         assertThat(body.streamBidirectionalMode()).contains(StreamBidirectionalMode.RTP)
         assertThat(body.streamBidirectionalSamplingRate())

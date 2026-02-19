@@ -118,6 +118,15 @@ private constructor(
     fun language(): Optional<Language> = body.language()
 
     /**
+     * The number of times to play the audio file. Use `infinity` to loop indefinitely. Defaults
+     * to 1.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun loop(): Optional<Loopcount> = body.loop()
+
+    /**
      * The type of the provided payload. The payload can either be plain text, or Speech Synthesis
      * Markup Language (SSML).
      *
@@ -144,6 +153,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun stop(): Optional<String> = body.stop()
+
+    /**
+     * Specifies which legs of the call should receive the spoken audio.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun targetLegs(): Optional<TargetLegs> = body.targetLegs()
 
     /**
      * The settings associated with the voice selected
@@ -189,6 +206,13 @@ private constructor(
     fun _language(): JsonField<Language> = body._language()
 
     /**
+     * Returns the raw JSON value of [loop].
+     *
+     * Unlike [loop], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _loop(): JsonField<Loopcount> = body._loop()
+
+    /**
      * Returns the raw JSON value of [payloadType].
      *
      * Unlike [payloadType], this method doesn't throw if the JSON field has an unexpected type.
@@ -208,6 +232,13 @@ private constructor(
      * Unlike [stop], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _stop(): JsonField<String> = body._stop()
+
+    /**
+     * Returns the raw JSON value of [targetLegs].
+     *
+     * Unlike [targetLegs], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _targetLegs(): JsonField<TargetLegs> = body._targetLegs()
 
     /**
      * Returns the raw JSON value of [voiceSettings].
@@ -371,6 +402,26 @@ private constructor(
         fun language(language: JsonField<Language>) = apply { body.language(language) }
 
         /**
+         * The number of times to play the audio file. Use `infinity` to loop indefinitely. Defaults
+         * to 1.
+         */
+        fun loop(loop: Loopcount) = apply { body.loop(loop) }
+
+        /**
+         * Sets [Builder.loop] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.loop] with a well-typed [Loopcount] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun loop(loop: JsonField<Loopcount>) = apply { body.loop(loop) }
+
+        /** Alias for calling [loop] with `Loopcount.ofString(string)`. */
+        fun loop(string: String) = apply { body.loop(string) }
+
+        /** Alias for calling [loop] with `Loopcount.ofInteger(integer)`. */
+        fun loop(integer: Long) = apply { body.loop(integer) }
+
+        /**
          * The type of the provided payload. The payload can either be plain text, or Speech
          * Synthesis Markup Language (SSML).
          */
@@ -418,6 +469,18 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun stop(stop: JsonField<String>) = apply { body.stop(stop) }
+
+        /** Specifies which legs of the call should receive the spoken audio. */
+        fun targetLegs(targetLegs: TargetLegs) = apply { body.targetLegs(targetLegs) }
+
+        /**
+         * Sets [Builder.targetLegs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.targetLegs] with a well-typed [TargetLegs] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun targetLegs(targetLegs: JsonField<TargetLegs>) = apply { body.targetLegs(targetLegs) }
 
         /** The settings associated with the voice selected */
         fun voiceSettings(voiceSettings: VoiceSettings) = apply {
@@ -608,9 +671,11 @@ private constructor(
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
         private val language: JsonField<Language>,
+        private val loop: JsonField<Loopcount>,
         private val payloadType: JsonField<PayloadType>,
         private val serviceLevel: JsonField<ServiceLevel>,
         private val stop: JsonField<String>,
+        private val targetLegs: JsonField<TargetLegs>,
         private val voiceSettings: JsonField<VoiceSettings>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -628,6 +693,7 @@ private constructor(
             @JsonProperty("language")
             @ExcludeMissing
             language: JsonField<Language> = JsonMissing.of(),
+            @JsonProperty("loop") @ExcludeMissing loop: JsonField<Loopcount> = JsonMissing.of(),
             @JsonProperty("payload_type")
             @ExcludeMissing
             payloadType: JsonField<PayloadType> = JsonMissing.of(),
@@ -635,6 +701,9 @@ private constructor(
             @ExcludeMissing
             serviceLevel: JsonField<ServiceLevel> = JsonMissing.of(),
             @JsonProperty("stop") @ExcludeMissing stop: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("target_legs")
+            @ExcludeMissing
+            targetLegs: JsonField<TargetLegs> = JsonMissing.of(),
             @JsonProperty("voice_settings")
             @ExcludeMissing
             voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
@@ -644,9 +713,11 @@ private constructor(
             clientState,
             commandId,
             language,
+            loop,
             payloadType,
             serviceLevel,
             stop,
+            targetLegs,
             voiceSettings,
             mutableMapOf(),
         )
@@ -720,6 +791,15 @@ private constructor(
         fun language(): Optional<Language> = language.getOptional("language")
 
         /**
+         * The number of times to play the audio file. Use `infinity` to loop indefinitely. Defaults
+         * to 1.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun loop(): Optional<Loopcount> = loop.getOptional("loop")
+
+        /**
          * The type of the provided payload. The payload can either be plain text, or Speech
          * Synthesis Markup Language (SSML).
          *
@@ -746,6 +826,14 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun stop(): Optional<String> = stop.getOptional("stop")
+
+        /**
+         * Specifies which legs of the call should receive the spoken audio.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun targetLegs(): Optional<TargetLegs> = targetLegs.getOptional("target_legs")
 
         /**
          * The settings associated with the voice selected
@@ -793,6 +881,13 @@ private constructor(
         @JsonProperty("language") @ExcludeMissing fun _language(): JsonField<Language> = language
 
         /**
+         * Returns the raw JSON value of [loop].
+         *
+         * Unlike [loop], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("loop") @ExcludeMissing fun _loop(): JsonField<Loopcount> = loop
+
+        /**
          * Returns the raw JSON value of [payloadType].
          *
          * Unlike [payloadType], this method doesn't throw if the JSON field has an unexpected type.
@@ -817,6 +912,15 @@ private constructor(
          * Unlike [stop], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("stop") @ExcludeMissing fun _stop(): JsonField<String> = stop
+
+        /**
+         * Returns the raw JSON value of [targetLegs].
+         *
+         * Unlike [targetLegs], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("target_legs")
+        @ExcludeMissing
+        fun _targetLegs(): JsonField<TargetLegs> = targetLegs
 
         /**
          * Returns the raw JSON value of [voiceSettings].
@@ -862,9 +966,11 @@ private constructor(
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
             private var language: JsonField<Language> = JsonMissing.of()
+            private var loop: JsonField<Loopcount> = JsonMissing.of()
             private var payloadType: JsonField<PayloadType> = JsonMissing.of()
             private var serviceLevel: JsonField<ServiceLevel> = JsonMissing.of()
             private var stop: JsonField<String> = JsonMissing.of()
+            private var targetLegs: JsonField<TargetLegs> = JsonMissing.of()
             private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -875,9 +981,11 @@ private constructor(
                 clientState = body.clientState
                 commandId = body.commandId
                 language = body.language
+                loop = body.loop
                 payloadType = body.payloadType
                 serviceLevel = body.serviceLevel
                 stop = body.stop
+                targetLegs = body.targetLegs
                 voiceSettings = body.voiceSettings
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -983,6 +1091,27 @@ private constructor(
             fun language(language: JsonField<Language>) = apply { this.language = language }
 
             /**
+             * The number of times to play the audio file. Use `infinity` to loop indefinitely.
+             * Defaults to 1.
+             */
+            fun loop(loop: Loopcount) = loop(JsonField.of(loop))
+
+            /**
+             * Sets [Builder.loop] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.loop] with a well-typed [Loopcount] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun loop(loop: JsonField<Loopcount>) = apply { this.loop = loop }
+
+            /** Alias for calling [loop] with `Loopcount.ofString(string)`. */
+            fun loop(string: String) = loop(Loopcount.ofString(string))
+
+            /** Alias for calling [loop] with `Loopcount.ofInteger(integer)`. */
+            fun loop(integer: Long) = loop(Loopcount.ofInteger(integer))
+
+            /**
              * The type of the provided payload. The payload can either be plain text, or Speech
              * Synthesis Markup Language (SSML).
              */
@@ -1032,6 +1161,20 @@ private constructor(
              * value.
              */
             fun stop(stop: JsonField<String>) = apply { this.stop = stop }
+
+            /** Specifies which legs of the call should receive the spoken audio. */
+            fun targetLegs(targetLegs: TargetLegs) = targetLegs(JsonField.of(targetLegs))
+
+            /**
+             * Sets [Builder.targetLegs] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.targetLegs] with a well-typed [TargetLegs] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun targetLegs(targetLegs: JsonField<TargetLegs>) = apply {
+                this.targetLegs = targetLegs
+            }
 
             /** The settings associated with the voice selected */
             fun voiceSettings(voiceSettings: VoiceSettings) =
@@ -1102,9 +1245,11 @@ private constructor(
                     clientState,
                     commandId,
                     language,
+                    loop,
                     payloadType,
                     serviceLevel,
                     stop,
+                    targetLegs,
                     voiceSettings,
                     additionalProperties.toMutableMap(),
                 )
@@ -1122,9 +1267,11 @@ private constructor(
             clientState()
             commandId()
             language().ifPresent { it.validate() }
+            loop().ifPresent { it.validate() }
             payloadType().ifPresent { it.validate() }
             serviceLevel().ifPresent { it.validate() }
             stop()
+            targetLegs().ifPresent { it.validate() }
             voiceSettings().ifPresent { it.validate() }
             validated = true
         }
@@ -1150,9 +1297,11 @@ private constructor(
                 (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
                 (language.asKnown().getOrNull()?.validity() ?: 0) +
+                (loop.asKnown().getOrNull()?.validity() ?: 0) +
                 (payloadType.asKnown().getOrNull()?.validity() ?: 0) +
                 (serviceLevel.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (stop.asKnown().isPresent) 1 else 0) +
+                (targetLegs.asKnown().getOrNull()?.validity() ?: 0) +
                 (voiceSettings.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -1166,9 +1315,11 @@ private constructor(
                 clientState == other.clientState &&
                 commandId == other.commandId &&
                 language == other.language &&
+                loop == other.loop &&
                 payloadType == other.payloadType &&
                 serviceLevel == other.serviceLevel &&
                 stop == other.stop &&
+                targetLegs == other.targetLegs &&
                 voiceSettings == other.voiceSettings &&
                 additionalProperties == other.additionalProperties
         }
@@ -1180,9 +1331,11 @@ private constructor(
                 clientState,
                 commandId,
                 language,
+                loop,
                 payloadType,
                 serviceLevel,
                 stop,
+                targetLegs,
                 voiceSettings,
                 additionalProperties,
             )
@@ -1191,7 +1344,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{payload=$payload, voice=$voice, clientState=$clientState, commandId=$commandId, language=$language, payloadType=$payloadType, serviceLevel=$serviceLevel, stop=$stop, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+            "Body{payload=$payload, voice=$voice, clientState=$clientState, commandId=$commandId, language=$language, loop=$loop, payloadType=$payloadType, serviceLevel=$serviceLevel, stop=$stop, targetLegs=$targetLegs, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -1741,6 +1894,140 @@ private constructor(
             }
 
             return other is ServiceLevel && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** Specifies which legs of the call should receive the spoken audio. */
+    class TargetLegs @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val SELF = of("self")
+
+            @JvmField val OPPOSITE = of("opposite")
+
+            @JvmField val BOTH = of("both")
+
+            @JvmStatic fun of(value: String) = TargetLegs(JsonField.of(value))
+        }
+
+        /** An enum containing [TargetLegs]'s known values. */
+        enum class Known {
+            SELF,
+            OPPOSITE,
+            BOTH,
+        }
+
+        /**
+         * An enum containing [TargetLegs]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [TargetLegs] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            SELF,
+            OPPOSITE,
+            BOTH,
+            /**
+             * An enum member indicating that [TargetLegs] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                SELF -> Value.SELF
+                OPPOSITE -> Value.OPPOSITE
+                BOTH -> Value.BOTH
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                SELF -> Known.SELF
+                OPPOSITE -> Known.OPPOSITE
+                BOTH -> Known.BOTH
+                else -> throw TelnyxInvalidDataException("Unknown TargetLegs: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): TargetLegs = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is TargetLegs && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
