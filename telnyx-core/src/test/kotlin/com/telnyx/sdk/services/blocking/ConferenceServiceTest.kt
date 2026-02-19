@@ -5,6 +5,8 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.conferences.ConferenceCreateParams
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParams
+import com.telnyx.sdk.models.conferences.ConferenceRetrieveParticipantParams
+import com.telnyx.sdk.models.conferences.ConferenceUpdateParticipantParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -74,5 +76,42 @@ internal class ConferenceServiceTest {
         val page = conferenceService.listParticipants("conference_id")
 
         page.response().validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun retrieveParticipant() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val conferenceService = client.conferences()
+
+        val response =
+            conferenceService.retrieveParticipant(
+                ConferenceRetrieveParticipantParams.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .participantId("participant_id")
+                    .build()
+            )
+
+        response.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun updateParticipant() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val conferenceService = client.conferences()
+
+        val response =
+            conferenceService.updateParticipant(
+                ConferenceUpdateParticipantParams.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .participantId("participant_id")
+                    .beepEnabled(ConferenceUpdateParticipantParams.BeepEnabled.NEVER)
+                    .endConferenceOnExit(true)
+                    .softEndConferenceOnExit(false)
+                    .build()
+            )
+
+        response.validate()
     }
 }

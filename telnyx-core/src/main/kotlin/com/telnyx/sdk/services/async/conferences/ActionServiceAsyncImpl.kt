@@ -16,6 +16,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.conferences.actions.ActionEndConferenceParams
+import com.telnyx.sdk.models.conferences.actions.ActionEndConferenceResponse
+import com.telnyx.sdk.models.conferences.actions.ActionGatherDtmfAudioParams
+import com.telnyx.sdk.models.conferences.actions.ActionGatherDtmfAudioResponse
 import com.telnyx.sdk.models.conferences.actions.ActionHoldParams
 import com.telnyx.sdk.models.conferences.actions.ActionHoldResponse
 import com.telnyx.sdk.models.conferences.actions.ActionJoinParams
@@ -34,6 +38,8 @@ import com.telnyx.sdk.models.conferences.actions.ActionRecordStartParams
 import com.telnyx.sdk.models.conferences.actions.ActionRecordStartResponse
 import com.telnyx.sdk.models.conferences.actions.ActionRecordStopParams
 import com.telnyx.sdk.models.conferences.actions.ActionRecordStopResponse
+import com.telnyx.sdk.models.conferences.actions.ActionSendDtmfParams
+import com.telnyx.sdk.models.conferences.actions.ActionSendDtmfResponse
 import com.telnyx.sdk.models.conferences.actions.ActionSpeakParams
 import com.telnyx.sdk.models.conferences.actions.ActionSpeakResponse
 import com.telnyx.sdk.models.conferences.actions.ActionStopParams
@@ -66,6 +72,20 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
     ): CompletableFuture<ActionUpdateResponse> =
         // post /conferences/{id}/actions/update
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+
+    override fun endConference(
+        params: ActionEndConferenceParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionEndConferenceResponse> =
+        // post /conferences/{id}/actions/end
+        withRawResponse().endConference(params, requestOptions).thenApply { it.parse() }
+
+    override fun gatherDtmfAudio(
+        params: ActionGatherDtmfAudioParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionGatherDtmfAudioResponse> =
+        // post /conferences/{id}/actions/gather_using_audio
+        withRawResponse().gatherDtmfAudio(params, requestOptions).thenApply { it.parse() }
 
     override fun hold(
         params: ActionHoldParams,
@@ -129,6 +149,13 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
     ): CompletableFuture<ActionRecordStopResponse> =
         // post /conferences/{id}/actions/record_stop
         withRawResponse().recordStop(params, requestOptions).thenApply { it.parse() }
+
+    override fun sendDtmf(
+        params: ActionSendDtmfParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ActionSendDtmfResponse> =
+        // post /conferences/{id}/actions/send_dtmf
+        withRawResponse().sendDtmf(params, requestOptions).thenApply { it.parse() }
 
     override fun speak(
         params: ActionSpeakParams,
@@ -196,6 +223,79 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val endConferenceHandler: Handler<ActionEndConferenceResponse> =
+            jsonHandler<ActionEndConferenceResponse>(clientOptions.jsonMapper)
+
+        override fun endConference(
+            params: ActionEndConferenceParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionEndConferenceResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("conferences", params._pathParam(0), "actions", "end")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { endConferenceHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val gatherDtmfAudioHandler: Handler<ActionGatherDtmfAudioResponse> =
+            jsonHandler<ActionGatherDtmfAudioResponse>(clientOptions.jsonMapper)
+
+        override fun gatherDtmfAudio(
+            params: ActionGatherDtmfAudioParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionGatherDtmfAudioResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "conferences",
+                        params._pathParam(0),
+                        "actions",
+                        "gather_using_audio",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { gatherDtmfAudioHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -507,6 +607,40 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     errorHandler.handle(response).parseable {
                         response
                             .use { recordStopHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val sendDtmfHandler: Handler<ActionSendDtmfResponse> =
+            jsonHandler<ActionSendDtmfResponse>(clientOptions.jsonMapper)
+
+        override fun sendDtmf(
+            params: ActionSendDtmfParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ActionSendDtmfResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("conferences", params._pathParam(0), "actions", "send_dtmf")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { sendDtmfHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

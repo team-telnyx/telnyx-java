@@ -12,7 +12,11 @@ import com.telnyx.sdk.models.conferences.ConferenceListParams
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPageAsync
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsParams
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParams
+import com.telnyx.sdk.models.conferences.ConferenceRetrieveParticipantParams
+import com.telnyx.sdk.models.conferences.ConferenceRetrieveParticipantResponse
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveResponse
+import com.telnyx.sdk.models.conferences.ConferenceUpdateParticipantParams
+import com.telnyx.sdk.models.conferences.ConferenceUpdateParticipantResponse
 import com.telnyx.sdk.services.async.conferences.ActionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -152,6 +156,60 @@ interface ConferenceServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<ConferenceListParticipantsPageAsync> =
         listParticipants(conferenceId, ConferenceListParticipantsParams.none(), requestOptions)
+
+    /** Retrieve details of a specific conference participant by their ID or label. */
+    fun retrieveParticipant(
+        participantId: String,
+        params: ConferenceRetrieveParticipantParams,
+    ): CompletableFuture<ConferenceRetrieveParticipantResponse> =
+        retrieveParticipant(participantId, params, RequestOptions.none())
+
+    /** @see retrieveParticipant */
+    fun retrieveParticipant(
+        participantId: String,
+        params: ConferenceRetrieveParticipantParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ConferenceRetrieveParticipantResponse> =
+        retrieveParticipant(params.toBuilder().participantId(participantId).build(), requestOptions)
+
+    /** @see retrieveParticipant */
+    fun retrieveParticipant(
+        params: ConferenceRetrieveParticipantParams
+    ): CompletableFuture<ConferenceRetrieveParticipantResponse> =
+        retrieveParticipant(params, RequestOptions.none())
+
+    /** @see retrieveParticipant */
+    fun retrieveParticipant(
+        params: ConferenceRetrieveParticipantParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ConferenceRetrieveParticipantResponse>
+
+    /** Update properties of a conference participant. */
+    fun updateParticipant(
+        participantId: String,
+        params: ConferenceUpdateParticipantParams,
+    ): CompletableFuture<ConferenceUpdateParticipantResponse> =
+        updateParticipant(participantId, params, RequestOptions.none())
+
+    /** @see updateParticipant */
+    fun updateParticipant(
+        participantId: String,
+        params: ConferenceUpdateParticipantParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ConferenceUpdateParticipantResponse> =
+        updateParticipant(params.toBuilder().participantId(participantId).build(), requestOptions)
+
+    /** @see updateParticipant */
+    fun updateParticipant(
+        params: ConferenceUpdateParticipantParams
+    ): CompletableFuture<ConferenceUpdateParticipantResponse> =
+        updateParticipant(params, RequestOptions.none())
+
+    /** @see updateParticipant */
+    fun updateParticipant(
+        params: ConferenceUpdateParticipantParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ConferenceUpdateParticipantResponse>
 
     /**
      * A view of [ConferenceServiceAsync] that provides access to raw HTTP responses for each
@@ -293,5 +351,71 @@ interface ConferenceServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<ConferenceListParticipantsPageAsync>> =
             listParticipants(conferenceId, ConferenceListParticipantsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /conferences/{id}/participants/{participant_id}`,
+         * but is otherwise the same as [ConferenceServiceAsync.retrieveParticipant].
+         */
+        fun retrieveParticipant(
+            participantId: String,
+            params: ConferenceRetrieveParticipantParams,
+        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveParticipantResponse>> =
+            retrieveParticipant(participantId, params, RequestOptions.none())
+
+        /** @see retrieveParticipant */
+        fun retrieveParticipant(
+            participantId: String,
+            params: ConferenceRetrieveParticipantParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveParticipantResponse>> =
+            retrieveParticipant(
+                params.toBuilder().participantId(participantId).build(),
+                requestOptions,
+            )
+
+        /** @see retrieveParticipant */
+        fun retrieveParticipant(
+            params: ConferenceRetrieveParticipantParams
+        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveParticipantResponse>> =
+            retrieveParticipant(params, RequestOptions.none())
+
+        /** @see retrieveParticipant */
+        fun retrieveParticipant(
+            params: ConferenceRetrieveParticipantParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveParticipantResponse>>
+
+        /**
+         * Returns a raw HTTP response for `patch /conferences/{id}/participants/{participant_id}`,
+         * but is otherwise the same as [ConferenceServiceAsync.updateParticipant].
+         */
+        fun updateParticipant(
+            participantId: String,
+            params: ConferenceUpdateParticipantParams,
+        ): CompletableFuture<HttpResponseFor<ConferenceUpdateParticipantResponse>> =
+            updateParticipant(participantId, params, RequestOptions.none())
+
+        /** @see updateParticipant */
+        fun updateParticipant(
+            participantId: String,
+            params: ConferenceUpdateParticipantParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ConferenceUpdateParticipantResponse>> =
+            updateParticipant(
+                params.toBuilder().participantId(participantId).build(),
+                requestOptions,
+            )
+
+        /** @see updateParticipant */
+        fun updateParticipant(
+            params: ConferenceUpdateParticipantParams
+        ): CompletableFuture<HttpResponseFor<ConferenceUpdateParticipantResponse>> =
+            updateParticipant(params, RequestOptions.none())
+
+        /** @see updateParticipant */
+        fun updateParticipant(
+            params: ConferenceUpdateParticipantParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ConferenceUpdateParticipantResponse>>
     }
 }

@@ -6,6 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.conferences.actions.ActionEndConferenceParams
+import com.telnyx.sdk.models.conferences.actions.ActionEndConferenceResponse
+import com.telnyx.sdk.models.conferences.actions.ActionGatherDtmfAudioParams
+import com.telnyx.sdk.models.conferences.actions.ActionGatherDtmfAudioResponse
 import com.telnyx.sdk.models.conferences.actions.ActionHoldParams
 import com.telnyx.sdk.models.conferences.actions.ActionHoldResponse
 import com.telnyx.sdk.models.conferences.actions.ActionJoinParams
@@ -24,6 +28,8 @@ import com.telnyx.sdk.models.conferences.actions.ActionRecordStartParams
 import com.telnyx.sdk.models.conferences.actions.ActionRecordStartResponse
 import com.telnyx.sdk.models.conferences.actions.ActionRecordStopParams
 import com.telnyx.sdk.models.conferences.actions.ActionRecordStopResponse
+import com.telnyx.sdk.models.conferences.actions.ActionSendDtmfParams
+import com.telnyx.sdk.models.conferences.actions.ActionSendDtmfResponse
 import com.telnyx.sdk.models.conferences.actions.ActionSpeakParams
 import com.telnyx.sdk.models.conferences.actions.ActionSpeakResponse
 import com.telnyx.sdk.models.conferences.actions.ActionStopParams
@@ -70,6 +76,62 @@ interface ActionService {
         params: ActionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ActionUpdateResponse
+
+    /** End a conference and terminate all active participants. */
+    fun endConference(id: String): ActionEndConferenceResponse =
+        endConference(id, ActionEndConferenceParams.none())
+
+    /** @see endConference */
+    fun endConference(
+        id: String,
+        params: ActionEndConferenceParams = ActionEndConferenceParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionEndConferenceResponse =
+        endConference(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see endConference */
+    fun endConference(
+        id: String,
+        params: ActionEndConferenceParams = ActionEndConferenceParams.none(),
+    ): ActionEndConferenceResponse = endConference(id, params, RequestOptions.none())
+
+    /** @see endConference */
+    fun endConference(
+        params: ActionEndConferenceParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionEndConferenceResponse
+
+    /** @see endConference */
+    fun endConference(params: ActionEndConferenceParams): ActionEndConferenceResponse =
+        endConference(params, RequestOptions.none())
+
+    /** @see endConference */
+    fun endConference(id: String, requestOptions: RequestOptions): ActionEndConferenceResponse =
+        endConference(id, ActionEndConferenceParams.none(), requestOptions)
+
+    /** Play an audio file to a specific conference participant and gather DTMF input. */
+    fun gatherDtmfAudio(
+        id: String,
+        params: ActionGatherDtmfAudioParams,
+    ): ActionGatherDtmfAudioResponse = gatherDtmfAudio(id, params, RequestOptions.none())
+
+    /** @see gatherDtmfAudio */
+    fun gatherDtmfAudio(
+        id: String,
+        params: ActionGatherDtmfAudioParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionGatherDtmfAudioResponse =
+        gatherDtmfAudio(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see gatherDtmfAudio */
+    fun gatherDtmfAudio(params: ActionGatherDtmfAudioParams): ActionGatherDtmfAudioResponse =
+        gatherDtmfAudio(params, RequestOptions.none())
+
+    /** @see gatherDtmfAudio */
+    fun gatherDtmfAudio(
+        params: ActionGatherDtmfAudioParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionGatherDtmfAudioResponse
 
     /** Hold a list of participants in a conference call */
     fun hold(id: String): ActionHoldResponse = hold(id, ActionHoldParams.none())
@@ -331,6 +393,27 @@ interface ActionService {
     fun recordStop(id: String, requestOptions: RequestOptions): ActionRecordStopResponse =
         recordStop(id, ActionRecordStopParams.none(), requestOptions)
 
+    /** Send DTMF tones to one or more conference participants. */
+    fun sendDtmf(id: String, params: ActionSendDtmfParams): ActionSendDtmfResponse =
+        sendDtmf(id, params, RequestOptions.none())
+
+    /** @see sendDtmf */
+    fun sendDtmf(
+        id: String,
+        params: ActionSendDtmfParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionSendDtmfResponse = sendDtmf(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see sendDtmf */
+    fun sendDtmf(params: ActionSendDtmfParams): ActionSendDtmfResponse =
+        sendDtmf(params, RequestOptions.none())
+
+    /** @see sendDtmf */
+    fun sendDtmf(
+        params: ActionSendDtmfParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionSendDtmfResponse
+
     /** Convert text to speech and play it to all or some participants. */
     fun speak(id: String, params: ActionSpeakParams): ActionSpeakResponse =
         speak(id, params, RequestOptions.none())
@@ -467,6 +550,87 @@ interface ActionService {
             params: ActionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ActionUpdateResponse>
+
+        /**
+         * Returns a raw HTTP response for `post /conferences/{id}/actions/end`, but is otherwise
+         * the same as [ActionService.endConference].
+         */
+        @MustBeClosed
+        fun endConference(id: String): HttpResponseFor<ActionEndConferenceResponse> =
+            endConference(id, ActionEndConferenceParams.none())
+
+        /** @see endConference */
+        @MustBeClosed
+        fun endConference(
+            id: String,
+            params: ActionEndConferenceParams = ActionEndConferenceParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionEndConferenceResponse> =
+            endConference(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see endConference */
+        @MustBeClosed
+        fun endConference(
+            id: String,
+            params: ActionEndConferenceParams = ActionEndConferenceParams.none(),
+        ): HttpResponseFor<ActionEndConferenceResponse> =
+            endConference(id, params, RequestOptions.none())
+
+        /** @see endConference */
+        @MustBeClosed
+        fun endConference(
+            params: ActionEndConferenceParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionEndConferenceResponse>
+
+        /** @see endConference */
+        @MustBeClosed
+        fun endConference(
+            params: ActionEndConferenceParams
+        ): HttpResponseFor<ActionEndConferenceResponse> =
+            endConference(params, RequestOptions.none())
+
+        /** @see endConference */
+        @MustBeClosed
+        fun endConference(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ActionEndConferenceResponse> =
+            endConference(id, ActionEndConferenceParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /conferences/{id}/actions/gather_using_audio`, but
+         * is otherwise the same as [ActionService.gatherDtmfAudio].
+         */
+        @MustBeClosed
+        fun gatherDtmfAudio(
+            id: String,
+            params: ActionGatherDtmfAudioParams,
+        ): HttpResponseFor<ActionGatherDtmfAudioResponse> =
+            gatherDtmfAudio(id, params, RequestOptions.none())
+
+        /** @see gatherDtmfAudio */
+        @MustBeClosed
+        fun gatherDtmfAudio(
+            id: String,
+            params: ActionGatherDtmfAudioParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionGatherDtmfAudioResponse> =
+            gatherDtmfAudio(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see gatherDtmfAudio */
+        @MustBeClosed
+        fun gatherDtmfAudio(
+            params: ActionGatherDtmfAudioParams
+        ): HttpResponseFor<ActionGatherDtmfAudioResponse> =
+            gatherDtmfAudio(params, RequestOptions.none())
+
+        /** @see gatherDtmfAudio */
+        @MustBeClosed
+        fun gatherDtmfAudio(
+            params: ActionGatherDtmfAudioParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionGatherDtmfAudioResponse>
 
         /**
          * Returns a raw HTTP response for `post /conferences/{id}/actions/hold`, but is otherwise
@@ -817,6 +981,37 @@ interface ActionService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<ActionRecordStopResponse> =
             recordStop(id, ActionRecordStopParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /conferences/{id}/actions/send_dtmf`, but is
+         * otherwise the same as [ActionService.sendDtmf].
+         */
+        @MustBeClosed
+        fun sendDtmf(
+            id: String,
+            params: ActionSendDtmfParams,
+        ): HttpResponseFor<ActionSendDtmfResponse> = sendDtmf(id, params, RequestOptions.none())
+
+        /** @see sendDtmf */
+        @MustBeClosed
+        fun sendDtmf(
+            id: String,
+            params: ActionSendDtmfParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionSendDtmfResponse> =
+            sendDtmf(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see sendDtmf */
+        @MustBeClosed
+        fun sendDtmf(params: ActionSendDtmfParams): HttpResponseFor<ActionSendDtmfResponse> =
+            sendDtmf(params, RequestOptions.none())
+
+        /** @see sendDtmf */
+        @MustBeClosed
+        fun sendDtmf(
+            params: ActionSendDtmfParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionSendDtmfResponse>
 
         /**
          * Returns a raw HTTP response for `post /conferences/{id}/actions/speak`, but is otherwise
