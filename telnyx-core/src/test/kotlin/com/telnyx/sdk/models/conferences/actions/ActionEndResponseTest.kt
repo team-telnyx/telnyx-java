@@ -7,34 +7,33 @@ import com.telnyx.sdk.core.jsonMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class ActionGatherDtmfAudioResponseTest {
+internal class ActionEndResponseTest {
 
     @Test
     fun create() {
-        val actionGatherDtmfAudioResponse =
-            ActionGatherDtmfAudioResponse.builder()
+        val actionEndResponse =
+            ActionEndResponse.builder()
                 .data(ConferenceCommandResult.builder().result("ok").build())
                 .build()
 
-        assertThat(actionGatherDtmfAudioResponse.data())
+        assertThat(actionEndResponse.data())
             .contains(ConferenceCommandResult.builder().result("ok").build())
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val actionGatherDtmfAudioResponse =
-            ActionGatherDtmfAudioResponse.builder()
+        val actionEndResponse =
+            ActionEndResponse.builder()
                 .data(ConferenceCommandResult.builder().result("ok").build())
                 .build()
 
-        val roundtrippedActionGatherDtmfAudioResponse =
+        val roundtrippedActionEndResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(actionGatherDtmfAudioResponse),
-                jacksonTypeRef<ActionGatherDtmfAudioResponse>(),
+                jsonMapper.writeValueAsString(actionEndResponse),
+                jacksonTypeRef<ActionEndResponse>(),
             )
 
-        assertThat(roundtrippedActionGatherDtmfAudioResponse)
-            .isEqualTo(actionGatherDtmfAudioResponse)
+        assertThat(roundtrippedActionEndResponse).isEqualTo(actionEndResponse)
     }
 }

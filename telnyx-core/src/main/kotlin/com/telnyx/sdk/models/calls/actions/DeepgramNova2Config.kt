@@ -24,8 +24,10 @@ class DeepgramNova2Config
 private constructor(
     private val transcriptionEngine: JsonField<TranscriptionEngine>,
     private val transcriptionModel: JsonField<TranscriptionModel>,
+    private val interimResults: JsonField<Boolean>,
     private val keywordsBoosting: JsonField<KeywordsBoosting>,
     private val language: JsonField<Language>,
+    private val utteranceEndMs: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -37,11 +39,25 @@ private constructor(
         @JsonProperty("transcription_model")
         @ExcludeMissing
         transcriptionModel: JsonField<TranscriptionModel> = JsonMissing.of(),
+        @JsonProperty("interim_results")
+        @ExcludeMissing
+        interimResults: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("keywords_boosting")
         @ExcludeMissing
         keywordsBoosting: JsonField<KeywordsBoosting> = JsonMissing.of(),
         @JsonProperty("language") @ExcludeMissing language: JsonField<Language> = JsonMissing.of(),
-    ) : this(transcriptionEngine, transcriptionModel, keywordsBoosting, language, mutableMapOf())
+        @JsonProperty("utterance_end_ms")
+        @ExcludeMissing
+        utteranceEndMs: JsonField<Long> = JsonMissing.of(),
+    ) : this(
+        transcriptionEngine,
+        transcriptionModel,
+        interimResults,
+        keywordsBoosting,
+        language,
+        utteranceEndMs,
+        mutableMapOf(),
+    )
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -56,6 +72,14 @@ private constructor(
      */
     fun transcriptionModel(): TranscriptionModel =
         transcriptionModel.getRequired("transcription_model")
+
+    /**
+     * Whether to send also interim results. If set to false, only final results will be sent.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun interimResults(): Optional<Boolean> = interimResults.getOptional("interim_results")
 
     /**
      * Keywords and their respective intensifiers (boosting values) to improve transcription
@@ -75,6 +99,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun language(): Optional<Language> = language.getOptional("language")
+
+    /**
+     * Number of milliseconds of silence to consider an utterance ended. Ranges from 0 to 5000 ms.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun utteranceEndMs(): Optional<Long> = utteranceEndMs.getOptional("utterance_end_ms")
 
     /**
      * Returns the raw JSON value of [transcriptionEngine].
@@ -97,6 +129,15 @@ private constructor(
     fun _transcriptionModel(): JsonField<TranscriptionModel> = transcriptionModel
 
     /**
+     * Returns the raw JSON value of [interimResults].
+     *
+     * Unlike [interimResults], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("interim_results")
+    @ExcludeMissing
+    fun _interimResults(): JsonField<Boolean> = interimResults
+
+    /**
      * Returns the raw JSON value of [keywordsBoosting].
      *
      * Unlike [keywordsBoosting], this method doesn't throw if the JSON field has an unexpected
@@ -112,6 +153,15 @@ private constructor(
      * Unlike [language], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("language") @ExcludeMissing fun _language(): JsonField<Language> = language
+
+    /**
+     * Returns the raw JSON value of [utteranceEndMs].
+     *
+     * Unlike [utteranceEndMs], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("utterance_end_ms")
+    @ExcludeMissing
+    fun _utteranceEndMs(): JsonField<Long> = utteranceEndMs
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -144,16 +194,20 @@ private constructor(
 
         private var transcriptionEngine: JsonField<TranscriptionEngine>? = null
         private var transcriptionModel: JsonField<TranscriptionModel>? = null
+        private var interimResults: JsonField<Boolean> = JsonMissing.of()
         private var keywordsBoosting: JsonField<KeywordsBoosting> = JsonMissing.of()
         private var language: JsonField<Language> = JsonMissing.of()
+        private var utteranceEndMs: JsonField<Long> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(deepgramNova2Config: DeepgramNova2Config) = apply {
             transcriptionEngine = deepgramNova2Config.transcriptionEngine
             transcriptionModel = deepgramNova2Config.transcriptionModel
+            interimResults = deepgramNova2Config.interimResults
             keywordsBoosting = deepgramNova2Config.keywordsBoosting
             language = deepgramNova2Config.language
+            utteranceEndMs = deepgramNova2Config.utteranceEndMs
             additionalProperties = deepgramNova2Config.additionalProperties.toMutableMap()
         }
 
@@ -186,6 +240,22 @@ private constructor(
         }
 
         /**
+         * Whether to send also interim results. If set to false, only final results will be sent.
+         */
+        fun interimResults(interimResults: Boolean) = interimResults(JsonField.of(interimResults))
+
+        /**
+         * Sets [Builder.interimResults] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.interimResults] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun interimResults(interimResults: JsonField<Boolean>) = apply {
+            this.interimResults = interimResults
+        }
+
+        /**
          * Keywords and their respective intensifiers (boosting values) to improve transcription
          * accuracy for specific words or phrases. The intensifier should be a numeric value.
          * Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
@@ -215,6 +285,23 @@ private constructor(
          * value.
          */
         fun language(language: JsonField<Language>) = apply { this.language = language }
+
+        /**
+         * Number of milliseconds of silence to consider an utterance ended. Ranges from 0 to 5000
+         * ms.
+         */
+        fun utteranceEndMs(utteranceEndMs: Long) = utteranceEndMs(JsonField.of(utteranceEndMs))
+
+        /**
+         * Sets [Builder.utteranceEndMs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.utteranceEndMs] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun utteranceEndMs(utteranceEndMs: JsonField<Long>) = apply {
+            this.utteranceEndMs = utteranceEndMs
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -252,8 +339,10 @@ private constructor(
             DeepgramNova2Config(
                 checkRequired("transcriptionEngine", transcriptionEngine),
                 checkRequired("transcriptionModel", transcriptionModel),
+                interimResults,
                 keywordsBoosting,
                 language,
+                utteranceEndMs,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -267,8 +356,10 @@ private constructor(
 
         transcriptionEngine().validate()
         transcriptionModel().validate()
+        interimResults()
         keywordsBoosting().ifPresent { it.validate() }
         language().ifPresent { it.validate() }
+        utteranceEndMs()
         validated = true
     }
 
@@ -289,8 +380,10 @@ private constructor(
     internal fun validity(): Int =
         (transcriptionEngine.asKnown().getOrNull()?.validity() ?: 0) +
             (transcriptionModel.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (interimResults.asKnown().isPresent) 1 else 0) +
             (keywordsBoosting.asKnown().getOrNull()?.validity() ?: 0) +
-            (language.asKnown().getOrNull()?.validity() ?: 0)
+            (language.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (utteranceEndMs.asKnown().isPresent) 1 else 0)
 
     class TranscriptionEngine
     @JsonCreator
@@ -1030,8 +1123,10 @@ private constructor(
         return other is DeepgramNova2Config &&
             transcriptionEngine == other.transcriptionEngine &&
             transcriptionModel == other.transcriptionModel &&
+            interimResults == other.interimResults &&
             keywordsBoosting == other.keywordsBoosting &&
             language == other.language &&
+            utteranceEndMs == other.utteranceEndMs &&
             additionalProperties == other.additionalProperties
     }
 
@@ -1039,8 +1134,10 @@ private constructor(
         Objects.hash(
             transcriptionEngine,
             transcriptionModel,
+            interimResults,
             keywordsBoosting,
             language,
+            utteranceEndMs,
             additionalProperties,
         )
     }
@@ -1048,5 +1145,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "DeepgramNova2Config{transcriptionEngine=$transcriptionEngine, transcriptionModel=$transcriptionModel, keywordsBoosting=$keywordsBoosting, language=$language, additionalProperties=$additionalProperties}"
+        "DeepgramNova2Config{transcriptionEngine=$transcriptionEngine, transcriptionModel=$transcriptionModel, interimResults=$interimResults, keywordsBoosting=$keywordsBoosting, language=$language, utteranceEndMs=$utteranceEndMs, additionalProperties=$additionalProperties}"
 }

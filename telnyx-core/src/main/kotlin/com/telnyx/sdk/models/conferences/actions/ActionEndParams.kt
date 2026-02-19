@@ -20,7 +20,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** End a conference and terminate all active participants. */
-class ActionEndConferenceParams
+class ActionEndParams
 private constructor(
     private val id: String?,
     private val body: Body,
@@ -58,15 +58,13 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): ActionEndConferenceParams = builder().build()
+        @JvmStatic fun none(): ActionEndParams = builder().build()
 
-        /**
-         * Returns a mutable builder for constructing an instance of [ActionEndConferenceParams].
-         */
+        /** Returns a mutable builder for constructing an instance of [ActionEndParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [ActionEndConferenceParams]. */
+    /** A builder for [ActionEndParams]. */
     class Builder internal constructor() {
 
         private var id: String? = null
@@ -75,11 +73,11 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(actionEndConferenceParams: ActionEndConferenceParams) = apply {
-            id = actionEndConferenceParams.id
-            body = actionEndConferenceParams.body.toBuilder()
-            additionalHeaders = actionEndConferenceParams.additionalHeaders.toBuilder()
-            additionalQueryParams = actionEndConferenceParams.additionalQueryParams.toBuilder()
+        internal fun from(actionEndParams: ActionEndParams) = apply {
+            id = actionEndParams.id
+            body = actionEndParams.body.toBuilder()
+            additionalHeaders = actionEndParams.additionalHeaders.toBuilder()
+            additionalQueryParams = actionEndParams.additionalQueryParams.toBuilder()
         }
 
         fun id(id: String?) = apply { this.id = id }
@@ -229,12 +227,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [ActionEndConferenceParams].
+         * Returns an immutable instance of [ActionEndParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): ActionEndConferenceParams =
-            ActionEndConferenceParams(
+        fun build(): ActionEndParams =
+            ActionEndParams(
                 id,
                 body.build(),
                 additionalHeaders.build(),
@@ -406,7 +404,7 @@ private constructor(
             return true
         }
 
-        return other is ActionEndConferenceParams &&
+        return other is ActionEndParams &&
             id == other.id &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
@@ -416,5 +414,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(id, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ActionEndConferenceParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ActionEndParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
