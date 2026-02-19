@@ -131,6 +131,8 @@ internal class CallServiceAsyncTest {
                     .texml(
                         "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say>Hello</Say></Response>"
                     )
+                    .timeLimit(3600L)
+                    .timeout(60L)
                     .trim(CallCallsParams.Trim.TRIM_SILENCE)
                     .url("https://www.example.com/texml.xml")
                     .urlMethod(CallCallsParams.UrlMethod.GET)

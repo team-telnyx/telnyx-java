@@ -346,6 +346,24 @@ private constructor(
     fun texml(): Optional<String> = body.texml()
 
     /**
+     * The maximum duration of the call in seconds. The minimum value is 30 and the maximum value is
+     * 14400 (4 hours). Default is 14400 seconds.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun timeLimit(): Optional<Long> = body.timeLimit()
+
+    /**
+     * The number of seconds to wait for the called party to answer the call before the call is
+     * canceled. The minimum value is 5 and the maximum value is 120. Default is 30 seconds.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun timeout(): Optional<Long> = body.timeout()
+
+    /**
      * Whether to trim any leading and trailing silence from the recording. Defaults to
      * `trim-silence`.
      *
@@ -639,6 +657,20 @@ private constructor(
      * Unlike [texml], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _texml(): JsonField<String> = body._texml()
+
+    /**
+     * Returns the raw JSON value of [timeLimit].
+     *
+     * Unlike [timeLimit], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _timeLimit(): JsonField<Long> = body._timeLimit()
+
+    /**
+     * Returns the raw JSON value of [timeout].
+     *
+     * Unlike [timeout], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _timeout(): JsonField<Long> = body._timeout()
 
     /**
      * Returns the raw JSON value of [trim].
@@ -1309,6 +1341,34 @@ private constructor(
         fun texml(texml: JsonField<String>) = apply { body.texml(texml) }
 
         /**
+         * The maximum duration of the call in seconds. The minimum value is 30 and the maximum
+         * value is 14400 (4 hours). Default is 14400 seconds.
+         */
+        fun timeLimit(timeLimit: Long) = apply { body.timeLimit(timeLimit) }
+
+        /**
+         * Sets [Builder.timeLimit] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.timeLimit] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun timeLimit(timeLimit: JsonField<Long>) = apply { body.timeLimit(timeLimit) }
+
+        /**
+         * The number of seconds to wait for the called party to answer the call before the call is
+         * canceled. The minimum value is 5 and the maximum value is 120. Default is 30 seconds.
+         */
+        fun timeout(timeout: Long) = apply { body.timeout(timeout) }
+
+        /**
+         * Sets [Builder.timeout] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.timeout] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun timeout(timeout: JsonField<Long>) = apply { body.timeout(timeout) }
+
+        /**
          * Whether to trim any leading and trailing silence from the recording. Defaults to
          * `trim-silence`.
          */
@@ -1538,6 +1598,8 @@ private constructor(
         private val superviseCallSid: JsonField<String>,
         private val supervisingRole: JsonField<SupervisingRole>,
         private val texml: JsonField<String>,
+        private val timeLimit: JsonField<Long>,
+        private val timeout: JsonField<Long>,
         private val trim: JsonField<Trim>,
         private val url: JsonField<String>,
         private val urlMethod: JsonField<UrlMethod>,
@@ -1645,6 +1707,10 @@ private constructor(
             @ExcludeMissing
             supervisingRole: JsonField<SupervisingRole> = JsonMissing.of(),
             @JsonProperty("Texml") @ExcludeMissing texml: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("TimeLimit")
+            @ExcludeMissing
+            timeLimit: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("Timeout") @ExcludeMissing timeout: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("Trim") @ExcludeMissing trim: JsonField<Trim> = JsonMissing.of(),
             @JsonProperty("Url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
             @JsonProperty("UrlMethod")
@@ -1686,6 +1752,8 @@ private constructor(
             superviseCallSid,
             supervisingRole,
             texml,
+            timeLimit,
+            timeout,
             trim,
             url,
             urlMethod,
@@ -2012,6 +2080,24 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun texml(): Optional<String> = texml.getOptional("Texml")
+
+        /**
+         * The maximum duration of the call in seconds. The minimum value is 30 and the maximum
+         * value is 14400 (4 hours). Default is 14400 seconds.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun timeLimit(): Optional<Long> = timeLimit.getOptional("TimeLimit")
+
+        /**
+         * The number of seconds to wait for the called party to answer the call before the call is
+         * canceled. The minimum value is 5 and the maximum value is 120. Default is 30 seconds.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun timeout(): Optional<Long> = timeout.getOptional("Timeout")
 
         /**
          * Whether to trim any leading and trailing silence from the recording. Defaults to
@@ -2375,6 +2461,20 @@ private constructor(
         @JsonProperty("Texml") @ExcludeMissing fun _texml(): JsonField<String> = texml
 
         /**
+         * Returns the raw JSON value of [timeLimit].
+         *
+         * Unlike [timeLimit], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("TimeLimit") @ExcludeMissing fun _timeLimit(): JsonField<Long> = timeLimit
+
+        /**
+         * Returns the raw JSON value of [timeout].
+         *
+         * Unlike [timeout], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("Timeout") @ExcludeMissing fun _timeout(): JsonField<Long> = timeout
+
+        /**
          * Returns the raw JSON value of [trim].
          *
          * Unlike [trim], this method doesn't throw if the JSON field has an unexpected type.
@@ -2464,6 +2564,8 @@ private constructor(
             private var superviseCallSid: JsonField<String> = JsonMissing.of()
             private var supervisingRole: JsonField<SupervisingRole> = JsonMissing.of()
             private var texml: JsonField<String> = JsonMissing.of()
+            private var timeLimit: JsonField<Long> = JsonMissing.of()
+            private var timeout: JsonField<Long> = JsonMissing.of()
             private var trim: JsonField<Trim> = JsonMissing.of()
             private var url: JsonField<String> = JsonMissing.of()
             private var urlMethod: JsonField<UrlMethod> = JsonMissing.of()
@@ -2506,6 +2608,8 @@ private constructor(
                 superviseCallSid = body.superviseCallSid
                 supervisingRole = body.supervisingRole
                 texml = body.texml
+                timeLimit = body.timeLimit
+                timeout = body.timeout
                 trim = body.trim
                 url = body.url
                 urlMethod = body.urlMethod
@@ -3093,6 +3197,37 @@ private constructor(
             fun texml(texml: JsonField<String>) = apply { this.texml = texml }
 
             /**
+             * The maximum duration of the call in seconds. The minimum value is 30 and the maximum
+             * value is 14400 (4 hours). Default is 14400 seconds.
+             */
+            fun timeLimit(timeLimit: Long) = timeLimit(JsonField.of(timeLimit))
+
+            /**
+             * Sets [Builder.timeLimit] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.timeLimit] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun timeLimit(timeLimit: JsonField<Long>) = apply { this.timeLimit = timeLimit }
+
+            /**
+             * The number of seconds to wait for the called party to answer the call before the call
+             * is canceled. The minimum value is 5 and the maximum value is 120. Default is 30
+             * seconds.
+             */
+            fun timeout(timeout: Long) = timeout(JsonField.of(timeout))
+
+            /**
+             * Sets [Builder.timeout] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.timeout] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun timeout(timeout: JsonField<Long>) = apply { this.timeout = timeout }
+
+            /**
              * Whether to trim any leading and trailing silence from the recording. Defaults to
              * `trim-silence`.
              */
@@ -3204,6 +3339,8 @@ private constructor(
                     superviseCallSid,
                     supervisingRole,
                     texml,
+                    timeLimit,
+                    timeout,
                     trim,
                     url,
                     urlMethod,
@@ -3253,6 +3390,8 @@ private constructor(
             superviseCallSid()
             supervisingRole().ifPresent { it.validate() }
             texml()
+            timeLimit()
+            timeout()
             trim().ifPresent { it.validate() }
             url()
             urlMethod().ifPresent { it.validate() }
@@ -3310,6 +3449,8 @@ private constructor(
                 (if (superviseCallSid.asKnown().isPresent) 1 else 0) +
                 (supervisingRole.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (texml.asKnown().isPresent) 1 else 0) +
+                (if (timeLimit.asKnown().isPresent) 1 else 0) +
+                (if (timeout.asKnown().isPresent) 1 else 0) +
                 (trim.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (url.asKnown().isPresent) 1 else 0) +
                 (urlMethod.asKnown().getOrNull()?.validity() ?: 0)
@@ -3355,6 +3496,8 @@ private constructor(
                 superviseCallSid == other.superviseCallSid &&
                 supervisingRole == other.supervisingRole &&
                 texml == other.texml &&
+                timeLimit == other.timeLimit &&
+                timeout == other.timeout &&
                 trim == other.trim &&
                 url == other.url &&
                 urlMethod == other.urlMethod &&
@@ -3398,6 +3541,8 @@ private constructor(
                 superviseCallSid,
                 supervisingRole,
                 texml,
+                timeLimit,
+                timeout,
                 trim,
                 url,
                 urlMethod,
@@ -3408,7 +3553,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{applicationSid=$applicationSid, from=$from, to=$to, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+            "Body{applicationSid=$applicationSid, from=$from, to=$to, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
     }
 
     /**
