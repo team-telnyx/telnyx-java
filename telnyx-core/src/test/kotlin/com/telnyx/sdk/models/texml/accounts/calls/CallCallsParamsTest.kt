@@ -54,6 +54,8 @@ internal class CallCallsParamsTest {
             .texml(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say>Hello</Say></Response>"
             )
+            .timeLimit(3600L)
+            .timeout(60L)
             .trim(CallCallsParams.Trim.TRIM_SILENCE)
             .url("https://www.example.com/texml.xml")
             .urlMethod(CallCallsParams.UrlMethod.GET)
@@ -122,6 +124,8 @@ internal class CallCallsParamsTest {
                 .texml(
                     "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say>Hello</Say></Response>"
                 )
+                .timeLimit(3600L)
+                .timeout(60L)
                 .trim(CallCallsParams.Trim.TRIM_SILENCE)
                 .url("https://www.example.com/texml.xml")
                 .urlMethod(CallCallsParams.UrlMethod.GET)
@@ -179,6 +183,8 @@ internal class CallCallsParamsTest {
             .contains(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say>Hello</Say></Response>"
             )
+        assertThat(body.timeLimit()).contains(3600L)
+        assertThat(body.timeout()).contains(60L)
         assertThat(body.trim()).contains(CallCallsParams.Trim.TRIM_SILENCE)
         assertThat(body.url()).contains("https://www.example.com/texml.xml")
         assertThat(body.urlMethod()).contains(CallCallsParams.UrlMethod.GET)
