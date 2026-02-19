@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 
 internal class SimCardOrderPreviewServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun preview() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

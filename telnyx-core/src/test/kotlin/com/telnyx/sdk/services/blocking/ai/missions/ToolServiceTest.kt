@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 
 internal class ToolServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun createTool() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -22,7 +22,7 @@ internal class ToolServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun deleteTool() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -33,7 +33,7 @@ internal class ToolServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getTool() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -47,7 +47,7 @@ internal class ToolServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listTools() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -58,7 +58,7 @@ internal class ToolServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun updateTool() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

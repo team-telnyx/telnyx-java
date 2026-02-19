@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 
 internal class RcServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun inviteTestNumber() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -25,7 +25,7 @@ internal class RcServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listBulkCapabilities() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -42,7 +42,7 @@ internal class RcServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveCapabilities() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

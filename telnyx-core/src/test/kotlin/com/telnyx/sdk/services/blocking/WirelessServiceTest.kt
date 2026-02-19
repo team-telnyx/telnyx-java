@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 
 internal class WirelessServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveRegions() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 internal class ToolServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun test() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

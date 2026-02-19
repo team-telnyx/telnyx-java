@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test
 
 internal class UserBundleServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -37,7 +37,7 @@ internal class UserBundleServiceAsyncTest {
         userBundle.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -55,7 +55,7 @@ internal class UserBundleServiceAsyncTest {
         userBundle.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -67,7 +67,7 @@ internal class UserBundleServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun deactivate() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -85,7 +85,7 @@ internal class UserBundleServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listResources() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -103,7 +103,7 @@ internal class UserBundleServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listUnused() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

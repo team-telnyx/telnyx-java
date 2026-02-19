@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 
 internal class WellKnownServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveAuthorizationServerMetadata() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -20,7 +20,7 @@ internal class WellKnownServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveProtectedResourceMetadata() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

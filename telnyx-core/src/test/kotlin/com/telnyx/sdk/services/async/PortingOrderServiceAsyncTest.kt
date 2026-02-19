@@ -31,7 +31,7 @@ import org.junit.jupiter.api.parallel.ResourceLock
 @ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class PortingOrderServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -50,7 +50,7 @@ internal class PortingOrderServiceAsyncTest {
         portingOrder.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -68,7 +68,7 @@ internal class PortingOrderServiceAsyncTest {
         portingOrder.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -159,7 +159,7 @@ internal class PortingOrderServiceAsyncTest {
         portingOrder.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -171,7 +171,7 @@ internal class PortingOrderServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -182,7 +182,7 @@ internal class PortingOrderServiceAsyncTest {
         val response = future.get()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveAllowedFocWindows() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -197,7 +197,7 @@ internal class PortingOrderServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveExceptionTypes() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -231,7 +231,7 @@ internal class PortingOrderServiceAsyncTest {
         assertThat(response.body()).hasContent("abc")
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveRequirements() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -244,7 +244,7 @@ internal class PortingOrderServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveSubRequest() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

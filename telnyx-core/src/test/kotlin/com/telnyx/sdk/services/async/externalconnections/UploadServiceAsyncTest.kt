@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 
 internal class UploadServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -40,7 +40,7 @@ internal class UploadServiceAsyncTest {
         upload.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -58,7 +58,7 @@ internal class UploadServiceAsyncTest {
         upload.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -70,7 +70,7 @@ internal class UploadServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun pendingCount() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -82,7 +82,7 @@ internal class UploadServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun refreshStatus() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -94,7 +94,7 @@ internal class UploadServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retry() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

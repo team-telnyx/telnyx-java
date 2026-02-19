@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 
 internal class BrandServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun qualifyByUsecase() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

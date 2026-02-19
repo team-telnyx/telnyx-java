@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test
 
 internal class OAuthServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -25,7 +25,7 @@ internal class OAuthServiceAsyncTest {
         oauth.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun grants() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -40,7 +40,7 @@ internal class OAuthServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun introspect() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -53,7 +53,7 @@ internal class OAuthServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun register() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -78,7 +78,7 @@ internal class OAuthServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveAuthorize() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -100,7 +100,7 @@ internal class OAuthServiceAsyncTest {
         val response = future.get()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveJwks() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -112,7 +112,7 @@ internal class OAuthServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun token() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

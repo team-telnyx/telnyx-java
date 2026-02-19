@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test
 
 internal class SimCardServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -33,7 +33,7 @@ internal class SimCardServiceAsyncTest {
         simCard.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -118,7 +118,7 @@ internal class SimCardServiceAsyncTest {
         simCard.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -130,7 +130,7 @@ internal class SimCardServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -148,7 +148,7 @@ internal class SimCardServiceAsyncTest {
         simCard.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getActivationCode() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -161,7 +161,7 @@ internal class SimCardServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getDeviceDetails() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -174,7 +174,7 @@ internal class SimCardServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getPublicIp() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -186,7 +186,7 @@ internal class SimCardServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listWirelessConnectivityLogs() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

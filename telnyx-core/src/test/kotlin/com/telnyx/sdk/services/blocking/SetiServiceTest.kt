@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 
 internal class SetiServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveBlackBoxTestResults() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

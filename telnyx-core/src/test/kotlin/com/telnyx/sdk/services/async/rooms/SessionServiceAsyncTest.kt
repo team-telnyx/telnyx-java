@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 
 internal class SessionServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -27,7 +27,7 @@ internal class SessionServiceAsyncTest {
         session.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list0() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -39,7 +39,7 @@ internal class SessionServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list1() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -51,7 +51,7 @@ internal class SessionServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveParticipants() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()

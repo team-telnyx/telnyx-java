@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test
 
 internal class ConversationServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -35,7 +35,7 @@ internal class ConversationServiceTest {
         conversation.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -46,7 +46,7 @@ internal class ConversationServiceTest {
         conversation.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -67,7 +67,7 @@ internal class ConversationServiceTest {
         conversation.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -94,7 +94,7 @@ internal class ConversationServiceTest {
         conversations.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -103,7 +103,7 @@ internal class ConversationServiceTest {
         conversationService.delete("conversation_id")
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun addMessage() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
@@ -132,7 +132,7 @@ internal class ConversationServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveConversationsInsights() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()

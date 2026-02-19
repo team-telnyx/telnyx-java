@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 internal class ActionServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -22,7 +22,7 @@ internal class ActionServiceAsyncTest {
         action.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -34,7 +34,7 @@ internal class ActionServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun removePrivateWirelessGateway() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -47,7 +47,7 @@ internal class ActionServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun removeWirelessBlocklist() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -60,7 +60,7 @@ internal class ActionServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun setPrivateWirelessGateway() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -78,7 +78,7 @@ internal class ActionServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun setWirelessBlocklist() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
