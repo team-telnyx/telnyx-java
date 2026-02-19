@@ -13,7 +13,7 @@ internal class LogMessageListResponseTest {
     fun create() {
         val logMessageListResponse =
             LogMessageListResponse.builder()
-                .code("code")
+                .code("10015")
                 .title("Invalid attribute")
                 .detail(
                     "The value provided for the attribute is not valid. Check the value used and try again."
@@ -28,7 +28,7 @@ internal class LogMessageListResponseTest {
                 .source(LogMessageListResponse.Source.builder().pointer("/attribute").build())
                 .build()
 
-        assertThat(logMessageListResponse.code()).isEqualTo("code")
+        assertThat(logMessageListResponse.code()).isEqualTo("10015")
         assertThat(logMessageListResponse.title()).isEqualTo("Invalid attribute")
         assertThat(logMessageListResponse.detail())
             .contains(
@@ -51,7 +51,7 @@ internal class LogMessageListResponseTest {
         val jsonMapper = jsonMapper()
         val logMessageListResponse =
             LogMessageListResponse.builder()
-                .code("code")
+                .code("10015")
                 .title("Invalid attribute")
                 .detail(
                     "The value provided for the attribute is not valid. Check the value used and try again."

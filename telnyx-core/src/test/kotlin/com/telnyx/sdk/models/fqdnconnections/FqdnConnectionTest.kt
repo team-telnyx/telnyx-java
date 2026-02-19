@@ -21,7 +21,7 @@ internal class FqdnConnectionTest {
         val fqdnConnection =
             FqdnConnection.builder()
                 .connectionName("string")
-                .id("id")
+                .id("1293384261075731499")
                 .active(true)
                 .adjustDtmfTimestamp(true)
                 .anchorsiteOverride(AnchorsiteOverride.LATENCY)
@@ -124,7 +124,7 @@ internal class FqdnConnectionTest {
                 .build()
 
         assertThat(fqdnConnection.connectionName()).isEqualTo("string")
-        assertThat(fqdnConnection.id()).contains("id")
+        assertThat(fqdnConnection.id()).contains("1293384261075731499")
         assertThat(fqdnConnection.active()).contains(true)
         assertThat(fqdnConnection.adjustDtmfTimestamp()).contains(true)
         assertThat(fqdnConnection.anchorsiteOverride()).contains(AnchorsiteOverride.LATENCY)
@@ -239,7 +239,7 @@ internal class FqdnConnectionTest {
         val fqdnConnection =
             FqdnConnection.builder()
                 .connectionName("string")
-                .id("id")
+                .id("1293384261075731499")
                 .active(true)
                 .adjustDtmfTimestamp(true)
                 .anchorsiteOverride(AnchorsiteOverride.LATENCY)

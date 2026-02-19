@@ -13,7 +13,7 @@ internal class AddressTest {
     fun create() {
         val address =
             Address.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .addressBook(false)
                 .administrativeArea("TX")
                 .borough("Guadalajara")
@@ -34,7 +34,7 @@ internal class AddressTest {
                 .validateAddress(true)
                 .build()
 
-        assertThat(address.id()).contains("id")
+        assertThat(address.id()).contains("1293384261075731499")
         assertThat(address.addressBook()).contains(false)
         assertThat(address.administrativeArea()).contains("TX")
         assertThat(address.borough()).contains("Guadalajara")
@@ -60,7 +60,7 @@ internal class AddressTest {
         val jsonMapper = jsonMapper()
         val address =
             Address.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .addressBook(false)
                 .administrativeArea("TX")
                 .borough("Guadalajara")
