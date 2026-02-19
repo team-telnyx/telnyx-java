@@ -30,7 +30,7 @@ internal class ActionValidateResponseTest {
                         )
                         .addError(
                             ApiError.builder()
-                                .code("20207")
+                                .code("code")
                                 .title("Invalid street address")
                                 .detail("detail")
                                 .meta(
@@ -67,7 +67,7 @@ internal class ActionValidateResponseTest {
                     )
                     .addError(
                         ApiError.builder()
-                            .code("20207")
+                            .code("code")
                             .title("Invalid street address")
                             .detail("detail")
                             .meta(
@@ -108,7 +108,7 @@ internal class ActionValidateResponseTest {
                         )
                         .addError(
                             ApiError.builder()
-                                .code("20207")
+                                .code("code")
                                 .title("Invalid street address")
                                 .detail("detail")
                                 .meta(

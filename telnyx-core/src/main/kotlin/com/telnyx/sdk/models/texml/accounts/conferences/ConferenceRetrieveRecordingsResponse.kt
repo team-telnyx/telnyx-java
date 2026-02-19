@@ -27,7 +27,7 @@ private constructor(
     private val nextPageUri: JsonField<String>,
     private val page: JsonField<Long>,
     private val pageSize: JsonField<Long>,
-    private val participants: JsonField<List<Participant>>,
+    private val participants: JsonField<List<JsonValue>>,
     private val recordings: JsonField<List<Recording>>,
     private val start: JsonField<Long>,
     private val uri: JsonField<String>,
@@ -47,7 +47,7 @@ private constructor(
         @JsonProperty("page_size") @ExcludeMissing pageSize: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("participants")
         @ExcludeMissing
-        participants: JsonField<List<Participant>> = JsonMissing.of(),
+        participants: JsonField<List<JsonValue>> = JsonMissing.of(),
         @JsonProperty("recordings")
         @ExcludeMissing
         recordings: JsonField<List<Recording>> = JsonMissing.of(),
@@ -112,7 +112,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun participants(): Optional<List<Participant>> = participants.getOptional("participants")
+    fun participants(): Optional<List<JsonValue>> = participants.getOptional("participants")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -182,7 +182,7 @@ private constructor(
      */
     @JsonProperty("participants")
     @ExcludeMissing
-    fun _participants(): JsonField<List<Participant>> = participants
+    fun _participants(): JsonField<List<JsonValue>> = participants
 
     /**
      * Returns the raw JSON value of [recordings].
@@ -236,7 +236,7 @@ private constructor(
         private var nextPageUri: JsonField<String> = JsonMissing.of()
         private var page: JsonField<Long> = JsonMissing.of()
         private var pageSize: JsonField<Long> = JsonMissing.of()
-        private var participants: JsonField<MutableList<Participant>>? = null
+        private var participants: JsonField<MutableList<JsonValue>>? = null
         private var recordings: JsonField<MutableList<Recording>>? = null
         private var start: JsonField<Long> = JsonMissing.of()
         private var uri: JsonField<String> = JsonMissing.of()
@@ -324,25 +324,25 @@ private constructor(
         fun pageSize(pageSize: JsonField<Long>) = apply { this.pageSize = pageSize }
 
         /** List of participant resources. */
-        fun participants(participants: List<Participant>) = participants(JsonField.of(participants))
+        fun participants(participants: List<JsonValue>) = participants(JsonField.of(participants))
 
         /**
          * Sets [Builder.participants] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.participants] with a well-typed `List<Participant>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.participants] with a well-typed `List<JsonValue>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun participants(participants: JsonField<List<Participant>>) = apply {
+        fun participants(participants: JsonField<List<JsonValue>>) = apply {
             this.participants = participants.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Participant] to [participants].
+         * Adds a single [JsonValue] to [participants].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addParticipant(participant: Participant) = apply {
+        fun addParticipant(participant: JsonValue) = apply {
             participants =
                 (participants ?: JsonField.of(mutableListOf())).also {
                     checkKnown("participants", it).add(participant)
@@ -447,7 +447,7 @@ private constructor(
         nextPageUri()
         page()
         pageSize()
-        participants().ifPresent { it.forEach { it.validate() } }
+        participants()
         recordings().ifPresent { it.forEach { it.validate() } }
         start()
         uri()
@@ -474,109 +474,10 @@ private constructor(
             (if (nextPageUri.asKnown().isPresent) 1 else 0) +
             (if (page.asKnown().isPresent) 1 else 0) +
             (if (pageSize.asKnown().isPresent) 1 else 0) +
-            (participants.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (participants.asKnown().getOrNull()?.size ?: 0) +
             (recordings.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (start.asKnown().isPresent) 1 else 0) +
             (if (uri.asKnown().isPresent) 1 else 0)
-
-    class Participant
-    @JsonCreator
-    private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
-    ) {
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Participant]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Participant]. */
-        class Builder internal constructor() {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(participant: Participant) = apply {
-                additionalProperties = participant.additionalProperties.toMutableMap()
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Participant].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Participant = Participant(additionalProperties.toImmutable())
-        }
-
-        private var validated: Boolean = false
-
-        fun validate(): Participant = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Participant && additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() = "Participant{additionalProperties=$additionalProperties}"
-    }
 
     class Recording
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)

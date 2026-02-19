@@ -17,7 +17,7 @@ internal class AddressListPageResponseTest {
             AddressListPageResponse.builder()
                 .addData(
                     Address.builder()
-                        .id("1293384261075731499")
+                        .id("id")
                         .addressBook(false)
                         .administrativeArea("TX")
                         .borough("Guadalajara")
@@ -51,7 +51,7 @@ internal class AddressListPageResponseTest {
         assertThat(addressListPageResponse.data().getOrNull())
             .containsExactly(
                 Address.builder()
-                    .id("1293384261075731499")
+                    .id("id")
                     .addressBook(false)
                     .administrativeArea("TX")
                     .borough("Guadalajara")
@@ -90,7 +90,7 @@ internal class AddressListPageResponseTest {
             AddressListPageResponse.builder()
                 .addData(
                     Address.builder()
-                        .id("1293384261075731499")
+                        .id("id")
                         .addressBook(false)
                         .administrativeArea("TX")
                         .borough("Guadalajara")

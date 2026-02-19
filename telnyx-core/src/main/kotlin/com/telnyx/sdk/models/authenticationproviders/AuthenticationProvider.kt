@@ -22,6 +22,7 @@ class AuthenticationProvider
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
+    private val activatedAt: JsonField<OffsetDateTime>,
     private val active: JsonField<Boolean>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val name: JsonField<String>,
@@ -36,6 +37,9 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("activated_at")
+        @ExcludeMissing
+        activatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("active") @ExcludeMissing active: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
@@ -54,6 +58,7 @@ private constructor(
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     ) : this(
         id,
+        activatedAt,
         active,
         createdAt,
         name,
@@ -72,6 +77,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun id(): Optional<String> = id.getOptional("id")
+
+    /**
+     * ISO 8601 formatted date indicating when the authentication provider was activated.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun activatedAt(): Optional<OffsetDateTime> = activatedAt.getOptional("activated_at")
 
     /**
      * The active status of the authentication provider
@@ -144,6 +157,15 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [activatedAt].
+     *
+     * Unlike [activatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("activated_at")
+    @ExcludeMissing
+    fun _activatedAt(): JsonField<OffsetDateTime> = activatedAt
 
     /**
      * Returns the raw JSON value of [active].
@@ -229,6 +251,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String> = JsonMissing.of()
+        private var activatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var active: JsonField<Boolean> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
@@ -242,6 +265,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(authenticationProvider: AuthenticationProvider) = apply {
             id = authenticationProvider.id
+            activatedAt = authenticationProvider.activatedAt
             active = authenticationProvider.active
             createdAt = authenticationProvider.createdAt
             name = authenticationProvider.name
@@ -263,6 +287,20 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** ISO 8601 formatted date indicating when the authentication provider was activated. */
+        fun activatedAt(activatedAt: OffsetDateTime) = activatedAt(JsonField.of(activatedAt))
+
+        /**
+         * Sets [Builder.activatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.activatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun activatedAt(activatedAt: JsonField<OffsetDateTime>) = apply {
+            this.activatedAt = activatedAt
+        }
 
         /** The active status of the authentication provider */
         fun active(active: Boolean) = active(JsonField.of(active))
@@ -390,6 +428,7 @@ private constructor(
         fun build(): AuthenticationProvider =
             AuthenticationProvider(
                 id,
+                activatedAt,
                 active,
                 createdAt,
                 name,
@@ -410,6 +449,7 @@ private constructor(
         }
 
         id()
+        activatedAt()
         active()
         createdAt()
         name()
@@ -437,6 +477,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
+            (if (activatedAt.asKnown().isPresent) 1 else 0) +
             (if (active.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
@@ -451,12 +492,17 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val assertionConsumerServiceUrl: JsonField<String>,
+        private val idpAttributeNames: JsonValue,
         private val idpCertFingerprint: JsonField<String>,
         private val idpCertFingerprintAlgorithm: JsonField<IdpCertFingerprintAlgorithm>,
+        private val idpCertificate: JsonField<String>,
         private val idpEntityId: JsonField<String>,
+        private val idpSloTargetUrl: JsonField<String>,
         private val idpSsoTargetUrl: JsonField<String>,
         private val nameIdentifierFormat: JsonField<String>,
+        private val provisionGroups: JsonField<Boolean>,
         private val serviceProviderEntityId: JsonField<String>,
+        private val serviceProviderLoginUrl: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -465,32 +511,52 @@ private constructor(
             @JsonProperty("assertion_consumer_service_url")
             @ExcludeMissing
             assertionConsumerServiceUrl: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("idp_attribute_names")
+            @ExcludeMissing
+            idpAttributeNames: JsonValue = JsonMissing.of(),
             @JsonProperty("idp_cert_fingerprint")
             @ExcludeMissing
             idpCertFingerprint: JsonField<String> = JsonMissing.of(),
             @JsonProperty("idp_cert_fingerprint_algorithm")
             @ExcludeMissing
             idpCertFingerprintAlgorithm: JsonField<IdpCertFingerprintAlgorithm> = JsonMissing.of(),
+            @JsonProperty("idp_certificate")
+            @ExcludeMissing
+            idpCertificate: JsonField<String> = JsonMissing.of(),
             @JsonProperty("idp_entity_id")
             @ExcludeMissing
             idpEntityId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("idp_slo_target_url")
+            @ExcludeMissing
+            idpSloTargetUrl: JsonField<String> = JsonMissing.of(),
             @JsonProperty("idp_sso_target_url")
             @ExcludeMissing
             idpSsoTargetUrl: JsonField<String> = JsonMissing.of(),
             @JsonProperty("name_identifier_format")
             @ExcludeMissing
             nameIdentifierFormat: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("provision_groups")
+            @ExcludeMissing
+            provisionGroups: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("service_provider_entity_id")
             @ExcludeMissing
             serviceProviderEntityId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("service_provider_login_url")
+            @ExcludeMissing
+            serviceProviderLoginUrl: JsonField<String> = JsonMissing.of(),
         ) : this(
             assertionConsumerServiceUrl,
+            idpAttributeNames,
             idpCertFingerprint,
             idpCertFingerprintAlgorithm,
+            idpCertificate,
             idpEntityId,
+            idpSloTargetUrl,
             idpSsoTargetUrl,
             nameIdentifierFormat,
+            provisionGroups,
             serviceProviderEntityId,
+            serviceProviderLoginUrl,
             mutableMapOf(),
         )
 
@@ -502,6 +568,18 @@ private constructor(
          */
         fun assertionConsumerServiceUrl(): Optional<String> =
             assertionConsumerServiceUrl.getOptional("assertion_consumer_service_url")
+
+        /**
+         * Mapping of SAML attribute names used by the identity provider (IdP).
+         *
+         * This arbitrary value can be deserialized into a custom type using the `convert` method:
+         * ```java
+         * MyClass myObject = settings.idpAttributeNames().convert(MyClass.class);
+         * ```
+         */
+        @JsonProperty("idp_attribute_names")
+        @ExcludeMissing
+        fun _idpAttributeNames(): JsonValue = idpAttributeNames
 
         /**
          * The certificate fingerprint for the identity provider (IdP)
@@ -522,12 +600,28 @@ private constructor(
             idpCertFingerprintAlgorithm.getOptional("idp_cert_fingerprint_algorithm")
 
         /**
+         * The full X.509 certificate for the identity provider (IdP).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun idpCertificate(): Optional<String> = idpCertificate.getOptional("idp_certificate")
+
+        /**
          * The Entity ID for the identity provider (IdP).
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun idpEntityId(): Optional<String> = idpEntityId.getOptional("idp_entity_id")
+
+        /**
+         * The Single Logout (SLO) target URL for the identity provider (IdP).
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun idpSloTargetUrl(): Optional<String> = idpSloTargetUrl.getOptional("idp_slo_target_url")
 
         /**
          * The SSO target url for the identity provider (IdP).
@@ -548,6 +642,14 @@ private constructor(
             nameIdentifierFormat.getOptional("name_identifier_format")
 
         /**
+         * Whether group provisioning is enabled for this authentication provider.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun provisionGroups(): Optional<Boolean> = provisionGroups.getOptional("provision_groups")
+
+        /**
          * The Entity ID for the service provider (Telnyx).
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -555,6 +657,16 @@ private constructor(
          */
         fun serviceProviderEntityId(): Optional<String> =
             serviceProviderEntityId.getOptional("service_provider_entity_id")
+
+        /**
+         * The login URL for the service provider (Telnyx). Users navigate to this URL to initiate
+         * SSO login.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun serviceProviderLoginUrl(): Optional<String> =
+            serviceProviderLoginUrl.getOptional("service_provider_login_url")
 
         /**
          * Returns the raw JSON value of [assertionConsumerServiceUrl].
@@ -588,6 +700,16 @@ private constructor(
             idpCertFingerprintAlgorithm
 
         /**
+         * Returns the raw JSON value of [idpCertificate].
+         *
+         * Unlike [idpCertificate], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("idp_certificate")
+        @ExcludeMissing
+        fun _idpCertificate(): JsonField<String> = idpCertificate
+
+        /**
          * Returns the raw JSON value of [idpEntityId].
          *
          * Unlike [idpEntityId], this method doesn't throw if the JSON field has an unexpected type.
@@ -595,6 +717,16 @@ private constructor(
         @JsonProperty("idp_entity_id")
         @ExcludeMissing
         fun _idpEntityId(): JsonField<String> = idpEntityId
+
+        /**
+         * Returns the raw JSON value of [idpSloTargetUrl].
+         *
+         * Unlike [idpSloTargetUrl], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("idp_slo_target_url")
+        @ExcludeMissing
+        fun _idpSloTargetUrl(): JsonField<String> = idpSloTargetUrl
 
         /**
          * Returns the raw JSON value of [idpSsoTargetUrl].
@@ -617,6 +749,16 @@ private constructor(
         fun _nameIdentifierFormat(): JsonField<String> = nameIdentifierFormat
 
         /**
+         * Returns the raw JSON value of [provisionGroups].
+         *
+         * Unlike [provisionGroups], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("provision_groups")
+        @ExcludeMissing
+        fun _provisionGroups(): JsonField<Boolean> = provisionGroups
+
+        /**
          * Returns the raw JSON value of [serviceProviderEntityId].
          *
          * Unlike [serviceProviderEntityId], this method doesn't throw if the JSON field has an
@@ -625,6 +767,16 @@ private constructor(
         @JsonProperty("service_provider_entity_id")
         @ExcludeMissing
         fun _serviceProviderEntityId(): JsonField<String> = serviceProviderEntityId
+
+        /**
+         * Returns the raw JSON value of [serviceProviderLoginUrl].
+         *
+         * Unlike [serviceProviderLoginUrl], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("service_provider_login_url")
+        @ExcludeMissing
+        fun _serviceProviderLoginUrl(): JsonField<String> = serviceProviderLoginUrl
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -648,24 +800,34 @@ private constructor(
         class Builder internal constructor() {
 
             private var assertionConsumerServiceUrl: JsonField<String> = JsonMissing.of()
+            private var idpAttributeNames: JsonValue = JsonMissing.of()
             private var idpCertFingerprint: JsonField<String> = JsonMissing.of()
             private var idpCertFingerprintAlgorithm: JsonField<IdpCertFingerprintAlgorithm> =
                 JsonMissing.of()
+            private var idpCertificate: JsonField<String> = JsonMissing.of()
             private var idpEntityId: JsonField<String> = JsonMissing.of()
+            private var idpSloTargetUrl: JsonField<String> = JsonMissing.of()
             private var idpSsoTargetUrl: JsonField<String> = JsonMissing.of()
             private var nameIdentifierFormat: JsonField<String> = JsonMissing.of()
+            private var provisionGroups: JsonField<Boolean> = JsonMissing.of()
             private var serviceProviderEntityId: JsonField<String> = JsonMissing.of()
+            private var serviceProviderLoginUrl: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(settings: Settings) = apply {
                 assertionConsumerServiceUrl = settings.assertionConsumerServiceUrl
+                idpAttributeNames = settings.idpAttributeNames
                 idpCertFingerprint = settings.idpCertFingerprint
                 idpCertFingerprintAlgorithm = settings.idpCertFingerprintAlgorithm
+                idpCertificate = settings.idpCertificate
                 idpEntityId = settings.idpEntityId
+                idpSloTargetUrl = settings.idpSloTargetUrl
                 idpSsoTargetUrl = settings.idpSsoTargetUrl
                 nameIdentifierFormat = settings.nameIdentifierFormat
+                provisionGroups = settings.provisionGroups
                 serviceProviderEntityId = settings.serviceProviderEntityId
+                serviceProviderLoginUrl = settings.serviceProviderLoginUrl
                 additionalProperties = settings.additionalProperties.toMutableMap()
             }
 
@@ -684,6 +846,11 @@ private constructor(
                 apply {
                     this.assertionConsumerServiceUrl = assertionConsumerServiceUrl
                 }
+
+            /** Mapping of SAML attribute names used by the identity provider (IdP). */
+            fun idpAttributeNames(idpAttributeNames: JsonValue) = apply {
+                this.idpAttributeNames = idpAttributeNames
+            }
 
             /** The certificate fingerprint for the identity provider (IdP) */
             fun idpCertFingerprint(idpCertFingerprint: String) =
@@ -718,6 +885,21 @@ private constructor(
                 idpCertFingerprintAlgorithm: JsonField<IdpCertFingerprintAlgorithm>
             ) = apply { this.idpCertFingerprintAlgorithm = idpCertFingerprintAlgorithm }
 
+            /** The full X.509 certificate for the identity provider (IdP). */
+            fun idpCertificate(idpCertificate: String) =
+                idpCertificate(JsonField.of(idpCertificate))
+
+            /**
+             * Sets [Builder.idpCertificate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.idpCertificate] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun idpCertificate(idpCertificate: JsonField<String>) = apply {
+                this.idpCertificate = idpCertificate
+            }
+
             /** The Entity ID for the identity provider (IdP). */
             fun idpEntityId(idpEntityId: String) = idpEntityId(JsonField.of(idpEntityId))
 
@@ -730,6 +912,21 @@ private constructor(
              */
             fun idpEntityId(idpEntityId: JsonField<String>) = apply {
                 this.idpEntityId = idpEntityId
+            }
+
+            /** The Single Logout (SLO) target URL for the identity provider (IdP). */
+            fun idpSloTargetUrl(idpSloTargetUrl: String) =
+                idpSloTargetUrl(JsonField.of(idpSloTargetUrl))
+
+            /**
+             * Sets [Builder.idpSloTargetUrl] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.idpSloTargetUrl] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun idpSloTargetUrl(idpSloTargetUrl: JsonField<String>) = apply {
+                this.idpSloTargetUrl = idpSloTargetUrl
             }
 
             /** The SSO target url for the identity provider (IdP). */
@@ -765,6 +962,21 @@ private constructor(
                 this.nameIdentifierFormat = nameIdentifierFormat
             }
 
+            /** Whether group provisioning is enabled for this authentication provider. */
+            fun provisionGroups(provisionGroups: Boolean) =
+                provisionGroups(JsonField.of(provisionGroups))
+
+            /**
+             * Sets [Builder.provisionGroups] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.provisionGroups] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun provisionGroups(provisionGroups: JsonField<Boolean>) = apply {
+                this.provisionGroups = provisionGroups
+            }
+
             /** The Entity ID for the service provider (Telnyx). */
             fun serviceProviderEntityId(serviceProviderEntityId: String) =
                 serviceProviderEntityId(JsonField.of(serviceProviderEntityId))
@@ -778,6 +990,24 @@ private constructor(
              */
             fun serviceProviderEntityId(serviceProviderEntityId: JsonField<String>) = apply {
                 this.serviceProviderEntityId = serviceProviderEntityId
+            }
+
+            /**
+             * The login URL for the service provider (Telnyx). Users navigate to this URL to
+             * initiate SSO login.
+             */
+            fun serviceProviderLoginUrl(serviceProviderLoginUrl: String) =
+                serviceProviderLoginUrl(JsonField.of(serviceProviderLoginUrl))
+
+            /**
+             * Sets [Builder.serviceProviderLoginUrl] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.serviceProviderLoginUrl] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun serviceProviderLoginUrl(serviceProviderLoginUrl: JsonField<String>) = apply {
+                this.serviceProviderLoginUrl = serviceProviderLoginUrl
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -807,12 +1037,17 @@ private constructor(
             fun build(): Settings =
                 Settings(
                     assertionConsumerServiceUrl,
+                    idpAttributeNames,
                     idpCertFingerprint,
                     idpCertFingerprintAlgorithm,
+                    idpCertificate,
                     idpEntityId,
+                    idpSloTargetUrl,
                     idpSsoTargetUrl,
                     nameIdentifierFormat,
+                    provisionGroups,
                     serviceProviderEntityId,
+                    serviceProviderLoginUrl,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -827,10 +1062,14 @@ private constructor(
             assertionConsumerServiceUrl()
             idpCertFingerprint()
             idpCertFingerprintAlgorithm().ifPresent { it.validate() }
+            idpCertificate()
             idpEntityId()
+            idpSloTargetUrl()
             idpSsoTargetUrl()
             nameIdentifierFormat()
+            provisionGroups()
             serviceProviderEntityId()
+            serviceProviderLoginUrl()
             validated = true
         }
 
@@ -853,10 +1092,14 @@ private constructor(
             (if (assertionConsumerServiceUrl.asKnown().isPresent) 1 else 0) +
                 (if (idpCertFingerprint.asKnown().isPresent) 1 else 0) +
                 (idpCertFingerprintAlgorithm.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (idpCertificate.asKnown().isPresent) 1 else 0) +
                 (if (idpEntityId.asKnown().isPresent) 1 else 0) +
+                (if (idpSloTargetUrl.asKnown().isPresent) 1 else 0) +
                 (if (idpSsoTargetUrl.asKnown().isPresent) 1 else 0) +
                 (if (nameIdentifierFormat.asKnown().isPresent) 1 else 0) +
-                (if (serviceProviderEntityId.asKnown().isPresent) 1 else 0)
+                (if (provisionGroups.asKnown().isPresent) 1 else 0) +
+                (if (serviceProviderEntityId.asKnown().isPresent) 1 else 0) +
+                (if (serviceProviderLoginUrl.asKnown().isPresent) 1 else 0)
 
         /** The algorithm used to generate the identity provider's (IdP) certificate fingerprint */
         class IdpCertFingerprintAlgorithm
@@ -1015,24 +1258,34 @@ private constructor(
 
             return other is Settings &&
                 assertionConsumerServiceUrl == other.assertionConsumerServiceUrl &&
+                idpAttributeNames == other.idpAttributeNames &&
                 idpCertFingerprint == other.idpCertFingerprint &&
                 idpCertFingerprintAlgorithm == other.idpCertFingerprintAlgorithm &&
+                idpCertificate == other.idpCertificate &&
                 idpEntityId == other.idpEntityId &&
+                idpSloTargetUrl == other.idpSloTargetUrl &&
                 idpSsoTargetUrl == other.idpSsoTargetUrl &&
                 nameIdentifierFormat == other.nameIdentifierFormat &&
+                provisionGroups == other.provisionGroups &&
                 serviceProviderEntityId == other.serviceProviderEntityId &&
+                serviceProviderLoginUrl == other.serviceProviderLoginUrl &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
             Objects.hash(
                 assertionConsumerServiceUrl,
+                idpAttributeNames,
                 idpCertFingerprint,
                 idpCertFingerprintAlgorithm,
+                idpCertificate,
                 idpEntityId,
+                idpSloTargetUrl,
                 idpSsoTargetUrl,
                 nameIdentifierFormat,
+                provisionGroups,
                 serviceProviderEntityId,
+                serviceProviderLoginUrl,
                 additionalProperties,
             )
         }
@@ -1040,7 +1293,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Settings{assertionConsumerServiceUrl=$assertionConsumerServiceUrl, idpCertFingerprint=$idpCertFingerprint, idpCertFingerprintAlgorithm=$idpCertFingerprintAlgorithm, idpEntityId=$idpEntityId, idpSsoTargetUrl=$idpSsoTargetUrl, nameIdentifierFormat=$nameIdentifierFormat, serviceProviderEntityId=$serviceProviderEntityId, additionalProperties=$additionalProperties}"
+            "Settings{assertionConsumerServiceUrl=$assertionConsumerServiceUrl, idpAttributeNames=$idpAttributeNames, idpCertFingerprint=$idpCertFingerprint, idpCertFingerprintAlgorithm=$idpCertFingerprintAlgorithm, idpCertificate=$idpCertificate, idpEntityId=$idpEntityId, idpSloTargetUrl=$idpSloTargetUrl, idpSsoTargetUrl=$idpSsoTargetUrl, nameIdentifierFormat=$nameIdentifierFormat, provisionGroups=$provisionGroups, serviceProviderEntityId=$serviceProviderEntityId, serviceProviderLoginUrl=$serviceProviderLoginUrl, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -1050,6 +1303,7 @@ private constructor(
 
         return other is AuthenticationProvider &&
             id == other.id &&
+            activatedAt == other.activatedAt &&
             active == other.active &&
             createdAt == other.createdAt &&
             name == other.name &&
@@ -1064,6 +1318,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            activatedAt,
             active,
             createdAt,
             name,
@@ -1079,5 +1334,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AuthenticationProvider{id=$id, active=$active, createdAt=$createdAt, name=$name, organizationId=$organizationId, recordType=$recordType, settings=$settings, shortName=$shortName, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "AuthenticationProvider{id=$id, activatedAt=$activatedAt, active=$active, createdAt=$createdAt, name=$name, organizationId=$organizationId, recordType=$recordType, settings=$settings, shortName=$shortName, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

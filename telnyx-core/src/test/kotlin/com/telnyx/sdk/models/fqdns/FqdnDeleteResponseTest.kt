@@ -15,7 +15,7 @@ internal class FqdnDeleteResponseTest {
             FqdnDeleteResponse.builder()
                 .data(
                     Fqdn.builder()
-                        .id("1293384261075731499")
+                        .id("id")
                         .connectionId("1516447646313612565")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .dnsRecordType("a")
@@ -30,7 +30,7 @@ internal class FqdnDeleteResponseTest {
         assertThat(fqdnDeleteResponse.data())
             .contains(
                 Fqdn.builder()
-                    .id("1293384261075731499")
+                    .id("id")
                     .connectionId("1516447646313612565")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .dnsRecordType("a")
@@ -49,7 +49,7 @@ internal class FqdnDeleteResponseTest {
             FqdnDeleteResponse.builder()
                 .data(
                     Fqdn.builder()
-                        .id("1293384261075731499")
+                        .id("id")
                         .connectionId("1516447646313612565")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .dnsRecordType("a")

@@ -14,7 +14,7 @@ internal class ApiErrorTest {
     fun create() {
         val apiError =
             ApiError.builder()
-                .code("20207")
+                .code("code")
                 .title("Invalid street address")
                 .detail("detail")
                 .meta(
@@ -30,7 +30,7 @@ internal class ApiErrorTest {
                 )
                 .build()
 
-        assertThat(apiError.code()).isEqualTo("20207")
+        assertThat(apiError.code()).isEqualTo("code")
         assertThat(apiError.title()).isEqualTo("Invalid street address")
         assertThat(apiError.detail()).contains("detail")
         assertThat(apiError.meta())
@@ -48,7 +48,7 @@ internal class ApiErrorTest {
         val jsonMapper = jsonMapper()
         val apiError =
             ApiError.builder()
-                .code("20207")
+                .code("code")
                 .title("Invalid street address")
                 .detail("detail")
                 .meta(
