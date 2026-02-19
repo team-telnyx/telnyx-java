@@ -16,6 +16,7 @@ internal class DeepgramNova3ConfigTest {
             DeepgramNova3Config.builder()
                 .transcriptionEngine(DeepgramNova3Config.TranscriptionEngine.DEEPGRAM)
                 .transcriptionModel(DeepgramNova3Config.TranscriptionModel.DEEPGRAM_NOVA_3)
+                .interimResults(true)
                 .keywordsBoosting(
                     DeepgramNova3Config.KeywordsBoosting.builder()
                         .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
@@ -24,12 +25,14 @@ internal class DeepgramNova3ConfigTest {
                         .build()
                 )
                 .language(DeepgramNova3Config.Language.EN_US)
+                .utteranceEndMs(800L)
                 .build()
 
         assertThat(deepgramNova3Config.transcriptionEngine())
             .isEqualTo(DeepgramNova3Config.TranscriptionEngine.DEEPGRAM)
         assertThat(deepgramNova3Config.transcriptionModel())
             .isEqualTo(DeepgramNova3Config.TranscriptionModel.DEEPGRAM_NOVA_3)
+        assertThat(deepgramNova3Config.interimResults()).contains(true)
         assertThat(deepgramNova3Config.keywordsBoosting())
             .contains(
                 DeepgramNova3Config.KeywordsBoosting.builder()
@@ -39,6 +42,7 @@ internal class DeepgramNova3ConfigTest {
                     .build()
             )
         assertThat(deepgramNova3Config.language()).contains(DeepgramNova3Config.Language.EN_US)
+        assertThat(deepgramNova3Config.utteranceEndMs()).contains(800L)
     }
 
     @Test
@@ -48,6 +52,7 @@ internal class DeepgramNova3ConfigTest {
             DeepgramNova3Config.builder()
                 .transcriptionEngine(DeepgramNova3Config.TranscriptionEngine.DEEPGRAM)
                 .transcriptionModel(DeepgramNova3Config.TranscriptionModel.DEEPGRAM_NOVA_3)
+                .interimResults(true)
                 .keywordsBoosting(
                     DeepgramNova3Config.KeywordsBoosting.builder()
                         .putAdditionalProperty("snuffleupagus", JsonValue.from(5))
@@ -56,6 +61,7 @@ internal class DeepgramNova3ConfigTest {
                         .build()
                 )
                 .language(DeepgramNova3Config.Language.EN_US)
+                .utteranceEndMs(800L)
                 .build()
 
         val roundtrippedDeepgramNova3Config =

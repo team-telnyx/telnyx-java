@@ -16,7 +16,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class ActionEndConferenceResponse
+class ActionEndResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<ConferenceCommandResult>,
@@ -57,22 +57,20 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [ActionEndConferenceResponse].
-         */
+        /** Returns a mutable builder for constructing an instance of [ActionEndResponse]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [ActionEndConferenceResponse]. */
+    /** A builder for [ActionEndResponse]. */
     class Builder internal constructor() {
 
         private var data: JsonField<ConferenceCommandResult> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(actionEndConferenceResponse: ActionEndConferenceResponse) = apply {
-            data = actionEndConferenceResponse.data
-            additionalProperties = actionEndConferenceResponse.additionalProperties.toMutableMap()
+        internal fun from(actionEndResponse: ActionEndResponse) = apply {
+            data = actionEndResponse.data
+            additionalProperties = actionEndResponse.additionalProperties.toMutableMap()
         }
 
         fun data(data: ConferenceCommandResult) = data(JsonField.of(data))
@@ -106,17 +104,17 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [ActionEndConferenceResponse].
+         * Returns an immutable instance of [ActionEndResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): ActionEndConferenceResponse =
-            ActionEndConferenceResponse(data, additionalProperties.toMutableMap())
+        fun build(): ActionEndResponse =
+            ActionEndResponse(data, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
 
-    fun validate(): ActionEndConferenceResponse = apply {
+    fun validate(): ActionEndResponse = apply {
         if (validated) {
             return@apply
         }
@@ -145,7 +143,7 @@ private constructor(
             return true
         }
 
-        return other is ActionEndConferenceResponse &&
+        return other is ActionEndResponse &&
             data == other.data &&
             additionalProperties == other.additionalProperties
     }
@@ -155,5 +153,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ActionEndConferenceResponse{data=$data, additionalProperties=$additionalProperties}"
+        "ActionEndResponse{data=$data, additionalProperties=$additionalProperties}"
 }
