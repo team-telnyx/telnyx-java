@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking.bundlepricing
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleCreateParams
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleDeactivateParams
@@ -11,19 +10,13 @@ import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleListUnusedParam
 import com.telnyx.sdk.models.bundlepricing.userbundles.UserBundleRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class UserBundleServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val userBundleService = client.bundlePricing().userBundles()
 
         val userBundle =
@@ -46,11 +39,7 @@ internal class UserBundleServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val userBundleService = client.bundlePricing().userBundles()
 
         val userBundle =
@@ -67,11 +56,7 @@ internal class UserBundleServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val userBundleService = client.bundlePricing().userBundles()
 
         val page = userBundleService.list()
@@ -82,11 +67,7 @@ internal class UserBundleServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun deactivate() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val userBundleService = client.bundlePricing().userBundles()
 
         val response =
@@ -103,11 +84,7 @@ internal class UserBundleServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun listResources() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val userBundleService = client.bundlePricing().userBundles()
 
         val response =
@@ -124,11 +101,7 @@ internal class UserBundleServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun listUnused() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val userBundleService = client.bundlePricing().userBundles()
 
         val response =

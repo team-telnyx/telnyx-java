@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.blocking.phonenumbers
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.phonenumbers.actions.ActionChangeBundleStatusParams
 import com.telnyx.sdk.models.phonenumbers.actions.ActionEnableEmergencyParams
 import com.telnyx.sdk.models.phonenumbers.actions.ActionVerifyOwnershipParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ActionServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun changeBundleStatus() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.phoneNumbers().actions()
 
         val response =
@@ -38,11 +31,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun enableEmergency() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.phoneNumbers().actions()
 
         val response =
@@ -60,11 +49,7 @@ internal class ActionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun verifyOwnership() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val actionService = client.phoneNumbers().actions()
 
         val response =

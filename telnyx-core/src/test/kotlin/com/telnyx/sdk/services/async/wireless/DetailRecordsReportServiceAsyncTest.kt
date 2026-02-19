@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.async.wireless
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.wireless.detailrecordsreports.DetailRecordsReportCreateParams
 import com.telnyx.sdk.models.wireless.detailrecordsreports.DetailRecordsReportListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class DetailRecordsReportServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val detailRecordsReportServiceAsync = client.wireless().detailRecordsReports()
 
         val detailRecordsReportFuture =
@@ -38,11 +31,7 @@ internal class DetailRecordsReportServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val detailRecordsReportServiceAsync = client.wireless().detailRecordsReports()
 
         val detailRecordsReportFuture =
@@ -55,11 +44,7 @@ internal class DetailRecordsReportServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val detailRecordsReportServiceAsync = client.wireless().detailRecordsReports()
 
         val detailRecordsReportsFuture =
@@ -74,11 +59,7 @@ internal class DetailRecordsReportServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val detailRecordsReportServiceAsync = client.wireless().detailRecordsReports()
 
         val detailRecordsReportFuture =

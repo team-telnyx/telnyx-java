@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.blocking.texml
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.texml.accounts.AccountRetrieveRecordingsJsonParams
 import com.telnyx.sdk.models.texml.accounts.AccountRetrieveTranscriptionsJsonParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class AccountServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveRecordingsJson() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val accountService = client.texml().accounts()
 
         val response =
@@ -40,11 +33,7 @@ internal class AccountServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveTranscriptionsJson() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val accountService = client.texml().accounts()
 
         val response =

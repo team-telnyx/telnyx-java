@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ConnectionJitterBuffer
 import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
@@ -18,19 +17,13 @@ import com.telnyx.sdk.models.fqdnconnections.TransportProtocol
 import com.telnyx.sdk.models.fqdnconnections.WebhookApiVersion
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class FqdnConnectionServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val fqdnConnectionService = client.fqdnConnections()
 
         val fqdnConnection =
@@ -130,11 +123,7 @@ internal class FqdnConnectionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val fqdnConnectionService = client.fqdnConnections()
 
         val fqdnConnection = fqdnConnectionService.retrieve("id")
@@ -145,11 +134,7 @@ internal class FqdnConnectionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val fqdnConnectionService = client.fqdnConnections()
 
         val fqdnConnection =
@@ -249,11 +234,7 @@ internal class FqdnConnectionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val fqdnConnectionService = client.fqdnConnections()
 
         val page = fqdnConnectionService.list()
@@ -264,11 +245,7 @@ internal class FqdnConnectionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val fqdnConnectionService = client.fqdnConnections()
 
         val fqdnConnection = fqdnConnectionService.delete("id")

@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.blocking.ai.assistants.tests
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ai.assistants.tests.runs.RunRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.tests.runs.RunTriggerParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class RunServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().assistants().tests().runs()
 
         val testRunResponse =
@@ -34,11 +27,7 @@ internal class RunServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().assistants().tests().runs()
 
         val page = runService.list("test_id")
@@ -49,11 +38,7 @@ internal class RunServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun trigger() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val runService = client.ai().assistants().tests().runs()
 
         val testRunResponse =

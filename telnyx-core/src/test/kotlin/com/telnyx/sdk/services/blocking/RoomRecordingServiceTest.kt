@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.blocking
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingDeleteBulkParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class RoomRecordingServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val roomRecordingService = client.roomRecordings()
 
         val roomRecording = roomRecordingService.retrieve("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
@@ -31,11 +24,7 @@ internal class RoomRecordingServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val roomRecordingService = client.roomRecordings()
 
         val page = roomRecordingService.list()
@@ -46,11 +35,7 @@ internal class RoomRecordingServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val roomRecordingService = client.roomRecordings()
 
         roomRecordingService.delete("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
@@ -59,11 +44,7 @@ internal class RoomRecordingServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun deleteBulk() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val roomRecordingService = client.roomRecordings()
 
         val response =

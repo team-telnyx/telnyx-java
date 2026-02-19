@@ -8,7 +8,6 @@ import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.portingorders.PortingOrderCreateParams
 import com.telnyx.sdk.models.portingorders.PortingOrderDocuments
@@ -26,10 +25,8 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.parallel.ResourceLock
 
-@ExtendWith(TestServerExtension::class)
 @WireMockTest
 @ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class PortingOrderServiceTest {
@@ -37,11 +34,7 @@ internal class PortingOrderServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val portingOrderService = client.portingOrders()
 
         val portingOrder =
@@ -59,11 +52,7 @@ internal class PortingOrderServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val portingOrderService = client.portingOrders()
 
         val portingOrder =
@@ -80,11 +69,7 @@ internal class PortingOrderServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val portingOrderService = client.portingOrders()
 
         val portingOrder =
@@ -174,11 +159,7 @@ internal class PortingOrderServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val portingOrderService = client.portingOrders()
 
         val page = portingOrderService.list()
@@ -189,11 +170,7 @@ internal class PortingOrderServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val portingOrderService = client.portingOrders()
 
         portingOrderService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -202,11 +179,7 @@ internal class PortingOrderServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveAllowedFocWindows() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val portingOrderService = client.portingOrders()
 
         val response =
@@ -218,11 +191,7 @@ internal class PortingOrderServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveExceptionTypes() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val portingOrderService = client.portingOrders()
 
         val response = portingOrderService.retrieveExceptionTypes()
@@ -254,11 +223,7 @@ internal class PortingOrderServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveRequirements() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val portingOrderService = client.portingOrders()
 
         val page = portingOrderService.retrieveRequirements("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -269,11 +234,7 @@ internal class PortingOrderServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveSubRequest() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val portingOrderService = client.portingOrders()
 
         val response =

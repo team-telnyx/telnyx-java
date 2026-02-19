@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.messages.MessageScheduleParams
 import com.telnyx.sdk.models.messages.MessageSendGroupMmsParams
@@ -15,19 +14,13 @@ import com.telnyx.sdk.models.messages.WhatsappMedia
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class MessageServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messageService = client.messages()
 
         val message = messageService.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -38,11 +31,7 @@ internal class MessageServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun cancelScheduled() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messageService = client.messages()
 
         val response = messageService.cancelScheduled("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -53,11 +42,7 @@ internal class MessageServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun schedule() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messageService = client.messages()
 
         val response =
@@ -84,11 +69,7 @@ internal class MessageServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun send() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messageService = client.messages()
 
         val response =
@@ -116,11 +97,7 @@ internal class MessageServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun sendGroupMms() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messageService = client.messages()
 
         val response =
@@ -144,11 +121,7 @@ internal class MessageServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun sendLongCode() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messageService = client.messages()
 
         val response =
@@ -174,11 +147,7 @@ internal class MessageServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun sendNumberPool() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messageService = client.messages()
 
         val response =
@@ -204,11 +173,7 @@ internal class MessageServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun sendShortCode() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messageService = client.messages()
 
         val response =
@@ -234,11 +199,7 @@ internal class MessageServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun sendWhatsapp() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messageService = client.messages()
 
         val response =

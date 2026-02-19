@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.blocking.externalconnections
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.externalconnections.uploads.UploadCreateParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadRetrieveParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadRetryParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class UploadServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val uploadService = client.externalConnections().uploads()
 
         val upload =
@@ -49,11 +42,7 @@ internal class UploadServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val uploadService = client.externalConnections().uploads()
 
         val upload =
@@ -70,11 +59,7 @@ internal class UploadServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val uploadService = client.externalConnections().uploads()
 
         val page = uploadService.list("id")
@@ -85,11 +70,7 @@ internal class UploadServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun pendingCount() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val uploadService = client.externalConnections().uploads()
 
         val response = uploadService.pendingCount("id")
@@ -100,11 +81,7 @@ internal class UploadServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun refreshStatus() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val uploadService = client.externalConnections().uploads()
 
         val response = uploadService.refreshStatus("id")
@@ -115,11 +92,7 @@ internal class UploadServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retry() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val uploadService = client.externalConnections().uploads()
 
         val response =

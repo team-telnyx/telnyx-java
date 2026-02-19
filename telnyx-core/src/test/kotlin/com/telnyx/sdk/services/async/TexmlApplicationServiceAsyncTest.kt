@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.credentialconnections.AnchorsiteOverride
 import com.telnyx.sdk.models.credentialconnections.DtmfType
@@ -10,19 +9,13 @@ import com.telnyx.sdk.models.texmlapplications.TexmlApplicationCreateParams
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class TexmlApplicationServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val texmlApplicationServiceAsync = client.texmlApplications()
 
         val texmlApplicationFuture =
@@ -69,11 +62,7 @@ internal class TexmlApplicationServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val texmlApplicationServiceAsync = client.texmlApplications()
 
         val texmlApplicationFuture = texmlApplicationServiceAsync.retrieve("1293384261075731499")
@@ -85,11 +74,7 @@ internal class TexmlApplicationServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val texmlApplicationServiceAsync = client.texmlApplications()
 
         val texmlApplicationFuture =
@@ -137,11 +122,7 @@ internal class TexmlApplicationServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val texmlApplicationServiceAsync = client.texmlApplications()
 
         val pageFuture = texmlApplicationServiceAsync.list()
@@ -153,11 +134,7 @@ internal class TexmlApplicationServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val texmlApplicationServiceAsync = client.texmlApplications()
 
         val texmlApplicationFuture = texmlApplicationServiceAsync.delete("1293384261075731499")

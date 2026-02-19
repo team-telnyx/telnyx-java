@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking.texml.accounts
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.texml.accounts.calls.CallCallsParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveCallsParams
@@ -13,19 +12,13 @@ import com.telnyx.sdk.models.texml.accounts.calls.CallUpdateParams
 import com.telnyx.sdk.models.texml.accounts.calls.UpdateCall
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class CallServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val callService = client.texml().accounts().calls()
 
         val call =
@@ -39,11 +32,7 @@ internal class CallServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val callService = client.texml().accounts().calls()
 
         val call =
@@ -74,11 +63,7 @@ internal class CallServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun calls() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val callService = client.texml().accounts().calls()
 
         val response =
@@ -143,11 +128,7 @@ internal class CallServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveCalls() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val callService = client.texml().accounts().calls()
 
         val response =
@@ -175,11 +156,7 @@ internal class CallServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun siprecJson() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val callService = client.texml().accounts().calls()
 
         val response =
@@ -207,11 +184,7 @@ internal class CallServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun streamsJson() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val callService = client.texml().accounts().calls()
 
         val response =

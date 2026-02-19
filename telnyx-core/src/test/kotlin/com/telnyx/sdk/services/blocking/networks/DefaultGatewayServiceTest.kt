@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.blocking.networks
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.networks.InterfaceStatus
 import com.telnyx.sdk.models.networks.defaultgateway.DefaultGatewayCreateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class DefaultGatewayServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val defaultGatewayService = client.networks().defaultGateway()
 
         val defaultGateway =
@@ -43,11 +36,7 @@ internal class DefaultGatewayServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val defaultGatewayService = client.networks().defaultGateway()
 
         val defaultGateway = defaultGatewayService.retrieve("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -58,11 +47,7 @@ internal class DefaultGatewayServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val defaultGatewayService = client.networks().defaultGateway()
 
         val defaultGateway = defaultGatewayService.delete("6a09cdc3-8948-47f0-aa62-74ac943d6c58")

@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.SimCardStatus
@@ -12,19 +11,13 @@ import com.telnyx.sdk.models.simcards.SimCardRetrieveParams
 import com.telnyx.sdk.models.simcards.SimCardUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class SimCardServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val simCardService = client.simCards()
 
         val simCard =
@@ -42,11 +35,7 @@ internal class SimCardServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val simCardService = client.simCards()
 
         val simCard =
@@ -130,11 +119,7 @@ internal class SimCardServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val simCardService = client.simCards()
 
         val page = simCardService.list()
@@ -145,11 +130,7 @@ internal class SimCardServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val simCardService = client.simCards()
 
         val simCard =
@@ -166,11 +147,7 @@ internal class SimCardServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getActivationCode() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val simCardService = client.simCards()
 
         val response = simCardService.getActivationCode("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -181,11 +158,7 @@ internal class SimCardServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getDeviceDetails() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val simCardService = client.simCards()
 
         val response = simCardService.getDeviceDetails("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -196,11 +169,7 @@ internal class SimCardServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getPublicIp() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val simCardService = client.simCards()
 
         val response = simCardService.getPublicIp("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -211,11 +180,7 @@ internal class SimCardServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun listWirelessConnectivityLogs() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val simCardService = client.simCards()
 
         val page =

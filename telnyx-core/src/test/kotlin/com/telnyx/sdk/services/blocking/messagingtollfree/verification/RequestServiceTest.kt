@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking.messagingtollfree.verification
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestUpdateParams
@@ -14,19 +13,13 @@ import com.telnyx.sdk.models.messagingtollfree.verification.requests.UseCaseCate
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.Volume
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class RequestServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requestService = client.messagingTollfree().verification().requests()
 
         val verificationRequestEgress =
@@ -88,11 +81,7 @@ internal class RequestServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requestService = client.messagingTollfree().verification().requests()
 
         val verificationRequestStatus =
@@ -104,11 +93,7 @@ internal class RequestServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requestService = client.messagingTollfree().verification().requests()
 
         val verificationRequestEgress =
@@ -179,11 +164,7 @@ internal class RequestServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requestService = client.messagingTollfree().verification().requests()
 
         val page = requestService.list(RequestListParams.builder().page(1L).pageSize(1L).build())
@@ -194,11 +175,7 @@ internal class RequestServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requestService = client.messagingTollfree().verification().requests()
 
         requestService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.async.ai.missions
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.ai.missions.tools.ToolDeleteToolParams
 import com.telnyx.sdk.models.ai.missions.tools.ToolGetToolParams
 import com.telnyx.sdk.models.ai.missions.tools.ToolUpdateToolParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ToolServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun createTool() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val toolServiceAsync = client.ai().missions().tools()
 
         val responseFuture = toolServiceAsync.createTool("mission_id")
@@ -33,11 +26,7 @@ internal class ToolServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun deleteTool() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val toolServiceAsync = client.ai().missions().tools()
 
         val future =
@@ -51,11 +40,7 @@ internal class ToolServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getTool() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val toolServiceAsync = client.ai().missions().tools()
 
         val responseFuture =
@@ -70,11 +55,7 @@ internal class ToolServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun listTools() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val toolServiceAsync = client.ai().missions().tools()
 
         val responseFuture = toolServiceAsync.listTools("mission_id")
@@ -86,11 +67,7 @@ internal class ToolServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun updateTool() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val toolServiceAsync = client.ai().missions().tools()
 
         val responseFuture =

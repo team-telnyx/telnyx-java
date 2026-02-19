@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
 package com.telnyx.sdk.services.blocking
-
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.UnwrapWebhookParams
 import com.telnyx.sdk.core.http.Headers
@@ -13,9 +11,7 @@ import java.time.Instant
 import java.util.Base64
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class WebhookServiceTest {
 
     private val keyPair = KeyPairGenerator.getInstance("Ed25519").generateKeyPair()

@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.async.ai.assistants.tests
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.ai.assistants.tests.runs.RunRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.tests.runs.RunTriggerParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class RunServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val runServiceAsync = client.ai().assistants().tests().runs()
 
         val testRunResponseFuture =
@@ -35,11 +28,7 @@ internal class RunServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val runServiceAsync = client.ai().assistants().tests().runs()
 
         val pageFuture = runServiceAsync.list("test_id")
@@ -51,11 +40,7 @@ internal class RunServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun trigger() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val runServiceAsync = client.ai().assistants().tests().runs()
 
         val testRunResponseFuture =

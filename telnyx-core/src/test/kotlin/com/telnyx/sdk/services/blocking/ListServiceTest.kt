@@ -2,23 +2,16 @@
 
 package com.telnyx.sdk.services.blocking
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ListServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveAll() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val listService = client.list()
 
         val response = listService.retrieveAll()
@@ -29,11 +22,7 @@ internal class ListServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveByZone() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val listService = client.list()
 
         val response = listService.retrieveByZone("channel_zone_id")

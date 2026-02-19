@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.async
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionCreateParams
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class MobileVoiceConnectionServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val mobileVoiceConnectionServiceAsync = client.mobileVoiceConnections()
 
         val mobileVoiceConnectionFuture =
@@ -52,11 +45,7 @@ internal class MobileVoiceConnectionServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val mobileVoiceConnectionServiceAsync = client.mobileVoiceConnections()
 
         val mobileVoiceConnectionFuture = mobileVoiceConnectionServiceAsync.retrieve("id")
@@ -68,11 +57,7 @@ internal class MobileVoiceConnectionServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val mobileVoiceConnectionServiceAsync = client.mobileVoiceConnections()
 
         val mobileVoiceConnectionFuture =
@@ -105,11 +90,7 @@ internal class MobileVoiceConnectionServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val mobileVoiceConnectionServiceAsync = client.mobileVoiceConnections()
 
         val pageFuture = mobileVoiceConnectionServiceAsync.list()
@@ -121,11 +102,7 @@ internal class MobileVoiceConnectionServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val mobileVoiceConnectionServiceAsync = client.mobileVoiceConnections()
 
         val mobileVoiceConnectionFuture = mobileVoiceConnectionServiceAsync.delete("id")

@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async.messaging10dlc
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.messaging10dlc.brand.AltBusinessIdType
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandCreateParams
@@ -16,19 +15,13 @@ import com.telnyx.sdk.models.messaging10dlc.brand.StockExchange
 import com.telnyx.sdk.models.messaging10dlc.brand.Vertical
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class BrandServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val brandServiceAsync = client.messaging10dlc().brand()
 
         val telnyxBrandFuture =
@@ -68,11 +61,7 @@ internal class BrandServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val brandServiceAsync = client.messaging10dlc().brand()
 
         val brandFuture = brandServiceAsync.retrieve("brandId")
@@ -84,11 +73,7 @@ internal class BrandServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val brandServiceAsync = client.messaging10dlc().brand()
 
         val telnyxBrandFuture =
@@ -130,11 +115,7 @@ internal class BrandServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val brandServiceAsync = client.messaging10dlc().brand()
 
         val pageFuture = brandServiceAsync.list()
@@ -146,11 +127,7 @@ internal class BrandServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val brandServiceAsync = client.messaging10dlc().brand()
 
         val future = brandServiceAsync.delete("brandId")
@@ -161,11 +138,7 @@ internal class BrandServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getFeedback() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val brandServiceAsync = client.messaging10dlc().brand()
 
         val responseFuture = brandServiceAsync.getFeedback("brandId")
@@ -177,11 +150,7 @@ internal class BrandServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getSmsOtpByReference() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val brandServiceAsync = client.messaging10dlc().brand()
 
         val responseFuture =
@@ -199,11 +168,7 @@ internal class BrandServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun resend2faEmail() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val brandServiceAsync = client.messaging10dlc().brand()
 
         val future = brandServiceAsync.resend2faEmail("brandId")
@@ -214,11 +179,7 @@ internal class BrandServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveSmsOtpStatus() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val brandServiceAsync = client.messaging10dlc().brand()
 
         val responseFuture =
@@ -231,11 +192,7 @@ internal class BrandServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun revet() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val brandServiceAsync = client.messaging10dlc().brand()
 
         val telnyxBrandFuture = brandServiceAsync.revet("brandId")
@@ -247,11 +204,7 @@ internal class BrandServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun triggerSmsOtp() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val brandServiceAsync = client.messaging10dlc().brand()
 
         val responseFuture =
@@ -270,11 +223,7 @@ internal class BrandServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun verifySmsOtp() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val brandServiceAsync = client.messaging10dlc().brand()
 
         val future =

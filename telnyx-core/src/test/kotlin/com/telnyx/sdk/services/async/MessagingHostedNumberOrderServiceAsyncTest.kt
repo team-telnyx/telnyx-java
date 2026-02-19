@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderCheckEligibilityParams
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderCreateParams
@@ -10,19 +9,13 @@ import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOr
 import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOrderValidateCodesParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class MessagingHostedNumberOrderServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messagingHostedNumberOrderServiceAsync = client.messagingHostedNumberOrders()
 
         val messagingHostedNumberOrderFuture =
@@ -41,11 +34,7 @@ internal class MessagingHostedNumberOrderServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messagingHostedNumberOrderServiceAsync = client.messagingHostedNumberOrders()
 
         val messagingHostedNumberOrderFuture = messagingHostedNumberOrderServiceAsync.retrieve("id")
@@ -57,11 +46,7 @@ internal class MessagingHostedNumberOrderServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messagingHostedNumberOrderServiceAsync = client.messagingHostedNumberOrders()
 
         val pageFuture = messagingHostedNumberOrderServiceAsync.list()
@@ -73,11 +58,7 @@ internal class MessagingHostedNumberOrderServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messagingHostedNumberOrderServiceAsync = client.messagingHostedNumberOrders()
 
         val messagingHostedNumberOrderFuture = messagingHostedNumberOrderServiceAsync.delete("id")
@@ -89,11 +70,7 @@ internal class MessagingHostedNumberOrderServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun checkEligibility() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messagingHostedNumberOrderServiceAsync = client.messagingHostedNumberOrders()
 
         val responseFuture =
@@ -110,11 +87,7 @@ internal class MessagingHostedNumberOrderServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun createVerificationCodes() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messagingHostedNumberOrderServiceAsync = client.messagingHostedNumberOrders()
 
         val responseFuture =
@@ -136,11 +109,7 @@ internal class MessagingHostedNumberOrderServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun validateCodes() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messagingHostedNumberOrderServiceAsync = client.messagingHostedNumberOrders()
 
         val responseFuture =

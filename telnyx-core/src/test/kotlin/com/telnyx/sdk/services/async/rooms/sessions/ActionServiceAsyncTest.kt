@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async.rooms.sessions
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.rooms.sessions.actions.ActionKickParams
 import com.telnyx.sdk.models.rooms.sessions.actions.ActionMuteParams
@@ -10,19 +9,13 @@ import com.telnyx.sdk.models.rooms.sessions.actions.ActionUnmuteParams
 import com.telnyx.sdk.models.rooms.sessions.actions.ActionsParticipantsRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ActionServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun end() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val actionServiceAsync = client.rooms().sessions().actions()
 
         val responseFuture = actionServiceAsync.end("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
@@ -34,11 +27,7 @@ internal class ActionServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun kick() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val actionServiceAsync = client.rooms().sessions().actions()
 
         val responseFuture =
@@ -63,11 +52,7 @@ internal class ActionServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun mute() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val actionServiceAsync = client.rooms().sessions().actions()
 
         val responseFuture =
@@ -92,11 +77,7 @@ internal class ActionServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun unmute() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val actionServiceAsync = client.rooms().sessions().actions()
 
         val responseFuture =

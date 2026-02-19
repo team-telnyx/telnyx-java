@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async.ai.assistants
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.AudioVisualizerConfig
@@ -23,19 +22,13 @@ import com.telnyx.sdk.models.ai.assistants.versions.VersionRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class VersionServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val versionServiceAsync = client.ai().assistants().versions()
 
         val inferenceEmbeddingFuture =
@@ -54,11 +47,7 @@ internal class VersionServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val versionServiceAsync = client.ai().assistants().versions()
 
         val inferenceEmbeddingFuture =
@@ -306,11 +295,7 @@ internal class VersionServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val versionServiceAsync = client.ai().assistants().versions()
 
         val assistantsListFuture = versionServiceAsync.list("assistant_id")
@@ -322,11 +307,7 @@ internal class VersionServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val versionServiceAsync = client.ai().assistants().versions()
 
         val future =
@@ -343,11 +324,7 @@ internal class VersionServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun promote() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val versionServiceAsync = client.ai().assistants().versions()
 
         val inferenceEmbeddingFuture =

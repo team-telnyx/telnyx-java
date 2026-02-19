@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.blocking.portingorders
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionCreateParams
 import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExtensionDeleteParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class PhoneNumberExtensionServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberExtensionService = client.portingOrders().phoneNumberExtensions()
 
         val phoneNumberExtension =
@@ -49,11 +42,7 @@ internal class PhoneNumberExtensionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberExtensionService = client.portingOrders().phoneNumberExtensions()
 
         val page = phoneNumberExtensionService.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -64,11 +53,7 @@ internal class PhoneNumberExtensionServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberExtensionService = client.portingOrders().phoneNumberExtensions()
 
         val phoneNumberExtension =

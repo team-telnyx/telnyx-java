@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking.messaging10dlc
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.messaging10dlc.brand.AltBusinessIdType
 import com.telnyx.sdk.models.messaging10dlc.brand.BrandCreateParams
@@ -16,19 +15,13 @@ import com.telnyx.sdk.models.messaging10dlc.brand.StockExchange
 import com.telnyx.sdk.models.messaging10dlc.brand.Vertical
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class BrandServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val brandService = client.messaging10dlc().brand()
 
         val telnyxBrand =
@@ -67,11 +60,7 @@ internal class BrandServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val brandService = client.messaging10dlc().brand()
 
         val brand = brandService.retrieve("brandId")
@@ -82,11 +71,7 @@ internal class BrandServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val brandService = client.messaging10dlc().brand()
 
         val telnyxBrand =
@@ -127,11 +112,7 @@ internal class BrandServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val brandService = client.messaging10dlc().brand()
 
         val page = brandService.list()
@@ -142,11 +123,7 @@ internal class BrandServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val brandService = client.messaging10dlc().brand()
 
         brandService.delete("brandId")
@@ -155,11 +132,7 @@ internal class BrandServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getFeedback() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val brandService = client.messaging10dlc().brand()
 
         val response = brandService.getFeedback("brandId")
@@ -170,11 +143,7 @@ internal class BrandServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getSmsOtpByReference() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val brandService = client.messaging10dlc().brand()
 
         val response =
@@ -191,11 +160,7 @@ internal class BrandServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun resend2faEmail() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val brandService = client.messaging10dlc().brand()
 
         brandService.resend2faEmail("brandId")
@@ -204,11 +169,7 @@ internal class BrandServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveSmsOtpStatus() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val brandService = client.messaging10dlc().brand()
 
         val response = brandService.retrieveSmsOtpStatus("4b20019b-043a-78f8-0657-b3be3f4b4002")
@@ -219,11 +180,7 @@ internal class BrandServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun revet() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val brandService = client.messaging10dlc().brand()
 
         val telnyxBrand = brandService.revet("brandId")
@@ -234,11 +191,7 @@ internal class BrandServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun triggerSmsOtp() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val brandService = client.messaging10dlc().brand()
 
         val response =
@@ -256,11 +209,7 @@ internal class BrandServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun verifySmsOtp() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val brandService = client.messaging10dlc().brand()
 
         brandService.verifySmsOtp(

@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.async.messaging10dlc
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.messaging10dlc.campaign.CampaignListParams
 import com.telnyx.sdk.models.messaging10dlc.campaign.CampaignSubmitAppealParams
 import com.telnyx.sdk.models.messaging10dlc.campaign.CampaignUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class CampaignServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val campaignServiceAsync = client.messaging10dlc().campaign()
 
         val telnyxCampaignCspFuture = campaignServiceAsync.retrieve("campaignId")
@@ -33,11 +26,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val campaignServiceAsync = client.messaging10dlc().campaign()
 
         val telnyxCampaignCspFuture =
@@ -65,11 +54,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val campaignServiceAsync = client.messaging10dlc().campaign()
 
         val pageFuture =
@@ -82,11 +67,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun acceptSharing() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val campaignServiceAsync = client.messaging10dlc().campaign()
 
         val responseFuture = campaignServiceAsync.acceptSharing("C26F1KLZN")
@@ -98,11 +79,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun deactivate() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val campaignServiceAsync = client.messaging10dlc().campaign()
 
         val responseFuture = campaignServiceAsync.deactivate("campaignId")
@@ -114,11 +91,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getMnoMetadata() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val campaignServiceAsync = client.messaging10dlc().campaign()
 
         val responseFuture = campaignServiceAsync.getMnoMetadata("campaignId")
@@ -130,11 +103,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getOperationStatus() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val campaignServiceAsync = client.messaging10dlc().campaign()
 
         val responseFuture = campaignServiceAsync.getOperationStatus("campaignId")
@@ -146,11 +115,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getSharingStatus() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val campaignServiceAsync = client.messaging10dlc().campaign()
 
         val responseFuture = campaignServiceAsync.getSharingStatus("campaignId")
@@ -162,11 +127,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun submitAppeal() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val campaignServiceAsync = client.messaging10dlc().campaign()
 
         val responseFuture =

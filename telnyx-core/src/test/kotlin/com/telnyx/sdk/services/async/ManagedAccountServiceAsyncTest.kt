@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.async
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountCreateParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountUpdateGlobalChannelLimitParams
 import com.telnyx.sdk.models.managedaccounts.ManagedAccountUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ManagedAccountServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val managedAccountServiceAsync = client.managedAccounts()
 
         val managedAccountFuture =
@@ -42,11 +35,7 @@ internal class ManagedAccountServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val managedAccountServiceAsync = client.managedAccounts()
 
         val managedAccountFuture = managedAccountServiceAsync.retrieve("id")
@@ -58,11 +47,7 @@ internal class ManagedAccountServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val managedAccountServiceAsync = client.managedAccounts()
 
         val managedAccountFuture =
@@ -80,11 +65,7 @@ internal class ManagedAccountServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val managedAccountServiceAsync = client.managedAccounts()
 
         val pageFuture = managedAccountServiceAsync.list()
@@ -96,11 +77,7 @@ internal class ManagedAccountServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun getAllocatableGlobalOutboundChannels() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val managedAccountServiceAsync = client.managedAccounts()
 
         val responseFuture = managedAccountServiceAsync.getAllocatableGlobalOutboundChannels()
@@ -112,11 +89,7 @@ internal class ManagedAccountServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun updateGlobalChannelLimit() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val managedAccountServiceAsync = client.managedAccounts()
 
         val responseFuture =

@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.blocking
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.requirementgroups.RequirementGroupCreateParams
 import com.telnyx.sdk.models.requirementgroups.RequirementGroupListParams
 import com.telnyx.sdk.models.requirementgroups.RequirementGroupUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class RequirementGroupServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requirementGroupService = client.requirementGroups()
 
         val requirementGroup =
@@ -46,11 +39,7 @@ internal class RequirementGroupServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requirementGroupService = client.requirementGroups()
 
         val requirementGroup = requirementGroupService.retrieve("id")
@@ -61,11 +50,7 @@ internal class RequirementGroupServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requirementGroupService = client.requirementGroups()
 
         val requirementGroup =
@@ -88,11 +73,7 @@ internal class RequirementGroupServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requirementGroupService = client.requirementGroups()
 
         val requirementGroups =
@@ -118,11 +99,7 @@ internal class RequirementGroupServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requirementGroupService = client.requirementGroups()
 
         val requirementGroup = requirementGroupService.delete("id")
@@ -133,11 +110,7 @@ internal class RequirementGroupServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun submitForApproval() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requirementGroupService = client.requirementGroups()
 
         val requirementGroup = requirementGroupService.submitForApproval("id")

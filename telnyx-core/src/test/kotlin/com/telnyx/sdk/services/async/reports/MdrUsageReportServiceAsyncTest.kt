@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.async.reports
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportCreateParams
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportFetchSyncParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class MdrUsageReportServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val mdrUsageReportServiceAsync = client.reports().mdrUsageReports()
 
         val mdrUsageReportFuture =
@@ -41,11 +34,7 @@ internal class MdrUsageReportServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val mdrUsageReportServiceAsync = client.reports().mdrUsageReports()
 
         val mdrUsageReportFuture =
@@ -58,11 +47,7 @@ internal class MdrUsageReportServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val mdrUsageReportServiceAsync = client.reports().mdrUsageReports()
 
         val pageFuture = mdrUsageReportServiceAsync.list()
@@ -74,11 +59,7 @@ internal class MdrUsageReportServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val mdrUsageReportServiceAsync = client.reports().mdrUsageReports()
 
         val mdrUsageReportFuture =
@@ -91,11 +72,7 @@ internal class MdrUsageReportServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun fetchSync() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val mdrUsageReportServiceAsync = client.reports().mdrUsageReports()
 
         val responseFuture =

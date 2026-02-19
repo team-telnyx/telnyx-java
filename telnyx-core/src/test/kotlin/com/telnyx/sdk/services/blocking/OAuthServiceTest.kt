@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.oauth.OAuthGrantsParams
 import com.telnyx.sdk.models.oauth.OAuthIntrospectParams
@@ -11,19 +10,13 @@ import com.telnyx.sdk.models.oauth.OAuthRetrieveAuthorizeParams
 import com.telnyx.sdk.models.oauth.OAuthTokenParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class OAuthServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val oauthService = client.oauth()
 
         val oauth = oauthService.retrieve("consent_token")
@@ -34,11 +27,7 @@ internal class OAuthServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun grants() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val oauthService = client.oauth()
 
         val response =
@@ -52,11 +41,7 @@ internal class OAuthServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun introspect() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val oauthService = client.oauth()
 
         val response =
@@ -68,11 +53,7 @@ internal class OAuthServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun register() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val oauthService = client.oauth()
 
         val response =
@@ -96,11 +77,7 @@ internal class OAuthServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveAuthorize() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val oauthService = client.oauth()
 
         oauthService.retrieveAuthorize(
@@ -119,11 +96,7 @@ internal class OAuthServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveJwks() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val oauthService = client.oauth()
 
         val response = oauthService.retrieveJwks()
@@ -134,11 +107,7 @@ internal class OAuthServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun token() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val oauthService = client.oauth()
 
         val response =
