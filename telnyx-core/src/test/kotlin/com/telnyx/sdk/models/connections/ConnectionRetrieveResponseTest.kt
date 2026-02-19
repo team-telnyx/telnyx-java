@@ -16,7 +16,7 @@ internal class ConnectionRetrieveResponseTest {
             ConnectionRetrieveResponse.builder()
                 .data(
                     ConnectionRetrieveResponse.Data.builder()
-                        .id("id")
+                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .active(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                         .connectionName("string")
@@ -36,7 +36,7 @@ internal class ConnectionRetrieveResponseTest {
         assertThat(connectionRetrieveResponse.data())
             .contains(
                 ConnectionRetrieveResponse.Data.builder()
-                    .id("id")
+                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                     .connectionName("string")
@@ -60,7 +60,7 @@ internal class ConnectionRetrieveResponseTest {
             ConnectionRetrieveResponse.builder()
                 .data(
                     ConnectionRetrieveResponse.Data.builder()
-                        .id("id")
+                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .active(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                         .connectionName("string")

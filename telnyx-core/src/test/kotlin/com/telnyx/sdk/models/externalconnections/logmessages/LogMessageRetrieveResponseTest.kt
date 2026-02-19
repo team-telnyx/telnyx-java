@@ -16,7 +16,7 @@ internal class LogMessageRetrieveResponseTest {
             LogMessageRetrieveResponse.builder()
                 .addLogMessage(
                     LogMessageRetrieveResponse.LogMessage.builder()
-                        .code("code")
+                        .code("10015")
                         .title("Invalid attribute")
                         .detail(
                             "The value provided for the attribute is not valid. Check the value used and try again."
@@ -40,7 +40,7 @@ internal class LogMessageRetrieveResponseTest {
         assertThat(logMessageRetrieveResponse.logMessages().getOrNull())
             .containsExactly(
                 LogMessageRetrieveResponse.LogMessage.builder()
-                    .code("code")
+                    .code("10015")
                     .title("Invalid attribute")
                     .detail(
                         "The value provided for the attribute is not valid. Check the value used and try again."
@@ -68,7 +68,7 @@ internal class LogMessageRetrieveResponseTest {
             LogMessageRetrieveResponse.builder()
                 .addLogMessage(
                     LogMessageRetrieveResponse.LogMessage.builder()
-                        .code("code")
+                        .code("10015")
                         .title("Invalid attribute")
                         .detail(
                             "The value provided for the attribute is not valid. Check the value used and try again."

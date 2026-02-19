@@ -15,7 +15,7 @@ internal class IpCreateResponseTest {
             IpCreateResponse.builder()
                 .data(
                     Ip.builder()
-                        .id("id")
+                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .connectionId("3456789987654")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .ipAddress("192.168.0.0")
@@ -29,7 +29,7 @@ internal class IpCreateResponseTest {
         assertThat(ipCreateResponse.data())
             .contains(
                 Ip.builder()
-                    .id("id")
+                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .connectionId("3456789987654")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .ipAddress("192.168.0.0")
@@ -47,7 +47,7 @@ internal class IpCreateResponseTest {
             IpCreateResponse.builder()
                 .data(
                     Ip.builder()
-                        .id("id")
+                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .connectionId("3456789987654")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .ipAddress("192.168.0.0")
