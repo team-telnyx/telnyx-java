@@ -17,7 +17,7 @@ internal class CallControlApplicationListPageResponseTest {
             CallControlApplicationListPageResponse.builder()
                 .addData(
                     CallControlApplication.builder()
-                        .id("1293384261075731499")
+                        .id("id")
                         .active(false)
                         .anchorsiteOverride(CallControlApplication.AnchorsiteOverride.LATENCY)
                         .applicationName("call-router")
@@ -40,7 +40,7 @@ internal class CallControlApplicationListPageResponseTest {
                         .outbound(
                             CallControlApplicationOutbound.builder()
                                 .channelLimit(10L)
-                                .outboundVoiceProfileId("1293384261075731499")
+                                .outboundVoiceProfileId("outbound_voice_profile_id")
                                 .build()
                         )
                         .recordType(CallControlApplication.RecordType.CALL_CONTROL_APPLICATION)
@@ -66,7 +66,7 @@ internal class CallControlApplicationListPageResponseTest {
         assertThat(callControlApplicationListPageResponse.data().getOrNull())
             .containsExactly(
                 CallControlApplication.builder()
-                    .id("1293384261075731499")
+                    .id("id")
                     .active(false)
                     .anchorsiteOverride(CallControlApplication.AnchorsiteOverride.LATENCY)
                     .applicationName("call-router")
@@ -89,7 +89,7 @@ internal class CallControlApplicationListPageResponseTest {
                     .outbound(
                         CallControlApplicationOutbound.builder()
                             .channelLimit(10L)
-                            .outboundVoiceProfileId("1293384261075731499")
+                            .outboundVoiceProfileId("outbound_voice_profile_id")
                             .build()
                     )
                     .recordType(CallControlApplication.RecordType.CALL_CONTROL_APPLICATION)
@@ -120,7 +120,7 @@ internal class CallControlApplicationListPageResponseTest {
             CallControlApplicationListPageResponse.builder()
                 .addData(
                     CallControlApplication.builder()
-                        .id("1293384261075731499")
+                        .id("id")
                         .active(false)
                         .anchorsiteOverride(CallControlApplication.AnchorsiteOverride.LATENCY)
                         .applicationName("call-router")
@@ -143,7 +143,7 @@ internal class CallControlApplicationListPageResponseTest {
                         .outbound(
                             CallControlApplicationOutbound.builder()
                                 .channelLimit(10L)
-                                .outboundVoiceProfileId("1293384261075731499")
+                                .outboundVoiceProfileId("outbound_voice_profile_id")
                                 .build()
                         )
                         .recordType(CallControlApplication.RecordType.CALL_CONTROL_APPLICATION)

@@ -17,7 +17,7 @@ internal class LogMessageListPageResponseTest {
             LogMessageListPageResponse.builder()
                 .addLogMessage(
                     LogMessageListResponse.builder()
-                        .code("10015")
+                        .code("code")
                         .title("Invalid attribute")
                         .detail(
                             "The value provided for the attribute is not valid. Check the value used and try again."
@@ -47,7 +47,7 @@ internal class LogMessageListPageResponseTest {
         assertThat(logMessageListPageResponse.logMessages().getOrNull())
             .containsExactly(
                 LogMessageListResponse.builder()
-                    .code("10015")
+                    .code("code")
                     .title("Invalid attribute")
                     .detail(
                         "The value provided for the attribute is not valid. Check the value used and try again."
@@ -80,7 +80,7 @@ internal class LogMessageListPageResponseTest {
             LogMessageListPageResponse.builder()
                 .addLogMessage(
                     LogMessageListResponse.builder()
-                        .code("10015")
+                        .code("code")
                         .title("Invalid attribute")
                         .detail(
                             "The value provided for the attribute is not valid. Check the value used and try again."

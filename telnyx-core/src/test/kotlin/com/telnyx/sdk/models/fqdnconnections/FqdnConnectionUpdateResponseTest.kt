@@ -22,7 +22,7 @@ internal class FqdnConnectionUpdateResponseTest {
                 .data(
                     FqdnConnection.builder()
                         .connectionName("string")
-                        .id("1293384261075731499")
+                        .id("id")
                         .active(true)
                         .adjustDtmfTimestamp(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
@@ -130,7 +130,7 @@ internal class FqdnConnectionUpdateResponseTest {
             .contains(
                 FqdnConnection.builder()
                     .connectionName("string")
-                    .id("1293384261075731499")
+                    .id("id")
                     .active(true)
                     .adjustDtmfTimestamp(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
@@ -242,7 +242,7 @@ internal class FqdnConnectionUpdateResponseTest {
                 .data(
                     FqdnConnection.builder()
                         .connectionName("string")
-                        .id("1293384261075731499")
+                        .id("id")
                         .active(true)
                         .adjustDtmfTimestamp(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)

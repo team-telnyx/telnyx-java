@@ -24,7 +24,7 @@ internal class FqdnConnectionListPageResponseTest {
                 .addData(
                     FqdnConnection.builder()
                         .connectionName("string")
-                        .id("1293384261075731499")
+                        .id("id")
                         .active(true)
                         .adjustDtmfTimestamp(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
@@ -140,7 +140,7 @@ internal class FqdnConnectionListPageResponseTest {
             .containsExactly(
                 FqdnConnection.builder()
                     .connectionName("string")
-                    .id("1293384261075731499")
+                    .id("id")
                     .active(true)
                     .adjustDtmfTimestamp(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
@@ -261,7 +261,7 @@ internal class FqdnConnectionListPageResponseTest {
                 .addData(
                     FqdnConnection.builder()
                         .connectionName("string")
-                        .id("1293384261075731499")
+                        .id("id")
                         .active(true)
                         .adjustDtmfTimestamp(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)

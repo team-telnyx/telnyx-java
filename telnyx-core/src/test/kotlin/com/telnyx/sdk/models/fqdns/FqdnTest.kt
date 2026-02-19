@@ -13,7 +13,7 @@ internal class FqdnTest {
     fun create() {
         val fqdn =
             Fqdn.builder()
-                .id("1293384261075731499")
+                .id("id")
                 .connectionId("1516447646313612565")
                 .createdAt("2018-02-02T22:25:27.521Z")
                 .dnsRecordType("a")
@@ -23,7 +23,7 @@ internal class FqdnTest {
                 .updatedAt("2018-02-02T22:25:27.521Z")
                 .build()
 
-        assertThat(fqdn.id()).contains("1293384261075731499")
+        assertThat(fqdn.id()).contains("id")
         assertThat(fqdn.connectionId()).contains("1516447646313612565")
         assertThat(fqdn.createdAt()).contains("2018-02-02T22:25:27.521Z")
         assertThat(fqdn.dnsRecordType()).contains("a")
@@ -38,7 +38,7 @@ internal class FqdnTest {
         val jsonMapper = jsonMapper()
         val fqdn =
             Fqdn.builder()
-                .id("1293384261075731499")
+                .id("id")
                 .connectionId("1516447646313612565")
                 .createdAt("2018-02-02T22:25:27.521Z")
                 .dnsRecordType("a")

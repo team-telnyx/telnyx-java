@@ -17,7 +17,7 @@ internal class CredentialConnectionUpdateResponseTest {
             CredentialConnectionUpdateResponse.builder()
                 .data(
                     CredentialConnection.builder()
-                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .id("id")
                         .active(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                         .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
@@ -103,7 +103,7 @@ internal class CredentialConnectionUpdateResponseTest {
         assertThat(credentialConnectionUpdateResponse.data())
             .contains(
                 CredentialConnection.builder()
-                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .id("id")
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                     .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
@@ -189,7 +189,7 @@ internal class CredentialConnectionUpdateResponseTest {
             CredentialConnectionUpdateResponse.builder()
                 .data(
                     CredentialConnection.builder()
-                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .id("id")
                         .active(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                         .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
