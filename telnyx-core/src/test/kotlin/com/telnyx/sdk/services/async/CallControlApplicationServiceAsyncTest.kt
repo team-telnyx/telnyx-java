@@ -52,7 +52,7 @@ internal class CallControlApplicationServiceAsyncTest {
                     .outbound(
                         CallControlApplicationOutbound.builder()
                             .channelLimit(10L)
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .build()
                     )
                     .redactDtmfDebugLogging(true)
@@ -120,7 +120,7 @@ internal class CallControlApplicationServiceAsyncTest {
                     .outbound(
                         CallControlApplicationOutbound.builder()
                             .channelLimit(10L)
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .build()
                     )
                     .redactDtmfDebugLogging(true)
