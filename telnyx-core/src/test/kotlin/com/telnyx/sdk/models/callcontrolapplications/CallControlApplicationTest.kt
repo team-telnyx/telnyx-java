@@ -14,7 +14,7 @@ internal class CallControlApplicationTest {
     fun create() {
         val callControlApplication =
             CallControlApplication.builder()
-                .id("1293384261075731499")
+                .id("id")
                 .active(false)
                 .anchorsiteOverride(CallControlApplication.AnchorsiteOverride.LATENCY)
                 .applicationName("call-router")
@@ -37,7 +37,7 @@ internal class CallControlApplicationTest {
                 .outbound(
                     CallControlApplicationOutbound.builder()
                         .channelLimit(10L)
-                        .outboundVoiceProfileId("1293384261075731499")
+                        .outboundVoiceProfileId("outbound_voice_profile_id")
                         .build()
                 )
                 .recordType(CallControlApplication.RecordType.CALL_CONTROL_APPLICATION)
@@ -50,7 +50,7 @@ internal class CallControlApplicationTest {
                 .webhookTimeoutSecs(25L)
                 .build()
 
-        assertThat(callControlApplication.id()).contains("1293384261075731499")
+        assertThat(callControlApplication.id()).contains("id")
         assertThat(callControlApplication.active()).contains(false)
         assertThat(callControlApplication.anchorsiteOverride())
             .contains(CallControlApplication.AnchorsiteOverride.LATENCY)
@@ -77,7 +77,7 @@ internal class CallControlApplicationTest {
             .contains(
                 CallControlApplicationOutbound.builder()
                     .channelLimit(10L)
-                    .outboundVoiceProfileId("1293384261075731499")
+                    .outboundVoiceProfileId("outbound_voice_profile_id")
                     .build()
             )
         assertThat(callControlApplication.recordType())
@@ -98,7 +98,7 @@ internal class CallControlApplicationTest {
         val jsonMapper = jsonMapper()
         val callControlApplication =
             CallControlApplication.builder()
-                .id("1293384261075731499")
+                .id("id")
                 .active(false)
                 .anchorsiteOverride(CallControlApplication.AnchorsiteOverride.LATENCY)
                 .applicationName("call-router")
@@ -121,7 +121,7 @@ internal class CallControlApplicationTest {
                 .outbound(
                     CallControlApplicationOutbound.builder()
                         .channelLimit(10L)
-                        .outboundVoiceProfileId("1293384261075731499")
+                        .outboundVoiceProfileId("outbound_voice_profile_id")
                         .build()
                 )
                 .recordType(CallControlApplication.RecordType.CALL_CONTROL_APPLICATION)

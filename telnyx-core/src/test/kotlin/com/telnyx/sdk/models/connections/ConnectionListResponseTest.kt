@@ -15,7 +15,7 @@ internal class ConnectionListResponseTest {
     fun create() {
         val connectionListResponse =
             ConnectionListResponse.builder()
-                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .id("id")
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                 .connectionName("string")
@@ -30,7 +30,7 @@ internal class ConnectionListResponseTest {
                 .webhookEventUrl("https://example.com")
                 .build()
 
-        assertThat(connectionListResponse.id()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(connectionListResponse.id()).contains("id")
         assertThat(connectionListResponse.active()).contains(true)
         assertThat(connectionListResponse.anchorsiteOverride()).contains(AnchorsiteOverride.LATENCY)
         assertThat(connectionListResponse.connectionName()).contains("string")
@@ -52,7 +52,7 @@ internal class ConnectionListResponseTest {
         val jsonMapper = jsonMapper()
         val connectionListResponse =
             ConnectionListResponse.builder()
-                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .id("id")
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                 .connectionName("string")

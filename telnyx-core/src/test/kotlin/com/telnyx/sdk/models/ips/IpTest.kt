@@ -13,7 +13,7 @@ internal class IpTest {
     fun create() {
         val ip =
             Ip.builder()
-                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .id("id")
                 .connectionId("3456789987654")
                 .createdAt("2018-02-02T22:25:27.521Z")
                 .ipAddress("192.168.0.0")
@@ -22,7 +22,7 @@ internal class IpTest {
                 .updatedAt("2018-02-02T22:25:27.521Z")
                 .build()
 
-        assertThat(ip.id()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(ip.id()).contains("id")
         assertThat(ip.connectionId()).contains("3456789987654")
         assertThat(ip.createdAt()).contains("2018-02-02T22:25:27.521Z")
         assertThat(ip.ipAddress()).contains("192.168.0.0")
@@ -36,7 +36,7 @@ internal class IpTest {
         val jsonMapper = jsonMapper()
         val ip =
             Ip.builder()
-                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .id("id")
                 .connectionId("3456789987654")
                 .createdAt("2018-02-02T22:25:27.521Z")
                 .ipAddress("192.168.0.0")

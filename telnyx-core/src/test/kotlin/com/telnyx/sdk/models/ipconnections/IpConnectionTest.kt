@@ -20,7 +20,7 @@ internal class IpConnectionTest {
     fun create() {
         val ipConnection =
             IpConnection.builder()
-                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .id("id")
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                 .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
@@ -105,7 +105,7 @@ internal class IpConnectionTest {
                 .webhookTimeoutSecs(25L)
                 .build()
 
-        assertThat(ipConnection.id()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(ipConnection.id()).contains("id")
         assertThat(ipConnection.active()).contains(true)
         assertThat(ipConnection.anchorsiteOverride()).contains(AnchorsiteOverride.LATENCY)
         assertThat(ipConnection.androidPushCredentialId())
@@ -201,7 +201,7 @@ internal class IpConnectionTest {
         val jsonMapper = jsonMapper()
         val ipConnection =
             IpConnection.builder()
-                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                .id("id")
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                 .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
