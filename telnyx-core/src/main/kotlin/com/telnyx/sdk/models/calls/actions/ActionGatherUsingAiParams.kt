@@ -93,6 +93,14 @@ private constructor(
     fun commandId(): Optional<String> = body.commandId()
 
     /**
+     * Text that will be played when the gathering has finished. There is a 3,000 character limit.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun gatherEndedSpeech(): Optional<String> = body.gatherEndedSpeech()
+
+    /**
      * Text that will be played when the gathering starts, if none then nothing will be played when
      * the gathering starts. The greeting can be text for any voice or SSML for
      * `AWS.Polly.<voice_id>` voices. There is a 3,000 character limit.
@@ -159,8 +167,7 @@ private constructor(
     fun transcription(): Optional<TranscriptionConfig> = body.transcription()
 
     /**
-     * The number of milliseconds to wait for a user response before the voice assistant times out
-     * and check if the user is still there.
+     * The maximum time in milliseconds to wait for user response before timing out.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -228,6 +235,14 @@ private constructor(
      * Unlike [commandId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _commandId(): JsonField<String> = body._commandId()
+
+    /**
+     * Returns the raw JSON value of [gatherEndedSpeech].
+     *
+     * Unlike [gatherEndedSpeech], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _gatherEndedSpeech(): JsonField<String> = body._gatherEndedSpeech()
 
     /**
      * Returns the raw JSON value of [greeting].
@@ -357,7 +372,7 @@ private constructor(
          * - [assistant]
          * - [clientState]
          * - [commandId]
-         * - [greeting]
+         * - [gatherEndedSpeech]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -420,6 +435,25 @@ private constructor(
          * value.
          */
         fun commandId(commandId: JsonField<String>) = apply { body.commandId(commandId) }
+
+        /**
+         * Text that will be played when the gathering has finished. There is a 3,000 character
+         * limit.
+         */
+        fun gatherEndedSpeech(gatherEndedSpeech: String) = apply {
+            body.gatherEndedSpeech(gatherEndedSpeech)
+        }
+
+        /**
+         * Sets [Builder.gatherEndedSpeech] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.gatherEndedSpeech] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun gatherEndedSpeech(gatherEndedSpeech: JsonField<String>) = apply {
+            body.gatherEndedSpeech(gatherEndedSpeech)
+        }
 
         /**
          * Text that will be played when the gathering starts, if none then nothing will be played
@@ -556,10 +590,7 @@ private constructor(
             body.transcription(transcription)
         }
 
-        /**
-         * The number of milliseconds to wait for a user response before the voice assistant times
-         * out and check if the user is still there.
-         */
+        /** The maximum time in milliseconds to wait for user response before timing out. */
         fun userResponseTimeoutMs(userResponseTimeoutMs: Long) = apply {
             body.userResponseTimeoutMs(userResponseTimeoutMs)
         }
@@ -792,6 +823,7 @@ private constructor(
         private val assistant: JsonField<Assistant>,
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
+        private val gatherEndedSpeech: JsonField<String>,
         private val greeting: JsonField<String>,
         private val interruptionSettings: JsonField<InterruptionSettings>,
         private val language: JsonField<GoogleTranscriptionLanguage>,
@@ -819,6 +851,9 @@ private constructor(
             @JsonProperty("command_id")
             @ExcludeMissing
             commandId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("gather_ended_speech")
+            @ExcludeMissing
+            gatherEndedSpeech: JsonField<String> = JsonMissing.of(),
             @JsonProperty("greeting")
             @ExcludeMissing
             greeting: JsonField<String> = JsonMissing.of(),
@@ -852,6 +887,7 @@ private constructor(
             assistant,
             clientState,
             commandId,
+            gatherEndedSpeech,
             greeting,
             interruptionSettings,
             language,
@@ -901,6 +937,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun commandId(): Optional<String> = commandId.getOptional("command_id")
+
+        /**
+         * Text that will be played when the gathering has finished. There is a 3,000 character
+         * limit.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun gatherEndedSpeech(): Optional<String> =
+            gatherEndedSpeech.getOptional("gather_ended_speech")
 
         /**
          * Text that will be played when the gathering starts, if none then nothing will be played
@@ -975,8 +1021,7 @@ private constructor(
             transcription.getOptional("transcription")
 
         /**
-         * The number of milliseconds to wait for a user response before the voice assistant times
-         * out and check if the user is still there.
+         * The maximum time in milliseconds to wait for user response before timing out.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1053,6 +1098,16 @@ private constructor(
          * Unlike [commandId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("command_id") @ExcludeMissing fun _commandId(): JsonField<String> = commandId
+
+        /**
+         * Returns the raw JSON value of [gatherEndedSpeech].
+         *
+         * Unlike [gatherEndedSpeech], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("gather_ended_speech")
+        @ExcludeMissing
+        fun _gatherEndedSpeech(): JsonField<String> = gatherEndedSpeech
 
         /**
          * Returns the raw JSON value of [greeting].
@@ -1179,6 +1234,7 @@ private constructor(
             private var assistant: JsonField<Assistant> = JsonMissing.of()
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
+            private var gatherEndedSpeech: JsonField<String> = JsonMissing.of()
             private var greeting: JsonField<String> = JsonMissing.of()
             private var interruptionSettings: JsonField<InterruptionSettings> = JsonMissing.of()
             private var language: JsonField<GoogleTranscriptionLanguage> = JsonMissing.of()
@@ -1197,6 +1253,7 @@ private constructor(
                 assistant = body.assistant
                 clientState = body.clientState
                 commandId = body.commandId
+                gatherEndedSpeech = body.gatherEndedSpeech
                 greeting = body.greeting
                 interruptionSettings = body.interruptionSettings
                 language = body.language
@@ -1272,6 +1329,24 @@ private constructor(
              * supported value.
              */
             fun commandId(commandId: JsonField<String>) = apply { this.commandId = commandId }
+
+            /**
+             * Text that will be played when the gathering has finished. There is a 3,000 character
+             * limit.
+             */
+            fun gatherEndedSpeech(gatherEndedSpeech: String) =
+                gatherEndedSpeech(JsonField.of(gatherEndedSpeech))
+
+            /**
+             * Sets [Builder.gatherEndedSpeech] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.gatherEndedSpeech] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun gatherEndedSpeech(gatherEndedSpeech: JsonField<String>) = apply {
+                this.gatherEndedSpeech = gatherEndedSpeech
+            }
 
             /**
              * Text that will be played when the gathering starts, if none then nothing will be
@@ -1409,10 +1484,7 @@ private constructor(
                 this.transcription = transcription
             }
 
-            /**
-             * The number of milliseconds to wait for a user response before the voice assistant
-             * times out and check if the user is still there.
-             */
+            /** The maximum time in milliseconds to wait for user response before timing out. */
             fun userResponseTimeoutMs(userResponseTimeoutMs: Long) =
                 userResponseTimeoutMs(JsonField.of(userResponseTimeoutMs))
 
@@ -1524,6 +1596,7 @@ private constructor(
                     assistant,
                     clientState,
                     commandId,
+                    gatherEndedSpeech,
                     greeting,
                     interruptionSettings,
                     language,
@@ -1549,6 +1622,7 @@ private constructor(
             assistant().ifPresent { it.validate() }
             clientState()
             commandId()
+            gatherEndedSpeech()
             greeting()
             interruptionSettings().ifPresent { it.validate() }
             language().ifPresent { it.validate() }
@@ -1582,6 +1656,7 @@ private constructor(
                 (assistant.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
+                (if (gatherEndedSpeech.asKnown().isPresent) 1 else 0) +
                 (if (greeting.asKnown().isPresent) 1 else 0) +
                 (interruptionSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (language.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1603,6 +1678,7 @@ private constructor(
                 assistant == other.assistant &&
                 clientState == other.clientState &&
                 commandId == other.commandId &&
+                gatherEndedSpeech == other.gatherEndedSpeech &&
                 greeting == other.greeting &&
                 interruptionSettings == other.interruptionSettings &&
                 language == other.language &&
@@ -1622,6 +1698,7 @@ private constructor(
                 assistant,
                 clientState,
                 commandId,
+                gatherEndedSpeech,
                 greeting,
                 interruptionSettings,
                 language,
@@ -1639,7 +1716,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{parameters=$parameters, assistant=$assistant, clientState=$clientState, commandId=$commandId, greeting=$greeting, interruptionSettings=$interruptionSettings, language=$language, messageHistory=$messageHistory, sendMessageHistoryUpdates=$sendMessageHistoryUpdates, sendPartialResults=$sendPartialResults, transcription=$transcription, userResponseTimeoutMs=$userResponseTimeoutMs, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+            "Body{parameters=$parameters, assistant=$assistant, clientState=$clientState, commandId=$commandId, gatherEndedSpeech=$gatherEndedSpeech, greeting=$greeting, interruptionSettings=$interruptionSettings, language=$language, messageHistory=$messageHistory, sendMessageHistoryUpdates=$sendMessageHistoryUpdates, sendPartialResults=$sendPartialResults, transcription=$transcription, userResponseTimeoutMs=$userResponseTimeoutMs, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
     }
 
     /**

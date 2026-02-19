@@ -16,9 +16,11 @@ internal class ActionSpeakParamsTest {
             .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .language(ActionSpeakParams.Language.ARB)
+            .loop("string")
             .payloadType(ActionSpeakParams.PayloadType.TEXT)
             .serviceLevel(ActionSpeakParams.ServiceLevel.BASIC)
             .stop("current")
+            .targetLegs(ActionSpeakParams.TargetLegs.BOTH)
             .voiceSettings(
                 ElevenLabsVoiceSettings.builder()
                     .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
@@ -52,9 +54,11 @@ internal class ActionSpeakParamsTest {
                 .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .language(ActionSpeakParams.Language.ARB)
+                .loop("string")
                 .payloadType(ActionSpeakParams.PayloadType.TEXT)
                 .serviceLevel(ActionSpeakParams.ServiceLevel.BASIC)
                 .stop("current")
+                .targetLegs(ActionSpeakParams.TargetLegs.BOTH)
                 .voiceSettings(
                     ElevenLabsVoiceSettings.builder()
                         .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
@@ -70,9 +74,11 @@ internal class ActionSpeakParamsTest {
         assertThat(body.clientState()).contains("aGF2ZSBhIG5pY2UgZGF5ID1d")
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
         assertThat(body.language()).contains(ActionSpeakParams.Language.ARB)
+        assertThat(body.loop()).contains(Loopcount.ofString("string"))
         assertThat(body.payloadType()).contains(ActionSpeakParams.PayloadType.TEXT)
         assertThat(body.serviceLevel()).contains(ActionSpeakParams.ServiceLevel.BASIC)
         assertThat(body.stop()).contains("current")
+        assertThat(body.targetLegs()).contains(ActionSpeakParams.TargetLegs.BOTH)
         assertThat(body.voiceSettings())
             .contains(
                 ActionSpeakParams.VoiceSettings.ofElevenlabs(

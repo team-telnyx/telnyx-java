@@ -127,6 +127,7 @@ internal class CallServiceAsyncTest {
                             .track("both")
                             .build()
                     )
+                    .streamAuthToken("your-auth-token")
                     .streamBidirectionalCodec(StreamBidirectionalCodec.G722)
                     .streamBidirectionalMode(StreamBidirectionalMode.RTP)
                     .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate.RATE_16000)

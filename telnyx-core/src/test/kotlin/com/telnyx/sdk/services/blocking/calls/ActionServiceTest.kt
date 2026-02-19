@@ -323,6 +323,7 @@ internal class ActionServiceTest {
                     )
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .gatherEndedSpeech("Thank you for providing the information.")
                     .greeting("Hello, can you tell me your age and where you live?")
                     .interruptionSettings(InterruptionSettings.builder().enable(true).build())
                     .language(GoogleTranscriptionLanguage.EN)
@@ -647,9 +648,11 @@ internal class ActionServiceTest {
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .language(ActionSpeakParams.Language.ARB)
+                    .loop("string")
                     .payloadType(ActionSpeakParams.PayloadType.TEXT)
                     .serviceLevel(ActionSpeakParams.ServiceLevel.BASIC)
                     .stop("current")
+                    .targetLegs(ActionSpeakParams.TargetLegs.BOTH)
                     .voiceSettings(
                         ElevenLabsVoiceSettings.builder()
                             .type(ElevenLabsVoiceSettings.Type.ELEVENLABS)
@@ -874,6 +877,18 @@ internal class ActionServiceTest {
                     .callControlId("call_control_id")
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .addCustomParameter(
+                        ActionStartStreamingParams.CustomParameter.builder()
+                            .name("param1")
+                            .value("value1")
+                            .build()
+                    )
+                    .addCustomParameter(
+                        ActionStartStreamingParams.CustomParameter.builder()
+                            .name("param2")
+                            .value("value2")
+                            .build()
+                    )
                     .dialogflowConfig(
                         DialogflowConfig.builder()
                             .analyzeSentiment(false)
@@ -881,6 +896,7 @@ internal class ActionServiceTest {
                             .build()
                     )
                     .enableDialogflow(false)
+                    .streamAuthToken("your-auth-token")
                     .streamBidirectionalCodec(StreamBidirectionalCodec.G722)
                     .streamBidirectionalMode(StreamBidirectionalMode.RTP)
                     .streamBidirectionalSamplingRate(StreamBidirectionalSamplingRate.RATE_16000)
@@ -1222,6 +1238,7 @@ internal class ActionServiceTest {
                     .mediaName("my_media_uploaded_to_media_storage_api")
                     .muteDtmf(ActionTransferParams.MuteDtmf.OPPOSITE)
                     .parkAfterUnbridge("self")
+                    .preferredCodecs("G722,PCMU,PCMA,G729,OPUS,VP8,H264")
                     .record(ActionTransferParams.Record.RECORD_FROM_ANSWER)
                     .recordChannels(ActionTransferParams.RecordChannels.SINGLE)
                     .recordCustomFileName("my_recording_file_name")
@@ -1248,8 +1265,29 @@ internal class ActionServiceTest {
                     .targetLegClientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .timeLimitSecs(60)
                     .timeoutSecs(60)
+                    .webhookRetriesPolicies(
+                        ActionTransferParams.WebhookRetriesPolicies.builder()
+                            .putAdditionalProperty(
+                                "call.answered",
+                                JsonValue.from(mapOf("retries_ms" to listOf(1000, 2000, 5000))),
+                            )
+                            .build()
+                    )
                     .webhookUrl("https://www.example.com/server-b/")
                     .webhookUrlMethod(ActionTransferParams.WebhookUrlMethod.POST)
+                    .webhookUrls(
+                        ActionTransferParams.WebhookUrls.builder()
+                            .putAdditionalProperty(
+                                "call.answered",
+                                JsonValue.from("https://www.example.com/webhooks/answered"),
+                            )
+                            .putAdditionalProperty(
+                                "call.hangup",
+                                JsonValue.from("https://www.example.com/webhooks/hangup"),
+                            )
+                            .build()
+                    )
+                    .webhookUrlsMethod(ActionTransferParams.WebhookUrlsMethod.POST)
                     .build()
             )
 
