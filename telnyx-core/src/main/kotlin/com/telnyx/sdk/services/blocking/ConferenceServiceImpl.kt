@@ -25,7 +25,11 @@ import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPage
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPageResponse
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsParams
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParams
+import com.telnyx.sdk.models.conferences.ConferenceRetrieveParticipantParams
+import com.telnyx.sdk.models.conferences.ConferenceRetrieveParticipantResponse
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveResponse
+import com.telnyx.sdk.models.conferences.ConferenceUpdateParticipantParams
+import com.telnyx.sdk.models.conferences.ConferenceUpdateParticipantResponse
 import com.telnyx.sdk.services.blocking.conferences.ActionService
 import com.telnyx.sdk.services.blocking.conferences.ActionServiceImpl
 import java.util.function.Consumer
@@ -74,6 +78,20 @@ class ConferenceServiceImpl internal constructor(private val clientOptions: Clie
     ): ConferenceListParticipantsPage =
         // get /conferences/{conference_id}/participants
         withRawResponse().listParticipants(params, requestOptions).parse()
+
+    override fun retrieveParticipant(
+        params: ConferenceRetrieveParticipantParams,
+        requestOptions: RequestOptions,
+    ): ConferenceRetrieveParticipantResponse =
+        // get /conferences/{id}/participants/{participant_id}
+        withRawResponse().retrieveParticipant(params, requestOptions).parse()
+
+    override fun updateParticipant(
+        params: ConferenceUpdateParticipantParams,
+        requestOptions: RequestOptions,
+    ): ConferenceUpdateParticipantResponse =
+        // patch /conferences/{id}/participants/{participant_id}
+        withRawResponse().updateParticipant(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ConferenceService.WithRawResponse {
@@ -219,6 +237,77 @@ class ConferenceServiceImpl internal constructor(private val clientOptions: Clie
                             .params(params)
                             .response(it)
                             .build()
+                    }
+            }
+        }
+
+        private val retrieveParticipantHandler: Handler<ConferenceRetrieveParticipantResponse> =
+            jsonHandler<ConferenceRetrieveParticipantResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveParticipant(
+            params: ConferenceRetrieveParticipantParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ConferenceRetrieveParticipantResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("participantId", params.participantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "conferences",
+                        params._pathParam(0),
+                        "participants",
+                        params._pathParam(1),
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { retrieveParticipantHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val updateParticipantHandler: Handler<ConferenceUpdateParticipantResponse> =
+            jsonHandler<ConferenceUpdateParticipantResponse>(clientOptions.jsonMapper)
+
+        override fun updateParticipant(
+            params: ConferenceUpdateParticipantParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ConferenceUpdateParticipantResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("participantId", params.participantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "conferences",
+                        params._pathParam(0),
+                        "participants",
+                        params._pathParam(1),
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updateParticipantHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
                     }
             }
         }
