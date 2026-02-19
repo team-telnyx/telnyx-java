@@ -23,7 +23,7 @@ internal class IpConnectionListPageResponseTest {
             IpConnectionListPageResponse.builder()
                 .addData(
                     IpConnection.builder()
-                        .id("id")
+                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .active(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                         .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
@@ -121,7 +121,7 @@ internal class IpConnectionListPageResponseTest {
         assertThat(ipConnectionListPageResponse.data().getOrNull())
             .containsExactly(
                 IpConnection.builder()
-                    .id("id")
+                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                     .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
@@ -224,7 +224,7 @@ internal class IpConnectionListPageResponseTest {
             IpConnectionListPageResponse.builder()
                 .addData(
                     IpConnection.builder()
-                        .id("id")
+                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .active(true)
                         .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                         .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
