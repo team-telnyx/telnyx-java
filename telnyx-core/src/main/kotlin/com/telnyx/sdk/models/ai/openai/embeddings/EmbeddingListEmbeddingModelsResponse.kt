@@ -22,15 +22,15 @@ class EmbeddingListEmbeddingModelsResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<Data>>,
-    private val object_: JsonField<String>,
+    private val modelObject: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("data") @ExcludeMissing data: JsonField<List<Data>> = JsonMissing.of(),
-        @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
-    ) : this(data, object_, mutableMapOf())
+        @JsonProperty("object") @ExcludeMissing modelObject: JsonField<String> = JsonMissing.of(),
+    ) : this(data, modelObject, mutableMapOf())
 
     /**
      * List of available embedding models
@@ -46,7 +46,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun object_(): String = object_.getRequired("object")
+    fun modelObject(): String = modelObject.getRequired("object")
 
     /**
      * Returns the raw JSON value of [data].
@@ -56,11 +56,11 @@ private constructor(
     @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<Data>> = data
 
     /**
-     * Returns the raw JSON value of [object_].
+     * Returns the raw JSON value of [modelObject].
      *
-     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [modelObject], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
+    @JsonProperty("object") @ExcludeMissing fun _modelObject(): JsonField<String> = modelObject
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -83,7 +83,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .data()
-         * .object_()
+         * .modelObject()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -93,7 +93,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var data: JsonField<MutableList<Data>>? = null
-        private var object_: JsonField<String>? = null
+        private var modelObject: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -101,7 +101,7 @@ private constructor(
             embeddingListEmbeddingModelsResponse: EmbeddingListEmbeddingModelsResponse
         ) = apply {
             data = embeddingListEmbeddingModelsResponse.data.map { it.toMutableList() }
-            object_ = embeddingListEmbeddingModelsResponse.object_
+            modelObject = embeddingListEmbeddingModelsResponse.modelObject
             additionalProperties =
                 embeddingListEmbeddingModelsResponse.additionalProperties.toMutableMap()
         }
@@ -132,15 +132,16 @@ private constructor(
         }
 
         /** The object type, always 'list' */
-        fun object_(object_: String) = object_(JsonField.of(object_))
+        fun modelObject(modelObject: String) = modelObject(JsonField.of(modelObject))
 
         /**
-         * Sets [Builder.object_] to an arbitrary JSON value.
+         * Sets [Builder.modelObject] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.modelObject] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun modelObject(modelObject: JsonField<String>) = apply { this.modelObject = modelObject }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -169,7 +170,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .data()
-         * .object_()
+         * .modelObject()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -177,7 +178,7 @@ private constructor(
         fun build(): EmbeddingListEmbeddingModelsResponse =
             EmbeddingListEmbeddingModelsResponse(
                 checkRequired("data", data).map { it.toImmutable() },
-                checkRequired("object_", object_),
+                checkRequired("modelObject", modelObject),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -190,7 +191,7 @@ private constructor(
         }
 
         data().forEach { it.validate() }
-        object_()
+        modelObject()
         validated = true
     }
 
@@ -210,14 +211,14 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (data.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-            (if (object_.asKnown().isPresent) 1 else 0)
+            (if (modelObject.asKnown().isPresent) 1 else 0)
 
     class Data
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
         private val created: JsonField<Long>,
-        private val object_: JsonField<String>,
+        private val modelObject: JsonField<String>,
         private val ownedBy: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -226,9 +227,11 @@ private constructor(
         private constructor(
             @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("created") @ExcludeMissing created: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("object")
+            @ExcludeMissing
+            modelObject: JsonField<String> = JsonMissing.of(),
             @JsonProperty("owned_by") @ExcludeMissing ownedBy: JsonField<String> = JsonMissing.of(),
-        ) : this(id, created, object_, ownedBy, mutableMapOf())
+        ) : this(id, created, modelObject, ownedBy, mutableMapOf())
 
         /**
          * The model identifier
@@ -252,7 +255,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun object_(): String = object_.getRequired("object")
+        fun modelObject(): String = modelObject.getRequired("object")
 
         /**
          * The organization that owns the model
@@ -277,11 +280,11 @@ private constructor(
         @JsonProperty("created") @ExcludeMissing fun _created(): JsonField<Long> = created
 
         /**
-         * Returns the raw JSON value of [object_].
+         * Returns the raw JSON value of [modelObject].
          *
-         * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [modelObject], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
+        @JsonProperty("object") @ExcludeMissing fun _modelObject(): JsonField<String> = modelObject
 
         /**
          * Returns the raw JSON value of [ownedBy].
@@ -311,7 +314,7 @@ private constructor(
              * ```java
              * .id()
              * .created()
-             * .object_()
+             * .modelObject()
              * .ownedBy()
              * ```
              */
@@ -323,7 +326,7 @@ private constructor(
 
             private var id: JsonField<String>? = null
             private var created: JsonField<Long>? = null
-            private var object_: JsonField<String>? = null
+            private var modelObject: JsonField<String>? = null
             private var ownedBy: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -331,7 +334,7 @@ private constructor(
             internal fun from(data: Data) = apply {
                 id = data.id
                 created = data.created
-                object_ = data.object_
+                modelObject = data.modelObject
                 ownedBy = data.ownedBy
                 additionalProperties = data.additionalProperties.toMutableMap()
             }
@@ -361,16 +364,18 @@ private constructor(
             fun created(created: JsonField<Long>) = apply { this.created = created }
 
             /** The object type, always 'model' */
-            fun object_(object_: String) = object_(JsonField.of(object_))
+            fun modelObject(modelObject: String) = modelObject(JsonField.of(modelObject))
 
             /**
-             * Sets [Builder.object_] to an arbitrary JSON value.
+             * Sets [Builder.modelObject] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.object_] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.modelObject] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+            fun modelObject(modelObject: JsonField<String>) = apply {
+                this.modelObject = modelObject
+            }
 
             /** The organization that owns the model */
             fun ownedBy(ownedBy: String) = ownedBy(JsonField.of(ownedBy))
@@ -412,7 +417,7 @@ private constructor(
              * ```java
              * .id()
              * .created()
-             * .object_()
+             * .modelObject()
              * .ownedBy()
              * ```
              *
@@ -422,7 +427,7 @@ private constructor(
                 Data(
                     checkRequired("id", id),
                     checkRequired("created", created),
-                    checkRequired("object_", object_),
+                    checkRequired("modelObject", modelObject),
                     checkRequired("ownedBy", ownedBy),
                     additionalProperties.toMutableMap(),
                 )
@@ -437,7 +442,7 @@ private constructor(
 
             id()
             created()
-            object_()
+            modelObject()
             ownedBy()
             validated = true
         }
@@ -460,7 +465,7 @@ private constructor(
         internal fun validity(): Int =
             (if (id.asKnown().isPresent) 1 else 0) +
                 (if (created.asKnown().isPresent) 1 else 0) +
-                (if (object_.asKnown().isPresent) 1 else 0) +
+                (if (modelObject.asKnown().isPresent) 1 else 0) +
                 (if (ownedBy.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -471,19 +476,19 @@ private constructor(
             return other is Data &&
                 id == other.id &&
                 created == other.created &&
-                object_ == other.object_ &&
+                modelObject == other.modelObject &&
                 ownedBy == other.ownedBy &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(id, created, object_, ownedBy, additionalProperties)
+            Objects.hash(id, created, modelObject, ownedBy, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{id=$id, created=$created, object_=$object_, ownedBy=$ownedBy, additionalProperties=$additionalProperties}"
+            "Data{id=$id, created=$created, modelObject=$modelObject, ownedBy=$ownedBy, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -493,14 +498,14 @@ private constructor(
 
         return other is EmbeddingListEmbeddingModelsResponse &&
             data == other.data &&
-            object_ == other.object_ &&
+            modelObject == other.modelObject &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(data, object_, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(data, modelObject, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "EmbeddingListEmbeddingModelsResponse{data=$data, object_=$object_, additionalProperties=$additionalProperties}"
+        "EmbeddingListEmbeddingModelsResponse{data=$data, modelObject=$modelObject, additionalProperties=$additionalProperties}"
 }
