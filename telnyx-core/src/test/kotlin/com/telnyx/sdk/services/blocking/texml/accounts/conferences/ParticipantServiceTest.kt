@@ -90,6 +90,7 @@ internal class ParticipantServiceTest {
                     .amdStatusCallbackMethod(
                         ParticipantParticipantsParams.AmdStatusCallbackMethod.GET
                     )
+                    .applicationSid("1846572522338780702")
                     .beep(ParticipantParticipantsParams.Beep.ON_EXIT)
                     .callerId("Info")
                     .callSidToCoach("v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ")

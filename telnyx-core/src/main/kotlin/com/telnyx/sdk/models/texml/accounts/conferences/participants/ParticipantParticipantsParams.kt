@@ -55,6 +55,15 @@ private constructor(
         body.amdStatusCallbackMethod()
 
     /**
+     * The SID of the TeXML application that will handle the new participant's call. Required unless
+     * joining an existing conference by its ConferenceSid.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun applicationSid(): Optional<String> = body.applicationSid()
+
+    /**
      * Whether to play a notification beep to the conference when the participant enters and exits.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -475,6 +484,13 @@ private constructor(
         body._amdStatusCallbackMethod()
 
     /**
+     * Returns the raw JSON value of [applicationSid].
+     *
+     * Unlike [applicationSid], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _applicationSid(): JsonField<String> = body._applicationSid()
+
+    /**
      * Returns the raw JSON value of [beep].
      *
      * Unlike [beep], this method doesn't throw if the JSON field has an unexpected type.
@@ -879,9 +895,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [amdStatusCallback]
          * - [amdStatusCallbackMethod]
+         * - [applicationSid]
          * - [beep]
          * - [callerId]
-         * - [callSidToCoach]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -918,6 +934,23 @@ private constructor(
             apply {
                 body.amdStatusCallbackMethod(amdStatusCallbackMethod)
             }
+
+        /**
+         * The SID of the TeXML application that will handle the new participant's call. Required
+         * unless joining an existing conference by its ConferenceSid.
+         */
+        fun applicationSid(applicationSid: String) = apply { body.applicationSid(applicationSid) }
+
+        /**
+         * Sets [Builder.applicationSid] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.applicationSid] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun applicationSid(applicationSid: JsonField<String>) = apply {
+            body.applicationSid(applicationSid)
+        }
 
         /**
          * Whether to play a notification beep to the conference when the participant enters and
@@ -1835,6 +1868,7 @@ private constructor(
     private constructor(
         private val amdStatusCallback: JsonField<String>,
         private val amdStatusCallbackMethod: JsonField<AmdStatusCallbackMethod>,
+        private val applicationSid: JsonField<String>,
         private val beep: JsonField<Beep>,
         private val callerId: JsonField<String>,
         private val callSidToCoach: JsonField<String>,
@@ -1892,6 +1926,9 @@ private constructor(
             @JsonProperty("AmdStatusCallbackMethod")
             @ExcludeMissing
             amdStatusCallbackMethod: JsonField<AmdStatusCallbackMethod> = JsonMissing.of(),
+            @JsonProperty("ApplicationSid")
+            @ExcludeMissing
+            applicationSid: JsonField<String> = JsonMissing.of(),
             @JsonProperty("Beep") @ExcludeMissing beep: JsonField<Beep> = JsonMissing.of(),
             @JsonProperty("CallerId")
             @ExcludeMissing
@@ -2016,6 +2053,7 @@ private constructor(
         ) : this(
             amdStatusCallback,
             amdStatusCallbackMethod,
+            applicationSid,
             beep,
             callerId,
             callSidToCoach,
@@ -2081,6 +2119,15 @@ private constructor(
          */
         fun amdStatusCallbackMethod(): Optional<AmdStatusCallbackMethod> =
             amdStatusCallbackMethod.getOptional("AmdStatusCallbackMethod")
+
+        /**
+         * The SID of the TeXML application that will handle the new participant's call. Required
+         * unless joining an existing conference by its ConferenceSid.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun applicationSid(): Optional<String> = applicationSid.getOptional("ApplicationSid")
 
         /**
          * Whether to play a notification beep to the conference when the participant enters and
@@ -2530,6 +2577,16 @@ private constructor(
         fun _amdStatusCallbackMethod(): JsonField<AmdStatusCallbackMethod> = amdStatusCallbackMethod
 
         /**
+         * Returns the raw JSON value of [applicationSid].
+         *
+         * Unlike [applicationSid], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("ApplicationSid")
+        @ExcludeMissing
+        fun _applicationSid(): JsonField<String> = applicationSid
+
+        /**
          * Returns the raw JSON value of [beep].
          *
          * Unlike [beep], this method doesn't throw if the JSON field has an unexpected type.
@@ -2975,6 +3032,7 @@ private constructor(
             private var amdStatusCallback: JsonField<String> = JsonMissing.of()
             private var amdStatusCallbackMethod: JsonField<AmdStatusCallbackMethod> =
                 JsonMissing.of()
+            private var applicationSid: JsonField<String> = JsonMissing.of()
             private var beep: JsonField<Beep> = JsonMissing.of()
             private var callerId: JsonField<String> = JsonMissing.of()
             private var callSidToCoach: JsonField<String> = JsonMissing.of()
@@ -3030,6 +3088,7 @@ private constructor(
             internal fun from(body: Body) = apply {
                 amdStatusCallback = body.amdStatusCallback
                 amdStatusCallbackMethod = body.amdStatusCallbackMethod
+                applicationSid = body.applicationSid
                 beep = body.beep
                 callerId = body.callerId
                 callSidToCoach = body.callSidToCoach
@@ -3108,6 +3167,24 @@ private constructor(
             fun amdStatusCallbackMethod(
                 amdStatusCallbackMethod: JsonField<AmdStatusCallbackMethod>
             ) = apply { this.amdStatusCallbackMethod = amdStatusCallbackMethod }
+
+            /**
+             * The SID of the TeXML application that will handle the new participant's call.
+             * Required unless joining an existing conference by its ConferenceSid.
+             */
+            fun applicationSid(applicationSid: String) =
+                applicationSid(JsonField.of(applicationSid))
+
+            /**
+             * Sets [Builder.applicationSid] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.applicationSid] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun applicationSid(applicationSid: JsonField<String>) = apply {
+                this.applicationSid = applicationSid
+            }
 
             /**
              * Whether to play a notification beep to the conference when the participant enters and
@@ -3898,6 +3975,7 @@ private constructor(
                 Body(
                     amdStatusCallback,
                     amdStatusCallbackMethod,
+                    applicationSid,
                     beep,
                     callerId,
                     callSidToCoach,
@@ -3956,6 +4034,7 @@ private constructor(
 
             amdStatusCallback()
             amdStatusCallbackMethod().ifPresent { it.validate() }
+            applicationSid()
             beep().ifPresent { it.validate() }
             callerId()
             callSidToCoach()
@@ -4022,6 +4101,7 @@ private constructor(
         internal fun validity(): Int =
             (if (amdStatusCallback.asKnown().isPresent) 1 else 0) +
                 (amdStatusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (applicationSid.asKnown().isPresent) 1 else 0) +
                 (beep.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (callerId.asKnown().isPresent) 1 else 0) +
                 (if (callSidToCoach.asKnown().isPresent) 1 else 0) +
@@ -4076,6 +4156,7 @@ private constructor(
             return other is Body &&
                 amdStatusCallback == other.amdStatusCallback &&
                 amdStatusCallbackMethod == other.amdStatusCallbackMethod &&
+                applicationSid == other.applicationSid &&
                 beep == other.beep &&
                 callerId == other.callerId &&
                 callSidToCoach == other.callSidToCoach &&
@@ -4130,6 +4211,7 @@ private constructor(
             Objects.hash(
                 amdStatusCallback,
                 amdStatusCallbackMethod,
+                applicationSid,
                 beep,
                 callerId,
                 callSidToCoach,
@@ -4182,7 +4264,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{amdStatusCallback=$amdStatusCallback, amdStatusCallbackMethod=$amdStatusCallbackMethod, beep=$beep, callerId=$callerId, callSidToCoach=$callSidToCoach, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, coaching=$coaching, conferenceRecord=$conferenceRecord, conferenceRecordingStatusCallback=$conferenceRecordingStatusCallback, conferenceRecordingStatusCallbackEvent=$conferenceRecordingStatusCallbackEvent, conferenceRecordingStatusCallbackMethod=$conferenceRecordingStatusCallbackMethod, conferenceRecordingTimeout=$conferenceRecordingTimeout, conferenceStatusCallback=$conferenceStatusCallback, conferenceStatusCallbackEvent=$conferenceStatusCallbackEvent, conferenceStatusCallbackMethod=$conferenceStatusCallbackMethod, conferenceTrim=$conferenceTrim, customHeaders=$customHeaders, earlyMedia=$earlyMedia, endConferenceOnExit=$endConferenceOnExit, from=$from, label=$label, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, maxParticipants=$maxParticipants, muted=$muted, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTrack=$recordingTrack, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, startConferenceOnEnter=$startConferenceOnEnter, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, waitUrl=$waitUrl, additionalProperties=$additionalProperties}"
+            "Body{amdStatusCallback=$amdStatusCallback, amdStatusCallbackMethod=$amdStatusCallbackMethod, applicationSid=$applicationSid, beep=$beep, callerId=$callerId, callSidToCoach=$callSidToCoach, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, coaching=$coaching, conferenceRecord=$conferenceRecord, conferenceRecordingStatusCallback=$conferenceRecordingStatusCallback, conferenceRecordingStatusCallbackEvent=$conferenceRecordingStatusCallbackEvent, conferenceRecordingStatusCallbackMethod=$conferenceRecordingStatusCallbackMethod, conferenceRecordingTimeout=$conferenceRecordingTimeout, conferenceStatusCallback=$conferenceStatusCallback, conferenceStatusCallbackEvent=$conferenceStatusCallbackEvent, conferenceStatusCallbackMethod=$conferenceStatusCallbackMethod, conferenceTrim=$conferenceTrim, customHeaders=$customHeaders, earlyMedia=$earlyMedia, endConferenceOnExit=$endConferenceOnExit, from=$from, label=$label, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, maxParticipants=$maxParticipants, muted=$muted, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTrack=$recordingTrack, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, startConferenceOnEnter=$startConferenceOnEnter, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, timeLimit=$timeLimit, timeout=$timeout, to=$to, trim=$trim, waitUrl=$waitUrl, additionalProperties=$additionalProperties}"
     }
 
     /** HTTP request type used for `AmdStatusCallback`. Defaults to `POST`. */
