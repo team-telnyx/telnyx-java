@@ -11,6 +11,7 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
@@ -492,7 +493,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val assertionConsumerServiceUrl: JsonField<String>,
-        private val idpAttributeNames: JsonValue,
+        private val idpAttributeNames: JsonField<IdpAttributeNames>,
         private val idpCertFingerprint: JsonField<String>,
         private val idpCertFingerprintAlgorithm: JsonField<IdpCertFingerprintAlgorithm>,
         private val idpCertificate: JsonField<String>,
@@ -513,7 +514,7 @@ private constructor(
             assertionConsumerServiceUrl: JsonField<String> = JsonMissing.of(),
             @JsonProperty("idp_attribute_names")
             @ExcludeMissing
-            idpAttributeNames: JsonValue = JsonMissing.of(),
+            idpAttributeNames: JsonField<IdpAttributeNames> = JsonMissing.of(),
             @JsonProperty("idp_cert_fingerprint")
             @ExcludeMissing
             idpCertFingerprint: JsonField<String> = JsonMissing.of(),
@@ -572,14 +573,11 @@ private constructor(
         /**
          * Mapping of SAML attribute names used by the identity provider (IdP).
          *
-         * This arbitrary value can be deserialized into a custom type using the `convert` method:
-         * ```java
-         * MyClass myObject = settings.idpAttributeNames().convert(MyClass.class);
-         * ```
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        @JsonProperty("idp_attribute_names")
-        @ExcludeMissing
-        fun _idpAttributeNames(): JsonValue = idpAttributeNames
+        fun idpAttributeNames(): Optional<IdpAttributeNames> =
+            idpAttributeNames.getOptional("idp_attribute_names")
 
         /**
          * The certificate fingerprint for the identity provider (IdP)
@@ -677,6 +675,16 @@ private constructor(
         @JsonProperty("assertion_consumer_service_url")
         @ExcludeMissing
         fun _assertionConsumerServiceUrl(): JsonField<String> = assertionConsumerServiceUrl
+
+        /**
+         * Returns the raw JSON value of [idpAttributeNames].
+         *
+         * Unlike [idpAttributeNames], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("idp_attribute_names")
+        @ExcludeMissing
+        fun _idpAttributeNames(): JsonField<IdpAttributeNames> = idpAttributeNames
 
         /**
          * Returns the raw JSON value of [idpCertFingerprint].
@@ -800,7 +808,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var assertionConsumerServiceUrl: JsonField<String> = JsonMissing.of()
-            private var idpAttributeNames: JsonValue = JsonMissing.of()
+            private var idpAttributeNames: JsonField<IdpAttributeNames> = JsonMissing.of()
             private var idpCertFingerprint: JsonField<String> = JsonMissing.of()
             private var idpCertFingerprintAlgorithm: JsonField<IdpCertFingerprintAlgorithm> =
                 JsonMissing.of()
@@ -848,7 +856,17 @@ private constructor(
                 }
 
             /** Mapping of SAML attribute names used by the identity provider (IdP). */
-            fun idpAttributeNames(idpAttributeNames: JsonValue) = apply {
+            fun idpAttributeNames(idpAttributeNames: IdpAttributeNames) =
+                idpAttributeNames(JsonField.of(idpAttributeNames))
+
+            /**
+             * Sets [Builder.idpAttributeNames] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.idpAttributeNames] with a well-typed
+             * [IdpAttributeNames] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun idpAttributeNames(idpAttributeNames: JsonField<IdpAttributeNames>) = apply {
                 this.idpAttributeNames = idpAttributeNames
             }
 
@@ -1060,6 +1078,7 @@ private constructor(
             }
 
             assertionConsumerServiceUrl()
+            idpAttributeNames().ifPresent { it.validate() }
             idpCertFingerprint()
             idpCertFingerprintAlgorithm().ifPresent { it.validate() }
             idpCertificate()
@@ -1090,6 +1109,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (assertionConsumerServiceUrl.asKnown().isPresent) 1 else 0) +
+                (idpAttributeNames.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (idpCertFingerprint.asKnown().isPresent) 1 else 0) +
                 (idpCertFingerprintAlgorithm.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (idpCertificate.asKnown().isPresent) 1 else 0) +
@@ -1100,6 +1120,114 @@ private constructor(
                 (if (provisionGroups.asKnown().isPresent) 1 else 0) +
                 (if (serviceProviderEntityId.asKnown().isPresent) 1 else 0) +
                 (if (serviceProviderLoginUrl.asKnown().isPresent) 1 else 0)
+
+        /** Mapping of SAML attribute names used by the identity provider (IdP). */
+        class IdpAttributeNames
+        @JsonCreator
+        private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue
+            private val additionalProperties: Map<String, JsonValue>
+        ) {
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [IdpAttributeNames].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [IdpAttributeNames]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(idpAttributeNames: IdpAttributeNames) = apply {
+                    additionalProperties = idpAttributeNames.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [IdpAttributeNames].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): IdpAttributeNames =
+                    IdpAttributeNames(additionalProperties.toImmutable())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): IdpAttributeNames = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is IdpAttributeNames &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "IdpAttributeNames{additionalProperties=$additionalProperties}"
+        }
 
         /** The algorithm used to generate the identity provider's (IdP) certificate fingerprint */
         class IdpCertFingerprintAlgorithm
