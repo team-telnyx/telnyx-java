@@ -318,7 +318,7 @@ private constructor(
          *     .build()
          * ```
          */
-        fun addRetrievalTool(retrieval: Tool.Retrieval.InnerRetrieval) =
+        fun addRetrievalTool(retrieval: Tool.Retrieval.RetrievalConfig) =
             addTool(Tool.Retrieval.builder().retrieval(retrieval).build())
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1658,7 +1658,7 @@ private constructor(
         class Retrieval
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val retrieval: JsonField<InnerRetrieval>,
+            private val retrieval: JsonField<RetrievalConfig>,
             private val type: JsonValue,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -1667,7 +1667,7 @@ private constructor(
             private constructor(
                 @JsonProperty("retrieval")
                 @ExcludeMissing
-                retrieval: JsonField<InnerRetrieval> = JsonMissing.of(),
+                retrieval: JsonField<RetrievalConfig> = JsonMissing.of(),
                 @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
             ) : this(retrieval, type, mutableMapOf())
 
@@ -1676,7 +1676,7 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun retrieval(): InnerRetrieval = retrieval.getRequired("retrieval")
+            fun retrieval(): RetrievalConfig = retrieval.getRequired("retrieval")
 
             /**
              * Expected to always return the following:
@@ -1697,7 +1697,7 @@ private constructor(
              */
             @JsonProperty("retrieval")
             @ExcludeMissing
-            fun _retrieval(): JsonField<InnerRetrieval> = retrieval
+            fun _retrieval(): JsonField<RetrievalConfig> = retrieval
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1727,7 +1727,7 @@ private constructor(
             /** A builder for [Retrieval]. */
             class Builder internal constructor() {
 
-                private var retrieval: JsonField<InnerRetrieval>? = null
+                private var retrieval: JsonField<RetrievalConfig>? = null
                 private var type: JsonValue = JsonValue.from("retrieval")
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1738,16 +1738,16 @@ private constructor(
                     additionalProperties = retrieval.additionalProperties.toMutableMap()
                 }
 
-                fun retrieval(retrieval: InnerRetrieval) = retrieval(JsonField.of(retrieval))
+                fun retrieval(retrieval: RetrievalConfig) = retrieval(JsonField.of(retrieval))
 
                 /**
                  * Sets [Builder.retrieval] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.retrieval] with a well-typed [InnerRetrieval]
+                 * You should usually call [Builder.retrieval] with a well-typed [RetrievalConfig]
                  * value instead. This method is primarily for setting the field to an undocumented
                  * or not yet supported value.
                  */
-                fun retrieval(retrieval: JsonField<InnerRetrieval>) = apply {
+                fun retrieval(retrieval: JsonField<RetrievalConfig>) = apply {
                     this.retrieval = retrieval
                 }
 
@@ -1842,7 +1842,7 @@ private constructor(
                 (retrieval.asKnown().getOrNull()?.validity() ?: 0) +
                     type.let { if (it == JsonValue.from("retrieval")) 1 else 0 }
 
-            class InnerRetrieval
+            class RetrievalConfig
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val bucketIds: JsonField<List<String>>,
@@ -1910,7 +1910,7 @@ private constructor(
                 companion object {
 
                     /**
-                     * Returns a mutable builder for constructing an instance of [InnerRetrieval].
+                     * Returns a mutable builder for constructing an instance of [RetrievalConfig].
                      *
                      * The following fields are required:
                      * ```java
@@ -1920,7 +1920,7 @@ private constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [InnerRetrieval]. */
+                /** A builder for [RetrievalConfig]. */
                 class Builder internal constructor() {
 
                     private var bucketIds: JsonField<MutableList<String>>? = null
@@ -1928,10 +1928,10 @@ private constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(innerRetrieval: InnerRetrieval) = apply {
-                        bucketIds = innerRetrieval.bucketIds.map { it.toMutableList() }
-                        maxNumResults = innerRetrieval.maxNumResults
-                        additionalProperties = innerRetrieval.additionalProperties.toMutableMap()
+                    internal fun from(retrievalConfig: RetrievalConfig) = apply {
+                        bucketIds = retrievalConfig.bucketIds.map { it.toMutableList() }
+                        maxNumResults = retrievalConfig.maxNumResults
+                        additionalProperties = retrievalConfig.additionalProperties.toMutableMap()
                     }
 
                     fun bucketIds(bucketIds: List<String>) = bucketIds(JsonField.of(bucketIds))
@@ -1999,7 +1999,7 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [InnerRetrieval].
+                     * Returns an immutable instance of [RetrievalConfig].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      *
@@ -2010,8 +2010,8 @@ private constructor(
                      *
                      * @throws IllegalStateException if any required field is unset.
                      */
-                    fun build(): InnerRetrieval =
-                        InnerRetrieval(
+                    fun build(): RetrievalConfig =
+                        RetrievalConfig(
                             checkRequired("bucketIds", bucketIds).map { it.toImmutable() },
                             maxNumResults,
                             additionalProperties.toMutableMap(),
@@ -2020,7 +2020,7 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                fun validate(): InnerRetrieval = apply {
+                fun validate(): RetrievalConfig = apply {
                     if (validated) {
                         return@apply
                     }
@@ -2054,7 +2054,7 @@ private constructor(
                         return true
                     }
 
-                    return other is InnerRetrieval &&
+                    return other is RetrievalConfig &&
                         bucketIds == other.bucketIds &&
                         maxNumResults == other.maxNumResults &&
                         additionalProperties == other.additionalProperties
@@ -2067,7 +2067,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "InnerRetrieval{bucketIds=$bucketIds, maxNumResults=$maxNumResults, additionalProperties=$additionalProperties}"
+                    "RetrievalConfig{bucketIds=$bucketIds, maxNumResults=$maxNumResults, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
