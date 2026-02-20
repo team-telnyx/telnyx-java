@@ -30,12 +30,9 @@ internal class AuthenticationProviderUpdateResponseTest {
                                     "https://api.telnyx.com/sso/saml/auth/myorg"
                                 )
                                 .idpAttributeNames(
-                                    JsonValue.from(
-                                        mapOf(
-                                            "email" to
-                                                "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
-                                        )
-                                    )
+                                    AuthenticationProvider.Settings.IdpAttributeNames.builder()
+                                        .putAdditionalProperty("email", JsonValue.from("bar"))
+                                        .build()
                                 )
                                 .idpCertFingerprint(
                                     "13:38:C7:BB:C9:FF:4A:70:38:3A:E3:D9:5C:CD:DB:2E:50:1E:80:A7"
@@ -84,12 +81,9 @@ internal class AuthenticationProviderUpdateResponseTest {
                                 "https://api.telnyx.com/sso/saml/auth/myorg"
                             )
                             .idpAttributeNames(
-                                JsonValue.from(
-                                    mapOf(
-                                        "email" to
-                                            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
-                                    )
-                                )
+                                AuthenticationProvider.Settings.IdpAttributeNames.builder()
+                                    .putAdditionalProperty("email", JsonValue.from("bar"))
+                                    .build()
                             )
                             .idpCertFingerprint(
                                 "13:38:C7:BB:C9:FF:4A:70:38:3A:E3:D9:5C:CD:DB:2E:50:1E:80:A7"
@@ -139,12 +133,9 @@ internal class AuthenticationProviderUpdateResponseTest {
                                     "https://api.telnyx.com/sso/saml/auth/myorg"
                                 )
                                 .idpAttributeNames(
-                                    JsonValue.from(
-                                        mapOf(
-                                            "email" to
-                                                "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
-                                        )
-                                    )
+                                    AuthenticationProvider.Settings.IdpAttributeNames.builder()
+                                        .putAdditionalProperty("email", JsonValue.from("bar"))
+                                        .build()
                                 )
                                 .idpCertFingerprint(
                                     "13:38:C7:BB:C9:FF:4A:70:38:3A:E3:D9:5C:CD:DB:2E:50:1E:80:A7"
