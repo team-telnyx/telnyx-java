@@ -16,7 +16,7 @@ internal class ExternalConnectionListPageResponseTest {
             ExternalConnectionListPageResponse.builder()
                 .addData(
                     ExternalConnection.builder()
-                        .id("id")
+                        .id("1930241863466354012")
                         .active(false)
                         .createdAt("2022-06-29T19:23:59Z")
                         .credentialActive(false)
@@ -25,7 +25,7 @@ internal class ExternalConnectionListPageResponseTest {
                         .outbound(
                             ExternalConnection.Outbound.builder()
                                 .channelLimit(10L)
-                                .outboundVoiceProfileId("outbound_voice_profile_id")
+                                .outboundVoiceProfileId("1911630617284445511")
                                 .build()
                         )
                         .recordType("external_connection")
@@ -51,7 +51,7 @@ internal class ExternalConnectionListPageResponseTest {
         assertThat(externalConnectionListPageResponse.data().getOrNull())
             .containsExactly(
                 ExternalConnection.builder()
-                    .id("id")
+                    .id("1930241863466354012")
                     .active(false)
                     .createdAt("2022-06-29T19:23:59Z")
                     .credentialActive(false)
@@ -60,7 +60,7 @@ internal class ExternalConnectionListPageResponseTest {
                     .outbound(
                         ExternalConnection.Outbound.builder()
                             .channelLimit(10L)
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1911630617284445511")
                             .build()
                     )
                     .recordType("external_connection")
@@ -91,7 +91,7 @@ internal class ExternalConnectionListPageResponseTest {
             ExternalConnectionListPageResponse.builder()
                 .addData(
                     ExternalConnection.builder()
-                        .id("id")
+                        .id("1930241863466354012")
                         .active(false)
                         .createdAt("2022-06-29T19:23:59Z")
                         .credentialActive(false)
@@ -100,7 +100,7 @@ internal class ExternalConnectionListPageResponseTest {
                         .outbound(
                             ExternalConnection.Outbound.builder()
                                 .channelLimit(10L)
-                                .outboundVoiceProfileId("outbound_voice_profile_id")
+                                .outboundVoiceProfileId("1911630617284445511")
                                 .build()
                         )
                         .recordType("external_connection")

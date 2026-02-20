@@ -93,7 +93,7 @@ internal class FqdnConnectionServiceAsyncTest {
                             )
                             .ipAuthenticationToken("aBcD1234")
                             .localization("string")
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .t38ReinviteSource(OutboundFqdn.T38ReinviteSource.CUSTOMER)
                             .techPrefix("0123")
                             .timeout1xxSecs(10L)
@@ -127,7 +127,7 @@ internal class FqdnConnectionServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val fqdnConnectionServiceAsync = client.fqdnConnections()
 
-        val fqdnConnectionFuture = fqdnConnectionServiceAsync.retrieve("id")
+        val fqdnConnectionFuture = fqdnConnectionServiceAsync.retrieve("1293384261075731499")
 
         val fqdnConnection = fqdnConnectionFuture.get()
         fqdnConnection.validate()
@@ -142,7 +142,7 @@ internal class FqdnConnectionServiceAsyncTest {
         val fqdnConnectionFuture =
             fqdnConnectionServiceAsync.update(
                 FqdnConnectionUpdateParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                     .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
@@ -206,7 +206,7 @@ internal class FqdnConnectionServiceAsyncTest {
                             )
                             .ipAuthenticationToken("ip_authentication_token")
                             .localization("US")
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .t38ReinviteSource(OutboundFqdn.T38ReinviteSource.TELNYX)
                             .techPrefix("tech_prefix")
                             .timeout1xxSecs(1L)
@@ -252,7 +252,7 @@ internal class FqdnConnectionServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val fqdnConnectionServiceAsync = client.fqdnConnections()
 
-        val fqdnConnectionFuture = fqdnConnectionServiceAsync.delete("id")
+        val fqdnConnectionFuture = fqdnConnectionServiceAsync.delete("1293384261075731499")
 
         val fqdnConnection = fqdnConnectionFuture.get()
         fqdnConnection.validate()

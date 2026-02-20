@@ -14,12 +14,12 @@ internal class CallControlApplicationOutboundTest {
         val callControlApplicationOutbound =
             CallControlApplicationOutbound.builder()
                 .channelLimit(10L)
-                .outboundVoiceProfileId("outbound_voice_profile_id")
+                .outboundVoiceProfileId("1293384261075731499")
                 .build()
 
         assertThat(callControlApplicationOutbound.channelLimit()).contains(10L)
         assertThat(callControlApplicationOutbound.outboundVoiceProfileId())
-            .contains("outbound_voice_profile_id")
+            .contains("1293384261075731499")
     }
 
     @Test
@@ -28,7 +28,7 @@ internal class CallControlApplicationOutboundTest {
         val callControlApplicationOutbound =
             CallControlApplicationOutbound.builder()
                 .channelLimit(10L)
-                .outboundVoiceProfileId("outbound_voice_profile_id")
+                .outboundVoiceProfileId("1293384261075731499")
                 .build()
 
         val roundtrippedCallControlApplicationOutbound =

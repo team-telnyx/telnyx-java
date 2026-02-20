@@ -27,6 +27,7 @@ internal class PhoneNumberSlimListResponseTest {
                 .emergencyEnabled(true)
                 .emergencyStatus(PhoneNumberSlimListResponse.EmergencyStatus.ACTIVE)
                 .externalPin("1234")
+                .hdVoiceEnabled(true)
                 .inboundCallScreening(PhoneNumberSlimListResponse.InboundCallScreening.DISABLED)
                 .phoneNumber("+19705555098")
                 .phoneNumberType(PhoneNumberSlimListResponse.PhoneNumberType.LOCAL)
@@ -34,6 +35,7 @@ internal class PhoneNumberSlimListResponseTest {
                 .recordType("phone_number")
                 .status(PhoneNumberSlimListResponse.Status.ACTIVE)
                 .t38FaxGatewayEnabled(true)
+                .updatedAt("2019-10-24T18:10:00.000Z")
                 .build()
 
         assertThat(phoneNumberSlimListResponse.id()).contains("1293384261075731499")
@@ -52,6 +54,7 @@ internal class PhoneNumberSlimListResponseTest {
         assertThat(phoneNumberSlimListResponse.emergencyStatus())
             .contains(PhoneNumberSlimListResponse.EmergencyStatus.ACTIVE)
         assertThat(phoneNumberSlimListResponse.externalPin()).contains("1234")
+        assertThat(phoneNumberSlimListResponse.hdVoiceEnabled()).contains(true)
         assertThat(phoneNumberSlimListResponse.inboundCallScreening())
             .contains(PhoneNumberSlimListResponse.InboundCallScreening.DISABLED)
         assertThat(phoneNumberSlimListResponse.phoneNumber()).contains("+19705555098")
@@ -62,6 +65,7 @@ internal class PhoneNumberSlimListResponseTest {
         assertThat(phoneNumberSlimListResponse.status())
             .contains(PhoneNumberSlimListResponse.Status.ACTIVE)
         assertThat(phoneNumberSlimListResponse.t38FaxGatewayEnabled()).contains(true)
+        assertThat(phoneNumberSlimListResponse.updatedAt()).contains("2019-10-24T18:10:00.000Z")
     }
 
     @Test
@@ -83,6 +87,7 @@ internal class PhoneNumberSlimListResponseTest {
                 .emergencyEnabled(true)
                 .emergencyStatus(PhoneNumberSlimListResponse.EmergencyStatus.ACTIVE)
                 .externalPin("1234")
+                .hdVoiceEnabled(true)
                 .inboundCallScreening(PhoneNumberSlimListResponse.InboundCallScreening.DISABLED)
                 .phoneNumber("+19705555098")
                 .phoneNumberType(PhoneNumberSlimListResponse.PhoneNumberType.LOCAL)
@@ -90,6 +95,7 @@ internal class PhoneNumberSlimListResponseTest {
                 .recordType("phone_number")
                 .status(PhoneNumberSlimListResponse.Status.ACTIVE)
                 .t38FaxGatewayEnabled(true)
+                .updatedAt("2019-10-24T18:10:00.000Z")
                 .build()
 
         val roundtrippedPhoneNumberSlimListResponse =

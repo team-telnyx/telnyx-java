@@ -31,6 +31,7 @@ internal class PhoneNumberSlimListPageResponseTest {
                         .emergencyEnabled(true)
                         .emergencyStatus(PhoneNumberSlimListResponse.EmergencyStatus.ACTIVE)
                         .externalPin("1234")
+                        .hdVoiceEnabled(true)
                         .inboundCallScreening(
                             PhoneNumberSlimListResponse.InboundCallScreening.DISABLED
                         )
@@ -40,6 +41,7 @@ internal class PhoneNumberSlimListPageResponseTest {
                         .recordType("phone_number")
                         .status(PhoneNumberSlimListResponse.Status.ACTIVE)
                         .t38FaxGatewayEnabled(true)
+                        .updatedAt("2019-10-24T18:10:00.000Z")
                         .build()
                 )
                 .meta(
@@ -69,6 +71,7 @@ internal class PhoneNumberSlimListPageResponseTest {
                     .emergencyEnabled(true)
                     .emergencyStatus(PhoneNumberSlimListResponse.EmergencyStatus.ACTIVE)
                     .externalPin("1234")
+                    .hdVoiceEnabled(true)
                     .inboundCallScreening(PhoneNumberSlimListResponse.InboundCallScreening.DISABLED)
                     .phoneNumber("+19705555098")
                     .phoneNumberType(PhoneNumberSlimListResponse.PhoneNumberType.LOCAL)
@@ -76,6 +79,7 @@ internal class PhoneNumberSlimListPageResponseTest {
                     .recordType("phone_number")
                     .status(PhoneNumberSlimListResponse.Status.ACTIVE)
                     .t38FaxGatewayEnabled(true)
+                    .updatedAt("2019-10-24T18:10:00.000Z")
                     .build()
             )
         assertThat(phoneNumberSlimListPageResponse.meta())
@@ -110,6 +114,7 @@ internal class PhoneNumberSlimListPageResponseTest {
                         .emergencyEnabled(true)
                         .emergencyStatus(PhoneNumberSlimListResponse.EmergencyStatus.ACTIVE)
                         .externalPin("1234")
+                        .hdVoiceEnabled(true)
                         .inboundCallScreening(
                             PhoneNumberSlimListResponse.InboundCallScreening.DISABLED
                         )
@@ -119,6 +124,7 @@ internal class PhoneNumberSlimListPageResponseTest {
                         .recordType("phone_number")
                         .status(PhoneNumberSlimListResponse.Status.ACTIVE)
                         .t38FaxGatewayEnabled(true)
+                        .updatedAt("2019-10-24T18:10:00.000Z")
                         .build()
                 )
                 .meta(

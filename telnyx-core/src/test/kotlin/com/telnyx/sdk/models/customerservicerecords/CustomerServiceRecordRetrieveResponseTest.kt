@@ -46,6 +46,7 @@ internal class CustomerServiceRecordRetrieveResponseTest {
                         )
                         .status(CustomerServiceRecord.Status.COMPLETED)
                         .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                        .webhookUrl("https://example.com/webhook")
                         .build()
                 )
                 .build()
@@ -83,6 +84,7 @@ internal class CustomerServiceRecordRetrieveResponseTest {
                     )
                     .status(CustomerServiceRecord.Status.COMPLETED)
                     .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                    .webhookUrl("https://example.com/webhook")
                     .build()
             )
     }
@@ -124,6 +126,7 @@ internal class CustomerServiceRecordRetrieveResponseTest {
                         )
                         .status(CustomerServiceRecord.Status.COMPLETED)
                         .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                        .webhookUrl("https://example.com/webhook")
                         .build()
                 )
                 .build()

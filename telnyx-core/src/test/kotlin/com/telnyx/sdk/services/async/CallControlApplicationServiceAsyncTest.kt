@@ -45,7 +45,7 @@ internal class CallControlApplicationServiceAsyncTest {
                     .outbound(
                         CallControlApplicationOutbound.builder()
                             .channelLimit(10L)
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .build()
                     )
                     .redactDtmfDebugLogging(true)
@@ -65,7 +65,8 @@ internal class CallControlApplicationServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val callControlApplicationServiceAsync = client.callControlApplications()
 
-        val callControlApplicationFuture = callControlApplicationServiceAsync.retrieve("id")
+        val callControlApplicationFuture =
+            callControlApplicationServiceAsync.retrieve("1293384261075731499")
 
         val callControlApplication = callControlApplicationFuture.get()
         callControlApplication.validate()
@@ -80,7 +81,7 @@ internal class CallControlApplicationServiceAsyncTest {
         val callControlApplicationFuture =
             callControlApplicationServiceAsync.update(
                 CallControlApplicationUpdateParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .applicationName("call-router")
                     .webhookEventUrl("https://example.com")
                     .active(false)
@@ -105,7 +106,7 @@ internal class CallControlApplicationServiceAsyncTest {
                     .outbound(
                         CallControlApplicationOutbound.builder()
                             .channelLimit(10L)
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .build()
                     )
                     .redactDtmfDebugLogging(true)
@@ -139,7 +140,8 @@ internal class CallControlApplicationServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val callControlApplicationServiceAsync = client.callControlApplications()
 
-        val callControlApplicationFuture = callControlApplicationServiceAsync.delete("id")
+        val callControlApplicationFuture =
+            callControlApplicationServiceAsync.delete("1293384261075731499")
 
         val callControlApplication = callControlApplicationFuture.get()
         callControlApplication.validate()

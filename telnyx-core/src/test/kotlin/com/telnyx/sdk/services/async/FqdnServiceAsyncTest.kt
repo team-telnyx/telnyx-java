@@ -36,7 +36,7 @@ internal class FqdnServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val fqdnServiceAsync = client.fqdns()
 
-        val fqdnFuture = fqdnServiceAsync.retrieve("id")
+        val fqdnFuture = fqdnServiceAsync.retrieve("1517907029795014409")
 
         val fqdn = fqdnFuture.get()
         fqdn.validate()
@@ -51,7 +51,7 @@ internal class FqdnServiceAsyncTest {
         val fqdnFuture =
             fqdnServiceAsync.update(
                 FqdnUpdateParams.builder()
-                    .id("id")
+                    .id("1517907029795014409")
                     .connectionId("1516447646313612565")
                     .dnsRecordType("a")
                     .fqdn("example.com")
@@ -81,7 +81,7 @@ internal class FqdnServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val fqdnServiceAsync = client.fqdns()
 
-        val fqdnFuture = fqdnServiceAsync.delete("id")
+        val fqdnFuture = fqdnServiceAsync.delete("1517907029795014409")
 
         val fqdn = fqdnFuture.get()
         fqdn.validate()

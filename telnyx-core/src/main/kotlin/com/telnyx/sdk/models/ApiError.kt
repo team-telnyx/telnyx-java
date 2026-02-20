@@ -23,7 +23,7 @@ class ApiError
 private constructor(
     private val code: JsonField<String>,
     private val title: JsonField<String>,
-    private val detail: JsonField<String>,
+    private val description: JsonField<String>,
     private val meta: JsonField<Meta>,
     private val source: JsonField<Source>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -33,10 +33,12 @@ private constructor(
     private constructor(
         @JsonProperty("code") @ExcludeMissing code: JsonField<String> = JsonMissing.of(),
         @JsonProperty("title") @ExcludeMissing title: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("detail") @ExcludeMissing detail: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        description: JsonField<String> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<Meta> = JsonMissing.of(),
         @JsonProperty("source") @ExcludeMissing source: JsonField<Source> = JsonMissing.of(),
-    ) : this(code, title, detail, meta, source, mutableMapOf())
+    ) : this(code, title, description, meta, source, mutableMapOf())
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -54,7 +56,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun detail(): Optional<String> = detail.getOptional("detail")
+    fun description(): Optional<String> = description.getOptional("description")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -83,11 +85,11 @@ private constructor(
     @JsonProperty("title") @ExcludeMissing fun _title(): JsonField<String> = title
 
     /**
-     * Returns the raw JSON value of [detail].
+     * Returns the raw JSON value of [description].
      *
-     * Unlike [detail], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("detail") @ExcludeMissing fun _detail(): JsonField<String> = detail
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /**
      * Returns the raw JSON value of [meta].
@@ -134,7 +136,7 @@ private constructor(
 
         private var code: JsonField<String>? = null
         private var title: JsonField<String>? = null
-        private var detail: JsonField<String> = JsonMissing.of()
+        private var description: JsonField<String> = JsonMissing.of()
         private var meta: JsonField<Meta> = JsonMissing.of()
         private var source: JsonField<Source> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -143,7 +145,7 @@ private constructor(
         internal fun from(apiError: ApiError) = apply {
             code = apiError.code
             title = apiError.title
-            detail = apiError.detail
+            description = apiError.description
             meta = apiError.meta
             source = apiError.source
             additionalProperties = apiError.additionalProperties.toMutableMap()
@@ -169,15 +171,16 @@ private constructor(
          */
         fun title(title: JsonField<String>) = apply { this.title = title }
 
-        fun detail(detail: String) = detail(JsonField.of(detail))
+        fun description(description: String) = description(JsonField.of(description))
 
         /**
-         * Sets [Builder.detail] to an arbitrary JSON value.
+         * Sets [Builder.description] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.detail] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun detail(detail: JsonField<String>) = apply { this.detail = detail }
+        fun description(description: JsonField<String>) = apply { this.description = description }
 
         fun meta(meta: Meta) = meta(JsonField.of(meta))
 
@@ -235,7 +238,7 @@ private constructor(
             ApiError(
                 checkRequired("code", code),
                 checkRequired("title", title),
-                detail,
+                description,
                 meta,
                 source,
                 additionalProperties.toMutableMap(),
@@ -251,7 +254,7 @@ private constructor(
 
         code()
         title()
-        detail()
+        description()
         meta().ifPresent { it.validate() }
         source().ifPresent { it.validate() }
         validated = true
@@ -274,7 +277,7 @@ private constructor(
     internal fun validity(): Int =
         (if (code.asKnown().isPresent) 1 else 0) +
             (if (title.asKnown().isPresent) 1 else 0) +
-            (if (detail.asKnown().isPresent) 1 else 0) +
+            (if (description.asKnown().isPresent) 1 else 0) +
             (meta.asKnown().getOrNull()?.validity() ?: 0) +
             (source.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -564,18 +567,18 @@ private constructor(
         return other is ApiError &&
             code == other.code &&
             title == other.title &&
-            detail == other.detail &&
+            description == other.description &&
             meta == other.meta &&
             source == other.source &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(code, title, detail, meta, source, additionalProperties)
+        Objects.hash(code, title, description, meta, source, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ApiError{code=$code, title=$title, detail=$detail, meta=$meta, source=$source, additionalProperties=$additionalProperties}"
+        "ApiError{code=$code, title=$title, description=$description, meta=$meta, source=$source, additionalProperties=$additionalProperties}"
 }

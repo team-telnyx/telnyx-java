@@ -9,14 +9,14 @@ internal class ExternalConnectionDeleteParamsTest {
 
     @Test
     fun create() {
-        ExternalConnectionDeleteParams.builder().id("id").build()
+        ExternalConnectionDeleteParams.builder().id("1293384261075731499").build()
     }
 
     @Test
     fun pathParams() {
-        val params = ExternalConnectionDeleteParams.builder().id("id").build()
+        val params = ExternalConnectionDeleteParams.builder().id("1293384261075731499").build()
 
-        assertThat(params._pathParam(0)).isEqualTo("id")
+        assertThat(params._pathParam(0)).isEqualTo("1293384261075731499")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }

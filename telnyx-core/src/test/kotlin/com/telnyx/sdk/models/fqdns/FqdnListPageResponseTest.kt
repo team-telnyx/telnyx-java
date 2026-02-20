@@ -17,7 +17,7 @@ internal class FqdnListPageResponseTest {
             FqdnListPageResponse.builder()
                 .addData(
                     Fqdn.builder()
-                        .id("id")
+                        .id("1293384261075731499")
                         .connectionId("1516447646313612565")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .dnsRecordType("a")
@@ -40,7 +40,7 @@ internal class FqdnListPageResponseTest {
         assertThat(fqdnListPageResponse.data().getOrNull())
             .containsExactly(
                 Fqdn.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .connectionId("1516447646313612565")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .dnsRecordType("a")
@@ -68,7 +68,7 @@ internal class FqdnListPageResponseTest {
             FqdnListPageResponse.builder()
                 .addData(
                     Fqdn.builder()
-                        .id("id")
+                        .id("1293384261075731499")
                         .connectionId("1516447646313612565")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .dnsRecordType("a")

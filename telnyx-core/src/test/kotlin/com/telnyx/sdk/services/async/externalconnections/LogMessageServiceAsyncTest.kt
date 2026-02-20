@@ -14,7 +14,7 @@ internal class LogMessageServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val logMessageServiceAsync = client.externalConnections().logMessages()
 
-        val logMessageFuture = logMessageServiceAsync.retrieve("id")
+        val logMessageFuture = logMessageServiceAsync.retrieve("1293384261075731499")
 
         val logMessage = logMessageFuture.get()
         logMessage.validate()
@@ -38,7 +38,7 @@ internal class LogMessageServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val logMessageServiceAsync = client.externalConnections().logMessages()
 
-        val responseFuture = logMessageServiceAsync.dismiss("id")
+        val responseFuture = logMessageServiceAsync.dismiss("1293384261075731499")
 
         val response = responseFuture.get()
         response.validate()

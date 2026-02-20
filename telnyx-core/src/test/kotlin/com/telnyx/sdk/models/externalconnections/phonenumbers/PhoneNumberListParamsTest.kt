@@ -11,7 +11,7 @@ internal class PhoneNumberListParamsTest {
     @Test
     fun create() {
         PhoneNumberListParams.builder()
-            .id("id")
+            .id("1293384261075731499")
             .filter(
                 PhoneNumberListParams.Filter.builder()
                     .civicAddressId(
@@ -39,9 +39,9 @@ internal class PhoneNumberListParamsTest {
 
     @Test
     fun pathParams() {
-        val params = PhoneNumberListParams.builder().id("id").build()
+        val params = PhoneNumberListParams.builder().id("1293384261075731499").build()
 
-        assertThat(params._pathParam(0)).isEqualTo("id")
+        assertThat(params._pathParam(0)).isEqualTo("1293384261075731499")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -50,7 +50,7 @@ internal class PhoneNumberListParamsTest {
     fun queryParams() {
         val params =
             PhoneNumberListParams.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .filter(
                     PhoneNumberListParams.Filter.builder()
                         .civicAddressId(
@@ -92,7 +92,7 @@ internal class PhoneNumberListParamsTest {
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = PhoneNumberListParams.builder().id("id").build()
+        val params = PhoneNumberListParams.builder().id("1293384261075731499").build()
 
         val queryParams = params._queryParams()
 

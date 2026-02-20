@@ -31,6 +31,7 @@ internal class PhoneNumberServiceTest {
                 PhoneNumberUpdateParams.builder()
                     .phoneNumberId("1293384261075731499")
                     .id("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
+                    .addressId("dc8f39ac-953d-4520-b93b-786ae87db0da")
                     .billingGroupId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
                     .connectionId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
                     .customerReference("customer-reference")

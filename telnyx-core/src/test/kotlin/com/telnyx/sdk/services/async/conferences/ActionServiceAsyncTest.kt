@@ -4,8 +4,8 @@ package com.telnyx.sdk.services.async.conferences
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
-import com.telnyx.sdk.models.conferences.actions.ActionEndParams
-import com.telnyx.sdk.models.conferences.actions.ActionGatherUsingAudioParams
+import com.telnyx.sdk.models.conferences.actions.ActionEndConferenceParams
+import com.telnyx.sdk.models.conferences.actions.ActionGatherDtmfAudioParams
 import com.telnyx.sdk.models.conferences.actions.ActionHoldParams
 import com.telnyx.sdk.models.conferences.actions.ActionJoinParams
 import com.telnyx.sdk.models.conferences.actions.ActionLeaveParams
@@ -62,13 +62,13 @@ internal class ActionServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun end() {
+    fun endConference() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val actionServiceAsync = client.conferences().actions()
 
         val responseFuture =
-            actionServiceAsync.end(
-                ActionEndParams.builder()
+            actionServiceAsync.endConference(
+                ActionEndConferenceParams.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .build()
@@ -80,13 +80,13 @@ internal class ActionServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun gatherUsingAudio() {
+    fun gatherDtmfAudio() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val actionServiceAsync = client.conferences().actions()
 
         val responseFuture =
-            actionServiceAsync.gatherUsingAudio(
-                ActionGatherUsingAudioParams.builder()
+            actionServiceAsync.gatherDtmfAudio(
+                ActionGatherDtmfAudioParams.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                     .audioUrl("http://example.com/gather_prompt.wav")

@@ -18,7 +18,7 @@ internal class ReleaseServiceTest {
         val release =
             releaseService.retrieve(
                 ReleaseRetrieveParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .releaseId("7b6a6449-b055-45a6-81f6-f6f0dffa4cc6")
                     .build()
             )
@@ -32,7 +32,7 @@ internal class ReleaseServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val releaseService = client.externalConnections().releases()
 
-        val page = releaseService.list("id")
+        val page = releaseService.list("1293384261075731499")
 
         page.response().validate()
     }

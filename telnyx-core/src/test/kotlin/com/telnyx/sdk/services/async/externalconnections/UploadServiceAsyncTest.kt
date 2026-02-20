@@ -20,7 +20,7 @@ internal class UploadServiceAsyncTest {
         val uploadFuture =
             uploadServiceAsync.create(
                 UploadCreateParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .numberIds(
                         listOf(
                             "3920457616934164700",
@@ -49,7 +49,7 @@ internal class UploadServiceAsyncTest {
         val uploadFuture =
             uploadServiceAsync.retrieve(
                 UploadRetrieveParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .ticketId("7b6a6449-b055-45a6-81f6-f6f0dffa4cc6")
                     .build()
             )
@@ -64,7 +64,7 @@ internal class UploadServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val uploadServiceAsync = client.externalConnections().uploads()
 
-        val pageFuture = uploadServiceAsync.list("id")
+        val pageFuture = uploadServiceAsync.list("1293384261075731499")
 
         val page = pageFuture.get()
         page.response().validate()
@@ -76,7 +76,7 @@ internal class UploadServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val uploadServiceAsync = client.externalConnections().uploads()
 
-        val responseFuture = uploadServiceAsync.pendingCount("id")
+        val responseFuture = uploadServiceAsync.pendingCount("1293384261075731499")
 
         val response = responseFuture.get()
         response.validate()
@@ -88,7 +88,7 @@ internal class UploadServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val uploadServiceAsync = client.externalConnections().uploads()
 
-        val responseFuture = uploadServiceAsync.refreshStatus("id")
+        val responseFuture = uploadServiceAsync.refreshStatus("1293384261075731499")
 
         val response = responseFuture.get()
         response.validate()
@@ -103,7 +103,7 @@ internal class UploadServiceAsyncTest {
         val responseFuture =
             uploadServiceAsync.retry(
                 UploadRetryParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .ticketId("7b6a6449-b055-45a6-81f6-f6f0dffa4cc6")
                     .build()
             )

@@ -45,7 +45,7 @@ internal class CallControlApplicationServiceTest {
                     .outbound(
                         CallControlApplicationOutbound.builder()
                             .channelLimit(10L)
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .build()
                     )
                     .redactDtmfDebugLogging(true)
@@ -64,7 +64,7 @@ internal class CallControlApplicationServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val callControlApplicationService = client.callControlApplications()
 
-        val callControlApplication = callControlApplicationService.retrieve("id")
+        val callControlApplication = callControlApplicationService.retrieve("1293384261075731499")
 
         callControlApplication.validate()
     }
@@ -78,7 +78,7 @@ internal class CallControlApplicationServiceTest {
         val callControlApplication =
             callControlApplicationService.update(
                 CallControlApplicationUpdateParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .applicationName("call-router")
                     .webhookEventUrl("https://example.com")
                     .active(false)
@@ -103,7 +103,7 @@ internal class CallControlApplicationServiceTest {
                     .outbound(
                         CallControlApplicationOutbound.builder()
                             .channelLimit(10L)
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .build()
                     )
                     .redactDtmfDebugLogging(true)
@@ -135,7 +135,7 @@ internal class CallControlApplicationServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val callControlApplicationService = client.callControlApplications()
 
-        val callControlApplication = callControlApplicationService.delete("id")
+        val callControlApplication = callControlApplicationService.delete("1293384261075731499")
 
         callControlApplication.validate()
     }

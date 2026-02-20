@@ -23,6 +23,7 @@ internal class TelephonyCredentialTest {
                 .sipPassword("a92dbcfb60184a8cb330b0acb2f7617b")
                 .sipUsername("gencrednCvHU5IYpSBPPsXI2iQsDX")
                 .updatedAt("2020-06-18T21:32:38.000Z")
+                .userId("user-id")
                 .build()
 
         assertThat(telephonyCredential.id()).contains("c215ade3-0d39-418e-94be-c5f780760199")
@@ -35,6 +36,7 @@ internal class TelephonyCredentialTest {
         assertThat(telephonyCredential.sipPassword()).contains("a92dbcfb60184a8cb330b0acb2f7617b")
         assertThat(telephonyCredential.sipUsername()).contains("gencrednCvHU5IYpSBPPsXI2iQsDX")
         assertThat(telephonyCredential.updatedAt()).contains("2020-06-18T21:32:38.000Z")
+        assertThat(telephonyCredential.userId()).contains("user-id")
     }
 
     @Test
@@ -52,6 +54,7 @@ internal class TelephonyCredentialTest {
                 .sipPassword("a92dbcfb60184a8cb330b0acb2f7617b")
                 .sipUsername("gencrednCvHU5IYpSBPPsXI2iQsDX")
                 .updatedAt("2020-06-18T21:32:38.000Z")
+                .userId("user-id")
                 .build()
 
         val roundtrippedTelephonyCredential =

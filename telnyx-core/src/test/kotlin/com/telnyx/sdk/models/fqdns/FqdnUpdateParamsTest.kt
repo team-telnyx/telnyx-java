@@ -10,7 +10,7 @@ internal class FqdnUpdateParamsTest {
     @Test
     fun create() {
         FqdnUpdateParams.builder()
-            .id("id")
+            .id("1517907029795014409")
             .connectionId("1516447646313612565")
             .dnsRecordType("a")
             .fqdn("example.com")
@@ -20,9 +20,9 @@ internal class FqdnUpdateParamsTest {
 
     @Test
     fun pathParams() {
-        val params = FqdnUpdateParams.builder().id("id").build()
+        val params = FqdnUpdateParams.builder().id("1517907029795014409").build()
 
-        assertThat(params._pathParam(0)).isEqualTo("id")
+        assertThat(params._pathParam(0)).isEqualTo("1517907029795014409")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -31,7 +31,7 @@ internal class FqdnUpdateParamsTest {
     fun body() {
         val params =
             FqdnUpdateParams.builder()
-                .id("id")
+                .id("1517907029795014409")
                 .connectionId("1516447646313612565")
                 .dnsRecordType("a")
                 .fqdn("example.com")
@@ -48,7 +48,7 @@ internal class FqdnUpdateParamsTest {
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = FqdnUpdateParams.builder().id("id").build()
+        val params = FqdnUpdateParams.builder().id("1517907029795014409").build()
 
         val body = params._body()
     }

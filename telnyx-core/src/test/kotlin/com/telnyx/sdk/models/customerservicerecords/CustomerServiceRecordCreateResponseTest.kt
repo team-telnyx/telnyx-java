@@ -46,6 +46,7 @@ internal class CustomerServiceRecordCreateResponseTest {
                         )
                         .status(CustomerServiceRecord.Status.PENDING)
                         .updatedAt(OffsetDateTime.parse("2023-01-01T00:00:00Z"))
+                        .webhookUrl("https://example.com/webhook")
                         .build()
                 )
                 .build()
@@ -83,6 +84,7 @@ internal class CustomerServiceRecordCreateResponseTest {
                     )
                     .status(CustomerServiceRecord.Status.PENDING)
                     .updatedAt(OffsetDateTime.parse("2023-01-01T00:00:00Z"))
+                    .webhookUrl("https://example.com/webhook")
                     .build()
             )
     }
@@ -124,6 +126,7 @@ internal class CustomerServiceRecordCreateResponseTest {
                         )
                         .status(CustomerServiceRecord.Status.PENDING)
                         .updatedAt(OffsetDateTime.parse("2023-01-01T00:00:00Z"))
+                        .webhookUrl("https://example.com/webhook")
                         .build()
                 )
                 .build()

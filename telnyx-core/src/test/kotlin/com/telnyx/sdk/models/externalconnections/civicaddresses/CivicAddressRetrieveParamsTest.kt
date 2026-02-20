@@ -10,7 +10,7 @@ internal class CivicAddressRetrieveParamsTest {
     @Test
     fun create() {
         CivicAddressRetrieveParams.builder()
-            .id("id")
+            .id("1293384261075731499")
             .addressId("318fb664-d341-44d2-8405-e6bfb9ced6d9")
             .build()
     }
@@ -19,11 +19,11 @@ internal class CivicAddressRetrieveParamsTest {
     fun pathParams() {
         val params =
             CivicAddressRetrieveParams.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .addressId("318fb664-d341-44d2-8405-e6bfb9ced6d9")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("id")
+        assertThat(params._pathParam(0)).isEqualTo("1293384261075731499")
         assertThat(params._pathParam(1)).isEqualTo("318fb664-d341-44d2-8405-e6bfb9ced6d9")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")

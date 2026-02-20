@@ -26,7 +26,7 @@ internal class ExternalConnectionServiceTest {
                     .outbound(
                         ExternalConnectionCreateParams.Outbound.builder()
                             .channelLimit(10L)
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1911630617284445511")
                             .build()
                     )
                     .active(false)
@@ -53,7 +53,7 @@ internal class ExternalConnectionServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val externalConnectionService = client.externalConnections()
 
-        val externalConnection = externalConnectionService.retrieve("id")
+        val externalConnection = externalConnectionService.retrieve("1293384261075731499")
 
         externalConnection.validate()
     }
@@ -67,10 +67,10 @@ internal class ExternalConnectionServiceTest {
         val externalConnection =
             externalConnectionService.update(
                 ExternalConnectionUpdateParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .outbound(
                         ExternalConnectionUpdateParams.Outbound.builder()
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1911630617284445511")
                             .channelLimit(10L)
                             .build()
                     )
@@ -106,7 +106,7 @@ internal class ExternalConnectionServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val externalConnectionService = client.externalConnections()
 
-        val externalConnection = externalConnectionService.delete("id")
+        val externalConnection = externalConnectionService.delete("1293384261075731499")
 
         externalConnection.validate()
     }

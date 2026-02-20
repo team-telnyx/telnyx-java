@@ -30,9 +30,9 @@ internal class ActionValidateResponseTest {
                         )
                         .addError(
                             ApiError.builder()
-                                .code("code")
+                                .code("20207")
                                 .title("Invalid street address")
-                                .detail("detail")
+                                .description("The street address provided is invalid.")
                                 .meta(
                                     ApiError.Meta.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -67,9 +67,9 @@ internal class ActionValidateResponseTest {
                     )
                     .addError(
                         ApiError.builder()
-                            .code("code")
+                            .code("20207")
                             .title("Invalid street address")
-                            .detail("detail")
+                            .description("The street address provided is invalid.")
                             .meta(
                                 ApiError.Meta.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -108,9 +108,9 @@ internal class ActionValidateResponseTest {
                         )
                         .addError(
                             ApiError.builder()
-                                .code("code")
+                                .code("20207")
                                 .title("Invalid street address")
-                                .detail("detail")
+                                .description("The street address provided is invalid.")
                                 .meta(
                                     ApiError.Meta.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))

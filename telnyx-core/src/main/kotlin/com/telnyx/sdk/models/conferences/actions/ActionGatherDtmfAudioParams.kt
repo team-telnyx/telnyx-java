@@ -21,7 +21,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** Play an audio file to a specific conference participant and gather DTMF input. */
-class ActionGatherUsingAudioParams
+class ActionGatherDtmfAudioParams
 private constructor(
     private val id: String?,
     private val body: Body,
@@ -291,7 +291,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [ActionGatherUsingAudioParams].
+         * Returns a mutable builder for constructing an instance of [ActionGatherDtmfAudioParams].
          *
          * The following fields are required:
          * ```java
@@ -301,7 +301,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [ActionGatherUsingAudioParams]. */
+    /** A builder for [ActionGatherDtmfAudioParams]. */
     class Builder internal constructor() {
 
         private var id: String? = null
@@ -310,11 +310,11 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(actionGatherUsingAudioParams: ActionGatherUsingAudioParams) = apply {
-            id = actionGatherUsingAudioParams.id
-            body = actionGatherUsingAudioParams.body.toBuilder()
-            additionalHeaders = actionGatherUsingAudioParams.additionalHeaders.toBuilder()
-            additionalQueryParams = actionGatherUsingAudioParams.additionalQueryParams.toBuilder()
+        internal fun from(actionGatherDtmfAudioParams: ActionGatherDtmfAudioParams) = apply {
+            id = actionGatherDtmfAudioParams.id
+            body = actionGatherDtmfAudioParams.body.toBuilder()
+            additionalHeaders = actionGatherDtmfAudioParams.additionalHeaders.toBuilder()
+            additionalQueryParams = actionGatherDtmfAudioParams.additionalQueryParams.toBuilder()
         }
 
         fun id(id: String?) = apply { this.id = id }
@@ -688,7 +688,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [ActionGatherUsingAudioParams].
+         * Returns an immutable instance of [ActionGatherDtmfAudioParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -699,8 +699,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): ActionGatherUsingAudioParams =
-            ActionGatherUsingAudioParams(
+        fun build(): ActionGatherDtmfAudioParams =
+            ActionGatherDtmfAudioParams(
                 id,
                 body.build(),
                 additionalHeaders.build(),
@@ -1572,7 +1572,7 @@ private constructor(
             return true
         }
 
-        return other is ActionGatherUsingAudioParams &&
+        return other is ActionGatherDtmfAudioParams &&
             id == other.id &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
@@ -1582,5 +1582,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(id, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ActionGatherUsingAudioParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ActionGatherDtmfAudioParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

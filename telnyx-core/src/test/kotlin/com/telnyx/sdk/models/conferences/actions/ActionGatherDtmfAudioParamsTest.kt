@@ -5,11 +5,11 @@ package com.telnyx.sdk.models.conferences.actions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class ActionGatherUsingAudioParamsTest {
+internal class ActionGatherDtmfAudioParamsTest {
 
     @Test
     fun create() {
-        ActionGatherUsingAudioParams.builder()
+        ActionGatherDtmfAudioParams.builder()
             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
             .audioUrl("http://example.com/gather_prompt.wav")
@@ -33,7 +33,7 @@ internal class ActionGatherUsingAudioParamsTest {
     @Test
     fun pathParams() {
         val params =
-            ActionGatherUsingAudioParams.builder()
+            ActionGatherDtmfAudioParams.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                 .build()
@@ -46,7 +46,7 @@ internal class ActionGatherUsingAudioParamsTest {
     @Test
     fun body() {
         val params =
-            ActionGatherUsingAudioParams.builder()
+            ActionGatherDtmfAudioParams.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                 .audioUrl("http://example.com/gather_prompt.wav")
@@ -90,7 +90,7 @@ internal class ActionGatherUsingAudioParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
-            ActionGatherUsingAudioParams.builder()
+            ActionGatherDtmfAudioParams.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                 .build()
