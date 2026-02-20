@@ -1215,7 +1215,7 @@ private constructor(
     class Transfer
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val transfer: JsonField<InnerTransfer>,
+        private val transfer: JsonField<TransferConfig>,
         private val type: JsonValue,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -1224,7 +1224,7 @@ private constructor(
         private constructor(
             @JsonProperty("transfer")
             @ExcludeMissing
-            transfer: JsonField<InnerTransfer> = JsonMissing.of(),
+            transfer: JsonField<TransferConfig> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
         ) : this(transfer, type, mutableMapOf())
 
@@ -1232,7 +1232,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun transfer(): InnerTransfer = transfer.getRequired("transfer")
+        fun transfer(): TransferConfig = transfer.getRequired("transfer")
 
         /**
          * Expected to always return the following:
@@ -1252,7 +1252,7 @@ private constructor(
          */
         @JsonProperty("transfer")
         @ExcludeMissing
-        fun _transfer(): JsonField<InnerTransfer> = transfer
+        fun _transfer(): JsonField<TransferConfig> = transfer
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1282,7 +1282,7 @@ private constructor(
         /** A builder for [Transfer]. */
         class Builder internal constructor() {
 
-            private var transfer: JsonField<InnerTransfer>? = null
+            private var transfer: JsonField<TransferConfig>? = null
             private var type: JsonValue = JsonValue.from("transfer")
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1293,16 +1293,16 @@ private constructor(
                 additionalProperties = transfer.additionalProperties.toMutableMap()
             }
 
-            fun transfer(transfer: InnerTransfer) = transfer(JsonField.of(transfer))
+            fun transfer(transfer: TransferConfig) = transfer(JsonField.of(transfer))
 
             /**
              * Sets [Builder.transfer] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.transfer] with a well-typed [InnerTransfer] value
+             * You should usually call [Builder.transfer] with a well-typed [TransferConfig] value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun transfer(transfer: JsonField<InnerTransfer>) = apply { this.transfer = transfer }
+            fun transfer(transfer: JsonField<TransferConfig>) = apply { this.transfer = transfer }
 
             /**
              * Sets the field to an arbitrary JSON value.
@@ -1392,7 +1392,7 @@ private constructor(
             (transfer.asKnown().getOrNull()?.validity() ?: 0) +
                 type.let { if (it == JsonValue.from("transfer")) 1 else 0 }
 
-        class InnerTransfer
+        class TransferConfig
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val from: JsonField<String>,
@@ -1537,7 +1537,7 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [InnerTransfer].
+                 * Returns a mutable builder for constructing an instance of [TransferConfig].
                  *
                  * The following fields are required:
                  * ```java
@@ -1548,7 +1548,7 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [InnerTransfer]. */
+            /** A builder for [TransferConfig]. */
             class Builder internal constructor() {
 
                 private var from: JsonField<String>? = null
@@ -1559,13 +1559,13 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(innerTransfer: InnerTransfer) = apply {
-                    from = innerTransfer.from
-                    targets = innerTransfer.targets.map { it.toMutableList() }
-                    customHeaders = innerTransfer.customHeaders.map { it.toMutableList() }
-                    voicemailDetection = innerTransfer.voicemailDetection
-                    warmTransferInstructions = innerTransfer.warmTransferInstructions
-                    additionalProperties = innerTransfer.additionalProperties.toMutableMap()
+                internal fun from(transferConfig: TransferConfig) = apply {
+                    from = transferConfig.from
+                    targets = transferConfig.targets.map { it.toMutableList() }
+                    customHeaders = transferConfig.customHeaders.map { it.toMutableList() }
+                    voicemailDetection = transferConfig.voicemailDetection
+                    warmTransferInstructions = transferConfig.warmTransferInstructions
+                    additionalProperties = transferConfig.additionalProperties.toMutableMap()
                 }
 
                 /** Number or SIP URI placing the call. */
@@ -1696,7 +1696,7 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [InnerTransfer].
+                 * Returns an immutable instance of [TransferConfig].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
@@ -1708,8 +1708,8 @@ private constructor(
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): InnerTransfer =
-                    InnerTransfer(
+                fun build(): TransferConfig =
+                    TransferConfig(
                         checkRequired("from", from),
                         checkRequired("targets", targets).map { it.toImmutable() },
                         (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
@@ -1721,7 +1721,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): InnerTransfer = apply {
+            fun validate(): TransferConfig = apply {
                 if (validated) {
                     return@apply
                 }
@@ -3936,7 +3936,7 @@ private constructor(
                     return true
                 }
 
-                return other is InnerTransfer &&
+                return other is TransferConfig &&
                     from == other.from &&
                     targets == other.targets &&
                     customHeaders == other.customHeaders &&
@@ -3959,7 +3959,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "InnerTransfer{from=$from, targets=$targets, customHeaders=$customHeaders, voicemailDetection=$voicemailDetection, warmTransferInstructions=$warmTransferInstructions, additionalProperties=$additionalProperties}"
+                "TransferConfig{from=$from, targets=$targets, customHeaders=$customHeaders, voicemailDetection=$voicemailDetection, warmTransferInstructions=$warmTransferInstructions, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -5614,7 +5614,7 @@ private constructor(
     class SendMessage
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val sendMessage: JsonField<InnerSendMessage>,
+        private val sendMessage: JsonField<SendMessageConfig>,
         private val type: JsonValue,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -5623,7 +5623,7 @@ private constructor(
         private constructor(
             @JsonProperty("send_message")
             @ExcludeMissing
-            sendMessage: JsonField<InnerSendMessage> = JsonMissing.of(),
+            sendMessage: JsonField<SendMessageConfig> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
         ) : this(sendMessage, type, mutableMapOf())
 
@@ -5631,7 +5631,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun sendMessage(): InnerSendMessage = sendMessage.getRequired("send_message")
+        fun sendMessage(): SendMessageConfig = sendMessage.getRequired("send_message")
 
         /**
          * Expected to always return the following:
@@ -5651,7 +5651,7 @@ private constructor(
          */
         @JsonProperty("send_message")
         @ExcludeMissing
-        fun _sendMessage(): JsonField<InnerSendMessage> = sendMessage
+        fun _sendMessage(): JsonField<SendMessageConfig> = sendMessage
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -5681,7 +5681,7 @@ private constructor(
         /** A builder for [SendMessage]. */
         class Builder internal constructor() {
 
-            private var sendMessage: JsonField<InnerSendMessage>? = null
+            private var sendMessage: JsonField<SendMessageConfig>? = null
             private var type: JsonValue = JsonValue.from("send_message")
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -5692,16 +5692,16 @@ private constructor(
                 additionalProperties = sendMessage.additionalProperties.toMutableMap()
             }
 
-            fun sendMessage(sendMessage: InnerSendMessage) = sendMessage(JsonField.of(sendMessage))
+            fun sendMessage(sendMessage: SendMessageConfig) = sendMessage(JsonField.of(sendMessage))
 
             /**
              * Sets [Builder.sendMessage] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.sendMessage] with a well-typed [InnerSendMessage]
+             * You should usually call [Builder.sendMessage] with a well-typed [SendMessageConfig]
              * value instead. This method is primarily for setting the field to an undocumented or
              * not yet supported value.
              */
-            fun sendMessage(sendMessage: JsonField<InnerSendMessage>) = apply {
+            fun sendMessage(sendMessage: JsonField<SendMessageConfig>) = apply {
                 this.sendMessage = sendMessage
             }
 
@@ -5793,7 +5793,7 @@ private constructor(
             (sendMessage.asKnown().getOrNull()?.validity() ?: 0) +
                 type.let { if (it == JsonValue.from("send_message")) 1 else 0 }
 
-        class InnerSendMessage
+        class SendMessageConfig
         @JsonCreator
         private constructor(
             @com.fasterxml.jackson.annotation.JsonValue
@@ -5808,18 +5808,20 @@ private constructor(
 
             companion object {
 
-                /** Returns a mutable builder for constructing an instance of [InnerSendMessage]. */
+                /**
+                 * Returns a mutable builder for constructing an instance of [SendMessageConfig].
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [InnerSendMessage]. */
+            /** A builder for [SendMessageConfig]. */
             class Builder internal constructor() {
 
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(innerSendMessage: InnerSendMessage) = apply {
-                    additionalProperties = innerSendMessage.additionalProperties.toMutableMap()
+                internal fun from(sendMessageConfig: SendMessageConfig) = apply {
+                    additionalProperties = sendMessageConfig.additionalProperties.toMutableMap()
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -5845,16 +5847,17 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [InnerSendMessage].
+                 * Returns an immutable instance of [SendMessageConfig].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): InnerSendMessage = InnerSendMessage(additionalProperties.toImmutable())
+                fun build(): SendMessageConfig =
+                    SendMessageConfig(additionalProperties.toImmutable())
             }
 
             private var validated: Boolean = false
 
-            fun validate(): InnerSendMessage = apply {
+            fun validate(): SendMessageConfig = apply {
                 if (validated) {
                     return@apply
                 }
@@ -5885,7 +5888,7 @@ private constructor(
                     return true
                 }
 
-                return other is InnerSendMessage &&
+                return other is SendMessageConfig &&
                     additionalProperties == other.additionalProperties
             }
 
@@ -5893,7 +5896,8 @@ private constructor(
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "InnerSendMessage{additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "SendMessageConfig{additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -5918,7 +5922,7 @@ private constructor(
     class SkipTurn
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val skipTurn: JsonField<InnerSkipTurn>,
+        private val skipTurn: JsonField<SkipTurnConfig>,
         private val type: JsonValue,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -5927,7 +5931,7 @@ private constructor(
         private constructor(
             @JsonProperty("skip_turn")
             @ExcludeMissing
-            skipTurn: JsonField<InnerSkipTurn> = JsonMissing.of(),
+            skipTurn: JsonField<SkipTurnConfig> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
         ) : this(skipTurn, type, mutableMapOf())
 
@@ -5935,7 +5939,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun skipTurn(): InnerSkipTurn = skipTurn.getRequired("skip_turn")
+        fun skipTurn(): SkipTurnConfig = skipTurn.getRequired("skip_turn")
 
         /**
          * Expected to always return the following:
@@ -5955,7 +5959,7 @@ private constructor(
          */
         @JsonProperty("skip_turn")
         @ExcludeMissing
-        fun _skipTurn(): JsonField<InnerSkipTurn> = skipTurn
+        fun _skipTurn(): JsonField<SkipTurnConfig> = skipTurn
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -5985,7 +5989,7 @@ private constructor(
         /** A builder for [SkipTurn]. */
         class Builder internal constructor() {
 
-            private var skipTurn: JsonField<InnerSkipTurn>? = null
+            private var skipTurn: JsonField<SkipTurnConfig>? = null
             private var type: JsonValue = JsonValue.from("skip_turn")
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -5996,16 +6000,16 @@ private constructor(
                 additionalProperties = skipTurn.additionalProperties.toMutableMap()
             }
 
-            fun skipTurn(skipTurn: InnerSkipTurn) = skipTurn(JsonField.of(skipTurn))
+            fun skipTurn(skipTurn: SkipTurnConfig) = skipTurn(JsonField.of(skipTurn))
 
             /**
              * Sets [Builder.skipTurn] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.skipTurn] with a well-typed [InnerSkipTurn] value
+             * You should usually call [Builder.skipTurn] with a well-typed [SkipTurnConfig] value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun skipTurn(skipTurn: JsonField<InnerSkipTurn>) = apply { this.skipTurn = skipTurn }
+            fun skipTurn(skipTurn: JsonField<SkipTurnConfig>) = apply { this.skipTurn = skipTurn }
 
             /**
              * Sets the field to an arbitrary JSON value.
@@ -6095,7 +6099,7 @@ private constructor(
             (skipTurn.asKnown().getOrNull()?.validity() ?: 0) +
                 type.let { if (it == JsonValue.from("skip_turn")) 1 else 0 }
 
-        class InnerSkipTurn
+        class SkipTurnConfig
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val description: JsonField<String>,
@@ -6141,20 +6145,20 @@ private constructor(
 
             companion object {
 
-                /** Returns a mutable builder for constructing an instance of [InnerSkipTurn]. */
+                /** Returns a mutable builder for constructing an instance of [SkipTurnConfig]. */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [InnerSkipTurn]. */
+            /** A builder for [SkipTurnConfig]. */
             class Builder internal constructor() {
 
                 private var description: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(innerSkipTurn: InnerSkipTurn) = apply {
-                    description = innerSkipTurn.description
-                    additionalProperties = innerSkipTurn.additionalProperties.toMutableMap()
+                internal fun from(skipTurnConfig: SkipTurnConfig) = apply {
+                    description = skipTurnConfig.description
+                    additionalProperties = skipTurnConfig.additionalProperties.toMutableMap()
                 }
 
                 /** The description of the function that will be passed to the assistant. */
@@ -6194,17 +6198,17 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [InnerSkipTurn].
+                 * Returns an immutable instance of [SkipTurnConfig].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): InnerSkipTurn =
-                    InnerSkipTurn(description, additionalProperties.toMutableMap())
+                fun build(): SkipTurnConfig =
+                    SkipTurnConfig(description, additionalProperties.toMutableMap())
             }
 
             private var validated: Boolean = false
 
-            fun validate(): InnerSkipTurn = apply {
+            fun validate(): SkipTurnConfig = apply {
                 if (validated) {
                     return@apply
                 }
@@ -6235,7 +6239,7 @@ private constructor(
                     return true
                 }
 
-                return other is InnerSkipTurn &&
+                return other is SkipTurnConfig &&
                     description == other.description &&
                     additionalProperties == other.additionalProperties
             }
@@ -6245,7 +6249,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "InnerSkipTurn{description=$description, additionalProperties=$additionalProperties}"
+                "SkipTurnConfig{description=$description, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

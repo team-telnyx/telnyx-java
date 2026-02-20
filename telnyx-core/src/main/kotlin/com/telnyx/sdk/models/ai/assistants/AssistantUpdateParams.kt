@@ -662,7 +662,7 @@ private constructor(
          *     .build()
          * ```
          */
-        fun addTransferTool(transfer: AssistantTool.Transfer.InnerTransfer) = apply {
+        fun addTransferTool(transfer: AssistantTool.Transfer.TransferConfig) = apply {
             body.addTransferTool(transfer)
         }
 
@@ -707,7 +707,7 @@ private constructor(
          *     .build()
          * ```
          */
-        fun addSendMessageTool(sendMessage: AssistantTool.SendMessage.InnerSendMessage) = apply {
+        fun addSendMessageTool(sendMessage: AssistantTool.SendMessage.SendMessageConfig) = apply {
             body.addSendMessageTool(sendMessage)
         }
 
@@ -722,7 +722,7 @@ private constructor(
          *     .build()
          * ```
          */
-        fun addSkipTurnTool(skipTurn: AssistantTool.SkipTurn.InnerSkipTurn) = apply {
+        fun addSkipTurnTool(skipTurn: AssistantTool.SkipTurn.SkipTurnConfig) = apply {
             body.addSkipTurnTool(skipTurn)
         }
 
@@ -1758,7 +1758,7 @@ private constructor(
              *     .build()
              * ```
              */
-            fun addTransferTool(transfer: AssistantTool.Transfer.InnerTransfer) =
+            fun addTransferTool(transfer: AssistantTool.Transfer.TransferConfig) =
                 addTool(AssistantTool.Transfer.builder().transfer(transfer).build())
 
             /** Alias for calling [addTool] with `AssistantTool.ofRefer(refer)`. */
@@ -1802,7 +1802,7 @@ private constructor(
              *     .build()
              * ```
              */
-            fun addSendMessageTool(sendMessage: AssistantTool.SendMessage.InnerSendMessage) =
+            fun addSendMessageTool(sendMessage: AssistantTool.SendMessage.SendMessageConfig) =
                 addTool(AssistantTool.SendMessage.builder().sendMessage(sendMessage).build())
 
             /** Alias for calling [addTool] with `AssistantTool.ofSkipTurn(skipTurn)`. */
@@ -1817,7 +1817,7 @@ private constructor(
              *     .build()
              * ```
              */
-            fun addSkipTurnTool(skipTurn: AssistantTool.SkipTurn.InnerSkipTurn) =
+            fun addSkipTurnTool(skipTurn: AssistantTool.SkipTurn.SkipTurnConfig) =
                 addTool(AssistantTool.SkipTurn.builder().skipTurn(skipTurn).build())
 
             fun transcription(transcription: TranscriptionSettings) =

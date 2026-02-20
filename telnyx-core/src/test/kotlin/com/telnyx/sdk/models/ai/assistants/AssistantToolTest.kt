@@ -339,24 +339,24 @@ internal class AssistantToolTest {
         val transfer =
             AssistantTool.Transfer.builder()
                 .transfer(
-                    AssistantTool.Transfer.InnerTransfer.builder()
+                    AssistantTool.Transfer.TransferConfig.builder()
                         .from("+35319605860")
                         .addTarget(
-                            AssistantTool.Transfer.InnerTransfer.Target.builder()
+                            AssistantTool.Transfer.TransferConfig.Target.builder()
                                 .name("Support")
                                 .to("+13129457420")
                                 .build()
                         )
                         .addCustomHeader(
-                            AssistantTool.Transfer.InnerTransfer.CustomHeader.builder()
+                            AssistantTool.Transfer.TransferConfig.CustomHeader.builder()
                                 .name("name")
                                 .value("value")
                                 .build()
                         )
                         .voicemailDetection(
-                            AssistantTool.Transfer.InnerTransfer.VoicemailDetection.builder()
+                            AssistantTool.Transfer.TransferConfig.VoicemailDetection.builder()
                                 .detectionConfig(
-                                    AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                    AssistantTool.Transfer.TransferConfig.VoicemailDetection
                                         .DetectionConfig
                                         .builder()
                                         .afterGreetingSilenceMillis(100L)
@@ -373,28 +373,28 @@ internal class AssistantToolTest {
                                         .build()
                                 )
                                 .detectionMode(
-                                    AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                    AssistantTool.Transfer.TransferConfig.VoicemailDetection
                                         .DetectionMode
                                         .DISABLED
                                 )
                                 .onVoicemailDetected(
-                                    AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                    AssistantTool.Transfer.TransferConfig.VoicemailDetection
                                         .OnVoicemailDetected
                                         .builder()
                                         .action(
-                                            AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                            AssistantTool.Transfer.TransferConfig.VoicemailDetection
                                                 .OnVoicemailDetected
                                                 .Action
                                                 .STOP_TRANSFER
                                         )
                                         .voicemailMessage(
-                                            AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                            AssistantTool.Transfer.TransferConfig.VoicemailDetection
                                                 .OnVoicemailDetected
                                                 .VoicemailMessage
                                                 .builder()
                                                 .message("message")
                                                 .type(
-                                                    AssistantTool.Transfer.InnerTransfer
+                                                    AssistantTool.Transfer.TransferConfig
                                                         .VoicemailDetection
                                                         .OnVoicemailDetected
                                                         .VoicemailMessage
@@ -434,24 +434,24 @@ internal class AssistantToolTest {
             AssistantTool.ofTransfer(
                 AssistantTool.Transfer.builder()
                     .transfer(
-                        AssistantTool.Transfer.InnerTransfer.builder()
+                        AssistantTool.Transfer.TransferConfig.builder()
                             .from("+35319605860")
                             .addTarget(
-                                AssistantTool.Transfer.InnerTransfer.Target.builder()
+                                AssistantTool.Transfer.TransferConfig.Target.builder()
                                     .name("Support")
                                     .to("+13129457420")
                                     .build()
                             )
                             .addCustomHeader(
-                                AssistantTool.Transfer.InnerTransfer.CustomHeader.builder()
+                                AssistantTool.Transfer.TransferConfig.CustomHeader.builder()
                                     .name("name")
                                     .value("value")
                                     .build()
                             )
                             .voicemailDetection(
-                                AssistantTool.Transfer.InnerTransfer.VoicemailDetection.builder()
+                                AssistantTool.Transfer.TransferConfig.VoicemailDetection.builder()
                                     .detectionConfig(
-                                        AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                        AssistantTool.Transfer.TransferConfig.VoicemailDetection
                                             .DetectionConfig
                                             .builder()
                                             .afterGreetingSilenceMillis(100L)
@@ -468,30 +468,30 @@ internal class AssistantToolTest {
                                             .build()
                                     )
                                     .detectionMode(
-                                        AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                        AssistantTool.Transfer.TransferConfig.VoicemailDetection
                                             .DetectionMode
                                             .DISABLED
                                     )
                                     .onVoicemailDetected(
-                                        AssistantTool.Transfer.InnerTransfer.VoicemailDetection
+                                        AssistantTool.Transfer.TransferConfig.VoicemailDetection
                                             .OnVoicemailDetected
                                             .builder()
                                             .action(
-                                                AssistantTool.Transfer.InnerTransfer
+                                                AssistantTool.Transfer.TransferConfig
                                                     .VoicemailDetection
                                                     .OnVoicemailDetected
                                                     .Action
                                                     .STOP_TRANSFER
                                             )
                                             .voicemailMessage(
-                                                AssistantTool.Transfer.InnerTransfer
+                                                AssistantTool.Transfer.TransferConfig
                                                     .VoicemailDetection
                                                     .OnVoicemailDetected
                                                     .VoicemailMessage
                                                     .builder()
                                                     .message("message")
                                                     .type(
-                                                        AssistantTool.Transfer.InnerTransfer
+                                                        AssistantTool.Transfer.TransferConfig
                                                             .VoicemailDetection
                                                             .OnVoicemailDetected
                                                             .VoicemailMessage
@@ -660,7 +660,7 @@ internal class AssistantToolTest {
         val sendMessage =
             AssistantTool.SendMessage.builder()
                 .sendMessage(
-                    AssistantTool.SendMessage.InnerSendMessage.builder()
+                    AssistantTool.SendMessage.SendMessageConfig.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
@@ -686,7 +686,7 @@ internal class AssistantToolTest {
             AssistantTool.ofSendMessage(
                 AssistantTool.SendMessage.builder()
                     .sendMessage(
-                        AssistantTool.SendMessage.InnerSendMessage.builder()
+                        AssistantTool.SendMessage.SendMessageConfig.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -707,7 +707,7 @@ internal class AssistantToolTest {
         val skipTurn =
             AssistantTool.SkipTurn.builder()
                 .skipTurn(
-                    AssistantTool.SkipTurn.InnerSkipTurn.builder()
+                    AssistantTool.SkipTurn.SkipTurnConfig.builder()
                         .description("description")
                         .build()
                 )
@@ -733,7 +733,7 @@ internal class AssistantToolTest {
             AssistantTool.ofSkipTurn(
                 AssistantTool.SkipTurn.builder()
                     .skipTurn(
-                        AssistantTool.SkipTurn.InnerSkipTurn.builder()
+                        AssistantTool.SkipTurn.SkipTurnConfig.builder()
                             .description("description")
                             .build()
                     )
