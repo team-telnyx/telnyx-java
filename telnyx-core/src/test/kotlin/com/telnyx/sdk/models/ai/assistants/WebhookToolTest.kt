@@ -23,21 +23,10 @@ internal class WebhookToolTest {
                         .bodyParameters(
                             WebhookTool.Webhook.BodyParameters.builder()
                                 .properties(
-                                    JsonValue.from(
-                                        mapOf(
-                                            "age" to
-                                                mapOf(
-                                                    "description" to "The age of the customer.",
-                                                    "type" to "integer",
-                                                ),
-                                            "location" to
-                                                mapOf(
-                                                    "description" to
-                                                        "The location of the customer.",
-                                                    "type" to "string",
-                                                ),
-                                        )
-                                    )
+                                    WebhookTool.Webhook.BodyParameters.Properties.builder()
+                                        .putAdditionalProperty("age", JsonValue.from("bar"))
+                                        .putAdditionalProperty("location", JsonValue.from("bar"))
+                                        .build()
                                 )
                                 .addRequired("age")
                                 .addRequired("location")
@@ -51,15 +40,9 @@ internal class WebhookToolTest {
                         .pathParameters(
                             WebhookTool.Webhook.PathParameters.builder()
                                 .properties(
-                                    JsonValue.from(
-                                        mapOf(
-                                            "id" to
-                                                mapOf(
-                                                    "description" to "The id of the customer.",
-                                                    "type" to "string",
-                                                )
-                                        )
-                                    )
+                                    WebhookTool.Webhook.PathParameters.Properties.builder()
+                                        .putAdditionalProperty("id", JsonValue.from("bar"))
+                                        .build()
                                 )
                                 .addRequired("id")
                                 .type(WebhookTool.Webhook.PathParameters.Type.OBJECT)
@@ -68,15 +51,9 @@ internal class WebhookToolTest {
                         .queryParameters(
                             WebhookTool.Webhook.QueryParameters.builder()
                                 .properties(
-                                    JsonValue.from(
-                                        mapOf(
-                                            "page" to
-                                                mapOf(
-                                                    "description" to "The page number.",
-                                                    "type" to "integer",
-                                                )
-                                        )
-                                    )
+                                    WebhookTool.Webhook.QueryParameters.Properties.builder()
+                                        .putAdditionalProperty("page", JsonValue.from("bar"))
+                                        .build()
                                 )
                                 .addRequired("page")
                                 .type(WebhookTool.Webhook.QueryParameters.Type.OBJECT)
@@ -96,20 +73,10 @@ internal class WebhookToolTest {
                     .bodyParameters(
                         WebhookTool.Webhook.BodyParameters.builder()
                             .properties(
-                                JsonValue.from(
-                                    mapOf(
-                                        "age" to
-                                            mapOf(
-                                                "description" to "The age of the customer.",
-                                                "type" to "integer",
-                                            ),
-                                        "location" to
-                                            mapOf(
-                                                "description" to "The location of the customer.",
-                                                "type" to "string",
-                                            ),
-                                    )
-                                )
+                                WebhookTool.Webhook.BodyParameters.Properties.builder()
+                                    .putAdditionalProperty("age", JsonValue.from("bar"))
+                                    .putAdditionalProperty("location", JsonValue.from("bar"))
+                                    .build()
                             )
                             .addRequired("age")
                             .addRequired("location")
@@ -123,15 +90,9 @@ internal class WebhookToolTest {
                     .pathParameters(
                         WebhookTool.Webhook.PathParameters.builder()
                             .properties(
-                                JsonValue.from(
-                                    mapOf(
-                                        "id" to
-                                            mapOf(
-                                                "description" to "The id of the customer.",
-                                                "type" to "string",
-                                            )
-                                    )
-                                )
+                                WebhookTool.Webhook.PathParameters.Properties.builder()
+                                    .putAdditionalProperty("id", JsonValue.from("bar"))
+                                    .build()
                             )
                             .addRequired("id")
                             .type(WebhookTool.Webhook.PathParameters.Type.OBJECT)
@@ -140,15 +101,9 @@ internal class WebhookToolTest {
                     .queryParameters(
                         WebhookTool.Webhook.QueryParameters.builder()
                             .properties(
-                                JsonValue.from(
-                                    mapOf(
-                                        "page" to
-                                            mapOf(
-                                                "description" to "The page number.",
-                                                "type" to "integer",
-                                            )
-                                    )
-                                )
+                                WebhookTool.Webhook.QueryParameters.Properties.builder()
+                                    .putAdditionalProperty("page", JsonValue.from("bar"))
+                                    .build()
                             )
                             .addRequired("page")
                             .type(WebhookTool.Webhook.QueryParameters.Type.OBJECT)
@@ -172,21 +127,10 @@ internal class WebhookToolTest {
                         .bodyParameters(
                             WebhookTool.Webhook.BodyParameters.builder()
                                 .properties(
-                                    JsonValue.from(
-                                        mapOf(
-                                            "age" to
-                                                mapOf(
-                                                    "description" to "The age of the customer.",
-                                                    "type" to "integer",
-                                                ),
-                                            "location" to
-                                                mapOf(
-                                                    "description" to
-                                                        "The location of the customer.",
-                                                    "type" to "string",
-                                                ),
-                                        )
-                                    )
+                                    WebhookTool.Webhook.BodyParameters.Properties.builder()
+                                        .putAdditionalProperty("age", JsonValue.from("bar"))
+                                        .putAdditionalProperty("location", JsonValue.from("bar"))
+                                        .build()
                                 )
                                 .addRequired("age")
                                 .addRequired("location")
@@ -200,15 +144,9 @@ internal class WebhookToolTest {
                         .pathParameters(
                             WebhookTool.Webhook.PathParameters.builder()
                                 .properties(
-                                    JsonValue.from(
-                                        mapOf(
-                                            "id" to
-                                                mapOf(
-                                                    "description" to "The id of the customer.",
-                                                    "type" to "string",
-                                                )
-                                        )
-                                    )
+                                    WebhookTool.Webhook.PathParameters.Properties.builder()
+                                        .putAdditionalProperty("id", JsonValue.from("bar"))
+                                        .build()
                                 )
                                 .addRequired("id")
                                 .type(WebhookTool.Webhook.PathParameters.Type.OBJECT)
@@ -217,15 +155,9 @@ internal class WebhookToolTest {
                         .queryParameters(
                             WebhookTool.Webhook.QueryParameters.builder()
                                 .properties(
-                                    JsonValue.from(
-                                        mapOf(
-                                            "page" to
-                                                mapOf(
-                                                    "description" to "The page number.",
-                                                    "type" to "integer",
-                                                )
-                                        )
-                                    )
+                                    WebhookTool.Webhook.QueryParameters.Properties.builder()
+                                        .putAdditionalProperty("page", JsonValue.from("bar"))
+                                        .build()
                                 )
                                 .addRequired("page")
                                 .type(WebhookTool.Webhook.QueryParameters.Type.OBJECT)
