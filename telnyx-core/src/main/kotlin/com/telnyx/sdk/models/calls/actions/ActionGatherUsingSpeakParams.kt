@@ -26,6 +26,7 @@ import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.MinimaxVoiceSettings
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -669,7 +670,7 @@ private constructor(
         fun voiceSettings(aws: AwsVoiceSettings) = apply { body.voiceSettings(aws) }
 
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofMinimax(minimax)`. */
-        fun voiceSettings(minimax: VoiceSettings.Minimax) = apply { body.voiceSettings(minimax) }
+        fun voiceSettings(minimax: MinimaxVoiceSettings) = apply { body.voiceSettings(minimax) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -1576,7 +1577,7 @@ private constructor(
             fun voiceSettings(aws: AwsVoiceSettings) = voiceSettings(VoiceSettings.ofAws(aws))
 
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofMinimax(minimax)`. */
-            fun voiceSettings(minimax: VoiceSettings.Minimax) =
+            fun voiceSettings(minimax: MinimaxVoiceSettings) =
                 voiceSettings(VoiceSettings.ofMinimax(minimax))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -2307,7 +2308,7 @@ private constructor(
         private val elevenlabs: ElevenLabsVoiceSettings? = null,
         private val telnyx: TelnyxVoiceSettings? = null,
         private val aws: AwsVoiceSettings? = null,
-        private val minimax: Minimax? = null,
+        private val minimax: MinimaxVoiceSettings? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -2317,7 +2318,7 @@ private constructor(
 
         fun aws(): Optional<AwsVoiceSettings> = Optional.ofNullable(aws)
 
-        fun minimax(): Optional<Minimax> = Optional.ofNullable(minimax)
+        fun minimax(): Optional<MinimaxVoiceSettings> = Optional.ofNullable(minimax)
 
         fun isElevenlabs(): Boolean = elevenlabs != null
 
@@ -2333,7 +2334,7 @@ private constructor(
 
         fun asAws(): AwsVoiceSettings = aws.getOrThrow("aws")
 
-        fun asMinimax(): Minimax = minimax.getOrThrow("minimax")
+        fun asMinimax(): MinimaxVoiceSettings = minimax.getOrThrow("minimax")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -2367,7 +2368,7 @@ private constructor(
                         aws.validate()
                     }
 
-                    override fun visitMinimax(minimax: Minimax) {
+                    override fun visitMinimax(minimax: MinimaxVoiceSettings) {
                         minimax.validate()
                     }
                 }
@@ -2400,7 +2401,7 @@ private constructor(
 
                     override fun visitAws(aws: AwsVoiceSettings) = aws.validity()
 
-                    override fun visitMinimax(minimax: Minimax) = minimax.validity()
+                    override fun visitMinimax(minimax: MinimaxVoiceSettings) = minimax.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -2440,7 +2441,8 @@ private constructor(
 
             @JvmStatic fun ofAws(aws: AwsVoiceSettings) = VoiceSettings(aws = aws)
 
-            @JvmStatic fun ofMinimax(minimax: Minimax) = VoiceSettings(minimax = minimax)
+            @JvmStatic
+            fun ofMinimax(minimax: MinimaxVoiceSettings) = VoiceSettings(minimax = minimax)
         }
 
         /**
@@ -2455,7 +2457,7 @@ private constructor(
 
             fun visitAws(aws: AwsVoiceSettings): T
 
-            fun visitMinimax(minimax: Minimax): T
+            fun visitMinimax(minimax: MinimaxVoiceSettings): T
 
             /**
              * Maps an unknown variant of [VoiceSettings] to a value of type [T].
@@ -2495,7 +2497,7 @@ private constructor(
                         } ?: VoiceSettings(_json = json)
                     }
                     "minimax" -> {
-                        return tryDeserialize(node, jacksonTypeRef<Minimax>())?.let {
+                        return tryDeserialize(node, jacksonTypeRef<MinimaxVoiceSettings>())?.let {
                             VoiceSettings(minimax = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
@@ -2521,693 +2523,6 @@ private constructor(
                     else -> throw IllegalStateException("Invalid VoiceSettings")
                 }
             }
-        }
-
-        class Minimax
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val type: JsonValue,
-            private val languageBoost: JsonField<LanguageBoost>,
-            private val pitch: JsonField<Long>,
-            private val speed: JsonField<Float>,
-            private val vol: JsonField<Float>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
-                @JsonProperty("language_boost")
-                @ExcludeMissing
-                languageBoost: JsonField<LanguageBoost> = JsonMissing.of(),
-                @JsonProperty("pitch") @ExcludeMissing pitch: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("speed") @ExcludeMissing speed: JsonField<Float> = JsonMissing.of(),
-                @JsonProperty("vol") @ExcludeMissing vol: JsonField<Float> = JsonMissing.of(),
-            ) : this(type, languageBoost, pitch, speed, vol, mutableMapOf())
-
-            /**
-             * Voice settings provider type
-             *
-             * Expected to always return the following:
-             * ```java
-             * JsonValue.from("minimax")
-             * ```
-             *
-             * However, this method can be useful for debugging and logging (e.g. if the server
-             * responded with an unexpected value).
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
-
-            /**
-             * Enhances recognition for specific languages and dialects during MiniMax TTS
-             * synthesis. Default is null (no boost). Set to 'auto' for automatic language
-             * detection.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun languageBoost(): Optional<LanguageBoost> =
-                languageBoost.getOptional("language_boost")
-
-            /**
-             * Voice pitch adjustment. Default is 0.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun pitch(): Optional<Long> = pitch.getOptional("pitch")
-
-            /**
-             * Speech speed multiplier. Default is 1.0.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun speed(): Optional<Float> = speed.getOptional("speed")
-
-            /**
-             * Speech volume multiplier. Default is 1.0.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun vol(): Optional<Float> = vol.getOptional("vol")
-
-            /**
-             * Returns the raw JSON value of [languageBoost].
-             *
-             * Unlike [languageBoost], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("language_boost")
-            @ExcludeMissing
-            fun _languageBoost(): JsonField<LanguageBoost> = languageBoost
-
-            /**
-             * Returns the raw JSON value of [pitch].
-             *
-             * Unlike [pitch], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("pitch") @ExcludeMissing fun _pitch(): JsonField<Long> = pitch
-
-            /**
-             * Returns the raw JSON value of [speed].
-             *
-             * Unlike [speed], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("speed") @ExcludeMissing fun _speed(): JsonField<Float> = speed
-
-            /**
-             * Returns the raw JSON value of [vol].
-             *
-             * Unlike [vol], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("vol") @ExcludeMissing fun _vol(): JsonField<Float> = vol
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Minimax]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Minimax]. */
-            class Builder internal constructor() {
-
-                private var type: JsonValue = JsonValue.from("minimax")
-                private var languageBoost: JsonField<LanguageBoost> = JsonMissing.of()
-                private var pitch: JsonField<Long> = JsonMissing.of()
-                private var speed: JsonField<Float> = JsonMissing.of()
-                private var vol: JsonField<Float> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(minimax: Minimax) = apply {
-                    type = minimax.type
-                    languageBoost = minimax.languageBoost
-                    pitch = minimax.pitch
-                    speed = minimax.speed
-                    vol = minimax.vol
-                    additionalProperties = minimax.additionalProperties.toMutableMap()
-                }
-
-                /**
-                 * Sets the field to an arbitrary JSON value.
-                 *
-                 * It is usually unnecessary to call this method because the field defaults to the
-                 * following:
-                 * ```java
-                 * JsonValue.from("minimax")
-                 * ```
-                 *
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun type(type: JsonValue) = apply { this.type = type }
-
-                /**
-                 * Enhances recognition for specific languages and dialects during MiniMax TTS
-                 * synthesis. Default is null (no boost). Set to 'auto' for automatic language
-                 * detection.
-                 */
-                fun languageBoost(languageBoost: LanguageBoost?) =
-                    languageBoost(JsonField.ofNullable(languageBoost))
-
-                /** Alias for calling [Builder.languageBoost] with `languageBoost.orElse(null)`. */
-                fun languageBoost(languageBoost: Optional<LanguageBoost>) =
-                    languageBoost(languageBoost.getOrNull())
-
-                /**
-                 * Sets [Builder.languageBoost] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.languageBoost] with a well-typed [LanguageBoost]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun languageBoost(languageBoost: JsonField<LanguageBoost>) = apply {
-                    this.languageBoost = languageBoost
-                }
-
-                /** Voice pitch adjustment. Default is 0. */
-                fun pitch(pitch: Long) = pitch(JsonField.of(pitch))
-
-                /**
-                 * Sets [Builder.pitch] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.pitch] with a well-typed [Long] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun pitch(pitch: JsonField<Long>) = apply { this.pitch = pitch }
-
-                /** Speech speed multiplier. Default is 1.0. */
-                fun speed(speed: Float) = speed(JsonField.of(speed))
-
-                /**
-                 * Sets [Builder.speed] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.speed] with a well-typed [Float] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun speed(speed: JsonField<Float>) = apply { this.speed = speed }
-
-                /** Speech volume multiplier. Default is 1.0. */
-                fun vol(vol: Float) = vol(JsonField.of(vol))
-
-                /**
-                 * Sets [Builder.vol] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.vol] with a well-typed [Float] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun vol(vol: JsonField<Float>) = apply { this.vol = vol }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Minimax].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Minimax =
-                    Minimax(
-                        type,
-                        languageBoost,
-                        pitch,
-                        speed,
-                        vol,
-                        additionalProperties.toMutableMap(),
-                    )
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): Minimax = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                _type().let {
-                    if (it != JsonValue.from("minimax")) {
-                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
-                    }
-                }
-                languageBoost().ifPresent { it.validate() }
-                pitch()
-                speed()
-                vol()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                type.let { if (it == JsonValue.from("minimax")) 1 else 0 } +
-                    (languageBoost.asKnown().getOrNull()?.validity() ?: 0) +
-                    (if (pitch.asKnown().isPresent) 1 else 0) +
-                    (if (speed.asKnown().isPresent) 1 else 0) +
-                    (if (vol.asKnown().isPresent) 1 else 0)
-
-            /**
-             * Enhances recognition for specific languages and dialects during MiniMax TTS
-             * synthesis. Default is null (no boost). Set to 'auto' for automatic language
-             * detection.
-             */
-            class LanguageBoost
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val AUTO = of("auto")
-
-                    @JvmField val CHINESE = of("Chinese")
-
-                    @JvmField val CHINESE_YUE = of("Chinese,Yue")
-
-                    @JvmField val ENGLISH = of("English")
-
-                    @JvmField val ARABIC = of("Arabic")
-
-                    @JvmField val RUSSIAN = of("Russian")
-
-                    @JvmField val SPANISH = of("Spanish")
-
-                    @JvmField val FRENCH = of("French")
-
-                    @JvmField val PORTUGUESE = of("Portuguese")
-
-                    @JvmField val GERMAN = of("German")
-
-                    @JvmField val TURKISH = of("Turkish")
-
-                    @JvmField val DUTCH = of("Dutch")
-
-                    @JvmField val UKRAINIAN = of("Ukrainian")
-
-                    @JvmField val VIETNAMESE = of("Vietnamese")
-
-                    @JvmField val INDONESIAN = of("Indonesian")
-
-                    @JvmField val JAPANESE = of("Japanese")
-
-                    @JvmField val ITALIAN = of("Italian")
-
-                    @JvmField val KOREAN = of("Korean")
-
-                    @JvmField val THAI = of("Thai")
-
-                    @JvmField val POLISH = of("Polish")
-
-                    @JvmField val ROMANIAN = of("Romanian")
-
-                    @JvmField val GREEK = of("Greek")
-
-                    @JvmField val CZECH = of("Czech")
-
-                    @JvmField val FINNISH = of("Finnish")
-
-                    @JvmField val HINDI = of("Hindi")
-
-                    @JvmField val BULGARIAN = of("Bulgarian")
-
-                    @JvmField val DANISH = of("Danish")
-
-                    @JvmField val HEBREW = of("Hebrew")
-
-                    @JvmField val MALAY = of("Malay")
-
-                    @JvmField val PERSIAN = of("Persian")
-
-                    @JvmField val SLOVAK = of("Slovak")
-
-                    @JvmField val SWEDISH = of("Swedish")
-
-                    @JvmField val CROATIAN = of("Croatian")
-
-                    @JvmField val FILIPINO = of("Filipino")
-
-                    @JvmField val HUNGARIAN = of("Hungarian")
-
-                    @JvmField val NORWEGIAN = of("Norwegian")
-
-                    @JvmField val SLOVENIAN = of("Slovenian")
-
-                    @JvmField val CATALAN = of("Catalan")
-
-                    @JvmField val NYNORSK = of("Nynorsk")
-
-                    @JvmField val TAMIL = of("Tamil")
-
-                    @JvmField val AFRIKAANS = of("Afrikaans")
-
-                    @JvmStatic fun of(value: String) = LanguageBoost(JsonField.of(value))
-                }
-
-                /** An enum containing [LanguageBoost]'s known values. */
-                enum class Known {
-                    AUTO,
-                    CHINESE,
-                    CHINESE_YUE,
-                    ENGLISH,
-                    ARABIC,
-                    RUSSIAN,
-                    SPANISH,
-                    FRENCH,
-                    PORTUGUESE,
-                    GERMAN,
-                    TURKISH,
-                    DUTCH,
-                    UKRAINIAN,
-                    VIETNAMESE,
-                    INDONESIAN,
-                    JAPANESE,
-                    ITALIAN,
-                    KOREAN,
-                    THAI,
-                    POLISH,
-                    ROMANIAN,
-                    GREEK,
-                    CZECH,
-                    FINNISH,
-                    HINDI,
-                    BULGARIAN,
-                    DANISH,
-                    HEBREW,
-                    MALAY,
-                    PERSIAN,
-                    SLOVAK,
-                    SWEDISH,
-                    CROATIAN,
-                    FILIPINO,
-                    HUNGARIAN,
-                    NORWEGIAN,
-                    SLOVENIAN,
-                    CATALAN,
-                    NYNORSK,
-                    TAMIL,
-                    AFRIKAANS,
-                }
-
-                /**
-                 * An enum containing [LanguageBoost]'s known values, as well as an [_UNKNOWN]
-                 * member.
-                 *
-                 * An instance of [LanguageBoost] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    AUTO,
-                    CHINESE,
-                    CHINESE_YUE,
-                    ENGLISH,
-                    ARABIC,
-                    RUSSIAN,
-                    SPANISH,
-                    FRENCH,
-                    PORTUGUESE,
-                    GERMAN,
-                    TURKISH,
-                    DUTCH,
-                    UKRAINIAN,
-                    VIETNAMESE,
-                    INDONESIAN,
-                    JAPANESE,
-                    ITALIAN,
-                    KOREAN,
-                    THAI,
-                    POLISH,
-                    ROMANIAN,
-                    GREEK,
-                    CZECH,
-                    FINNISH,
-                    HINDI,
-                    BULGARIAN,
-                    DANISH,
-                    HEBREW,
-                    MALAY,
-                    PERSIAN,
-                    SLOVAK,
-                    SWEDISH,
-                    CROATIAN,
-                    FILIPINO,
-                    HUNGARIAN,
-                    NORWEGIAN,
-                    SLOVENIAN,
-                    CATALAN,
-                    NYNORSK,
-                    TAMIL,
-                    AFRIKAANS,
-                    /**
-                     * An enum member indicating that [LanguageBoost] was instantiated with an
-                     * unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        AUTO -> Value.AUTO
-                        CHINESE -> Value.CHINESE
-                        CHINESE_YUE -> Value.CHINESE_YUE
-                        ENGLISH -> Value.ENGLISH
-                        ARABIC -> Value.ARABIC
-                        RUSSIAN -> Value.RUSSIAN
-                        SPANISH -> Value.SPANISH
-                        FRENCH -> Value.FRENCH
-                        PORTUGUESE -> Value.PORTUGUESE
-                        GERMAN -> Value.GERMAN
-                        TURKISH -> Value.TURKISH
-                        DUTCH -> Value.DUTCH
-                        UKRAINIAN -> Value.UKRAINIAN
-                        VIETNAMESE -> Value.VIETNAMESE
-                        INDONESIAN -> Value.INDONESIAN
-                        JAPANESE -> Value.JAPANESE
-                        ITALIAN -> Value.ITALIAN
-                        KOREAN -> Value.KOREAN
-                        THAI -> Value.THAI
-                        POLISH -> Value.POLISH
-                        ROMANIAN -> Value.ROMANIAN
-                        GREEK -> Value.GREEK
-                        CZECH -> Value.CZECH
-                        FINNISH -> Value.FINNISH
-                        HINDI -> Value.HINDI
-                        BULGARIAN -> Value.BULGARIAN
-                        DANISH -> Value.DANISH
-                        HEBREW -> Value.HEBREW
-                        MALAY -> Value.MALAY
-                        PERSIAN -> Value.PERSIAN
-                        SLOVAK -> Value.SLOVAK
-                        SWEDISH -> Value.SWEDISH
-                        CROATIAN -> Value.CROATIAN
-                        FILIPINO -> Value.FILIPINO
-                        HUNGARIAN -> Value.HUNGARIAN
-                        NORWEGIAN -> Value.NORWEGIAN
-                        SLOVENIAN -> Value.SLOVENIAN
-                        CATALAN -> Value.CATALAN
-                        NYNORSK -> Value.NYNORSK
-                        TAMIL -> Value.TAMIL
-                        AFRIKAANS -> Value.AFRIKAANS
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        AUTO -> Known.AUTO
-                        CHINESE -> Known.CHINESE
-                        CHINESE_YUE -> Known.CHINESE_YUE
-                        ENGLISH -> Known.ENGLISH
-                        ARABIC -> Known.ARABIC
-                        RUSSIAN -> Known.RUSSIAN
-                        SPANISH -> Known.SPANISH
-                        FRENCH -> Known.FRENCH
-                        PORTUGUESE -> Known.PORTUGUESE
-                        GERMAN -> Known.GERMAN
-                        TURKISH -> Known.TURKISH
-                        DUTCH -> Known.DUTCH
-                        UKRAINIAN -> Known.UKRAINIAN
-                        VIETNAMESE -> Known.VIETNAMESE
-                        INDONESIAN -> Known.INDONESIAN
-                        JAPANESE -> Known.JAPANESE
-                        ITALIAN -> Known.ITALIAN
-                        KOREAN -> Known.KOREAN
-                        THAI -> Known.THAI
-                        POLISH -> Known.POLISH
-                        ROMANIAN -> Known.ROMANIAN
-                        GREEK -> Known.GREEK
-                        CZECH -> Known.CZECH
-                        FINNISH -> Known.FINNISH
-                        HINDI -> Known.HINDI
-                        BULGARIAN -> Known.BULGARIAN
-                        DANISH -> Known.DANISH
-                        HEBREW -> Known.HEBREW
-                        MALAY -> Known.MALAY
-                        PERSIAN -> Known.PERSIAN
-                        SLOVAK -> Known.SLOVAK
-                        SWEDISH -> Known.SWEDISH
-                        CROATIAN -> Known.CROATIAN
-                        FILIPINO -> Known.FILIPINO
-                        HUNGARIAN -> Known.HUNGARIAN
-                        NORWEGIAN -> Known.NORWEGIAN
-                        SLOVENIAN -> Known.SLOVENIAN
-                        CATALAN -> Known.CATALAN
-                        NYNORSK -> Known.NYNORSK
-                        TAMIL -> Known.TAMIL
-                        AFRIKAANS -> Known.AFRIKAANS
-                        else -> throw TelnyxInvalidDataException("Unknown LanguageBoost: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                fun validate(): LanguageBoost = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is LanguageBoost && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Minimax &&
-                    type == other.type &&
-                    languageBoost == other.languageBoost &&
-                    pitch == other.pitch &&
-                    speed == other.speed &&
-                    vol == other.vol &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(type, languageBoost, pitch, speed, vol, additionalProperties)
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Minimax{type=$type, languageBoost=$languageBoost, pitch=$pitch, speed=$speed, vol=$vol, additionalProperties=$additionalProperties}"
         }
     }
 
