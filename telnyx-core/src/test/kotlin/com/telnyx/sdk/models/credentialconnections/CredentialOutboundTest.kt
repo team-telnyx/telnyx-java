@@ -20,7 +20,7 @@ internal class CredentialOutboundTest {
                 .generateRingbackTone(true)
                 .instantRingbackEnabled(true)
                 .localization("US")
-                .outboundVoiceProfileId("outbound_voice_profile_id")
+                .outboundVoiceProfileId("1293384261075731499")
                 .t38ReinviteSource(CredentialOutbound.T38ReinviteSource.CUSTOMER)
                 .build()
 
@@ -32,8 +32,7 @@ internal class CredentialOutboundTest {
         assertThat(credentialOutbound.generateRingbackTone()).contains(true)
         assertThat(credentialOutbound.instantRingbackEnabled()).contains(true)
         assertThat(credentialOutbound.localization()).contains("US")
-        assertThat(credentialOutbound.outboundVoiceProfileId())
-            .contains("outbound_voice_profile_id")
+        assertThat(credentialOutbound.outboundVoiceProfileId()).contains("1293384261075731499")
         assertThat(credentialOutbound.t38ReinviteSource())
             .contains(CredentialOutbound.T38ReinviteSource.CUSTOMER)
     }
@@ -50,7 +49,7 @@ internal class CredentialOutboundTest {
                 .generateRingbackTone(true)
                 .instantRingbackEnabled(true)
                 .localization("US")
-                .outboundVoiceProfileId("outbound_voice_profile_id")
+                .outboundVoiceProfileId("1293384261075731499")
                 .t38ReinviteSource(CredentialOutbound.T38ReinviteSource.CUSTOMER)
                 .build()
 

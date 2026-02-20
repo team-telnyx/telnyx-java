@@ -16,10 +16,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.conferences.actions.ActionEndParams
-import com.telnyx.sdk.models.conferences.actions.ActionEndResponse
-import com.telnyx.sdk.models.conferences.actions.ActionGatherUsingAudioParams
-import com.telnyx.sdk.models.conferences.actions.ActionGatherUsingAudioResponse
+import com.telnyx.sdk.models.conferences.actions.ActionEndConferenceParams
+import com.telnyx.sdk.models.conferences.actions.ActionEndConferenceResponse
+import com.telnyx.sdk.models.conferences.actions.ActionGatherDtmfAudioParams
+import com.telnyx.sdk.models.conferences.actions.ActionGatherDtmfAudioResponse
 import com.telnyx.sdk.models.conferences.actions.ActionHoldParams
 import com.telnyx.sdk.models.conferences.actions.ActionHoldResponse
 import com.telnyx.sdk.models.conferences.actions.ActionJoinParams
@@ -72,16 +72,19 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
         // post /conferences/{id}/actions/update
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun end(params: ActionEndParams, requestOptions: RequestOptions): ActionEndResponse =
-        // post /conferences/{id}/actions/end
-        withRawResponse().end(params, requestOptions).parse()
-
-    override fun gatherUsingAudio(
-        params: ActionGatherUsingAudioParams,
+    override fun endConference(
+        params: ActionEndConferenceParams,
         requestOptions: RequestOptions,
-    ): ActionGatherUsingAudioResponse =
+    ): ActionEndConferenceResponse =
+        // post /conferences/{id}/actions/end
+        withRawResponse().endConference(params, requestOptions).parse()
+
+    override fun gatherDtmfAudio(
+        params: ActionGatherDtmfAudioParams,
+        requestOptions: RequestOptions,
+    ): ActionGatherDtmfAudioResponse =
         // post /conferences/{id}/actions/gather_using_audio
-        withRawResponse().gatherUsingAudio(params, requestOptions).parse()
+        withRawResponse().gatherDtmfAudio(params, requestOptions).parse()
 
     override fun hold(
         params: ActionHoldParams,
@@ -225,13 +228,13 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val endHandler: Handler<ActionEndResponse> =
-            jsonHandler<ActionEndResponse>(clientOptions.jsonMapper)
+        private val endConferenceHandler: Handler<ActionEndConferenceResponse> =
+            jsonHandler<ActionEndConferenceResponse>(clientOptions.jsonMapper)
 
-        override fun end(
-            params: ActionEndParams,
+        override fun endConference(
+            params: ActionEndConferenceParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ActionEndResponse> {
+        ): HttpResponseFor<ActionEndConferenceResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -247,7 +250,7 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { endHandler.handle(it) }
+                    .use { endConferenceHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -256,13 +259,13 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val gatherUsingAudioHandler: Handler<ActionGatherUsingAudioResponse> =
-            jsonHandler<ActionGatherUsingAudioResponse>(clientOptions.jsonMapper)
+        private val gatherDtmfAudioHandler: Handler<ActionGatherDtmfAudioResponse> =
+            jsonHandler<ActionGatherDtmfAudioResponse>(clientOptions.jsonMapper)
 
-        override fun gatherUsingAudio(
-            params: ActionGatherUsingAudioParams,
+        override fun gatherDtmfAudio(
+            params: ActionGatherDtmfAudioParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ActionGatherUsingAudioResponse> {
+        ): HttpResponseFor<ActionGatherDtmfAudioResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id().getOrNull())
@@ -283,7 +286,7 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { gatherUsingAudioHandler.handle(it) }
+                    .use { gatherDtmfAudioHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

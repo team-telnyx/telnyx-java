@@ -18,7 +18,10 @@ internal class PhoneNumberServiceTest {
 
         val phoneNumber =
             phoneNumberService.retrieve(
-                PhoneNumberRetrieveParams.builder().id("id").phoneNumberId("1234567889").build()
+                PhoneNumberRetrieveParams.builder()
+                    .id("1293384261075731499")
+                    .phoneNumberId("1234567889")
+                    .build()
             )
 
         phoneNumber.validate()
@@ -33,7 +36,7 @@ internal class PhoneNumberServiceTest {
         val phoneNumber =
             phoneNumberService.update(
                 PhoneNumberUpdateParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .phoneNumberId("1234567889")
                     .locationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
@@ -48,7 +51,7 @@ internal class PhoneNumberServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberService = client.externalConnections().phoneNumbers()
 
-        val page = phoneNumberService.list("id")
+        val page = phoneNumberService.list("1293384261075731499")
 
         page.response().validate()
     }

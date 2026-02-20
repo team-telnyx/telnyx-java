@@ -20,7 +20,7 @@ internal class UploadServiceTest {
         val upload =
             uploadService.create(
                 UploadCreateParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .numberIds(
                         listOf(
                             "3920457616934164700",
@@ -48,7 +48,7 @@ internal class UploadServiceTest {
         val upload =
             uploadService.retrieve(
                 UploadRetrieveParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .ticketId("7b6a6449-b055-45a6-81f6-f6f0dffa4cc6")
                     .build()
             )
@@ -62,7 +62,7 @@ internal class UploadServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val uploadService = client.externalConnections().uploads()
 
-        val page = uploadService.list("id")
+        val page = uploadService.list("1293384261075731499")
 
         page.response().validate()
     }
@@ -73,7 +73,7 @@ internal class UploadServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val uploadService = client.externalConnections().uploads()
 
-        val response = uploadService.pendingCount("id")
+        val response = uploadService.pendingCount("1293384261075731499")
 
         response.validate()
     }
@@ -84,7 +84,7 @@ internal class UploadServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val uploadService = client.externalConnections().uploads()
 
-        val response = uploadService.refreshStatus("id")
+        val response = uploadService.refreshStatus("1293384261075731499")
 
         response.validate()
     }
@@ -98,7 +98,7 @@ internal class UploadServiceTest {
         val response =
             uploadService.retry(
                 UploadRetryParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .ticketId("7b6a6449-b055-45a6-81f6-f6f0dffa4cc6")
                     .build()
             )

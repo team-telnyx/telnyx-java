@@ -14,7 +14,7 @@ internal class ExternalConnectionTest {
     fun create() {
         val externalConnection =
             ExternalConnection.builder()
-                .id("id")
+                .id("1930241863466354012")
                 .active(false)
                 .createdAt("2022-06-29T19:23:59Z")
                 .credentialActive(false)
@@ -23,7 +23,7 @@ internal class ExternalConnectionTest {
                 .outbound(
                     ExternalConnection.Outbound.builder()
                         .channelLimit(10L)
-                        .outboundVoiceProfileId("outbound_voice_profile_id")
+                        .outboundVoiceProfileId("1911630617284445511")
                         .build()
                 )
                 .recordType("external_connection")
@@ -36,7 +36,7 @@ internal class ExternalConnectionTest {
                 .webhookTimeoutSecs(25L)
                 .build()
 
-        assertThat(externalConnection.id()).contains("id")
+        assertThat(externalConnection.id()).contains("1930241863466354012")
         assertThat(externalConnection.active()).contains(false)
         assertThat(externalConnection.createdAt()).contains("2022-06-29T19:23:59Z")
         assertThat(externalConnection.credentialActive()).contains(false)
@@ -48,7 +48,7 @@ internal class ExternalConnectionTest {
             .contains(
                 ExternalConnection.Outbound.builder()
                     .channelLimit(10L)
-                    .outboundVoiceProfileId("outbound_voice_profile_id")
+                    .outboundVoiceProfileId("1911630617284445511")
                     .build()
             )
         assertThat(externalConnection.recordType()).contains("external_connection")
@@ -67,7 +67,7 @@ internal class ExternalConnectionTest {
         val jsonMapper = jsonMapper()
         val externalConnection =
             ExternalConnection.builder()
-                .id("id")
+                .id("1930241863466354012")
                 .active(false)
                 .createdAt("2022-06-29T19:23:59Z")
                 .credentialActive(false)
@@ -76,7 +76,7 @@ internal class ExternalConnectionTest {
                 .outbound(
                     ExternalConnection.Outbound.builder()
                         .channelLimit(10L)
-                        .outboundVoiceProfileId("outbound_voice_profile_id")
+                        .outboundVoiceProfileId("1911630617284445511")
                         .build()
                 )
                 .recordType("external_connection")

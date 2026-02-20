@@ -10,7 +10,7 @@ internal class PhoneNumberUpdateParamsTest {
     @Test
     fun create() {
         PhoneNumberUpdateParams.builder()
-            .id("id")
+            .id("1293384261075731499")
             .phoneNumberId("1234567889")
             .locationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .build()
@@ -18,9 +18,13 @@ internal class PhoneNumberUpdateParamsTest {
 
     @Test
     fun pathParams() {
-        val params = PhoneNumberUpdateParams.builder().id("id").phoneNumberId("1234567889").build()
+        val params =
+            PhoneNumberUpdateParams.builder()
+                .id("1293384261075731499")
+                .phoneNumberId("1234567889")
+                .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("id")
+        assertThat(params._pathParam(0)).isEqualTo("1293384261075731499")
         assertThat(params._pathParam(1)).isEqualTo("1234567889")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -30,7 +34,7 @@ internal class PhoneNumberUpdateParamsTest {
     fun body() {
         val params =
             PhoneNumberUpdateParams.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .phoneNumberId("1234567889")
                 .locationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
@@ -42,7 +46,11 @@ internal class PhoneNumberUpdateParamsTest {
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = PhoneNumberUpdateParams.builder().id("id").phoneNumberId("1234567889").build()
+        val params =
+            PhoneNumberUpdateParams.builder()
+                .id("1293384261075731499")
+                .phoneNumberId("1234567889")
+                .build()
 
         val body = params._body()
     }

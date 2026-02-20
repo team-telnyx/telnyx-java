@@ -11,7 +11,7 @@ internal class CivicAddressListParamsTest {
     @Test
     fun create() {
         CivicAddressListParams.builder()
-            .id("id")
+            .id("1293384261075731499")
             .filter(
                 CivicAddressListParams.Filter.builder()
                     .country(listOf("US", "CA", "MX", "BR"))
@@ -22,9 +22,9 @@ internal class CivicAddressListParamsTest {
 
     @Test
     fun pathParams() {
-        val params = CivicAddressListParams.builder().id("id").build()
+        val params = CivicAddressListParams.builder().id("1293384261075731499").build()
 
-        assertThat(params._pathParam(0)).isEqualTo("id")
+        assertThat(params._pathParam(0)).isEqualTo("1293384261075731499")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -33,7 +33,7 @@ internal class CivicAddressListParamsTest {
     fun queryParams() {
         val params =
             CivicAddressListParams.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .filter(
                     CivicAddressListParams.Filter.builder()
                         .country(listOf("US", "CA", "MX", "BR"))
@@ -53,7 +53,7 @@ internal class CivicAddressListParamsTest {
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = CivicAddressListParams.builder().id("id").build()
+        val params = CivicAddressListParams.builder().id("1293384261075731499").build()
 
         val queryParams = params._queryParams()
 

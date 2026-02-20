@@ -26,7 +26,7 @@ internal class ExternalConnectionServiceAsyncTest {
                     .outbound(
                         ExternalConnectionCreateParams.Outbound.builder()
                             .channelLimit(10L)
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1911630617284445511")
                             .build()
                     )
                     .active(false)
@@ -54,7 +54,8 @@ internal class ExternalConnectionServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val externalConnectionServiceAsync = client.externalConnections()
 
-        val externalConnectionFuture = externalConnectionServiceAsync.retrieve("id")
+        val externalConnectionFuture =
+            externalConnectionServiceAsync.retrieve("1293384261075731499")
 
         val externalConnection = externalConnectionFuture.get()
         externalConnection.validate()
@@ -69,10 +70,10 @@ internal class ExternalConnectionServiceAsyncTest {
         val externalConnectionFuture =
             externalConnectionServiceAsync.update(
                 ExternalConnectionUpdateParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .outbound(
                         ExternalConnectionUpdateParams.Outbound.builder()
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1911630617284445511")
                             .channelLimit(10L)
                             .build()
                     )
@@ -110,7 +111,7 @@ internal class ExternalConnectionServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val externalConnectionServiceAsync = client.externalConnections()
 
-        val externalConnectionFuture = externalConnectionServiceAsync.delete("id")
+        val externalConnectionFuture = externalConnectionServiceAsync.delete("1293384261075731499")
 
         val externalConnection = externalConnectionFuture.get()
         externalConnection.validate()

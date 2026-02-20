@@ -18,7 +18,7 @@ internal class ReleaseServiceAsyncTest {
         val releaseFuture =
             releaseServiceAsync.retrieve(
                 ReleaseRetrieveParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .releaseId("7b6a6449-b055-45a6-81f6-f6f0dffa4cc6")
                     .build()
             )
@@ -33,7 +33,7 @@ internal class ReleaseServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val releaseServiceAsync = client.externalConnections().releases()
 
-        val pageFuture = releaseServiceAsync.list("id")
+        val pageFuture = releaseServiceAsync.list("1293384261075731499")
 
         val page = pageFuture.get()
         page.response().validate()

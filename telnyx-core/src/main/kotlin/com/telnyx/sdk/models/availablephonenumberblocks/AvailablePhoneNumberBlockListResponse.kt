@@ -204,10 +204,10 @@ private constructor(
     private constructor(
         private val costInformation: JsonField<CostInformation>,
         private val features: JsonField<List<Feature>>,
+        private val phoneNumber: JsonField<String>,
         private val range: JsonField<Long>,
         private val recordType: JsonField<RecordType>,
         private val regionInformation: JsonField<List<RegionInformation>>,
-        private val startingNumber: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -219,6 +219,9 @@ private constructor(
             @JsonProperty("features")
             @ExcludeMissing
             features: JsonField<List<Feature>> = JsonMissing.of(),
+            @JsonProperty("phone_number")
+            @ExcludeMissing
+            phoneNumber: JsonField<String> = JsonMissing.of(),
             @JsonProperty("range") @ExcludeMissing range: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("record_type")
             @ExcludeMissing
@@ -226,16 +229,13 @@ private constructor(
             @JsonProperty("region_information")
             @ExcludeMissing
             regionInformation: JsonField<List<RegionInformation>> = JsonMissing.of(),
-            @JsonProperty("starting_number")
-            @ExcludeMissing
-            startingNumber: JsonField<String> = JsonMissing.of(),
         ) : this(
             costInformation,
             features,
+            phoneNumber,
             range,
             recordType,
             regionInformation,
-            startingNumber,
             mutableMapOf(),
         )
 
@@ -251,6 +251,12 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun features(): Optional<List<Feature>> = features.getOptional("features")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun phoneNumber(): Optional<String> = phoneNumber.getOptional("phone_number")
 
         /**
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -272,12 +278,6 @@ private constructor(
             regionInformation.getOptional("region_information")
 
         /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun startingNumber(): Optional<String> = startingNumber.getOptional("starting_number")
-
-        /**
          * Returns the raw JSON value of [costInformation].
          *
          * Unlike [costInformation], this method doesn't throw if the JSON field has an unexpected
@@ -295,6 +295,15 @@ private constructor(
         @JsonProperty("features")
         @ExcludeMissing
         fun _features(): JsonField<List<Feature>> = features
+
+        /**
+         * Returns the raw JSON value of [phoneNumber].
+         *
+         * Unlike [phoneNumber], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("phone_number")
+        @ExcludeMissing
+        fun _phoneNumber(): JsonField<String> = phoneNumber
 
         /**
          * Returns the raw JSON value of [range].
@@ -322,16 +331,6 @@ private constructor(
         @ExcludeMissing
         fun _regionInformation(): JsonField<List<RegionInformation>> = regionInformation
 
-        /**
-         * Returns the raw JSON value of [startingNumber].
-         *
-         * Unlike [startingNumber], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("starting_number")
-        @ExcludeMissing
-        fun _startingNumber(): JsonField<String> = startingNumber
-
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -355,20 +354,20 @@ private constructor(
 
             private var costInformation: JsonField<CostInformation> = JsonMissing.of()
             private var features: JsonField<MutableList<Feature>>? = null
+            private var phoneNumber: JsonField<String> = JsonMissing.of()
             private var range: JsonField<Long> = JsonMissing.of()
             private var recordType: JsonField<RecordType> = JsonMissing.of()
             private var regionInformation: JsonField<MutableList<RegionInformation>>? = null
-            private var startingNumber: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(data: Data) = apply {
                 costInformation = data.costInformation
                 features = data.features.map { it.toMutableList() }
+                phoneNumber = data.phoneNumber
                 range = data.range
                 recordType = data.recordType
                 regionInformation = data.regionInformation.map { it.toMutableList() }
-                startingNumber = data.startingNumber
                 additionalProperties = data.additionalProperties.toMutableMap()
             }
 
@@ -409,6 +408,19 @@ private constructor(
                     (features ?: JsonField.of(mutableListOf())).also {
                         checkKnown("features", it).add(feature)
                     }
+            }
+
+            fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
+
+            /**
+             * Sets [Builder.phoneNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.phoneNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun phoneNumber(phoneNumber: JsonField<String>) = apply {
+                this.phoneNumber = phoneNumber
             }
 
             fun range(range: Long) = range(JsonField.of(range))
@@ -461,20 +473,6 @@ private constructor(
                     }
             }
 
-            fun startingNumber(startingNumber: String) =
-                startingNumber(JsonField.of(startingNumber))
-
-            /**
-             * Sets [Builder.startingNumber] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.startingNumber] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun startingNumber(startingNumber: JsonField<String>) = apply {
-                this.startingNumber = startingNumber
-            }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -503,10 +501,10 @@ private constructor(
                 Data(
                     costInformation,
                     (features ?: JsonMissing.of()).map { it.toImmutable() },
+                    phoneNumber,
                     range,
                     recordType,
                     (regionInformation ?: JsonMissing.of()).map { it.toImmutable() },
-                    startingNumber,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -520,10 +518,10 @@ private constructor(
 
             costInformation().ifPresent { it.validate() }
             features().ifPresent { it.forEach { it.validate() } }
+            phoneNumber()
             range()
             recordType().ifPresent { it.validate() }
             regionInformation().ifPresent { it.forEach { it.validate() } }
-            startingNumber()
             validated = true
         }
 
@@ -545,10 +543,10 @@ private constructor(
         internal fun validity(): Int =
             (costInformation.asKnown().getOrNull()?.validity() ?: 0) +
                 (features.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (phoneNumber.asKnown().isPresent) 1 else 0) +
                 (if (range.asKnown().isPresent) 1 else 0) +
                 (recordType.asKnown().getOrNull()?.validity() ?: 0) +
-                (regionInformation.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-                (if (startingNumber.asKnown().isPresent) 1 else 0)
+                (regionInformation.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
         class CostInformation
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -1394,10 +1392,10 @@ private constructor(
             return other is Data &&
                 costInformation == other.costInformation &&
                 features == other.features &&
+                phoneNumber == other.phoneNumber &&
                 range == other.range &&
                 recordType == other.recordType &&
                 regionInformation == other.regionInformation &&
-                startingNumber == other.startingNumber &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -1405,10 +1403,10 @@ private constructor(
             Objects.hash(
                 costInformation,
                 features,
+                phoneNumber,
                 range,
                 recordType,
                 regionInformation,
-                startingNumber,
                 additionalProperties,
             )
         }
@@ -1416,7 +1414,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{costInformation=$costInformation, features=$features, range=$range, recordType=$recordType, regionInformation=$regionInformation, startingNumber=$startingNumber, additionalProperties=$additionalProperties}"
+            "Data{costInformation=$costInformation, features=$features, phoneNumber=$phoneNumber, range=$range, recordType=$recordType, regionInformation=$regionInformation, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

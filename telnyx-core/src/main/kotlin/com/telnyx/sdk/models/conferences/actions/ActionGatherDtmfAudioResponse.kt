@@ -16,7 +16,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class ActionGatherUsingAudioResponse
+class ActionGatherDtmfAudioResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<ConferenceCommandResult>,
@@ -59,22 +59,21 @@ private constructor(
 
         /**
          * Returns a mutable builder for constructing an instance of
-         * [ActionGatherUsingAudioResponse].
+         * [ActionGatherDtmfAudioResponse].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [ActionGatherUsingAudioResponse]. */
+    /** A builder for [ActionGatherDtmfAudioResponse]. */
     class Builder internal constructor() {
 
         private var data: JsonField<ConferenceCommandResult> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(actionGatherUsingAudioResponse: ActionGatherUsingAudioResponse) = apply {
-            data = actionGatherUsingAudioResponse.data
-            additionalProperties =
-                actionGatherUsingAudioResponse.additionalProperties.toMutableMap()
+        internal fun from(actionGatherDtmfAudioResponse: ActionGatherDtmfAudioResponse) = apply {
+            data = actionGatherDtmfAudioResponse.data
+            additionalProperties = actionGatherDtmfAudioResponse.additionalProperties.toMutableMap()
         }
 
         fun data(data: ConferenceCommandResult) = data(JsonField.of(data))
@@ -108,17 +107,17 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [ActionGatherUsingAudioResponse].
+         * Returns an immutable instance of [ActionGatherDtmfAudioResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): ActionGatherUsingAudioResponse =
-            ActionGatherUsingAudioResponse(data, additionalProperties.toMutableMap())
+        fun build(): ActionGatherDtmfAudioResponse =
+            ActionGatherDtmfAudioResponse(data, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
 
-    fun validate(): ActionGatherUsingAudioResponse = apply {
+    fun validate(): ActionGatherDtmfAudioResponse = apply {
         if (validated) {
             return@apply
         }
@@ -147,7 +146,7 @@ private constructor(
             return true
         }
 
-        return other is ActionGatherUsingAudioResponse &&
+        return other is ActionGatherDtmfAudioResponse &&
             data == other.data &&
             additionalProperties == other.additionalProperties
     }
@@ -157,5 +156,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ActionGatherUsingAudioResponse{data=$data, additionalProperties=$additionalProperties}"
+        "ActionGatherDtmfAudioResponse{data=$data, additionalProperties=$additionalProperties}"
 }

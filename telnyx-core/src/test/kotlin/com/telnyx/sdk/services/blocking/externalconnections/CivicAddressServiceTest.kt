@@ -19,7 +19,7 @@ internal class CivicAddressServiceTest {
         val civicAddress =
             civicAddressService.retrieve(
                 CivicAddressRetrieveParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .addressId("318fb664-d341-44d2-8405-e6bfb9ced6d9")
                     .build()
             )
@@ -36,7 +36,7 @@ internal class CivicAddressServiceTest {
         val civicAddresses =
             civicAddressService.list(
                 CivicAddressListParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .filter(
                         CivicAddressListParams.Filter.builder()
                             .country(listOf("US", "CA", "MX", "BR"))

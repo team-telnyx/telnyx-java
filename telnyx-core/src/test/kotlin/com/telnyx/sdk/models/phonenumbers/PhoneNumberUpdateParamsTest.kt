@@ -13,6 +13,7 @@ internal class PhoneNumberUpdateParamsTest {
         PhoneNumberUpdateParams.builder()
             .phoneNumberId("1293384261075731499")
             .id("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
+            .addressId("dc8f39ac-953d-4520-b93b-786ae87db0da")
             .billingGroupId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
             .connectionId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
             .customerReference("customer-reference")
@@ -37,6 +38,7 @@ internal class PhoneNumberUpdateParamsTest {
             PhoneNumberUpdateParams.builder()
                 .phoneNumberId("1293384261075731499")
                 .id("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
+                .addressId("dc8f39ac-953d-4520-b93b-786ae87db0da")
                 .billingGroupId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
                 .connectionId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
                 .customerReference("customer-reference")
@@ -48,6 +50,7 @@ internal class PhoneNumberUpdateParamsTest {
         val body = params._body()
 
         assertThat(body.id()).contains("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
+        assertThat(body.addressId()).contains("dc8f39ac-953d-4520-b93b-786ae87db0da")
         assertThat(body.billingGroupId()).contains("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
         assertThat(body.connectionId()).contains("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
         assertThat(body.customerReference()).contains("customer-reference")

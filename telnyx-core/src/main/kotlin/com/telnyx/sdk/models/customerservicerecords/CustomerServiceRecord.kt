@@ -31,6 +31,7 @@ private constructor(
     private val result: JsonField<Result>,
     private val status: JsonField<Status>,
     private val updatedAt: JsonField<OffsetDateTime>,
+    private val webhookUrl: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -54,6 +55,9 @@ private constructor(
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("webhook_url")
+        @ExcludeMissing
+        webhookUrl: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
         createdAt,
@@ -63,6 +67,7 @@ private constructor(
         result,
         status,
         updatedAt,
+        webhookUrl,
         mutableMapOf(),
     )
 
@@ -133,6 +138,14 @@ private constructor(
     fun updatedAt(): Optional<OffsetDateTime> = updatedAt.getOptional("updated_at")
 
     /**
+     * Callback URL to receive webhook notifications.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun webhookUrl(): Optional<String> = webhookUrl.getOptional("webhook_url")
+
+    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
@@ -196,6 +209,13 @@ private constructor(
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+    /**
+     * Returns the raw JSON value of [webhookUrl].
+     *
+     * Unlike [webhookUrl], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("webhook_url") @ExcludeMissing fun _webhookUrl(): JsonField<String> = webhookUrl
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -225,6 +245,7 @@ private constructor(
         private var result: JsonField<Result> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var webhookUrl: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -237,6 +258,7 @@ private constructor(
             result = customerServiceRecord.result
             status = customerServiceRecord.status
             updatedAt = customerServiceRecord.updatedAt
+            webhookUrl = customerServiceRecord.webhookUrl
             additionalProperties = customerServiceRecord.additionalProperties.toMutableMap()
         }
 
@@ -347,6 +369,18 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
+        /** Callback URL to receive webhook notifications. */
+        fun webhookUrl(webhookUrl: String) = webhookUrl(JsonField.of(webhookUrl))
+
+        /**
+         * Sets [Builder.webhookUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.webhookUrl] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun webhookUrl(webhookUrl: JsonField<String>) = apply { this.webhookUrl = webhookUrl }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -381,6 +415,7 @@ private constructor(
                 result,
                 status,
                 updatedAt,
+                webhookUrl,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -400,6 +435,7 @@ private constructor(
         result().ifPresent { it.validate() }
         status().ifPresent { it.validate() }
         updatedAt()
+        webhookUrl()
         validated = true
     }
 
@@ -425,7 +461,8 @@ private constructor(
             (if (recordType.asKnown().isPresent) 1 else 0) +
             (result.asKnown().getOrNull()?.validity() ?: 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (updatedAt.asKnown().isPresent) 1 else 0)
+            (if (updatedAt.asKnown().isPresent) 1 else 0) +
+            (if (webhookUrl.asKnown().isPresent) 1 else 0)
 
     /**
      * The result of the CSR request. This field would be null in case of `pending` or `failed`
@@ -1489,6 +1526,7 @@ private constructor(
             result == other.result &&
             status == other.status &&
             updatedAt == other.updatedAt &&
+            webhookUrl == other.webhookUrl &&
             additionalProperties == other.additionalProperties
     }
 
@@ -1502,6 +1540,7 @@ private constructor(
             result,
             status,
             updatedAt,
+            webhookUrl,
             additionalProperties,
         )
     }
@@ -1509,5 +1548,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CustomerServiceRecord{id=$id, createdAt=$createdAt, errorMessage=$errorMessage, phoneNumber=$phoneNumber, recordType=$recordType, result=$result, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "CustomerServiceRecord{id=$id, createdAt=$createdAt, errorMessage=$errorMessage, phoneNumber=$phoneNumber, recordType=$recordType, result=$result, status=$status, updatedAt=$updatedAt, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

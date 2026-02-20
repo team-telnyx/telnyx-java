@@ -25,6 +25,7 @@ internal class TelephonyCredentialDeleteResponseTest {
                         .sipPassword("a92dbcfb60184a8cb330b0acb2f7617b")
                         .sipUsername("gencrednCvHU5IYpSBPPsXI2iQsDX")
                         .updatedAt("2020-06-18T21:32:38.000Z")
+                        .userId("user-id")
                         .build()
                 )
                 .build()
@@ -42,6 +43,7 @@ internal class TelephonyCredentialDeleteResponseTest {
                     .sipPassword("a92dbcfb60184a8cb330b0acb2f7617b")
                     .sipUsername("gencrednCvHU5IYpSBPPsXI2iQsDX")
                     .updatedAt("2020-06-18T21:32:38.000Z")
+                    .userId("user-id")
                     .build()
             )
     }
@@ -63,6 +65,7 @@ internal class TelephonyCredentialDeleteResponseTest {
                         .sipPassword("a92dbcfb60184a8cb330b0acb2f7617b")
                         .sipUsername("gencrednCvHU5IYpSBPPsXI2iQsDX")
                         .updatedAt("2020-06-18T21:32:38.000Z")
+                        .userId("user-id")
                         .build()
                 )
                 .build()

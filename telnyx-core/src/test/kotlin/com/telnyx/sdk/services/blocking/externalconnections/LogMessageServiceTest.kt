@@ -14,7 +14,7 @@ internal class LogMessageServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val logMessageService = client.externalConnections().logMessages()
 
-        val logMessage = logMessageService.retrieve("id")
+        val logMessage = logMessageService.retrieve("1293384261075731499")
 
         logMessage.validate()
     }
@@ -36,7 +36,7 @@ internal class LogMessageServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val logMessageService = client.externalConnections().logMessages()
 
-        val response = logMessageService.dismiss("id")
+        val response = logMessageService.dismiss("1293384261075731499")
 
         response.validate()
     }

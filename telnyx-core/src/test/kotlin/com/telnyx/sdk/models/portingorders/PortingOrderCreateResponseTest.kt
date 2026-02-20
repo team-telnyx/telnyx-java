@@ -90,6 +90,28 @@ internal class PortingOrderCreateResponseTest {
                                 .build()
                         )
                         .phoneNumberType(PortingOrder.PhoneNumberType.LOCAL)
+                        .addPhoneNumber(
+                            PortingOrder.PhoneNumber.builder()
+                                .activationStatus(
+                                    PortingOrder.PhoneNumber.ActivationStatus.ACTIVATE_RDY
+                                )
+                                .phoneNumber("{e.164 TN}")
+                                .phoneNumberType(PortingOrder.PhoneNumber.PhoneNumberType.LOCAL)
+                                .portabilityStatus(
+                                    PortingOrder.PhoneNumber.PortabilityStatus.CONFIRMED
+                                )
+                                .portingOrderId("b0ea6d6f-de31-4079-a536-992e0c98b037")
+                                .portingOrderStatus(
+                                    PortingOrder.PhoneNumber.PortingOrderStatus.DRAFT
+                                )
+                                .recordType("porting_phone_number")
+                                .requirementsStatus(
+                                    PortingOrder.PhoneNumber.RequirementsStatus
+                                        .REQUIREMENT_INFO_PENDING
+                                )
+                                .supportKey("sr_10b316")
+                                .build()
+                        )
                         .portingPhoneNumbersCount(1L)
                         .recordType("porting_order")
                         .addRequirement(
@@ -200,6 +222,23 @@ internal class PortingOrderCreateResponseTest {
                             .build()
                     )
                     .phoneNumberType(PortingOrder.PhoneNumberType.LOCAL)
+                    .addPhoneNumber(
+                        PortingOrder.PhoneNumber.builder()
+                            .activationStatus(
+                                PortingOrder.PhoneNumber.ActivationStatus.ACTIVATE_RDY
+                            )
+                            .phoneNumber("{e.164 TN}")
+                            .phoneNumberType(PortingOrder.PhoneNumber.PhoneNumberType.LOCAL)
+                            .portabilityStatus(PortingOrder.PhoneNumber.PortabilityStatus.CONFIRMED)
+                            .portingOrderId("b0ea6d6f-de31-4079-a536-992e0c98b037")
+                            .portingOrderStatus(PortingOrder.PhoneNumber.PortingOrderStatus.DRAFT)
+                            .recordType("porting_phone_number")
+                            .requirementsStatus(
+                                PortingOrder.PhoneNumber.RequirementsStatus.REQUIREMENT_INFO_PENDING
+                            )
+                            .supportKey("sr_10b316")
+                            .build()
+                    )
                     .portingPhoneNumbersCount(1L)
                     .recordType("porting_order")
                     .addRequirement(
@@ -314,6 +353,28 @@ internal class PortingOrderCreateResponseTest {
                                 .build()
                         )
                         .phoneNumberType(PortingOrder.PhoneNumberType.LOCAL)
+                        .addPhoneNumber(
+                            PortingOrder.PhoneNumber.builder()
+                                .activationStatus(
+                                    PortingOrder.PhoneNumber.ActivationStatus.ACTIVATE_RDY
+                                )
+                                .phoneNumber("{e.164 TN}")
+                                .phoneNumberType(PortingOrder.PhoneNumber.PhoneNumberType.LOCAL)
+                                .portabilityStatus(
+                                    PortingOrder.PhoneNumber.PortabilityStatus.CONFIRMED
+                                )
+                                .portingOrderId("b0ea6d6f-de31-4079-a536-992e0c98b037")
+                                .portingOrderStatus(
+                                    PortingOrder.PhoneNumber.PortingOrderStatus.DRAFT
+                                )
+                                .recordType("porting_phone_number")
+                                .requirementsStatus(
+                                    PortingOrder.PhoneNumber.RequirementsStatus
+                                        .REQUIREMENT_INFO_PENDING
+                                )
+                                .supportKey("sr_10b316")
+                                .build()
+                        )
                         .portingPhoneNumbersCount(1L)
                         .recordType("porting_order")
                         .addRequirement(

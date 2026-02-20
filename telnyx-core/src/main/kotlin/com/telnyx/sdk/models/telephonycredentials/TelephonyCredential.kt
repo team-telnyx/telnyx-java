@@ -28,6 +28,7 @@ private constructor(
     private val sipPassword: JsonField<String>,
     private val sipUsername: JsonField<String>,
     private val updatedAt: JsonField<String>,
+    private val userId: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -51,6 +52,7 @@ private constructor(
         @ExcludeMissing
         sipUsername: JsonField<String> = JsonMissing.of(),
         @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("user_id") @ExcludeMissing userId: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
         createdAt,
@@ -62,6 +64,7 @@ private constructor(
         sipPassword,
         sipUsername,
         updatedAt,
+        userId,
         mutableMapOf(),
     )
 
@@ -144,6 +147,14 @@ private constructor(
     fun updatedAt(): Optional<String> = updatedAt.getOptional("updated_at")
 
     /**
+     * Identifies the user this credential is associated with.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun userId(): Optional<String> = userId.getOptional("user_id")
+
+    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
@@ -217,6 +228,13 @@ private constructor(
      */
     @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt(): JsonField<String> = updatedAt
 
+    /**
+     * Returns the raw JSON value of [userId].
+     *
+     * Unlike [userId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("user_id") @ExcludeMissing fun _userId(): JsonField<String> = userId
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -248,6 +266,7 @@ private constructor(
         private var sipPassword: JsonField<String> = JsonMissing.of()
         private var sipUsername: JsonField<String> = JsonMissing.of()
         private var updatedAt: JsonField<String> = JsonMissing.of()
+        private var userId: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -262,6 +281,7 @@ private constructor(
             sipPassword = telephonyCredential.sipPassword
             sipUsername = telephonyCredential.sipUsername
             updatedAt = telephonyCredential.updatedAt
+            userId = telephonyCredential.userId
             additionalProperties = telephonyCredential.additionalProperties.toMutableMap()
         }
 
@@ -381,6 +401,17 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<String>) = apply { this.updatedAt = updatedAt }
 
+        /** Identifies the user this credential is associated with. */
+        fun userId(userId: String) = userId(JsonField.of(userId))
+
+        /**
+         * Sets [Builder.userId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.userId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun userId(userId: JsonField<String>) = apply { this.userId = userId }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -417,6 +448,7 @@ private constructor(
                 sipPassword,
                 sipUsername,
                 updatedAt,
+                userId,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -438,6 +470,7 @@ private constructor(
         sipPassword()
         sipUsername()
         updatedAt()
+        userId()
         validated = true
     }
 
@@ -465,7 +498,8 @@ private constructor(
             (if (resourceId.asKnown().isPresent) 1 else 0) +
             (if (sipPassword.asKnown().isPresent) 1 else 0) +
             (if (sipUsername.asKnown().isPresent) 1 else 0) +
-            (if (updatedAt.asKnown().isPresent) 1 else 0)
+            (if (updatedAt.asKnown().isPresent) 1 else 0) +
+            (if (userId.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -483,6 +517,7 @@ private constructor(
             sipPassword == other.sipPassword &&
             sipUsername == other.sipUsername &&
             updatedAt == other.updatedAt &&
+            userId == other.userId &&
             additionalProperties == other.additionalProperties
     }
 
@@ -498,6 +533,7 @@ private constructor(
             sipPassword,
             sipUsername,
             updatedAt,
+            userId,
             additionalProperties,
         )
     }
@@ -505,5 +541,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TelephonyCredential{id=$id, createdAt=$createdAt, expired=$expired, expiresAt=$expiresAt, name=$name, recordType=$recordType, resourceId=$resourceId, sipPassword=$sipPassword, sipUsername=$sipUsername, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "TelephonyCredential{id=$id, createdAt=$createdAt, expired=$expired, expiresAt=$expiresAt, name=$name, recordType=$recordType, resourceId=$resourceId, sipPassword=$sipPassword, sipUsername=$sipUsername, updatedAt=$updatedAt, userId=$userId, additionalProperties=$additionalProperties}"
 }

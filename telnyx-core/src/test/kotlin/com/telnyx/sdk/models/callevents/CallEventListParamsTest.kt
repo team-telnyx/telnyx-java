@@ -33,7 +33,7 @@ internal class CallEventListParamsTest {
                             .lte("2019-03-29T11:10:00Z")
                             .build()
                     )
-                    .outboundOutboundVoiceProfileId("outbound.outbound_voice_profile_id")
+                    .outboundOutboundVoiceProfileId("1293384261075731499")
                     .product(CallEventListParams.Filter.Product.TEXML)
                     .status(CallEventListParams.Filter.Status.INIT)
                     .to("+12025550142")
@@ -71,7 +71,7 @@ internal class CallEventListParamsTest {
                                 .lte("2019-03-29T11:10:00Z")
                                 .build()
                         )
-                        .outboundOutboundVoiceProfileId("outbound.outbound_voice_profile_id")
+                        .outboundOutboundVoiceProfileId("1293384261075731499")
                         .product(CallEventListParams.Filter.Product.TEXML)
                         .status(CallEventListParams.Filter.Status.INIT)
                         .to("+12025550142")
@@ -99,10 +99,7 @@ internal class CallEventListParamsTest {
                     .put("filter[occurred_at][gte]", "2019-03-29T11:10:00Z")
                     .put("filter[occurred_at][lt]", "2019-03-29T11:10:00Z")
                     .put("filter[occurred_at][lte]", "2019-03-29T11:10:00Z")
-                    .put(
-                        "filter[outbound.outbound_voice_profile_id]",
-                        "outbound.outbound_voice_profile_id",
-                    )
+                    .put("filter[outbound.outbound_voice_profile_id]", "1293384261075731499")
                     .put("filter[product]", "texml")
                     .put("filter[status]", "init")
                     .put("filter[to]", "+12025550142")

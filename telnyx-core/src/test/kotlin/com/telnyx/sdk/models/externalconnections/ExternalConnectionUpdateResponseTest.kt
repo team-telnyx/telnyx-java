@@ -15,7 +15,7 @@ internal class ExternalConnectionUpdateResponseTest {
             ExternalConnectionUpdateResponse.builder()
                 .data(
                     ExternalConnection.builder()
-                        .id("id")
+                        .id("1930241863466354012")
                         .active(false)
                         .createdAt("2022-06-29T19:23:59Z")
                         .credentialActive(false)
@@ -24,7 +24,7 @@ internal class ExternalConnectionUpdateResponseTest {
                         .outbound(
                             ExternalConnection.Outbound.builder()
                                 .channelLimit(10L)
-                                .outboundVoiceProfileId("outbound_voice_profile_id")
+                                .outboundVoiceProfileId("1911630617284445511")
                                 .build()
                         )
                         .recordType("external_connection")
@@ -42,7 +42,7 @@ internal class ExternalConnectionUpdateResponseTest {
         assertThat(externalConnectionUpdateResponse.data())
             .contains(
                 ExternalConnection.builder()
-                    .id("id")
+                    .id("1930241863466354012")
                     .active(false)
                     .createdAt("2022-06-29T19:23:59Z")
                     .credentialActive(false)
@@ -51,7 +51,7 @@ internal class ExternalConnectionUpdateResponseTest {
                     .outbound(
                         ExternalConnection.Outbound.builder()
                             .channelLimit(10L)
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1911630617284445511")
                             .build()
                     )
                     .recordType("external_connection")
@@ -73,7 +73,7 @@ internal class ExternalConnectionUpdateResponseTest {
             ExternalConnectionUpdateResponse.builder()
                 .data(
                     ExternalConnection.builder()
-                        .id("id")
+                        .id("1930241863466354012")
                         .active(false)
                         .createdAt("2022-06-29T19:23:59Z")
                         .credentialActive(false)
@@ -82,7 +82,7 @@ internal class ExternalConnectionUpdateResponseTest {
                         .outbound(
                             ExternalConnection.Outbound.builder()
                                 .channelLimit(10L)
-                                .outboundVoiceProfileId("outbound_voice_profile_id")
+                                .outboundVoiceProfileId("1911630617284445511")
                                 .build()
                         )
                         .recordType("external_connection")

@@ -6,10 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.conferences.actions.ActionEndParams
-import com.telnyx.sdk.models.conferences.actions.ActionEndResponse
-import com.telnyx.sdk.models.conferences.actions.ActionGatherUsingAudioParams
-import com.telnyx.sdk.models.conferences.actions.ActionGatherUsingAudioResponse
+import com.telnyx.sdk.models.conferences.actions.ActionEndConferenceParams
+import com.telnyx.sdk.models.conferences.actions.ActionEndConferenceResponse
+import com.telnyx.sdk.models.conferences.actions.ActionGatherDtmfAudioParams
+import com.telnyx.sdk.models.conferences.actions.ActionGatherDtmfAudioResponse
 import com.telnyx.sdk.models.conferences.actions.ActionHoldParams
 import com.telnyx.sdk.models.conferences.actions.ActionHoldResponse
 import com.telnyx.sdk.models.conferences.actions.ActionJoinParams
@@ -78,55 +78,60 @@ interface ActionService {
     ): ActionUpdateResponse
 
     /** End a conference and terminate all active participants. */
-    fun end(id: String): ActionEndResponse = end(id, ActionEndParams.none())
+    fun endConference(id: String): ActionEndConferenceResponse =
+        endConference(id, ActionEndConferenceParams.none())
 
-    /** @see end */
-    fun end(
+    /** @see endConference */
+    fun endConference(
         id: String,
-        params: ActionEndParams = ActionEndParams.none(),
+        params: ActionEndConferenceParams = ActionEndConferenceParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ActionEndResponse = end(params.toBuilder().id(id).build(), requestOptions)
+    ): ActionEndConferenceResponse =
+        endConference(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see end */
-    fun end(id: String, params: ActionEndParams = ActionEndParams.none()): ActionEndResponse =
-        end(id, params, RequestOptions.none())
+    /** @see endConference */
+    fun endConference(
+        id: String,
+        params: ActionEndConferenceParams = ActionEndConferenceParams.none(),
+    ): ActionEndConferenceResponse = endConference(id, params, RequestOptions.none())
 
-    /** @see end */
-    fun end(
-        params: ActionEndParams,
+    /** @see endConference */
+    fun endConference(
+        params: ActionEndConferenceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ActionEndResponse
+    ): ActionEndConferenceResponse
 
-    /** @see end */
-    fun end(params: ActionEndParams): ActionEndResponse = end(params, RequestOptions.none())
+    /** @see endConference */
+    fun endConference(params: ActionEndConferenceParams): ActionEndConferenceResponse =
+        endConference(params, RequestOptions.none())
 
-    /** @see end */
-    fun end(id: String, requestOptions: RequestOptions): ActionEndResponse =
-        end(id, ActionEndParams.none(), requestOptions)
+    /** @see endConference */
+    fun endConference(id: String, requestOptions: RequestOptions): ActionEndConferenceResponse =
+        endConference(id, ActionEndConferenceParams.none(), requestOptions)
 
     /** Play an audio file to a specific conference participant and gather DTMF input. */
-    fun gatherUsingAudio(
+    fun gatherDtmfAudio(
         id: String,
-        params: ActionGatherUsingAudioParams,
-    ): ActionGatherUsingAudioResponse = gatherUsingAudio(id, params, RequestOptions.none())
+        params: ActionGatherDtmfAudioParams,
+    ): ActionGatherDtmfAudioResponse = gatherDtmfAudio(id, params, RequestOptions.none())
 
-    /** @see gatherUsingAudio */
-    fun gatherUsingAudio(
+    /** @see gatherDtmfAudio */
+    fun gatherDtmfAudio(
         id: String,
-        params: ActionGatherUsingAudioParams,
+        params: ActionGatherDtmfAudioParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ActionGatherUsingAudioResponse =
-        gatherUsingAudio(params.toBuilder().id(id).build(), requestOptions)
+    ): ActionGatherDtmfAudioResponse =
+        gatherDtmfAudio(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see gatherUsingAudio */
-    fun gatherUsingAudio(params: ActionGatherUsingAudioParams): ActionGatherUsingAudioResponse =
-        gatherUsingAudio(params, RequestOptions.none())
+    /** @see gatherDtmfAudio */
+    fun gatherDtmfAudio(params: ActionGatherDtmfAudioParams): ActionGatherDtmfAudioResponse =
+        gatherDtmfAudio(params, RequestOptions.none())
 
-    /** @see gatherUsingAudio */
-    fun gatherUsingAudio(
-        params: ActionGatherUsingAudioParams,
+    /** @see gatherDtmfAudio */
+    fun gatherDtmfAudio(
+        params: ActionGatherDtmfAudioParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ActionGatherUsingAudioResponse
+    ): ActionGatherDtmfAudioResponse
 
     /** Hold a list of participants in a conference call */
     fun hold(id: String): ActionHoldResponse = hold(id, ActionHoldParams.none())
@@ -548,77 +553,84 @@ interface ActionService {
 
         /**
          * Returns a raw HTTP response for `post /conferences/{id}/actions/end`, but is otherwise
-         * the same as [ActionService.end].
+         * the same as [ActionService.endConference].
          */
         @MustBeClosed
-        fun end(id: String): HttpResponseFor<ActionEndResponse> = end(id, ActionEndParams.none())
+        fun endConference(id: String): HttpResponseFor<ActionEndConferenceResponse> =
+            endConference(id, ActionEndConferenceParams.none())
 
-        /** @see end */
+        /** @see endConference */
         @MustBeClosed
-        fun end(
+        fun endConference(
             id: String,
-            params: ActionEndParams = ActionEndParams.none(),
+            params: ActionEndConferenceParams = ActionEndConferenceParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ActionEndResponse> =
-            end(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponseFor<ActionEndConferenceResponse> =
+            endConference(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see end */
+        /** @see endConference */
         @MustBeClosed
-        fun end(
+        fun endConference(
             id: String,
-            params: ActionEndParams = ActionEndParams.none(),
-        ): HttpResponseFor<ActionEndResponse> = end(id, params, RequestOptions.none())
+            params: ActionEndConferenceParams = ActionEndConferenceParams.none(),
+        ): HttpResponseFor<ActionEndConferenceResponse> =
+            endConference(id, params, RequestOptions.none())
 
-        /** @see end */
+        /** @see endConference */
         @MustBeClosed
-        fun end(
-            params: ActionEndParams,
+        fun endConference(
+            params: ActionEndConferenceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ActionEndResponse>
+        ): HttpResponseFor<ActionEndConferenceResponse>
 
-        /** @see end */
+        /** @see endConference */
         @MustBeClosed
-        fun end(params: ActionEndParams): HttpResponseFor<ActionEndResponse> =
-            end(params, RequestOptions.none())
+        fun endConference(
+            params: ActionEndConferenceParams
+        ): HttpResponseFor<ActionEndConferenceResponse> =
+            endConference(params, RequestOptions.none())
 
-        /** @see end */
+        /** @see endConference */
         @MustBeClosed
-        fun end(id: String, requestOptions: RequestOptions): HttpResponseFor<ActionEndResponse> =
-            end(id, ActionEndParams.none(), requestOptions)
+        fun endConference(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ActionEndConferenceResponse> =
+            endConference(id, ActionEndConferenceParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /conferences/{id}/actions/gather_using_audio`, but
-         * is otherwise the same as [ActionService.gatherUsingAudio].
+         * is otherwise the same as [ActionService.gatherDtmfAudio].
          */
         @MustBeClosed
-        fun gatherUsingAudio(
+        fun gatherDtmfAudio(
             id: String,
-            params: ActionGatherUsingAudioParams,
-        ): HttpResponseFor<ActionGatherUsingAudioResponse> =
-            gatherUsingAudio(id, params, RequestOptions.none())
+            params: ActionGatherDtmfAudioParams,
+        ): HttpResponseFor<ActionGatherDtmfAudioResponse> =
+            gatherDtmfAudio(id, params, RequestOptions.none())
 
-        /** @see gatherUsingAudio */
+        /** @see gatherDtmfAudio */
         @MustBeClosed
-        fun gatherUsingAudio(
+        fun gatherDtmfAudio(
             id: String,
-            params: ActionGatherUsingAudioParams,
+            params: ActionGatherDtmfAudioParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ActionGatherUsingAudioResponse> =
-            gatherUsingAudio(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponseFor<ActionGatherDtmfAudioResponse> =
+            gatherDtmfAudio(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see gatherUsingAudio */
+        /** @see gatherDtmfAudio */
         @MustBeClosed
-        fun gatherUsingAudio(
-            params: ActionGatherUsingAudioParams
-        ): HttpResponseFor<ActionGatherUsingAudioResponse> =
-            gatherUsingAudio(params, RequestOptions.none())
+        fun gatherDtmfAudio(
+            params: ActionGatherDtmfAudioParams
+        ): HttpResponseFor<ActionGatherDtmfAudioResponse> =
+            gatherDtmfAudio(params, RequestOptions.none())
 
-        /** @see gatherUsingAudio */
+        /** @see gatherDtmfAudio */
         @MustBeClosed
-        fun gatherUsingAudio(
-            params: ActionGatherUsingAudioParams,
+        fun gatherDtmfAudio(
+            params: ActionGatherDtmfAudioParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ActionGatherUsingAudioResponse>
+        ): HttpResponseFor<ActionGatherDtmfAudioResponse>
 
         /**
          * Returns a raw HTTP response for `post /conferences/{id}/actions/hold`, but is otherwise

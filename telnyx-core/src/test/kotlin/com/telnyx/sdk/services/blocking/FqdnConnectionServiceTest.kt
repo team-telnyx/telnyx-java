@@ -93,7 +93,7 @@ internal class FqdnConnectionServiceTest {
                             )
                             .ipAuthenticationToken("aBcD1234")
                             .localization("string")
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .t38ReinviteSource(OutboundFqdn.T38ReinviteSource.CUSTOMER)
                             .techPrefix("0123")
                             .timeout1xxSecs(10L)
@@ -126,7 +126,7 @@ internal class FqdnConnectionServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val fqdnConnectionService = client.fqdnConnections()
 
-        val fqdnConnection = fqdnConnectionService.retrieve("id")
+        val fqdnConnection = fqdnConnectionService.retrieve("1293384261075731499")
 
         fqdnConnection.validate()
     }
@@ -140,7 +140,7 @@ internal class FqdnConnectionServiceTest {
         val fqdnConnection =
             fqdnConnectionService.update(
                 FqdnConnectionUpdateParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                     .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
@@ -204,7 +204,7 @@ internal class FqdnConnectionServiceTest {
                             )
                             .ipAuthenticationToken("ip_authentication_token")
                             .localization("US")
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .t38ReinviteSource(OutboundFqdn.T38ReinviteSource.TELNYX)
                             .techPrefix("tech_prefix")
                             .timeout1xxSecs(1L)
@@ -248,7 +248,7 @@ internal class FqdnConnectionServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val fqdnConnectionService = client.fqdnConnections()
 
-        val fqdnConnection = fqdnConnectionService.delete("id")
+        val fqdnConnection = fqdnConnectionService.delete("1293384261075731499")
 
         fqdnConnection.validate()
     }

@@ -30,6 +30,7 @@ private constructor(
     private val endedAt: JsonField<OffsetDateTime>,
     private val format: JsonField<Format>,
     private val recordType: JsonField<String>,
+    private val resolution: JsonField<String>,
     private val roomId: JsonField<String>,
     private val sessionId: JsonField<String>,
     private val sizeMb: JsonField<Float>,
@@ -66,6 +67,9 @@ private constructor(
         @JsonProperty("record_type")
         @ExcludeMissing
         recordType: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("resolution")
+        @ExcludeMissing
+        resolution: JsonField<String> = JsonMissing.of(),
         @JsonProperty("room_id") @ExcludeMissing roomId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("session_id") @ExcludeMissing sessionId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("size_mb") @ExcludeMissing sizeMb: JsonField<Float> = JsonMissing.of(),
@@ -98,6 +102,7 @@ private constructor(
         endedAt,
         format,
         recordType,
+        resolution,
         roomId,
         sessionId,
         sizeMb,
@@ -173,6 +178,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun recordType(): Optional<String> = recordType.getOptional("record_type")
+
+    /**
+     * The resolution of the room composition.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun resolution(): Optional<String> = resolution.getOptional("resolution")
 
     /**
      * Identify the room associated with the room composition.
@@ -331,6 +344,13 @@ private constructor(
     @JsonProperty("record_type") @ExcludeMissing fun _recordType(): JsonField<String> = recordType
 
     /**
+     * Returns the raw JSON value of [resolution].
+     *
+     * Unlike [resolution], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("resolution") @ExcludeMissing fun _resolution(): JsonField<String> = resolution
+
+    /**
      * Returns the raw JSON value of [roomId].
      *
      * Unlike [roomId], this method doesn't throw if the JSON field has an unexpected type.
@@ -450,6 +470,7 @@ private constructor(
         private var endedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var format: JsonField<Format> = JsonMissing.of()
         private var recordType: JsonField<String> = JsonMissing.of()
+        private var resolution: JsonField<String> = JsonMissing.of()
         private var roomId: JsonField<String> = JsonMissing.of()
         private var sessionId: JsonField<String> = JsonMissing.of()
         private var sizeMb: JsonField<Float> = JsonMissing.of()
@@ -473,6 +494,7 @@ private constructor(
             endedAt = roomComposition.endedAt
             format = roomComposition.format
             recordType = roomComposition.recordType
+            resolution = roomComposition.resolution
             roomId = roomComposition.roomId
             sessionId = roomComposition.sessionId
             sizeMb = roomComposition.sizeMb
@@ -581,6 +603,18 @@ private constructor(
          * value.
          */
         fun recordType(recordType: JsonField<String>) = apply { this.recordType = recordType }
+
+        /** The resolution of the room composition. */
+        fun resolution(resolution: String) = resolution(JsonField.of(resolution))
+
+        /**
+         * Sets [Builder.resolution] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.resolution] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun resolution(resolution: JsonField<String>) = apply { this.resolution = resolution }
 
         /** Identify the room associated with the room composition. */
         fun roomId(roomId: String) = roomId(JsonField.of(roomId))
@@ -764,6 +798,7 @@ private constructor(
                 endedAt,
                 format,
                 recordType,
+                resolution,
                 roomId,
                 sessionId,
                 sizeMb,
@@ -794,6 +829,7 @@ private constructor(
         endedAt()
         format().ifPresent { it.validate() }
         recordType()
+        resolution()
         roomId()
         sessionId()
         sizeMb()
@@ -831,6 +867,7 @@ private constructor(
             (if (endedAt.asKnown().isPresent) 1 else 0) +
             (format.asKnown().getOrNull()?.validity() ?: 0) +
             (if (recordType.asKnown().isPresent) 1 else 0) +
+            (if (resolution.asKnown().isPresent) 1 else 0) +
             (if (roomId.asKnown().isPresent) 1 else 0) +
             (if (sessionId.asKnown().isPresent) 1 else 0) +
             (if (sizeMb.asKnown().isPresent) 1 else 0) +
@@ -1211,6 +1248,7 @@ private constructor(
             endedAt == other.endedAt &&
             format == other.format &&
             recordType == other.recordType &&
+            resolution == other.resolution &&
             roomId == other.roomId &&
             sessionId == other.sessionId &&
             sizeMb == other.sizeMb &&
@@ -1235,6 +1273,7 @@ private constructor(
             endedAt,
             format,
             recordType,
+            resolution,
             roomId,
             sessionId,
             sizeMb,
@@ -1253,5 +1292,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RoomComposition{id=$id, completedAt=$completedAt, createdAt=$createdAt, downloadUrl=$downloadUrl, durationSecs=$durationSecs, endedAt=$endedAt, format=$format, recordType=$recordType, roomId=$roomId, sessionId=$sessionId, sizeMb=$sizeMb, startedAt=$startedAt, status=$status, updatedAt=$updatedAt, userId=$userId, videoLayout=$videoLayout, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
+        "RoomComposition{id=$id, completedAt=$completedAt, createdAt=$createdAt, downloadUrl=$downloadUrl, durationSecs=$durationSecs, endedAt=$endedAt, format=$format, recordType=$recordType, resolution=$resolution, roomId=$roomId, sessionId=$sessionId, sizeMb=$sizeMb, startedAt=$startedAt, status=$status, updatedAt=$updatedAt, userId=$userId, videoLayout=$videoLayout, webhookEventFailoverUrl=$webhookEventFailoverUrl, webhookEventUrl=$webhookEventUrl, webhookTimeoutSecs=$webhookTimeoutSecs, additionalProperties=$additionalProperties}"
 }

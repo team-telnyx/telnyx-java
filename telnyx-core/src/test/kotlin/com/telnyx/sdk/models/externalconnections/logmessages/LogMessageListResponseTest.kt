@@ -13,14 +13,14 @@ internal class LogMessageListResponseTest {
     fun create() {
         val logMessageListResponse =
             LogMessageListResponse.builder()
-                .code("code")
+                .code("10015")
                 .title("Invalid attribute")
                 .detail(
                     "The value provided for the attribute is not valid. Check the value used and try again."
                 )
                 .meta(
                     LogMessageListResponse.Meta.builder()
-                        .externalConnectionId("external_connection_id")
+                        .externalConnectionId("1293384261075731499")
                         .telephoneNumber("+12345678")
                         .ticketId("542c3bca-d247-42bc-8fe7-e01d16ecd761")
                         .build()
@@ -28,7 +28,7 @@ internal class LogMessageListResponseTest {
                 .source(LogMessageListResponse.Source.builder().pointer("/attribute").build())
                 .build()
 
-        assertThat(logMessageListResponse.code()).isEqualTo("code")
+        assertThat(logMessageListResponse.code()).isEqualTo("10015")
         assertThat(logMessageListResponse.title()).isEqualTo("Invalid attribute")
         assertThat(logMessageListResponse.detail())
             .contains(
@@ -37,7 +37,7 @@ internal class LogMessageListResponseTest {
         assertThat(logMessageListResponse.meta())
             .contains(
                 LogMessageListResponse.Meta.builder()
-                    .externalConnectionId("external_connection_id")
+                    .externalConnectionId("1293384261075731499")
                     .telephoneNumber("+12345678")
                     .ticketId("542c3bca-d247-42bc-8fe7-e01d16ecd761")
                     .build()
@@ -51,14 +51,14 @@ internal class LogMessageListResponseTest {
         val jsonMapper = jsonMapper()
         val logMessageListResponse =
             LogMessageListResponse.builder()
-                .code("code")
+                .code("10015")
                 .title("Invalid attribute")
                 .detail(
                     "The value provided for the attribute is not valid. Check the value used and try again."
                 )
                 .meta(
                     LogMessageListResponse.Meta.builder()
-                        .externalConnectionId("external_connection_id")
+                        .externalConnectionId("1293384261075731499")
                         .telephoneNumber("+12345678")
                         .ticketId("542c3bca-d247-42bc-8fe7-e01d16ecd761")
                         .build()

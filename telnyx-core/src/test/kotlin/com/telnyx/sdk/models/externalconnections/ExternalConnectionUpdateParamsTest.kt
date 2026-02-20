@@ -11,10 +11,10 @@ internal class ExternalConnectionUpdateParamsTest {
     @Test
     fun create() {
         ExternalConnectionUpdateParams.builder()
-            .id("id")
+            .id("1293384261075731499")
             .outbound(
                 ExternalConnectionUpdateParams.Outbound.builder()
-                    .outboundVoiceProfileId("outbound_voice_profile_id")
+                    .outboundVoiceProfileId("1911630617284445511")
                     .channelLimit(10L)
                     .build()
             )
@@ -32,15 +32,15 @@ internal class ExternalConnectionUpdateParamsTest {
     fun pathParams() {
         val params =
             ExternalConnectionUpdateParams.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .outbound(
                     ExternalConnectionUpdateParams.Outbound.builder()
-                        .outboundVoiceProfileId("outbound_voice_profile_id")
+                        .outboundVoiceProfileId("1911630617284445511")
                         .build()
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("id")
+        assertThat(params._pathParam(0)).isEqualTo("1293384261075731499")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -49,10 +49,10 @@ internal class ExternalConnectionUpdateParamsTest {
     fun body() {
         val params =
             ExternalConnectionUpdateParams.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .outbound(
                     ExternalConnectionUpdateParams.Outbound.builder()
-                        .outboundVoiceProfileId("outbound_voice_profile_id")
+                        .outboundVoiceProfileId("1911630617284445511")
                         .channelLimit(10L)
                         .build()
                 )
@@ -70,7 +70,7 @@ internal class ExternalConnectionUpdateParamsTest {
         assertThat(body.outbound())
             .isEqualTo(
                 ExternalConnectionUpdateParams.Outbound.builder()
-                    .outboundVoiceProfileId("outbound_voice_profile_id")
+                    .outboundVoiceProfileId("1911630617284445511")
                     .channelLimit(10L)
                     .build()
             )
@@ -87,10 +87,10 @@ internal class ExternalConnectionUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             ExternalConnectionUpdateParams.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .outbound(
                     ExternalConnectionUpdateParams.Outbound.builder()
-                        .outboundVoiceProfileId("outbound_voice_profile_id")
+                        .outboundVoiceProfileId("1911630617284445511")
                         .build()
                 )
                 .build()
@@ -100,7 +100,7 @@ internal class ExternalConnectionUpdateParamsTest {
         assertThat(body.outbound())
             .isEqualTo(
                 ExternalConnectionUpdateParams.Outbound.builder()
-                    .outboundVoiceProfileId("outbound_voice_profile_id")
+                    .outboundVoiceProfileId("1911630617284445511")
                     .build()
             )
     }
