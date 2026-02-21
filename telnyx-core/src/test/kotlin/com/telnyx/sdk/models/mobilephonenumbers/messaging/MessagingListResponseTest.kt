@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.MessagingFeatureSet
 import java.time.OffsetDateTime
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -31,8 +32,10 @@ internal class MessagingListResponseTest {
                 )
                 .messagingProduct("P2P")
                 .messagingProfileId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+                .organizationId("organization_id")
                 .phoneNumber("++13127367407")
                 .recordType(MessagingListResponse.RecordType.MESSAGING_SETTINGS)
+                .addTag("string")
                 .trafficType("P2P")
                 .type(MessagingListResponse.Type.LONGCODE)
                 .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
@@ -57,9 +60,11 @@ internal class MessagingListResponseTest {
         assertThat(messagingListResponse.messagingProduct()).contains("P2P")
         assertThat(messagingListResponse.messagingProfileId())
             .contains("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+        assertThat(messagingListResponse.organizationId()).contains("organization_id")
         assertThat(messagingListResponse.phoneNumber()).contains("++13127367407")
         assertThat(messagingListResponse.recordType())
             .contains(MessagingListResponse.RecordType.MESSAGING_SETTINGS)
+        assertThat(messagingListResponse.tags().getOrNull()).containsExactly("string")
         assertThat(messagingListResponse.trafficType()).contains("P2P")
         assertThat(messagingListResponse.type()).contains(MessagingListResponse.Type.LONGCODE)
         assertThat(messagingListResponse.updatedAt())
@@ -87,8 +92,10 @@ internal class MessagingListResponseTest {
                 )
                 .messagingProduct("P2P")
                 .messagingProfileId("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+                .organizationId("organization_id")
                 .phoneNumber("++13127367407")
                 .recordType(MessagingListResponse.RecordType.MESSAGING_SETTINGS)
+                .addTag("string")
                 .trafficType("P2P")
                 .type(MessagingListResponse.Type.LONGCODE)
                 .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))

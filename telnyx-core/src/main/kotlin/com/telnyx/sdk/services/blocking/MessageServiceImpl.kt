@@ -18,6 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.messages.MessageCancelScheduledParams
 import com.telnyx.sdk.models.messages.MessageCancelScheduledResponse
+import com.telnyx.sdk.models.messages.MessageRetrieveGroupMessagesParams
+import com.telnyx.sdk.models.messages.MessageRetrieveGroupMessagesResponse
 import com.telnyx.sdk.models.messages.MessageRetrieveParams
 import com.telnyx.sdk.models.messages.MessageRetrieveResponse
 import com.telnyx.sdk.models.messages.MessageScheduleParams
@@ -34,6 +36,8 @@ import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeResponse
 import com.telnyx.sdk.models.messages.MessageSendWhatsappParams
 import com.telnyx.sdk.models.messages.MessageSendWhatsappResponse
+import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderParams
+import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderResponse
 import com.telnyx.sdk.services.blocking.messages.RcService
 import com.telnyx.sdk.services.blocking.messages.RcServiceImpl
 import java.util.function.Consumer
@@ -68,6 +72,13 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
     ): MessageCancelScheduledResponse =
         // delete /messages/{id}
         withRawResponse().cancelScheduled(params, requestOptions).parse()
+
+    override fun retrieveGroupMessages(
+        params: MessageRetrieveGroupMessagesParams,
+        requestOptions: RequestOptions,
+    ): MessageRetrieveGroupMessagesResponse =
+        // get /messages/group/{message_id}
+        withRawResponse().retrieveGroupMessages(params, requestOptions).parse()
 
     override fun schedule(
         params: MessageScheduleParams,
@@ -117,6 +128,13 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
     ): MessageSendWhatsappResponse =
         // post /messages/whatsapp
         withRawResponse().sendWhatsapp(params, requestOptions).parse()
+
+    override fun sendWithAlphanumericSender(
+        params: MessageSendWithAlphanumericSenderParams,
+        requestOptions: RequestOptions,
+    ): MessageSendWithAlphanumericSenderResponse =
+        // post /messages/alphanumeric_sender_id
+        withRawResponse().sendWithAlphanumericSender(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         MessageService.WithRawResponse {
@@ -190,6 +208,36 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
             return errorHandler.handle(response).parseable {
                 response
                     .use { cancelScheduledHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val retrieveGroupMessagesHandler: Handler<MessageRetrieveGroupMessagesResponse> =
+            jsonHandler<MessageRetrieveGroupMessagesResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveGroupMessages(
+            params: MessageRetrieveGroupMessagesParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<MessageRetrieveGroupMessagesResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("messageId", params.messageId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("messages", "group", params._pathParam(0))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { retrieveGroupMessagesHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -386,6 +434,35 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
             return errorHandler.handle(response).parseable {
                 response
                     .use { sendWhatsappHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val sendWithAlphanumericSenderHandler:
+            Handler<MessageSendWithAlphanumericSenderResponse> =
+            jsonHandler<MessageSendWithAlphanumericSenderResponse>(clientOptions.jsonMapper)
+
+        override fun sendWithAlphanumericSender(
+            params: MessageSendWithAlphanumericSenderParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<MessageSendWithAlphanumericSenderResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("messages", "alphanumeric_sender_id")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { sendWithAlphanumericSenderHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

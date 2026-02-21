@@ -11,6 +11,8 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.checkKnown
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.MessagingFeatureSet
 import java.time.OffsetDateTime
@@ -28,8 +30,10 @@ private constructor(
     private val features: JsonField<Features>,
     private val messagingProduct: JsonField<String>,
     private val messagingProfileId: JsonField<String>,
+    private val organizationId: JsonField<String>,
     private val phoneNumber: JsonField<String>,
     private val recordType: JsonField<RecordType>,
+    private val tags: JsonField<List<String>>,
     private val trafficType: JsonField<String>,
     private val type: JsonField<Type>,
     private val updatedAt: JsonField<OffsetDateTime>,
@@ -52,12 +56,16 @@ private constructor(
         @JsonProperty("messaging_profile_id")
         @ExcludeMissing
         messagingProfileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("organization_id")
+        @ExcludeMissing
+        organizationId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("phone_number")
         @ExcludeMissing
         phoneNumber: JsonField<String> = JsonMissing.of(),
         @JsonProperty("record_type")
         @ExcludeMissing
         recordType: JsonField<RecordType> = JsonMissing.of(),
+        @JsonProperty("tags") @ExcludeMissing tags: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("traffic_type")
         @ExcludeMissing
         trafficType: JsonField<String> = JsonMissing.of(),
@@ -72,8 +80,10 @@ private constructor(
         features,
         messagingProduct,
         messagingProfileId,
+        organizationId,
         phoneNumber,
         recordType,
+        tags,
         trafficType,
         type,
         updatedAt,
@@ -128,6 +138,14 @@ private constructor(
         messagingProfileId.getOptional("messaging_profile_id")
 
     /**
+     * The organization that owns this phone number.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun organizationId(): Optional<String> = organizationId.getOptional("organization_id")
+
+    /**
      * +E.164 formatted phone number.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -142,6 +160,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun recordType(): Optional<RecordType> = recordType.getOptional("record_type")
+
+    /**
+     * Tags associated with this phone number.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun tags(): Optional<List<String>> = tags.getOptional("tags")
 
     /**
      * The messaging traffic or use case for which the number is currently configured.
@@ -220,6 +246,15 @@ private constructor(
     fun _messagingProfileId(): JsonField<String> = messagingProfileId
 
     /**
+     * Returns the raw JSON value of [organizationId].
+     *
+     * Unlike [organizationId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("organization_id")
+    @ExcludeMissing
+    fun _organizationId(): JsonField<String> = organizationId
+
+    /**
      * Returns the raw JSON value of [phoneNumber].
      *
      * Unlike [phoneNumber], this method doesn't throw if the JSON field has an unexpected type.
@@ -236,6 +271,13 @@ private constructor(
     @JsonProperty("record_type")
     @ExcludeMissing
     fun _recordType(): JsonField<RecordType> = recordType
+
+    /**
+     * Returns the raw JSON value of [tags].
+     *
+     * Unlike [tags], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("tags") @ExcludeMissing fun _tags(): JsonField<List<String>> = tags
 
     /**
      * Returns the raw JSON value of [trafficType].
@@ -289,8 +331,10 @@ private constructor(
         private var features: JsonField<Features> = JsonMissing.of()
         private var messagingProduct: JsonField<String> = JsonMissing.of()
         private var messagingProfileId: JsonField<String> = JsonMissing.of()
+        private var organizationId: JsonField<String> = JsonMissing.of()
         private var phoneNumber: JsonField<String> = JsonMissing.of()
         private var recordType: JsonField<RecordType> = JsonMissing.of()
+        private var tags: JsonField<MutableList<String>>? = null
         private var trafficType: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -304,8 +348,10 @@ private constructor(
             features = messagingListResponse.features
             messagingProduct = messagingListResponse.messagingProduct
             messagingProfileId = messagingListResponse.messagingProfileId
+            organizationId = messagingListResponse.organizationId
             phoneNumber = messagingListResponse.phoneNumber
             recordType = messagingListResponse.recordType
+            tags = messagingListResponse.tags.map { it.toMutableList() }
             trafficType = messagingListResponse.trafficType
             type = messagingListResponse.type
             updatedAt = messagingListResponse.updatedAt
@@ -394,6 +440,20 @@ private constructor(
             this.messagingProfileId = messagingProfileId
         }
 
+        /** The organization that owns this phone number. */
+        fun organizationId(organizationId: String) = organizationId(JsonField.of(organizationId))
+
+        /**
+         * Sets [Builder.organizationId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.organizationId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun organizationId(organizationId: JsonField<String>) = apply {
+            this.organizationId = organizationId
+        }
+
         /** +E.164 formatted phone number. */
         fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
 
@@ -417,6 +477,29 @@ private constructor(
          * supported value.
          */
         fun recordType(recordType: JsonField<RecordType>) = apply { this.recordType = recordType }
+
+        /** Tags associated with this phone number. */
+        fun tags(tags: List<String>) = tags(JsonField.of(tags))
+
+        /**
+         * Sets [Builder.tags] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.tags] with a well-typed `List<String>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun tags(tags: JsonField<List<String>>) = apply {
+            this.tags = tags.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [String] to [tags].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addTag(tag: String) = apply {
+            tags = (tags ?: JsonField.of(mutableListOf())).also { checkKnown("tags", it).add(tag) }
+        }
 
         /** The messaging traffic or use case for which the number is currently configured. */
         fun trafficType(trafficType: String) = trafficType(JsonField.of(trafficType))
@@ -485,8 +568,10 @@ private constructor(
                 features,
                 messagingProduct,
                 messagingProfileId,
+                organizationId,
                 phoneNumber,
                 recordType,
+                (tags ?: JsonMissing.of()).map { it.toImmutable() },
                 trafficType,
                 type,
                 updatedAt,
@@ -507,8 +592,10 @@ private constructor(
         features().ifPresent { it.validate() }
         messagingProduct()
         messagingProfileId()
+        organizationId()
         phoneNumber()
         recordType().ifPresent { it.validate() }
+        tags()
         trafficType()
         type().ifPresent { it.validate() }
         updatedAt()
@@ -536,8 +623,10 @@ private constructor(
             (features.asKnown().getOrNull()?.validity() ?: 0) +
             (if (messagingProduct.asKnown().isPresent) 1 else 0) +
             (if (messagingProfileId.asKnown().isPresent) 1 else 0) +
+            (if (organizationId.asKnown().isPresent) 1 else 0) +
             (if (phoneNumber.asKnown().isPresent) 1 else 0) +
             (recordType.asKnown().getOrNull()?.validity() ?: 0) +
+            (tags.asKnown().getOrNull()?.size ?: 0) +
             (if (trafficType.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0)
@@ -953,8 +1042,10 @@ private constructor(
             features == other.features &&
             messagingProduct == other.messagingProduct &&
             messagingProfileId == other.messagingProfileId &&
+            organizationId == other.organizationId &&
             phoneNumber == other.phoneNumber &&
             recordType == other.recordType &&
+            tags == other.tags &&
             trafficType == other.trafficType &&
             type == other.type &&
             updatedAt == other.updatedAt &&
@@ -969,8 +1060,10 @@ private constructor(
             features,
             messagingProduct,
             messagingProfileId,
+            organizationId,
             phoneNumber,
             recordType,
+            tags,
             trafficType,
             type,
             updatedAt,
@@ -981,5 +1074,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessagingListResponse{id=$id, countryCode=$countryCode, createdAt=$createdAt, features=$features, messagingProduct=$messagingProduct, messagingProfileId=$messagingProfileId, phoneNumber=$phoneNumber, recordType=$recordType, trafficType=$trafficType, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "MessagingListResponse{id=$id, countryCode=$countryCode, createdAt=$createdAt, features=$features, messagingProduct=$messagingProduct, messagingProfileId=$messagingProfileId, organizationId=$organizationId, phoneNumber=$phoneNumber, recordType=$recordType, tags=$tags, trafficType=$trafficType, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

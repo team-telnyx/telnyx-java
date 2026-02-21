@@ -20,6 +20,7 @@ internal class MessagingNumbersBulkUpdateServiceTest {
                 MessagingNumbersBulkUpdateCreateParams.builder()
                     .messagingProfileId("00000000-0000-0000-0000-000000000000")
                     .numbers(listOf("+18880000000", "+18880000001", "+18880000002"))
+                    .assignOnly(true)
                     .build()
             )
 

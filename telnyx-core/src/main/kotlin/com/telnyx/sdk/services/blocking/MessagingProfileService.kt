@@ -10,16 +10,21 @@ import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileDeleteParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileDeleteResponse
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListAlphanumericSenderIdsPage
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListAlphanumericSenderIdsParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPage
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersPage
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesPage
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveMetricsParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveMetricsResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateResponse
+import com.telnyx.sdk.services.blocking.messagingprofiles.ActionService
 import com.telnyx.sdk.services.blocking.messagingprofiles.AutorespConfigService
 import java.util.function.Consumer
 
@@ -38,6 +43,8 @@ interface MessagingProfileService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingProfileService
 
     fun autorespConfigs(): AutorespConfigService
+
+    fun actions(): ActionService
 
     /** Create a messaging profile */
     fun create(params: MessagingProfileCreateParams): MessagingProfileCreateResponse =
@@ -173,6 +180,50 @@ interface MessagingProfileService {
     ): MessagingProfileDeleteResponse =
         delete(messagingProfileId, MessagingProfileDeleteParams.none(), requestOptions)
 
+    /** List all alphanumeric sender IDs associated with a specific messaging profile. */
+    fun listAlphanumericSenderIds(id: String): MessagingProfileListAlphanumericSenderIdsPage =
+        listAlphanumericSenderIds(id, MessagingProfileListAlphanumericSenderIdsParams.none())
+
+    /** @see listAlphanumericSenderIds */
+    fun listAlphanumericSenderIds(
+        id: String,
+        params: MessagingProfileListAlphanumericSenderIdsParams =
+            MessagingProfileListAlphanumericSenderIdsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): MessagingProfileListAlphanumericSenderIdsPage =
+        listAlphanumericSenderIds(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see listAlphanumericSenderIds */
+    fun listAlphanumericSenderIds(
+        id: String,
+        params: MessagingProfileListAlphanumericSenderIdsParams =
+            MessagingProfileListAlphanumericSenderIdsParams.none(),
+    ): MessagingProfileListAlphanumericSenderIdsPage =
+        listAlphanumericSenderIds(id, params, RequestOptions.none())
+
+    /** @see listAlphanumericSenderIds */
+    fun listAlphanumericSenderIds(
+        params: MessagingProfileListAlphanumericSenderIdsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): MessagingProfileListAlphanumericSenderIdsPage
+
+    /** @see listAlphanumericSenderIds */
+    fun listAlphanumericSenderIds(
+        params: MessagingProfileListAlphanumericSenderIdsParams
+    ): MessagingProfileListAlphanumericSenderIdsPage =
+        listAlphanumericSenderIds(params, RequestOptions.none())
+
+    /** @see listAlphanumericSenderIds */
+    fun listAlphanumericSenderIds(
+        id: String,
+        requestOptions: RequestOptions,
+    ): MessagingProfileListAlphanumericSenderIdsPage =
+        listAlphanumericSenderIds(
+            id,
+            MessagingProfileListAlphanumericSenderIdsParams.none(),
+            requestOptions,
+        )
+
     /** List phone numbers associated with a messaging profile */
     fun listPhoneNumbers(messagingProfileId: String): MessagingProfileListPhoneNumbersPage =
         listPhoneNumbers(messagingProfileId, MessagingProfileListPhoneNumbersParams.none())
@@ -263,6 +314,43 @@ interface MessagingProfileService {
             requestOptions,
         )
 
+    /** Get detailed metrics for a specific messaging profile, broken down by time interval. */
+    fun retrieveMetrics(id: String): MessagingProfileRetrieveMetricsResponse =
+        retrieveMetrics(id, MessagingProfileRetrieveMetricsParams.none())
+
+    /** @see retrieveMetrics */
+    fun retrieveMetrics(
+        id: String,
+        params: MessagingProfileRetrieveMetricsParams =
+            MessagingProfileRetrieveMetricsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): MessagingProfileRetrieveMetricsResponse =
+        retrieveMetrics(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see retrieveMetrics */
+    fun retrieveMetrics(
+        id: String,
+        params: MessagingProfileRetrieveMetricsParams = MessagingProfileRetrieveMetricsParams.none(),
+    ): MessagingProfileRetrieveMetricsResponse = retrieveMetrics(id, params, RequestOptions.none())
+
+    /** @see retrieveMetrics */
+    fun retrieveMetrics(
+        params: MessagingProfileRetrieveMetricsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): MessagingProfileRetrieveMetricsResponse
+
+    /** @see retrieveMetrics */
+    fun retrieveMetrics(
+        params: MessagingProfileRetrieveMetricsParams
+    ): MessagingProfileRetrieveMetricsResponse = retrieveMetrics(params, RequestOptions.none())
+
+    /** @see retrieveMetrics */
+    fun retrieveMetrics(
+        id: String,
+        requestOptions: RequestOptions,
+    ): MessagingProfileRetrieveMetricsResponse =
+        retrieveMetrics(id, MessagingProfileRetrieveMetricsParams.none(), requestOptions)
+
     /**
      * A view of [MessagingProfileService] that provides access to raw HTTP responses for each
      * method.
@@ -279,6 +367,8 @@ interface MessagingProfileService {
         ): MessagingProfileService.WithRawResponse
 
         fun autorespConfigs(): AutorespConfigService.WithRawResponse
+
+        fun actions(): ActionService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /messaging_profiles`, but is otherwise the same as
@@ -473,6 +563,61 @@ interface MessagingProfileService {
             delete(messagingProfileId, MessagingProfileDeleteParams.none(), requestOptions)
 
         /**
+         * Returns a raw HTTP response for `get /messaging_profiles/{id}/alphanumeric_sender_ids`,
+         * but is otherwise the same as [MessagingProfileService.listAlphanumericSenderIds].
+         */
+        @MustBeClosed
+        fun listAlphanumericSenderIds(
+            id: String
+        ): HttpResponseFor<MessagingProfileListAlphanumericSenderIdsPage> =
+            listAlphanumericSenderIds(id, MessagingProfileListAlphanumericSenderIdsParams.none())
+
+        /** @see listAlphanumericSenderIds */
+        @MustBeClosed
+        fun listAlphanumericSenderIds(
+            id: String,
+            params: MessagingProfileListAlphanumericSenderIdsParams =
+                MessagingProfileListAlphanumericSenderIdsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<MessagingProfileListAlphanumericSenderIdsPage> =
+            listAlphanumericSenderIds(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see listAlphanumericSenderIds */
+        @MustBeClosed
+        fun listAlphanumericSenderIds(
+            id: String,
+            params: MessagingProfileListAlphanumericSenderIdsParams =
+                MessagingProfileListAlphanumericSenderIdsParams.none(),
+        ): HttpResponseFor<MessagingProfileListAlphanumericSenderIdsPage> =
+            listAlphanumericSenderIds(id, params, RequestOptions.none())
+
+        /** @see listAlphanumericSenderIds */
+        @MustBeClosed
+        fun listAlphanumericSenderIds(
+            params: MessagingProfileListAlphanumericSenderIdsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<MessagingProfileListAlphanumericSenderIdsPage>
+
+        /** @see listAlphanumericSenderIds */
+        @MustBeClosed
+        fun listAlphanumericSenderIds(
+            params: MessagingProfileListAlphanumericSenderIdsParams
+        ): HttpResponseFor<MessagingProfileListAlphanumericSenderIdsPage> =
+            listAlphanumericSenderIds(params, RequestOptions.none())
+
+        /** @see listAlphanumericSenderIds */
+        @MustBeClosed
+        fun listAlphanumericSenderIds(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<MessagingProfileListAlphanumericSenderIdsPage> =
+            listAlphanumericSenderIds(
+                id,
+                MessagingProfileListAlphanumericSenderIdsParams.none(),
+                requestOptions,
+            )
+
+        /**
          * Returns a raw HTTP response for `get /messaging_profiles/{id}/phone_numbers`, but is
          * otherwise the same as [MessagingProfileService.listPhoneNumbers].
          */
@@ -587,5 +732,54 @@ interface MessagingProfileService {
                 MessagingProfileListShortCodesParams.none(),
                 requestOptions,
             )
+
+        /**
+         * Returns a raw HTTP response for `get /messaging_profiles/{id}/metrics`, but is otherwise
+         * the same as [MessagingProfileService.retrieveMetrics].
+         */
+        @MustBeClosed
+        fun retrieveMetrics(id: String): HttpResponseFor<MessagingProfileRetrieveMetricsResponse> =
+            retrieveMetrics(id, MessagingProfileRetrieveMetricsParams.none())
+
+        /** @see retrieveMetrics */
+        @MustBeClosed
+        fun retrieveMetrics(
+            id: String,
+            params: MessagingProfileRetrieveMetricsParams =
+                MessagingProfileRetrieveMetricsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<MessagingProfileRetrieveMetricsResponse> =
+            retrieveMetrics(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see retrieveMetrics */
+        @MustBeClosed
+        fun retrieveMetrics(
+            id: String,
+            params: MessagingProfileRetrieveMetricsParams =
+                MessagingProfileRetrieveMetricsParams.none(),
+        ): HttpResponseFor<MessagingProfileRetrieveMetricsResponse> =
+            retrieveMetrics(id, params, RequestOptions.none())
+
+        /** @see retrieveMetrics */
+        @MustBeClosed
+        fun retrieveMetrics(
+            params: MessagingProfileRetrieveMetricsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<MessagingProfileRetrieveMetricsResponse>
+
+        /** @see retrieveMetrics */
+        @MustBeClosed
+        fun retrieveMetrics(
+            params: MessagingProfileRetrieveMetricsParams
+        ): HttpResponseFor<MessagingProfileRetrieveMetricsResponse> =
+            retrieveMetrics(params, RequestOptions.none())
+
+        /** @see retrieveMetrics */
+        @MustBeClosed
+        fun retrieveMetrics(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<MessagingProfileRetrieveMetricsResponse> =
+            retrieveMetrics(id, MessagingProfileRetrieveMetricsParams.none(), requestOptions)
     }
 }

@@ -19,6 +19,7 @@ import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** Bulk update phone number profiles */
@@ -49,6 +50,14 @@ private constructor(
     fun numbers(): List<String> = body.numbers()
 
     /**
+     * If true, only assign numbers to the profile without changing other settings.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun assignOnly(): Optional<Boolean> = body.assignOnly()
+
+    /**
      * Returns the raw JSON value of [messagingProfileId].
      *
      * Unlike [messagingProfileId], this method doesn't throw if the JSON field has an unexpected
@@ -62,6 +71,13 @@ private constructor(
      * Unlike [numbers], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _numbers(): JsonField<List<String>> = body._numbers()
+
+    /**
+     * Returns the raw JSON value of [assignOnly].
+     *
+     * Unlike [assignOnly], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _assignOnly(): JsonField<Boolean> = body._assignOnly()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -112,6 +128,7 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [messagingProfileId]
          * - [numbers]
+         * - [assignOnly]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -154,6 +171,18 @@ private constructor(
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addNumber(number: String) = apply { body.addNumber(number) }
+
+        /** If true, only assign numbers to the profile without changing other settings. */
+        fun assignOnly(assignOnly: Boolean) = apply { body.assignOnly(assignOnly) }
+
+        /**
+         * Sets [Builder.assignOnly] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.assignOnly] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun assignOnly(assignOnly: JsonField<Boolean>) = apply { body.assignOnly(assignOnly) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -304,6 +333,7 @@ private constructor(
     private constructor(
         private val messagingProfileId: JsonField<String>,
         private val numbers: JsonField<List<String>>,
+        private val assignOnly: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -315,7 +345,10 @@ private constructor(
             @JsonProperty("numbers")
             @ExcludeMissing
             numbers: JsonField<List<String>> = JsonMissing.of(),
-        ) : this(messagingProfileId, numbers, mutableMapOf())
+            @JsonProperty("assign_only")
+            @ExcludeMissing
+            assignOnly: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(messagingProfileId, numbers, assignOnly, mutableMapOf())
 
         /**
          * Configure the messaging profile these phone numbers are assigned to:
@@ -337,6 +370,14 @@ private constructor(
         fun numbers(): List<String> = numbers.getRequired("numbers")
 
         /**
+         * If true, only assign numbers to the profile without changing other settings.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun assignOnly(): Optional<Boolean> = assignOnly.getOptional("assign_only")
+
+        /**
          * Returns the raw JSON value of [messagingProfileId].
          *
          * Unlike [messagingProfileId], this method doesn't throw if the JSON field has an
@@ -352,6 +393,15 @@ private constructor(
          * Unlike [numbers], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("numbers") @ExcludeMissing fun _numbers(): JsonField<List<String>> = numbers
+
+        /**
+         * Returns the raw JSON value of [assignOnly].
+         *
+         * Unlike [assignOnly], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("assign_only")
+        @ExcludeMissing
+        fun _assignOnly(): JsonField<Boolean> = assignOnly
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -384,12 +434,14 @@ private constructor(
 
             private var messagingProfileId: JsonField<String>? = null
             private var numbers: JsonField<MutableList<String>>? = null
+            private var assignOnly: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 messagingProfileId = body.messagingProfileId
                 numbers = body.numbers.map { it.toMutableList() }
+                assignOnly = body.assignOnly
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -440,6 +492,18 @@ private constructor(
                     }
             }
 
+            /** If true, only assign numbers to the profile without changing other settings. */
+            fun assignOnly(assignOnly: Boolean) = assignOnly(JsonField.of(assignOnly))
+
+            /**
+             * Sets [Builder.assignOnly] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.assignOnly] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun assignOnly(assignOnly: JsonField<Boolean>) = apply { this.assignOnly = assignOnly }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -476,6 +540,7 @@ private constructor(
                 Body(
                     checkRequired("messagingProfileId", messagingProfileId),
                     checkRequired("numbers", numbers).map { it.toImmutable() },
+                    assignOnly,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -489,6 +554,7 @@ private constructor(
 
             messagingProfileId()
             numbers()
+            assignOnly()
             validated = true
         }
 
@@ -509,7 +575,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (messagingProfileId.asKnown().isPresent) 1 else 0) +
-                (numbers.asKnown().getOrNull()?.size ?: 0)
+                (numbers.asKnown().getOrNull()?.size ?: 0) +
+                (if (assignOnly.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -519,17 +586,18 @@ private constructor(
             return other is Body &&
                 messagingProfileId == other.messagingProfileId &&
                 numbers == other.numbers &&
+                assignOnly == other.assignOnly &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(messagingProfileId, numbers, additionalProperties)
+            Objects.hash(messagingProfileId, numbers, assignOnly, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{messagingProfileId=$messagingProfileId, numbers=$numbers, additionalProperties=$additionalProperties}"
+            "Body{messagingProfileId=$messagingProfileId, numbers=$numbers, assignOnly=$assignOnly, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

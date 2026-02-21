@@ -19,6 +19,7 @@ internal class MessagingProfileListPageResponseTest {
                 .addData(
                     MessagingProfile.builder()
                         .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+                        .aiAssistantId("ai_assistant_id")
                         .alphaSender("sqF")
                         .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .dailySpendLimit("100.00")
@@ -38,9 +39,11 @@ internal class MessagingProfileListPageResponseTest {
                                 .stickySender(true)
                                 .build()
                         )
+                        .organizationId("organization_id")
                         .recordType(MessagingProfile.RecordType.MESSAGING_PROFILE)
                         .redactionEnabled(false)
                         .redactionLevel(2L)
+                        .resourceGroupId("resource_group_id")
                         .smartEncoding(true)
                         .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .urlShortenerSettings(
@@ -72,6 +75,7 @@ internal class MessagingProfileListPageResponseTest {
             .containsExactly(
                 MessagingProfile.builder()
                     .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+                    .aiAssistantId("ai_assistant_id")
                     .alphaSender("sqF")
                     .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                     .dailySpendLimit("100.00")
@@ -91,9 +95,11 @@ internal class MessagingProfileListPageResponseTest {
                             .stickySender(true)
                             .build()
                     )
+                    .organizationId("organization_id")
                     .recordType(MessagingProfile.RecordType.MESSAGING_PROFILE)
                     .redactionEnabled(false)
                     .redactionLevel(2L)
+                    .resourceGroupId("resource_group_id")
                     .smartEncoding(true)
                     .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                     .urlShortenerSettings(
@@ -130,6 +136,7 @@ internal class MessagingProfileListPageResponseTest {
                 .addData(
                     MessagingProfile.builder()
                         .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+                        .aiAssistantId("ai_assistant_id")
                         .alphaSender("sqF")
                         .createdAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .dailySpendLimit("100.00")
@@ -149,9 +156,11 @@ internal class MessagingProfileListPageResponseTest {
                                 .stickySender(true)
                                 .build()
                         )
+                        .organizationId("organization_id")
                         .recordType(MessagingProfile.RecordType.MESSAGING_PROFILE)
                         .redactionEnabled(false)
                         .redactionLevel(2L)
+                        .resourceGroupId("resource_group_id")
                         .smartEncoding(true)
                         .updatedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                         .urlShortenerSettings(

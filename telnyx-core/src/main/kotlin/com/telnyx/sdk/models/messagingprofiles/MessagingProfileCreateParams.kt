@@ -50,6 +50,14 @@ private constructor(
     fun whitelistedDestinations(): List<String> = body.whitelistedDestinations()
 
     /**
+     * The AI assistant ID to associate with this messaging profile.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun aiAssistantId(): Optional<String> = body.aiAssistantId()
+
+    /**
      * The alphanumeric sender ID to use when sending to destinations that require an alphanumeric
      * sender ID.
      *
@@ -81,6 +89,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun enabled(): Optional<Boolean> = body.enabled()
+
+    /**
+     * A URL to receive health check webhooks for numbers in this profile.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun healthWebhookUrl(): Optional<String> = body.healthWebhookUrl()
 
     /**
      * enables SMS fallback for MMS messages.
@@ -117,6 +133,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun numberPoolSettings(): Optional<NumberPoolSettings> = body.numberPoolSettings()
+
+    /**
+     * The resource group ID to associate with this messaging profile.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun resourceGroupId(): Optional<String> = body.resourceGroupId()
 
     /**
      * Enables automatic character encoding optimization for SMS messages. When enabled, the system
@@ -183,6 +207,13 @@ private constructor(
     fun _whitelistedDestinations(): JsonField<List<String>> = body._whitelistedDestinations()
 
     /**
+     * Returns the raw JSON value of [aiAssistantId].
+     *
+     * Unlike [aiAssistantId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _aiAssistantId(): JsonField<String> = body._aiAssistantId()
+
+    /**
      * Returns the raw JSON value of [alphaSender].
      *
      * Unlike [alphaSender], this method doesn't throw if the JSON field has an unexpected type.
@@ -210,6 +241,14 @@ private constructor(
      * Unlike [enabled], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _enabled(): JsonField<Boolean> = body._enabled()
+
+    /**
+     * Returns the raw JSON value of [healthWebhookUrl].
+     *
+     * Unlike [healthWebhookUrl], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _healthWebhookUrl(): JsonField<String> = body._healthWebhookUrl()
 
     /**
      * Returns the raw JSON value of [mmsFallBackToSms].
@@ -240,6 +279,13 @@ private constructor(
      * type.
      */
     fun _numberPoolSettings(): JsonField<NumberPoolSettings> = body._numberPoolSettings()
+
+    /**
+     * Returns the raw JSON value of [resourceGroupId].
+     *
+     * Unlike [resourceGroupId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _resourceGroupId(): JsonField<String> = body._resourceGroupId()
 
     /**
      * Returns the raw JSON value of [smartEncoding].
@@ -324,9 +370,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [name]
          * - [whitelistedDestinations]
+         * - [aiAssistantId]
          * - [alphaSender]
          * - [dailySpendLimit]
-         * - [dailySpendLimitEnabled]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -369,6 +415,24 @@ private constructor(
          */
         fun addWhitelistedDestination(whitelistedDestination: String) = apply {
             body.addWhitelistedDestination(whitelistedDestination)
+        }
+
+        /** The AI assistant ID to associate with this messaging profile. */
+        fun aiAssistantId(aiAssistantId: String?) = apply { body.aiAssistantId(aiAssistantId) }
+
+        /** Alias for calling [Builder.aiAssistantId] with `aiAssistantId.orElse(null)`. */
+        fun aiAssistantId(aiAssistantId: Optional<String>) =
+            aiAssistantId(aiAssistantId.getOrNull())
+
+        /**
+         * Sets [Builder.aiAssistantId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.aiAssistantId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun aiAssistantId(aiAssistantId: JsonField<String>) = apply {
+            body.aiAssistantId(aiAssistantId)
         }
 
         /**
@@ -434,6 +498,26 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun enabled(enabled: JsonField<Boolean>) = apply { body.enabled(enabled) }
+
+        /** A URL to receive health check webhooks for numbers in this profile. */
+        fun healthWebhookUrl(healthWebhookUrl: String?) = apply {
+            body.healthWebhookUrl(healthWebhookUrl)
+        }
+
+        /** Alias for calling [Builder.healthWebhookUrl] with `healthWebhookUrl.orElse(null)`. */
+        fun healthWebhookUrl(healthWebhookUrl: Optional<String>) =
+            healthWebhookUrl(healthWebhookUrl.getOrNull())
+
+        /**
+         * Sets [Builder.healthWebhookUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.healthWebhookUrl] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun healthWebhookUrl(healthWebhookUrl: JsonField<String>) = apply {
+            body.healthWebhookUrl(healthWebhookUrl)
+        }
 
         /** enables SMS fallback for MMS messages. */
         fun mmsFallBackToSms(mmsFallBackToSms: Boolean) = apply {
@@ -503,6 +587,26 @@ private constructor(
          */
         fun numberPoolSettings(numberPoolSettings: JsonField<NumberPoolSettings>) = apply {
             body.numberPoolSettings(numberPoolSettings)
+        }
+
+        /** The resource group ID to associate with this messaging profile. */
+        fun resourceGroupId(resourceGroupId: String?) = apply {
+            body.resourceGroupId(resourceGroupId)
+        }
+
+        /** Alias for calling [Builder.resourceGroupId] with `resourceGroupId.orElse(null)`. */
+        fun resourceGroupId(resourceGroupId: Optional<String>) =
+            resourceGroupId(resourceGroupId.getOrNull())
+
+        /**
+         * Sets [Builder.resourceGroupId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.resourceGroupId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun resourceGroupId(resourceGroupId: JsonField<String>) = apply {
+            body.resourceGroupId(resourceGroupId)
         }
 
         /**
@@ -762,14 +866,17 @@ private constructor(
     private constructor(
         private val name: JsonField<String>,
         private val whitelistedDestinations: JsonField<List<String>>,
+        private val aiAssistantId: JsonField<String>,
         private val alphaSender: JsonField<String>,
         private val dailySpendLimit: JsonField<String>,
         private val dailySpendLimitEnabled: JsonField<Boolean>,
         private val enabled: JsonField<Boolean>,
+        private val healthWebhookUrl: JsonField<String>,
         private val mmsFallBackToSms: JsonField<Boolean>,
         private val mmsTranscoding: JsonField<Boolean>,
         private val mobileOnly: JsonField<Boolean>,
         private val numberPoolSettings: JsonField<NumberPoolSettings>,
+        private val resourceGroupId: JsonField<String>,
         private val smartEncoding: JsonField<Boolean>,
         private val urlShortenerSettings: JsonField<UrlShortenerSettings>,
         private val webhookApiVersion: JsonField<WebhookApiVersion>,
@@ -784,6 +891,9 @@ private constructor(
             @JsonProperty("whitelisted_destinations")
             @ExcludeMissing
             whitelistedDestinations: JsonField<List<String>> = JsonMissing.of(),
+            @JsonProperty("ai_assistant_id")
+            @ExcludeMissing
+            aiAssistantId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("alpha_sender")
             @ExcludeMissing
             alphaSender: JsonField<String> = JsonMissing.of(),
@@ -794,6 +904,9 @@ private constructor(
             @ExcludeMissing
             dailySpendLimitEnabled: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("enabled") @ExcludeMissing enabled: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("health_webhook_url")
+            @ExcludeMissing
+            healthWebhookUrl: JsonField<String> = JsonMissing.of(),
             @JsonProperty("mms_fall_back_to_sms")
             @ExcludeMissing
             mmsFallBackToSms: JsonField<Boolean> = JsonMissing.of(),
@@ -806,6 +919,9 @@ private constructor(
             @JsonProperty("number_pool_settings")
             @ExcludeMissing
             numberPoolSettings: JsonField<NumberPoolSettings> = JsonMissing.of(),
+            @JsonProperty("resource_group_id")
+            @ExcludeMissing
+            resourceGroupId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("smart_encoding")
             @ExcludeMissing
             smartEncoding: JsonField<Boolean> = JsonMissing.of(),
@@ -824,14 +940,17 @@ private constructor(
         ) : this(
             name,
             whitelistedDestinations,
+            aiAssistantId,
             alphaSender,
             dailySpendLimit,
             dailySpendLimitEnabled,
             enabled,
+            healthWebhookUrl,
             mmsFallBackToSms,
             mmsTranscoding,
             mobileOnly,
             numberPoolSettings,
+            resourceGroupId,
             smartEncoding,
             urlShortenerSettings,
             webhookApiVersion,
@@ -858,6 +977,14 @@ private constructor(
          */
         fun whitelistedDestinations(): List<String> =
             whitelistedDestinations.getRequired("whitelisted_destinations")
+
+        /**
+         * The AI assistant ID to associate with this messaging profile.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun aiAssistantId(): Optional<String> = aiAssistantId.getOptional("ai_assistant_id")
 
         /**
          * The alphanumeric sender ID to use when sending to destinations that require an
@@ -893,6 +1020,15 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun enabled(): Optional<Boolean> = enabled.getOptional("enabled")
+
+        /**
+         * A URL to receive health check webhooks for numbers in this profile.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun healthWebhookUrl(): Optional<String> =
+            healthWebhookUrl.getOptional("health_webhook_url")
 
         /**
          * enables SMS fallback for MMS messages.
@@ -931,6 +1067,14 @@ private constructor(
          */
         fun numberPoolSettings(): Optional<NumberPoolSettings> =
             numberPoolSettings.getOptional("number_pool_settings")
+
+        /**
+         * The resource group ID to associate with this messaging profile.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun resourceGroupId(): Optional<String> = resourceGroupId.getOptional("resource_group_id")
 
         /**
          * Enables automatic character encoding optimization for SMS messages. When enabled, the
@@ -1003,6 +1147,16 @@ private constructor(
         fun _whitelistedDestinations(): JsonField<List<String>> = whitelistedDestinations
 
         /**
+         * Returns the raw JSON value of [aiAssistantId].
+         *
+         * Unlike [aiAssistantId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("ai_assistant_id")
+        @ExcludeMissing
+        fun _aiAssistantId(): JsonField<String> = aiAssistantId
+
+        /**
          * Returns the raw JSON value of [alphaSender].
          *
          * Unlike [alphaSender], this method doesn't throw if the JSON field has an unexpected type.
@@ -1037,6 +1191,16 @@ private constructor(
          * Unlike [enabled], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("enabled") @ExcludeMissing fun _enabled(): JsonField<Boolean> = enabled
+
+        /**
+         * Returns the raw JSON value of [healthWebhookUrl].
+         *
+         * Unlike [healthWebhookUrl], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("health_webhook_url")
+        @ExcludeMissing
+        fun _healthWebhookUrl(): JsonField<String> = healthWebhookUrl
 
         /**
          * Returns the raw JSON value of [mmsFallBackToSms].
@@ -1076,6 +1240,16 @@ private constructor(
         @JsonProperty("number_pool_settings")
         @ExcludeMissing
         fun _numberPoolSettings(): JsonField<NumberPoolSettings> = numberPoolSettings
+
+        /**
+         * Returns the raw JSON value of [resourceGroupId].
+         *
+         * Unlike [resourceGroupId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("resource_group_id")
+        @ExcludeMissing
+        fun _resourceGroupId(): JsonField<String> = resourceGroupId
 
         /**
          * Returns the raw JSON value of [smartEncoding].
@@ -1157,14 +1331,17 @@ private constructor(
 
             private var name: JsonField<String>? = null
             private var whitelistedDestinations: JsonField<MutableList<String>>? = null
+            private var aiAssistantId: JsonField<String> = JsonMissing.of()
             private var alphaSender: JsonField<String> = JsonMissing.of()
             private var dailySpendLimit: JsonField<String> = JsonMissing.of()
             private var dailySpendLimitEnabled: JsonField<Boolean> = JsonMissing.of()
             private var enabled: JsonField<Boolean> = JsonMissing.of()
+            private var healthWebhookUrl: JsonField<String> = JsonMissing.of()
             private var mmsFallBackToSms: JsonField<Boolean> = JsonMissing.of()
             private var mmsTranscoding: JsonField<Boolean> = JsonMissing.of()
             private var mobileOnly: JsonField<Boolean> = JsonMissing.of()
             private var numberPoolSettings: JsonField<NumberPoolSettings> = JsonMissing.of()
+            private var resourceGroupId: JsonField<String> = JsonMissing.of()
             private var smartEncoding: JsonField<Boolean> = JsonMissing.of()
             private var urlShortenerSettings: JsonField<UrlShortenerSettings> = JsonMissing.of()
             private var webhookApiVersion: JsonField<WebhookApiVersion> = JsonMissing.of()
@@ -1176,14 +1353,17 @@ private constructor(
             internal fun from(body: Body) = apply {
                 name = body.name
                 whitelistedDestinations = body.whitelistedDestinations.map { it.toMutableList() }
+                aiAssistantId = body.aiAssistantId
                 alphaSender = body.alphaSender
                 dailySpendLimit = body.dailySpendLimit
                 dailySpendLimitEnabled = body.dailySpendLimitEnabled
                 enabled = body.enabled
+                healthWebhookUrl = body.healthWebhookUrl
                 mmsFallBackToSms = body.mmsFallBackToSms
                 mmsTranscoding = body.mmsTranscoding
                 mobileOnly = body.mobileOnly
                 numberPoolSettings = body.numberPoolSettings
+                resourceGroupId = body.resourceGroupId
                 smartEncoding = body.smartEncoding
                 urlShortenerSettings = body.urlShortenerSettings
                 webhookApiVersion = body.webhookApiVersion
@@ -1233,6 +1413,25 @@ private constructor(
                     (whitelistedDestinations ?: JsonField.of(mutableListOf())).also {
                         checkKnown("whitelistedDestinations", it).add(whitelistedDestination)
                     }
+            }
+
+            /** The AI assistant ID to associate with this messaging profile. */
+            fun aiAssistantId(aiAssistantId: String?) =
+                aiAssistantId(JsonField.ofNullable(aiAssistantId))
+
+            /** Alias for calling [Builder.aiAssistantId] with `aiAssistantId.orElse(null)`. */
+            fun aiAssistantId(aiAssistantId: Optional<String>) =
+                aiAssistantId(aiAssistantId.getOrNull())
+
+            /**
+             * Sets [Builder.aiAssistantId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.aiAssistantId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun aiAssistantId(aiAssistantId: JsonField<String>) = apply {
+                this.aiAssistantId = aiAssistantId
             }
 
             /**
@@ -1299,6 +1498,27 @@ private constructor(
              * supported value.
              */
             fun enabled(enabled: JsonField<Boolean>) = apply { this.enabled = enabled }
+
+            /** A URL to receive health check webhooks for numbers in this profile. */
+            fun healthWebhookUrl(healthWebhookUrl: String?) =
+                healthWebhookUrl(JsonField.ofNullable(healthWebhookUrl))
+
+            /**
+             * Alias for calling [Builder.healthWebhookUrl] with `healthWebhookUrl.orElse(null)`.
+             */
+            fun healthWebhookUrl(healthWebhookUrl: Optional<String>) =
+                healthWebhookUrl(healthWebhookUrl.getOrNull())
+
+            /**
+             * Sets [Builder.healthWebhookUrl] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.healthWebhookUrl] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun healthWebhookUrl(healthWebhookUrl: JsonField<String>) = apply {
+                this.healthWebhookUrl = healthWebhookUrl
+            }
 
             /** enables SMS fallback for MMS messages. */
             fun mmsFallBackToSms(mmsFallBackToSms: Boolean) =
@@ -1368,6 +1588,25 @@ private constructor(
              */
             fun numberPoolSettings(numberPoolSettings: JsonField<NumberPoolSettings>) = apply {
                 this.numberPoolSettings = numberPoolSettings
+            }
+
+            /** The resource group ID to associate with this messaging profile. */
+            fun resourceGroupId(resourceGroupId: String?) =
+                resourceGroupId(JsonField.ofNullable(resourceGroupId))
+
+            /** Alias for calling [Builder.resourceGroupId] with `resourceGroupId.orElse(null)`. */
+            fun resourceGroupId(resourceGroupId: Optional<String>) =
+                resourceGroupId(resourceGroupId.getOrNull())
+
+            /**
+             * Sets [Builder.resourceGroupId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.resourceGroupId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun resourceGroupId(resourceGroupId: JsonField<String>) = apply {
+                this.resourceGroupId = resourceGroupId
             }
 
             /**
@@ -1515,14 +1754,17 @@ private constructor(
                     checkRequired("whitelistedDestinations", whitelistedDestinations).map {
                         it.toImmutable()
                     },
+                    aiAssistantId,
                     alphaSender,
                     dailySpendLimit,
                     dailySpendLimitEnabled,
                     enabled,
+                    healthWebhookUrl,
                     mmsFallBackToSms,
                     mmsTranscoding,
                     mobileOnly,
                     numberPoolSettings,
+                    resourceGroupId,
                     smartEncoding,
                     urlShortenerSettings,
                     webhookApiVersion,
@@ -1541,14 +1783,17 @@ private constructor(
 
             name()
             whitelistedDestinations()
+            aiAssistantId()
             alphaSender()
             dailySpendLimit()
             dailySpendLimitEnabled()
             enabled()
+            healthWebhookUrl()
             mmsFallBackToSms()
             mmsTranscoding()
             mobileOnly()
             numberPoolSettings().ifPresent { it.validate() }
+            resourceGroupId()
             smartEncoding()
             urlShortenerSettings().ifPresent { it.validate() }
             webhookApiVersion().ifPresent { it.validate() }
@@ -1575,14 +1820,17 @@ private constructor(
         internal fun validity(): Int =
             (if (name.asKnown().isPresent) 1 else 0) +
                 (whitelistedDestinations.asKnown().getOrNull()?.size ?: 0) +
+                (if (aiAssistantId.asKnown().isPresent) 1 else 0) +
                 (if (alphaSender.asKnown().isPresent) 1 else 0) +
                 (if (dailySpendLimit.asKnown().isPresent) 1 else 0) +
                 (if (dailySpendLimitEnabled.asKnown().isPresent) 1 else 0) +
                 (if (enabled.asKnown().isPresent) 1 else 0) +
+                (if (healthWebhookUrl.asKnown().isPresent) 1 else 0) +
                 (if (mmsFallBackToSms.asKnown().isPresent) 1 else 0) +
                 (if (mmsTranscoding.asKnown().isPresent) 1 else 0) +
                 (if (mobileOnly.asKnown().isPresent) 1 else 0) +
                 (numberPoolSettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (resourceGroupId.asKnown().isPresent) 1 else 0) +
                 (if (smartEncoding.asKnown().isPresent) 1 else 0) +
                 (urlShortenerSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (webhookApiVersion.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1597,14 +1845,17 @@ private constructor(
             return other is Body &&
                 name == other.name &&
                 whitelistedDestinations == other.whitelistedDestinations &&
+                aiAssistantId == other.aiAssistantId &&
                 alphaSender == other.alphaSender &&
                 dailySpendLimit == other.dailySpendLimit &&
                 dailySpendLimitEnabled == other.dailySpendLimitEnabled &&
                 enabled == other.enabled &&
+                healthWebhookUrl == other.healthWebhookUrl &&
                 mmsFallBackToSms == other.mmsFallBackToSms &&
                 mmsTranscoding == other.mmsTranscoding &&
                 mobileOnly == other.mobileOnly &&
                 numberPoolSettings == other.numberPoolSettings &&
+                resourceGroupId == other.resourceGroupId &&
                 smartEncoding == other.smartEncoding &&
                 urlShortenerSettings == other.urlShortenerSettings &&
                 webhookApiVersion == other.webhookApiVersion &&
@@ -1617,14 +1868,17 @@ private constructor(
             Objects.hash(
                 name,
                 whitelistedDestinations,
+                aiAssistantId,
                 alphaSender,
                 dailySpendLimit,
                 dailySpendLimitEnabled,
                 enabled,
+                healthWebhookUrl,
                 mmsFallBackToSms,
                 mmsTranscoding,
                 mobileOnly,
                 numberPoolSettings,
+                resourceGroupId,
                 smartEncoding,
                 urlShortenerSettings,
                 webhookApiVersion,
@@ -1637,7 +1891,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{name=$name, whitelistedDestinations=$whitelistedDestinations, alphaSender=$alphaSender, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, numberPoolSettings=$numberPoolSettings, smartEncoding=$smartEncoding, urlShortenerSettings=$urlShortenerSettings, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+            "Body{name=$name, whitelistedDestinations=$whitelistedDestinations, aiAssistantId=$aiAssistantId, alphaSender=$alphaSender, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, healthWebhookUrl=$healthWebhookUrl, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, numberPoolSettings=$numberPoolSettings, resourceGroupId=$resourceGroupId, smartEncoding=$smartEncoding, urlShortenerSettings=$urlShortenerSettings, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
     }
 
     /**

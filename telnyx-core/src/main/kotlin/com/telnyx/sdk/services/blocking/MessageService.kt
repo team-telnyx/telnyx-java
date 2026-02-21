@@ -8,6 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.messages.MessageCancelScheduledParams
 import com.telnyx.sdk.models.messages.MessageCancelScheduledResponse
+import com.telnyx.sdk.models.messages.MessageRetrieveGroupMessagesParams
+import com.telnyx.sdk.models.messages.MessageRetrieveGroupMessagesResponse
 import com.telnyx.sdk.models.messages.MessageRetrieveParams
 import com.telnyx.sdk.models.messages.MessageRetrieveResponse
 import com.telnyx.sdk.models.messages.MessageScheduleParams
@@ -24,6 +26,8 @@ import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeResponse
 import com.telnyx.sdk.models.messages.MessageSendWhatsappParams
 import com.telnyx.sdk.models.messages.MessageSendWhatsappResponse
+import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderParams
+import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderResponse
 import com.telnyx.sdk.services.blocking.messages.RcService
 import java.util.function.Consumer
 
@@ -115,6 +119,43 @@ interface MessageService {
     ): MessageCancelScheduledResponse =
         cancelScheduled(id, MessageCancelScheduledParams.none(), requestOptions)
 
+    /** Retrieve all messages in a group MMS conversation by the group message ID. */
+    fun retrieveGroupMessages(messageId: String): MessageRetrieveGroupMessagesResponse =
+        retrieveGroupMessages(messageId, MessageRetrieveGroupMessagesParams.none())
+
+    /** @see retrieveGroupMessages */
+    fun retrieveGroupMessages(
+        messageId: String,
+        params: MessageRetrieveGroupMessagesParams = MessageRetrieveGroupMessagesParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): MessageRetrieveGroupMessagesResponse =
+        retrieveGroupMessages(params.toBuilder().messageId(messageId).build(), requestOptions)
+
+    /** @see retrieveGroupMessages */
+    fun retrieveGroupMessages(
+        messageId: String,
+        params: MessageRetrieveGroupMessagesParams = MessageRetrieveGroupMessagesParams.none(),
+    ): MessageRetrieveGroupMessagesResponse =
+        retrieveGroupMessages(messageId, params, RequestOptions.none())
+
+    /** @see retrieveGroupMessages */
+    fun retrieveGroupMessages(
+        params: MessageRetrieveGroupMessagesParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): MessageRetrieveGroupMessagesResponse
+
+    /** @see retrieveGroupMessages */
+    fun retrieveGroupMessages(
+        params: MessageRetrieveGroupMessagesParams
+    ): MessageRetrieveGroupMessagesResponse = retrieveGroupMessages(params, RequestOptions.none())
+
+    /** @see retrieveGroupMessages */
+    fun retrieveGroupMessages(
+        messageId: String,
+        requestOptions: RequestOptions,
+    ): MessageRetrieveGroupMessagesResponse =
+        retrieveGroupMessages(messageId, MessageRetrieveGroupMessagesParams.none(), requestOptions)
+
     /**
      * Schedule a message with a Phone Number, Alphanumeric Sender ID, Short Code or Number Pool.
      *
@@ -193,6 +234,18 @@ interface MessageService {
         params: MessageSendWhatsappParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MessageSendWhatsappResponse
+
+    /** Send an SMS message using an alphanumeric sender ID. This is SMS only. */
+    fun sendWithAlphanumericSender(
+        params: MessageSendWithAlphanumericSenderParams
+    ): MessageSendWithAlphanumericSenderResponse =
+        sendWithAlphanumericSender(params, RequestOptions.none())
+
+    /** @see sendWithAlphanumericSender */
+    fun sendWithAlphanumericSender(
+        params: MessageSendWithAlphanumericSenderParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): MessageSendWithAlphanumericSenderResponse
 
     /** A view of [MessageService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -296,6 +349,59 @@ interface MessageService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<MessageCancelScheduledResponse> =
             cancelScheduled(id, MessageCancelScheduledParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /messages/group/{message_id}`, but is otherwise the
+         * same as [MessageService.retrieveGroupMessages].
+         */
+        @MustBeClosed
+        fun retrieveGroupMessages(
+            messageId: String
+        ): HttpResponseFor<MessageRetrieveGroupMessagesResponse> =
+            retrieveGroupMessages(messageId, MessageRetrieveGroupMessagesParams.none())
+
+        /** @see retrieveGroupMessages */
+        @MustBeClosed
+        fun retrieveGroupMessages(
+            messageId: String,
+            params: MessageRetrieveGroupMessagesParams = MessageRetrieveGroupMessagesParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<MessageRetrieveGroupMessagesResponse> =
+            retrieveGroupMessages(params.toBuilder().messageId(messageId).build(), requestOptions)
+
+        /** @see retrieveGroupMessages */
+        @MustBeClosed
+        fun retrieveGroupMessages(
+            messageId: String,
+            params: MessageRetrieveGroupMessagesParams = MessageRetrieveGroupMessagesParams.none(),
+        ): HttpResponseFor<MessageRetrieveGroupMessagesResponse> =
+            retrieveGroupMessages(messageId, params, RequestOptions.none())
+
+        /** @see retrieveGroupMessages */
+        @MustBeClosed
+        fun retrieveGroupMessages(
+            params: MessageRetrieveGroupMessagesParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<MessageRetrieveGroupMessagesResponse>
+
+        /** @see retrieveGroupMessages */
+        @MustBeClosed
+        fun retrieveGroupMessages(
+            params: MessageRetrieveGroupMessagesParams
+        ): HttpResponseFor<MessageRetrieveGroupMessagesResponse> =
+            retrieveGroupMessages(params, RequestOptions.none())
+
+        /** @see retrieveGroupMessages */
+        @MustBeClosed
+        fun retrieveGroupMessages(
+            messageId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<MessageRetrieveGroupMessagesResponse> =
+            retrieveGroupMessages(
+                messageId,
+                MessageRetrieveGroupMessagesParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `post /messages/schedule`, but is otherwise the same as
@@ -411,5 +517,22 @@ interface MessageService {
             params: MessageSendWhatsappParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<MessageSendWhatsappResponse>
+
+        /**
+         * Returns a raw HTTP response for `post /messages/alphanumeric_sender_id`, but is otherwise
+         * the same as [MessageService.sendWithAlphanumericSender].
+         */
+        @MustBeClosed
+        fun sendWithAlphanumericSender(
+            params: MessageSendWithAlphanumericSenderParams
+        ): HttpResponseFor<MessageSendWithAlphanumericSenderResponse> =
+            sendWithAlphanumericSender(params, RequestOptions.none())
+
+        /** @see sendWithAlphanumericSender */
+        @MustBeClosed
+        fun sendWithAlphanumericSender(
+            params: MessageSendWithAlphanumericSenderParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<MessageSendWithAlphanumericSenderResponse>
     }
 }
