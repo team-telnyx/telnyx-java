@@ -83,7 +83,7 @@ internal class BrandServiceTest {
                     .email("email")
                     .entityType(EntityType.PRIVATE_PROFIT)
                     .vertical(Vertical.TECHNOLOGY)
-                    .altBusinessId("altBusiness_id")
+                    .altBusinessId("altBusinessId")
                     .altBusinessIdType(AltBusinessIdType.NONE)
                     .businessContactEmail("name@example.com")
                     .city("New York")

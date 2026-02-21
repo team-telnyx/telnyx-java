@@ -989,7 +989,7 @@ private constructor(
             @JsonProperty("vertical")
             @ExcludeMissing
             vertical: JsonField<Vertical> = JsonMissing.of(),
-            @JsonProperty("altBusiness_id")
+            @JsonProperty("altBusinessId")
             @ExcludeMissing
             altBusinessId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("altBusinessIdType")
@@ -1112,7 +1112,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun altBusinessId(): Optional<String> = altBusinessId.getOptional("altBusiness_id")
+        fun altBusinessId(): Optional<String> = altBusinessId.getOptional("altBusinessId")
 
         /**
          * An enumeration.
@@ -1316,7 +1316,7 @@ private constructor(
          * Unlike [altBusinessId], this method doesn't throw if the JSON field has an unexpected
          * type.
          */
-        @JsonProperty("altBusiness_id")
+        @JsonProperty("altBusinessId")
         @ExcludeMissing
         fun _altBusinessId(): JsonField<String> = altBusinessId
 
