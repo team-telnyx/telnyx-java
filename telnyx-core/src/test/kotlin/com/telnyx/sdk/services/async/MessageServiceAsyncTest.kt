@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.messages.MessageSendNumberPoolParams
 import com.telnyx.sdk.models.messages.MessageSendParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendWhatsappParams
+import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderParams
 import com.telnyx.sdk.models.messages.WhatsappMedia
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
@@ -37,6 +38,19 @@ internal class MessageServiceAsyncTest {
 
         val responseFuture =
             messageServiceAsync.cancelScheduled("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveGroupMessages() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val messageServiceAsync = client.messages()
+
+        val responseFuture =
+            messageServiceAsync.retrieveGroupMessages("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
         val response = responseFuture.get()
         response.validate()
@@ -536,6 +550,29 @@ internal class MessageServiceAsyncTest {
                             .build()
                     )
                     .type(MessageSendWhatsappParams.Type.WHATSAPP)
+                    .webhookUrl("webhook_url")
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun sendWithAlphanumericSender() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val messageServiceAsync = client.messages()
+
+        val responseFuture =
+            messageServiceAsync.sendWithAlphanumericSender(
+                MessageSendWithAlphanumericSenderParams.builder()
+                    .from("MyCompany")
+                    .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .text("text")
+                    .to("+E.164")
+                    .useProfileWebhooks(true)
+                    .webhookFailoverUrl("webhook_failover_url")
                     .webhookUrl("webhook_url")
                     .build()
             )

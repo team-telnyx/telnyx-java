@@ -2,9 +2,13 @@
 
 package com.telnyx.sdk.models.phonenumbers.messaging
 
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.telnyx.sdk.core.Enum
+import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -12,15 +16,36 @@ import kotlin.jvm.optionals.getOrNull
 /** List phone numbers with messaging settings */
 class MessagingListParams
 private constructor(
+    private val filterMessagingProfileId: String?,
+    private val filterPhoneNumber: String?,
+    private val filterPhoneNumberContains: String?,
+    private val filterType: FilterType?,
     private val pageNumber: Long?,
     private val pageSize: Long?,
+    private val sortPhoneNumber: SortPhoneNumber?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /** Filter by messaging profile ID. */
+    fun filterMessagingProfileId(): Optional<String> = Optional.ofNullable(filterMessagingProfileId)
+
+    /** Filter by exact phone number (supports comma-separated list). */
+    fun filterPhoneNumber(): Optional<String> = Optional.ofNullable(filterPhoneNumber)
+
+    /** Filter by phone number substring. */
+    fun filterPhoneNumberContains(): Optional<String> =
+        Optional.ofNullable(filterPhoneNumberContains)
+
+    /** Filter by phone number type. */
+    fun filterType(): Optional<FilterType> = Optional.ofNullable(filterType)
+
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
 
     fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
+
+    /** Sort by phone number. */
+    fun sortPhoneNumber(): Optional<SortPhoneNumber> = Optional.ofNullable(sortPhoneNumber)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -41,18 +66,67 @@ private constructor(
     /** A builder for [MessagingListParams]. */
     class Builder internal constructor() {
 
+        private var filterMessagingProfileId: String? = null
+        private var filterPhoneNumber: String? = null
+        private var filterPhoneNumberContains: String? = null
+        private var filterType: FilterType? = null
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
+        private var sortPhoneNumber: SortPhoneNumber? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(messagingListParams: MessagingListParams) = apply {
+            filterMessagingProfileId = messagingListParams.filterMessagingProfileId
+            filterPhoneNumber = messagingListParams.filterPhoneNumber
+            filterPhoneNumberContains = messagingListParams.filterPhoneNumberContains
+            filterType = messagingListParams.filterType
             pageNumber = messagingListParams.pageNumber
             pageSize = messagingListParams.pageSize
+            sortPhoneNumber = messagingListParams.sortPhoneNumber
             additionalHeaders = messagingListParams.additionalHeaders.toBuilder()
             additionalQueryParams = messagingListParams.additionalQueryParams.toBuilder()
         }
+
+        /** Filter by messaging profile ID. */
+        fun filterMessagingProfileId(filterMessagingProfileId: String?) = apply {
+            this.filterMessagingProfileId = filterMessagingProfileId
+        }
+
+        /**
+         * Alias for calling [Builder.filterMessagingProfileId] with
+         * `filterMessagingProfileId.orElse(null)`.
+         */
+        fun filterMessagingProfileId(filterMessagingProfileId: Optional<String>) =
+            filterMessagingProfileId(filterMessagingProfileId.getOrNull())
+
+        /** Filter by exact phone number (supports comma-separated list). */
+        fun filterPhoneNumber(filterPhoneNumber: String?) = apply {
+            this.filterPhoneNumber = filterPhoneNumber
+        }
+
+        /** Alias for calling [Builder.filterPhoneNumber] with `filterPhoneNumber.orElse(null)`. */
+        fun filterPhoneNumber(filterPhoneNumber: Optional<String>) =
+            filterPhoneNumber(filterPhoneNumber.getOrNull())
+
+        /** Filter by phone number substring. */
+        fun filterPhoneNumberContains(filterPhoneNumberContains: String?) = apply {
+            this.filterPhoneNumberContains = filterPhoneNumberContains
+        }
+
+        /**
+         * Alias for calling [Builder.filterPhoneNumberContains] with
+         * `filterPhoneNumberContains.orElse(null)`.
+         */
+        fun filterPhoneNumberContains(filterPhoneNumberContains: Optional<String>) =
+            filterPhoneNumberContains(filterPhoneNumberContains.getOrNull())
+
+        /** Filter by phone number type. */
+        fun filterType(filterType: FilterType?) = apply { this.filterType = filterType }
+
+        /** Alias for calling [Builder.filterType] with `filterType.orElse(null)`. */
+        fun filterType(filterType: Optional<FilterType>) = filterType(filterType.getOrNull())
 
         fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
@@ -77,6 +151,15 @@ private constructor(
 
         /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
         fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
+
+        /** Sort by phone number. */
+        fun sortPhoneNumber(sortPhoneNumber: SortPhoneNumber?) = apply {
+            this.sortPhoneNumber = sortPhoneNumber
+        }
+
+        /** Alias for calling [Builder.sortPhoneNumber] with `sortPhoneNumber.orElse(null)`. */
+        fun sortPhoneNumber(sortPhoneNumber: Optional<SortPhoneNumber>) =
+            sortPhoneNumber(sortPhoneNumber.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -183,8 +266,13 @@ private constructor(
          */
         fun build(): MessagingListParams =
             MessagingListParams(
+                filterMessagingProfileId,
+                filterPhoneNumber,
+                filterPhoneNumberContains,
+                filterType,
                 pageNumber,
                 pageSize,
+                sortPhoneNumber,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -195,11 +283,280 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
+                filterMessagingProfileId?.let { put("filter[messaging_profile_id]", it) }
+                filterPhoneNumber?.let { put("filter[phone_number]", it) }
+                filterPhoneNumberContains?.let { put("filter[phone_number][contains]", it) }
+                filterType?.let { put("filter[type]", it.toString()) }
                 pageNumber?.let { put("page[number]", it.toString()) }
                 pageSize?.let { put("page[size]", it.toString()) }
+                sortPhoneNumber?.let { put("sort[phone_number]", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()
+
+    /** Filter by phone number type. */
+    class FilterType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val TOLLFREE = of("tollfree")
+
+            @JvmField val LONGCODE = of("longcode")
+
+            @JvmField val SHORTCODE = of("shortcode")
+
+            @JvmStatic fun of(value: String) = FilterType(JsonField.of(value))
+        }
+
+        /** An enum containing [FilterType]'s known values. */
+        enum class Known {
+            TOLLFREE,
+            LONGCODE,
+            SHORTCODE,
+        }
+
+        /**
+         * An enum containing [FilterType]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [FilterType] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            TOLLFREE,
+            LONGCODE,
+            SHORTCODE,
+            /**
+             * An enum member indicating that [FilterType] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                TOLLFREE -> Value.TOLLFREE
+                LONGCODE -> Value.LONGCODE
+                SHORTCODE -> Value.SHORTCODE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                TOLLFREE -> Known.TOLLFREE
+                LONGCODE -> Known.LONGCODE
+                SHORTCODE -> Known.SHORTCODE
+                else -> throw TelnyxInvalidDataException("Unknown FilterType: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): FilterType = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is FilterType && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** Sort by phone number. */
+    class SortPhoneNumber @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val ASC = of("asc")
+
+            @JvmField val DESC = of("desc")
+
+            @JvmStatic fun of(value: String) = SortPhoneNumber(JsonField.of(value))
+        }
+
+        /** An enum containing [SortPhoneNumber]'s known values. */
+        enum class Known {
+            ASC,
+            DESC,
+        }
+
+        /**
+         * An enum containing [SortPhoneNumber]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [SortPhoneNumber] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            ASC,
+            DESC,
+            /**
+             * An enum member indicating that [SortPhoneNumber] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                ASC -> Value.ASC
+                DESC -> Value.DESC
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                ASC -> Known.ASC
+                DESC -> Known.DESC
+                else -> throw TelnyxInvalidDataException("Unknown SortPhoneNumber: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): SortPhoneNumber = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is SortPhoneNumber && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -207,15 +564,30 @@ private constructor(
         }
 
         return other is MessagingListParams &&
+            filterMessagingProfileId == other.filterMessagingProfileId &&
+            filterPhoneNumber == other.filterPhoneNumber &&
+            filterPhoneNumberContains == other.filterPhoneNumberContains &&
+            filterType == other.filterType &&
             pageNumber == other.pageNumber &&
             pageSize == other.pageSize &&
+            sortPhoneNumber == other.sortPhoneNumber &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(pageNumber, pageSize, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            filterMessagingProfileId,
+            filterPhoneNumber,
+            filterPhoneNumberContains,
+            filterType,
+            pageNumber,
+            pageSize,
+            sortPhoneNumber,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "MessagingListParams{pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "MessagingListParams{filterMessagingProfileId=$filterMessagingProfileId, filterPhoneNumber=$filterPhoneNumber, filterPhoneNumberContains=$filterPhoneNumberContains, filterType=$filterType, pageNumber=$pageNumber, pageSize=$pageSize, sortPhoneNumber=$sortPhoneNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

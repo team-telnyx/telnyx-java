@@ -206,6 +206,8 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.messaging10dlc()).isNotNull()
         assertThat(client.speechToText()).isNotNull()
         assertThat(client.organizations()).isNotNull()
+        assertThat(client.alphanumericSenderIds()).isNotNull()
+        assertThat(client.messagingProfileMetrics()).isNotNull()
     }
 
     @Test

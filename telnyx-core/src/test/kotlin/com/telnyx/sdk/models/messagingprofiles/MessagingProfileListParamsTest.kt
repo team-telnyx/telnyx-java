@@ -12,6 +12,8 @@ internal class MessagingProfileListParamsTest {
     fun create() {
         MessagingProfileListParams.builder()
             .filter(MessagingProfileListParams.Filter.builder().name("name").build())
+            .filterNameContains("filter[name][contains]")
+            .filterNameEq("filter[name][eq]")
             .pageNumber(0L)
             .pageSize(0L)
             .build()
@@ -22,6 +24,8 @@ internal class MessagingProfileListParamsTest {
         val params =
             MessagingProfileListParams.builder()
                 .filter(MessagingProfileListParams.Filter.builder().name("name").build())
+                .filterNameContains("filter[name][contains]")
+                .filterNameEq("filter[name][eq]")
                 .pageNumber(0L)
                 .pageSize(0L)
                 .build()
@@ -32,6 +36,8 @@ internal class MessagingProfileListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("filter[name]", "name")
+                    .put("filter[name][contains]", "filter[name][contains]")
+                    .put("filter[name][eq]", "filter[name][eq]")
                     .put("page[number]", "0")
                     .put("page[size]", "0")
                     .build()

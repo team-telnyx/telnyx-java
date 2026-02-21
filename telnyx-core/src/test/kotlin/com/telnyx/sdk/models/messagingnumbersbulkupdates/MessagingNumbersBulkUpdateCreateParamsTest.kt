@@ -12,11 +12,28 @@ internal class MessagingNumbersBulkUpdateCreateParamsTest {
         MessagingNumbersBulkUpdateCreateParams.builder()
             .messagingProfileId("00000000-0000-0000-0000-000000000000")
             .numbers(listOf("+18880000000", "+18880000001", "+18880000002"))
+            .assignOnly(true)
             .build()
     }
 
     @Test
     fun body() {
+        val params =
+            MessagingNumbersBulkUpdateCreateParams.builder()
+                .messagingProfileId("00000000-0000-0000-0000-000000000000")
+                .numbers(listOf("+18880000000", "+18880000001", "+18880000002"))
+                .assignOnly(true)
+                .build()
+
+        val body = params._body()
+
+        assertThat(body.messagingProfileId()).isEqualTo("00000000-0000-0000-0000-000000000000")
+        assertThat(body.numbers()).containsExactly("+18880000000", "+18880000001", "+18880000002")
+        assertThat(body.assignOnly()).contains(true)
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
         val params =
             MessagingNumbersBulkUpdateCreateParams.builder()
                 .messagingProfileId("00000000-0000-0000-0000-000000000000")

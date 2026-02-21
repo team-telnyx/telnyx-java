@@ -9,6 +9,7 @@ import com.telnyx.sdk.services.async.ActionServiceAsync
 import com.telnyx.sdk.services.async.AddressServiceAsync
 import com.telnyx.sdk.services.async.AdvancedOrderServiceAsync
 import com.telnyx.sdk.services.async.AiServiceAsync
+import com.telnyx.sdk.services.async.AlphanumericSenderIdServiceAsync
 import com.telnyx.sdk.services.async.AuditEventServiceAsync
 import com.telnyx.sdk.services.async.AuthenticationProviderServiceAsync
 import com.telnyx.sdk.services.async.AvailablePhoneNumberBlockServiceAsync
@@ -69,6 +70,7 @@ import com.telnyx.sdk.services.async.MessagingHostedNumberOrderServiceAsync
 import com.telnyx.sdk.services.async.MessagingHostedNumberServiceAsync
 import com.telnyx.sdk.services.async.MessagingNumbersBulkUpdateServiceAsync
 import com.telnyx.sdk.services.async.MessagingOptoutServiceAsync
+import com.telnyx.sdk.services.async.MessagingProfileMetricServiceAsync
 import com.telnyx.sdk.services.async.MessagingProfileServiceAsync
 import com.telnyx.sdk.services.async.MessagingServiceAsync
 import com.telnyx.sdk.services.async.MessagingTollfreeServiceAsync
@@ -494,6 +496,10 @@ interface TelnyxClientAsync {
 
     fun organizations(): OrganizationServiceAsync
 
+    fun alphanumericSenderIds(): AlphanumericSenderIdServiceAsync
+
+    fun messagingProfileMetrics(): MessagingProfileMetricServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -822,5 +828,9 @@ interface TelnyxClientAsync {
         fun speechToText(): SpeechToTextServiceAsync.WithRawResponse
 
         fun organizations(): OrganizationServiceAsync.WithRawResponse
+
+        fun alphanumericSenderIds(): AlphanumericSenderIdServiceAsync.WithRawResponse
+
+        fun messagingProfileMetrics(): MessagingProfileMetricServiceAsync.WithRawResponse
     }
 }

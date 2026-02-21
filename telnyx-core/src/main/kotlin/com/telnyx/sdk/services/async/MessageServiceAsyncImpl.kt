@@ -18,6 +18,8 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.messages.MessageCancelScheduledParams
 import com.telnyx.sdk.models.messages.MessageCancelScheduledResponse
+import com.telnyx.sdk.models.messages.MessageRetrieveGroupMessagesParams
+import com.telnyx.sdk.models.messages.MessageRetrieveGroupMessagesResponse
 import com.telnyx.sdk.models.messages.MessageRetrieveParams
 import com.telnyx.sdk.models.messages.MessageRetrieveResponse
 import com.telnyx.sdk.models.messages.MessageScheduleParams
@@ -34,6 +36,8 @@ import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeResponse
 import com.telnyx.sdk.models.messages.MessageSendWhatsappParams
 import com.telnyx.sdk.models.messages.MessageSendWhatsappResponse
+import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderParams
+import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderResponse
 import com.telnyx.sdk.services.async.messages.RcServiceAsync
 import com.telnyx.sdk.services.async.messages.RcServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -69,6 +73,13 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
     ): CompletableFuture<MessageCancelScheduledResponse> =
         // delete /messages/{id}
         withRawResponse().cancelScheduled(params, requestOptions).thenApply { it.parse() }
+
+    override fun retrieveGroupMessages(
+        params: MessageRetrieveGroupMessagesParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<MessageRetrieveGroupMessagesResponse> =
+        // get /messages/group/{message_id}
+        withRawResponse().retrieveGroupMessages(params, requestOptions).thenApply { it.parse() }
 
     override fun schedule(
         params: MessageScheduleParams,
@@ -118,6 +129,15 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
     ): CompletableFuture<MessageSendWhatsappResponse> =
         // post /messages/whatsapp
         withRawResponse().sendWhatsapp(params, requestOptions).thenApply { it.parse() }
+
+    override fun sendWithAlphanumericSender(
+        params: MessageSendWithAlphanumericSenderParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<MessageSendWithAlphanumericSenderResponse> =
+        // post /messages/alphanumeric_sender_id
+        withRawResponse().sendWithAlphanumericSender(params, requestOptions).thenApply {
+            it.parse()
+        }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         MessageServiceAsync.WithRawResponse {
@@ -196,6 +216,39 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     errorHandler.handle(response).parseable {
                         response
                             .use { cancelScheduledHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val retrieveGroupMessagesHandler: Handler<MessageRetrieveGroupMessagesResponse> =
+            jsonHandler<MessageRetrieveGroupMessagesResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveGroupMessages(
+            params: MessageRetrieveGroupMessagesParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<MessageRetrieveGroupMessagesResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("messageId", params.messageId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("messages", "group", params._pathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { retrieveGroupMessagesHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -413,6 +466,38 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     errorHandler.handle(response).parseable {
                         response
                             .use { sendWhatsappHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val sendWithAlphanumericSenderHandler:
+            Handler<MessageSendWithAlphanumericSenderResponse> =
+            jsonHandler<MessageSendWithAlphanumericSenderResponse>(clientOptions.jsonMapper)
+
+        override fun sendWithAlphanumericSender(
+            params: MessageSendWithAlphanumericSenderParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<MessageSendWithAlphanumericSenderResponse>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("messages", "alphanumeric_sender_id")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { sendWithAlphanumericSenderHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

@@ -24,6 +24,7 @@ class MessagingProfile
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
+    private val aiAssistantId: JsonField<String>,
     private val alphaSender: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val dailySpendLimit: JsonField<String>,
@@ -35,9 +36,11 @@ private constructor(
     private val mobileOnly: JsonField<Boolean>,
     private val name: JsonField<String>,
     private val numberPoolSettings: JsonField<NumberPoolSettings>,
+    private val organizationId: JsonField<String>,
     private val recordType: JsonField<RecordType>,
     private val redactionEnabled: JsonField<Boolean>,
     private val redactionLevel: JsonField<Long>,
+    private val resourceGroupId: JsonField<String>,
     private val smartEncoding: JsonField<Boolean>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val urlShortenerSettings: JsonField<UrlShortenerSettings>,
@@ -52,6 +55,9 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ai_assistant_id")
+        @ExcludeMissing
+        aiAssistantId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("alpha_sender")
         @ExcludeMissing
         alphaSender: JsonField<String> = JsonMissing.of(),
@@ -81,6 +87,9 @@ private constructor(
         @JsonProperty("number_pool_settings")
         @ExcludeMissing
         numberPoolSettings: JsonField<NumberPoolSettings> = JsonMissing.of(),
+        @JsonProperty("organization_id")
+        @ExcludeMissing
+        organizationId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("record_type")
         @ExcludeMissing
         recordType: JsonField<RecordType> = JsonMissing.of(),
@@ -90,6 +99,9 @@ private constructor(
         @JsonProperty("redaction_level")
         @ExcludeMissing
         redactionLevel: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("resource_group_id")
+        @ExcludeMissing
+        resourceGroupId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("smart_encoding")
         @ExcludeMissing
         smartEncoding: JsonField<Boolean> = JsonMissing.of(),
@@ -114,6 +126,7 @@ private constructor(
         whitelistedDestinations: JsonField<List<String>> = JsonMissing.of(),
     ) : this(
         id,
+        aiAssistantId,
         alphaSender,
         createdAt,
         dailySpendLimit,
@@ -125,9 +138,11 @@ private constructor(
         mobileOnly,
         name,
         numberPoolSettings,
+        organizationId,
         recordType,
         redactionEnabled,
         redactionLevel,
+        resourceGroupId,
         smartEncoding,
         updatedAt,
         urlShortenerSettings,
@@ -146,6 +161,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun id(): Optional<String> = id.getOptional("id")
+
+    /**
+     * The AI assistant ID associated with this messaging profile.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun aiAssistantId(): Optional<String> = aiAssistantId.getOptional("ai_assistant_id")
 
     /**
      * The alphanumeric sender ID to use when sending to destinations that require an alphanumeric
@@ -243,6 +266,14 @@ private constructor(
         numberPoolSettings.getOptional("number_pool_settings")
 
     /**
+     * The organization that owns this messaging profile.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun organizationId(): Optional<String> = organizationId.getOptional("organization_id")
+
+    /**
      * Identifies the type of the resource.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -265,6 +296,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun redactionLevel(): Optional<Long> = redactionLevel.getOptional("redaction_level")
+
+    /**
+     * The resource group ID associated with this messaging profile.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun resourceGroupId(): Optional<String> = resourceGroupId.getOptional("resource_group_id")
 
     /**
      * Enables automatic character encoding optimization for SMS messages. When enabled, the system
@@ -351,6 +390,15 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [aiAssistantId].
+     *
+     * Unlike [aiAssistantId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("ai_assistant_id")
+    @ExcludeMissing
+    fun _aiAssistantId(): JsonField<String> = aiAssistantId
 
     /**
      * Returns the raw JSON value of [alphaSender].
@@ -450,6 +498,15 @@ private constructor(
     fun _numberPoolSettings(): JsonField<NumberPoolSettings> = numberPoolSettings
 
     /**
+     * Returns the raw JSON value of [organizationId].
+     *
+     * Unlike [organizationId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("organization_id")
+    @ExcludeMissing
+    fun _organizationId(): JsonField<String> = organizationId
+
+    /**
      * Returns the raw JSON value of [recordType].
      *
      * Unlike [recordType], this method doesn't throw if the JSON field has an unexpected type.
@@ -476,6 +533,15 @@ private constructor(
     @JsonProperty("redaction_level")
     @ExcludeMissing
     fun _redactionLevel(): JsonField<Long> = redactionLevel
+
+    /**
+     * Returns the raw JSON value of [resourceGroupId].
+     *
+     * Unlike [resourceGroupId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("resource_group_id")
+    @ExcludeMissing
+    fun _resourceGroupId(): JsonField<String> = resourceGroupId
 
     /**
      * Returns the raw JSON value of [smartEncoding].
@@ -571,6 +637,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String> = JsonMissing.of()
+        private var aiAssistantId: JsonField<String> = JsonMissing.of()
         private var alphaSender: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var dailySpendLimit: JsonField<String> = JsonMissing.of()
@@ -582,9 +649,11 @@ private constructor(
         private var mobileOnly: JsonField<Boolean> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var numberPoolSettings: JsonField<NumberPoolSettings> = JsonMissing.of()
+        private var organizationId: JsonField<String> = JsonMissing.of()
         private var recordType: JsonField<RecordType> = JsonMissing.of()
         private var redactionEnabled: JsonField<Boolean> = JsonMissing.of()
         private var redactionLevel: JsonField<Long> = JsonMissing.of()
+        private var resourceGroupId: JsonField<String> = JsonMissing.of()
         private var smartEncoding: JsonField<Boolean> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var urlShortenerSettings: JsonField<UrlShortenerSettings> = JsonMissing.of()
@@ -598,6 +667,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(messagingProfile: MessagingProfile) = apply {
             id = messagingProfile.id
+            aiAssistantId = messagingProfile.aiAssistantId
             alphaSender = messagingProfile.alphaSender
             createdAt = messagingProfile.createdAt
             dailySpendLimit = messagingProfile.dailySpendLimit
@@ -609,9 +679,11 @@ private constructor(
             mobileOnly = messagingProfile.mobileOnly
             name = messagingProfile.name
             numberPoolSettings = messagingProfile.numberPoolSettings
+            organizationId = messagingProfile.organizationId
             recordType = messagingProfile.recordType
             redactionEnabled = messagingProfile.redactionEnabled
             redactionLevel = messagingProfile.redactionLevel
+            resourceGroupId = messagingProfile.resourceGroupId
             smartEncoding = messagingProfile.smartEncoding
             updatedAt = messagingProfile.updatedAt
             urlShortenerSettings = messagingProfile.urlShortenerSettings
@@ -634,6 +706,25 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** The AI assistant ID associated with this messaging profile. */
+        fun aiAssistantId(aiAssistantId: String?) =
+            aiAssistantId(JsonField.ofNullable(aiAssistantId))
+
+        /** Alias for calling [Builder.aiAssistantId] with `aiAssistantId.orElse(null)`. */
+        fun aiAssistantId(aiAssistantId: Optional<String>) =
+            aiAssistantId(aiAssistantId.getOrNull())
+
+        /**
+         * Sets [Builder.aiAssistantId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.aiAssistantId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun aiAssistantId(aiAssistantId: JsonField<String>) = apply {
+            this.aiAssistantId = aiAssistantId
+        }
 
         /**
          * The alphanumeric sender ID to use when sending to destinations that require an
@@ -807,6 +898,20 @@ private constructor(
             this.numberPoolSettings = numberPoolSettings
         }
 
+        /** The organization that owns this messaging profile. */
+        fun organizationId(organizationId: String) = organizationId(JsonField.of(organizationId))
+
+        /**
+         * Sets [Builder.organizationId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.organizationId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun organizationId(organizationId: JsonField<String>) = apply {
+            this.organizationId = organizationId
+        }
+
         /** Identifies the type of the resource. */
         fun recordType(recordType: RecordType) = recordType(JsonField.of(recordType))
 
@@ -849,6 +954,25 @@ private constructor(
          */
         fun redactionLevel(redactionLevel: JsonField<Long>) = apply {
             this.redactionLevel = redactionLevel
+        }
+
+        /** The resource group ID associated with this messaging profile. */
+        fun resourceGroupId(resourceGroupId: String?) =
+            resourceGroupId(JsonField.ofNullable(resourceGroupId))
+
+        /** Alias for calling [Builder.resourceGroupId] with `resourceGroupId.orElse(null)`. */
+        fun resourceGroupId(resourceGroupId: Optional<String>) =
+            resourceGroupId(resourceGroupId.getOrNull())
+
+        /**
+         * Sets [Builder.resourceGroupId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.resourceGroupId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun resourceGroupId(resourceGroupId: JsonField<String>) = apply {
+            this.resourceGroupId = resourceGroupId
         }
 
         /**
@@ -1037,6 +1161,7 @@ private constructor(
         fun build(): MessagingProfile =
             MessagingProfile(
                 id,
+                aiAssistantId,
                 alphaSender,
                 createdAt,
                 dailySpendLimit,
@@ -1048,9 +1173,11 @@ private constructor(
                 mobileOnly,
                 name,
                 numberPoolSettings,
+                organizationId,
                 recordType,
                 redactionEnabled,
                 redactionLevel,
+                resourceGroupId,
                 smartEncoding,
                 updatedAt,
                 urlShortenerSettings,
@@ -1071,6 +1198,7 @@ private constructor(
         }
 
         id()
+        aiAssistantId()
         alphaSender()
         createdAt()
         dailySpendLimit()
@@ -1082,9 +1210,11 @@ private constructor(
         mobileOnly()
         name()
         numberPoolSettings().ifPresent { it.validate() }
+        organizationId()
         recordType().ifPresent { it.validate() }
         redactionEnabled()
         redactionLevel()
+        resourceGroupId()
         smartEncoding()
         updatedAt()
         urlShortenerSettings().ifPresent { it.validate() }
@@ -1112,6 +1242,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
+            (if (aiAssistantId.asKnown().isPresent) 1 else 0) +
             (if (alphaSender.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (dailySpendLimit.asKnown().isPresent) 1 else 0) +
@@ -1123,9 +1254,11 @@ private constructor(
             (if (mobileOnly.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (numberPoolSettings.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (organizationId.asKnown().isPresent) 1 else 0) +
             (recordType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (redactionEnabled.asKnown().isPresent) 1 else 0) +
             (if (redactionLevel.asKnown().isPresent) 1 else 0) +
+            (if (resourceGroupId.asKnown().isPresent) 1 else 0) +
             (if (smartEncoding.asKnown().isPresent) 1 else 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
             (urlShortenerSettings.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1403,6 +1536,7 @@ private constructor(
 
         return other is MessagingProfile &&
             id == other.id &&
+            aiAssistantId == other.aiAssistantId &&
             alphaSender == other.alphaSender &&
             createdAt == other.createdAt &&
             dailySpendLimit == other.dailySpendLimit &&
@@ -1414,9 +1548,11 @@ private constructor(
             mobileOnly == other.mobileOnly &&
             name == other.name &&
             numberPoolSettings == other.numberPoolSettings &&
+            organizationId == other.organizationId &&
             recordType == other.recordType &&
             redactionEnabled == other.redactionEnabled &&
             redactionLevel == other.redactionLevel &&
+            resourceGroupId == other.resourceGroupId &&
             smartEncoding == other.smartEncoding &&
             updatedAt == other.updatedAt &&
             urlShortenerSettings == other.urlShortenerSettings &&
@@ -1431,6 +1567,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            aiAssistantId,
             alphaSender,
             createdAt,
             dailySpendLimit,
@@ -1442,9 +1579,11 @@ private constructor(
             mobileOnly,
             name,
             numberPoolSettings,
+            organizationId,
             recordType,
             redactionEnabled,
             redactionLevel,
+            resourceGroupId,
             smartEncoding,
             updatedAt,
             urlShortenerSettings,
@@ -1460,5 +1599,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessagingProfile{id=$id, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, healthWebhookUrl=$healthWebhookUrl, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, recordType=$recordType, redactionEnabled=$redactionEnabled, redactionLevel=$redactionLevel, smartEncoding=$smartEncoding, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
+        "MessagingProfile{id=$id, aiAssistantId=$aiAssistantId, alphaSender=$alphaSender, createdAt=$createdAt, dailySpendLimit=$dailySpendLimit, dailySpendLimitEnabled=$dailySpendLimitEnabled, enabled=$enabled, healthWebhookUrl=$healthWebhookUrl, mmsFallBackToSms=$mmsFallBackToSms, mmsTranscoding=$mmsTranscoding, mobileOnly=$mobileOnly, name=$name, numberPoolSettings=$numberPoolSettings, organizationId=$organizationId, recordType=$recordType, redactionEnabled=$redactionEnabled, redactionLevel=$redactionLevel, resourceGroupId=$resourceGroupId, smartEncoding=$smartEncoding, updatedAt=$updatedAt, urlShortenerSettings=$urlShortenerSettings, v1Secret=$v1Secret, webhookApiVersion=$webhookApiVersion, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, whitelistedDestinations=$whitelistedDestinations, additionalProperties=$additionalProperties}"
 }

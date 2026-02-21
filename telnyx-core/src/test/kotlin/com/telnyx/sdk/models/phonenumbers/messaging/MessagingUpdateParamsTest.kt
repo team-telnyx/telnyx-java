@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.phonenumbers.messaging
 
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,6 +14,7 @@ internal class MessagingUpdateParamsTest {
             .id("id")
             .messagingProduct("P2P")
             .messagingProfileId("dd50eba1-a0c0-4563-9925-b25e842a7cb6")
+            .addTag("string")
             .build()
     }
 
@@ -32,12 +34,14 @@ internal class MessagingUpdateParamsTest {
                 .id("id")
                 .messagingProduct("P2P")
                 .messagingProfileId("dd50eba1-a0c0-4563-9925-b25e842a7cb6")
+                .addTag("string")
                 .build()
 
         val body = params._body()
 
         assertThat(body.messagingProduct()).contains("P2P")
         assertThat(body.messagingProfileId()).contains("dd50eba1-a0c0-4563-9925-b25e842a7cb6")
+        assertThat(body.tags().getOrNull()).containsExactly("string")
     }
 
     @Test

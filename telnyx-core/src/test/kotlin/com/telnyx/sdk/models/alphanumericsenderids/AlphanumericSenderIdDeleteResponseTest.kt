@@ -1,0 +1,75 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.sdk.models.alphanumericsenderids
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.jsonMapper
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class AlphanumericSenderIdDeleteResponseTest {
+
+    @Test
+    fun create() {
+        val alphanumericSenderIdDeleteResponse =
+            AlphanumericSenderIdDeleteResponse.builder()
+                .data(
+                    AlphanumericSenderIdDeleteResponse.Data.builder()
+                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .alphanumericSenderId("MyCompany")
+                        .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .organizationId("organization_id")
+                        .recordType(
+                            AlphanumericSenderIdDeleteResponse.Data.RecordType
+                                .ALPHANUMERIC_SENDER_ID
+                        )
+                        .usLongCodeFallback("+15551234567")
+                        .build()
+                )
+                .build()
+
+        assertThat(alphanumericSenderIdDeleteResponse.data())
+            .contains(
+                AlphanumericSenderIdDeleteResponse.Data.builder()
+                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .alphanumericSenderId("MyCompany")
+                    .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .organizationId("organization_id")
+                    .recordType(
+                        AlphanumericSenderIdDeleteResponse.Data.RecordType.ALPHANUMERIC_SENDER_ID
+                    )
+                    .usLongCodeFallback("+15551234567")
+                    .build()
+            )
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val alphanumericSenderIdDeleteResponse =
+            AlphanumericSenderIdDeleteResponse.builder()
+                .data(
+                    AlphanumericSenderIdDeleteResponse.Data.builder()
+                        .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                        .alphanumericSenderId("MyCompany")
+                        .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .organizationId("organization_id")
+                        .recordType(
+                            AlphanumericSenderIdDeleteResponse.Data.RecordType
+                                .ALPHANUMERIC_SENDER_ID
+                        )
+                        .usLongCodeFallback("+15551234567")
+                        .build()
+                )
+                .build()
+
+        val roundtrippedAlphanumericSenderIdDeleteResponse =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(alphanumericSenderIdDeleteResponse),
+                jacksonTypeRef<AlphanumericSenderIdDeleteResponse>(),
+            )
+
+        assertThat(roundtrippedAlphanumericSenderIdDeleteResponse)
+            .isEqualTo(alphanumericSenderIdDeleteResponse)
+    }
+}

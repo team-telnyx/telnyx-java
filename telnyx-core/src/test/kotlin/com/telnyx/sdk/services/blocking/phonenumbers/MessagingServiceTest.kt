@@ -32,6 +32,7 @@ internal class MessagingServiceTest {
                     .id("id")
                     .messagingProduct("P2P")
                     .messagingProfileId("dd50eba1-a0c0-4563-9925-b25e842a7cb6")
+                    .addTag("string")
                     .build()
             )
 

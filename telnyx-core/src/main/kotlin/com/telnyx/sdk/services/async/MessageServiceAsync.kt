@@ -7,6 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.messages.MessageCancelScheduledParams
 import com.telnyx.sdk.models.messages.MessageCancelScheduledResponse
+import com.telnyx.sdk.models.messages.MessageRetrieveGroupMessagesParams
+import com.telnyx.sdk.models.messages.MessageRetrieveGroupMessagesResponse
 import com.telnyx.sdk.models.messages.MessageRetrieveParams
 import com.telnyx.sdk.models.messages.MessageRetrieveResponse
 import com.telnyx.sdk.models.messages.MessageScheduleParams
@@ -23,6 +25,8 @@ import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeResponse
 import com.telnyx.sdk.models.messages.MessageSendWhatsappParams
 import com.telnyx.sdk.models.messages.MessageSendWhatsappResponse
+import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderParams
+import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderResponse
 import com.telnyx.sdk.services.async.messages.RcServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -123,6 +127,46 @@ interface MessageServiceAsync {
     ): CompletableFuture<MessageCancelScheduledResponse> =
         cancelScheduled(id, MessageCancelScheduledParams.none(), requestOptions)
 
+    /** Retrieve all messages in a group MMS conversation by the group message ID. */
+    fun retrieveGroupMessages(
+        messageId: String
+    ): CompletableFuture<MessageRetrieveGroupMessagesResponse> =
+        retrieveGroupMessages(messageId, MessageRetrieveGroupMessagesParams.none())
+
+    /** @see retrieveGroupMessages */
+    fun retrieveGroupMessages(
+        messageId: String,
+        params: MessageRetrieveGroupMessagesParams = MessageRetrieveGroupMessagesParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<MessageRetrieveGroupMessagesResponse> =
+        retrieveGroupMessages(params.toBuilder().messageId(messageId).build(), requestOptions)
+
+    /** @see retrieveGroupMessages */
+    fun retrieveGroupMessages(
+        messageId: String,
+        params: MessageRetrieveGroupMessagesParams = MessageRetrieveGroupMessagesParams.none(),
+    ): CompletableFuture<MessageRetrieveGroupMessagesResponse> =
+        retrieveGroupMessages(messageId, params, RequestOptions.none())
+
+    /** @see retrieveGroupMessages */
+    fun retrieveGroupMessages(
+        params: MessageRetrieveGroupMessagesParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<MessageRetrieveGroupMessagesResponse>
+
+    /** @see retrieveGroupMessages */
+    fun retrieveGroupMessages(
+        params: MessageRetrieveGroupMessagesParams
+    ): CompletableFuture<MessageRetrieveGroupMessagesResponse> =
+        retrieveGroupMessages(params, RequestOptions.none())
+
+    /** @see retrieveGroupMessages */
+    fun retrieveGroupMessages(
+        messageId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<MessageRetrieveGroupMessagesResponse> =
+        retrieveGroupMessages(messageId, MessageRetrieveGroupMessagesParams.none(), requestOptions)
+
     /**
      * Schedule a message with a Phone Number, Alphanumeric Sender ID, Short Code or Number Pool.
      *
@@ -209,6 +253,18 @@ interface MessageServiceAsync {
         params: MessageSendWhatsappParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MessageSendWhatsappResponse>
+
+    /** Send an SMS message using an alphanumeric sender ID. This is SMS only. */
+    fun sendWithAlphanumericSender(
+        params: MessageSendWithAlphanumericSenderParams
+    ): CompletableFuture<MessageSendWithAlphanumericSenderResponse> =
+        sendWithAlphanumericSender(params, RequestOptions.none())
+
+    /** @see sendWithAlphanumericSender */
+    fun sendWithAlphanumericSender(
+        params: MessageSendWithAlphanumericSenderParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<MessageSendWithAlphanumericSenderResponse>
 
     /**
      * A view of [MessageServiceAsync] that provides access to raw HTTP responses for each method.
@@ -309,6 +365,53 @@ interface MessageServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<MessageCancelScheduledResponse>> =
             cancelScheduled(id, MessageCancelScheduledParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /messages/group/{message_id}`, but is otherwise the
+         * same as [MessageServiceAsync.retrieveGroupMessages].
+         */
+        fun retrieveGroupMessages(
+            messageId: String
+        ): CompletableFuture<HttpResponseFor<MessageRetrieveGroupMessagesResponse>> =
+            retrieveGroupMessages(messageId, MessageRetrieveGroupMessagesParams.none())
+
+        /** @see retrieveGroupMessages */
+        fun retrieveGroupMessages(
+            messageId: String,
+            params: MessageRetrieveGroupMessagesParams = MessageRetrieveGroupMessagesParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<MessageRetrieveGroupMessagesResponse>> =
+            retrieveGroupMessages(params.toBuilder().messageId(messageId).build(), requestOptions)
+
+        /** @see retrieveGroupMessages */
+        fun retrieveGroupMessages(
+            messageId: String,
+            params: MessageRetrieveGroupMessagesParams = MessageRetrieveGroupMessagesParams.none(),
+        ): CompletableFuture<HttpResponseFor<MessageRetrieveGroupMessagesResponse>> =
+            retrieveGroupMessages(messageId, params, RequestOptions.none())
+
+        /** @see retrieveGroupMessages */
+        fun retrieveGroupMessages(
+            params: MessageRetrieveGroupMessagesParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<MessageRetrieveGroupMessagesResponse>>
+
+        /** @see retrieveGroupMessages */
+        fun retrieveGroupMessages(
+            params: MessageRetrieveGroupMessagesParams
+        ): CompletableFuture<HttpResponseFor<MessageRetrieveGroupMessagesResponse>> =
+            retrieveGroupMessages(params, RequestOptions.none())
+
+        /** @see retrieveGroupMessages */
+        fun retrieveGroupMessages(
+            messageId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<MessageRetrieveGroupMessagesResponse>> =
+            retrieveGroupMessages(
+                messageId,
+                MessageRetrieveGroupMessagesParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `post /messages/schedule`, but is otherwise the same as
@@ -414,5 +517,20 @@ interface MessageServiceAsync {
             params: MessageSendWhatsappParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<MessageSendWhatsappResponse>>
+
+        /**
+         * Returns a raw HTTP response for `post /messages/alphanumeric_sender_id`, but is otherwise
+         * the same as [MessageServiceAsync.sendWithAlphanumericSender].
+         */
+        fun sendWithAlphanumericSender(
+            params: MessageSendWithAlphanumericSenderParams
+        ): CompletableFuture<HttpResponseFor<MessageSendWithAlphanumericSenderResponse>> =
+            sendWithAlphanumericSender(params, RequestOptions.none())
+
+        /** @see sendWithAlphanumericSender */
+        fun sendWithAlphanumericSender(
+            params: MessageSendWithAlphanumericSenderParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<MessageSendWithAlphanumericSenderResponse>>
     }
 }
