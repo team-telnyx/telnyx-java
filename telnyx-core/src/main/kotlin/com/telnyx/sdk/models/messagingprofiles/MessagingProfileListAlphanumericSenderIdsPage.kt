@@ -6,6 +6,7 @@ import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.models.MessagingPaginationMeta
+import com.telnyx.sdk.models.alphanumericsenderids.AlphanumericSenderId
 import com.telnyx.sdk.services.blocking.MessagingProfileService
 import java.util.Objects
 import java.util.Optional
@@ -18,7 +19,7 @@ private constructor(
     private val service: MessagingProfileService,
     private val params: MessagingProfileListAlphanumericSenderIdsParams,
     private val response: MessagingProfileListAlphanumericSenderIdsPageResponse,
-) : Page<MessagingProfileListAlphanumericSenderIdsResponse> {
+) : Page<AlphanumericSenderId> {
 
     /**
      * Delegates to [MessagingProfileListAlphanumericSenderIdsPageResponse], but gracefully handles
@@ -26,7 +27,7 @@ private constructor(
      *
      * @see MessagingProfileListAlphanumericSenderIdsPageResponse.data
      */
-    fun data(): List<MessagingProfileListAlphanumericSenderIdsResponse> =
+    fun data(): List<AlphanumericSenderId> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -37,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<MessagingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<MessagingProfileListAlphanumericSenderIdsResponse> = data()
+    override fun items(): List<AlphanumericSenderId> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -58,8 +59,7 @@ private constructor(
     override fun nextPage(): MessagingProfileListAlphanumericSenderIdsPage =
         service.listAlphanumericSenderIds(nextPageParams())
 
-    fun autoPager(): AutoPager<MessagingProfileListAlphanumericSenderIdsResponse> =
-        AutoPager.from(this)
+    fun autoPager(): AutoPager<AlphanumericSenderId> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): MessagingProfileListAlphanumericSenderIdsParams = params

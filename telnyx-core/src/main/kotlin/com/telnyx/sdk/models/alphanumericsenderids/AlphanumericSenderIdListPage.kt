@@ -18,14 +18,14 @@ private constructor(
     private val service: AlphanumericSenderIdService,
     private val params: AlphanumericSenderIdListParams,
     private val response: AlphanumericSenderIdListPageResponse,
-) : Page<AlphanumericSenderIdListResponse> {
+) : Page<AlphanumericSenderId> {
 
     /**
      * Delegates to [AlphanumericSenderIdListPageResponse], but gracefully handles missing data.
      *
      * @see AlphanumericSenderIdListPageResponse.data
      */
-    fun data(): List<AlphanumericSenderIdListResponse> =
+    fun data(): List<AlphanumericSenderId> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<MessagingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<AlphanumericSenderIdListResponse> = data()
+    override fun items(): List<AlphanumericSenderId> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): AlphanumericSenderIdListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<AlphanumericSenderIdListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<AlphanumericSenderId> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): AlphanumericSenderIdListParams = params

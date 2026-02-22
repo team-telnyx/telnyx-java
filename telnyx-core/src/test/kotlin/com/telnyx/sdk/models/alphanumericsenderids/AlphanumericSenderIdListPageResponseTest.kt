@@ -16,14 +16,12 @@ internal class AlphanumericSenderIdListPageResponseTest {
         val alphanumericSenderIdListPageResponse =
             AlphanumericSenderIdListPageResponse.builder()
                 .addData(
-                    AlphanumericSenderIdListResponse.builder()
+                    AlphanumericSenderId.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .alphanumericSenderId("MyCompany")
                         .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .organizationId("organization_id")
-                        .recordType(
-                            AlphanumericSenderIdListResponse.RecordType.ALPHANUMERIC_SENDER_ID
-                        )
+                        .recordType(AlphanumericSenderId.RecordType.ALPHANUMERIC_SENDER_ID)
                         .usLongCodeFallback("+15551234567")
                         .build()
                 )
@@ -39,12 +37,12 @@ internal class AlphanumericSenderIdListPageResponseTest {
 
         assertThat(alphanumericSenderIdListPageResponse.data().getOrNull())
             .containsExactly(
-                AlphanumericSenderIdListResponse.builder()
+                AlphanumericSenderId.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .alphanumericSenderId("MyCompany")
                     .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .organizationId("organization_id")
-                    .recordType(AlphanumericSenderIdListResponse.RecordType.ALPHANUMERIC_SENDER_ID)
+                    .recordType(AlphanumericSenderId.RecordType.ALPHANUMERIC_SENDER_ID)
                     .usLongCodeFallback("+15551234567")
                     .build()
             )
@@ -65,14 +63,12 @@ internal class AlphanumericSenderIdListPageResponseTest {
         val alphanumericSenderIdListPageResponse =
             AlphanumericSenderIdListPageResponse.builder()
                 .addData(
-                    AlphanumericSenderIdListResponse.builder()
+                    AlphanumericSenderId.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .alphanumericSenderId("MyCompany")
                         .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .organizationId("organization_id")
-                        .recordType(
-                            AlphanumericSenderIdListResponse.RecordType.ALPHANUMERIC_SENDER_ID
-                        )
+                        .recordType(AlphanumericSenderId.RecordType.ALPHANUMERIC_SENDER_ID)
                         .usLongCodeFallback("+15551234567")
                         .build()
                 )

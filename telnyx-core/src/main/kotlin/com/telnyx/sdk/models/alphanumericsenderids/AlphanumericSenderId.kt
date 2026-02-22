@@ -17,7 +17,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class AlphanumericSenderIdListResponse
+class AlphanumericSenderId
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
@@ -175,14 +175,11 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of
-         * [AlphanumericSenderIdListResponse].
-         */
+        /** Returns a mutable builder for constructing an instance of [AlphanumericSenderId]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [AlphanumericSenderIdListResponse]. */
+    /** A builder for [AlphanumericSenderId]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String> = JsonMissing.of()
@@ -194,17 +191,15 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(alphanumericSenderIdListResponse: AlphanumericSenderIdListResponse) =
-            apply {
-                id = alphanumericSenderIdListResponse.id
-                alphanumericSenderId = alphanumericSenderIdListResponse.alphanumericSenderId
-                messagingProfileId = alphanumericSenderIdListResponse.messagingProfileId
-                organizationId = alphanumericSenderIdListResponse.organizationId
-                recordType = alphanumericSenderIdListResponse.recordType
-                usLongCodeFallback = alphanumericSenderIdListResponse.usLongCodeFallback
-                additionalProperties =
-                    alphanumericSenderIdListResponse.additionalProperties.toMutableMap()
-            }
+        internal fun from(alphanumericSenderId: AlphanumericSenderId) = apply {
+            id = alphanumericSenderId.id
+            this.alphanumericSenderId = alphanumericSenderId.alphanumericSenderId
+            messagingProfileId = alphanumericSenderId.messagingProfileId
+            organizationId = alphanumericSenderId.organizationId
+            recordType = alphanumericSenderId.recordType
+            usLongCodeFallback = alphanumericSenderId.usLongCodeFallback
+            additionalProperties = alphanumericSenderId.additionalProperties.toMutableMap()
+        }
 
         /** Uniquely identifies the alphanumeric sender ID resource. */
         fun id(id: String) = id(JsonField.of(id))
@@ -307,12 +302,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [AlphanumericSenderIdListResponse].
+         * Returns an immutable instance of [AlphanumericSenderId].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): AlphanumericSenderIdListResponse =
-            AlphanumericSenderIdListResponse(
+        fun build(): AlphanumericSenderId =
+            AlphanumericSenderId(
                 id,
                 alphanumericSenderId,
                 messagingProfileId,
@@ -325,7 +320,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): AlphanumericSenderIdListResponse = apply {
+    fun validate(): AlphanumericSenderId = apply {
         if (validated) {
             return@apply
         }
@@ -487,7 +482,7 @@ private constructor(
             return true
         }
 
-        return other is AlphanumericSenderIdListResponse &&
+        return other is AlphanumericSenderId &&
             id == other.id &&
             alphanumericSenderId == other.alphanumericSenderId &&
             messagingProfileId == other.messagingProfileId &&
@@ -512,5 +507,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AlphanumericSenderIdListResponse{id=$id, alphanumericSenderId=$alphanumericSenderId, messagingProfileId=$messagingProfileId, organizationId=$organizationId, recordType=$recordType, usLongCodeFallback=$usLongCodeFallback, additionalProperties=$additionalProperties}"
+        "AlphanumericSenderId{id=$id, alphanumericSenderId=$alphanumericSenderId, messagingProfileId=$messagingProfileId, organizationId=$organizationId, recordType=$recordType, usLongCodeFallback=$usLongCodeFallback, additionalProperties=$additionalProperties}"
 }
