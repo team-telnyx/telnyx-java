@@ -23,6 +23,7 @@ internal class VerifyProfileUpdateParamsTest {
             )
             .flashcall(
                 VerifyProfileUpdateParams.Flashcall.builder()
+                    .appName("Example Secure App")
                     .defaultVerificationTimeoutSecs(300L)
                     .addWhitelistedDestination("US")
                     .addWhitelistedDestination("CA")
@@ -30,6 +31,17 @@ internal class VerifyProfileUpdateParamsTest {
             )
             .language("en-US")
             .name("Test Profile")
+            .rcs(
+                VerifyProfileUpdateParams.Rcs.builder()
+                    .appName("Example Secure App")
+                    .codeLength(6L)
+                    .defaultVerificationTimeoutSecs(300L)
+                    .messagingTemplateId("0abb5b4f-459f-445a-bfcd-488998b7572d")
+                    .smsFallback(true)
+                    .addWhitelistedDestination("US")
+                    .addWhitelistedDestination("CA")
+                    .build()
+            )
             .sms(
                 VerifyProfileUpdateParams.Sms.builder()
                     .alphaSender("sqF")
@@ -75,6 +87,7 @@ internal class VerifyProfileUpdateParamsTest {
                 )
                 .flashcall(
                     VerifyProfileUpdateParams.Flashcall.builder()
+                        .appName("Example Secure App")
                         .defaultVerificationTimeoutSecs(300L)
                         .addWhitelistedDestination("US")
                         .addWhitelistedDestination("CA")
@@ -82,6 +95,17 @@ internal class VerifyProfileUpdateParamsTest {
                 )
                 .language("en-US")
                 .name("Test Profile")
+                .rcs(
+                    VerifyProfileUpdateParams.Rcs.builder()
+                        .appName("Example Secure App")
+                        .codeLength(6L)
+                        .defaultVerificationTimeoutSecs(300L)
+                        .messagingTemplateId("0abb5b4f-459f-445a-bfcd-488998b7572d")
+                        .smsFallback(true)
+                        .addWhitelistedDestination("US")
+                        .addWhitelistedDestination("CA")
+                        .build()
+                )
                 .sms(
                     VerifyProfileUpdateParams.Sms.builder()
                         .alphaSender("sqF")
@@ -113,6 +137,7 @@ internal class VerifyProfileUpdateParamsTest {
         assertThat(body.flashcall())
             .contains(
                 VerifyProfileUpdateParams.Flashcall.builder()
+                    .appName("Example Secure App")
                     .defaultVerificationTimeoutSecs(300L)
                     .addWhitelistedDestination("US")
                     .addWhitelistedDestination("CA")
@@ -120,6 +145,18 @@ internal class VerifyProfileUpdateParamsTest {
             )
         assertThat(body.language()).contains("en-US")
         assertThat(body.name()).contains("Test Profile")
+        assertThat(body.rcs())
+            .contains(
+                VerifyProfileUpdateParams.Rcs.builder()
+                    .appName("Example Secure App")
+                    .codeLength(6L)
+                    .defaultVerificationTimeoutSecs(300L)
+                    .messagingTemplateId("0abb5b4f-459f-445a-bfcd-488998b7572d")
+                    .smsFallback(true)
+                    .addWhitelistedDestination("US")
+                    .addWhitelistedDestination("CA")
+                    .build()
+            )
         assertThat(body.sms())
             .contains(
                 VerifyProfileUpdateParams.Sms.builder()
