@@ -14,15 +14,12 @@ internal class AlphanumericSenderIdDeleteResponseTest {
         val alphanumericSenderIdDeleteResponse =
             AlphanumericSenderIdDeleteResponse.builder()
                 .data(
-                    AlphanumericSenderIdDeleteResponse.Data.builder()
+                    AlphanumericSenderId.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .alphanumericSenderId("MyCompany")
                         .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .organizationId("organization_id")
-                        .recordType(
-                            AlphanumericSenderIdDeleteResponse.Data.RecordType
-                                .ALPHANUMERIC_SENDER_ID
-                        )
+                        .recordType(AlphanumericSenderId.RecordType.ALPHANUMERIC_SENDER_ID)
                         .usLongCodeFallback("+15551234567")
                         .build()
                 )
@@ -30,14 +27,12 @@ internal class AlphanumericSenderIdDeleteResponseTest {
 
         assertThat(alphanumericSenderIdDeleteResponse.data())
             .contains(
-                AlphanumericSenderIdDeleteResponse.Data.builder()
+                AlphanumericSenderId.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .alphanumericSenderId("MyCompany")
                     .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .organizationId("organization_id")
-                    .recordType(
-                        AlphanumericSenderIdDeleteResponse.Data.RecordType.ALPHANUMERIC_SENDER_ID
-                    )
+                    .recordType(AlphanumericSenderId.RecordType.ALPHANUMERIC_SENDER_ID)
                     .usLongCodeFallback("+15551234567")
                     .build()
             )
@@ -49,15 +44,12 @@ internal class AlphanumericSenderIdDeleteResponseTest {
         val alphanumericSenderIdDeleteResponse =
             AlphanumericSenderIdDeleteResponse.builder()
                 .data(
-                    AlphanumericSenderIdDeleteResponse.Data.builder()
+                    AlphanumericSenderId.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .alphanumericSenderId("MyCompany")
                         .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .organizationId("organization_id")
-                        .recordType(
-                            AlphanumericSenderIdDeleteResponse.Data.RecordType
-                                .ALPHANUMERIC_SENDER_ID
-                        )
+                        .recordType(AlphanumericSenderId.RecordType.ALPHANUMERIC_SENDER_ID)
                         .usLongCodeFallback("+15551234567")
                         .build()
                 )

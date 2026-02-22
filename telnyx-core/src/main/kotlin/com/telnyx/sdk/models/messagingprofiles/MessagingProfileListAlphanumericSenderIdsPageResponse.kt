@@ -14,6 +14,7 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.MessagingPaginationMeta
+import com.telnyx.sdk.models.alphanumericsenderids.AlphanumericSenderId
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -22,7 +23,7 @@ import kotlin.jvm.optionals.getOrNull
 class MessagingProfileListAlphanumericSenderIdsPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<MessagingProfileListAlphanumericSenderIdsResponse>>,
+    private val data: JsonField<List<AlphanumericSenderId>>,
     private val meta: JsonField<MessagingPaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +32,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<MessagingProfileListAlphanumericSenderIdsResponse>> = JsonMissing.of(),
+        data: JsonField<List<AlphanumericSenderId>> = JsonMissing.of(),
         @JsonProperty("meta")
         @ExcludeMissing
         meta: JsonField<MessagingPaginationMeta> = JsonMissing.of(),
@@ -41,8 +42,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<MessagingProfileListAlphanumericSenderIdsResponse>> =
-        data.getOptional("data")
+    fun data(): Optional<List<AlphanumericSenderId>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -55,9 +55,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data")
-    @ExcludeMissing
-    fun _data(): JsonField<List<MessagingProfileListAlphanumericSenderIdsResponse>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<AlphanumericSenderId>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -90,9 +88,7 @@ private constructor(
     /** A builder for [MessagingProfileListAlphanumericSenderIdsPageResponse]. */
     class Builder internal constructor() {
 
-        private var data:
-            JsonField<MutableList<MessagingProfileListAlphanumericSenderIdsResponse>>? =
-            null
+        private var data: JsonField<MutableList<AlphanumericSenderId>>? = null
         private var meta: JsonField<MessagingPaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -111,26 +107,25 @@ private constructor(
                     .toMutableMap()
         }
 
-        fun data(data: List<MessagingProfileListAlphanumericSenderIdsResponse>) =
-            data(JsonField.of(data))
+        fun data(data: List<AlphanumericSenderId>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed
-         * `List<MessagingProfileListAlphanumericSenderIdsResponse>` value instead. This method is
-         * primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.data] with a well-typed `List<AlphanumericSenderId>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun data(data: JsonField<List<MessagingProfileListAlphanumericSenderIdsResponse>>) = apply {
+        fun data(data: JsonField<List<AlphanumericSenderId>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [MessagingProfileListAlphanumericSenderIdsResponse] to [Builder.data].
+         * Adds a single [AlphanumericSenderId] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: MessagingProfileListAlphanumericSenderIdsResponse) = apply {
+        fun addData(data: AlphanumericSenderId) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

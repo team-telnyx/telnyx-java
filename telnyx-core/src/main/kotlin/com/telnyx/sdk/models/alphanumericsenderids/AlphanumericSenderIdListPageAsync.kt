@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: AlphanumericSenderIdListParams,
     private val response: AlphanumericSenderIdListPageResponse,
-) : PageAsync<AlphanumericSenderIdListResponse> {
+) : PageAsync<AlphanumericSenderId> {
 
     /**
      * Delegates to [AlphanumericSenderIdListPageResponse], but gracefully handles missing data.
      *
      * @see AlphanumericSenderIdListPageResponse.data
      */
-    fun data(): List<AlphanumericSenderIdListResponse> =
+    fun data(): List<AlphanumericSenderId> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<MessagingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<AlphanumericSenderIdListResponse> = data()
+    override fun items(): List<AlphanumericSenderId> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<AlphanumericSenderIdListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<AlphanumericSenderIdListResponse> =
+    fun autoPager(): AutoPagerAsync<AlphanumericSenderId> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

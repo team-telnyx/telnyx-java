@@ -6,6 +6,7 @@ import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.models.MessagingPaginationMeta
+import com.telnyx.sdk.models.alphanumericsenderids.AlphanumericSenderId
 import com.telnyx.sdk.services.async.MessagingProfileServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -21,7 +22,7 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: MessagingProfileListAlphanumericSenderIdsParams,
     private val response: MessagingProfileListAlphanumericSenderIdsPageResponse,
-) : PageAsync<MessagingProfileListAlphanumericSenderIdsResponse> {
+) : PageAsync<AlphanumericSenderId> {
 
     /**
      * Delegates to [MessagingProfileListAlphanumericSenderIdsPageResponse], but gracefully handles
@@ -29,7 +30,7 @@ private constructor(
      *
      * @see MessagingProfileListAlphanumericSenderIdsPageResponse.data
      */
-    fun data(): List<MessagingProfileListAlphanumericSenderIdsResponse> =
+    fun data(): List<AlphanumericSenderId> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -40,7 +41,7 @@ private constructor(
      */
     fun meta(): Optional<MessagingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<MessagingProfileListAlphanumericSenderIdsResponse> = data()
+    override fun items(): List<AlphanumericSenderId> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -61,7 +62,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<MessagingProfileListAlphanumericSenderIdsPageAsync> =
         service.listAlphanumericSenderIds(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<MessagingProfileListAlphanumericSenderIdsResponse> =
+    fun autoPager(): AutoPagerAsync<AlphanumericSenderId> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
