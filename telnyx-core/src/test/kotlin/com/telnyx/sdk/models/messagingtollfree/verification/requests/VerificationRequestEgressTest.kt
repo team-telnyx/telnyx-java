@@ -25,7 +25,6 @@ internal class VerificationRequestEgressTest {
                 .businessState("Texas")
                 .businessZip("78701")
                 .corporateWebsite("http://example.com")
-                .isvReseller("Yes")
                 .messageVolume(Volume.V_100000)
                 .optInWorkflow(
                     "User signs into the Telnyx portal, enters number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
@@ -53,6 +52,7 @@ internal class VerificationRequestEgressTest {
                 .helpMessageResponse(
                     "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                 )
+                .isvReseller("Yes")
                 .optInConfirmationResponse(
                     "You have successfully opted in to receive messages from Acme Corp"
                 )
@@ -76,7 +76,6 @@ internal class VerificationRequestEgressTest {
         assertThat(verificationRequestEgress.businessState()).isEqualTo("Texas")
         assertThat(verificationRequestEgress.businessZip()).isEqualTo("78701")
         assertThat(verificationRequestEgress.corporateWebsite()).isEqualTo("http://example.com")
-        assertThat(verificationRequestEgress.isvReseller()).isEqualTo("Yes")
         assertThat(verificationRequestEgress.messageVolume()).isEqualTo(Volume.V_100000)
         assertThat(verificationRequestEgress.optInWorkflow())
             .isEqualTo(
@@ -115,6 +114,7 @@ internal class VerificationRequestEgressTest {
             .contains(
                 "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
             )
+        assertThat(verificationRequestEgress.isvReseller()).contains("Yes")
         assertThat(verificationRequestEgress.optInConfirmationResponse())
             .contains("You have successfully opted in to receive messages from Acme Corp")
         assertThat(verificationRequestEgress.optInKeywords()).contains("START, YES, SUBSCRIBE")
@@ -144,7 +144,6 @@ internal class VerificationRequestEgressTest {
                 .businessState("Texas")
                 .businessZip("78701")
                 .corporateWebsite("http://example.com")
-                .isvReseller("Yes")
                 .messageVolume(Volume.V_100000)
                 .optInWorkflow(
                     "User signs into the Telnyx portal, enters number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
@@ -172,6 +171,7 @@ internal class VerificationRequestEgressTest {
                 .helpMessageResponse(
                     "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                 )
+                .isvReseller("Yes")
                 .optInConfirmationResponse(
                     "You have successfully opted in to receive messages from Acme Corp"
                 )

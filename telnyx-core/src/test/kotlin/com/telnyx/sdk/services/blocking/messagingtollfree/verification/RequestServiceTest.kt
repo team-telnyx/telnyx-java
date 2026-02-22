@@ -4,6 +4,7 @@ package com.telnyx.sdk.services.blocking.messagingtollfree.verification
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveStatusHistoryParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestUpdateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfPhoneNumber
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfVerificationRequest
@@ -36,7 +37,6 @@ internal class RequestServiceTest {
                     .businessState("Texas")
                     .businessZip("78701")
                     .corporateWebsite("http://example.com")
-                    .isvReseller("isvReseller")
                     .messageVolume(Volume.V_100000)
                     .optInWorkflow(
                         "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
@@ -65,6 +65,7 @@ internal class RequestServiceTest {
                     .helpMessageResponse(
                         "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                     )
+                    .isvReseller("isvReseller")
                     .optInConfirmationResponse(
                         "You have successfully opted in to receive messages from Acme Corp"
                     )
@@ -113,7 +114,6 @@ internal class RequestServiceTest {
                             .businessState("Texas")
                             .businessZip("78701")
                             .corporateWebsite("http://example.com")
-                            .isvReseller("isvReseller")
                             .messageVolume(Volume.V_100000)
                             .optInWorkflow(
                                 "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
@@ -146,6 +146,7 @@ internal class RequestServiceTest {
                             .helpMessageResponse(
                                 "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                             )
+                            .isvReseller("isvReseller")
                             .optInConfirmationResponse(
                                 "You have successfully opted in to receive messages from Acme Corp"
                             )
@@ -179,5 +180,23 @@ internal class RequestServiceTest {
         val requestService = client.messagingTollfree().verification().requests()
 
         requestService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveStatusHistory() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val requestService = client.messagingTollfree().verification().requests()
+
+        val response =
+            requestService.retrieveStatusHistory(
+                RequestRetrieveStatusHistoryParams.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .pageNumber(1L)
+                    .pageSize(1L)
+                    .build()
+            )
+
+        response.validate()
     }
 }

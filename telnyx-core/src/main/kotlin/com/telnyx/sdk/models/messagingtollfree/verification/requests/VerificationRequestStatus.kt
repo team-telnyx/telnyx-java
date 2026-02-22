@@ -36,7 +36,6 @@ private constructor(
     private val businessState: JsonField<String>,
     private val businessZip: JsonField<String>,
     private val corporateWebsite: JsonField<String>,
-    private val isvReseller: JsonField<String>,
     private val messageVolume: JsonField<Volume>,
     private val optInWorkflow: JsonField<String>,
     private val optInWorkflowImageUrls: JsonField<List<Url>>,
@@ -55,6 +54,7 @@ private constructor(
     private val doingBusinessAs: JsonField<String>,
     private val entityType: JsonField<TollFreeVerificationEntityType>,
     private val helpMessageResponse: JsonField<String>,
+    private val isvReseller: JsonField<String>,
     private val optInConfirmationResponse: JsonField<String>,
     private val optInKeywords: JsonField<String>,
     private val privacyPolicyUrl: JsonField<String>,
@@ -101,9 +101,6 @@ private constructor(
         @JsonProperty("corporateWebsite")
         @ExcludeMissing
         corporateWebsite: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("isvReseller")
-        @ExcludeMissing
-        isvReseller: JsonField<String> = JsonMissing.of(),
         @JsonProperty("messageVolume")
         @ExcludeMissing
         messageVolume: JsonField<Volume> = JsonMissing.of(),
@@ -158,6 +155,9 @@ private constructor(
         @JsonProperty("helpMessageResponse")
         @ExcludeMissing
         helpMessageResponse: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("isvReseller")
+        @ExcludeMissing
+        isvReseller: JsonField<String> = JsonMissing.of(),
         @JsonProperty("optInConfirmationResponse")
         @ExcludeMissing
         optInConfirmationResponse: JsonField<String> = JsonMissing.of(),
@@ -188,7 +188,6 @@ private constructor(
         businessState,
         businessZip,
         corporateWebsite,
-        isvReseller,
         messageVolume,
         optInWorkflow,
         optInWorkflowImageUrls,
@@ -207,6 +206,7 @@ private constructor(
         doingBusinessAs,
         entityType,
         helpMessageResponse,
+        isvReseller,
         optInConfirmationResponse,
         optInKeywords,
         privacyPolicyUrl,
@@ -290,12 +290,6 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun corporateWebsite(): String = corporateWebsite.getRequired("corporateWebsite")
-
-    /**
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun isvReseller(): String = isvReseller.getRequired("isvReseller")
 
     /**
      * Message Volume Enums
@@ -424,6 +418,12 @@ private constructor(
      */
     fun helpMessageResponse(): Optional<String> =
         helpMessageResponse.getOptional("helpMessageResponse")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun isvReseller(): Optional<String> = isvReseller.getOptional("isvReseller")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -578,13 +578,6 @@ private constructor(
     @JsonProperty("corporateWebsite")
     @ExcludeMissing
     fun _corporateWebsite(): JsonField<String> = corporateWebsite
-
-    /**
-     * Returns the raw JSON value of [isvReseller].
-     *
-     * Unlike [isvReseller], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("isvReseller") @ExcludeMissing fun _isvReseller(): JsonField<String> = isvReseller
 
     /**
      * Returns the raw JSON value of [messageVolume].
@@ -755,6 +748,13 @@ private constructor(
     fun _helpMessageResponse(): JsonField<String> = helpMessageResponse
 
     /**
+     * Returns the raw JSON value of [isvReseller].
+     *
+     * Unlike [isvReseller], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("isvReseller") @ExcludeMissing fun _isvReseller(): JsonField<String> = isvReseller
+
+    /**
      * Returns the raw JSON value of [optInConfirmationResponse].
      *
      * Unlike [optInConfirmationResponse], this method doesn't throw if the JSON field has an
@@ -847,7 +847,6 @@ private constructor(
          * .businessState()
          * .businessZip()
          * .corporateWebsite()
-         * .isvReseller()
          * .messageVolume()
          * .optInWorkflow()
          * .optInWorkflowImageUrls()
@@ -876,7 +875,6 @@ private constructor(
         private var businessState: JsonField<String>? = null
         private var businessZip: JsonField<String>? = null
         private var corporateWebsite: JsonField<String>? = null
-        private var isvReseller: JsonField<String>? = null
         private var messageVolume: JsonField<Volume>? = null
         private var optInWorkflow: JsonField<String>? = null
         private var optInWorkflowImageUrls: JsonField<MutableList<Url>>? = null
@@ -895,6 +893,7 @@ private constructor(
         private var doingBusinessAs: JsonField<String> = JsonMissing.of()
         private var entityType: JsonField<TollFreeVerificationEntityType> = JsonMissing.of()
         private var helpMessageResponse: JsonField<String> = JsonMissing.of()
+        private var isvReseller: JsonField<String> = JsonMissing.of()
         private var optInConfirmationResponse: JsonField<String> = JsonMissing.of()
         private var optInKeywords: JsonField<String> = JsonMissing.of()
         private var privacyPolicyUrl: JsonField<String> = JsonMissing.of()
@@ -918,7 +917,6 @@ private constructor(
             businessState = verificationRequestStatus.businessState
             businessZip = verificationRequestStatus.businessZip
             corporateWebsite = verificationRequestStatus.corporateWebsite
-            isvReseller = verificationRequestStatus.isvReseller
             messageVolume = verificationRequestStatus.messageVolume
             optInWorkflow = verificationRequestStatus.optInWorkflow
             optInWorkflowImageUrls =
@@ -939,6 +937,7 @@ private constructor(
             doingBusinessAs = verificationRequestStatus.doingBusinessAs
             entityType = verificationRequestStatus.entityType
             helpMessageResponse = verificationRequestStatus.helpMessageResponse
+            isvReseller = verificationRequestStatus.isvReseller
             optInConfirmationResponse = verificationRequestStatus.optInConfirmationResponse
             optInKeywords = verificationRequestStatus.optInKeywords
             privacyPolicyUrl = verificationRequestStatus.privacyPolicyUrl
@@ -1105,17 +1104,6 @@ private constructor(
         fun corporateWebsite(corporateWebsite: JsonField<String>) = apply {
             this.corporateWebsite = corporateWebsite
         }
-
-        fun isvReseller(isvReseller: String) = isvReseller(JsonField.of(isvReseller))
-
-        /**
-         * Sets [Builder.isvReseller] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.isvReseller] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun isvReseller(isvReseller: JsonField<String>) = apply { this.isvReseller = isvReseller }
 
         /** Message Volume Enums */
         fun messageVolume(messageVolume: Volume) = messageVolume(JsonField.of(messageVolume))
@@ -1399,6 +1387,17 @@ private constructor(
             this.helpMessageResponse = helpMessageResponse
         }
 
+        fun isvReseller(isvReseller: String) = isvReseller(JsonField.of(isvReseller))
+
+        /**
+         * Sets [Builder.isvReseller] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.isvReseller] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun isvReseller(isvReseller: JsonField<String>) = apply { this.isvReseller = isvReseller }
+
         fun optInConfirmationResponse(optInConfirmationResponse: String) =
             optInConfirmationResponse(JsonField.of(optInConfirmationResponse))
 
@@ -1524,7 +1523,6 @@ private constructor(
          * .businessState()
          * .businessZip()
          * .corporateWebsite()
-         * .isvReseller()
          * .messageVolume()
          * .optInWorkflow()
          * .optInWorkflowImageUrls()
@@ -1551,7 +1549,6 @@ private constructor(
                 checkRequired("businessState", businessState),
                 checkRequired("businessZip", businessZip),
                 checkRequired("corporateWebsite", corporateWebsite),
-                checkRequired("isvReseller", isvReseller),
                 checkRequired("messageVolume", messageVolume),
                 checkRequired("optInWorkflow", optInWorkflow),
                 checkRequired("optInWorkflowImageUrls", optInWorkflowImageUrls).map {
@@ -1572,6 +1569,7 @@ private constructor(
                 doingBusinessAs,
                 entityType,
                 helpMessageResponse,
+                isvReseller,
                 optInConfirmationResponse,
                 optInKeywords,
                 privacyPolicyUrl,
@@ -1602,7 +1600,6 @@ private constructor(
         businessState()
         businessZip()
         corporateWebsite()
-        isvReseller()
         messageVolume().validate()
         optInWorkflow()
         optInWorkflowImageUrls().forEach { it.validate() }
@@ -1621,6 +1618,7 @@ private constructor(
         doingBusinessAs()
         entityType().ifPresent { it.validate() }
         helpMessageResponse()
+        isvReseller()
         optInConfirmationResponse()
         optInKeywords()
         privacyPolicyUrl()
@@ -1658,7 +1656,6 @@ private constructor(
             (if (businessState.asKnown().isPresent) 1 else 0) +
             (if (businessZip.asKnown().isPresent) 1 else 0) +
             (if (corporateWebsite.asKnown().isPresent) 1 else 0) +
-            (if (isvReseller.asKnown().isPresent) 1 else 0) +
             (messageVolume.asKnown().getOrNull()?.validity() ?: 0) +
             (if (optInWorkflow.asKnown().isPresent) 1 else 0) +
             (optInWorkflowImageUrls.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
@@ -1677,6 +1674,7 @@ private constructor(
             (if (doingBusinessAs.asKnown().isPresent) 1 else 0) +
             (entityType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (helpMessageResponse.asKnown().isPresent) 1 else 0) +
+            (if (isvReseller.asKnown().isPresent) 1 else 0) +
             (if (optInConfirmationResponse.asKnown().isPresent) 1 else 0) +
             (if (optInKeywords.asKnown().isPresent) 1 else 0) +
             (if (privacyPolicyUrl.asKnown().isPresent) 1 else 0) +
@@ -1703,7 +1701,6 @@ private constructor(
             businessState == other.businessState &&
             businessZip == other.businessZip &&
             corporateWebsite == other.corporateWebsite &&
-            isvReseller == other.isvReseller &&
             messageVolume == other.messageVolume &&
             optInWorkflow == other.optInWorkflow &&
             optInWorkflowImageUrls == other.optInWorkflowImageUrls &&
@@ -1722,6 +1719,7 @@ private constructor(
             doingBusinessAs == other.doingBusinessAs &&
             entityType == other.entityType &&
             helpMessageResponse == other.helpMessageResponse &&
+            isvReseller == other.isvReseller &&
             optInConfirmationResponse == other.optInConfirmationResponse &&
             optInKeywords == other.optInKeywords &&
             privacyPolicyUrl == other.privacyPolicyUrl &&
@@ -1746,7 +1744,6 @@ private constructor(
             businessState,
             businessZip,
             corporateWebsite,
-            isvReseller,
             messageVolume,
             optInWorkflow,
             optInWorkflowImageUrls,
@@ -1765,6 +1762,7 @@ private constructor(
             doingBusinessAs,
             entityType,
             helpMessageResponse,
+            isvReseller,
             optInConfirmationResponse,
             optInKeywords,
             privacyPolicyUrl,
@@ -1779,5 +1777,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "VerificationRequestStatus{id=$id, additionalInformation=$additionalInformation, businessAddr1=$businessAddr1, businessCity=$businessCity, businessContactEmail=$businessContactEmail, businessContactFirstName=$businessContactFirstName, businessContactLastName=$businessContactLastName, businessContactPhone=$businessContactPhone, businessName=$businessName, businessState=$businessState, businessZip=$businessZip, corporateWebsite=$corporateWebsite, isvReseller=$isvReseller, messageVolume=$messageVolume, optInWorkflow=$optInWorkflow, optInWorkflowImageUrls=$optInWorkflowImageUrls, phoneNumbers=$phoneNumbers, productionMessageContent=$productionMessageContent, useCase=$useCase, useCaseSummary=$useCaseSummary, verificationStatus=$verificationStatus, ageGatedContent=$ageGatedContent, businessAddr2=$businessAddr2, businessRegistrationCountry=$businessRegistrationCountry, businessRegistrationNumber=$businessRegistrationNumber, businessRegistrationType=$businessRegistrationType, campaignVerifyAuthorizationToken=$campaignVerifyAuthorizationToken, createdAt=$createdAt, doingBusinessAs=$doingBusinessAs, entityType=$entityType, helpMessageResponse=$helpMessageResponse, optInConfirmationResponse=$optInConfirmationResponse, optInKeywords=$optInKeywords, privacyPolicyUrl=$privacyPolicyUrl, reason=$reason, termsAndConditionUrl=$termsAndConditionUrl, updatedAt=$updatedAt, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "VerificationRequestStatus{id=$id, additionalInformation=$additionalInformation, businessAddr1=$businessAddr1, businessCity=$businessCity, businessContactEmail=$businessContactEmail, businessContactFirstName=$businessContactFirstName, businessContactLastName=$businessContactLastName, businessContactPhone=$businessContactPhone, businessName=$businessName, businessState=$businessState, businessZip=$businessZip, corporateWebsite=$corporateWebsite, messageVolume=$messageVolume, optInWorkflow=$optInWorkflow, optInWorkflowImageUrls=$optInWorkflowImageUrls, phoneNumbers=$phoneNumbers, productionMessageContent=$productionMessageContent, useCase=$useCase, useCaseSummary=$useCaseSummary, verificationStatus=$verificationStatus, ageGatedContent=$ageGatedContent, businessAddr2=$businessAddr2, businessRegistrationCountry=$businessRegistrationCountry, businessRegistrationNumber=$businessRegistrationNumber, businessRegistrationType=$businessRegistrationType, campaignVerifyAuthorizationToken=$campaignVerifyAuthorizationToken, createdAt=$createdAt, doingBusinessAs=$doingBusinessAs, entityType=$entityType, helpMessageResponse=$helpMessageResponse, isvReseller=$isvReseller, optInConfirmationResponse=$optInConfirmationResponse, optInKeywords=$optInKeywords, privacyPolicyUrl=$privacyPolicyUrl, reason=$reason, termsAndConditionUrl=$termsAndConditionUrl, updatedAt=$updatedAt, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

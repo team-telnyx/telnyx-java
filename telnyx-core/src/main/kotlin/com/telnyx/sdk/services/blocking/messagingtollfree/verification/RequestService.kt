@@ -12,6 +12,8 @@ import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestDele
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListPage
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveParams
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveStatusHistoryParams
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveStatusHistoryResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestUpdateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfVerificationRequest
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.VerificationRequestEgress
@@ -149,6 +151,37 @@ interface RequestService {
     /** @see delete */
     fun delete(id: String, requestOptions: RequestOptions) =
         delete(id, RequestDeleteParams.none(), requestOptions)
+
+    /**
+     * Get the history of status changes for a verification request.
+     *
+     * Returns a paginated list of historical status changes including the reason for each change
+     * and when it occurred.
+     */
+    fun retrieveStatusHistory(
+        id: String,
+        params: RequestRetrieveStatusHistoryParams,
+    ): RequestRetrieveStatusHistoryResponse =
+        retrieveStatusHistory(id, params, RequestOptions.none())
+
+    /** @see retrieveStatusHistory */
+    fun retrieveStatusHistory(
+        id: String,
+        params: RequestRetrieveStatusHistoryParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RequestRetrieveStatusHistoryResponse =
+        retrieveStatusHistory(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see retrieveStatusHistory */
+    fun retrieveStatusHistory(
+        params: RequestRetrieveStatusHistoryParams
+    ): RequestRetrieveStatusHistoryResponse = retrieveStatusHistory(params, RequestOptions.none())
+
+    /** @see retrieveStatusHistory */
+    fun retrieveStatusHistory(
+        params: RequestRetrieveStatusHistoryParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RequestRetrieveStatusHistoryResponse
 
     /** A view of [RequestService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -320,5 +353,40 @@ interface RequestService {
         @MustBeClosed
         fun delete(id: String, requestOptions: RequestOptions): HttpResponse =
             delete(id, RequestDeleteParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /messaging_tollfree/verification/requests/{id}/status_history`, but is otherwise the same
+         * as [RequestService.retrieveStatusHistory].
+         */
+        @MustBeClosed
+        fun retrieveStatusHistory(
+            id: String,
+            params: RequestRetrieveStatusHistoryParams,
+        ): HttpResponseFor<RequestRetrieveStatusHistoryResponse> =
+            retrieveStatusHistory(id, params, RequestOptions.none())
+
+        /** @see retrieveStatusHistory */
+        @MustBeClosed
+        fun retrieveStatusHistory(
+            id: String,
+            params: RequestRetrieveStatusHistoryParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RequestRetrieveStatusHistoryResponse> =
+            retrieveStatusHistory(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see retrieveStatusHistory */
+        @MustBeClosed
+        fun retrieveStatusHistory(
+            params: RequestRetrieveStatusHistoryParams
+        ): HttpResponseFor<RequestRetrieveStatusHistoryResponse> =
+            retrieveStatusHistory(params, RequestOptions.none())
+
+        /** @see retrieveStatusHistory */
+        @MustBeClosed
+        fun retrieveStatusHistory(
+            params: RequestRetrieveStatusHistoryParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RequestRetrieveStatusHistoryResponse>
     }
 }
