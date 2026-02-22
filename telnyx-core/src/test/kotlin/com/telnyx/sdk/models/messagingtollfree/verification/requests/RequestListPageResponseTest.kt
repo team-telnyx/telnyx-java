@@ -28,7 +28,6 @@ internal class RequestListPageResponseTest {
                         .businessState("Texas")
                         .businessZip("78701")
                         .corporateWebsite("http://example.com")
-                        .isvReseller("Yes")
                         .messageVolume(Volume.V_100000)
                         .optInWorkflow(
                             "User signs into the Telnyx portal, enters number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
@@ -59,6 +58,7 @@ internal class RequestListPageResponseTest {
                         .helpMessageResponse(
                             "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                         )
+                        .isvReseller("Yes")
                         .optInConfirmationResponse(
                             "You have successfully opted in to receive messages from Acme Corp"
                         )
@@ -90,7 +90,6 @@ internal class RequestListPageResponseTest {
                     .businessState("Texas")
                     .businessZip("78701")
                     .corporateWebsite("http://example.com")
-                    .isvReseller("Yes")
                     .messageVolume(Volume.V_100000)
                     .optInWorkflow(
                         "User signs into the Telnyx portal, enters number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
@@ -121,6 +120,7 @@ internal class RequestListPageResponseTest {
                     .helpMessageResponse(
                         "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                     )
+                    .isvReseller("Yes")
                     .optInConfirmationResponse(
                         "You have successfully opted in to receive messages from Acme Corp"
                     )
@@ -156,7 +156,6 @@ internal class RequestListPageResponseTest {
                         .businessState("Texas")
                         .businessZip("78701")
                         .corporateWebsite("http://example.com")
-                        .isvReseller("Yes")
                         .messageVolume(Volume.V_100000)
                         .optInWorkflow(
                             "User signs into the Telnyx portal, enters number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
@@ -187,6 +186,7 @@ internal class RequestListPageResponseTest {
                         .helpMessageResponse(
                             "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                         )
+                        .isvReseller("Yes")
                         .optInConfirmationResponse(
                             "You have successfully opted in to receive messages from Acme Corp"
                         )

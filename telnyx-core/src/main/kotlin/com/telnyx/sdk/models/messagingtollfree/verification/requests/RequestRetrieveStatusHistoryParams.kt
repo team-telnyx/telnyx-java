@@ -6,45 +6,34 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Get a list of previously-submitted tollfree verification requests */
-class RequestListParams
+/**
+ * Get the history of status changes for a verification request.
+ *
+ * Returns a paginated list of historical status changes including the reason for each change and
+ * when it occurred.
+ */
+class RequestRetrieveStatusHistoryParams
 private constructor(
-    private val page: Long,
+    private val id: String?,
+    private val pageNumber: Long,
     private val pageSize: Long,
-    private val businessName: String?,
-    private val dateEnd: OffsetDateTime?,
-    private val dateStart: OffsetDateTime?,
-    private val phoneNumber: String?,
-    private val status: TfVerificationStatus?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun page(): Long = page
+    fun id(): Optional<String> = Optional.ofNullable(id)
+
+    fun pageNumber(): Long = pageNumber
 
     /**
-     *         Request this many records per page
-     *         This value is automatically clamped if the provided value is too large.
+     * Request this many records per page. This value is automatically clamped if the provided value
+     * is too large.
      */
     fun pageSize(): Long = pageSize
-
-    /** Filter verification requests by business name */
-    fun businessName(): Optional<String> = Optional.ofNullable(businessName)
-
-    fun dateEnd(): Optional<OffsetDateTime> = Optional.ofNullable(dateEnd)
-
-    fun dateStart(): Optional<OffsetDateTime> = Optional.ofNullable(dateStart)
-
-    fun phoneNumber(): Optional<String> = Optional.ofNullable(phoneNumber)
-
-    /** Tollfree verification status */
-    fun status(): Optional<TfVerificationStatus> = Optional.ofNullable(status)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -57,77 +46,50 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [RequestListParams].
+         * Returns a mutable builder for constructing an instance of
+         * [RequestRetrieveStatusHistoryParams].
          *
          * The following fields are required:
          * ```java
-         * .page()
+         * .pageNumber()
          * .pageSize()
          * ```
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [RequestListParams]. */
+    /** A builder for [RequestRetrieveStatusHistoryParams]. */
     class Builder internal constructor() {
 
-        private var page: Long? = null
+        private var id: String? = null
+        private var pageNumber: Long? = null
         private var pageSize: Long? = null
-        private var businessName: String? = null
-        private var dateEnd: OffsetDateTime? = null
-        private var dateStart: OffsetDateTime? = null
-        private var phoneNumber: String? = null
-        private var status: TfVerificationStatus? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(requestListParams: RequestListParams) = apply {
-            page = requestListParams.page
-            pageSize = requestListParams.pageSize
-            businessName = requestListParams.businessName
-            dateEnd = requestListParams.dateEnd
-            dateStart = requestListParams.dateStart
-            phoneNumber = requestListParams.phoneNumber
-            status = requestListParams.status
-            additionalHeaders = requestListParams.additionalHeaders.toBuilder()
-            additionalQueryParams = requestListParams.additionalQueryParams.toBuilder()
-        }
+        internal fun from(requestRetrieveStatusHistoryParams: RequestRetrieveStatusHistoryParams) =
+            apply {
+                id = requestRetrieveStatusHistoryParams.id
+                pageNumber = requestRetrieveStatusHistoryParams.pageNumber
+                pageSize = requestRetrieveStatusHistoryParams.pageSize
+                additionalHeaders = requestRetrieveStatusHistoryParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    requestRetrieveStatusHistoryParams.additionalQueryParams.toBuilder()
+            }
 
-        fun page(page: Long) = apply { this.page = page }
+        fun id(id: String?) = apply { this.id = id }
+
+        /** Alias for calling [Builder.id] with `id.orElse(null)`. */
+        fun id(id: Optional<String>) = id(id.getOrNull())
+
+        fun pageNumber(pageNumber: Long) = apply { this.pageNumber = pageNumber }
 
         /**
-         *         Request this many records per page
-         *         This value is automatically clamped if the provided value is too large.
+         * Request this many records per page. This value is automatically clamped if the provided
+         * value is too large.
          */
         fun pageSize(pageSize: Long) = apply { this.pageSize = pageSize }
-
-        /** Filter verification requests by business name */
-        fun businessName(businessName: String?) = apply { this.businessName = businessName }
-
-        /** Alias for calling [Builder.businessName] with `businessName.orElse(null)`. */
-        fun businessName(businessName: Optional<String>) = businessName(businessName.getOrNull())
-
-        fun dateEnd(dateEnd: OffsetDateTime?) = apply { this.dateEnd = dateEnd }
-
-        /** Alias for calling [Builder.dateEnd] with `dateEnd.orElse(null)`. */
-        fun dateEnd(dateEnd: Optional<OffsetDateTime>) = dateEnd(dateEnd.getOrNull())
-
-        fun dateStart(dateStart: OffsetDateTime?) = apply { this.dateStart = dateStart }
-
-        /** Alias for calling [Builder.dateStart] with `dateStart.orElse(null)`. */
-        fun dateStart(dateStart: Optional<OffsetDateTime>) = dateStart(dateStart.getOrNull())
-
-        fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
-
-        /** Alias for calling [Builder.phoneNumber] with `phoneNumber.orElse(null)`. */
-        fun phoneNumber(phoneNumber: Optional<String>) = phoneNumber(phoneNumber.getOrNull())
-
-        /** Tollfree verification status */
-        fun status(status: TfVerificationStatus?) = apply { this.status = status }
-
-        /** Alias for calling [Builder.status] with `status.orElse(null)`. */
-        fun status(status: Optional<TfVerificationStatus>) = status(status.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -228,46 +190,41 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [RequestListParams].
+         * Returns an immutable instance of [RequestRetrieveStatusHistoryParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
          * ```java
-         * .page()
+         * .pageNumber()
          * .pageSize()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): RequestListParams =
-            RequestListParams(
-                checkRequired("page", page),
+        fun build(): RequestRetrieveStatusHistoryParams =
+            RequestRetrieveStatusHistoryParams(
+                id,
+                checkRequired("pageNumber", pageNumber),
                 checkRequired("pageSize", pageSize),
-                businessName,
-                dateEnd,
-                dateStart,
-                phoneNumber,
-                status,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> id ?: ""
+            else -> ""
+        }
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
-                put("page", page.toString())
-                put("page_size", pageSize.toString())
-                businessName?.let { put("business_name", it) }
-                dateEnd?.let { put("date_end", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)) }
-                dateStart?.let {
-                    put("date_start", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
-                }
-                phoneNumber?.let { put("phone_number", it) }
-                status?.let { put("status", it.toString()) }
+                put("page[number]", pageNumber.toString())
+                put("page[size]", pageSize.toString())
                 putAll(additionalQueryParams)
             }
             .build()
@@ -277,31 +234,17 @@ private constructor(
             return true
         }
 
-        return other is RequestListParams &&
-            page == other.page &&
+        return other is RequestRetrieveStatusHistoryParams &&
+            id == other.id &&
+            pageNumber == other.pageNumber &&
             pageSize == other.pageSize &&
-            businessName == other.businessName &&
-            dateEnd == other.dateEnd &&
-            dateStart == other.dateStart &&
-            phoneNumber == other.phoneNumber &&
-            status == other.status &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(
-            page,
-            pageSize,
-            businessName,
-            dateEnd,
-            dateStart,
-            phoneNumber,
-            status,
-            additionalHeaders,
-            additionalQueryParams,
-        )
+        Objects.hash(id, pageNumber, pageSize, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "RequestListParams{page=$page, pageSize=$pageSize, businessName=$businessName, dateEnd=$dateEnd, dateStart=$dateStart, phoneNumber=$phoneNumber, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "RequestRetrieveStatusHistoryParams{id=$id, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

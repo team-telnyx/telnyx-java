@@ -23,6 +23,8 @@ import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestList
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListPageResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveParams
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveStatusHistoryParams
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveStatusHistoryResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestUpdateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.VerificationRequestEgress
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.VerificationRequestStatus
@@ -76,6 +78,13 @@ class RequestServiceAsyncImpl internal constructor(private val clientOptions: Cl
     ): CompletableFuture<Void?> =
         // delete /messaging_tollfree/verification/requests/{id}
         withRawResponse().delete(params, requestOptions).thenAccept {}
+
+    override fun retrieveStatusHistory(
+        params: RequestRetrieveStatusHistoryParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<RequestRetrieveStatusHistoryResponse> =
+        // get /messaging_tollfree/verification/requests/{id}/status_history
+        withRawResponse().retrieveStatusHistory(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         RequestServiceAsync.WithRawResponse {
@@ -264,6 +273,45 @@ class RequestServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val retrieveStatusHistoryHandler: Handler<RequestRetrieveStatusHistoryResponse> =
+            jsonHandler<RequestRetrieveStatusHistoryResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveStatusHistory(
+            params: RequestRetrieveStatusHistoryParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<RequestRetrieveStatusHistoryResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "messaging_tollfree",
+                        "verification",
+                        "requests",
+                        params._pathParam(0),
+                        "status_history",
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { retrieveStatusHistoryHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
                 }
         }
