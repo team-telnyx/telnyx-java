@@ -496,6 +496,7 @@ class PortingOrderServiceImpl internal constructor(private val clientOptions: Cl
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("porting_orders", params._pathParam(0), "loa_template")
+                    .putHeader("Accept", "application/pdf")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

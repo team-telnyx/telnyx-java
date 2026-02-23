@@ -269,6 +269,7 @@ internal constructor(private val clientOptions: ClientOptions) : TelephonyCreden
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("telephony_credentials", params._pathParam(0), "token")
+                    .putHeader("Accept", "text/plain")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)

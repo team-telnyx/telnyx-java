@@ -68,6 +68,7 @@ class TextToSpeechServiceImpl internal constructor(private val clientOptions: Cl
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("text-to-speech", "speech")
+                    .putHeader("Accept", "audio/mpeg")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)

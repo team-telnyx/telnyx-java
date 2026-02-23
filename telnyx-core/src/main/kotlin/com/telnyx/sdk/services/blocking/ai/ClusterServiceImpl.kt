@@ -212,6 +212,7 @@ class ClusterServiceImpl internal constructor(private val clientOptions: ClientO
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ai", "clusters", params._pathParam(0), "graph")
+                    .putHeader("Accept", "image/png")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
