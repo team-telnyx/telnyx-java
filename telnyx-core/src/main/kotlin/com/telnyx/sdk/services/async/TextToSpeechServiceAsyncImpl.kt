@@ -69,6 +69,7 @@ class TextToSpeechServiceAsyncImpl internal constructor(private val clientOption
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("text-to-speech", "speech")
+                    .putHeader("Accept", "audio/mpeg")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)

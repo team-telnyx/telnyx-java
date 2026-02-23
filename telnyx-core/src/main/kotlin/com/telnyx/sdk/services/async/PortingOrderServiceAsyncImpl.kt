@@ -524,6 +524,7 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("porting_orders", params._pathParam(0), "loa_template")
+                    .putHeader("Accept", "application/pdf")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

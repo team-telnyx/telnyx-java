@@ -281,6 +281,7 @@ internal constructor(private val clientOptions: ClientOptions) : LoaConfiguratio
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("porting", "loa_configuration", "preview")
+                    .putHeader("Accept", "application/pdf")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -307,6 +308,7 @@ internal constructor(private val clientOptions: ClientOptions) : LoaConfiguratio
                         params._pathParam(0),
                         "preview",
                     )
+                    .putHeader("Accept", "application/pdf")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

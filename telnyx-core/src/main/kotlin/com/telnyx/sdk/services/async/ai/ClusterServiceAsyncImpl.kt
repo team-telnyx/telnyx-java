@@ -231,6 +231,7 @@ class ClusterServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ai", "clusters", params._pathParam(0), "graph")
+                    .putHeader("Accept", "image/png")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
