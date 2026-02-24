@@ -1,5 +1,75 @@
 # Changelog
 
+## 6.22.0 (2026-02-24)
+
+Full Changelog: [v6.21.0...v6.22.0](https://github.com/team-telnyx/telnyx-java/compare/v6.21.0...v6.22.0)
+
+### Features
+
+* Add Minimax and Resemble voice providers for speak commands ([aaaf7f2](https://github.com/team-telnyx/telnyx-java/commit/aaaf7f244e9f308d35c6853fc238474f86fa5f99))
+* Add smart encoding fields to messaging API spec ([2ed2386](https://github.com/team-telnyx/telnyx-java/commit/2ed23868a05dd22cec73508ca96ca4e7c30035a8))
+* AI-2093: Add language_boost to MiniMax voice settings ([1757c12](https://github.com/team-telnyx/telnyx-java/commit/1757c12749b85e549247a412a8a71e01cc049e6c))
+* Align transfer tool AMD spec with portal: premium mode, drop continue actions ([d0f2a81](https://github.com/team-telnyx/telnyx-java/commit/d0f2a812a2a9f1c44d9193a5ea890fc5da3f4e06))
+* **api:** manual updates ([f22ecf4](https://github.com/team-telnyx/telnyx-java/commit/f22ecf4dc1c27fb2bb1fa37dd527b430ea2efd99))
+* **api:** manual updates ([6820a26](https://github.com/team-telnyx/telnyx-java/commit/6820a262761621f1d9cfa9a7348438944b14fc34))
+* **api:** manual updates ([3c7b4e0](https://github.com/team-telnyx/telnyx-java/commit/3c7b4e002ac2b85338ec3a17fd8727854d74b4a5))
+* **api:** manual updates ([7e6be2e](https://github.com/team-telnyx/telnyx-java/commit/7e6be2e614b0c172be526ef1bf8c7b43d6263e0c))
+* **api:** manual updates ([af0be34](https://github.com/team-telnyx/telnyx-java/commit/af0be3477fceeb4b9d43bab98a5e650b3c72ea6e))
+* **api:** manual updates ([110cb01](https://github.com/team-telnyx/telnyx-java/commit/110cb01ad4ae0102212da32aaa8b5375793e3997))
+* **api:** manual updates ([7aef9c2](https://github.com/team-telnyx/telnyx-java/commit/7aef9c2e7adf46ae605e8ff1d99a5a66c4259e81))
+* **api:** manual updates ([8f324e0](https://github.com/team-telnyx/telnyx-java/commit/8f324e0749241cb0aab91a199e7a6ce71358551d))
+* **api:** manual updates ([adb91c4](https://github.com/team-telnyx/telnyx-java/commit/adb91c453e8fa9348d57954395d813fa448037af))
+* **api:** manual updates ([e760524](https://github.com/team-telnyx/telnyx-java/commit/e760524e961f5f225806d9bbf2efb9840c72abcd))
+* **api:** manual updates ([0144135](https://github.com/team-telnyx/telnyx-java/commit/014413555d30b2ff99d25018874fa079873d5462))
+* **api:** manual updates ([1a522b4](https://github.com/team-telnyx/telnyx-java/commit/1a522b4be938659169fd94643a8449fad3203cd3))
+* **api:** manual updates ([836854e](https://github.com/team-telnyx/telnyx-java/commit/836854ecb0088337a7bf4a7105b46d76f60526b7))
+* **api:** manual updates ([c9b4ab5](https://github.com/team-telnyx/telnyx-java/commit/c9b4ab5d4ea9ad3371fc3e28262edefb09a719e4))
+* **api:** manual updates ([50bfca1](https://github.com/team-telnyx/telnyx-java/commit/50bfca1b8850cb52c51a1b2325fc2722d93c9cbc))
+* **api:** manual updates ([9f14c40](https://github.com/team-telnyx/telnyx-java/commit/9f14c40ea7375f328ea7a7d6671c5b3422007a7c))
+* **api:** manual updates ([43d97cf](https://github.com/team-telnyx/telnyx-java/commit/43d97cfa23021e2a8ab9b0b626cc1dd9f08b6ba6))
+* **api:** manual updates ([ebaefb9](https://github.com/team-telnyx/telnyx-java/commit/ebaefb9143f83ce53210f6af967d45171867357c))
+* **api:** manual updates ([adf923a](https://github.com/team-telnyx/telnyx-java/commit/adf923a408756bc0018296a19b79f02638ae66dc))
+* **api:** manual updates ([84c50d5](https://github.com/team-telnyx/telnyx-java/commit/84c50d5682f46191cb7aa71b0167c0bc9e7ed39b))
+* **api:** manual updates ([130dbde](https://github.com/team-telnyx/telnyx-java/commit/130dbde8a8e98bc5bdecba4dac57873d127123d7))
+* **client:** add connection pooling option ([2611f24](https://github.com/team-telnyx/telnyx-java/commit/2611f248d0aa82234773f9dd4c5ad31d73505af9))
+* **client:** add more convenience service method overloads ([cf2c238](https://github.com/team-telnyx/telnyx-java/commit/cf2c238eee0e03cf0384a4d5f7f515770bcabb25))
+* TELAPPS Add ApplicationSid param ([27967d0](https://github.com/team-telnyx/telnyx-java/commit/27967d024fca090c4a32a21516c06f3f86a15622))
+* TELAPPS Add interim_results to deepgram config ([a9a0300](https://github.com/team-telnyx/telnyx-java/commit/a9a0300e32b0b4be0c6257214ba71bc08b013a2b))
+
+
+### Bug Fixes
+
+* linting ([ff6a0f5](https://github.com/team-telnyx/telnyx-java/commit/ff6a0f54e174526ea19b9bfea260868404baa529))
+* move unsupported string formats to x-format ([38ea131](https://github.com/team-telnyx/telnyx-java/commit/38ea1315edcac8b24775a544c486d60245d79dda))
+* OAS drift — 10dlc.json (messaging-campaign-registry) ([71ece5b](https://github.com/team-telnyx/telnyx-java/commit/71ece5b26cd22acd9413027ae9ed4b1905f31011))
+* OAS drift — messaging.json (messaging-settings + messaging-outbound) ([21a449d](https://github.com/team-telnyx/telnyx-java/commit/21a449dea334d0de8fdbd59a525d0156d6c055d1))
+* OAS drift — toll-free-verification.json (messaging-tf-verify) ([faf4db3](https://github.com/team-telnyx/telnyx-java/commit/faf4db3e2ec9b597daa1f4562fbb58296e96c577))
+* OAS drift — verify.json (messaging-2fa) ([11e52f3](https://github.com/team-telnyx/telnyx-java/commit/11e52f3a86c3cc1187b692fc7539c1bce8721a5b))
+* set Accept header in more places ([cdcb1c5](https://github.com/team-telnyx/telnyx-java/commit/cdcb1c5fe1fc02b67b00dc887f5c614b5242c87d))
+* StringFormatNotSupported ([0f0b4cf](https://github.com/team-telnyx/telnyx-java/commit/0f0b4cf070d2786fe90abc0fb9e84cf55cdaf794))
+* **test:** fix failing webhook tests ([ec26cb9](https://github.com/team-telnyx/telnyx-java/commit/ec26cb907836b3749ded8c4cb0d59a44de3c1343))
+
+
+### Chores
+
+* clean up TestServerExtension ([2d3978f](https://github.com/team-telnyx/telnyx-java/commit/2d3978f0df32d5a86e3a3f83d36ade4d3153735a))
+* drop apache dependency ([df7f6a4](https://github.com/team-telnyx/telnyx-java/commit/df7f6a4aa2c96da1328e1a6cc559c3e5941d2a95))
+* **internal:** expand imports ([35e4fde](https://github.com/team-telnyx/telnyx-java/commit/35e4fded597c559cee1adb1fd10397bb015118bd))
+* **internal:** make `OkHttp` constructor internal ([2ede468](https://github.com/team-telnyx/telnyx-java/commit/2ede468f4b9dd8dde1222515f49a577ad6fed4fb))
+* **internal:** remove mock server code ([572db78](https://github.com/team-telnyx/telnyx-java/commit/572db7851eefb0c988fefaf67bba0fd51249cd25))
+* **internal:** remove unnecessary base URL ([95d382a](https://github.com/team-telnyx/telnyx-java/commit/95d382addd498bdb9435945d6f5ff303943f239d))
+* **internal:** update `TestServerExtension` comment ([58b719e](https://github.com/team-telnyx/telnyx-java/commit/58b719e99b57b93a519fd6dec871903c1b750c22))
+* make `Properties` more resilient to `null` ([2994c5c](https://github.com/team-telnyx/telnyx-java/commit/2994c5c802b3aa1c1a604c7640d0aabcb150a1a4))
+* update mock server docs ([a54c7f2](https://github.com/team-telnyx/telnyx-java/commit/a54c7f2a724c0ec62ed07783024ec4591f24e64b))
+
+
+### Documentation
+
+* add service_provider_login_url to authentication provider settings ([9dafcdd](https://github.com/team-telnyx/telnyx-java/commit/9dafcdd2d55bd380c31aebfd5032d1c50ebd7f68))
+* **call-control:** Add missing conference endpoints ([60a7aa3](https://github.com/team-telnyx/telnyx-java/commit/60a7aa389f0d7aaa5d6dd63c2449623fc88a393f))
+* **call-control:** Add missing parameters to call control endpoints ([5bfa595](https://github.com/team-telnyx/telnyx-java/commit/5bfa59526548ffeeeb3e814ae30a1df98134954c))
+* **call-scripting:** add Timeout and TimeLimit to InitiateTexmlCall ([c911036](https://github.com/team-telnyx/telnyx-java/commit/c9110364b12895c25e4ddf5c77048228d8b9d2c7))
+
 ## 6.21.0 (2026-02-13)
 
 Full Changelog: [v6.20.0...v6.21.0](https://github.com/team-telnyx/telnyx-java/compare/v6.20.0...v6.21.0)
