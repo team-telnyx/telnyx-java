@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless.
 
 package com.telnyx.sdk.services.async
+import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.UnwrapWebhookParams
 import com.telnyx.sdk.core.http.Headers
