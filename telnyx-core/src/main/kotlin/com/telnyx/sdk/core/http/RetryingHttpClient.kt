@@ -1,3 +1,5 @@
+// File generated from our OpenAPI spec by Stainless.
+
 package com.telnyx.sdk.core.http
 
 import com.telnyx.sdk.core.DefaultSleeper
