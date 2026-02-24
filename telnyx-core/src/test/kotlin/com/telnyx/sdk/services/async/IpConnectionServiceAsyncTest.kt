@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.ConnectionJitterBuffer
 import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
@@ -16,19 +15,13 @@ import com.telnyx.sdk.models.ipconnections.IpConnectionUpdateParams
 import com.telnyx.sdk.models.ipconnections.OutboundIp
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class IpConnectionServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val ipConnectionServiceAsync = client.ipConnections()
 
         val ipConnectionFuture =
@@ -98,7 +91,7 @@ internal class IpConnectionServiceAsyncTest {
                             .ipAuthenticationMethod(OutboundIp.IpAuthenticationMethod.TOKEN)
                             .ipAuthenticationToken("string")
                             .localization("string")
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .t38ReinviteSource(OutboundIp.T38ReinviteSource.CUSTOMER)
                             .techPrefix("string")
                             .build()
@@ -124,14 +117,10 @@ internal class IpConnectionServiceAsyncTest {
         ipConnection.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val ipConnectionServiceAsync = client.ipConnections()
 
         val ipConnectionFuture = ipConnectionServiceAsync.retrieve("id")
@@ -140,14 +129,10 @@ internal class IpConnectionServiceAsyncTest {
         ipConnection.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val ipConnectionServiceAsync = client.ipConnections()
 
         val ipConnectionFuture =
@@ -214,7 +199,7 @@ internal class IpConnectionServiceAsyncTest {
                             .ipAuthenticationMethod(OutboundIp.IpAuthenticationMethod.TOKEN)
                             .ipAuthenticationToken("string")
                             .localization("string")
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .t38ReinviteSource(OutboundIp.T38ReinviteSource.CUSTOMER)
                             .techPrefix("string")
                             .build()
@@ -240,14 +225,10 @@ internal class IpConnectionServiceAsyncTest {
         ipConnection.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val ipConnectionServiceAsync = client.ipConnections()
 
         val pageFuture = ipConnectionServiceAsync.list()
@@ -256,14 +237,10 @@ internal class IpConnectionServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val ipConnectionServiceAsync = client.ipConnections()
 
         val ipConnectionFuture = ipConnectionServiceAsync.delete("id")

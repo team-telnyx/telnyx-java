@@ -34,6 +34,7 @@ internal class AvailablePhoneNumberBlockListResponseTest {
                                 .name("voice")
                                 .build()
                         )
+                        .phoneNumber("+19705555000")
                         .range(10L)
                         .recordType(
                             AvailablePhoneNumberBlockListResponse.Data.RecordType
@@ -49,7 +50,6 @@ internal class AvailablePhoneNumberBlockListResponseTest {
                                 )
                                 .build()
                         )
-                        .startingNumber("+19705555000")
                         .build()
                 )
                 .meta(
@@ -80,6 +80,7 @@ internal class AvailablePhoneNumberBlockListResponseTest {
                             .name("voice")
                             .build()
                     )
+                    .phoneNumber("+19705555000")
                     .range(10L)
                     .recordType(
                         AvailablePhoneNumberBlockListResponse.Data.RecordType
@@ -95,7 +96,6 @@ internal class AvailablePhoneNumberBlockListResponseTest {
                             )
                             .build()
                     )
-                    .startingNumber("+19705555000")
                     .build()
             )
         assertThat(availablePhoneNumberBlockListResponse.meta())
@@ -131,6 +131,7 @@ internal class AvailablePhoneNumberBlockListResponseTest {
                                 .name("voice")
                                 .build()
                         )
+                        .phoneNumber("+19705555000")
                         .range(10L)
                         .recordType(
                             AvailablePhoneNumberBlockListResponse.Data.RecordType
@@ -146,7 +147,6 @@ internal class AvailablePhoneNumberBlockListResponseTest {
                                 )
                                 .build()
                         )
-                        .startingNumber("+19705555000")
                         .build()
                 )
                 .meta(

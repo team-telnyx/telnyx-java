@@ -9,7 +9,6 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationCreateParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview0Params
@@ -17,22 +16,16 @@ import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationUpdatePar
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.parallel.ResourceLock
 
-@ExtendWith(TestServerExtension::class)
 @WireMockTest
 @ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class LoaConfigurationServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val loaConfigurationServiceAsync = client.porting().loaConfigurations()
 
         val loaConfigurationFuture =
@@ -68,14 +61,10 @@ internal class LoaConfigurationServiceAsyncTest {
         loaConfiguration.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val loaConfigurationServiceAsync = client.porting().loaConfigurations()
 
         val loaConfigurationFuture =
@@ -85,14 +74,10 @@ internal class LoaConfigurationServiceAsyncTest {
         loaConfiguration.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val loaConfigurationServiceAsync = client.porting().loaConfigurations()
 
         val loaConfigurationFuture =
@@ -129,14 +114,10 @@ internal class LoaConfigurationServiceAsyncTest {
         loaConfiguration.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val loaConfigurationServiceAsync = client.porting().loaConfigurations()
 
         val pageFuture = loaConfigurationServiceAsync.list()
@@ -145,14 +126,10 @@ internal class LoaConfigurationServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val loaConfigurationServiceAsync = client.porting().loaConfigurations()
 
         val future = loaConfigurationServiceAsync.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking.ai
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.conversations.ConversationAddMessageParams
@@ -12,19 +11,13 @@ import com.telnyx.sdk.models.ai.conversations.ConversationUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ConversationServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val conversationService = client.ai().conversations()
 
         val conversation =
@@ -42,14 +35,10 @@ internal class ConversationServiceTest {
         conversation.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val conversationService = client.ai().conversations()
 
         val conversation = conversationService.retrieve("conversation_id")
@@ -57,14 +46,10 @@ internal class ConversationServiceTest {
         conversation.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val conversationService = client.ai().conversations()
 
         val conversation =
@@ -82,14 +67,10 @@ internal class ConversationServiceTest {
         conversation.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val conversationService = client.ai().conversations()
 
         val conversations =
@@ -113,27 +94,19 @@ internal class ConversationServiceTest {
         conversations.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val conversationService = client.ai().conversations()
 
         conversationService.delete("conversation_id")
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun addMessage() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val conversationService = client.ai().conversations()
 
         conversationService.addMessage(
@@ -159,14 +132,10 @@ internal class ConversationServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveConversationsInsights() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val conversationService = client.ai().conversations()
 
         val response = conversationService.retrieveConversationsInsights("conversation_id")

@@ -26,6 +26,7 @@ private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val customerReference: JsonField<String>,
+    private val errors: JsonField<String>,
     private val phoneNumbers: JsonField<List<ReservedPhoneNumber>>,
     private val recordType: JsonField<String>,
     private val status: JsonField<Status>,
@@ -42,6 +43,7 @@ private constructor(
         @JsonProperty("customer_reference")
         @ExcludeMissing
         customerReference: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("errors") @ExcludeMissing errors: JsonField<String> = JsonMissing.of(),
         @JsonProperty("phone_numbers")
         @ExcludeMissing
         phoneNumbers: JsonField<List<ReservedPhoneNumber>> = JsonMissing.of(),
@@ -56,6 +58,7 @@ private constructor(
         id,
         createdAt,
         customerReference,
+        errors,
         phoneNumbers,
         recordType,
         status,
@@ -84,6 +87,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun customerReference(): Optional<String> = customerReference.getOptional("customer_reference")
+
+    /**
+     * Errors the reservation could happen upon
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun errors(): Optional<String> = errors.getOptional("errors")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -141,6 +152,13 @@ private constructor(
     fun _customerReference(): JsonField<String> = customerReference
 
     /**
+     * Returns the raw JSON value of [errors].
+     *
+     * Unlike [errors], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("errors") @ExcludeMissing fun _errors(): JsonField<String> = errors
+
+    /**
      * Returns the raw JSON value of [phoneNumbers].
      *
      * Unlike [phoneNumbers], this method doesn't throw if the JSON field has an unexpected type.
@@ -196,6 +214,7 @@ private constructor(
         private var id: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var customerReference: JsonField<String> = JsonMissing.of()
+        private var errors: JsonField<String> = JsonMissing.of()
         private var phoneNumbers: JsonField<MutableList<ReservedPhoneNumber>>? = null
         private var recordType: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -207,6 +226,7 @@ private constructor(
             id = numberReservation.id
             createdAt = numberReservation.createdAt
             customerReference = numberReservation.customerReference
+            errors = numberReservation.errors
             phoneNumbers = numberReservation.phoneNumbers.map { it.toMutableList() }
             recordType = numberReservation.recordType
             status = numberReservation.status
@@ -250,6 +270,17 @@ private constructor(
         fun customerReference(customerReference: JsonField<String>) = apply {
             this.customerReference = customerReference
         }
+
+        /** Errors the reservation could happen upon */
+        fun errors(errors: String) = errors(JsonField.of(errors))
+
+        /**
+         * Sets [Builder.errors] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.errors] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun errors(errors: JsonField<String>) = apply { this.errors = errors }
 
         fun phoneNumbers(phoneNumbers: List<ReservedPhoneNumber>) =
             phoneNumbers(JsonField.of(phoneNumbers))
@@ -340,6 +371,7 @@ private constructor(
                 id,
                 createdAt,
                 customerReference,
+                errors,
                 (phoneNumbers ?: JsonMissing.of()).map { it.toImmutable() },
                 recordType,
                 status,
@@ -358,6 +390,7 @@ private constructor(
         id()
         createdAt()
         customerReference()
+        errors()
         phoneNumbers().ifPresent { it.forEach { it.validate() } }
         recordType()
         status().ifPresent { it.validate() }
@@ -383,6 +416,7 @@ private constructor(
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (customerReference.asKnown().isPresent) 1 else 0) +
+            (if (errors.asKnown().isPresent) 1 else 0) +
             (phoneNumbers.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (recordType.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
@@ -529,6 +563,7 @@ private constructor(
             id == other.id &&
             createdAt == other.createdAt &&
             customerReference == other.customerReference &&
+            errors == other.errors &&
             phoneNumbers == other.phoneNumbers &&
             recordType == other.recordType &&
             status == other.status &&
@@ -541,6 +576,7 @@ private constructor(
             id,
             createdAt,
             customerReference,
+            errors,
             phoneNumbers,
             recordType,
             status,
@@ -552,5 +588,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "NumberReservation{id=$id, createdAt=$createdAt, customerReference=$customerReference, phoneNumbers=$phoneNumbers, recordType=$recordType, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "NumberReservation{id=$id, createdAt=$createdAt, customerReference=$customerReference, errors=$errors, phoneNumbers=$phoneNumbers, recordType=$recordType, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

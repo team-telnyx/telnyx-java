@@ -2,24 +2,17 @@
 
 package com.telnyx.sdk.services.async.bundlepricing
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.bundlepricing.billingbundles.BillingBundleRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class BillingBundleServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val billingBundleServiceAsync = client.bundlePricing().billingBundles()
 
         val billingBundleFuture =
@@ -34,14 +27,10 @@ internal class BillingBundleServiceAsyncTest {
         billingBundle.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val billingBundleServiceAsync = client.bundlePricing().billingBundles()
 
         val pageFuture = billingBundleServiceAsync.list()

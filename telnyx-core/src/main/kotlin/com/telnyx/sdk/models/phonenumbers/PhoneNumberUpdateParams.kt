@@ -41,6 +41,14 @@ private constructor(
     fun id(): Optional<String> = body.id()
 
     /**
+     * Identifies the address associated with the phone number.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun addressId(): Optional<String> = body.addressId()
+
+    /**
      * Identifies the billing group associated with the phone number.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -96,6 +104,13 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _id(): JsonField<String> = body._id()
+
+    /**
+     * Returns the raw JSON value of [addressId].
+     *
+     * Unlike [addressId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _addressId(): JsonField<String> = body._addressId()
 
     /**
      * Returns the raw JSON value of [billingGroupId].
@@ -186,10 +201,10 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [id]
+         * - [addressId]
          * - [billingGroupId]
          * - [connectionId]
          * - [customerReference]
-         * - [externalPin]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -204,6 +219,18 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { body.id(id) }
+
+        /** Identifies the address associated with the phone number. */
+        fun addressId(addressId: String) = apply { body.addressId(addressId) }
+
+        /**
+         * Sets [Builder.addressId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.addressId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun addressId(addressId: JsonField<String>) = apply { body.addressId(addressId) }
 
         /** Identifies the billing group associated with the phone number. */
         fun billingGroupId(billingGroupId: String) = apply { body.billingGroupId(billingGroupId) }
@@ -446,6 +473,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
+        private val addressId: JsonField<String>,
         private val billingGroupId: JsonField<String>,
         private val connectionId: JsonField<String>,
         private val customerReference: JsonField<String>,
@@ -458,6 +486,9 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("address_id")
+            @ExcludeMissing
+            addressId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("billing_group_id")
             @ExcludeMissing
             billingGroupId: JsonField<String> = JsonMissing.of(),
@@ -476,6 +507,7 @@ private constructor(
             @JsonProperty("tags") @ExcludeMissing tags: JsonField<List<String>> = JsonMissing.of(),
         ) : this(
             id,
+            addressId,
             billingGroupId,
             connectionId,
             customerReference,
@@ -492,6 +524,14 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun id(): Optional<String> = id.getOptional("id")
+
+        /**
+         * Identifies the address associated with the phone number.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun addressId(): Optional<String> = addressId.getOptional("address_id")
 
         /**
          * Identifies the billing group associated with the phone number.
@@ -551,6 +591,13 @@ private constructor(
          * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+        /**
+         * Returns the raw JSON value of [addressId].
+         *
+         * Unlike [addressId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("address_id") @ExcludeMissing fun _addressId(): JsonField<String> = addressId
 
         /**
          * Returns the raw JSON value of [billingGroupId].
@@ -630,6 +677,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var id: JsonField<String> = JsonMissing.of()
+            private var addressId: JsonField<String> = JsonMissing.of()
             private var billingGroupId: JsonField<String> = JsonMissing.of()
             private var connectionId: JsonField<String> = JsonMissing.of()
             private var customerReference: JsonField<String> = JsonMissing.of()
@@ -641,6 +689,7 @@ private constructor(
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 id = body.id
+                addressId = body.addressId
                 billingGroupId = body.billingGroupId
                 connectionId = body.connectionId
                 customerReference = body.customerReference
@@ -661,6 +710,18 @@ private constructor(
              * value.
              */
             fun id(id: JsonField<String>) = apply { this.id = id }
+
+            /** Identifies the address associated with the phone number. */
+            fun addressId(addressId: String) = addressId(JsonField.of(addressId))
+
+            /**
+             * Sets [Builder.addressId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.addressId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun addressId(addressId: JsonField<String>) = apply { this.addressId = addressId }
 
             /** Identifies the billing group associated with the phone number. */
             fun billingGroupId(billingGroupId: String) =
@@ -791,6 +852,7 @@ private constructor(
             fun build(): Body =
                 Body(
                     id,
+                    addressId,
                     billingGroupId,
                     connectionId,
                     customerReference,
@@ -809,6 +871,7 @@ private constructor(
             }
 
             id()
+            addressId()
             billingGroupId()
             connectionId()
             customerReference()
@@ -835,6 +898,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (id.asKnown().isPresent) 1 else 0) +
+                (if (addressId.asKnown().isPresent) 1 else 0) +
                 (if (billingGroupId.asKnown().isPresent) 1 else 0) +
                 (if (connectionId.asKnown().isPresent) 1 else 0) +
                 (if (customerReference.asKnown().isPresent) 1 else 0) +
@@ -849,6 +913,7 @@ private constructor(
 
             return other is Body &&
                 id == other.id &&
+                addressId == other.addressId &&
                 billingGroupId == other.billingGroupId &&
                 connectionId == other.connectionId &&
                 customerReference == other.customerReference &&
@@ -861,6 +926,7 @@ private constructor(
         private val hashCode: Int by lazy {
             Objects.hash(
                 id,
+                addressId,
                 billingGroupId,
                 connectionId,
                 customerReference,
@@ -874,7 +940,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{id=$id, billingGroupId=$billingGroupId, connectionId=$connectionId, customerReference=$customerReference, externalPin=$externalPin, hdVoiceEnabled=$hdVoiceEnabled, tags=$tags, additionalProperties=$additionalProperties}"
+            "Body{id=$id, addressId=$addressId, billingGroupId=$billingGroupId, connectionId=$connectionId, customerReference=$customerReference, externalPin=$externalPin, hdVoiceEnabled=$hdVoiceEnabled, tags=$tags, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

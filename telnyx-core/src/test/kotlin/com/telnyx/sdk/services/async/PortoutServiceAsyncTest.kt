@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.async
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.portouts.PortoutListRejectionCodesParams
 import com.telnyx.sdk.models.portouts.PortoutUpdateStatusParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class PortoutServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val portoutServiceAsync = client.portouts()
 
         val portoutFuture = portoutServiceAsync.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -29,14 +22,10 @@ internal class PortoutServiceAsyncTest {
         portout.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val portoutServiceAsync = client.portouts()
 
         val pageFuture = portoutServiceAsync.list()
@@ -45,14 +34,10 @@ internal class PortoutServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listRejectionCodes() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val portoutServiceAsync = client.portouts()
 
         val responseFuture =
@@ -67,14 +52,10 @@ internal class PortoutServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun updateStatus() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val portoutServiceAsync = client.portouts()
 
         val responseFuture =

@@ -25,7 +25,11 @@ import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPageAsync
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsPageResponse
 import com.telnyx.sdk.models.conferences.ConferenceListParticipantsParams
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParams
+import com.telnyx.sdk.models.conferences.ConferenceRetrieveParticipantParams
+import com.telnyx.sdk.models.conferences.ConferenceRetrieveParticipantResponse
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveResponse
+import com.telnyx.sdk.models.conferences.ConferenceUpdateParticipantParams
+import com.telnyx.sdk.models.conferences.ConferenceUpdateParticipantResponse
 import com.telnyx.sdk.services.async.conferences.ActionServiceAsync
 import com.telnyx.sdk.services.async.conferences.ActionServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -75,6 +79,20 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
     ): CompletableFuture<ConferenceListParticipantsPageAsync> =
         // get /conferences/{conference_id}/participants
         withRawResponse().listParticipants(params, requestOptions).thenApply { it.parse() }
+
+    override fun retrieveParticipant(
+        params: ConferenceRetrieveParticipantParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ConferenceRetrieveParticipantResponse> =
+        // get /conferences/{id}/participants/{participant_id}
+        withRawResponse().retrieveParticipant(params, requestOptions).thenApply { it.parse() }
+
+    override fun updateParticipant(
+        params: ConferenceUpdateParticipantParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ConferenceUpdateParticipantResponse> =
+        // patch /conferences/{id}/participants/{participant_id}
+        withRawResponse().updateParticipant(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ConferenceServiceAsync.WithRawResponse {
@@ -233,6 +251,83 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
                                     .params(params)
                                     .response(it)
                                     .build()
+                            }
+                    }
+                }
+        }
+
+        private val retrieveParticipantHandler: Handler<ConferenceRetrieveParticipantResponse> =
+            jsonHandler<ConferenceRetrieveParticipantResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveParticipant(
+            params: ConferenceRetrieveParticipantParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ConferenceRetrieveParticipantResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("participantId", params.participantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "conferences",
+                        params._pathParam(0),
+                        "participants",
+                        params._pathParam(1),
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { retrieveParticipantHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val updateParticipantHandler: Handler<ConferenceUpdateParticipantResponse> =
+            jsonHandler<ConferenceUpdateParticipantResponse>(clientOptions.jsonMapper)
+
+        override fun updateParticipant(
+            params: ConferenceUpdateParticipantParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ConferenceUpdateParticipantResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("participantId", params.participantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "conferences",
+                        params._pathParam(0),
+                        "participants",
+                        params._pathParam(1),
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { updateParticipantHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
                             }
                     }
                 }

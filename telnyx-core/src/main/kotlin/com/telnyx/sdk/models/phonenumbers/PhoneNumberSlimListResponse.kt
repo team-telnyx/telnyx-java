@@ -34,6 +34,7 @@ private constructor(
     private val emergencyEnabled: JsonField<Boolean>,
     private val emergencyStatus: JsonField<EmergencyStatus>,
     private val externalPin: JsonField<String>,
+    private val hdVoiceEnabled: JsonField<Boolean>,
     private val inboundCallScreening: JsonField<InboundCallScreening>,
     private val phoneNumber: JsonField<String>,
     private val phoneNumberType: JsonField<PhoneNumberType>,
@@ -41,6 +42,7 @@ private constructor(
     private val recordType: JsonField<String>,
     private val status: JsonField<Status>,
     private val t38FaxGatewayEnabled: JsonField<Boolean>,
+    private val updatedAt: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -84,6 +86,9 @@ private constructor(
         @JsonProperty("external_pin")
         @ExcludeMissing
         externalPin: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("hd_voice_enabled")
+        @ExcludeMissing
+        hdVoiceEnabled: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("inbound_call_screening")
         @ExcludeMissing
         inboundCallScreening: JsonField<InboundCallScreening> = JsonMissing.of(),
@@ -103,6 +108,7 @@ private constructor(
         @JsonProperty("t38_fax_gateway_enabled")
         @ExcludeMissing
         t38FaxGatewayEnabled: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
         billingGroupId,
@@ -118,6 +124,7 @@ private constructor(
         emergencyEnabled,
         emergencyStatus,
         externalPin,
+        hdVoiceEnabled,
         inboundCallScreening,
         phoneNumber,
         phoneNumberType,
@@ -125,6 +132,7 @@ private constructor(
         recordType,
         status,
         t38FaxGatewayEnabled,
+        updatedAt,
         mutableMapOf(),
     )
 
@@ -253,6 +261,14 @@ private constructor(
     fun externalPin(): Optional<String> = externalPin.getOptional("external_pin")
 
     /**
+     * Indicates whether HD voice is enabled for this number.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun hdVoiceEnabled(): Optional<Boolean> = hdVoiceEnabled.getOptional("hd_voice_enabled")
+
+    /**
      * The inbound_call_screening setting is a phone number configuration option variable that
      * allows users to configure their settings to block or flag fraudulent calls. It can be set to
      * disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost
@@ -315,6 +331,14 @@ private constructor(
      */
     fun t38FaxGatewayEnabled(): Optional<Boolean> =
         t38FaxGatewayEnabled.getOptional("t38_fax_gateway_enabled")
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun updatedAt(): Optional<String> = updatedAt.getOptional("updated_at")
 
     /**
      * Returns the raw JSON value of [id].
@@ -447,6 +471,15 @@ private constructor(
     fun _externalPin(): JsonField<String> = externalPin
 
     /**
+     * Returns the raw JSON value of [hdVoiceEnabled].
+     *
+     * Unlike [hdVoiceEnabled], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("hd_voice_enabled")
+    @ExcludeMissing
+    fun _hdVoiceEnabled(): JsonField<Boolean> = hdVoiceEnabled
+
+    /**
      * Returns the raw JSON value of [inboundCallScreening].
      *
      * Unlike [inboundCallScreening], this method doesn't throw if the JSON field has an unexpected
@@ -507,6 +540,13 @@ private constructor(
     @ExcludeMissing
     fun _t38FaxGatewayEnabled(): JsonField<Boolean> = t38FaxGatewayEnabled
 
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt(): JsonField<String> = updatedAt
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -544,6 +584,7 @@ private constructor(
         private var emergencyEnabled: JsonField<Boolean> = JsonMissing.of()
         private var emergencyStatus: JsonField<EmergencyStatus> = JsonMissing.of()
         private var externalPin: JsonField<String> = JsonMissing.of()
+        private var hdVoiceEnabled: JsonField<Boolean> = JsonMissing.of()
         private var inboundCallScreening: JsonField<InboundCallScreening> = JsonMissing.of()
         private var phoneNumber: JsonField<String> = JsonMissing.of()
         private var phoneNumberType: JsonField<PhoneNumberType> = JsonMissing.of()
@@ -551,6 +592,7 @@ private constructor(
         private var recordType: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var t38FaxGatewayEnabled: JsonField<Boolean> = JsonMissing.of()
+        private var updatedAt: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -569,6 +611,7 @@ private constructor(
             emergencyEnabled = phoneNumberSlimListResponse.emergencyEnabled
             emergencyStatus = phoneNumberSlimListResponse.emergencyStatus
             externalPin = phoneNumberSlimListResponse.externalPin
+            hdVoiceEnabled = phoneNumberSlimListResponse.hdVoiceEnabled
             inboundCallScreening = phoneNumberSlimListResponse.inboundCallScreening
             phoneNumber = phoneNumberSlimListResponse.phoneNumber
             phoneNumberType = phoneNumberSlimListResponse.phoneNumberType
@@ -576,6 +619,7 @@ private constructor(
             recordType = phoneNumberSlimListResponse.recordType
             status = phoneNumberSlimListResponse.status
             t38FaxGatewayEnabled = phoneNumberSlimListResponse.t38FaxGatewayEnabled
+            updatedAt = phoneNumberSlimListResponse.updatedAt
             additionalProperties = phoneNumberSlimListResponse.additionalProperties.toMutableMap()
         }
 
@@ -790,6 +834,20 @@ private constructor(
          */
         fun externalPin(externalPin: JsonField<String>) = apply { this.externalPin = externalPin }
 
+        /** Indicates whether HD voice is enabled for this number. */
+        fun hdVoiceEnabled(hdVoiceEnabled: Boolean) = hdVoiceEnabled(JsonField.of(hdVoiceEnabled))
+
+        /**
+         * Sets [Builder.hdVoiceEnabled] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.hdVoiceEnabled] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun hdVoiceEnabled(hdVoiceEnabled: JsonField<Boolean>) = apply {
+            this.hdVoiceEnabled = hdVoiceEnabled
+        }
+
         /**
          * The inbound_call_screening setting is a phone number configuration option variable that
          * allows users to configure their settings to block or flag fraudulent calls. It can be set
@@ -891,6 +949,18 @@ private constructor(
             this.t38FaxGatewayEnabled = t38FaxGatewayEnabled
         }
 
+        /** ISO 8601 formatted date indicating when the resource was updated. */
+        fun updatedAt(updatedAt: String) = updatedAt(JsonField.of(updatedAt))
+
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun updatedAt(updatedAt: JsonField<String>) = apply { this.updatedAt = updatedAt }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -931,6 +1001,7 @@ private constructor(
                 emergencyEnabled,
                 emergencyStatus,
                 externalPin,
+                hdVoiceEnabled,
                 inboundCallScreening,
                 phoneNumber,
                 phoneNumberType,
@@ -938,6 +1009,7 @@ private constructor(
                 recordType,
                 status,
                 t38FaxGatewayEnabled,
+                updatedAt,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -963,6 +1035,7 @@ private constructor(
         emergencyEnabled()
         emergencyStatus().ifPresent { it.validate() }
         externalPin()
+        hdVoiceEnabled()
         inboundCallScreening().ifPresent { it.validate() }
         phoneNumber()
         phoneNumberType().ifPresent { it.validate() }
@@ -970,6 +1043,7 @@ private constructor(
         recordType()
         status().ifPresent { it.validate() }
         t38FaxGatewayEnabled()
+        updatedAt()
         validated = true
     }
 
@@ -1002,13 +1076,15 @@ private constructor(
             (if (emergencyEnabled.asKnown().isPresent) 1 else 0) +
             (emergencyStatus.asKnown().getOrNull()?.validity() ?: 0) +
             (if (externalPin.asKnown().isPresent) 1 else 0) +
+            (if (hdVoiceEnabled.asKnown().isPresent) 1 else 0) +
             (inboundCallScreening.asKnown().getOrNull()?.validity() ?: 0) +
             (if (phoneNumber.asKnown().isPresent) 1 else 0) +
             (phoneNumberType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (purchasedAt.asKnown().isPresent) 1 else 0) +
             (if (recordType.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (t38FaxGatewayEnabled.asKnown().isPresent) 1 else 0)
+            (if (t38FaxGatewayEnabled.asKnown().isPresent) 1 else 0) +
+            (if (updatedAt.asKnown().isPresent) 1 else 0)
 
     /**
      * Indicates the status of the provisioning of emergency services for the phone number. This
@@ -1693,6 +1769,7 @@ private constructor(
             emergencyEnabled == other.emergencyEnabled &&
             emergencyStatus == other.emergencyStatus &&
             externalPin == other.externalPin &&
+            hdVoiceEnabled == other.hdVoiceEnabled &&
             inboundCallScreening == other.inboundCallScreening &&
             phoneNumber == other.phoneNumber &&
             phoneNumberType == other.phoneNumberType &&
@@ -1700,6 +1777,7 @@ private constructor(
             recordType == other.recordType &&
             status == other.status &&
             t38FaxGatewayEnabled == other.t38FaxGatewayEnabled &&
+            updatedAt == other.updatedAt &&
             additionalProperties == other.additionalProperties
     }
 
@@ -1719,6 +1797,7 @@ private constructor(
             emergencyEnabled,
             emergencyStatus,
             externalPin,
+            hdVoiceEnabled,
             inboundCallScreening,
             phoneNumber,
             phoneNumberType,
@@ -1726,6 +1805,7 @@ private constructor(
             recordType,
             status,
             t38FaxGatewayEnabled,
+            updatedAt,
             additionalProperties,
         )
     }
@@ -1733,5 +1813,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PhoneNumberSlimListResponse{id=$id, billingGroupId=$billingGroupId, callForwardingEnabled=$callForwardingEnabled, callRecordingEnabled=$callRecordingEnabled, callerIdNameEnabled=$callerIdNameEnabled, cnamListingEnabled=$cnamListingEnabled, connectionId=$connectionId, countryIsoAlpha2=$countryIsoAlpha2, createdAt=$createdAt, customerReference=$customerReference, emergencyAddressId=$emergencyAddressId, emergencyEnabled=$emergencyEnabled, emergencyStatus=$emergencyStatus, externalPin=$externalPin, inboundCallScreening=$inboundCallScreening, phoneNumber=$phoneNumber, phoneNumberType=$phoneNumberType, purchasedAt=$purchasedAt, recordType=$recordType, status=$status, t38FaxGatewayEnabled=$t38FaxGatewayEnabled, additionalProperties=$additionalProperties}"
+        "PhoneNumberSlimListResponse{id=$id, billingGroupId=$billingGroupId, callForwardingEnabled=$callForwardingEnabled, callRecordingEnabled=$callRecordingEnabled, callerIdNameEnabled=$callerIdNameEnabled, cnamListingEnabled=$cnamListingEnabled, connectionId=$connectionId, countryIsoAlpha2=$countryIsoAlpha2, createdAt=$createdAt, customerReference=$customerReference, emergencyAddressId=$emergencyAddressId, emergencyEnabled=$emergencyEnabled, emergencyStatus=$emergencyStatus, externalPin=$externalPin, hdVoiceEnabled=$hdVoiceEnabled, inboundCallScreening=$inboundCallScreening, phoneNumber=$phoneNumber, phoneNumberType=$phoneNumberType, purchasedAt=$purchasedAt, recordType=$recordType, status=$status, t38FaxGatewayEnabled=$t38FaxGatewayEnabled, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.async.storage
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.storage.migrations.MigrationParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class MigrationServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val migrationServiceAsync = client.storage().migrations()
 
         val migrationFuture =
@@ -45,14 +38,10 @@ internal class MigrationServiceAsyncTest {
         migration.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val migrationServiceAsync = client.storage().migrations()
 
         val migrationFuture = migrationServiceAsync.retrieve("")
@@ -61,14 +50,10 @@ internal class MigrationServiceAsyncTest {
         migration.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val migrationServiceAsync = client.storage().migrations()
 
         val migrationsFuture = migrationServiceAsync.list()

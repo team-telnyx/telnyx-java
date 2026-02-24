@@ -11,7 +11,7 @@ internal class UploadCreateParamsTest {
     @Test
     fun create() {
         UploadCreateParams.builder()
-            .id("id")
+            .id("1293384261075731499")
             .numberIds(
                 listOf(
                     "3920457616934164700",
@@ -31,7 +31,7 @@ internal class UploadCreateParamsTest {
     fun pathParams() {
         val params =
             UploadCreateParams.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .numberIds(
                     listOf(
                         "3920457616934164700",
@@ -42,7 +42,7 @@ internal class UploadCreateParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("id")
+        assertThat(params._pathParam(0)).isEqualTo("1293384261075731499")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -51,7 +51,7 @@ internal class UploadCreateParamsTest {
     fun body() {
         val params =
             UploadCreateParams.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .numberIds(
                     listOf(
                         "3920457616934164700",
@@ -86,7 +86,7 @@ internal class UploadCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             UploadCreateParams.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .numberIds(
                     listOf(
                         "3920457616934164700",

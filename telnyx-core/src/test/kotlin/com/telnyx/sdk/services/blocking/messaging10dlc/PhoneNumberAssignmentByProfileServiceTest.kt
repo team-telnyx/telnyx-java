@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.blocking.messaging10dlc
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.messaging10dlc.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileAssignParams
 import com.telnyx.sdk.models.messaging10dlc.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileListPhoneNumberStatusParams
 import com.telnyx.sdk.models.messaging10dlc.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class PhoneNumberAssignmentByProfileServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun assign() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberAssignmentByProfileService =
             client.messaging10dlc().phoneNumberAssignmentByProfile()
 
@@ -37,14 +30,10 @@ internal class PhoneNumberAssignmentByProfileServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listPhoneNumberStatus() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberAssignmentByProfileService =
             client.messaging10dlc().phoneNumberAssignmentByProfile()
 
@@ -60,14 +49,10 @@ internal class PhoneNumberAssignmentByProfileServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrievePhoneNumberStatus() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberAssignmentByProfileService =
             client.messaging10dlc().phoneNumberAssignmentByProfile()
 
@@ -83,14 +68,10 @@ internal class PhoneNumberAssignmentByProfileServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveStatus() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberAssignmentByProfileService =
             client.messaging10dlc().phoneNumberAssignmentByProfile()
 

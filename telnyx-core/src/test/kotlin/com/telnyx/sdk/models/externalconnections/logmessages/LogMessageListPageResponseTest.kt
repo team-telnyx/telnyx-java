@@ -17,14 +17,14 @@ internal class LogMessageListPageResponseTest {
             LogMessageListPageResponse.builder()
                 .addLogMessage(
                     LogMessageListResponse.builder()
-                        .code("code")
+                        .code("10015")
                         .title("Invalid attribute")
                         .detail(
                             "The value provided for the attribute is not valid. Check the value used and try again."
                         )
                         .meta(
                             LogMessageListResponse.Meta.builder()
-                                .externalConnectionId("external_connection_id")
+                                .externalConnectionId("1293384261075731499")
                                 .telephoneNumber("+12345678")
                                 .ticketId("542c3bca-d247-42bc-8fe7-e01d16ecd761")
                                 .build()
@@ -47,14 +47,14 @@ internal class LogMessageListPageResponseTest {
         assertThat(logMessageListPageResponse.logMessages().getOrNull())
             .containsExactly(
                 LogMessageListResponse.builder()
-                    .code("code")
+                    .code("10015")
                     .title("Invalid attribute")
                     .detail(
                         "The value provided for the attribute is not valid. Check the value used and try again."
                     )
                     .meta(
                         LogMessageListResponse.Meta.builder()
-                            .externalConnectionId("external_connection_id")
+                            .externalConnectionId("1293384261075731499")
                             .telephoneNumber("+12345678")
                             .ticketId("542c3bca-d247-42bc-8fe7-e01d16ecd761")
                             .build()
@@ -80,14 +80,14 @@ internal class LogMessageListPageResponseTest {
             LogMessageListPageResponse.builder()
                 .addLogMessage(
                     LogMessageListResponse.builder()
-                        .code("code")
+                        .code("10015")
                         .title("Invalid attribute")
                         .detail(
                             "The value provided for the attribute is not valid. Check the value used and try again."
                         )
                         .meta(
                             LogMessageListResponse.Meta.builder()
-                                .externalConnectionId("external_connection_id")
+                                .externalConnectionId("1293384261075731499")
                                 .telephoneNumber("+12345678")
                                 .ticketId("542c3bca-d247-42bc-8fe7-e01d16ecd761")
                                 .build()

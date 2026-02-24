@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async.ai.missions.runs
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.missions.runs.events.EventGetEventDetailsParams
@@ -10,19 +9,13 @@ import com.telnyx.sdk.models.ai.missions.runs.events.EventListParams
 import com.telnyx.sdk.models.ai.missions.runs.events.EventLogParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class EventServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val eventServiceAsync = client.ai().missions().runs().events()
 
         val pageFuture =
@@ -37,14 +30,10 @@ internal class EventServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getEventDetails() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val eventServiceAsync = client.ai().missions().runs().events()
 
         val responseFuture =
@@ -60,14 +49,10 @@ internal class EventServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun log() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val eventServiceAsync = client.ai().missions().runs().events()
 
         val responseFuture =

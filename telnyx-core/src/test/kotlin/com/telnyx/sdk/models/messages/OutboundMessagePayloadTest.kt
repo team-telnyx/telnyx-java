@@ -88,6 +88,7 @@ internal class OutboundMessagePayloadTest {
                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .recordType(OutboundMessagePayload.RecordType.MESSAGE)
                 .sentAt(null)
+                .smartEncodingApplied(true)
                 .subject("From Telnyx!")
                 .addTag("Greetings")
                 .tcrCampaignBillable(true)
@@ -191,6 +192,7 @@ internal class OutboundMessagePayloadTest {
         assertThat(outboundMessagePayload.recordType())
             .contains(OutboundMessagePayload.RecordType.MESSAGE)
         assertThat(outboundMessagePayload.sentAt()).isEmpty
+        assertThat(outboundMessagePayload.smartEncodingApplied()).contains(true)
         assertThat(outboundMessagePayload.subject()).contains("From Telnyx!")
         assertThat(outboundMessagePayload.tags().getOrNull()).containsExactly("Greetings")
         assertThat(outboundMessagePayload.tcrCampaignBillable()).contains(true)
@@ -290,6 +292,7 @@ internal class OutboundMessagePayloadTest {
                 .receivedAt(OffsetDateTime.parse("2019-01-23T18:10:02.574Z"))
                 .recordType(OutboundMessagePayload.RecordType.MESSAGE)
                 .sentAt(null)
+                .smartEncodingApplied(true)
                 .subject("From Telnyx!")
                 .addTag("Greetings")
                 .tcrCampaignBillable(true)

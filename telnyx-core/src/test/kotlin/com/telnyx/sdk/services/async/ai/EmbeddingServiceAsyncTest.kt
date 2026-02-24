@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async.ai
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.ai.embeddings.EmbeddingCreateParams
 import com.telnyx.sdk.models.ai.embeddings.EmbeddingListParams
@@ -10,19 +9,13 @@ import com.telnyx.sdk.models.ai.embeddings.EmbeddingSimilaritySearchParams
 import com.telnyx.sdk.models.ai.embeddings.EmbeddingUrlParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class EmbeddingServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val embeddingServiceAsync = client.ai().embeddings()
 
         val embeddingResponseFuture =
@@ -40,14 +33,10 @@ internal class EmbeddingServiceAsyncTest {
         embeddingResponse.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val embeddingServiceAsync = client.ai().embeddings()
 
         val embeddingFuture = embeddingServiceAsync.retrieve("task_id")
@@ -56,14 +45,10 @@ internal class EmbeddingServiceAsyncTest {
         embedding.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val embeddingServiceAsync = client.ai().embeddings()
 
         val embeddingsFuture =
@@ -73,14 +58,10 @@ internal class EmbeddingServiceAsyncTest {
         embeddings.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun similaritySearch() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val embeddingServiceAsync = client.ai().embeddings()
 
         val responseFuture =
@@ -96,14 +77,10 @@ internal class EmbeddingServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun url() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val embeddingServiceAsync = client.ai().embeddings()
 
         val embeddingResponseFuture =

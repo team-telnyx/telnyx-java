@@ -145,6 +145,7 @@ internal constructor(private val clientOptions: ClientOptions) : SubNumberOrders
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("sub_number_orders_report", params._pathParam(0), "download")
+                    .putHeader("Accept", "text/csv")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

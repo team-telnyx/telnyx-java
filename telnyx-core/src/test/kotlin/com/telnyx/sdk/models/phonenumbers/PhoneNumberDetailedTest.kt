@@ -37,11 +37,13 @@ internal class PhoneNumberDetailedTest {
                 .emergencyAddressId("1315261609962112019")
                 .emergencyEnabled(true)
                 .emergencyStatus(PhoneNumberDetailed.EmergencyStatus.ACTIVE)
+                .hdVoiceEnabled(true)
                 .inboundCallScreening(PhoneNumberDetailed.InboundCallScreening.DISABLED)
                 .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
                 .messagingProfileName("regional-customers")
                 .sourceType(PhoneNumberDetailed.SourceType.NUMBER_ORDER)
                 .t38FaxGatewayEnabled(true)
+                .updatedAt("2019-10-24T18:10:00.000Z")
                 .build()
 
         assertThat(phoneNumberDetailed.id()).isEqualTo("1293384261075731499")
@@ -70,6 +72,7 @@ internal class PhoneNumberDetailedTest {
         assertThat(phoneNumberDetailed.emergencyEnabled()).contains(true)
         assertThat(phoneNumberDetailed.emergencyStatus())
             .contains(PhoneNumberDetailed.EmergencyStatus.ACTIVE)
+        assertThat(phoneNumberDetailed.hdVoiceEnabled()).contains(true)
         assertThat(phoneNumberDetailed.inboundCallScreening())
             .contains(PhoneNumberDetailed.InboundCallScreening.DISABLED)
         assertThat(phoneNumberDetailed.messagingProfileId())
@@ -78,6 +81,7 @@ internal class PhoneNumberDetailedTest {
         assertThat(phoneNumberDetailed.sourceType())
             .contains(PhoneNumberDetailed.SourceType.NUMBER_ORDER)
         assertThat(phoneNumberDetailed.t38FaxGatewayEnabled()).contains(true)
+        assertThat(phoneNumberDetailed.updatedAt()).contains("2019-10-24T18:10:00.000Z")
     }
 
     @Test
@@ -108,11 +112,13 @@ internal class PhoneNumberDetailedTest {
                 .emergencyAddressId("1315261609962112019")
                 .emergencyEnabled(true)
                 .emergencyStatus(PhoneNumberDetailed.EmergencyStatus.ACTIVE)
+                .hdVoiceEnabled(true)
                 .inboundCallScreening(PhoneNumberDetailed.InboundCallScreening.DISABLED)
                 .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
                 .messagingProfileName("regional-customers")
                 .sourceType(PhoneNumberDetailed.SourceType.NUMBER_ORDER)
                 .t38FaxGatewayEnabled(true)
+                .updatedAt("2019-10-24T18:10:00.000Z")
                 .build()
 
         val roundtrippedPhoneNumberDetailed =

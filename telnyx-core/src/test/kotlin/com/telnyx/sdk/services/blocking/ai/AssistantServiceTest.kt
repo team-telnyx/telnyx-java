@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking.ai
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.ai.assistants.AssistantChatParams
@@ -25,19 +24,13 @@ import com.telnyx.sdk.models.ai.assistants.WidgetSettings
 import com.telnyx.sdk.models.ai.assistants.versions.UpdateAssistant
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class AssistantServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val assistantService = client.ai().assistants()
 
         val inferenceEmbedding =
@@ -216,6 +209,7 @@ internal class AssistantServiceTest {
                                 VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
                                     .SILENCE
                             )
+                            .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                             .similarityBoost(0.0)
                             .speed(0.0)
                             .style(0.0)
@@ -250,14 +244,10 @@ internal class AssistantServiceTest {
         inferenceEmbedding.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val assistantService = client.ai().assistants()
 
         val inferenceEmbedding =
@@ -274,14 +264,10 @@ internal class AssistantServiceTest {
         inferenceEmbedding.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val assistantService = client.ai().assistants()
 
         val inferenceEmbedding =
@@ -461,6 +447,7 @@ internal class AssistantServiceTest {
                                 VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
                                     .SILENCE
                             )
+                            .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                             .similarityBoost(0.0)
                             .speed(0.0)
                             .style(0.0)
@@ -496,14 +483,10 @@ internal class AssistantServiceTest {
         inferenceEmbedding.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val assistantService = client.ai().assistants()
 
         val assistantsList = assistantService.list()
@@ -511,14 +494,10 @@ internal class AssistantServiceTest {
         assistantsList.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val assistantService = client.ai().assistants()
 
         val assistant = assistantService.delete("assistant_id")
@@ -526,14 +505,10 @@ internal class AssistantServiceTest {
         assistant.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun chat() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val assistantService = client.ai().assistants()
 
         val response =
@@ -549,14 +524,10 @@ internal class AssistantServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun clone() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val assistantService = client.ai().assistants()
 
         val inferenceEmbedding = assistantService.clone("assistant_id")
@@ -564,27 +535,19 @@ internal class AssistantServiceTest {
         inferenceEmbedding.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getTexml() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val assistantService = client.ai().assistants()
 
         assistantService.getTexml("assistant_id")
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun imports() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val assistantService = client.ai().assistants()
 
         val assistantsList =
@@ -599,14 +562,10 @@ internal class AssistantServiceTest {
         assistantsList.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun sendSms() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val assistantService = client.ai().assistants()
 
         val response =

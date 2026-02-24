@@ -272,7 +272,7 @@ private constructor(
 
             @JvmField val TCR_BRAND_ID = of("tcrBrandId")
 
-            @JvmField val TCR_BRAN_ID_DESC = of("-tcrBranId")
+            @JvmField val TCR_BRAND_ID_DESC = of("-tcrBrandId")
 
             @JvmField val TCR_CAMPAIGN_ID = of("tcrCampaignId")
 
@@ -296,7 +296,7 @@ private constructor(
             BRAND_DISPLAY_NAME,
             BRAND_DISPLAY_NAME_DESC,
             TCR_BRAND_ID,
-            TCR_BRAN_ID_DESC,
+            TCR_BRAND_ID_DESC,
             TCR_CAMPAIGN_ID,
             TCR_CAMPAIGN_ID_DESC,
             CREATED_AT,
@@ -320,7 +320,7 @@ private constructor(
             BRAND_DISPLAY_NAME,
             BRAND_DISPLAY_NAME_DESC,
             TCR_BRAND_ID,
-            TCR_BRAN_ID_DESC,
+            TCR_BRAND_ID_DESC,
             TCR_CAMPAIGN_ID,
             TCR_CAMPAIGN_ID_DESC,
             CREATED_AT,
@@ -345,7 +345,7 @@ private constructor(
                 BRAND_DISPLAY_NAME -> Value.BRAND_DISPLAY_NAME
                 BRAND_DISPLAY_NAME_DESC -> Value.BRAND_DISPLAY_NAME_DESC
                 TCR_BRAND_ID -> Value.TCR_BRAND_ID
-                TCR_BRAN_ID_DESC -> Value.TCR_BRAN_ID_DESC
+                TCR_BRAND_ID_DESC -> Value.TCR_BRAND_ID_DESC
                 TCR_CAMPAIGN_ID -> Value.TCR_CAMPAIGN_ID
                 TCR_CAMPAIGN_ID_DESC -> Value.TCR_CAMPAIGN_ID_DESC
                 CREATED_AT -> Value.CREATED_AT
@@ -371,7 +371,7 @@ private constructor(
                 BRAND_DISPLAY_NAME -> Known.BRAND_DISPLAY_NAME
                 BRAND_DISPLAY_NAME_DESC -> Known.BRAND_DISPLAY_NAME_DESC
                 TCR_BRAND_ID -> Known.TCR_BRAND_ID
-                TCR_BRAN_ID_DESC -> Known.TCR_BRAN_ID_DESC
+                TCR_BRAND_ID_DESC -> Known.TCR_BRAND_ID_DESC
                 TCR_CAMPAIGN_ID -> Known.TCR_CAMPAIGN_ID
                 TCR_CAMPAIGN_ID_DESC -> Known.TCR_CAMPAIGN_ID_DESC
                 CREATED_AT -> Known.CREATED_AT

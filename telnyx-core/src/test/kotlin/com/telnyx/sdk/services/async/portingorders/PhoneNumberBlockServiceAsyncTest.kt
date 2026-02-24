@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.async.portingorders
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockCreateParams
 import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockDeleteParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class PhoneNumberBlockServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val phoneNumberBlockServiceAsync = client.portingOrders().phoneNumberBlocks()
 
         val phoneNumberBlockFuture =
@@ -46,14 +39,10 @@ internal class PhoneNumberBlockServiceAsyncTest {
         phoneNumberBlock.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val phoneNumberBlockServiceAsync = client.portingOrders().phoneNumberBlocks()
 
         val pageFuture = phoneNumberBlockServiceAsync.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -62,14 +51,10 @@ internal class PhoneNumberBlockServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val phoneNumberBlockServiceAsync = client.portingOrders().phoneNumberBlocks()
 
         val phoneNumberBlockFuture =

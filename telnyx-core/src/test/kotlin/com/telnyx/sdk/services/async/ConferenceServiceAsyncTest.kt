@@ -2,25 +2,20 @@
 
 package com.telnyx.sdk.services.async
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.conferences.ConferenceCreateParams
 import com.telnyx.sdk.models.conferences.ConferenceRetrieveParams
+import com.telnyx.sdk.models.conferences.ConferenceRetrieveParticipantParams
+import com.telnyx.sdk.models.conferences.ConferenceUpdateParticipantParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ConferenceServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val conferenceServiceAsync = client.conferences()
 
         val conferenceFuture =
@@ -45,14 +40,10 @@ internal class ConferenceServiceAsyncTest {
         conference.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val conferenceServiceAsync = client.conferences()
 
         val conferenceFuture =
@@ -67,14 +58,10 @@ internal class ConferenceServiceAsyncTest {
         conference.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val conferenceServiceAsync = client.conferences()
 
         val pageFuture = conferenceServiceAsync.list()
@@ -83,19 +70,54 @@ internal class ConferenceServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listParticipants() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val conferenceServiceAsync = client.conferences()
 
         val pageFuture = conferenceServiceAsync.listParticipants("conference_id")
 
         val page = pageFuture.get()
         page.response().validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveParticipant() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val conferenceServiceAsync = client.conferences()
+
+        val responseFuture =
+            conferenceServiceAsync.retrieveParticipant(
+                ConferenceRetrieveParticipantParams.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .participantId("participant_id")
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun updateParticipant() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val conferenceServiceAsync = client.conferences()
+
+        val responseFuture =
+            conferenceServiceAsync.updateParticipant(
+                ConferenceUpdateParticipantParams.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .participantId("participant_id")
+                    .beepEnabled(ConferenceUpdateParticipantParams.BeepEnabled.NEVER)
+                    .endConferenceOnExit(true)
+                    .softEndConferenceOnExit(false)
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
     }
 }

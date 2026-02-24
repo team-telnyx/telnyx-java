@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.async.ai.assistants
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.ai.assistants.tests.TelnyxConversationChannel
 import com.telnyx.sdk.models.ai.assistants.tests.TestCreateParams
 import com.telnyx.sdk.models.ai.assistants.tests.TestUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class TestServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val testServiceAsync = client.ai().assistants().tests()
 
         val assistantTestFuture =
@@ -55,14 +48,10 @@ internal class TestServiceAsyncTest {
         assistantTest.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val testServiceAsync = client.ai().assistants().tests()
 
         val assistantTestFuture = testServiceAsync.retrieve("test_id")
@@ -71,14 +60,10 @@ internal class TestServiceAsyncTest {
         assistantTest.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val testServiceAsync = client.ai().assistants().tests()
 
         val assistantTestFuture =
@@ -102,14 +87,10 @@ internal class TestServiceAsyncTest {
         assistantTest.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val testServiceAsync = client.ai().assistants().tests()
 
         val pageFuture = testServiceAsync.list()
@@ -118,14 +99,10 @@ internal class TestServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val testServiceAsync = client.ai().assistants().tests()
 
         val future = testServiceAsync.delete("test_id")

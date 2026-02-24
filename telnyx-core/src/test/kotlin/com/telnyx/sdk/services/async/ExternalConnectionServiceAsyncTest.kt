@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.async
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionCreateParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionUpdateLocationParams
 import com.telnyx.sdk.models.externalconnections.ExternalConnectionUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ExternalConnectionServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val externalConnectionServiceAsync = client.externalConnections()
 
         val externalConnectionFuture =
@@ -33,7 +26,7 @@ internal class ExternalConnectionServiceAsyncTest {
                     .outbound(
                         ExternalConnectionCreateParams.Outbound.builder()
                             .channelLimit(10L)
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1911630617284445511")
                             .build()
                     )
                     .active(false)
@@ -55,39 +48,32 @@ internal class ExternalConnectionServiceAsyncTest {
         externalConnection.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val externalConnectionServiceAsync = client.externalConnections()
 
-        val externalConnectionFuture = externalConnectionServiceAsync.retrieve("id")
+        val externalConnectionFuture =
+            externalConnectionServiceAsync.retrieve("1293384261075731499")
 
         val externalConnection = externalConnectionFuture.get()
         externalConnection.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val externalConnectionServiceAsync = client.externalConnections()
 
         val externalConnectionFuture =
             externalConnectionServiceAsync.update(
                 ExternalConnectionUpdateParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .outbound(
                         ExternalConnectionUpdateParams.Outbound.builder()
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1911630617284445511")
                             .channelLimit(10L)
                             .build()
                     )
@@ -107,14 +93,10 @@ internal class ExternalConnectionServiceAsyncTest {
         externalConnection.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val externalConnectionServiceAsync = client.externalConnections()
 
         val pageFuture = externalConnectionServiceAsync.list()
@@ -123,30 +105,22 @@ internal class ExternalConnectionServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val externalConnectionServiceAsync = client.externalConnections()
 
-        val externalConnectionFuture = externalConnectionServiceAsync.delete("id")
+        val externalConnectionFuture = externalConnectionServiceAsync.delete("1293384261075731499")
 
         val externalConnection = externalConnectionFuture.get()
         externalConnection.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun updateLocation() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val externalConnectionServiceAsync = client.externalConnections()
 
         val responseFuture =

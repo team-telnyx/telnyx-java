@@ -15,7 +15,7 @@ internal class ExternalConnectionCreateParamsTest {
             .outbound(
                 ExternalConnectionCreateParams.Outbound.builder()
                     .channelLimit(10L)
-                    .outboundVoiceProfileId("outbound_voice_profile_id")
+                    .outboundVoiceProfileId("1911630617284445511")
                     .build()
             )
             .active(false)
@@ -41,7 +41,7 @@ internal class ExternalConnectionCreateParamsTest {
                 .outbound(
                     ExternalConnectionCreateParams.Outbound.builder()
                         .channelLimit(10L)
-                        .outboundVoiceProfileId("outbound_voice_profile_id")
+                        .outboundVoiceProfileId("1911630617284445511")
                         .build()
                 )
                 .active(false)
@@ -66,7 +66,7 @@ internal class ExternalConnectionCreateParamsTest {
             .isEqualTo(
                 ExternalConnectionCreateParams.Outbound.builder()
                     .channelLimit(10L)
-                    .outboundVoiceProfileId("outbound_voice_profile_id")
+                    .outboundVoiceProfileId("1911630617284445511")
                     .build()
             )
         assertThat(body.active()).contains(false)

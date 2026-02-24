@@ -23,6 +23,7 @@ class ReservedPhoneNumber
 private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val errors: JsonField<String>,
     private val expiredAt: JsonField<OffsetDateTime>,
     private val phoneNumber: JsonField<String>,
     private val recordType: JsonField<String>,
@@ -37,6 +38,7 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("errors") @ExcludeMissing errors: JsonField<String> = JsonMissing.of(),
         @JsonProperty("expired_at")
         @ExcludeMissing
         expiredAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -50,7 +52,17 @@ private constructor(
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    ) : this(id, createdAt, expiredAt, phoneNumber, recordType, status, updatedAt, mutableMapOf())
+    ) : this(
+        id,
+        createdAt,
+        errors,
+        expiredAt,
+        phoneNumber,
+        recordType,
+        status,
+        updatedAt,
+        mutableMapOf(),
+    )
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -65,6 +77,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("created_at")
+
+    /**
+     * Errors the reservation could happen upon
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun errors(): Optional<String> = errors.getOptional("errors")
 
     /**
      * An ISO 8901 datetime string for when the individual number reservation is going to expire
@@ -117,6 +137,13 @@ private constructor(
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+    /**
+     * Returns the raw JSON value of [errors].
+     *
+     * Unlike [errors], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("errors") @ExcludeMissing fun _errors(): JsonField<String> = errors
 
     /**
      * Returns the raw JSON value of [expiredAt].
@@ -182,6 +209,7 @@ private constructor(
 
         private var id: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var errors: JsonField<String> = JsonMissing.of()
         private var expiredAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var phoneNumber: JsonField<String> = JsonMissing.of()
         private var recordType: JsonField<String> = JsonMissing.of()
@@ -193,6 +221,7 @@ private constructor(
         internal fun from(reservedPhoneNumber: ReservedPhoneNumber) = apply {
             id = reservedPhoneNumber.id
             createdAt = reservedPhoneNumber.createdAt
+            errors = reservedPhoneNumber.errors
             expiredAt = reservedPhoneNumber.expiredAt
             phoneNumber = reservedPhoneNumber.phoneNumber
             recordType = reservedPhoneNumber.recordType
@@ -224,6 +253,17 @@ private constructor(
          * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** Errors the reservation could happen upon */
+        fun errors(errors: String) = errors(JsonField.of(errors))
+
+        /**
+         * Sets [Builder.errors] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.errors] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun errors(errors: JsonField<String>) = apply { this.errors = errors }
 
         /**
          * An ISO 8901 datetime string for when the individual number reservation is going to expire
@@ -314,6 +354,7 @@ private constructor(
             ReservedPhoneNumber(
                 id,
                 createdAt,
+                errors,
                 expiredAt,
                 phoneNumber,
                 recordType,
@@ -332,6 +373,7 @@ private constructor(
 
         id()
         createdAt()
+        errors()
         expiredAt()
         phoneNumber()
         recordType()
@@ -357,6 +399,7 @@ private constructor(
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (if (errors.asKnown().isPresent) 1 else 0) +
             (if (expiredAt.asKnown().isPresent) 1 else 0) +
             (if (phoneNumber.asKnown().isPresent) 1 else 0) +
             (if (recordType.asKnown().isPresent) 1 else 0) +
@@ -503,6 +546,7 @@ private constructor(
         return other is ReservedPhoneNumber &&
             id == other.id &&
             createdAt == other.createdAt &&
+            errors == other.errors &&
             expiredAt == other.expiredAt &&
             phoneNumber == other.phoneNumber &&
             recordType == other.recordType &&
@@ -515,6 +559,7 @@ private constructor(
         Objects.hash(
             id,
             createdAt,
+            errors,
             expiredAt,
             phoneNumber,
             recordType,
@@ -527,5 +572,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ReservedPhoneNumber{id=$id, createdAt=$createdAt, expiredAt=$expiredAt, phoneNumber=$phoneNumber, recordType=$recordType, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "ReservedPhoneNumber{id=$id, createdAt=$createdAt, errors=$errors, expiredAt=$expiredAt, phoneNumber=$phoneNumber, recordType=$recordType, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

@@ -2,9 +2,9 @@
 
 package com.telnyx.sdk.services.blocking.messagingtollfree.verification
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveStatusHistoryParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestUpdateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfPhoneNumber
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfVerificationRequest
@@ -14,19 +14,13 @@ import com.telnyx.sdk.models.messagingtollfree.verification.requests.UseCaseCate
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.Volume
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class RequestServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requestService = client.messagingTollfree().verification().requests()
 
         val verificationRequestEgress =
@@ -43,7 +37,6 @@ internal class RequestServiceTest {
                     .businessState("Texas")
                     .businessZip("78701")
                     .corporateWebsite("http://example.com")
-                    .isvReseller("isvReseller")
                     .messageVolume(Volume.V_100000)
                     .optInWorkflow(
                         "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
@@ -72,6 +65,7 @@ internal class RequestServiceTest {
                     .helpMessageResponse(
                         "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                     )
+                    .isvReseller("isvReseller")
                     .optInConfirmationResponse(
                         "You have successfully opted in to receive messages from Acme Corp"
                     )
@@ -85,14 +79,10 @@ internal class RequestServiceTest {
         verificationRequestEgress.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requestService = client.messagingTollfree().verification().requests()
 
         val verificationRequestStatus =
@@ -101,14 +91,10 @@ internal class RequestServiceTest {
         verificationRequestStatus.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requestService = client.messagingTollfree().verification().requests()
 
         val verificationRequestEgress =
@@ -128,7 +114,6 @@ internal class RequestServiceTest {
                             .businessState("Texas")
                             .businessZip("78701")
                             .corporateWebsite("http://example.com")
-                            .isvReseller("isvReseller")
                             .messageVolume(Volume.V_100000)
                             .optInWorkflow(
                                 "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset"
@@ -161,6 +146,7 @@ internal class RequestServiceTest {
                             .helpMessageResponse(
                                 "Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com"
                             )
+                            .isvReseller("isvReseller")
                             .optInConfirmationResponse(
                                 "You have successfully opted in to receive messages from Acme Corp"
                             )
@@ -176,14 +162,10 @@ internal class RequestServiceTest {
         verificationRequestEgress.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requestService = client.messagingTollfree().verification().requests()
 
         val page = requestService.list(RequestListParams.builder().page(1L).pageSize(1L).build())
@@ -191,16 +173,30 @@ internal class RequestServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val requestService = client.messagingTollfree().verification().requests()
 
         requestService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveStatusHistory() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val requestService = client.messagingTollfree().verification().requests()
+
+        val response =
+            requestService.retrieveStatusHistory(
+                RequestRetrieveStatusHistoryParams.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .pageNumber(1L)
+                    .pageSize(1L)
+                    .build()
+            )
+
+        response.validate()
     }
 }

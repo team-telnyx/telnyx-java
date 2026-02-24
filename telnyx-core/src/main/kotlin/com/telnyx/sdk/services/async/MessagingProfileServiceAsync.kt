@@ -9,16 +9,21 @@ import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileDeleteParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileDeleteResponse
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListAlphanumericSenderIdsPageAsync
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListAlphanumericSenderIdsParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPageAsync
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersPageAsync
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesPageAsync
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveMetricsParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveMetricsResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateResponse
+import com.telnyx.sdk.services.async.messagingprofiles.ActionServiceAsync
 import com.telnyx.sdk.services.async.messagingprofiles.AutorespConfigServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -38,6 +43,8 @@ interface MessagingProfileServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingProfileServiceAsync
 
     fun autorespConfigs(): AutorespConfigServiceAsync
+
+    fun actions(): ActionServiceAsync
 
     /** Create a messaging profile */
     fun create(
@@ -180,6 +187,52 @@ interface MessagingProfileServiceAsync {
     ): CompletableFuture<MessagingProfileDeleteResponse> =
         delete(messagingProfileId, MessagingProfileDeleteParams.none(), requestOptions)
 
+    /** List all alphanumeric sender IDs associated with a specific messaging profile. */
+    fun listAlphanumericSenderIds(
+        id: String
+    ): CompletableFuture<MessagingProfileListAlphanumericSenderIdsPageAsync> =
+        listAlphanumericSenderIds(id, MessagingProfileListAlphanumericSenderIdsParams.none())
+
+    /** @see listAlphanumericSenderIds */
+    fun listAlphanumericSenderIds(
+        id: String,
+        params: MessagingProfileListAlphanumericSenderIdsParams =
+            MessagingProfileListAlphanumericSenderIdsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<MessagingProfileListAlphanumericSenderIdsPageAsync> =
+        listAlphanumericSenderIds(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see listAlphanumericSenderIds */
+    fun listAlphanumericSenderIds(
+        id: String,
+        params: MessagingProfileListAlphanumericSenderIdsParams =
+            MessagingProfileListAlphanumericSenderIdsParams.none(),
+    ): CompletableFuture<MessagingProfileListAlphanumericSenderIdsPageAsync> =
+        listAlphanumericSenderIds(id, params, RequestOptions.none())
+
+    /** @see listAlphanumericSenderIds */
+    fun listAlphanumericSenderIds(
+        params: MessagingProfileListAlphanumericSenderIdsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<MessagingProfileListAlphanumericSenderIdsPageAsync>
+
+    /** @see listAlphanumericSenderIds */
+    fun listAlphanumericSenderIds(
+        params: MessagingProfileListAlphanumericSenderIdsParams
+    ): CompletableFuture<MessagingProfileListAlphanumericSenderIdsPageAsync> =
+        listAlphanumericSenderIds(params, RequestOptions.none())
+
+    /** @see listAlphanumericSenderIds */
+    fun listAlphanumericSenderIds(
+        id: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<MessagingProfileListAlphanumericSenderIdsPageAsync> =
+        listAlphanumericSenderIds(
+            id,
+            MessagingProfileListAlphanumericSenderIdsParams.none(),
+            requestOptions,
+        )
+
     /** List phone numbers associated with a messaging profile */
     fun listPhoneNumbers(
         messagingProfileId: String
@@ -276,6 +329,45 @@ interface MessagingProfileServiceAsync {
             requestOptions,
         )
 
+    /** Get detailed metrics for a specific messaging profile, broken down by time interval. */
+    fun retrieveMetrics(id: String): CompletableFuture<MessagingProfileRetrieveMetricsResponse> =
+        retrieveMetrics(id, MessagingProfileRetrieveMetricsParams.none())
+
+    /** @see retrieveMetrics */
+    fun retrieveMetrics(
+        id: String,
+        params: MessagingProfileRetrieveMetricsParams =
+            MessagingProfileRetrieveMetricsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<MessagingProfileRetrieveMetricsResponse> =
+        retrieveMetrics(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see retrieveMetrics */
+    fun retrieveMetrics(
+        id: String,
+        params: MessagingProfileRetrieveMetricsParams = MessagingProfileRetrieveMetricsParams.none(),
+    ): CompletableFuture<MessagingProfileRetrieveMetricsResponse> =
+        retrieveMetrics(id, params, RequestOptions.none())
+
+    /** @see retrieveMetrics */
+    fun retrieveMetrics(
+        params: MessagingProfileRetrieveMetricsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<MessagingProfileRetrieveMetricsResponse>
+
+    /** @see retrieveMetrics */
+    fun retrieveMetrics(
+        params: MessagingProfileRetrieveMetricsParams
+    ): CompletableFuture<MessagingProfileRetrieveMetricsResponse> =
+        retrieveMetrics(params, RequestOptions.none())
+
+    /** @see retrieveMetrics */
+    fun retrieveMetrics(
+        id: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<MessagingProfileRetrieveMetricsResponse> =
+        retrieveMetrics(id, MessagingProfileRetrieveMetricsParams.none(), requestOptions)
+
     /**
      * A view of [MessagingProfileServiceAsync] that provides access to raw HTTP responses for each
      * method.
@@ -292,6 +384,8 @@ interface MessagingProfileServiceAsync {
         ): MessagingProfileServiceAsync.WithRawResponse
 
         fun autorespConfigs(): AutorespConfigServiceAsync.WithRawResponse
+
+        fun actions(): ActionServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /messaging_profiles`, but is otherwise the same as
@@ -472,6 +566,55 @@ interface MessagingProfileServiceAsync {
             delete(messagingProfileId, MessagingProfileDeleteParams.none(), requestOptions)
 
         /**
+         * Returns a raw HTTP response for `get /messaging_profiles/{id}/alphanumeric_sender_ids`,
+         * but is otherwise the same as [MessagingProfileServiceAsync.listAlphanumericSenderIds].
+         */
+        fun listAlphanumericSenderIds(
+            id: String
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListAlphanumericSenderIdsPageAsync>> =
+            listAlphanumericSenderIds(id, MessagingProfileListAlphanumericSenderIdsParams.none())
+
+        /** @see listAlphanumericSenderIds */
+        fun listAlphanumericSenderIds(
+            id: String,
+            params: MessagingProfileListAlphanumericSenderIdsParams =
+                MessagingProfileListAlphanumericSenderIdsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListAlphanumericSenderIdsPageAsync>> =
+            listAlphanumericSenderIds(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see listAlphanumericSenderIds */
+        fun listAlphanumericSenderIds(
+            id: String,
+            params: MessagingProfileListAlphanumericSenderIdsParams =
+                MessagingProfileListAlphanumericSenderIdsParams.none(),
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListAlphanumericSenderIdsPageAsync>> =
+            listAlphanumericSenderIds(id, params, RequestOptions.none())
+
+        /** @see listAlphanumericSenderIds */
+        fun listAlphanumericSenderIds(
+            params: MessagingProfileListAlphanumericSenderIdsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListAlphanumericSenderIdsPageAsync>>
+
+        /** @see listAlphanumericSenderIds */
+        fun listAlphanumericSenderIds(
+            params: MessagingProfileListAlphanumericSenderIdsParams
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListAlphanumericSenderIdsPageAsync>> =
+            listAlphanumericSenderIds(params, RequestOptions.none())
+
+        /** @see listAlphanumericSenderIds */
+        fun listAlphanumericSenderIds(
+            id: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListAlphanumericSenderIdsPageAsync>> =
+            listAlphanumericSenderIds(
+                id,
+                MessagingProfileListAlphanumericSenderIdsParams.none(),
+                requestOptions,
+            )
+
+        /**
          * Returns a raw HTTP response for `get /messaging_profiles/{id}/phone_numbers`, but is
          * otherwise the same as [MessagingProfileServiceAsync.listPhoneNumbers].
          */
@@ -574,5 +717,50 @@ interface MessagingProfileServiceAsync {
                 MessagingProfileListShortCodesParams.none(),
                 requestOptions,
             )
+
+        /**
+         * Returns a raw HTTP response for `get /messaging_profiles/{id}/metrics`, but is otherwise
+         * the same as [MessagingProfileServiceAsync.retrieveMetrics].
+         */
+        fun retrieveMetrics(
+            id: String
+        ): CompletableFuture<HttpResponseFor<MessagingProfileRetrieveMetricsResponse>> =
+            retrieveMetrics(id, MessagingProfileRetrieveMetricsParams.none())
+
+        /** @see retrieveMetrics */
+        fun retrieveMetrics(
+            id: String,
+            params: MessagingProfileRetrieveMetricsParams =
+                MessagingProfileRetrieveMetricsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<MessagingProfileRetrieveMetricsResponse>> =
+            retrieveMetrics(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see retrieveMetrics */
+        fun retrieveMetrics(
+            id: String,
+            params: MessagingProfileRetrieveMetricsParams =
+                MessagingProfileRetrieveMetricsParams.none(),
+        ): CompletableFuture<HttpResponseFor<MessagingProfileRetrieveMetricsResponse>> =
+            retrieveMetrics(id, params, RequestOptions.none())
+
+        /** @see retrieveMetrics */
+        fun retrieveMetrics(
+            params: MessagingProfileRetrieveMetricsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<MessagingProfileRetrieveMetricsResponse>>
+
+        /** @see retrieveMetrics */
+        fun retrieveMetrics(
+            params: MessagingProfileRetrieveMetricsParams
+        ): CompletableFuture<HttpResponseFor<MessagingProfileRetrieveMetricsResponse>> =
+            retrieveMetrics(params, RequestOptions.none())
+
+        /** @see retrieveMetrics */
+        fun retrieveMetrics(
+            id: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<MessagingProfileRetrieveMetricsResponse>> =
+            retrieveMetrics(id, MessagingProfileRetrieveMetricsParams.none(), requestOptions)
     }
 }

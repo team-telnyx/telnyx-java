@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundCallRecording
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileCreateParams
@@ -12,19 +11,13 @@ import com.telnyx.sdk.models.outboundvoiceprofiles.TrafficType
 import com.telnyx.sdk.models.outboundvoiceprofiles.UsagePaymentMethod
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class OutboundVoiceProfileServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val outboundVoiceProfileServiceAsync = client.outboundVoiceProfiles()
 
         val outboundVoiceProfileFuture =
@@ -66,14 +59,10 @@ internal class OutboundVoiceProfileServiceAsyncTest {
         outboundVoiceProfile.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val outboundVoiceProfileServiceAsync = client.outboundVoiceProfiles()
 
         val outboundVoiceProfileFuture =
@@ -83,14 +72,10 @@ internal class OutboundVoiceProfileServiceAsyncTest {
         outboundVoiceProfile.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val outboundVoiceProfileServiceAsync = client.outboundVoiceProfiles()
 
         val outboundVoiceProfileFuture =
@@ -133,14 +118,10 @@ internal class OutboundVoiceProfileServiceAsyncTest {
         outboundVoiceProfile.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val outboundVoiceProfileServiceAsync = client.outboundVoiceProfiles()
 
         val pageFuture = outboundVoiceProfileServiceAsync.list()
@@ -149,14 +130,10 @@ internal class OutboundVoiceProfileServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val outboundVoiceProfileServiceAsync = client.outboundVoiceProfiles()
 
         val outboundVoiceProfileFuture =

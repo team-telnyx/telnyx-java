@@ -13,6 +13,8 @@ import kotlin.jvm.optionals.getOrNull
 class MessagingProfileListParams
 private constructor(
     private val filter: Filter?,
+    private val filterNameContains: String?,
+    private val filterNameEq: String?,
     private val pageNumber: Long?,
     private val pageSize: Long?,
     private val additionalHeaders: Headers,
@@ -21,6 +23,12 @@ private constructor(
 
     /** Consolidated filter parameter (deepObject style). Originally: filter[name] */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
+
+    /** Filter profiles by name containing the given string. */
+    fun filterNameContains(): Optional<String> = Optional.ofNullable(filterNameContains)
+
+    /** Filter profiles by exact name match. */
+    fun filterNameEq(): Optional<String> = Optional.ofNullable(filterNameEq)
 
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
 
@@ -48,6 +56,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var filter: Filter? = null
+        private var filterNameContains: String? = null
+        private var filterNameEq: String? = null
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -56,6 +66,8 @@ private constructor(
         @JvmSynthetic
         internal fun from(messagingProfileListParams: MessagingProfileListParams) = apply {
             filter = messagingProfileListParams.filter
+            filterNameContains = messagingProfileListParams.filterNameContains
+            filterNameEq = messagingProfileListParams.filterNameEq
             pageNumber = messagingProfileListParams.pageNumber
             pageSize = messagingProfileListParams.pageSize
             additionalHeaders = messagingProfileListParams.additionalHeaders.toBuilder()
@@ -67,6 +79,23 @@ private constructor(
 
         /** Alias for calling [Builder.filter] with `filter.orElse(null)`. */
         fun filter(filter: Optional<Filter>) = filter(filter.getOrNull())
+
+        /** Filter profiles by name containing the given string. */
+        fun filterNameContains(filterNameContains: String?) = apply {
+            this.filterNameContains = filterNameContains
+        }
+
+        /**
+         * Alias for calling [Builder.filterNameContains] with `filterNameContains.orElse(null)`.
+         */
+        fun filterNameContains(filterNameContains: Optional<String>) =
+            filterNameContains(filterNameContains.getOrNull())
+
+        /** Filter profiles by exact name match. */
+        fun filterNameEq(filterNameEq: String?) = apply { this.filterNameEq = filterNameEq }
+
+        /** Alias for calling [Builder.filterNameEq] with `filterNameEq.orElse(null)`. */
+        fun filterNameEq(filterNameEq: Optional<String>) = filterNameEq(filterNameEq.getOrNull())
 
         fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
@@ -198,6 +227,8 @@ private constructor(
         fun build(): MessagingProfileListParams =
             MessagingProfileListParams(
                 filter,
+                filterNameContains,
+                filterNameEq,
                 pageNumber,
                 pageSize,
                 additionalHeaders.build(),
@@ -218,6 +249,8 @@ private constructor(
                         }
                     }
                 }
+                filterNameContains?.let { put("filter[name][contains]", it) }
+                filterNameEq?.let { put("filter[name][eq]", it) }
                 pageNumber?.let { put("page[number]", it.toString()) }
                 pageSize?.let { put("page[size]", it.toString()) }
                 putAll(additionalQueryParams)
@@ -341,6 +374,8 @@ private constructor(
 
         return other is MessagingProfileListParams &&
             filter == other.filter &&
+            filterNameContains == other.filterNameContains &&
+            filterNameEq == other.filterNameEq &&
             pageNumber == other.pageNumber &&
             pageSize == other.pageSize &&
             additionalHeaders == other.additionalHeaders &&
@@ -348,8 +383,16 @@ private constructor(
     }
 
     override fun hashCode(): Int =
-        Objects.hash(filter, pageNumber, pageSize, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            filter,
+            filterNameContains,
+            filterNameEq,
+            pageNumber,
+            pageSize,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "MessagingProfileListParams{filter=$filter, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "MessagingProfileListParams{filter=$filter, filterNameContains=$filterNameContains, filterNameEq=$filterNameEq, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

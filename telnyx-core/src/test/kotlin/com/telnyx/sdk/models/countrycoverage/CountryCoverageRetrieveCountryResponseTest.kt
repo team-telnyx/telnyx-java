@@ -3,7 +3,6 @@
 package com.telnyx.sdk.models.countrycoverage
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -16,47 +15,61 @@ internal class CountryCoverageRetrieveCountryResponseTest {
             CountryCoverageRetrieveCountryResponse.builder()
                 .data(
                     CountryCoverageRetrieveCountryResponse.Data.builder()
-                        .code("code")
-                        .addFeature("string")
+                        .code("US")
+                        .features(
+                            listOf(
+                                "hd_voice",
+                                "emergency",
+                                "voice",
+                                "mms",
+                                "fax",
+                                "sms",
+                                "international_sms",
+                            )
+                        )
                         .internationalSms(true)
                         .inventoryCoverage(true)
                         .local(
                             CountryCoverageRetrieveCountryResponse.Data.Local.builder()
-                                .addFeature("string")
+                                .features(
+                                    listOf(
+                                        "hd_voice",
+                                        "voice",
+                                        "international_sms",
+                                        "mms",
+                                        "fax",
+                                        "sms",
+                                        "emergency",
+                                    )
+                                )
                                 .fullPstnReplacement(true)
                                 .internationalSms(true)
                                 .p2p(true)
-                                .quickship(true)
+                                .quickship(false)
                                 .reservable(true)
                                 .build()
                         )
                         .mobile(
-                            CountryCoverageRetrieveCountryResponse.Data.Mobile.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
+                            CountryCoverageRetrieveCountryResponse.Data.Mobile.builder().build()
                         )
                         .national(
-                            CountryCoverageRetrieveCountryResponse.Data.National.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
+                            CountryCoverageRetrieveCountryResponse.Data.National.builder().build()
                         )
                         .numbers(true)
                         .p2p(true)
-                        .addPhoneNumberType("string")
+                        .phoneNumberType(listOf("local", "local", "local", "toll_free"))
                         .quickship(true)
-                        .region("region")
+                        .region("AMER")
                         .reservable(true)
                         .sharedCost(
-                            CountryCoverageRetrieveCountryResponse.Data.SharedCost.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
+                            CountryCoverageRetrieveCountryResponse.Data.SharedCost.builder().build()
                         )
                         .tollFree(
                             CountryCoverageRetrieveCountryResponse.Data.TollFree.builder()
-                                .addFeature("string")
-                                .fullPstnReplacement(true)
-                                .internationalSms(true)
-                                .p2p(true)
+                                .features(listOf("voice", "mms", "fax", "sms", "emergency"))
+                                .fullPstnReplacement(false)
+                                .internationalSms(false)
+                                .p2p(false)
                                 .quickship(true)
                                 .reservable(true)
                                 .build()
@@ -68,47 +81,59 @@ internal class CountryCoverageRetrieveCountryResponseTest {
         assertThat(countryCoverageRetrieveCountryResponse.data())
             .contains(
                 CountryCoverageRetrieveCountryResponse.Data.builder()
-                    .code("code")
-                    .addFeature("string")
+                    .code("US")
+                    .features(
+                        listOf(
+                            "hd_voice",
+                            "emergency",
+                            "voice",
+                            "mms",
+                            "fax",
+                            "sms",
+                            "international_sms",
+                        )
+                    )
                     .internationalSms(true)
                     .inventoryCoverage(true)
                     .local(
                         CountryCoverageRetrieveCountryResponse.Data.Local.builder()
-                            .addFeature("string")
+                            .features(
+                                listOf(
+                                    "hd_voice",
+                                    "voice",
+                                    "international_sms",
+                                    "mms",
+                                    "fax",
+                                    "sms",
+                                    "emergency",
+                                )
+                            )
                             .fullPstnReplacement(true)
                             .internationalSms(true)
                             .p2p(true)
-                            .quickship(true)
+                            .quickship(false)
                             .reservable(true)
                             .build()
                     )
-                    .mobile(
-                        CountryCoverageRetrieveCountryResponse.Data.Mobile.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
-                    )
+                    .mobile(CountryCoverageRetrieveCountryResponse.Data.Mobile.builder().build())
                     .national(
-                        CountryCoverageRetrieveCountryResponse.Data.National.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
+                        CountryCoverageRetrieveCountryResponse.Data.National.builder().build()
                     )
                     .numbers(true)
                     .p2p(true)
-                    .addPhoneNumberType("string")
+                    .phoneNumberType(listOf("local", "local", "local", "toll_free"))
                     .quickship(true)
-                    .region("region")
+                    .region("AMER")
                     .reservable(true)
                     .sharedCost(
-                        CountryCoverageRetrieveCountryResponse.Data.SharedCost.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
+                        CountryCoverageRetrieveCountryResponse.Data.SharedCost.builder().build()
                     )
                     .tollFree(
                         CountryCoverageRetrieveCountryResponse.Data.TollFree.builder()
-                            .addFeature("string")
-                            .fullPstnReplacement(true)
-                            .internationalSms(true)
-                            .p2p(true)
+                            .features(listOf("voice", "mms", "fax", "sms", "emergency"))
+                            .fullPstnReplacement(false)
+                            .internationalSms(false)
+                            .p2p(false)
                             .quickship(true)
                             .reservable(true)
                             .build()
@@ -124,47 +149,61 @@ internal class CountryCoverageRetrieveCountryResponseTest {
             CountryCoverageRetrieveCountryResponse.builder()
                 .data(
                     CountryCoverageRetrieveCountryResponse.Data.builder()
-                        .code("code")
-                        .addFeature("string")
+                        .code("US")
+                        .features(
+                            listOf(
+                                "hd_voice",
+                                "emergency",
+                                "voice",
+                                "mms",
+                                "fax",
+                                "sms",
+                                "international_sms",
+                            )
+                        )
                         .internationalSms(true)
                         .inventoryCoverage(true)
                         .local(
                             CountryCoverageRetrieveCountryResponse.Data.Local.builder()
-                                .addFeature("string")
+                                .features(
+                                    listOf(
+                                        "hd_voice",
+                                        "voice",
+                                        "international_sms",
+                                        "mms",
+                                        "fax",
+                                        "sms",
+                                        "emergency",
+                                    )
+                                )
                                 .fullPstnReplacement(true)
                                 .internationalSms(true)
                                 .p2p(true)
-                                .quickship(true)
+                                .quickship(false)
                                 .reservable(true)
                                 .build()
                         )
                         .mobile(
-                            CountryCoverageRetrieveCountryResponse.Data.Mobile.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
+                            CountryCoverageRetrieveCountryResponse.Data.Mobile.builder().build()
                         )
                         .national(
-                            CountryCoverageRetrieveCountryResponse.Data.National.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
+                            CountryCoverageRetrieveCountryResponse.Data.National.builder().build()
                         )
                         .numbers(true)
                         .p2p(true)
-                        .addPhoneNumberType("string")
+                        .phoneNumberType(listOf("local", "local", "local", "toll_free"))
                         .quickship(true)
-                        .region("region")
+                        .region("AMER")
                         .reservable(true)
                         .sharedCost(
-                            CountryCoverageRetrieveCountryResponse.Data.SharedCost.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
+                            CountryCoverageRetrieveCountryResponse.Data.SharedCost.builder().build()
                         )
                         .tollFree(
                             CountryCoverageRetrieveCountryResponse.Data.TollFree.builder()
-                                .addFeature("string")
-                                .fullPstnReplacement(true)
-                                .internationalSms(true)
-                                .p2p(true)
+                                .features(listOf("voice", "mms", "fax", "sms", "emergency"))
+                                .fullPstnReplacement(false)
+                                .internationalSms(false)
+                                .p2p(false)
                                 .quickship(true)
                                 .reservable(true)
                                 .build()

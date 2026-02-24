@@ -9,7 +9,6 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationCreateParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview0Params
@@ -17,22 +16,16 @@ import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationUpdatePar
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.parallel.ResourceLock
 
-@ExtendWith(TestServerExtension::class)
 @WireMockTest
 @ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class LoaConfigurationServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val loaConfigurationService = client.porting().loaConfigurations()
 
         val loaConfiguration =
@@ -67,14 +60,10 @@ internal class LoaConfigurationServiceTest {
         loaConfiguration.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val loaConfigurationService = client.porting().loaConfigurations()
 
         val loaConfiguration =
@@ -83,14 +72,10 @@ internal class LoaConfigurationServiceTest {
         loaConfiguration.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val loaConfigurationService = client.porting().loaConfigurations()
 
         val loaConfiguration =
@@ -126,14 +111,10 @@ internal class LoaConfigurationServiceTest {
         loaConfiguration.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val loaConfigurationService = client.porting().loaConfigurations()
 
         val page = loaConfigurationService.list()
@@ -141,14 +122,10 @@ internal class LoaConfigurationServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val loaConfigurationService = client.porting().loaConfigurations()
 
         loaConfigurationService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

@@ -11,7 +11,7 @@ internal class CallControlApplicationUpdateParamsTest {
     @Test
     fun create() {
         CallControlApplicationUpdateParams.builder()
-            .id("id")
+            .id("1293384261075731499")
             .applicationName("call-router")
             .webhookEventUrl("https://example.com")
             .active(false)
@@ -34,7 +34,7 @@ internal class CallControlApplicationUpdateParamsTest {
             .outbound(
                 CallControlApplicationOutbound.builder()
                     .channelLimit(10L)
-                    .outboundVoiceProfileId("outbound_voice_profile_id")
+                    .outboundVoiceProfileId("1293384261075731499")
                     .build()
             )
             .redactDtmfDebugLogging(true)
@@ -50,12 +50,12 @@ internal class CallControlApplicationUpdateParamsTest {
     fun pathParams() {
         val params =
             CallControlApplicationUpdateParams.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .applicationName("call-router")
                 .webhookEventUrl("https://example.com")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("id")
+        assertThat(params._pathParam(0)).isEqualTo("1293384261075731499")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -64,7 +64,7 @@ internal class CallControlApplicationUpdateParamsTest {
     fun body() {
         val params =
             CallControlApplicationUpdateParams.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .applicationName("call-router")
                 .webhookEventUrl("https://example.com")
                 .active(false)
@@ -87,7 +87,7 @@ internal class CallControlApplicationUpdateParamsTest {
                 .outbound(
                     CallControlApplicationOutbound.builder()
                         .channelLimit(10L)
-                        .outboundVoiceProfileId("outbound_voice_profile_id")
+                        .outboundVoiceProfileId("1293384261075731499")
                         .build()
                 )
                 .redactDtmfDebugLogging(true)
@@ -125,7 +125,7 @@ internal class CallControlApplicationUpdateParamsTest {
             .contains(
                 CallControlApplicationOutbound.builder()
                     .channelLimit(10L)
-                    .outboundVoiceProfileId("outbound_voice_profile_id")
+                    .outboundVoiceProfileId("1293384261075731499")
                     .build()
             )
         assertThat(body.redactDtmfDebugLogging()).contains(true)
@@ -140,7 +140,7 @@ internal class CallControlApplicationUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             CallControlApplicationUpdateParams.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .applicationName("call-router")
                 .webhookEventUrl("https://example.com")
                 .build()

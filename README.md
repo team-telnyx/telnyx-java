@@ -2,7 +2,7 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx/6.21.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.telnyx.sdk/telnyx)](https://central.sonatype.com/artifact/com.telnyx.sdk/telnyx/6.22.0)
 
 <!-- x-release-please-end -->
 
@@ -26,7 +26,7 @@ Use the Telnyx MCP Server to enable AI assistants to interact with this API, all
 ### Gradle
 
 ```kotlin
-implementation("com.telnyx.sdk:telnyx:6.21.0")
+implementation("com.telnyx.sdk:telnyx:6.22.0")
 ```
 
 ### Maven
@@ -35,7 +35,7 @@ implementation("com.telnyx.sdk:telnyx:6.21.0")
 <dependency>
   <groupId>com.telnyx.sdk</groupId>
   <artifactId>telnyx</artifactId>
-  <version>6.21.0</version>
+  <version>6.22.0</version>
 </dependency>
 ```
 
@@ -572,6 +572,25 @@ TelnyxClient client = TelnyxOkHttpClient.builder()
     ))
     .build();
 ```
+
+### Connection pooling
+
+To customize the underlying OkHttp connection pool, configure the client using the `maxIdleConnections` and `keepAliveDuration` methods:
+
+```java
+import com.telnyx.sdk.client.TelnyxClient;
+import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient;
+import java.time.Duration;
+
+TelnyxClient client = TelnyxOkHttpClient.builder()
+    .fromEnv()
+    // If `maxIdleConnections` is set, then `keepAliveDuration` must be set, and vice versa.
+    .maxIdleConnections(10)
+    .keepAliveDuration(Duration.ofMinutes(2))
+    .build();
+```
+
+If both options are unset, OkHttp's default connection pool settings are used.
 
 ### HTTPS
 

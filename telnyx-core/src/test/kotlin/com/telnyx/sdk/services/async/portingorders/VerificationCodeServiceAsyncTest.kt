@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.async.portingorders
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeSendParams
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeVerifyParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class VerificationCodeServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val verificationCodeServiceAsync = client.portingOrders().verificationCodes()
 
         val pageFuture = verificationCodeServiceAsync.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -29,14 +22,10 @@ internal class VerificationCodeServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun send() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val verificationCodeServiceAsync = client.portingOrders().verificationCodes()
 
         val future =
@@ -52,14 +41,10 @@ internal class VerificationCodeServiceAsyncTest {
         val response = future.get()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun verify() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val verificationCodeServiceAsync = client.portingOrders().verificationCodes()
 
         val responseFuture =

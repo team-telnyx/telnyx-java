@@ -9,6 +9,7 @@ import com.telnyx.sdk.services.blocking.ActionService
 import com.telnyx.sdk.services.blocking.AddressService
 import com.telnyx.sdk.services.blocking.AdvancedOrderService
 import com.telnyx.sdk.services.blocking.AiService
+import com.telnyx.sdk.services.blocking.AlphanumericSenderIdService
 import com.telnyx.sdk.services.blocking.AuditEventService
 import com.telnyx.sdk.services.blocking.AuthenticationProviderService
 import com.telnyx.sdk.services.blocking.AvailablePhoneNumberBlockService
@@ -69,6 +70,7 @@ import com.telnyx.sdk.services.blocking.MessagingHostedNumberOrderService
 import com.telnyx.sdk.services.blocking.MessagingHostedNumberService
 import com.telnyx.sdk.services.blocking.MessagingNumbersBulkUpdateService
 import com.telnyx.sdk.services.blocking.MessagingOptoutService
+import com.telnyx.sdk.services.blocking.MessagingProfileMetricService
 import com.telnyx.sdk.services.blocking.MessagingProfileService
 import com.telnyx.sdk.services.blocking.MessagingService
 import com.telnyx.sdk.services.blocking.MessagingTollfreeService
@@ -494,6 +496,10 @@ interface TelnyxClient {
 
     fun organizations(): OrganizationService
 
+    fun alphanumericSenderIds(): AlphanumericSenderIdService
+
+    fun messagingProfileMetrics(): MessagingProfileMetricService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -819,5 +825,9 @@ interface TelnyxClient {
         fun speechToText(): SpeechToTextService.WithRawResponse
 
         fun organizations(): OrganizationService.WithRawResponse
+
+        fun alphanumericSenderIds(): AlphanumericSenderIdService.WithRawResponse
+
+        fun messagingProfileMetrics(): MessagingProfileMetricService.WithRawResponse
     }
 }

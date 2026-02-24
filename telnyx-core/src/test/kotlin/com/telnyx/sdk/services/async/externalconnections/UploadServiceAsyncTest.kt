@@ -2,32 +2,25 @@
 
 package com.telnyx.sdk.services.async.externalconnections
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.externalconnections.uploads.UploadCreateParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadRetrieveParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadRetryParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class UploadServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val uploadServiceAsync = client.externalConnections().uploads()
 
         val uploadFuture =
             uploadServiceAsync.create(
                 UploadCreateParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .numberIds(
                         listOf(
                             "3920457616934164700",
@@ -47,20 +40,16 @@ internal class UploadServiceAsyncTest {
         upload.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val uploadServiceAsync = client.externalConnections().uploads()
 
         val uploadFuture =
             uploadServiceAsync.retrieve(
                 UploadRetrieveParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .ticketId("7b6a6449-b055-45a6-81f6-f6f0dffa4cc6")
                     .build()
             )
@@ -69,68 +58,52 @@ internal class UploadServiceAsyncTest {
         upload.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val uploadServiceAsync = client.externalConnections().uploads()
 
-        val pageFuture = uploadServiceAsync.list("id")
+        val pageFuture = uploadServiceAsync.list("1293384261075731499")
 
         val page = pageFuture.get()
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun pendingCount() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val uploadServiceAsync = client.externalConnections().uploads()
 
-        val responseFuture = uploadServiceAsync.pendingCount("id")
+        val responseFuture = uploadServiceAsync.pendingCount("1293384261075731499")
 
         val response = responseFuture.get()
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun refreshStatus() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val uploadServiceAsync = client.externalConnections().uploads()
 
-        val responseFuture = uploadServiceAsync.refreshStatus("id")
+        val responseFuture = uploadServiceAsync.refreshStatus("1293384261075731499")
 
         val response = responseFuture.get()
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retry() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val uploadServiceAsync = client.externalConnections().uploads()
 
         val responseFuture =
             uploadServiceAsync.retry(
                 UploadRetryParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .ticketId("7b6a6449-b055-45a6-81f6-f6f0dffa4cc6")
                     .build()
             )

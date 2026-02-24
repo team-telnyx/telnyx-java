@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.ConnectionJitterBuffer
 import com.telnyx.sdk.models.ConnectionNoiseSuppressionDetails
@@ -18,19 +17,13 @@ import com.telnyx.sdk.models.fqdnconnections.TransportProtocol
 import com.telnyx.sdk.models.fqdnconnections.WebhookApiVersion
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class FqdnConnectionServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val fqdnConnectionServiceAsync = client.fqdnConnections()
 
         val fqdnConnectionFuture =
@@ -50,10 +43,10 @@ internal class FqdnConnectionServiceAsyncTest {
                             .aniNumberFormat(InboundFqdn.AniNumberFormat.PLUS_E_164)
                             .channelLimit(10L)
                             .addCodec("G722")
-                            .defaultPrimaryFqdnId("default_primary_fqdn_id")
+                            .defaultPrimaryFqdnId("1293384261075731497")
                             .defaultRoutingMethod(InboundFqdn.DefaultRoutingMethod.SEQUENTIAL)
-                            .defaultSecondaryFqdnId("default_secondary_fqdn_id")
-                            .defaultTertiaryFqdnId("default_tertiary_fqdn_id")
+                            .defaultSecondaryFqdnId("1293384261075731498")
+                            .defaultTertiaryFqdnId("1293384261075731499")
                             .dnisNumberFormat(InboundFqdn.DnisNumberFormat.PLUS_E164)
                             .generateRingbackTone(true)
                             .isupHeadersEnabled(true)
@@ -100,7 +93,7 @@ internal class FqdnConnectionServiceAsyncTest {
                             )
                             .ipAuthenticationToken("aBcD1234")
                             .localization("string")
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .t38ReinviteSource(OutboundFqdn.T38ReinviteSource.CUSTOMER)
                             .techPrefix("0123")
                             .timeout1xxSecs(10L)
@@ -128,36 +121,28 @@ internal class FqdnConnectionServiceAsyncTest {
         fqdnConnection.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val fqdnConnectionServiceAsync = client.fqdnConnections()
 
-        val fqdnConnectionFuture = fqdnConnectionServiceAsync.retrieve("id")
+        val fqdnConnectionFuture = fqdnConnectionServiceAsync.retrieve("1293384261075731499")
 
         val fqdnConnection = fqdnConnectionFuture.get()
         fqdnConnection.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val fqdnConnectionServiceAsync = client.fqdnConnections()
 
         val fqdnConnectionFuture =
             fqdnConnectionServiceAsync.update(
                 FqdnConnectionUpdateParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .active(true)
                     .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                     .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
@@ -172,10 +157,10 @@ internal class FqdnConnectionServiceAsyncTest {
                             .aniNumberFormat(InboundFqdn.AniNumberFormat.PLUS_E_164)
                             .channelLimit(10L)
                             .addCodec("G722")
-                            .defaultPrimaryFqdnId("default_primary_fqdn_id")
+                            .defaultPrimaryFqdnId("1293384261075731497")
                             .defaultRoutingMethod(InboundFqdn.DefaultRoutingMethod.SEQUENTIAL)
-                            .defaultSecondaryFqdnId("default_secondary_fqdn_id")
-                            .defaultTertiaryFqdnId("default_tertiary_fqdn_id")
+                            .defaultSecondaryFqdnId("1293384261075731498")
+                            .defaultTertiaryFqdnId("1293384261075731499")
                             .dnisNumberFormat(InboundFqdn.DnisNumberFormat.PLUS_E164)
                             .generateRingbackTone(true)
                             .isupHeadersEnabled(true)
@@ -221,7 +206,7 @@ internal class FqdnConnectionServiceAsyncTest {
                             )
                             .ipAuthenticationToken("ip_authentication_token")
                             .localization("US")
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .t38ReinviteSource(OutboundFqdn.T38ReinviteSource.TELNYX)
                             .techPrefix("tech_prefix")
                             .timeout1xxSecs(1L)
@@ -249,14 +234,10 @@ internal class FqdnConnectionServiceAsyncTest {
         fqdnConnection.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val fqdnConnectionServiceAsync = client.fqdnConnections()
 
         val pageFuture = fqdnConnectionServiceAsync.list()
@@ -265,17 +246,13 @@ internal class FqdnConnectionServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val fqdnConnectionServiceAsync = client.fqdnConnections()
 
-        val fqdnConnectionFuture = fqdnConnectionServiceAsync.delete("id")
+        val fqdnConnectionFuture = fqdnConnectionServiceAsync.delete("1293384261075731499")
 
         val fqdnConnection = fqdnConnectionFuture.get()
         fqdnConnection.validate()

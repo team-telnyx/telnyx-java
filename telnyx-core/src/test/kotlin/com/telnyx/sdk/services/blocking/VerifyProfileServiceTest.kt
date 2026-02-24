@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileCreateTemplateParams
@@ -10,19 +9,13 @@ import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateParams
 import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateTemplateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class VerifyProfileServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val verifyProfileService = client.verifyProfiles()
 
         val verifyProfileData =
@@ -41,21 +34,33 @@ internal class VerifyProfileServiceTest {
                     )
                     .flashcall(
                         VerifyProfileCreateParams.Flashcall.builder()
+                            .appName("Example Secure App")
                             .defaultVerificationTimeoutSecs(300L)
                             .addWhitelistedDestination("US")
                             .addWhitelistedDestination("CA")
                             .build()
                     )
                     .language("en-US")
-                    .sms(
-                        VerifyProfileCreateParams.Sms.builder()
+                    .rcs(
+                        VerifyProfileCreateParams.Rcs.builder()
+                            .appName("Example Secure App")
+                            .codeLength(6L)
+                            .defaultVerificationTimeoutSecs(300L)
+                            .messagingTemplateId("0abb5b4f-459f-445a-bfcd-488998b7572d")
+                            .smsFallback(true)
                             .addWhitelistedDestination("US")
                             .addWhitelistedDestination("CA")
+                            .build()
+                    )
+                    .sms(
+                        VerifyProfileCreateParams.Sms.builder()
                             .alphaSender("sqF")
                             .appName("Example Secure App")
                             .codeLength(6L)
                             .defaultVerificationTimeoutSecs(300L)
                             .messagingTemplateId("0abb5b4f-459f-445a-bfcd-488998b7572d")
+                            .addWhitelistedDestination("US")
+                            .addWhitelistedDestination("CA")
                             .build()
                     )
                     .webhookFailoverUrl("http://example.com/webhook/failover")
@@ -66,14 +71,10 @@ internal class VerifyProfileServiceTest {
         verifyProfileData.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val verifyProfileService = client.verifyProfiles()
 
         val verifyProfileData =
@@ -82,14 +83,10 @@ internal class VerifyProfileServiceTest {
         verifyProfileData.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val verifyProfileService = client.verifyProfiles()
 
         val verifyProfileData =
@@ -108,6 +105,7 @@ internal class VerifyProfileServiceTest {
                     )
                     .flashcall(
                         VerifyProfileUpdateParams.Flashcall.builder()
+                            .appName("Example Secure App")
                             .defaultVerificationTimeoutSecs(300L)
                             .addWhitelistedDestination("US")
                             .addWhitelistedDestination("CA")
@@ -115,6 +113,17 @@ internal class VerifyProfileServiceTest {
                     )
                     .language("en-US")
                     .name("Test Profile")
+                    .rcs(
+                        VerifyProfileUpdateParams.Rcs.builder()
+                            .appName("Example Secure App")
+                            .codeLength(6L)
+                            .defaultVerificationTimeoutSecs(300L)
+                            .messagingTemplateId("0abb5b4f-459f-445a-bfcd-488998b7572d")
+                            .smsFallback(true)
+                            .addWhitelistedDestination("US")
+                            .addWhitelistedDestination("CA")
+                            .build()
+                    )
                     .sms(
                         VerifyProfileUpdateParams.Sms.builder()
                             .alphaSender("sqF")
@@ -134,14 +143,10 @@ internal class VerifyProfileServiceTest {
         verifyProfileData.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val verifyProfileService = client.verifyProfiles()
 
         val page = verifyProfileService.list()
@@ -149,14 +154,10 @@ internal class VerifyProfileServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val verifyProfileService = client.verifyProfiles()
 
         val verifyProfileData = verifyProfileService.delete("12ade33a-21c0-473b-b055-b3c836e1c292")
@@ -164,14 +165,10 @@ internal class VerifyProfileServiceTest {
         verifyProfileData.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun createTemplate() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val verifyProfileService = client.verifyProfiles()
 
         val messageTemplate =
@@ -184,14 +181,10 @@ internal class VerifyProfileServiceTest {
         messageTemplate.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveTemplates() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val verifyProfileService = client.verifyProfiles()
 
         val response = verifyProfileService.retrieveTemplates()
@@ -199,14 +192,10 @@ internal class VerifyProfileServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun updateTemplate() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val verifyProfileService = client.verifyProfiles()
 
         val messageTemplate =

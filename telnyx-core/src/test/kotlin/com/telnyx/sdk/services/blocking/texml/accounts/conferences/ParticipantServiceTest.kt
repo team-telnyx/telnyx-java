@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking.texml.accounts.conferences
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantDeleteParams
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantParticipantsParams
@@ -11,19 +10,13 @@ import com.telnyx.sdk.models.texml.accounts.conferences.participants.Participant
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ParticipantServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val participantService = client.texml().accounts().conferences().participants()
 
         val participant =
@@ -38,14 +31,10 @@ internal class ParticipantServiceTest {
         participant.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val participantService = client.texml().accounts().conferences().participants()
 
         val participant =
@@ -71,14 +60,10 @@ internal class ParticipantServiceTest {
         participant.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val participantService = client.texml().accounts().conferences().participants()
 
         participantService.delete(
@@ -90,14 +75,10 @@ internal class ParticipantServiceTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun participants() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val participantService = client.texml().accounts().conferences().participants()
 
         val response =
@@ -109,6 +90,7 @@ internal class ParticipantServiceTest {
                     .amdStatusCallbackMethod(
                         ParticipantParticipantsParams.AmdStatusCallbackMethod.GET
                     )
+                    .applicationSid("1846572522338780702")
                     .beep(ParticipantParticipantsParams.Beep.ON_EXIT)
                     .callerId("Info")
                     .callSidToCoach("v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ")
@@ -175,14 +157,10 @@ internal class ParticipantServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveParticipants() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val participantService = client.texml().accounts().conferences().participants()
 
         val response =

@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.blocking.legacy.reporting.usagereports
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingCreateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class MessagingServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messagingService = client.legacy().reporting().usageReports().messaging()
 
         val messaging =
@@ -40,14 +33,10 @@ internal class MessagingServiceTest {
         messaging.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messagingService = client.legacy().reporting().usageReports().messaging()
 
         val messaging = messagingService.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -55,14 +44,10 @@ internal class MessagingServiceTest {
         messaging.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messagingService = client.legacy().reporting().usageReports().messaging()
 
         val page = messagingService.list()
@@ -70,14 +55,10 @@ internal class MessagingServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messagingService = client.legacy().reporting().usageReports().messaging()
 
         val messaging = messagingService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.async
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerCreateParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerPatch
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class WireguardPeerServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val wireguardPeerServiceAsync = client.wireguardPeers()
 
         val wireguardPeerFuture =
@@ -42,14 +35,10 @@ internal class WireguardPeerServiceAsyncTest {
         wireguardPeer.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val wireguardPeerServiceAsync = client.wireguardPeers()
 
         val wireguardPeerFuture =
@@ -59,14 +48,10 @@ internal class WireguardPeerServiceAsyncTest {
         wireguardPeer.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val wireguardPeerServiceAsync = client.wireguardPeers()
 
         val wireguardPeerFuture =
@@ -85,14 +70,10 @@ internal class WireguardPeerServiceAsyncTest {
         wireguardPeer.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val wireguardPeerServiceAsync = client.wireguardPeers()
 
         val pageFuture = wireguardPeerServiceAsync.list()
@@ -101,14 +82,10 @@ internal class WireguardPeerServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val wireguardPeerServiceAsync = client.wireguardPeers()
 
         val wireguardPeerFuture =
@@ -118,14 +95,10 @@ internal class WireguardPeerServiceAsyncTest {
         wireguardPeer.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveConfig() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val wireguardPeerServiceAsync = client.wireguardPeers()
 
         val responseFuture =

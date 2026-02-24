@@ -26,6 +26,7 @@ import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.MinimaxVoiceSettings
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -75,12 +76,15 @@ private constructor(
      * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
      *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional.
      *   To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier
-     *   secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
-     *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-     *   for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-     *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-     *
-     * For service_level basic, you may define the gender of the speaker (male or female).
+     *   secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
+     *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+     * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+     * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g., `Minimax.speech-02-hd.Wise_Woman`).
+     *   Supported models: `speech-02-turbo`, `speech-02-hd`, `speech-2.6-turbo`,
+     *   `speech-2.8-turbo`. Optional parameters: `speed` (float, default 1.0), `vol` (float,
+     *   default 1.0), `pitch` (integer, default 0).
+     * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`). Supported
+     *   models: `Pro` (multilingual) and `Turbo` (English only).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -114,6 +118,15 @@ private constructor(
     fun language(): Optional<Language> = body.language()
 
     /**
+     * The number of times to play the audio file. Use `infinity` to loop indefinitely. Defaults
+     * to 1.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun loop(): Optional<Loopcount> = body.loop()
+
+    /**
      * The type of the provided payload. The payload can either be plain text, or Speech Synthesis
      * Markup Language (SSML).
      *
@@ -140,6 +153,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun stop(): Optional<String> = body.stop()
+
+    /**
+     * Specifies which legs of the call should receive the spoken audio.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun targetLegs(): Optional<TargetLegs> = body.targetLegs()
 
     /**
      * The settings associated with the voice selected
@@ -185,6 +206,13 @@ private constructor(
     fun _language(): JsonField<Language> = body._language()
 
     /**
+     * Returns the raw JSON value of [loop].
+     *
+     * Unlike [loop], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _loop(): JsonField<Loopcount> = body._loop()
+
+    /**
      * Returns the raw JSON value of [payloadType].
      *
      * Unlike [payloadType], this method doesn't throw if the JSON field has an unexpected type.
@@ -204,6 +232,13 @@ private constructor(
      * Unlike [stop], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _stop(): JsonField<String> = body._stop()
+
+    /**
+     * Returns the raw JSON value of [targetLegs].
+     *
+     * Unlike [targetLegs], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _targetLegs(): JsonField<TargetLegs> = body._targetLegs()
 
     /**
      * Returns the raw JSON value of [voiceSettings].
@@ -301,13 +336,15 @@ private constructor(
          * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
          *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is
          *   optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration
-         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
-         *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-         *   for details. Check
+         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
          *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-         *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-         *
-         * For service_level basic, you may define the gender of the speaker (male or female).
+         * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+         * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
+         *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
+         *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters: `speed`
+         *   (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer, default 0).
+         * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`).
+         *   Supported models: `Pro` (multilingual) and `Turbo` (English only).
          */
         fun voice(voice: String) = apply { body.voice(voice) }
 
@@ -365,6 +402,26 @@ private constructor(
         fun language(language: JsonField<Language>) = apply { body.language(language) }
 
         /**
+         * The number of times to play the audio file. Use `infinity` to loop indefinitely. Defaults
+         * to 1.
+         */
+        fun loop(loop: Loopcount) = apply { body.loop(loop) }
+
+        /**
+         * Sets [Builder.loop] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.loop] with a well-typed [Loopcount] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun loop(loop: JsonField<Loopcount>) = apply { body.loop(loop) }
+
+        /** Alias for calling [loop] with `Loopcount.ofString(string)`. */
+        fun loop(string: String) = apply { body.loop(string) }
+
+        /** Alias for calling [loop] with `Loopcount.ofInteger(integer)`. */
+        fun loop(integer: Long) = apply { body.loop(integer) }
+
+        /**
          * The type of the provided payload. The payload can either be plain text, or Speech
          * Synthesis Markup Language (SSML).
          */
@@ -413,6 +470,18 @@ private constructor(
          */
         fun stop(stop: JsonField<String>) = apply { body.stop(stop) }
 
+        /** Specifies which legs of the call should receive the spoken audio. */
+        fun targetLegs(targetLegs: TargetLegs) = apply { body.targetLegs(targetLegs) }
+
+        /**
+         * Sets [Builder.targetLegs] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.targetLegs] with a well-typed [TargetLegs] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun targetLegs(targetLegs: JsonField<TargetLegs>) = apply { body.targetLegs(targetLegs) }
+
         /** The settings associated with the voice selected */
         fun voiceSettings(voiceSettings: VoiceSettings) = apply {
             body.voiceSettings(voiceSettings)
@@ -439,6 +508,9 @@ private constructor(
 
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofAws(aws)`. */
         fun voiceSettings(aws: AwsVoiceSettings) = apply { body.voiceSettings(aws) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofMinimax(minimax)`. */
+        fun voiceSettings(minimax: MinimaxVoiceSettings) = apply { body.voiceSettings(minimax) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -599,9 +671,11 @@ private constructor(
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
         private val language: JsonField<Language>,
+        private val loop: JsonField<Loopcount>,
         private val payloadType: JsonField<PayloadType>,
         private val serviceLevel: JsonField<ServiceLevel>,
         private val stop: JsonField<String>,
+        private val targetLegs: JsonField<TargetLegs>,
         private val voiceSettings: JsonField<VoiceSettings>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -619,6 +693,7 @@ private constructor(
             @JsonProperty("language")
             @ExcludeMissing
             language: JsonField<Language> = JsonMissing.of(),
+            @JsonProperty("loop") @ExcludeMissing loop: JsonField<Loopcount> = JsonMissing.of(),
             @JsonProperty("payload_type")
             @ExcludeMissing
             payloadType: JsonField<PayloadType> = JsonMissing.of(),
@@ -626,6 +701,9 @@ private constructor(
             @ExcludeMissing
             serviceLevel: JsonField<ServiceLevel> = JsonMissing.of(),
             @JsonProperty("stop") @ExcludeMissing stop: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("target_legs")
+            @ExcludeMissing
+            targetLegs: JsonField<TargetLegs> = JsonMissing.of(),
             @JsonProperty("voice_settings")
             @ExcludeMissing
             voiceSettings: JsonField<VoiceSettings> = JsonMissing.of(),
@@ -635,9 +713,11 @@ private constructor(
             clientState,
             commandId,
             language,
+            loop,
             payloadType,
             serviceLevel,
             stop,
+            targetLegs,
             voiceSettings,
             mutableMapOf(),
         )
@@ -668,13 +748,15 @@ private constructor(
          * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
          *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is
          *   optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration
-         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
-         *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-         *   for details. Check
+         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
          *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-         *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-         *
-         * For service_level basic, you may define the gender of the speaker (male or female).
+         * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+         * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
+         *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
+         *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters: `speed`
+         *   (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer, default 0).
+         * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`).
+         *   Supported models: `Pro` (multilingual) and `Turbo` (English only).
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -709,6 +791,15 @@ private constructor(
         fun language(): Optional<Language> = language.getOptional("language")
 
         /**
+         * The number of times to play the audio file. Use `infinity` to loop indefinitely. Defaults
+         * to 1.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun loop(): Optional<Loopcount> = loop.getOptional("loop")
+
+        /**
          * The type of the provided payload. The payload can either be plain text, or Speech
          * Synthesis Markup Language (SSML).
          *
@@ -735,6 +826,14 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun stop(): Optional<String> = stop.getOptional("stop")
+
+        /**
+         * Specifies which legs of the call should receive the spoken audio.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun targetLegs(): Optional<TargetLegs> = targetLegs.getOptional("target_legs")
 
         /**
          * The settings associated with the voice selected
@@ -782,6 +881,13 @@ private constructor(
         @JsonProperty("language") @ExcludeMissing fun _language(): JsonField<Language> = language
 
         /**
+         * Returns the raw JSON value of [loop].
+         *
+         * Unlike [loop], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("loop") @ExcludeMissing fun _loop(): JsonField<Loopcount> = loop
+
+        /**
          * Returns the raw JSON value of [payloadType].
          *
          * Unlike [payloadType], this method doesn't throw if the JSON field has an unexpected type.
@@ -806,6 +912,15 @@ private constructor(
          * Unlike [stop], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("stop") @ExcludeMissing fun _stop(): JsonField<String> = stop
+
+        /**
+         * Returns the raw JSON value of [targetLegs].
+         *
+         * Unlike [targetLegs], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("target_legs")
+        @ExcludeMissing
+        fun _targetLegs(): JsonField<TargetLegs> = targetLegs
 
         /**
          * Returns the raw JSON value of [voiceSettings].
@@ -851,9 +966,11 @@ private constructor(
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
             private var language: JsonField<Language> = JsonMissing.of()
+            private var loop: JsonField<Loopcount> = JsonMissing.of()
             private var payloadType: JsonField<PayloadType> = JsonMissing.of()
             private var serviceLevel: JsonField<ServiceLevel> = JsonMissing.of()
             private var stop: JsonField<String> = JsonMissing.of()
+            private var targetLegs: JsonField<TargetLegs> = JsonMissing.of()
             private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -864,9 +981,11 @@ private constructor(
                 clientState = body.clientState
                 commandId = body.commandId
                 language = body.language
+                loop = body.loop
                 payloadType = body.payloadType
                 serviceLevel = body.serviceLevel
                 stop = body.stop
+                targetLegs = body.targetLegs
                 voiceSettings = body.voiceSettings
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -902,13 +1021,16 @@ private constructor(
              *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is
              *   optional. To use ElevenLabs, you must provide your ElevenLabs API key as an
              *   integration identifier secret in `"voice_settings": {"api_key_ref":
-             *   "<secret_identifier>"}`. See
-             *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-             *   for details. Check
+             *   "<secret_identifier>"}`. Check
              *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-             *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-             *
-             * For service_level basic, you may define the gender of the speaker (male or female).
+             * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+             * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
+             *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
+             *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters:
+             *   `speed` (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer, default
+             *   0).
+             * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`).
+             *   Supported models: `Pro` (multilingual) and `Turbo` (English only).
              */
             fun voice(voice: String) = voice(JsonField.of(voice))
 
@@ -969,6 +1091,27 @@ private constructor(
             fun language(language: JsonField<Language>) = apply { this.language = language }
 
             /**
+             * The number of times to play the audio file. Use `infinity` to loop indefinitely.
+             * Defaults to 1.
+             */
+            fun loop(loop: Loopcount) = loop(JsonField.of(loop))
+
+            /**
+             * Sets [Builder.loop] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.loop] with a well-typed [Loopcount] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun loop(loop: JsonField<Loopcount>) = apply { this.loop = loop }
+
+            /** Alias for calling [loop] with `Loopcount.ofString(string)`. */
+            fun loop(string: String) = loop(Loopcount.ofString(string))
+
+            /** Alias for calling [loop] with `Loopcount.ofInteger(integer)`. */
+            fun loop(integer: Long) = loop(Loopcount.ofInteger(integer))
+
+            /**
              * The type of the provided payload. The payload can either be plain text, or Speech
              * Synthesis Markup Language (SSML).
              */
@@ -1019,6 +1162,20 @@ private constructor(
              */
             fun stop(stop: JsonField<String>) = apply { this.stop = stop }
 
+            /** Specifies which legs of the call should receive the spoken audio. */
+            fun targetLegs(targetLegs: TargetLegs) = targetLegs(JsonField.of(targetLegs))
+
+            /**
+             * Sets [Builder.targetLegs] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.targetLegs] with a well-typed [TargetLegs] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun targetLegs(targetLegs: JsonField<TargetLegs>) = apply {
+                this.targetLegs = targetLegs
+            }
+
             /** The settings associated with the voice selected */
             fun voiceSettings(voiceSettings: VoiceSettings) =
                 voiceSettings(JsonField.of(voiceSettings))
@@ -1044,6 +1201,10 @@ private constructor(
 
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofAws(aws)`. */
             fun voiceSettings(aws: AwsVoiceSettings) = voiceSettings(VoiceSettings.ofAws(aws))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofMinimax(minimax)`. */
+            fun voiceSettings(minimax: MinimaxVoiceSettings) =
+                voiceSettings(VoiceSettings.ofMinimax(minimax))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1084,9 +1245,11 @@ private constructor(
                     clientState,
                     commandId,
                     language,
+                    loop,
                     payloadType,
                     serviceLevel,
                     stop,
+                    targetLegs,
                     voiceSettings,
                     additionalProperties.toMutableMap(),
                 )
@@ -1104,9 +1267,11 @@ private constructor(
             clientState()
             commandId()
             language().ifPresent { it.validate() }
+            loop().ifPresent { it.validate() }
             payloadType().ifPresent { it.validate() }
             serviceLevel().ifPresent { it.validate() }
             stop()
+            targetLegs().ifPresent { it.validate() }
             voiceSettings().ifPresent { it.validate() }
             validated = true
         }
@@ -1132,9 +1297,11 @@ private constructor(
                 (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
                 (language.asKnown().getOrNull()?.validity() ?: 0) +
+                (loop.asKnown().getOrNull()?.validity() ?: 0) +
                 (payloadType.asKnown().getOrNull()?.validity() ?: 0) +
                 (serviceLevel.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (stop.asKnown().isPresent) 1 else 0) +
+                (targetLegs.asKnown().getOrNull()?.validity() ?: 0) +
                 (voiceSettings.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -1148,9 +1315,11 @@ private constructor(
                 clientState == other.clientState &&
                 commandId == other.commandId &&
                 language == other.language &&
+                loop == other.loop &&
                 payloadType == other.payloadType &&
                 serviceLevel == other.serviceLevel &&
                 stop == other.stop &&
+                targetLegs == other.targetLegs &&
                 voiceSettings == other.voiceSettings &&
                 additionalProperties == other.additionalProperties
         }
@@ -1162,9 +1331,11 @@ private constructor(
                 clientState,
                 commandId,
                 language,
+                loop,
                 payloadType,
                 serviceLevel,
                 stop,
+                targetLegs,
                 voiceSettings,
                 additionalProperties,
             )
@@ -1173,7 +1344,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{payload=$payload, voice=$voice, clientState=$clientState, commandId=$commandId, language=$language, payloadType=$payloadType, serviceLevel=$serviceLevel, stop=$stop, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+            "Body{payload=$payload, voice=$voice, clientState=$clientState, commandId=$commandId, language=$language, loop=$loop, payloadType=$payloadType, serviceLevel=$serviceLevel, stop=$stop, targetLegs=$targetLegs, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -1730,6 +1901,140 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** Specifies which legs of the call should receive the spoken audio. */
+    class TargetLegs @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val SELF = of("self")
+
+            @JvmField val OPPOSITE = of("opposite")
+
+            @JvmField val BOTH = of("both")
+
+            @JvmStatic fun of(value: String) = TargetLegs(JsonField.of(value))
+        }
+
+        /** An enum containing [TargetLegs]'s known values. */
+        enum class Known {
+            SELF,
+            OPPOSITE,
+            BOTH,
+        }
+
+        /**
+         * An enum containing [TargetLegs]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [TargetLegs] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            SELF,
+            OPPOSITE,
+            BOTH,
+            /**
+             * An enum member indicating that [TargetLegs] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                SELF -> Value.SELF
+                OPPOSITE -> Value.OPPOSITE
+                BOTH -> Value.BOTH
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                SELF -> Known.SELF
+                OPPOSITE -> Known.OPPOSITE
+                BOTH -> Known.BOTH
+                else -> throw TelnyxInvalidDataException("Unknown TargetLegs: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): TargetLegs = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is TargetLegs && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     /** The settings associated with the voice selected */
     @JsonDeserialize(using = VoiceSettings.Deserializer::class)
     @JsonSerialize(using = VoiceSettings.Serializer::class)
@@ -1738,6 +2043,7 @@ private constructor(
         private val elevenlabs: ElevenLabsVoiceSettings? = null,
         private val telnyx: TelnyxVoiceSettings? = null,
         private val aws: AwsVoiceSettings? = null,
+        private val minimax: MinimaxVoiceSettings? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -1747,17 +2053,23 @@ private constructor(
 
         fun aws(): Optional<AwsVoiceSettings> = Optional.ofNullable(aws)
 
+        fun minimax(): Optional<MinimaxVoiceSettings> = Optional.ofNullable(minimax)
+
         fun isElevenlabs(): Boolean = elevenlabs != null
 
         fun isTelnyx(): Boolean = telnyx != null
 
         fun isAws(): Boolean = aws != null
 
+        fun isMinimax(): Boolean = minimax != null
+
         fun asElevenlabs(): ElevenLabsVoiceSettings = elevenlabs.getOrThrow("elevenlabs")
 
         fun asTelnyx(): TelnyxVoiceSettings = telnyx.getOrThrow("telnyx")
 
         fun asAws(): AwsVoiceSettings = aws.getOrThrow("aws")
+
+        fun asMinimax(): MinimaxVoiceSettings = minimax.getOrThrow("minimax")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -1766,6 +2078,7 @@ private constructor(
                 elevenlabs != null -> visitor.visitElevenlabs(elevenlabs)
                 telnyx != null -> visitor.visitTelnyx(telnyx)
                 aws != null -> visitor.visitAws(aws)
+                minimax != null -> visitor.visitMinimax(minimax)
                 else -> visitor.unknown(_json)
             }
 
@@ -1788,6 +2101,10 @@ private constructor(
 
                     override fun visitAws(aws: AwsVoiceSettings) {
                         aws.validate()
+                    }
+
+                    override fun visitMinimax(minimax: MinimaxVoiceSettings) {
+                        minimax.validate()
                     }
                 }
             )
@@ -1819,6 +2136,8 @@ private constructor(
 
                     override fun visitAws(aws: AwsVoiceSettings) = aws.validity()
 
+                    override fun visitMinimax(minimax: MinimaxVoiceSettings) = minimax.validity()
+
                     override fun unknown(json: JsonValue?) = 0
                 }
             )
@@ -1831,16 +2150,18 @@ private constructor(
             return other is VoiceSettings &&
                 elevenlabs == other.elevenlabs &&
                 telnyx == other.telnyx &&
-                aws == other.aws
+                aws == other.aws &&
+                minimax == other.minimax
         }
 
-        override fun hashCode(): Int = Objects.hash(elevenlabs, telnyx, aws)
+        override fun hashCode(): Int = Objects.hash(elevenlabs, telnyx, aws, minimax)
 
         override fun toString(): String =
             when {
                 elevenlabs != null -> "VoiceSettings{elevenlabs=$elevenlabs}"
                 telnyx != null -> "VoiceSettings{telnyx=$telnyx}"
                 aws != null -> "VoiceSettings{aws=$aws}"
+                minimax != null -> "VoiceSettings{minimax=$minimax}"
                 _json != null -> "VoiceSettings{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid VoiceSettings")
             }
@@ -1854,6 +2175,9 @@ private constructor(
             @JvmStatic fun ofTelnyx(telnyx: TelnyxVoiceSettings) = VoiceSettings(telnyx = telnyx)
 
             @JvmStatic fun ofAws(aws: AwsVoiceSettings) = VoiceSettings(aws = aws)
+
+            @JvmStatic
+            fun ofMinimax(minimax: MinimaxVoiceSettings) = VoiceSettings(minimax = minimax)
         }
 
         /**
@@ -1867,6 +2191,8 @@ private constructor(
             fun visitTelnyx(telnyx: TelnyxVoiceSettings): T
 
             fun visitAws(aws: AwsVoiceSettings): T
+
+            fun visitMinimax(minimax: MinimaxVoiceSettings): T
 
             /**
              * Maps an unknown variant of [VoiceSettings] to a value of type [T].
@@ -1905,6 +2231,11 @@ private constructor(
                             VoiceSettings(aws = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
+                    "minimax" -> {
+                        return tryDeserialize(node, jacksonTypeRef<MinimaxVoiceSettings>())?.let {
+                            VoiceSettings(minimax = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
                 }
 
                 return VoiceSettings(_json = json)
@@ -1922,6 +2253,7 @@ private constructor(
                     value.elevenlabs != null -> generator.writeObject(value.elevenlabs)
                     value.telnyx != null -> generator.writeObject(value.telnyx)
                     value.aws != null -> generator.writeObject(value.aws)
+                    value.minimax != null -> generator.writeObject(value.minimax)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid VoiceSettings")
                 }

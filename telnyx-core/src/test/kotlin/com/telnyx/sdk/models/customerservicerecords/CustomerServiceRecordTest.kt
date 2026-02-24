@@ -44,6 +44,7 @@ internal class CustomerServiceRecordTest {
                 )
                 .status(CustomerServiceRecord.Status.COMPLETED)
                 .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                .webhookUrl("https://example.com/webhook")
                 .build()
 
         assertThat(customerServiceRecord.id()).contains("f1486bae-f067-460c-ad43-73a92848f902")
@@ -79,6 +80,7 @@ internal class CustomerServiceRecordTest {
         assertThat(customerServiceRecord.status()).contains(CustomerServiceRecord.Status.COMPLETED)
         assertThat(customerServiceRecord.updatedAt())
             .contains(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+        assertThat(customerServiceRecord.webhookUrl()).contains("https://example.com/webhook")
     }
 
     @Test
@@ -116,6 +118,7 @@ internal class CustomerServiceRecordTest {
                 )
                 .status(CustomerServiceRecord.Status.COMPLETED)
                 .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                .webhookUrl("https://example.com/webhook")
                 .build()
 
         val roundtrippedCustomerServiceRecord =

@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.messages.MessageScheduleParams
 import com.telnyx.sdk.models.messages.MessageSendGroupMmsParams
@@ -11,23 +10,18 @@ import com.telnyx.sdk.models.messages.MessageSendNumberPoolParams
 import com.telnyx.sdk.models.messages.MessageSendParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendWhatsappParams
+import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderParams
 import com.telnyx.sdk.models.messages.WhatsappMedia
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class MessageServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messageServiceAsync = client.messages()
 
         val messageFuture = messageServiceAsync.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -36,14 +30,10 @@ internal class MessageServiceAsyncTest {
         message.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun cancelScheduled() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messageServiceAsync = client.messages()
 
         val responseFuture =
@@ -53,14 +43,23 @@ internal class MessageServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveGroupMessages() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val messageServiceAsync = client.messages()
+
+        val responseFuture =
+            messageServiceAsync.retrieveGroupMessages("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
     @Test
     fun schedule() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messageServiceAsync = client.messages()
 
         val responseFuture =
@@ -85,14 +84,10 @@ internal class MessageServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun send() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messageServiceAsync = client.messages()
 
         val responseFuture =
@@ -100,6 +95,7 @@ internal class MessageServiceAsyncTest {
                 MessageSendParams.builder()
                     .to("+18445550001")
                     .autoDetect(true)
+                    .encoding(MessageSendParams.Encoding.AUTO)
                     .from("+18445550001")
                     .addMediaUrl("http://example.com")
                     .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
@@ -117,14 +113,10 @@ internal class MessageServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun sendGroupMms() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messageServiceAsync = client.messages()
 
         val responseFuture =
@@ -146,14 +138,10 @@ internal class MessageServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun sendLongCode() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messageServiceAsync = client.messages()
 
         val responseFuture =
@@ -162,6 +150,7 @@ internal class MessageServiceAsyncTest {
                     .from("+18445550001")
                     .to("+13125550002")
                     .autoDetect(true)
+                    .encoding(MessageSendLongCodeParams.Encoding.AUTO)
                     .addMediaUrl("http://example.com")
                     .subject("From Telnyx!")
                     .text("Hello, World!")
@@ -176,14 +165,10 @@ internal class MessageServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun sendNumberPool() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messageServiceAsync = client.messages()
 
         val responseFuture =
@@ -192,6 +177,7 @@ internal class MessageServiceAsyncTest {
                     .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600000000")
                     .to("+13125550002")
                     .autoDetect(true)
+                    .encoding(MessageSendNumberPoolParams.Encoding.AUTO)
                     .addMediaUrl("http://example.com")
                     .subject("From Telnyx!")
                     .text("Hello, World!")
@@ -206,14 +192,10 @@ internal class MessageServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun sendShortCode() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messageServiceAsync = client.messages()
 
         val responseFuture =
@@ -222,6 +204,7 @@ internal class MessageServiceAsyncTest {
                     .from("+18445550001")
                     .to("+18445550001")
                     .autoDetect(true)
+                    .encoding(MessageSendShortCodeParams.Encoding.AUTO)
                     .addMediaUrl("http://example.com")
                     .subject("From Telnyx!")
                     .text("Hello, World!")
@@ -236,14 +219,10 @@ internal class MessageServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun sendWhatsapp() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val messageServiceAsync = client.messages()
 
         val responseFuture =
@@ -571,6 +550,29 @@ internal class MessageServiceAsyncTest {
                             .build()
                     )
                     .type(MessageSendWhatsappParams.Type.WHATSAPP)
+                    .webhookUrl("webhook_url")
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun sendWithAlphanumericSender() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val messageServiceAsync = client.messages()
+
+        val responseFuture =
+            messageServiceAsync.sendWithAlphanumericSender(
+                MessageSendWithAlphanumericSenderParams.builder()
+                    .from("MyCompany")
+                    .messagingProfileId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .text("text")
+                    .to("+E.164")
+                    .useProfileWebhooks(true)
+                    .webhookFailoverUrl("webhook_failover_url")
                     .webhookUrl("webhook_url")
                     .build()
             )

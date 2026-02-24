@@ -57,6 +57,17 @@ private constructor(
     fun autoDetect(): Optional<Boolean> = body.autoDetect()
 
     /**
+     * Encoding to use for the message. `auto` (default) uses smart encoding to automatically select
+     * the most efficient encoding. `gsm7` forces GSM-7 encoding (returns 400 if message contains
+     * characters that cannot be encoded). `ucs2` forces UCS-2 encoding and disables smart encoding.
+     * When set, this overrides the messaging profile's `smart_encoding` setting.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun encoding(): Optional<Encoding> = body.encoding()
+
+    /**
      * A list of media URLs. The total media size must be less than 1 MB.
      *
      * **Required for MMS**
@@ -140,6 +151,13 @@ private constructor(
      * Unlike [autoDetect], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _autoDetect(): JsonField<Boolean> = body._autoDetect()
+
+    /**
+     * Returns the raw JSON value of [encoding].
+     *
+     * Unlike [encoding], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _encoding(): JsonField<Encoding> = body._encoding()
 
     /**
      * Returns the raw JSON value of [mediaUrls].
@@ -238,8 +256,8 @@ private constructor(
          * - [messagingProfileId]
          * - [to]
          * - [autoDetect]
+         * - [encoding]
          * - [mediaUrls]
-         * - [subject]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -285,6 +303,24 @@ private constructor(
          * value.
          */
         fun autoDetect(autoDetect: JsonField<Boolean>) = apply { body.autoDetect(autoDetect) }
+
+        /**
+         * Encoding to use for the message. `auto` (default) uses smart encoding to automatically
+         * select the most efficient encoding. `gsm7` forces GSM-7 encoding (returns 400 if message
+         * contains characters that cannot be encoded). `ucs2` forces UCS-2 encoding and disables
+         * smart encoding. When set, this overrides the messaging profile's `smart_encoding`
+         * setting.
+         */
+        fun encoding(encoding: Encoding) = apply { body.encoding(encoding) }
+
+        /**
+         * Sets [Builder.encoding] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.encoding] with a well-typed [Encoding] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun encoding(encoding: JsonField<Encoding>) = apply { body.encoding(encoding) }
 
         /**
          * A list of media URLs. The total media size must be less than 1 MB.
@@ -547,6 +583,7 @@ private constructor(
         private val messagingProfileId: JsonField<String>,
         private val to: JsonField<String>,
         private val autoDetect: JsonField<Boolean>,
+        private val encoding: JsonField<Encoding>,
         private val mediaUrls: JsonField<List<String>>,
         private val subject: JsonField<String>,
         private val text: JsonField<String>,
@@ -566,6 +603,9 @@ private constructor(
             @JsonProperty("auto_detect")
             @ExcludeMissing
             autoDetect: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("encoding")
+            @ExcludeMissing
+            encoding: JsonField<Encoding> = JsonMissing.of(),
             @JsonProperty("media_urls")
             @ExcludeMissing
             mediaUrls: JsonField<List<String>> = JsonMissing.of(),
@@ -585,6 +625,7 @@ private constructor(
             messagingProfileId,
             to,
             autoDetect,
+            encoding,
             mediaUrls,
             subject,
             text,
@@ -619,6 +660,18 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun autoDetect(): Optional<Boolean> = autoDetect.getOptional("auto_detect")
+
+        /**
+         * Encoding to use for the message. `auto` (default) uses smart encoding to automatically
+         * select the most efficient encoding. `gsm7` forces GSM-7 encoding (returns 400 if message
+         * contains characters that cannot be encoded). `ucs2` forces UCS-2 encoding and disables
+         * smart encoding. When set, this overrides the messaging profile's `smart_encoding`
+         * setting.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun encoding(): Optional<Encoding> = encoding.getOptional("encoding")
 
         /**
          * A list of media URLs. The total media size must be less than 1 MB.
@@ -712,6 +765,13 @@ private constructor(
         fun _autoDetect(): JsonField<Boolean> = autoDetect
 
         /**
+         * Returns the raw JSON value of [encoding].
+         *
+         * Unlike [encoding], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("encoding") @ExcludeMissing fun _encoding(): JsonField<Encoding> = encoding
+
+        /**
          * Returns the raw JSON value of [mediaUrls].
          *
          * Unlike [mediaUrls], this method doesn't throw if the JSON field has an unexpected type.
@@ -802,6 +862,7 @@ private constructor(
             private var messagingProfileId: JsonField<String>? = null
             private var to: JsonField<String>? = null
             private var autoDetect: JsonField<Boolean> = JsonMissing.of()
+            private var encoding: JsonField<Encoding> = JsonMissing.of()
             private var mediaUrls: JsonField<MutableList<String>>? = null
             private var subject: JsonField<String> = JsonMissing.of()
             private var text: JsonField<String> = JsonMissing.of()
@@ -816,6 +877,7 @@ private constructor(
                 messagingProfileId = body.messagingProfileId
                 to = body.to
                 autoDetect = body.autoDetect
+                encoding = body.encoding
                 mediaUrls = body.mediaUrls.map { it.toMutableList() }
                 subject = body.subject
                 text = body.text
@@ -867,6 +929,24 @@ private constructor(
              * supported value.
              */
             fun autoDetect(autoDetect: JsonField<Boolean>) = apply { this.autoDetect = autoDetect }
+
+            /**
+             * Encoding to use for the message. `auto` (default) uses smart encoding to
+             * automatically select the most efficient encoding. `gsm7` forces GSM-7 encoding
+             * (returns 400 if message contains characters that cannot be encoded). `ucs2` forces
+             * UCS-2 encoding and disables smart encoding. When set, this overrides the messaging
+             * profile's `smart_encoding` setting.
+             */
+            fun encoding(encoding: Encoding) = encoding(JsonField.of(encoding))
+
+            /**
+             * Sets [Builder.encoding] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.encoding] with a well-typed [Encoding] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun encoding(encoding: JsonField<Encoding>) = apply { this.encoding = encoding }
 
             /**
              * A list of media URLs. The total media size must be less than 1 MB.
@@ -1024,6 +1104,7 @@ private constructor(
                     checkRequired("messagingProfileId", messagingProfileId),
                     checkRequired("to", to),
                     autoDetect,
+                    encoding,
                     (mediaUrls ?: JsonMissing.of()).map { it.toImmutable() },
                     subject,
                     text,
@@ -1045,6 +1126,7 @@ private constructor(
             messagingProfileId()
             to()
             autoDetect()
+            encoding().ifPresent { it.validate() }
             mediaUrls()
             subject()
             text()
@@ -1074,6 +1156,7 @@ private constructor(
             (if (messagingProfileId.asKnown().isPresent) 1 else 0) +
                 (if (to.asKnown().isPresent) 1 else 0) +
                 (if (autoDetect.asKnown().isPresent) 1 else 0) +
+                (encoding.asKnown().getOrNull()?.validity() ?: 0) +
                 (mediaUrls.asKnown().getOrNull()?.size ?: 0) +
                 (if (subject.asKnown().isPresent) 1 else 0) +
                 (if (text.asKnown().isPresent) 1 else 0) +
@@ -1091,6 +1174,7 @@ private constructor(
                 messagingProfileId == other.messagingProfileId &&
                 to == other.to &&
                 autoDetect == other.autoDetect &&
+                encoding == other.encoding &&
                 mediaUrls == other.mediaUrls &&
                 subject == other.subject &&
                 text == other.text &&
@@ -1106,6 +1190,7 @@ private constructor(
                 messagingProfileId,
                 to,
                 autoDetect,
+                encoding,
                 mediaUrls,
                 subject,
                 text,
@@ -1120,7 +1205,144 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{messagingProfileId=$messagingProfileId, to=$to, autoDetect=$autoDetect, mediaUrls=$mediaUrls, subject=$subject, text=$text, type=$type, useProfileWebhooks=$useProfileWebhooks, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+            "Body{messagingProfileId=$messagingProfileId, to=$to, autoDetect=$autoDetect, encoding=$encoding, mediaUrls=$mediaUrls, subject=$subject, text=$text, type=$type, useProfileWebhooks=$useProfileWebhooks, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Encoding to use for the message. `auto` (default) uses smart encoding to automatically select
+     * the most efficient encoding. `gsm7` forces GSM-7 encoding (returns 400 if message contains
+     * characters that cannot be encoded). `ucs2` forces UCS-2 encoding and disables smart encoding.
+     * When set, this overrides the messaging profile's `smart_encoding` setting.
+     */
+    class Encoding @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val AUTO = of("auto")
+
+            @JvmField val GSM7 = of("gsm7")
+
+            @JvmField val UCS2 = of("ucs2")
+
+            @JvmStatic fun of(value: String) = Encoding(JsonField.of(value))
+        }
+
+        /** An enum containing [Encoding]'s known values. */
+        enum class Known {
+            AUTO,
+            GSM7,
+            UCS2,
+        }
+
+        /**
+         * An enum containing [Encoding]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Encoding] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            AUTO,
+            GSM7,
+            UCS2,
+            /** An enum member indicating that [Encoding] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                AUTO -> Value.AUTO
+                GSM7 -> Value.GSM7
+                UCS2 -> Value.UCS2
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                AUTO -> Known.AUTO
+                GSM7 -> Known.GSM7
+                UCS2 -> Known.UCS2
+                else -> throw TelnyxInvalidDataException("Unknown Encoding: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): Encoding = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Encoding && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     /** The protocol for sending the message, either SMS or MMS. */

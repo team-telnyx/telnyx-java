@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking.phonenumbers
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.phonenumbers.jobs.JobDeleteBatchParams
 import com.telnyx.sdk.models.phonenumbers.jobs.JobUpdateBatchParams
@@ -14,19 +13,13 @@ import com.telnyx.sdk.models.phonenumbers.voice.MediaFeatures
 import com.telnyx.sdk.models.phonenumbers.voice.UpdateVoiceSettings
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class JobServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val jobService = client.phoneNumbers().jobs()
 
         val job = jobService.retrieve("id")
@@ -34,14 +27,10 @@ internal class JobServiceTest {
         job.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val jobService = client.phoneNumbers().jobs()
 
         val page = jobService.list()
@@ -49,14 +38,10 @@ internal class JobServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun deleteBatch() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val jobService = client.phoneNumbers().jobs()
 
         val response =
@@ -69,14 +54,10 @@ internal class JobServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun updateBatch() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val jobService = client.phoneNumbers().jobs()
 
         val response =
@@ -162,14 +143,10 @@ internal class JobServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun updateEmergencySettingsBatch() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val jobService = client.phoneNumbers().jobs()
 
         val response =

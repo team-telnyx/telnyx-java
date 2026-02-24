@@ -17,16 +17,16 @@ internal class MissionListPageResponseTest {
         val missionListPageResponse =
             MissionListPageResponse.builder()
                 .addData(
-                    MissionListResponse.builder()
+                    MissionData.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .executionMode(MissionListResponse.ExecutionMode.EXTERNAL)
+                        .executionMode(MissionData.ExecutionMode.EXTERNAL)
                         .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .name("name")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .description("description")
                         .instructions("instructions")
                         .metadata(
-                            MissionListResponse.Metadata.builder()
+                            MissionData.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -45,16 +45,16 @@ internal class MissionListPageResponseTest {
 
         assertThat(missionListPageResponse.data())
             .containsExactly(
-                MissionListResponse.builder()
+                MissionData.builder()
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .executionMode(MissionListResponse.ExecutionMode.EXTERNAL)
+                    .executionMode(MissionData.ExecutionMode.EXTERNAL)
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .name("name")
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .description("description")
                     .instructions("instructions")
                     .metadata(
-                        MissionListResponse.Metadata.builder()
+                        MissionData.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -73,16 +73,16 @@ internal class MissionListPageResponseTest {
         val missionListPageResponse =
             MissionListPageResponse.builder()
                 .addData(
-                    MissionListResponse.builder()
+                    MissionData.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .executionMode(MissionListResponse.ExecutionMode.EXTERNAL)
+                        .executionMode(MissionData.ExecutionMode.EXTERNAL)
                         .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .name("name")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .description("description")
                         .instructions("instructions")
                         .metadata(
-                            MissionListResponse.Metadata.builder()
+                            MissionData.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )

@@ -284,6 +284,7 @@ class WireguardPeerServiceAsyncImpl internal constructor(private val clientOptio
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("wireguard_peers", params._pathParam(0), "config")
+                    .putHeader("Accept", "text/plain")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

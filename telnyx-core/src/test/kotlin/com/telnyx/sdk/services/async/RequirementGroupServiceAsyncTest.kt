@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.async
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.requirementgroups.RequirementGroupCreateParams
 import com.telnyx.sdk.models.requirementgroups.RequirementGroupListParams
 import com.telnyx.sdk.models.requirementgroups.RequirementGroupUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class RequirementGroupServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val requirementGroupServiceAsync = client.requirementGroups()
 
         val requirementGroupFuture =
@@ -44,14 +37,10 @@ internal class RequirementGroupServiceAsyncTest {
         requirementGroup.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val requirementGroupServiceAsync = client.requirementGroups()
 
         val requirementGroupFuture = requirementGroupServiceAsync.retrieve("id")
@@ -60,14 +49,10 @@ internal class RequirementGroupServiceAsyncTest {
         requirementGroup.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val requirementGroupServiceAsync = client.requirementGroups()
 
         val requirementGroupFuture =
@@ -88,14 +73,10 @@ internal class RequirementGroupServiceAsyncTest {
         requirementGroup.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val requirementGroupServiceAsync = client.requirementGroups()
 
         val requirementGroupsFuture =
@@ -119,14 +100,10 @@ internal class RequirementGroupServiceAsyncTest {
         requirementGroups.forEach { it.validate() }
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val requirementGroupServiceAsync = client.requirementGroups()
 
         val requirementGroupFuture = requirementGroupServiceAsync.delete("id")
@@ -135,14 +112,10 @@ internal class RequirementGroupServiceAsyncTest {
         requirementGroup.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun submitForApproval() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val requirementGroupServiceAsync = client.requirementGroups()
 
         val requirementGroupFuture = requirementGroupServiceAsync.submitForApproval("id")

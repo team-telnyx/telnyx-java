@@ -2,24 +2,17 @@
 
 package com.telnyx.sdk.services.blocking
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.phonenumbers.PhoneNumberUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class PhoneNumberServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberService = client.phoneNumbers()
 
         val phoneNumber = phoneNumberService.retrieve("1293384261075731499")
@@ -27,14 +20,10 @@ internal class PhoneNumberServiceTest {
         phoneNumber.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberService = client.phoneNumbers()
 
         val phoneNumber =
@@ -42,6 +31,7 @@ internal class PhoneNumberServiceTest {
                 PhoneNumberUpdateParams.builder()
                     .phoneNumberId("1293384261075731499")
                     .id("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
+                    .addressId("dc8f39ac-953d-4520-b93b-786ae87db0da")
                     .billingGroupId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
                     .connectionId("dc8e4d67-33a0-4cbb-af74-7b58f05bd494")
                     .customerReference("customer-reference")
@@ -54,14 +44,10 @@ internal class PhoneNumberServiceTest {
         phoneNumber.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberService = client.phoneNumbers()
 
         val page = phoneNumberService.list()
@@ -69,14 +55,10 @@ internal class PhoneNumberServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberService = client.phoneNumbers()
 
         val phoneNumber = phoneNumberService.delete("1293384261075731499")
@@ -84,14 +66,10 @@ internal class PhoneNumberServiceTest {
         phoneNumber.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun slimList() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val phoneNumberService = client.phoneNumbers()
 
         val page = phoneNumberService.slimList()

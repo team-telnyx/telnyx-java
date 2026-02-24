@@ -46,11 +46,13 @@ private constructor(
     private val emergencyAddressId: JsonField<String>,
     private val emergencyEnabled: JsonField<Boolean>,
     private val emergencyStatus: JsonField<EmergencyStatus>,
+    private val hdVoiceEnabled: JsonField<Boolean>,
     private val inboundCallScreening: JsonField<InboundCallScreening>,
     private val messagingProfileId: JsonField<String>,
     private val messagingProfileName: JsonField<String>,
     private val sourceType: JsonField<SourceType>,
     private val t38FaxGatewayEnabled: JsonField<Boolean>,
+    private val updatedAt: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -116,6 +118,9 @@ private constructor(
         @JsonProperty("emergency_status")
         @ExcludeMissing
         emergencyStatus: JsonField<EmergencyStatus> = JsonMissing.of(),
+        @JsonProperty("hd_voice_enabled")
+        @ExcludeMissing
+        hdVoiceEnabled: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("inbound_call_screening")
         @ExcludeMissing
         inboundCallScreening: JsonField<InboundCallScreening> = JsonMissing.of(),
@@ -131,6 +136,7 @@ private constructor(
         @JsonProperty("t38_fax_gateway_enabled")
         @ExcludeMissing
         t38FaxGatewayEnabled: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
         countryIsoAlpha2,
@@ -154,11 +160,13 @@ private constructor(
         emergencyAddressId,
         emergencyEnabled,
         emergencyStatus,
+        hdVoiceEnabled,
         inboundCallScreening,
         messagingProfileId,
         messagingProfileName,
         sourceType,
         t38FaxGatewayEnabled,
+        updatedAt,
         mutableMapOf(),
     )
 
@@ -354,6 +362,14 @@ private constructor(
         emergencyStatus.getOptional("emergency_status")
 
     /**
+     * Indicates whether HD voice is enabled for this number.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun hdVoiceEnabled(): Optional<Boolean> = hdVoiceEnabled.getOptional("hd_voice_enabled")
+
+    /**
      * The inbound_call_screening setting is a phone number configuration option variable that
      * allows users to configure their settings to block or flag fraudulent calls. It can be set to
      * disabled, reject_calls, or flag_calls. This feature has an additional per-number monthly cost
@@ -400,6 +416,14 @@ private constructor(
      */
     fun t38FaxGatewayEnabled(): Optional<Boolean> =
         t38FaxGatewayEnabled.getOptional("t38_fax_gateway_enabled")
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun updatedAt(): Optional<String> = updatedAt.getOptional("updated_at")
 
     /**
      * Returns the raw JSON value of [id].
@@ -601,6 +625,15 @@ private constructor(
     fun _emergencyStatus(): JsonField<EmergencyStatus> = emergencyStatus
 
     /**
+     * Returns the raw JSON value of [hdVoiceEnabled].
+     *
+     * Unlike [hdVoiceEnabled], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("hd_voice_enabled")
+    @ExcludeMissing
+    fun _hdVoiceEnabled(): JsonField<Boolean> = hdVoiceEnabled
+
+    /**
      * Returns the raw JSON value of [inboundCallScreening].
      *
      * Unlike [inboundCallScreening], this method doesn't throw if the JSON field has an unexpected
@@ -648,6 +681,13 @@ private constructor(
     @JsonProperty("t38_fax_gateway_enabled")
     @ExcludeMissing
     fun _t38FaxGatewayEnabled(): JsonField<Boolean> = t38FaxGatewayEnabled
+
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt(): JsonField<String> = updatedAt
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -709,11 +749,13 @@ private constructor(
         private var emergencyAddressId: JsonField<String> = JsonMissing.of()
         private var emergencyEnabled: JsonField<Boolean> = JsonMissing.of()
         private var emergencyStatus: JsonField<EmergencyStatus> = JsonMissing.of()
+        private var hdVoiceEnabled: JsonField<Boolean> = JsonMissing.of()
         private var inboundCallScreening: JsonField<InboundCallScreening> = JsonMissing.of()
         private var messagingProfileId: JsonField<String> = JsonMissing.of()
         private var messagingProfileName: JsonField<String> = JsonMissing.of()
         private var sourceType: JsonField<SourceType> = JsonMissing.of()
         private var t38FaxGatewayEnabled: JsonField<Boolean> = JsonMissing.of()
+        private var updatedAt: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -740,11 +782,13 @@ private constructor(
             emergencyAddressId = phoneNumberDetailed.emergencyAddressId
             emergencyEnabled = phoneNumberDetailed.emergencyEnabled
             emergencyStatus = phoneNumberDetailed.emergencyStatus
+            hdVoiceEnabled = phoneNumberDetailed.hdVoiceEnabled
             inboundCallScreening = phoneNumberDetailed.inboundCallScreening
             messagingProfileId = phoneNumberDetailed.messagingProfileId
             messagingProfileName = phoneNumberDetailed.messagingProfileName
             sourceType = phoneNumberDetailed.sourceType
             t38FaxGatewayEnabled = phoneNumberDetailed.t38FaxGatewayEnabled
+            updatedAt = phoneNumberDetailed.updatedAt
             additionalProperties = phoneNumberDetailed.additionalProperties.toMutableMap()
         }
 
@@ -1106,6 +1150,20 @@ private constructor(
             this.emergencyStatus = emergencyStatus
         }
 
+        /** Indicates whether HD voice is enabled for this number. */
+        fun hdVoiceEnabled(hdVoiceEnabled: Boolean) = hdVoiceEnabled(JsonField.of(hdVoiceEnabled))
+
+        /**
+         * Sets [Builder.hdVoiceEnabled] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.hdVoiceEnabled] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun hdVoiceEnabled(hdVoiceEnabled: JsonField<Boolean>) = apply {
+            this.hdVoiceEnabled = hdVoiceEnabled
+        }
+
         /**
          * The inbound_call_screening setting is a phone number configuration option variable that
          * allows users to configure their settings to block or flag fraudulent calls. It can be set
@@ -1202,6 +1260,18 @@ private constructor(
             this.t38FaxGatewayEnabled = t38FaxGatewayEnabled
         }
 
+        /** ISO 8601 formatted date indicating when the resource was updated. */
+        fun updatedAt(updatedAt: String) = updatedAt(JsonField.of(updatedAt))
+
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun updatedAt(updatedAt: JsonField<String>) = apply { this.updatedAt = updatedAt }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -1267,11 +1337,13 @@ private constructor(
                 emergencyAddressId,
                 emergencyEnabled,
                 emergencyStatus,
+                hdVoiceEnabled,
                 inboundCallScreening,
                 messagingProfileId,
                 messagingProfileName,
                 sourceType,
                 t38FaxGatewayEnabled,
+                updatedAt,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -1305,11 +1377,13 @@ private constructor(
         emergencyAddressId()
         emergencyEnabled()
         emergencyStatus().ifPresent { it.validate() }
+        hdVoiceEnabled()
         inboundCallScreening().ifPresent { it.validate() }
         messagingProfileId()
         messagingProfileName()
         sourceType().ifPresent { it.validate() }
         t38FaxGatewayEnabled()
+        updatedAt()
         validated = true
     }
 
@@ -1350,11 +1424,13 @@ private constructor(
             (if (emergencyAddressId.asKnown().isPresent) 1 else 0) +
             (if (emergencyEnabled.asKnown().isPresent) 1 else 0) +
             (emergencyStatus.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (hdVoiceEnabled.asKnown().isPresent) 1 else 0) +
             (inboundCallScreening.asKnown().getOrNull()?.validity() ?: 0) +
             (if (messagingProfileId.asKnown().isPresent) 1 else 0) +
             (if (messagingProfileName.asKnown().isPresent) 1 else 0) +
             (sourceType.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (t38FaxGatewayEnabled.asKnown().isPresent) 1 else 0)
+            (if (t38FaxGatewayEnabled.asKnown().isPresent) 1 else 0) +
+            (if (updatedAt.asKnown().isPresent) 1 else 0)
 
     /**
      * The phone number's type. Note: For numbers purchased prior to July 2023 or when fetching a
@@ -2178,11 +2254,13 @@ private constructor(
             emergencyAddressId == other.emergencyAddressId &&
             emergencyEnabled == other.emergencyEnabled &&
             emergencyStatus == other.emergencyStatus &&
+            hdVoiceEnabled == other.hdVoiceEnabled &&
             inboundCallScreening == other.inboundCallScreening &&
             messagingProfileId == other.messagingProfileId &&
             messagingProfileName == other.messagingProfileName &&
             sourceType == other.sourceType &&
             t38FaxGatewayEnabled == other.t38FaxGatewayEnabled &&
+            updatedAt == other.updatedAt &&
             additionalProperties == other.additionalProperties
     }
 
@@ -2210,11 +2288,13 @@ private constructor(
             emergencyAddressId,
             emergencyEnabled,
             emergencyStatus,
+            hdVoiceEnabled,
             inboundCallScreening,
             messagingProfileId,
             messagingProfileName,
             sourceType,
             t38FaxGatewayEnabled,
+            updatedAt,
             additionalProperties,
         )
     }
@@ -2222,5 +2302,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PhoneNumberDetailed{id=$id, countryIsoAlpha2=$countryIsoAlpha2, createdAt=$createdAt, deletionLockEnabled=$deletionLockEnabled, externalPin=$externalPin, phoneNumber=$phoneNumber, phoneNumberType=$phoneNumberType, purchasedAt=$purchasedAt, recordType=$recordType, status=$status, tags=$tags, billingGroupId=$billingGroupId, callForwardingEnabled=$callForwardingEnabled, callRecordingEnabled=$callRecordingEnabled, callerIdNameEnabled=$callerIdNameEnabled, cnamListingEnabled=$cnamListingEnabled, connectionId=$connectionId, connectionName=$connectionName, customerReference=$customerReference, emergencyAddressId=$emergencyAddressId, emergencyEnabled=$emergencyEnabled, emergencyStatus=$emergencyStatus, inboundCallScreening=$inboundCallScreening, messagingProfileId=$messagingProfileId, messagingProfileName=$messagingProfileName, sourceType=$sourceType, t38FaxGatewayEnabled=$t38FaxGatewayEnabled, additionalProperties=$additionalProperties}"
+        "PhoneNumberDetailed{id=$id, countryIsoAlpha2=$countryIsoAlpha2, createdAt=$createdAt, deletionLockEnabled=$deletionLockEnabled, externalPin=$externalPin, phoneNumber=$phoneNumber, phoneNumberType=$phoneNumberType, purchasedAt=$purchasedAt, recordType=$recordType, status=$status, tags=$tags, billingGroupId=$billingGroupId, callForwardingEnabled=$callForwardingEnabled, callRecordingEnabled=$callRecordingEnabled, callerIdNameEnabled=$callerIdNameEnabled, cnamListingEnabled=$cnamListingEnabled, connectionId=$connectionId, connectionName=$connectionName, customerReference=$customerReference, emergencyAddressId=$emergencyAddressId, emergencyEnabled=$emergencyEnabled, emergencyStatus=$emergencyStatus, hdVoiceEnabled=$hdVoiceEnabled, inboundCallScreening=$inboundCallScreening, messagingProfileId=$messagingProfileId, messagingProfileName=$messagingProfileName, sourceType=$sourceType, t38FaxGatewayEnabled=$t38FaxGatewayEnabled, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

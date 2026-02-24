@@ -191,6 +191,7 @@ internal class UpdateAssistantTest {
                             VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
                                 .SILENCE
                         )
+                        .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                         .similarityBoost(0.0)
                         .speed(0.0)
                         .style(0.0)
@@ -416,6 +417,7 @@ internal class UpdateAssistantTest {
                     .predefinedMediaBackgroundAudio(
                         VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue.SILENCE
                     )
+                    .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                     .similarityBoost(0.0)
                     .speed(0.0)
                     .style(0.0)
@@ -616,6 +618,7 @@ internal class UpdateAssistantTest {
                             VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
                                 .SILENCE
                         )
+                        .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                         .similarityBoost(0.0)
                         .speed(0.0)
                         .style(0.0)

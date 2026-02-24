@@ -11,8 +11,10 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -53,6 +55,14 @@ private constructor(
     fun messagingProfileId(): Optional<String> = body.messagingProfileId()
 
     /**
+     * Tags to set on this phone number.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun tags(): Optional<List<String>> = body.tags()
+
+    /**
      * Returns the raw JSON value of [messagingProduct].
      *
      * Unlike [messagingProduct], this method doesn't throw if the JSON field has an unexpected
@@ -67,6 +77,13 @@ private constructor(
      * type.
      */
     fun _messagingProfileId(): JsonField<String> = body._messagingProfileId()
+
+    /**
+     * Returns the raw JSON value of [tags].
+     *
+     * Unlike [tags], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _tags(): JsonField<List<String>> = body._tags()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -114,6 +131,7 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [messagingProduct]
          * - [messagingProfileId]
+         * - [tags]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -158,6 +176,25 @@ private constructor(
         fun messagingProfileId(messagingProfileId: JsonField<String>) = apply {
             body.messagingProfileId(messagingProfileId)
         }
+
+        /** Tags to set on this phone number. */
+        fun tags(tags: List<String>) = apply { body.tags(tags) }
+
+        /**
+         * Sets [Builder.tags] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.tags] with a well-typed `List<String>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun tags(tags: JsonField<List<String>>) = apply { body.tags(tags) }
+
+        /**
+         * Adds a single [String] to [tags].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addTag(tag: String) = apply { body.addTag(tag) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -307,6 +344,7 @@ private constructor(
     private constructor(
         private val messagingProduct: JsonField<String>,
         private val messagingProfileId: JsonField<String>,
+        private val tags: JsonField<List<String>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -318,7 +356,8 @@ private constructor(
             @JsonProperty("messaging_profile_id")
             @ExcludeMissing
             messagingProfileId: JsonField<String> = JsonMissing.of(),
-        ) : this(messagingProduct, messagingProfileId, mutableMapOf())
+            @JsonProperty("tags") @ExcludeMissing tags: JsonField<List<String>> = JsonMissing.of(),
+        ) : this(messagingProduct, messagingProfileId, tags, mutableMapOf())
 
         /**
          * Configure the messaging product for this number:
@@ -344,6 +383,14 @@ private constructor(
             messagingProfileId.getOptional("messaging_profile_id")
 
         /**
+         * Tags to set on this phone number.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun tags(): Optional<List<String>> = tags.getOptional("tags")
+
+        /**
          * Returns the raw JSON value of [messagingProduct].
          *
          * Unlike [messagingProduct], this method doesn't throw if the JSON field has an unexpected
@@ -362,6 +409,13 @@ private constructor(
         @JsonProperty("messaging_profile_id")
         @ExcludeMissing
         fun _messagingProfileId(): JsonField<String> = messagingProfileId
+
+        /**
+         * Returns the raw JSON value of [tags].
+         *
+         * Unlike [tags], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("tags") @ExcludeMissing fun _tags(): JsonField<List<String>> = tags
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -386,12 +440,14 @@ private constructor(
 
             private var messagingProduct: JsonField<String> = JsonMissing.of()
             private var messagingProfileId: JsonField<String> = JsonMissing.of()
+            private var tags: JsonField<MutableList<String>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 messagingProduct = body.messagingProduct
                 messagingProfileId = body.messagingProfileId
+                tags = body.tags.map { it.toMutableList() }
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -435,6 +491,30 @@ private constructor(
                 this.messagingProfileId = messagingProfileId
             }
 
+            /** Tags to set on this phone number. */
+            fun tags(tags: List<String>) = tags(JsonField.of(tags))
+
+            /**
+             * Sets [Builder.tags] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.tags] with a well-typed `List<String>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun tags(tags: JsonField<List<String>>) = apply {
+                this.tags = tags.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [String] to [tags].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addTag(tag: String) = apply {
+                tags =
+                    (tags ?: JsonField.of(mutableListOf())).also { checkKnown("tags", it).add(tag) }
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -460,7 +540,12 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): Body =
-                Body(messagingProduct, messagingProfileId, additionalProperties.toMutableMap())
+                Body(
+                    messagingProduct,
+                    messagingProfileId,
+                    (tags ?: JsonMissing.of()).map { it.toImmutable() },
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -472,6 +557,7 @@ private constructor(
 
             messagingProduct()
             messagingProfileId()
+            tags()
             validated = true
         }
 
@@ -492,7 +578,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (messagingProduct.asKnown().isPresent) 1 else 0) +
-                (if (messagingProfileId.asKnown().isPresent) 1 else 0)
+                (if (messagingProfileId.asKnown().isPresent) 1 else 0) +
+                (tags.asKnown().getOrNull()?.size ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -502,17 +589,18 @@ private constructor(
             return other is Body &&
                 messagingProduct == other.messagingProduct &&
                 messagingProfileId == other.messagingProfileId &&
+                tags == other.tags &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(messagingProduct, messagingProfileId, additionalProperties)
+            Objects.hash(messagingProduct, messagingProfileId, tags, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{messagingProduct=$messagingProduct, messagingProfileId=$messagingProfileId, additionalProperties=$additionalProperties}"
+            "Body{messagingProduct=$messagingProduct, messagingProfileId=$messagingProfileId, tags=$tags, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

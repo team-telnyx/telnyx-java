@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.async.portingorders
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobRetrieveParams
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ActivationJobServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val activationJobServiceAsync = client.portingOrders().activationJobs()
 
         val activationJobFuture =
@@ -36,14 +29,10 @@ internal class ActivationJobServiceAsyncTest {
         activationJob.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val activationJobServiceAsync = client.portingOrders().activationJobs()
 
         val activationJobFuture =
@@ -59,14 +48,10 @@ internal class ActivationJobServiceAsyncTest {
         activationJob.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val activationJobServiceAsync = client.portingOrders().activationJobs()
 
         val pageFuture = activationJobServiceAsync.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

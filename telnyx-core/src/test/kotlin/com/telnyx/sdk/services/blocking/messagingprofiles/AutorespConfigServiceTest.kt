@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking.messagingprofiles
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutoRespConfigCreate
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigCreateParams
@@ -12,19 +11,13 @@ import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigRet
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class AutorespConfigServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val autorespConfigService = client.messagingProfiles().autorespConfigs()
 
         val autoRespConfigResponse =
@@ -46,14 +39,10 @@ internal class AutorespConfigServiceTest {
         autoRespConfigResponse.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val autorespConfigService = client.messagingProfiles().autorespConfigs()
 
         val autoRespConfigResponse =
@@ -67,14 +56,10 @@ internal class AutorespConfigServiceTest {
         autoRespConfigResponse.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val autorespConfigService = client.messagingProfiles().autorespConfigs()
 
         val autoRespConfigResponse =
@@ -97,14 +82,10 @@ internal class AutorespConfigServiceTest {
         autoRespConfigResponse.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val autorespConfigService = client.messagingProfiles().autorespConfigs()
 
         val autorespConfigs =
@@ -124,14 +105,10 @@ internal class AutorespConfigServiceTest {
         autorespConfigs.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val autorespConfigService = client.messagingProfiles().autorespConfigs()
 
         autorespConfigService.delete(

@@ -17,11 +17,11 @@ internal class EmbeddingListEmbeddingModelsResponseTest {
                     EmbeddingListEmbeddingModelsResponse.Data.builder()
                         .id("thenlper/gte-large")
                         .created(0L)
-                        .object_("object")
+                        .modelObject("object")
                         .ownedBy("telnyx")
                         .build()
                 )
-                .object_("object")
+                .modelObject("object")
                 .build()
 
         assertThat(embeddingListEmbeddingModelsResponse.data())
@@ -29,11 +29,11 @@ internal class EmbeddingListEmbeddingModelsResponseTest {
                 EmbeddingListEmbeddingModelsResponse.Data.builder()
                     .id("thenlper/gte-large")
                     .created(0L)
-                    .object_("object")
+                    .modelObject("object")
                     .ownedBy("telnyx")
                     .build()
             )
-        assertThat(embeddingListEmbeddingModelsResponse.object_()).isEqualTo("object")
+        assertThat(embeddingListEmbeddingModelsResponse.modelObject()).isEqualTo("object")
     }
 
     @Test
@@ -45,11 +45,11 @@ internal class EmbeddingListEmbeddingModelsResponseTest {
                     EmbeddingListEmbeddingModelsResponse.Data.builder()
                         .id("thenlper/gte-large")
                         .created(0L)
-                        .object_("object")
+                        .modelObject("object")
                         .ownedBy("telnyx")
                         .build()
                 )
-                .object_("object")
+                .modelObject("object")
                 .build()
 
         val roundtrippedEmbeddingListEmbeddingModelsResponse =

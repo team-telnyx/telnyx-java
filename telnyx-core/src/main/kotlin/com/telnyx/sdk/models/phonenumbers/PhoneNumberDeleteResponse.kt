@@ -157,6 +157,7 @@ private constructor(
         private val emergencyAddressId: JsonField<String>,
         private val emergencyEnabled: JsonField<Boolean>,
         private val externalPin: JsonField<String>,
+        private val hdVoiceEnabled: JsonField<Boolean>,
         private val messagingProfileId: JsonField<String>,
         private val messagingProfileName: JsonField<String>,
         private val phoneNumber: JsonField<String>,
@@ -212,6 +213,9 @@ private constructor(
             @JsonProperty("external_pin")
             @ExcludeMissing
             externalPin: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("hd_voice_enabled")
+            @ExcludeMissing
+            hdVoiceEnabled: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("messaging_profile_id")
             @ExcludeMissing
             messagingProfileId: JsonField<String> = JsonMissing.of(),
@@ -253,6 +257,7 @@ private constructor(
             emergencyAddressId,
             emergencyEnabled,
             externalPin,
+            hdVoiceEnabled,
             messagingProfileId,
             messagingProfileName,
             phoneNumber,
@@ -391,6 +396,14 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun externalPin(): Optional<String> = externalPin.getOptional("external_pin")
+
+        /**
+         * Indicates whether HD voice is enabled for this number.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun hdVoiceEnabled(): Optional<Boolean> = hdVoiceEnabled.getOptional("hd_voice_enabled")
 
         /**
          * Identifies the messaging profile associated with the phone number.
@@ -610,6 +623,16 @@ private constructor(
         fun _externalPin(): JsonField<String> = externalPin
 
         /**
+         * Returns the raw JSON value of [hdVoiceEnabled].
+         *
+         * Unlike [hdVoiceEnabled], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("hd_voice_enabled")
+        @ExcludeMissing
+        fun _hdVoiceEnabled(): JsonField<Boolean> = hdVoiceEnabled
+
+        /**
          * Returns the raw JSON value of [messagingProfileId].
          *
          * Unlike [messagingProfileId], this method doesn't throw if the JSON field has an
@@ -732,6 +755,7 @@ private constructor(
             private var emergencyAddressId: JsonField<String> = JsonMissing.of()
             private var emergencyEnabled: JsonField<Boolean> = JsonMissing.of()
             private var externalPin: JsonField<String> = JsonMissing.of()
+            private var hdVoiceEnabled: JsonField<Boolean> = JsonMissing.of()
             private var messagingProfileId: JsonField<String> = JsonMissing.of()
             private var messagingProfileName: JsonField<String> = JsonMissing.of()
             private var phoneNumber: JsonField<String> = JsonMissing.of()
@@ -760,6 +784,7 @@ private constructor(
                 emergencyAddressId = data.emergencyAddressId
                 emergencyEnabled = data.emergencyEnabled
                 externalPin = data.externalPin
+                hdVoiceEnabled = data.hdVoiceEnabled
                 messagingProfileId = data.messagingProfileId
                 messagingProfileName = data.messagingProfileName
                 phoneNumber = data.phoneNumber
@@ -990,6 +1015,21 @@ private constructor(
                 this.externalPin = externalPin
             }
 
+            /** Indicates whether HD voice is enabled for this number. */
+            fun hdVoiceEnabled(hdVoiceEnabled: Boolean) =
+                hdVoiceEnabled(JsonField.of(hdVoiceEnabled))
+
+            /**
+             * Sets [Builder.hdVoiceEnabled] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.hdVoiceEnabled] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun hdVoiceEnabled(hdVoiceEnabled: JsonField<Boolean>) = apply {
+                this.hdVoiceEnabled = hdVoiceEnabled
+            }
+
             /** Identifies the messaging profile associated with the phone number. */
             fun messagingProfileId(messagingProfileId: String) =
                 messagingProfileId(JsonField.of(messagingProfileId))
@@ -1181,6 +1221,7 @@ private constructor(
                     emergencyAddressId,
                     emergencyEnabled,
                     externalPin,
+                    hdVoiceEnabled,
                     messagingProfileId,
                     messagingProfileName,
                     phoneNumber,
@@ -1216,6 +1257,7 @@ private constructor(
             emergencyAddressId()
             emergencyEnabled()
             externalPin()
+            hdVoiceEnabled()
             messagingProfileId()
             messagingProfileName()
             phoneNumber()
@@ -1259,6 +1301,7 @@ private constructor(
                 (if (emergencyAddressId.asKnown().isPresent) 1 else 0) +
                 (if (emergencyEnabled.asKnown().isPresent) 1 else 0) +
                 (if (externalPin.asKnown().isPresent) 1 else 0) +
+                (if (hdVoiceEnabled.asKnown().isPresent) 1 else 0) +
                 (if (messagingProfileId.asKnown().isPresent) 1 else 0) +
                 (if (messagingProfileName.asKnown().isPresent) 1 else 0) +
                 (if (phoneNumber.asKnown().isPresent) 1 else 0) +
@@ -1619,6 +1662,7 @@ private constructor(
                 emergencyAddressId == other.emergencyAddressId &&
                 emergencyEnabled == other.emergencyEnabled &&
                 externalPin == other.externalPin &&
+                hdVoiceEnabled == other.hdVoiceEnabled &&
                 messagingProfileId == other.messagingProfileId &&
                 messagingProfileName == other.messagingProfileName &&
                 phoneNumber == other.phoneNumber &&
@@ -1648,6 +1692,7 @@ private constructor(
                 emergencyAddressId,
                 emergencyEnabled,
                 externalPin,
+                hdVoiceEnabled,
                 messagingProfileId,
                 messagingProfileName,
                 phoneNumber,
@@ -1665,7 +1710,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{id=$id, billingGroupId=$billingGroupId, callForwardingEnabled=$callForwardingEnabled, callRecordingEnabled=$callRecordingEnabled, callerIdNameEnabled=$callerIdNameEnabled, cnamListingEnabled=$cnamListingEnabled, connectionId=$connectionId, connectionName=$connectionName, createdAt=$createdAt, customerReference=$customerReference, deletionLockEnabled=$deletionLockEnabled, emergencyAddressId=$emergencyAddressId, emergencyEnabled=$emergencyEnabled, externalPin=$externalPin, messagingProfileId=$messagingProfileId, messagingProfileName=$messagingProfileName, phoneNumber=$phoneNumber, phoneNumberType=$phoneNumberType, purchasedAt=$purchasedAt, recordType=$recordType, status=$status, t38FaxGatewayEnabled=$t38FaxGatewayEnabled, tags=$tags, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+            "Data{id=$id, billingGroupId=$billingGroupId, callForwardingEnabled=$callForwardingEnabled, callRecordingEnabled=$callRecordingEnabled, callerIdNameEnabled=$callerIdNameEnabled, cnamListingEnabled=$cnamListingEnabled, connectionId=$connectionId, connectionName=$connectionName, createdAt=$createdAt, customerReference=$customerReference, deletionLockEnabled=$deletionLockEnabled, emergencyAddressId=$emergencyAddressId, emergencyEnabled=$emergencyEnabled, externalPin=$externalPin, hdVoiceEnabled=$hdVoiceEnabled, messagingProfileId=$messagingProfileId, messagingProfileName=$messagingProfileName, phoneNumber=$phoneNumber, phoneNumberType=$phoneNumberType, purchasedAt=$purchasedAt, recordType=$recordType, status=$status, t38FaxGatewayEnabled=$t38FaxGatewayEnabled, tags=$tags, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -13,9 +13,7 @@ import java.time.Instant
 import java.util.Base64
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class WebhookServiceTest {
 
     private val keyPair = KeyPairGenerator.getInstance("Ed25519").generateKeyPair()
@@ -33,11 +31,7 @@ internal class WebhookServiceTest {
 
     @Test
     fun unsafeUnwrap() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val webhookService = client.webhooks()
 
         val payload =
@@ -48,11 +42,7 @@ internal class WebhookServiceTest {
 
     @Test
     fun unwrapWithoutHeaders() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val webhookService = client.webhooks()
 
         val payload =

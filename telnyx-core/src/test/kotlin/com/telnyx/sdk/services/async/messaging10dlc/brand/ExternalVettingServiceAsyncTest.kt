@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.async.messaging10dlc.brand
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingImportsParams
 import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingOrderParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ExternalVettingServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val externalVettingServiceAsync = client.messaging10dlc().brand().externalVetting()
 
         val externalVettingsFuture = externalVettingServiceAsync.list("brandId")
@@ -29,14 +22,10 @@ internal class ExternalVettingServiceAsyncTest {
         externalVettings.forEach { it.validate() }
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun imports() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val externalVettingServiceAsync = client.messaging10dlc().brand().externalVetting()
 
         val responseFuture =
@@ -53,14 +42,10 @@ internal class ExternalVettingServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun order() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val externalVettingServiceAsync = client.messaging10dlc().brand().externalVetting()
 
         val responseFuture =

@@ -2,30 +2,23 @@
 
 package com.telnyx.sdk.services.blocking.externalconnections
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.externalconnections.releases.ReleaseRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ReleaseServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val releaseService = client.externalConnections().releases()
 
         val release =
             releaseService.retrieve(
                 ReleaseRetrieveParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .releaseId("7b6a6449-b055-45a6-81f6-f6f0dffa4cc6")
                     .build()
             )
@@ -33,17 +26,13 @@ internal class ReleaseServiceTest {
         release.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val releaseService = client.externalConnections().releases()
 
-        val page = releaseService.list("id")
+        val page = releaseService.list("1293384261075731499")
 
         page.response().validate()
     }

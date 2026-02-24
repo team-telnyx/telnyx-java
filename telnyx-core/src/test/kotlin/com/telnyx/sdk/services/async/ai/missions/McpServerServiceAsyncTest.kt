@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.async.ai.missions
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.ai.missions.mcpservers.McpServerDeleteMcpServerParams
 import com.telnyx.sdk.models.ai.missions.mcpservers.McpServerGetMcpServerParams
 import com.telnyx.sdk.models.ai.missions.mcpservers.McpServerUpdateMcpServerParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class McpServerServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun createMcpServer() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val mcpServerServiceAsync = client.ai().missions().mcpServers()
 
         val responseFuture = mcpServerServiceAsync.createMcpServer("mission_id")
@@ -30,14 +23,10 @@ internal class McpServerServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun deleteMcpServer() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val mcpServerServiceAsync = client.ai().missions().mcpServers()
 
         val future =
@@ -51,14 +40,10 @@ internal class McpServerServiceAsyncTest {
         val response = future.get()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getMcpServer() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val mcpServerServiceAsync = client.ai().missions().mcpServers()
 
         val responseFuture =
@@ -73,14 +58,10 @@ internal class McpServerServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listMcpServers() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val mcpServerServiceAsync = client.ai().missions().mcpServers()
 
         val responseFuture = mcpServerServiceAsync.listMcpServers("mission_id")
@@ -89,14 +70,10 @@ internal class McpServerServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun updateMcpServer() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val mcpServerServiceAsync = client.ai().missions().mcpServers()
 
         val responseFuture =

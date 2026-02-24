@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking.phonenumbers
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.phonenumbers.voice.CallForwarding
 import com.telnyx.sdk.models.phonenumbers.voice.CallRecording
@@ -12,19 +11,13 @@ import com.telnyx.sdk.models.phonenumbers.voice.UpdateVoiceSettings
 import com.telnyx.sdk.models.phonenumbers.voice.VoiceUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class VoiceServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val voiceService = client.phoneNumbers().voice()
 
         val voice = voiceService.retrieve("1293384261075731499")
@@ -32,14 +25,10 @@ internal class VoiceServiceTest {
         voice.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val voiceService = client.phoneNumbers().voice()
 
         val voice =
@@ -94,14 +83,10 @@ internal class VoiceServiceTest {
         voice.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val voiceService = client.phoneNumbers().voice()
 
         val page = voiceService.list()

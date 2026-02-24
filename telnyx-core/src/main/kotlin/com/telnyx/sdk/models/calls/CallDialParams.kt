@@ -389,6 +389,15 @@ private constructor(
     fun soundModifications(): Optional<SoundModifications> = body.soundModifications()
 
     /**
+     * An authentication token to be sent as part of the WebSocket connection when using streaming.
+     * Maximum length is 4000 characters.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun streamAuthToken(): Optional<String> = body.streamAuthToken()
+
+    /**
      * Indicates codec for bidirectional streaming RTP payloads. Used only with
      * stream_bidirectional_mode=rtp. Case sensitive.
      *
@@ -797,6 +806,13 @@ private constructor(
      * type.
      */
     fun _soundModifications(): JsonField<SoundModifications> = body._soundModifications()
+
+    /**
+     * Returns the raw JSON value of [streamAuthToken].
+     *
+     * Unlike [streamAuthToken], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _streamAuthToken(): JsonField<String> = body._streamAuthToken()
 
     /**
      * Returns the raw JSON value of [streamBidirectionalCodec].
@@ -1599,6 +1615,25 @@ private constructor(
         }
 
         /**
+         * An authentication token to be sent as part of the WebSocket connection when using
+         * streaming. Maximum length is 4000 characters.
+         */
+        fun streamAuthToken(streamAuthToken: String) = apply {
+            body.streamAuthToken(streamAuthToken)
+        }
+
+        /**
+         * Sets [Builder.streamAuthToken] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.streamAuthToken] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun streamAuthToken(streamAuthToken: JsonField<String>) = apply {
+            body.streamAuthToken(streamAuthToken)
+        }
+
+        /**
          * Indicates codec for bidirectional streaming RTP payloads. Used only with
          * stream_bidirectional_mode=rtp. Case sensitive.
          */
@@ -2043,6 +2078,7 @@ private constructor(
         private val sipRegion: JsonField<SipRegion>,
         private val sipTransportProtocol: JsonField<SipTransportProtocol>,
         private val soundModifications: JsonField<SoundModifications>,
+        private val streamAuthToken: JsonField<String>,
         private val streamBidirectionalCodec: JsonField<StreamBidirectionalCodec>,
         private val streamBidirectionalMode: JsonField<StreamBidirectionalMode>,
         private val streamBidirectionalSamplingRate: JsonField<StreamBidirectionalSamplingRate>,
@@ -2165,6 +2201,9 @@ private constructor(
             @JsonProperty("sound_modifications")
             @ExcludeMissing
             soundModifications: JsonField<SoundModifications> = JsonMissing.of(),
+            @JsonProperty("stream_auth_token")
+            @ExcludeMissing
+            streamAuthToken: JsonField<String> = JsonMissing.of(),
             @JsonProperty("stream_bidirectional_codec")
             @ExcludeMissing
             streamBidirectionalCodec: JsonField<StreamBidirectionalCodec> = JsonMissing.of(),
@@ -2252,6 +2291,7 @@ private constructor(
             sipRegion,
             sipTransportProtocol,
             soundModifications,
+            streamAuthToken,
             streamBidirectionalCodec,
             streamBidirectionalMode,
             streamBidirectionalSamplingRate,
@@ -2611,6 +2651,15 @@ private constructor(
          */
         fun soundModifications(): Optional<SoundModifications> =
             soundModifications.getOptional("sound_modifications")
+
+        /**
+         * An authentication token to be sent as part of the WebSocket connection when using
+         * streaming. Maximum length is 4000 characters.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun streamAuthToken(): Optional<String> = streamAuthToken.getOptional("stream_auth_token")
 
         /**
          * Indicates codec for bidirectional streaming RTP payloads. Used only with
@@ -3099,6 +3148,16 @@ private constructor(
         fun _soundModifications(): JsonField<SoundModifications> = soundModifications
 
         /**
+         * Returns the raw JSON value of [streamAuthToken].
+         *
+         * Unlike [streamAuthToken], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("stream_auth_token")
+        @ExcludeMissing
+        fun _streamAuthToken(): JsonField<String> = streamAuthToken
+
+        /**
          * Returns the raw JSON value of [streamBidirectionalCodec].
          *
          * Unlike [streamBidirectionalCodec], this method doesn't throw if the JSON field has an
@@ -3324,6 +3383,7 @@ private constructor(
             private var sipRegion: JsonField<SipRegion> = JsonMissing.of()
             private var sipTransportProtocol: JsonField<SipTransportProtocol> = JsonMissing.of()
             private var soundModifications: JsonField<SoundModifications> = JsonMissing.of()
+            private var streamAuthToken: JsonField<String> = JsonMissing.of()
             private var streamBidirectionalCodec: JsonField<StreamBidirectionalCodec> =
                 JsonMissing.of()
             private var streamBidirectionalMode: JsonField<StreamBidirectionalMode> =
@@ -3385,6 +3445,7 @@ private constructor(
                 sipRegion = body.sipRegion
                 sipTransportProtocol = body.sipTransportProtocol
                 soundModifications = body.soundModifications
+                streamAuthToken = body.streamAuthToken
                 streamBidirectionalCodec = body.streamBidirectionalCodec
                 streamBidirectionalMode = body.streamBidirectionalMode
                 streamBidirectionalSamplingRate = body.streamBidirectionalSamplingRate
@@ -4036,6 +4097,24 @@ private constructor(
             }
 
             /**
+             * An authentication token to be sent as part of the WebSocket connection when using
+             * streaming. Maximum length is 4000 characters.
+             */
+            fun streamAuthToken(streamAuthToken: String) =
+                streamAuthToken(JsonField.of(streamAuthToken))
+
+            /**
+             * Sets [Builder.streamAuthToken] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.streamAuthToken] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun streamAuthToken(streamAuthToken: JsonField<String>) = apply {
+                this.streamAuthToken = streamAuthToken
+            }
+
+            /**
              * Indicates codec for bidirectional streaming RTP payloads. Used only with
              * stream_bidirectional_mode=rtp. Case sensitive.
              */
@@ -4367,6 +4446,7 @@ private constructor(
                     sipRegion,
                     sipTransportProtocol,
                     soundModifications,
+                    streamAuthToken,
                     streamBidirectionalCodec,
                     streamBidirectionalMode,
                     streamBidirectionalSamplingRate,
@@ -4430,6 +4510,7 @@ private constructor(
             sipRegion().ifPresent { it.validate() }
             sipTransportProtocol().ifPresent { it.validate() }
             soundModifications().ifPresent { it.validate() }
+            streamAuthToken()
             streamBidirectionalCodec().ifPresent { it.validate() }
             streamBidirectionalMode().ifPresent { it.validate() }
             streamBidirectionalSamplingRate().ifPresent { it.validate() }
@@ -4501,6 +4582,7 @@ private constructor(
                 (sipRegion.asKnown().getOrNull()?.validity() ?: 0) +
                 (sipTransportProtocol.asKnown().getOrNull()?.validity() ?: 0) +
                 (soundModifications.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (streamAuthToken.asKnown().isPresent) 1 else 0) +
                 (streamBidirectionalCodec.asKnown().getOrNull()?.validity() ?: 0) +
                 (streamBidirectionalMode.asKnown().getOrNull()?.validity() ?: 0) +
                 (streamBidirectionalSamplingRate.asKnown().getOrNull()?.validity() ?: 0) +
@@ -4560,6 +4642,7 @@ private constructor(
                 sipRegion == other.sipRegion &&
                 sipTransportProtocol == other.sipTransportProtocol &&
                 soundModifications == other.soundModifications &&
+                streamAuthToken == other.streamAuthToken &&
                 streamBidirectionalCodec == other.streamBidirectionalCodec &&
                 streamBidirectionalMode == other.streamBidirectionalMode &&
                 streamBidirectionalSamplingRate == other.streamBidirectionalSamplingRate &&
@@ -4617,6 +4700,7 @@ private constructor(
                 sipRegion,
                 sipTransportProtocol,
                 soundModifications,
+                streamAuthToken,
                 streamBidirectionalCodec,
                 streamBidirectionalMode,
                 streamBidirectionalSamplingRate,
@@ -4640,7 +4724,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{connectionId=$connectionId, from=$from, to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, audioUrl=$audioUrl, billingGroupId=$billingGroupId, bridgeIntent=$bridgeIntent, bridgeOnAnswer=$bridgeOnAnswer, clientState=$clientState, commandId=$commandId, conferenceConfig=$conferenceConfig, customHeaders=$customHeaders, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, fromDisplayName=$fromDisplayName, linkTo=$linkTo, mediaEncryption=$mediaEncryption, mediaName=$mediaName, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallControlId=$superviseCallControlId, supervisorRole=$supervisorRole, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, additionalProperties=$additionalProperties}"
+            "Body{connectionId=$connectionId, from=$from, to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, audioUrl=$audioUrl, billingGroupId=$billingGroupId, bridgeIntent=$bridgeIntent, bridgeOnAnswer=$bridgeOnAnswer, clientState=$clientState, commandId=$commandId, conferenceConfig=$conferenceConfig, customHeaders=$customHeaders, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, fromDisplayName=$fromDisplayName, linkTo=$linkTo, mediaEncryption=$mediaEncryption, mediaName=$mediaName, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallControlId=$superviseCallControlId, supervisorRole=$supervisorRole, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, additionalProperties=$additionalProperties}"
     }
 
     /**

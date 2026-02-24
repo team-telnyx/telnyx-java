@@ -17,6 +17,7 @@ class RequestListParams
 private constructor(
     private val page: Long,
     private val pageSize: Long,
+    private val businessName: String?,
     private val dateEnd: OffsetDateTime?,
     private val dateStart: OffsetDateTime?,
     private val phoneNumber: String?,
@@ -32,6 +33,9 @@ private constructor(
      *         This value is automatically clamped if the provided value is too large.
      */
     fun pageSize(): Long = pageSize
+
+    /** Filter verification requests by business name */
+    fun businessName(): Optional<String> = Optional.ofNullable(businessName)
 
     fun dateEnd(): Optional<OffsetDateTime> = Optional.ofNullable(dateEnd)
 
@@ -69,6 +73,7 @@ private constructor(
 
         private var page: Long? = null
         private var pageSize: Long? = null
+        private var businessName: String? = null
         private var dateEnd: OffsetDateTime? = null
         private var dateStart: OffsetDateTime? = null
         private var phoneNumber: String? = null
@@ -80,6 +85,7 @@ private constructor(
         internal fun from(requestListParams: RequestListParams) = apply {
             page = requestListParams.page
             pageSize = requestListParams.pageSize
+            businessName = requestListParams.businessName
             dateEnd = requestListParams.dateEnd
             dateStart = requestListParams.dateStart
             phoneNumber = requestListParams.phoneNumber
@@ -95,6 +101,12 @@ private constructor(
          *         This value is automatically clamped if the provided value is too large.
          */
         fun pageSize(pageSize: Long) = apply { this.pageSize = pageSize }
+
+        /** Filter verification requests by business name */
+        fun businessName(businessName: String?) = apply { this.businessName = businessName }
+
+        /** Alias for calling [Builder.businessName] with `businessName.orElse(null)`. */
+        fun businessName(businessName: Optional<String>) = businessName(businessName.getOrNull())
 
         fun dateEnd(dateEnd: OffsetDateTime?) = apply { this.dateEnd = dateEnd }
 
@@ -232,6 +244,7 @@ private constructor(
             RequestListParams(
                 checkRequired("page", page),
                 checkRequired("pageSize", pageSize),
+                businessName,
                 dateEnd,
                 dateStart,
                 phoneNumber,
@@ -248,6 +261,7 @@ private constructor(
             .apply {
                 put("page", page.toString())
                 put("page_size", pageSize.toString())
+                businessName?.let { put("business_name", it) }
                 dateEnd?.let { put("date_end", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)) }
                 dateStart?.let {
                     put("date_start", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
@@ -266,6 +280,7 @@ private constructor(
         return other is RequestListParams &&
             page == other.page &&
             pageSize == other.pageSize &&
+            businessName == other.businessName &&
             dateEnd == other.dateEnd &&
             dateStart == other.dateStart &&
             phoneNumber == other.phoneNumber &&
@@ -278,6 +293,7 @@ private constructor(
         Objects.hash(
             page,
             pageSize,
+            businessName,
             dateEnd,
             dateStart,
             phoneNumber,
@@ -287,5 +303,5 @@ private constructor(
         )
 
     override fun toString() =
-        "RequestListParams{page=$page, pageSize=$pageSize, dateEnd=$dateEnd, dateStart=$dateStart, phoneNumber=$phoneNumber, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "RequestListParams{page=$page, pageSize=$pageSize, businessName=$businessName, dateEnd=$dateEnd, dateStart=$dateStart, phoneNumber=$phoneNumber, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -48,6 +48,7 @@ internal class CustomerServiceRecordListPageResponseTest {
                         )
                         .status(CustomerServiceRecord.Status.COMPLETED)
                         .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                        .webhookUrl("https://example.com/webhook")
                         .build()
                 )
                 .meta(
@@ -93,6 +94,7 @@ internal class CustomerServiceRecordListPageResponseTest {
                     )
                     .status(CustomerServiceRecord.Status.COMPLETED)
                     .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                    .webhookUrl("https://example.com/webhook")
                     .build()
             )
         assertThat(customerServiceRecordListPageResponse.meta())
@@ -143,6 +145,7 @@ internal class CustomerServiceRecordListPageResponseTest {
                         )
                         .status(CustomerServiceRecord.Status.COMPLETED)
                         .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
+                        .webhookUrl("https://example.com/webhook")
                         .build()
                 )
                 .meta(

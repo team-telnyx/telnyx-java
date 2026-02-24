@@ -2,25 +2,18 @@
 
 package com.telnyx.sdk.services.async
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.networks.InterfaceStatus
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayCreateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class PublicInternetGatewayServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val publicInternetGatewayServiceAsync = client.publicInternetGateways()
 
         val publicInternetGatewayFuture =
@@ -42,14 +35,10 @@ internal class PublicInternetGatewayServiceAsyncTest {
         publicInternetGateway.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val publicInternetGatewayServiceAsync = client.publicInternetGateways()
 
         val publicInternetGatewayFuture =
@@ -59,14 +48,10 @@ internal class PublicInternetGatewayServiceAsyncTest {
         publicInternetGateway.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val publicInternetGatewayServiceAsync = client.publicInternetGateways()
 
         val pageFuture = publicInternetGatewayServiceAsync.list()
@@ -75,14 +60,10 @@ internal class PublicInternetGatewayServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val publicInternetGatewayServiceAsync = client.publicInternetGateways()
 
         val publicInternetGatewayFuture =

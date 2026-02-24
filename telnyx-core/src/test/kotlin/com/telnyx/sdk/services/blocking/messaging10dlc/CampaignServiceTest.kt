@@ -2,26 +2,19 @@
 
 package com.telnyx.sdk.services.blocking.messaging10dlc
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.messaging10dlc.campaign.CampaignListParams
 import com.telnyx.sdk.models.messaging10dlc.campaign.CampaignSubmitAppealParams
 import com.telnyx.sdk.models.messaging10dlc.campaign.CampaignUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class CampaignServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val campaignService = client.messaging10dlc().campaign()
 
         val telnyxCampaignCsp = campaignService.retrieve("campaignId")
@@ -29,14 +22,10 @@ internal class CampaignServiceTest {
         telnyxCampaignCsp.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val campaignService = client.messaging10dlc().campaign()
 
         val telnyxCampaignCsp =
@@ -60,14 +49,10 @@ internal class CampaignServiceTest {
         telnyxCampaignCsp.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val campaignService = client.messaging10dlc().campaign()
 
         val page = campaignService.list(CampaignListParams.builder().brandId("brandId").build())
@@ -75,14 +60,10 @@ internal class CampaignServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun acceptSharing() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val campaignService = client.messaging10dlc().campaign()
 
         val response = campaignService.acceptSharing("C26F1KLZN")
@@ -90,14 +71,10 @@ internal class CampaignServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun deactivate() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val campaignService = client.messaging10dlc().campaign()
 
         val response = campaignService.deactivate("campaignId")
@@ -105,14 +82,10 @@ internal class CampaignServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getMnoMetadata() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val campaignService = client.messaging10dlc().campaign()
 
         val response = campaignService.getMnoMetadata("campaignId")
@@ -120,14 +93,10 @@ internal class CampaignServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getOperationStatus() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val campaignService = client.messaging10dlc().campaign()
 
         val response = campaignService.getOperationStatus("campaignId")
@@ -135,14 +104,10 @@ internal class CampaignServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun getSharingStatus() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val campaignService = client.messaging10dlc().campaign()
 
         val response = campaignService.getSharingStatus("campaignId")
@@ -150,14 +115,10 @@ internal class CampaignServiceTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun submitAppeal() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val campaignService = client.messaging10dlc().campaign()
 
         val response =

@@ -16,16 +16,16 @@ internal class MissionCreateResponseTest {
         val missionCreateResponse =
             MissionCreateResponse.builder()
                 .data(
-                    MissionCreateResponse.Data.builder()
+                    MissionData.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .executionMode(MissionCreateResponse.Data.ExecutionMode.EXTERNAL)
+                        .executionMode(MissionData.ExecutionMode.EXTERNAL)
                         .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .name("name")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .description("description")
                         .instructions("instructions")
                         .metadata(
-                            MissionCreateResponse.Data.Metadata.builder()
+                            MissionData.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -36,16 +36,16 @@ internal class MissionCreateResponseTest {
 
         assertThat(missionCreateResponse.data())
             .isEqualTo(
-                MissionCreateResponse.Data.builder()
+                MissionData.builder()
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .executionMode(MissionCreateResponse.Data.ExecutionMode.EXTERNAL)
+                    .executionMode(MissionData.ExecutionMode.EXTERNAL)
                     .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .name("name")
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .description("description")
                     .instructions("instructions")
                     .metadata(
-                        MissionCreateResponse.Data.Metadata.builder()
+                        MissionData.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -60,16 +60,16 @@ internal class MissionCreateResponseTest {
         val missionCreateResponse =
             MissionCreateResponse.builder()
                 .data(
-                    MissionCreateResponse.Data.builder()
+                    MissionData.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .executionMode(MissionCreateResponse.Data.ExecutionMode.EXTERNAL)
+                        .executionMode(MissionData.ExecutionMode.EXTERNAL)
                         .missionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .name("name")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .description("description")
                         .instructions("instructions")
                         .metadata(
-                            MissionCreateResponse.Data.Metadata.builder()
+                            MissionData.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )

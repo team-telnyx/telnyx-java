@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.calls.actions
 
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.SipHeader
 import com.telnyx.sdk.models.calls.SoundModifications
@@ -43,6 +44,7 @@ internal class ActionTransferParamsTest {
             .mediaName("my_media_uploaded_to_media_storage_api")
             .muteDtmf(ActionTransferParams.MuteDtmf.OPPOSITE)
             .parkAfterUnbridge("self")
+            .preferredCodecs("G722,PCMU,PCMA,G729,OPUS,VP8,H264")
             .record(ActionTransferParams.Record.RECORD_FROM_ANSWER)
             .recordChannels(ActionTransferParams.RecordChannels.SINGLE)
             .recordCustomFileName("my_recording_file_name")
@@ -69,8 +71,29 @@ internal class ActionTransferParamsTest {
             .targetLegClientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
             .timeLimitSecs(60)
             .timeoutSecs(60)
+            .webhookRetriesPolicies(
+                ActionTransferParams.WebhookRetriesPolicies.builder()
+                    .putAdditionalProperty(
+                        "call.answered",
+                        JsonValue.from(mapOf("retries_ms" to listOf(1000, 2000, 5000))),
+                    )
+                    .build()
+            )
             .webhookUrl("https://www.example.com/server-b/")
             .webhookUrlMethod(ActionTransferParams.WebhookUrlMethod.POST)
+            .webhookUrls(
+                ActionTransferParams.WebhookUrls.builder()
+                    .putAdditionalProperty(
+                        "call.answered",
+                        JsonValue.from("https://www.example.com/webhooks/answered"),
+                    )
+                    .putAdditionalProperty(
+                        "call.hangup",
+                        JsonValue.from("https://www.example.com/webhooks/hangup"),
+                    )
+                    .build()
+            )
+            .webhookUrlsMethod(ActionTransferParams.WebhookUrlsMethod.POST)
             .build()
     }
 
@@ -120,6 +143,7 @@ internal class ActionTransferParamsTest {
                 .mediaName("my_media_uploaded_to_media_storage_api")
                 .muteDtmf(ActionTransferParams.MuteDtmf.OPPOSITE)
                 .parkAfterUnbridge("self")
+                .preferredCodecs("G722,PCMU,PCMA,G729,OPUS,VP8,H264")
                 .record(ActionTransferParams.Record.RECORD_FROM_ANSWER)
                 .recordChannels(ActionTransferParams.RecordChannels.SINGLE)
                 .recordCustomFileName("my_recording_file_name")
@@ -146,8 +170,29 @@ internal class ActionTransferParamsTest {
                 .targetLegClientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                 .timeLimitSecs(60)
                 .timeoutSecs(60)
+                .webhookRetriesPolicies(
+                    ActionTransferParams.WebhookRetriesPolicies.builder()
+                        .putAdditionalProperty(
+                            "call.answered",
+                            JsonValue.from(mapOf("retries_ms" to listOf(1000, 2000, 5000))),
+                        )
+                        .build()
+                )
                 .webhookUrl("https://www.example.com/server-b/")
                 .webhookUrlMethod(ActionTransferParams.WebhookUrlMethod.POST)
+                .webhookUrls(
+                    ActionTransferParams.WebhookUrls.builder()
+                        .putAdditionalProperty(
+                            "call.answered",
+                            JsonValue.from("https://www.example.com/webhooks/answered"),
+                        )
+                        .putAdditionalProperty(
+                            "call.hangup",
+                            JsonValue.from("https://www.example.com/webhooks/hangup"),
+                        )
+                        .build()
+                )
+                .webhookUrlsMethod(ActionTransferParams.WebhookUrlsMethod.POST)
                 .build()
 
         val body = params._body()
@@ -185,6 +230,7 @@ internal class ActionTransferParamsTest {
         assertThat(body.mediaName()).contains("my_media_uploaded_to_media_storage_api")
         assertThat(body.muteDtmf()).contains(ActionTransferParams.MuteDtmf.OPPOSITE)
         assertThat(body.parkAfterUnbridge()).contains("self")
+        assertThat(body.preferredCodecs()).contains("G722,PCMU,PCMA,G729,OPUS,VP8,H264")
         assertThat(body.record()).contains(ActionTransferParams.Record.RECORD_FROM_ANSWER)
         assertThat(body.recordChannels()).contains(ActionTransferParams.RecordChannels.SINGLE)
         assertThat(body.recordCustomFileName()).contains("my_recording_file_name")
@@ -214,8 +260,31 @@ internal class ActionTransferParamsTest {
         assertThat(body.targetLegClientState()).contains("aGF2ZSBhIG5pY2UgZGF5ID1d")
         assertThat(body.timeLimitSecs()).contains(60)
         assertThat(body.timeoutSecs()).contains(60)
+        assertThat(body.webhookRetriesPolicies())
+            .contains(
+                ActionTransferParams.WebhookRetriesPolicies.builder()
+                    .putAdditionalProperty(
+                        "call.answered",
+                        JsonValue.from(mapOf("retries_ms" to listOf(1000, 2000, 5000))),
+                    )
+                    .build()
+            )
         assertThat(body.webhookUrl()).contains("https://www.example.com/server-b/")
         assertThat(body.webhookUrlMethod()).contains(ActionTransferParams.WebhookUrlMethod.POST)
+        assertThat(body.webhookUrls())
+            .contains(
+                ActionTransferParams.WebhookUrls.builder()
+                    .putAdditionalProperty(
+                        "call.answered",
+                        JsonValue.from("https://www.example.com/webhooks/answered"),
+                    )
+                    .putAdditionalProperty(
+                        "call.hangup",
+                        JsonValue.from("https://www.example.com/webhooks/hangup"),
+                    )
+                    .build()
+            )
+        assertThat(body.webhookUrlsMethod()).contains(ActionTransferParams.WebhookUrlsMethod.POST)
     }
 
     @Test

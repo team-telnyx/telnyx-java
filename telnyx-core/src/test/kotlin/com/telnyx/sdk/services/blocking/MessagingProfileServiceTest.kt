@@ -2,28 +2,22 @@
 
 package com.telnyx.sdk.services.blocking
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveMetricsParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateParams
 import com.telnyx.sdk.models.messagingprofiles.NumberPoolSettings
 import com.telnyx.sdk.models.messagingprofiles.UrlShortenerSettings
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class MessagingProfileServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messagingProfileService = client.messagingProfiles()
 
         val messagingProfile =
@@ -31,10 +25,12 @@ internal class MessagingProfileServiceTest {
                 MessagingProfileCreateParams.builder()
                     .name("My name")
                     .addWhitelistedDestination("US")
+                    .aiAssistantId("ai_assistant_id")
                     .alphaSender("sqF")
                     .dailySpendLimit("269125115713")
                     .dailySpendLimitEnabled(true)
                     .enabled(true)
+                    .healthWebhookUrl("health_webhook_url")
                     .mmsFallBackToSms(true)
                     .mmsTranscoding(true)
                     .mobileOnly(true)
@@ -47,6 +43,7 @@ internal class MessagingProfileServiceTest {
                             .stickySender(false)
                             .build()
                     )
+                    .resourceGroupId("resource_group_id")
                     .smartEncoding(true)
                     .urlShortenerSettings(
                         UrlShortenerSettings.builder()
@@ -65,14 +62,10 @@ internal class MessagingProfileServiceTest {
         messagingProfile.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messagingProfileService = client.messagingProfiles()
 
         val messagingProfile =
@@ -81,14 +74,10 @@ internal class MessagingProfileServiceTest {
         messagingProfile.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messagingProfileService = client.messagingProfiles()
 
         val messagingProfile =
@@ -136,14 +125,10 @@ internal class MessagingProfileServiceTest {
         messagingProfile.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messagingProfileService = client.messagingProfiles()
 
         val page = messagingProfileService.list()
@@ -151,14 +136,10 @@ internal class MessagingProfileServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messagingProfileService = client.messagingProfiles()
 
         val messagingProfile =
@@ -167,14 +148,24 @@ internal class MessagingProfileServiceTest {
         messagingProfile.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun listAlphanumericSenderIds() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val messagingProfileService = client.messagingProfiles()
+
+        val page =
+            messagingProfileService.listAlphanumericSenderIds(
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
+            )
+
+        page.response().validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listPhoneNumbers() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messagingProfileService = client.messagingProfiles()
 
         val page = messagingProfileService.listPhoneNumbers("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -182,18 +173,31 @@ internal class MessagingProfileServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listShortCodes() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val messagingProfileService = client.messagingProfiles()
 
         val page = messagingProfileService.listShortCodes("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
         page.response().validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun retrieveMetrics() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val messagingProfileService = client.messagingProfiles()
+
+        val response =
+            messagingProfileService.retrieveMetrics(
+                MessagingProfileRetrieveMetricsParams.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .timeFrame(MessagingProfileRetrieveMetricsParams.TimeFrame._1H)
+                    .build()
+            )
+
+        response.validate()
     }
 }

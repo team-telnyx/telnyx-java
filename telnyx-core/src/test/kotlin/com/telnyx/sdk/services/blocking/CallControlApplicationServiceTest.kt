@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationCreateParams
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationInbound
@@ -10,19 +9,13 @@ import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationOutbo
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class CallControlApplicationServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val callControlApplicationService = client.callControlApplications()
 
         val callControlApplication =
@@ -52,7 +45,7 @@ internal class CallControlApplicationServiceTest {
                     .outbound(
                         CallControlApplicationOutbound.builder()
                             .channelLimit(10L)
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .build()
                     )
                     .redactDtmfDebugLogging(true)
@@ -65,35 +58,27 @@ internal class CallControlApplicationServiceTest {
         callControlApplication.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val callControlApplicationService = client.callControlApplications()
 
-        val callControlApplication = callControlApplicationService.retrieve("id")
+        val callControlApplication = callControlApplicationService.retrieve("1293384261075731499")
 
         callControlApplication.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val callControlApplicationService = client.callControlApplications()
 
         val callControlApplication =
             callControlApplicationService.update(
                 CallControlApplicationUpdateParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .applicationName("call-router")
                     .webhookEventUrl("https://example.com")
                     .active(false)
@@ -118,7 +103,7 @@ internal class CallControlApplicationServiceTest {
                     .outbound(
                         CallControlApplicationOutbound.builder()
                             .channelLimit(10L)
-                            .outboundVoiceProfileId("outbound_voice_profile_id")
+                            .outboundVoiceProfileId("1293384261075731499")
                             .build()
                     )
                     .redactDtmfDebugLogging(true)
@@ -133,14 +118,10 @@ internal class CallControlApplicationServiceTest {
         callControlApplication.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val callControlApplicationService = client.callControlApplications()
 
         val page = callControlApplicationService.list()
@@ -148,17 +129,13 @@ internal class CallControlApplicationServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val callControlApplicationService = client.callControlApplications()
 
-        val callControlApplication = callControlApplicationService.delete("id")
+        val callControlApplication = callControlApplicationService.delete("1293384261075731499")
 
         callControlApplication.validate()
     }

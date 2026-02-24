@@ -17,7 +17,7 @@ internal class FqdnConnectionUpdateParamsTest {
     @Test
     fun create() {
         FqdnConnectionUpdateParams.builder()
-            .id("id")
+            .id("1293384261075731499")
             .active(true)
             .anchorsiteOverride(AnchorsiteOverride.LATENCY)
             .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
@@ -32,10 +32,10 @@ internal class FqdnConnectionUpdateParamsTest {
                     .aniNumberFormat(InboundFqdn.AniNumberFormat.PLUS_E_164)
                     .channelLimit(10L)
                     .addCodec("G722")
-                    .defaultPrimaryFqdnId("default_primary_fqdn_id")
+                    .defaultPrimaryFqdnId("1293384261075731497")
                     .defaultRoutingMethod(InboundFqdn.DefaultRoutingMethod.SEQUENTIAL)
-                    .defaultSecondaryFqdnId("default_secondary_fqdn_id")
-                    .defaultTertiaryFqdnId("default_tertiary_fqdn_id")
+                    .defaultSecondaryFqdnId("1293384261075731498")
+                    .defaultTertiaryFqdnId("1293384261075731499")
                     .dnisNumberFormat(InboundFqdn.DnisNumberFormat.PLUS_E164)
                     .generateRingbackTone(true)
                     .isupHeadersEnabled(true)
@@ -81,7 +81,7 @@ internal class FqdnConnectionUpdateParamsTest {
                     )
                     .ipAuthenticationToken("ip_authentication_token")
                     .localization("US")
-                    .outboundVoiceProfileId("outbound_voice_profile_id")
+                    .outboundVoiceProfileId("1293384261075731499")
                     .t38ReinviteSource(OutboundFqdn.T38ReinviteSource.TELNYX)
                     .techPrefix("tech_prefix")
                     .timeout1xxSecs(1L)
@@ -107,9 +107,9 @@ internal class FqdnConnectionUpdateParamsTest {
 
     @Test
     fun pathParams() {
-        val params = FqdnConnectionUpdateParams.builder().id("id").build()
+        val params = FqdnConnectionUpdateParams.builder().id("1293384261075731499").build()
 
-        assertThat(params._pathParam(0)).isEqualTo("id")
+        assertThat(params._pathParam(0)).isEqualTo("1293384261075731499")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -118,7 +118,7 @@ internal class FqdnConnectionUpdateParamsTest {
     fun body() {
         val params =
             FqdnConnectionUpdateParams.builder()
-                .id("id")
+                .id("1293384261075731499")
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                 .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
@@ -133,10 +133,10 @@ internal class FqdnConnectionUpdateParamsTest {
                         .aniNumberFormat(InboundFqdn.AniNumberFormat.PLUS_E_164)
                         .channelLimit(10L)
                         .addCodec("G722")
-                        .defaultPrimaryFqdnId("default_primary_fqdn_id")
+                        .defaultPrimaryFqdnId("1293384261075731497")
                         .defaultRoutingMethod(InboundFqdn.DefaultRoutingMethod.SEQUENTIAL)
-                        .defaultSecondaryFqdnId("default_secondary_fqdn_id")
-                        .defaultTertiaryFqdnId("default_tertiary_fqdn_id")
+                        .defaultSecondaryFqdnId("1293384261075731498")
+                        .defaultTertiaryFqdnId("1293384261075731499")
                         .dnisNumberFormat(InboundFqdn.DnisNumberFormat.PLUS_E164)
                         .generateRingbackTone(true)
                         .isupHeadersEnabled(true)
@@ -182,7 +182,7 @@ internal class FqdnConnectionUpdateParamsTest {
                         )
                         .ipAuthenticationToken("ip_authentication_token")
                         .localization("US")
-                        .outboundVoiceProfileId("outbound_voice_profile_id")
+                        .outboundVoiceProfileId("1293384261075731499")
                         .t38ReinviteSource(OutboundFqdn.T38ReinviteSource.TELNYX)
                         .techPrefix("tech_prefix")
                         .timeout1xxSecs(1L)
@@ -222,10 +222,10 @@ internal class FqdnConnectionUpdateParamsTest {
                     .aniNumberFormat(InboundFqdn.AniNumberFormat.PLUS_E_164)
                     .channelLimit(10L)
                     .addCodec("G722")
-                    .defaultPrimaryFqdnId("default_primary_fqdn_id")
+                    .defaultPrimaryFqdnId("1293384261075731497")
                     .defaultRoutingMethod(InboundFqdn.DefaultRoutingMethod.SEQUENTIAL)
-                    .defaultSecondaryFqdnId("default_secondary_fqdn_id")
-                    .defaultTertiaryFqdnId("default_tertiary_fqdn_id")
+                    .defaultSecondaryFqdnId("1293384261075731498")
+                    .defaultTertiaryFqdnId("1293384261075731499")
                     .dnisNumberFormat(InboundFqdn.DnisNumberFormat.PLUS_E164)
                     .generateRingbackTone(true)
                     .isupHeadersEnabled(true)
@@ -275,7 +275,7 @@ internal class FqdnConnectionUpdateParamsTest {
                     )
                     .ipAuthenticationToken("ip_authentication_token")
                     .localization("US")
-                    .outboundVoiceProfileId("outbound_voice_profile_id")
+                    .outboundVoiceProfileId("1293384261075731499")
                     .t38ReinviteSource(OutboundFqdn.T38ReinviteSource.TELNYX)
                     .techPrefix("tech_prefix")
                     .timeout1xxSecs(1L)
@@ -300,7 +300,7 @@ internal class FqdnConnectionUpdateParamsTest {
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = FqdnConnectionUpdateParams.builder().id("id").build()
+        val params = FqdnConnectionUpdateParams.builder().id("1293384261075731499").build()
 
         val body = params._body()
     }

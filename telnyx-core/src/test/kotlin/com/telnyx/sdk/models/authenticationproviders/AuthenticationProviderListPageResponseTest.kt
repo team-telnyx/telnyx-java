@@ -3,6 +3,7 @@
 package com.telnyx.sdk.models.authenticationproviders
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
@@ -18,6 +19,7 @@ internal class AuthenticationProviderListPageResponseTest {
                 .addData(
                     AuthenticationProvider.builder()
                         .id("35146afd-df93-4963-b1e9-1a085e2ae874")
+                        .activatedAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                         .active(true)
                         .createdAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                         .name("Okta")
@@ -28,6 +30,11 @@ internal class AuthenticationProviderListPageResponseTest {
                                 .assertionConsumerServiceUrl(
                                     "https://api.telnyx.com/sso/saml/auth/myorg"
                                 )
+                                .idpAttributeNames(
+                                    AuthenticationProvider.Settings.IdpAttributeNames.builder()
+                                        .putAdditionalProperty("email", JsonValue.from("bar"))
+                                        .build()
+                                )
                                 .idpCertFingerprint(
                                     "13:38:C7:BB:C9:FF:4A:70:38:3A:E3:D9:5C:CD:DB:2E:50:1E:80:A7"
                                 )
@@ -35,14 +42,22 @@ internal class AuthenticationProviderListPageResponseTest {
                                     AuthenticationProvider.Settings.IdpCertFingerprintAlgorithm
                                         .SHA256
                                 )
+                                .idpCertificate(
+                                    "-----BEGIN CERTIFICATE-----\nMIIC...\n-----END CERTIFICATE-----"
+                                )
                                 .idpEntityId("https://myorg.myidp.com/saml/metadata")
+                                .idpSloTargetUrl(
+                                    "https://myorg.myidp.com/trust/saml2/http-redirect/slo"
+                                )
                                 .idpSsoTargetUrl(
                                     "https://myorg.myidp.com/trust/saml2/http-post/sso"
                                 )
                                 .nameIdentifierFormat("urn:oasis:names:tc:SAML:1.1:nameid-format")
+                                .provisionGroups(false)
                                 .serviceProviderEntityId(
                                     "https://api.telnyx.com/sso/saml/metadata/myorg"
                                 )
+                                .serviceProviderLoginUrl("https://api.telnyx.com/sso/myorg")
                                 .build()
                         )
                         .shortName("myorg")
@@ -63,6 +78,7 @@ internal class AuthenticationProviderListPageResponseTest {
             .containsExactly(
                 AuthenticationProvider.builder()
                     .id("35146afd-df93-4963-b1e9-1a085e2ae874")
+                    .activatedAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                     .active(true)
                     .createdAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                     .name("Okta")
@@ -73,18 +89,31 @@ internal class AuthenticationProviderListPageResponseTest {
                             .assertionConsumerServiceUrl(
                                 "https://api.telnyx.com/sso/saml/auth/myorg"
                             )
+                            .idpAttributeNames(
+                                AuthenticationProvider.Settings.IdpAttributeNames.builder()
+                                    .putAdditionalProperty("email", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .idpCertFingerprint(
                                 "13:38:C7:BB:C9:FF:4A:70:38:3A:E3:D9:5C:CD:DB:2E:50:1E:80:A7"
                             )
                             .idpCertFingerprintAlgorithm(
                                 AuthenticationProvider.Settings.IdpCertFingerprintAlgorithm.SHA256
                             )
+                            .idpCertificate(
+                                "-----BEGIN CERTIFICATE-----\nMIIC...\n-----END CERTIFICATE-----"
+                            )
                             .idpEntityId("https://myorg.myidp.com/saml/metadata")
+                            .idpSloTargetUrl(
+                                "https://myorg.myidp.com/trust/saml2/http-redirect/slo"
+                            )
                             .idpSsoTargetUrl("https://myorg.myidp.com/trust/saml2/http-post/sso")
                             .nameIdentifierFormat("urn:oasis:names:tc:SAML:1.1:nameid-format")
+                            .provisionGroups(false)
                             .serviceProviderEntityId(
                                 "https://api.telnyx.com/sso/saml/metadata/myorg"
                             )
+                            .serviceProviderLoginUrl("https://api.telnyx.com/sso/myorg")
                             .build()
                     )
                     .shortName("myorg")
@@ -110,6 +139,7 @@ internal class AuthenticationProviderListPageResponseTest {
                 .addData(
                     AuthenticationProvider.builder()
                         .id("35146afd-df93-4963-b1e9-1a085e2ae874")
+                        .activatedAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                         .active(true)
                         .createdAt(OffsetDateTime.parse("2018-02-02T22:25:27.521Z"))
                         .name("Okta")
@@ -120,6 +150,11 @@ internal class AuthenticationProviderListPageResponseTest {
                                 .assertionConsumerServiceUrl(
                                     "https://api.telnyx.com/sso/saml/auth/myorg"
                                 )
+                                .idpAttributeNames(
+                                    AuthenticationProvider.Settings.IdpAttributeNames.builder()
+                                        .putAdditionalProperty("email", JsonValue.from("bar"))
+                                        .build()
+                                )
                                 .idpCertFingerprint(
                                     "13:38:C7:BB:C9:FF:4A:70:38:3A:E3:D9:5C:CD:DB:2E:50:1E:80:A7"
                                 )
@@ -127,14 +162,22 @@ internal class AuthenticationProviderListPageResponseTest {
                                     AuthenticationProvider.Settings.IdpCertFingerprintAlgorithm
                                         .SHA256
                                 )
+                                .idpCertificate(
+                                    "-----BEGIN CERTIFICATE-----\nMIIC...\n-----END CERTIFICATE-----"
+                                )
                                 .idpEntityId("https://myorg.myidp.com/saml/metadata")
+                                .idpSloTargetUrl(
+                                    "https://myorg.myidp.com/trust/saml2/http-redirect/slo"
+                                )
                                 .idpSsoTargetUrl(
                                     "https://myorg.myidp.com/trust/saml2/http-post/sso"
                                 )
                                 .nameIdentifierFormat("urn:oasis:names:tc:SAML:1.1:nameid-format")
+                                .provisionGroups(false)
                                 .serviceProviderEntityId(
                                     "https://api.telnyx.com/sso/saml/metadata/myorg"
                                 )
+                                .serviceProviderLoginUrl("https://api.telnyx.com/sso/myorg")
                                 .build()
                         )
                         .shortName("myorg")

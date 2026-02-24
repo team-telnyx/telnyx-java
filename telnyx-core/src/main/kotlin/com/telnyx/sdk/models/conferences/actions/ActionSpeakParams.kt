@@ -28,6 +28,7 @@ import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.MinimaxVoiceSettings
 import com.telnyx.sdk.models.calls.actions.AwsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.TelnyxVoiceSettings
@@ -73,12 +74,15 @@ private constructor(
      * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
      *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional.
      *   To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier
-     *   secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
-     *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-     *   for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-     *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-     *
-     * For service_level basic, you may define the gender of the speaker (male or female).
+     *   secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
+     *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+     * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+     * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g., `Minimax.speech-02-hd.Wise_Woman`).
+     *   Supported models: `speech-02-turbo`, `speech-02-hd`, `speech-2.6-turbo`,
+     *   `speech-2.8-turbo`. Optional parameters: `speed` (float, default 1.0), `vol` (float,
+     *   default 1.0), `pitch` (integer, default 0).
+     * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`). Supported
+     *   models: `Pro` (multilingual) and `Turbo` (English only).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -281,13 +285,15 @@ private constructor(
          * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
          *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is
          *   optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration
-         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
-         *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-         *   for details. Check
+         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
          *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-         *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-         *
-         * For service_level basic, you may define the gender of the speaker (male or female).
+         * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+         * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
+         *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
+         *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters: `speed`
+         *   (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer, default 0).
+         * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`).
+         *   Supported models: `Pro` (multilingual) and `Turbo` (English only).
          */
         fun voice(voice: String) = apply { body.voice(voice) }
 
@@ -412,6 +418,9 @@ private constructor(
 
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofAws(aws)`. */
         fun voiceSettings(aws: AwsVoiceSettings) = apply { body.voiceSettings(aws) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofMinimax(minimax)`. */
+        fun voiceSettings(minimax: MinimaxVoiceSettings) = apply { body.voiceSettings(minimax) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -636,13 +645,15 @@ private constructor(
          * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
          *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is
          *   optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration
-         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
-         *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-         *   for details. Check
+         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
          *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-         *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-         *
-         * For service_level basic, you may define the gender of the speaker (male or female).
+         * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+         * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
+         *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
+         *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters: `speed`
+         *   (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer, default 0).
+         * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`).
+         *   Supported models: `Pro` (multilingual) and `Turbo` (English only).
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -850,13 +861,16 @@ private constructor(
              *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is
              *   optional. To use ElevenLabs, you must provide your ElevenLabs API key as an
              *   integration identifier secret in `"voice_settings": {"api_key_ref":
-             *   "<secret_identifier>"}`. See
-             *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-             *   for details. Check
+             *   "<secret_identifier>"}`. Check
              *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-             *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-             *
-             * For service_level basic, you may define the gender of the speaker (male or female).
+             * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+             * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
+             *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
+             *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters:
+             *   `speed` (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer, default
+             *   0).
+             * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`).
+             *   Supported models: `Pro` (multilingual) and `Turbo` (English only).
              */
             fun voice(voice: String) = voice(JsonField.of(voice))
 
@@ -986,6 +1000,10 @@ private constructor(
 
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofAws(aws)`. */
             fun voiceSettings(aws: AwsVoiceSettings) = voiceSettings(VoiceSettings.ofAws(aws))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofMinimax(minimax)`. */
+            fun voiceSettings(minimax: MinimaxVoiceSettings) =
+                voiceSettings(VoiceSettings.ofMinimax(minimax))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1684,6 +1702,7 @@ private constructor(
         private val elevenlabs: ElevenLabsVoiceSettings? = null,
         private val telnyx: TelnyxVoiceSettings? = null,
         private val aws: AwsVoiceSettings? = null,
+        private val minimax: MinimaxVoiceSettings? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -1693,17 +1712,23 @@ private constructor(
 
         fun aws(): Optional<AwsVoiceSettings> = Optional.ofNullable(aws)
 
+        fun minimax(): Optional<MinimaxVoiceSettings> = Optional.ofNullable(minimax)
+
         fun isElevenlabs(): Boolean = elevenlabs != null
 
         fun isTelnyx(): Boolean = telnyx != null
 
         fun isAws(): Boolean = aws != null
 
+        fun isMinimax(): Boolean = minimax != null
+
         fun asElevenlabs(): ElevenLabsVoiceSettings = elevenlabs.getOrThrow("elevenlabs")
 
         fun asTelnyx(): TelnyxVoiceSettings = telnyx.getOrThrow("telnyx")
 
         fun asAws(): AwsVoiceSettings = aws.getOrThrow("aws")
+
+        fun asMinimax(): MinimaxVoiceSettings = minimax.getOrThrow("minimax")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -1712,6 +1737,7 @@ private constructor(
                 elevenlabs != null -> visitor.visitElevenlabs(elevenlabs)
                 telnyx != null -> visitor.visitTelnyx(telnyx)
                 aws != null -> visitor.visitAws(aws)
+                minimax != null -> visitor.visitMinimax(minimax)
                 else -> visitor.unknown(_json)
             }
 
@@ -1734,6 +1760,10 @@ private constructor(
 
                     override fun visitAws(aws: AwsVoiceSettings) {
                         aws.validate()
+                    }
+
+                    override fun visitMinimax(minimax: MinimaxVoiceSettings) {
+                        minimax.validate()
                     }
                 }
             )
@@ -1765,6 +1795,8 @@ private constructor(
 
                     override fun visitAws(aws: AwsVoiceSettings) = aws.validity()
 
+                    override fun visitMinimax(minimax: MinimaxVoiceSettings) = minimax.validity()
+
                     override fun unknown(json: JsonValue?) = 0
                 }
             )
@@ -1777,16 +1809,18 @@ private constructor(
             return other is VoiceSettings &&
                 elevenlabs == other.elevenlabs &&
                 telnyx == other.telnyx &&
-                aws == other.aws
+                aws == other.aws &&
+                minimax == other.minimax
         }
 
-        override fun hashCode(): Int = Objects.hash(elevenlabs, telnyx, aws)
+        override fun hashCode(): Int = Objects.hash(elevenlabs, telnyx, aws, minimax)
 
         override fun toString(): String =
             when {
                 elevenlabs != null -> "VoiceSettings{elevenlabs=$elevenlabs}"
                 telnyx != null -> "VoiceSettings{telnyx=$telnyx}"
                 aws != null -> "VoiceSettings{aws=$aws}"
+                minimax != null -> "VoiceSettings{minimax=$minimax}"
                 _json != null -> "VoiceSettings{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid VoiceSettings")
             }
@@ -1800,6 +1834,9 @@ private constructor(
             @JvmStatic fun ofTelnyx(telnyx: TelnyxVoiceSettings) = VoiceSettings(telnyx = telnyx)
 
             @JvmStatic fun ofAws(aws: AwsVoiceSettings) = VoiceSettings(aws = aws)
+
+            @JvmStatic
+            fun ofMinimax(minimax: MinimaxVoiceSettings) = VoiceSettings(minimax = minimax)
         }
 
         /**
@@ -1813,6 +1850,8 @@ private constructor(
             fun visitTelnyx(telnyx: TelnyxVoiceSettings): T
 
             fun visitAws(aws: AwsVoiceSettings): T
+
+            fun visitMinimax(minimax: MinimaxVoiceSettings): T
 
             /**
              * Maps an unknown variant of [VoiceSettings] to a value of type [T].
@@ -1851,6 +1890,11 @@ private constructor(
                             VoiceSettings(aws = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
+                    "minimax" -> {
+                        return tryDeserialize(node, jacksonTypeRef<MinimaxVoiceSettings>())?.let {
+                            VoiceSettings(minimax = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
                 }
 
                 return VoiceSettings(_json = json)
@@ -1868,6 +1912,7 @@ private constructor(
                     value.elevenlabs != null -> generator.writeObject(value.elevenlabs)
                     value.telnyx != null -> generator.writeObject(value.telnyx)
                     value.aws != null -> generator.writeObject(value.aws)
+                    value.minimax != null -> generator.writeObject(value.minimax)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid VoiceSettings")
                 }

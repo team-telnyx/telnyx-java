@@ -20,6 +20,9 @@ import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileCreateResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileDeleteParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileDeleteResponse
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListAlphanumericSenderIdsPageAsync
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListAlphanumericSenderIdsPageResponse
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListAlphanumericSenderIdsParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPageAsync
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPageResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListParams
@@ -29,10 +32,14 @@ import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListPhoneNumbersP
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesPageAsync
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesPageResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileListShortCodesParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveMetricsParams
+import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveMetricsResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileRetrieveResponse
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateParams
 import com.telnyx.sdk.models.messagingprofiles.MessagingProfileUpdateResponse
+import com.telnyx.sdk.services.async.messagingprofiles.ActionServiceAsync
+import com.telnyx.sdk.services.async.messagingprofiles.ActionServiceAsyncImpl
 import com.telnyx.sdk.services.async.messagingprofiles.AutorespConfigServiceAsync
 import com.telnyx.sdk.services.async.messagingprofiles.AutorespConfigServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -50,6 +57,8 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
         AutorespConfigServiceAsyncImpl(clientOptions)
     }
 
+    private val actions: ActionServiceAsync by lazy { ActionServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): MessagingProfileServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(
@@ -58,6 +67,8 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
         MessagingProfileServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun autorespConfigs(): AutorespConfigServiceAsync = autorespConfigs
+
+    override fun actions(): ActionServiceAsync = actions
 
     override fun create(
         params: MessagingProfileCreateParams,
@@ -94,6 +105,13 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
         // delete /messaging_profiles/{id}
         withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
 
+    override fun listAlphanumericSenderIds(
+        params: MessagingProfileListAlphanumericSenderIdsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<MessagingProfileListAlphanumericSenderIdsPageAsync> =
+        // get /messaging_profiles/{id}/alphanumeric_sender_ids
+        withRawResponse().listAlphanumericSenderIds(params, requestOptions).thenApply { it.parse() }
+
     override fun listPhoneNumbers(
         params: MessagingProfileListPhoneNumbersParams,
         requestOptions: RequestOptions,
@@ -108,6 +126,13 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
         // get /messaging_profiles/{id}/short_codes
         withRawResponse().listShortCodes(params, requestOptions).thenApply { it.parse() }
 
+    override fun retrieveMetrics(
+        params: MessagingProfileRetrieveMetricsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<MessagingProfileRetrieveMetricsResponse> =
+        // get /messaging_profiles/{id}/metrics
+        withRawResponse().retrieveMetrics(params, requestOptions).thenApply { it.parse() }
+
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         MessagingProfileServiceAsync.WithRawResponse {
 
@@ -118,6 +143,10 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
             AutorespConfigServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val actions: ActionServiceAsync.WithRawResponse by lazy {
+            ActionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): MessagingProfileServiceAsync.WithRawResponse =
@@ -126,6 +155,8 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
             )
 
         override fun autorespConfigs(): AutorespConfigServiceAsync.WithRawResponse = autorespConfigs
+
+        override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         private val createHandler: Handler<MessagingProfileCreateResponse> =
             jsonHandler<MessagingProfileCreateResponse>(clientOptions.jsonMapper)
@@ -297,6 +328,54 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                 }
         }
 
+        private val listAlphanumericSenderIdsHandler:
+            Handler<MessagingProfileListAlphanumericSenderIdsPageResponse> =
+            jsonHandler<MessagingProfileListAlphanumericSenderIdsPageResponse>(
+                clientOptions.jsonMapper
+            )
+
+        override fun listAlphanumericSenderIds(
+            params: MessagingProfileListAlphanumericSenderIdsParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<MessagingProfileListAlphanumericSenderIdsPageAsync>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "messaging_profiles",
+                        params._pathParam(0),
+                        "alphanumeric_sender_ids",
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { listAlphanumericSenderIdsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                            .let {
+                                MessagingProfileListAlphanumericSenderIdsPageAsync.builder()
+                                    .service(MessagingProfileServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
+                            }
+                    }
+                }
+        }
+
         private val listPhoneNumbersHandler: Handler<MessagingProfileListPhoneNumbersPageResponse> =
             jsonHandler<MessagingProfileListPhoneNumbersPageResponse>(clientOptions.jsonMapper)
 
@@ -374,6 +453,39 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                                     .params(params)
                                     .response(it)
                                     .build()
+                            }
+                    }
+                }
+        }
+
+        private val retrieveMetricsHandler: Handler<MessagingProfileRetrieveMetricsResponse> =
+            jsonHandler<MessagingProfileRetrieveMetricsResponse>(clientOptions.jsonMapper)
+
+        override fun retrieveMetrics(
+            params: MessagingProfileRetrieveMetricsParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<MessagingProfileRetrieveMetricsResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("messaging_profiles", params._pathParam(0), "metrics")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { retrieveMetricsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
                             }
                     }
                 }

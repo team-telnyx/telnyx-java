@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.async.texml.accounts
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.texml.accounts.calls.CallCallsParams
 import com.telnyx.sdk.models.texml.accounts.calls.CallRetrieveCallsParams
@@ -13,19 +12,13 @@ import com.telnyx.sdk.models.texml.accounts.calls.CallUpdateParams
 import com.telnyx.sdk.models.texml.accounts.calls.UpdateCall
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class CallServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val callServiceAsync = client.texml().accounts().calls()
 
         val callFuture =
@@ -37,14 +30,10 @@ internal class CallServiceAsyncTest {
         call.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val callServiceAsync = client.texml().accounts().calls()
 
         val callFuture =
@@ -73,14 +62,10 @@ internal class CallServiceAsyncTest {
         call.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun calls() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val callServiceAsync = client.texml().accounts().calls()
 
         val responseFuture =
@@ -131,6 +116,8 @@ internal class CallServiceAsyncTest {
                     .texml(
                         "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say>Hello</Say></Response>"
                     )
+                    .timeLimit(3600L)
+                    .timeout(60L)
                     .trim(CallCallsParams.Trim.TRIM_SILENCE)
                     .url("https://www.example.com/texml.xml")
                     .urlMethod(CallCallsParams.UrlMethod.GET)
@@ -141,14 +128,10 @@ internal class CallServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveCalls() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val callServiceAsync = client.texml().accounts().calls()
 
         val responseFuture =
@@ -174,14 +157,10 @@ internal class CallServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun siprecJson() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val callServiceAsync = client.texml().accounts().calls()
 
         val responseFuture =
@@ -207,14 +186,10 @@ internal class CallServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun streamsJson() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val callServiceAsync = client.texml().accounts().calls()
 
         val responseFuture =

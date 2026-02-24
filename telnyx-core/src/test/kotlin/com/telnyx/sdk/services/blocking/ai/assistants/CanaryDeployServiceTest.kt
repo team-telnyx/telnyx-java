@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.services.blocking.ai.assistants
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.ai.assistants.canarydeploys.CanaryDeploy
 import com.telnyx.sdk.models.ai.assistants.canarydeploys.CanaryDeployCreateParams
@@ -10,19 +9,13 @@ import com.telnyx.sdk.models.ai.assistants.canarydeploys.CanaryDeployUpdateParam
 import com.telnyx.sdk.models.ai.assistants.canarydeploys.VersionConfig
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class CanaryDeployServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val canaryDeployService = client.ai().assistants().canaryDeploys()
 
         val canaryDeployResponse =
@@ -45,14 +38,10 @@ internal class CanaryDeployServiceTest {
         canaryDeployResponse.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val canaryDeployService = client.ai().assistants().canaryDeploys()
 
         val canaryDeployResponse = canaryDeployService.retrieve("assistant_id")
@@ -60,14 +49,10 @@ internal class CanaryDeployServiceTest {
         canaryDeployResponse.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val canaryDeployService = client.ai().assistants().canaryDeploys()
 
         val canaryDeployResponse =
@@ -90,14 +75,10 @@ internal class CanaryDeployServiceTest {
         canaryDeployResponse.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val canaryDeployService = client.ai().assistants().canaryDeploys()
 
         canaryDeployService.delete("assistant_id")

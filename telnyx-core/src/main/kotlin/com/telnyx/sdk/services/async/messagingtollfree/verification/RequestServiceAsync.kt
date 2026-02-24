@@ -11,6 +11,8 @@ import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestDele
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListPageAsync
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestListParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveParams
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveStatusHistoryParams
+import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestRetrieveStatusHistoryResponse
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.RequestUpdateParams
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.TfVerificationRequest
 import com.telnyx.sdk.models.messagingtollfree.verification.requests.VerificationRequestEgress
@@ -166,6 +168,38 @@ interface RequestServiceAsync {
     /** @see delete */
     fun delete(id: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(id, RequestDeleteParams.none(), requestOptions)
+
+    /**
+     * Get the history of status changes for a verification request.
+     *
+     * Returns a paginated list of historical status changes including the reason for each change
+     * and when it occurred.
+     */
+    fun retrieveStatusHistory(
+        id: String,
+        params: RequestRetrieveStatusHistoryParams,
+    ): CompletableFuture<RequestRetrieveStatusHistoryResponse> =
+        retrieveStatusHistory(id, params, RequestOptions.none())
+
+    /** @see retrieveStatusHistory */
+    fun retrieveStatusHistory(
+        id: String,
+        params: RequestRetrieveStatusHistoryParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<RequestRetrieveStatusHistoryResponse> =
+        retrieveStatusHistory(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see retrieveStatusHistory */
+    fun retrieveStatusHistory(
+        params: RequestRetrieveStatusHistoryParams
+    ): CompletableFuture<RequestRetrieveStatusHistoryResponse> =
+        retrieveStatusHistory(params, RequestOptions.none())
+
+    /** @see retrieveStatusHistory */
+    fun retrieveStatusHistory(
+        params: RequestRetrieveStatusHistoryParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<RequestRetrieveStatusHistoryResponse>
 
     /**
      * A view of [RequestServiceAsync] that provides access to raw HTTP responses for each method.
@@ -332,5 +366,36 @@ interface RequestServiceAsync {
         /** @see delete */
         fun delete(id: String, requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
             delete(id, RequestDeleteParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /messaging_tollfree/verification/requests/{id}/status_history`, but is otherwise the same
+         * as [RequestServiceAsync.retrieveStatusHistory].
+         */
+        fun retrieveStatusHistory(
+            id: String,
+            params: RequestRetrieveStatusHistoryParams,
+        ): CompletableFuture<HttpResponseFor<RequestRetrieveStatusHistoryResponse>> =
+            retrieveStatusHistory(id, params, RequestOptions.none())
+
+        /** @see retrieveStatusHistory */
+        fun retrieveStatusHistory(
+            id: String,
+            params: RequestRetrieveStatusHistoryParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RequestRetrieveStatusHistoryResponse>> =
+            retrieveStatusHistory(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see retrieveStatusHistory */
+        fun retrieveStatusHistory(
+            params: RequestRetrieveStatusHistoryParams
+        ): CompletableFuture<HttpResponseFor<RequestRetrieveStatusHistoryResponse>> =
+            retrieveStatusHistory(params, RequestOptions.none())
+
+        /** @see retrieveStatusHistory */
+        fun retrieveStatusHistory(
+            params: RequestRetrieveStatusHistoryParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RequestRetrieveStatusHistoryResponse>>
     }
 }

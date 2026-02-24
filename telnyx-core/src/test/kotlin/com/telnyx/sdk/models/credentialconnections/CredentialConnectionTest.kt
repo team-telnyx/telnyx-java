@@ -16,7 +16,7 @@ internal class CredentialConnectionTest {
     fun create() {
         val credentialConnection =
             CredentialConnection.builder()
-                .id("id")
+                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                 .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
@@ -69,7 +69,7 @@ internal class CredentialConnectionTest {
                         .generateRingbackTone(true)
                         .instantRingbackEnabled(true)
                         .localization("string")
-                        .outboundVoiceProfileId("outbound_voice_profile_id")
+                        .outboundVoiceProfileId("1293384261075731499")
                         .t38ReinviteSource(CredentialOutbound.T38ReinviteSource.CUSTOMER)
                         .build()
                 )
@@ -93,7 +93,7 @@ internal class CredentialConnectionTest {
                 .webhookTimeoutSecs(25L)
                 .build()
 
-        assertThat(credentialConnection.id()).contains("id")
+        assertThat(credentialConnection.id()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
         assertThat(credentialConnection.active()).contains(true)
         assertThat(credentialConnection.anchorsiteOverride()).contains(AnchorsiteOverride.LATENCY)
         assertThat(credentialConnection.androidPushCredentialId())
@@ -153,7 +153,7 @@ internal class CredentialConnectionTest {
                     .generateRingbackTone(true)
                     .instantRingbackEnabled(true)
                     .localization("string")
-                    .outboundVoiceProfileId("outbound_voice_profile_id")
+                    .outboundVoiceProfileId("1293384261075731499")
                     .t38ReinviteSource(CredentialOutbound.T38ReinviteSource.CUSTOMER)
                     .build()
             )
@@ -185,7 +185,7 @@ internal class CredentialConnectionTest {
         val jsonMapper = jsonMapper()
         val credentialConnection =
             CredentialConnection.builder()
-                .id("id")
+                .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .active(true)
                 .anchorsiteOverride(AnchorsiteOverride.LATENCY)
                 .androidPushCredentialId("06b09dfd-7154-4980-8b75-cebf7a9d4f8e")
@@ -238,7 +238,7 @@ internal class CredentialConnectionTest {
                         .generateRingbackTone(true)
                         .instantRingbackEnabled(true)
                         .localization("string")
-                        .outboundVoiceProfileId("outbound_voice_profile_id")
+                        .outboundVoiceProfileId("1293384261075731499")
                         .t38ReinviteSource(CredentialOutbound.T38ReinviteSource.CUSTOMER)
                         .build()
                 )

@@ -2,50 +2,42 @@
 
 package com.telnyx.sdk.services.async.externalconnections
 
-import com.telnyx.sdk.TestServerExtension
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberRetrieveParams
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class PhoneNumberServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val phoneNumberServiceAsync = client.externalConnections().phoneNumbers()
 
         val phoneNumberFuture =
             phoneNumberServiceAsync.retrieve(
-                PhoneNumberRetrieveParams.builder().id("id").phoneNumberId("1234567889").build()
+                PhoneNumberRetrieveParams.builder()
+                    .id("1293384261075731499")
+                    .phoneNumberId("1234567889")
+                    .build()
             )
 
         val phoneNumber = phoneNumberFuture.get()
         phoneNumber.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val phoneNumberServiceAsync = client.externalConnections().phoneNumbers()
 
         val phoneNumberFuture =
             phoneNumberServiceAsync.update(
                 PhoneNumberUpdateParams.builder()
-                    .id("id")
+                    .id("1293384261075731499")
                     .phoneNumberId("1234567889")
                     .locationId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
@@ -55,17 +47,13 @@ internal class PhoneNumberServiceAsyncTest {
         phoneNumber.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            TelnyxOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val phoneNumberServiceAsync = client.externalConnections().phoneNumbers()
 
-        val pageFuture = phoneNumberServiceAsync.list("id")
+        val pageFuture = phoneNumberServiceAsync.list("1293384261075731499")
 
         val page = pageFuture.get()
         page.response().validate()

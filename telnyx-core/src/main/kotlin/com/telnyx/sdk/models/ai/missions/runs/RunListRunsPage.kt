@@ -18,14 +18,14 @@ private constructor(
     private val service: RunService,
     private val params: RunListRunsParams,
     private val response: RunListRunsPageResponse,
-) : Page<RunListRunsResponse> {
+) : Page<MissionRunData> {
 
     /**
      * Delegates to [RunListRunsPageResponse], but gracefully handles missing data.
      *
      * @see RunListRunsPageResponse.data
      */
-    fun data(): List<RunListRunsResponse> =
+    fun data(): List<MissionRunData> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<Meta> = response._meta().getOptional("meta")
 
-    override fun items(): List<RunListRunsResponse> = data()
+    override fun items(): List<MissionRunData> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): RunListRunsPage = service.listRuns(nextPageParams())
 
-    fun autoPager(): AutoPager<RunListRunsResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<MissionRunData> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): RunListRunsParams = params
