@@ -2,6 +2,7 @@
 
 package com.telnyx.sdk.models.calls.actions
 
+import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.calls.CustomSipHeader
 import com.telnyx.sdk.models.calls.SipHeader
 import com.telnyx.sdk.models.calls.SoundModifications
@@ -82,8 +83,29 @@ internal class ActionAnswerParamsTest {
                     .transcriptionTracks("both")
                     .build()
             )
+            .webhookRetriesPolicies(
+                ActionAnswerParams.WebhookRetriesPolicies.builder()
+                    .putAdditionalProperty(
+                        "call.hangup",
+                        JsonValue.from(mapOf("retries_ms" to listOf(1000, 2000, 5000))),
+                    )
+                    .build()
+            )
             .webhookUrl("https://www.example.com/server-b/")
             .webhookUrlMethod(ActionAnswerParams.WebhookUrlMethod.POST)
+            .webhookUrls(
+                ActionAnswerParams.WebhookUrls.builder()
+                    .putAdditionalProperty(
+                        "call.hangup",
+                        JsonValue.from("https://www.example.com/webhooks/hangup"),
+                    )
+                    .putAdditionalProperty(
+                        "call.bridge",
+                        JsonValue.from("https://www.example.com/webhooks/bridge"),
+                    )
+                    .build()
+            )
+            .webhookUrlsMethod(ActionAnswerParams.WebhookUrlsMethod.POST)
             .build()
     }
 
@@ -166,8 +188,29 @@ internal class ActionAnswerParamsTest {
                         .transcriptionTracks("both")
                         .build()
                 )
+                .webhookRetriesPolicies(
+                    ActionAnswerParams.WebhookRetriesPolicies.builder()
+                        .putAdditionalProperty(
+                            "call.hangup",
+                            JsonValue.from(mapOf("retries_ms" to listOf(1000, 2000, 5000))),
+                        )
+                        .build()
+                )
                 .webhookUrl("https://www.example.com/server-b/")
                 .webhookUrlMethod(ActionAnswerParams.WebhookUrlMethod.POST)
+                .webhookUrls(
+                    ActionAnswerParams.WebhookUrls.builder()
+                        .putAdditionalProperty(
+                            "call.hangup",
+                            JsonValue.from("https://www.example.com/webhooks/hangup"),
+                        )
+                        .putAdditionalProperty(
+                            "call.bridge",
+                            JsonValue.from("https://www.example.com/webhooks/bridge"),
+                        )
+                        .build()
+                )
+                .webhookUrlsMethod(ActionAnswerParams.WebhookUrlsMethod.POST)
                 .build()
 
         val body = params._body()
@@ -243,8 +286,31 @@ internal class ActionAnswerParamsTest {
                     .transcriptionTracks("both")
                     .build()
             )
+        assertThat(body.webhookRetriesPolicies())
+            .contains(
+                ActionAnswerParams.WebhookRetriesPolicies.builder()
+                    .putAdditionalProperty(
+                        "call.hangup",
+                        JsonValue.from(mapOf("retries_ms" to listOf(1000, 2000, 5000))),
+                    )
+                    .build()
+            )
         assertThat(body.webhookUrl()).contains("https://www.example.com/server-b/")
         assertThat(body.webhookUrlMethod()).contains(ActionAnswerParams.WebhookUrlMethod.POST)
+        assertThat(body.webhookUrls())
+            .contains(
+                ActionAnswerParams.WebhookUrls.builder()
+                    .putAdditionalProperty(
+                        "call.hangup",
+                        JsonValue.from("https://www.example.com/webhooks/hangup"),
+                    )
+                    .putAdditionalProperty(
+                        "call.bridge",
+                        JsonValue.from("https://www.example.com/webhooks/bridge"),
+                    )
+                    .build()
+            )
+        assertThat(body.webhookUrlsMethod()).contains(ActionAnswerParams.WebhookUrlsMethod.POST)
     }
 
     @Test

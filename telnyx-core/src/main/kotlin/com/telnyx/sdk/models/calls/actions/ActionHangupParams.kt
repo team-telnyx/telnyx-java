@@ -11,9 +11,12 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.calls.CustomSipHeader
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -55,6 +58,14 @@ private constructor(
     fun commandId(): Optional<String> = body.commandId()
 
     /**
+     * Custom headers to be added to the SIP BYE message.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun customHeaders(): Optional<List<CustomSipHeader>> = body.customHeaders()
+
+    /**
      * Returns the raw JSON value of [clientState].
      *
      * Unlike [clientState], this method doesn't throw if the JSON field has an unexpected type.
@@ -67,6 +78,13 @@ private constructor(
      * Unlike [commandId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _commandId(): JsonField<String> = body._commandId()
+
+    /**
+     * Returns the raw JSON value of [customHeaders].
+     *
+     * Unlike [customHeaders], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _customHeaders(): JsonField<List<CustomSipHeader>> = body._customHeaders()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -115,6 +133,7 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [clientState]
          * - [commandId]
+         * - [customHeaders]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -147,6 +166,31 @@ private constructor(
          * value.
          */
         fun commandId(commandId: JsonField<String>) = apply { body.commandId(commandId) }
+
+        /** Custom headers to be added to the SIP BYE message. */
+        fun customHeaders(customHeaders: List<CustomSipHeader>) = apply {
+            body.customHeaders(customHeaders)
+        }
+
+        /**
+         * Sets [Builder.customHeaders] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.customHeaders] with a well-typed `List<CustomSipHeader>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun customHeaders(customHeaders: JsonField<List<CustomSipHeader>>) = apply {
+            body.customHeaders(customHeaders)
+        }
+
+        /**
+         * Adds a single [CustomSipHeader] to [customHeaders].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addCustomHeader(customHeader: CustomSipHeader) = apply {
+            body.addCustomHeader(customHeader)
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -296,6 +340,7 @@ private constructor(
     private constructor(
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
+        private val customHeaders: JsonField<List<CustomSipHeader>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -307,7 +352,10 @@ private constructor(
             @JsonProperty("command_id")
             @ExcludeMissing
             commandId: JsonField<String> = JsonMissing.of(),
-        ) : this(clientState, commandId, mutableMapOf())
+            @JsonProperty("custom_headers")
+            @ExcludeMissing
+            customHeaders: JsonField<List<CustomSipHeader>> = JsonMissing.of(),
+        ) : this(clientState, commandId, customHeaders, mutableMapOf())
 
         /**
          * Use this field to add state to every subsequent webhook. It must be a valid Base-64
@@ -328,6 +376,15 @@ private constructor(
         fun commandId(): Optional<String> = commandId.getOptional("command_id")
 
         /**
+         * Custom headers to be added to the SIP BYE message.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun customHeaders(): Optional<List<CustomSipHeader>> =
+            customHeaders.getOptional("custom_headers")
+
+        /**
          * Returns the raw JSON value of [clientState].
          *
          * Unlike [clientState], this method doesn't throw if the JSON field has an unexpected type.
@@ -342,6 +399,16 @@ private constructor(
          * Unlike [commandId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("command_id") @ExcludeMissing fun _commandId(): JsonField<String> = commandId
+
+        /**
+         * Returns the raw JSON value of [customHeaders].
+         *
+         * Unlike [customHeaders], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("custom_headers")
+        @ExcludeMissing
+        fun _customHeaders(): JsonField<List<CustomSipHeader>> = customHeaders
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -366,12 +433,14 @@ private constructor(
 
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
+            private var customHeaders: JsonField<MutableList<CustomSipHeader>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 clientState = body.clientState
                 commandId = body.commandId
+                customHeaders = body.customHeaders.map { it.toMutableList() }
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -407,6 +476,33 @@ private constructor(
              */
             fun commandId(commandId: JsonField<String>) = apply { this.commandId = commandId }
 
+            /** Custom headers to be added to the SIP BYE message. */
+            fun customHeaders(customHeaders: List<CustomSipHeader>) =
+                customHeaders(JsonField.of(customHeaders))
+
+            /**
+             * Sets [Builder.customHeaders] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.customHeaders] with a well-typed
+             * `List<CustomSipHeader>` value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun customHeaders(customHeaders: JsonField<List<CustomSipHeader>>) = apply {
+                this.customHeaders = customHeaders.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [CustomSipHeader] to [customHeaders].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addCustomHeader(customHeader: CustomSipHeader) = apply {
+                customHeaders =
+                    (customHeaders ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("customHeaders", it).add(customHeader)
+                    }
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -431,7 +527,13 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Body = Body(clientState, commandId, additionalProperties.toMutableMap())
+            fun build(): Body =
+                Body(
+                    clientState,
+                    commandId,
+                    (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -443,6 +545,7 @@ private constructor(
 
             clientState()
             commandId()
+            customHeaders().ifPresent { it.forEach { it.validate() } }
             validated = true
         }
 
@@ -463,7 +566,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (clientState.asKnown().isPresent) 1 else 0) +
-                (if (commandId.asKnown().isPresent) 1 else 0)
+                (if (commandId.asKnown().isPresent) 1 else 0) +
+                (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -473,17 +577,18 @@ private constructor(
             return other is Body &&
                 clientState == other.clientState &&
                 commandId == other.commandId &&
+                customHeaders == other.customHeaders &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(clientState, commandId, additionalProperties)
+            Objects.hash(clientState, commandId, customHeaders, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{clientState=$clientState, commandId=$commandId, additionalProperties=$additionalProperties}"
+            "Body{clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

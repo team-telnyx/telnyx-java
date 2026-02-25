@@ -66,6 +66,15 @@ private constructor(
     fun commandId(): Optional<String> = body.commandId()
 
     /**
+     * Specifies behavior after the bridge ends. If set to `true`, the current leg will be put on
+     * hold after unbridge instead of being hung up.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun holdAfterUnbridge(): Optional<Boolean> = body.holdAfterUnbridge()
+
+    /**
      * When enabled, DTMF tones are not passed to the call participant. The webhooks containing the
      * DTMF information will be sent.
      *
@@ -233,6 +242,14 @@ private constructor(
      * Unlike [commandId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _commandId(): JsonField<String> = body._commandId()
+
+    /**
+     * Returns the raw JSON value of [holdAfterUnbridge].
+     *
+     * Unlike [holdAfterUnbridge], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _holdAfterUnbridge(): JsonField<Boolean> = body._holdAfterUnbridge()
 
     /**
      * Returns the raw JSON value of [muteDtmf].
@@ -409,8 +426,8 @@ private constructor(
          * - [callControlId]
          * - [clientState]
          * - [commandId]
+         * - [holdAfterUnbridge]
          * - [muteDtmf]
-         * - [parkAfterUnbridge]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -461,6 +478,25 @@ private constructor(
          * value.
          */
         fun commandId(commandId: JsonField<String>) = apply { body.commandId(commandId) }
+
+        /**
+         * Specifies behavior after the bridge ends. If set to `true`, the current leg will be put
+         * on hold after unbridge instead of being hung up.
+         */
+        fun holdAfterUnbridge(holdAfterUnbridge: Boolean) = apply {
+            body.holdAfterUnbridge(holdAfterUnbridge)
+        }
+
+        /**
+         * Sets [Builder.holdAfterUnbridge] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.holdAfterUnbridge] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun holdAfterUnbridge(holdAfterUnbridge: JsonField<Boolean>) = apply {
+            body.holdAfterUnbridge(holdAfterUnbridge)
+        }
 
         /**
          * When enabled, DTMF tones are not passed to the call participant. The webhooks containing
@@ -888,6 +924,7 @@ private constructor(
         private val callControlId: JsonField<String>,
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
+        private val holdAfterUnbridge: JsonField<Boolean>,
         private val muteDtmf: JsonField<MuteDtmf>,
         private val parkAfterUnbridge: JsonField<String>,
         private val playRingtone: JsonField<Boolean>,
@@ -918,6 +955,9 @@ private constructor(
             @JsonProperty("command_id")
             @ExcludeMissing
             commandId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("hold_after_unbridge")
+            @ExcludeMissing
+            holdAfterUnbridge: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("mute_dtmf")
             @ExcludeMissing
             muteDtmf: JsonField<MuteDtmf> = JsonMissing.of(),
@@ -966,6 +1006,7 @@ private constructor(
             callControlId,
             clientState,
             commandId,
+            holdAfterUnbridge,
             muteDtmf,
             parkAfterUnbridge,
             playRingtone,
@@ -1011,6 +1052,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun commandId(): Optional<String> = commandId.getOptional("command_id")
+
+        /**
+         * Specifies behavior after the bridge ends. If set to `true`, the current leg will be put
+         * on hold after unbridge instead of being hung up.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun holdAfterUnbridge(): Optional<Boolean> =
+            holdAfterUnbridge.getOptional("hold_after_unbridge")
 
         /**
          * When enabled, DTMF tones are not passed to the call participant. The webhooks containing
@@ -1193,6 +1244,16 @@ private constructor(
         @JsonProperty("command_id") @ExcludeMissing fun _commandId(): JsonField<String> = commandId
 
         /**
+         * Returns the raw JSON value of [holdAfterUnbridge].
+         *
+         * Unlike [holdAfterUnbridge], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("hold_after_unbridge")
+        @ExcludeMissing
+        fun _holdAfterUnbridge(): JsonField<Boolean> = holdAfterUnbridge
+
+        /**
          * Returns the raw JSON value of [muteDtmf].
          *
          * Unlike [muteDtmf], this method doesn't throw if the JSON field has an unexpected type.
@@ -1368,6 +1429,7 @@ private constructor(
             private var callControlId: JsonField<String>? = null
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
+            private var holdAfterUnbridge: JsonField<Boolean> = JsonMissing.of()
             private var muteDtmf: JsonField<MuteDtmf> = JsonMissing.of()
             private var parkAfterUnbridge: JsonField<String> = JsonMissing.of()
             private var playRingtone: JsonField<Boolean> = JsonMissing.of()
@@ -1391,6 +1453,7 @@ private constructor(
                 callControlId = body.callControlId
                 clientState = body.clientState
                 commandId = body.commandId
+                holdAfterUnbridge = body.holdAfterUnbridge
                 muteDtmf = body.muteDtmf
                 parkAfterUnbridge = body.parkAfterUnbridge
                 playRingtone = body.playRingtone
@@ -1458,6 +1521,24 @@ private constructor(
              * supported value.
              */
             fun commandId(commandId: JsonField<String>) = apply { this.commandId = commandId }
+
+            /**
+             * Specifies behavior after the bridge ends. If set to `true`, the current leg will be
+             * put on hold after unbridge instead of being hung up.
+             */
+            fun holdAfterUnbridge(holdAfterUnbridge: Boolean) =
+                holdAfterUnbridge(JsonField.of(holdAfterUnbridge))
+
+            /**
+             * Sets [Builder.holdAfterUnbridge] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.holdAfterUnbridge] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun holdAfterUnbridge(holdAfterUnbridge: JsonField<Boolean>) = apply {
+                this.holdAfterUnbridge = holdAfterUnbridge
+            }
 
             /**
              * When enabled, DTMF tones are not passed to the call participant. The webhooks
@@ -1770,6 +1851,7 @@ private constructor(
                     checkRequired("callControlId", callControlId),
                     clientState,
                     commandId,
+                    holdAfterUnbridge,
                     muteDtmf,
                     parkAfterUnbridge,
                     playRingtone,
@@ -1800,6 +1882,7 @@ private constructor(
             callControlId()
             clientState()
             commandId()
+            holdAfterUnbridge()
             muteDtmf().ifPresent { it.validate() }
             parkAfterUnbridge()
             playRingtone()
@@ -1838,6 +1921,7 @@ private constructor(
             (if (callControlId.asKnown().isPresent) 1 else 0) +
                 (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
+                (if (holdAfterUnbridge.asKnown().isPresent) 1 else 0) +
                 (muteDtmf.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (parkAfterUnbridge.asKnown().isPresent) 1 else 0) +
                 (if (playRingtone.asKnown().isPresent) 1 else 0) +
@@ -1864,6 +1948,7 @@ private constructor(
                 callControlId == other.callControlId &&
                 clientState == other.clientState &&
                 commandId == other.commandId &&
+                holdAfterUnbridge == other.holdAfterUnbridge &&
                 muteDtmf == other.muteDtmf &&
                 parkAfterUnbridge == other.parkAfterUnbridge &&
                 playRingtone == other.playRingtone &&
@@ -1888,6 +1973,7 @@ private constructor(
                 callControlId,
                 clientState,
                 commandId,
+                holdAfterUnbridge,
                 muteDtmf,
                 parkAfterUnbridge,
                 playRingtone,
@@ -1911,7 +1997,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{callControlId=$callControlId, clientState=$clientState, commandId=$commandId, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, playRingtone=$playRingtone, preventDoubleBridge=$preventDoubleBridge, queue=$queue, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, ringtone=$ringtone, videoRoomContext=$videoRoomContext, videoRoomId=$videoRoomId, additionalProperties=$additionalProperties}"
+            "Body{callControlId=$callControlId, clientState=$clientState, commandId=$commandId, holdAfterUnbridge=$holdAfterUnbridge, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, playRingtone=$playRingtone, preventDoubleBridge=$preventDoubleBridge, queue=$queue, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, ringtone=$ringtone, videoRoomContext=$videoRoomContext, videoRoomId=$videoRoomId, additionalProperties=$additionalProperties}"
     }
 
     /**
