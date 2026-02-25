@@ -3,7 +3,12 @@
 package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.core.ClientOptions
+import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.payment.PaymentCreateStoredPaymentTransactionParams
+import com.telnyx.sdk.models.payment.PaymentCreateStoredPaymentTransactionResponse
 import com.telnyx.sdk.services.async.payment.AutoRechargePrefServiceAsync
+import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
 interface PaymentServiceAsync {
@@ -22,6 +27,18 @@ interface PaymentServiceAsync {
 
     fun autoRechargePrefs(): AutoRechargePrefServiceAsync
 
+    /** Create a stored payment transaction */
+    fun createStoredPaymentTransaction(
+        params: PaymentCreateStoredPaymentTransactionParams
+    ): CompletableFuture<PaymentCreateStoredPaymentTransactionResponse> =
+        createStoredPaymentTransaction(params, RequestOptions.none())
+
+    /** @see createStoredPaymentTransaction */
+    fun createStoredPaymentTransaction(
+        params: PaymentCreateStoredPaymentTransactionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PaymentCreateStoredPaymentTransactionResponse>
+
     /**
      * A view of [PaymentServiceAsync] that provides access to raw HTTP responses for each method.
      */
@@ -37,5 +54,20 @@ interface PaymentServiceAsync {
         ): PaymentServiceAsync.WithRawResponse
 
         fun autoRechargePrefs(): AutoRechargePrefServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /v2/payment/stored_payment_transactions`, but is
+         * otherwise the same as [PaymentServiceAsync.createStoredPaymentTransaction].
+         */
+        fun createStoredPaymentTransaction(
+            params: PaymentCreateStoredPaymentTransactionParams
+        ): CompletableFuture<HttpResponseFor<PaymentCreateStoredPaymentTransactionResponse>> =
+            createStoredPaymentTransaction(params, RequestOptions.none())
+
+        /** @see createStoredPaymentTransaction */
+        fun createStoredPaymentTransaction(
+            params: PaymentCreateStoredPaymentTransactionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PaymentCreateStoredPaymentTransactionResponse>>
     }
 }
