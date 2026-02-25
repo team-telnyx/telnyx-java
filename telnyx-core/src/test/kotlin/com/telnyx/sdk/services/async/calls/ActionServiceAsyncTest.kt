@@ -198,6 +198,7 @@ internal class ActionServiceAsyncTest {
                     .muteDtmf(ActionBridgeParams.MuteDtmf.OPPOSITE)
                     .parkAfterUnbridge("self")
                     .playRingtone(true)
+                    .preventDoubleBridge(true)
                     .queue("support")
                     .record(ActionBridgeParams.Record.RECORD_FROM_ANSWER)
                     .recordChannels(ActionBridgeParams.RecordChannels.SINGLE)
