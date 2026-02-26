@@ -7,6 +7,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.SimCardStatus
 import com.telnyx.sdk.models.SimpleSimCard
+import com.telnyx.sdk.models.actions.WirelessError
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -64,17 +65,17 @@ internal class PurchaseCreateResponseTest {
                         .build()
                 )
                 .addError(
-                    PurchaseCreateResponse.Error.builder()
+                    WirelessError.builder()
                         .code("code")
                         .title("title")
                         .detail("detail")
                         .meta(
-                            PurchaseCreateResponse.Error.Meta.builder()
+                            WirelessError.Meta.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
                         .source(
-                            PurchaseCreateResponse.Error.Source.builder()
+                            WirelessError.Source.builder()
                                 .parameter("parameter")
                                 .pointer("pointer")
                                 .build()
@@ -132,17 +133,17 @@ internal class PurchaseCreateResponseTest {
             )
         assertThat(purchaseCreateResponse.errors().getOrNull())
             .containsExactly(
-                PurchaseCreateResponse.Error.builder()
+                WirelessError.builder()
                     .code("code")
                     .title("title")
                     .detail("detail")
                     .meta(
-                        PurchaseCreateResponse.Error.Meta.builder()
+                        WirelessError.Meta.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
                     .source(
-                        PurchaseCreateResponse.Error.Source.builder()
+                        WirelessError.Source.builder()
                             .parameter("parameter")
                             .pointer("pointer")
                             .build()
@@ -203,17 +204,17 @@ internal class PurchaseCreateResponseTest {
                         .build()
                 )
                 .addError(
-                    PurchaseCreateResponse.Error.builder()
+                    WirelessError.builder()
                         .code("code")
                         .title("title")
                         .detail("detail")
                         .meta(
-                            PurchaseCreateResponse.Error.Meta.builder()
+                            WirelessError.Meta.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
                         .source(
-                            PurchaseCreateResponse.Error.Source.builder()
+                            WirelessError.Source.builder()
                                 .parameter("parameter")
                                 .pointer("pointer")
                                 .build()

@@ -44,7 +44,7 @@ private constructor(
     private val lastName: JsonField<String>,
     private val mobilePhone: JsonField<String>,
     private val mock: JsonField<Boolean>,
-    private val optionalAttributes: JsonField<TelnyxBrand.OptionalAttributes>,
+    private val optionalAttributes: JsonField<BrandOptionalAttributes>,
     private val phone: JsonField<String>,
     private val postalCode: JsonField<String>,
     private val referenceId: JsonField<String>,
@@ -112,7 +112,7 @@ private constructor(
         @JsonProperty("mock") @ExcludeMissing mock: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("optionalAttributes")
         @ExcludeMissing
-        optionalAttributes: JsonField<TelnyxBrand.OptionalAttributes> = JsonMissing.of(),
+        optionalAttributes: JsonField<BrandOptionalAttributes> = JsonMissing.of(),
         @JsonProperty("phone") @ExcludeMissing phone: JsonField<String> = JsonMissing.of(),
         @JsonProperty("postalCode")
         @ExcludeMissing
@@ -427,7 +427,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun optionalAttributes(): Optional<TelnyxBrand.OptionalAttributes> =
+    fun optionalAttributes(): Optional<BrandOptionalAttributes> =
         optionalAttributes.getOptional("optionalAttributes")
 
     /**
@@ -738,7 +738,7 @@ private constructor(
      */
     @JsonProperty("optionalAttributes")
     @ExcludeMissing
-    fun _optionalAttributes(): JsonField<TelnyxBrand.OptionalAttributes> = optionalAttributes
+    fun _optionalAttributes(): JsonField<BrandOptionalAttributes> = optionalAttributes
 
     /**
      * Returns the raw JSON value of [phone].
@@ -911,7 +911,7 @@ private constructor(
         private var lastName: JsonField<String> = JsonMissing.of()
         private var mobilePhone: JsonField<String> = JsonMissing.of()
         private var mock: JsonField<Boolean> = JsonMissing.of()
-        private var optionalAttributes: JsonField<TelnyxBrand.OptionalAttributes> = JsonMissing.of()
+        private var optionalAttributes: JsonField<BrandOptionalAttributes> = JsonMissing.of()
         private var phone: JsonField<String> = JsonMissing.of()
         private var postalCode: JsonField<String> = JsonMissing.of()
         private var referenceId: JsonField<String> = JsonMissing.of()
@@ -1262,20 +1262,19 @@ private constructor(
          */
         fun mock(mock: JsonField<Boolean>) = apply { this.mock = mock }
 
-        fun optionalAttributes(optionalAttributes: TelnyxBrand.OptionalAttributes) =
+        fun optionalAttributes(optionalAttributes: BrandOptionalAttributes) =
             optionalAttributes(JsonField.of(optionalAttributes))
 
         /**
          * Sets [Builder.optionalAttributes] to an arbitrary JSON value.
          *
          * You should usually call [Builder.optionalAttributes] with a well-typed
-         * [TelnyxBrand.OptionalAttributes] value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
+         * [BrandOptionalAttributes] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
          */
-        fun optionalAttributes(optionalAttributes: JsonField<TelnyxBrand.OptionalAttributes>) =
-            apply {
-                this.optionalAttributes = optionalAttributes
-            }
+        fun optionalAttributes(optionalAttributes: JsonField<BrandOptionalAttributes>) = apply {
+            this.optionalAttributes = optionalAttributes
+        }
 
         /** Valid phone number in e.164 international format. */
         fun phone(phone: String) = phone(JsonField.of(phone))

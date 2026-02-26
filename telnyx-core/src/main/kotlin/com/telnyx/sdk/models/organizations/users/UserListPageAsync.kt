@@ -20,14 +20,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: UserListParams,
     private val response: UserListPageResponse,
-) : PageAsync<UserListResponse> {
+) : PageAsync<OrganizationUser> {
 
     /**
      * Delegates to [UserListPageResponse], but gracefully handles missing data.
      *
      * @see UserListPageResponse.data
      */
-    fun data(): List<UserListResponse> =
+    fun data(): List<OrganizationUser> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -37,7 +37,7 @@ private constructor(
      */
     fun meta(): Optional<UserListPageResponse.Meta> = response._meta().getOptional("meta")
 
-    override fun items(): List<UserListResponse> = data()
+    override fun items(): List<OrganizationUser> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -57,7 +57,7 @@ private constructor(
 
     override fun nextPage(): CompletableFuture<UserListPageAsync> = service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<UserListResponse> =
+    fun autoPager(): AutoPagerAsync<OrganizationUser> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

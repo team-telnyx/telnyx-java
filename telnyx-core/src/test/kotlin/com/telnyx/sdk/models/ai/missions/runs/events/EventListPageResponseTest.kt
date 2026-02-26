@@ -17,16 +17,16 @@ internal class EventListPageResponseTest {
         val eventListPageResponse =
             EventListPageResponse.builder()
                 .addData(
-                    EventListResponse.builder()
+                    EventData.builder()
                         .eventId("event_id")
                         .runId("run_id")
                         .summary("summary")
                         .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .type(EventListResponse.Type.STATUS_CHANGE)
+                        .type(EventData.Type.STATUS_CHANGE)
                         .agentId("agent_id")
                         .idempotencyKey("idempotency_key")
                         .payload(
-                            EventListResponse.Payload.builder()
+                            EventData.Payload.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -45,16 +45,16 @@ internal class EventListPageResponseTest {
 
         assertThat(eventListPageResponse.data())
             .containsExactly(
-                EventListResponse.builder()
+                EventData.builder()
                     .eventId("event_id")
                     .runId("run_id")
                     .summary("summary")
                     .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .type(EventListResponse.Type.STATUS_CHANGE)
+                    .type(EventData.Type.STATUS_CHANGE)
                     .agentId("agent_id")
                     .idempotencyKey("idempotency_key")
                     .payload(
-                        EventListResponse.Payload.builder()
+                        EventData.Payload.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -73,16 +73,16 @@ internal class EventListPageResponseTest {
         val eventListPageResponse =
             EventListPageResponse.builder()
                 .addData(
-                    EventListResponse.builder()
+                    EventData.builder()
                         .eventId("event_id")
                         .runId("run_id")
                         .summary("summary")
                         .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .type(EventListResponse.Type.STATUS_CHANGE)
+                        .type(EventData.Type.STATUS_CHANGE)
                         .agentId("agent_id")
                         .idempotencyKey("idempotency_key")
                         .payload(
-                            EventListResponse.Payload.builder()
+                            EventData.Payload.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )

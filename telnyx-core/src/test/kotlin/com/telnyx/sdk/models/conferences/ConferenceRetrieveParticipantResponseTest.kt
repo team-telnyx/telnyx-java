@@ -15,7 +15,7 @@ internal class ConferenceRetrieveParticipantResponseTest {
         val conferenceRetrieveParticipantResponse =
             ConferenceRetrieveParticipantResponse.builder()
                 .data(
-                    ConferenceRetrieveParticipantResponse.Data.builder()
+                    ConferenceParticipant.builder()
                         .id("id")
                         .callControlId("call_control_id")
                         .callLegId("call_leg_id")
@@ -26,7 +26,7 @@ internal class ConferenceRetrieveParticipantResponseTest {
                         .muted(true)
                         .onHold(true)
                         .softEndConferenceOnExit(true)
-                        .status(ConferenceRetrieveParticipantResponse.Data.Status.JOINING)
+                        .status(ConferenceParticipant.Status.JOINING)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .addWhisperCallControlId("string")
                         .build()
@@ -35,7 +35,7 @@ internal class ConferenceRetrieveParticipantResponseTest {
 
         assertThat(conferenceRetrieveParticipantResponse.data())
             .contains(
-                ConferenceRetrieveParticipantResponse.Data.builder()
+                ConferenceParticipant.builder()
                     .id("id")
                     .callControlId("call_control_id")
                     .callLegId("call_leg_id")
@@ -46,7 +46,7 @@ internal class ConferenceRetrieveParticipantResponseTest {
                     .muted(true)
                     .onHold(true)
                     .softEndConferenceOnExit(true)
-                    .status(ConferenceRetrieveParticipantResponse.Data.Status.JOINING)
+                    .status(ConferenceParticipant.Status.JOINING)
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .addWhisperCallControlId("string")
                     .build()
@@ -59,7 +59,7 @@ internal class ConferenceRetrieveParticipantResponseTest {
         val conferenceRetrieveParticipantResponse =
             ConferenceRetrieveParticipantResponse.builder()
                 .data(
-                    ConferenceRetrieveParticipantResponse.Data.builder()
+                    ConferenceParticipant.builder()
                         .id("id")
                         .callControlId("call_control_id")
                         .callLegId("call_leg_id")
@@ -70,7 +70,7 @@ internal class ConferenceRetrieveParticipantResponseTest {
                         .muted(true)
                         .onHold(true)
                         .softEndConferenceOnExit(true)
-                        .status(ConferenceRetrieveParticipantResponse.Data.Status.JOINING)
+                        .status(ConferenceParticipant.Status.JOINING)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .addWhisperCallControlId("string")
                         .build()

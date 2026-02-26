@@ -15,7 +15,7 @@ internal class CivicAddressListResponseTest {
         val civicAddressListResponse =
             CivicAddressListResponse.builder()
                 .addData(
-                    CivicAddressListResponse.Data.builder()
+                    CivicAddress.builder()
                         .id("07a4dc5d-9b3b-4ba2-88a4-6ba172316c65")
                         .cityOrTown("Austin")
                         .cityOrTownAlias("")
@@ -27,7 +27,7 @@ internal class CivicAddressListResponseTest {
                         .houseNumber("600")
                         .houseNumberSuffix("")
                         .addLocation(
-                            CivicAddressListResponse.Data.Location.builder()
+                            Location.builder()
                                 .id("18ded4bb-b694-44c1-a89b-a35b7acd4c9e")
                                 .additionalInfo("")
                                 .description("Austin Office")
@@ -35,7 +35,7 @@ internal class CivicAddressListResponseTest {
                                 .build()
                         )
                         .addLocation(
-                            CivicAddressListResponse.Data.Location.builder()
+                            Location.builder()
                                 .id("d420a57f-c4ae-4697-87e1-fbefd9e86f72")
                                 .additionalInfo("14th Floor")
                                 .description("")
@@ -53,7 +53,7 @@ internal class CivicAddressListResponseTest {
 
         assertThat(civicAddressListResponse.data().getOrNull())
             .containsExactly(
-                CivicAddressListResponse.Data.builder()
+                CivicAddress.builder()
                     .id("07a4dc5d-9b3b-4ba2-88a4-6ba172316c65")
                     .cityOrTown("Austin")
                     .cityOrTownAlias("")
@@ -65,7 +65,7 @@ internal class CivicAddressListResponseTest {
                     .houseNumber("600")
                     .houseNumberSuffix("")
                     .addLocation(
-                        CivicAddressListResponse.Data.Location.builder()
+                        Location.builder()
                             .id("18ded4bb-b694-44c1-a89b-a35b7acd4c9e")
                             .additionalInfo("")
                             .description("Austin Office")
@@ -73,7 +73,7 @@ internal class CivicAddressListResponseTest {
                             .build()
                     )
                     .addLocation(
-                        CivicAddressListResponse.Data.Location.builder()
+                        Location.builder()
                             .id("d420a57f-c4ae-4697-87e1-fbefd9e86f72")
                             .additionalInfo("14th Floor")
                             .description("")
@@ -95,7 +95,7 @@ internal class CivicAddressListResponseTest {
         val civicAddressListResponse =
             CivicAddressListResponse.builder()
                 .addData(
-                    CivicAddressListResponse.Data.builder()
+                    CivicAddress.builder()
                         .id("07a4dc5d-9b3b-4ba2-88a4-6ba172316c65")
                         .cityOrTown("Austin")
                         .cityOrTownAlias("")
@@ -107,7 +107,7 @@ internal class CivicAddressListResponseTest {
                         .houseNumber("600")
                         .houseNumberSuffix("")
                         .addLocation(
-                            CivicAddressListResponse.Data.Location.builder()
+                            Location.builder()
                                 .id("18ded4bb-b694-44c1-a89b-a35b7acd4c9e")
                                 .additionalInfo("")
                                 .description("Austin Office")
@@ -115,7 +115,7 @@ internal class CivicAddressListResponseTest {
                                 .build()
                         )
                         .addLocation(
-                            CivicAddressListResponse.Data.Location.builder()
+                            Location.builder()
                                 .id("d420a57f-c4ae-4697-87e1-fbefd9e86f72")
                                 .additionalInfo("14th Floor")
                                 .description("")

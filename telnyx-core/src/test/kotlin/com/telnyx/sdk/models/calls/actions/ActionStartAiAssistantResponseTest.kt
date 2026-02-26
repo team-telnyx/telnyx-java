@@ -14,7 +14,7 @@ internal class ActionStartAiAssistantResponseTest {
         val actionStartAiAssistantResponse =
             ActionStartAiAssistantResponse.builder()
                 .data(
-                    ActionStartAiAssistantResponse.Data.builder()
+                    CallControlCommandResultWithConversationId.builder()
                         .conversationId("d7e9c1d4-8b2a-4b8f-b3a7-9a671c9e9b0a")
                         .result("ok")
                         .build()
@@ -23,7 +23,7 @@ internal class ActionStartAiAssistantResponseTest {
 
         assertThat(actionStartAiAssistantResponse.data())
             .contains(
-                ActionStartAiAssistantResponse.Data.builder()
+                CallControlCommandResultWithConversationId.builder()
                     .conversationId("d7e9c1d4-8b2a-4b8f-b3a7-9a671c9e9b0a")
                     .result("ok")
                     .build()
@@ -36,7 +36,7 @@ internal class ActionStartAiAssistantResponseTest {
         val actionStartAiAssistantResponse =
             ActionStartAiAssistantResponse.builder()
                 .data(
-                    ActionStartAiAssistantResponse.Data.builder()
+                    CallControlCommandResultWithConversationId.builder()
                         .conversationId("d7e9c1d4-8b2a-4b8f-b3a7-9a671c9e9b0a")
                         .result("ok")
                         .build()

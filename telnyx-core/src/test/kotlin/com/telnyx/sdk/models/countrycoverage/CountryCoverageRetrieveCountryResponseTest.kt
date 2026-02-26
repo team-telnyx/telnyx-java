@@ -14,7 +14,7 @@ internal class CountryCoverageRetrieveCountryResponseTest {
         val countryCoverageRetrieveCountryResponse =
             CountryCoverageRetrieveCountryResponse.builder()
                 .data(
-                    CountryCoverageRetrieveCountryResponse.Data.builder()
+                    CountryCoverage.builder()
                         .code("US")
                         .features(
                             listOf(
@@ -30,7 +30,7 @@ internal class CountryCoverageRetrieveCountryResponseTest {
                         .internationalSms(true)
                         .inventoryCoverage(true)
                         .local(
-                            CountryCoverageRetrieveCountryResponse.Data.Local.builder()
+                            CountryCoverage.Local.builder()
                                 .features(
                                     listOf(
                                         "hd_voice",
@@ -49,23 +49,17 @@ internal class CountryCoverageRetrieveCountryResponseTest {
                                 .reservable(true)
                                 .build()
                         )
-                        .mobile(
-                            CountryCoverageRetrieveCountryResponse.Data.Mobile.builder().build()
-                        )
-                        .national(
-                            CountryCoverageRetrieveCountryResponse.Data.National.builder().build()
-                        )
+                        .mobile(CountryCoverage.Mobile.builder().build())
+                        .national(CountryCoverage.National.builder().build())
                         .numbers(true)
                         .p2p(true)
                         .phoneNumberType(listOf("local", "local", "local", "toll_free"))
                         .quickship(true)
                         .region("AMER")
                         .reservable(true)
-                        .sharedCost(
-                            CountryCoverageRetrieveCountryResponse.Data.SharedCost.builder().build()
-                        )
+                        .sharedCost(CountryCoverage.SharedCost.builder().build())
                         .tollFree(
-                            CountryCoverageRetrieveCountryResponse.Data.TollFree.builder()
+                            CountryCoverage.TollFree.builder()
                                 .features(listOf("voice", "mms", "fax", "sms", "emergency"))
                                 .fullPstnReplacement(false)
                                 .internationalSms(false)
@@ -80,7 +74,7 @@ internal class CountryCoverageRetrieveCountryResponseTest {
 
         assertThat(countryCoverageRetrieveCountryResponse.data())
             .contains(
-                CountryCoverageRetrieveCountryResponse.Data.builder()
+                CountryCoverage.builder()
                     .code("US")
                     .features(
                         listOf(
@@ -96,7 +90,7 @@ internal class CountryCoverageRetrieveCountryResponseTest {
                     .internationalSms(true)
                     .inventoryCoverage(true)
                     .local(
-                        CountryCoverageRetrieveCountryResponse.Data.Local.builder()
+                        CountryCoverage.Local.builder()
                             .features(
                                 listOf(
                                     "hd_voice",
@@ -115,21 +109,17 @@ internal class CountryCoverageRetrieveCountryResponseTest {
                             .reservable(true)
                             .build()
                     )
-                    .mobile(CountryCoverageRetrieveCountryResponse.Data.Mobile.builder().build())
-                    .national(
-                        CountryCoverageRetrieveCountryResponse.Data.National.builder().build()
-                    )
+                    .mobile(CountryCoverage.Mobile.builder().build())
+                    .national(CountryCoverage.National.builder().build())
                     .numbers(true)
                     .p2p(true)
                     .phoneNumberType(listOf("local", "local", "local", "toll_free"))
                     .quickship(true)
                     .region("AMER")
                     .reservable(true)
-                    .sharedCost(
-                        CountryCoverageRetrieveCountryResponse.Data.SharedCost.builder().build()
-                    )
+                    .sharedCost(CountryCoverage.SharedCost.builder().build())
                     .tollFree(
-                        CountryCoverageRetrieveCountryResponse.Data.TollFree.builder()
+                        CountryCoverage.TollFree.builder()
                             .features(listOf("voice", "mms", "fax", "sms", "emergency"))
                             .fullPstnReplacement(false)
                             .internationalSms(false)
@@ -148,7 +138,7 @@ internal class CountryCoverageRetrieveCountryResponseTest {
         val countryCoverageRetrieveCountryResponse =
             CountryCoverageRetrieveCountryResponse.builder()
                 .data(
-                    CountryCoverageRetrieveCountryResponse.Data.builder()
+                    CountryCoverage.builder()
                         .code("US")
                         .features(
                             listOf(
@@ -164,7 +154,7 @@ internal class CountryCoverageRetrieveCountryResponseTest {
                         .internationalSms(true)
                         .inventoryCoverage(true)
                         .local(
-                            CountryCoverageRetrieveCountryResponse.Data.Local.builder()
+                            CountryCoverage.Local.builder()
                                 .features(
                                     listOf(
                                         "hd_voice",
@@ -183,23 +173,17 @@ internal class CountryCoverageRetrieveCountryResponseTest {
                                 .reservable(true)
                                 .build()
                         )
-                        .mobile(
-                            CountryCoverageRetrieveCountryResponse.Data.Mobile.builder().build()
-                        )
-                        .national(
-                            CountryCoverageRetrieveCountryResponse.Data.National.builder().build()
-                        )
+                        .mobile(CountryCoverage.Mobile.builder().build())
+                        .national(CountryCoverage.National.builder().build())
                         .numbers(true)
                         .p2p(true)
                         .phoneNumberType(listOf("local", "local", "local", "toll_free"))
                         .quickship(true)
                         .region("AMER")
                         .reservable(true)
-                        .sharedCost(
-                            CountryCoverageRetrieveCountryResponse.Data.SharedCost.builder().build()
-                        )
+                        .sharedCost(CountryCoverage.SharedCost.builder().build())
                         .tollFree(
-                            CountryCoverageRetrieveCountryResponse.Data.TollFree.builder()
+                            CountryCoverage.TollFree.builder()
                                 .features(listOf("voice", "mms", "fax", "sms", "emergency"))
                                 .fullPstnReplacement(false)
                                 .internationalSms(false)

@@ -15,7 +15,7 @@ internal class TelnyxAgentListResponseTest {
         val telnyxAgentListResponse =
             TelnyxAgentListResponse.builder()
                 .addData(
-                    TelnyxAgentListResponse.Data.builder()
+                    TelnyxAgentData.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .runId("run_id")
                         .telnyxAgentId("telnyx_agent_id")
@@ -25,7 +25,7 @@ internal class TelnyxAgentListResponseTest {
 
         assertThat(telnyxAgentListResponse.data())
             .containsExactly(
-                TelnyxAgentListResponse.Data.builder()
+                TelnyxAgentData.builder()
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .runId("run_id")
                     .telnyxAgentId("telnyx_agent_id")
@@ -39,7 +39,7 @@ internal class TelnyxAgentListResponseTest {
         val telnyxAgentListResponse =
             TelnyxAgentListResponse.builder()
                 .addData(
-                    TelnyxAgentListResponse.Data.builder()
+                    TelnyxAgentData.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .runId("run_id")
                         .telnyxAgentId("telnyx_agent_id")

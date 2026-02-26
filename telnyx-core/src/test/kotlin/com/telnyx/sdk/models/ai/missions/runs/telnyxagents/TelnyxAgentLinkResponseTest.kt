@@ -15,7 +15,7 @@ internal class TelnyxAgentLinkResponseTest {
         val telnyxAgentLinkResponse =
             TelnyxAgentLinkResponse.builder()
                 .data(
-                    TelnyxAgentLinkResponse.Data.builder()
+                    TelnyxAgentData.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .runId("run_id")
                         .telnyxAgentId("telnyx_agent_id")
@@ -25,7 +25,7 @@ internal class TelnyxAgentLinkResponseTest {
 
         assertThat(telnyxAgentLinkResponse.data())
             .isEqualTo(
-                TelnyxAgentLinkResponse.Data.builder()
+                TelnyxAgentData.builder()
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .runId("run_id")
                     .telnyxAgentId("telnyx_agent_id")
@@ -39,7 +39,7 @@ internal class TelnyxAgentLinkResponseTest {
         val telnyxAgentLinkResponse =
             TelnyxAgentLinkResponse.builder()
                 .data(
-                    TelnyxAgentLinkResponse.Data.builder()
+                    TelnyxAgentData.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .runId("run_id")
                         .telnyxAgentId("telnyx_agent_id")

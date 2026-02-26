@@ -45,7 +45,7 @@ private constructor(
     private val lastName: JsonField<String>,
     private val mobilePhone: JsonField<String>,
     private val mock: JsonField<Boolean>,
-    private val optionalAttributes: JsonField<OptionalAttributes>,
+    private val optionalAttributes: JsonField<BrandOptionalAttributes>,
     private val phone: JsonField<String>,
     private val postalCode: JsonField<String>,
     private val referenceId: JsonField<String>,
@@ -112,7 +112,7 @@ private constructor(
         @JsonProperty("mock") @ExcludeMissing mock: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("optionalAttributes")
         @ExcludeMissing
-        optionalAttributes: JsonField<OptionalAttributes> = JsonMissing.of(),
+        optionalAttributes: JsonField<BrandOptionalAttributes> = JsonMissing.of(),
         @JsonProperty("phone") @ExcludeMissing phone: JsonField<String> = JsonMissing.of(),
         @JsonProperty("postalCode")
         @ExcludeMissing
@@ -378,7 +378,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun optionalAttributes(): Optional<OptionalAttributes> =
+    fun optionalAttributes(): Optional<BrandOptionalAttributes> =
         optionalAttributes.getOptional("optionalAttributes")
 
     /**
@@ -680,7 +680,7 @@ private constructor(
      */
     @JsonProperty("optionalAttributes")
     @ExcludeMissing
-    fun _optionalAttributes(): JsonField<OptionalAttributes> = optionalAttributes
+    fun _optionalAttributes(): JsonField<BrandOptionalAttributes> = optionalAttributes
 
     /**
      * Returns the raw JSON value of [phone].
@@ -843,7 +843,7 @@ private constructor(
         private var lastName: JsonField<String> = JsonMissing.of()
         private var mobilePhone: JsonField<String> = JsonMissing.of()
         private var mock: JsonField<Boolean> = JsonMissing.of()
-        private var optionalAttributes: JsonField<OptionalAttributes> = JsonMissing.of()
+        private var optionalAttributes: JsonField<BrandOptionalAttributes> = JsonMissing.of()
         private var phone: JsonField<String> = JsonMissing.of()
         private var postalCode: JsonField<String> = JsonMissing.of()
         private var referenceId: JsonField<String> = JsonMissing.of()
@@ -1192,17 +1192,17 @@ private constructor(
          */
         fun mock(mock: JsonField<Boolean>) = apply { this.mock = mock }
 
-        fun optionalAttributes(optionalAttributes: OptionalAttributes) =
+        fun optionalAttributes(optionalAttributes: BrandOptionalAttributes) =
             optionalAttributes(JsonField.of(optionalAttributes))
 
         /**
          * Sets [Builder.optionalAttributes] to an arbitrary JSON value.
          *
          * You should usually call [Builder.optionalAttributes] with a well-typed
-         * [OptionalAttributes] value instead. This method is primarily for setting the field to an
-         * undocumented or not yet supported value.
+         * [BrandOptionalAttributes] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
          */
-        fun optionalAttributes(optionalAttributes: JsonField<OptionalAttributes>) = apply {
+        fun optionalAttributes(optionalAttributes: JsonField<BrandOptionalAttributes>) = apply {
             this.optionalAttributes = optionalAttributes
         }
 
@@ -1704,157 +1704,6 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
-    }
-
-    class OptionalAttributes
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val taxExemptStatus: JsonField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("taxExemptStatus")
-            @ExcludeMissing
-            taxExemptStatus: JsonField<String> = JsonMissing.of()
-        ) : this(taxExemptStatus, mutableMapOf())
-
-        /**
-         * The tax exempt status of the brand
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun taxExemptStatus(): Optional<String> = taxExemptStatus.getOptional("taxExemptStatus")
-
-        /**
-         * Returns the raw JSON value of [taxExemptStatus].
-         *
-         * Unlike [taxExemptStatus], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("taxExemptStatus")
-        @ExcludeMissing
-        fun _taxExemptStatus(): JsonField<String> = taxExemptStatus
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [OptionalAttributes]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [OptionalAttributes]. */
-        class Builder internal constructor() {
-
-            private var taxExemptStatus: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(optionalAttributes: OptionalAttributes) = apply {
-                taxExemptStatus = optionalAttributes.taxExemptStatus
-                additionalProperties = optionalAttributes.additionalProperties.toMutableMap()
-            }
-
-            /** The tax exempt status of the brand */
-            fun taxExemptStatus(taxExemptStatus: String) =
-                taxExemptStatus(JsonField.of(taxExemptStatus))
-
-            /**
-             * Sets [Builder.taxExemptStatus] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.taxExemptStatus] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun taxExemptStatus(taxExemptStatus: JsonField<String>) = apply {
-                this.taxExemptStatus = taxExemptStatus
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [OptionalAttributes].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): OptionalAttributes =
-                OptionalAttributes(taxExemptStatus, additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        fun validate(): OptionalAttributes = apply {
-            if (validated) {
-                return@apply
-            }
-
-            taxExemptStatus()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int = (if (taxExemptStatus.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is OptionalAttributes &&
-                taxExemptStatus == other.taxExemptStatus &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(taxExemptStatus, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "OptionalAttributes{taxExemptStatus=$taxExemptStatus, additionalProperties=$additionalProperties}"
     }
 
     /** Status of the brand */

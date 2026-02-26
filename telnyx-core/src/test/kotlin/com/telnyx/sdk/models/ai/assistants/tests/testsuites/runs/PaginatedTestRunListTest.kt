@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.ai.assistants.tests.runs.TestRunDetailResult
 import com.telnyx.sdk.models.ai.assistants.tests.runs.TestRunResponse
 import com.telnyx.sdk.models.ai.assistants.tests.runs.TestStatus
 import java.time.OffsetDateTime
@@ -27,7 +28,7 @@ internal class PaginatedTestRunListTest {
                         .conversationId("conversation_id")
                         .conversationInsightsId("conversation_insights_id")
                         .addDetailStatus(
-                            TestRunResponse.DetailStatus.builder()
+                            TestRunDetailResult.builder()
                                 .name("name")
                                 .status(TestStatus.PENDING)
                                 .build()
@@ -59,7 +60,7 @@ internal class PaginatedTestRunListTest {
                     .conversationId("conversation_id")
                     .conversationInsightsId("conversation_insights_id")
                     .addDetailStatus(
-                        TestRunResponse.DetailStatus.builder()
+                        TestRunDetailResult.builder()
                             .name("name")
                             .status(TestStatus.PENDING)
                             .build()
@@ -91,7 +92,7 @@ internal class PaginatedTestRunListTest {
                         .conversationId("conversation_id")
                         .conversationInsightsId("conversation_insights_id")
                         .addDetailStatus(
-                            TestRunResponse.DetailStatus.builder()
+                            TestRunDetailResult.builder()
                                 .name("name")
                                 .status(TestStatus.PENDING)
                                 .build()

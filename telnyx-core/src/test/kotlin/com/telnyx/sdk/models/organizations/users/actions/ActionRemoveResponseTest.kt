@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.organizations.users.actions
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.organizations.users.OrganizationUser
 import com.telnyx.sdk.models.organizations.users.UserGroupReference
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,7 +16,7 @@ internal class ActionRemoveResponseTest {
         val actionRemoveResponse =
             ActionRemoveResponse.builder()
                 .data(
-                    ActionRemoveResponse.Data.builder()
+                    OrganizationUser.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .email("user@example.com")
@@ -28,14 +29,14 @@ internal class ActionRemoveResponseTest {
                         .lastSignInAt("2018-02-02T22:25:27.521Z")
                         .organizationUserBypassesSso(false)
                         .recordType("organization_sub_user")
-                        .userStatus(ActionRemoveResponse.Data.UserStatus.ENABLED)
+                        .userStatus(OrganizationUser.UserStatus.ENABLED)
                         .build()
                 )
                 .build()
 
         assertThat(actionRemoveResponse.data())
             .contains(
-                ActionRemoveResponse.Data.builder()
+                OrganizationUser.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .email("user@example.com")
@@ -48,7 +49,7 @@ internal class ActionRemoveResponseTest {
                     .lastSignInAt("2018-02-02T22:25:27.521Z")
                     .organizationUserBypassesSso(false)
                     .recordType("organization_sub_user")
-                    .userStatus(ActionRemoveResponse.Data.UserStatus.ENABLED)
+                    .userStatus(OrganizationUser.UserStatus.ENABLED)
                     .build()
             )
     }
@@ -59,7 +60,7 @@ internal class ActionRemoveResponseTest {
         val actionRemoveResponse =
             ActionRemoveResponse.builder()
                 .data(
-                    ActionRemoveResponse.Data.builder()
+                    OrganizationUser.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .email("user@example.com")
@@ -72,7 +73,7 @@ internal class ActionRemoveResponseTest {
                         .lastSignInAt("2018-02-02T22:25:27.521Z")
                         .organizationUserBypassesSso(false)
                         .recordType("organization_sub_user")
-                        .userStatus(ActionRemoveResponse.Data.UserStatus.ENABLED)
+                        .userStatus(OrganizationUser.UserStatus.ENABLED)
                         .build()
                 )
                 .build()

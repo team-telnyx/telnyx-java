@@ -14,7 +14,7 @@ internal class PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponseTe
         val phoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse =
             PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse.builder()
                 .addRecord(
-                    PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse.Record.builder()
+                    ProfileAssignmentPhoneNumbers.builder()
                         .phoneNumber("+12024567890")
                         .status("pending")
                         .taskId("667a80f8-b0a9-49d0-b9ab-a7a1bcc45086")
@@ -24,7 +24,7 @@ internal class PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponseTe
 
         assertThat(phoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse.records())
             .containsExactly(
-                PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse.Record.builder()
+                ProfileAssignmentPhoneNumbers.builder()
                     .phoneNumber("+12024567890")
                     .status("pending")
                     .taskId("667a80f8-b0a9-49d0-b9ab-a7a1bcc45086")
@@ -38,7 +38,7 @@ internal class PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponseTe
         val phoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse =
             PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse.builder()
                 .addRecord(
-                    PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse.Record.builder()
+                    ProfileAssignmentPhoneNumbers.builder()
                         .phoneNumber("+12024567890")
                         .status("pending")
                         .taskId("667a80f8-b0a9-49d0-b9ab-a7a1bcc45086")

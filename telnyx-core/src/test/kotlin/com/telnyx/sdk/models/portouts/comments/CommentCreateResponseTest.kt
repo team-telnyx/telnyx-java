@@ -14,7 +14,7 @@ internal class CommentCreateResponseTest {
         val commentCreateResponse =
             CommentCreateResponse.builder()
                 .data(
-                    CommentCreateResponse.Data.builder()
+                    PortoutComment.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .body("This is a comment")
                         .createdAt("2018-02-02T22:25:27.521Z")
@@ -27,7 +27,7 @@ internal class CommentCreateResponseTest {
 
         assertThat(commentCreateResponse.data())
             .contains(
-                CommentCreateResponse.Data.builder()
+                PortoutComment.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                     .body("This is a comment")
                     .createdAt("2018-02-02T22:25:27.521Z")
@@ -44,7 +44,7 @@ internal class CommentCreateResponseTest {
         val commentCreateResponse =
             CommentCreateResponse.builder()
                 .data(
-                    CommentCreateResponse.Data.builder()
+                    PortoutComment.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .body("This is a comment")
                         .createdAt("2018-02-02T22:25:27.521Z")

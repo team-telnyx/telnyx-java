@@ -18,7 +18,7 @@ internal class ReleaseListResponseTest {
                 .errorMessage("error_message")
                 .status(ReleaseListResponse.Status.PENDING)
                 .addTelephoneNumber(
-                    ReleaseListResponse.TelephoneNumber.builder()
+                    TnReleaseEntry.builder()
                         .numberId("number_id")
                         .phoneNumber("phone_number")
                         .build()
@@ -32,10 +32,7 @@ internal class ReleaseListResponseTest {
         assertThat(releaseListResponse.status()).contains(ReleaseListResponse.Status.PENDING)
         assertThat(releaseListResponse.telephoneNumbers().getOrNull())
             .containsExactly(
-                ReleaseListResponse.TelephoneNumber.builder()
-                    .numberId("number_id")
-                    .phoneNumber("phone_number")
-                    .build()
+                TnReleaseEntry.builder().numberId("number_id").phoneNumber("phone_number").build()
             )
         assertThat(releaseListResponse.tenantId()).contains("ea175aba-f47c-4702-9400-efaa42688048")
         assertThat(releaseListResponse.ticketId()).contains("542c3bca-d247-42bc-8fe7-e01d16ecd761")
@@ -50,7 +47,7 @@ internal class ReleaseListResponseTest {
                 .errorMessage("error_message")
                 .status(ReleaseListResponse.Status.PENDING)
                 .addTelephoneNumber(
-                    ReleaseListResponse.TelephoneNumber.builder()
+                    TnReleaseEntry.builder()
                         .numberId("number_id")
                         .phoneNumber("phone_number")
                         .build()

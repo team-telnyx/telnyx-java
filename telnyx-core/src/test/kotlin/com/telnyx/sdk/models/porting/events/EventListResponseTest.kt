@@ -20,16 +20,14 @@ internal class EventListResponseTest {
     @Test
     fun ofPortingEventDeletedPayload() {
         val portingEventDeletedPayload =
-            EventListResponse.PortingEventDeletedPayload.builder()
+            PortingEventDeletedPayload.builder()
                 .id("eef3340b-8903-4466-b445-89b697315a3a")
                 .addAvailableNotificationMethod(
-                    EventListResponse.PortingEventDeletedPayload.AvailableNotificationMethod.EMAIL
+                    PortingEventDeletedPayload.AvailableNotificationMethod.EMAIL
                 )
-                .eventType(
-                    EventListResponse.PortingEventDeletedPayload.EventType.PORTING_ORDER_DELETED
-                )
+                .eventType(PortingEventDeletedPayload.EventType.PORTING_ORDER_DELETED)
                 .payload(
-                    EventListResponse.PortingEventDeletedPayload.Payload.builder()
+                    PortingEventDeletedPayload.Payload.builder()
                         .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                         .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                         .customerReference("my-ref-001")
@@ -38,7 +36,7 @@ internal class EventListResponseTest {
                         .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                         .build()
                 )
-                .payloadStatus(EventListResponse.PortingEventDeletedPayload.PayloadStatus.CREATED)
+                .payloadStatus(PortingEventDeletedPayload.PayloadStatus.CREATED)
                 .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                 .build()
 
@@ -59,17 +57,14 @@ internal class EventListResponseTest {
         val jsonMapper = jsonMapper()
         val eventListResponse =
             EventListResponse.ofPortingEventDeletedPayload(
-                EventListResponse.PortingEventDeletedPayload.builder()
+                PortingEventDeletedPayload.builder()
                     .id("eef3340b-8903-4466-b445-89b697315a3a")
                     .addAvailableNotificationMethod(
-                        EventListResponse.PortingEventDeletedPayload.AvailableNotificationMethod
-                            .EMAIL
+                        PortingEventDeletedPayload.AvailableNotificationMethod.EMAIL
                     )
-                    .eventType(
-                        EventListResponse.PortingEventDeletedPayload.EventType.PORTING_ORDER_DELETED
-                    )
+                    .eventType(PortingEventDeletedPayload.EventType.PORTING_ORDER_DELETED)
                     .payload(
-                        EventListResponse.PortingEventDeletedPayload.Payload.builder()
+                        PortingEventDeletedPayload.Payload.builder()
                             .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                             .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                             .customerReference("my-ref-001")
@@ -78,9 +73,7 @@ internal class EventListResponseTest {
                             .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                             .build()
                     )
-                    .payloadStatus(
-                        EventListResponse.PortingEventDeletedPayload.PayloadStatus.CREATED
-                    )
+                    .payloadStatus(PortingEventDeletedPayload.PayloadStatus.CREATED)
                     .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                     .build()
             )
@@ -97,31 +90,24 @@ internal class EventListResponseTest {
     @Test
     fun ofPortingEventMessagingChangedPayload() {
         val portingEventMessagingChangedPayload =
-            EventListResponse.PortingEventMessagingChangedPayload.builder()
+            PortingEventMessagingChangedPayload.builder()
                 .id("eef3340b-8903-4466-b445-89b697315a3a")
                 .addAvailableNotificationMethod(
-                    EventListResponse.PortingEventMessagingChangedPayload
-                        .AvailableNotificationMethod
-                        .EMAIL
+                    PortingEventMessagingChangedPayload.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(
-                    EventListResponse.PortingEventMessagingChangedPayload.EventType
-                        .PORTING_ORDER_DELETED
-                )
+                .eventType(PortingEventMessagingChangedPayload.EventType.PORTING_ORDER_DELETED)
                 .payload(
-                    EventListResponse.PortingEventMessagingChangedPayload.Payload.builder()
+                    PortingEventMessagingChangedPayload.Payload.builder()
                         .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                         .customerReference("my-ref-001")
                         .messaging(
-                            EventListResponse.PortingEventMessagingChangedPayload.Payload.Messaging
-                                .builder()
+                            PortingEventMessagingChangedPayload.Payload.Messaging.builder()
                                 .enableMessaging(true)
                                 .messagingCapable(true)
                                 .messagingPortCompleted(true)
                                 .messagingPortStatus(
-                                    EventListResponse.PortingEventMessagingChangedPayload.Payload
-                                        .Messaging
+                                    PortingEventMessagingChangedPayload.Payload.Messaging
                                         .MessagingPortStatus
                                         .PORTED
                                 )
@@ -130,9 +116,7 @@ internal class EventListResponseTest {
                         .supportKey("sr_b1a2c3")
                         .build()
                 )
-                .payloadStatus(
-                    EventListResponse.PortingEventMessagingChangedPayload.PayloadStatus.CREATED
-                )
+                .payloadStatus(PortingEventMessagingChangedPayload.PayloadStatus.CREATED)
                 .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                 .recordType("porting_event")
                 .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
@@ -157,33 +141,24 @@ internal class EventListResponseTest {
         val jsonMapper = jsonMapper()
         val eventListResponse =
             EventListResponse.ofPortingEventMessagingChangedPayload(
-                EventListResponse.PortingEventMessagingChangedPayload.builder()
+                PortingEventMessagingChangedPayload.builder()
                     .id("eef3340b-8903-4466-b445-89b697315a3a")
                     .addAvailableNotificationMethod(
-                        EventListResponse.PortingEventMessagingChangedPayload
-                            .AvailableNotificationMethod
-                            .EMAIL
+                        PortingEventMessagingChangedPayload.AvailableNotificationMethod.EMAIL
                     )
                     .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .eventType(
-                        EventListResponse.PortingEventMessagingChangedPayload.EventType
-                            .PORTING_ORDER_DELETED
-                    )
+                    .eventType(PortingEventMessagingChangedPayload.EventType.PORTING_ORDER_DELETED)
                     .payload(
-                        EventListResponse.PortingEventMessagingChangedPayload.Payload.builder()
+                        PortingEventMessagingChangedPayload.Payload.builder()
                             .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                             .customerReference("my-ref-001")
                             .messaging(
-                                EventListResponse.PortingEventMessagingChangedPayload.Payload
-                                    .Messaging
-                                    .builder()
+                                PortingEventMessagingChangedPayload.Payload.Messaging.builder()
                                     .enableMessaging(true)
                                     .messagingCapable(true)
                                     .messagingPortCompleted(true)
                                     .messagingPortStatus(
-                                        EventListResponse.PortingEventMessagingChangedPayload
-                                            .Payload
-                                            .Messaging
+                                        PortingEventMessagingChangedPayload.Payload.Messaging
                                             .MessagingPortStatus
                                             .PORTED
                                     )
@@ -192,9 +167,7 @@ internal class EventListResponseTest {
                             .supportKey("sr_b1a2c3")
                             .build()
                     )
-                    .payloadStatus(
-                        EventListResponse.PortingEventMessagingChangedPayload.PayloadStatus.CREATED
-                    )
+                    .payloadStatus(PortingEventMessagingChangedPayload.PayloadStatus.CREATED)
                     .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                     .recordType("porting_event")
                     .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
@@ -213,18 +186,15 @@ internal class EventListResponseTest {
     @Test
     fun ofPortingEventStatusChangedEvent() {
         val portingEventStatusChangedEvent =
-            EventListResponse.PortingEventStatusChangedEvent.builder()
+            PortingEventStatusChangedEvent.builder()
                 .id("eef3340b-8903-4466-b445-89b697315a3a")
                 .addAvailableNotificationMethod(
-                    EventListResponse.PortingEventStatusChangedEvent.AvailableNotificationMethod
-                        .EMAIL
+                    PortingEventStatusChangedEvent.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(
-                    EventListResponse.PortingEventStatusChangedEvent.EventType.PORTING_ORDER_DELETED
-                )
+                .eventType(PortingEventStatusChangedEvent.EventType.PORTING_ORDER_DELETED)
                 .payload(
-                    EventListResponse.PortingEventStatusChangedEvent.Payload.builder()
+                    PortingEventStatusChangedEvent.Payload.builder()
                         .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                         .customerReference("my-ref-001")
                         .status(
@@ -243,9 +213,7 @@ internal class EventListResponseTest {
                         .webhookUrl("https://example.com/webhook")
                         .build()
                 )
-                .payloadStatus(
-                    EventListResponse.PortingEventStatusChangedEvent.PayloadStatus.CREATED
-                )
+                .payloadStatus(PortingEventStatusChangedEvent.PayloadStatus.CREATED)
                 .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                 .recordType("porting_event")
                 .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
@@ -268,19 +236,15 @@ internal class EventListResponseTest {
         val jsonMapper = jsonMapper()
         val eventListResponse =
             EventListResponse.ofPortingEventStatusChangedEvent(
-                EventListResponse.PortingEventStatusChangedEvent.builder()
+                PortingEventStatusChangedEvent.builder()
                     .id("eef3340b-8903-4466-b445-89b697315a3a")
                     .addAvailableNotificationMethod(
-                        EventListResponse.PortingEventStatusChangedEvent.AvailableNotificationMethod
-                            .EMAIL
+                        PortingEventStatusChangedEvent.AvailableNotificationMethod.EMAIL
                     )
                     .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .eventType(
-                        EventListResponse.PortingEventStatusChangedEvent.EventType
-                            .PORTING_ORDER_DELETED
-                    )
+                    .eventType(PortingEventStatusChangedEvent.EventType.PORTING_ORDER_DELETED)
                     .payload(
-                        EventListResponse.PortingEventStatusChangedEvent.Payload.builder()
+                        PortingEventStatusChangedEvent.Payload.builder()
                             .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                             .customerReference("my-ref-001")
                             .status(
@@ -303,9 +267,7 @@ internal class EventListResponseTest {
                             .webhookUrl("https://example.com/webhook")
                             .build()
                     )
-                    .payloadStatus(
-                        EventListResponse.PortingEventStatusChangedEvent.PayloadStatus.CREATED
-                    )
+                    .payloadStatus(PortingEventStatusChangedEvent.PayloadStatus.CREATED)
                     .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                     .recordType("porting_event")
                     .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
@@ -324,35 +286,29 @@ internal class EventListResponseTest {
     @Test
     fun ofPortingEventNewCommentEvent() {
         val portingEventNewCommentEvent =
-            EventListResponse.PortingEventNewCommentEvent.builder()
+            PortingEventNewCommentEvent.builder()
                 .id("eef3340b-8903-4466-b445-89b697315a3a")
                 .addAvailableNotificationMethod(
-                    EventListResponse.PortingEventNewCommentEvent.AvailableNotificationMethod.EMAIL
+                    PortingEventNewCommentEvent.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(
-                    EventListResponse.PortingEventNewCommentEvent.EventType.PORTING_ORDER_DELETED
-                )
+                .eventType(PortingEventNewCommentEvent.EventType.PORTING_ORDER_DELETED)
                 .payload(
-                    EventListResponse.PortingEventNewCommentEvent.Payload.builder()
+                    PortingEventNewCommentEvent.Payload.builder()
                         .comment(
-                            EventListResponse.PortingEventNewCommentEvent.Payload.Comment.builder()
+                            PortingEventNewCommentEvent.Payload.Comment.builder()
                                 .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                 .body("This is a comment.")
                                 .insertedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
                                 .userId("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
-                                .userType(
-                                    EventListResponse.PortingEventNewCommentEvent.Payload.Comment
-                                        .UserType
-                                        .USER
-                                )
+                                .userType(PortingEventNewCommentEvent.Payload.Comment.UserType.USER)
                                 .build()
                         )
                         .portingOrderId("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                         .supportKey("sr_b1a2c3")
                         .build()
                 )
-                .payloadStatus(EventListResponse.PortingEventNewCommentEvent.PayloadStatus.CREATED)
+                .payloadStatus(PortingEventNewCommentEvent.PayloadStatus.CREATED)
                 .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                 .recordType("porting_event")
                 .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
@@ -375,31 +331,23 @@ internal class EventListResponseTest {
         val jsonMapper = jsonMapper()
         val eventListResponse =
             EventListResponse.ofPortingEventNewCommentEvent(
-                EventListResponse.PortingEventNewCommentEvent.builder()
+                PortingEventNewCommentEvent.builder()
                     .id("eef3340b-8903-4466-b445-89b697315a3a")
                     .addAvailableNotificationMethod(
-                        EventListResponse.PortingEventNewCommentEvent.AvailableNotificationMethod
-                            .EMAIL
+                        PortingEventNewCommentEvent.AvailableNotificationMethod.EMAIL
                     )
                     .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .eventType(
-                        EventListResponse.PortingEventNewCommentEvent.EventType
-                            .PORTING_ORDER_DELETED
-                    )
+                    .eventType(PortingEventNewCommentEvent.EventType.PORTING_ORDER_DELETED)
                     .payload(
-                        EventListResponse.PortingEventNewCommentEvent.Payload.builder()
+                        PortingEventNewCommentEvent.Payload.builder()
                             .comment(
-                                EventListResponse.PortingEventNewCommentEvent.Payload.Comment
-                                    .builder()
+                                PortingEventNewCommentEvent.Payload.Comment.builder()
                                     .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                     .body("This is a comment.")
                                     .insertedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527Z"))
                                     .userId("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                     .userType(
-                                        EventListResponse.PortingEventNewCommentEvent.Payload
-                                            .Comment
-                                            .UserType
-                                            .USER
+                                        PortingEventNewCommentEvent.Payload.Comment.UserType.USER
                                     )
                                     .build()
                             )
@@ -407,9 +355,7 @@ internal class EventListResponseTest {
                             .supportKey("sr_b1a2c3")
                             .build()
                     )
-                    .payloadStatus(
-                        EventListResponse.PortingEventNewCommentEvent.PayloadStatus.CREATED
-                    )
+                    .payloadStatus(PortingEventNewCommentEvent.PayloadStatus.CREATED)
                     .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                     .recordType("porting_event")
                     .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
@@ -428,34 +374,33 @@ internal class EventListResponseTest {
     @Test
     fun ofPortingEventSplitEvent() {
         val portingEventSplitEvent =
-            EventListResponse.PortingEventSplitEvent.builder()
+            PortingEventSplitEvent.builder()
                 .id("eef3340b-8903-4466-b445-89b697315a3a")
                 .addAvailableNotificationMethod(
-                    EventListResponse.PortingEventSplitEvent.AvailableNotificationMethod.EMAIL
+                    PortingEventSplitEvent.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(EventListResponse.PortingEventSplitEvent.EventType.PORTING_ORDER_DELETED)
+                .eventType(PortingEventSplitEvent.EventType.PORTING_ORDER_DELETED)
                 .payload(
-                    EventListResponse.PortingEventSplitEvent.Payload.builder()
+                    PortingEventSplitEvent.Payload.builder()
                         .from(
-                            EventListResponse.PortingEventSplitEvent.Payload.From.builder()
+                            PortingEventSplitEvent.Payload.From.builder()
                                 .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                 .build()
                         )
                         .addPortingPhoneNumber(
-                            EventListResponse.PortingEventSplitEvent.Payload.PortingPhoneNumber
-                                .builder()
+                            PortingEventSplitEvent.Payload.PortingPhoneNumber.builder()
                                 .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                 .build()
                         )
                         .to(
-                            EventListResponse.PortingEventSplitEvent.Payload.To.builder()
+                            PortingEventSplitEvent.Payload.To.builder()
                                 .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                 .build()
                         )
                         .build()
                 )
-                .payloadStatus(EventListResponse.PortingEventSplitEvent.PayloadStatus.CREATED)
+                .payloadStatus(PortingEventSplitEvent.PayloadStatus.CREATED)
                 .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                 .recordType("porting_event")
                 .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
@@ -476,36 +421,33 @@ internal class EventListResponseTest {
         val jsonMapper = jsonMapper()
         val eventListResponse =
             EventListResponse.ofPortingEventSplitEvent(
-                EventListResponse.PortingEventSplitEvent.builder()
+                PortingEventSplitEvent.builder()
                     .id("eef3340b-8903-4466-b445-89b697315a3a")
                     .addAvailableNotificationMethod(
-                        EventListResponse.PortingEventSplitEvent.AvailableNotificationMethod.EMAIL
+                        PortingEventSplitEvent.AvailableNotificationMethod.EMAIL
                     )
                     .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .eventType(
-                        EventListResponse.PortingEventSplitEvent.EventType.PORTING_ORDER_DELETED
-                    )
+                    .eventType(PortingEventSplitEvent.EventType.PORTING_ORDER_DELETED)
                     .payload(
-                        EventListResponse.PortingEventSplitEvent.Payload.builder()
+                        PortingEventSplitEvent.Payload.builder()
                             .from(
-                                EventListResponse.PortingEventSplitEvent.Payload.From.builder()
+                                PortingEventSplitEvent.Payload.From.builder()
                                     .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                     .build()
                             )
                             .addPortingPhoneNumber(
-                                EventListResponse.PortingEventSplitEvent.Payload.PortingPhoneNumber
-                                    .builder()
+                                PortingEventSplitEvent.Payload.PortingPhoneNumber.builder()
                                     .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                     .build()
                             )
                             .to(
-                                EventListResponse.PortingEventSplitEvent.Payload.To.builder()
+                                PortingEventSplitEvent.Payload.To.builder()
                                     .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                     .build()
                             )
                             .build()
                     )
-                    .payloadStatus(EventListResponse.PortingEventSplitEvent.PayloadStatus.CREATED)
+                    .payloadStatus(PortingEventSplitEvent.PayloadStatus.CREATED)
                     .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                     .recordType("porting_event")
                     .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
@@ -524,17 +466,15 @@ internal class EventListResponseTest {
     @Test
     fun ofPortingEventWithoutWebhook() {
         val portingEventWithoutWebhook =
-            EventListResponse.PortingEventWithoutWebhook.builder()
+            PortingEventWithoutWebhook.builder()
                 .id("eef3340b-8903-4466-b445-89b697315a3a")
                 .addAvailableNotificationMethod(
-                    EventListResponse.PortingEventWithoutWebhook.AvailableNotificationMethod.EMAIL
+                    PortingEventWithoutWebhook.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(
-                    EventListResponse.PortingEventWithoutWebhook.EventType.PORTING_ORDER_DELETED
-                )
+                .eventType(PortingEventWithoutWebhook.EventType.PORTING_ORDER_DELETED)
                 .payload(null)
-                .payloadStatus(EventListResponse.PortingEventWithoutWebhook.PayloadStatus.CREATED)
+                .payloadStatus(PortingEventWithoutWebhook.PayloadStatus.CREATED)
                 .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                 .recordType("porting_event")
                 .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
@@ -557,20 +497,15 @@ internal class EventListResponseTest {
         val jsonMapper = jsonMapper()
         val eventListResponse =
             EventListResponse.ofPortingEventWithoutWebhook(
-                EventListResponse.PortingEventWithoutWebhook.builder()
+                PortingEventWithoutWebhook.builder()
                     .id("eef3340b-8903-4466-b445-89b697315a3a")
                     .addAvailableNotificationMethod(
-                        EventListResponse.PortingEventWithoutWebhook.AvailableNotificationMethod
-                            .EMAIL
+                        PortingEventWithoutWebhook.AvailableNotificationMethod.EMAIL
                     )
                     .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .eventType(
-                        EventListResponse.PortingEventWithoutWebhook.EventType.PORTING_ORDER_DELETED
-                    )
+                    .eventType(PortingEventWithoutWebhook.EventType.PORTING_ORDER_DELETED)
                     .payload(null)
-                    .payloadStatus(
-                        EventListResponse.PortingEventWithoutWebhook.PayloadStatus.CREATED
-                    )
+                    .payloadStatus(PortingEventWithoutWebhook.PayloadStatus.CREATED)
                     .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                     .recordType("porting_event")
                     .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))

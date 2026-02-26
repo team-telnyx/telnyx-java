@@ -21,7 +21,7 @@ internal class ReleaseListPageResponseTest {
                         .errorMessage("error_message")
                         .status(ReleaseListResponse.Status.PENDING)
                         .addTelephoneNumber(
-                            ReleaseListResponse.TelephoneNumber.builder()
+                            TnReleaseEntry.builder()
                                 .numberId("number_id")
                                 .phoneNumber("phone_number")
                                 .build()
@@ -47,7 +47,7 @@ internal class ReleaseListPageResponseTest {
                     .errorMessage("error_message")
                     .status(ReleaseListResponse.Status.PENDING)
                     .addTelephoneNumber(
-                        ReleaseListResponse.TelephoneNumber.builder()
+                        TnReleaseEntry.builder()
                             .numberId("number_id")
                             .phoneNumber("phone_number")
                             .build()
@@ -78,7 +78,7 @@ internal class ReleaseListPageResponseTest {
                         .errorMessage("error_message")
                         .status(ReleaseListResponse.Status.PENDING)
                         .addTelephoneNumber(
-                            ReleaseListResponse.TelephoneNumber.builder()
+                            TnReleaseEntry.builder()
                                 .numberId("number_id")
                                 .phoneNumber("phone_number")
                                 .build()

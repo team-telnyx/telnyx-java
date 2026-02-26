@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.virtualcrossconnectscoverage
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.NetappsLocation
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -18,7 +19,7 @@ internal class VirtualCrossConnectsCoverageListResponseTest {
                 .cloudProvider(VirtualCrossConnectsCoverageListResponse.CloudProvider.AWS)
                 .cloudProviderRegion("us-east-1")
                 .location(
-                    VirtualCrossConnectsCoverageListResponse.Location.builder()
+                    NetappsLocation.builder()
                         .code("chicago-il")
                         .name("Chicago IL, US")
                         .pop("CH1")
@@ -37,7 +38,7 @@ internal class VirtualCrossConnectsCoverageListResponseTest {
             .contains("us-east-1")
         assertThat(virtualCrossConnectsCoverageListResponse.location())
             .contains(
-                VirtualCrossConnectsCoverageListResponse.Location.builder()
+                NetappsLocation.builder()
                     .code("chicago-il")
                     .name("Chicago IL, US")
                     .pop("CH1")
@@ -58,7 +59,7 @@ internal class VirtualCrossConnectsCoverageListResponseTest {
                 .cloudProvider(VirtualCrossConnectsCoverageListResponse.CloudProvider.AWS)
                 .cloudProviderRegion("us-east-1")
                 .location(
-                    VirtualCrossConnectsCoverageListResponse.Location.builder()
+                    NetappsLocation.builder()
                         .code("chicago-il")
                         .name("Chicago IL, US")
                         .pop("CH1")

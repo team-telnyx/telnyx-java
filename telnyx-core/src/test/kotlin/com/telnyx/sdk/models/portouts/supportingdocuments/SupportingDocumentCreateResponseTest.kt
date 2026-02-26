@@ -15,13 +15,13 @@ internal class SupportingDocumentCreateResponseTest {
         val supportingDocumentCreateResponse =
             SupportingDocumentCreateResponse.builder()
                 .addData(
-                    SupportingDocumentCreateResponse.Data.builder()
+                    PortOutSupportingDocument.builder()
                         .id("5a16902a-2ee9-4882-a247-420fc6627b62")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .documentId("f1c5e079-9d82-4f50-95bc-ae2f6b8d84d7")
                         .portoutId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .recordType("supporting_document")
-                        .type(SupportingDocumentCreateResponse.Data.Type.LOA)
+                        .type(PortOutSupportingDocument.Type.LOA)
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .build()
                 )
@@ -29,13 +29,13 @@ internal class SupportingDocumentCreateResponseTest {
 
         assertThat(supportingDocumentCreateResponse.data().getOrNull())
             .containsExactly(
-                SupportingDocumentCreateResponse.Data.builder()
+                PortOutSupportingDocument.builder()
                     .id("5a16902a-2ee9-4882-a247-420fc6627b62")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .documentId("f1c5e079-9d82-4f50-95bc-ae2f6b8d84d7")
                     .portoutId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                     .recordType("supporting_document")
-                    .type(SupportingDocumentCreateResponse.Data.Type.LOA)
+                    .type(PortOutSupportingDocument.Type.LOA)
                     .updatedAt("2018-02-02T22:25:27.521Z")
                     .build()
             )
@@ -47,13 +47,13 @@ internal class SupportingDocumentCreateResponseTest {
         val supportingDocumentCreateResponse =
             SupportingDocumentCreateResponse.builder()
                 .addData(
-                    SupportingDocumentCreateResponse.Data.builder()
+                    PortOutSupportingDocument.builder()
                         .id("5a16902a-2ee9-4882-a247-420fc6627b62")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .documentId("f1c5e079-9d82-4f50-95bc-ae2f6b8d84d7")
                         .portoutId("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .recordType("supporting_document")
-                        .type(SupportingDocumentCreateResponse.Data.Type.LOA)
+                        .type(PortOutSupportingDocument.Type.LOA)
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .build()
                 )

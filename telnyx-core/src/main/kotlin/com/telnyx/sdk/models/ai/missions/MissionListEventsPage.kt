@@ -6,6 +6,7 @@ import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.Meta
+import com.telnyx.sdk.models.ai.missions.runs.events.EventData
 import com.telnyx.sdk.services.blocking.ai.MissionService
 import java.util.Objects
 import java.util.Optional
@@ -18,15 +19,14 @@ private constructor(
     private val service: MissionService,
     private val params: MissionListEventsParams,
     private val response: MissionListEventsPageResponse,
-) : Page<MissionListEventsResponse> {
+) : Page<EventData> {
 
     /**
      * Delegates to [MissionListEventsPageResponse], but gracefully handles missing data.
      *
      * @see MissionListEventsPageResponse.data
      */
-    fun data(): List<MissionListEventsResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<EventData> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [MissionListEventsPageResponse], but gracefully handles missing data.
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<Meta> = response._meta().getOptional("meta")
 
-    override fun items(): List<MissionListEventsResponse> = data()
+    override fun items(): List<EventData> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): MissionListEventsPage = service.listEvents(nextPageParams())
 
-    fun autoPager(): AutoPager<MissionListEventsResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<EventData> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): MissionListEventsParams = params

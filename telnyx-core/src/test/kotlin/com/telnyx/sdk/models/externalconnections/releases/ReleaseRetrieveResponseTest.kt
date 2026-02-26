@@ -19,7 +19,7 @@ internal class ReleaseRetrieveResponseTest {
                         .errorMessage("error_message")
                         .status(ReleaseRetrieveResponse.Data.Status.PENDING)
                         .addTelephoneNumber(
-                            ReleaseRetrieveResponse.Data.TelephoneNumber.builder()
+                            TnReleaseEntry.builder()
                                 .numberId("number_id")
                                 .phoneNumber("phone_number")
                                 .build()
@@ -37,7 +37,7 @@ internal class ReleaseRetrieveResponseTest {
                     .errorMessage("error_message")
                     .status(ReleaseRetrieveResponse.Data.Status.PENDING)
                     .addTelephoneNumber(
-                        ReleaseRetrieveResponse.Data.TelephoneNumber.builder()
+                        TnReleaseEntry.builder()
                             .numberId("number_id")
                             .phoneNumber("phone_number")
                             .build()
@@ -59,7 +59,7 @@ internal class ReleaseRetrieveResponseTest {
                         .errorMessage("error_message")
                         .status(ReleaseRetrieveResponse.Data.Status.PENDING)
                         .addTelephoneNumber(
-                            ReleaseRetrieveResponse.Data.TelephoneNumber.builder()
+                            TnReleaseEntry.builder()
                                 .numberId("number_id")
                                 .phoneNumber("phone_number")
                                 .build()

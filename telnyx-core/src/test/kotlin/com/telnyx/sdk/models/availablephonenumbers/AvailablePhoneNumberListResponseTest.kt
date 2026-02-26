@@ -5,6 +5,9 @@ package com.telnyx.sdk.models.availablephonenumbers
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.AvailablePhoneNumbersMetadata
+import com.telnyx.sdk.models.CostInformation
+import com.telnyx.sdk.models.Feature
+import com.telnyx.sdk.models.RegionInformation
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -19,35 +22,23 @@ internal class AvailablePhoneNumberListResponseTest {
                     AvailablePhoneNumberListResponse.Data.builder()
                         .bestEffort(false)
                         .costInformation(
-                            AvailablePhoneNumberListResponse.Data.CostInformation.builder()
+                            CostInformation.builder()
                                 .currency("USD")
                                 .monthlyCost("6.54")
                                 .upfrontCost("3.21")
                                 .build()
                         )
-                        .addFeature(
-                            AvailablePhoneNumberListResponse.Data.Feature.builder()
-                                .name("sms")
-                                .build()
-                        )
-                        .addFeature(
-                            AvailablePhoneNumberListResponse.Data.Feature.builder()
-                                .name("voice")
-                                .build()
-                        )
+                        .addFeature(Feature.builder().name("sms").build())
+                        .addFeature(Feature.builder().name("voice").build())
                         .phoneNumber("+19705555098")
                         .quickship(true)
                         .recordType(
                             AvailablePhoneNumberListResponse.Data.RecordType.AVAILABLE_PHONE_NUMBER
                         )
                         .addRegionInformation(
-                            AvailablePhoneNumberListResponse.Data.RegionInformation.builder()
+                            RegionInformation.builder()
                                 .regionName("US")
-                                .regionType(
-                                    AvailablePhoneNumberListResponse.Data.RegionInformation
-                                        .RegionType
-                                        .COUNTRY_CODE
-                                )
+                                .regionType(RegionInformation.RegionType.COUNTRY_CODE)
                                 .build()
                         )
                         .reservable(true)
@@ -73,32 +64,23 @@ internal class AvailablePhoneNumberListResponseTest {
                 AvailablePhoneNumberListResponse.Data.builder()
                     .bestEffort(false)
                     .costInformation(
-                        AvailablePhoneNumberListResponse.Data.CostInformation.builder()
+                        CostInformation.builder()
                             .currency("USD")
                             .monthlyCost("6.54")
                             .upfrontCost("3.21")
                             .build()
                     )
-                    .addFeature(
-                        AvailablePhoneNumberListResponse.Data.Feature.builder().name("sms").build()
-                    )
-                    .addFeature(
-                        AvailablePhoneNumberListResponse.Data.Feature.builder()
-                            .name("voice")
-                            .build()
-                    )
+                    .addFeature(Feature.builder().name("sms").build())
+                    .addFeature(Feature.builder().name("voice").build())
                     .phoneNumber("+19705555098")
                     .quickship(true)
                     .recordType(
                         AvailablePhoneNumberListResponse.Data.RecordType.AVAILABLE_PHONE_NUMBER
                     )
                     .addRegionInformation(
-                        AvailablePhoneNumberListResponse.Data.RegionInformation.builder()
+                        RegionInformation.builder()
                             .regionName("US")
-                            .regionType(
-                                AvailablePhoneNumberListResponse.Data.RegionInformation.RegionType
-                                    .COUNTRY_CODE
-                            )
+                            .regionType(RegionInformation.RegionType.COUNTRY_CODE)
                             .build()
                     )
                     .reservable(true)
@@ -130,35 +112,23 @@ internal class AvailablePhoneNumberListResponseTest {
                     AvailablePhoneNumberListResponse.Data.builder()
                         .bestEffort(false)
                         .costInformation(
-                            AvailablePhoneNumberListResponse.Data.CostInformation.builder()
+                            CostInformation.builder()
                                 .currency("USD")
                                 .monthlyCost("6.54")
                                 .upfrontCost("3.21")
                                 .build()
                         )
-                        .addFeature(
-                            AvailablePhoneNumberListResponse.Data.Feature.builder()
-                                .name("sms")
-                                .build()
-                        )
-                        .addFeature(
-                            AvailablePhoneNumberListResponse.Data.Feature.builder()
-                                .name("voice")
-                                .build()
-                        )
+                        .addFeature(Feature.builder().name("sms").build())
+                        .addFeature(Feature.builder().name("voice").build())
                         .phoneNumber("+19705555098")
                         .quickship(true)
                         .recordType(
                             AvailablePhoneNumberListResponse.Data.RecordType.AVAILABLE_PHONE_NUMBER
                         )
                         .addRegionInformation(
-                            AvailablePhoneNumberListResponse.Data.RegionInformation.builder()
+                            RegionInformation.builder()
                                 .regionName("US")
-                                .regionType(
-                                    AvailablePhoneNumberListResponse.Data.RegionInformation
-                                        .RegionType
-                                        .COUNTRY_CODE
-                                )
+                                .regionType(RegionInformation.RegionType.COUNTRY_CODE)
                                 .build()
                         )
                         .reservable(true)

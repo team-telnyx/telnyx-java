@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.ai.missions
+package com.telnyx.sdk.models.ai.missions.runs.events
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -20,7 +20,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class MissionListEventsResponse
+class EventData
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val eventId: JsonField<String>,
@@ -199,7 +199,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [MissionListEventsResponse].
+         * Returns a mutable builder for constructing an instance of [EventData].
          *
          * The following fields are required:
          * ```java
@@ -213,7 +213,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [MissionListEventsResponse]. */
+    /** A builder for [EventData]. */
     class Builder internal constructor() {
 
         private var eventId: JsonField<String>? = null
@@ -228,17 +228,17 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(missionListEventsResponse: MissionListEventsResponse) = apply {
-            eventId = missionListEventsResponse.eventId
-            runId = missionListEventsResponse.runId
-            summary = missionListEventsResponse.summary
-            timestamp = missionListEventsResponse.timestamp
-            type = missionListEventsResponse.type
-            agentId = missionListEventsResponse.agentId
-            idempotencyKey = missionListEventsResponse.idempotencyKey
-            payload = missionListEventsResponse.payload
-            stepId = missionListEventsResponse.stepId
-            additionalProperties = missionListEventsResponse.additionalProperties.toMutableMap()
+        internal fun from(eventData: EventData) = apply {
+            eventId = eventData.eventId
+            runId = eventData.runId
+            summary = eventData.summary
+            timestamp = eventData.timestamp
+            type = eventData.type
+            agentId = eventData.agentId
+            idempotencyKey = eventData.idempotencyKey
+            payload = eventData.payload
+            stepId = eventData.stepId
+            additionalProperties = eventData.additionalProperties.toMutableMap()
         }
 
         fun eventId(eventId: String) = eventId(JsonField.of(eventId))
@@ -355,7 +355,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [MissionListEventsResponse].
+         * Returns an immutable instance of [EventData].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -370,8 +370,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): MissionListEventsResponse =
-            MissionListEventsResponse(
+        fun build(): EventData =
+            EventData(
                 checkRequired("eventId", eventId),
                 checkRequired("runId", runId),
                 checkRequired("summary", summary),
@@ -387,7 +387,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): MissionListEventsResponse = apply {
+    fun validate(): EventData = apply {
         if (validated) {
             return@apply
         }
@@ -700,7 +700,7 @@ private constructor(
             return true
         }
 
-        return other is MissionListEventsResponse &&
+        return other is EventData &&
             eventId == other.eventId &&
             runId == other.runId &&
             summary == other.summary &&
@@ -731,5 +731,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MissionListEventsResponse{eventId=$eventId, runId=$runId, summary=$summary, timestamp=$timestamp, type=$type, agentId=$agentId, idempotencyKey=$idempotencyKey, payload=$payload, stepId=$stepId, additionalProperties=$additionalProperties}"
+        "EventData{eventId=$eventId, runId=$runId, summary=$summary, timestamp=$timestamp, type=$type, agentId=$agentId, idempotencyKey=$idempotencyKey, payload=$payload, stepId=$stepId, additionalProperties=$additionalProperties}"
 }

@@ -14,7 +14,7 @@ internal class UserRetrieveResponseTest {
         val userRetrieveResponse =
             UserRetrieveResponse.builder()
                 .data(
-                    UserRetrieveResponse.Data.builder()
+                    OrganizationUser.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .email("user@example.com")
@@ -27,14 +27,14 @@ internal class UserRetrieveResponseTest {
                         .lastSignInAt("2018-02-02T22:25:27.521Z")
                         .organizationUserBypassesSso(false)
                         .recordType("organization_sub_user")
-                        .userStatus(UserRetrieveResponse.Data.UserStatus.ENABLED)
+                        .userStatus(OrganizationUser.UserStatus.ENABLED)
                         .build()
                 )
                 .build()
 
         assertThat(userRetrieveResponse.data())
             .contains(
-                UserRetrieveResponse.Data.builder()
+                OrganizationUser.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .email("user@example.com")
@@ -47,7 +47,7 @@ internal class UserRetrieveResponseTest {
                     .lastSignInAt("2018-02-02T22:25:27.521Z")
                     .organizationUserBypassesSso(false)
                     .recordType("organization_sub_user")
-                    .userStatus(UserRetrieveResponse.Data.UserStatus.ENABLED)
+                    .userStatus(OrganizationUser.UserStatus.ENABLED)
                     .build()
             )
     }
@@ -58,7 +58,7 @@ internal class UserRetrieveResponseTest {
         val userRetrieveResponse =
             UserRetrieveResponse.builder()
                 .data(
-                    UserRetrieveResponse.Data.builder()
+                    OrganizationUser.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .email("user@example.com")
@@ -71,7 +71,7 @@ internal class UserRetrieveResponseTest {
                         .lastSignInAt("2018-02-02T22:25:27.521Z")
                         .organizationUserBypassesSso(false)
                         .recordType("organization_sub_user")
-                        .userStatus(UserRetrieveResponse.Data.UserStatus.ENABLED)
+                        .userStatus(OrganizationUser.UserStatus.ENABLED)
                         .build()
                 )
                 .build()

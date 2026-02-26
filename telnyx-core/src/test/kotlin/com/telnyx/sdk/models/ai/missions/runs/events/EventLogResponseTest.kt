@@ -16,16 +16,16 @@ internal class EventLogResponseTest {
         val eventLogResponse =
             EventLogResponse.builder()
                 .data(
-                    EventLogResponse.Data.builder()
+                    EventData.builder()
                         .eventId("event_id")
                         .runId("run_id")
                         .summary("summary")
                         .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .type(EventLogResponse.Data.Type.STATUS_CHANGE)
+                        .type(EventData.Type.STATUS_CHANGE)
                         .agentId("agent_id")
                         .idempotencyKey("idempotency_key")
                         .payload(
-                            EventLogResponse.Data.Payload.builder()
+                            EventData.Payload.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -36,16 +36,16 @@ internal class EventLogResponseTest {
 
         assertThat(eventLogResponse.data())
             .isEqualTo(
-                EventLogResponse.Data.builder()
+                EventData.builder()
                     .eventId("event_id")
                     .runId("run_id")
                     .summary("summary")
                     .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .type(EventLogResponse.Data.Type.STATUS_CHANGE)
+                    .type(EventData.Type.STATUS_CHANGE)
                     .agentId("agent_id")
                     .idempotencyKey("idempotency_key")
                     .payload(
-                        EventLogResponse.Data.Payload.builder()
+                        EventData.Payload.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -60,16 +60,16 @@ internal class EventLogResponseTest {
         val eventLogResponse =
             EventLogResponse.builder()
                 .data(
-                    EventLogResponse.Data.builder()
+                    EventData.builder()
                         .eventId("event_id")
                         .runId("run_id")
                         .summary("summary")
                         .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .type(EventLogResponse.Data.Type.STATUS_CHANGE)
+                        .type(EventData.Type.STATUS_CHANGE)
                         .agentId("agent_id")
                         .idempotencyKey("idempotency_key")
                         .payload(
-                            EventLogResponse.Data.Payload.builder()
+                            EventData.Payload.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )

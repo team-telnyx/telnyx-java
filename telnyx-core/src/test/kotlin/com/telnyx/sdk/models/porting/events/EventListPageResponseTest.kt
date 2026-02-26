@@ -17,18 +17,14 @@ internal class EventListPageResponseTest {
         val eventListPageResponse =
             EventListPageResponse.builder()
                 .addData(
-                    EventListResponse.PortingEventDeletedPayload.builder()
+                    PortingEventDeletedPayload.builder()
                         .id("eef3340b-8903-4466-b445-89b697315a3a")
                         .addAvailableNotificationMethod(
-                            EventListResponse.PortingEventDeletedPayload.AvailableNotificationMethod
-                                .EMAIL
+                            PortingEventDeletedPayload.AvailableNotificationMethod.EMAIL
                         )
-                        .eventType(
-                            EventListResponse.PortingEventDeletedPayload.EventType
-                                .PORTING_ORDER_DELETED
-                        )
+                        .eventType(PortingEventDeletedPayload.EventType.PORTING_ORDER_DELETED)
                         .payload(
-                            EventListResponse.PortingEventDeletedPayload.Payload.builder()
+                            PortingEventDeletedPayload.Payload.builder()
                                 .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                                 .customerReference("my-ref-001")
@@ -37,9 +33,7 @@ internal class EventListPageResponseTest {
                                 .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                                 .build()
                         )
-                        .payloadStatus(
-                            EventListResponse.PortingEventDeletedPayload.PayloadStatus.CREATED
-                        )
+                        .payloadStatus(PortingEventDeletedPayload.PayloadStatus.CREATED)
                         .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                         .build()
                 )
@@ -56,18 +50,14 @@ internal class EventListPageResponseTest {
         assertThat(eventListPageResponse.data().getOrNull())
             .containsExactly(
                 EventListResponse.ofPortingEventDeletedPayload(
-                    EventListResponse.PortingEventDeletedPayload.builder()
+                    PortingEventDeletedPayload.builder()
                         .id("eef3340b-8903-4466-b445-89b697315a3a")
                         .addAvailableNotificationMethod(
-                            EventListResponse.PortingEventDeletedPayload.AvailableNotificationMethod
-                                .EMAIL
+                            PortingEventDeletedPayload.AvailableNotificationMethod.EMAIL
                         )
-                        .eventType(
-                            EventListResponse.PortingEventDeletedPayload.EventType
-                                .PORTING_ORDER_DELETED
-                        )
+                        .eventType(PortingEventDeletedPayload.EventType.PORTING_ORDER_DELETED)
                         .payload(
-                            EventListResponse.PortingEventDeletedPayload.Payload.builder()
+                            PortingEventDeletedPayload.Payload.builder()
                                 .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                                 .customerReference("my-ref-001")
@@ -76,9 +66,7 @@ internal class EventListPageResponseTest {
                                 .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                                 .build()
                         )
-                        .payloadStatus(
-                            EventListResponse.PortingEventDeletedPayload.PayloadStatus.CREATED
-                        )
+                        .payloadStatus(PortingEventDeletedPayload.PayloadStatus.CREATED)
                         .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                         .build()
                 )
@@ -100,18 +88,14 @@ internal class EventListPageResponseTest {
         val eventListPageResponse =
             EventListPageResponse.builder()
                 .addData(
-                    EventListResponse.PortingEventDeletedPayload.builder()
+                    PortingEventDeletedPayload.builder()
                         .id("eef3340b-8903-4466-b445-89b697315a3a")
                         .addAvailableNotificationMethod(
-                            EventListResponse.PortingEventDeletedPayload.AvailableNotificationMethod
-                                .EMAIL
+                            PortingEventDeletedPayload.AvailableNotificationMethod.EMAIL
                         )
-                        .eventType(
-                            EventListResponse.PortingEventDeletedPayload.EventType
-                                .PORTING_ORDER_DELETED
-                        )
+                        .eventType(PortingEventDeletedPayload.EventType.PORTING_ORDER_DELETED)
                         .payload(
-                            EventListResponse.PortingEventDeletedPayload.Payload.builder()
+                            PortingEventDeletedPayload.Payload.builder()
                                 .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
                                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                                 .customerReference("my-ref-001")
@@ -120,9 +104,7 @@ internal class EventListPageResponseTest {
                                 .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                                 .build()
                         )
-                        .payloadStatus(
-                            EventListResponse.PortingEventDeletedPayload.PayloadStatus.CREATED
-                        )
+                        .payloadStatus(PortingEventDeletedPayload.PayloadStatus.CREATED)
                         .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                         .build()
                 )

@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.numberorders
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.PhoneNumbersJobPhoneNumber
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -22,7 +23,7 @@ internal class NumberOrderListResponseTest {
                 .customerReference("MY REF 001")
                 .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600")
                 .addPhoneNumber(
-                    NumberOrderListResponse.PhoneNumber.builder()
+                    PhoneNumbersJobPhoneNumber.builder()
                         .id("id")
                         .phoneNumber("+19705555000")
                         .build()
@@ -46,10 +47,7 @@ internal class NumberOrderListResponseTest {
             .contains("abc85f64-5717-4562-b3fc-2c9600")
         assertThat(numberOrderListResponse.phoneNumbers().getOrNull())
             .containsExactly(
-                NumberOrderListResponse.PhoneNumber.builder()
-                    .id("id")
-                    .phoneNumber("+19705555000")
-                    .build()
+                PhoneNumbersJobPhoneNumber.builder().id("id").phoneNumber("+19705555000").build()
             )
         assertThat(numberOrderListResponse.phoneNumbersCount()).contains(1L)
         assertThat(numberOrderListResponse.recordType()).contains("number_order")
@@ -74,7 +72,7 @@ internal class NumberOrderListResponseTest {
                 .customerReference("MY REF 001")
                 .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600")
                 .addPhoneNumber(
-                    NumberOrderListResponse.PhoneNumber.builder()
+                    PhoneNumbersJobPhoneNumber.builder()
                         .id("id")
                         .phoneNumber("+19705555000")
                         .build()

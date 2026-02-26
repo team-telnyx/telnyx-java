@@ -11,7 +11,12 @@ import com.telnyx.sdk.models.messages.MessageSendParams
 import com.telnyx.sdk.models.messages.MessageSendShortCodeParams
 import com.telnyx.sdk.models.messages.MessageSendWhatsappParams
 import com.telnyx.sdk.models.messages.MessageSendWithAlphanumericSenderParams
+import com.telnyx.sdk.models.messages.WhatsappContact
+import com.telnyx.sdk.models.messages.WhatsappInteractive
+import com.telnyx.sdk.models.messages.WhatsappLocation
 import com.telnyx.sdk.models.messages.WhatsappMedia
+import com.telnyx.sdk.models.messages.WhatsappMessageContent
+import com.telnyx.sdk.models.messages.WhatsappReaction
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -220,7 +225,7 @@ internal class MessageServiceTest {
                     .from("+13125551234")
                     .to("+13125551234")
                     .whatsappMessage(
-                        MessageSendWhatsappParams.WhatsappMessage.builder()
+                        WhatsappMessageContent.builder()
                             .audio(
                                 WhatsappMedia.builder()
                                     .caption("caption")
@@ -231,10 +236,9 @@ internal class MessageServiceTest {
                             )
                             .bizOpaqueCallbackData("biz_opaque_callback_data")
                             .addContact(
-                                MessageSendWhatsappParams.WhatsappMessage.Contact.builder()
+                                WhatsappContact.builder()
                                     .addAddress(
-                                        MessageSendWhatsappParams.WhatsappMessage.Contact.Address
-                                            .builder()
+                                        WhatsappContact.Address.builder()
                                             .city("city")
                                             .country("country")
                                             .countryCode("country_code")
@@ -246,32 +250,28 @@ internal class MessageServiceTest {
                                     )
                                     .birthday("birthday")
                                     .addEmail(
-                                        MessageSendWhatsappParams.WhatsappMessage.Contact.Email
-                                            .builder()
+                                        WhatsappContact.Email.builder()
                                             .email("email")
                                             .type("type")
                                             .build()
                                     )
                                     .name("name")
                                     .org(
-                                        MessageSendWhatsappParams.WhatsappMessage.Contact.Org
-                                            .builder()
+                                        WhatsappContact.Org.builder()
                                             .company("company")
                                             .department("department")
                                             .title("title")
                                             .build()
                                     )
                                     .addPhone(
-                                        MessageSendWhatsappParams.WhatsappMessage.Contact.Phone
-                                            .builder()
+                                        WhatsappContact.Phone.builder()
                                             .phone("phone")
                                             .type("type")
                                             .waId("wa_id")
                                             .build()
                                     )
                                     .addUrl(
-                                        MessageSendWhatsappParams.WhatsappMessage.Contact.Url
-                                            .builder()
+                                        WhatsappContact.Url.builder()
                                             .type("type")
                                             .url("url")
                                             .build()
@@ -295,50 +295,28 @@ internal class MessageServiceTest {
                                     .build()
                             )
                             .interactive(
-                                MessageSendWhatsappParams.WhatsappMessage.Interactive.builder()
+                                WhatsappInteractive.builder()
                                     .action(
-                                        MessageSendWhatsappParams.WhatsappMessage.Interactive.Action
-                                            .builder()
+                                        WhatsappInteractive.Action.builder()
                                             .button("button")
                                             .addButton(
-                                                MessageSendWhatsappParams.WhatsappMessage
-                                                    .Interactive
-                                                    .Action
-                                                    .Button
-                                                    .builder()
+                                                WhatsappInteractive.Action.Button.builder()
                                                     .reply(
-                                                        MessageSendWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Button
-                                                            .Reply
+                                                        WhatsappInteractive.Action.Button.Reply
                                                             .builder()
                                                             .id("id")
                                                             .title("title")
                                                             .build()
                                                     )
                                                     .type(
-                                                        MessageSendWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Button
-                                                            .Type
-                                                            .REPLY
+                                                        WhatsappInteractive.Action.Button.Type.REPLY
                                                     )
                                                     .build()
                                             )
                                             .addCard(
-                                                MessageSendWhatsappParams.WhatsappMessage
-                                                    .Interactive
-                                                    .Action
-                                                    .Card
-                                                    .builder()
+                                                WhatsappInteractive.Action.Card.builder()
                                                     .action(
-                                                        MessageSendWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Card
-                                                            .CardAction
+                                                        WhatsappInteractive.Action.Card.CardAction
                                                             .builder()
                                                             .catalogId("catalog_id")
                                                             .productRetailerId(
@@ -347,22 +325,14 @@ internal class MessageServiceTest {
                                                             .build()
                                                     )
                                                     .body(
-                                                        MessageSendWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Card
-                                                            .CardBody
+                                                        WhatsappInteractive.Action.Card.CardBody
                                                             .builder()
                                                             .text("text")
                                                             .build()
                                                     )
                                                     .cardIndex(0L)
                                                     .header(
-                                                        MessageSendWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Card
-                                                            .Header
+                                                        WhatsappInteractive.Action.Card.Header
                                                             .builder()
                                                             .image(
                                                                 WhatsappMedia.builder()
@@ -375,11 +345,7 @@ internal class MessageServiceTest {
                                                                     .build()
                                                             )
                                                             .type(
-                                                                MessageSendWhatsappParams
-                                                                    .WhatsappMessage
-                                                                    .Interactive
-                                                                    .Action
-                                                                    .Card
+                                                                WhatsappInteractive.Action.Card
                                                                     .Header
                                                                     .Type
                                                                     .IMAGE
@@ -397,12 +363,7 @@ internal class MessageServiceTest {
                                                             .build()
                                                     )
                                                     .type(
-                                                        MessageSendWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Card
-                                                            .Type
-                                                            .CTA_URL
+                                                        WhatsappInteractive.Action.Card.Type.CTA_URL
                                                     )
                                                     .build()
                                             )
@@ -410,27 +371,16 @@ internal class MessageServiceTest {
                                             .mode("mode")
                                             .name("name")
                                             .parameters(
-                                                MessageSendWhatsappParams.WhatsappMessage
-                                                    .Interactive
-                                                    .Action
-                                                    .Parameters
-                                                    .builder()
+                                                WhatsappInteractive.Action.Parameters.builder()
                                                     .displayText("display_text")
                                                     .url("url")
                                                     .build()
                                             )
                                             .productRetailerId("product_retailer_id")
                                             .addSection(
-                                                MessageSendWhatsappParams.WhatsappMessage
-                                                    .Interactive
-                                                    .Action
-                                                    .Section
-                                                    .builder()
+                                                WhatsappInteractive.Action.Section.builder()
                                                     .addProductItem(
-                                                        MessageSendWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Section
+                                                        WhatsappInteractive.Action.Section
                                                             .ProductItem
                                                             .builder()
                                                             .productRetailerId(
@@ -439,11 +389,7 @@ internal class MessageServiceTest {
                                                             .build()
                                                     )
                                                     .addRow(
-                                                        MessageSendWhatsappParams.WhatsappMessage
-                                                            .Interactive
-                                                            .Action
-                                                            .Section
-                                                            .Row
+                                                        WhatsappInteractive.Action.Section.Row
                                                             .builder()
                                                             .id("id")
                                                             .description("description")
@@ -456,21 +402,15 @@ internal class MessageServiceTest {
                                             .build()
                                     )
                                     .body(
-                                        MessageSendWhatsappParams.WhatsappMessage.Interactive
-                                            .InteractiveBody
-                                            .builder()
+                                        WhatsappInteractive.InteractiveBody.builder()
                                             .text("text")
                                             .build()
                                     )
                                     .footer(
-                                        MessageSendWhatsappParams.WhatsappMessage.Interactive.Footer
-                                            .builder()
-                                            .text("text")
-                                            .build()
+                                        WhatsappInteractive.Footer.builder().text("text").build()
                                     )
                                     .header(
-                                        MessageSendWhatsappParams.WhatsappMessage.Interactive.Header
-                                            .builder()
+                                        WhatsappInteractive.Header.builder()
                                             .document(
                                                 WhatsappMedia.builder()
                                                     .caption("caption")
@@ -499,14 +439,11 @@ internal class MessageServiceTest {
                                             )
                                             .build()
                                     )
-                                    .type(
-                                        MessageSendWhatsappParams.WhatsappMessage.Interactive.Type
-                                            .CTA_URL
-                                    )
+                                    .type(WhatsappInteractive.Type.CTA_URL)
                                     .build()
                             )
                             .location(
-                                MessageSendWhatsappParams.WhatsappMessage.Location.builder()
+                                WhatsappLocation.builder()
                                     .address("address")
                                     .latitude("latitude")
                                     .longitude("longitude")
@@ -514,7 +451,7 @@ internal class MessageServiceTest {
                                     .build()
                             )
                             .reaction(
-                                MessageSendWhatsappParams.WhatsappMessage.Reaction.builder()
+                                WhatsappReaction.builder()
                                     .emoji("emoji")
                                     .messageId("message_id")
                                     .build()
@@ -527,7 +464,7 @@ internal class MessageServiceTest {
                                     .voice(true)
                                     .build()
                             )
-                            .type(MessageSendWhatsappParams.WhatsappMessage.Type.AUDIO)
+                            .type(WhatsappMessageContent.Type.AUDIO)
                             .video(
                                 WhatsappMedia.builder()
                                     .caption("caption")

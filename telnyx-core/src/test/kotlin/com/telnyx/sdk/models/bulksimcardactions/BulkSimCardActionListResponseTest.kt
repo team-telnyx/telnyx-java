@@ -20,11 +20,9 @@ internal class BulkSimCardActionListResponseTest {
                 .recordType("bulk_sim_card_action")
                 .settings(BulkSimCardActionListResponse.Settings.builder().build())
                 .addSimCardActionsSummary(
-                    BulkSimCardActionListResponse.SimCardActionsSummary.builder()
+                    SimCardActionsSummary.builder()
                         .count(0L)
-                        .status(
-                            BulkSimCardActionListResponse.SimCardActionsSummary.Status.IN_PROGRESS
-                        )
+                        .status(SimCardActionsSummary.Status.IN_PROGRESS)
                         .build()
                 )
                 .updatedAt("2018-02-02T22:25:27.521Z")
@@ -40,9 +38,9 @@ internal class BulkSimCardActionListResponseTest {
             .contains(BulkSimCardActionListResponse.Settings.builder().build())
         assertThat(bulkSimCardActionListResponse.simCardActionsSummary().getOrNull())
             .containsExactly(
-                BulkSimCardActionListResponse.SimCardActionsSummary.builder()
+                SimCardActionsSummary.builder()
                     .count(0L)
-                    .status(BulkSimCardActionListResponse.SimCardActionsSummary.Status.IN_PROGRESS)
+                    .status(SimCardActionsSummary.Status.IN_PROGRESS)
                     .build()
             )
         assertThat(bulkSimCardActionListResponse.updatedAt()).contains("2018-02-02T22:25:27.521Z")
@@ -59,11 +57,9 @@ internal class BulkSimCardActionListResponseTest {
                 .recordType("bulk_sim_card_action")
                 .settings(BulkSimCardActionListResponse.Settings.builder().build())
                 .addSimCardActionsSummary(
-                    BulkSimCardActionListResponse.SimCardActionsSummary.builder()
+                    SimCardActionsSummary.builder()
                         .count(0L)
-                        .status(
-                            BulkSimCardActionListResponse.SimCardActionsSummary.Status.IN_PROGRESS
-                        )
+                        .status(SimCardActionsSummary.Status.IN_PROGRESS)
                         .build()
                 )
                 .updatedAt("2018-02-02T22:25:27.521Z")
