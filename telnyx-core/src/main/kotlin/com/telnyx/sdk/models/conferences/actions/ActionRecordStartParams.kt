@@ -48,6 +48,15 @@ private constructor(
     fun format(): Format = body.format()
 
     /**
+     * When `dual`, final audio file will be stereo recorded with the conference creator on the
+     * first channel, and the rest on the second channel.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun channels(): Optional<Channels> = body.channels()
+
+    /**
      * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same
      * `command_id` for the same `conference_id`.
      *
@@ -97,6 +106,13 @@ private constructor(
      * Unlike [format], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _format(): JsonField<Format> = body._format()
+
+    /**
+     * Returns the raw JSON value of [channels].
+     *
+     * Unlike [channels], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _channels(): JsonField<Channels> = body._channels()
 
     /**
      * Returns the raw JSON value of [commandId].
@@ -183,10 +199,10 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [format]
+         * - [channels]
          * - [commandId]
          * - [customFileName]
          * - [playBeep]
-         * - [region]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -204,6 +220,21 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun format(format: JsonField<Format>) = apply { body.format(format) }
+
+        /**
+         * When `dual`, final audio file will be stereo recorded with the conference creator on the
+         * first channel, and the rest on the second channel.
+         */
+        fun channels(channels: Channels) = apply { body.channels(channels) }
+
+        /**
+         * Sets [Builder.channels] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.channels] with a well-typed [Channels] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun channels(channels: JsonField<Channels>) = apply { body.channels(channels) }
 
         /**
          * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same
@@ -431,6 +462,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val format: JsonField<Format>,
+        private val channels: JsonField<Channels>,
         private val commandId: JsonField<String>,
         private val customFileName: JsonField<String>,
         private val playBeep: JsonField<Boolean>,
@@ -442,6 +474,9 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("format") @ExcludeMissing format: JsonField<Format> = JsonMissing.of(),
+            @JsonProperty("channels")
+            @ExcludeMissing
+            channels: JsonField<Channels> = JsonMissing.of(),
             @JsonProperty("command_id")
             @ExcludeMissing
             commandId: JsonField<String> = JsonMissing.of(),
@@ -453,7 +488,16 @@ private constructor(
             playBeep: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("region") @ExcludeMissing region: JsonField<Region> = JsonMissing.of(),
             @JsonProperty("trim") @ExcludeMissing trim: JsonField<Trim> = JsonMissing.of(),
-        ) : this(format, commandId, customFileName, playBeep, region, trim, mutableMapOf())
+        ) : this(
+            format,
+            channels,
+            commandId,
+            customFileName,
+            playBeep,
+            region,
+            trim,
+            mutableMapOf(),
+        )
 
         /**
          * The audio file format used when storing the conference recording. Can be either `mp3` or
@@ -463,6 +507,15 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun format(): Format = format.getRequired("format")
+
+        /**
+         * When `dual`, final audio file will be stereo recorded with the conference creator on the
+         * first channel, and the rest on the second channel.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun channels(): Optional<Channels> = channels.getOptional("channels")
 
         /**
          * Use this field to avoid duplicate commands. Telnyx will ignore any command with the same
@@ -514,6 +567,13 @@ private constructor(
          * Unlike [format], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("format") @ExcludeMissing fun _format(): JsonField<Format> = format
+
+        /**
+         * Returns the raw JSON value of [channels].
+         *
+         * Unlike [channels], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("channels") @ExcludeMissing fun _channels(): JsonField<Channels> = channels
 
         /**
          * Returns the raw JSON value of [commandId].
@@ -582,6 +642,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var format: JsonField<Format>? = null
+            private var channels: JsonField<Channels> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
             private var customFileName: JsonField<String> = JsonMissing.of()
             private var playBeep: JsonField<Boolean> = JsonMissing.of()
@@ -592,6 +653,7 @@ private constructor(
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 format = body.format
+                channels = body.channels
                 commandId = body.commandId
                 customFileName = body.customFileName
                 playBeep = body.playBeep
@@ -614,6 +676,21 @@ private constructor(
              * supported value.
              */
             fun format(format: JsonField<Format>) = apply { this.format = format }
+
+            /**
+             * When `dual`, final audio file will be stereo recorded with the conference creator on
+             * the first channel, and the rest on the second channel.
+             */
+            fun channels(channels: Channels) = channels(JsonField.of(channels))
+
+            /**
+             * Sets [Builder.channels] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.channels] with a well-typed [Channels] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun channels(channels: JsonField<Channels>) = apply { this.channels = channels }
 
             /**
              * Use this field to avoid duplicate commands. Telnyx will ignore any command with the
@@ -724,6 +801,7 @@ private constructor(
             fun build(): Body =
                 Body(
                     checkRequired("format", format),
+                    channels,
                     commandId,
                     customFileName,
                     playBeep,
@@ -741,6 +819,7 @@ private constructor(
             }
 
             format().validate()
+            channels().ifPresent { it.validate() }
             commandId()
             customFileName()
             playBeep()
@@ -766,6 +845,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (format.asKnown().getOrNull()?.validity() ?: 0) +
+                (channels.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
                 (if (customFileName.asKnown().isPresent) 1 else 0) +
                 (if (playBeep.asKnown().isPresent) 1 else 0) +
@@ -779,6 +859,7 @@ private constructor(
 
             return other is Body &&
                 format == other.format &&
+                channels == other.channels &&
                 commandId == other.commandId &&
                 customFileName == other.customFileName &&
                 playBeep == other.playBeep &&
@@ -790,6 +871,7 @@ private constructor(
         private val hashCode: Int by lazy {
             Objects.hash(
                 format,
+                channels,
                 commandId,
                 customFileName,
                 playBeep,
@@ -802,7 +884,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{format=$format, commandId=$commandId, customFileName=$customFileName, playBeep=$playBeep, region=$region, trim=$trim, additionalProperties=$additionalProperties}"
+            "Body{format=$format, channels=$channels, commandId=$commandId, customFileName=$customFileName, playBeep=$playBeep, region=$region, trim=$trim, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -927,6 +1009,135 @@ private constructor(
             }
 
             return other is Format && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * When `dual`, final audio file will be stereo recorded with the conference creator on the
+     * first channel, and the rest on the second channel.
+     */
+    class Channels @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val SINGLE = of("single")
+
+            @JvmField val DUAL = of("dual")
+
+            @JvmStatic fun of(value: String) = Channels(JsonField.of(value))
+        }
+
+        /** An enum containing [Channels]'s known values. */
+        enum class Known {
+            SINGLE,
+            DUAL,
+        }
+
+        /**
+         * An enum containing [Channels]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Channels] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            SINGLE,
+            DUAL,
+            /** An enum member indicating that [Channels] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                SINGLE -> Value.SINGLE
+                DUAL -> Value.DUAL
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                SINGLE -> Known.SINGLE
+                DUAL -> Known.DUAL
+                else -> throw TelnyxInvalidDataException("Unknown Channels: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): Channels = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Channels && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
