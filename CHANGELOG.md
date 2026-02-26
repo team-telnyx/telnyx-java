@@ -1,5 +1,32 @@
 # Changelog
 
+## 6.23.0 (2026-02-26)
+
+Full Changelog: [v6.22.0...v6.23.0](https://github.com/team-telnyx/telnyx-java/compare/v6.22.0...v6.23.0)
+
+### Features
+
+* Add missing TTS voice settings schemas and update voice descriptions ([4b8f313](https://github.com/team-telnyx/telnyx-java/commit/4b8f313125879046a1daf3cac786bdb338323f6d))
+* Add text-to-speech WebSocket streaming OpenAPI spec ([94690fd](https://github.com/team-telnyx/telnyx-java/commit/94690fd8cf941fefe6b917d92de9f4209b2d6506))
+* **api:** manual updates ([8e87bf5](https://github.com/team-telnyx/telnyx-java/commit/8e87bf55ae5169449bd164d6e48deb4823b2a2ed))
+* **api:** manual updates ([eb5fcb2](https://github.com/team-telnyx/telnyx-java/commit/eb5fcb2840635284ad47179d4da622fc76e92a67))
+* **api:** manual updates ([9b84000](https://github.com/team-telnyx/telnyx-java/commit/9b8400022b79e282b5eba8b475ec8ec9f972797e))
+* **api:** manual updates ([02bcacf](https://github.com/team-telnyx/telnyx-java/commit/02bcacf3f4a3ec64bc361b6011caee370ab0a471))
+* PORTAL-5923: Add stored_payment_transactions endpoint to OpenAPI docs ([88d94f3](https://github.com/team-telnyx/telnyx-java/commit/88d94f3616819342d3db7752a7c6a7f6ce07cf5a))
+* TELAPPS Add prevent_double_bridge to bridge command ([11020a6](https://github.com/team-telnyx/telnyx-java/commit/11020a6411d25de01025ecc3ffac7ff34278c462))
+* TELAPPS-ENGDESK-48951 add channels to conf record start ([ec42f4a](https://github.com/team-telnyx/telnyx-java/commit/ec42f4ac40606d385fe0818d914da6114ef7dd83))
+
+
+### Chores
+
+* bring back other changes ([1f340d7](https://github.com/team-telnyx/telnyx-java/commit/1f340d79a3003023c38657af432d0e6d391794c4))
+
+
+### Documentation
+
+* **call-control:** Add missing params to hangup, bridge, answer ([e8ac0e9](https://github.com/team-telnyx/telnyx-java/commit/e8ac0e939a17e8da5b889e86b11c12f5a2eb25c0))
+* **call-control:** Add queue CRUD endpoints ([d5ef78c](https://github.com/team-telnyx/telnyx-java/commit/d5ef78cf6cbaf900559ac4e7c3c9441765d3f9a6))
+
 ## 6.22.0 (2026-02-24)
 
 Full Changelog: [v6.21.0...v6.22.0](https://github.com/team-telnyx/telnyx-java/compare/v6.21.0...v6.22.0)
