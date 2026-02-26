@@ -12,6 +12,7 @@ internal class ActionRecordStartParamsTest {
         ActionRecordStartParams.builder()
             .id("id")
             .format(ActionRecordStartParams.Format.WAV)
+            .channels(ActionRecordStartParams.Channels.DUAL)
             .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
             .customFileName("my_recording_file_name")
             .playBeep(true)
@@ -39,6 +40,7 @@ internal class ActionRecordStartParamsTest {
             ActionRecordStartParams.builder()
                 .id("id")
                 .format(ActionRecordStartParams.Format.WAV)
+                .channels(ActionRecordStartParams.Channels.DUAL)
                 .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                 .customFileName("my_recording_file_name")
                 .playBeep(true)
@@ -49,6 +51,7 @@ internal class ActionRecordStartParamsTest {
         val body = params._body()
 
         assertThat(body.format()).isEqualTo(ActionRecordStartParams.Format.WAV)
+        assertThat(body.channels()).contains(ActionRecordStartParams.Channels.DUAL)
         assertThat(body.commandId()).contains("891510ac-f3e4-11e8-af5b-de00688a4901")
         assertThat(body.customFileName()).contains("my_recording_file_name")
         assertThat(body.playBeep()).contains(true)
