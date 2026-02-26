@@ -28,6 +28,9 @@ import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.AzureVoiceSettings
+import com.telnyx.sdk.models.ResembleVoiceSettings
+import com.telnyx.sdk.models.RimeVoiceSettings
 import com.telnyx.sdk.models.ai.assistants.Assistant
 import java.util.Collections
 import java.util.Objects
@@ -665,6 +668,15 @@ private constructor(
 
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofAws(aws)`. */
         fun voiceSettings(aws: AwsVoiceSettings) = apply { body.voiceSettings(aws) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofAzure(azure)`. */
+        fun voiceSettings(azure: AzureVoiceSettings) = apply { body.voiceSettings(azure) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofRime(rime)`. */
+        fun voiceSettings(rime: RimeVoiceSettings) = apply { body.voiceSettings(rime) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofResemble(resemble)`. */
+        fun voiceSettings(resemble: ResembleVoiceSettings) = apply { body.voiceSettings(resemble) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -1559,6 +1571,17 @@ private constructor(
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofAws(aws)`. */
             fun voiceSettings(aws: AwsVoiceSettings) = voiceSettings(VoiceSettings.ofAws(aws))
 
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofAzure(azure)`. */
+            fun voiceSettings(azure: AzureVoiceSettings) =
+                voiceSettings(VoiceSettings.ofAzure(azure))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofRime(rime)`. */
+            fun voiceSettings(rime: RimeVoiceSettings) = voiceSettings(VoiceSettings.ofRime(rime))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofResemble(resemble)`. */
+            fun voiceSettings(resemble: ResembleVoiceSettings) =
+                voiceSettings(VoiceSettings.ofResemble(resemble))
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -2137,6 +2160,9 @@ private constructor(
         private val elevenlabs: ElevenLabsVoiceSettings? = null,
         private val telnyx: TelnyxVoiceSettings? = null,
         private val aws: AwsVoiceSettings? = null,
+        private val azure: AzureVoiceSettings? = null,
+        private val rime: RimeVoiceSettings? = null,
+        private val resemble: ResembleVoiceSettings? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -2146,17 +2172,35 @@ private constructor(
 
         fun aws(): Optional<AwsVoiceSettings> = Optional.ofNullable(aws)
 
+        fun azure(): Optional<AzureVoiceSettings> = Optional.ofNullable(azure)
+
+        fun rime(): Optional<RimeVoiceSettings> = Optional.ofNullable(rime)
+
+        fun resemble(): Optional<ResembleVoiceSettings> = Optional.ofNullable(resemble)
+
         fun isElevenlabs(): Boolean = elevenlabs != null
 
         fun isTelnyx(): Boolean = telnyx != null
 
         fun isAws(): Boolean = aws != null
 
+        fun isAzure(): Boolean = azure != null
+
+        fun isRime(): Boolean = rime != null
+
+        fun isResemble(): Boolean = resemble != null
+
         fun asElevenlabs(): ElevenLabsVoiceSettings = elevenlabs.getOrThrow("elevenlabs")
 
         fun asTelnyx(): TelnyxVoiceSettings = telnyx.getOrThrow("telnyx")
 
         fun asAws(): AwsVoiceSettings = aws.getOrThrow("aws")
+
+        fun asAzure(): AzureVoiceSettings = azure.getOrThrow("azure")
+
+        fun asRime(): RimeVoiceSettings = rime.getOrThrow("rime")
+
+        fun asResemble(): ResembleVoiceSettings = resemble.getOrThrow("resemble")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -2165,6 +2209,9 @@ private constructor(
                 elevenlabs != null -> visitor.visitElevenlabs(elevenlabs)
                 telnyx != null -> visitor.visitTelnyx(telnyx)
                 aws != null -> visitor.visitAws(aws)
+                azure != null -> visitor.visitAzure(azure)
+                rime != null -> visitor.visitRime(rime)
+                resemble != null -> visitor.visitResemble(resemble)
                 else -> visitor.unknown(_json)
             }
 
@@ -2187,6 +2234,18 @@ private constructor(
 
                     override fun visitAws(aws: AwsVoiceSettings) {
                         aws.validate()
+                    }
+
+                    override fun visitAzure(azure: AzureVoiceSettings) {
+                        azure.validate()
+                    }
+
+                    override fun visitRime(rime: RimeVoiceSettings) {
+                        rime.validate()
+                    }
+
+                    override fun visitResemble(resemble: ResembleVoiceSettings) {
+                        resemble.validate()
                     }
                 }
             )
@@ -2218,6 +2277,13 @@ private constructor(
 
                     override fun visitAws(aws: AwsVoiceSettings) = aws.validity()
 
+                    override fun visitAzure(azure: AzureVoiceSettings) = azure.validity()
+
+                    override fun visitRime(rime: RimeVoiceSettings) = rime.validity()
+
+                    override fun visitResemble(resemble: ResembleVoiceSettings) =
+                        resemble.validity()
+
                     override fun unknown(json: JsonValue?) = 0
                 }
             )
@@ -2230,16 +2296,22 @@ private constructor(
             return other is VoiceSettings &&
                 elevenlabs == other.elevenlabs &&
                 telnyx == other.telnyx &&
-                aws == other.aws
+                aws == other.aws &&
+                azure == other.azure &&
+                rime == other.rime &&
+                resemble == other.resemble
         }
 
-        override fun hashCode(): Int = Objects.hash(elevenlabs, telnyx, aws)
+        override fun hashCode(): Int = Objects.hash(elevenlabs, telnyx, aws, azure, rime, resemble)
 
         override fun toString(): String =
             when {
                 elevenlabs != null -> "VoiceSettings{elevenlabs=$elevenlabs}"
                 telnyx != null -> "VoiceSettings{telnyx=$telnyx}"
                 aws != null -> "VoiceSettings{aws=$aws}"
+                azure != null -> "VoiceSettings{azure=$azure}"
+                rime != null -> "VoiceSettings{rime=$rime}"
+                resemble != null -> "VoiceSettings{resemble=$resemble}"
                 _json != null -> "VoiceSettings{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid VoiceSettings")
             }
@@ -2253,6 +2325,13 @@ private constructor(
             @JvmStatic fun ofTelnyx(telnyx: TelnyxVoiceSettings) = VoiceSettings(telnyx = telnyx)
 
             @JvmStatic fun ofAws(aws: AwsVoiceSettings) = VoiceSettings(aws = aws)
+
+            @JvmStatic fun ofAzure(azure: AzureVoiceSettings) = VoiceSettings(azure = azure)
+
+            @JvmStatic fun ofRime(rime: RimeVoiceSettings) = VoiceSettings(rime = rime)
+
+            @JvmStatic
+            fun ofResemble(resemble: ResembleVoiceSettings) = VoiceSettings(resemble = resemble)
         }
 
         /**
@@ -2266,6 +2345,12 @@ private constructor(
             fun visitTelnyx(telnyx: TelnyxVoiceSettings): T
 
             fun visitAws(aws: AwsVoiceSettings): T
+
+            fun visitAzure(azure: AzureVoiceSettings): T
+
+            fun visitRime(rime: RimeVoiceSettings): T
+
+            fun visitResemble(resemble: ResembleVoiceSettings): T
 
             /**
              * Maps an unknown variant of [VoiceSettings] to a value of type [T].
@@ -2304,6 +2389,21 @@ private constructor(
                             VoiceSettings(aws = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
+                    "azure" -> {
+                        return tryDeserialize(node, jacksonTypeRef<AzureVoiceSettings>())?.let {
+                            VoiceSettings(azure = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
+                    "rime" -> {
+                        return tryDeserialize(node, jacksonTypeRef<RimeVoiceSettings>())?.let {
+                            VoiceSettings(rime = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
+                    "resemble" -> {
+                        return tryDeserialize(node, jacksonTypeRef<ResembleVoiceSettings>())?.let {
+                            VoiceSettings(resemble = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
                 }
 
                 return VoiceSettings(_json = json)
@@ -2321,6 +2421,9 @@ private constructor(
                     value.elevenlabs != null -> generator.writeObject(value.elevenlabs)
                     value.telnyx != null -> generator.writeObject(value.telnyx)
                     value.aws != null -> generator.writeObject(value.aws)
+                    value.azure != null -> generator.writeObject(value.azure)
+                    value.rime != null -> generator.writeObject(value.rime)
+                    value.resemble != null -> generator.writeObject(value.resemble)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid VoiceSettings")
                 }

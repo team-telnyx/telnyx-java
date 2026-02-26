@@ -28,7 +28,10 @@ import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.AzureVoiceSettings
 import com.telnyx.sdk.models.MinimaxVoiceSettings
+import com.telnyx.sdk.models.ResembleVoiceSettings
+import com.telnyx.sdk.models.RimeVoiceSettings
 import com.telnyx.sdk.models.calls.actions.AwsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.ElevenLabsVoiceSettings
 import com.telnyx.sdk.models.calls.actions.TelnyxVoiceSettings
@@ -67,22 +70,30 @@ private constructor(
      *   `AWS.Polly.Joanna-Neural`). Check the
      *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for
      *   compatibility.
-     * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural,
-     *   Azure.en-US-BrianMultilingualNeural, Azure.en-US-Ava:DragonHDLatestNeural. For a complete
-     *   list of voices, go to
-     *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+     * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+     *   `Azure.en-US-BrianMultilingualNeural`, `Azure.en-US-Ava:DragonHDLatestNeural`). For a
+     *   complete list of voices, go to
+     *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery). Use
+     *   `voice_settings` to configure custom deployments, regions, or API keys.
      * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
      *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional.
      *   To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier
-     *   secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
-     *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-     * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+     *   secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
+     *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+     *   for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+     * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>` (e.g., `Telnyx.KokoroTTS.af`). Use
+     *   `voice_settings` to configure voice_speed and other synthesis parameters.
      * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g., `Minimax.speech-02-hd.Wise_Woman`).
      *   Supported models: `speech-02-turbo`, `speech-02-hd`, `speech-2.6-turbo`,
-     *   `speech-2.8-turbo`. Optional parameters: `speed` (float, default 1.0), `vol` (float,
-     *   default 1.0), `pitch` (integer, default 0).
-     * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`). Supported
-     *   models: `Pro` (multilingual) and `Turbo` (English only).
+     *   `speech-2.8-turbo`. Use `voice_settings` to configure speed, volume, pitch, and
+     *   language_boost.
+     * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`). Supported model_ids:
+     *   `Arcana`, `Mist`. Use `voice_settings` to configure voice_speed.
+     * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`). Only
+     *   `Turbo` model is supported. Use `voice_settings` to configure precision, sample_rate, and
+     *   format.
+     *
+     * For service_level basic, you may define the gender of the speaker (male or female).
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -278,22 +289,31 @@ private constructor(
          *   `AWS.Polly.Joanna-Neural`). Check the
          *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
          *   for compatibility.
-         * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural,
-         *   Azure.en-US-BrianMultilingualNeural, Azure.en-US-Ava:DragonHDLatestNeural. For a
+         * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+         *   `Azure.en-US-BrianMultilingualNeural`, `Azure.en-US-Ava:DragonHDLatestNeural`). For a
          *   complete list of voices, go to
-         *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+         *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery). Use
+         *   `voice_settings` to configure custom deployments, regions, or API keys.
          * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
          *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is
          *   optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration
-         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
+         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
+         *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+         *   for details. Check
          *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-         * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+         * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>` (e.g., `Telnyx.KokoroTTS.af`). Use
+         *   `voice_settings` to configure voice_speed and other synthesis parameters.
          * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
          *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
-         *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters: `speed`
-         *   (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer, default 0).
-         * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`).
-         *   Supported models: `Pro` (multilingual) and `Turbo` (English only).
+         *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings` to
+         *   configure speed, volume, pitch, and language_boost.
+         * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`). Supported
+         *   model_ids: `Arcana`, `Mist`. Use `voice_settings` to configure voice_speed.
+         * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`). Only
+         *   `Turbo` model is supported. Use `voice_settings` to configure precision, sample_rate,
+         *   and format.
+         *
+         * For service_level basic, you may define the gender of the speaker (male or female).
          */
         fun voice(voice: String) = apply { body.voice(voice) }
 
@@ -421,6 +441,15 @@ private constructor(
 
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofMinimax(minimax)`. */
         fun voiceSettings(minimax: MinimaxVoiceSettings) = apply { body.voiceSettings(minimax) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofAzure(azure)`. */
+        fun voiceSettings(azure: AzureVoiceSettings) = apply { body.voiceSettings(azure) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofRime(rime)`. */
+        fun voiceSettings(rime: RimeVoiceSettings) = apply { body.voiceSettings(rime) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofResemble(resemble)`. */
+        fun voiceSettings(resemble: ResembleVoiceSettings) = apply { body.voiceSettings(resemble) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -638,22 +667,31 @@ private constructor(
          *   `AWS.Polly.Joanna-Neural`). Check the
          *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
          *   for compatibility.
-         * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural,
-         *   Azure.en-US-BrianMultilingualNeural, Azure.en-US-Ava:DragonHDLatestNeural. For a
+         * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+         *   `Azure.en-US-BrianMultilingualNeural`, `Azure.en-US-Ava:DragonHDLatestNeural`). For a
          *   complete list of voices, go to
-         *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+         *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery). Use
+         *   `voice_settings` to configure custom deployments, regions, or API keys.
          * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
          *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is
          *   optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration
-         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
+         *   identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
+         *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+         *   for details. Check
          *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-         * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+         * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>` (e.g., `Telnyx.KokoroTTS.af`). Use
+         *   `voice_settings` to configure voice_speed and other synthesis parameters.
          * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
          *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
-         *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters: `speed`
-         *   (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer, default 0).
-         * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`).
-         *   Supported models: `Pro` (multilingual) and `Turbo` (English only).
+         *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings` to
+         *   configure speed, volume, pitch, and language_boost.
+         * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`). Supported
+         *   model_ids: `Arcana`, `Mist`. Use `voice_settings` to configure voice_speed.
+         * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`). Only
+         *   `Turbo` model is supported. Use `voice_settings` to configure precision, sample_rate,
+         *   and format.
+         *
+         * For service_level basic, you may define the gender of the speaker (male or female).
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -853,24 +891,32 @@ private constructor(
              *   (e.g., `AWS.Polly.Joanna-Neural`). Check the
              *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
              *   for compatibility.
-             * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
-             *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
-             *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
-             *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+             * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+             *   `Azure.en-US-BrianMultilingualNeural`, `Azure.en-US-Ava:DragonHDLatestNeural`). For
+             *   a complete list of voices, go to
+             *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery). Use
+             *   `voice_settings` to configure custom deployments, regions, or API keys.
              * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
              *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is
              *   optional. To use ElevenLabs, you must provide your ElevenLabs API key as an
              *   integration identifier secret in `"voice_settings": {"api_key_ref":
-             *   "<secret_identifier>"}`. Check
+             *   "<secret_identifier>"}`. See
+             *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+             *   for details. Check
              *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-             * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+             * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>` (e.g., `Telnyx.KokoroTTS.af`). Use
+             *   `voice_settings` to configure voice_speed and other synthesis parameters.
              * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
              *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
-             *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters:
-             *   `speed` (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer, default
-             *   0).
-             * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g., `Resemble.Pro.my_voice`).
-             *   Supported models: `Pro` (multilingual) and `Turbo` (English only).
+             *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings` to
+             *   configure speed, volume, pitch, and language_boost.
+             * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`). Supported
+             *   model_ids: `Arcana`, `Mist`. Use `voice_settings` to configure voice_speed.
+             * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`).
+             *   Only `Turbo` model is supported. Use `voice_settings` to configure precision,
+             *   sample_rate, and format.
+             *
+             * For service_level basic, you may define the gender of the speaker (male or female).
              */
             fun voice(voice: String) = voice(JsonField.of(voice))
 
@@ -1004,6 +1050,17 @@ private constructor(
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofMinimax(minimax)`. */
             fun voiceSettings(minimax: MinimaxVoiceSettings) =
                 voiceSettings(VoiceSettings.ofMinimax(minimax))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofAzure(azure)`. */
+            fun voiceSettings(azure: AzureVoiceSettings) =
+                voiceSettings(VoiceSettings.ofAzure(azure))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofRime(rime)`. */
+            fun voiceSettings(rime: RimeVoiceSettings) = voiceSettings(VoiceSettings.ofRime(rime))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofResemble(resemble)`. */
+            fun voiceSettings(resemble: ResembleVoiceSettings) =
+                voiceSettings(VoiceSettings.ofResemble(resemble))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1703,6 +1760,9 @@ private constructor(
         private val telnyx: TelnyxVoiceSettings? = null,
         private val aws: AwsVoiceSettings? = null,
         private val minimax: MinimaxVoiceSettings? = null,
+        private val azure: AzureVoiceSettings? = null,
+        private val rime: RimeVoiceSettings? = null,
+        private val resemble: ResembleVoiceSettings? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -1714,6 +1774,12 @@ private constructor(
 
         fun minimax(): Optional<MinimaxVoiceSettings> = Optional.ofNullable(minimax)
 
+        fun azure(): Optional<AzureVoiceSettings> = Optional.ofNullable(azure)
+
+        fun rime(): Optional<RimeVoiceSettings> = Optional.ofNullable(rime)
+
+        fun resemble(): Optional<ResembleVoiceSettings> = Optional.ofNullable(resemble)
+
         fun isElevenlabs(): Boolean = elevenlabs != null
 
         fun isTelnyx(): Boolean = telnyx != null
@@ -1721,6 +1787,12 @@ private constructor(
         fun isAws(): Boolean = aws != null
 
         fun isMinimax(): Boolean = minimax != null
+
+        fun isAzure(): Boolean = azure != null
+
+        fun isRime(): Boolean = rime != null
+
+        fun isResemble(): Boolean = resemble != null
 
         fun asElevenlabs(): ElevenLabsVoiceSettings = elevenlabs.getOrThrow("elevenlabs")
 
@@ -1730,6 +1802,12 @@ private constructor(
 
         fun asMinimax(): MinimaxVoiceSettings = minimax.getOrThrow("minimax")
 
+        fun asAzure(): AzureVoiceSettings = azure.getOrThrow("azure")
+
+        fun asRime(): RimeVoiceSettings = rime.getOrThrow("rime")
+
+        fun asResemble(): ResembleVoiceSettings = resemble.getOrThrow("resemble")
+
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
         fun <T> accept(visitor: Visitor<T>): T =
@@ -1738,6 +1816,9 @@ private constructor(
                 telnyx != null -> visitor.visitTelnyx(telnyx)
                 aws != null -> visitor.visitAws(aws)
                 minimax != null -> visitor.visitMinimax(minimax)
+                azure != null -> visitor.visitAzure(azure)
+                rime != null -> visitor.visitRime(rime)
+                resemble != null -> visitor.visitResemble(resemble)
                 else -> visitor.unknown(_json)
             }
 
@@ -1764,6 +1845,18 @@ private constructor(
 
                     override fun visitMinimax(minimax: MinimaxVoiceSettings) {
                         minimax.validate()
+                    }
+
+                    override fun visitAzure(azure: AzureVoiceSettings) {
+                        azure.validate()
+                    }
+
+                    override fun visitRime(rime: RimeVoiceSettings) {
+                        rime.validate()
+                    }
+
+                    override fun visitResemble(resemble: ResembleVoiceSettings) {
+                        resemble.validate()
                     }
                 }
             )
@@ -1797,6 +1890,13 @@ private constructor(
 
                     override fun visitMinimax(minimax: MinimaxVoiceSettings) = minimax.validity()
 
+                    override fun visitAzure(azure: AzureVoiceSettings) = azure.validity()
+
+                    override fun visitRime(rime: RimeVoiceSettings) = rime.validity()
+
+                    override fun visitResemble(resemble: ResembleVoiceSettings) =
+                        resemble.validity()
+
                     override fun unknown(json: JsonValue?) = 0
                 }
             )
@@ -1810,10 +1910,14 @@ private constructor(
                 elevenlabs == other.elevenlabs &&
                 telnyx == other.telnyx &&
                 aws == other.aws &&
-                minimax == other.minimax
+                minimax == other.minimax &&
+                azure == other.azure &&
+                rime == other.rime &&
+                resemble == other.resemble
         }
 
-        override fun hashCode(): Int = Objects.hash(elevenlabs, telnyx, aws, minimax)
+        override fun hashCode(): Int =
+            Objects.hash(elevenlabs, telnyx, aws, minimax, azure, rime, resemble)
 
         override fun toString(): String =
             when {
@@ -1821,6 +1925,9 @@ private constructor(
                 telnyx != null -> "VoiceSettings{telnyx=$telnyx}"
                 aws != null -> "VoiceSettings{aws=$aws}"
                 minimax != null -> "VoiceSettings{minimax=$minimax}"
+                azure != null -> "VoiceSettings{azure=$azure}"
+                rime != null -> "VoiceSettings{rime=$rime}"
+                resemble != null -> "VoiceSettings{resemble=$resemble}"
                 _json != null -> "VoiceSettings{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid VoiceSettings")
             }
@@ -1837,6 +1944,13 @@ private constructor(
 
             @JvmStatic
             fun ofMinimax(minimax: MinimaxVoiceSettings) = VoiceSettings(minimax = minimax)
+
+            @JvmStatic fun ofAzure(azure: AzureVoiceSettings) = VoiceSettings(azure = azure)
+
+            @JvmStatic fun ofRime(rime: RimeVoiceSettings) = VoiceSettings(rime = rime)
+
+            @JvmStatic
+            fun ofResemble(resemble: ResembleVoiceSettings) = VoiceSettings(resemble = resemble)
         }
 
         /**
@@ -1852,6 +1966,12 @@ private constructor(
             fun visitAws(aws: AwsVoiceSettings): T
 
             fun visitMinimax(minimax: MinimaxVoiceSettings): T
+
+            fun visitAzure(azure: AzureVoiceSettings): T
+
+            fun visitRime(rime: RimeVoiceSettings): T
+
+            fun visitResemble(resemble: ResembleVoiceSettings): T
 
             /**
              * Maps an unknown variant of [VoiceSettings] to a value of type [T].
@@ -1895,6 +2015,21 @@ private constructor(
                             VoiceSettings(minimax = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
+                    "azure" -> {
+                        return tryDeserialize(node, jacksonTypeRef<AzureVoiceSettings>())?.let {
+                            VoiceSettings(azure = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
+                    "rime" -> {
+                        return tryDeserialize(node, jacksonTypeRef<RimeVoiceSettings>())?.let {
+                            VoiceSettings(rime = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
+                    "resemble" -> {
+                        return tryDeserialize(node, jacksonTypeRef<ResembleVoiceSettings>())?.let {
+                            VoiceSettings(resemble = it, _json = json)
+                        } ?: VoiceSettings(_json = json)
+                    }
                 }
 
                 return VoiceSettings(_json = json)
@@ -1913,6 +2048,9 @@ private constructor(
                     value.telnyx != null -> generator.writeObject(value.telnyx)
                     value.aws != null -> generator.writeObject(value.aws)
                     value.minimax != null -> generator.writeObject(value.minimax)
+                    value.azure != null -> generator.writeObject(value.azure)
+                    value.rime != null -> generator.writeObject(value.rime)
+                    value.resemble != null -> generator.writeObject(value.resemble)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid VoiceSettings")
                 }

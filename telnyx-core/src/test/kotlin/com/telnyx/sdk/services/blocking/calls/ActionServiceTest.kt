@@ -172,8 +172,29 @@ internal class ActionServiceTest {
                             .transcriptionTracks("both")
                             .build()
                     )
+                    .webhookRetriesPolicies(
+                        ActionAnswerParams.WebhookRetriesPolicies.builder()
+                            .putAdditionalProperty(
+                                "call.hangup",
+                                JsonValue.from(mapOf("retries_ms" to listOf(1000, 2000, 5000))),
+                            )
+                            .build()
+                    )
                     .webhookUrl("https://www.example.com/server-b/")
                     .webhookUrlMethod(ActionAnswerParams.WebhookUrlMethod.POST)
+                    .webhookUrls(
+                        ActionAnswerParams.WebhookUrls.builder()
+                            .putAdditionalProperty(
+                                "call.hangup",
+                                JsonValue.from("https://www.example.com/webhooks/hangup"),
+                            )
+                            .putAdditionalProperty(
+                                "call.bridge",
+                                JsonValue.from("https://www.example.com/webhooks/bridge"),
+                            )
+                            .build()
+                    )
+                    .webhookUrlsMethod(ActionAnswerParams.WebhookUrlsMethod.POST)
                     .build()
             )
 
@@ -193,9 +214,11 @@ internal class ActionServiceTest {
                     .callControlId("v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg")
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .holdAfterUnbridge(true)
                     .muteDtmf(ActionBridgeParams.MuteDtmf.OPPOSITE)
                     .parkAfterUnbridge("self")
                     .playRingtone(true)
+                    .preventDoubleBridge(true)
                     .queue("support")
                     .record(ActionBridgeParams.Record.RECORD_FROM_ANSWER)
                     .recordChannels(ActionBridgeParams.RecordChannels.SINGLE)
@@ -411,6 +434,12 @@ internal class ActionServiceTest {
                     .callControlId("call_control_id")
                     .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
+                    .addCustomHeader(
+                        CustomSipHeader.builder().name("head_1").value("val_1").build()
+                    )
+                    .addCustomHeader(
+                        CustomSipHeader.builder().name("head_2").value("val_2").build()
+                    )
                     .build()
             )
 

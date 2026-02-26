@@ -66,6 +66,15 @@ private constructor(
     fun commandId(): Optional<String> = body.commandId()
 
     /**
+     * Specifies behavior after the bridge ends. If set to `true`, the current leg will be put on
+     * hold after unbridge instead of being hung up.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun holdAfterUnbridge(): Optional<Boolean> = body.holdAfterUnbridge()
+
+    /**
      * When enabled, DTMF tones are not passed to the call participant. The webhooks containing the
      * DTMF information will be sent.
      *
@@ -92,6 +101,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun playRingtone(): Optional<Boolean> = body.playRingtone()
+
+    /**
+     * When set to `true`, it prevents bridging if the target call is already bridged to another
+     * call. Disabled by default.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun preventDoubleBridge(): Optional<Boolean> = body.preventDoubleBridge()
 
     /**
      * The name of the queue you want to bridge with, can't be used together with call_control_id
@@ -226,6 +244,14 @@ private constructor(
     fun _commandId(): JsonField<String> = body._commandId()
 
     /**
+     * Returns the raw JSON value of [holdAfterUnbridge].
+     *
+     * Unlike [holdAfterUnbridge], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _holdAfterUnbridge(): JsonField<Boolean> = body._holdAfterUnbridge()
+
+    /**
      * Returns the raw JSON value of [muteDtmf].
      *
      * Unlike [muteDtmf], this method doesn't throw if the JSON field has an unexpected type.
@@ -246,6 +272,14 @@ private constructor(
      * Unlike [playRingtone], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _playRingtone(): JsonField<Boolean> = body._playRingtone()
+
+    /**
+     * Returns the raw JSON value of [preventDoubleBridge].
+     *
+     * Unlike [preventDoubleBridge], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _preventDoubleBridge(): JsonField<Boolean> = body._preventDoubleBridge()
 
     /**
      * Returns the raw JSON value of [queue].
@@ -392,8 +426,8 @@ private constructor(
          * - [callControlId]
          * - [clientState]
          * - [commandId]
+         * - [holdAfterUnbridge]
          * - [muteDtmf]
-         * - [parkAfterUnbridge]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -446,6 +480,25 @@ private constructor(
         fun commandId(commandId: JsonField<String>) = apply { body.commandId(commandId) }
 
         /**
+         * Specifies behavior after the bridge ends. If set to `true`, the current leg will be put
+         * on hold after unbridge instead of being hung up.
+         */
+        fun holdAfterUnbridge(holdAfterUnbridge: Boolean) = apply {
+            body.holdAfterUnbridge(holdAfterUnbridge)
+        }
+
+        /**
+         * Sets [Builder.holdAfterUnbridge] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.holdAfterUnbridge] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun holdAfterUnbridge(holdAfterUnbridge: JsonField<Boolean>) = apply {
+            body.holdAfterUnbridge(holdAfterUnbridge)
+        }
+
+        /**
          * When enabled, DTMF tones are not passed to the call participant. The webhooks containing
          * the DTMF information will be sent.
          */
@@ -495,6 +548,25 @@ private constructor(
          */
         fun playRingtone(playRingtone: JsonField<Boolean>) = apply {
             body.playRingtone(playRingtone)
+        }
+
+        /**
+         * When set to `true`, it prevents bridging if the target call is already bridged to another
+         * call. Disabled by default.
+         */
+        fun preventDoubleBridge(preventDoubleBridge: Boolean) = apply {
+            body.preventDoubleBridge(preventDoubleBridge)
+        }
+
+        /**
+         * Sets [Builder.preventDoubleBridge] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.preventDoubleBridge] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun preventDoubleBridge(preventDoubleBridge: JsonField<Boolean>) = apply {
+            body.preventDoubleBridge(preventDoubleBridge)
         }
 
         /**
@@ -852,9 +924,11 @@ private constructor(
         private val callControlId: JsonField<String>,
         private val clientState: JsonField<String>,
         private val commandId: JsonField<String>,
+        private val holdAfterUnbridge: JsonField<Boolean>,
         private val muteDtmf: JsonField<MuteDtmf>,
         private val parkAfterUnbridge: JsonField<String>,
         private val playRingtone: JsonField<Boolean>,
+        private val preventDoubleBridge: JsonField<Boolean>,
         private val queue: JsonField<String>,
         private val record: JsonField<Record>,
         private val recordChannels: JsonField<RecordChannels>,
@@ -881,6 +955,9 @@ private constructor(
             @JsonProperty("command_id")
             @ExcludeMissing
             commandId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("hold_after_unbridge")
+            @ExcludeMissing
+            holdAfterUnbridge: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("mute_dtmf")
             @ExcludeMissing
             muteDtmf: JsonField<MuteDtmf> = JsonMissing.of(),
@@ -890,6 +967,9 @@ private constructor(
             @JsonProperty("play_ringtone")
             @ExcludeMissing
             playRingtone: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("prevent_double_bridge")
+            @ExcludeMissing
+            preventDoubleBridge: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("queue") @ExcludeMissing queue: JsonField<String> = JsonMissing.of(),
             @JsonProperty("record") @ExcludeMissing record: JsonField<Record> = JsonMissing.of(),
             @JsonProperty("record_channels")
@@ -926,9 +1006,11 @@ private constructor(
             callControlId,
             clientState,
             commandId,
+            holdAfterUnbridge,
             muteDtmf,
             parkAfterUnbridge,
             playRingtone,
+            preventDoubleBridge,
             queue,
             record,
             recordChannels,
@@ -972,6 +1054,16 @@ private constructor(
         fun commandId(): Optional<String> = commandId.getOptional("command_id")
 
         /**
+         * Specifies behavior after the bridge ends. If set to `true`, the current leg will be put
+         * on hold after unbridge instead of being hung up.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun holdAfterUnbridge(): Optional<Boolean> =
+            holdAfterUnbridge.getOptional("hold_after_unbridge")
+
+        /**
          * When enabled, DTMF tones are not passed to the call participant. The webhooks containing
          * the DTMF information will be sent.
          *
@@ -999,6 +1091,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun playRingtone(): Optional<Boolean> = playRingtone.getOptional("play_ringtone")
+
+        /**
+         * When set to `true`, it prevents bridging if the target call is already bridged to another
+         * call. Disabled by default.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun preventDoubleBridge(): Optional<Boolean> =
+            preventDoubleBridge.getOptional("prevent_double_bridge")
 
         /**
          * The name of the queue you want to bridge with, can't be used together with
@@ -1142,6 +1244,16 @@ private constructor(
         @JsonProperty("command_id") @ExcludeMissing fun _commandId(): JsonField<String> = commandId
 
         /**
+         * Returns the raw JSON value of [holdAfterUnbridge].
+         *
+         * Unlike [holdAfterUnbridge], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("hold_after_unbridge")
+        @ExcludeMissing
+        fun _holdAfterUnbridge(): JsonField<Boolean> = holdAfterUnbridge
+
+        /**
          * Returns the raw JSON value of [muteDtmf].
          *
          * Unlike [muteDtmf], this method doesn't throw if the JSON field has an unexpected type.
@@ -1167,6 +1279,16 @@ private constructor(
         @JsonProperty("play_ringtone")
         @ExcludeMissing
         fun _playRingtone(): JsonField<Boolean> = playRingtone
+
+        /**
+         * Returns the raw JSON value of [preventDoubleBridge].
+         *
+         * Unlike [preventDoubleBridge], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("prevent_double_bridge")
+        @ExcludeMissing
+        fun _preventDoubleBridge(): JsonField<Boolean> = preventDoubleBridge
 
         /**
          * Returns the raw JSON value of [queue].
@@ -1307,9 +1429,11 @@ private constructor(
             private var callControlId: JsonField<String>? = null
             private var clientState: JsonField<String> = JsonMissing.of()
             private var commandId: JsonField<String> = JsonMissing.of()
+            private var holdAfterUnbridge: JsonField<Boolean> = JsonMissing.of()
             private var muteDtmf: JsonField<MuteDtmf> = JsonMissing.of()
             private var parkAfterUnbridge: JsonField<String> = JsonMissing.of()
             private var playRingtone: JsonField<Boolean> = JsonMissing.of()
+            private var preventDoubleBridge: JsonField<Boolean> = JsonMissing.of()
             private var queue: JsonField<String> = JsonMissing.of()
             private var record: JsonField<Record> = JsonMissing.of()
             private var recordChannels: JsonField<RecordChannels> = JsonMissing.of()
@@ -1329,9 +1453,11 @@ private constructor(
                 callControlId = body.callControlId
                 clientState = body.clientState
                 commandId = body.commandId
+                holdAfterUnbridge = body.holdAfterUnbridge
                 muteDtmf = body.muteDtmf
                 parkAfterUnbridge = body.parkAfterUnbridge
                 playRingtone = body.playRingtone
+                preventDoubleBridge = body.preventDoubleBridge
                 queue = body.queue
                 record = body.record
                 recordChannels = body.recordChannels
@@ -1397,6 +1523,24 @@ private constructor(
             fun commandId(commandId: JsonField<String>) = apply { this.commandId = commandId }
 
             /**
+             * Specifies behavior after the bridge ends. If set to `true`, the current leg will be
+             * put on hold after unbridge instead of being hung up.
+             */
+            fun holdAfterUnbridge(holdAfterUnbridge: Boolean) =
+                holdAfterUnbridge(JsonField.of(holdAfterUnbridge))
+
+            /**
+             * Sets [Builder.holdAfterUnbridge] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.holdAfterUnbridge] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun holdAfterUnbridge(holdAfterUnbridge: JsonField<Boolean>) = apply {
+                this.holdAfterUnbridge = holdAfterUnbridge
+            }
+
+            /**
              * When enabled, DTMF tones are not passed to the call participant. The webhooks
              * containing the DTMF information will be sent.
              */
@@ -1445,6 +1589,24 @@ private constructor(
              */
             fun playRingtone(playRingtone: JsonField<Boolean>) = apply {
                 this.playRingtone = playRingtone
+            }
+
+            /**
+             * When set to `true`, it prevents bridging if the target call is already bridged to
+             * another call. Disabled by default.
+             */
+            fun preventDoubleBridge(preventDoubleBridge: Boolean) =
+                preventDoubleBridge(JsonField.of(preventDoubleBridge))
+
+            /**
+             * Sets [Builder.preventDoubleBridge] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.preventDoubleBridge] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun preventDoubleBridge(preventDoubleBridge: JsonField<Boolean>) = apply {
+                this.preventDoubleBridge = preventDoubleBridge
             }
 
             /**
@@ -1689,9 +1851,11 @@ private constructor(
                     checkRequired("callControlId", callControlId),
                     clientState,
                     commandId,
+                    holdAfterUnbridge,
                     muteDtmf,
                     parkAfterUnbridge,
                     playRingtone,
+                    preventDoubleBridge,
                     queue,
                     record,
                     recordChannels,
@@ -1718,9 +1882,11 @@ private constructor(
             callControlId()
             clientState()
             commandId()
+            holdAfterUnbridge()
             muteDtmf().ifPresent { it.validate() }
             parkAfterUnbridge()
             playRingtone()
+            preventDoubleBridge()
             queue()
             record().ifPresent { it.validate() }
             recordChannels().ifPresent { it.validate() }
@@ -1755,9 +1921,11 @@ private constructor(
             (if (callControlId.asKnown().isPresent) 1 else 0) +
                 (if (clientState.asKnown().isPresent) 1 else 0) +
                 (if (commandId.asKnown().isPresent) 1 else 0) +
+                (if (holdAfterUnbridge.asKnown().isPresent) 1 else 0) +
                 (muteDtmf.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (parkAfterUnbridge.asKnown().isPresent) 1 else 0) +
                 (if (playRingtone.asKnown().isPresent) 1 else 0) +
+                (if (preventDoubleBridge.asKnown().isPresent) 1 else 0) +
                 (if (queue.asKnown().isPresent) 1 else 0) +
                 (record.asKnown().getOrNull()?.validity() ?: 0) +
                 (recordChannels.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1780,9 +1948,11 @@ private constructor(
                 callControlId == other.callControlId &&
                 clientState == other.clientState &&
                 commandId == other.commandId &&
+                holdAfterUnbridge == other.holdAfterUnbridge &&
                 muteDtmf == other.muteDtmf &&
                 parkAfterUnbridge == other.parkAfterUnbridge &&
                 playRingtone == other.playRingtone &&
+                preventDoubleBridge == other.preventDoubleBridge &&
                 queue == other.queue &&
                 record == other.record &&
                 recordChannels == other.recordChannels &&
@@ -1803,9 +1973,11 @@ private constructor(
                 callControlId,
                 clientState,
                 commandId,
+                holdAfterUnbridge,
                 muteDtmf,
                 parkAfterUnbridge,
                 playRingtone,
+                preventDoubleBridge,
                 queue,
                 record,
                 recordChannels,
@@ -1825,7 +1997,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{callControlId=$callControlId, clientState=$clientState, commandId=$commandId, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, playRingtone=$playRingtone, queue=$queue, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, ringtone=$ringtone, videoRoomContext=$videoRoomContext, videoRoomId=$videoRoomId, additionalProperties=$additionalProperties}"
+            "Body{callControlId=$callControlId, clientState=$clientState, commandId=$commandId, holdAfterUnbridge=$holdAfterUnbridge, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, playRingtone=$playRingtone, preventDoubleBridge=$preventDoubleBridge, queue=$queue, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, ringtone=$ringtone, videoRoomContext=$videoRoomContext, videoRoomId=$videoRoomId, additionalProperties=$additionalProperties}"
     }
 
     /**

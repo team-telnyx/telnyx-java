@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.texttospeech
+package com.telnyx.sdk.models.payment
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -18,8 +18,8 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Converts the provided text to speech using the specified voice and returns audio data */
-class TextToSpeechGenerateSpeechParams
+/** Create a stored payment transaction */
+class PaymentCreateStoredPaymentTransactionParams
 private constructor(
     private val body: Body,
     private val additionalHeaders: Headers,
@@ -27,42 +27,19 @@ private constructor(
 ) : Params {
 
     /**
-     * The text to convert to speech
+     * Amount in dollars and cents, e.g. "120.00"
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun text(): String = body.text()
+    fun amount(): String = body.amount()
 
     /**
-     * The voice ID in the format Provider.ModelId.VoiceId.
+     * Returns the raw JSON value of [amount].
      *
-     * Examples:
-     * - AWS.Polly.Joanna-Neural
-     * - Azure.en-US-AvaMultilingualNeural
-     * - ElevenLabs.eleven_multilingual_v2.Rachel
-     * - Telnyx.KokoroTTS.af
-     *
-     * Use the `GET /text-to-speech/voices` endpoint to get a complete list of available voices.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun voice(): String = body.voice()
-
-    /**
-     * Returns the raw JSON value of [text].
-     *
-     * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _text(): JsonField<String> = body._text()
-
-    /**
-     * Returns the raw JSON value of [voice].
-     *
-     * Unlike [voice], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _voice(): JsonField<String> = body._voice()
+    fun _amount(): JsonField<String> = body._amount()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -78,18 +55,17 @@ private constructor(
 
         /**
          * Returns a mutable builder for constructing an instance of
-         * [TextToSpeechGenerateSpeechParams].
+         * [PaymentCreateStoredPaymentTransactionParams].
          *
          * The following fields are required:
          * ```java
-         * .text()
-         * .voice()
+         * .amount()
          * ```
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [TextToSpeechGenerateSpeechParams]. */
+    /** A builder for [PaymentCreateStoredPaymentTransactionParams]. */
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
@@ -97,55 +73,35 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(textToSpeechGenerateSpeechParams: TextToSpeechGenerateSpeechParams) =
-            apply {
-                body = textToSpeechGenerateSpeechParams.body.toBuilder()
-                additionalHeaders = textToSpeechGenerateSpeechParams.additionalHeaders.toBuilder()
-                additionalQueryParams =
-                    textToSpeechGenerateSpeechParams.additionalQueryParams.toBuilder()
-            }
+        internal fun from(
+            paymentCreateStoredPaymentTransactionParams: PaymentCreateStoredPaymentTransactionParams
+        ) = apply {
+            body = paymentCreateStoredPaymentTransactionParams.body.toBuilder()
+            additionalHeaders =
+                paymentCreateStoredPaymentTransactionParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                paymentCreateStoredPaymentTransactionParams.additionalQueryParams.toBuilder()
+        }
 
         /**
          * Sets the entire request body.
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [text]
-         * - [voice]
+         * - [amount]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The text to convert to speech */
-        fun text(text: String) = apply { body.text(text) }
+        /** Amount in dollars and cents, e.g. "120.00" */
+        fun amount(amount: String) = apply { body.amount(amount) }
 
         /**
-         * Sets [Builder.text] to an arbitrary JSON value.
+         * Sets [Builder.amount] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.text] with a well-typed [String] value instead. This
+         * You should usually call [Builder.amount] with a well-typed [String] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun text(text: JsonField<String>) = apply { body.text(text) }
-
-        /**
-         * The voice ID in the format Provider.ModelId.VoiceId.
-         *
-         * Examples:
-         * - AWS.Polly.Joanna-Neural
-         * - Azure.en-US-AvaMultilingualNeural
-         * - ElevenLabs.eleven_multilingual_v2.Rachel
-         * - Telnyx.KokoroTTS.af
-         *
-         * Use the `GET /text-to-speech/voices` endpoint to get a complete list of available voices.
-         */
-        fun voice(voice: String) = apply { body.voice(voice) }
-
-        /**
-         * Sets [Builder.voice] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.voice] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun voice(voice: JsonField<String>) = apply { body.voice(voice) }
+        fun amount(amount: JsonField<String>) = apply { body.amount(amount) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -265,20 +221,19 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [TextToSpeechGenerateSpeechParams].
+         * Returns an immutable instance of [PaymentCreateStoredPaymentTransactionParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
          * ```java
-         * .text()
-         * .voice()
+         * .amount()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): TextToSpeechGenerateSpeechParams =
-            TextToSpeechGenerateSpeechParams(
+        fun build(): PaymentCreateStoredPaymentTransactionParams =
+            PaymentCreateStoredPaymentTransactionParams(
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -294,54 +249,29 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val text: JsonField<String>,
-        private val voice: JsonField<String>,
+        private val amount: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("voice") @ExcludeMissing voice: JsonField<String> = JsonMissing.of(),
-        ) : this(text, voice, mutableMapOf())
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<String> = JsonMissing.of()
+        ) : this(amount, mutableMapOf())
 
         /**
-         * The text to convert to speech
+         * Amount in dollars and cents, e.g. "120.00"
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun text(): String = text.getRequired("text")
+        fun amount(): String = amount.getRequired("amount")
 
         /**
-         * The voice ID in the format Provider.ModelId.VoiceId.
+         * Returns the raw JSON value of [amount].
          *
-         * Examples:
-         * - AWS.Polly.Joanna-Neural
-         * - Azure.en-US-AvaMultilingualNeural
-         * - ElevenLabs.eleven_multilingual_v2.Rachel
-         * - Telnyx.KokoroTTS.af
-         *
-         * Use the `GET /text-to-speech/voices` endpoint to get a complete list of available voices.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
          */
-        fun voice(): String = voice.getRequired("voice")
-
-        /**
-         * Returns the raw JSON value of [text].
-         *
-         * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("text") @ExcludeMissing fun _text(): JsonField<String> = text
-
-        /**
-         * Returns the raw JSON value of [voice].
-         *
-         * Unlike [voice], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("voice") @ExcludeMissing fun _voice(): JsonField<String> = voice
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<String> = amount
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -362,8 +292,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .text()
-             * .voice()
+             * .amount()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -372,51 +301,26 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var text: JsonField<String>? = null
-            private var voice: JsonField<String>? = null
+            private var amount: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
-                text = body.text
-                voice = body.voice
+                amount = body.amount
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The text to convert to speech */
-            fun text(text: String) = text(JsonField.of(text))
+            /** Amount in dollars and cents, e.g. "120.00" */
+            fun amount(amount: String) = amount(JsonField.of(amount))
 
             /**
-             * Sets [Builder.text] to an arbitrary JSON value.
+             * Sets [Builder.amount] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.text] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun text(text: JsonField<String>) = apply { this.text = text }
-
-            /**
-             * The voice ID in the format Provider.ModelId.VoiceId.
-             *
-             * Examples:
-             * - AWS.Polly.Joanna-Neural
-             * - Azure.en-US-AvaMultilingualNeural
-             * - ElevenLabs.eleven_multilingual_v2.Rachel
-             * - Telnyx.KokoroTTS.af
-             *
-             * Use the `GET /text-to-speech/voices` endpoint to get a complete list of available
-             * voices.
-             */
-            fun voice(voice: String) = voice(JsonField.of(voice))
-
-            /**
-             * Sets [Builder.voice] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.voice] with a well-typed [String] value instead.
+             * You should usually call [Builder.amount] with a well-typed [String] value instead.
              * This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun voice(voice: JsonField<String>) = apply { this.voice = voice }
+            fun amount(amount: JsonField<String>) = apply { this.amount = amount }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -444,18 +348,13 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .text()
-             * .voice()
+             * .amount()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Body =
-                Body(
-                    checkRequired("text", text),
-                    checkRequired("voice", voice),
-                    additionalProperties.toMutableMap(),
-                )
+                Body(checkRequired("amount", amount), additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -465,8 +364,7 @@ private constructor(
                 return@apply
             }
 
-            text()
-            voice()
+            amount()
             validated = true
         }
 
@@ -484,9 +382,7 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (text.asKnown().isPresent) 1 else 0) + (if (voice.asKnown().isPresent) 1 else 0)
+        @JvmSynthetic internal fun validity(): Int = (if (amount.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -494,17 +390,15 @@ private constructor(
             }
 
             return other is Body &&
-                text == other.text &&
-                voice == other.voice &&
+                amount == other.amount &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(text, voice, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(amount, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "Body{text=$text, voice=$voice, additionalProperties=$additionalProperties}"
+        override fun toString() = "Body{amount=$amount, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -512,7 +406,7 @@ private constructor(
             return true
         }
 
-        return other is TextToSpeechGenerateSpeechParams &&
+        return other is PaymentCreateStoredPaymentTransactionParams &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -521,5 +415,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "TextToSpeechGenerateSpeechParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PaymentCreateStoredPaymentTransactionParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
