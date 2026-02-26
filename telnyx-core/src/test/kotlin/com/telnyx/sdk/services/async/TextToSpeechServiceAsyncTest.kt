@@ -2,13 +2,42 @@
 
 package com.telnyx.sdk.services.async
 
+import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
+import com.github.tomakehurst.wiremock.client.WireMock.ok
+import com.github.tomakehurst.wiremock.client.WireMock.post
+import com.github.tomakehurst.wiremock.client.WireMock.stubFor
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
+import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateSpeechParams
 import com.telnyx.sdk.models.texttospeech.TextToSpeechListVoicesParams
-import com.telnyx.sdk.models.texttospeech.TextToSpeechStreamParams
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.parallel.ResourceLock
 
+@WireMockTest
+@ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class TextToSpeechServiceAsyncTest {
+
+    @Test
+    fun generateSpeech(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            TelnyxOkHttpClientAsync.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .apiKey("My API Key")
+                .build()
+        val textToSpeechServiceAsync = client.textToSpeech()
+        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val responseFuture =
+            textToSpeechServiceAsync.generateSpeech(
+                TextToSpeechGenerateSpeechParams.builder().text("text").voice("voice").build()
+            )
+
+        val response = responseFuture.get()
+        assertThat(response.body()).hasContent("abc")
+    }
 
     @Disabled("Mock server tests are disabled")
     @Test
@@ -26,27 +55,5 @@ internal class TextToSpeechServiceAsyncTest {
 
         val response = responseFuture.get()
         response.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun stream() {
-        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
-        val textToSpeechServiceAsync = client.textToSpeech()
-
-        val future =
-            textToSpeechServiceAsync.stream(
-                TextToSpeechStreamParams.builder()
-                    .audioFormat(TextToSpeechStreamParams.AudioFormat.PCM)
-                    .disableCache(true)
-                    .modelId("model_id")
-                    .provider(TextToSpeechStreamParams.Provider.AWS)
-                    .socketId("socket_id")
-                    .voice("voice")
-                    .voiceId("voice_id")
-                    .build()
-            )
-
-        val response = future.get()
     }
 }

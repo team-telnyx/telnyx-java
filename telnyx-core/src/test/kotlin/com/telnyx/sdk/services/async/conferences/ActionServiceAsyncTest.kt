@@ -281,7 +281,6 @@ internal class ActionServiceAsyncTest {
                 ActionRecordStartParams.builder()
                     .id("id")
                     .format(ActionRecordStartParams.Format.WAV)
-                    .channels(ActionRecordStartParams.Channels.DUAL)
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .customFileName("my_recording_file_name")
                     .playBeep(true)
