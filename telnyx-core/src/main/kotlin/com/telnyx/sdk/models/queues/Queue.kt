@@ -17,7 +17,7 @@ import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-class QueueListResponse
+class Queue
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
@@ -197,7 +197,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [QueueListResponse].
+         * Returns a mutable builder for constructing an instance of [Queue].
          *
          * The following fields are required:
          * ```java
@@ -214,7 +214,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [QueueListResponse]. */
+    /** A builder for [Queue]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
@@ -228,16 +228,16 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(queueListResponse: QueueListResponse) = apply {
-            id = queueListResponse.id
-            averageWaitTimeSecs = queueListResponse.averageWaitTimeSecs
-            createdAt = queueListResponse.createdAt
-            currentSize = queueListResponse.currentSize
-            maxSize = queueListResponse.maxSize
-            name = queueListResponse.name
-            recordType = queueListResponse.recordType
-            updatedAt = queueListResponse.updatedAt
-            additionalProperties = queueListResponse.additionalProperties.toMutableMap()
+        internal fun from(queue: Queue) = apply {
+            id = queue.id
+            averageWaitTimeSecs = queue.averageWaitTimeSecs
+            createdAt = queue.createdAt
+            currentSize = queue.currentSize
+            maxSize = queue.maxSize
+            name = queue.name
+            recordType = queue.recordType
+            updatedAt = queue.updatedAt
+            additionalProperties = queue.additionalProperties.toMutableMap()
         }
 
         /** Uniquely identifies the queue */
@@ -358,7 +358,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [QueueListResponse].
+         * Returns an immutable instance of [Queue].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -376,8 +376,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): QueueListResponse =
-            QueueListResponse(
+        fun build(): Queue =
+            Queue(
                 checkRequired("id", id),
                 checkRequired("averageWaitTimeSecs", averageWaitTimeSecs),
                 checkRequired("createdAt", createdAt),
@@ -392,7 +392,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): QueueListResponse = apply {
+    fun validate(): Queue = apply {
         if (validated) {
             return@apply
         }
@@ -558,7 +558,7 @@ private constructor(
             return true
         }
 
-        return other is QueueListResponse &&
+        return other is Queue &&
             id == other.id &&
             averageWaitTimeSecs == other.averageWaitTimeSecs &&
             createdAt == other.createdAt &&
@@ -587,5 +587,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "QueueListResponse{id=$id, averageWaitTimeSecs=$averageWaitTimeSecs, createdAt=$createdAt, currentSize=$currentSize, maxSize=$maxSize, name=$name, recordType=$recordType, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "Queue{id=$id, averageWaitTimeSecs=$averageWaitTimeSecs, createdAt=$createdAt, currentSize=$currentSize, maxSize=$maxSize, name=$name, recordType=$recordType, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

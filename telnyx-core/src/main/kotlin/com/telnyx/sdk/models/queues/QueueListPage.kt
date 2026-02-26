@@ -18,15 +18,14 @@ private constructor(
     private val service: QueueService,
     private val params: QueueListParams,
     private val response: QueueListPageResponse,
-) : Page<QueueListResponse> {
+) : Page<Queue> {
 
     /**
      * Delegates to [QueueListPageResponse], but gracefully handles missing data.
      *
      * @see QueueListPageResponse.data
      */
-    fun data(): List<QueueListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<Queue> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [QueueListPageResponse], but gracefully handles missing data.
@@ -35,7 +34,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<QueueListResponse> = data()
+    override fun items(): List<Queue> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +54,7 @@ private constructor(
 
     override fun nextPage(): QueueListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<QueueListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<Queue> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): QueueListParams = params
