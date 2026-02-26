@@ -6,6 +6,7 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.comments.Comment
 import com.telnyx.sdk.models.comments.CommentCreateParams
 import com.telnyx.sdk.models.comments.CommentCreateResponse
 import com.telnyx.sdk.models.comments.CommentListParams
@@ -31,21 +32,24 @@ interface CommentService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CommentService
 
     /** Create a comment */
-    fun create(): CommentCreateResponse = create(CommentCreateParams.none())
+    fun create(params: CommentCreateParams): CommentCreateResponse =
+        create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        params: CommentCreateParams = CommentCreateParams.none(),
+        params: CommentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CommentCreateResponse
 
     /** @see create */
-    fun create(params: CommentCreateParams = CommentCreateParams.none()): CommentCreateResponse =
-        create(params, RequestOptions.none())
+    fun create(
+        comment: Comment,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CommentCreateResponse =
+        create(CommentCreateParams.builder().comment(comment).build(), requestOptions)
 
     /** @see create */
-    fun create(requestOptions: RequestOptions): CommentCreateResponse =
-        create(CommentCreateParams.none(), requestOptions)
+    fun create(comment: Comment): CommentCreateResponse = create(comment, RequestOptions.none())
 
     /** Retrieve a comment */
     fun retrieve(id: String): CommentRetrieveResponse = retrieve(id, CommentRetrieveParams.none())
@@ -140,25 +144,28 @@ interface CommentService {
          * [CommentService.create].
          */
         @MustBeClosed
-        fun create(): HttpResponseFor<CommentCreateResponse> = create(CommentCreateParams.none())
+        fun create(params: CommentCreateParams): HttpResponseFor<CommentCreateResponse> =
+            create(params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
-            params: CommentCreateParams = CommentCreateParams.none(),
+            params: CommentCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CommentCreateResponse>
 
         /** @see create */
         @MustBeClosed
         fun create(
-            params: CommentCreateParams = CommentCreateParams.none()
-        ): HttpResponseFor<CommentCreateResponse> = create(params, RequestOptions.none())
+            comment: Comment,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CommentCreateResponse> =
+            create(CommentCreateParams.builder().comment(comment).build(), requestOptions)
 
         /** @see create */
         @MustBeClosed
-        fun create(requestOptions: RequestOptions): HttpResponseFor<CommentCreateResponse> =
-            create(CommentCreateParams.none(), requestOptions)
+        fun create(comment: Comment): HttpResponseFor<CommentCreateResponse> =
+            create(comment, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /comments/{id}`, but is otherwise the same as
