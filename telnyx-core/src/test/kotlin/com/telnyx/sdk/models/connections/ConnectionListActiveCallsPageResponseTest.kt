@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.connections
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.Cursor
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -27,7 +28,7 @@ internal class ConnectionListActiveCallsPageResponseTest {
                 .meta(
                     ConnectionListActiveCallsPageResponse.Meta.builder()
                         .cursors(
-                            ConnectionListActiveCallsPageResponse.Meta.Cursors.builder()
+                            Cursor.builder()
                                 .after(
                                     "v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI="
                                 )
@@ -62,7 +63,7 @@ internal class ConnectionListActiveCallsPageResponseTest {
             .contains(
                 ConnectionListActiveCallsPageResponse.Meta.builder()
                     .cursors(
-                        ConnectionListActiveCallsPageResponse.Meta.Cursors.builder()
+                        Cursor.builder()
                             .after(
                                 "v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI="
                             )
@@ -100,7 +101,7 @@ internal class ConnectionListActiveCallsPageResponseTest {
                 .meta(
                     ConnectionListActiveCallsPageResponse.Meta.builder()
                         .cursors(
-                            ConnectionListActiveCallsPageResponse.Meta.Cursors.builder()
+                            Cursor.builder()
                                 .after(
                                     "v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI="
                                 )

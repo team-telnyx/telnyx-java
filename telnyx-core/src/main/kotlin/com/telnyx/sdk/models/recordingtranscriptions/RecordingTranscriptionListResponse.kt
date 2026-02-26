@@ -13,6 +13,7 @@ import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.Cursor
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -199,7 +200,7 @@ private constructor(
     class Meta
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val cursors: JsonField<Cursors>,
+        private val cursors: JsonField<Cursor>,
         private val next: JsonField<String>,
         private val previous: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -207,7 +208,7 @@ private constructor(
 
         @JsonCreator
         private constructor(
-            @JsonProperty("cursors") @ExcludeMissing cursors: JsonField<Cursors> = JsonMissing.of(),
+            @JsonProperty("cursors") @ExcludeMissing cursors: JsonField<Cursor> = JsonMissing.of(),
             @JsonProperty("next") @ExcludeMissing next: JsonField<String> = JsonMissing.of(),
             @JsonProperty("previous") @ExcludeMissing previous: JsonField<String> = JsonMissing.of(),
         ) : this(cursors, next, previous, mutableMapOf())
@@ -216,7 +217,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun cursors(): Optional<Cursors> = cursors.getOptional("cursors")
+        fun cursors(): Optional<Cursor> = cursors.getOptional("cursors")
 
         /**
          * Path to next page.
@@ -239,7 +240,7 @@ private constructor(
          *
          * Unlike [cursors], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("cursors") @ExcludeMissing fun _cursors(): JsonField<Cursors> = cursors
+        @JsonProperty("cursors") @ExcludeMissing fun _cursors(): JsonField<Cursor> = cursors
 
         /**
          * Returns the raw JSON value of [next].
@@ -276,7 +277,7 @@ private constructor(
         /** A builder for [Meta]. */
         class Builder internal constructor() {
 
-            private var cursors: JsonField<Cursors> = JsonMissing.of()
+            private var cursors: JsonField<Cursor> = JsonMissing.of()
             private var next: JsonField<String> = JsonMissing.of()
             private var previous: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -289,16 +290,16 @@ private constructor(
                 additionalProperties = meta.additionalProperties.toMutableMap()
             }
 
-            fun cursors(cursors: Cursors) = cursors(JsonField.of(cursors))
+            fun cursors(cursors: Cursor) = cursors(JsonField.of(cursors))
 
             /**
              * Sets [Builder.cursors] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.cursors] with a well-typed [Cursors] value instead.
+             * You should usually call [Builder.cursors] with a well-typed [Cursor] value instead.
              * This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun cursors(cursors: JsonField<Cursors>) = apply { this.cursors = cursors }
+            fun cursors(cursors: JsonField<Cursor>) = apply { this.cursors = cursors }
 
             /** Path to next page. */
             fun next(next: String) = next(JsonField.of(next))
@@ -383,186 +384,6 @@ private constructor(
             (cursors.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (next.asKnown().isPresent) 1 else 0) +
                 (if (previous.asKnown().isPresent) 1 else 0)
-
-        class Cursors
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val after: JsonField<String>,
-            private val before: JsonField<String>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("after") @ExcludeMissing after: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("before") @ExcludeMissing before: JsonField<String> = JsonMissing.of(),
-            ) : this(after, before, mutableMapOf())
-
-            /**
-             * Opaque identifier of next page.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun after(): Optional<String> = after.getOptional("after")
-
-            /**
-             * Opaque identifier of previous page.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
-             *   the server responded with an unexpected value).
-             */
-            fun before(): Optional<String> = before.getOptional("before")
-
-            /**
-             * Returns the raw JSON value of [after].
-             *
-             * Unlike [after], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("after") @ExcludeMissing fun _after(): JsonField<String> = after
-
-            /**
-             * Returns the raw JSON value of [before].
-             *
-             * Unlike [before], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("before") @ExcludeMissing fun _before(): JsonField<String> = before
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Cursors]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Cursors]. */
-            class Builder internal constructor() {
-
-                private var after: JsonField<String> = JsonMissing.of()
-                private var before: JsonField<String> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(cursors: Cursors) = apply {
-                    after = cursors.after
-                    before = cursors.before
-                    additionalProperties = cursors.additionalProperties.toMutableMap()
-                }
-
-                /** Opaque identifier of next page. */
-                fun after(after: String) = after(JsonField.of(after))
-
-                /**
-                 * Sets [Builder.after] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.after] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun after(after: JsonField<String>) = apply { this.after = after }
-
-                /** Opaque identifier of previous page. */
-                fun before(before: String) = before(JsonField.of(before))
-
-                /**
-                 * Sets [Builder.before] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.before] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun before(before: JsonField<String>) = apply { this.before = before }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Cursors].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Cursors = Cursors(after, before, additionalProperties.toMutableMap())
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): Cursors = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                after()
-                before()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (if (after.asKnown().isPresent) 1 else 0) +
-                    (if (before.asKnown().isPresent) 1 else 0)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Cursors &&
-                    after == other.after &&
-                    before == other.before &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy { Objects.hash(after, before, additionalProperties) }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Cursors{after=$after, before=$before, additionalProperties=$additionalProperties}"
-        }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
