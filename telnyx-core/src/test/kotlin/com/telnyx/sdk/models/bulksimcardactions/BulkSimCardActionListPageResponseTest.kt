@@ -23,12 +23,9 @@ internal class BulkSimCardActionListPageResponseTest {
                         .recordType("bulk_sim_card_action")
                         .settings(BulkSimCardActionListResponse.Settings.builder().build())
                         .addSimCardActionsSummary(
-                            BulkSimCardActionListResponse.SimCardActionsSummary.builder()
+                            SimCardActionsSummary.builder()
                                 .count(0L)
-                                .status(
-                                    BulkSimCardActionListResponse.SimCardActionsSummary.Status
-                                        .IN_PROGRESS
-                                )
+                                .status(SimCardActionsSummary.Status.IN_PROGRESS)
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")
@@ -53,12 +50,9 @@ internal class BulkSimCardActionListPageResponseTest {
                     .recordType("bulk_sim_card_action")
                     .settings(BulkSimCardActionListResponse.Settings.builder().build())
                     .addSimCardActionsSummary(
-                        BulkSimCardActionListResponse.SimCardActionsSummary.builder()
+                        SimCardActionsSummary.builder()
                             .count(0L)
-                            .status(
-                                BulkSimCardActionListResponse.SimCardActionsSummary.Status
-                                    .IN_PROGRESS
-                            )
+                            .status(SimCardActionsSummary.Status.IN_PROGRESS)
                             .build()
                     )
                     .updatedAt("2018-02-02T22:25:27.521Z")
@@ -88,12 +82,9 @@ internal class BulkSimCardActionListPageResponseTest {
                         .recordType("bulk_sim_card_action")
                         .settings(BulkSimCardActionListResponse.Settings.builder().build())
                         .addSimCardActionsSummary(
-                            BulkSimCardActionListResponse.SimCardActionsSummary.builder()
+                            SimCardActionsSummary.builder()
                                 .count(0L)
-                                .status(
-                                    BulkSimCardActionListResponse.SimCardActionsSummary.Status
-                                        .IN_PROGRESS
-                                )
+                                .status(SimCardActionsSummary.Status.IN_PROGRESS)
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")

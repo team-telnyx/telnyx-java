@@ -14,7 +14,7 @@ internal class ConnectionListResponseTest {
         val connectionListResponse =
             ConnectionListResponse.builder()
                 .addData(
-                    ConnectionListResponse.Data.builder()
+                    IntegrationConnection.builder()
                         .id("id")
                         .addAllowedTool("string")
                         .integrationId("integration_id")
@@ -24,7 +24,7 @@ internal class ConnectionListResponseTest {
 
         assertThat(connectionListResponse.data())
             .containsExactly(
-                ConnectionListResponse.Data.builder()
+                IntegrationConnection.builder()
                     .id("id")
                     .addAllowedTool("string")
                     .integrationId("integration_id")
@@ -38,7 +38,7 @@ internal class ConnectionListResponseTest {
         val connectionListResponse =
             ConnectionListResponse.builder()
                 .addData(
-                    ConnectionListResponse.Data.builder()
+                    IntegrationConnection.builder()
                         .id("id")
                         .addAllowedTool("string")
                         .integrationId("integration_id")

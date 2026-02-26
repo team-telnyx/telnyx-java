@@ -14,12 +14,12 @@ internal class MessagingNumbersBulkUpdateRetrieveResponseTest {
         val messagingNumbersBulkUpdateRetrieveResponse =
             MessagingNumbersBulkUpdateRetrieveResponse.builder()
                 .data(
-                    MessagingNumbersBulkUpdateRetrieveResponse.Data.builder()
+                    BulkMessagingSettingsUpdatePhoneNumbers.builder()
                         .addFailed("string")
                         .orderId("00000000-0000-0000-0000-000000000000")
                         .addPending("string")
                         .recordType(
-                            MessagingNumbersBulkUpdateRetrieveResponse.Data.RecordType
+                            BulkMessagingSettingsUpdatePhoneNumbers.RecordType
                                 .MESSAGING_NUMBERS_BULK_UPDATE
                         )
                         .success(listOf("+18880000000", "+18880000001", "+18880000002"))
@@ -29,12 +29,12 @@ internal class MessagingNumbersBulkUpdateRetrieveResponseTest {
 
         assertThat(messagingNumbersBulkUpdateRetrieveResponse.data())
             .contains(
-                MessagingNumbersBulkUpdateRetrieveResponse.Data.builder()
+                BulkMessagingSettingsUpdatePhoneNumbers.builder()
                     .addFailed("string")
                     .orderId("00000000-0000-0000-0000-000000000000")
                     .addPending("string")
                     .recordType(
-                        MessagingNumbersBulkUpdateRetrieveResponse.Data.RecordType
+                        BulkMessagingSettingsUpdatePhoneNumbers.RecordType
                             .MESSAGING_NUMBERS_BULK_UPDATE
                     )
                     .success(listOf("+18880000000", "+18880000001", "+18880000002"))
@@ -48,12 +48,12 @@ internal class MessagingNumbersBulkUpdateRetrieveResponseTest {
         val messagingNumbersBulkUpdateRetrieveResponse =
             MessagingNumbersBulkUpdateRetrieveResponse.builder()
                 .data(
-                    MessagingNumbersBulkUpdateRetrieveResponse.Data.builder()
+                    BulkMessagingSettingsUpdatePhoneNumbers.builder()
                         .addFailed("string")
                         .orderId("00000000-0000-0000-0000-000000000000")
                         .addPending("string")
                         .recordType(
-                            MessagingNumbersBulkUpdateRetrieveResponse.Data.RecordType
+                            BulkMessagingSettingsUpdatePhoneNumbers.RecordType
                                 .MESSAGING_NUMBERS_BULK_UPDATE
                         )
                         .success(listOf("+18880000000", "+18880000001", "+18880000002"))

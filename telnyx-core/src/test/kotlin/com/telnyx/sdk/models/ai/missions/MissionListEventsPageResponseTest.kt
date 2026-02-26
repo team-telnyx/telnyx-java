@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.Meta
+import com.telnyx.sdk.models.ai.missions.runs.events.EventData
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -17,16 +18,16 @@ internal class MissionListEventsPageResponseTest {
         val missionListEventsPageResponse =
             MissionListEventsPageResponse.builder()
                 .addData(
-                    MissionListEventsResponse.builder()
+                    EventData.builder()
                         .eventId("event_id")
                         .runId("run_id")
                         .summary("summary")
                         .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .type(MissionListEventsResponse.Type.STATUS_CHANGE)
+                        .type(EventData.Type.STATUS_CHANGE)
                         .agentId("agent_id")
                         .idempotencyKey("idempotency_key")
                         .payload(
-                            MissionListEventsResponse.Payload.builder()
+                            EventData.Payload.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )
@@ -45,16 +46,16 @@ internal class MissionListEventsPageResponseTest {
 
         assertThat(missionListEventsPageResponse.data())
             .containsExactly(
-                MissionListEventsResponse.builder()
+                EventData.builder()
                     .eventId("event_id")
                     .runId("run_id")
                     .summary("summary")
                     .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .type(MissionListEventsResponse.Type.STATUS_CHANGE)
+                    .type(EventData.Type.STATUS_CHANGE)
                     .agentId("agent_id")
                     .idempotencyKey("idempotency_key")
                     .payload(
-                        MissionListEventsResponse.Payload.builder()
+                        EventData.Payload.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -73,16 +74,16 @@ internal class MissionListEventsPageResponseTest {
         val missionListEventsPageResponse =
             MissionListEventsPageResponse.builder()
                 .addData(
-                    MissionListEventsResponse.builder()
+                    EventData.builder()
                         .eventId("event_id")
                         .runId("run_id")
                         .summary("summary")
                         .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .type(MissionListEventsResponse.Type.STATUS_CHANGE)
+                        .type(EventData.Type.STATUS_CHANGE)
                         .agentId("agent_id")
                         .idempotencyKey("idempotency_key")
                         .payload(
-                            MissionListEventsResponse.Payload.builder()
+                            EventData.Payload.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .build()
                         )

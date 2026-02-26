@@ -14,7 +14,7 @@ internal class ConnectionRetrieveResponseTest {
         val connectionRetrieveResponse =
             ConnectionRetrieveResponse.builder()
                 .data(
-                    ConnectionRetrieveResponse.Data.builder()
+                    IntegrationConnection.builder()
                         .id("id")
                         .addAllowedTool("string")
                         .integrationId("integration_id")
@@ -24,7 +24,7 @@ internal class ConnectionRetrieveResponseTest {
 
         assertThat(connectionRetrieveResponse.data())
             .isEqualTo(
-                ConnectionRetrieveResponse.Data.builder()
+                IntegrationConnection.builder()
                     .id("id")
                     .addAllowedTool("string")
                     .integrationId("integration_id")
@@ -38,7 +38,7 @@ internal class ConnectionRetrieveResponseTest {
         val connectionRetrieveResponse =
             ConnectionRetrieveResponse.builder()
                 .data(
-                    ConnectionRetrieveResponse.Data.builder()
+                    IntegrationConnection.builder()
                         .id("id")
                         .addAllowedTool("string")
                         .integrationId("integration_id")

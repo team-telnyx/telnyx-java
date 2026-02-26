@@ -19,7 +19,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class UserListResponse
+class OrganizationUser
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
@@ -210,11 +210,11 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [UserListResponse]. */
+        /** Returns a mutable builder for constructing an instance of [OrganizationUser]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [UserListResponse]. */
+    /** A builder for [OrganizationUser]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String> = JsonMissing.of()
@@ -228,16 +228,16 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(userListResponse: UserListResponse) = apply {
-            id = userListResponse.id
-            createdAt = userListResponse.createdAt
-            email = userListResponse.email
-            groups = userListResponse.groups.map { it.toMutableList() }
-            lastSignInAt = userListResponse.lastSignInAt
-            organizationUserBypassesSso = userListResponse.organizationUserBypassesSso
-            recordType = userListResponse.recordType
-            userStatus = userListResponse.userStatus
-            additionalProperties = userListResponse.additionalProperties.toMutableMap()
+        internal fun from(organizationUser: OrganizationUser) = apply {
+            id = organizationUser.id
+            createdAt = organizationUser.createdAt
+            email = organizationUser.email
+            groups = organizationUser.groups.map { it.toMutableList() }
+            lastSignInAt = organizationUser.lastSignInAt
+            organizationUserBypassesSso = organizationUser.organizationUserBypassesSso
+            recordType = organizationUser.recordType
+            userStatus = organizationUser.userStatus
+            additionalProperties = organizationUser.additionalProperties.toMutableMap()
         }
 
         /** Identifies the specific resource. */
@@ -382,12 +382,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [UserListResponse].
+         * Returns an immutable instance of [OrganizationUser].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): UserListResponse =
-            UserListResponse(
+        fun build(): OrganizationUser =
+            OrganizationUser(
                 id,
                 createdAt,
                 email,
@@ -402,7 +402,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): UserListResponse = apply {
+    fun validate(): OrganizationUser = apply {
         if (validated) {
             return@apply
         }
@@ -581,7 +581,7 @@ private constructor(
             return true
         }
 
-        return other is UserListResponse &&
+        return other is OrganizationUser &&
             id == other.id &&
             createdAt == other.createdAt &&
             email == other.email &&
@@ -610,5 +610,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "UserListResponse{id=$id, createdAt=$createdAt, email=$email, groups=$groups, lastSignInAt=$lastSignInAt, organizationUserBypassesSso=$organizationUserBypassesSso, recordType=$recordType, userStatus=$userStatus, additionalProperties=$additionalProperties}"
+        "OrganizationUser{id=$id, createdAt=$createdAt, email=$email, groups=$groups, lastSignInAt=$lastSignInAt, organizationUserBypassesSso=$organizationUserBypassesSso, recordType=$recordType, userStatus=$userStatus, additionalProperties=$additionalProperties}"
 }

@@ -16,7 +16,7 @@ internal class CommentListResponseTest {
         val commentListResponse =
             CommentListResponse.builder()
                 .addData(
-                    CommentListResponse.Data.builder()
+                    PortoutComment.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .body("This is a comment")
                         .createdAt("2018-02-02T22:25:27.521Z")
@@ -37,7 +37,7 @@ internal class CommentListResponseTest {
 
         assertThat(commentListResponse.data().getOrNull())
             .containsExactly(
-                CommentListResponse.Data.builder()
+                PortoutComment.builder()
                     .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                     .body("This is a comment")
                     .createdAt("2018-02-02T22:25:27.521Z")
@@ -58,7 +58,7 @@ internal class CommentListResponseTest {
         val commentListResponse =
             CommentListResponse.builder()
                 .addData(
-                    CommentListResponse.Data.builder()
+                    PortoutComment.builder()
                         .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
                         .body("This is a comment")
                         .createdAt("2018-02-02T22:25:27.521Z")
