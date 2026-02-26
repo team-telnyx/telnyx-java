@@ -15,7 +15,7 @@ internal class UserListPageResponseTest {
         val userListPageResponse =
             UserListPageResponse.builder()
                 .addData(
-                    UserListResponse.builder()
+                    OrganizationUser.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .email("user@example.com")
@@ -28,7 +28,7 @@ internal class UserListPageResponseTest {
                         .lastSignInAt("2018-02-02T22:25:27.521Z")
                         .organizationUserBypassesSso(false)
                         .recordType("organization_sub_user")
-                        .userStatus(UserListResponse.UserStatus.ENABLED)
+                        .userStatus(OrganizationUser.UserStatus.ENABLED)
                         .build()
                 )
                 .meta(
@@ -43,7 +43,7 @@ internal class UserListPageResponseTest {
 
         assertThat(userListPageResponse.data().getOrNull())
             .containsExactly(
-                UserListResponse.builder()
+                OrganizationUser.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .email("user@example.com")
@@ -56,7 +56,7 @@ internal class UserListPageResponseTest {
                     .lastSignInAt("2018-02-02T22:25:27.521Z")
                     .organizationUserBypassesSso(false)
                     .recordType("organization_sub_user")
-                    .userStatus(UserListResponse.UserStatus.ENABLED)
+                    .userStatus(OrganizationUser.UserStatus.ENABLED)
                     .build()
             )
         assertThat(userListPageResponse.meta())
@@ -76,7 +76,7 @@ internal class UserListPageResponseTest {
         val userListPageResponse =
             UserListPageResponse.builder()
                 .addData(
-                    UserListResponse.builder()
+                    OrganizationUser.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .email("user@example.com")
@@ -89,7 +89,7 @@ internal class UserListPageResponseTest {
                         .lastSignInAt("2018-02-02T22:25:27.521Z")
                         .organizationUserBypassesSso(false)
                         .recordType("organization_sub_user")
-                        .userStatus(UserListResponse.UserStatus.ENABLED)
+                        .userStatus(OrganizationUser.UserStatus.ENABLED)
                         .build()
                 )
                 .meta(

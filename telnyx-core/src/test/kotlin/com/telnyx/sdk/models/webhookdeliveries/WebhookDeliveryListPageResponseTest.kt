@@ -21,21 +21,19 @@ internal class WebhookDeliveryListPageResponseTest {
                     WebhookDeliveryListResponse.builder()
                         .id("f5586561-8ff0-4291-a0ac-84fe544797bd")
                         .addAttempt(
-                            WebhookDeliveryListResponse.Attempt.builder()
+                            Attempt.builder()
                                 .addError(0L)
                                 .finishedAt(OffsetDateTime.parse("2020-08-10T14:00:05.595Z"))
                                 .http(
-                                    WebhookDeliveryListResponse.Attempt.Http.builder()
+                                    Http.builder()
                                         .request(
-                                            WebhookDeliveryListResponse.Attempt.Http.Request
-                                                .builder()
+                                            Http.Request.builder()
                                                 .addHeader(listOf("Accept", "*/*"))
                                                 .url("https://fallback.example.com/webhooks")
                                                 .build()
                                         )
                                         .response(
-                                            WebhookDeliveryListResponse.Attempt.Http.Response
-                                                .builder()
+                                            Http.Response.builder()
                                                 .body("All good.")
                                                 .addHeader(listOf("Content-Type", "text/html"))
                                                 .status(200L)
@@ -44,25 +42,23 @@ internal class WebhookDeliveryListPageResponseTest {
                                         .build()
                                 )
                                 .startedAt(OffsetDateTime.parse("2020-08-10T14:00:05.364Z"))
-                                .status(WebhookDeliveryListResponse.Attempt.Status.DELIVERED)
+                                .status(Attempt.Status.DELIVERED)
                                 .build()
                         )
                         .addAttempt(
-                            WebhookDeliveryListResponse.Attempt.builder()
+                            Attempt.builder()
                                 .addError(75499L)
                                 .finishedAt(OffsetDateTime.parse("2020-08-10T14:00:05.360Z"))
                                 .http(
-                                    WebhookDeliveryListResponse.Attempt.Http.builder()
+                                    Http.builder()
                                         .request(
-                                            WebhookDeliveryListResponse.Attempt.Http.Request
-                                                .builder()
+                                            Http.Request.builder()
                                                 .addHeader(listOf("Accept", "*/*"))
                                                 .url("https://typo.example.com/webhooks")
                                                 .build()
                                         )
                                         .response(
-                                            WebhookDeliveryListResponse.Attempt.Http.Response
-                                                .builder()
+                                            Http.Response.builder()
                                                 .body("Oops. Not found.")
                                                 .addHeader(listOf("Content-Type", "text/html"))
                                                 .addHeader(listOf("Pragma", "no-cache"))
@@ -72,7 +68,7 @@ internal class WebhookDeliveryListPageResponseTest {
                                         .build()
                                 )
                                 .startedAt(OffsetDateTime.parse("2020-08-10T14:00:05.004Z"))
-                                .status(WebhookDeliveryListResponse.Attempt.Status.FAILED)
+                                .status(Attempt.Status.FAILED)
                                 .build()
                         )
                         .finishedAt(OffsetDateTime.parse("2020-08-10T14:00:05.595Z"))
@@ -110,19 +106,19 @@ internal class WebhookDeliveryListPageResponseTest {
                 WebhookDeliveryListResponse.builder()
                     .id("f5586561-8ff0-4291-a0ac-84fe544797bd")
                     .addAttempt(
-                        WebhookDeliveryListResponse.Attempt.builder()
+                        Attempt.builder()
                             .addError(0L)
                             .finishedAt(OffsetDateTime.parse("2020-08-10T14:00:05.595Z"))
                             .http(
-                                WebhookDeliveryListResponse.Attempt.Http.builder()
+                                Http.builder()
                                     .request(
-                                        WebhookDeliveryListResponse.Attempt.Http.Request.builder()
+                                        Http.Request.builder()
                                             .addHeader(listOf("Accept", "*/*"))
                                             .url("https://fallback.example.com/webhooks")
                                             .build()
                                     )
                                     .response(
-                                        WebhookDeliveryListResponse.Attempt.Http.Response.builder()
+                                        Http.Response.builder()
                                             .body("All good.")
                                             .addHeader(listOf("Content-Type", "text/html"))
                                             .status(200L)
@@ -131,23 +127,23 @@ internal class WebhookDeliveryListPageResponseTest {
                                     .build()
                             )
                             .startedAt(OffsetDateTime.parse("2020-08-10T14:00:05.364Z"))
-                            .status(WebhookDeliveryListResponse.Attempt.Status.DELIVERED)
+                            .status(Attempt.Status.DELIVERED)
                             .build()
                     )
                     .addAttempt(
-                        WebhookDeliveryListResponse.Attempt.builder()
+                        Attempt.builder()
                             .addError(75499L)
                             .finishedAt(OffsetDateTime.parse("2020-08-10T14:00:05.360Z"))
                             .http(
-                                WebhookDeliveryListResponse.Attempt.Http.builder()
+                                Http.builder()
                                     .request(
-                                        WebhookDeliveryListResponse.Attempt.Http.Request.builder()
+                                        Http.Request.builder()
                                             .addHeader(listOf("Accept", "*/*"))
                                             .url("https://typo.example.com/webhooks")
                                             .build()
                                     )
                                     .response(
-                                        WebhookDeliveryListResponse.Attempt.Http.Response.builder()
+                                        Http.Response.builder()
                                             .body("Oops. Not found.")
                                             .addHeader(listOf("Content-Type", "text/html"))
                                             .addHeader(listOf("Pragma", "no-cache"))
@@ -157,7 +153,7 @@ internal class WebhookDeliveryListPageResponseTest {
                                     .build()
                             )
                             .startedAt(OffsetDateTime.parse("2020-08-10T14:00:05.004Z"))
-                            .status(WebhookDeliveryListResponse.Attempt.Status.FAILED)
+                            .status(Attempt.Status.FAILED)
                             .build()
                     )
                     .finishedAt(OffsetDateTime.parse("2020-08-10T14:00:05.595Z"))
@@ -200,21 +196,19 @@ internal class WebhookDeliveryListPageResponseTest {
                     WebhookDeliveryListResponse.builder()
                         .id("f5586561-8ff0-4291-a0ac-84fe544797bd")
                         .addAttempt(
-                            WebhookDeliveryListResponse.Attempt.builder()
+                            Attempt.builder()
                                 .addError(0L)
                                 .finishedAt(OffsetDateTime.parse("2020-08-10T14:00:05.595Z"))
                                 .http(
-                                    WebhookDeliveryListResponse.Attempt.Http.builder()
+                                    Http.builder()
                                         .request(
-                                            WebhookDeliveryListResponse.Attempt.Http.Request
-                                                .builder()
+                                            Http.Request.builder()
                                                 .addHeader(listOf("Accept", "*/*"))
                                                 .url("https://fallback.example.com/webhooks")
                                                 .build()
                                         )
                                         .response(
-                                            WebhookDeliveryListResponse.Attempt.Http.Response
-                                                .builder()
+                                            Http.Response.builder()
                                                 .body("All good.")
                                                 .addHeader(listOf("Content-Type", "text/html"))
                                                 .status(200L)
@@ -223,25 +217,23 @@ internal class WebhookDeliveryListPageResponseTest {
                                         .build()
                                 )
                                 .startedAt(OffsetDateTime.parse("2020-08-10T14:00:05.364Z"))
-                                .status(WebhookDeliveryListResponse.Attempt.Status.DELIVERED)
+                                .status(Attempt.Status.DELIVERED)
                                 .build()
                         )
                         .addAttempt(
-                            WebhookDeliveryListResponse.Attempt.builder()
+                            Attempt.builder()
                                 .addError(75499L)
                                 .finishedAt(OffsetDateTime.parse("2020-08-10T14:00:05.360Z"))
                                 .http(
-                                    WebhookDeliveryListResponse.Attempt.Http.builder()
+                                    Http.builder()
                                         .request(
-                                            WebhookDeliveryListResponse.Attempt.Http.Request
-                                                .builder()
+                                            Http.Request.builder()
                                                 .addHeader(listOf("Accept", "*/*"))
                                                 .url("https://typo.example.com/webhooks")
                                                 .build()
                                         )
                                         .response(
-                                            WebhookDeliveryListResponse.Attempt.Http.Response
-                                                .builder()
+                                            Http.Response.builder()
                                                 .body("Oops. Not found.")
                                                 .addHeader(listOf("Content-Type", "text/html"))
                                                 .addHeader(listOf("Pragma", "no-cache"))
@@ -251,7 +243,7 @@ internal class WebhookDeliveryListPageResponseTest {
                                         .build()
                                 )
                                 .startedAt(OffsetDateTime.parse("2020-08-10T14:00:05.004Z"))
-                                .status(WebhookDeliveryListResponse.Attempt.Status.FAILED)
+                                .status(Attempt.Status.FAILED)
                                 .build()
                         )
                         .finishedAt(OffsetDateTime.parse("2020-08-10T14:00:05.595Z"))

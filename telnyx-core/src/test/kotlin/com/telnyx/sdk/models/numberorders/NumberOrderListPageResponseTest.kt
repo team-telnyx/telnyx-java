@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.numberorders
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.PhoneNumbersJobPhoneNumber
 import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
@@ -25,7 +26,7 @@ internal class NumberOrderListPageResponseTest {
                         .customerReference("MY REF 001")
                         .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600")
                         .addPhoneNumber(
-                            NumberOrderListResponse.PhoneNumber.builder()
+                            PhoneNumbersJobPhoneNumber.builder()
                                 .id("id")
                                 .phoneNumber("+19705555000")
                                 .build()
@@ -58,7 +59,7 @@ internal class NumberOrderListPageResponseTest {
                     .customerReference("MY REF 001")
                     .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600")
                     .addPhoneNumber(
-                        NumberOrderListResponse.PhoneNumber.builder()
+                        PhoneNumbersJobPhoneNumber.builder()
                             .id("id")
                             .phoneNumber("+19705555000")
                             .build()
@@ -96,7 +97,7 @@ internal class NumberOrderListPageResponseTest {
                         .customerReference("MY REF 001")
                         .messagingProfileId("abc85f64-5717-4562-b3fc-2c9600")
                         .addPhoneNumber(
-                            NumberOrderListResponse.PhoneNumber.builder()
+                            PhoneNumbersJobPhoneNumber.builder()
                                 .id("id")
                                 .phoneNumber("+19705555000")
                                 .build()

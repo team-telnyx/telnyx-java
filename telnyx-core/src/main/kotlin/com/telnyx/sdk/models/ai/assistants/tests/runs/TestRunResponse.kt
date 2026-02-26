@@ -37,7 +37,7 @@ private constructor(
     private val completedAt: JsonField<OffsetDateTime>,
     private val conversationId: JsonField<String>,
     private val conversationInsightsId: JsonField<String>,
-    private val detailStatus: JsonField<List<DetailStatus>>,
+    private val detailStatus: JsonField<List<TestRunDetailResult>>,
     private val logs: JsonField<String>,
     private val testSuiteRunId: JsonField<String>,
     private val updatedAt: JsonField<OffsetDateTime>,
@@ -66,7 +66,7 @@ private constructor(
         conversationInsightsId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("detail_status")
         @ExcludeMissing
-        detailStatus: JsonField<List<DetailStatus>> = JsonMissing.of(),
+        detailStatus: JsonField<List<TestRunDetailResult>> = JsonMissing.of(),
         @JsonProperty("logs") @ExcludeMissing logs: JsonField<String> = JsonMissing.of(),
         @JsonProperty("test_suite_run_id")
         @ExcludeMissing
@@ -169,7 +169,8 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun detailStatus(): Optional<List<DetailStatus>> = detailStatus.getOptional("detail_status")
+    fun detailStatus(): Optional<List<TestRunDetailResult>> =
+        detailStatus.getOptional("detail_status")
 
     /**
      * Detailed execution logs and debug information.
@@ -269,7 +270,7 @@ private constructor(
      */
     @JsonProperty("detail_status")
     @ExcludeMissing
-    fun _detailStatus(): JsonField<List<DetailStatus>> = detailStatus
+    fun _detailStatus(): JsonField<List<TestRunDetailResult>> = detailStatus
 
     /**
      * Returns the raw JSON value of [logs].
@@ -336,7 +337,7 @@ private constructor(
         private var completedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var conversationId: JsonField<String> = JsonMissing.of()
         private var conversationInsightsId: JsonField<String> = JsonMissing.of()
-        private var detailStatus: JsonField<MutableList<DetailStatus>>? = null
+        private var detailStatus: JsonField<MutableList<TestRunDetailResult>>? = null
         private var logs: JsonField<String> = JsonMissing.of()
         private var testSuiteRunId: JsonField<String> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -473,26 +474,26 @@ private constructor(
          * the rubric and status is the result of the evaluation. This list will have a result for
          * every criteria in the rubric section.
          */
-        fun detailStatus(detailStatus: List<DetailStatus>) =
+        fun detailStatus(detailStatus: List<TestRunDetailResult>) =
             detailStatus(JsonField.of(detailStatus))
 
         /**
          * Sets [Builder.detailStatus] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.detailStatus] with a well-typed `List<DetailStatus>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.detailStatus] with a well-typed
+         * `List<TestRunDetailResult>` value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
          */
-        fun detailStatus(detailStatus: JsonField<List<DetailStatus>>) = apply {
+        fun detailStatus(detailStatus: JsonField<List<TestRunDetailResult>>) = apply {
             this.detailStatus = detailStatus.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [DetailStatus] to [Builder.detailStatus].
+         * Adds a single [TestRunDetailResult] to [Builder.detailStatus].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addDetailStatus(detailStatus: DetailStatus) = apply {
+        fun addDetailStatus(detailStatus: TestRunDetailResult) = apply {
             this.detailStatus =
                 (this.detailStatus ?: JsonField.of(mutableListOf())).also {
                     checkKnown("detailStatus", it).add(detailStatus)
@@ -638,215 +639,6 @@ private constructor(
             (if (logs.asKnown().isPresent) 1 else 0) +
             (if (testSuiteRunId.asKnown().isPresent) 1 else 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0)
-
-    class DetailStatus
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val name: JsonField<String>,
-        private val status: JsonField<TestStatus>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("status") @ExcludeMissing status: JsonField<TestStatus> = JsonMissing.of(),
-        ) : this(name, status, mutableMapOf())
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun name(): String = name.getRequired("name")
-
-        /**
-         * Represents the lifecycle of a test:
-         * - 'pending': Test is waiting to be executed.
-         * - 'starting': Test execution is initializing.
-         * - 'running': Test is currently executing.
-         * - 'passed': Test completed successfully.
-         * - 'failed': Test executed but did not pass.
-         * - 'error': An error occurred during test execution.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun status(): TestStatus = status.getRequired("status")
-
-        /**
-         * Returns the raw JSON value of [name].
-         *
-         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-        /**
-         * Returns the raw JSON value of [status].
-         *
-         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<TestStatus> = status
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [DetailStatus].
-             *
-             * The following fields are required:
-             * ```java
-             * .name()
-             * .status()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [DetailStatus]. */
-        class Builder internal constructor() {
-
-            private var name: JsonField<String>? = null
-            private var status: JsonField<TestStatus>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(detailStatus: DetailStatus) = apply {
-                name = detailStatus.name
-                status = detailStatus.status
-                additionalProperties = detailStatus.additionalProperties.toMutableMap()
-            }
-
-            fun name(name: String) = name(JsonField.of(name))
-
-            /**
-             * Sets [Builder.name] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.name] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun name(name: JsonField<String>) = apply { this.name = name }
-
-            /**
-             * Represents the lifecycle of a test:
-             * - 'pending': Test is waiting to be executed.
-             * - 'starting': Test execution is initializing.
-             * - 'running': Test is currently executing.
-             * - 'passed': Test completed successfully.
-             * - 'failed': Test executed but did not pass.
-             * - 'error': An error occurred during test execution.
-             */
-            fun status(status: TestStatus) = status(JsonField.of(status))
-
-            /**
-             * Sets [Builder.status] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.status] with a well-typed [TestStatus] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun status(status: JsonField<TestStatus>) = apply { this.status = status }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [DetailStatus].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .name()
-             * .status()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): DetailStatus =
-                DetailStatus(
-                    checkRequired("name", name),
-                    checkRequired("status", status),
-                    additionalProperties.toMutableMap(),
-                )
-        }
-
-        private var validated: Boolean = false
-
-        fun validate(): DetailStatus = apply {
-            if (validated) {
-                return@apply
-            }
-
-            name()
-            status().validate()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (name.asKnown().isPresent) 1 else 0) +
-                (status.asKnown().getOrNull()?.validity() ?: 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is DetailStatus &&
-                name == other.name &&
-                status == other.status &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(name, status, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "DetailStatus{name=$name, status=$status, additionalProperties=$additionalProperties}"
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

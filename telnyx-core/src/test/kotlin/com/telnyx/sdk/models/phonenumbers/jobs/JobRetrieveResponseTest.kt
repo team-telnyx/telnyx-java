@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.phonenumbers.jobs
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.PhoneNumbersJobPhoneNumber
 import com.telnyx.sdk.models.phonenumberblocks.jobs.JobError
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -54,19 +55,19 @@ internal class JobRetrieveResponseTest {
                         )
                         .phoneNumbers(
                             listOf(
-                                PhoneNumbersJob.PhoneNumber.builder()
+                                PhoneNumbersJobPhoneNumber.builder()
                                     .id("2637816387126861836")
                                     .phoneNumber("+19705555000")
                                     .build(),
-                                PhoneNumbersJob.PhoneNumber.builder()
+                                PhoneNumbersJobPhoneNumber.builder()
                                     .id("id")
                                     .phoneNumber("+19715555098")
                                     .build(),
-                                PhoneNumbersJob.PhoneNumber.builder()
+                                PhoneNumbersJobPhoneNumber.builder()
                                     .id("id")
                                     .phoneNumber("+19705555099")
                                     .build(),
-                                PhoneNumbersJob.PhoneNumber.builder()
+                                PhoneNumbersJobPhoneNumber.builder()
                                     .id("3388768018273")
                                     .phoneNumber("+19705555000")
                                     .build(),
@@ -132,19 +133,19 @@ internal class JobRetrieveResponseTest {
                     )
                     .phoneNumbers(
                         listOf(
-                            PhoneNumbersJob.PhoneNumber.builder()
+                            PhoneNumbersJobPhoneNumber.builder()
                                 .id("2637816387126861836")
                                 .phoneNumber("+19705555000")
                                 .build(),
-                            PhoneNumbersJob.PhoneNumber.builder()
+                            PhoneNumbersJobPhoneNumber.builder()
                                 .id("id")
                                 .phoneNumber("+19715555098")
                                 .build(),
-                            PhoneNumbersJob.PhoneNumber.builder()
+                            PhoneNumbersJobPhoneNumber.builder()
                                 .id("id")
                                 .phoneNumber("+19705555099")
                                 .build(),
-                            PhoneNumbersJob.PhoneNumber.builder()
+                            PhoneNumbersJobPhoneNumber.builder()
                                 .id("3388768018273")
                                 .phoneNumber("+19705555000")
                                 .build(),
@@ -214,19 +215,19 @@ internal class JobRetrieveResponseTest {
                         )
                         .phoneNumbers(
                             listOf(
-                                PhoneNumbersJob.PhoneNumber.builder()
+                                PhoneNumbersJobPhoneNumber.builder()
                                     .id("2637816387126861836")
                                     .phoneNumber("+19705555000")
                                     .build(),
-                                PhoneNumbersJob.PhoneNumber.builder()
+                                PhoneNumbersJobPhoneNumber.builder()
                                     .id("id")
                                     .phoneNumber("+19715555098")
                                     .build(),
-                                PhoneNumbersJob.PhoneNumber.builder()
+                                PhoneNumbersJobPhoneNumber.builder()
                                     .id("id")
                                     .phoneNumber("+19705555099")
                                     .build(),
-                                PhoneNumbersJob.PhoneNumber.builder()
+                                PhoneNumbersJobPhoneNumber.builder()
                                     .id("3388768018273")
                                     .phoneNumber("+19705555000")
                                     .build(),

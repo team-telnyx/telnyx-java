@@ -5,6 +5,9 @@ package com.telnyx.sdk.models.availablephonenumberblocks
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.AvailablePhoneNumbersMetadata
+import com.telnyx.sdk.models.CostInformation
+import com.telnyx.sdk.models.Feature
+import com.telnyx.sdk.models.RegionInformation
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -18,22 +21,14 @@ internal class AvailablePhoneNumberBlockListResponseTest {
                 .addData(
                     AvailablePhoneNumberBlockListResponse.Data.builder()
                         .costInformation(
-                            AvailablePhoneNumberBlockListResponse.Data.CostInformation.builder()
+                            CostInformation.builder()
                                 .currency("USD")
                                 .monthlyCost("6.54")
                                 .upfrontCost("3.21")
                                 .build()
                         )
-                        .addFeature(
-                            AvailablePhoneNumberBlockListResponse.Data.Feature.builder()
-                                .name("sms")
-                                .build()
-                        )
-                        .addFeature(
-                            AvailablePhoneNumberBlockListResponse.Data.Feature.builder()
-                                .name("voice")
-                                .build()
-                        )
+                        .addFeature(Feature.builder().name("sms").build())
+                        .addFeature(Feature.builder().name("voice").build())
                         .phoneNumber("+19705555000")
                         .range(10L)
                         .recordType(
@@ -41,13 +36,9 @@ internal class AvailablePhoneNumberBlockListResponseTest {
                                 .AVAILABLE_PHONE_NUMBER_BLOCK
                         )
                         .addRegionInformation(
-                            AvailablePhoneNumberBlockListResponse.Data.RegionInformation.builder()
+                            RegionInformation.builder()
                                 .regionName("US")
-                                .regionType(
-                                    AvailablePhoneNumberBlockListResponse.Data.RegionInformation
-                                        .RegionType
-                                        .COUNTRY_CODE
-                                )
+                                .regionType(RegionInformation.RegionType.COUNTRY_CODE)
                                 .build()
                         )
                         .build()
@@ -64,22 +55,14 @@ internal class AvailablePhoneNumberBlockListResponseTest {
             .containsExactly(
                 AvailablePhoneNumberBlockListResponse.Data.builder()
                     .costInformation(
-                        AvailablePhoneNumberBlockListResponse.Data.CostInformation.builder()
+                        CostInformation.builder()
                             .currency("USD")
                             .monthlyCost("6.54")
                             .upfrontCost("3.21")
                             .build()
                     )
-                    .addFeature(
-                        AvailablePhoneNumberBlockListResponse.Data.Feature.builder()
-                            .name("sms")
-                            .build()
-                    )
-                    .addFeature(
-                        AvailablePhoneNumberBlockListResponse.Data.Feature.builder()
-                            .name("voice")
-                            .build()
-                    )
+                    .addFeature(Feature.builder().name("sms").build())
+                    .addFeature(Feature.builder().name("voice").build())
                     .phoneNumber("+19705555000")
                     .range(10L)
                     .recordType(
@@ -87,13 +70,9 @@ internal class AvailablePhoneNumberBlockListResponseTest {
                             .AVAILABLE_PHONE_NUMBER_BLOCK
                     )
                     .addRegionInformation(
-                        AvailablePhoneNumberBlockListResponse.Data.RegionInformation.builder()
+                        RegionInformation.builder()
                             .regionName("US")
-                            .regionType(
-                                AvailablePhoneNumberBlockListResponse.Data.RegionInformation
-                                    .RegionType
-                                    .COUNTRY_CODE
-                            )
+                            .regionType(RegionInformation.RegionType.COUNTRY_CODE)
                             .build()
                     )
                     .build()
@@ -115,22 +94,14 @@ internal class AvailablePhoneNumberBlockListResponseTest {
                 .addData(
                     AvailablePhoneNumberBlockListResponse.Data.builder()
                         .costInformation(
-                            AvailablePhoneNumberBlockListResponse.Data.CostInformation.builder()
+                            CostInformation.builder()
                                 .currency("USD")
                                 .monthlyCost("6.54")
                                 .upfrontCost("3.21")
                                 .build()
                         )
-                        .addFeature(
-                            AvailablePhoneNumberBlockListResponse.Data.Feature.builder()
-                                .name("sms")
-                                .build()
-                        )
-                        .addFeature(
-                            AvailablePhoneNumberBlockListResponse.Data.Feature.builder()
-                                .name("voice")
-                                .build()
-                        )
+                        .addFeature(Feature.builder().name("sms").build())
+                        .addFeature(Feature.builder().name("voice").build())
                         .phoneNumber("+19705555000")
                         .range(10L)
                         .recordType(
@@ -138,13 +109,9 @@ internal class AvailablePhoneNumberBlockListResponseTest {
                                 .AVAILABLE_PHONE_NUMBER_BLOCK
                         )
                         .addRegionInformation(
-                            AvailablePhoneNumberBlockListResponse.Data.RegionInformation.builder()
+                            RegionInformation.builder()
                                 .regionName("US")
-                                .regionType(
-                                    AvailablePhoneNumberBlockListResponse.Data.RegionInformation
-                                        .RegionType
-                                        .COUNTRY_CODE
-                                )
+                                .regionType(RegionInformation.RegionType.COUNTRY_CODE)
                                 .build()
                         )
                         .build()

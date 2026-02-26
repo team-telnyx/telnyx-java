@@ -122,21 +122,21 @@ private constructor(
          * Alias for calling [addData] with
          * `EventListResponse.ofWebhookPortoutStatusChanged(webhookPortoutStatusChanged)`.
          */
-        fun addData(webhookPortoutStatusChanged: EventListResponse.WebhookPortoutStatusChanged) =
+        fun addData(webhookPortoutStatusChanged: WebhookPortoutStatusChanged) =
             addData(EventListResponse.ofWebhookPortoutStatusChanged(webhookPortoutStatusChanged))
 
         /**
          * Alias for calling [addData] with
          * `EventListResponse.ofWebhookPortoutNewComment(webhookPortoutNewComment)`.
          */
-        fun addData(webhookPortoutNewComment: EventListResponse.WebhookPortoutNewComment) =
+        fun addData(webhookPortoutNewComment: WebhookPortoutNewComment) =
             addData(EventListResponse.ofWebhookPortoutNewComment(webhookPortoutNewComment))
 
         /**
          * Alias for calling [addData] with
          * `EventListResponse.ofWebhookPortoutFocDateChanged(webhookPortoutFocDateChanged)`.
          */
-        fun addData(webhookPortoutFocDateChanged: EventListResponse.WebhookPortoutFocDateChanged) =
+        fun addData(webhookPortoutFocDateChanged: WebhookPortoutFocDateChanged) =
             addData(EventListResponse.ofWebhookPortoutFocDateChanged(webhookPortoutFocDateChanged))
 
         fun meta(meta: PaginationMeta) = meta(JsonField.of(meta))

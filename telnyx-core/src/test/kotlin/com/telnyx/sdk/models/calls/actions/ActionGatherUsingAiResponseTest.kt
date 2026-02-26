@@ -14,7 +14,7 @@ internal class ActionGatherUsingAiResponseTest {
         val actionGatherUsingAiResponse =
             ActionGatherUsingAiResponse.builder()
                 .data(
-                    ActionGatherUsingAiResponse.Data.builder()
+                    CallControlCommandResultWithConversationId.builder()
                         .conversationId("d7e9c1d4-8b2a-4b8f-b3a7-9a671c9e9b0a")
                         .result("ok")
                         .build()
@@ -23,7 +23,7 @@ internal class ActionGatherUsingAiResponseTest {
 
         assertThat(actionGatherUsingAiResponse.data())
             .contains(
-                ActionGatherUsingAiResponse.Data.builder()
+                CallControlCommandResultWithConversationId.builder()
                     .conversationId("d7e9c1d4-8b2a-4b8f-b3a7-9a671c9e9b0a")
                     .result("ok")
                     .build()
@@ -36,7 +36,7 @@ internal class ActionGatherUsingAiResponseTest {
         val actionGatherUsingAiResponse =
             ActionGatherUsingAiResponse.builder()
                 .data(
-                    ActionGatherUsingAiResponse.Data.builder()
+                    CallControlCommandResultWithConversationId.builder()
                         .conversationId("d7e9c1d4-8b2a-4b8f-b3a7-9a671c9e9b0a")
                         .result("ok")
                         .build()

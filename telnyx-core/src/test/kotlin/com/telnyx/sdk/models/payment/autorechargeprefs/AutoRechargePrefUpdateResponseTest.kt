@@ -14,11 +14,11 @@ internal class AutoRechargePrefUpdateResponseTest {
         val autoRechargePrefUpdateResponse =
             AutoRechargePrefUpdateResponse.builder()
                 .data(
-                    AutoRechargePrefUpdateResponse.Data.builder()
+                    AutoRechargePref.builder()
                         .id("1524126400473204723")
                         .enabled(true)
                         .invoiceEnabled(true)
-                        .preference(AutoRechargePrefUpdateResponse.Data.Preference.CREDIT_PAYPAL)
+                        .preference(AutoRechargePref.Preference.CREDIT_PAYPAL)
                         .rechargeAmount("104.00")
                         .recordType("auto_recharge_pref")
                         .thresholdAmount("104.00")
@@ -28,11 +28,11 @@ internal class AutoRechargePrefUpdateResponseTest {
 
         assertThat(autoRechargePrefUpdateResponse.data())
             .contains(
-                AutoRechargePrefUpdateResponse.Data.builder()
+                AutoRechargePref.builder()
                     .id("1524126400473204723")
                     .enabled(true)
                     .invoiceEnabled(true)
-                    .preference(AutoRechargePrefUpdateResponse.Data.Preference.CREDIT_PAYPAL)
+                    .preference(AutoRechargePref.Preference.CREDIT_PAYPAL)
                     .rechargeAmount("104.00")
                     .recordType("auto_recharge_pref")
                     .thresholdAmount("104.00")
@@ -46,11 +46,11 @@ internal class AutoRechargePrefUpdateResponseTest {
         val autoRechargePrefUpdateResponse =
             AutoRechargePrefUpdateResponse.builder()
                 .data(
-                    AutoRechargePrefUpdateResponse.Data.builder()
+                    AutoRechargePref.builder()
                         .id("1524126400473204723")
                         .enabled(true)
                         .invoiceEnabled(true)
-                        .preference(AutoRechargePrefUpdateResponse.Data.Preference.CREDIT_PAYPAL)
+                        .preference(AutoRechargePref.Preference.CREDIT_PAYPAL)
                         .rechargeAmount("104.00")
                         .recordType("auto_recharge_pref")
                         .thresholdAmount("104.00")

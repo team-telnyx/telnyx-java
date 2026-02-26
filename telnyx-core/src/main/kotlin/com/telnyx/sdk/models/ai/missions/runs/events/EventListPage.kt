@@ -18,15 +18,14 @@ private constructor(
     private val service: EventService,
     private val params: EventListParams,
     private val response: EventListPageResponse,
-) : Page<EventListResponse> {
+) : Page<EventData> {
 
     /**
      * Delegates to [EventListPageResponse], but gracefully handles missing data.
      *
      * @see EventListPageResponse.data
      */
-    fun data(): List<EventListResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<EventData> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [EventListPageResponse], but gracefully handles missing data.
@@ -35,7 +34,7 @@ private constructor(
      */
     fun meta(): Optional<Meta> = response._meta().getOptional("meta")
 
-    override fun items(): List<EventListResponse> = data()
+    override fun items(): List<EventData> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +54,7 @@ private constructor(
 
     override fun nextPage(): EventListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<EventListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<EventData> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): EventListParams = params
