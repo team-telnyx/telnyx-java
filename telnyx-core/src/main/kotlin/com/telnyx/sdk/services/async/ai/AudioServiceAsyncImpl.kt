@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.ai.audio.AudioTranscribeResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Turn audio into text or text into audio. */
 class AudioServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     AudioServiceAsync {
 

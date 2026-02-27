@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.verifications.byphonenumber.actions.VerifyVerificat
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Two factor authentication API */
 class ActionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionService {
 

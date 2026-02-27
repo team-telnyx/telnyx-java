@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.organizations.users.actions.ActionRemoveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Operations related to users in your organization */
 interface ActionServiceAsync {
 
     /**

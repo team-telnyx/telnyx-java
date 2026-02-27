@@ -27,6 +27,7 @@ import com.telnyx.sdk.services.blocking.messaging.rcs.AgentServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Send RCS messages */
 class RcServiceImpl internal constructor(private val clientOptions: ClientOptions) : RcService {
 
     private val withRawResponse: RcService.WithRawResponse by lazy {
@@ -40,6 +41,7 @@ class RcServiceImpl internal constructor(private val clientOptions: ClientOption
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RcService =
         RcServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Send RCS messages */
     override fun agents(): AgentService = agents
 
     override fun inviteTestNumber(
@@ -80,6 +82,7 @@ class RcServiceImpl internal constructor(private val clientOptions: ClientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Send RCS messages */
         override fun agents(): AgentService.WithRawResponse = agents
 
         private val inviteTestNumberHandler: Handler<RcInviteTestNumberResponse> =

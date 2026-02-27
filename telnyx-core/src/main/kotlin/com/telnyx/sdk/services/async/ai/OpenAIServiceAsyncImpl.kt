@@ -23,6 +23,7 @@ class OpenAIServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): OpenAIServiceAsync =
         OpenAIServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** OpenAI-compatible embeddings endpoints for generating vector representations of text */
     override fun embeddings(): EmbeddingServiceAsync = embeddings
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -39,6 +40,7 @@ class OpenAIServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** OpenAI-compatible embeddings endpoints for generating vector representations of text */
         override fun embeddings(): EmbeddingServiceAsync.WithRawResponse = embeddings
     }
 }

@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionUpdateR
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Mobile voice connection operations */
 class MobileVoiceConnectionServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : MobileVoiceConnectionService {
 

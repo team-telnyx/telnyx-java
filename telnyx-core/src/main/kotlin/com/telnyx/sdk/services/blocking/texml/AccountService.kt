@@ -17,6 +17,7 @@ import com.telnyx.sdk.services.blocking.texml.accounts.RecordingService
 import com.telnyx.sdk.services.blocking.texml.accounts.TranscriptionService
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface AccountService {
 
     /**
@@ -31,14 +32,17 @@ interface AccountService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AccountService
 
+    /** TeXML REST Commands */
     fun calls(): CallService
 
+    /** TeXML REST Commands */
     fun conferences(): ConferenceService
 
     fun recordings(): RecordingService
 
     fun transcriptions(): TranscriptionService
 
+    /** TeXML REST Commands */
     fun queues(): QueueService
 
     /** Returns multiple recording resources for an account. */
@@ -139,14 +143,17 @@ interface AccountService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): AccountService.WithRawResponse
 
+        /** TeXML REST Commands */
         fun calls(): CallService.WithRawResponse
 
+        /** TeXML REST Commands */
         fun conferences(): ConferenceService.WithRawResponse
 
         fun recordings(): RecordingService.WithRawResponse
 
         fun transcriptions(): TranscriptionService.WithRawResponse
 
+        /** TeXML REST Commands */
         fun queues(): QueueService.WithRawResponse
 
         /**

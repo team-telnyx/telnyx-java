@@ -44,6 +44,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure your phone numbers */
 class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     PhoneNumberServiceAsync {
 
@@ -74,16 +75,21 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoneNumberServiceAsync =
         PhoneNumberServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Configure your phone numbers */
     override fun actions(): ActionServiceAsync = actions
 
     override fun csvDownloads(): CsvDownloadServiceAsync = csvDownloads
 
+    /** Background jobs performed over a batch of phone numbers */
     override fun jobs(): JobServiceAsync = jobs
 
+    /** Configure your phone numbers */
     override fun messaging(): MessagingServiceAsync = messaging
 
+    /** Configure your phone numbers */
     override fun voice(): VoiceServiceAsync = voice
 
+    /** Voicemail API */
     override fun voicemail(): VoicemailServiceAsync = voicemail
 
     override fun retrieve(
@@ -158,16 +164,21 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Configure your phone numbers */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         override fun csvDownloads(): CsvDownloadServiceAsync.WithRawResponse = csvDownloads
 
+        /** Background jobs performed over a batch of phone numbers */
         override fun jobs(): JobServiceAsync.WithRawResponse = jobs
 
+        /** Configure your phone numbers */
         override fun messaging(): MessagingServiceAsync.WithRawResponse = messaging
 
+        /** Configure your phone numbers */
         override fun voice(): VoiceServiceAsync.WithRawResponse = voice
 
+        /** Voicemail API */
         override fun voicemail(): VoicemailServiceAsync.WithRawResponse = voicemail
 
         private val retrieveHandler: Handler<PhoneNumberRetrieveResponse> =

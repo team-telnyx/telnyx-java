@@ -25,6 +25,7 @@ import com.telnyx.sdk.models.ai.assistants.canarydeploys.CanaryDeployUpdateParam
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure AI assistant specifications */
 class CanaryDeployServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CanaryDeployService {
 

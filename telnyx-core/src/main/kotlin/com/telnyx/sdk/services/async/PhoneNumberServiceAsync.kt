@@ -24,6 +24,7 @@ import com.telnyx.sdk.services.async.phonenumbers.VoicemailServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Configure your phone numbers */
 interface PhoneNumberServiceAsync {
 
     /**
@@ -38,16 +39,21 @@ interface PhoneNumberServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoneNumberServiceAsync
 
+    /** Configure your phone numbers */
     fun actions(): ActionServiceAsync
 
     fun csvDownloads(): CsvDownloadServiceAsync
 
+    /** Background jobs performed over a batch of phone numbers */
     fun jobs(): JobServiceAsync
 
+    /** Configure your phone numbers */
     fun messaging(): MessagingServiceAsync
 
+    /** Configure your phone numbers */
     fun voice(): VoiceServiceAsync
 
+    /** Voicemail API */
     fun voicemail(): VoicemailServiceAsync
 
     /** Retrieve a phone number */
@@ -212,16 +218,21 @@ interface PhoneNumberServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): PhoneNumberServiceAsync.WithRawResponse
 
+        /** Configure your phone numbers */
         fun actions(): ActionServiceAsync.WithRawResponse
 
         fun csvDownloads(): CsvDownloadServiceAsync.WithRawResponse
 
+        /** Background jobs performed over a batch of phone numbers */
         fun jobs(): JobServiceAsync.WithRawResponse
 
+        /** Configure your phone numbers */
         fun messaging(): MessagingServiceAsync.WithRawResponse
 
+        /** Configure your phone numbers */
         fun voice(): VoiceServiceAsync.WithRawResponse
 
+        /** Voicemail API */
         fun voicemail(): VoicemailServiceAsync.WithRawResponse
 
         /**

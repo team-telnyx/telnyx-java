@@ -28,8 +28,10 @@ interface ReportService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReportService
 
+    /** Voice usage reports */
     fun cdrUsageReports(): CdrUsageReportService
 
+    /** Messaging usage reports */
     fun mdrUsageReports(): MdrUsageReportService
 
     /** Fetch all Mdr records */
@@ -77,8 +79,10 @@ interface ReportService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReportService.WithRawResponse
 
+        /** Voice usage reports */
         fun cdrUsageReports(): CdrUsageReportService.WithRawResponse
 
+        /** Messaging usage reports */
         fun mdrUsageReports(): MdrUsageReportService.WithRawResponse
 
         /**

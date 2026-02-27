@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.texttospeech.TextToSpeechListVoicesResponse
 import com.telnyx.sdk.models.texttospeech.TextToSpeechStreamParams
 import java.util.function.Consumer
 
+/** Text to speech streaming command operations */
 class TextToSpeechServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     TextToSpeechService {
 

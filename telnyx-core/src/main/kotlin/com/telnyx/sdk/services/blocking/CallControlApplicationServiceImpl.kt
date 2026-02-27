@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationUpdat
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Call Control applications operations */
 class CallControlApplicationServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : CallControlApplicationService {
 

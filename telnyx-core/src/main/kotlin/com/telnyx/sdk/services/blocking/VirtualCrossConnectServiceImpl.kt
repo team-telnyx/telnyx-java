@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectUpdateRespo
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Virtual Cross Connect operations */
 class VirtualCrossConnectServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : VirtualCrossConnectService {
 

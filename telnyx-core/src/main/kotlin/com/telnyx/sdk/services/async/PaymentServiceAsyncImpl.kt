@@ -22,6 +22,7 @@ import com.telnyx.sdk.services.async.payment.AutoRechargePrefServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Operations for managing stored payment transactions. */
 class PaymentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     PaymentServiceAsync {
 
@@ -38,6 +39,7 @@ class PaymentServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PaymentServiceAsync =
         PaymentServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** V2 Auto Recharge Preferences API */
     override fun autoRechargePrefs(): AutoRechargePrefServiceAsync = autoRechargePrefs
 
     override fun createStoredPaymentTransaction(
@@ -66,6 +68,7 @@ class PaymentServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** V2 Auto Recharge Preferences API */
         override fun autoRechargePrefs(): AutoRechargePrefServiceAsync.WithRawResponse =
             autoRechargePrefs
 

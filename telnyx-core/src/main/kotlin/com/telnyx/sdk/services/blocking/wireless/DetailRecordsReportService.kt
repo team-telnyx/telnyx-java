@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.wireless.detailrecordsreports.DetailRecordsReportRe
 import com.telnyx.sdk.models.wireless.detailrecordsreports.DetailRecordsReportRetrieveResponse
 import java.util.function.Consumer
 
+/** Wireless reporting operations */
 interface DetailRecordsReportService {
 
     /**

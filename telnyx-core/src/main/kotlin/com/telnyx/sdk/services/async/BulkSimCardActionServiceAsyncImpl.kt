@@ -24,6 +24,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** View SIM card actions, their progress and timestamps using the SIM Card Actions API */
 class BulkSimCardActionServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : BulkSimCardActionServiceAsync {
 

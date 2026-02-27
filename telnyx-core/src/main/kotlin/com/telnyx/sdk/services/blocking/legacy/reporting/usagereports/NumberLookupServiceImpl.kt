@@ -27,6 +27,7 @@ import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLo
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Number lookup usage reports */
 class NumberLookupServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     NumberLookupService {
 

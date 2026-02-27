@@ -24,6 +24,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure your phone numbers */
 class MessagingNumbersBulkUpdateServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
     MessagingNumbersBulkUpdateServiceAsync {

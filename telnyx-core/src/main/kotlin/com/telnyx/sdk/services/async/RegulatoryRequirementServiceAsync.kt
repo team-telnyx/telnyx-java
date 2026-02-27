@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.regulatoryrequirements.RegulatoryRequirementRetriev
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Regulatory Requirements */
 interface RegulatoryRequirementServiceAsync {
 
     /**

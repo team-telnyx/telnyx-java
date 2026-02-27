@@ -22,6 +22,7 @@ import com.telnyx.sdk.models.inboundchannels.InboundChannelUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Voice Channels */
 class InboundChannelServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : InboundChannelServiceAsync {
 

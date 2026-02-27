@@ -15,6 +15,7 @@ import com.telnyx.sdk.services.async.mobilephonenumbers.MessagingServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Mobile phone number operations */
 interface MobilePhoneNumberServiceAsync {
 
     /**

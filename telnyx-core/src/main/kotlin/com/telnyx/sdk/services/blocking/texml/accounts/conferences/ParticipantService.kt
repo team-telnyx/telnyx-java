@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.texml.accounts.conferences.participants.Participant
 import com.telnyx.sdk.models.texml.accounts.conferences.participants.ParticipantUpdateResponse
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface ParticipantService {
 
     /**

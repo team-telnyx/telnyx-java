@@ -19,6 +19,7 @@ import com.telnyx.sdk.services.async.texml.accounts.conferences.ParticipantServi
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface ConferenceServiceAsync {
 
     /**
@@ -33,6 +34,7 @@ interface ConferenceServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConferenceServiceAsync
 
+    /** TeXML REST Commands */
     fun participants(): ParticipantServiceAsync
 
     /** Returns a conference resource. */
@@ -197,6 +199,7 @@ interface ConferenceServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): ConferenceServiceAsync.WithRawResponse
 
+        /** TeXML REST Commands */
         fun participants(): ParticipantServiceAsync.WithRawResponse
 
         /**

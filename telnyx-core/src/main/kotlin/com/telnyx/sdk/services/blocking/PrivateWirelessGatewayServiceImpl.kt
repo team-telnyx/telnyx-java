@@ -28,6 +28,7 @@ import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayRetri
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Private Wireless Gateways operations */
 class PrivateWirelessGatewayServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : PrivateWirelessGatewayService {
 

@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.shortcodes.ShortCodeUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Short codes */
 interface ShortCodeServiceAsync {
 
     /**

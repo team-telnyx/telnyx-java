@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.storage.buckets.sslcertificate.SslCertificateRetrie
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** SSL certificate operations */
 interface SslCertificateServiceAsync {
 
     /**

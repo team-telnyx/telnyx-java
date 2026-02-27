@@ -25,6 +25,7 @@ import com.telnyx.sdk.models.phonenumbers.voicemail.VoicemailUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Voicemail API */
 class VoicemailServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     VoicemailService {
 

@@ -25,8 +25,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionServiceAsync =
         ActionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** SIM Cards operations */
     override fun purchase(): PurchaseServiceAsync = purchase
 
+    /** SIM Cards operations */
     override fun register(): RegisterServiceAsync = register
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -47,8 +49,10 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** SIM Cards operations */
         override fun purchase(): PurchaseServiceAsync.WithRawResponse = purchase
 
+        /** SIM Cards operations */
         override fun register(): RegisterServiceAsync.WithRawResponse = register
     }
 }

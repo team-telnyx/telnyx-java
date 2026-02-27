@@ -42,6 +42,7 @@ import com.telnyx.sdk.services.blocking.messaging10dlc.brand.ExternalVettingServ
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Brand operations */
 class BrandServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     BrandService {
 
@@ -58,6 +59,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): BrandService =
         BrandServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Brand operations */
     override fun externalVetting(): ExternalVettingService = externalVetting
 
     override fun create(params: BrandCreateParams, requestOptions: RequestOptions): TelnyxBrand =
@@ -143,6 +145,7 @@ class BrandServiceImpl internal constructor(private val clientOptions: ClientOpt
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Brand operations */
         override fun externalVetting(): ExternalVettingService.WithRawResponse = externalVetting
 
         private val createHandler: Handler<TelnyxBrand> =

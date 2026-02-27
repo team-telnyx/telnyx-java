@@ -27,6 +27,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** SSL certificate operations */
 class SslCertificateServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : SslCertificateServiceAsync {
 

@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeVer
 import com.telnyx.sdk.models.portingorders.verificationcodes.VerificationCodeVerifyResponse
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 interface VerificationCodeService {
 
     /**

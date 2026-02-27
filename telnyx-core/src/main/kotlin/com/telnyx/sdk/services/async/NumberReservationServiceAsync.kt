@@ -15,6 +15,7 @@ import com.telnyx.sdk.services.async.numberreservations.ActionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Number reservations */
 interface NumberReservationServiceAsync {
 
     /**
@@ -29,6 +30,7 @@ interface NumberReservationServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberReservationServiceAsync
 
+    /** Number reservations */
     fun actions(): ActionServiceAsync
 
     /** Creates a Phone Number Reservation for multiple numbers. */
@@ -127,6 +129,7 @@ interface NumberReservationServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): NumberReservationServiceAsync.WithRawResponse
 
+        /** Number reservations */
         fun actions(): ActionServiceAsync.WithRawResponse
 
         /**

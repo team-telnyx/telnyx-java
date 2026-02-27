@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.accessipaddress.AccessIpAddressRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** IP Address Operations */
 class AccessIpAddressServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AccessIpAddressService {
 

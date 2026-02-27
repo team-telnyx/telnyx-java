@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberUpdateP
 import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberUpdateResponse
 import java.util.function.Consumer
 
+/** External Connections operations */
 interface PhoneNumberService {
 
     /**

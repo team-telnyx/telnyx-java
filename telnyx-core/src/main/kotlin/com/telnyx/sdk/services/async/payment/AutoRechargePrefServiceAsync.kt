@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.payment.autorechargeprefs.AutoRechargePrefUpdateRes
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** V2 Auto Recharge Preferences API */
 interface AutoRechargePrefServiceAsync {
 
     /**

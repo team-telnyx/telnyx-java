@@ -29,6 +29,7 @@ import com.telnyx.sdk.models.texml.accounts.conferences.participants.Participant
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML REST Commands */
 class ParticipantServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ParticipantService {
 

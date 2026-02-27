@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.verifications.byphonenumber.actions.VerifyVerificat
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Two factor authentication API */
 interface ActionServiceAsync {
 
     /**

@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementL
 import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementListParams
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 interface ActionRequirementService {
 
     /**

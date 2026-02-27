@@ -12,6 +12,17 @@ import com.telnyx.sdk.models.addresses.actions.ActionValidateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/**
+ * Operations to work with Address records. Address records are emergency-validated addresses meant
+ * to be associated with phone numbers. They are validated for emergency usage purposes at creation
+ * time, although you may validate them separately with a custom workflow using the ValidateAddress
+ * operation separately. Address records are not usable for physical orders, such as for Telnyx SIM
+ * cards, please use UserAddress for that. It is not possible to entirely skip emergency service
+ * validation for Address records; if an emergency provider for a phone number rejects the address
+ * then it cannot be used on a phone number. To prevent records from getting out of sync, Address
+ * records are immutable and cannot be altered once created. If you realize you need to alter an
+ * address, a new record must be created with the differing address.
+ */
 interface ActionServiceAsync {
 
     /**

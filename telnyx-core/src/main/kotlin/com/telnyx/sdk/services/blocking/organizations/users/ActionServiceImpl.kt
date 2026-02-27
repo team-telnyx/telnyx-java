@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.organizations.users.actions.ActionRemoveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Operations related to users in your organization */
 class ActionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionService {
 

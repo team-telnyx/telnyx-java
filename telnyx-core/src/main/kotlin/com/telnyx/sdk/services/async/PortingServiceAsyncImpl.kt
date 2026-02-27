@@ -25,6 +25,7 @@ import com.telnyx.sdk.services.async.porting.ReportServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 class PortingServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     PortingServiceAsync {
 
@@ -45,10 +46,13 @@ class PortingServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortingServiceAsync =
         PortingServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Endpoints related to porting orders management. */
     override fun events(): EventServiceAsync = events
 
+    /** Endpoints related to porting orders management. */
     override fun reports(): ReportServiceAsync = reports
 
+    /** Endpoints related to porting orders management. */
     override fun loaConfigurations(): LoaConfigurationServiceAsync = loaConfigurations
 
     override fun listUkCarriers(
@@ -83,10 +87,13 @@ class PortingServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Endpoints related to porting orders management. */
         override fun events(): EventServiceAsync.WithRawResponse = events
 
+        /** Endpoints related to porting orders management. */
         override fun reports(): ReportServiceAsync.WithRawResponse = reports
 
+        /** Endpoints related to porting orders management. */
         override fun loaConfigurations(): LoaConfigurationServiceAsync.WithRawResponse =
             loaConfigurations
 

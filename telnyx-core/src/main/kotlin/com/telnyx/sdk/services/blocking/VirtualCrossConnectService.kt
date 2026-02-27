@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectUpdateParam
 import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectUpdateResponse
 import java.util.function.Consumer
 
+/** Virtual Cross Connect operations */
 interface VirtualCrossConnectService {
 
     /**

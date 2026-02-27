@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.bulksimcardactions.BulkSimCardActionRetrieveRespons
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** View SIM card actions, their progress and timestamps using the SIM Card Actions API */
 interface BulkSimCardActionServiceAsync {
 
     /**

@@ -21,6 +21,7 @@ class VerificationServiceAsyncImpl internal constructor(private val clientOption
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): VerificationServiceAsync =
         VerificationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Manage your tollfree verification requests */
     override fun requests(): RequestServiceAsync = requests
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -37,6 +38,7 @@ class VerificationServiceAsyncImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Manage your tollfree verification requests */
         override fun requests(): RequestServiceAsync.WithRawResponse = requests
     }
 }

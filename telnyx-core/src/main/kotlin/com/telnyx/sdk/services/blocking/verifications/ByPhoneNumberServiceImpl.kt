@@ -22,6 +22,7 @@ import com.telnyx.sdk.services.blocking.verifications.byphonenumber.ActionServic
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Two factor authentication API */
 class ByPhoneNumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ByPhoneNumberService {
 
@@ -36,6 +37,7 @@ class ByPhoneNumberServiceImpl internal constructor(private val clientOptions: C
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ByPhoneNumberService =
         ByPhoneNumberServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Two factor authentication API */
     override fun actions(): ActionService = actions
 
     override fun list(
@@ -62,6 +64,7 @@ class ByPhoneNumberServiceImpl internal constructor(private val clientOptions: C
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Two factor authentication API */
         override fun actions(): ActionService.WithRawResponse = actions
 
         private val listHandler: Handler<ByPhoneNumberListResponse> =

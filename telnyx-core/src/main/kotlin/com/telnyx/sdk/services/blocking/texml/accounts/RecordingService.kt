@@ -20,6 +20,7 @@ interface RecordingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecordingService
 
+    /** TeXML REST Commands */
     fun json(): JsonService
 
     /** A view of [RecordingService] that provides access to raw HTTP responses for each method. */
@@ -32,6 +33,7 @@ interface RecordingService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecordingService.WithRawResponse
 
+        /** TeXML REST Commands */
         fun json(): JsonService.WithRawResponse
     }
 }

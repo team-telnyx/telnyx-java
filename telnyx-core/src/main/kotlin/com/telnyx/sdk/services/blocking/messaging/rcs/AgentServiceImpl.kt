@@ -25,6 +25,7 @@ import com.telnyx.sdk.models.rcsagents.RcsAgentResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Send RCS messages */
 class AgentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AgentService {
 

@@ -31,6 +31,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML REST Commands */
 class QueueServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     QueueServiceAsync {
 

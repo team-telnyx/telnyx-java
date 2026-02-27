@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceRetrieveRe
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Voice usage reports */
 interface VoiceServiceAsync {
 
     /**

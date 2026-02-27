@@ -20,6 +20,7 @@ import com.telnyx.sdk.services.blocking.portouts.ReportService
 import com.telnyx.sdk.services.blocking.portouts.SupportingDocumentService
 import java.util.function.Consumer
 
+/** Number portout operations */
 interface PortoutService {
 
     /**
@@ -34,12 +35,16 @@ interface PortoutService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortoutService
 
+    /** Number portout operations */
     fun events(): EventService
 
+    /** Number portout operations */
     fun reports(): ReportService
 
+    /** Number portout operations */
     fun comments(): CommentService
 
+    /** Number portout operations */
     fun supportingDocuments(): SupportingDocumentService
 
     /** Returns the portout request based on the ID provided */
@@ -160,12 +165,16 @@ interface PortoutService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortoutService.WithRawResponse
 
+        /** Number portout operations */
         fun events(): EventService.WithRawResponse
 
+        /** Number portout operations */
         fun reports(): ReportService.WithRawResponse
 
+        /** Number portout operations */
         fun comments(): CommentService.WithRawResponse
 
+        /** Number portout operations */
         fun supportingDocuments(): SupportingDocumentService.WithRawResponse
 
         /**

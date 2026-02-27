@@ -32,6 +32,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Media Storage operations */
 class MediaServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     MediaServiceAsync {
 

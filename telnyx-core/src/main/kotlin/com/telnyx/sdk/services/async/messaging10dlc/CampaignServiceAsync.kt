@@ -27,6 +27,7 @@ import com.telnyx.sdk.services.async.messaging10dlc.campaign.UsecaseServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Campaign operations */
 interface CampaignServiceAsync {
 
     /**
@@ -41,8 +42,10 @@ interface CampaignServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CampaignServiceAsync
 
+    /** Campaign operations */
     fun usecase(): UsecaseServiceAsync
 
+    /** Campaign operations */
     fun osr(): OsrServiceAsync
 
     /** Retrieve campaign details by `campaignId`. */
@@ -364,8 +367,10 @@ interface CampaignServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): CampaignServiceAsync.WithRawResponse
 
+        /** Campaign operations */
         fun usecase(): UsecaseServiceAsync.WithRawResponse
 
+        /** Campaign operations */
         fun osr(): OsrServiceAsync.WithRawResponse
 
         /**

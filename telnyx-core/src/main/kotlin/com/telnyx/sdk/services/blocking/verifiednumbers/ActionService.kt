@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberDataWrapper
 import com.telnyx.sdk.models.verifiednumbers.actions.ActionSubmitVerificationCodeParams
 import java.util.function.Consumer
 
+/** Verified Numbers operations */
 interface ActionService {
 
     /**

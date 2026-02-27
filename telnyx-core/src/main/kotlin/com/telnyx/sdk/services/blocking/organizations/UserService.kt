@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.organizations.users.UserRetrieveResponse
 import com.telnyx.sdk.services.blocking.organizations.users.ActionService
 import java.util.function.Consumer
 
+/** Operations related to users in your organization */
 interface UserService {
 
     /**
@@ -29,6 +30,7 @@ interface UserService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): UserService
 
+    /** Operations related to users in your organization */
     fun actions(): ActionService
 
     /** Returns a user in your organization. */
@@ -111,6 +113,7 @@ interface UserService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): UserService.WithRawResponse
 
+        /** Operations related to users in your organization */
         fun actions(): ActionService.WithRawResponse
 
         /**

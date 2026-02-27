@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateTemplateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Two factor authentication API */
 interface VerifyProfileServiceAsync {
 
     /**

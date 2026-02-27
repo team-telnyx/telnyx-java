@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.ai.assistants.versions.VersionRetrieveParams
 import com.telnyx.sdk.models.ai.assistants.versions.VersionUpdateParams
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 interface VersionService {
 
     /**

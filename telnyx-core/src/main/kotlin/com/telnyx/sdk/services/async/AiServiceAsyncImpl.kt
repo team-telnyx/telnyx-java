@@ -44,6 +44,7 @@ import com.telnyx.sdk.services.async.ai.OpenAIServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Generate text with LLMs */
 class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     AiServiceAsync {
 
@@ -90,16 +91,22 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiServiceAsync =
         AiServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Configure AI assistant specifications */
     override fun assistants(): AssistantServiceAsync = assistants
 
+    /** Turn audio into text or text into audio. */
     override fun audio(): AudioServiceAsync = audio
 
+    /** Generate text with LLMs */
     override fun chat(): ChatServiceAsync = chat
 
+    /** Identify common themes and patterns in your embedded documents */
     override fun clusters(): ClusterServiceAsync = clusters
 
+    /** Manage historical AI assistant conversations */
     override fun conversations(): ConversationServiceAsync = conversations
 
+    /** Embed documents and perform text searches */
     override fun embeddings(): EmbeddingServiceAsync = embeddings
 
     override fun fineTuning(): FineTuningServiceAsync = fineTuning
@@ -183,16 +190,22 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Configure AI assistant specifications */
         override fun assistants(): AssistantServiceAsync.WithRawResponse = assistants
 
+        /** Turn audio into text or text into audio. */
         override fun audio(): AudioServiceAsync.WithRawResponse = audio
 
+        /** Generate text with LLMs */
         override fun chat(): ChatServiceAsync.WithRawResponse = chat
 
+        /** Identify common themes and patterns in your embedded documents */
         override fun clusters(): ClusterServiceAsync.WithRawResponse = clusters
 
+        /** Manage historical AI assistant conversations */
         override fun conversations(): ConversationServiceAsync.WithRawResponse = conversations
 
+        /** Embed documents and perform text searches */
         override fun embeddings(): EmbeddingServiceAsync.WithRawResponse = embeddings
 
         override fun fineTuning(): FineTuningServiceAsync.WithRawResponse = fineTuning

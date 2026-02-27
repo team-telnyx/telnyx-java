@@ -13,6 +13,7 @@ import com.telnyx.sdk.models.accessipranges.AccessIpRangeListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** IP Range Operations */
 interface AccessIpRangeServiceAsync {
 
     /**

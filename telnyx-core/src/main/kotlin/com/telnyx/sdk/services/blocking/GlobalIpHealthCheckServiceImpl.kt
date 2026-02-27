@@ -28,6 +28,7 @@ import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckRetrieveRes
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Global IPs */
 class GlobalIpHealthCheckServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : GlobalIpHealthCheckService {
 

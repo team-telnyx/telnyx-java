@@ -40,6 +40,7 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallServiceAsync =
         CallServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Call Control command operations */
     override fun actions(): ActionServiceAsync = actions
 
     override fun dial(
@@ -73,6 +74,7 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Call Control command operations */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         private val dialHandler: Handler<CallDialResponse> =

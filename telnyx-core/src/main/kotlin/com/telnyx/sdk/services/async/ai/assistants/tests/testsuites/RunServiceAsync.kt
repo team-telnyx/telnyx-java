@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.RunTriggerParam
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 interface RunServiceAsync {
 
     /**

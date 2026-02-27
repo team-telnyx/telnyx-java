@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.globalipassignmentsusage.GlobalIpAssignmentsUsageRe
 import com.telnyx.sdk.models.globalipassignmentsusage.GlobalIpAssignmentsUsageRetrieveResponse
 import java.util.function.Consumer
 
+/** Global IPs */
 interface GlobalIpAssignmentsUsageService {
 
     /**

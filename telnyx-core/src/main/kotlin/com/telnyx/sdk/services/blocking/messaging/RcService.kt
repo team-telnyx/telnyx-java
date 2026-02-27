@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.messaging.rcs.RcRetrieveCapabilitiesResponse
 import com.telnyx.sdk.services.blocking.messaging.rcs.AgentService
 import java.util.function.Consumer
 
+/** Send RCS messages */
 interface RcService {
 
     /**
@@ -29,6 +30,7 @@ interface RcService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RcService
 
+    /** Send RCS messages */
     fun agents(): AgentService
 
     /** Adds a test phone number to an RCS agent for testing purposes. */
@@ -100,6 +102,7 @@ interface RcService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): RcService.WithRawResponse
 
+        /** Send RCS messages */
         fun agents(): AgentService.WithRawResponse
 
         /**

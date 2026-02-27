@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.detailrecords.DetailRecordListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Detail Records operations */
 class DetailRecordServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     DetailRecordServiceAsync {
 

@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.requirements.RequirementRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Requirements for international numbers and porting orders */
 interface RequirementServiceAsync {
 
     /**

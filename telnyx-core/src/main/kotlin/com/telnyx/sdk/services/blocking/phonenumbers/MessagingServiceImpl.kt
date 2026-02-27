@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.phonenumbers.messaging.MessagingUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure your phone numbers */
 class MessagingServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     MessagingService {
 

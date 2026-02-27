@@ -17,6 +17,7 @@ import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveParams
 import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveResponse
 import java.util.function.Consumer
 
+/** Identify common themes and patterns in your embedded documents */
 interface ClusterService {
 
     /**

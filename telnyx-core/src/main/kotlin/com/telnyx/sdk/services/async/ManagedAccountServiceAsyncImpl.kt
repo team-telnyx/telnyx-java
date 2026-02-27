@@ -35,6 +35,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Managed Accounts operations */
 class ManagedAccountServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : ManagedAccountServiceAsync {
 
@@ -51,6 +52,7 @@ internal constructor(private val clientOptions: ClientOptions) : ManagedAccountS
     ): ManagedAccountServiceAsync =
         ManagedAccountServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Managed Accounts operations */
     override fun actions(): ActionServiceAsync = actions
 
     override fun create(
@@ -114,6 +116,7 @@ internal constructor(private val clientOptions: ClientOptions) : ManagedAccountS
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Managed Accounts operations */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         private val createHandler: Handler<ManagedAccountCreateResponse> =

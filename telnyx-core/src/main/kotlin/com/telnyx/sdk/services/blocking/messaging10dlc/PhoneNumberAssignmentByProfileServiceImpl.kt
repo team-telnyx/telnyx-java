@@ -27,6 +27,7 @@ import com.telnyx.sdk.models.messaging10dlc.phonenumberassignmentbyprofile.Phone
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Phone number campaign bulk assignment */
 class PhoneNumberAssignmentByProfileServiceImpl
 internal constructor(private val clientOptions: ClientOptions) :
     PhoneNumberAssignmentByProfileService {

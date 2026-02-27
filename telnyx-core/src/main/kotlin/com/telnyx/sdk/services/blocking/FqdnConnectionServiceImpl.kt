@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** FQDN connection operations */
 class FqdnConnectionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     FqdnConnectionService {
 

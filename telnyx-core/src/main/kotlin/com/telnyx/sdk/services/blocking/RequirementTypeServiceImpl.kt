@@ -22,6 +22,7 @@ import com.telnyx.sdk.models.requirementtypes.RequirementTypeRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Types of requirements for international numbers and porting orders */
 class RequirementTypeServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RequirementTypeService {
 

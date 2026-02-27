@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.phonenumberblocks.jobs.JobRetrieveParams
 import com.telnyx.sdk.models.phonenumberblocks.jobs.JobRetrieveResponse
 import java.util.function.Consumer
 
+/** Background jobs performed over a phone-numbers block's phone numbers */
 interface JobService {
 
     /**

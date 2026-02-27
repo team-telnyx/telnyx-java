@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.billinggroups.BillingGroupUpdateParams
 import com.telnyx.sdk.models.billinggroups.BillingGroupUpdateResponse
 import java.util.function.Consumer
 
+/** Billing groups operations */
 interface BillingGroupService {
 
     /**

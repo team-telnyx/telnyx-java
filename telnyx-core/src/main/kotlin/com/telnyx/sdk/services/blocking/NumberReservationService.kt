@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.numberreservations.NumberReservationRetrieveRespons
 import com.telnyx.sdk.services.blocking.numberreservations.ActionService
 import java.util.function.Consumer
 
+/** Number reservations */
 interface NumberReservationService {
 
     /**
@@ -29,6 +30,7 @@ interface NumberReservationService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberReservationService
 
+    /** Number reservations */
     fun actions(): ActionService
 
     /** Creates a Phone Number Reservation for multiple numbers. */
@@ -121,6 +123,7 @@ interface NumberReservationService {
             modifier: Consumer<ClientOptions.Builder>
         ): NumberReservationService.WithRawResponse
 
+        /** Number reservations */
         fun actions(): ActionService.WithRawResponse
 
         /**

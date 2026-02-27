@@ -25,6 +25,7 @@ import com.telnyx.sdk.services.blocking.storage.buckets.UsageServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Presigned object URL operations */
 class BucketServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     BucketService {
 
@@ -43,8 +44,10 @@ class BucketServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): BucketService =
         BucketServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** SSL certificate operations */
     override fun sslCertificate(): SslCertificateService = sslCertificate
 
+    /** Bucket Usage operations */
     override fun usage(): UsageService = usage
 
     override fun createPresignedUrl(
@@ -75,8 +78,10 @@ class BucketServiceImpl internal constructor(private val clientOptions: ClientOp
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** SSL certificate operations */
         override fun sslCertificate(): SslCertificateService.WithRawResponse = sslCertificate
 
+        /** Bucket Usage operations */
         override fun usage(): UsageService.WithRawResponse = usage
 
         private val createPresignedUrlHandler: Handler<BucketCreatePresignedUrlResponse> =

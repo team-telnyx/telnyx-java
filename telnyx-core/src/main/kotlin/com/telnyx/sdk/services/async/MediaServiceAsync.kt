@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.media.MediaUploadResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Media Storage operations */
 interface MediaServiceAsync {
 
     /**

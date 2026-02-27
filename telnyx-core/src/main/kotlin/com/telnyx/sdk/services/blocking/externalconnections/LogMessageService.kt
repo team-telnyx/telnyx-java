@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageRetrieveP
 import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageRetrieveResponse
 import java.util.function.Consumer
 
+/** External Connections operations */
 interface LogMessageService {
 
     /**

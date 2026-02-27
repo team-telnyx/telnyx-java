@@ -32,6 +32,7 @@ import com.telnyx.sdk.models.externalconnections.uploads.UploadRetryResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** External Connections operations */
 class UploadServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     UploadService {
 

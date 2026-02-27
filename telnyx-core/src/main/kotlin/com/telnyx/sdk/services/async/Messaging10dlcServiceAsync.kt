@@ -30,16 +30,21 @@ interface Messaging10dlcServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): Messaging10dlcServiceAsync
 
+    /** Brand operations */
     fun brand(): BrandServiceAsync
 
+    /** Campaign operations */
     fun campaign(): CampaignServiceAsync
 
+    /** Campaign operations */
     fun campaignBuilder(): CampaignBuilderServiceAsync
 
     fun partnerCampaigns(): PartnerCampaignServiceAsync
 
+    /** Phone number campaign assignment */
     fun phoneNumberCampaigns(): PhoneNumberCampaignServiceAsync
 
+    /** Phone number campaign bulk assignment */
     fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileServiceAsync
 
     /** Get Enum */
@@ -96,16 +101,21 @@ interface Messaging10dlcServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): Messaging10dlcServiceAsync.WithRawResponse
 
+        /** Brand operations */
         fun brand(): BrandServiceAsync.WithRawResponse
 
+        /** Campaign operations */
         fun campaign(): CampaignServiceAsync.WithRawResponse
 
+        /** Campaign operations */
         fun campaignBuilder(): CampaignBuilderServiceAsync.WithRawResponse
 
         fun partnerCampaigns(): PartnerCampaignServiceAsync.WithRawResponse
 
+        /** Phone number campaign assignment */
         fun phoneNumberCampaigns(): PhoneNumberCampaignServiceAsync.WithRawResponse
 
+        /** Phone number campaign bulk assignment */
         fun phoneNumberAssignmentByProfile():
             PhoneNumberAssignmentByProfileServiceAsync.WithRawResponse
 

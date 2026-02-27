@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.verifications.byphonenumber.actions.ActionVerifyPar
 import com.telnyx.sdk.models.verifications.byphonenumber.actions.VerifyVerificationCodeResponse
 import java.util.function.Consumer
 
+/** Two factor authentication API */
 interface ActionService {
 
     /**

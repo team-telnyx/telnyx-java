@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.phonenumbers.jobs.JobUpdateEmergencySettingsBatchRe
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Background jobs performed over a batch of phone numbers */
 interface JobServiceAsync {
 
     /**

@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.documentlinks.DocumentLinkListPageResponse
 import com.telnyx.sdk.models.documentlinks.DocumentLinkListParams
 import java.util.function.Consumer
 
+/** Documents */
 class DocumentLinkServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     DocumentLinkService {
 

@@ -35,6 +35,7 @@ import com.telnyx.sdk.services.blocking.networks.DefaultGatewayServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Network operations */
 class NetworkServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     NetworkService {
 
@@ -51,6 +52,7 @@ class NetworkServiceImpl internal constructor(private val clientOptions: ClientO
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): NetworkService =
         NetworkServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Network operations */
     override fun defaultGateway(): DefaultGatewayService = defaultGateway
 
     override fun create(
@@ -109,6 +111,7 @@ class NetworkServiceImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Network operations */
         override fun defaultGateway(): DefaultGatewayService.WithRawResponse = defaultGateway
 
         private val createHandler: Handler<NetworkCreateResponse> =

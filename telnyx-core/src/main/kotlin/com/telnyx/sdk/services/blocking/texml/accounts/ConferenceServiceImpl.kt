@@ -31,6 +31,7 @@ import com.telnyx.sdk.services.blocking.texml.accounts.conferences.ParticipantSe
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML REST Commands */
 class ConferenceServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ConferenceService {
 
@@ -45,6 +46,7 @@ class ConferenceServiceImpl internal constructor(private val clientOptions: Clie
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConferenceService =
         ConferenceServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** TeXML REST Commands */
     override fun participants(): ParticipantService = participants
 
     override fun retrieve(
@@ -99,6 +101,7 @@ class ConferenceServiceImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** TeXML REST Commands */
         override fun participants(): ParticipantService.WithRawResponse = participants
 
         private val retrieveHandler: Handler<ConferenceRetrieveResponse> =

@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.externalconnections.phonenumbers.PhoneNumberUpdateR
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** External Connections operations */
 class PhoneNumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     PhoneNumberService {
 

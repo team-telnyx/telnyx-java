@@ -27,6 +27,7 @@ import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialUpd
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Call Recordings operations. */
 class CustomStorageCredentialServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : CustomStorageCredentialService {
 

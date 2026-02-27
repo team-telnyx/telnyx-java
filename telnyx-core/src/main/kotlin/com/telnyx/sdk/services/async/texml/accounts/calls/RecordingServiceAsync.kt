@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.texml.accounts.calls.recordings.RecordingRecordingS
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface RecordingServiceAsync {
 
     /**

@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.conferences.ConferenceUpdateParticipantResponse
 import com.telnyx.sdk.services.blocking.conferences.ActionService
 import java.util.function.Consumer
 
+/** Conference command operations */
 interface ConferenceService {
 
     /**
@@ -35,6 +36,7 @@ interface ConferenceService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConferenceService
 
+    /** Conference command operations */
     fun actions(): ActionService
 
     /**
@@ -212,6 +214,7 @@ interface ConferenceService {
             modifier: Consumer<ClientOptions.Builder>
         ): ConferenceService.WithRawResponse
 
+        /** Conference command operations */
         fun actions(): ActionService.WithRawResponse
 
         /**

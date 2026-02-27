@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentUpdateParams
 import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentUpdateResponse
 import java.util.function.Consumer
 
+/** Global IPs */
 interface GlobalIpAssignmentService {
 
     /**

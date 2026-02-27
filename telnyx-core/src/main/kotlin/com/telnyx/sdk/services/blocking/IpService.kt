@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.ips.IpUpdateParams
 import com.telnyx.sdk.models.ips.IpUpdateResponse
 import java.util.function.Consumer
 
+/** IP operations */
 interface IpService {
 
     /**

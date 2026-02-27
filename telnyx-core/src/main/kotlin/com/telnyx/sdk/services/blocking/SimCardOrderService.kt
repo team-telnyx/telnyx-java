@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.simcardorders.SimCardOrderRetrieveParams
 import com.telnyx.sdk.models.simcardorders.SimCardOrderRetrieveResponse
 import java.util.function.Consumer
 
+/** SIM Card Orders operations */
 interface SimCardOrderService {
 
     /**

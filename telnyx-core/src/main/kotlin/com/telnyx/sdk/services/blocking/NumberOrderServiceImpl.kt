@@ -28,6 +28,7 @@ import com.telnyx.sdk.models.numberorders.NumberOrderUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Number orders */
 class NumberOrderServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     NumberOrderService {
 

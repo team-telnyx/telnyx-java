@@ -20,6 +20,7 @@ interface PhoneNumberBlockServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoneNumberBlockServiceAsync
 
+    /** Background jobs performed over a phone-numbers block's phone numbers */
     fun jobs(): JobServiceAsync
 
     /**
@@ -37,6 +38,7 @@ interface PhoneNumberBlockServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): PhoneNumberBlockServiceAsync.WithRawResponse
 
+        /** Background jobs performed over a phone-numbers block's phone numbers */
         fun jobs(): JobServiceAsync.WithRawResponse
     }
 }

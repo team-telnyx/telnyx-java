@@ -60,6 +60,7 @@ import com.telnyx.sdk.services.blocking.portingorders.VerificationCodeServiceImp
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Endpoints related to porting orders management. */
 class PortingOrderServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     PortingOrderService {
 
@@ -108,25 +109,35 @@ class PortingOrderServiceImpl internal constructor(private val clientOptions: Cl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortingOrderService =
         PortingOrderServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Endpoints related to porting orders management. */
     override fun phoneNumberConfigurations(): PhoneNumberConfigurationService =
         phoneNumberConfigurations
 
+    /** Endpoints related to porting orders management. */
     override fun actions(): ActionService = actions
 
+    /** Endpoints related to porting orders management. */
     override fun activationJobs(): ActivationJobService = activationJobs
 
+    /** Endpoints related to porting orders management. */
     override fun additionalDocuments(): AdditionalDocumentService = additionalDocuments
 
+    /** Endpoints related to porting orders management. */
     override fun comments(): CommentService = comments
 
+    /** Endpoints related to porting orders management. */
     override fun verificationCodes(): VerificationCodeService = verificationCodes
 
+    /** Endpoints related to porting orders management. */
     override fun actionRequirements(): ActionRequirementService = actionRequirements
 
+    /** Endpoints related to porting orders management. */
     override fun associatedPhoneNumbers(): AssociatedPhoneNumberService = associatedPhoneNumbers
 
+    /** Endpoints related to porting orders management. */
     override fun phoneNumberBlocks(): PhoneNumberBlockService = phoneNumberBlocks
 
+    /** Endpoints related to porting orders management. */
     override fun phoneNumberExtensions(): PhoneNumberExtensionService = phoneNumberExtensions
 
     override fun create(
@@ -251,30 +262,40 @@ class PortingOrderServiceImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Endpoints related to porting orders management. */
         override fun phoneNumberConfigurations(): PhoneNumberConfigurationService.WithRawResponse =
             phoneNumberConfigurations
 
+        /** Endpoints related to porting orders management. */
         override fun actions(): ActionService.WithRawResponse = actions
 
+        /** Endpoints related to porting orders management. */
         override fun activationJobs(): ActivationJobService.WithRawResponse = activationJobs
 
+        /** Endpoints related to porting orders management. */
         override fun additionalDocuments(): AdditionalDocumentService.WithRawResponse =
             additionalDocuments
 
+        /** Endpoints related to porting orders management. */
         override fun comments(): CommentService.WithRawResponse = comments
 
+        /** Endpoints related to porting orders management. */
         override fun verificationCodes(): VerificationCodeService.WithRawResponse =
             verificationCodes
 
+        /** Endpoints related to porting orders management. */
         override fun actionRequirements(): ActionRequirementService.WithRawResponse =
             actionRequirements
 
+        /** Endpoints related to porting orders management. */
         override fun associatedPhoneNumbers(): AssociatedPhoneNumberService.WithRawResponse =
             associatedPhoneNumbers
 
+        /** Endpoints related to porting orders management. */
         override fun phoneNumberBlocks(): PhoneNumberBlockService.WithRawResponse =
             phoneNumberBlocks
 
+        /** Endpoints related to porting orders management. */
         override fun phoneNumberExtensions(): PhoneNumberExtensionService.WithRawResponse =
             phoneNumberExtensions
 

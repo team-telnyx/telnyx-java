@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.globalipassignmenthealth.GlobalIpAssignmentHealthRe
 import com.telnyx.sdk.models.globalipassignmenthealth.GlobalIpAssignmentHealthRetrieveResponse
 import java.util.function.Consumer
 
+/** Global IPs */
 interface GlobalIpAssignmentHealthService {
 
     /**

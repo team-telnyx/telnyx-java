@@ -31,6 +31,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Call Control applications operations */
 class CallControlApplicationServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
     CallControlApplicationServiceAsync {

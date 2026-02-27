@@ -30,6 +30,7 @@ import com.telnyx.sdk.services.blocking.ai.embeddings.BucketServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Embed documents and perform text searches */
 class EmbeddingServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     EmbeddingService {
 
@@ -44,6 +45,7 @@ class EmbeddingServiceImpl internal constructor(private val clientOptions: Clien
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): EmbeddingService =
         EmbeddingServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Embed documents and perform text searches */
     override fun buckets(): BucketService = buckets
 
     override fun create(
@@ -98,6 +100,7 @@ class EmbeddingServiceImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Embed documents and perform text searches */
         override fun buckets(): BucketService.WithRawResponse = buckets
 
         private val createHandler: Handler<EmbeddingResponse> =

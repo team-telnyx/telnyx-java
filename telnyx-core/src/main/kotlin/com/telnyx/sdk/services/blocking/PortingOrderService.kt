@@ -37,6 +37,7 @@ import com.telnyx.sdk.services.blocking.portingorders.PhoneNumberExtensionServic
 import com.telnyx.sdk.services.blocking.portingorders.VerificationCodeService
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 interface PortingOrderService {
 
     /**
@@ -51,24 +52,34 @@ interface PortingOrderService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortingOrderService
 
+    /** Endpoints related to porting orders management. */
     fun phoneNumberConfigurations(): PhoneNumberConfigurationService
 
+    /** Endpoints related to porting orders management. */
     fun actions(): ActionService
 
+    /** Endpoints related to porting orders management. */
     fun activationJobs(): ActivationJobService
 
+    /** Endpoints related to porting orders management. */
     fun additionalDocuments(): AdditionalDocumentService
 
+    /** Endpoints related to porting orders management. */
     fun comments(): CommentService
 
+    /** Endpoints related to porting orders management. */
     fun verificationCodes(): VerificationCodeService
 
+    /** Endpoints related to porting orders management. */
     fun actionRequirements(): ActionRequirementService
 
+    /** Endpoints related to porting orders management. */
     fun associatedPhoneNumbers(): AssociatedPhoneNumberService
 
+    /** Endpoints related to porting orders management. */
     fun phoneNumberBlocks(): PhoneNumberBlockService
 
+    /** Endpoints related to porting orders management. */
     fun phoneNumberExtensions(): PhoneNumberExtensionService
 
     /** Creates a new porting order object. */
@@ -394,24 +405,34 @@ interface PortingOrderService {
             modifier: Consumer<ClientOptions.Builder>
         ): PortingOrderService.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun phoneNumberConfigurations(): PhoneNumberConfigurationService.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun actions(): ActionService.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun activationJobs(): ActivationJobService.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun additionalDocuments(): AdditionalDocumentService.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun comments(): CommentService.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun verificationCodes(): VerificationCodeService.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun actionRequirements(): ActionRequirementService.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun associatedPhoneNumbers(): AssociatedPhoneNumberService.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun phoneNumberBlocks(): PhoneNumberBlockService.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun phoneNumberExtensions(): PhoneNumberExtensionService.WithRawResponse
 
         /**

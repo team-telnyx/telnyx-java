@@ -13,6 +13,7 @@ import com.telnyx.sdk.services.blocking.porting.LoaConfigurationService
 import com.telnyx.sdk.services.blocking.porting.ReportService
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 interface PortingService {
 
     /**
@@ -27,10 +28,13 @@ interface PortingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortingService
 
+    /** Endpoints related to porting orders management. */
     fun events(): EventService
 
+    /** Endpoints related to porting orders management. */
     fun reports(): ReportService
 
+    /** Endpoints related to porting orders management. */
     fun loaConfigurations(): LoaConfigurationService
 
     /** List available carriers in the UK. */
@@ -62,10 +66,13 @@ interface PortingService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortingService.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun events(): EventService.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun reports(): ReportService.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun loaConfigurations(): LoaConfigurationService.WithRawResponse
 
         /**

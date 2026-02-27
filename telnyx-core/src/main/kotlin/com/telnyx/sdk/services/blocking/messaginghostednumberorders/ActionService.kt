@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.messaginghostednumberorders.actions.ActionUploadFil
 import com.telnyx.sdk.models.messaginghostednumberorders.actions.ActionUploadFileResponse
 import java.util.function.Consumer
 
+/** Manage your messaging hosted numbers */
 interface ActionService {
 
     /**

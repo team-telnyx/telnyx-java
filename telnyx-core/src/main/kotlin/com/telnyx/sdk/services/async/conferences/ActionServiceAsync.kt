@@ -42,6 +42,7 @@ import com.telnyx.sdk.models.conferences.actions.ActionUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Conference command operations */
 interface ActionServiceAsync {
 
     /**

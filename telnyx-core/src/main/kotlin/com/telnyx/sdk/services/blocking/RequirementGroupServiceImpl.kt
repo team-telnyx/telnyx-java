@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.requirementgroups.RequirementGroupUpdateParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Requirement Groups */
 class RequirementGroupServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RequirementGroupService {
 

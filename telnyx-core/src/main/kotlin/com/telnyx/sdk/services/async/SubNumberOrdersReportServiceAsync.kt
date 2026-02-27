@@ -13,6 +13,7 @@ import com.telnyx.sdk.models.subnumberordersreport.SubNumberOrdersReportRetrieve
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Number orders */
 interface SubNumberOrdersReportServiceAsync {
 
     /**

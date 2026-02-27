@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.globalipprotocols.GlobalIpProtocolListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Global IPs */
 class GlobalIpProtocolServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : GlobalIpProtocolServiceAsync {
 

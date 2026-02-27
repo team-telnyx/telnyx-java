@@ -34,6 +34,7 @@ import com.telnyx.sdk.services.blocking.managedaccounts.ActionServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Managed Accounts operations */
 class ManagedAccountServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ManagedAccountService {
 
@@ -48,6 +49,7 @@ class ManagedAccountServiceImpl internal constructor(private val clientOptions: 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ManagedAccountService =
         ManagedAccountServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Managed Accounts operations */
     override fun actions(): ActionService = actions
 
     override fun create(
@@ -109,6 +111,7 @@ class ManagedAccountServiceImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Managed Accounts operations */
         override fun actions(): ActionService.WithRawResponse = actions
 
         private val createHandler: Handler<ManagedAccountCreateResponse> =

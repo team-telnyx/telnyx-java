@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Messaging URL Domains */
 interface MessagingUrlDomainServiceAsync {
 
     /**

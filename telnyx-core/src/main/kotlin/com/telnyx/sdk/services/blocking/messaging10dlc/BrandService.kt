@@ -29,6 +29,7 @@ import com.telnyx.sdk.models.messaging10dlc.brand.TelnyxBrand
 import com.telnyx.sdk.services.blocking.messaging10dlc.brand.ExternalVettingService
 import java.util.function.Consumer
 
+/** Brand operations */
 interface BrandService {
 
     /**
@@ -43,6 +44,7 @@ interface BrandService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BrandService
 
+    /** Brand operations */
     fun externalVetting(): ExternalVettingService
 
     /**
@@ -439,6 +441,7 @@ interface BrandService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): BrandService.WithRawResponse
 
+        /** Brand operations */
         fun externalVetting(): ExternalVettingService.WithRawResponse
 
         /**

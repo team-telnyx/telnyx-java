@@ -15,6 +15,7 @@ import com.telnyx.sdk.services.async.organizations.users.ActionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Operations related to users in your organization */
 interface UserServiceAsync {
 
     /**
@@ -29,6 +30,7 @@ interface UserServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): UserServiceAsync
 
+    /** Operations related to users in your organization */
     fun actions(): ActionServiceAsync
 
     /** Returns a user in your organization. */
@@ -119,6 +121,7 @@ interface UserServiceAsync {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): UserServiceAsync.WithRawResponse
 
+        /** Operations related to users in your organization */
         fun actions(): ActionServiceAsync.WithRawResponse
 
         /**

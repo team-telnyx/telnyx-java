@@ -35,6 +35,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Rooms operations. */
 class RoomServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     RoomServiceAsync {
 
@@ -51,6 +52,7 @@ class RoomServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RoomServiceAsync =
         RoomServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Rooms Client Tokens operations. */
     override fun actions(): ActionServiceAsync = actions
 
     override fun sessions(): SessionServiceAsync = sessions
@@ -111,6 +113,7 @@ class RoomServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Rooms Client Tokens operations. */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         override fun sessions(): SessionServiceAsync.WithRawResponse = sessions

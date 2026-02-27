@@ -25,6 +25,7 @@ import com.telnyx.sdk.models.accessipranges.AccessIpRangeListParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** IP Range Operations */
 class AccessIpRangeServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AccessIpRangeService {
 

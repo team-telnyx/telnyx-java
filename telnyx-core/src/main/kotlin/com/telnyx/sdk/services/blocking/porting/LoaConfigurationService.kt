@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationUpdatePar
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationUpdateResponse
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 interface LoaConfigurationService {
 
     /**

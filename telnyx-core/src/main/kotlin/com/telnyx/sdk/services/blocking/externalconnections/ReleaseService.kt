@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.externalconnections.releases.ReleaseRetrieveParams
 import com.telnyx.sdk.models.externalconnections.releases.ReleaseRetrieveResponse
 import java.util.function.Consumer
 
+/** External Connections operations */
 interface ReleaseService {
 
     /**

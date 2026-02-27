@@ -31,6 +31,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Billing groups operations */
 class BillingGroupServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     BillingGroupServiceAsync {
 

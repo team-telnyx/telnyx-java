@@ -20,6 +20,7 @@ interface FineTuningService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FineTuningService
 
+    /** Customize LLMs for your unique needs */
     fun jobs(): JobService
 
     /** A view of [FineTuningService] that provides access to raw HTTP responses for each method. */
@@ -34,6 +35,7 @@ interface FineTuningService {
             modifier: Consumer<ClientOptions.Builder>
         ): FineTuningService.WithRawResponse
 
+        /** Customize LLMs for your unique needs */
         fun jobs(): JobService.WithRawResponse
     }
 }

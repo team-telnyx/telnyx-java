@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.ai.conversations.insightgroups.insights.InsightDele
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Manage historical AI assistant conversations */
 class InsightServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     InsightService {
 

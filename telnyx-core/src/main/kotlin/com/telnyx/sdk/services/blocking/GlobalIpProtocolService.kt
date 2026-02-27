@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.globalipprotocols.GlobalIpProtocolListParams
 import com.telnyx.sdk.models.globalipprotocols.GlobalIpProtocolListResponse
 import java.util.function.Consumer
 
+/** Global IPs */
 interface GlobalIpProtocolService {
 
     /**

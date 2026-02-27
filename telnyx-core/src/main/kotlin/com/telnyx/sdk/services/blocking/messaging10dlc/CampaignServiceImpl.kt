@@ -41,6 +41,7 @@ import com.telnyx.sdk.services.blocking.messaging10dlc.campaign.UsecaseServiceIm
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Campaign operations */
 class CampaignServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CampaignService {
 
@@ -57,8 +58,10 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CampaignService =
         CampaignServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Campaign operations */
     override fun usecase(): UsecaseService = usecase
 
+    /** Campaign operations */
     override fun osr(): OsrService = osr
 
     override fun retrieve(
@@ -145,8 +148,10 @@ class CampaignServiceImpl internal constructor(private val clientOptions: Client
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Campaign operations */
         override fun usecase(): UsecaseService.WithRawResponse = usecase
 
+        /** Campaign operations */
         override fun osr(): OsrService.WithRawResponse = osr
 
         private val retrieveHandler: Handler<TelnyxCampaignCsp> =

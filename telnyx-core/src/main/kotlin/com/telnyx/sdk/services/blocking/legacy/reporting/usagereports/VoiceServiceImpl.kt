@@ -28,6 +28,7 @@ import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceRetrieveRe
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Voice usage reports */
 class VoiceServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     VoiceService {
 

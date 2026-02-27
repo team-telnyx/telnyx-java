@@ -19,6 +19,7 @@ import com.telnyx.sdk.services.async.credentialconnections.ActionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Credential connection operations */
 interface CredentialConnectionServiceAsync {
 
     /**
@@ -33,6 +34,7 @@ interface CredentialConnectionServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CredentialConnectionServiceAsync
 
+    /** Credential connection operations */
     fun actions(): ActionServiceAsync
 
     /** Creates a credential connection. */
@@ -192,6 +194,7 @@ interface CredentialConnectionServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): CredentialConnectionServiceAsync.WithRawResponse
 
+        /** Credential connection operations */
         fun actions(): ActionServiceAsync.WithRawResponse
 
         /**

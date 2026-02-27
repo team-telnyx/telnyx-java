@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.usagereports.UsageReportListPageResponse
 import com.telnyx.sdk.models.usagereports.UsageReportListParams
 import java.util.function.Consumer
 
+/** Usage data reporting across Telnyx products */
 class UsageReportServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     UsageReportService {
 

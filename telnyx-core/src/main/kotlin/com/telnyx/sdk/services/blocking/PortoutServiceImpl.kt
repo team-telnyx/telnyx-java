@@ -36,6 +36,7 @@ import com.telnyx.sdk.services.blocking.portouts.SupportingDocumentServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Number portout operations */
 class PortoutServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     PortoutService {
 
@@ -58,12 +59,16 @@ class PortoutServiceImpl internal constructor(private val clientOptions: ClientO
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortoutService =
         PortoutServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Number portout operations */
     override fun events(): EventService = events
 
+    /** Number portout operations */
     override fun reports(): ReportService = reports
 
+    /** Number portout operations */
     override fun comments(): CommentService = comments
 
+    /** Number portout operations */
     override fun supportingDocuments(): SupportingDocumentService = supportingDocuments
 
     override fun retrieve(
@@ -120,12 +125,16 @@ class PortoutServiceImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Number portout operations */
         override fun events(): EventService.WithRawResponse = events
 
+        /** Number portout operations */
         override fun reports(): ReportService.WithRawResponse = reports
 
+        /** Number portout operations */
         override fun comments(): CommentService.WithRawResponse = comments
 
+        /** Number portout operations */
         override fun supportingDocuments(): SupportingDocumentService.WithRawResponse =
             supportingDocuments
 

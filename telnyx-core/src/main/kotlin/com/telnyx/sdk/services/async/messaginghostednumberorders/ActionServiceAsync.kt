@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.messaginghostednumberorders.actions.ActionUploadFil
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Manage your messaging hosted numbers */
 interface ActionServiceAsync {
 
     /**

@@ -28,6 +28,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Number orders */
 class CommentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     CommentServiceAsync {
 

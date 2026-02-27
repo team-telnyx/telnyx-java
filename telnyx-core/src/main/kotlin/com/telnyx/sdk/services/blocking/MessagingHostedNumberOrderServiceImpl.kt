@@ -36,6 +36,7 @@ import com.telnyx.sdk.services.blocking.messaginghostednumberorders.ActionServic
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Manage your messaging hosted numbers */
 class MessagingHostedNumberOrderServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : MessagingHostedNumberOrderService {
 
@@ -55,6 +56,7 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingHosted
             clientOptions.toBuilder().apply(modifier::accept).build()
         )
 
+    /** Manage your messaging hosted numbers */
     override fun actions(): ActionService = actions
 
     override fun create(
@@ -123,6 +125,7 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingHosted
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Manage your messaging hosted numbers */
         override fun actions(): ActionService.WithRawResponse = actions
 
         private val createHandler: Handler<MessagingHostedNumberOrderCreateResponse> =

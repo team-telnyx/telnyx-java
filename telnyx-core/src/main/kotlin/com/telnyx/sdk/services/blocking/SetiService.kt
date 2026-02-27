@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.seti.SetiRetrieveBlackBoxTestResultsParams
 import com.telnyx.sdk.models.seti.SetiRetrieveBlackBoxTestResultsResponse
 import java.util.function.Consumer
 
+/** Observability into Telnyx platform stability and performance. */
 interface SetiService {
 
     /**

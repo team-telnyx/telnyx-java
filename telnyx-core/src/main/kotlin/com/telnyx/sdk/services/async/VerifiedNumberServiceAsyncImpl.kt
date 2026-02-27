@@ -30,6 +30,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Verified Numbers operations */
 class VerifiedNumberServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : VerifiedNumberServiceAsync {
 
@@ -46,6 +47,7 @@ internal constructor(private val clientOptions: ClientOptions) : VerifiedNumberS
     ): VerifiedNumberServiceAsync =
         VerifiedNumberServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Verified Numbers operations */
     override fun actions(): ActionServiceAsync = actions
 
     override fun create(
@@ -93,6 +95,7 @@ internal constructor(private val clientOptions: ClientOptions) : VerifiedNumberS
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Verified Numbers operations */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         private val createHandler: Handler<VerifiedNumberCreateResponse> =

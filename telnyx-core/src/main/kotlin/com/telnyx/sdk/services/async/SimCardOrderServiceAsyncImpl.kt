@@ -27,6 +27,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** SIM Card Orders operations */
 class SimCardOrderServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     SimCardOrderServiceAsync {
 

@@ -17,6 +17,7 @@ import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressRe
 import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressRetrieveResponse
 import java.util.function.Consumer
 
+/** Dynamic emergency address operations */
 interface DynamicEmergencyAddressService {
 
     /**

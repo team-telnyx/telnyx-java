@@ -31,6 +31,7 @@ interface SessionServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SessionServiceAsync
 
+    /** Rooms Sessions operations. */
     fun actions(): ActionServiceAsync
 
     /** View a room session. */
@@ -183,6 +184,7 @@ interface SessionServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): SessionServiceAsync.WithRawResponse
 
+        /** Rooms Sessions operations. */
         fun actions(): ActionServiceAsync.WithRawResponse
 
         /**

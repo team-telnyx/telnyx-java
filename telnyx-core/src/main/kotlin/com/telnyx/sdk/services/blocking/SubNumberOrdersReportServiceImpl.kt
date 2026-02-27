@@ -25,6 +25,7 @@ import com.telnyx.sdk.models.subnumberordersreport.SubNumberOrdersReportRetrieve
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Number orders */
 class SubNumberOrdersReportServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : SubNumberOrdersReportService {
 

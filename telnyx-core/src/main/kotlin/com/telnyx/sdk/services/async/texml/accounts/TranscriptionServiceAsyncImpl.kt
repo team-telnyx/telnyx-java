@@ -21,6 +21,7 @@ class TranscriptionServiceAsyncImpl internal constructor(private val clientOptio
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TranscriptionServiceAsync =
         TranscriptionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** TeXML REST Commands */
     override fun json(): JsonServiceAsync = json
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -37,6 +38,7 @@ class TranscriptionServiceAsyncImpl internal constructor(private val clientOptio
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** TeXML REST Commands */
         override fun json(): JsonServiceAsync.WithRawResponse = json
     }
 }

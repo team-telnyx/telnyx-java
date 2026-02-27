@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.storage.migrations.MigrationRetrieveResponse
 import com.telnyx.sdk.services.blocking.storage.migrations.ActionService
 import java.util.function.Consumer
 
+/** Migrate data from an external provider into Telnyx Cloud Storage */
 interface MigrationService {
 
     /**
@@ -30,6 +31,7 @@ interface MigrationService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MigrationService
 
+    /** Migrate data from an external provider into Telnyx Cloud Storage */
     fun actions(): ActionService
 
     /**
@@ -117,6 +119,7 @@ interface MigrationService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): MigrationService.WithRawResponse
 
+        /** Migrate data from an external provider into Telnyx Cloud Storage */
         fun actions(): ActionService.WithRawResponse
 
         /**

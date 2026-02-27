@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.verifiednumbers.VerifiedNumberRetrieveParams
 import com.telnyx.sdk.services.blocking.verifiednumbers.ActionService
 import java.util.function.Consumer
 
+/** Verified Numbers operations */
 interface VerifiedNumberService {
 
     /**
@@ -30,6 +31,7 @@ interface VerifiedNumberService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VerifiedNumberService
 
+    /** Verified Numbers operations */
     fun actions(): ActionService
 
     /**
@@ -141,6 +143,7 @@ interface VerifiedNumberService {
             modifier: Consumer<ClientOptions.Builder>
         ): VerifiedNumberService.WithRawResponse
 
+        /** Verified Numbers operations */
         fun actions(): ActionService.WithRawResponse
 
         /**

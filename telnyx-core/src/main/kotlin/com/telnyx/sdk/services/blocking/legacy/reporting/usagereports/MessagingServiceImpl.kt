@@ -28,6 +28,7 @@ import com.telnyx.sdk.models.legacy.reporting.usagereports.messaging.MessagingRe
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Messaging usage reports */
 class MessagingServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     MessagingService {
 

@@ -64,16 +64,21 @@ class Messaging10dlcServiceImpl internal constructor(private val clientOptions: 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): Messaging10dlcService =
         Messaging10dlcServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Brand operations */
     override fun brand(): BrandService = brand
 
+    /** Campaign operations */
     override fun campaign(): CampaignService = campaign
 
+    /** Campaign operations */
     override fun campaignBuilder(): CampaignBuilderService = campaignBuilder
 
     override fun partnerCampaigns(): PartnerCampaignService = partnerCampaigns
 
+    /** Phone number campaign assignment */
     override fun phoneNumberCampaigns(): PhoneNumberCampaignService = phoneNumberCampaigns
 
+    /** Phone number campaign bulk assignment */
     override fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileService =
         phoneNumberAssignmentByProfile
 
@@ -122,17 +127,22 @@ class Messaging10dlcServiceImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Brand operations */
         override fun brand(): BrandService.WithRawResponse = brand
 
+        /** Campaign operations */
         override fun campaign(): CampaignService.WithRawResponse = campaign
 
+        /** Campaign operations */
         override fun campaignBuilder(): CampaignBuilderService.WithRawResponse = campaignBuilder
 
         override fun partnerCampaigns(): PartnerCampaignService.WithRawResponse = partnerCampaigns
 
+        /** Phone number campaign assignment */
         override fun phoneNumberCampaigns(): PhoneNumberCampaignService.WithRawResponse =
             phoneNumberCampaigns
 
+        /** Phone number campaign bulk assignment */
         override fun phoneNumberAssignmentByProfile():
             PhoneNumberAssignmentByProfileService.WithRawResponse = phoneNumberAssignmentByProfile
 

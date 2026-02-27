@@ -11,6 +11,7 @@ import com.telnyx.sdk.models.payment.PaymentCreateStoredPaymentTransactionRespon
 import com.telnyx.sdk.services.blocking.payment.AutoRechargePrefService
 import java.util.function.Consumer
 
+/** Operations for managing stored payment transactions. */
 interface PaymentService {
 
     /**
@@ -25,6 +26,7 @@ interface PaymentService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PaymentService
 
+    /** V2 Auto Recharge Preferences API */
     fun autoRechargePrefs(): AutoRechargePrefService
 
     /** Create a stored payment transaction */
@@ -49,6 +51,7 @@ interface PaymentService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): PaymentService.WithRawResponse
 
+        /** V2 Auto Recharge Preferences API */
         fun autoRechargePrefs(): AutoRechargePrefService.WithRawResponse
 
         /**

@@ -11,6 +11,7 @@ import com.telnyx.sdk.models.wireless.WirelessRetrieveRegionsResponse
 import com.telnyx.sdk.services.blocking.wireless.DetailRecordsReportService
 import java.util.function.Consumer
 
+/** Regions for wireless services */
 interface WirelessService {
 
     /**
@@ -25,6 +26,7 @@ interface WirelessService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WirelessService
 
+    /** Wireless reporting operations */
     fun detailRecordsReports(): DetailRecordsReportService
 
     /** Retrieve all wireless regions for the given product. */
@@ -47,6 +49,7 @@ interface WirelessService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): WirelessService.WithRawResponse
 
+        /** Wireless reporting operations */
         fun detailRecordsReports(): DetailRecordsReportService.WithRawResponse
 
         /**

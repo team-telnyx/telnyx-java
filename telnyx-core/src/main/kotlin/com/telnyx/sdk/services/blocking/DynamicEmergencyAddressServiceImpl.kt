@@ -28,6 +28,7 @@ import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressRe
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Dynamic emergency address operations */
 class DynamicEmergencyAddressServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : DynamicEmergencyAddressService {
 

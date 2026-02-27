@@ -32,6 +32,7 @@ import com.telnyx.sdk.models.verifyprofiles.VerifyProfileUpdateTemplateParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Two factor authentication API */
 class VerifyProfileServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     VerifyProfileService {
 

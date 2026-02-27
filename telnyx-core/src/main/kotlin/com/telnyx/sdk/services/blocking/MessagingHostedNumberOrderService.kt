@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.messaginghostednumberorders.MessagingHostedNumberOr
 import com.telnyx.sdk.services.blocking.messaginghostednumberorders.ActionService
 import java.util.function.Consumer
 
+/** Manage your messaging hosted numbers */
 interface MessagingHostedNumberOrderService {
 
     /**
@@ -37,6 +38,7 @@ interface MessagingHostedNumberOrderService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingHostedNumberOrderService
 
+    /** Manage your messaging hosted numbers */
     fun actions(): ActionService
 
     /** Create a messaging hosted number order */
@@ -242,6 +244,7 @@ interface MessagingHostedNumberOrderService {
             modifier: Consumer<ClientOptions.Builder>
         ): MessagingHostedNumberOrderService.WithRawResponse
 
+        /** Manage your messaging hosted numbers */
         fun actions(): ActionService.WithRawResponse
 
         /**

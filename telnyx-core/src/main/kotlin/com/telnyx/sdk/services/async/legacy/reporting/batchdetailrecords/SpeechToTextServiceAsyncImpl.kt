@@ -28,6 +28,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Speech to text batch detail records */
 class SpeechToTextServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     SpeechToTextServiceAsync {
 

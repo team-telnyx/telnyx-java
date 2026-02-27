@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.phonenumbersregulatoryrequirements.PhoneNumbersRegu
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Regulatory Requirements */
 class PhoneNumbersRegulatoryRequirementServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
     PhoneNumbersRegulatoryRequirementServiceAsync {

@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.ledgerbillinggroupreports.LedgerBillingGroupReportR
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Ledger billing reports */
 interface LedgerBillingGroupReportServiceAsync {
 
     /**

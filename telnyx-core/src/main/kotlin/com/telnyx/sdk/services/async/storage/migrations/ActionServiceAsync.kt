@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.storage.migrations.actions.ActionStopResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Migrate data from an external provider into Telnyx Cloud Storage */
 interface ActionServiceAsync {
 
     /**

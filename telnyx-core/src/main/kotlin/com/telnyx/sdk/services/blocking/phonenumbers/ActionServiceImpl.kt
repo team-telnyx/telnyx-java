@@ -25,6 +25,7 @@ import com.telnyx.sdk.models.phonenumbers.actions.ActionVerifyOwnershipResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure your phone numbers */
 class ActionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionService {
 

@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.ipconnections.IpConnectionUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** IP connection operations */
 interface IpConnectionServiceAsync {
 
     /**

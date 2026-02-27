@@ -9,6 +9,7 @@ import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.models.speechtotext.SpeechToTextTranscribeParams
 import java.util.function.Consumer
 
+/** Speech to text command operations */
 interface SpeechToTextService {
 
     /**

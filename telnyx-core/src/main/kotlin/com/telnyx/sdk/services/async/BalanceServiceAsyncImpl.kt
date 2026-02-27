@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.balance.BalanceRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Billing operations */
 class BalanceServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     BalanceServiceAsync {
 

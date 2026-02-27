@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.simcarddatausagenotifications.SimCardDataUsageNotif
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** SIM Cards operations */
 interface SimCardDataUsageNotificationServiceAsync {
 
     /**

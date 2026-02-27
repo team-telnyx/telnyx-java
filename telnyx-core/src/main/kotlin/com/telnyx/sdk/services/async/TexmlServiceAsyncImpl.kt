@@ -22,6 +22,7 @@ import com.telnyx.sdk.services.async.texml.AccountServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 class TexmlServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     TexmlServiceAsync {
 
@@ -36,6 +37,7 @@ class TexmlServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TexmlServiceAsync =
         TexmlServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** TeXML REST Commands */
     override fun accounts(): AccountServiceAsync = accounts
 
     override fun secrets(
@@ -62,6 +64,7 @@ class TexmlServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** TeXML REST Commands */
         override fun accounts(): AccountServiceAsync.WithRawResponse = accounts
 
         private val secretsHandler: Handler<TexmlSecretsResponse> =

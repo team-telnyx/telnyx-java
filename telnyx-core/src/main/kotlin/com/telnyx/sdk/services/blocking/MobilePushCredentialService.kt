@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.mobilepushcredentials.MobilePushCredentialRetrieveP
 import com.telnyx.sdk.models.mobilepushcredentials.PushCredentialResponse
 import java.util.function.Consumer
 
+/** Mobile push credential management */
 interface MobilePushCredentialService {
 
     /**

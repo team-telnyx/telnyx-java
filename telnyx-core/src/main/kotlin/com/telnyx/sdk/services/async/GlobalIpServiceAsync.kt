@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.globalips.GlobalIpRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Global IPs */
 interface GlobalIpServiceAsync {
 
     /**

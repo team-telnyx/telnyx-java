@@ -20,6 +20,7 @@ interface OrganizationServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OrganizationServiceAsync
 
+    /** Operations related to users in your organization */
     fun users(): UserServiceAsync
 
     /**
@@ -37,6 +38,7 @@ interface OrganizationServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): OrganizationServiceAsync.WithRawResponse
 
+        /** Operations related to users in your organization */
         fun users(): UserServiceAsync.WithRawResponse
     }
 }

@@ -20,6 +20,7 @@ import com.telnyx.sdk.services.async.rooms.SessionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Rooms operations. */
 interface RoomServiceAsync {
 
     /**
@@ -34,6 +35,7 @@ interface RoomServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RoomServiceAsync
 
+    /** Rooms Client Tokens operations. */
     fun actions(): ActionServiceAsync
 
     fun sessions(): SessionServiceAsync
@@ -186,6 +188,7 @@ interface RoomServiceAsync {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): RoomServiceAsync.WithRawResponse
 
+        /** Rooms Client Tokens operations. */
         fun actions(): ActionServiceAsync.WithRawResponse
 
         fun sessions(): SessionServiceAsync.WithRawResponse

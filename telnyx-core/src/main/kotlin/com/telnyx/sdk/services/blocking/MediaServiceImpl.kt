@@ -31,6 +31,7 @@ import com.telnyx.sdk.models.media.MediaUploadResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Media Storage operations */
 class MediaServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     MediaService {
 

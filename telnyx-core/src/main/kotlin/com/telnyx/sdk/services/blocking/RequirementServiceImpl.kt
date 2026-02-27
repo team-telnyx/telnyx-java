@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.requirements.RequirementRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Requirements for international numbers and porting orders */
 class RequirementServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RequirementService {
 

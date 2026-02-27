@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.faxapplications.FaxApplicationUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Fax Applications operations */
 class FaxApplicationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     FaxApplicationService {
 

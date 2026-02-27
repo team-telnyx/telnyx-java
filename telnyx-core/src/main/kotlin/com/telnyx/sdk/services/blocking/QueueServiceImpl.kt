@@ -32,6 +32,7 @@ import com.telnyx.sdk.services.blocking.queues.CallServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Queue commands operations */
 class QueueServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     QueueService {
 
@@ -46,6 +47,7 @@ class QueueServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): QueueService =
         QueueServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Queue commands operations */
     override fun calls(): CallService = calls
 
     override fun create(
@@ -95,6 +97,7 @@ class QueueServiceImpl internal constructor(private val clientOptions: ClientOpt
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Queue commands operations */
         override fun calls(): CallService.WithRawResponse = calls
 
         private val createHandler: Handler<QueueCreateResponse> =

@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.notificationevents.NotificationEventListPageRespons
 import com.telnyx.sdk.models.notificationevents.NotificationEventListParams
 import java.util.function.Consumer
 
+/** Notification settings operations */
 class NotificationEventServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     NotificationEventService {
 

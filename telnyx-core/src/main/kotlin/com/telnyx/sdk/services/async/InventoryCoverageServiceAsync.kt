@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.inventorycoverage.InventoryCoverageListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Inventory Level */
 interface InventoryCoverageServiceAsync {
 
     /**

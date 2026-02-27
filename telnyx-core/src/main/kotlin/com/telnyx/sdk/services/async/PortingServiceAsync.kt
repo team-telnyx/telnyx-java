@@ -13,6 +13,7 @@ import com.telnyx.sdk.services.async.porting.ReportServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 interface PortingServiceAsync {
 
     /**
@@ -27,10 +28,13 @@ interface PortingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortingServiceAsync
 
+    /** Endpoints related to porting orders management. */
     fun events(): EventServiceAsync
 
+    /** Endpoints related to porting orders management. */
     fun reports(): ReportServiceAsync
 
+    /** Endpoints related to porting orders management. */
     fun loaConfigurations(): LoaConfigurationServiceAsync
 
     /** List available carriers in the UK. */
@@ -69,10 +73,13 @@ interface PortingServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): PortingServiceAsync.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun events(): EventServiceAsync.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun reports(): ReportServiceAsync.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun loaConfigurations(): LoaConfigurationServiceAsync.WithRawResponse
 
         /**

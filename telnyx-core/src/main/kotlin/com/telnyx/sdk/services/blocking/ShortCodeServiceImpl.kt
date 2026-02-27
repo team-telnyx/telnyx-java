@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.shortcodes.ShortCodeUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Short codes */
 class ShortCodeServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ShortCodeService {
 

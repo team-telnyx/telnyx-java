@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.credentialconnections.CredentialConnectionUpdateRes
 import com.telnyx.sdk.services.blocking.credentialconnections.ActionService
 import java.util.function.Consumer
 
+/** Credential connection operations */
 interface CredentialConnectionService {
 
     /**
@@ -33,6 +34,7 @@ interface CredentialConnectionService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CredentialConnectionService
 
+    /** Credential connection operations */
     fun actions(): ActionService
 
     /** Creates a credential connection. */
@@ -174,6 +176,7 @@ interface CredentialConnectionService {
             modifier: Consumer<ClientOptions.Builder>
         ): CredentialConnectionService.WithRawResponse
 
+        /** Credential connection operations */
         fun actions(): ActionService.WithRawResponse
 
         /**

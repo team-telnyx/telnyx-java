@@ -24,6 +24,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Rooms Participants operations. */
 class RoomParticipantServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : RoomParticipantServiceAsync {
 

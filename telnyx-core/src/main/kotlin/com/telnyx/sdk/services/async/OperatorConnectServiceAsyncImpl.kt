@@ -23,6 +23,7 @@ internal constructor(private val clientOptions: ClientOptions) : OperatorConnect
     ): OperatorConnectServiceAsync =
         OperatorConnectServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** External Connections operations */
     override fun actions(): ActionServiceAsync = actions
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -39,6 +40,7 @@ internal constructor(private val clientOptions: ClientOptions) : OperatorConnect
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** External Connections operations */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
     }
 }

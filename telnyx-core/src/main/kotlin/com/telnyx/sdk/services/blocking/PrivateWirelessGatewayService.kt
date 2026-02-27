@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayRetri
 import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayRetrieveResponse
 import java.util.function.Consumer
 
+/** Private Wireless Gateways operations */
 interface PrivateWirelessGatewayService {
 
     /**

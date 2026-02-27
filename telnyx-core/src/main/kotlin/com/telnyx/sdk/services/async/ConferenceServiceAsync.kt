@@ -21,6 +21,7 @@ import com.telnyx.sdk.services.async.conferences.ActionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Conference command operations */
 interface ConferenceServiceAsync {
 
     /**
@@ -35,6 +36,7 @@ interface ConferenceServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConferenceServiceAsync
 
+    /** Conference command operations */
     fun actions(): ActionServiceAsync
 
     /**
@@ -226,6 +228,7 @@ interface ConferenceServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): ConferenceServiceAsync.WithRawResponse
 
+        /** Conference command operations */
         fun actions(): ActionServiceAsync.WithRawResponse
 
         /**

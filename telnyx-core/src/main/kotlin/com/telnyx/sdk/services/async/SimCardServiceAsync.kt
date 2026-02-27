@@ -25,6 +25,7 @@ import com.telnyx.sdk.services.async.simcards.ActionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** SIM Cards operations */
 interface SimCardServiceAsync {
 
     /**

@@ -33,6 +33,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Credential connection operations */
 class CredentialConnectionServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : CredentialConnectionServiceAsync {
 
@@ -52,6 +53,7 @@ internal constructor(private val clientOptions: ClientOptions) : CredentialConne
             clientOptions.toBuilder().apply(modifier::accept).build()
         )
 
+    /** Credential connection operations */
     override fun actions(): ActionServiceAsync = actions
 
     override fun create(
@@ -106,6 +108,7 @@ internal constructor(private val clientOptions: ClientOptions) : CredentialConne
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Credential connection operations */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         private val createHandler: Handler<CredentialConnectionCreateResponse> =

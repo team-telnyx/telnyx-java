@@ -27,6 +27,7 @@ import com.telnyx.sdk.services.blocking.messaging10dlc.campaign.OsrService
 import com.telnyx.sdk.services.blocking.messaging10dlc.campaign.UsecaseService
 import java.util.function.Consumer
 
+/** Campaign operations */
 interface CampaignService {
 
     /**
@@ -41,8 +42,10 @@ interface CampaignService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CampaignService
 
+    /** Campaign operations */
     fun usecase(): UsecaseService
 
+    /** Campaign operations */
     fun osr(): OsrService
 
     /** Retrieve campaign details by `campaignId`. */
@@ -334,8 +337,10 @@ interface CampaignService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): CampaignService.WithRawResponse
 
+        /** Campaign operations */
         fun usecase(): UsecaseService.WithRawResponse
 
+        /** Campaign operations */
         fun osr(): OsrService.WithRawResponse
 
         /**

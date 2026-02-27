@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderRetriev
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Inexplicit number orders for bulk purchasing without specifying exact numbers */
 class InexplicitNumberOrderServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : InexplicitNumberOrderService {
 

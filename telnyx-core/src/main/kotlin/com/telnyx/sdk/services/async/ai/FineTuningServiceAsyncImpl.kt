@@ -21,6 +21,7 @@ class FineTuningServiceAsyncImpl internal constructor(private val clientOptions:
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FineTuningServiceAsync =
         FineTuningServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Customize LLMs for your unique needs */
     override fun jobs(): JobServiceAsync = jobs
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -37,6 +38,7 @@ class FineTuningServiceAsyncImpl internal constructor(private val clientOptions:
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Customize LLMs for your unique needs */
         override fun jobs(): JobServiceAsync.WithRawResponse = jobs
     }
 }

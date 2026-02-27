@@ -20,6 +20,7 @@ interface OpenAIService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OpenAIService
 
+    /** OpenAI-compatible embeddings endpoints for generating vector representations of text */
     fun embeddings(): EmbeddingService
 
     /** A view of [OpenAIService] that provides access to raw HTTP responses for each method. */
@@ -32,6 +33,7 @@ interface OpenAIService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): OpenAIService.WithRawResponse
 
+        /** OpenAI-compatible embeddings endpoints for generating vector representations of text */
         fun embeddings(): EmbeddingService.WithRawResponse
     }
 }

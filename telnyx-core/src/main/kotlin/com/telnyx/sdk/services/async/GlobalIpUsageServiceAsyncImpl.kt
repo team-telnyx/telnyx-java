@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.globalipusage.GlobalIpUsageRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Global IPs */
 class GlobalIpUsageServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     GlobalIpUsageServiceAsync {
 

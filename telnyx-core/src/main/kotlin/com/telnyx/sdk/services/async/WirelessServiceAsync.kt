@@ -11,6 +11,7 @@ import com.telnyx.sdk.services.async.wireless.DetailRecordsReportServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Regions for wireless services */
 interface WirelessServiceAsync {
 
     /**
@@ -25,6 +26,7 @@ interface WirelessServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WirelessServiceAsync
 
+    /** Wireless reporting operations */
     fun detailRecordsReports(): DetailRecordsReportServiceAsync
 
     /** Retrieve all wireless regions for the given product. */
@@ -53,6 +55,7 @@ interface WirelessServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): WirelessServiceAsync.WithRawResponse
 
+        /** Wireless reporting operations */
         fun detailRecordsReports(): DetailRecordsReportServiceAsync.WithRawResponse
 
         /**

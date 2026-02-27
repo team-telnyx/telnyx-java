@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayRetriev
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Public Internet Gateway operations */
 interface PublicInternetGatewayServiceAsync {
 
     /**

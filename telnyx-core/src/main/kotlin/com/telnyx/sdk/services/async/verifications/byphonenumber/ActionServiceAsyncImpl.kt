@@ -22,6 +22,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Two factor authentication API */
 class ActionServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionServiceAsync {
 

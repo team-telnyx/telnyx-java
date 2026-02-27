@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.texml.accounts.recordings.json.JsonRetrieveRecordin
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML REST Commands */
 class JsonServiceImpl internal constructor(private val clientOptions: ClientOptions) : JsonService {
 
     private val withRawResponse: JsonService.WithRawResponse by lazy {

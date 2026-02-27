@@ -20,6 +20,7 @@ interface VerificationServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VerificationServiceAsync
 
+    /** Manage your tollfree verification requests */
     fun requests(): RequestServiceAsync
 
     /**
@@ -37,6 +38,7 @@ interface VerificationServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): VerificationServiceAsync.WithRawResponse
 
+        /** Manage your tollfree verification requests */
         fun requests(): RequestServiceAsync.WithRawResponse
     }
 }

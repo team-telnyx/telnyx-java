@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.notificationeventconditions.NotificationEventCondit
 import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListParams
 import java.util.function.Consumer
 
+/** Notification settings operations */
 interface NotificationEventConditionService {
 
     /**

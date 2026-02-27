@@ -28,8 +28,10 @@ interface ReportServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReportServiceAsync
 
+    /** Voice usage reports */
     fun cdrUsageReports(): CdrUsageReportServiceAsync
 
+    /** Messaging usage reports */
     fun mdrUsageReports(): MdrUsageReportServiceAsync
 
     /** Fetch all Mdr records */
@@ -84,8 +86,10 @@ interface ReportServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): ReportServiceAsync.WithRawResponse
 
+        /** Voice usage reports */
         fun cdrUsageReports(): CdrUsageReportServiceAsync.WithRawResponse
 
+        /** Messaging usage reports */
         fun mdrUsageReports(): MdrUsageReportServiceAsync.WithRawResponse
 
         /**

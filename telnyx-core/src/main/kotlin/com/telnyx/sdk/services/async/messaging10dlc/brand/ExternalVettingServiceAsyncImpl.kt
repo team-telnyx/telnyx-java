@@ -26,6 +26,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Brand operations */
 class ExternalVettingServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : ExternalVettingServiceAsync {
 

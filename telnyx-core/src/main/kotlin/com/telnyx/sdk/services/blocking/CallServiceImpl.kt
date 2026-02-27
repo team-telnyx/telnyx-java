@@ -38,6 +38,7 @@ class CallServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallService =
         CallServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Call Control command operations */
     override fun actions(): ActionService = actions
 
     override fun dial(params: CallDialParams, requestOptions: RequestOptions): CallDialResponse =
@@ -68,6 +69,7 @@ class CallServiceImpl internal constructor(private val clientOptions: ClientOpti
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Call Control command operations */
         override fun actions(): ActionService.WithRawResponse = actions
 
         private val dialHandler: Handler<CallDialResponse> =

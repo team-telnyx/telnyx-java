@@ -24,6 +24,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** OTA updates operations */
 class OtaUpdateServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     OtaUpdateServiceAsync {
 

@@ -32,6 +32,7 @@ import com.telnyx.sdk.models.wireguardpeers.WireguardPeerUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** WireGuard Interface operations */
 class WireguardPeerServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     WireguardPeerService {
 

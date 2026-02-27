@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCo
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Virtual Cross Connect operations */
 class VirtualCrossConnectsCoverageServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
     VirtualCrossConnectsCoverageServiceAsync {

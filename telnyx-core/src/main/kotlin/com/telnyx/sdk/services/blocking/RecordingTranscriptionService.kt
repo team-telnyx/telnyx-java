@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionRetri
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionRetrieveResponse
 import java.util.function.Consumer
 
+/** Call Recordings operations. */
 interface RecordingTranscriptionService {
 
     /**

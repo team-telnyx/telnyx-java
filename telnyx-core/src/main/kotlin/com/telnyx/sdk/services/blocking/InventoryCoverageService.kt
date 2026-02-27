@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.inventorycoverage.InventoryCoverageListParams
 import com.telnyx.sdk.models.inventorycoverage.InventoryCoverageListResponse
 import java.util.function.Consumer
 
+/** Inventory Level */
 interface InventoryCoverageService {
 
     /**

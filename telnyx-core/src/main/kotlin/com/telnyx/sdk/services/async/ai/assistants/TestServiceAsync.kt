@@ -18,6 +18,7 @@ import com.telnyx.sdk.services.async.ai.assistants.tests.TestSuiteServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 interface TestServiceAsync {
 
     /**
@@ -32,8 +33,10 @@ interface TestServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TestServiceAsync
 
+    /** Configure AI assistant specifications */
     fun testSuites(): TestSuiteServiceAsync
 
+    /** Configure AI assistant specifications */
     fun runs(): RunServiceAsync
 
     /** Creates a comprehensive test configuration for evaluating AI assistant performance */
@@ -167,8 +170,10 @@ interface TestServiceAsync {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): TestServiceAsync.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun testSuites(): TestSuiteServiceAsync.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun runs(): RunServiceAsync.WithRawResponse
 
         /**

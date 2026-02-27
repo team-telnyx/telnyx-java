@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileUpdatePar
 import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileUpdateResponse
 import java.util.function.Consumer
 
+/** Outbound voice profiles operations */
 interface OutboundVoiceProfileService {
 
     /**

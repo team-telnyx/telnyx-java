@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateParams
 import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateResponse
 import java.util.function.Consumer
 
+/** Voice Channels */
 interface ChannelZoneService {
 
     /**

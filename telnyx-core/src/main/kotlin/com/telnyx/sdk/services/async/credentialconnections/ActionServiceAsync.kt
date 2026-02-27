@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.credentialconnections.actions.ActionCheckRegistrati
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Credential connection operations */
 interface ActionServiceAsync {
 
     /**

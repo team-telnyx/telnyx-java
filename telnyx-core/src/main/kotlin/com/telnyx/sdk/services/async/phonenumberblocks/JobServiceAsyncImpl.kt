@@ -27,6 +27,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Background jobs performed over a phone-numbers block's phone numbers */
 class JobServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     JobServiceAsync {
 

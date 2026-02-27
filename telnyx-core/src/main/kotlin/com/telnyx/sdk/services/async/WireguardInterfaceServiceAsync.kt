@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceRetrieveRespo
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** WireGuard Interface operations */
 interface WireguardInterfaceServiceAsync {
 
     /**

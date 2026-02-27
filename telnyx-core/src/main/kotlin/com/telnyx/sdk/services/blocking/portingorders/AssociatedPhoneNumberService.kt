@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhon
 import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhoneNumberListParams
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 interface AssociatedPhoneNumberService {
 
     /**

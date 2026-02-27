@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.texml.accounts.calls.streams.StreamStreamingSidJson
 import com.telnyx.sdk.models.texml.accounts.calls.streams.StreamStreamingSidJsonResponse
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface StreamService {
 
     /**

@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.organizations.users.actions.ActionRemoveParams
 import com.telnyx.sdk.models.organizations.users.actions.ActionRemoveResponse
 import java.util.function.Consumer
 
+/** Operations related to users in your organization */
 interface ActionService {
 
     /**

@@ -40,6 +40,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML REST Commands */
 class CallServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     CallServiceAsync {
 
@@ -64,12 +65,16 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallServiceAsync =
         CallServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** TeXML REST Commands */
     override fun recordingsJson(): RecordingsJsonServiceAsync = recordingsJson
 
+    /** TeXML REST Commands */
     override fun recordings(): RecordingServiceAsync = recordings
 
+    /** TeXML REST Commands */
     override fun siprec(): SiprecServiceAsync = siprec
 
+    /** TeXML REST Commands */
     override fun streams(): StreamServiceAsync = streams
 
     override fun retrieve(
@@ -143,12 +148,16 @@ class CallServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** TeXML REST Commands */
         override fun recordingsJson(): RecordingsJsonServiceAsync.WithRawResponse = recordingsJson
 
+        /** TeXML REST Commands */
         override fun recordings(): RecordingServiceAsync.WithRawResponse = recordings
 
+        /** TeXML REST Commands */
         override fun siprec(): SiprecServiceAsync.WithRawResponse = siprec
 
+        /** TeXML REST Commands */
         override fun streams(): StreamServiceAsync.WithRawResponse = streams
 
         private val retrieveHandler: Handler<CallRetrieveResponse> =

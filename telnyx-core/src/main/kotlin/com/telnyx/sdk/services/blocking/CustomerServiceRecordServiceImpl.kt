@@ -28,6 +28,7 @@ import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordVerifyP
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Customer Service Record operations */
 class CustomerServiceRecordServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : CustomerServiceRecordService {
 

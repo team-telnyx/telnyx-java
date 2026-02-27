@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.verifiednumbers.actions.ActionSubmitVerificationCod
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Verified Numbers operations */
 class ActionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionService {
 

@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.ai.embeddings.buckets.BucketRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Embed documents and perform text searches */
 interface BucketServiceAsync {
 
     /**

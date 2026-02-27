@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportRetrieveRespo
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Messaging usage reports */
 class MdrUsageReportServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     MdrUsageReportService {
 

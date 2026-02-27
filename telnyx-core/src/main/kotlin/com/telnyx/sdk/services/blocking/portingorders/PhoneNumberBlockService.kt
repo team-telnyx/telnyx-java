@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockLis
 import com.telnyx.sdk.models.portingorders.phonenumberblocks.PhoneNumberBlockListParams
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 interface PhoneNumberBlockService {
 
     /**

@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.roomrecordings.RoomRecordingRetrieveParams
 import com.telnyx.sdk.models.roomrecordings.RoomRecordingRetrieveResponse
 import java.util.function.Consumer
 
+/** Rooms Recordings operations. */
 interface RoomRecordingService {
 
     /**

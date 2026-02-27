@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Webhooks operations */
 interface WebhookDeliveryServiceAsync {
 
     /**

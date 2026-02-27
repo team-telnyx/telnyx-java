@@ -26,6 +26,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Send RCS messages */
 class AgentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     AgentServiceAsync {
 

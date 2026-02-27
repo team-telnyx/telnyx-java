@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.messaging10dlc.campaign.usecase.UsecaseGetCostRespo
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Campaign operations */
 class UsecaseServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     UsecaseServiceAsync {
 

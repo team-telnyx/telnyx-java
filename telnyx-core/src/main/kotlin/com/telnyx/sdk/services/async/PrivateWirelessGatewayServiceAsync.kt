@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.privatewirelessgateways.PrivateWirelessGatewayRetri
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Private Wireless Gateways operations */
 interface PrivateWirelessGatewayServiceAsync {
 
     /**

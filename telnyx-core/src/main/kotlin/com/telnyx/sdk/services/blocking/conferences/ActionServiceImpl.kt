@@ -53,6 +53,7 @@ import com.telnyx.sdk.models.conferences.actions.ActionUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Conference command operations */
 class ActionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionService {
 

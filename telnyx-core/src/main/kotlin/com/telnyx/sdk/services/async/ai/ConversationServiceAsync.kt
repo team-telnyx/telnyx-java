@@ -24,6 +24,7 @@ import com.telnyx.sdk.services.async.ai.conversations.MessageServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Manage historical AI assistant conversations */
 interface ConversationServiceAsync {
 
     /**
@@ -38,10 +39,13 @@ interface ConversationServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConversationServiceAsync
 
+    /** Manage historical AI assistant conversations */
     fun insightGroups(): InsightGroupServiceAsync
 
+    /** Manage historical AI assistant conversations */
     fun insights(): InsightServiceAsync
 
+    /** Manage historical AI assistant conversations */
     fun messages(): MessageServiceAsync
 
     /** Create a new AI Conversation. */
@@ -285,10 +289,13 @@ interface ConversationServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): ConversationServiceAsync.WithRawResponse
 
+        /** Manage historical AI assistant conversations */
         fun insightGroups(): InsightGroupServiceAsync.WithRawResponse
 
+        /** Manage historical AI assistant conversations */
         fun insights(): InsightServiceAsync.WithRawResponse
 
+        /** Manage historical AI assistant conversations */
         fun messages(): MessageServiceAsync.WithRawResponse
 
         /**

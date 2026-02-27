@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumber
 import com.telnyx.sdk.models.portingorders.phonenumberconfigurations.PhoneNumberConfigurationListParams
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 interface PhoneNumberConfigurationService {
 
     /**

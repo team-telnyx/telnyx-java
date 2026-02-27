@@ -25,6 +25,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Endpoints related to porting orders management. */
 class CommentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     CommentServiceAsync {
 

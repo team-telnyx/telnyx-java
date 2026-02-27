@@ -23,6 +23,7 @@ interface ReportingServiceAsync {
 
     fun batchDetailRecords(): BatchDetailRecordServiceAsync
 
+    /** Speech to text usage reports */
     fun usageReports(): UsageReportServiceAsync
 
     /**
@@ -41,6 +42,7 @@ interface ReportingServiceAsync {
 
         fun batchDetailRecords(): BatchDetailRecordServiceAsync.WithRawResponse
 
+        /** Speech to text usage reports */
         fun usageReports(): UsageReportServiceAsync.WithRawResponse
     }
 }

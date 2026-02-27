@@ -20,6 +20,7 @@ interface OperatorConnectServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OperatorConnectServiceAsync
 
+    /** External Connections operations */
     fun actions(): ActionServiceAsync
 
     /**
@@ -37,6 +38,7 @@ interface OperatorConnectServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): OperatorConnectServiceAsync.WithRawResponse
 
+        /** External Connections operations */
         fun actions(): ActionServiceAsync.WithRawResponse
     }
 }

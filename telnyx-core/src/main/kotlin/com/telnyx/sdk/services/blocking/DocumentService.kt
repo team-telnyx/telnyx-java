@@ -24,6 +24,7 @@ import com.telnyx.sdk.models.documents.DocumentUploadParams
 import com.telnyx.sdk.models.documents.DocumentUploadResponse
 import java.util.function.Consumer
 
+/** Documents */
 interface DocumentService {
 
     /**

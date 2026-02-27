@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.simcardgroups.SimCardGroupUpdateResponse
 import com.telnyx.sdk.services.blocking.simcardgroups.ActionService
 import java.util.function.Consumer
 
+/** SIM Card Groups operations */
 interface SimCardGroupService {
 
     /**

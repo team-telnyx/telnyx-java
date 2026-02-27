@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.globalipassignmenthealth.GlobalIpAssignmentHealthRe
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Global IPs */
 class GlobalIpAssignmentHealthServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
     GlobalIpAssignmentHealthServiceAsync {

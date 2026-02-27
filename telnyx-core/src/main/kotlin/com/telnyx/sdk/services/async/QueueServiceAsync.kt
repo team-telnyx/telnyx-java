@@ -19,6 +19,7 @@ import com.telnyx.sdk.services.async.queues.CallServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Queue commands operations */
 interface QueueServiceAsync {
 
     /**
@@ -33,6 +34,7 @@ interface QueueServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): QueueServiceAsync
 
+    /** Queue commands operations */
     fun calls(): CallServiceAsync
 
     /** Create a new call queue. */
@@ -166,6 +168,7 @@ interface QueueServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): QueueServiceAsync.WithRawResponse
 
+        /** Queue commands operations */
         fun calls(): CallServiceAsync.WithRawResponse
 
         /**

@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.otaupdates.OtaUpdateRetrieveParams
 import com.telnyx.sdk.models.otaupdates.OtaUpdateRetrieveResponse
 import java.util.function.Consumer
 
+/** OTA updates operations */
 interface OtaUpdateService {
 
     /**

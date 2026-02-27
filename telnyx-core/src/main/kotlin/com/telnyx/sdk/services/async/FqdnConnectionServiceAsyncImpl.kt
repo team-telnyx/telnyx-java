@@ -31,6 +31,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** FQDN connection operations */
 class FqdnConnectionServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : FqdnConnectionServiceAsync {
 

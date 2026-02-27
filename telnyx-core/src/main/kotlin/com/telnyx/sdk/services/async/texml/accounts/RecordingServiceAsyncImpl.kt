@@ -21,6 +21,7 @@ class RecordingServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecordingServiceAsync =
         RecordingServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** TeXML REST Commands */
     override fun json(): JsonServiceAsync = json
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -37,6 +38,7 @@ class RecordingServiceAsyncImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** TeXML REST Commands */
         override fun json(): JsonServiceAsync.WithRawResponse = json
     }
 }

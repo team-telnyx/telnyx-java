@@ -29,6 +29,7 @@ import com.telnyx.sdk.services.blocking.verifiednumbers.ActionServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Verified Numbers operations */
 class VerifiedNumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     VerifiedNumberService {
 
@@ -43,6 +44,7 @@ class VerifiedNumberServiceImpl internal constructor(private val clientOptions: 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): VerifiedNumberService =
         VerifiedNumberServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Verified Numbers operations */
     override fun actions(): ActionService = actions
 
     override fun create(
@@ -90,6 +92,7 @@ class VerifiedNumberServiceImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Verified Numbers operations */
         override fun actions(): ActionService.WithRawResponse = actions
 
         private val createHandler: Handler<VerifiedNumberCreateResponse> =

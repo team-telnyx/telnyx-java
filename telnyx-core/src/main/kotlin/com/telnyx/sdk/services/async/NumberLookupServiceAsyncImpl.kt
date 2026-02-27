@@ -21,6 +21,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Look up phone number data */
 class NumberLookupServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     NumberLookupServiceAsync {
 

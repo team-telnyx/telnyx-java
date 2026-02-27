@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.shortcodes.ShortCodeUpdateParams
 import com.telnyx.sdk.models.shortcodes.ShortCodeUpdateResponse
 import java.util.function.Consumer
 
+/** Short codes */
 interface ShortCodeService {
 
     /**

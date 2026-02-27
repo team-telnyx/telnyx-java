@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.texml.accounts.calls.recordings.RecordingRecordingS
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML REST Commands */
 class RecordingServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RecordingService {
 

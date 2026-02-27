@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.texmlapplications.TexmlApplicationUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** TeXML Applications operations */
 interface TexmlApplicationServiceAsync {
 
     /**

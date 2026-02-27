@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.notificationprofiles.NotificationProfileUpdateRespo
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Notification settings operations */
 interface NotificationProfileServiceAsync {
 
     /**

@@ -31,6 +31,7 @@ interface SessionService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SessionService
 
+    /** Rooms Sessions operations. */
     fun actions(): ActionService
 
     /** View a room session. */
@@ -165,6 +166,7 @@ interface SessionService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): SessionService.WithRawResponse
 
+        /** Rooms Sessions operations. */
         fun actions(): ActionService.WithRawResponse
 
         /**

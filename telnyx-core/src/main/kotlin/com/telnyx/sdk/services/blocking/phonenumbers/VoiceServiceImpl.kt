@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.phonenumbers.voice.VoiceUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure your phone numbers */
 class VoiceServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     VoiceService {
 

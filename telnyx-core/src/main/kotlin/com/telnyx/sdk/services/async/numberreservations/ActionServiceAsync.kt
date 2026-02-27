@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.numberreservations.actions.ActionExtendResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Number reservations */
 interface ActionServiceAsync {
 
     /**

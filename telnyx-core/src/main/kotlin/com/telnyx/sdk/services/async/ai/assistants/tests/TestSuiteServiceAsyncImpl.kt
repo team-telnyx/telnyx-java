@@ -21,6 +21,7 @@ import com.telnyx.sdk.services.async.ai.assistants.tests.testsuites.RunServiceAs
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 class TestSuiteServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     TestSuiteServiceAsync {
 
@@ -35,6 +36,7 @@ class TestSuiteServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TestSuiteServiceAsync =
         TestSuiteServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Configure AI assistant specifications */
     override fun runs(): RunServiceAsync = runs
 
     override fun list(
@@ -61,6 +63,7 @@ class TestSuiteServiceAsyncImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Configure AI assistant specifications */
         override fun runs(): RunServiceAsync.WithRawResponse = runs
 
         private val listHandler: Handler<TestSuiteListResponse> =

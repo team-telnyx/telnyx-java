@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.storage.buckets.sslcertificate.SslCertificateRetrie
 import com.telnyx.sdk.models.storage.buckets.sslcertificate.SslCertificateRetrieveResponse
 import java.util.function.Consumer
 
+/** SSL certificate operations */
 interface SslCertificateService {
 
     /**

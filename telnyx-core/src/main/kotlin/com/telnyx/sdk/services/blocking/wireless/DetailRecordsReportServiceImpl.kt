@@ -27,6 +27,7 @@ import com.telnyx.sdk.models.wireless.detailrecordsreports.DetailRecordsReportRe
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Wireless reporting operations */
 class DetailRecordsReportServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : DetailRecordsReportService {
 

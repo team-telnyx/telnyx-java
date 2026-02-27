@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.legacy.reporting.usagereports.numberlookup.NumberLo
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Number lookup usage reports */
 interface NumberLookupServiceAsync {
 
     /**

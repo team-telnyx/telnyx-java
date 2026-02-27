@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.messagingoptouts.MessagingOptoutListPageResponse
 import com.telnyx.sdk.models.messagingoptouts.MessagingOptoutListParams
 import java.util.function.Consumer
 
+/** Opt-Out Management */
 class MessagingOptoutServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     MessagingOptoutService {
 

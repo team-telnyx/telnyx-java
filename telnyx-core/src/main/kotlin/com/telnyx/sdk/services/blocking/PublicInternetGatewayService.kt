@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayRetriev
 import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayRetrieveResponse
 import java.util.function.Consumer
 
+/** Public Internet Gateway operations */
 interface PublicInternetGatewayService {
 
     /**

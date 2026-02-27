@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.detailrecords.DetailRecordListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Detail Records operations */
 interface DetailRecordServiceAsync {
 
     /**

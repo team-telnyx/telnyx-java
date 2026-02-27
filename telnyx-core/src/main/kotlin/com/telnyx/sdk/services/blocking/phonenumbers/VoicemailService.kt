@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.phonenumbers.voicemail.VoicemailUpdateParams
 import com.telnyx.sdk.models.phonenumbers.voicemail.VoicemailUpdateResponse
 import java.util.function.Consumer
 
+/** Voicemail API */
 interface VoicemailService {
 
     /**

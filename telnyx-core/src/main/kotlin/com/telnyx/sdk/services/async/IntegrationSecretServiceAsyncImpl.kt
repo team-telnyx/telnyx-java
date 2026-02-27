@@ -27,6 +27,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Store and retrieve integration secrets */
 class IntegrationSecretServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : IntegrationSecretServiceAsync {
 

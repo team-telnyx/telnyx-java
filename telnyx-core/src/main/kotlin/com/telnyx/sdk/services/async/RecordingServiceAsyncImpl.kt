@@ -29,6 +29,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Call Recordings operations. */
 class RecordingServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     RecordingServiceAsync {
 
@@ -43,6 +44,7 @@ class RecordingServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecordingServiceAsync =
         RecordingServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Call Recordings operations. */
     override fun actions(): ActionServiceAsync = actions
 
     override fun retrieve(
@@ -83,6 +85,7 @@ class RecordingServiceAsyncImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Call Recordings operations. */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         private val retrieveHandler: Handler<RecordingRetrieveResponse> =

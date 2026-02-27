@@ -33,6 +33,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** WireGuard Interface operations */
 class WireguardPeerServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     WireguardPeerServiceAsync {
 

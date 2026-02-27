@@ -66,6 +66,7 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
     ): MessagingProfileServiceAsync =
         MessagingProfileServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Opt-Out Management */
     override fun autorespConfigs(): AutorespConfigServiceAsync = autorespConfigs
 
     override fun actions(): ActionServiceAsync = actions
@@ -154,6 +155,7 @@ internal constructor(private val clientOptions: ClientOptions) : MessagingProfil
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Opt-Out Management */
         override fun autorespConfigs(): AutorespConfigServiceAsync.WithRawResponse = autorespConfigs
 
         override fun actions(): ActionServiceAsync.WithRawResponse = actions

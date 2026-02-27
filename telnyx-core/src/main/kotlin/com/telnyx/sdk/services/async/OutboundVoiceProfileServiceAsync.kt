@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileUpdateRes
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Outbound voice profiles operations */
 interface OutboundVoiceProfileServiceAsync {
 
     /**

@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.verifiednumbers.actions.ActionSubmitVerificationCod
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Verified Numbers operations */
 interface ActionServiceAsync {
 
     /**

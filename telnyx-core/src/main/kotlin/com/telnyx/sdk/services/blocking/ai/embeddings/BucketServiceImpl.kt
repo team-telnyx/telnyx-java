@@ -25,6 +25,7 @@ import com.telnyx.sdk.models.ai.embeddings.buckets.BucketRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Embed documents and perform text searches */
 class BucketServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     BucketService {
 

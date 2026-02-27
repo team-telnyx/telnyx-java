@@ -39,6 +39,7 @@ import com.telnyx.sdk.services.blocking.simcards.ActionServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** SIM Cards operations */
 class SimCardServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     SimCardService {
 

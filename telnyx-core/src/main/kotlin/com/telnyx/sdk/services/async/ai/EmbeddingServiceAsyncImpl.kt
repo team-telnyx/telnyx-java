@@ -31,6 +31,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Embed documents and perform text searches */
 class EmbeddingServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     EmbeddingServiceAsync {
 
@@ -45,6 +46,7 @@ class EmbeddingServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): EmbeddingServiceAsync =
         EmbeddingServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Embed documents and perform text searches */
     override fun buckets(): BucketServiceAsync = buckets
 
     override fun create(
@@ -99,6 +101,7 @@ class EmbeddingServiceAsyncImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Embed documents and perform text searches */
         override fun buckets(): BucketServiceAsync.WithRawResponse = buckets
 
         private val createHandler: Handler<EmbeddingResponse> =

@@ -11,6 +11,7 @@ import com.telnyx.sdk.services.async.verifications.byphonenumber.ActionServiceAs
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Two factor authentication API */
 interface ByPhoneNumberServiceAsync {
 
     /**
@@ -25,6 +26,7 @@ interface ByPhoneNumberServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ByPhoneNumberServiceAsync
 
+    /** Two factor authentication API */
     fun actions(): ActionServiceAsync
 
     /** List verifications by phone number */
@@ -78,6 +80,7 @@ interface ByPhoneNumberServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): ByPhoneNumberServiceAsync.WithRawResponse
 
+        /** Two factor authentication API */
         fun actions(): ActionServiceAsync.WithRawResponse
 
         /**

@@ -20,6 +20,7 @@ interface MessagingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingService
 
+    /** Send RCS messages */
     fun rcs(): RcService
 
     /** A view of [MessagingService] that provides access to raw HTTP responses for each method. */
@@ -32,6 +33,7 @@ interface MessagingService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingService.WithRawResponse
 
+        /** Send RCS messages */
         fun rcs(): RcService.WithRawResponse
     }
 }

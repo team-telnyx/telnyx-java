@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListPageRespo
 import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListParams
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 class PortingPhoneNumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     PortingPhoneNumberService {
 

@@ -11,6 +11,7 @@ import com.telnyx.sdk.services.async.ai.assistants.tests.testsuites.RunServiceAs
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 interface TestSuiteServiceAsync {
 
     /**
@@ -25,6 +26,7 @@ interface TestSuiteServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TestSuiteServiceAsync
 
+    /** Configure AI assistant specifications */
     fun runs(): RunServiceAsync
 
     /** Retrieves a list of all distinct test suite names available to the current user */
@@ -59,6 +61,7 @@ interface TestSuiteServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): TestSuiteServiceAsync.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun runs(): RunServiceAsync.WithRawResponse
 
         /**

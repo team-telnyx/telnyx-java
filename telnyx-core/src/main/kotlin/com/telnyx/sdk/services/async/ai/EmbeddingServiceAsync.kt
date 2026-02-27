@@ -18,6 +18,7 @@ import com.telnyx.sdk.services.async.ai.embeddings.BucketServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Embed documents and perform text searches */
 interface EmbeddingServiceAsync {
 
     /**
@@ -32,6 +33,7 @@ interface EmbeddingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EmbeddingServiceAsync
 
+    /** Embed documents and perform text searches */
     fun buckets(): BucketServiceAsync
 
     /**
@@ -190,6 +192,7 @@ interface EmbeddingServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): EmbeddingServiceAsync.WithRawResponse
 
+        /** Embed documents and perform text searches */
         fun buckets(): BucketServiceAsync.WithRawResponse
 
         /**

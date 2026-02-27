@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.inventorycoverage.InventoryCoverageListParams
 import com.telnyx.sdk.models.inventorycoverage.InventoryCoverageListResponse
 import java.util.function.Consumer
 
+/** Inventory Level */
 class InventoryCoverageServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     InventoryCoverageService {
 

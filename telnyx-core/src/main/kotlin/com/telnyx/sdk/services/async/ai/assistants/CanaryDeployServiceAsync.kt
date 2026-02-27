@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.ai.assistants.canarydeploys.CanaryDeployUpdateParam
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 interface CanaryDeployServiceAsync {
 
     /**

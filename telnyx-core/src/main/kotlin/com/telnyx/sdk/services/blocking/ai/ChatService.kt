@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.ai.chat.ChatCreateCompletionParams
 import com.telnyx.sdk.models.ai.chat.ChatCreateCompletionResponse
 import java.util.function.Consumer
 
+/** Generate text with LLMs */
 interface ChatService {
 
     /**

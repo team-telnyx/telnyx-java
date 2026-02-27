@@ -28,6 +28,7 @@ import com.telnyx.sdk.models.roomcompositions.RoomCompositionRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Rooms Compositions operations. */
 class RoomCompositionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RoomCompositionService {
 

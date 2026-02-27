@@ -29,6 +29,7 @@ import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.voice.VoiceRetr
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Voice batch detail records */
 class VoiceServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     VoiceService {
 

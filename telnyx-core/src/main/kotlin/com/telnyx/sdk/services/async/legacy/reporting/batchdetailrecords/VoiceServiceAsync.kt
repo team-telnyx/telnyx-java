@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.voice.VoiceRetr
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Voice batch detail records */
 interface VoiceServiceAsync {
 
     /**

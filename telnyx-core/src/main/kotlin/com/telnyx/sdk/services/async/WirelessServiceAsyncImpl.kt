@@ -21,6 +21,7 @@ import com.telnyx.sdk.services.async.wireless.DetailRecordsReportServiceAsyncImp
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Regions for wireless services */
 class WirelessServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     WirelessServiceAsync {
 
@@ -37,6 +38,7 @@ class WirelessServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): WirelessServiceAsync =
         WirelessServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Wireless reporting operations */
     override fun detailRecordsReports(): DetailRecordsReportServiceAsync = detailRecordsReports
 
     override fun retrieveRegions(
@@ -63,6 +65,7 @@ class WirelessServiceAsyncImpl internal constructor(private val clientOptions: C
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Wireless reporting operations */
         override fun detailRecordsReports(): DetailRecordsReportServiceAsync.WithRawResponse =
             detailRecordsReports
 

@@ -27,6 +27,7 @@ import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.speechtotext.Sp
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Speech to text batch detail records */
 class SpeechToTextServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     SpeechToTextService {
 

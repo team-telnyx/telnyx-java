@@ -27,6 +27,7 @@ import com.telnyx.sdk.models.queues.calls.CallUpdateParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Queue commands operations */
 class CallServiceImpl internal constructor(private val clientOptions: ClientOptions) : CallService {
 
     private val withRawResponse: CallService.WithRawResponse by lazy {

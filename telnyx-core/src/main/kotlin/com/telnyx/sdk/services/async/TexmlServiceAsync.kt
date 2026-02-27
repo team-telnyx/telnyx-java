@@ -11,6 +11,7 @@ import com.telnyx.sdk.services.async.texml.AccountServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface TexmlServiceAsync {
 
     /**
@@ -25,6 +26,7 @@ interface TexmlServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TexmlServiceAsync
 
+    /** TeXML REST Commands */
     fun accounts(): AccountServiceAsync
 
     /**
@@ -54,6 +56,7 @@ interface TexmlServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): TexmlServiceAsync.WithRawResponse
 
+        /** TeXML REST Commands */
         fun accounts(): AccountServiceAsync.WithRawResponse
 
         /**

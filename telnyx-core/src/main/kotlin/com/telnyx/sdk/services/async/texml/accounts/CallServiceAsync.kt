@@ -24,6 +24,7 @@ import com.telnyx.sdk.services.async.texml.accounts.calls.StreamServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface CallServiceAsync {
 
     /**
@@ -38,12 +39,16 @@ interface CallServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallServiceAsync
 
+    /** TeXML REST Commands */
     fun recordingsJson(): RecordingsJsonServiceAsync
 
+    /** TeXML REST Commands */
     fun recordings(): RecordingServiceAsync
 
+    /** TeXML REST Commands */
     fun siprec(): SiprecServiceAsync
 
+    /** TeXML REST Commands */
     fun streams(): StreamServiceAsync
 
     /**
@@ -219,12 +224,16 @@ interface CallServiceAsync {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallServiceAsync.WithRawResponse
 
+        /** TeXML REST Commands */
         fun recordingsJson(): RecordingsJsonServiceAsync.WithRawResponse
 
+        /** TeXML REST Commands */
         fun recordings(): RecordingServiceAsync.WithRawResponse
 
+        /** TeXML REST Commands */
         fun siprec(): SiprecServiceAsync.WithRawResponse
 
+        /** TeXML REST Commands */
         fun streams(): StreamServiceAsync.WithRawResponse
 
         /**

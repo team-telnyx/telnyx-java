@@ -21,6 +21,7 @@ class OrganizationServiceImpl internal constructor(private val clientOptions: Cl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): OrganizationService =
         OrganizationServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Operations related to users in your organization */
     override fun users(): UserService = users
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -37,6 +38,7 @@ class OrganizationServiceImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Operations related to users in your organization */
         override fun users(): UserService.WithRawResponse = users
     }
 }

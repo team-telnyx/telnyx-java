@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.regions.RegionListParams
 import com.telnyx.sdk.models.regions.RegionListResponse
 import java.util.function.Consumer
 
+/** Regions */
 interface RegionService {
 
     /**

@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportRetrieveParam
 import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportRetrieveResponse
 import java.util.function.Consumer
 
+/** Messaging usage reports */
 interface MdrUsageReportService {
 
     /**

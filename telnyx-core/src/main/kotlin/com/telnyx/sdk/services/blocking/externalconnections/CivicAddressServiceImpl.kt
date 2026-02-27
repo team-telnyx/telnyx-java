@@ -22,6 +22,7 @@ import com.telnyx.sdk.models.externalconnections.civicaddresses.CivicAddressRetr
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** External Connections operations */
 class CivicAddressServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CivicAddressService {
 

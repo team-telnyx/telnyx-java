@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.balance.BalanceRetrieveParams
 import com.telnyx.sdk.models.balance.BalanceRetrieveResponse
 import java.util.function.Consumer
 
+/** Billing operations */
 interface BalanceService {
 
     /**

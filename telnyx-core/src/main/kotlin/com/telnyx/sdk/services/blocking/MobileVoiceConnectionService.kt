@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionUpdateP
 import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionUpdateResponse
 import java.util.function.Consumer
 
+/** Mobile voice connection operations */
 interface MobileVoiceConnectionService {
 
     /**

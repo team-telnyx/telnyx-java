@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.texmlapplications.TexmlApplicationUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML Applications operations */
 class TexmlApplicationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     TexmlApplicationService {
 

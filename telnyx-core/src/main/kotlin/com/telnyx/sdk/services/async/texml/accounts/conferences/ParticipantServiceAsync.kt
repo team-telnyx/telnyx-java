@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.texml.accounts.conferences.participants.Participant
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface ParticipantServiceAsync {
 
     /**

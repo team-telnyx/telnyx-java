@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.porting.events.EventRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Endpoints related to porting orders management. */
 class EventServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     EventService {
 

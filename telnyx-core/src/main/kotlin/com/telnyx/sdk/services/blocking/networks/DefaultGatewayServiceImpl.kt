@@ -25,6 +25,7 @@ import com.telnyx.sdk.models.networks.defaultgateway.DefaultGatewayRetrieveRespo
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Network operations */
 class DefaultGatewayServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     DefaultGatewayService {
 

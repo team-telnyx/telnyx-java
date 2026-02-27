@@ -17,6 +17,7 @@ import com.telnyx.sdk.services.async.ai.conversations.insightgroups.InsightServi
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Manage historical AI assistant conversations */
 interface InsightGroupServiceAsync {
 
     /**
@@ -31,6 +32,7 @@ interface InsightGroupServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): InsightGroupServiceAsync
 
+    /** Manage historical AI assistant conversations */
     fun insights(): InsightServiceAsync
 
     /** Get insight group by ID */
@@ -188,6 +190,7 @@ interface InsightGroupServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): InsightGroupServiceAsync.WithRawResponse
 
+        /** Manage historical AI assistant conversations */
         fun insights(): InsightServiceAsync.WithRawResponse
 
         /**

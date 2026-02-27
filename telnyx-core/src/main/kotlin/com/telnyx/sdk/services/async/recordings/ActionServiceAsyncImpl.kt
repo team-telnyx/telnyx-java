@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.recordings.actions.ActionDeleteParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Call Recordings operations. */
 class ActionServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionServiceAsync {
 

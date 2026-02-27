@@ -42,6 +42,7 @@ interface MessagingProfileServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingProfileServiceAsync
 
+    /** Opt-Out Management */
     fun autorespConfigs(): AutorespConfigServiceAsync
 
     fun actions(): ActionServiceAsync
@@ -383,6 +384,7 @@ interface MessagingProfileServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): MessagingProfileServiceAsync.WithRawResponse
 
+        /** Opt-Out Management */
         fun autorespConfigs(): AutorespConfigServiceAsync.WithRawResponse
 
         fun actions(): ActionServiceAsync.WithRawResponse

@@ -24,6 +24,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Requirements for international numbers and porting orders */
 class RequirementServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     RequirementServiceAsync {
 

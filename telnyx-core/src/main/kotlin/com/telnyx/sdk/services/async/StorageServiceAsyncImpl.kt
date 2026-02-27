@@ -25,6 +25,7 @@ import com.telnyx.sdk.services.async.storage.MigrationSourceServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Migrate data from an external provider into Telnyx Cloud Storage */
 class StorageServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     StorageServiceAsync {
 
@@ -47,10 +48,13 @@ class StorageServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): StorageServiceAsync =
         StorageServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Presigned object URL operations */
     override fun buckets(): BucketServiceAsync = buckets
 
+    /** Migrate data from an external provider into Telnyx Cloud Storage */
     override fun migrationSources(): MigrationSourceServiceAsync = migrationSources
 
+    /** Migrate data from an external provider into Telnyx Cloud Storage */
     override fun migrations(): MigrationServiceAsync = migrations
 
     override fun listMigrationSourceCoverage(
@@ -87,11 +91,14 @@ class StorageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Presigned object URL operations */
         override fun buckets(): BucketServiceAsync.WithRawResponse = buckets
 
+        /** Migrate data from an external provider into Telnyx Cloud Storage */
         override fun migrationSources(): MigrationSourceServiceAsync.WithRawResponse =
             migrationSources
 
+        /** Migrate data from an external provider into Telnyx Cloud Storage */
         override fun migrations(): MigrationServiceAsync.WithRawResponse = migrations
 
         private val listMigrationSourceCoverageHandler:

@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.phonenumberblocks.jobs.JobRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Background jobs performed over a phone-numbers block's phone numbers */
 class JobServiceImpl internal constructor(private val clientOptions: ClientOptions) : JobService {
 
     private val withRawResponse: JobService.WithRawResponse by lazy {

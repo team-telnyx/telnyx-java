@@ -22,6 +22,7 @@ import com.telnyx.sdk.models.countrycoverage.CountryCoverageRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Country Coverage */
 class CountryCoverageServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CountryCoverageService {
 

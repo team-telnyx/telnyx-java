@@ -28,6 +28,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Queue commands operations */
 class CallServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     CallServiceAsync {
 

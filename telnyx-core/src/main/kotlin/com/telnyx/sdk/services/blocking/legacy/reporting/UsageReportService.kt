@@ -13,6 +13,7 @@ import com.telnyx.sdk.services.blocking.legacy.reporting.usagereports.NumberLook
 import com.telnyx.sdk.services.blocking.legacy.reporting.usagereports.VoiceService
 import java.util.function.Consumer
 
+/** Speech to text usage reports */
 interface UsageReportService {
 
     /**
@@ -27,10 +28,13 @@ interface UsageReportService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): UsageReportService
 
+    /** Messaging usage reports */
     fun messaging(): MessagingService
 
+    /** Number lookup usage reports */
     fun numberLookup(): NumberLookupService
 
+    /** Voice usage reports */
     fun voice(): VoiceService
 
     /**
@@ -72,10 +76,13 @@ interface UsageReportService {
             modifier: Consumer<ClientOptions.Builder>
         ): UsageReportService.WithRawResponse
 
+        /** Messaging usage reports */
         fun messaging(): MessagingService.WithRawResponse
 
+        /** Number lookup usage reports */
         fun numberLookup(): NumberLookupService.WithRawResponse
 
+        /** Voice usage reports */
         fun voice(): VoiceService.WithRawResponse
 
         /**

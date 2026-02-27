@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.messaging10dlc.campaign.osr.OsrGetAttributesParams
 import com.telnyx.sdk.models.messaging10dlc.campaign.osr.OsrGetAttributesResponse
 import java.util.function.Consumer
 
+/** Campaign operations */
 interface OsrService {
 
     /**

@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.regulatoryrequirements.RegulatoryRequirementRetriev
 import com.telnyx.sdk.models.regulatoryrequirements.RegulatoryRequirementRetrieveResponse
 import java.util.function.Consumer
 
+/** Regulatory Requirements */
 class RegulatoryRequirementServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : RegulatoryRequirementService {
 

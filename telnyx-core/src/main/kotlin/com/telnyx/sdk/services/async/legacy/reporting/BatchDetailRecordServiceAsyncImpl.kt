@@ -35,10 +35,13 @@ internal constructor(private val clientOptions: ClientOptions) : BatchDetailReco
     ): BatchDetailRecordServiceAsync =
         BatchDetailRecordServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Messaging batch detail records */
     override fun messaging(): MessagingServiceAsync = messaging
 
+    /** Speech to text batch detail records */
     override fun speechToText(): SpeechToTextServiceAsync = speechToText
 
+    /** Voice batch detail records */
     override fun voice(): VoiceServiceAsync = voice
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -63,10 +66,13 @@ internal constructor(private val clientOptions: ClientOptions) : BatchDetailReco
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Messaging batch detail records */
         override fun messaging(): MessagingServiceAsync.WithRawResponse = messaging
 
+        /** Speech to text batch detail records */
         override fun speechToText(): SpeechToTextServiceAsync.WithRawResponse = speechToText
 
+        /** Voice batch detail records */
         override fun voice(): VoiceServiceAsync.WithRawResponse = voice
     }
 }

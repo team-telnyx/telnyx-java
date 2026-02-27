@@ -21,6 +21,7 @@ import com.telnyx.sdk.services.blocking.texml.AccountService
 import com.telnyx.sdk.services.blocking.texml.AccountServiceImpl
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 class TexmlServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     TexmlService {
 
@@ -35,6 +36,7 @@ class TexmlServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TexmlService =
         TexmlServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** TeXML REST Commands */
     override fun accounts(): AccountService = accounts
 
     override fun secrets(
@@ -61,6 +63,7 @@ class TexmlServiceImpl internal constructor(private val clientOptions: ClientOpt
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** TeXML REST Commands */
         override fun accounts(): AccountService.WithRawResponse = accounts
 
         private val secretsHandler: Handler<TexmlSecretsResponse> =

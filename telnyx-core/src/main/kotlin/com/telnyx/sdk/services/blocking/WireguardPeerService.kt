@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.wireguardpeers.WireguardPeerUpdateParams
 import com.telnyx.sdk.models.wireguardpeers.WireguardPeerUpdateResponse
 import java.util.function.Consumer
 
+/** WireGuard Interface operations */
 interface WireguardPeerService {
 
     /**

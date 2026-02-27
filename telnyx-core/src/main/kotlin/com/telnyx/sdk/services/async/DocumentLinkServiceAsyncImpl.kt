@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.documentlinks.DocumentLinkListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Documents */
 class DocumentLinkServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     DocumentLinkServiceAsync {
 

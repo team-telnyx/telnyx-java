@@ -23,6 +23,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Types of requirements for international numbers and porting orders */
 class RequirementTypeServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : RequirementTypeServiceAsync {
 

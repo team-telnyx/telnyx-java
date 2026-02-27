@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.roomrecordings.RoomRecordingRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Rooms Recordings operations. */
 interface RoomRecordingServiceAsync {
 
     /**

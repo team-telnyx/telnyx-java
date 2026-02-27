@@ -24,6 +24,7 @@ import com.telnyx.sdk.models.channelzones.ChannelZoneUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Voice Channels */
 class ChannelZoneServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ChannelZoneService {
 

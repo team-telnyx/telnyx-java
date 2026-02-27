@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.networks.defaultgateway.DefaultGatewayRetrieveParam
 import com.telnyx.sdk.models.networks.defaultgateway.DefaultGatewayRetrieveResponse
 import java.util.function.Consumer
 
+/** Network operations */
 interface DefaultGatewayService {
 
     /**

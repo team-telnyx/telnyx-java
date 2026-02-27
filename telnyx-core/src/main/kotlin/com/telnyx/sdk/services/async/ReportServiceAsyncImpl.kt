@@ -46,8 +46,10 @@ class ReportServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReportServiceAsync =
         ReportServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Voice usage reports */
     override fun cdrUsageReports(): CdrUsageReportServiceAsync = cdrUsageReports
 
+    /** Messaging usage reports */
     override fun mdrUsageReports(): MdrUsageReportServiceAsync = mdrUsageReports
 
     override fun listMdrs(
@@ -85,8 +87,10 @@ class ReportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Voice usage reports */
         override fun cdrUsageReports(): CdrUsageReportServiceAsync.WithRawResponse = cdrUsageReports
 
+        /** Messaging usage reports */
         override fun mdrUsageReports(): MdrUsageReportServiceAsync.WithRawResponse = mdrUsageReports
 
         private val listMdrsHandler: Handler<ReportListMdrsResponse> =

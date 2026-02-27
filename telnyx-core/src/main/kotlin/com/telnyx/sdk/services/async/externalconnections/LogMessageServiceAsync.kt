@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageRetrieveR
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** External Connections operations */
 interface LogMessageServiceAsync {
 
     /**

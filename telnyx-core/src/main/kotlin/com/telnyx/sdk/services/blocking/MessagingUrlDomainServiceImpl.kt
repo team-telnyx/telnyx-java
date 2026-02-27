@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListPageRespo
 import com.telnyx.sdk.models.messagingurldomains.MessagingUrlDomainListParams
 import java.util.function.Consumer
 
+/** Messaging URL Domains */
 class MessagingUrlDomainServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     MessagingUrlDomainService {
 

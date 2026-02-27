@@ -21,6 +21,7 @@ import com.telnyx.sdk.services.blocking.payment.AutoRechargePrefService
 import com.telnyx.sdk.services.blocking.payment.AutoRechargePrefServiceImpl
 import java.util.function.Consumer
 
+/** Operations for managing stored payment transactions. */
 class PaymentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     PaymentService {
 
@@ -37,6 +38,7 @@ class PaymentServiceImpl internal constructor(private val clientOptions: ClientO
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PaymentService =
         PaymentServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** V2 Auto Recharge Preferences API */
     override fun autoRechargePrefs(): AutoRechargePrefService = autoRechargePrefs
 
     override fun createStoredPaymentTransaction(
@@ -63,6 +65,7 @@ class PaymentServiceImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** V2 Auto Recharge Preferences API */
         override fun autoRechargePrefs(): AutoRechargePrefService.WithRawResponse =
             autoRechargePrefs
 

@@ -27,6 +27,7 @@ import com.telnyx.sdk.services.blocking.storage.migrations.ActionServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Migrate data from an external provider into Telnyx Cloud Storage */
 class MigrationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     MigrationService {
 
@@ -41,6 +42,7 @@ class MigrationServiceImpl internal constructor(private val clientOptions: Clien
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): MigrationService =
         MigrationServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Migrate data from an external provider into Telnyx Cloud Storage */
     override fun actions(): ActionService = actions
 
     override fun create(
@@ -81,6 +83,7 @@ class MigrationServiceImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Migrate data from an external provider into Telnyx Cloud Storage */
         override fun actions(): ActionService.WithRawResponse = actions
 
         private val createHandler: Handler<MigrationCreateResponse> =

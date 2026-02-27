@@ -23,6 +23,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Country Coverage */
 class CountryCoverageServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : CountryCoverageServiceAsync {
 

@@ -21,6 +21,7 @@ class FineTuningServiceImpl internal constructor(private val clientOptions: Clie
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FineTuningService =
         FineTuningServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Customize LLMs for your unique needs */
     override fun jobs(): JobService = jobs
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -37,6 +38,7 @@ class FineTuningServiceImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Customize LLMs for your unique needs */
         override fun jobs(): JobService.WithRawResponse = jobs
     }
 }

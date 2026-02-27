@@ -17,6 +17,7 @@ import com.telnyx.sdk.models.dynamicemergencyaddresses.DynamicEmergencyAddressRe
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Dynamic emergency address operations */
 interface DynamicEmergencyAddressServiceAsync {
 
     /**

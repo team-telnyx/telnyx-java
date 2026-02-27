@@ -22,10 +22,13 @@ interface BatchDetailRecordService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchDetailRecordService
 
+    /** Messaging batch detail records */
     fun messaging(): MessagingService
 
+    /** Speech to text batch detail records */
     fun speechToText(): SpeechToTextService
 
+    /** Voice batch detail records */
     fun voice(): VoiceService
 
     /**
@@ -43,10 +46,13 @@ interface BatchDetailRecordService {
             modifier: Consumer<ClientOptions.Builder>
         ): BatchDetailRecordService.WithRawResponse
 
+        /** Messaging batch detail records */
         fun messaging(): MessagingService.WithRawResponse
 
+        /** Speech to text batch detail records */
         fun speechToText(): SpeechToTextService.WithRawResponse
 
+        /** Voice batch detail records */
         fun voice(): VoiceService.WithRawResponse
     }
 }

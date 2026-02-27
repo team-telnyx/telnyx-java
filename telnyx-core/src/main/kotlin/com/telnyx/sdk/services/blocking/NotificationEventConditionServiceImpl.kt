@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.notificationeventconditions.NotificationEventCondit
 import com.telnyx.sdk.models.notificationeventconditions.NotificationEventConditionListParams
 import java.util.function.Consumer
 
+/** Notification settings operations */
 class NotificationEventConditionServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : NotificationEventConditionService {
 

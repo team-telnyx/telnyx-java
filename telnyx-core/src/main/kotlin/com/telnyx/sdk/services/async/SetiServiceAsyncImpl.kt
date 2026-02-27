@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.seti.SetiRetrieveBlackBoxTestResultsResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Observability into Telnyx platform stability and performance. */
 class SetiServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     SetiServiceAsync {
 

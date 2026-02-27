@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.outboundvoiceprofiles.OutboundVoiceProfileUpdateRes
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Outbound voice profiles operations */
 class OutboundVoiceProfileServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : OutboundVoiceProfileService {
 

@@ -29,6 +29,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Messaging usage reports */
 class MessagingServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     MessagingServiceAsync {
 

@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.portouts.supportingdocuments.SupportingDocumentList
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Number portout operations */
 interface SupportingDocumentServiceAsync {
 
     /**

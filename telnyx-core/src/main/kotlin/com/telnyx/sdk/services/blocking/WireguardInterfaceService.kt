@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceRetrieveParam
 import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceRetrieveResponse
 import java.util.function.Consumer
 
+/** WireGuard Interface operations */
 interface WireguardInterfaceService {
 
     /**

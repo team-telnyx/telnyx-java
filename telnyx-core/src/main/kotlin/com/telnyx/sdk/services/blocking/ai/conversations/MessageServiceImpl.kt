@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.ai.conversations.messages.MessageListResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Manage historical AI assistant conversations */
 class MessageServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     MessageService {
 

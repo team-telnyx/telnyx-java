@@ -42,6 +42,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Campaign operations */
 class CampaignServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     CampaignServiceAsync {
 
@@ -58,8 +59,10 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CampaignServiceAsync =
         CampaignServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Campaign operations */
     override fun usecase(): UsecaseServiceAsync = usecase
 
+    /** Campaign operations */
     override fun osr(): OsrServiceAsync = osr
 
     override fun retrieve(
@@ -146,8 +149,10 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Campaign operations */
         override fun usecase(): UsecaseServiceAsync.WithRawResponse = usecase
 
+        /** Campaign operations */
         override fun osr(): OsrServiceAsync.WithRawResponse = osr
 
         private val retrieveHandler: Handler<TelnyxCampaignCsp> =

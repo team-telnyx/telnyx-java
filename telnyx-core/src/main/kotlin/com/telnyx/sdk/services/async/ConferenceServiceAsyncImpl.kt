@@ -36,6 +36,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Conference command operations */
 class ConferenceServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ConferenceServiceAsync {
 
@@ -50,6 +51,7 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConferenceServiceAsync =
         ConferenceServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Conference command operations */
     override fun actions(): ActionServiceAsync = actions
 
     override fun create(
@@ -111,6 +113,7 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Conference command operations */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         private val createHandler: Handler<ConferenceCreateResponse> =

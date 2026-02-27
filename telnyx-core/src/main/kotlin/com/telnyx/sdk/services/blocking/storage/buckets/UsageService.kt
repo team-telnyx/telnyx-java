@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.storage.buckets.usage.UsageGetBucketUsageParams
 import com.telnyx.sdk.models.storage.buckets.usage.UsageGetBucketUsageResponse
 import java.util.function.Consumer
 
+/** Bucket Usage operations */
 interface UsageService {
 
     /**

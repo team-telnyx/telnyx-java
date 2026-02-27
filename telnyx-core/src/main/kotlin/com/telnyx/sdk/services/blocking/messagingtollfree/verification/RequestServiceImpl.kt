@@ -31,6 +31,7 @@ import com.telnyx.sdk.models.messagingtollfree.verification.requests.Verificatio
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Manage your tollfree verification requests */
 class RequestServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RequestService {
 

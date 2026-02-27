@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.texml.accounts.calls.siprec.SiprecSiprecSidJsonPara
 import com.telnyx.sdk.models.texml.accounts.calls.siprec.SiprecSiprecSidJsonResponse
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface SiprecService {
 
     /**

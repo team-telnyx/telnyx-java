@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** SIPREC connectors configuration. */
 interface SiprecConnectorServiceAsync {
 
     /**

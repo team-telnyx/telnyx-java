@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.mobilephonenumbers.MobilePhoneNumberUpdateResponse
 import com.telnyx.sdk.services.blocking.mobilephonenumbers.MessagingService
 import java.util.function.Consumer
 
+/** Mobile phone number operations */
 interface MobilePhoneNumberService {
 
     /**

@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.voice.VoiceRetr
 import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.voice.VoiceRetrieveResponse
 import java.util.function.Consumer
 
+/** Voice batch detail records */
 interface VoiceService {
 
     /**

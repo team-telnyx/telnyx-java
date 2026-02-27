@@ -25,6 +25,7 @@ import com.telnyx.sdk.models.simcards.SimCardUpdateResponse
 import com.telnyx.sdk.services.blocking.simcards.ActionService
 import java.util.function.Consumer
 
+/** SIM Cards operations */
 interface SimCardService {
 
     /**

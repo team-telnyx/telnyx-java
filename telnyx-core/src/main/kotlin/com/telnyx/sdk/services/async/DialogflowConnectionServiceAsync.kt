@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionUpdateRes
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Dialogflow Connection Operations. */
 interface DialogflowConnectionServiceAsync {
 
     /**

@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.phonenumbersregulatoryrequirements.PhoneNumbersRegu
 import com.telnyx.sdk.models.phonenumbersregulatoryrequirements.PhoneNumbersRegulatoryRequirementRetrieveResponse
 import java.util.function.Consumer
 
+/** Regulatory Requirements */
 class PhoneNumbersRegulatoryRequirementServiceImpl
 internal constructor(private val clientOptions: ClientOptions) :
     PhoneNumbersRegulatoryRequirementService {

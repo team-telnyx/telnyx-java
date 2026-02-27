@@ -20,6 +20,7 @@ import com.telnyx.sdk.services.blocking.ai.assistants.tests.testsuites.RunServic
 import com.telnyx.sdk.services.blocking.ai.assistants.tests.testsuites.RunServiceImpl
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 class TestSuiteServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     TestSuiteService {
 
@@ -34,6 +35,7 @@ class TestSuiteServiceImpl internal constructor(private val clientOptions: Clien
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TestSuiteService =
         TestSuiteServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Configure AI assistant specifications */
     override fun runs(): RunService = runs
 
     override fun list(
@@ -60,6 +62,7 @@ class TestSuiteServiceImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Configure AI assistant specifications */
         override fun runs(): RunService.WithRawResponse = runs
 
         private val listHandler: Handler<TestSuiteListResponse> =

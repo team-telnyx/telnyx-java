@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.globaliphealthchecktypes.GlobalIpHealthCheckTypeLis
 import com.telnyx.sdk.models.globaliphealthchecktypes.GlobalIpHealthCheckTypeListResponse
 import java.util.function.Consumer
 
+/** Global IPs */
 interface GlobalIpHealthCheckTypeService {
 
     /**

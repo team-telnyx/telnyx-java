@@ -17,6 +17,7 @@ import com.telnyx.sdk.services.async.texml.accounts.TranscriptionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface AccountServiceAsync {
 
     /**
@@ -31,14 +32,17 @@ interface AccountServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AccountServiceAsync
 
+    /** TeXML REST Commands */
     fun calls(): CallServiceAsync
 
+    /** TeXML REST Commands */
     fun conferences(): ConferenceServiceAsync
 
     fun recordings(): RecordingServiceAsync
 
     fun transcriptions(): TranscriptionServiceAsync
 
+    /** TeXML REST Commands */
     fun queues(): QueueServiceAsync
 
     /** Returns multiple recording resources for an account. */
@@ -148,14 +152,17 @@ interface AccountServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): AccountServiceAsync.WithRawResponse
 
+        /** TeXML REST Commands */
         fun calls(): CallServiceAsync.WithRawResponse
 
+        /** TeXML REST Commands */
         fun conferences(): ConferenceServiceAsync.WithRawResponse
 
         fun recordings(): RecordingServiceAsync.WithRawResponse
 
         fun transcriptions(): TranscriptionServiceAsync.WithRawResponse
 
+        /** TeXML REST Commands */
         fun queues(): QueueServiceAsync.WithRawResponse
 
         /**

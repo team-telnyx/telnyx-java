@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.ai.assistants.tools.ToolTestResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure AI assistant specifications */
 class ToolServiceImpl internal constructor(private val clientOptions: ClientOptions) : ToolService {
 
     private val withRawResponse: ToolService.WithRawResponse by lazy {

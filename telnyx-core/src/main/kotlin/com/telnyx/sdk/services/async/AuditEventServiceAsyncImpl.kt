@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.auditevents.AuditEventListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Audit log operations. */
 class AuditEventServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     AuditEventServiceAsync {
 

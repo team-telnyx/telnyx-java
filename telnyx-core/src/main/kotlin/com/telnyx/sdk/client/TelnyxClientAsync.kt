@@ -204,294 +204,429 @@ interface TelnyxClientAsync {
 
     fun webhooks(): WebhookServiceAsync
 
+    /** IP Address Operations */
     fun accessIpAddress(): AccessIpAddressServiceAsync
 
+    /** IP Range Operations */
     fun accessIpRanges(): AccessIpRangeServiceAsync
 
     fun actions(): ActionServiceAsync
 
+    /**
+     * Operations to work with Address records. Address records are emergency-validated addresses
+     * meant to be associated with phone numbers. They are validated for emergency usage purposes at
+     * creation time, although you may validate them separately with a custom workflow using the
+     * ValidateAddress operation separately. Address records are not usable for physical orders,
+     * such as for Telnyx SIM cards, please use UserAddress for that. It is not possible to entirely
+     * skip emergency service validation for Address records; if an emergency provider for a phone
+     * number rejects the address then it cannot be used on a phone number. To prevent records from
+     * getting out of sync, Address records are immutable and cannot be altered once created. If you
+     * realize you need to alter an address, a new record must be created with the differing
+     * address.
+     */
     fun addresses(): AddressServiceAsync
 
     fun advancedOrders(): AdvancedOrderServiceAsync
 
+    /** Generate text with LLMs */
     fun ai(): AiServiceAsync
 
+    /** Audit log operations. */
     fun auditEvents(): AuditEventServiceAsync
 
     fun authenticationProviders(): AuthenticationProviderServiceAsync
 
+    /** Number search */
     fun availablePhoneNumberBlocks(): AvailablePhoneNumberBlockServiceAsync
 
+    /** Number search */
     fun availablePhoneNumbers(): AvailablePhoneNumberServiceAsync
 
+    /** Billing operations */
     fun balance(): BalanceServiceAsync
 
+    /** Billing groups operations */
     fun billingGroups(): BillingGroupServiceAsync
 
+    /** View SIM card actions, their progress and timestamps using the SIM Card Actions API */
     fun bulkSimCardActions(): BulkSimCardActionServiceAsync
 
     fun bundlePricing(): BundlePricingServiceAsync
 
+    /** Call Control applications operations */
     fun callControlApplications(): CallControlApplicationServiceAsync
 
+    /** Call Control debugging */
     fun callEvents(): CallEventServiceAsync
 
     fun calls(): CallServiceAsync
 
+    /** Voice Channels */
     fun channelZones(): ChannelZoneServiceAsync
 
     fun chargesBreakdown(): ChargesBreakdownServiceAsync
 
     fun chargesSummary(): ChargesSummaryServiceAsync
 
+    /** Number orders */
     fun comments(): CommentServiceAsync
 
+    /** Conference command operations */
     fun conferences(): ConferenceServiceAsync
 
     fun connections(): ConnectionServiceAsync
 
+    /** Country Coverage */
     fun countryCoverage(): CountryCoverageServiceAsync
 
+    /** Credential connection operations */
     fun credentialConnections(): CredentialConnectionServiceAsync
 
+    /** Call Recordings operations. */
     fun customStorageCredentials(): CustomStorageCredentialServiceAsync
 
+    /** Customer Service Record operations */
     fun customerServiceRecords(): CustomerServiceRecordServiceAsync
 
+    /** Detail Records operations */
     fun detailRecords(): DetailRecordServiceAsync
 
+    /** Dialogflow Connection Operations. */
     fun dialogflowConnections(): DialogflowConnectionServiceAsync
 
+    /** Documents */
     fun documentLinks(): DocumentLinkServiceAsync
 
+    /** Documents */
     fun documents(): DocumentServiceAsync
 
+    /** Dynamic emergency address operations */
     fun dynamicEmergencyAddresses(): DynamicEmergencyAddressServiceAsync
 
+    /** Dynamic Emergency Endpoints */
     fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointServiceAsync
 
+    /** External Connections operations */
     fun externalConnections(): ExternalConnectionServiceAsync
 
+    /** Fax Applications operations */
     fun faxApplications(): FaxApplicationServiceAsync
 
+    /** Programmable fax command operations */
     fun faxes(): FaxServiceAsync
 
+    /** FQDN connection operations */
     fun fqdnConnections(): FqdnConnectionServiceAsync
 
+    /** FQDN operations */
     fun fqdns(): FqdnServiceAsync
 
+    /** Global IPs */
     fun globalIpAllowedPorts(): GlobalIpAllowedPortServiceAsync
 
+    /** Global IPs */
     fun globalIpAssignmentHealth(): GlobalIpAssignmentHealthServiceAsync
 
+    /** Global IPs */
     fun globalIpAssignments(): GlobalIpAssignmentServiceAsync
 
+    /** Global IPs */
     fun globalIpAssignmentsUsage(): GlobalIpAssignmentsUsageServiceAsync
 
+    /** Global IPs */
     fun globalIpHealthCheckTypes(): GlobalIpHealthCheckTypeServiceAsync
 
+    /** Global IPs */
     fun globalIpHealthChecks(): GlobalIpHealthCheckServiceAsync
 
+    /** Global IPs */
     fun globalIpLatency(): GlobalIpLatencyServiceAsync
 
+    /** Global IPs */
     fun globalIpProtocols(): GlobalIpProtocolServiceAsync
 
+    /** Global IPs */
     fun globalIpUsage(): GlobalIpUsageServiceAsync
 
+    /** Global IPs */
     fun globalIps(): GlobalIpServiceAsync
 
+    /** Voice Channels */
     fun inboundChannels(): InboundChannelServiceAsync
 
+    /** Store and retrieve integration secrets */
     fun integrationSecrets(): IntegrationSecretServiceAsync
 
+    /** Inventory Level */
     fun inventoryCoverage(): InventoryCoverageServiceAsync
 
     fun invoices(): InvoiceServiceAsync
 
+    /** IP connection operations */
     fun ipConnections(): IpConnectionServiceAsync
 
+    /** IP operations */
     fun ips(): IpServiceAsync
 
+    /** Ledger billing reports */
     fun ledgerBillingGroupReports(): LedgerBillingGroupReportServiceAsync
 
+    /** Voice Channels */
     fun list(): ListServiceAsync
 
+    /** Managed Accounts operations */
     fun managedAccounts(): ManagedAccountServiceAsync
 
+    /** Media Storage operations */
     fun media(): MediaServiceAsync
 
     fun messages(): MessageServiceAsync
 
     fun messaging(): MessagingServiceAsync
 
+    /** Manage your messaging hosted numbers */
     fun messagingHostedNumberOrders(): MessagingHostedNumberOrderServiceAsync
 
     fun messagingHostedNumbers(): MessagingHostedNumberServiceAsync
 
+    /** Configure your phone numbers */
     fun messagingNumbersBulkUpdates(): MessagingNumbersBulkUpdateServiceAsync
 
+    /** Opt-Out Management */
     fun messagingOptouts(): MessagingOptoutServiceAsync
 
     fun messagingProfiles(): MessagingProfileServiceAsync
 
     fun messagingTollfree(): MessagingTollfreeServiceAsync
 
+    /** Messaging URL Domains */
     fun messagingUrlDomains(): MessagingUrlDomainServiceAsync
 
+    /** Mobile network operators operations */
     fun mobileNetworkOperators(): MobileNetworkOperatorServiceAsync
 
+    /** Mobile push credential management */
     fun mobilePushCredentials(): MobilePushCredentialServiceAsync
 
     fun networkCoverage(): NetworkCoverageServiceAsync
 
+    /** Network operations */
     fun networks(): NetworkServiceAsync
 
+    /** Notification settings operations */
     fun notificationChannels(): NotificationChannelServiceAsync
 
+    /** Notification settings operations */
     fun notificationEventConditions(): NotificationEventConditionServiceAsync
 
+    /** Notification settings operations */
     fun notificationEvents(): NotificationEventServiceAsync
 
+    /** Notification settings operations */
     fun notificationProfiles(): NotificationProfileServiceAsync
 
+    /** Notification settings operations */
     fun notificationSettings(): NotificationSettingServiceAsync
 
     fun numberBlockOrders(): NumberBlockOrderServiceAsync
 
+    /** Look up phone number data */
     fun numberLookup(): NumberLookupServiceAsync
 
     fun numberOrderPhoneNumbers(): NumberOrderPhoneNumberServiceAsync
 
+    /** Number orders */
     fun numberOrders(): NumberOrderServiceAsync
 
+    /** Number reservations */
     fun numberReservations(): NumberReservationServiceAsync
 
     fun numbersFeatures(): NumbersFeatureServiceAsync
 
     fun operatorConnect(): OperatorConnectServiceAsync
 
+    /** OTA updates operations */
     fun otaUpdates(): OtaUpdateServiceAsync
 
+    /** Outbound voice profiles operations */
     fun outboundVoiceProfiles(): OutboundVoiceProfileServiceAsync
 
+    /** Operations for managing stored payment transactions. */
     fun payment(): PaymentServiceAsync
 
     fun phoneNumberBlocks(): PhoneNumberBlockServiceAsync
 
+    /** Configure your phone numbers */
     fun phoneNumbers(): PhoneNumberServiceAsync
 
+    /** Regulatory Requirements */
     fun phoneNumbersRegulatoryRequirements(): PhoneNumbersRegulatoryRequirementServiceAsync
 
+    /** Determining portability of phone numbers */
     fun portabilityChecks(): PortabilityCheckServiceAsync
 
+    /** Endpoints related to porting orders management. */
     fun porting(): PortingServiceAsync
 
+    /** Endpoints related to porting orders management. */
     fun portingOrders(): PortingOrderServiceAsync
 
+    /** Endpoints related to porting orders management. */
     fun portingPhoneNumbers(): PortingPhoneNumberServiceAsync
 
+    /** Number portout operations */
     fun portouts(): PortoutServiceAsync
 
+    /** Private Wireless Gateways operations */
     fun privateWirelessGateways(): PrivateWirelessGatewayServiceAsync
 
+    /** Public Internet Gateway operations */
     fun publicInternetGateways(): PublicInternetGatewayServiceAsync
 
+    /** Queue commands operations */
     fun queues(): QueueServiceAsync
 
     fun rcsAgents(): RcsAgentServiceAsync
 
+    /** Call Recordings operations. */
     fun recordingTranscriptions(): RecordingTranscriptionServiceAsync
 
+    /** Call Recordings operations. */
     fun recordings(): RecordingServiceAsync
 
+    /** Regions */
     fun regions(): RegionServiceAsync
 
+    /** Regulatory Requirements */
     fun regulatoryRequirements(): RegulatoryRequirementServiceAsync
 
     fun reports(): ReportServiceAsync
 
+    /** Requirement Groups */
     fun requirementGroups(): RequirementGroupServiceAsync
 
+    /** Types of requirements for international numbers and porting orders */
     fun requirementTypes(): RequirementTypeServiceAsync
 
+    /** Requirements for international numbers and porting orders */
     fun requirements(): RequirementServiceAsync
 
+    /** Rooms Compositions operations. */
     fun roomCompositions(): RoomCompositionServiceAsync
 
+    /** Rooms Participants operations. */
     fun roomParticipants(): RoomParticipantServiceAsync
 
+    /** Rooms Recordings operations. */
     fun roomRecordings(): RoomRecordingServiceAsync
 
+    /** Rooms operations. */
     fun rooms(): RoomServiceAsync
 
+    /** Observability into Telnyx platform stability and performance. */
     fun seti(): SetiServiceAsync
 
+    /** Short codes */
     fun shortCodes(): ShortCodeServiceAsync
 
+    /** SIM Cards operations */
     fun simCardDataUsageNotifications(): SimCardDataUsageNotificationServiceAsync
 
+    /** SIM Card Groups operations */
     fun simCardGroups(): SimCardGroupServiceAsync
 
+    /** SIM Card Orders operations */
     fun simCardOrderPreview(): SimCardOrderPreviewServiceAsync
 
+    /** SIM Card Orders operations */
     fun simCardOrders(): SimCardOrderServiceAsync
 
+    /** SIM Cards operations */
     fun simCards(): SimCardServiceAsync
 
+    /** SIPREC connectors configuration. */
     fun siprecConnectors(): SiprecConnectorServiceAsync
 
+    /** Migrate data from an external provider into Telnyx Cloud Storage */
     fun storage(): StorageServiceAsync
 
     fun subNumberOrders(): SubNumberOrderServiceAsync
 
+    /** Number orders */
     fun subNumberOrdersReport(): SubNumberOrdersReportServiceAsync
 
     fun telephonyCredentials(): TelephonyCredentialServiceAsync
 
+    /** TeXML REST Commands */
     fun texml(): TexmlServiceAsync
 
+    /** TeXML Applications operations */
     fun texmlApplications(): TexmlApplicationServiceAsync
 
+    /** Text to speech streaming command operations */
     fun textToSpeech(): TextToSpeechServiceAsync
 
+    /** Usage data reporting across Telnyx products */
     fun usageReports(): UsageReportServiceAsync
 
+    /**
+     * Operations for working with UserAddress records. UserAddress records are stored addresses
+     * that users can use for non-emergency-calling purposes, such as for shipping addresses for
+     * orders of wireless SIMs (or other physical items). They cannot be used for emergency calling
+     * and are distinct from Address records, which are used on phone numbers.
+     */
     fun userAddresses(): UserAddressServiceAsync
 
+    /** User-defined tags for Telnyx resources */
     fun userTags(): UserTagServiceAsync
 
+    /** Two factor authentication API */
     fun verifications(): VerificationServiceAsync
 
+    /** Verified Numbers operations */
     fun verifiedNumbers(): VerifiedNumberServiceAsync
 
+    /** Two factor authentication API */
     fun verifyProfiles(): VerifyProfileServiceAsync
 
+    /** Virtual Cross Connect operations */
     fun virtualCrossConnects(): VirtualCrossConnectServiceAsync
 
+    /** Virtual Cross Connect operations */
     fun virtualCrossConnectsCoverage(): VirtualCrossConnectsCoverageServiceAsync
 
+    /** Webhooks operations */
     fun webhookDeliveries(): WebhookDeliveryServiceAsync
 
+    /** WireGuard Interface operations */
     fun wireguardInterfaces(): WireguardInterfaceServiceAsync
 
+    /** WireGuard Interface operations */
     fun wireguardPeers(): WireguardPeerServiceAsync
 
+    /** Regions for wireless services */
     fun wireless(): WirelessServiceAsync
 
+    /** Wireless Blocklists operations */
     fun wirelessBlocklistValues(): WirelessBlocklistValueServiceAsync
 
+    /** Wireless Blocklists operations */
     fun wirelessBlocklists(): WirelessBlocklistServiceAsync
 
     fun wellKnown(): WellKnownServiceAsync
 
+    /** Inexplicit number orders for bulk purchasing without specifying exact numbers */
     fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync
 
+    /** Mobile phone number operations */
     fun mobilePhoneNumbers(): MobilePhoneNumberServiceAsync
 
+    /** Mobile voice connection operations */
     fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync
 
     fun messaging10dlc(): Messaging10dlcServiceAsync
 
+    /** Speech to text command operations */
     fun speechToText(): SpeechToTextServiceAsync
 
     fun organizations(): OrganizationServiceAsync
@@ -535,296 +670,431 @@ interface TelnyxClientAsync {
 
         fun webhooks(): WebhookServiceAsync.WithRawResponse
 
+        /** IP Address Operations */
         fun accessIpAddress(): AccessIpAddressServiceAsync.WithRawResponse
 
+        /** IP Range Operations */
         fun accessIpRanges(): AccessIpRangeServiceAsync.WithRawResponse
 
         fun actions(): ActionServiceAsync.WithRawResponse
 
+        /**
+         * Operations to work with Address records. Address records are emergency-validated
+         * addresses meant to be associated with phone numbers. They are validated for emergency
+         * usage purposes at creation time, although you may validate them separately with a custom
+         * workflow using the ValidateAddress operation separately. Address records are not usable
+         * for physical orders, such as for Telnyx SIM cards, please use UserAddress for that. It is
+         * not possible to entirely skip emergency service validation for Address records; if an
+         * emergency provider for a phone number rejects the address then it cannot be used on a
+         * phone number. To prevent records from getting out of sync, Address records are immutable
+         * and cannot be altered once created. If you realize you need to alter an address, a new
+         * record must be created with the differing address.
+         */
         fun addresses(): AddressServiceAsync.WithRawResponse
 
         fun advancedOrders(): AdvancedOrderServiceAsync.WithRawResponse
 
+        /** Generate text with LLMs */
         fun ai(): AiServiceAsync.WithRawResponse
 
+        /** Audit log operations. */
         fun auditEvents(): AuditEventServiceAsync.WithRawResponse
 
         fun authenticationProviders(): AuthenticationProviderServiceAsync.WithRawResponse
 
+        /** Number search */
         fun availablePhoneNumberBlocks(): AvailablePhoneNumberBlockServiceAsync.WithRawResponse
 
+        /** Number search */
         fun availablePhoneNumbers(): AvailablePhoneNumberServiceAsync.WithRawResponse
 
+        /** Billing operations */
         fun balance(): BalanceServiceAsync.WithRawResponse
 
+        /** Billing groups operations */
         fun billingGroups(): BillingGroupServiceAsync.WithRawResponse
 
+        /** View SIM card actions, their progress and timestamps using the SIM Card Actions API */
         fun bulkSimCardActions(): BulkSimCardActionServiceAsync.WithRawResponse
 
         fun bundlePricing(): BundlePricingServiceAsync.WithRawResponse
 
+        /** Call Control applications operations */
         fun callControlApplications(): CallControlApplicationServiceAsync.WithRawResponse
 
+        /** Call Control debugging */
         fun callEvents(): CallEventServiceAsync.WithRawResponse
 
         fun calls(): CallServiceAsync.WithRawResponse
 
+        /** Voice Channels */
         fun channelZones(): ChannelZoneServiceAsync.WithRawResponse
 
         fun chargesBreakdown(): ChargesBreakdownServiceAsync.WithRawResponse
 
         fun chargesSummary(): ChargesSummaryServiceAsync.WithRawResponse
 
+        /** Number orders */
         fun comments(): CommentServiceAsync.WithRawResponse
 
+        /** Conference command operations */
         fun conferences(): ConferenceServiceAsync.WithRawResponse
 
         fun connections(): ConnectionServiceAsync.WithRawResponse
 
+        /** Country Coverage */
         fun countryCoverage(): CountryCoverageServiceAsync.WithRawResponse
 
+        /** Credential connection operations */
         fun credentialConnections(): CredentialConnectionServiceAsync.WithRawResponse
 
+        /** Call Recordings operations. */
         fun customStorageCredentials(): CustomStorageCredentialServiceAsync.WithRawResponse
 
+        /** Customer Service Record operations */
         fun customerServiceRecords(): CustomerServiceRecordServiceAsync.WithRawResponse
 
+        /** Detail Records operations */
         fun detailRecords(): DetailRecordServiceAsync.WithRawResponse
 
+        /** Dialogflow Connection Operations. */
         fun dialogflowConnections(): DialogflowConnectionServiceAsync.WithRawResponse
 
+        /** Documents */
         fun documentLinks(): DocumentLinkServiceAsync.WithRawResponse
 
+        /** Documents */
         fun documents(): DocumentServiceAsync.WithRawResponse
 
+        /** Dynamic emergency address operations */
         fun dynamicEmergencyAddresses(): DynamicEmergencyAddressServiceAsync.WithRawResponse
 
+        /** Dynamic Emergency Endpoints */
         fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointServiceAsync.WithRawResponse
 
+        /** External Connections operations */
         fun externalConnections(): ExternalConnectionServiceAsync.WithRawResponse
 
+        /** Fax Applications operations */
         fun faxApplications(): FaxApplicationServiceAsync.WithRawResponse
 
+        /** Programmable fax command operations */
         fun faxes(): FaxServiceAsync.WithRawResponse
 
+        /** FQDN connection operations */
         fun fqdnConnections(): FqdnConnectionServiceAsync.WithRawResponse
 
+        /** FQDN operations */
         fun fqdns(): FqdnServiceAsync.WithRawResponse
 
+        /** Global IPs */
         fun globalIpAllowedPorts(): GlobalIpAllowedPortServiceAsync.WithRawResponse
 
+        /** Global IPs */
         fun globalIpAssignmentHealth(): GlobalIpAssignmentHealthServiceAsync.WithRawResponse
 
+        /** Global IPs */
         fun globalIpAssignments(): GlobalIpAssignmentServiceAsync.WithRawResponse
 
+        /** Global IPs */
         fun globalIpAssignmentsUsage(): GlobalIpAssignmentsUsageServiceAsync.WithRawResponse
 
+        /** Global IPs */
         fun globalIpHealthCheckTypes(): GlobalIpHealthCheckTypeServiceAsync.WithRawResponse
 
+        /** Global IPs */
         fun globalIpHealthChecks(): GlobalIpHealthCheckServiceAsync.WithRawResponse
 
+        /** Global IPs */
         fun globalIpLatency(): GlobalIpLatencyServiceAsync.WithRawResponse
 
+        /** Global IPs */
         fun globalIpProtocols(): GlobalIpProtocolServiceAsync.WithRawResponse
 
+        /** Global IPs */
         fun globalIpUsage(): GlobalIpUsageServiceAsync.WithRawResponse
 
+        /** Global IPs */
         fun globalIps(): GlobalIpServiceAsync.WithRawResponse
 
+        /** Voice Channels */
         fun inboundChannels(): InboundChannelServiceAsync.WithRawResponse
 
+        /** Store and retrieve integration secrets */
         fun integrationSecrets(): IntegrationSecretServiceAsync.WithRawResponse
 
+        /** Inventory Level */
         fun inventoryCoverage(): InventoryCoverageServiceAsync.WithRawResponse
 
         fun invoices(): InvoiceServiceAsync.WithRawResponse
 
+        /** IP connection operations */
         fun ipConnections(): IpConnectionServiceAsync.WithRawResponse
 
+        /** IP operations */
         fun ips(): IpServiceAsync.WithRawResponse
 
+        /** Ledger billing reports */
         fun ledgerBillingGroupReports(): LedgerBillingGroupReportServiceAsync.WithRawResponse
 
+        /** Voice Channels */
         fun list(): ListServiceAsync.WithRawResponse
 
+        /** Managed Accounts operations */
         fun managedAccounts(): ManagedAccountServiceAsync.WithRawResponse
 
+        /** Media Storage operations */
         fun media(): MediaServiceAsync.WithRawResponse
 
         fun messages(): MessageServiceAsync.WithRawResponse
 
         fun messaging(): MessagingServiceAsync.WithRawResponse
 
+        /** Manage your messaging hosted numbers */
         fun messagingHostedNumberOrders(): MessagingHostedNumberOrderServiceAsync.WithRawResponse
 
         fun messagingHostedNumbers(): MessagingHostedNumberServiceAsync.WithRawResponse
 
+        /** Configure your phone numbers */
         fun messagingNumbersBulkUpdates(): MessagingNumbersBulkUpdateServiceAsync.WithRawResponse
 
+        /** Opt-Out Management */
         fun messagingOptouts(): MessagingOptoutServiceAsync.WithRawResponse
 
         fun messagingProfiles(): MessagingProfileServiceAsync.WithRawResponse
 
         fun messagingTollfree(): MessagingTollfreeServiceAsync.WithRawResponse
 
+        /** Messaging URL Domains */
         fun messagingUrlDomains(): MessagingUrlDomainServiceAsync.WithRawResponse
 
+        /** Mobile network operators operations */
         fun mobileNetworkOperators(): MobileNetworkOperatorServiceAsync.WithRawResponse
 
+        /** Mobile push credential management */
         fun mobilePushCredentials(): MobilePushCredentialServiceAsync.WithRawResponse
 
         fun networkCoverage(): NetworkCoverageServiceAsync.WithRawResponse
 
+        /** Network operations */
         fun networks(): NetworkServiceAsync.WithRawResponse
 
+        /** Notification settings operations */
         fun notificationChannels(): NotificationChannelServiceAsync.WithRawResponse
 
+        /** Notification settings operations */
         fun notificationEventConditions(): NotificationEventConditionServiceAsync.WithRawResponse
 
+        /** Notification settings operations */
         fun notificationEvents(): NotificationEventServiceAsync.WithRawResponse
 
+        /** Notification settings operations */
         fun notificationProfiles(): NotificationProfileServiceAsync.WithRawResponse
 
+        /** Notification settings operations */
         fun notificationSettings(): NotificationSettingServiceAsync.WithRawResponse
 
         fun numberBlockOrders(): NumberBlockOrderServiceAsync.WithRawResponse
 
+        /** Look up phone number data */
         fun numberLookup(): NumberLookupServiceAsync.WithRawResponse
 
         fun numberOrderPhoneNumbers(): NumberOrderPhoneNumberServiceAsync.WithRawResponse
 
+        /** Number orders */
         fun numberOrders(): NumberOrderServiceAsync.WithRawResponse
 
+        /** Number reservations */
         fun numberReservations(): NumberReservationServiceAsync.WithRawResponse
 
         fun numbersFeatures(): NumbersFeatureServiceAsync.WithRawResponse
 
         fun operatorConnect(): OperatorConnectServiceAsync.WithRawResponse
 
+        /** OTA updates operations */
         fun otaUpdates(): OtaUpdateServiceAsync.WithRawResponse
 
+        /** Outbound voice profiles operations */
         fun outboundVoiceProfiles(): OutboundVoiceProfileServiceAsync.WithRawResponse
 
+        /** Operations for managing stored payment transactions. */
         fun payment(): PaymentServiceAsync.WithRawResponse
 
         fun phoneNumberBlocks(): PhoneNumberBlockServiceAsync.WithRawResponse
 
+        /** Configure your phone numbers */
         fun phoneNumbers(): PhoneNumberServiceAsync.WithRawResponse
 
+        /** Regulatory Requirements */
         fun phoneNumbersRegulatoryRequirements():
             PhoneNumbersRegulatoryRequirementServiceAsync.WithRawResponse
 
+        /** Determining portability of phone numbers */
         fun portabilityChecks(): PortabilityCheckServiceAsync.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun porting(): PortingServiceAsync.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun portingOrders(): PortingOrderServiceAsync.WithRawResponse
 
+        /** Endpoints related to porting orders management. */
         fun portingPhoneNumbers(): PortingPhoneNumberServiceAsync.WithRawResponse
 
+        /** Number portout operations */
         fun portouts(): PortoutServiceAsync.WithRawResponse
 
+        /** Private Wireless Gateways operations */
         fun privateWirelessGateways(): PrivateWirelessGatewayServiceAsync.WithRawResponse
 
+        /** Public Internet Gateway operations */
         fun publicInternetGateways(): PublicInternetGatewayServiceAsync.WithRawResponse
 
+        /** Queue commands operations */
         fun queues(): QueueServiceAsync.WithRawResponse
 
         fun rcsAgents(): RcsAgentServiceAsync.WithRawResponse
 
+        /** Call Recordings operations. */
         fun recordingTranscriptions(): RecordingTranscriptionServiceAsync.WithRawResponse
 
+        /** Call Recordings operations. */
         fun recordings(): RecordingServiceAsync.WithRawResponse
 
+        /** Regions */
         fun regions(): RegionServiceAsync.WithRawResponse
 
+        /** Regulatory Requirements */
         fun regulatoryRequirements(): RegulatoryRequirementServiceAsync.WithRawResponse
 
         fun reports(): ReportServiceAsync.WithRawResponse
 
+        /** Requirement Groups */
         fun requirementGroups(): RequirementGroupServiceAsync.WithRawResponse
 
+        /** Types of requirements for international numbers and porting orders */
         fun requirementTypes(): RequirementTypeServiceAsync.WithRawResponse
 
+        /** Requirements for international numbers and porting orders */
         fun requirements(): RequirementServiceAsync.WithRawResponse
 
+        /** Rooms Compositions operations. */
         fun roomCompositions(): RoomCompositionServiceAsync.WithRawResponse
 
+        /** Rooms Participants operations. */
         fun roomParticipants(): RoomParticipantServiceAsync.WithRawResponse
 
+        /** Rooms Recordings operations. */
         fun roomRecordings(): RoomRecordingServiceAsync.WithRawResponse
 
+        /** Rooms operations. */
         fun rooms(): RoomServiceAsync.WithRawResponse
 
+        /** Observability into Telnyx platform stability and performance. */
         fun seti(): SetiServiceAsync.WithRawResponse
 
+        /** Short codes */
         fun shortCodes(): ShortCodeServiceAsync.WithRawResponse
 
+        /** SIM Cards operations */
         fun simCardDataUsageNotifications():
             SimCardDataUsageNotificationServiceAsync.WithRawResponse
 
+        /** SIM Card Groups operations */
         fun simCardGroups(): SimCardGroupServiceAsync.WithRawResponse
 
+        /** SIM Card Orders operations */
         fun simCardOrderPreview(): SimCardOrderPreviewServiceAsync.WithRawResponse
 
+        /** SIM Card Orders operations */
         fun simCardOrders(): SimCardOrderServiceAsync.WithRawResponse
 
+        /** SIM Cards operations */
         fun simCards(): SimCardServiceAsync.WithRawResponse
 
+        /** SIPREC connectors configuration. */
         fun siprecConnectors(): SiprecConnectorServiceAsync.WithRawResponse
 
+        /** Migrate data from an external provider into Telnyx Cloud Storage */
         fun storage(): StorageServiceAsync.WithRawResponse
 
         fun subNumberOrders(): SubNumberOrderServiceAsync.WithRawResponse
 
+        /** Number orders */
         fun subNumberOrdersReport(): SubNumberOrdersReportServiceAsync.WithRawResponse
 
         fun telephonyCredentials(): TelephonyCredentialServiceAsync.WithRawResponse
 
+        /** TeXML REST Commands */
         fun texml(): TexmlServiceAsync.WithRawResponse
 
+        /** TeXML Applications operations */
         fun texmlApplications(): TexmlApplicationServiceAsync.WithRawResponse
 
+        /** Text to speech streaming command operations */
         fun textToSpeech(): TextToSpeechServiceAsync.WithRawResponse
 
+        /** Usage data reporting across Telnyx products */
         fun usageReports(): UsageReportServiceAsync.WithRawResponse
 
+        /**
+         * Operations for working with UserAddress records. UserAddress records are stored addresses
+         * that users can use for non-emergency-calling purposes, such as for shipping addresses for
+         * orders of wireless SIMs (or other physical items). They cannot be used for emergency
+         * calling and are distinct from Address records, which are used on phone numbers.
+         */
         fun userAddresses(): UserAddressServiceAsync.WithRawResponse
 
+        /** User-defined tags for Telnyx resources */
         fun userTags(): UserTagServiceAsync.WithRawResponse
 
+        /** Two factor authentication API */
         fun verifications(): VerificationServiceAsync.WithRawResponse
 
+        /** Verified Numbers operations */
         fun verifiedNumbers(): VerifiedNumberServiceAsync.WithRawResponse
 
+        /** Two factor authentication API */
         fun verifyProfiles(): VerifyProfileServiceAsync.WithRawResponse
 
+        /** Virtual Cross Connect operations */
         fun virtualCrossConnects(): VirtualCrossConnectServiceAsync.WithRawResponse
 
+        /** Virtual Cross Connect operations */
         fun virtualCrossConnectsCoverage(): VirtualCrossConnectsCoverageServiceAsync.WithRawResponse
 
+        /** Webhooks operations */
         fun webhookDeliveries(): WebhookDeliveryServiceAsync.WithRawResponse
 
+        /** WireGuard Interface operations */
         fun wireguardInterfaces(): WireguardInterfaceServiceAsync.WithRawResponse
 
+        /** WireGuard Interface operations */
         fun wireguardPeers(): WireguardPeerServiceAsync.WithRawResponse
 
+        /** Regions for wireless services */
         fun wireless(): WirelessServiceAsync.WithRawResponse
 
+        /** Wireless Blocklists operations */
         fun wirelessBlocklistValues(): WirelessBlocklistValueServiceAsync.WithRawResponse
 
+        /** Wireless Blocklists operations */
         fun wirelessBlocklists(): WirelessBlocklistServiceAsync.WithRawResponse
 
         fun wellKnown(): WellKnownServiceAsync.WithRawResponse
 
+        /** Inexplicit number orders for bulk purchasing without specifying exact numbers */
         fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync.WithRawResponse
 
+        /** Mobile phone number operations */
         fun mobilePhoneNumbers(): MobilePhoneNumberServiceAsync.WithRawResponse
 
+        /** Mobile voice connection operations */
         fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync.WithRawResponse
 
         fun messaging10dlc(): Messaging10dlcServiceAsync.WithRawResponse
 
+        /** Speech to text command operations */
         fun speechToText(): SpeechToTextServiceAsync.WithRawResponse
 
         fun organizations(): OrganizationServiceAsync.WithRawResponse

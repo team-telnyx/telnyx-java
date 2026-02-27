@@ -31,6 +31,7 @@ import com.telnyx.sdk.services.blocking.faxes.ActionServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Programmable fax command operations */
 class FaxServiceImpl internal constructor(private val clientOptions: ClientOptions) : FaxService {
 
     private val withRawResponse: FaxService.WithRawResponse by lazy {
@@ -44,6 +45,7 @@ class FaxServiceImpl internal constructor(private val clientOptions: ClientOptio
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FaxService =
         FaxServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Programmable fax command operations */
     override fun actions(): ActionService = actions
 
     override fun create(
@@ -86,6 +88,7 @@ class FaxServiceImpl internal constructor(private val clientOptions: ClientOptio
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Programmable fax command operations */
         override fun actions(): ActionService.WithRawResponse = actions
 
         private val createHandler: Handler<FaxCreateResponse> =

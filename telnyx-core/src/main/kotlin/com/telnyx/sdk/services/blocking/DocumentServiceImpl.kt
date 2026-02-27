@@ -35,6 +35,7 @@ import com.telnyx.sdk.models.documents.DocumentUploadResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Documents */
 class DocumentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     DocumentService {
 

@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.messaging10dlc.campaign.osr.OsrGetAttributesRespons
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Campaign operations */
 class OsrServiceImpl internal constructor(private val clientOptions: ClientOptions) : OsrService {
 
     private val withRawResponse: OsrService.WithRawResponse by lazy {

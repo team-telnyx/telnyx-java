@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.texmlapplications.TexmlApplicationUpdateParams
 import com.telnyx.sdk.models.texmlapplications.TexmlApplicationUpdateResponse
 import java.util.function.Consumer
 
+/** TeXML Applications operations */
 interface TexmlApplicationService {
 
     /**

@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.portingorders.associatedphonenumbers.AssociatedPhon
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Endpoints related to porting orders management. */
 class AssociatedPhoneNumberServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : AssociatedPhoneNumberService {
 

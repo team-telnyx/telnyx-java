@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialUpd
 import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialUpdateResponse
 import java.util.function.Consumer
 
+/** Call Recordings operations. */
 interface CustomStorageCredentialService {
 
     /**

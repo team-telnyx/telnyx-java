@@ -25,6 +25,7 @@ import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.PaginatedTestRu
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure AI assistant specifications */
 class RunServiceImpl internal constructor(private val clientOptions: ClientOptions) : RunService {
 
     private val withRawResponse: RunService.WithRawResponse by lazy {

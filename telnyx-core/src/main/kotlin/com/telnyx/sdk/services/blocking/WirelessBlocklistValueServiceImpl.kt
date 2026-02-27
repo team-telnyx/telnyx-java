@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.wirelessblocklistvalues.WirelessBlocklistValueListP
 import com.telnyx.sdk.models.wirelessblocklistvalues.WirelessBlocklistValueListResponse
 import java.util.function.Consumer
 
+/** Wireless Blocklists operations */
 class WirelessBlocklistValueServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : WirelessBlocklistValueService {
 

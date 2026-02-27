@@ -22,6 +22,7 @@ import com.telnyx.sdk.models.networks.NetworkUpdateResponse
 import com.telnyx.sdk.services.blocking.networks.DefaultGatewayService
 import java.util.function.Consumer
 
+/** Network operations */
 interface NetworkService {
 
     /**
@@ -36,6 +37,7 @@ interface NetworkService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NetworkService
 
+    /** Network operations */
     fun defaultGateway(): DefaultGatewayService
 
     /** Create a new Network. */
@@ -199,6 +201,7 @@ interface NetworkService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): NetworkService.WithRawResponse
 
+        /** Network operations */
         fun defaultGateway(): DefaultGatewayService.WithRawResponse
 
         /**

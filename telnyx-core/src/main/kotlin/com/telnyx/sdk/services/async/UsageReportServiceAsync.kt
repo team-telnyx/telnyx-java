@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.usagereports.UsageReportListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Usage data reporting across Telnyx products */
 interface UsageReportServiceAsync {
 
     /**

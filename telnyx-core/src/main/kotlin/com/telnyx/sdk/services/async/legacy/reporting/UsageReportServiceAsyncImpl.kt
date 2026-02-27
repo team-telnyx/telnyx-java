@@ -25,6 +25,7 @@ import com.telnyx.sdk.services.async.legacy.reporting.usagereports.VoiceServiceA
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Speech to text usage reports */
 class UsageReportServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     UsageReportServiceAsync {
 
@@ -47,10 +48,13 @@ class UsageReportServiceAsyncImpl internal constructor(private val clientOptions
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): UsageReportServiceAsync =
         UsageReportServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Messaging usage reports */
     override fun messaging(): MessagingServiceAsync = messaging
 
+    /** Number lookup usage reports */
     override fun numberLookup(): NumberLookupServiceAsync = numberLookup
 
+    /** Voice usage reports */
     override fun voice(): VoiceServiceAsync = voice
 
     override fun retrieveSpeechToText(
@@ -85,10 +89,13 @@ class UsageReportServiceAsyncImpl internal constructor(private val clientOptions
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Messaging usage reports */
         override fun messaging(): MessagingServiceAsync.WithRawResponse = messaging
 
+        /** Number lookup usage reports */
         override fun numberLookup(): NumberLookupServiceAsync.WithRawResponse = numberLookup
 
+        /** Voice usage reports */
         override fun voice(): VoiceServiceAsync.WithRawResponse = voice
 
         private val retrieveSpeechToTextHandler: Handler<UsageReportRetrieveSpeechToTextResponse> =

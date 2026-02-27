@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.externalconnections.civicaddresses.CivicAddressRetr
 import com.telnyx.sdk.models.externalconnections.civicaddresses.CivicAddressRetrieveResponse
 import java.util.function.Consumer
 
+/** External Connections operations */
 interface CivicAddressService {
 
     /**

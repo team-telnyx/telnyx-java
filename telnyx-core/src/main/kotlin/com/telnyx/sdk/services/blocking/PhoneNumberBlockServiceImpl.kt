@@ -21,6 +21,7 @@ class PhoneNumberBlockServiceImpl internal constructor(private val clientOptions
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoneNumberBlockService =
         PhoneNumberBlockServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Background jobs performed over a phone-numbers block's phone numbers */
     override fun jobs(): JobService = jobs
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -37,6 +38,7 @@ class PhoneNumberBlockServiceImpl internal constructor(private val clientOptions
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Background jobs performed over a phone-numbers block's phone numbers */
         override fun jobs(): JobService.WithRawResponse = jobs
     }
 }

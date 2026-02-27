@@ -33,6 +33,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure AI assistant specifications */
 class TestServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     TestServiceAsync {
 
@@ -51,8 +52,10 @@ class TestServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TestServiceAsync =
         TestServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Configure AI assistant specifications */
     override fun testSuites(): TestSuiteServiceAsync = testSuites
 
+    /** Configure AI assistant specifications */
     override fun runs(): RunServiceAsync = runs
 
     override fun create(
@@ -111,8 +114,10 @@ class TestServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Configure AI assistant specifications */
         override fun testSuites(): TestSuiteServiceAsync.WithRawResponse = testSuites
 
+        /** Configure AI assistant specifications */
         override fun runs(): RunServiceAsync.WithRawResponse = runs
 
         private val createHandler: Handler<AssistantTest> =

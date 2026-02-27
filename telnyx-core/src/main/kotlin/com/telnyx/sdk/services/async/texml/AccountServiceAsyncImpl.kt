@@ -33,6 +33,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML REST Commands */
 class AccountServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     AccountServiceAsync {
 
@@ -61,14 +62,17 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AccountServiceAsync =
         AccountServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** TeXML REST Commands */
     override fun calls(): CallServiceAsync = calls
 
+    /** TeXML REST Commands */
     override fun conferences(): ConferenceServiceAsync = conferences
 
     override fun recordings(): RecordingServiceAsync = recordings
 
     override fun transcriptions(): TranscriptionServiceAsync = transcriptions
 
+    /** TeXML REST Commands */
     override fun queues(): QueueServiceAsync = queues
 
     override fun retrieveRecordingsJson(
@@ -120,14 +124,17 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** TeXML REST Commands */
         override fun calls(): CallServiceAsync.WithRawResponse = calls
 
+        /** TeXML REST Commands */
         override fun conferences(): ConferenceServiceAsync.WithRawResponse = conferences
 
         override fun recordings(): RecordingServiceAsync.WithRawResponse = recordings
 
         override fun transcriptions(): TranscriptionServiceAsync.WithRawResponse = transcriptions
 
+        /** TeXML REST Commands */
         override fun queues(): QueueServiceAsync.WithRawResponse = queues
 
         private val retrieveRecordingsJsonHandler: Handler<AccountRetrieveRecordingsJsonResponse> =

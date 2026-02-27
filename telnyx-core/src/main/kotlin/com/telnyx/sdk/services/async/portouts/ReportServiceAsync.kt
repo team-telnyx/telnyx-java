@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.portouts.reports.ReportRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Number portout operations */
 interface ReportServiceAsync {
 
     /**

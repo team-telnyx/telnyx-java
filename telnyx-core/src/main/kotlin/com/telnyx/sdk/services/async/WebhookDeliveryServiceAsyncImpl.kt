@@ -24,6 +24,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Webhooks operations */
 class WebhookDeliveryServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : WebhookDeliveryServiceAsync {
 
