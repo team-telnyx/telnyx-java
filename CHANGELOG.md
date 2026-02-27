@@ -1,5 +1,23 @@
 # Changelog
 
+## 6.24.0 (2026-02-27)
+
+Full Changelog: [v6.23.0...v6.24.0](https://github.com/team-telnyx/telnyx-java/compare/v6.23.0...v6.24.0)
+
+### Features
+
+* Add TTS file-based endpoint spec ([972df93](https://github.com/team-telnyx/telnyx-java/commit/972df9310f7ad5db2fc7a5e2a5b96f7cfe32bc08))
+* **api:** manual updates ([5c4d48a](https://github.com/team-telnyx/telnyx-java/commit/5c4d48acab3e2492902248619f4c504c0f047c71))
+* **api:** manual updates ([c2dd42b](https://github.com/team-telnyx/telnyx-java/commit/c2dd42b358e6dbc997abf4c8a3409e4c0d9b384d))
+* **api:** manual updates ([55d1732](https://github.com/team-telnyx/telnyx-java/commit/55d1732cd45bd275fc57468534d2ad18e94eee5c))
+* **api:** manual updates ([5a81c80](https://github.com/team-telnyx/telnyx-java/commit/5a81c80c126fd09face89df7a5857fd632076af5))
+* **api:** manual updates ([919ee74](https://github.com/team-telnyx/telnyx-java/commit/919ee74b1890f81b170ae1f0363b0c45af2b5b29))
+
+
+### Chores
+
+* **docs:** add missing descriptions ([402bb84](https://github.com/team-telnyx/telnyx-java/commit/402bb846ecd6d5b4c0ad3fff021cb9f20fe904f2))
+
 ## 6.23.0 (2026-02-26)
 
 Full Changelog: [v6.22.0...v6.23.0](https://github.com/team-telnyx/telnyx-java/compare/v6.22.0...v6.23.0)
