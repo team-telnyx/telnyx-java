@@ -40,22 +40,14 @@ interface VirtualCrossConnectService {
      * and secondary connections to be created at the same time and they can not be independantly
      * disabled.
      */
-    fun create(): VirtualCrossConnectCreateResponse = create(VirtualCrossConnectCreateParams.none())
+    fun create(params: VirtualCrossConnectCreateParams): VirtualCrossConnectCreateResponse =
+        create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none(),
+        params: VirtualCrossConnectCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualCrossConnectCreateResponse
-
-    /** @see create */
-    fun create(
-        params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none()
-    ): VirtualCrossConnectCreateResponse = create(params, RequestOptions.none())
-
-    /** @see create */
-    fun create(requestOptions: RequestOptions): VirtualCrossConnectCreateResponse =
-        create(VirtualCrossConnectCreateParams.none(), requestOptions)
 
     /** Retrieve a Virtual Cross Connect. */
     fun retrieve(id: String): VirtualCrossConnectRetrieveResponse =
@@ -196,29 +188,17 @@ interface VirtualCrossConnectService {
          * as [VirtualCrossConnectService.create].
          */
         @MustBeClosed
-        fun create(): HttpResponseFor<VirtualCrossConnectCreateResponse> =
-            create(VirtualCrossConnectCreateParams.none())
-
-        /** @see create */
-        @MustBeClosed
         fun create(
-            params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VirtualCrossConnectCreateResponse>
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none()
+            params: VirtualCrossConnectCreateParams
         ): HttpResponseFor<VirtualCrossConnectCreateResponse> =
             create(params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<VirtualCrossConnectCreateResponse> =
-            create(VirtualCrossConnectCreateParams.none(), requestOptions)
+            params: VirtualCrossConnectCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<VirtualCrossConnectCreateResponse>
 
         /**
          * Returns a raw HTTP response for `get /virtual_cross_connects/{id}`, but is otherwise the
