@@ -27,6 +27,7 @@ internal class VirtualCrossConnectServiceTest {
                     .name("test interface")
                     .networkId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .status(InterfaceStatus.PROVISIONED)
+                    .regionCode("ashburn-va")
                     .bandwidthMbps(50.0)
                     .bgpAsn(1234.0)
                     .cloudProvider(VirtualCrossConnectCreateParams.CloudProvider.AWS)
