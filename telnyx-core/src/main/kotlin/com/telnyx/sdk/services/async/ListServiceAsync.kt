@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.list.ListRetrieveByZoneResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Voice Channels */
 interface ListServiceAsync {
 
     /**

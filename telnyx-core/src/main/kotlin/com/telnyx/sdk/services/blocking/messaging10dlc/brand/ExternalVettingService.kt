@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettin
 import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettingOrderResponse
 import java.util.function.Consumer
 
+/** Brand operations */
 interface ExternalVettingService {
 
     /**

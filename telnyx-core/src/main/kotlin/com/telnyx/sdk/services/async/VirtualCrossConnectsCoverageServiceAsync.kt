@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCo
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Virtual Cross Connect operations */
 interface VirtualCrossConnectsCoverageServiceAsync {
 
     /**

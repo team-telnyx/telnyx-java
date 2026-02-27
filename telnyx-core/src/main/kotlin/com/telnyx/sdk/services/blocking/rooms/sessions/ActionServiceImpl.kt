@@ -27,6 +27,7 @@ import com.telnyx.sdk.models.rooms.sessions.actions.ActionUnmuteResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Rooms Sessions operations. */
 class ActionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionService {
 

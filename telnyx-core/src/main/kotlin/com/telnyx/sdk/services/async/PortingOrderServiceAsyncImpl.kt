@@ -61,6 +61,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Endpoints related to porting orders management. */
 class PortingOrderServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     PortingOrderServiceAsync {
 
@@ -109,26 +110,36 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortingOrderServiceAsync =
         PortingOrderServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Endpoints related to porting orders management. */
     override fun phoneNumberConfigurations(): PhoneNumberConfigurationServiceAsync =
         phoneNumberConfigurations
 
+    /** Endpoints related to porting orders management. */
     override fun actions(): ActionServiceAsync = actions
 
+    /** Endpoints related to porting orders management. */
     override fun activationJobs(): ActivationJobServiceAsync = activationJobs
 
+    /** Endpoints related to porting orders management. */
     override fun additionalDocuments(): AdditionalDocumentServiceAsync = additionalDocuments
 
+    /** Endpoints related to porting orders management. */
     override fun comments(): CommentServiceAsync = comments
 
+    /** Endpoints related to porting orders management. */
     override fun verificationCodes(): VerificationCodeServiceAsync = verificationCodes
 
+    /** Endpoints related to porting orders management. */
     override fun actionRequirements(): ActionRequirementServiceAsync = actionRequirements
 
+    /** Endpoints related to porting orders management. */
     override fun associatedPhoneNumbers(): AssociatedPhoneNumberServiceAsync =
         associatedPhoneNumbers
 
+    /** Endpoints related to porting orders management. */
     override fun phoneNumberBlocks(): PhoneNumberBlockServiceAsync = phoneNumberBlocks
 
+    /** Endpoints related to porting orders management. */
     override fun phoneNumberExtensions(): PhoneNumberExtensionServiceAsync = phoneNumberExtensions
 
     override fun create(
@@ -257,30 +268,40 @@ class PortingOrderServiceAsyncImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Endpoints related to porting orders management. */
         override fun phoneNumberConfigurations():
             PhoneNumberConfigurationServiceAsync.WithRawResponse = phoneNumberConfigurations
 
+        /** Endpoints related to porting orders management. */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
+        /** Endpoints related to porting orders management. */
         override fun activationJobs(): ActivationJobServiceAsync.WithRawResponse = activationJobs
 
+        /** Endpoints related to porting orders management. */
         override fun additionalDocuments(): AdditionalDocumentServiceAsync.WithRawResponse =
             additionalDocuments
 
+        /** Endpoints related to porting orders management. */
         override fun comments(): CommentServiceAsync.WithRawResponse = comments
 
+        /** Endpoints related to porting orders management. */
         override fun verificationCodes(): VerificationCodeServiceAsync.WithRawResponse =
             verificationCodes
 
+        /** Endpoints related to porting orders management. */
         override fun actionRequirements(): ActionRequirementServiceAsync.WithRawResponse =
             actionRequirements
 
+        /** Endpoints related to porting orders management. */
         override fun associatedPhoneNumbers(): AssociatedPhoneNumberServiceAsync.WithRawResponse =
             associatedPhoneNumbers
 
+        /** Endpoints related to porting orders management. */
         override fun phoneNumberBlocks(): PhoneNumberBlockServiceAsync.WithRawResponse =
             phoneNumberBlocks
 
+        /** Endpoints related to porting orders management. */
         override fun phoneNumberExtensions(): PhoneNumberExtensionServiceAsync.WithRawResponse =
             phoneNumberExtensions
 

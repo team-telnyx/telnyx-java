@@ -15,6 +15,7 @@ import com.telnyx.sdk.services.async.recordings.ActionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Call Recordings operations. */
 interface RecordingServiceAsync {
 
     /**
@@ -29,6 +30,7 @@ interface RecordingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecordingServiceAsync
 
+    /** Call Recordings operations. */
     fun actions(): ActionServiceAsync
 
     /** Retrieves the details of an existing call recording. */
@@ -135,6 +137,7 @@ interface RecordingServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): RecordingServiceAsync.WithRawResponse
 
+        /** Call Recordings operations. */
         fun actions(): ActionServiceAsync.WithRawResponse
 
         /**

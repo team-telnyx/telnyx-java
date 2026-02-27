@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventRespons
 import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventRetrieveParams
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 interface ScheduledEventService {
 
     /**

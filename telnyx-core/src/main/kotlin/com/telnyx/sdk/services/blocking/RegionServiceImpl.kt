@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.regions.RegionListParams
 import com.telnyx.sdk.models.regions.RegionListResponse
 import java.util.function.Consumer
 
+/** Regions */
 class RegionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RegionService {
 

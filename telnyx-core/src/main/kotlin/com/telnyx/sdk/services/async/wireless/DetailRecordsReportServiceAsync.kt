@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.wireless.detailrecordsreports.DetailRecordsReportRe
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Wireless reporting operations */
 interface DetailRecordsReportServiceAsync {
 
     /**

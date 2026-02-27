@@ -43,6 +43,7 @@ import com.telnyx.sdk.services.blocking.phonenumbers.VoicemailServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure your phone numbers */
 class PhoneNumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     PhoneNumberService {
 
@@ -67,16 +68,21 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoneNumberService =
         PhoneNumberServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Configure your phone numbers */
     override fun actions(): ActionService = actions
 
     override fun csvDownloads(): CsvDownloadService = csvDownloads
 
+    /** Background jobs performed over a batch of phone numbers */
     override fun jobs(): JobService = jobs
 
+    /** Configure your phone numbers */
     override fun messaging(): MessagingService = messaging
 
+    /** Configure your phone numbers */
     override fun voice(): VoiceService = voice
 
+    /** Voicemail API */
     override fun voicemail(): VoicemailService = voicemail
 
     override fun retrieve(
@@ -151,16 +157,21 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Configure your phone numbers */
         override fun actions(): ActionService.WithRawResponse = actions
 
         override fun csvDownloads(): CsvDownloadService.WithRawResponse = csvDownloads
 
+        /** Background jobs performed over a batch of phone numbers */
         override fun jobs(): JobService.WithRawResponse = jobs
 
+        /** Configure your phone numbers */
         override fun messaging(): MessagingService.WithRawResponse = messaging
 
+        /** Configure your phone numbers */
         override fun voice(): VoiceService.WithRawResponse = voice
 
+        /** Voicemail API */
         override fun voicemail(): VoicemailService.WithRawResponse = voicemail
 
         private val retrieveHandler: Handler<PhoneNumberRetrieveResponse> =

@@ -73,7 +73,7 @@ internal class VirtualCrossConnectCreateParamsTest {
         assertThat(body.name()).contains("test interface")
         assertThat(body.networkId()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
         assertThat(body.status()).contains(InterfaceStatus.PROVISIONED)
-        assertThat(body.regionCode()).contains("ashburn-va")
+        assertThat(body.regionCode()).isEqualTo("ashburn-va")
         assertThat(body.bandwidthMbps()).contains(50.0)
         assertThat(body.bgpAsn()).contains(1234.0)
         assertThat(body.cloudProvider()).contains(VirtualCrossConnectCreateParams.CloudProvider.AWS)
@@ -92,8 +92,10 @@ internal class VirtualCrossConnectCreateParamsTest {
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = VirtualCrossConnectCreateParams.builder().build()
+        val params = VirtualCrossConnectCreateParams.builder().regionCode("ashburn-va").build()
 
         val body = params._body()
+
+        assertThat(body.regionCode()).isEqualTo("ashburn-va")
     }
 }

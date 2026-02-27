@@ -9,6 +9,7 @@ import com.telnyx.sdk.models.messages.RcsAgentMessage
 import com.telnyx.sdk.models.messages.RcsCardContent
 import com.telnyx.sdk.models.messages.RcsContentInfo
 import com.telnyx.sdk.models.messages.RcsSuggestion
+import com.telnyx.sdk.models.messages.RcsToItem
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -486,7 +487,7 @@ internal class RcSendResponseTest {
                         .receivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .recordType("message")
                         .addTo(
-                            RcSendResponse.Data.To.builder()
+                            RcsToItem.builder()
                                 .carrier("Verizon Wireless")
                                 .lineType("Wireless")
                                 .phoneNumber("+13125551234")
@@ -937,7 +938,7 @@ internal class RcSendResponseTest {
                     .receivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .recordType("message")
                     .addTo(
-                        RcSendResponse.Data.To.builder()
+                        RcsToItem.builder()
                             .carrier("Verizon Wireless")
                             .lineType("Wireless")
                             .phoneNumber("+13125551234")
@@ -1421,7 +1422,7 @@ internal class RcSendResponseTest {
                         .receivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .recordType("message")
                         .addTo(
-                            RcSendResponse.Data.To.builder()
+                            RcsToItem.builder()
                                 .carrier("Verizon Wireless")
                                 .lineType("Wireless")
                                 .phoneNumber("+13125551234")

@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.managedaccounts.actions.ActionEnableResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Managed Accounts operations */
 interface ActionServiceAsync {
 
     /**

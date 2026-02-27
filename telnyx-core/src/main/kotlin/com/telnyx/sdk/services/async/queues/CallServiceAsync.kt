@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.queues.calls.CallUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Queue commands operations */
 interface CallServiceAsync {
 
     /**

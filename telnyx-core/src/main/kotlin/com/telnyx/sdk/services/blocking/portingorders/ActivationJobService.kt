@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobUpdatePar
 import com.telnyx.sdk.models.portingorders.activationjobs.ActivationJobUpdateResponse
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 interface ActivationJobService {
 
     /**

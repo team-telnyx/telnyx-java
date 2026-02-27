@@ -122,17 +122,14 @@ private constructor(
          * Alias for calling [addData] with
          * `EventListResponse.ofPortingEventDeletedPayload(portingEventDeletedPayload)`.
          */
-        fun addData(portingEventDeletedPayload: EventListResponse.PortingEventDeletedPayload) =
+        fun addData(portingEventDeletedPayload: PortingEventDeletedPayload) =
             addData(EventListResponse.ofPortingEventDeletedPayload(portingEventDeletedPayload))
 
         /**
          * Alias for calling [addData] with
          * `EventListResponse.ofPortingEventMessagingChangedPayload(portingEventMessagingChangedPayload)`.
          */
-        fun addData(
-            portingEventMessagingChangedPayload:
-                EventListResponse.PortingEventMessagingChangedPayload
-        ) =
+        fun addData(portingEventMessagingChangedPayload: PortingEventMessagingChangedPayload) =
             addData(
                 EventListResponse.ofPortingEventMessagingChangedPayload(
                     portingEventMessagingChangedPayload
@@ -143,9 +140,7 @@ private constructor(
          * Alias for calling [addData] with
          * `EventListResponse.ofPortingEventStatusChangedEvent(portingEventStatusChangedEvent)`.
          */
-        fun addData(
-            portingEventStatusChangedEvent: EventListResponse.PortingEventStatusChangedEvent
-        ) =
+        fun addData(portingEventStatusChangedEvent: PortingEventStatusChangedEvent) =
             addData(
                 EventListResponse.ofPortingEventStatusChangedEvent(portingEventStatusChangedEvent)
             )
@@ -154,21 +149,21 @@ private constructor(
          * Alias for calling [addData] with
          * `EventListResponse.ofPortingEventNewCommentEvent(portingEventNewCommentEvent)`.
          */
-        fun addData(portingEventNewCommentEvent: EventListResponse.PortingEventNewCommentEvent) =
+        fun addData(portingEventNewCommentEvent: PortingEventNewCommentEvent) =
             addData(EventListResponse.ofPortingEventNewCommentEvent(portingEventNewCommentEvent))
 
         /**
          * Alias for calling [addData] with
          * `EventListResponse.ofPortingEventSplitEvent(portingEventSplitEvent)`.
          */
-        fun addData(portingEventSplitEvent: EventListResponse.PortingEventSplitEvent) =
+        fun addData(portingEventSplitEvent: PortingEventSplitEvent) =
             addData(EventListResponse.ofPortingEventSplitEvent(portingEventSplitEvent))
 
         /**
          * Alias for calling [addData] with
          * `EventListResponse.ofPortingEventWithoutWebhook(portingEventWithoutWebhook)`.
          */
-        fun addData(portingEventWithoutWebhook: EventListResponse.PortingEventWithoutWebhook) =
+        fun addData(portingEventWithoutWebhook: PortingEventWithoutWebhook) =
             addData(EventListResponse.ofPortingEventWithoutWebhook(portingEventWithoutWebhook))
 
         fun meta(meta: PaginationMeta) = meta(JsonField.of(meta))

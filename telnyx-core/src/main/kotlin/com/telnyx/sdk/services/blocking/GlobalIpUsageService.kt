@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.globalipusage.GlobalIpUsageRetrieveParams
 import com.telnyx.sdk.models.globalipusage.GlobalIpUsageRetrieveResponse
 import java.util.function.Consumer
 
+/** Global IPs */
 interface GlobalIpUsageService {
 
     /**

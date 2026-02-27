@@ -20,6 +20,7 @@ interface OrganizationService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OrganizationService
 
+    /** Operations related to users in your organization */
     fun users(): UserService
 
     /**
@@ -36,6 +37,7 @@ interface OrganizationService {
             modifier: Consumer<ClientOptions.Builder>
         ): OrganizationService.WithRawResponse
 
+        /** Operations related to users in your organization */
         fun users(): UserService.WithRawResponse
     }
 }

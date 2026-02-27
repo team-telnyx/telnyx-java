@@ -29,6 +29,7 @@ import com.telnyx.sdk.models.ai.clusters.ClusterRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Identify common themes and patterns in your embedded documents */
 class ClusterServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ClusterService {
 

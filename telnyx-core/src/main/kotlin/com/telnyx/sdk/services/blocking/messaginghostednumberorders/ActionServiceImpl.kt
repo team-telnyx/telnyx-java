@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.messaginghostednumberorders.actions.ActionUploadFil
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Manage your messaging hosted numbers */
 class ActionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionService {
 

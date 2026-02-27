@@ -43,6 +43,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** External Connections operations */
 class ExternalConnectionServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : ExternalConnectionServiceAsync {
 
@@ -75,14 +76,19 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalConnect
             clientOptions.toBuilder().apply(modifier::accept).build()
         )
 
+    /** External Connections operations */
     override fun logMessages(): LogMessageServiceAsync = logMessages
 
+    /** External Connections operations */
     override fun civicAddresses(): CivicAddressServiceAsync = civicAddresses
 
+    /** External Connections operations */
     override fun phoneNumbers(): PhoneNumberServiceAsync = phoneNumbers
 
+    /** External Connections operations */
     override fun releases(): ReleaseServiceAsync = releases
 
+    /** External Connections operations */
     override fun uploads(): UploadServiceAsync = uploads
 
     override fun create(
@@ -160,14 +166,19 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalConnect
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** External Connections operations */
         override fun logMessages(): LogMessageServiceAsync.WithRawResponse = logMessages
 
+        /** External Connections operations */
         override fun civicAddresses(): CivicAddressServiceAsync.WithRawResponse = civicAddresses
 
+        /** External Connections operations */
         override fun phoneNumbers(): PhoneNumberServiceAsync.WithRawResponse = phoneNumbers
 
+        /** External Connections operations */
         override fun releases(): ReleaseServiceAsync.WithRawResponse = releases
 
+        /** External Connections operations */
         override fun uploads(): UploadServiceAsync.WithRawResponse = uploads
 
         private val createHandler: Handler<ExternalConnectionCreateResponse> =

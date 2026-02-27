@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.faxes.actions.ActionRefreshResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Programmable fax command operations */
 class ActionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionService {
 

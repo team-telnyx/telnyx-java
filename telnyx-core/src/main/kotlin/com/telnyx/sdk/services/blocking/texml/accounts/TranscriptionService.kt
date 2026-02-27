@@ -20,6 +20,7 @@ interface TranscriptionService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TranscriptionService
 
+    /** TeXML REST Commands */
     fun json(): JsonService
 
     /**
@@ -36,6 +37,7 @@ interface TranscriptionService {
             modifier: Consumer<ClientOptions.Builder>
         ): TranscriptionService.WithRawResponse
 
+        /** TeXML REST Commands */
         fun json(): JsonService.WithRawResponse
     }
 }

@@ -28,6 +28,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Send RCS messages */
 class RcServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     RcServiceAsync {
 
@@ -42,6 +43,7 @@ class RcServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RcServiceAsync =
         RcServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Send RCS messages */
     override fun agents(): AgentServiceAsync = agents
 
     override fun inviteTestNumber(
@@ -82,6 +84,7 @@ class RcServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Send RCS messages */
         override fun agents(): AgentServiceAsync.WithRawResponse = agents
 
         private val inviteTestNumberHandler: Handler<RcInviteTestNumberResponse> =

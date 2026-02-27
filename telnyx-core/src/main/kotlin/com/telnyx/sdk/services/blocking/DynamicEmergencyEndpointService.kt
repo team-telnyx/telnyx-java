@@ -17,6 +17,7 @@ import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointR
 import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointRetrieveResponse
 import java.util.function.Consumer
 
+/** Dynamic Emergency Endpoints */
 interface DynamicEmergencyEndpointService {
 
     /**

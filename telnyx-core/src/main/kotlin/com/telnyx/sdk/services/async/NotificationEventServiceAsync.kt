@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.notificationevents.NotificationEventListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Notification settings operations */
 interface NotificationEventServiceAsync {
 
     /**

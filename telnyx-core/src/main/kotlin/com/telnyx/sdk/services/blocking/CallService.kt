@@ -27,6 +27,7 @@ interface CallService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallService
 
+    /** Call Control command operations */
     fun actions(): ActionService
 
     /**
@@ -101,6 +102,7 @@ interface CallService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallService.WithRawResponse
 
+        /** Call Control command operations */
         fun actions(): ActionService.WithRawResponse
 
         /**

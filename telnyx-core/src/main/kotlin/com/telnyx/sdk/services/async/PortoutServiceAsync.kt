@@ -20,6 +20,7 @@ import com.telnyx.sdk.services.async.portouts.SupportingDocumentServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Number portout operations */
 interface PortoutServiceAsync {
 
     /**
@@ -34,12 +35,16 @@ interface PortoutServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortoutServiceAsync
 
+    /** Number portout operations */
     fun events(): EventServiceAsync
 
+    /** Number portout operations */
     fun reports(): ReportServiceAsync
 
+    /** Number portout operations */
     fun comments(): CommentServiceAsync
 
+    /** Number portout operations */
     fun supportingDocuments(): SupportingDocumentServiceAsync
 
     /** Returns the portout request based on the ID provided */
@@ -175,12 +180,16 @@ interface PortoutServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): PortoutServiceAsync.WithRawResponse
 
+        /** Number portout operations */
         fun events(): EventServiceAsync.WithRawResponse
 
+        /** Number portout operations */
         fun reports(): ReportServiceAsync.WithRawResponse
 
+        /** Number portout operations */
         fun comments(): CommentServiceAsync.WithRawResponse
 
+        /** Number portout operations */
         fun supportingDocuments(): SupportingDocumentServiceAsync.WithRawResponse
 
         /**

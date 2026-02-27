@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.managedaccounts.actions.ActionEnableResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Managed Accounts operations */
 class ActionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionService {
 

@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.portouts.supportingdocuments.SupportingDocumentList
 import com.telnyx.sdk.models.portouts.supportingdocuments.SupportingDocumentListResponse
 import java.util.function.Consumer
 
+/** Number portout operations */
 interface SupportingDocumentService {
 
     /**

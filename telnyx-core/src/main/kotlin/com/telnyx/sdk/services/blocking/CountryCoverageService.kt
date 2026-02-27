@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.countrycoverage.CountryCoverageRetrieveParams
 import com.telnyx.sdk.models.countrycoverage.CountryCoverageRetrieveResponse
 import java.util.function.Consumer
 
+/** Country Coverage */
 interface CountryCoverageService {
 
     /**

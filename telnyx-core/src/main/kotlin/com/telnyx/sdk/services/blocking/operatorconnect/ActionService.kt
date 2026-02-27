@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.operatorconnect.actions.ActionRefreshParams
 import com.telnyx.sdk.models.operatorconnect.actions.ActionRefreshResponse
 import java.util.function.Consumer
 
+/** External Connections operations */
 interface ActionService {
 
     /**

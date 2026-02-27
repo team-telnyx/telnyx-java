@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.notificationprofiles.NotificationProfileUpdateParam
 import com.telnyx.sdk.models.notificationprofiles.NotificationProfileUpdateResponse
 import java.util.function.Consumer
 
+/** Notification settings operations */
 interface NotificationProfileService {
 
     /**

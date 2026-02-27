@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.list.ListRetrieveByZoneParams
 import com.telnyx.sdk.models.list.ListRetrieveByZoneResponse
 import java.util.function.Consumer
 
+/** Voice Channels */
 interface ListService {
 
     /**

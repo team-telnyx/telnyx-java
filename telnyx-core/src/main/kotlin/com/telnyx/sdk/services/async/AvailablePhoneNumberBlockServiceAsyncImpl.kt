@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.availablephonenumberblocks.AvailablePhoneNumberBloc
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Number search */
 class AvailablePhoneNumberBlockServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
     AvailablePhoneNumberBlockServiceAsync {

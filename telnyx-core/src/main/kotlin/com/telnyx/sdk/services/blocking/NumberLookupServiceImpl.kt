@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.numberlookup.NumberLookupRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Look up phone number data */
 class NumberLookupServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     NumberLookupService {
 

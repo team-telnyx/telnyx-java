@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.faxes.actions.ActionRefreshParams
 import com.telnyx.sdk.models.faxes.actions.ActionRefreshResponse
 import java.util.function.Consumer
 
+/** Programmable fax command operations */
 interface ActionService {
 
     /**

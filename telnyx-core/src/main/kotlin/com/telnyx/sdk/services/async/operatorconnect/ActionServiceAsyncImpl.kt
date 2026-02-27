@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.operatorconnect.actions.ActionRefreshResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** External Connections operations */
 class ActionServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionServiceAsync {
 

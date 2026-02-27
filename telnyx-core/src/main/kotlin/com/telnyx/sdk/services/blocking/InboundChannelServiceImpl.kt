@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.inboundchannels.InboundChannelUpdateParams
 import com.telnyx.sdk.models.inboundchannels.InboundChannelUpdateResponse
 import java.util.function.Consumer
 
+/** Voice Channels */
 class InboundChannelServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     InboundChannelService {
 

@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.storage.buckets.sslcertificate.SslCertificateRetrie
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** SSL certificate operations */
 class SslCertificateServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     SslCertificateService {
 

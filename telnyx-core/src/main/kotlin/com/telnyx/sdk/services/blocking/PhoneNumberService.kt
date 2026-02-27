@@ -24,6 +24,7 @@ import com.telnyx.sdk.services.blocking.phonenumbers.VoiceService
 import com.telnyx.sdk.services.blocking.phonenumbers.VoicemailService
 import java.util.function.Consumer
 
+/** Configure your phone numbers */
 interface PhoneNumberService {
 
     /**
@@ -38,16 +39,21 @@ interface PhoneNumberService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoneNumberService
 
+    /** Configure your phone numbers */
     fun actions(): ActionService
 
     fun csvDownloads(): CsvDownloadService
 
+    /** Background jobs performed over a batch of phone numbers */
     fun jobs(): JobService
 
+    /** Configure your phone numbers */
     fun messaging(): MessagingService
 
+    /** Configure your phone numbers */
     fun voice(): VoiceService
 
+    /** Voicemail API */
     fun voicemail(): VoicemailService
 
     /** Retrieve a phone number */
@@ -195,16 +201,21 @@ interface PhoneNumberService {
             modifier: Consumer<ClientOptions.Builder>
         ): PhoneNumberService.WithRawResponse
 
+        /** Configure your phone numbers */
         fun actions(): ActionService.WithRawResponse
 
         fun csvDownloads(): CsvDownloadService.WithRawResponse
 
+        /** Background jobs performed over a batch of phone numbers */
         fun jobs(): JobService.WithRawResponse
 
+        /** Configure your phone numbers */
         fun messaging(): MessagingService.WithRawResponse
 
+        /** Configure your phone numbers */
         fun voice(): VoiceService.WithRawResponse
 
+        /** Voicemail API */
         fun voicemail(): VoicemailService.WithRawResponse
 
         /**

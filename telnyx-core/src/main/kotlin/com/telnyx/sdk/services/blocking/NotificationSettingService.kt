@@ -17,6 +17,7 @@ import com.telnyx.sdk.models.notificationsettings.NotificationSettingRetrievePar
 import com.telnyx.sdk.models.notificationsettings.NotificationSettingRetrieveResponse
 import java.util.function.Consumer
 
+/** Notification settings operations */
 interface NotificationSettingService {
 
     /**

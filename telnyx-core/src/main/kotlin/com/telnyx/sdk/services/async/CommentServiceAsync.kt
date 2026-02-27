@@ -5,6 +5,7 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.comments.Comment
 import com.telnyx.sdk.models.comments.CommentCreateParams
 import com.telnyx.sdk.models.comments.CommentCreateResponse
 import com.telnyx.sdk.models.comments.CommentListParams
@@ -16,6 +17,7 @@ import com.telnyx.sdk.models.comments.CommentRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Number orders */
 interface CommentServiceAsync {
 
     /**
@@ -31,22 +33,25 @@ interface CommentServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CommentServiceAsync
 
     /** Create a comment */
-    fun create(): CompletableFuture<CommentCreateResponse> = create(CommentCreateParams.none())
+    fun create(params: CommentCreateParams): CompletableFuture<CommentCreateResponse> =
+        create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        params: CommentCreateParams = CommentCreateParams.none(),
+        params: CommentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CommentCreateResponse>
 
     /** @see create */
     fun create(
-        params: CommentCreateParams = CommentCreateParams.none()
-    ): CompletableFuture<CommentCreateResponse> = create(params, RequestOptions.none())
+        comment: Comment,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CommentCreateResponse> =
+        create(CommentCreateParams.builder().comment(comment).build(), requestOptions)
 
     /** @see create */
-    fun create(requestOptions: RequestOptions): CompletableFuture<CommentCreateResponse> =
-        create(CommentCreateParams.none(), requestOptions)
+    fun create(comment: Comment): CompletableFuture<CommentCreateResponse> =
+        create(comment, RequestOptions.none())
 
     /** Retrieve a comment */
     fun retrieve(id: String): CompletableFuture<CommentRetrieveResponse> =
@@ -154,26 +159,27 @@ interface CommentServiceAsync {
          * Returns a raw HTTP response for `post /comments`, but is otherwise the same as
          * [CommentServiceAsync.create].
          */
-        fun create(): CompletableFuture<HttpResponseFor<CommentCreateResponse>> =
-            create(CommentCreateParams.none())
-
-        /** @see create */
         fun create(
-            params: CommentCreateParams = CommentCreateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CommentCreateResponse>>
-
-        /** @see create */
-        fun create(
-            params: CommentCreateParams = CommentCreateParams.none()
+            params: CommentCreateParams
         ): CompletableFuture<HttpResponseFor<CommentCreateResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
-            requestOptions: RequestOptions
+            params: CommentCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CommentCreateResponse>>
+
+        /** @see create */
+        fun create(
+            comment: Comment,
+            requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CommentCreateResponse>> =
-            create(CommentCreateParams.none(), requestOptions)
+            create(CommentCreateParams.builder().comment(comment).build(), requestOptions)
+
+        /** @see create */
+        fun create(comment: Comment): CompletableFuture<HttpResponseFor<CommentCreateResponse>> =
+            create(comment, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /comments/{id}`, but is otherwise the same as

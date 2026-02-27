@@ -11,6 +11,7 @@ import com.telnyx.sdk.services.async.payment.AutoRechargePrefServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Operations for managing stored payment transactions. */
 interface PaymentServiceAsync {
 
     /**
@@ -25,6 +26,7 @@ interface PaymentServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PaymentServiceAsync
 
+    /** V2 Auto Recharge Preferences API */
     fun autoRechargePrefs(): AutoRechargePrefServiceAsync
 
     /** Create a stored payment transaction */
@@ -53,6 +55,7 @@ interface PaymentServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): PaymentServiceAsync.WithRawResponse
 
+        /** V2 Auto Recharge Preferences API */
         fun autoRechargePrefs(): AutoRechargePrefServiceAsync.WithRawResponse
 
         /**

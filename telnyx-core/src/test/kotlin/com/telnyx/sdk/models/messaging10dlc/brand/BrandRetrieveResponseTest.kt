@@ -37,9 +37,7 @@ internal class BrandRetrieveResponseTest {
                 .mobilePhone("+12024567890")
                 .mock(true)
                 .optionalAttributes(
-                    TelnyxBrand.OptionalAttributes.builder()
-                        .taxExemptStatus("taxExemptStatus")
-                        .build()
+                    BrandOptionalAttributes.builder().taxExemptStatus("taxExemptStatus").build()
                 )
                 .phone("+12024567890")
                 .postalCode("10001")
@@ -83,9 +81,7 @@ internal class BrandRetrieveResponseTest {
         assertThat(brandRetrieveResponse.mobilePhone()).contains("+12024567890")
         assertThat(brandRetrieveResponse.mock()).contains(true)
         assertThat(brandRetrieveResponse.optionalAttributes())
-            .contains(
-                TelnyxBrand.OptionalAttributes.builder().taxExemptStatus("taxExemptStatus").build()
-            )
+            .contains(BrandOptionalAttributes.builder().taxExemptStatus("taxExemptStatus").build())
         assertThat(brandRetrieveResponse.phone()).contains("+12024567890")
         assertThat(brandRetrieveResponse.postalCode()).contains("10001")
         assertThat(brandRetrieveResponse.referenceId()).contains("referenceId")
@@ -133,9 +129,7 @@ internal class BrandRetrieveResponseTest {
                 .mobilePhone("+12024567890")
                 .mock(true)
                 .optionalAttributes(
-                    TelnyxBrand.OptionalAttributes.builder()
-                        .taxExemptStatus("taxExemptStatus")
-                        .build()
+                    BrandOptionalAttributes.builder().taxExemptStatus("taxExemptStatus").build()
                 )
                 .phone("+12024567890")
                 .postalCode("10001")

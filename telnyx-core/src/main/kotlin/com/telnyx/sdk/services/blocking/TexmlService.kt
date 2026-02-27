@@ -11,6 +11,7 @@ import com.telnyx.sdk.models.texml.TexmlSecretsResponse
 import com.telnyx.sdk.services.blocking.texml.AccountService
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface TexmlService {
 
     /**
@@ -25,6 +26,7 @@ interface TexmlService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TexmlService
 
+    /** TeXML REST Commands */
     fun accounts(): AccountService
 
     /**
@@ -52,6 +54,7 @@ interface TexmlService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): TexmlService.WithRawResponse
 
+        /** TeXML REST Commands */
         fun accounts(): AccountService.WithRawResponse
 
         /**

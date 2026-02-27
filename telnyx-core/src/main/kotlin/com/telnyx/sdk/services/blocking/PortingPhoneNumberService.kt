@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListPage
 import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListParams
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 interface PortingPhoneNumberService {
 
     /**

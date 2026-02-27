@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.ai.embeddings.EmbeddingUrlParams
 import com.telnyx.sdk.services.blocking.ai.embeddings.BucketService
 import java.util.function.Consumer
 
+/** Embed documents and perform text searches */
 interface EmbeddingService {
 
     /**
@@ -32,6 +33,7 @@ interface EmbeddingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EmbeddingService
 
+    /** Embed documents and perform text searches */
     fun buckets(): BucketService
 
     /**
@@ -179,6 +181,7 @@ interface EmbeddingService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): EmbeddingService.WithRawResponse
 
+        /** Embed documents and perform text searches */
         fun buckets(): BucketService.WithRawResponse
 
         /**

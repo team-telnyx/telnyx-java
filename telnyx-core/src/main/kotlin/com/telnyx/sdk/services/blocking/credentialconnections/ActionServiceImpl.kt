@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.credentialconnections.actions.ActionCheckRegistrati
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Credential connection operations */
 class ActionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionService {
 

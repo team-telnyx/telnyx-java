@@ -901,308 +901,443 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     override fun webhooks(): WebhookService = webhooks
 
+    /** IP Address Operations */
     override fun accessIpAddress(): AccessIpAddressService = accessIpAddress
 
+    /** IP Range Operations */
     override fun accessIpRanges(): AccessIpRangeService = accessIpRanges
 
     override fun actions(): ActionService = actions
 
+    /**
+     * Operations to work with Address records. Address records are emergency-validated addresses
+     * meant to be associated with phone numbers. They are validated for emergency usage purposes at
+     * creation time, although you may validate them separately with a custom workflow using the
+     * ValidateAddress operation separately. Address records are not usable for physical orders,
+     * such as for Telnyx SIM cards, please use UserAddress for that. It is not possible to entirely
+     * skip emergency service validation for Address records; if an emergency provider for a phone
+     * number rejects the address then it cannot be used on a phone number. To prevent records from
+     * getting out of sync, Address records are immutable and cannot be altered once created. If you
+     * realize you need to alter an address, a new record must be created with the differing
+     * address.
+     */
     override fun addresses(): AddressService = addresses
 
     override fun advancedOrders(): AdvancedOrderService = advancedOrders
 
+    /** Generate text with LLMs */
     override fun ai(): AiService = ai
 
+    /** Audit log operations. */
     override fun auditEvents(): AuditEventService = auditEvents
 
     override fun authenticationProviders(): AuthenticationProviderService = authenticationProviders
 
+    /** Number search */
     override fun availablePhoneNumberBlocks(): AvailablePhoneNumberBlockService =
         availablePhoneNumberBlocks
 
+    /** Number search */
     override fun availablePhoneNumbers(): AvailablePhoneNumberService = availablePhoneNumbers
 
+    /** Billing operations */
     override fun balance(): BalanceService = balance
 
+    /** Billing groups operations */
     override fun billingGroups(): BillingGroupService = billingGroups
 
+    /** View SIM card actions, their progress and timestamps using the SIM Card Actions API */
     override fun bulkSimCardActions(): BulkSimCardActionService = bulkSimCardActions
 
     override fun bundlePricing(): BundlePricingService = bundlePricing
 
+    /** Call Control applications operations */
     override fun callControlApplications(): CallControlApplicationService = callControlApplications
 
+    /** Call Control debugging */
     override fun callEvents(): CallEventService = callEvents
 
     override fun calls(): CallService = calls
 
+    /** Voice Channels */
     override fun channelZones(): ChannelZoneService = channelZones
 
     override fun chargesBreakdown(): ChargesBreakdownService = chargesBreakdown
 
     override fun chargesSummary(): ChargesSummaryService = chargesSummary
 
+    /** Number orders */
     override fun comments(): CommentService = comments
 
+    /** Conference command operations */
     override fun conferences(): ConferenceService = conferences
 
     override fun connections(): ConnectionService = connections
 
+    /** Country Coverage */
     override fun countryCoverage(): CountryCoverageService = countryCoverage
 
+    /** Credential connection operations */
     override fun credentialConnections(): CredentialConnectionService = credentialConnections
 
+    /** Call Recordings operations. */
     override fun customStorageCredentials(): CustomStorageCredentialService =
         customStorageCredentials
 
+    /** Customer Service Record operations */
     override fun customerServiceRecords(): CustomerServiceRecordService = customerServiceRecords
 
+    /** Detail Records operations */
     override fun detailRecords(): DetailRecordService = detailRecords
 
+    /** Dialogflow Connection Operations. */
     override fun dialogflowConnections(): DialogflowConnectionService = dialogflowConnections
 
+    /** Documents */
     override fun documentLinks(): DocumentLinkService = documentLinks
 
+    /** Documents */
     override fun documents(): DocumentService = documents
 
+    /** Dynamic emergency address operations */
     override fun dynamicEmergencyAddresses(): DynamicEmergencyAddressService =
         dynamicEmergencyAddresses
 
+    /** Dynamic Emergency Endpoints */
     override fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointService =
         dynamicEmergencyEndpoints
 
+    /** External Connections operations */
     override fun externalConnections(): ExternalConnectionService = externalConnections
 
+    /** Fax Applications operations */
     override fun faxApplications(): FaxApplicationService = faxApplications
 
+    /** Programmable fax command operations */
     override fun faxes(): FaxService = faxes
 
+    /** FQDN connection operations */
     override fun fqdnConnections(): FqdnConnectionService = fqdnConnections
 
+    /** FQDN operations */
     override fun fqdns(): FqdnService = fqdns
 
+    /** Global IPs */
     override fun globalIpAllowedPorts(): GlobalIpAllowedPortService = globalIpAllowedPorts
 
+    /** Global IPs */
     override fun globalIpAssignmentHealth(): GlobalIpAssignmentHealthService =
         globalIpAssignmentHealth
 
+    /** Global IPs */
     override fun globalIpAssignments(): GlobalIpAssignmentService = globalIpAssignments
 
+    /** Global IPs */
     override fun globalIpAssignmentsUsage(): GlobalIpAssignmentsUsageService =
         globalIpAssignmentsUsage
 
+    /** Global IPs */
     override fun globalIpHealthCheckTypes(): GlobalIpHealthCheckTypeService =
         globalIpHealthCheckTypes
 
+    /** Global IPs */
     override fun globalIpHealthChecks(): GlobalIpHealthCheckService = globalIpHealthChecks
 
+    /** Global IPs */
     override fun globalIpLatency(): GlobalIpLatencyService = globalIpLatency
 
+    /** Global IPs */
     override fun globalIpProtocols(): GlobalIpProtocolService = globalIpProtocols
 
+    /** Global IPs */
     override fun globalIpUsage(): GlobalIpUsageService = globalIpUsage
 
+    /** Global IPs */
     override fun globalIps(): GlobalIpService = globalIps
 
+    /** Voice Channels */
     override fun inboundChannels(): InboundChannelService = inboundChannels
 
+    /** Store and retrieve integration secrets */
     override fun integrationSecrets(): IntegrationSecretService = integrationSecrets
 
+    /** Inventory Level */
     override fun inventoryCoverage(): InventoryCoverageService = inventoryCoverage
 
     override fun invoices(): InvoiceService = invoices
 
+    /** IP connection operations */
     override fun ipConnections(): IpConnectionService = ipConnections
 
+    /** IP operations */
     override fun ips(): IpService = ips
 
+    /** Ledger billing reports */
     override fun ledgerBillingGroupReports(): LedgerBillingGroupReportService =
         ledgerBillingGroupReports
 
+    /** Voice Channels */
     override fun list(): ListService = list
 
+    /** Managed Accounts operations */
     override fun managedAccounts(): ManagedAccountService = managedAccounts
 
+    /** Media Storage operations */
     override fun media(): MediaService = media
 
     override fun messages(): MessageService = messages
 
     override fun messaging(): MessagingService = messaging
 
+    /** Manage your messaging hosted numbers */
     override fun messagingHostedNumberOrders(): MessagingHostedNumberOrderService =
         messagingHostedNumberOrders
 
     override fun messagingHostedNumbers(): MessagingHostedNumberService = messagingHostedNumbers
 
+    /** Configure your phone numbers */
     override fun messagingNumbersBulkUpdates(): MessagingNumbersBulkUpdateService =
         messagingNumbersBulkUpdates
 
+    /** Opt-Out Management */
     override fun messagingOptouts(): MessagingOptoutService = messagingOptouts
 
     override fun messagingProfiles(): MessagingProfileService = messagingProfiles
 
     override fun messagingTollfree(): MessagingTollfreeService = messagingTollfree
 
+    /** Messaging URL Domains */
     override fun messagingUrlDomains(): MessagingUrlDomainService = messagingUrlDomains
 
+    /** Mobile network operators operations */
     override fun mobileNetworkOperators(): MobileNetworkOperatorService = mobileNetworkOperators
 
+    /** Mobile push credential management */
     override fun mobilePushCredentials(): MobilePushCredentialService = mobilePushCredentials
 
     override fun networkCoverage(): NetworkCoverageService = networkCoverage
 
+    /** Network operations */
     override fun networks(): NetworkService = networks
 
+    /** Notification settings operations */
     override fun notificationChannels(): NotificationChannelService = notificationChannels
 
+    /** Notification settings operations */
     override fun notificationEventConditions(): NotificationEventConditionService =
         notificationEventConditions
 
+    /** Notification settings operations */
     override fun notificationEvents(): NotificationEventService = notificationEvents
 
+    /** Notification settings operations */
     override fun notificationProfiles(): NotificationProfileService = notificationProfiles
 
+    /** Notification settings operations */
     override fun notificationSettings(): NotificationSettingService = notificationSettings
 
     override fun numberBlockOrders(): NumberBlockOrderService = numberBlockOrders
 
+    /** Look up phone number data */
     override fun numberLookup(): NumberLookupService = numberLookup
 
     override fun numberOrderPhoneNumbers(): NumberOrderPhoneNumberService = numberOrderPhoneNumbers
 
+    /** Number orders */
     override fun numberOrders(): NumberOrderService = numberOrders
 
+    /** Number reservations */
     override fun numberReservations(): NumberReservationService = numberReservations
 
     override fun numbersFeatures(): NumbersFeatureService = numbersFeatures
 
     override fun operatorConnect(): OperatorConnectService = operatorConnect
 
+    /** OTA updates operations */
     override fun otaUpdates(): OtaUpdateService = otaUpdates
 
+    /** Outbound voice profiles operations */
     override fun outboundVoiceProfiles(): OutboundVoiceProfileService = outboundVoiceProfiles
 
+    /** Operations for managing stored payment transactions. */
     override fun payment(): PaymentService = payment
 
     override fun phoneNumberBlocks(): PhoneNumberBlockService = phoneNumberBlocks
 
+    /** Configure your phone numbers */
     override fun phoneNumbers(): PhoneNumberService = phoneNumbers
 
+    /** Regulatory Requirements */
     override fun phoneNumbersRegulatoryRequirements(): PhoneNumbersRegulatoryRequirementService =
         phoneNumbersRegulatoryRequirements
 
+    /** Determining portability of phone numbers */
     override fun portabilityChecks(): PortabilityCheckService = portabilityChecks
 
+    /** Endpoints related to porting orders management. */
     override fun porting(): PortingService = porting
 
+    /** Endpoints related to porting orders management. */
     override fun portingOrders(): PortingOrderService = portingOrders
 
+    /** Endpoints related to porting orders management. */
     override fun portingPhoneNumbers(): PortingPhoneNumberService = portingPhoneNumbers
 
+    /** Number portout operations */
     override fun portouts(): PortoutService = portouts
 
+    /** Private Wireless Gateways operations */
     override fun privateWirelessGateways(): PrivateWirelessGatewayService = privateWirelessGateways
 
+    /** Public Internet Gateway operations */
     override fun publicInternetGateways(): PublicInternetGatewayService = publicInternetGateways
 
+    /** Queue commands operations */
     override fun queues(): QueueService = queues
 
     override fun rcsAgents(): RcsAgentService = rcsAgents
 
+    /** Call Recordings operations. */
     override fun recordingTranscriptions(): RecordingTranscriptionService = recordingTranscriptions
 
+    /** Call Recordings operations. */
     override fun recordings(): RecordingService = recordings
 
+    /** Regions */
     override fun regions(): RegionService = regions
 
+    /** Regulatory Requirements */
     override fun regulatoryRequirements(): RegulatoryRequirementService = regulatoryRequirements
 
     override fun reports(): ReportService = reports
 
+    /** Requirement Groups */
     override fun requirementGroups(): RequirementGroupService = requirementGroups
 
+    /** Types of requirements for international numbers and porting orders */
     override fun requirementTypes(): RequirementTypeService = requirementTypes
 
+    /** Requirements for international numbers and porting orders */
     override fun requirements(): RequirementService = requirements
 
+    /** Rooms Compositions operations. */
     override fun roomCompositions(): RoomCompositionService = roomCompositions
 
+    /** Rooms Participants operations. */
     override fun roomParticipants(): RoomParticipantService = roomParticipants
 
+    /** Rooms Recordings operations. */
     override fun roomRecordings(): RoomRecordingService = roomRecordings
 
+    /** Rooms operations. */
     override fun rooms(): RoomService = rooms
 
+    /** Observability into Telnyx platform stability and performance. */
     override fun seti(): SetiService = seti
 
+    /** Short codes */
     override fun shortCodes(): ShortCodeService = shortCodes
 
+    /** SIM Cards operations */
     override fun simCardDataUsageNotifications(): SimCardDataUsageNotificationService =
         simCardDataUsageNotifications
 
+    /** SIM Card Groups operations */
     override fun simCardGroups(): SimCardGroupService = simCardGroups
 
+    /** SIM Card Orders operations */
     override fun simCardOrderPreview(): SimCardOrderPreviewService = simCardOrderPreview
 
+    /** SIM Card Orders operations */
     override fun simCardOrders(): SimCardOrderService = simCardOrders
 
+    /** SIM Cards operations */
     override fun simCards(): SimCardService = simCards
 
+    /** SIPREC connectors configuration. */
     override fun siprecConnectors(): SiprecConnectorService = siprecConnectors
 
+    /** Migrate data from an external provider into Telnyx Cloud Storage */
     override fun storage(): StorageService = storage
 
     override fun subNumberOrders(): SubNumberOrderService = subNumberOrders
 
+    /** Number orders */
     override fun subNumberOrdersReport(): SubNumberOrdersReportService = subNumberOrdersReport
 
     override fun telephonyCredentials(): TelephonyCredentialService = telephonyCredentials
 
+    /** TeXML REST Commands */
     override fun texml(): TexmlService = texml
 
+    /** TeXML Applications operations */
     override fun texmlApplications(): TexmlApplicationService = texmlApplications
 
+    /** Text to speech streaming command operations */
     override fun textToSpeech(): TextToSpeechService = textToSpeech
 
+    /** Usage data reporting across Telnyx products */
     override fun usageReports(): UsageReportService = usageReports
 
+    /**
+     * Operations for working with UserAddress records. UserAddress records are stored addresses
+     * that users can use for non-emergency-calling purposes, such as for shipping addresses for
+     * orders of wireless SIMs (or other physical items). They cannot be used for emergency calling
+     * and are distinct from Address records, which are used on phone numbers.
+     */
     override fun userAddresses(): UserAddressService = userAddresses
 
+    /** User-defined tags for Telnyx resources */
     override fun userTags(): UserTagService = userTags
 
+    /** Two factor authentication API */
     override fun verifications(): VerificationService = verifications
 
+    /** Verified Numbers operations */
     override fun verifiedNumbers(): VerifiedNumberService = verifiedNumbers
 
+    /** Two factor authentication API */
     override fun verifyProfiles(): VerifyProfileService = verifyProfiles
 
+    /** Virtual Cross Connect operations */
     override fun virtualCrossConnects(): VirtualCrossConnectService = virtualCrossConnects
 
+    /** Virtual Cross Connect operations */
     override fun virtualCrossConnectsCoverage(): VirtualCrossConnectsCoverageService =
         virtualCrossConnectsCoverage
 
+    /** Webhooks operations */
     override fun webhookDeliveries(): WebhookDeliveryService = webhookDeliveries
 
+    /** WireGuard Interface operations */
     override fun wireguardInterfaces(): WireguardInterfaceService = wireguardInterfaces
 
+    /** WireGuard Interface operations */
     override fun wireguardPeers(): WireguardPeerService = wireguardPeers
 
+    /** Regions for wireless services */
     override fun wireless(): WirelessService = wireless
 
+    /** Wireless Blocklists operations */
     override fun wirelessBlocklistValues(): WirelessBlocklistValueService = wirelessBlocklistValues
 
+    /** Wireless Blocklists operations */
     override fun wirelessBlocklists(): WirelessBlocklistService = wirelessBlocklists
 
     override fun wellKnown(): WellKnownService = wellKnown
 
+    /** Inexplicit number orders for bulk purchasing without specifying exact numbers */
     override fun inexplicitNumberOrders(): InexplicitNumberOrderService = inexplicitNumberOrders
 
+    /** Mobile phone number operations */
     override fun mobilePhoneNumbers(): MobilePhoneNumberService = mobilePhoneNumbers
 
+    /** Mobile voice connection operations */
     override fun mobileVoiceConnections(): MobileVoiceConnectionService = mobileVoiceConnections
 
     override fun messaging10dlc(): Messaging10dlcService = messaging10dlc
 
+    /** Speech to text command operations */
     override fun speechToText(): SpeechToTextService = speechToText
 
     override fun organizations(): OrganizationService = organizations
@@ -1859,157 +1994,220 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         override fun webhooks(): WebhookService.WithRawResponse = webhooks
 
+        /** IP Address Operations */
         override fun accessIpAddress(): AccessIpAddressService.WithRawResponse = accessIpAddress
 
+        /** IP Range Operations */
         override fun accessIpRanges(): AccessIpRangeService.WithRawResponse = accessIpRanges
 
         override fun actions(): ActionService.WithRawResponse = actions
 
+        /**
+         * Operations to work with Address records. Address records are emergency-validated
+         * addresses meant to be associated with phone numbers. They are validated for emergency
+         * usage purposes at creation time, although you may validate them separately with a custom
+         * workflow using the ValidateAddress operation separately. Address records are not usable
+         * for physical orders, such as for Telnyx SIM cards, please use UserAddress for that. It is
+         * not possible to entirely skip emergency service validation for Address records; if an
+         * emergency provider for a phone number rejects the address then it cannot be used on a
+         * phone number. To prevent records from getting out of sync, Address records are immutable
+         * and cannot be altered once created. If you realize you need to alter an address, a new
+         * record must be created with the differing address.
+         */
         override fun addresses(): AddressService.WithRawResponse = addresses
 
         override fun advancedOrders(): AdvancedOrderService.WithRawResponse = advancedOrders
 
+        /** Generate text with LLMs */
         override fun ai(): AiService.WithRawResponse = ai
 
+        /** Audit log operations. */
         override fun auditEvents(): AuditEventService.WithRawResponse = auditEvents
 
         override fun authenticationProviders(): AuthenticationProviderService.WithRawResponse =
             authenticationProviders
 
+        /** Number search */
         override fun availablePhoneNumberBlocks():
             AvailablePhoneNumberBlockService.WithRawResponse = availablePhoneNumberBlocks
 
+        /** Number search */
         override fun availablePhoneNumbers(): AvailablePhoneNumberService.WithRawResponse =
             availablePhoneNumbers
 
+        /** Billing operations */
         override fun balance(): BalanceService.WithRawResponse = balance
 
+        /** Billing groups operations */
         override fun billingGroups(): BillingGroupService.WithRawResponse = billingGroups
 
+        /** View SIM card actions, their progress and timestamps using the SIM Card Actions API */
         override fun bulkSimCardActions(): BulkSimCardActionService.WithRawResponse =
             bulkSimCardActions
 
         override fun bundlePricing(): BundlePricingService.WithRawResponse = bundlePricing
 
+        /** Call Control applications operations */
         override fun callControlApplications(): CallControlApplicationService.WithRawResponse =
             callControlApplications
 
+        /** Call Control debugging */
         override fun callEvents(): CallEventService.WithRawResponse = callEvents
 
         override fun calls(): CallService.WithRawResponse = calls
 
+        /** Voice Channels */
         override fun channelZones(): ChannelZoneService.WithRawResponse = channelZones
 
         override fun chargesBreakdown(): ChargesBreakdownService.WithRawResponse = chargesBreakdown
 
         override fun chargesSummary(): ChargesSummaryService.WithRawResponse = chargesSummary
 
+        /** Number orders */
         override fun comments(): CommentService.WithRawResponse = comments
 
+        /** Conference command operations */
         override fun conferences(): ConferenceService.WithRawResponse = conferences
 
         override fun connections(): ConnectionService.WithRawResponse = connections
 
+        /** Country Coverage */
         override fun countryCoverage(): CountryCoverageService.WithRawResponse = countryCoverage
 
+        /** Credential connection operations */
         override fun credentialConnections(): CredentialConnectionService.WithRawResponse =
             credentialConnections
 
+        /** Call Recordings operations. */
         override fun customStorageCredentials(): CustomStorageCredentialService.WithRawResponse =
             customStorageCredentials
 
+        /** Customer Service Record operations */
         override fun customerServiceRecords(): CustomerServiceRecordService.WithRawResponse =
             customerServiceRecords
 
+        /** Detail Records operations */
         override fun detailRecords(): DetailRecordService.WithRawResponse = detailRecords
 
+        /** Dialogflow Connection Operations. */
         override fun dialogflowConnections(): DialogflowConnectionService.WithRawResponse =
             dialogflowConnections
 
+        /** Documents */
         override fun documentLinks(): DocumentLinkService.WithRawResponse = documentLinks
 
+        /** Documents */
         override fun documents(): DocumentService.WithRawResponse = documents
 
+        /** Dynamic emergency address operations */
         override fun dynamicEmergencyAddresses(): DynamicEmergencyAddressService.WithRawResponse =
             dynamicEmergencyAddresses
 
+        /** Dynamic Emergency Endpoints */
         override fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointService.WithRawResponse =
             dynamicEmergencyEndpoints
 
+        /** External Connections operations */
         override fun externalConnections(): ExternalConnectionService.WithRawResponse =
             externalConnections
 
+        /** Fax Applications operations */
         override fun faxApplications(): FaxApplicationService.WithRawResponse = faxApplications
 
+        /** Programmable fax command operations */
         override fun faxes(): FaxService.WithRawResponse = faxes
 
+        /** FQDN connection operations */
         override fun fqdnConnections(): FqdnConnectionService.WithRawResponse = fqdnConnections
 
+        /** FQDN operations */
         override fun fqdns(): FqdnService.WithRawResponse = fqdns
 
+        /** Global IPs */
         override fun globalIpAllowedPorts(): GlobalIpAllowedPortService.WithRawResponse =
             globalIpAllowedPorts
 
+        /** Global IPs */
         override fun globalIpAssignmentHealth(): GlobalIpAssignmentHealthService.WithRawResponse =
             globalIpAssignmentHealth
 
+        /** Global IPs */
         override fun globalIpAssignments(): GlobalIpAssignmentService.WithRawResponse =
             globalIpAssignments
 
+        /** Global IPs */
         override fun globalIpAssignmentsUsage(): GlobalIpAssignmentsUsageService.WithRawResponse =
             globalIpAssignmentsUsage
 
+        /** Global IPs */
         override fun globalIpHealthCheckTypes(): GlobalIpHealthCheckTypeService.WithRawResponse =
             globalIpHealthCheckTypes
 
+        /** Global IPs */
         override fun globalIpHealthChecks(): GlobalIpHealthCheckService.WithRawResponse =
             globalIpHealthChecks
 
+        /** Global IPs */
         override fun globalIpLatency(): GlobalIpLatencyService.WithRawResponse = globalIpLatency
 
+        /** Global IPs */
         override fun globalIpProtocols(): GlobalIpProtocolService.WithRawResponse =
             globalIpProtocols
 
+        /** Global IPs */
         override fun globalIpUsage(): GlobalIpUsageService.WithRawResponse = globalIpUsage
 
+        /** Global IPs */
         override fun globalIps(): GlobalIpService.WithRawResponse = globalIps
 
+        /** Voice Channels */
         override fun inboundChannels(): InboundChannelService.WithRawResponse = inboundChannels
 
+        /** Store and retrieve integration secrets */
         override fun integrationSecrets(): IntegrationSecretService.WithRawResponse =
             integrationSecrets
 
+        /** Inventory Level */
         override fun inventoryCoverage(): InventoryCoverageService.WithRawResponse =
             inventoryCoverage
 
         override fun invoices(): InvoiceService.WithRawResponse = invoices
 
+        /** IP connection operations */
         override fun ipConnections(): IpConnectionService.WithRawResponse = ipConnections
 
+        /** IP operations */
         override fun ips(): IpService.WithRawResponse = ips
 
+        /** Ledger billing reports */
         override fun ledgerBillingGroupReports(): LedgerBillingGroupReportService.WithRawResponse =
             ledgerBillingGroupReports
 
+        /** Voice Channels */
         override fun list(): ListService.WithRawResponse = list
 
+        /** Managed Accounts operations */
         override fun managedAccounts(): ManagedAccountService.WithRawResponse = managedAccounts
 
+        /** Media Storage operations */
         override fun media(): MediaService.WithRawResponse = media
 
         override fun messages(): MessageService.WithRawResponse = messages
 
         override fun messaging(): MessagingService.WithRawResponse = messaging
 
+        /** Manage your messaging hosted numbers */
         override fun messagingHostedNumberOrders():
             MessagingHostedNumberOrderService.WithRawResponse = messagingHostedNumberOrders
 
         override fun messagingHostedNumbers(): MessagingHostedNumberService.WithRawResponse =
             messagingHostedNumbers
 
+        /** Configure your phone numbers */
         override fun messagingNumbersBulkUpdates():
             MessagingNumbersBulkUpdateService.WithRawResponse = messagingNumbersBulkUpdates
 
+        /** Opt-Out Management */
         override fun messagingOptouts(): MessagingOptoutService.WithRawResponse = messagingOptouts
 
         override fun messagingProfiles(): MessagingProfileService.WithRawResponse =
@@ -2018,44 +2216,56 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         override fun messagingTollfree(): MessagingTollfreeService.WithRawResponse =
             messagingTollfree
 
+        /** Messaging URL Domains */
         override fun messagingUrlDomains(): MessagingUrlDomainService.WithRawResponse =
             messagingUrlDomains
 
+        /** Mobile network operators operations */
         override fun mobileNetworkOperators(): MobileNetworkOperatorService.WithRawResponse =
             mobileNetworkOperators
 
+        /** Mobile push credential management */
         override fun mobilePushCredentials(): MobilePushCredentialService.WithRawResponse =
             mobilePushCredentials
 
         override fun networkCoverage(): NetworkCoverageService.WithRawResponse = networkCoverage
 
+        /** Network operations */
         override fun networks(): NetworkService.WithRawResponse = networks
 
+        /** Notification settings operations */
         override fun notificationChannels(): NotificationChannelService.WithRawResponse =
             notificationChannels
 
+        /** Notification settings operations */
         override fun notificationEventConditions():
             NotificationEventConditionService.WithRawResponse = notificationEventConditions
 
+        /** Notification settings operations */
         override fun notificationEvents(): NotificationEventService.WithRawResponse =
             notificationEvents
 
+        /** Notification settings operations */
         override fun notificationProfiles(): NotificationProfileService.WithRawResponse =
             notificationProfiles
 
+        /** Notification settings operations */
         override fun notificationSettings(): NotificationSettingService.WithRawResponse =
             notificationSettings
 
         override fun numberBlockOrders(): NumberBlockOrderService.WithRawResponse =
             numberBlockOrders
 
+        /** Look up phone number data */
         override fun numberLookup(): NumberLookupService.WithRawResponse = numberLookup
 
         override fun numberOrderPhoneNumbers(): NumberOrderPhoneNumberService.WithRawResponse =
             numberOrderPhoneNumbers
 
+        /** Number orders */
         override fun numberOrders(): NumberOrderService.WithRawResponse = numberOrders
 
+        /** Number reservations */
         override fun numberReservations(): NumberReservationService.WithRawResponse =
             numberReservations
 
@@ -2063,152 +2273,212 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         override fun operatorConnect(): OperatorConnectService.WithRawResponse = operatorConnect
 
+        /** OTA updates operations */
         override fun otaUpdates(): OtaUpdateService.WithRawResponse = otaUpdates
 
+        /** Outbound voice profiles operations */
         override fun outboundVoiceProfiles(): OutboundVoiceProfileService.WithRawResponse =
             outboundVoiceProfiles
 
+        /** Operations for managing stored payment transactions. */
         override fun payment(): PaymentService.WithRawResponse = payment
 
         override fun phoneNumberBlocks(): PhoneNumberBlockService.WithRawResponse =
             phoneNumberBlocks
 
+        /** Configure your phone numbers */
         override fun phoneNumbers(): PhoneNumberService.WithRawResponse = phoneNumbers
 
+        /** Regulatory Requirements */
         override fun phoneNumbersRegulatoryRequirements():
             PhoneNumbersRegulatoryRequirementService.WithRawResponse =
             phoneNumbersRegulatoryRequirements
 
+        /** Determining portability of phone numbers */
         override fun portabilityChecks(): PortabilityCheckService.WithRawResponse =
             portabilityChecks
 
+        /** Endpoints related to porting orders management. */
         override fun porting(): PortingService.WithRawResponse = porting
 
+        /** Endpoints related to porting orders management. */
         override fun portingOrders(): PortingOrderService.WithRawResponse = portingOrders
 
+        /** Endpoints related to porting orders management. */
         override fun portingPhoneNumbers(): PortingPhoneNumberService.WithRawResponse =
             portingPhoneNumbers
 
+        /** Number portout operations */
         override fun portouts(): PortoutService.WithRawResponse = portouts
 
+        /** Private Wireless Gateways operations */
         override fun privateWirelessGateways(): PrivateWirelessGatewayService.WithRawResponse =
             privateWirelessGateways
 
+        /** Public Internet Gateway operations */
         override fun publicInternetGateways(): PublicInternetGatewayService.WithRawResponse =
             publicInternetGateways
 
+        /** Queue commands operations */
         override fun queues(): QueueService.WithRawResponse = queues
 
         override fun rcsAgents(): RcsAgentService.WithRawResponse = rcsAgents
 
+        /** Call Recordings operations. */
         override fun recordingTranscriptions(): RecordingTranscriptionService.WithRawResponse =
             recordingTranscriptions
 
+        /** Call Recordings operations. */
         override fun recordings(): RecordingService.WithRawResponse = recordings
 
+        /** Regions */
         override fun regions(): RegionService.WithRawResponse = regions
 
+        /** Regulatory Requirements */
         override fun regulatoryRequirements(): RegulatoryRequirementService.WithRawResponse =
             regulatoryRequirements
 
         override fun reports(): ReportService.WithRawResponse = reports
 
+        /** Requirement Groups */
         override fun requirementGroups(): RequirementGroupService.WithRawResponse =
             requirementGroups
 
+        /** Types of requirements for international numbers and porting orders */
         override fun requirementTypes(): RequirementTypeService.WithRawResponse = requirementTypes
 
+        /** Requirements for international numbers and porting orders */
         override fun requirements(): RequirementService.WithRawResponse = requirements
 
+        /** Rooms Compositions operations. */
         override fun roomCompositions(): RoomCompositionService.WithRawResponse = roomCompositions
 
+        /** Rooms Participants operations. */
         override fun roomParticipants(): RoomParticipantService.WithRawResponse = roomParticipants
 
+        /** Rooms Recordings operations. */
         override fun roomRecordings(): RoomRecordingService.WithRawResponse = roomRecordings
 
+        /** Rooms operations. */
         override fun rooms(): RoomService.WithRawResponse = rooms
 
+        /** Observability into Telnyx platform stability and performance. */
         override fun seti(): SetiService.WithRawResponse = seti
 
+        /** Short codes */
         override fun shortCodes(): ShortCodeService.WithRawResponse = shortCodes
 
+        /** SIM Cards operations */
         override fun simCardDataUsageNotifications():
             SimCardDataUsageNotificationService.WithRawResponse = simCardDataUsageNotifications
 
+        /** SIM Card Groups operations */
         override fun simCardGroups(): SimCardGroupService.WithRawResponse = simCardGroups
 
+        /** SIM Card Orders operations */
         override fun simCardOrderPreview(): SimCardOrderPreviewService.WithRawResponse =
             simCardOrderPreview
 
+        /** SIM Card Orders operations */
         override fun simCardOrders(): SimCardOrderService.WithRawResponse = simCardOrders
 
+        /** SIM Cards operations */
         override fun simCards(): SimCardService.WithRawResponse = simCards
 
+        /** SIPREC connectors configuration. */
         override fun siprecConnectors(): SiprecConnectorService.WithRawResponse = siprecConnectors
 
+        /** Migrate data from an external provider into Telnyx Cloud Storage */
         override fun storage(): StorageService.WithRawResponse = storage
 
         override fun subNumberOrders(): SubNumberOrderService.WithRawResponse = subNumberOrders
 
+        /** Number orders */
         override fun subNumberOrdersReport(): SubNumberOrdersReportService.WithRawResponse =
             subNumberOrdersReport
 
         override fun telephonyCredentials(): TelephonyCredentialService.WithRawResponse =
             telephonyCredentials
 
+        /** TeXML REST Commands */
         override fun texml(): TexmlService.WithRawResponse = texml
 
+        /** TeXML Applications operations */
         override fun texmlApplications(): TexmlApplicationService.WithRawResponse =
             texmlApplications
 
+        /** Text to speech streaming command operations */
         override fun textToSpeech(): TextToSpeechService.WithRawResponse = textToSpeech
 
+        /** Usage data reporting across Telnyx products */
         override fun usageReports(): UsageReportService.WithRawResponse = usageReports
 
+        /**
+         * Operations for working with UserAddress records. UserAddress records are stored addresses
+         * that users can use for non-emergency-calling purposes, such as for shipping addresses for
+         * orders of wireless SIMs (or other physical items). They cannot be used for emergency
+         * calling and are distinct from Address records, which are used on phone numbers.
+         */
         override fun userAddresses(): UserAddressService.WithRawResponse = userAddresses
 
+        /** User-defined tags for Telnyx resources */
         override fun userTags(): UserTagService.WithRawResponse = userTags
 
+        /** Two factor authentication API */
         override fun verifications(): VerificationService.WithRawResponse = verifications
 
+        /** Verified Numbers operations */
         override fun verifiedNumbers(): VerifiedNumberService.WithRawResponse = verifiedNumbers
 
+        /** Two factor authentication API */
         override fun verifyProfiles(): VerifyProfileService.WithRawResponse = verifyProfiles
 
+        /** Virtual Cross Connect operations */
         override fun virtualCrossConnects(): VirtualCrossConnectService.WithRawResponse =
             virtualCrossConnects
 
+        /** Virtual Cross Connect operations */
         override fun virtualCrossConnectsCoverage():
             VirtualCrossConnectsCoverageService.WithRawResponse = virtualCrossConnectsCoverage
 
+        /** Webhooks operations */
         override fun webhookDeliveries(): WebhookDeliveryService.WithRawResponse = webhookDeliveries
 
+        /** WireGuard Interface operations */
         override fun wireguardInterfaces(): WireguardInterfaceService.WithRawResponse =
             wireguardInterfaces
 
+        /** WireGuard Interface operations */
         override fun wireguardPeers(): WireguardPeerService.WithRawResponse = wireguardPeers
 
+        /** Regions for wireless services */
         override fun wireless(): WirelessService.WithRawResponse = wireless
 
+        /** Wireless Blocklists operations */
         override fun wirelessBlocklistValues(): WirelessBlocklistValueService.WithRawResponse =
             wirelessBlocklistValues
 
+        /** Wireless Blocklists operations */
         override fun wirelessBlocklists(): WirelessBlocklistService.WithRawResponse =
             wirelessBlocklists
 
         override fun wellKnown(): WellKnownService.WithRawResponse = wellKnown
 
+        /** Inexplicit number orders for bulk purchasing without specifying exact numbers */
         override fun inexplicitNumberOrders(): InexplicitNumberOrderService.WithRawResponse =
             inexplicitNumberOrders
 
+        /** Mobile phone number operations */
         override fun mobilePhoneNumbers(): MobilePhoneNumberService.WithRawResponse =
             mobilePhoneNumbers
 
+        /** Mobile voice connection operations */
         override fun mobileVoiceConnections(): MobileVoiceConnectionService.WithRawResponse =
             mobileVoiceConnections
 
         override fun messaging10dlc(): Messaging10dlcService.WithRawResponse = messaging10dlc
 
+        /** Speech to text command operations */
         override fun speechToText(): SpeechToTextService.WithRawResponse = speechToText
 
         override fun organizations(): OrganizationService.WithRawResponse = organizations

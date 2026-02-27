@@ -20,6 +20,7 @@ interface RecordingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecordingServiceAsync
 
+    /** TeXML REST Commands */
     fun json(): JsonServiceAsync
 
     /**
@@ -36,6 +37,7 @@ interface RecordingServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): RecordingServiceAsync.WithRawResponse
 
+        /** TeXML REST Commands */
         fun json(): JsonServiceAsync.WithRawResponse
     }
 }

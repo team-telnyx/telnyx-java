@@ -29,6 +29,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Rooms Recordings operations. */
 class RoomRecordingServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     RoomRecordingServiceAsync {
 

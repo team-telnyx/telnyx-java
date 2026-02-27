@@ -29,6 +29,7 @@ class ReportingServiceImpl internal constructor(private val clientOptions: Clien
 
     override fun batchDetailRecords(): BatchDetailRecordService = batchDetailRecords
 
+    /** Speech to text usage reports */
     override fun usageReports(): UsageReportService = usageReports
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -52,6 +53,7 @@ class ReportingServiceImpl internal constructor(private val clientOptions: Clien
         override fun batchDetailRecords(): BatchDetailRecordService.WithRawResponse =
             batchDetailRecords
 
+        /** Speech to text usage reports */
         override fun usageReports(): UsageReportService.WithRawResponse = usageReports
     }
 }

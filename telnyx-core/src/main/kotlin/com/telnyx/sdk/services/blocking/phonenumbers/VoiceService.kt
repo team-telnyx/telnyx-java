@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.phonenumbers.voice.VoiceUpdateParams
 import com.telnyx.sdk.models.phonenumbers.voice.VoiceUpdateResponse
 import java.util.function.Consumer
 
+/** Configure your phone numbers */
 interface VoiceService {
 
     /**

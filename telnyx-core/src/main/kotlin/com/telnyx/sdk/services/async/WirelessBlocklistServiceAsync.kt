@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Wireless Blocklists operations */
 interface WirelessBlocklistServiceAsync {
 
     /**

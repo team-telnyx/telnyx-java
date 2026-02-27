@@ -13,6 +13,7 @@ import com.telnyx.sdk.services.async.legacy.reporting.usagereports.VoiceServiceA
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Speech to text usage reports */
 interface UsageReportServiceAsync {
 
     /**
@@ -27,10 +28,13 @@ interface UsageReportServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): UsageReportServiceAsync
 
+    /** Messaging usage reports */
     fun messaging(): MessagingServiceAsync
 
+    /** Number lookup usage reports */
     fun numberLookup(): NumberLookupServiceAsync
 
+    /** Voice usage reports */
     fun voice(): VoiceServiceAsync
 
     /**
@@ -74,10 +78,13 @@ interface UsageReportServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): UsageReportServiceAsync.WithRawResponse
 
+        /** Messaging usage reports */
         fun messaging(): MessagingServiceAsync.WithRawResponse
 
+        /** Number lookup usage reports */
         fun numberLookup(): NumberLookupServiceAsync.WithRawResponse
 
+        /** Voice usage reports */
         fun voice(): VoiceServiceAsync.WithRawResponse
 
         /**

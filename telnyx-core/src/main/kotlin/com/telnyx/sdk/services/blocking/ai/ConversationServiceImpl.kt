@@ -38,6 +38,7 @@ import com.telnyx.sdk.services.blocking.ai.conversations.MessageServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Manage historical AI assistant conversations */
 class ConversationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ConversationService {
 
@@ -58,10 +59,13 @@ class ConversationServiceImpl internal constructor(private val clientOptions: Cl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConversationService =
         ConversationServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Manage historical AI assistant conversations */
     override fun insightGroups(): InsightGroupService = insightGroups
 
+    /** Manage historical AI assistant conversations */
     override fun insights(): InsightService = insights
 
+    /** Manage historical AI assistant conversations */
     override fun messages(): MessageService = messages
 
     override fun create(
@@ -134,10 +138,13 @@ class ConversationServiceImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Manage historical AI assistant conversations */
         override fun insightGroups(): InsightGroupService.WithRawResponse = insightGroups
 
+        /** Manage historical AI assistant conversations */
         override fun insights(): InsightService.WithRawResponse = insights
 
+        /** Manage historical AI assistant conversations */
         override fun messages(): MessageService.WithRawResponse = messages
 
         private val createHandler: Handler<Conversation> =

@@ -33,6 +33,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** SIM Card Groups operations */
 class SimCardGroupServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     SimCardGroupServiceAsync {
 

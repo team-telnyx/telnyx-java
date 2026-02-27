@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.globalipassignments.GlobalIpAssignmentUpdateRespons
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Global IPs */
 class GlobalIpAssignmentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     GlobalIpAssignmentService {
 

@@ -23,6 +23,7 @@ interface ReportingService {
 
     fun batchDetailRecords(): BatchDetailRecordService
 
+    /** Speech to text usage reports */
     fun usageReports(): UsageReportService
 
     /** A view of [ReportingService] that provides access to raw HTTP responses for each method. */
@@ -37,6 +38,7 @@ interface ReportingService {
 
         fun batchDetailRecords(): BatchDetailRecordService.WithRawResponse
 
+        /** Speech to text usage reports */
         fun usageReports(): UsageReportService.WithRawResponse
     }
 }

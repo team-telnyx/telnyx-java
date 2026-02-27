@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceRetrievePa
 import com.telnyx.sdk.models.legacy.reporting.usagereports.voice.VoiceRetrieveResponse
 import java.util.function.Consumer
 
+/** Voice usage reports */
 interface VoiceService {
 
     /**

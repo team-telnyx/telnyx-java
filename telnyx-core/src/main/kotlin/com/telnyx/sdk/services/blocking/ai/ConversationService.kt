@@ -24,6 +24,7 @@ import com.telnyx.sdk.services.blocking.ai.conversations.InsightService
 import com.telnyx.sdk.services.blocking.ai.conversations.MessageService
 import java.util.function.Consumer
 
+/** Manage historical AI assistant conversations */
 interface ConversationService {
 
     /**
@@ -38,10 +39,13 @@ interface ConversationService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConversationService
 
+    /** Manage historical AI assistant conversations */
     fun insightGroups(): InsightGroupService
 
+    /** Manage historical AI assistant conversations */
     fun insights(): InsightService
 
+    /** Manage historical AI assistant conversations */
     fun messages(): MessageService
 
     /** Create a new AI Conversation. */
@@ -270,10 +274,13 @@ interface ConversationService {
             modifier: Consumer<ClientOptions.Builder>
         ): ConversationService.WithRawResponse
 
+        /** Manage historical AI assistant conversations */
         fun insightGroups(): InsightGroupService.WithRawResponse
 
+        /** Manage historical AI assistant conversations */
         fun insights(): InsightService.WithRawResponse
 
+        /** Manage historical AI assistant conversations */
         fun messages(): MessageService.WithRawResponse
 
         /**

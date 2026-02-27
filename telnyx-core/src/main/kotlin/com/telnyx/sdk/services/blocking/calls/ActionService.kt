@@ -82,6 +82,7 @@ import com.telnyx.sdk.models.calls.actions.ActionUpdateClientStateParams
 import com.telnyx.sdk.models.calls.actions.ActionUpdateClientStateResponse
 import java.util.function.Consumer
 
+/** Call Control command operations */
 interface ActionService {
 
     /**

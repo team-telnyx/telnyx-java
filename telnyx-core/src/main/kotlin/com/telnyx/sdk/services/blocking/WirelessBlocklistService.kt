@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistUpdateParams
 import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistUpdateResponse
 import java.util.function.Consumer
 
+/** Wireless Blocklists operations */
 interface WirelessBlocklistService {
 
     /**

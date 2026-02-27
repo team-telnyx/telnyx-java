@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.messaging.Messa
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Messaging batch detail records */
 interface MessagingServiceAsync {
 
     /**

@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.networkcoverage
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.NetappsLocation
 import com.telnyx.sdk.models.authenticationproviders.PaginationMeta
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -19,7 +20,7 @@ internal class NetworkCoverageListPageResponseTest {
                     NetworkCoverageListResponse.builder()
                         .addAvailableService(AvailableService.CLOUD_VPN)
                         .location(
-                            NetworkCoverageListResponse.Location.builder()
+                            NetappsLocation.builder()
                                 .code("chicago-il")
                                 .name("Chicago IL, US")
                                 .pop("CH1")
@@ -45,7 +46,7 @@ internal class NetworkCoverageListPageResponseTest {
                 NetworkCoverageListResponse.builder()
                     .addAvailableService(AvailableService.CLOUD_VPN)
                     .location(
-                        NetworkCoverageListResponse.Location.builder()
+                        NetappsLocation.builder()
                             .code("chicago-il")
                             .name("Chicago IL, US")
                             .pop("CH1")
@@ -76,7 +77,7 @@ internal class NetworkCoverageListPageResponseTest {
                     NetworkCoverageListResponse.builder()
                         .addAvailableService(AvailableService.CLOUD_VPN)
                         .location(
-                            NetworkCoverageListResponse.Location.builder()
+                            NetappsLocation.builder()
                                 .code("chicago-il")
                                 .name("Chicago IL, US")
                                 .pop("CH1")

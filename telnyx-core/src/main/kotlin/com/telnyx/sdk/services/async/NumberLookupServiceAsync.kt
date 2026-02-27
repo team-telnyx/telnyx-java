@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.numberlookup.NumberLookupRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Look up phone number data */
 interface NumberLookupServiceAsync {
 
     /**

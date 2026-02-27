@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.ledgerbillinggroupreports.LedgerBillingGroupReportR
 import com.telnyx.sdk.models.ledgerbillinggroupreports.LedgerBillingGroupReportRetrieveResponse
 import java.util.function.Consumer
 
+/** Ledger billing reports */
 interface LedgerBillingGroupReportService {
 
     /**

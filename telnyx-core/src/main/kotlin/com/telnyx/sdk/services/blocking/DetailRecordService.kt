@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.detailrecords.DetailRecordListPage
 import com.telnyx.sdk.models.detailrecords.DetailRecordListParams
 import java.util.function.Consumer
 
+/** Detail Records operations */
 interface DetailRecordService {
 
     /**

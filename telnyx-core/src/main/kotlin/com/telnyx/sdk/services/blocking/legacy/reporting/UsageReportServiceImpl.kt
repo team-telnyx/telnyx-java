@@ -24,6 +24,7 @@ import com.telnyx.sdk.services.blocking.legacy.reporting.usagereports.VoiceServi
 import com.telnyx.sdk.services.blocking.legacy.reporting.usagereports.VoiceServiceImpl
 import java.util.function.Consumer
 
+/** Speech to text usage reports */
 class UsageReportServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     UsageReportService {
 
@@ -42,10 +43,13 @@ class UsageReportServiceImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): UsageReportService =
         UsageReportServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Messaging usage reports */
     override fun messaging(): MessagingService = messaging
 
+    /** Number lookup usage reports */
     override fun numberLookup(): NumberLookupService = numberLookup
 
+    /** Voice usage reports */
     override fun voice(): VoiceService = voice
 
     override fun retrieveSpeechToText(
@@ -80,10 +84,13 @@ class UsageReportServiceImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Messaging usage reports */
         override fun messaging(): MessagingService.WithRawResponse = messaging
 
+        /** Number lookup usage reports */
         override fun numberLookup(): NumberLookupService.WithRawResponse = numberLookup
 
+        /** Voice usage reports */
         override fun voice(): VoiceService.WithRawResponse = voice
 
         private val retrieveSpeechToTextHandler: Handler<UsageReportRetrieveSpeechToTextResponse> =

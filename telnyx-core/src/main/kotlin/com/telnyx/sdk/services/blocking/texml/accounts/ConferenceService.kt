@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.texml.accounts.conferences.ConferenceUpdateResponse
 import com.telnyx.sdk.services.blocking.texml.accounts.conferences.ParticipantService
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface ConferenceService {
 
     /**
@@ -33,6 +34,7 @@ interface ConferenceService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConferenceService
 
+    /** TeXML REST Commands */
     fun participants(): ParticipantService
 
     /** Returns a conference resource. */
@@ -186,6 +188,7 @@ interface ConferenceService {
             modifier: Consumer<ClientOptions.Builder>
         ): ConferenceService.WithRawResponse
 
+        /** TeXML REST Commands */
         fun participants(): ParticipantService.WithRawResponse
 
         /**

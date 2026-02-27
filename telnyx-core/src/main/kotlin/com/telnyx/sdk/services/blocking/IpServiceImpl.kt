@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.ips.IpUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** IP operations */
 class IpServiceImpl internal constructor(private val clientOptions: ClientOptions) : IpService {
 
     private val withRawResponse: IpService.WithRawResponse by lazy {

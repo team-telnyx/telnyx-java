@@ -46,6 +46,7 @@ class SessionServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): SessionServiceAsync =
         SessionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Rooms Sessions operations. */
     override fun actions(): ActionServiceAsync = actions
 
     override fun retrieve(
@@ -93,6 +94,7 @@ class SessionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Rooms Sessions operations. */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         private val retrieveHandler: Handler<SessionRetrieveResponse> =

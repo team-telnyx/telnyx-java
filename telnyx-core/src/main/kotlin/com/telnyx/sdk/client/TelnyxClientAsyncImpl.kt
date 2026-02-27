@@ -943,321 +943,456 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     override fun webhooks(): WebhookServiceAsync = webhooks
 
+    /** IP Address Operations */
     override fun accessIpAddress(): AccessIpAddressServiceAsync = accessIpAddress
 
+    /** IP Range Operations */
     override fun accessIpRanges(): AccessIpRangeServiceAsync = accessIpRanges
 
     override fun actions(): ActionServiceAsync = actions
 
+    /**
+     * Operations to work with Address records. Address records are emergency-validated addresses
+     * meant to be associated with phone numbers. They are validated for emergency usage purposes at
+     * creation time, although you may validate them separately with a custom workflow using the
+     * ValidateAddress operation separately. Address records are not usable for physical orders,
+     * such as for Telnyx SIM cards, please use UserAddress for that. It is not possible to entirely
+     * skip emergency service validation for Address records; if an emergency provider for a phone
+     * number rejects the address then it cannot be used on a phone number. To prevent records from
+     * getting out of sync, Address records are immutable and cannot be altered once created. If you
+     * realize you need to alter an address, a new record must be created with the differing
+     * address.
+     */
     override fun addresses(): AddressServiceAsync = addresses
 
     override fun advancedOrders(): AdvancedOrderServiceAsync = advancedOrders
 
+    /** Generate text with LLMs */
     override fun ai(): AiServiceAsync = ai
 
+    /** Audit log operations. */
     override fun auditEvents(): AuditEventServiceAsync = auditEvents
 
     override fun authenticationProviders(): AuthenticationProviderServiceAsync =
         authenticationProviders
 
+    /** Number search */
     override fun availablePhoneNumberBlocks(): AvailablePhoneNumberBlockServiceAsync =
         availablePhoneNumberBlocks
 
+    /** Number search */
     override fun availablePhoneNumbers(): AvailablePhoneNumberServiceAsync = availablePhoneNumbers
 
+    /** Billing operations */
     override fun balance(): BalanceServiceAsync = balance
 
+    /** Billing groups operations */
     override fun billingGroups(): BillingGroupServiceAsync = billingGroups
 
+    /** View SIM card actions, their progress and timestamps using the SIM Card Actions API */
     override fun bulkSimCardActions(): BulkSimCardActionServiceAsync = bulkSimCardActions
 
     override fun bundlePricing(): BundlePricingServiceAsync = bundlePricing
 
+    /** Call Control applications operations */
     override fun callControlApplications(): CallControlApplicationServiceAsync =
         callControlApplications
 
+    /** Call Control debugging */
     override fun callEvents(): CallEventServiceAsync = callEvents
 
     override fun calls(): CallServiceAsync = calls
 
+    /** Voice Channels */
     override fun channelZones(): ChannelZoneServiceAsync = channelZones
 
     override fun chargesBreakdown(): ChargesBreakdownServiceAsync = chargesBreakdown
 
     override fun chargesSummary(): ChargesSummaryServiceAsync = chargesSummary
 
+    /** Number orders */
     override fun comments(): CommentServiceAsync = comments
 
+    /** Conference command operations */
     override fun conferences(): ConferenceServiceAsync = conferences
 
     override fun connections(): ConnectionServiceAsync = connections
 
+    /** Country Coverage */
     override fun countryCoverage(): CountryCoverageServiceAsync = countryCoverage
 
+    /** Credential connection operations */
     override fun credentialConnections(): CredentialConnectionServiceAsync = credentialConnections
 
+    /** Call Recordings operations. */
     override fun customStorageCredentials(): CustomStorageCredentialServiceAsync =
         customStorageCredentials
 
+    /** Customer Service Record operations */
     override fun customerServiceRecords(): CustomerServiceRecordServiceAsync =
         customerServiceRecords
 
+    /** Detail Records operations */
     override fun detailRecords(): DetailRecordServiceAsync = detailRecords
 
+    /** Dialogflow Connection Operations. */
     override fun dialogflowConnections(): DialogflowConnectionServiceAsync = dialogflowConnections
 
+    /** Documents */
     override fun documentLinks(): DocumentLinkServiceAsync = documentLinks
 
+    /** Documents */
     override fun documents(): DocumentServiceAsync = documents
 
+    /** Dynamic emergency address operations */
     override fun dynamicEmergencyAddresses(): DynamicEmergencyAddressServiceAsync =
         dynamicEmergencyAddresses
 
+    /** Dynamic Emergency Endpoints */
     override fun dynamicEmergencyEndpoints(): DynamicEmergencyEndpointServiceAsync =
         dynamicEmergencyEndpoints
 
+    /** External Connections operations */
     override fun externalConnections(): ExternalConnectionServiceAsync = externalConnections
 
+    /** Fax Applications operations */
     override fun faxApplications(): FaxApplicationServiceAsync = faxApplications
 
+    /** Programmable fax command operations */
     override fun faxes(): FaxServiceAsync = faxes
 
+    /** FQDN connection operations */
     override fun fqdnConnections(): FqdnConnectionServiceAsync = fqdnConnections
 
+    /** FQDN operations */
     override fun fqdns(): FqdnServiceAsync = fqdns
 
+    /** Global IPs */
     override fun globalIpAllowedPorts(): GlobalIpAllowedPortServiceAsync = globalIpAllowedPorts
 
+    /** Global IPs */
     override fun globalIpAssignmentHealth(): GlobalIpAssignmentHealthServiceAsync =
         globalIpAssignmentHealth
 
+    /** Global IPs */
     override fun globalIpAssignments(): GlobalIpAssignmentServiceAsync = globalIpAssignments
 
+    /** Global IPs */
     override fun globalIpAssignmentsUsage(): GlobalIpAssignmentsUsageServiceAsync =
         globalIpAssignmentsUsage
 
+    /** Global IPs */
     override fun globalIpHealthCheckTypes(): GlobalIpHealthCheckTypeServiceAsync =
         globalIpHealthCheckTypes
 
+    /** Global IPs */
     override fun globalIpHealthChecks(): GlobalIpHealthCheckServiceAsync = globalIpHealthChecks
 
+    /** Global IPs */
     override fun globalIpLatency(): GlobalIpLatencyServiceAsync = globalIpLatency
 
+    /** Global IPs */
     override fun globalIpProtocols(): GlobalIpProtocolServiceAsync = globalIpProtocols
 
+    /** Global IPs */
     override fun globalIpUsage(): GlobalIpUsageServiceAsync = globalIpUsage
 
+    /** Global IPs */
     override fun globalIps(): GlobalIpServiceAsync = globalIps
 
+    /** Voice Channels */
     override fun inboundChannels(): InboundChannelServiceAsync = inboundChannels
 
+    /** Store and retrieve integration secrets */
     override fun integrationSecrets(): IntegrationSecretServiceAsync = integrationSecrets
 
+    /** Inventory Level */
     override fun inventoryCoverage(): InventoryCoverageServiceAsync = inventoryCoverage
 
     override fun invoices(): InvoiceServiceAsync = invoices
 
+    /** IP connection operations */
     override fun ipConnections(): IpConnectionServiceAsync = ipConnections
 
+    /** IP operations */
     override fun ips(): IpServiceAsync = ips
 
+    /** Ledger billing reports */
     override fun ledgerBillingGroupReports(): LedgerBillingGroupReportServiceAsync =
         ledgerBillingGroupReports
 
+    /** Voice Channels */
     override fun list(): ListServiceAsync = list
 
+    /** Managed Accounts operations */
     override fun managedAccounts(): ManagedAccountServiceAsync = managedAccounts
 
+    /** Media Storage operations */
     override fun media(): MediaServiceAsync = media
 
     override fun messages(): MessageServiceAsync = messages
 
     override fun messaging(): MessagingServiceAsync = messaging
 
+    /** Manage your messaging hosted numbers */
     override fun messagingHostedNumberOrders(): MessagingHostedNumberOrderServiceAsync =
         messagingHostedNumberOrders
 
     override fun messagingHostedNumbers(): MessagingHostedNumberServiceAsync =
         messagingHostedNumbers
 
+    /** Configure your phone numbers */
     override fun messagingNumbersBulkUpdates(): MessagingNumbersBulkUpdateServiceAsync =
         messagingNumbersBulkUpdates
 
+    /** Opt-Out Management */
     override fun messagingOptouts(): MessagingOptoutServiceAsync = messagingOptouts
 
     override fun messagingProfiles(): MessagingProfileServiceAsync = messagingProfiles
 
     override fun messagingTollfree(): MessagingTollfreeServiceAsync = messagingTollfree
 
+    /** Messaging URL Domains */
     override fun messagingUrlDomains(): MessagingUrlDomainServiceAsync = messagingUrlDomains
 
+    /** Mobile network operators operations */
     override fun mobileNetworkOperators(): MobileNetworkOperatorServiceAsync =
         mobileNetworkOperators
 
+    /** Mobile push credential management */
     override fun mobilePushCredentials(): MobilePushCredentialServiceAsync = mobilePushCredentials
 
     override fun networkCoverage(): NetworkCoverageServiceAsync = networkCoverage
 
+    /** Network operations */
     override fun networks(): NetworkServiceAsync = networks
 
+    /** Notification settings operations */
     override fun notificationChannels(): NotificationChannelServiceAsync = notificationChannels
 
+    /** Notification settings operations */
     override fun notificationEventConditions(): NotificationEventConditionServiceAsync =
         notificationEventConditions
 
+    /** Notification settings operations */
     override fun notificationEvents(): NotificationEventServiceAsync = notificationEvents
 
+    /** Notification settings operations */
     override fun notificationProfiles(): NotificationProfileServiceAsync = notificationProfiles
 
+    /** Notification settings operations */
     override fun notificationSettings(): NotificationSettingServiceAsync = notificationSettings
 
     override fun numberBlockOrders(): NumberBlockOrderServiceAsync = numberBlockOrders
 
+    /** Look up phone number data */
     override fun numberLookup(): NumberLookupServiceAsync = numberLookup
 
     override fun numberOrderPhoneNumbers(): NumberOrderPhoneNumberServiceAsync =
         numberOrderPhoneNumbers
 
+    /** Number orders */
     override fun numberOrders(): NumberOrderServiceAsync = numberOrders
 
+    /** Number reservations */
     override fun numberReservations(): NumberReservationServiceAsync = numberReservations
 
     override fun numbersFeatures(): NumbersFeatureServiceAsync = numbersFeatures
 
     override fun operatorConnect(): OperatorConnectServiceAsync = operatorConnect
 
+    /** OTA updates operations */
     override fun otaUpdates(): OtaUpdateServiceAsync = otaUpdates
 
+    /** Outbound voice profiles operations */
     override fun outboundVoiceProfiles(): OutboundVoiceProfileServiceAsync = outboundVoiceProfiles
 
+    /** Operations for managing stored payment transactions. */
     override fun payment(): PaymentServiceAsync = payment
 
     override fun phoneNumberBlocks(): PhoneNumberBlockServiceAsync = phoneNumberBlocks
 
+    /** Configure your phone numbers */
     override fun phoneNumbers(): PhoneNumberServiceAsync = phoneNumbers
 
+    /** Regulatory Requirements */
     override fun phoneNumbersRegulatoryRequirements():
         PhoneNumbersRegulatoryRequirementServiceAsync = phoneNumbersRegulatoryRequirements
 
+    /** Determining portability of phone numbers */
     override fun portabilityChecks(): PortabilityCheckServiceAsync = portabilityChecks
 
+    /** Endpoints related to porting orders management. */
     override fun porting(): PortingServiceAsync = porting
 
+    /** Endpoints related to porting orders management. */
     override fun portingOrders(): PortingOrderServiceAsync = portingOrders
 
+    /** Endpoints related to porting orders management. */
     override fun portingPhoneNumbers(): PortingPhoneNumberServiceAsync = portingPhoneNumbers
 
+    /** Number portout operations */
     override fun portouts(): PortoutServiceAsync = portouts
 
+    /** Private Wireless Gateways operations */
     override fun privateWirelessGateways(): PrivateWirelessGatewayServiceAsync =
         privateWirelessGateways
 
+    /** Public Internet Gateway operations */
     override fun publicInternetGateways(): PublicInternetGatewayServiceAsync =
         publicInternetGateways
 
+    /** Queue commands operations */
     override fun queues(): QueueServiceAsync = queues
 
     override fun rcsAgents(): RcsAgentServiceAsync = rcsAgents
 
+    /** Call Recordings operations. */
     override fun recordingTranscriptions(): RecordingTranscriptionServiceAsync =
         recordingTranscriptions
 
+    /** Call Recordings operations. */
     override fun recordings(): RecordingServiceAsync = recordings
 
+    /** Regions */
     override fun regions(): RegionServiceAsync = regions
 
+    /** Regulatory Requirements */
     override fun regulatoryRequirements(): RegulatoryRequirementServiceAsync =
         regulatoryRequirements
 
     override fun reports(): ReportServiceAsync = reports
 
+    /** Requirement Groups */
     override fun requirementGroups(): RequirementGroupServiceAsync = requirementGroups
 
+    /** Types of requirements for international numbers and porting orders */
     override fun requirementTypes(): RequirementTypeServiceAsync = requirementTypes
 
+    /** Requirements for international numbers and porting orders */
     override fun requirements(): RequirementServiceAsync = requirements
 
+    /** Rooms Compositions operations. */
     override fun roomCompositions(): RoomCompositionServiceAsync = roomCompositions
 
+    /** Rooms Participants operations. */
     override fun roomParticipants(): RoomParticipantServiceAsync = roomParticipants
 
+    /** Rooms Recordings operations. */
     override fun roomRecordings(): RoomRecordingServiceAsync = roomRecordings
 
+    /** Rooms operations. */
     override fun rooms(): RoomServiceAsync = rooms
 
+    /** Observability into Telnyx platform stability and performance. */
     override fun seti(): SetiServiceAsync = seti
 
+    /** Short codes */
     override fun shortCodes(): ShortCodeServiceAsync = shortCodes
 
+    /** SIM Cards operations */
     override fun simCardDataUsageNotifications(): SimCardDataUsageNotificationServiceAsync =
         simCardDataUsageNotifications
 
+    /** SIM Card Groups operations */
     override fun simCardGroups(): SimCardGroupServiceAsync = simCardGroups
 
+    /** SIM Card Orders operations */
     override fun simCardOrderPreview(): SimCardOrderPreviewServiceAsync = simCardOrderPreview
 
+    /** SIM Card Orders operations */
     override fun simCardOrders(): SimCardOrderServiceAsync = simCardOrders
 
+    /** SIM Cards operations */
     override fun simCards(): SimCardServiceAsync = simCards
 
+    /** SIPREC connectors configuration. */
     override fun siprecConnectors(): SiprecConnectorServiceAsync = siprecConnectors
 
+    /** Migrate data from an external provider into Telnyx Cloud Storage */
     override fun storage(): StorageServiceAsync = storage
 
     override fun subNumberOrders(): SubNumberOrderServiceAsync = subNumberOrders
 
+    /** Number orders */
     override fun subNumberOrdersReport(): SubNumberOrdersReportServiceAsync = subNumberOrdersReport
 
     override fun telephonyCredentials(): TelephonyCredentialServiceAsync = telephonyCredentials
 
+    /** TeXML REST Commands */
     override fun texml(): TexmlServiceAsync = texml
 
+    /** TeXML Applications operations */
     override fun texmlApplications(): TexmlApplicationServiceAsync = texmlApplications
 
+    /** Text to speech streaming command operations */
     override fun textToSpeech(): TextToSpeechServiceAsync = textToSpeech
 
+    /** Usage data reporting across Telnyx products */
     override fun usageReports(): UsageReportServiceAsync = usageReports
 
+    /**
+     * Operations for working with UserAddress records. UserAddress records are stored addresses
+     * that users can use for non-emergency-calling purposes, such as for shipping addresses for
+     * orders of wireless SIMs (or other physical items). They cannot be used for emergency calling
+     * and are distinct from Address records, which are used on phone numbers.
+     */
     override fun userAddresses(): UserAddressServiceAsync = userAddresses
 
+    /** User-defined tags for Telnyx resources */
     override fun userTags(): UserTagServiceAsync = userTags
 
+    /** Two factor authentication API */
     override fun verifications(): VerificationServiceAsync = verifications
 
+    /** Verified Numbers operations */
     override fun verifiedNumbers(): VerifiedNumberServiceAsync = verifiedNumbers
 
+    /** Two factor authentication API */
     override fun verifyProfiles(): VerifyProfileServiceAsync = verifyProfiles
 
+    /** Virtual Cross Connect operations */
     override fun virtualCrossConnects(): VirtualCrossConnectServiceAsync = virtualCrossConnects
 
+    /** Virtual Cross Connect operations */
     override fun virtualCrossConnectsCoverage(): VirtualCrossConnectsCoverageServiceAsync =
         virtualCrossConnectsCoverage
 
+    /** Webhooks operations */
     override fun webhookDeliveries(): WebhookDeliveryServiceAsync = webhookDeliveries
 
+    /** WireGuard Interface operations */
     override fun wireguardInterfaces(): WireguardInterfaceServiceAsync = wireguardInterfaces
 
+    /** WireGuard Interface operations */
     override fun wireguardPeers(): WireguardPeerServiceAsync = wireguardPeers
 
+    /** Regions for wireless services */
     override fun wireless(): WirelessServiceAsync = wireless
 
+    /** Wireless Blocklists operations */
     override fun wirelessBlocklistValues(): WirelessBlocklistValueServiceAsync =
         wirelessBlocklistValues
 
+    /** Wireless Blocklists operations */
     override fun wirelessBlocklists(): WirelessBlocklistServiceAsync = wirelessBlocklists
 
     override fun wellKnown(): WellKnownServiceAsync = wellKnown
 
+    /** Inexplicit number orders for bulk purchasing without specifying exact numbers */
     override fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync =
         inexplicitNumberOrders
 
+    /** Mobile phone number operations */
     override fun mobilePhoneNumbers(): MobilePhoneNumberServiceAsync = mobilePhoneNumbers
 
+    /** Mobile voice connection operations */
     override fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync =
         mobileVoiceConnections
 
     override fun messaging10dlc(): Messaging10dlcServiceAsync = messaging10dlc
 
+    /** Speech to text command operations */
     override fun speechToText(): SpeechToTextServiceAsync = speechToText
 
     override fun organizations(): OrganizationServiceAsync = organizations
@@ -1936,46 +2071,70 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         override fun webhooks(): WebhookServiceAsync.WithRawResponse = webhooks
 
+        /** IP Address Operations */
         override fun accessIpAddress(): AccessIpAddressServiceAsync.WithRawResponse =
             accessIpAddress
 
+        /** IP Range Operations */
         override fun accessIpRanges(): AccessIpRangeServiceAsync.WithRawResponse = accessIpRanges
 
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
+        /**
+         * Operations to work with Address records. Address records are emergency-validated
+         * addresses meant to be associated with phone numbers. They are validated for emergency
+         * usage purposes at creation time, although you may validate them separately with a custom
+         * workflow using the ValidateAddress operation separately. Address records are not usable
+         * for physical orders, such as for Telnyx SIM cards, please use UserAddress for that. It is
+         * not possible to entirely skip emergency service validation for Address records; if an
+         * emergency provider for a phone number rejects the address then it cannot be used on a
+         * phone number. To prevent records from getting out of sync, Address records are immutable
+         * and cannot be altered once created. If you realize you need to alter an address, a new
+         * record must be created with the differing address.
+         */
         override fun addresses(): AddressServiceAsync.WithRawResponse = addresses
 
         override fun advancedOrders(): AdvancedOrderServiceAsync.WithRawResponse = advancedOrders
 
+        /** Generate text with LLMs */
         override fun ai(): AiServiceAsync.WithRawResponse = ai
 
+        /** Audit log operations. */
         override fun auditEvents(): AuditEventServiceAsync.WithRawResponse = auditEvents
 
         override fun authenticationProviders(): AuthenticationProviderServiceAsync.WithRawResponse =
             authenticationProviders
 
+        /** Number search */
         override fun availablePhoneNumberBlocks():
             AvailablePhoneNumberBlockServiceAsync.WithRawResponse = availablePhoneNumberBlocks
 
+        /** Number search */
         override fun availablePhoneNumbers(): AvailablePhoneNumberServiceAsync.WithRawResponse =
             availablePhoneNumbers
 
+        /** Billing operations */
         override fun balance(): BalanceServiceAsync.WithRawResponse = balance
 
+        /** Billing groups operations */
         override fun billingGroups(): BillingGroupServiceAsync.WithRawResponse = billingGroups
 
+        /** View SIM card actions, their progress and timestamps using the SIM Card Actions API */
         override fun bulkSimCardActions(): BulkSimCardActionServiceAsync.WithRawResponse =
             bulkSimCardActions
 
         override fun bundlePricing(): BundlePricingServiceAsync.WithRawResponse = bundlePricing
 
+        /** Call Control applications operations */
         override fun callControlApplications(): CallControlApplicationServiceAsync.WithRawResponse =
             callControlApplications
 
+        /** Call Control debugging */
         override fun callEvents(): CallEventServiceAsync.WithRawResponse = callEvents
 
         override fun calls(): CallServiceAsync.WithRawResponse = calls
 
+        /** Voice Channels */
         override fun channelZones(): ChannelZoneServiceAsync.WithRawResponse = channelZones
 
         override fun chargesBreakdown(): ChargesBreakdownServiceAsync.WithRawResponse =
@@ -1983,114 +2142,153 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         override fun chargesSummary(): ChargesSummaryServiceAsync.WithRawResponse = chargesSummary
 
+        /** Number orders */
         override fun comments(): CommentServiceAsync.WithRawResponse = comments
 
+        /** Conference command operations */
         override fun conferences(): ConferenceServiceAsync.WithRawResponse = conferences
 
         override fun connections(): ConnectionServiceAsync.WithRawResponse = connections
 
+        /** Country Coverage */
         override fun countryCoverage(): CountryCoverageServiceAsync.WithRawResponse =
             countryCoverage
 
+        /** Credential connection operations */
         override fun credentialConnections(): CredentialConnectionServiceAsync.WithRawResponse =
             credentialConnections
 
+        /** Call Recordings operations. */
         override fun customStorageCredentials():
             CustomStorageCredentialServiceAsync.WithRawResponse = customStorageCredentials
 
+        /** Customer Service Record operations */
         override fun customerServiceRecords(): CustomerServiceRecordServiceAsync.WithRawResponse =
             customerServiceRecords
 
+        /** Detail Records operations */
         override fun detailRecords(): DetailRecordServiceAsync.WithRawResponse = detailRecords
 
+        /** Dialogflow Connection Operations. */
         override fun dialogflowConnections(): DialogflowConnectionServiceAsync.WithRawResponse =
             dialogflowConnections
 
+        /** Documents */
         override fun documentLinks(): DocumentLinkServiceAsync.WithRawResponse = documentLinks
 
+        /** Documents */
         override fun documents(): DocumentServiceAsync.WithRawResponse = documents
 
+        /** Dynamic emergency address operations */
         override fun dynamicEmergencyAddresses():
             DynamicEmergencyAddressServiceAsync.WithRawResponse = dynamicEmergencyAddresses
 
+        /** Dynamic Emergency Endpoints */
         override fun dynamicEmergencyEndpoints():
             DynamicEmergencyEndpointServiceAsync.WithRawResponse = dynamicEmergencyEndpoints
 
+        /** External Connections operations */
         override fun externalConnections(): ExternalConnectionServiceAsync.WithRawResponse =
             externalConnections
 
+        /** Fax Applications operations */
         override fun faxApplications(): FaxApplicationServiceAsync.WithRawResponse = faxApplications
 
+        /** Programmable fax command operations */
         override fun faxes(): FaxServiceAsync.WithRawResponse = faxes
 
+        /** FQDN connection operations */
         override fun fqdnConnections(): FqdnConnectionServiceAsync.WithRawResponse = fqdnConnections
 
+        /** FQDN operations */
         override fun fqdns(): FqdnServiceAsync.WithRawResponse = fqdns
 
+        /** Global IPs */
         override fun globalIpAllowedPorts(): GlobalIpAllowedPortServiceAsync.WithRawResponse =
             globalIpAllowedPorts
 
+        /** Global IPs */
         override fun globalIpAssignmentHealth():
             GlobalIpAssignmentHealthServiceAsync.WithRawResponse = globalIpAssignmentHealth
 
+        /** Global IPs */
         override fun globalIpAssignments(): GlobalIpAssignmentServiceAsync.WithRawResponse =
             globalIpAssignments
 
+        /** Global IPs */
         override fun globalIpAssignmentsUsage():
             GlobalIpAssignmentsUsageServiceAsync.WithRawResponse = globalIpAssignmentsUsage
 
+        /** Global IPs */
         override fun globalIpHealthCheckTypes():
             GlobalIpHealthCheckTypeServiceAsync.WithRawResponse = globalIpHealthCheckTypes
 
+        /** Global IPs */
         override fun globalIpHealthChecks(): GlobalIpHealthCheckServiceAsync.WithRawResponse =
             globalIpHealthChecks
 
+        /** Global IPs */
         override fun globalIpLatency(): GlobalIpLatencyServiceAsync.WithRawResponse =
             globalIpLatency
 
+        /** Global IPs */
         override fun globalIpProtocols(): GlobalIpProtocolServiceAsync.WithRawResponse =
             globalIpProtocols
 
+        /** Global IPs */
         override fun globalIpUsage(): GlobalIpUsageServiceAsync.WithRawResponse = globalIpUsage
 
+        /** Global IPs */
         override fun globalIps(): GlobalIpServiceAsync.WithRawResponse = globalIps
 
+        /** Voice Channels */
         override fun inboundChannels(): InboundChannelServiceAsync.WithRawResponse = inboundChannels
 
+        /** Store and retrieve integration secrets */
         override fun integrationSecrets(): IntegrationSecretServiceAsync.WithRawResponse =
             integrationSecrets
 
+        /** Inventory Level */
         override fun inventoryCoverage(): InventoryCoverageServiceAsync.WithRawResponse =
             inventoryCoverage
 
         override fun invoices(): InvoiceServiceAsync.WithRawResponse = invoices
 
+        /** IP connection operations */
         override fun ipConnections(): IpConnectionServiceAsync.WithRawResponse = ipConnections
 
+        /** IP operations */
         override fun ips(): IpServiceAsync.WithRawResponse = ips
 
+        /** Ledger billing reports */
         override fun ledgerBillingGroupReports():
             LedgerBillingGroupReportServiceAsync.WithRawResponse = ledgerBillingGroupReports
 
+        /** Voice Channels */
         override fun list(): ListServiceAsync.WithRawResponse = list
 
+        /** Managed Accounts operations */
         override fun managedAccounts(): ManagedAccountServiceAsync.WithRawResponse = managedAccounts
 
+        /** Media Storage operations */
         override fun media(): MediaServiceAsync.WithRawResponse = media
 
         override fun messages(): MessageServiceAsync.WithRawResponse = messages
 
         override fun messaging(): MessagingServiceAsync.WithRawResponse = messaging
 
+        /** Manage your messaging hosted numbers */
         override fun messagingHostedNumberOrders():
             MessagingHostedNumberOrderServiceAsync.WithRawResponse = messagingHostedNumberOrders
 
         override fun messagingHostedNumbers(): MessagingHostedNumberServiceAsync.WithRawResponse =
             messagingHostedNumbers
 
+        /** Configure your phone numbers */
         override fun messagingNumbersBulkUpdates():
             MessagingNumbersBulkUpdateServiceAsync.WithRawResponse = messagingNumbersBulkUpdates
 
+        /** Opt-Out Management */
         override fun messagingOptouts(): MessagingOptoutServiceAsync.WithRawResponse =
             messagingOptouts
 
@@ -2100,45 +2298,57 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         override fun messagingTollfree(): MessagingTollfreeServiceAsync.WithRawResponse =
             messagingTollfree
 
+        /** Messaging URL Domains */
         override fun messagingUrlDomains(): MessagingUrlDomainServiceAsync.WithRawResponse =
             messagingUrlDomains
 
+        /** Mobile network operators operations */
         override fun mobileNetworkOperators(): MobileNetworkOperatorServiceAsync.WithRawResponse =
             mobileNetworkOperators
 
+        /** Mobile push credential management */
         override fun mobilePushCredentials(): MobilePushCredentialServiceAsync.WithRawResponse =
             mobilePushCredentials
 
         override fun networkCoverage(): NetworkCoverageServiceAsync.WithRawResponse =
             networkCoverage
 
+        /** Network operations */
         override fun networks(): NetworkServiceAsync.WithRawResponse = networks
 
+        /** Notification settings operations */
         override fun notificationChannels(): NotificationChannelServiceAsync.WithRawResponse =
             notificationChannels
 
+        /** Notification settings operations */
         override fun notificationEventConditions():
             NotificationEventConditionServiceAsync.WithRawResponse = notificationEventConditions
 
+        /** Notification settings operations */
         override fun notificationEvents(): NotificationEventServiceAsync.WithRawResponse =
             notificationEvents
 
+        /** Notification settings operations */
         override fun notificationProfiles(): NotificationProfileServiceAsync.WithRawResponse =
             notificationProfiles
 
+        /** Notification settings operations */
         override fun notificationSettings(): NotificationSettingServiceAsync.WithRawResponse =
             notificationSettings
 
         override fun numberBlockOrders(): NumberBlockOrderServiceAsync.WithRawResponse =
             numberBlockOrders
 
+        /** Look up phone number data */
         override fun numberLookup(): NumberLookupServiceAsync.WithRawResponse = numberLookup
 
         override fun numberOrderPhoneNumbers(): NumberOrderPhoneNumberServiceAsync.WithRawResponse =
             numberOrderPhoneNumbers
 
+        /** Number orders */
         override fun numberOrders(): NumberOrderServiceAsync.WithRawResponse = numberOrders
 
+        /** Number reservations */
         override fun numberReservations(): NumberReservationServiceAsync.WithRawResponse =
             numberReservations
 
@@ -2147,157 +2357,217 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         override fun operatorConnect(): OperatorConnectServiceAsync.WithRawResponse =
             operatorConnect
 
+        /** OTA updates operations */
         override fun otaUpdates(): OtaUpdateServiceAsync.WithRawResponse = otaUpdates
 
+        /** Outbound voice profiles operations */
         override fun outboundVoiceProfiles(): OutboundVoiceProfileServiceAsync.WithRawResponse =
             outboundVoiceProfiles
 
+        /** Operations for managing stored payment transactions. */
         override fun payment(): PaymentServiceAsync.WithRawResponse = payment
 
         override fun phoneNumberBlocks(): PhoneNumberBlockServiceAsync.WithRawResponse =
             phoneNumberBlocks
 
+        /** Configure your phone numbers */
         override fun phoneNumbers(): PhoneNumberServiceAsync.WithRawResponse = phoneNumbers
 
+        /** Regulatory Requirements */
         override fun phoneNumbersRegulatoryRequirements():
             PhoneNumbersRegulatoryRequirementServiceAsync.WithRawResponse =
             phoneNumbersRegulatoryRequirements
 
+        /** Determining portability of phone numbers */
         override fun portabilityChecks(): PortabilityCheckServiceAsync.WithRawResponse =
             portabilityChecks
 
+        /** Endpoints related to porting orders management. */
         override fun porting(): PortingServiceAsync.WithRawResponse = porting
 
+        /** Endpoints related to porting orders management. */
         override fun portingOrders(): PortingOrderServiceAsync.WithRawResponse = portingOrders
 
+        /** Endpoints related to porting orders management. */
         override fun portingPhoneNumbers(): PortingPhoneNumberServiceAsync.WithRawResponse =
             portingPhoneNumbers
 
+        /** Number portout operations */
         override fun portouts(): PortoutServiceAsync.WithRawResponse = portouts
 
+        /** Private Wireless Gateways operations */
         override fun privateWirelessGateways(): PrivateWirelessGatewayServiceAsync.WithRawResponse =
             privateWirelessGateways
 
+        /** Public Internet Gateway operations */
         override fun publicInternetGateways(): PublicInternetGatewayServiceAsync.WithRawResponse =
             publicInternetGateways
 
+        /** Queue commands operations */
         override fun queues(): QueueServiceAsync.WithRawResponse = queues
 
         override fun rcsAgents(): RcsAgentServiceAsync.WithRawResponse = rcsAgents
 
+        /** Call Recordings operations. */
         override fun recordingTranscriptions(): RecordingTranscriptionServiceAsync.WithRawResponse =
             recordingTranscriptions
 
+        /** Call Recordings operations. */
         override fun recordings(): RecordingServiceAsync.WithRawResponse = recordings
 
+        /** Regions */
         override fun regions(): RegionServiceAsync.WithRawResponse = regions
 
+        /** Regulatory Requirements */
         override fun regulatoryRequirements(): RegulatoryRequirementServiceAsync.WithRawResponse =
             regulatoryRequirements
 
         override fun reports(): ReportServiceAsync.WithRawResponse = reports
 
+        /** Requirement Groups */
         override fun requirementGroups(): RequirementGroupServiceAsync.WithRawResponse =
             requirementGroups
 
+        /** Types of requirements for international numbers and porting orders */
         override fun requirementTypes(): RequirementTypeServiceAsync.WithRawResponse =
             requirementTypes
 
+        /** Requirements for international numbers and porting orders */
         override fun requirements(): RequirementServiceAsync.WithRawResponse = requirements
 
+        /** Rooms Compositions operations. */
         override fun roomCompositions(): RoomCompositionServiceAsync.WithRawResponse =
             roomCompositions
 
+        /** Rooms Participants operations. */
         override fun roomParticipants(): RoomParticipantServiceAsync.WithRawResponse =
             roomParticipants
 
+        /** Rooms Recordings operations. */
         override fun roomRecordings(): RoomRecordingServiceAsync.WithRawResponse = roomRecordings
 
+        /** Rooms operations. */
         override fun rooms(): RoomServiceAsync.WithRawResponse = rooms
 
+        /** Observability into Telnyx platform stability and performance. */
         override fun seti(): SetiServiceAsync.WithRawResponse = seti
 
+        /** Short codes */
         override fun shortCodes(): ShortCodeServiceAsync.WithRawResponse = shortCodes
 
+        /** SIM Cards operations */
         override fun simCardDataUsageNotifications():
             SimCardDataUsageNotificationServiceAsync.WithRawResponse = simCardDataUsageNotifications
 
+        /** SIM Card Groups operations */
         override fun simCardGroups(): SimCardGroupServiceAsync.WithRawResponse = simCardGroups
 
+        /** SIM Card Orders operations */
         override fun simCardOrderPreview(): SimCardOrderPreviewServiceAsync.WithRawResponse =
             simCardOrderPreview
 
+        /** SIM Card Orders operations */
         override fun simCardOrders(): SimCardOrderServiceAsync.WithRawResponse = simCardOrders
 
+        /** SIM Cards operations */
         override fun simCards(): SimCardServiceAsync.WithRawResponse = simCards
 
+        /** SIPREC connectors configuration. */
         override fun siprecConnectors(): SiprecConnectorServiceAsync.WithRawResponse =
             siprecConnectors
 
+        /** Migrate data from an external provider into Telnyx Cloud Storage */
         override fun storage(): StorageServiceAsync.WithRawResponse = storage
 
         override fun subNumberOrders(): SubNumberOrderServiceAsync.WithRawResponse = subNumberOrders
 
+        /** Number orders */
         override fun subNumberOrdersReport(): SubNumberOrdersReportServiceAsync.WithRawResponse =
             subNumberOrdersReport
 
         override fun telephonyCredentials(): TelephonyCredentialServiceAsync.WithRawResponse =
             telephonyCredentials
 
+        /** TeXML REST Commands */
         override fun texml(): TexmlServiceAsync.WithRawResponse = texml
 
+        /** TeXML Applications operations */
         override fun texmlApplications(): TexmlApplicationServiceAsync.WithRawResponse =
             texmlApplications
 
+        /** Text to speech streaming command operations */
         override fun textToSpeech(): TextToSpeechServiceAsync.WithRawResponse = textToSpeech
 
+        /** Usage data reporting across Telnyx products */
         override fun usageReports(): UsageReportServiceAsync.WithRawResponse = usageReports
 
+        /**
+         * Operations for working with UserAddress records. UserAddress records are stored addresses
+         * that users can use for non-emergency-calling purposes, such as for shipping addresses for
+         * orders of wireless SIMs (or other physical items). They cannot be used for emergency
+         * calling and are distinct from Address records, which are used on phone numbers.
+         */
         override fun userAddresses(): UserAddressServiceAsync.WithRawResponse = userAddresses
 
+        /** User-defined tags for Telnyx resources */
         override fun userTags(): UserTagServiceAsync.WithRawResponse = userTags
 
+        /** Two factor authentication API */
         override fun verifications(): VerificationServiceAsync.WithRawResponse = verifications
 
+        /** Verified Numbers operations */
         override fun verifiedNumbers(): VerifiedNumberServiceAsync.WithRawResponse = verifiedNumbers
 
+        /** Two factor authentication API */
         override fun verifyProfiles(): VerifyProfileServiceAsync.WithRawResponse = verifyProfiles
 
+        /** Virtual Cross Connect operations */
         override fun virtualCrossConnects(): VirtualCrossConnectServiceAsync.WithRawResponse =
             virtualCrossConnects
 
+        /** Virtual Cross Connect operations */
         override fun virtualCrossConnectsCoverage():
             VirtualCrossConnectsCoverageServiceAsync.WithRawResponse = virtualCrossConnectsCoverage
 
+        /** Webhooks operations */
         override fun webhookDeliveries(): WebhookDeliveryServiceAsync.WithRawResponse =
             webhookDeliveries
 
+        /** WireGuard Interface operations */
         override fun wireguardInterfaces(): WireguardInterfaceServiceAsync.WithRawResponse =
             wireguardInterfaces
 
+        /** WireGuard Interface operations */
         override fun wireguardPeers(): WireguardPeerServiceAsync.WithRawResponse = wireguardPeers
 
+        /** Regions for wireless services */
         override fun wireless(): WirelessServiceAsync.WithRawResponse = wireless
 
+        /** Wireless Blocklists operations */
         override fun wirelessBlocklistValues(): WirelessBlocklistValueServiceAsync.WithRawResponse =
             wirelessBlocklistValues
 
+        /** Wireless Blocklists operations */
         override fun wirelessBlocklists(): WirelessBlocklistServiceAsync.WithRawResponse =
             wirelessBlocklists
 
         override fun wellKnown(): WellKnownServiceAsync.WithRawResponse = wellKnown
 
+        /** Inexplicit number orders for bulk purchasing without specifying exact numbers */
         override fun inexplicitNumberOrders(): InexplicitNumberOrderServiceAsync.WithRawResponse =
             inexplicitNumberOrders
 
+        /** Mobile phone number operations */
         override fun mobilePhoneNumbers(): MobilePhoneNumberServiceAsync.WithRawResponse =
             mobilePhoneNumbers
 
+        /** Mobile voice connection operations */
         override fun mobileVoiceConnections(): MobileVoiceConnectionServiceAsync.WithRawResponse =
             mobileVoiceConnections
 
         override fun messaging10dlc(): Messaging10dlcServiceAsync.WithRawResponse = messaging10dlc
 
+        /** Speech to text command operations */
         override fun speechToText(): SpeechToTextServiceAsync.WithRawResponse = speechToText
 
         override fun organizations(): OrganizationServiceAsync.WithRawResponse = organizations

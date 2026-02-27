@@ -22,6 +22,7 @@ import com.telnyx.sdk.models.storage.buckets.usage.UsageGetBucketUsageResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Bucket Usage operations */
 class UsageServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     UsageService {
 

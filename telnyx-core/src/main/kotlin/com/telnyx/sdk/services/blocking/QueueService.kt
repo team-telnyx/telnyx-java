@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.queues.QueueUpdateResponse
 import com.telnyx.sdk.services.blocking.queues.CallService
 import java.util.function.Consumer
 
+/** Queue commands operations */
 interface QueueService {
 
     /**
@@ -33,6 +34,7 @@ interface QueueService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): QueueService
 
+    /** Queue commands operations */
     fun calls(): CallService
 
     /** Create a new call queue. */
@@ -149,6 +151,7 @@ interface QueueService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): QueueService.WithRawResponse
 
+        /** Queue commands operations */
         fun calls(): CallService.WithRawResponse
 
         /**

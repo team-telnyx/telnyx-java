@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.ai.conversations.messages.MessageListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Manage historical AI assistant conversations */
 interface MessageServiceAsync {
 
     /**

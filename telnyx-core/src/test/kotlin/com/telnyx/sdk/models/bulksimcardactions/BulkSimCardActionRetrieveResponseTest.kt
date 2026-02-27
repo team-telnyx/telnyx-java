@@ -23,13 +23,9 @@ internal class BulkSimCardActionRetrieveResponseTest {
                         .recordType("bulk_sim_card_action")
                         .settings(BulkSimCardActionRetrieveResponse.Data.Settings.builder().build())
                         .addSimCardActionsSummary(
-                            BulkSimCardActionRetrieveResponse.Data.SimCardActionsSummary.builder()
+                            SimCardActionsSummary.builder()
                                 .count(0L)
-                                .status(
-                                    BulkSimCardActionRetrieveResponse.Data.SimCardActionsSummary
-                                        .Status
-                                        .IN_PROGRESS
-                                )
+                                .status(SimCardActionsSummary.Status.IN_PROGRESS)
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")
@@ -48,12 +44,9 @@ internal class BulkSimCardActionRetrieveResponseTest {
                     .recordType("bulk_sim_card_action")
                     .settings(BulkSimCardActionRetrieveResponse.Data.Settings.builder().build())
                     .addSimCardActionsSummary(
-                        BulkSimCardActionRetrieveResponse.Data.SimCardActionsSummary.builder()
+                        SimCardActionsSummary.builder()
                             .count(0L)
-                            .status(
-                                BulkSimCardActionRetrieveResponse.Data.SimCardActionsSummary.Status
-                                    .IN_PROGRESS
-                            )
+                            .status(SimCardActionsSummary.Status.IN_PROGRESS)
                             .build()
                     )
                     .updatedAt("2018-02-02T22:25:27.521Z")
@@ -76,13 +69,9 @@ internal class BulkSimCardActionRetrieveResponseTest {
                         .recordType("bulk_sim_card_action")
                         .settings(BulkSimCardActionRetrieveResponse.Data.Settings.builder().build())
                         .addSimCardActionsSummary(
-                            BulkSimCardActionRetrieveResponse.Data.SimCardActionsSummary.builder()
+                            SimCardActionsSummary.builder()
                                 .count(0L)
-                                .status(
-                                    BulkSimCardActionRetrieveResponse.Data.SimCardActionsSummary
-                                        .Status
-                                        .IN_PROGRESS
-                                )
+                                .status(SimCardActionsSummary.Status.IN_PROGRESS)
                                 .build()
                         )
                         .updatedAt("2018-02-02T22:25:27.521Z")

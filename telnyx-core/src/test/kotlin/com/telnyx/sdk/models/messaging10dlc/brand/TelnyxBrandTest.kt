@@ -37,9 +37,7 @@ internal class TelnyxBrandTest {
                 .mobilePhone("+12024567890")
                 .mock(true)
                 .optionalAttributes(
-                    TelnyxBrand.OptionalAttributes.builder()
-                        .taxExemptStatus("taxExemptStatus")
-                        .build()
+                    BrandOptionalAttributes.builder().taxExemptStatus("taxExemptStatus").build()
                 )
                 .phone("+12024567890")
                 .postalCode("10001")
@@ -82,9 +80,7 @@ internal class TelnyxBrandTest {
         assertThat(telnyxBrand.mobilePhone()).contains("+12024567890")
         assertThat(telnyxBrand.mock()).contains(true)
         assertThat(telnyxBrand.optionalAttributes())
-            .contains(
-                TelnyxBrand.OptionalAttributes.builder().taxExemptStatus("taxExemptStatus").build()
-            )
+            .contains(BrandOptionalAttributes.builder().taxExemptStatus("taxExemptStatus").build())
         assertThat(telnyxBrand.phone()).contains("+12024567890")
         assertThat(telnyxBrand.postalCode()).contains("10001")
         assertThat(telnyxBrand.referenceId()).contains("referenceId")
@@ -131,9 +127,7 @@ internal class TelnyxBrandTest {
                 .mobilePhone("+12024567890")
                 .mock(true)
                 .optionalAttributes(
-                    TelnyxBrand.OptionalAttributes.builder()
-                        .taxExemptStatus("taxExemptStatus")
-                        .build()
+                    BrandOptionalAttributes.builder().taxExemptStatus("taxExemptStatus").build()
                 )
                 .phone("+12024567890")
                 .postalCode("10001")

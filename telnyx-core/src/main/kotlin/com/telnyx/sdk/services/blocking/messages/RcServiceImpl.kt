@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.messages.rcs.RcSendResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Send RCS messages */
 class RcServiceImpl internal constructor(private val clientOptions: ClientOptions) : RcService {
 
     private val withRawResponse: RcService.WithRawResponse by lazy {

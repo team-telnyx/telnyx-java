@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Store and retrieve integration secrets */
 class IntegrationSecretServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     IntegrationSecretService {
 

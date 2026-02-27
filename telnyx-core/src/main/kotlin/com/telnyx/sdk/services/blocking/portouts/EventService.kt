@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.portouts.events.EventRetrieveParams
 import com.telnyx.sdk.models.portouts.events.EventRetrieveResponse
 import java.util.function.Consumer
 
+/** Number portout operations */
 interface EventService {
 
     /**

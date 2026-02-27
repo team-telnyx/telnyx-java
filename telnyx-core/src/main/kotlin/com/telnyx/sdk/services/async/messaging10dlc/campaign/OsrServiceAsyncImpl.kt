@@ -21,6 +21,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Campaign operations */
 class OsrServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     OsrServiceAsync {
 

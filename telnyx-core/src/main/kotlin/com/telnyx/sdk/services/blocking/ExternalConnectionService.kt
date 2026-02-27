@@ -25,6 +25,7 @@ import com.telnyx.sdk.services.blocking.externalconnections.ReleaseService
 import com.telnyx.sdk.services.blocking.externalconnections.UploadService
 import java.util.function.Consumer
 
+/** External Connections operations */
 interface ExternalConnectionService {
 
     /**
@@ -39,14 +40,19 @@ interface ExternalConnectionService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExternalConnectionService
 
+    /** External Connections operations */
     fun logMessages(): LogMessageService
 
+    /** External Connections operations */
     fun civicAddresses(): CivicAddressService
 
+    /** External Connections operations */
     fun phoneNumbers(): PhoneNumberService
 
+    /** External Connections operations */
     fun releases(): ReleaseService
 
+    /** External Connections operations */
     fun uploads(): UploadService
 
     /**
@@ -222,14 +228,19 @@ interface ExternalConnectionService {
             modifier: Consumer<ClientOptions.Builder>
         ): ExternalConnectionService.WithRawResponse
 
+        /** External Connections operations */
         fun logMessages(): LogMessageService.WithRawResponse
 
+        /** External Connections operations */
         fun civicAddresses(): CivicAddressService.WithRawResponse
 
+        /** External Connections operations */
         fun phoneNumbers(): PhoneNumberService.WithRawResponse
 
+        /** External Connections operations */
         fun releases(): ReleaseService.WithRawResponse
 
+        /** External Connections operations */
         fun uploads(): UploadService.WithRawResponse
 
         /**

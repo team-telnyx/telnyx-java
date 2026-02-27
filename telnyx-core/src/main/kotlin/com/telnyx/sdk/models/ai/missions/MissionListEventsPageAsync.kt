@@ -6,6 +6,7 @@ import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.Meta
+import com.telnyx.sdk.models.ai.missions.runs.events.EventData
 import com.telnyx.sdk.services.async.ai.MissionServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -21,15 +22,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: MissionListEventsParams,
     private val response: MissionListEventsPageResponse,
-) : PageAsync<MissionListEventsResponse> {
+) : PageAsync<EventData> {
 
     /**
      * Delegates to [MissionListEventsPageResponse], but gracefully handles missing data.
      *
      * @see MissionListEventsPageResponse.data
      */
-    fun data(): List<MissionListEventsResponse> =
-        response._data().getOptional("data").getOrNull() ?: emptyList()
+    fun data(): List<EventData> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [MissionListEventsPageResponse], but gracefully handles missing data.
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<Meta> = response._meta().getOptional("meta")
 
-    override fun items(): List<MissionListEventsResponse> = data()
+    override fun items(): List<EventData> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,8 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<MissionListEventsPageAsync> =
         service.listEvents(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<MissionListEventsResponse> =
-        AutoPagerAsync.from(this, streamHandlerExecutor)
+    fun autoPager(): AutoPagerAsync<EventData> = AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): MissionListEventsParams = params

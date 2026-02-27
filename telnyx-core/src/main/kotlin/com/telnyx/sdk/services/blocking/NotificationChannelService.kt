@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.notificationchannels.NotificationChannelUpdateParam
 import com.telnyx.sdk.models.notificationchannels.NotificationChannelUpdateResponse
 import java.util.function.Consumer
 
+/** Notification settings operations */
 interface NotificationChannelService {
 
     /**

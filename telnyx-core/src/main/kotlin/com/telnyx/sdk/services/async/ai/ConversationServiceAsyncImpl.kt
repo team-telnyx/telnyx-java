@@ -39,6 +39,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Manage historical AI assistant conversations */
 class ConversationServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ConversationServiceAsync {
 
@@ -59,10 +60,13 @@ class ConversationServiceAsyncImpl internal constructor(private val clientOption
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConversationServiceAsync =
         ConversationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Manage historical AI assistant conversations */
     override fun insightGroups(): InsightGroupServiceAsync = insightGroups
 
+    /** Manage historical AI assistant conversations */
     override fun insights(): InsightServiceAsync = insights
 
+    /** Manage historical AI assistant conversations */
     override fun messages(): MessageServiceAsync = messages
 
     override fun create(
@@ -141,10 +145,13 @@ class ConversationServiceAsyncImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Manage historical AI assistant conversations */
         override fun insightGroups(): InsightGroupServiceAsync.WithRawResponse = insightGroups
 
+        /** Manage historical AI assistant conversations */
         override fun insights(): InsightServiceAsync.WithRawResponse = insights
 
+        /** Manage historical AI assistant conversations */
         override fun messages(): MessageServiceAsync.WithRawResponse = messages
 
         private val createHandler: Handler<Conversation> =

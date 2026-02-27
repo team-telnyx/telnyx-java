@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.callevents.CallEventListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Call Control debugging */
 class CallEventServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     CallEventServiceAsync {
 

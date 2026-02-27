@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationUpdat
 import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationUpdateResponse
 import java.util.function.Consumer
 
+/** Call Control applications operations */
 interface CallControlApplicationService {
 
     /**

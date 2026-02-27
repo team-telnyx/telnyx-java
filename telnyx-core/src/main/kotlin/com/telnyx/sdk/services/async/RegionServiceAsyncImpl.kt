@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.regions.RegionListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Regions */
 class RegionServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     RegionServiceAsync {
 

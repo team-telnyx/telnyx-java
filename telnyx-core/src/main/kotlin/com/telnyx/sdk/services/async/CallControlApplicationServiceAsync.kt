@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.callcontrolapplications.CallControlApplicationUpdat
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Call Control applications operations */
 interface CallControlApplicationServiceAsync {
 
     /**

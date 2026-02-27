@@ -19,11 +19,9 @@ internal class CommentCreateResponseTest {
                         .id("12ade33a-21c0-473b-b055-b3c836e1c292")
                         .commentBody("Hi there, ....")
                         .commentRecordId("8ffb3622-7c6b-4ccc-b65f-7a3dc0099576")
-                        .commentRecordType(
-                            CommentCreateResponse.Data.CommentRecordType.SUB_NUMBER_ORDER
-                        )
+                        .commentRecordType(Comment.CommentRecordType.SUB_NUMBER_ORDER)
                         .commenter("user@company.com")
-                        .commenterType(CommentCreateResponse.Data.CommenterType.USER)
+                        .commenterType(Comment.CommenterType.USER)
                         .createdAt(OffsetDateTime.parse("2018-01-01T00:00:00.000000Z"))
                         .readAt(OffsetDateTime.parse("2018-01-01T00:00:00.000000Z"))
                         .updatedAt(OffsetDateTime.parse("2018-01-01T00:00:00.000000Z"))
@@ -37,11 +35,9 @@ internal class CommentCreateResponseTest {
                     .id("12ade33a-21c0-473b-b055-b3c836e1c292")
                     .commentBody("Hi there, ....")
                     .commentRecordId("8ffb3622-7c6b-4ccc-b65f-7a3dc0099576")
-                    .commentRecordType(
-                        CommentCreateResponse.Data.CommentRecordType.SUB_NUMBER_ORDER
-                    )
+                    .commentRecordType(Comment.CommentRecordType.SUB_NUMBER_ORDER)
                     .commenter("user@company.com")
-                    .commenterType(CommentCreateResponse.Data.CommenterType.USER)
+                    .commenterType(Comment.CommenterType.USER)
                     .createdAt(OffsetDateTime.parse("2018-01-01T00:00:00.000000Z"))
                     .readAt(OffsetDateTime.parse("2018-01-01T00:00:00.000000Z"))
                     .updatedAt(OffsetDateTime.parse("2018-01-01T00:00:00.000000Z"))
@@ -59,11 +55,9 @@ internal class CommentCreateResponseTest {
                         .id("12ade33a-21c0-473b-b055-b3c836e1c292")
                         .commentBody("Hi there, ....")
                         .commentRecordId("8ffb3622-7c6b-4ccc-b65f-7a3dc0099576")
-                        .commentRecordType(
-                            CommentCreateResponse.Data.CommentRecordType.SUB_NUMBER_ORDER
-                        )
+                        .commentRecordType(Comment.CommentRecordType.SUB_NUMBER_ORDER)
                         .commenter("user@company.com")
-                        .commenterType(CommentCreateResponse.Data.CommenterType.USER)
+                        .commenterType(Comment.CommenterType.USER)
                         .createdAt(OffsetDateTime.parse("2018-01-01T00:00:00.000000Z"))
                         .readAt(OffsetDateTime.parse("2018-01-01T00:00:00.000000Z"))
                         .updatedAt(OffsetDateTime.parse("2018-01-01T00:00:00.000000Z"))

@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.billinggroups.BillingGroupUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Billing groups operations */
 class BillingGroupServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     BillingGroupService {
 

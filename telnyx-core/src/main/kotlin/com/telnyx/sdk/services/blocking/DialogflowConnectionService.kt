@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionUpdatePar
 import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionUpdateResponse
 import java.util.function.Consumer
 
+/** Dialogflow Connection Operations. */
 interface DialogflowConnectionService {
 
     /**

@@ -15,6 +15,7 @@ import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.Meta
+import com.telnyx.sdk.models.ai.missions.runs.events.EventData
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -22,16 +23,14 @@ import kotlin.jvm.optionals.getOrNull
 class MissionListEventsPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<MissionListEventsResponse>>,
+    private val data: JsonField<List<EventData>>,
     private val meta: JsonField<Meta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data")
-        @ExcludeMissing
-        data: JsonField<List<MissionListEventsResponse>> = JsonMissing.of(),
+        @JsonProperty("data") @ExcludeMissing data: JsonField<List<EventData>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<Meta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -39,7 +38,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun data(): List<MissionListEventsResponse> = data.getRequired("data")
+    fun data(): List<EventData> = data.getRequired("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
@@ -52,9 +51,7 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data")
-    @ExcludeMissing
-    fun _data(): JsonField<List<MissionListEventsResponse>> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<EventData>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -93,7 +90,7 @@ private constructor(
     /** A builder for [MissionListEventsPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<MissionListEventsResponse>>? = null
+        private var data: JsonField<MutableList<EventData>>? = null
         private var meta: JsonField<Meta>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -104,25 +101,25 @@ private constructor(
             additionalProperties = missionListEventsPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<MissionListEventsResponse>) = data(JsonField.of(data))
+        fun data(data: List<EventData>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed
-         * `List<MissionListEventsResponse>` value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
+         * You should usually call [Builder.data] with a well-typed `List<EventData>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun data(data: JsonField<List<MissionListEventsResponse>>) = apply {
+        fun data(data: JsonField<List<EventData>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [MissionListEventsResponse] to [Builder.data].
+         * Adds a single [EventData] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: MissionListEventsResponse) = apply {
+        fun addData(data: EventData) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

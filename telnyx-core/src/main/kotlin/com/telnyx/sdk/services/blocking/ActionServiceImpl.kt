@@ -25,8 +25,10 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionService =
         ActionServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** SIM Cards operations */
     override fun purchase(): PurchaseService = purchase
 
+    /** SIM Cards operations */
     override fun register(): RegisterService = register
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -47,8 +49,10 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** SIM Cards operations */
         override fun purchase(): PurchaseService.WithRawResponse = purchase
 
+        /** SIM Cards operations */
         override fun register(): RegisterService.WithRawResponse = register
     }
 }

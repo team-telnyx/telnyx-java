@@ -23,6 +23,7 @@ import com.telnyx.sdk.services.async.ai.OpenAIServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Generate text with LLMs */
 interface AiServiceAsync {
 
     /**
@@ -37,16 +38,22 @@ interface AiServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiServiceAsync
 
+    /** Configure AI assistant specifications */
     fun assistants(): AssistantServiceAsync
 
+    /** Turn audio into text or text into audio. */
     fun audio(): AudioServiceAsync
 
+    /** Generate text with LLMs */
     fun chat(): ChatServiceAsync
 
+    /** Identify common themes and patterns in your embedded documents */
     fun clusters(): ClusterServiceAsync
 
+    /** Manage historical AI assistant conversations */
     fun conversations(): ConversationServiceAsync
 
+    /** Embed documents and perform text searches */
     fun embeddings(): EmbeddingServiceAsync
 
     fun fineTuning(): FineTuningServiceAsync
@@ -114,16 +121,22 @@ interface AiServiceAsync {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiServiceAsync.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun assistants(): AssistantServiceAsync.WithRawResponse
 
+        /** Turn audio into text or text into audio. */
         fun audio(): AudioServiceAsync.WithRawResponse
 
+        /** Generate text with LLMs */
         fun chat(): ChatServiceAsync.WithRawResponse
 
+        /** Identify common themes and patterns in your embedded documents */
         fun clusters(): ClusterServiceAsync.WithRawResponse
 
+        /** Manage historical AI assistant conversations */
         fun conversations(): ConversationServiceAsync.WithRawResponse
 
+        /** Embed documents and perform text searches */
         fun embeddings(): EmbeddingServiceAsync.WithRawResponse
 
         fun fineTuning(): FineTuningServiceAsync.WithRawResponse

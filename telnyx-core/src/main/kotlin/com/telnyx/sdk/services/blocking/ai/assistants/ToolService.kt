@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.ai.assistants.tools.ToolTestParams
 import com.telnyx.sdk.models.ai.assistants.tools.ToolTestResponse
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 interface ToolService {
 
     /**

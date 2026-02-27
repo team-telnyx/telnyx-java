@@ -16,6 +16,7 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.speechtotext.SpeechToTextTranscribeParams
 import java.util.function.Consumer
 
+/** Speech to text command operations */
 class SpeechToTextServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     SpeechToTextService {
 

@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.networks.defaultgateway.DefaultGatewayRetrieveRespo
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Network operations */
 interface DefaultGatewayServiceAsync {
 
     /**

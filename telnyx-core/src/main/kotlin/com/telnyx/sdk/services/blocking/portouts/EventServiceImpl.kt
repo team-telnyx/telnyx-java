@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.portouts.events.EventRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Number portout operations */
 class EventServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     EventService {
 

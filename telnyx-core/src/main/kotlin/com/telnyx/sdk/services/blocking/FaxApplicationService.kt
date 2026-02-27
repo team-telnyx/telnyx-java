@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.faxapplications.FaxApplicationUpdateParams
 import com.telnyx.sdk.models.faxapplications.FaxApplicationUpdateResponse
 import java.util.function.Consumer
 
+/** Fax Applications operations */
 interface FaxApplicationService {
 
     /**

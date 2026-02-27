@@ -17,6 +17,7 @@ import com.telnyx.sdk.models.ai.conversations.insightgroups.InsightTemplateGroup
 import com.telnyx.sdk.services.blocking.ai.conversations.insightgroups.InsightService
 import java.util.function.Consumer
 
+/** Manage historical AI assistant conversations */
 interface InsightGroupService {
 
     /**
@@ -31,6 +32,7 @@ interface InsightGroupService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): InsightGroupService
 
+    /** Manage historical AI assistant conversations */
     fun insights(): InsightService
 
     /** Get insight group by ID */
@@ -173,6 +175,7 @@ interface InsightGroupService {
             modifier: Consumer<ClientOptions.Builder>
         ): InsightGroupService.WithRawResponse
 
+        /** Manage historical AI assistant conversations */
         fun insights(): InsightService.WithRawResponse
 
         /**

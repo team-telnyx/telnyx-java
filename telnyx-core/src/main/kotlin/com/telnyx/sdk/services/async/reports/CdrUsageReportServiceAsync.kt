@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.reports.cdrusagereports.CdrUsageReportFetchSyncResp
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Voice usage reports */
 interface CdrUsageReportServiceAsync {
 
     /**

@@ -24,6 +24,7 @@ import com.telnyx.sdk.services.blocking.texml.accounts.calls.SiprecService
 import com.telnyx.sdk.services.blocking.texml.accounts.calls.StreamService
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface CallService {
 
     /**
@@ -38,12 +39,16 @@ interface CallService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallService
 
+    /** TeXML REST Commands */
     fun recordingsJson(): RecordingsJsonService
 
+    /** TeXML REST Commands */
     fun recordings(): RecordingService
 
+    /** TeXML REST Commands */
     fun siprec(): SiprecService
 
+    /** TeXML REST Commands */
     fun streams(): StreamService
 
     /**
@@ -204,12 +209,16 @@ interface CallService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallService.WithRawResponse
 
+        /** TeXML REST Commands */
         fun recordingsJson(): RecordingsJsonService.WithRawResponse
 
+        /** TeXML REST Commands */
         fun recordings(): RecordingService.WithRawResponse
 
+        /** TeXML REST Commands */
         fun siprec(): SiprecService.WithRawResponse
 
+        /** TeXML REST Commands */
         fun streams(): StreamService.WithRawResponse
 
         /**

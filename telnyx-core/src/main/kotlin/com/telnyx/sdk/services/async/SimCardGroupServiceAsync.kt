@@ -19,6 +19,7 @@ import com.telnyx.sdk.services.async.simcardgroups.ActionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** SIM Card Groups operations */
 interface SimCardGroupServiceAsync {
 
     /**

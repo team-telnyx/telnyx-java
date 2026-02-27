@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.portingorders.comments.CommentListPage
 import com.telnyx.sdk.models.portingorders.comments.CommentListParams
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 interface CommentService {
 
     /**

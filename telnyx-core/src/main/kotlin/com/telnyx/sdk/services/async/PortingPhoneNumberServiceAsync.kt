@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 interface PortingPhoneNumberServiceAsync {
 
     /**

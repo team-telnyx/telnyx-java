@@ -22,10 +22,13 @@ interface BatchDetailRecordServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchDetailRecordServiceAsync
 
+    /** Messaging batch detail records */
     fun messaging(): MessagingServiceAsync
 
+    /** Speech to text batch detail records */
     fun speechToText(): SpeechToTextServiceAsync
 
+    /** Voice batch detail records */
     fun voice(): VoiceServiceAsync
 
     /**
@@ -43,10 +46,13 @@ interface BatchDetailRecordServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): BatchDetailRecordServiceAsync.WithRawResponse
 
+        /** Messaging batch detail records */
         fun messaging(): MessagingServiceAsync.WithRawResponse
 
+        /** Speech to text batch detail records */
         fun speechToText(): SpeechToTextServiceAsync.WithRawResponse
 
+        /** Voice batch detail records */
         fun voice(): VoiceServiceAsync.WithRawResponse
     }
 }

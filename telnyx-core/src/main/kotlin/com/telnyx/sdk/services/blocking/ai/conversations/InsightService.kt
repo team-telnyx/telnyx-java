@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.ai.conversations.insights.InsightTemplateDetail
 import com.telnyx.sdk.models.ai.conversations.insights.InsightUpdateParams
 import java.util.function.Consumer
 
+/** Manage historical AI assistant conversations */
 interface InsightService {
 
     /**

@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.texttospeech.TextToSpeechListVoicesResponse
 import com.telnyx.sdk.models.texttospeech.TextToSpeechStreamParams
 import java.util.function.Consumer
 
+/** Text to speech streaming command operations */
 interface TextToSpeechService {
 
     /**
@@ -26,7 +27,13 @@ interface TextToSpeechService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TextToSpeechService
 
-    /** Returns a list of voices that can be used with the text to speech commands. */
+    /**
+     * Retrieve a list of available voices from one or all TTS providers. When `provider` is
+     * specified, returns voices for that provider only. Otherwise, returns voices from all
+     * providers.
+     *
+     * Some providers (ElevenLabs, Resemble) require an API key to list voices.
+     */
     fun listVoices(): TextToSpeechListVoicesResponse =
         listVoices(TextToSpeechListVoicesParams.none())
 

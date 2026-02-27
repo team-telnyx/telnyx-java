@@ -31,6 +31,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Manage historical AI assistant conversations */
 class InsightGroupServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     InsightGroupServiceAsync {
 
@@ -45,6 +46,7 @@ class InsightGroupServiceAsyncImpl internal constructor(private val clientOption
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): InsightGroupServiceAsync =
         InsightGroupServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Manage historical AI assistant conversations */
     override fun insights(): InsightServiceAsync = insights
 
     override fun retrieve(
@@ -99,6 +101,7 @@ class InsightGroupServiceAsyncImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Manage historical AI assistant conversations */
         override fun insights(): InsightServiceAsync.WithRawResponse = insights
 
         private val retrieveHandler: Handler<InsightTemplateGroupDetail> =

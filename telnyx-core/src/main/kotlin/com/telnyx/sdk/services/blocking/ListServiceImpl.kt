@@ -22,6 +22,7 @@ import com.telnyx.sdk.models.list.ListRetrieveByZoneResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Voice Channels */
 class ListServiceImpl internal constructor(private val clientOptions: ClientOptions) : ListService {
 
     private val withRawResponse: ListService.WithRawResponse by lazy {

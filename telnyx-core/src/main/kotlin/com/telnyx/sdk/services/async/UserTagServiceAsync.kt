@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.usertags.UserTagListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** User-defined tags for Telnyx resources */
 interface UserTagServiceAsync {
 
     /**

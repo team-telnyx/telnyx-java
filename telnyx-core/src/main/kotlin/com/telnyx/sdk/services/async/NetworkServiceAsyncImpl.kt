@@ -36,6 +36,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Network operations */
 class NetworkServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     NetworkServiceAsync {
 
@@ -52,6 +53,7 @@ class NetworkServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): NetworkServiceAsync =
         NetworkServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Network operations */
     override fun defaultGateway(): DefaultGatewayServiceAsync = defaultGateway
 
     override fun create(
@@ -113,6 +115,7 @@ class NetworkServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Network operations */
         override fun defaultGateway(): DefaultGatewayServiceAsync.WithRawResponse = defaultGateway
 
         private val createHandler: Handler<NetworkCreateResponse> =

@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.messagingoptouts.MessagingOptoutListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Opt-Out Management */
 interface MessagingOptoutServiceAsync {
 
     /**

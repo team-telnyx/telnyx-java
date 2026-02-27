@@ -56,7 +56,7 @@ internal class VirtualCrossConnectListResponseTest {
         assertThat(virtualCrossConnectListResponse.networkId())
             .contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
         assertThat(virtualCrossConnectListResponse.status()).contains(InterfaceStatus.PROVISIONED)
-        assertThat(virtualCrossConnectListResponse.regionCode()).contains("ashburn-va")
+        assertThat(virtualCrossConnectListResponse.regionCode()).isEqualTo("ashburn-va")
         assertThat(virtualCrossConnectListResponse.bandwidthMbps()).contains(50.0)
         assertThat(virtualCrossConnectListResponse.bgpAsn()).contains(1234.0)
         assertThat(virtualCrossConnectListResponse.cloudProvider())
