@@ -18,6 +18,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** List of available voices. */
 class TextToSpeechListVoicesResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
@@ -161,102 +162,70 @@ private constructor(
     internal fun validity(): Int =
         (voices.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
+    /** A voice available for text-to-speech synthesis. */
     class Voice
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val id: JsonField<String>,
-        private val accent: JsonField<String>,
-        private val age: JsonField<String>,
         private val gender: JsonField<String>,
-        private val label: JsonField<String>,
         private val language: JsonField<String>,
         private val name: JsonField<String>,
         private val provider: JsonField<String>,
+        private val voiceId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("accent") @ExcludeMissing accent: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("age") @ExcludeMissing age: JsonField<String> = JsonMissing.of(),
             @JsonProperty("gender") @ExcludeMissing gender: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
             @JsonProperty("language")
             @ExcludeMissing
             language: JsonField<String> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("provider") @ExcludeMissing provider: JsonField<String> = JsonMissing.of(),
-        ) : this(id, accent, age, gender, label, language, name, provider, mutableMapOf())
+            @JsonProperty("provider")
+            @ExcludeMissing
+            provider: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("voice_id") @ExcludeMissing voiceId: JsonField<String> = JsonMissing.of(),
+        ) : this(gender, language, name, provider, voiceId, mutableMapOf())
 
         /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun id(): Optional<String> = id.getOptional("id")
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun accent(): Optional<String> = accent.getOptional("accent")
-
-        /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun age(): Optional<String> = age.getOptional("age")
-
-        /**
+         * Voice gender.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun gender(): Optional<String> = gender.getOptional("gender")
 
         /**
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun label(): Optional<String> = label.getOptional("label")
-
-        /**
+         * Language code.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun language(): Optional<String> = language.getOptional("language")
 
         /**
+         * Voice name.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun name(): Optional<String> = name.getOptional("name")
 
         /**
+         * The TTS provider.
+         *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun provider(): Optional<String> = provider.getOptional("provider")
 
         /**
-         * Returns the raw JSON value of [id].
+         * Voice identifier.
          *
-         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
-
-        /**
-         * Returns the raw JSON value of [accent].
-         *
-         * Unlike [accent], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("accent") @ExcludeMissing fun _accent(): JsonField<String> = accent
-
-        /**
-         * Returns the raw JSON value of [age].
-         *
-         * Unlike [age], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("age") @ExcludeMissing fun _age(): JsonField<String> = age
+        fun voiceId(): Optional<String> = voiceId.getOptional("voice_id")
 
         /**
          * Returns the raw JSON value of [gender].
@@ -264,13 +233,6 @@ private constructor(
          * Unlike [gender], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("gender") @ExcludeMissing fun _gender(): JsonField<String> = gender
-
-        /**
-         * Returns the raw JSON value of [label].
-         *
-         * Unlike [label], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("label") @ExcludeMissing fun _label(): JsonField<String> = label
 
         /**
          * Returns the raw JSON value of [language].
@@ -293,6 +255,13 @@ private constructor(
          */
         @JsonProperty("provider") @ExcludeMissing fun _provider(): JsonField<String> = provider
 
+        /**
+         * Returns the raw JSON value of [voiceId].
+         *
+         * Unlike [voiceId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("voice_id") @ExcludeMissing fun _voiceId(): JsonField<String> = voiceId
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -314,62 +283,24 @@ private constructor(
         /** A builder for [Voice]. */
         class Builder internal constructor() {
 
-            private var id: JsonField<String> = JsonMissing.of()
-            private var accent: JsonField<String> = JsonMissing.of()
-            private var age: JsonField<String> = JsonMissing.of()
             private var gender: JsonField<String> = JsonMissing.of()
-            private var label: JsonField<String> = JsonMissing.of()
             private var language: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
             private var provider: JsonField<String> = JsonMissing.of()
+            private var voiceId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(voice: Voice) = apply {
-                id = voice.id
-                accent = voice.accent
-                age = voice.age
                 gender = voice.gender
-                label = voice.label
                 language = voice.language
                 name = voice.name
                 provider = voice.provider
+                voiceId = voice.voiceId
                 additionalProperties = voice.additionalProperties.toMutableMap()
             }
 
-            fun id(id: String) = id(JsonField.of(id))
-
-            /**
-             * Sets [Builder.id] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.id] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun id(id: JsonField<String>) = apply { this.id = id }
-
-            fun accent(accent: String) = accent(JsonField.of(accent))
-
-            /**
-             * Sets [Builder.accent] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.accent] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun accent(accent: JsonField<String>) = apply { this.accent = accent }
-
-            fun age(age: String) = age(JsonField.of(age))
-
-            /**
-             * Sets [Builder.age] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.age] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun age(age: JsonField<String>) = apply { this.age = age }
-
+            /** Voice gender. */
             fun gender(gender: String) = gender(JsonField.of(gender))
 
             /**
@@ -381,17 +312,7 @@ private constructor(
              */
             fun gender(gender: JsonField<String>) = apply { this.gender = gender }
 
-            fun label(label: String) = label(JsonField.of(label))
-
-            /**
-             * Sets [Builder.label] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.label] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun label(label: JsonField<String>) = apply { this.label = label }
-
+            /** Language code. */
             fun language(language: String) = language(JsonField.of(language))
 
             /**
@@ -403,6 +324,7 @@ private constructor(
              */
             fun language(language: JsonField<String>) = apply { this.language = language }
 
+            /** Voice name. */
             fun name(name: String) = name(JsonField.of(name))
 
             /**
@@ -414,6 +336,7 @@ private constructor(
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
+            /** The TTS provider. */
             fun provider(provider: String) = provider(JsonField.of(provider))
 
             /**
@@ -424,6 +347,18 @@ private constructor(
              * supported value.
              */
             fun provider(provider: JsonField<String>) = apply { this.provider = provider }
+
+            /** Voice identifier. */
+            fun voiceId(voiceId: String) = voiceId(JsonField.of(voiceId))
+
+            /**
+             * Sets [Builder.voiceId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.voiceId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun voiceId(voiceId: JsonField<String>) = apply { this.voiceId = voiceId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -451,14 +386,11 @@ private constructor(
              */
             fun build(): Voice =
                 Voice(
-                    id,
-                    accent,
-                    age,
                     gender,
-                    label,
                     language,
                     name,
                     provider,
+                    voiceId,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -470,14 +402,11 @@ private constructor(
                 return@apply
             }
 
-            id()
-            accent()
-            age()
             gender()
-            label()
             language()
             name()
             provider()
+            voiceId()
             validated = true
         }
 
@@ -497,14 +426,11 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (id.asKnown().isPresent) 1 else 0) +
-                (if (accent.asKnown().isPresent) 1 else 0) +
-                (if (age.asKnown().isPresent) 1 else 0) +
-                (if (gender.asKnown().isPresent) 1 else 0) +
-                (if (label.asKnown().isPresent) 1 else 0) +
+            (if (gender.asKnown().isPresent) 1 else 0) +
                 (if (language.asKnown().isPresent) 1 else 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
-                (if (provider.asKnown().isPresent) 1 else 0)
+                (if (provider.asKnown().isPresent) 1 else 0) +
+                (if (voiceId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -512,35 +438,22 @@ private constructor(
             }
 
             return other is Voice &&
-                id == other.id &&
-                accent == other.accent &&
-                age == other.age &&
                 gender == other.gender &&
-                label == other.label &&
                 language == other.language &&
                 name == other.name &&
                 provider == other.provider &&
+                voiceId == other.voiceId &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(
-                id,
-                accent,
-                age,
-                gender,
-                label,
-                language,
-                name,
-                provider,
-                additionalProperties,
-            )
+            Objects.hash(gender, language, name, provider, voiceId, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Voice{id=$id, accent=$accent, age=$age, gender=$gender, label=$label, language=$language, name=$name, provider=$provider, additionalProperties=$additionalProperties}"
+            "Voice{gender=$gender, language=$language, name=$name, provider=$provider, voiceId=$voiceId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -11,7 +11,7 @@ internal class TextToSpeechListVoicesParamsTest {
     @Test
     fun create() {
         TextToSpeechListVoicesParams.builder()
-            .elevenlabsApiKeyRef("elevenlabs_api_key_ref")
+            .apiKey("api_key")
             .provider(TextToSpeechListVoicesParams.Provider.AWS)
             .build()
     }
@@ -20,7 +20,7 @@ internal class TextToSpeechListVoicesParamsTest {
     fun queryParams() {
         val params =
             TextToSpeechListVoicesParams.builder()
-                .elevenlabsApiKeyRef("elevenlabs_api_key_ref")
+                .apiKey("api_key")
                 .provider(TextToSpeechListVoicesParams.Provider.AWS)
                 .build()
 
@@ -28,10 +28,7 @@ internal class TextToSpeechListVoicesParamsTest {
 
         assertThat(queryParams)
             .isEqualTo(
-                QueryParams.builder()
-                    .put("elevenlabs_api_key_ref", "elevenlabs_api_key_ref")
-                    .put("provider", "aws")
-                    .build()
+                QueryParams.builder().put("api_key", "api_key").put("provider", "aws").build()
             )
     }
 
