@@ -13,19 +13,24 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns a list of voices that can be used with the text to speech commands. */
+/**
+ * Retrieve a list of available voices from one or all TTS providers. When `provider` is specified,
+ * returns voices for that provider only. Otherwise, returns voices from all providers.
+ *
+ * Some providers (ElevenLabs, Resemble) require an API key to list voices.
+ */
 class TextToSpeechListVoicesParams
 private constructor(
-    private val elevenlabsApiKeyRef: String?,
+    private val apiKey: String?,
     private val provider: Provider?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** Reference to your ElevenLabs API key stored in the Telnyx Portal */
-    fun elevenlabsApiKeyRef(): Optional<String> = Optional.ofNullable(elevenlabsApiKeyRef)
+    /** API key for providers that require one to list voices (e.g. ElevenLabs). */
+    fun apiKey(): Optional<String> = Optional.ofNullable(apiKey)
 
-    /** Filter voices by provider */
+    /** Filter voices by provider. If omitted, voices from all providers are returned. */
     fun provider(): Optional<Provider> = Optional.ofNullable(provider)
 
     /** Additional headers to send with the request. */
@@ -49,31 +54,26 @@ private constructor(
     /** A builder for [TextToSpeechListVoicesParams]. */
     class Builder internal constructor() {
 
-        private var elevenlabsApiKeyRef: String? = null
+        private var apiKey: String? = null
         private var provider: Provider? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(textToSpeechListVoicesParams: TextToSpeechListVoicesParams) = apply {
-            elevenlabsApiKeyRef = textToSpeechListVoicesParams.elevenlabsApiKeyRef
+            apiKey = textToSpeechListVoicesParams.apiKey
             provider = textToSpeechListVoicesParams.provider
             additionalHeaders = textToSpeechListVoicesParams.additionalHeaders.toBuilder()
             additionalQueryParams = textToSpeechListVoicesParams.additionalQueryParams.toBuilder()
         }
 
-        /** Reference to your ElevenLabs API key stored in the Telnyx Portal */
-        fun elevenlabsApiKeyRef(elevenlabsApiKeyRef: String?) = apply {
-            this.elevenlabsApiKeyRef = elevenlabsApiKeyRef
-        }
+        /** API key for providers that require one to list voices (e.g. ElevenLabs). */
+        fun apiKey(apiKey: String?) = apply { this.apiKey = apiKey }
 
-        /**
-         * Alias for calling [Builder.elevenlabsApiKeyRef] with `elevenlabsApiKeyRef.orElse(null)`.
-         */
-        fun elevenlabsApiKeyRef(elevenlabsApiKeyRef: Optional<String>) =
-            elevenlabsApiKeyRef(elevenlabsApiKeyRef.getOrNull())
+        /** Alias for calling [Builder.apiKey] with `apiKey.orElse(null)`. */
+        fun apiKey(apiKey: Optional<String>) = apiKey(apiKey.getOrNull())
 
-        /** Filter voices by provider */
+        /** Filter voices by provider. If omitted, voices from all providers are returned. */
         fun provider(provider: Provider?) = apply { this.provider = provider }
 
         /** Alias for calling [Builder.provider] with `provider.orElse(null)`. */
@@ -184,7 +184,7 @@ private constructor(
          */
         fun build(): TextToSpeechListVoicesParams =
             TextToSpeechListVoicesParams(
-                elevenlabsApiKeyRef,
+                apiKey,
                 provider,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -196,13 +196,13 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
-                elevenlabsApiKeyRef?.let { put("elevenlabs_api_key_ref", it) }
+                apiKey?.let { put("api_key", it) }
                 provider?.let { put("provider", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()
 
-    /** Filter voices by provider */
+    /** Filter voices by provider. If omitted, voices from all providers are returned. */
     class Provider @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -219,11 +219,17 @@ private constructor(
 
             @JvmField val AWS = of("aws")
 
+            @JvmField val TELNYX = of("telnyx")
+
             @JvmField val AZURE = of("azure")
 
             @JvmField val ELEVENLABS = of("elevenlabs")
 
-            @JvmField val TELNYX = of("telnyx")
+            @JvmField val MINIMAX = of("minimax")
+
+            @JvmField val RIME = of("rime")
+
+            @JvmField val RESEMBLE = of("resemble")
 
             @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
         }
@@ -231,9 +237,12 @@ private constructor(
         /** An enum containing [Provider]'s known values. */
         enum class Known {
             AWS,
+            TELNYX,
             AZURE,
             ELEVENLABS,
-            TELNYX,
+            MINIMAX,
+            RIME,
+            RESEMBLE,
         }
 
         /**
@@ -247,9 +256,12 @@ private constructor(
          */
         enum class Value {
             AWS,
+            TELNYX,
             AZURE,
             ELEVENLABS,
-            TELNYX,
+            MINIMAX,
+            RIME,
+            RESEMBLE,
             /** An enum member indicating that [Provider] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -264,9 +276,12 @@ private constructor(
         fun value(): Value =
             when (this) {
                 AWS -> Value.AWS
+                TELNYX -> Value.TELNYX
                 AZURE -> Value.AZURE
                 ELEVENLABS -> Value.ELEVENLABS
-                TELNYX -> Value.TELNYX
+                MINIMAX -> Value.MINIMAX
+                RIME -> Value.RIME
+                RESEMBLE -> Value.RESEMBLE
                 else -> Value._UNKNOWN
             }
 
@@ -282,9 +297,12 @@ private constructor(
         fun known(): Known =
             when (this) {
                 AWS -> Known.AWS
+                TELNYX -> Known.TELNYX
                 AZURE -> Known.AZURE
                 ELEVENLABS -> Known.ELEVENLABS
-                TELNYX -> Known.TELNYX
+                MINIMAX -> Known.MINIMAX
+                RIME -> Known.RIME
+                RESEMBLE -> Known.RESEMBLE
                 else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
             }
 
@@ -346,15 +364,15 @@ private constructor(
         }
 
         return other is TextToSpeechListVoicesParams &&
-            elevenlabsApiKeyRef == other.elevenlabsApiKeyRef &&
+            apiKey == other.apiKey &&
             provider == other.provider &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(elevenlabsApiKeyRef, provider, additionalHeaders, additionalQueryParams)
+        Objects.hash(apiKey, provider, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "TextToSpeechListVoicesParams{elevenlabsApiKeyRef=$elevenlabsApiKeyRef, provider=$provider, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "TextToSpeechListVoicesParams{apiKey=$apiKey, provider=$provider, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

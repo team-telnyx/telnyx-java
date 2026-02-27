@@ -19,7 +19,7 @@ internal class TextToSpeechServiceAsyncTest {
         val responseFuture =
             textToSpeechServiceAsync.listVoices(
                 TextToSpeechListVoicesParams.builder()
-                    .elevenlabsApiKeyRef("elevenlabs_api_key_ref")
+                    .apiKey("api_key")
                     .provider(TextToSpeechListVoicesParams.Provider.AWS)
                     .build()
             )
