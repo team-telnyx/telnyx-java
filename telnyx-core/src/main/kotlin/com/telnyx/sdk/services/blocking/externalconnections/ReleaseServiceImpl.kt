@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.externalconnections.releases.ReleaseRetrieveRespons
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** External Connections operations */
 class ReleaseServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ReleaseService {
 

@@ -13,6 +13,7 @@ import com.telnyx.sdk.models.subnumberordersreport.SubNumberOrdersReportRetrieve
 import com.telnyx.sdk.models.subnumberordersreport.SubNumberOrdersReportRetrieveResponse
 import java.util.function.Consumer
 
+/** Number orders */
 interface SubNumberOrdersReportService {
 
     /**

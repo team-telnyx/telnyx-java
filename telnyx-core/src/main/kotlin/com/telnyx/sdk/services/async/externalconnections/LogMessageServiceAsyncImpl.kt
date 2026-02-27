@@ -27,6 +27,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** External Connections operations */
 class LogMessageServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     LogMessageServiceAsync {
 

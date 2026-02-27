@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionRetri
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Call Recordings operations. */
 interface RecordingTranscriptionServiceAsync {
 
     /**

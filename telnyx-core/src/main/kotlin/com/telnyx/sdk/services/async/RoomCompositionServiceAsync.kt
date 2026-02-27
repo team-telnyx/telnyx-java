@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.roomcompositions.RoomCompositionRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Rooms Compositions operations. */
 interface RoomCompositionServiceAsync {
 
     /**

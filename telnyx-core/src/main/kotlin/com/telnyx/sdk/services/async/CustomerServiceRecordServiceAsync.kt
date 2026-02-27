@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordVerifyP
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Customer Service Record operations */
 interface CustomerServiceRecordServiceAsync {
 
     /**

@@ -32,6 +32,7 @@ import com.telnyx.sdk.services.blocking.texml.accounts.TranscriptionServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML REST Commands */
 class AccountServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AccountService {
 
@@ -56,14 +57,17 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AccountService =
         AccountServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** TeXML REST Commands */
     override fun calls(): CallService = calls
 
+    /** TeXML REST Commands */
     override fun conferences(): ConferenceService = conferences
 
     override fun recordings(): RecordingService = recordings
 
     override fun transcriptions(): TranscriptionService = transcriptions
 
+    /** TeXML REST Commands */
     override fun queues(): QueueService = queues
 
     override fun retrieveRecordingsJson(
@@ -113,14 +117,17 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** TeXML REST Commands */
         override fun calls(): CallService.WithRawResponse = calls
 
+        /** TeXML REST Commands */
         override fun conferences(): ConferenceService.WithRawResponse = conferences
 
         override fun recordings(): RecordingService.WithRawResponse = recordings
 
         override fun transcriptions(): TranscriptionService.WithRawResponse = transcriptions
 
+        /** TeXML REST Commands */
         override fun queues(): QueueService.WithRawResponse = queues
 
         private val retrieveRecordingsJsonHandler: Handler<AccountRetrieveRecordingsJsonResponse> =

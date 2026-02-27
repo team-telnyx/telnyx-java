@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.portingorders.phonenumberextensions.PhoneNumberExte
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Endpoints related to porting orders management. */
 class PhoneNumberExtensionServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : PhoneNumberExtensionService {
 

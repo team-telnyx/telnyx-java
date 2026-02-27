@@ -16,6 +16,7 @@ import com.telnyx.sdk.services.async.verifiednumbers.ActionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Verified Numbers operations */
 interface VerifiedNumberServiceAsync {
 
     /**
@@ -30,6 +31,7 @@ interface VerifiedNumberServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VerifiedNumberServiceAsync
 
+    /** Verified Numbers operations */
     fun actions(): ActionServiceAsync
 
     /**
@@ -153,6 +155,7 @@ interface VerifiedNumberServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): VerifiedNumberServiceAsync.WithRawResponse
 
+        /** Verified Numbers operations */
         fun actions(): ActionServiceAsync.WithRawResponse
 
         /**

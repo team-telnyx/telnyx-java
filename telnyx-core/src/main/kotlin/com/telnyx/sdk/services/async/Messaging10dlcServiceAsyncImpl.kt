@@ -67,16 +67,21 @@ internal constructor(private val clientOptions: ClientOptions) : Messaging10dlcS
     ): Messaging10dlcServiceAsync =
         Messaging10dlcServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Brand operations */
     override fun brand(): BrandServiceAsync = brand
 
+    /** Campaign operations */
     override fun campaign(): CampaignServiceAsync = campaign
 
+    /** Campaign operations */
     override fun campaignBuilder(): CampaignBuilderServiceAsync = campaignBuilder
 
     override fun partnerCampaigns(): PartnerCampaignServiceAsync = partnerCampaigns
 
+    /** Phone number campaign assignment */
     override fun phoneNumberCampaigns(): PhoneNumberCampaignServiceAsync = phoneNumberCampaigns
 
+    /** Phone number campaign bulk assignment */
     override fun phoneNumberAssignmentByProfile(): PhoneNumberAssignmentByProfileServiceAsync =
         phoneNumberAssignmentByProfile
 
@@ -125,19 +130,24 @@ internal constructor(private val clientOptions: ClientOptions) : Messaging10dlcS
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Brand operations */
         override fun brand(): BrandServiceAsync.WithRawResponse = brand
 
+        /** Campaign operations */
         override fun campaign(): CampaignServiceAsync.WithRawResponse = campaign
 
+        /** Campaign operations */
         override fun campaignBuilder(): CampaignBuilderServiceAsync.WithRawResponse =
             campaignBuilder
 
         override fun partnerCampaigns(): PartnerCampaignServiceAsync.WithRawResponse =
             partnerCampaigns
 
+        /** Phone number campaign assignment */
         override fun phoneNumberCampaigns(): PhoneNumberCampaignServiceAsync.WithRawResponse =
             phoneNumberCampaigns
 
+        /** Phone number campaign bulk assignment */
         override fun phoneNumberAssignmentByProfile():
             PhoneNumberAssignmentByProfileServiceAsync.WithRawResponse =
             phoneNumberAssignmentByProfile

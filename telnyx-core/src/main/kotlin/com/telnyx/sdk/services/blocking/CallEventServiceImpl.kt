@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.callevents.CallEventListPageResponse
 import com.telnyx.sdk.models.callevents.CallEventListParams
 import java.util.function.Consumer
 
+/** Call Control debugging */
 class CallEventServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CallEventService {
 

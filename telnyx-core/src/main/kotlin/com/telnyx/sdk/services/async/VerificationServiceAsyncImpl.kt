@@ -30,6 +30,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Two factor authentication API */
 class VerificationServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     VerificationServiceAsync {
 
@@ -48,8 +49,10 @@ class VerificationServiceAsyncImpl internal constructor(private val clientOption
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): VerificationServiceAsync =
         VerificationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Two factor authentication API */
     override fun byPhoneNumber(): ByPhoneNumberServiceAsync = byPhoneNumber
 
+    /** Two factor authentication API */
     override fun actions(): ActionServiceAsync = actions
 
     override fun retrieve(
@@ -101,8 +104,10 @@ class VerificationServiceAsyncImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Two factor authentication API */
         override fun byPhoneNumber(): ByPhoneNumberServiceAsync.WithRawResponse = byPhoneNumber
 
+        /** Two factor authentication API */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         private val retrieveHandler: Handler<VerificationRetrieveResponse> =

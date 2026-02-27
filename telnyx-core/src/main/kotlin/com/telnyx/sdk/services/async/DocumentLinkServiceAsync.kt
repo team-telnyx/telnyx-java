@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.documentlinks.DocumentLinkListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Documents */
 interface DocumentLinkServiceAsync {
 
     /**

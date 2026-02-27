@@ -28,6 +28,7 @@ import com.telnyx.sdk.models.roomrecordings.RoomRecordingRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Rooms Recordings operations. */
 class RoomRecordingServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RoomRecordingService {
 

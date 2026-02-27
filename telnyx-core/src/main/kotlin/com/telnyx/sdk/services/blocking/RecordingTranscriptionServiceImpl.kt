@@ -25,6 +25,7 @@ import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionRetri
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Call Recordings operations. */
 class RecordingTranscriptionServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : RecordingTranscriptionService {
 

@@ -11,6 +11,7 @@ import com.telnyx.sdk.models.messaging10dlc.campaignbuilder.CampaignBuilderSubmi
 import com.telnyx.sdk.services.blocking.messaging10dlc.campaignbuilder.BrandService
 import java.util.function.Consumer
 
+/** Campaign operations */
 interface CampaignBuilderService {
 
     /**
@@ -25,6 +26,7 @@ interface CampaignBuilderService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CampaignBuilderService
 
+    /** Campaign operations */
     fun brand(): BrandService
 
     /**
@@ -61,6 +63,7 @@ interface CampaignBuilderService {
             modifier: Consumer<ClientOptions.Builder>
         ): CampaignBuilderService.WithRawResponse
 
+        /** Campaign operations */
         fun brand(): BrandService.WithRawResponse
 
         /**

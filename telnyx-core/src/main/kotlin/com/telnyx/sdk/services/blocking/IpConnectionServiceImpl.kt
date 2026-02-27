@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.ipconnections.IpConnectionUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** IP connection operations */
 class IpConnectionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     IpConnectionService {
 

@@ -57,6 +57,7 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessageService =
         MessageServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Send RCS messages */
     override fun rcs(): RcService = rcs
 
     override fun retrieve(
@@ -153,6 +154,7 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Send RCS messages */
         override fun rcs(): RcService.WithRawResponse = rcs
 
         private val retrieveHandler: Handler<MessageRetrieveResponse> =

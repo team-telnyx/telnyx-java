@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.messagingtollfree.verification.requests.Verificatio
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Manage your tollfree verification requests */
 interface RequestServiceAsync {
 
     /**

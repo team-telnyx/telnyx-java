@@ -13,6 +13,7 @@ import com.telnyx.sdk.services.async.storage.MigrationSourceServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Migrate data from an external provider into Telnyx Cloud Storage */
 interface StorageServiceAsync {
 
     /**
@@ -27,10 +28,13 @@ interface StorageServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): StorageServiceAsync
 
+    /** Presigned object URL operations */
     fun buckets(): BucketServiceAsync
 
+    /** Migrate data from an external provider into Telnyx Cloud Storage */
     fun migrationSources(): MigrationSourceServiceAsync
 
+    /** Migrate data from an external provider into Telnyx Cloud Storage */
     fun migrations(): MigrationServiceAsync
 
     /** List Migration Source coverage */
@@ -72,10 +76,13 @@ interface StorageServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): StorageServiceAsync.WithRawResponse
 
+        /** Presigned object URL operations */
         fun buckets(): BucketServiceAsync.WithRawResponse
 
+        /** Migrate data from an external provider into Telnyx Cloud Storage */
         fun migrationSources(): MigrationSourceServiceAsync.WithRawResponse
 
+        /** Migrate data from an external provider into Telnyx Cloud Storage */
         fun migrations(): MigrationServiceAsync.WithRawResponse
 
         /**

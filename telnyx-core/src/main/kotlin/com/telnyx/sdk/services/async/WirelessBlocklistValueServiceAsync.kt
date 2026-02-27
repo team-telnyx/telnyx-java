@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.wirelessblocklistvalues.WirelessBlocklistValueListR
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Wireless Blocklists operations */
 interface WirelessBlocklistValueServiceAsync {
 
     /**

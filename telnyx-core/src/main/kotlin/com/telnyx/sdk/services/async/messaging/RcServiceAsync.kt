@@ -15,6 +15,7 @@ import com.telnyx.sdk.services.async.messaging.rcs.AgentServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Send RCS messages */
 interface RcServiceAsync {
 
     /**
@@ -29,6 +30,7 @@ interface RcServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RcServiceAsync
 
+    /** Send RCS messages */
     fun agents(): AgentServiceAsync
 
     /** Adds a test phone number to an RCS agent for testing purposes. */
@@ -107,6 +109,7 @@ interface RcServiceAsync {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): RcServiceAsync.WithRawResponse
 
+        /** Send RCS messages */
         fun agents(): AgentServiceAsync.WithRawResponse
 
         /**

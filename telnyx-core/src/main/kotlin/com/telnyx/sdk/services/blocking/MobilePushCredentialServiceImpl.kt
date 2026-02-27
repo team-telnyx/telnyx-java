@@ -27,6 +27,7 @@ import com.telnyx.sdk.models.mobilepushcredentials.PushCredentialResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Mobile push credential management */
 class MobilePushCredentialServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : MobilePushCredentialService {
 

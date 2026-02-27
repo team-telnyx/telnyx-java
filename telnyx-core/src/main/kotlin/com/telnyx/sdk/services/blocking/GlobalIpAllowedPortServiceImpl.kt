@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.globalipallowedports.GlobalIpAllowedPortListParams
 import com.telnyx.sdk.models.globalipallowedports.GlobalIpAllowedPortListResponse
 import java.util.function.Consumer
 
+/** Global IPs */
 class GlobalIpAllowedPortServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : GlobalIpAllowedPortService {
 

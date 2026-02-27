@@ -37,6 +37,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Manage your messaging hosted numbers */
 class MessagingHostedNumberOrderServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
     MessagingHostedNumberOrderServiceAsync {
@@ -57,6 +58,7 @@ internal constructor(private val clientOptions: ClientOptions) :
             clientOptions.toBuilder().apply(modifier::accept).build()
         )
 
+    /** Manage your messaging hosted numbers */
     override fun actions(): ActionServiceAsync = actions
 
     override fun create(
@@ -125,6 +127,7 @@ internal constructor(private val clientOptions: ClientOptions) :
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Manage your messaging hosted numbers */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         private val createHandler: Handler<MessagingHostedNumberOrderCreateResponse> =

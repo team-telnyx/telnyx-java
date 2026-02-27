@@ -17,6 +17,7 @@ import com.telnyx.sdk.models.faxes.FaxRetrieveResponse
 import com.telnyx.sdk.services.blocking.faxes.ActionService
 import java.util.function.Consumer
 
+/** Programmable fax command operations */
 interface FaxService {
 
     /**
@@ -31,6 +32,7 @@ interface FaxService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FaxService
 
+    /** Programmable fax command operations */
     fun actions(): ActionService
 
     /**
@@ -134,6 +136,7 @@ interface FaxService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): FaxService.WithRawResponse
 
+        /** Programmable fax command operations */
         fun actions(): ActionService.WithRawResponse
 
         /**

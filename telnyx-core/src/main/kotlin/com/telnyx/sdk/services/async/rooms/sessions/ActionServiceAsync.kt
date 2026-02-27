@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.rooms.sessions.actions.ActionUnmuteResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Rooms Sessions operations. */
 interface ActionServiceAsync {
 
     /**

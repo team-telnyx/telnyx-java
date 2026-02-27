@@ -26,6 +26,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Network operations */
 class DefaultGatewayServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : DefaultGatewayServiceAsync {
 

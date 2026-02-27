@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCo
 import com.telnyx.sdk.models.virtualcrossconnectscoverage.VirtualCrossConnectsCoverageListParams
 import java.util.function.Consumer
 
+/** Virtual Cross Connect operations */
 class VirtualCrossConnectsCoverageServiceImpl
 internal constructor(private val clientOptions: ClientOptions) :
     VirtualCrossConnectsCoverageService {

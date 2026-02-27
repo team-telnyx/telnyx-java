@@ -17,6 +17,7 @@ import com.telnyx.sdk.services.async.faxes.ActionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Programmable fax command operations */
 interface FaxServiceAsync {
 
     /**
@@ -31,6 +32,7 @@ interface FaxServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FaxServiceAsync
 
+    /** Programmable fax command operations */
     fun actions(): ActionServiceAsync
 
     /**
@@ -146,6 +148,7 @@ interface FaxServiceAsync {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): FaxServiceAsync.WithRawResponse
 
+        /** Programmable fax command operations */
         fun actions(): ActionServiceAsync.WithRawResponse
 
         /**

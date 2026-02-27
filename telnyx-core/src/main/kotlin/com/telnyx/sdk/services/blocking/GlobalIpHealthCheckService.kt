@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckRetrievePar
 import com.telnyx.sdk.models.globaliphealthchecks.GlobalIpHealthCheckRetrieveResponse
 import java.util.function.Consumer
 
+/** Global IPs */
 interface GlobalIpHealthCheckService {
 
     /**

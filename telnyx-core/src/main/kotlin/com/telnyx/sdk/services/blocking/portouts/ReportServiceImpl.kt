@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.portouts.reports.ReportRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Number portout operations */
 class ReportServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ReportService {
 

@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.customstoragecredentials.CustomStorageCredentialUpd
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Call Recordings operations. */
 interface CustomStorageCredentialServiceAsync {
 
     /**

@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.externalconnections.logmessages.LogMessageRetrieveR
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** External Connections operations */
 class LogMessageServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     LogMessageService {
 

@@ -21,8 +21,10 @@ interface ActionService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionService
 
+    /** SIM Cards operations */
     fun purchase(): PurchaseService
 
+    /** SIM Cards operations */
     fun register(): RegisterService
 
     /** A view of [ActionService] that provides access to raw HTTP responses for each method. */
@@ -35,8 +37,10 @@ interface ActionService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionService.WithRawResponse
 
+        /** SIM Cards operations */
         fun purchase(): PurchaseService.WithRawResponse
 
+        /** SIM Cards operations */
         fun register(): RegisterService.WithRawResponse
     }
 }

@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.messaging10dlc.campaignbuilder.brand.BrandQualifyBy
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Campaign operations */
 class BrandServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     BrandService {
 

@@ -20,6 +20,7 @@ import com.telnyx.sdk.services.blocking.rooms.ActionService
 import com.telnyx.sdk.services.blocking.rooms.SessionService
 import java.util.function.Consumer
 
+/** Rooms operations. */
 interface RoomService {
 
     /**
@@ -34,6 +35,7 @@ interface RoomService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RoomService
 
+    /** Rooms Client Tokens operations. */
     fun actions(): ActionService
 
     fun sessions(): SessionService
@@ -168,6 +170,7 @@ interface RoomService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): RoomService.WithRawResponse
 
+        /** Rooms Client Tokens operations. */
         fun actions(): ActionService.WithRawResponse
 
         fun sessions(): SessionService.WithRawResponse

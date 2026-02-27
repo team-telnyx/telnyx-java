@@ -24,6 +24,7 @@ import com.telnyx.sdk.services.blocking.porting.ReportService
 import com.telnyx.sdk.services.blocking.porting.ReportServiceImpl
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 class PortingServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     PortingService {
 
@@ -44,10 +45,13 @@ class PortingServiceImpl internal constructor(private val clientOptions: ClientO
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortingService =
         PortingServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Endpoints related to porting orders management. */
     override fun events(): EventService = events
 
+    /** Endpoints related to porting orders management. */
     override fun reports(): ReportService = reports
 
+    /** Endpoints related to porting orders management. */
     override fun loaConfigurations(): LoaConfigurationService = loaConfigurations
 
     override fun listUkCarriers(
@@ -82,10 +86,13 @@ class PortingServiceImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Endpoints related to porting orders management. */
         override fun events(): EventService.WithRawResponse = events
 
+        /** Endpoints related to porting orders management. */
         override fun reports(): ReportService.WithRawResponse = reports
 
+        /** Endpoints related to porting orders management. */
         override fun loaConfigurations(): LoaConfigurationService.WithRawResponse =
             loaConfigurations
 

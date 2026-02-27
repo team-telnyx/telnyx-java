@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.texml.accounts.calls.streams.StreamStreamingSidJson
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML REST Commands */
 class StreamServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     StreamService {
 

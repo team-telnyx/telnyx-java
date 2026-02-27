@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.fqdns.FqdnUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** FQDN operations */
 class FqdnServiceImpl internal constructor(private val clientOptions: ClientOptions) : FqdnService {
 
     private val withRawResponse: FqdnService.WithRawResponse by lazy {

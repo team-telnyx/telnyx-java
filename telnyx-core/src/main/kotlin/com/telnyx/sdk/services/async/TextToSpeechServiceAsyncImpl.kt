@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.texttospeech.TextToSpeechStreamParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Text to speech streaming command operations */
 class TextToSpeechServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     TextToSpeechServiceAsync {
 

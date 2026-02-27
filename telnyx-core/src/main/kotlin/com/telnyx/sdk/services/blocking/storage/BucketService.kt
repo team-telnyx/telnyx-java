@@ -12,6 +12,7 @@ import com.telnyx.sdk.services.blocking.storage.buckets.SslCertificateService
 import com.telnyx.sdk.services.blocking.storage.buckets.UsageService
 import java.util.function.Consumer
 
+/** Presigned object URL operations */
 interface BucketService {
 
     /**
@@ -26,8 +27,10 @@ interface BucketService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BucketService
 
+    /** SSL certificate operations */
     fun sslCertificate(): SslCertificateService
 
+    /** Bucket Usage operations */
     fun usage(): UsageService
 
     /**
@@ -73,8 +76,10 @@ interface BucketService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): BucketService.WithRawResponse
 
+        /** SSL certificate operations */
         fun sslCertificate(): SslCertificateService.WithRawResponse
 
+        /** Bucket Usage operations */
         fun usage(): UsageService.WithRawResponse
 
         /**

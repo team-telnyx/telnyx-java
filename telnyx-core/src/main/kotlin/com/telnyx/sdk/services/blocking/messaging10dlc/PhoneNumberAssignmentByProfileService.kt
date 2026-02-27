@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.messaging10dlc.phonenumberassignmentbyprofile.Phone
 import com.telnyx.sdk.models.messaging10dlc.phonenumberassignmentbyprofile.PhoneNumberAssignmentByProfileRetrieveStatusResponse
 import java.util.function.Consumer
 
+/** Phone number campaign bulk assignment */
 interface PhoneNumberAssignmentByProfileService {
 
     /**

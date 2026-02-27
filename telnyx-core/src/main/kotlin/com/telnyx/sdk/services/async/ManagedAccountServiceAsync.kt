@@ -21,6 +21,7 @@ import com.telnyx.sdk.services.async.managedaccounts.ActionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Managed Accounts operations */
 interface ManagedAccountServiceAsync {
 
     /**
@@ -35,6 +36,7 @@ interface ManagedAccountServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ManagedAccountServiceAsync
 
+    /** Managed Accounts operations */
     fun actions(): ActionServiceAsync
 
     /**
@@ -243,6 +245,7 @@ interface ManagedAccountServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): ManagedAccountServiceAsync.WithRawResponse
 
+        /** Managed Accounts operations */
         fun actions(): ActionServiceAsync.WithRawResponse
 
         /**

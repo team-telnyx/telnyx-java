@@ -37,6 +37,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Number portout operations */
 class PortoutServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     PortoutServiceAsync {
 
@@ -59,12 +60,16 @@ class PortoutServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortoutServiceAsync =
         PortoutServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Number portout operations */
     override fun events(): EventServiceAsync = events
 
+    /** Number portout operations */
     override fun reports(): ReportServiceAsync = reports
 
+    /** Number portout operations */
     override fun comments(): CommentServiceAsync = comments
 
+    /** Number portout operations */
     override fun supportingDocuments(): SupportingDocumentServiceAsync = supportingDocuments
 
     override fun retrieve(
@@ -124,12 +129,16 @@ class PortoutServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Number portout operations */
         override fun events(): EventServiceAsync.WithRawResponse = events
 
+        /** Number portout operations */
         override fun reports(): ReportServiceAsync.WithRawResponse = reports
 
+        /** Number portout operations */
         override fun comments(): CommentServiceAsync.WithRawResponse = comments
 
+        /** Number portout operations */
         override fun supportingDocuments(): SupportingDocumentServiceAsync.WithRawResponse =
             supportingDocuments
 

@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.globalipassignmentsusage.GlobalIpAssignmentsUsageRe
 import com.telnyx.sdk.models.globalipassignmentsusage.GlobalIpAssignmentsUsageRetrieveResponse
 import java.util.function.Consumer
 
+/** Global IPs */
 class GlobalIpAssignmentsUsageServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : GlobalIpAssignmentsUsageService {
 

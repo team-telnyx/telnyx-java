@@ -20,6 +20,7 @@ interface OpenAIServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OpenAIServiceAsync
 
+    /** OpenAI-compatible embeddings endpoints for generating vector representations of text */
     fun embeddings(): EmbeddingServiceAsync
 
     /**
@@ -36,6 +37,7 @@ interface OpenAIServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): OpenAIServiceAsync.WithRawResponse
 
+        /** OpenAI-compatible embeddings endpoints for generating vector representations of text */
         fun embeddings(): EmbeddingServiceAsync.WithRawResponse
     }
 }

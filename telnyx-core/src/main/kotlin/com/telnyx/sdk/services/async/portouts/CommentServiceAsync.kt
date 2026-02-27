@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.portouts.comments.CommentListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Number portout operations */
 interface CommentServiceAsync {
 
     /**

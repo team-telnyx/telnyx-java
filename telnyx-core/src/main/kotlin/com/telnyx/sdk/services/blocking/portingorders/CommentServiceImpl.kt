@@ -24,6 +24,7 @@ import com.telnyx.sdk.models.portingorders.comments.CommentListParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Endpoints related to porting orders management. */
 class CommentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CommentService {
 

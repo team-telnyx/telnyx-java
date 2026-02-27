@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.credentialconnections.actions.ActionCheckRegistrati
 import com.telnyx.sdk.models.credentialconnections.actions.ActionCheckRegistrationStatusResponse
 import java.util.function.Consumer
 
+/** Credential connection operations */
 interface ActionService {
 
     /**

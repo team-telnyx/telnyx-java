@@ -28,6 +28,7 @@ import com.telnyx.sdk.services.blocking.numberreservations.ActionServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Number reservations */
 class NumberReservationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     NumberReservationService {
 
@@ -42,6 +43,7 @@ class NumberReservationServiceImpl internal constructor(private val clientOption
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberReservationService =
         NumberReservationServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Number reservations */
     override fun actions(): ActionService = actions
 
     override fun create(
@@ -82,6 +84,7 @@ class NumberReservationServiceImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Number reservations */
         override fun actions(): ActionService.WithRawResponse = actions
 
         private val createHandler: Handler<NumberReservationCreateResponse> =

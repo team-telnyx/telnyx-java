@@ -16,6 +16,7 @@ import com.telnyx.sdk.services.blocking.verifications.ActionService
 import com.telnyx.sdk.services.blocking.verifications.ByPhoneNumberService
 import java.util.function.Consumer
 
+/** Two factor authentication API */
 interface VerificationService {
 
     /**
@@ -30,8 +31,10 @@ interface VerificationService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VerificationService
 
+    /** Two factor authentication API */
     fun byPhoneNumber(): ByPhoneNumberService
 
+    /** Two factor authentication API */
     fun actions(): ActionService
 
     /** Retrieve verification */
@@ -113,8 +116,10 @@ interface VerificationService {
             modifier: Consumer<ClientOptions.Builder>
         ): VerificationService.WithRawResponse
 
+        /** Two factor authentication API */
         fun byPhoneNumber(): ByPhoneNumberService.WithRawResponse
 
+        /** Two factor authentication API */
         fun actions(): ActionService.WithRawResponse
 
         /**

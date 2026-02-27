@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.globaliplatency.GlobalIpLatencyRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Global IPs */
 class GlobalIpLatencyServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : GlobalIpLatencyServiceAsync {
 

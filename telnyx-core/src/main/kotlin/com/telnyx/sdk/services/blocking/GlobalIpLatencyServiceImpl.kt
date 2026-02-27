@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.globaliplatency.GlobalIpLatencyRetrieveParams
 import com.telnyx.sdk.models.globaliplatency.GlobalIpLatencyRetrieveResponse
 import java.util.function.Consumer
 
+/** Global IPs */
 class GlobalIpLatencyServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     GlobalIpLatencyService {
 

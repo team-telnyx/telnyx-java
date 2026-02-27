@@ -28,6 +28,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Phone number campaign assignment */
 class PhoneNumberCampaignServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : PhoneNumberCampaignServiceAsync {
 

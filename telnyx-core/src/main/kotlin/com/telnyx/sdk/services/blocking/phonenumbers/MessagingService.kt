@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.phonenumbers.messaging.MessagingUpdateParams
 import com.telnyx.sdk.models.phonenumbers.messaging.MessagingUpdateResponse
 import java.util.function.Consumer
 
+/** Configure your phone numbers */
 interface MessagingService {
 
     /**

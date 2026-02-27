@@ -20,6 +20,7 @@ interface PhoneNumberBlockService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhoneNumberBlockService
 
+    /** Background jobs performed over a phone-numbers block's phone numbers */
     fun jobs(): JobService
 
     /**
@@ -37,6 +38,7 @@ interface PhoneNumberBlockService {
             modifier: Consumer<ClientOptions.Builder>
         ): PhoneNumberBlockService.WithRawResponse
 
+        /** Background jobs performed over a phone-numbers block's phone numbers */
         fun jobs(): JobService.WithRawResponse
     }
 }

@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.messages.rcs.RcSendResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Send RCS messages */
 interface RcServiceAsync {
 
     /**

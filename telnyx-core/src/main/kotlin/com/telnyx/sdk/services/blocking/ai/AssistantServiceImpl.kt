@@ -45,6 +45,7 @@ import com.telnyx.sdk.services.blocking.ai.assistants.VersionServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure AI assistant specifications */
 class AssistantServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AssistantService {
 
@@ -71,14 +72,19 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AssistantService =
         AssistantServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Configure AI assistant specifications */
     override fun tests(): TestService = tests
 
+    /** Configure AI assistant specifications */
     override fun canaryDeploys(): CanaryDeployService = canaryDeploys
 
+    /** Configure AI assistant specifications */
     override fun scheduledEvents(): ScheduledEventService = scheduledEvents
 
+    /** Configure AI assistant specifications */
     override fun tools(): ToolService = tools
 
+    /** Configure AI assistant specifications */
     override fun versions(): VersionService = versions
 
     override fun create(
@@ -178,14 +184,19 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Configure AI assistant specifications */
         override fun tests(): TestService.WithRawResponse = tests
 
+        /** Configure AI assistant specifications */
         override fun canaryDeploys(): CanaryDeployService.WithRawResponse = canaryDeploys
 
+        /** Configure AI assistant specifications */
         override fun scheduledEvents(): ScheduledEventService.WithRawResponse = scheduledEvents
 
+        /** Configure AI assistant specifications */
         override fun tools(): ToolService.WithRawResponse = tools
 
+        /** Configure AI assistant specifications */
         override fun versions(): VersionService.WithRawResponse = versions
 
         private val createHandler: Handler<InferenceEmbedding> =

@@ -29,6 +29,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Number reservations */
 class NumberReservationServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : NumberReservationServiceAsync {
 
@@ -45,6 +46,7 @@ internal constructor(private val clientOptions: ClientOptions) : NumberReservati
     ): NumberReservationServiceAsync =
         NumberReservationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Number reservations */
     override fun actions(): ActionServiceAsync = actions
 
     override fun create(
@@ -85,6 +87,7 @@ internal constructor(private val clientOptions: ClientOptions) : NumberReservati
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Number reservations */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         private val createHandler: Handler<NumberReservationCreateResponse> =

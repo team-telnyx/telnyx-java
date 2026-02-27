@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationUpdateRes
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 interface LoaConfigurationServiceAsync {
 
     /**

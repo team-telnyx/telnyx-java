@@ -17,6 +17,7 @@ import com.telnyx.sdk.models.notificationsettings.NotificationSettingRetrieveRes
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Notification settings operations */
 interface NotificationSettingServiceAsync {
 
     /**

@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.notificationprofiles.NotificationProfileUpdateRespo
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Notification settings operations */
 class NotificationProfileServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : NotificationProfileService {
 

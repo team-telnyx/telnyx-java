@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.virtualcrossconnects.VirtualCrossConnectUpdateRespo
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Virtual Cross Connect operations */
 interface VirtualCrossConnectServiceAsync {
 
     /**

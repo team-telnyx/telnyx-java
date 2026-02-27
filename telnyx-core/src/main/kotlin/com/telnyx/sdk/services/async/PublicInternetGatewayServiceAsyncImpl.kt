@@ -29,6 +29,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Public Internet Gateway operations */
 class PublicInternetGatewayServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : PublicInternetGatewayServiceAsync {
 

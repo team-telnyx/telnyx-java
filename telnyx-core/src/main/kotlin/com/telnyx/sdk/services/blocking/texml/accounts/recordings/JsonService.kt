@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.texml.accounts.recordings.json.JsonDeleteRecordingS
 import com.telnyx.sdk.models.texml.accounts.recordings.json.JsonRetrieveRecordingSidJsonParams
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface JsonService {
 
     /**

@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.speechtotext.Sp
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Speech to text batch detail records */
 interface SpeechToTextServiceAsync {
 
     /**

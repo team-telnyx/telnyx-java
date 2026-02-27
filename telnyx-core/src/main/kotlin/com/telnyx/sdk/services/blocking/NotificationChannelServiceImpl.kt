@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.notificationchannels.NotificationChannelUpdateRespo
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Notification settings operations */
 class NotificationChannelServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : NotificationChannelService {
 

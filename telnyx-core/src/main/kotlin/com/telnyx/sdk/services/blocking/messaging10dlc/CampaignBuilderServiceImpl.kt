@@ -21,6 +21,7 @@ import com.telnyx.sdk.services.blocking.messaging10dlc.campaignbuilder.BrandServ
 import com.telnyx.sdk.services.blocking.messaging10dlc.campaignbuilder.BrandServiceImpl
 import java.util.function.Consumer
 
+/** Campaign operations */
 class CampaignBuilderServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CampaignBuilderService {
 
@@ -35,6 +36,7 @@ class CampaignBuilderServiceImpl internal constructor(private val clientOptions:
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CampaignBuilderService =
         CampaignBuilderServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Campaign operations */
     override fun brand(): BrandService = brand
 
     override fun submit(
@@ -61,6 +63,7 @@ class CampaignBuilderServiceImpl internal constructor(private val clientOptions:
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Campaign operations */
         override fun brand(): BrandService.WithRawResponse = brand
 
         private val submitHandler: Handler<TelnyxCampaignCsp> =

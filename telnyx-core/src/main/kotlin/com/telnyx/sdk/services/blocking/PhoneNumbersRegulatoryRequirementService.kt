@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.phonenumbersregulatoryrequirements.PhoneNumbersRegu
 import com.telnyx.sdk.models.phonenumbersregulatoryrequirements.PhoneNumbersRegulatoryRequirementRetrieveResponse
 import java.util.function.Consumer
 
+/** Regulatory Requirements */
 interface PhoneNumbersRegulatoryRequirementService {
 
     /**

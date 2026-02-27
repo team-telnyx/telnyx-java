@@ -32,6 +32,7 @@ import com.telnyx.sdk.services.blocking.ai.assistants.tests.TestSuiteServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure AI assistant specifications */
 class TestServiceImpl internal constructor(private val clientOptions: ClientOptions) : TestService {
 
     private val withRawResponse: TestService.WithRawResponse by lazy {
@@ -47,8 +48,10 @@ class TestServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TestService =
         TestServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Configure AI assistant specifications */
     override fun testSuites(): TestSuiteService = testSuites
 
+    /** Configure AI assistant specifications */
     override fun runs(): RunService = runs
 
     override fun create(params: TestCreateParams, requestOptions: RequestOptions): AssistantTest =
@@ -96,8 +99,10 @@ class TestServiceImpl internal constructor(private val clientOptions: ClientOpti
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Configure AI assistant specifications */
         override fun testSuites(): TestSuiteService.WithRawResponse = testSuites
 
+        /** Configure AI assistant specifications */
         override fun runs(): RunService.WithRawResponse = runs
 
         private val createHandler: Handler<AssistantTest> =

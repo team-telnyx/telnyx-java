@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryRetrieveParams
 import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryRetrieveResponse
 import java.util.function.Consumer
 
+/** Webhooks operations */
 interface WebhookDeliveryService {
 
     /**

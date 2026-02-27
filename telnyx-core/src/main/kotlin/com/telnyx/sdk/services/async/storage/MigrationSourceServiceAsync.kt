@@ -17,6 +17,7 @@ import com.telnyx.sdk.models.storage.migrationsources.MigrationSourceRetrieveRes
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Migrate data from an external provider into Telnyx Cloud Storage */
 interface MigrationSourceServiceAsync {
 
     /**

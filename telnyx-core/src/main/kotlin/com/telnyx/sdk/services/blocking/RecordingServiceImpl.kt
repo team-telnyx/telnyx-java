@@ -28,6 +28,7 @@ import com.telnyx.sdk.services.blocking.recordings.ActionServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Call Recordings operations. */
 class RecordingServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RecordingService {
 
@@ -42,6 +43,7 @@ class RecordingServiceImpl internal constructor(private val clientOptions: Clien
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecordingService =
         RecordingServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Call Recordings operations. */
     override fun actions(): ActionService = actions
 
     override fun retrieve(
@@ -82,6 +84,7 @@ class RecordingServiceImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Call Recordings operations. */
         override fun actions(): ActionService.WithRawResponse = actions
 
         private val retrieveHandler: Handler<RecordingRetrieveResponse> =

@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.roomparticipants.RoomParticipantRetrieveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Rooms Participants operations. */
 interface RoomParticipantServiceAsync {
 
     /**

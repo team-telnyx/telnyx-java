@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.globalipassignmenthealth.GlobalIpAssignmentHealthRe
 import com.telnyx.sdk.models.globalipassignmenthealth.GlobalIpAssignmentHealthRetrieveResponse
 import java.util.function.Consumer
 
+/** Global IPs */
 class GlobalIpAssignmentHealthServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : GlobalIpAssignmentHealthService {
 

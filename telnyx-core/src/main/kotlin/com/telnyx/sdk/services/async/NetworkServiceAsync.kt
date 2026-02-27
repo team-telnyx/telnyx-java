@@ -22,6 +22,7 @@ import com.telnyx.sdk.services.async.networks.DefaultGatewayServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Network operations */
 interface NetworkServiceAsync {
 
     /**
@@ -36,6 +37,7 @@ interface NetworkServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NetworkServiceAsync
 
+    /** Network operations */
     fun defaultGateway(): DefaultGatewayServiceAsync
 
     /** Create a new Network. */
@@ -223,6 +225,7 @@ interface NetworkServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): NetworkServiceAsync.WithRawResponse
 
+        /** Network operations */
         fun defaultGateway(): DefaultGatewayServiceAsync.WithRawResponse
 
         /**

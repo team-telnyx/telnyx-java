@@ -27,6 +27,7 @@ import com.telnyx.sdk.models.dialogflowconnections.DialogflowConnectionUpdateRes
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Dialogflow Connection Operations. */
 class DialogflowConnectionServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : DialogflowConnectionService {
 

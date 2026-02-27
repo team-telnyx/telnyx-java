@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.otaupdates.OtaUpdateRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** OTA updates operations */
 class OtaUpdateServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     OtaUpdateService {
 

@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.recordings.RecordingRetrieveResponse
 import com.telnyx.sdk.services.blocking.recordings.ActionService
 import java.util.function.Consumer
 
+/** Call Recordings operations. */
 interface RecordingService {
 
     /**
@@ -29,6 +30,7 @@ interface RecordingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecordingService
 
+    /** Call Recordings operations. */
     fun actions(): ActionService
 
     /** Retrieves the details of an existing call recording. */
@@ -122,6 +124,7 @@ interface RecordingService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecordingService.WithRawResponse
 
+        /** Call Recordings operations. */
         fun actions(): ActionService.WithRawResponse
 
         /**

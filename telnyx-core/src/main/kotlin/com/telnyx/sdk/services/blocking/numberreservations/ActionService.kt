@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.numberreservations.actions.ActionExtendParams
 import com.telnyx.sdk.models.numberreservations.actions.ActionExtendResponse
 import java.util.function.Consumer
 
+/** Number reservations */
 interface ActionService {
 
     /**

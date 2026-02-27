@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.portabilitychecks.PortabilityCheckRunResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Determining portability of phone numbers */
 interface PortabilityCheckServiceAsync {
 
     /**

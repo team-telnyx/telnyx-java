@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.ledgerbillinggroupreports.LedgerBillingGroupReportR
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Ledger billing reports */
 class LedgerBillingGroupReportServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : LedgerBillingGroupReportService {
 

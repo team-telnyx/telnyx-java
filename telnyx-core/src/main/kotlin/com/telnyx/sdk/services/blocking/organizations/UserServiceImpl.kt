@@ -27,6 +27,7 @@ import com.telnyx.sdk.services.blocking.organizations.users.ActionServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Operations related to users in your organization */
 class UserServiceImpl internal constructor(private val clientOptions: ClientOptions) : UserService {
 
     private val withRawResponse: UserService.WithRawResponse by lazy {
@@ -40,6 +41,7 @@ class UserServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): UserService =
         UserServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Operations related to users in your organization */
     override fun actions(): ActionService = actions
 
     override fun retrieve(
@@ -77,6 +79,7 @@ class UserServiceImpl internal constructor(private val clientOptions: ClientOpti
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Operations related to users in your organization */
         override fun actions(): ActionService.WithRawResponse = actions
 
         private val retrieveHandler: Handler<UserRetrieveResponse> =

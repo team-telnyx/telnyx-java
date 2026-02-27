@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.globaliphealthchecktypes.GlobalIpHealthCheckTypeLis
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Global IPs */
 interface GlobalIpHealthCheckTypeServiceAsync {
 
     /**

@@ -27,6 +27,7 @@ import com.telnyx.sdk.models.legacy.reporting.batchdetailrecords.messaging.Messa
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Messaging batch detail records */
 class MessagingServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     MessagingService {
 

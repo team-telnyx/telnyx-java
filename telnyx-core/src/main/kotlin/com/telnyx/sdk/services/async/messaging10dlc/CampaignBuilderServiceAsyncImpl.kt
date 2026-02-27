@@ -22,6 +22,7 @@ import com.telnyx.sdk.services.async.messaging10dlc.campaignbuilder.BrandService
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Campaign operations */
 class CampaignBuilderServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : CampaignBuilderServiceAsync {
 
@@ -38,6 +39,7 @@ internal constructor(private val clientOptions: ClientOptions) : CampaignBuilder
     ): CampaignBuilderServiceAsync =
         CampaignBuilderServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Campaign operations */
     override fun brand(): BrandServiceAsync = brand
 
     override fun submit(
@@ -64,6 +66,7 @@ internal constructor(private val clientOptions: ClientOptions) : CampaignBuilder
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Campaign operations */
         override fun brand(): BrandServiceAsync.WithRawResponse = brand
 
         private val submitHandler: Handler<TelnyxCampaignCsp> =

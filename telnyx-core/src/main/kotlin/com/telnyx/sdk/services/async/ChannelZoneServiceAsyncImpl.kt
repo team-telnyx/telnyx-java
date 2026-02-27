@@ -25,6 +25,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Voice Channels */
 class ChannelZoneServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ChannelZoneServiceAsync {
 

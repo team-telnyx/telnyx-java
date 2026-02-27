@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.actions.purchase.PurchaseCreateParams
 import com.telnyx.sdk.models.actions.purchase.PurchaseCreateResponse
 import java.util.function.Consumer
 
+/** SIM Cards operations */
 interface PurchaseService {
 
     /**

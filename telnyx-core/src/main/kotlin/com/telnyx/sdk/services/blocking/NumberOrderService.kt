@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.numberorders.NumberOrderUpdateParams
 import com.telnyx.sdk.models.numberorders.NumberOrderUpdateResponse
 import java.util.function.Consumer
 
+/** Number orders */
 interface NumberOrderService {
 
     /**

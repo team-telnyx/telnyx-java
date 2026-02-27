@@ -82,6 +82,7 @@ import com.telnyx.sdk.models.calls.actions.ActionUpdateClientStateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Call Control command operations */
 interface ActionServiceAsync {
 
     /**

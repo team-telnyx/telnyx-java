@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListPage
 import com.telnyx.sdk.models.integrationsecrets.IntegrationSecretListParams
 import java.util.function.Consumer
 
+/** Store and retrieve integration secrets */
 interface IntegrationSecretService {
 
     /**

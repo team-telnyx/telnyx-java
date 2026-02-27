@@ -45,6 +45,7 @@ interface MessageService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessageService
 
+    /** Send RCS messages */
     fun rcs(): RcService
 
     /**
@@ -257,6 +258,7 @@ interface MessageService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessageService.WithRawResponse
 
+        /** Send RCS messages */
         fun rcs(): RcService.WithRawResponse
 
         /**

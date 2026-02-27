@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.externalconnections.uploads.UploadRetryParams
 import com.telnyx.sdk.models.externalconnections.uploads.UploadRetryResponse
 import java.util.function.Consumer
 
+/** External Connections operations */
 interface UploadService {
 
     /**

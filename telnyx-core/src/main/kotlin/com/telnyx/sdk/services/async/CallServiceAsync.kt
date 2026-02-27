@@ -27,6 +27,7 @@ interface CallServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallServiceAsync
 
+    /** Call Control command operations */
     fun actions(): ActionServiceAsync
 
     /**
@@ -104,6 +105,7 @@ interface CallServiceAsync {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallServiceAsync.WithRawResponse
 
+        /** Call Control command operations */
         fun actions(): ActionServiceAsync.WithRawResponse
 
         /**

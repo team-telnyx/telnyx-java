@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.mobilepushcredentials.PushCredentialResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Mobile push credential management */
 interface MobilePushCredentialServiceAsync {
 
     /**

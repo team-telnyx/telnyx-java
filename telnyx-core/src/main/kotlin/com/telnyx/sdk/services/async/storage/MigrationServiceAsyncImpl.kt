@@ -28,6 +28,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Migrate data from an external provider into Telnyx Cloud Storage */
 class MigrationServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     MigrationServiceAsync {
 
@@ -42,6 +43,7 @@ class MigrationServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): MigrationServiceAsync =
         MigrationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Migrate data from an external provider into Telnyx Cloud Storage */
     override fun actions(): ActionServiceAsync = actions
 
     override fun create(
@@ -82,6 +84,7 @@ class MigrationServiceAsyncImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Migrate data from an external provider into Telnyx Cloud Storage */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         private val createHandler: Handler<MigrationCreateResponse> =

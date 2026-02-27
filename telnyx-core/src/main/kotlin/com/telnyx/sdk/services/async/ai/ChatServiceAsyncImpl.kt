@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.ai.chat.ChatCreateCompletionResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Generate text with LLMs */
 class ChatServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ChatServiceAsync {
 

@@ -27,6 +27,7 @@ import com.telnyx.sdk.models.siprecconnectors.SiprecConnectorUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** SIPREC connectors configuration. */
 class SiprecConnectorServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     SiprecConnectorService {
 

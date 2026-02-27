@@ -28,6 +28,7 @@ import com.telnyx.sdk.models.globalips.GlobalIpRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Global IPs */
 class GlobalIpServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     GlobalIpService {
 

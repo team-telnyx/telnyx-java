@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.notificationeventconditions.NotificationEventCondit
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Notification settings operations */
 class NotificationEventConditionServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
     NotificationEventConditionServiceAsync {

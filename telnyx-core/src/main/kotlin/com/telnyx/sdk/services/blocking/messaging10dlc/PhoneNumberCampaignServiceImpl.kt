@@ -27,6 +27,7 @@ import com.telnyx.sdk.models.messaging10dlc.phonenumbercampaigns.PhoneNumberCamp
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Phone number campaign assignment */
 class PhoneNumberCampaignServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : PhoneNumberCampaignService {
 

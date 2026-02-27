@@ -28,6 +28,7 @@ import com.telnyx.sdk.models.notificationsettings.NotificationSettingRetrieveRes
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Notification settings operations */
 class NotificationSettingServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : NotificationSettingService {
 

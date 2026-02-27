@@ -39,6 +39,7 @@ import com.telnyx.sdk.services.blocking.texml.accounts.calls.StreamServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML REST Commands */
 class CallServiceImpl internal constructor(private val clientOptions: ClientOptions) : CallService {
 
     private val withRawResponse: CallService.WithRawResponse by lazy {
@@ -60,12 +61,16 @@ class CallServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CallService =
         CallServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** TeXML REST Commands */
     override fun recordingsJson(): RecordingsJsonService = recordingsJson
 
+    /** TeXML REST Commands */
     override fun recordings(): RecordingService = recordings
 
+    /** TeXML REST Commands */
     override fun siprec(): SiprecService = siprec
 
+    /** TeXML REST Commands */
     override fun streams(): StreamService = streams
 
     override fun retrieve(
@@ -136,12 +141,16 @@ class CallServiceImpl internal constructor(private val clientOptions: ClientOpti
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** TeXML REST Commands */
         override fun recordingsJson(): RecordingsJsonService.WithRawResponse = recordingsJson
 
+        /** TeXML REST Commands */
         override fun recordings(): RecordingService.WithRawResponse = recordings
 
+        /** TeXML REST Commands */
         override fun siprec(): SiprecService.WithRawResponse = siprec
 
+        /** TeXML REST Commands */
         override fun streams(): StreamService.WithRawResponse = streams
 
         private val retrieveHandler: Handler<CallRetrieveResponse> =

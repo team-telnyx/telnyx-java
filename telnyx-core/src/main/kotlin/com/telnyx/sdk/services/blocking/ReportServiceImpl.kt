@@ -45,8 +45,10 @@ class ReportServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReportService =
         ReportServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Voice usage reports */
     override fun cdrUsageReports(): CdrUsageReportService = cdrUsageReports
 
+    /** Messaging usage reports */
     override fun mdrUsageReports(): MdrUsageReportService = mdrUsageReports
 
     override fun listMdrs(
@@ -84,8 +86,10 @@ class ReportServiceImpl internal constructor(private val clientOptions: ClientOp
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Voice usage reports */
         override fun cdrUsageReports(): CdrUsageReportService.WithRawResponse = cdrUsageReports
 
+        /** Messaging usage reports */
         override fun mdrUsageReports(): MdrUsageReportService.WithRawResponse = mdrUsageReports
 
         private val listMdrsHandler: Handler<ReportListMdrsResponse> =

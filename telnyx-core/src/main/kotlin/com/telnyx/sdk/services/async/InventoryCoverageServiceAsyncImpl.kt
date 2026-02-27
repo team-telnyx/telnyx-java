@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.inventorycoverage.InventoryCoverageListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Inventory Level */
 class InventoryCoverageServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : InventoryCoverageServiceAsync {
 
