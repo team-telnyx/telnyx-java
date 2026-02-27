@@ -146,7 +146,6 @@ private constructor(
         private val createdAt: JsonField<String>,
         private val recordType: JsonField<String>,
         private val updatedAt: JsonField<String>,
-        private val publicKey: JsonField<String>,
         private val lastSeen: JsonField<String>,
         private val privateKey: JsonField<String>,
         private val wireguardInterfaceId: JsonField<String>,
@@ -165,9 +164,6 @@ private constructor(
             @JsonProperty("updated_at")
             @ExcludeMissing
             updatedAt: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("public_key")
-            @ExcludeMissing
-            publicKey: JsonField<String> = JsonMissing.of(),
             @JsonProperty("last_seen")
             @ExcludeMissing
             lastSeen: JsonField<String> = JsonMissing.of(),
@@ -182,7 +178,6 @@ private constructor(
             createdAt,
             recordType,
             updatedAt,
-            publicKey,
             lastSeen,
             privateKey,
             wireguardInterfaceId,
@@ -196,9 +191,6 @@ private constructor(
                 .recordType(recordType)
                 .updatedAt(updatedAt)
                 .build()
-
-        fun toWireguardPeerPatch(): WireguardPeerPatch =
-            WireguardPeerPatch.builder().publicKey(publicKey).build()
 
         /**
          * Identifies the resource.
@@ -231,15 +223,6 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun updatedAt(): Optional<String> = updatedAt.getOptional("updated_at")
-
-        /**
-         * The WireGuard `PublicKey`.<br /><br />If you do not provide a Public Key, a new Public
-         * and Private key pair will be generated for you.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun publicKey(): Optional<String> = publicKey.getOptional("public_key")
 
         /**
          * ISO 8601 formatted date-time indicating when peer sent traffic last time.
@@ -301,13 +284,6 @@ private constructor(
         @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt(): JsonField<String> = updatedAt
 
         /**
-         * Returns the raw JSON value of [publicKey].
-         *
-         * Unlike [publicKey], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("public_key") @ExcludeMissing fun _publicKey(): JsonField<String> = publicKey
-
-        /**
          * Returns the raw JSON value of [lastSeen].
          *
          * Unlike [lastSeen], this method doesn't throw if the JSON field has an unexpected type.
@@ -358,7 +334,6 @@ private constructor(
             private var createdAt: JsonField<String> = JsonMissing.of()
             private var recordType: JsonField<String> = JsonMissing.of()
             private var updatedAt: JsonField<String> = JsonMissing.of()
-            private var publicKey: JsonField<String> = JsonMissing.of()
             private var lastSeen: JsonField<String> = JsonMissing.of()
             private var privateKey: JsonField<String> = JsonMissing.of()
             private var wireguardInterfaceId: JsonField<String> = JsonMissing.of()
@@ -370,7 +345,6 @@ private constructor(
                 createdAt = data.createdAt
                 recordType = data.recordType
                 updatedAt = data.updatedAt
-                publicKey = data.publicKey
                 lastSeen = data.lastSeen
                 privateKey = data.privateKey
                 wireguardInterfaceId = data.wireguardInterfaceId
@@ -424,21 +398,6 @@ private constructor(
              * supported value.
              */
             fun updatedAt(updatedAt: JsonField<String>) = apply { this.updatedAt = updatedAt }
-
-            /**
-             * The WireGuard `PublicKey`.<br /><br />If you do not provide a Public Key, a new
-             * Public and Private key pair will be generated for you.
-             */
-            fun publicKey(publicKey: String) = publicKey(JsonField.of(publicKey))
-
-            /**
-             * Sets [Builder.publicKey] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.publicKey] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun publicKey(publicKey: JsonField<String>) = apply { this.publicKey = publicKey }
 
             /** ISO 8601 formatted date-time indicating when peer sent traffic last time. */
             fun lastSeen(lastSeen: String) = lastSeen(JsonField.of(lastSeen))
@@ -515,7 +474,6 @@ private constructor(
                     createdAt,
                     recordType,
                     updatedAt,
-                    publicKey,
                     lastSeen,
                     privateKey,
                     wireguardInterfaceId,
@@ -534,7 +492,6 @@ private constructor(
             createdAt()
             recordType()
             updatedAt()
-            publicKey()
             lastSeen()
             privateKey()
             wireguardInterfaceId()
@@ -561,7 +518,6 @@ private constructor(
                 (if (createdAt.asKnown().isPresent) 1 else 0) +
                 (if (recordType.asKnown().isPresent) 1 else 0) +
                 (if (updatedAt.asKnown().isPresent) 1 else 0) +
-                (if (publicKey.asKnown().isPresent) 1 else 0) +
                 (if (lastSeen.asKnown().isPresent) 1 else 0) +
                 (if (privateKey.asKnown().isPresent) 1 else 0) +
                 (if (wireguardInterfaceId.asKnown().isPresent) 1 else 0)
@@ -576,7 +532,6 @@ private constructor(
                 createdAt == other.createdAt &&
                 recordType == other.recordType &&
                 updatedAt == other.updatedAt &&
-                publicKey == other.publicKey &&
                 lastSeen == other.lastSeen &&
                 privateKey == other.privateKey &&
                 wireguardInterfaceId == other.wireguardInterfaceId &&
@@ -589,7 +544,6 @@ private constructor(
                 createdAt,
                 recordType,
                 updatedAt,
-                publicKey,
                 lastSeen,
                 privateKey,
                 wireguardInterfaceId,
@@ -600,7 +554,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, publicKey=$publicKey, lastSeen=$lastSeen, privateKey=$privateKey, wireguardInterfaceId=$wireguardInterfaceId, additionalProperties=$additionalProperties}"
+            "Data{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, lastSeen=$lastSeen, privateKey=$privateKey, wireguardInterfaceId=$wireguardInterfaceId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
