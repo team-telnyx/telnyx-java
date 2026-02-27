@@ -40,25 +40,15 @@ interface VirtualCrossConnectServiceAsync {
      * and secondary connections to be created at the same time and they can not be independantly
      * disabled.
      */
-    fun create(): CompletableFuture<VirtualCrossConnectCreateResponse> =
-        create(VirtualCrossConnectCreateParams.none())
-
-    /** @see create */
     fun create(
-        params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VirtualCrossConnectCreateResponse>
-
-    /** @see create */
-    fun create(
-        params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none()
+        params: VirtualCrossConnectCreateParams
     ): CompletableFuture<VirtualCrossConnectCreateResponse> = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        requestOptions: RequestOptions
-    ): CompletableFuture<VirtualCrossConnectCreateResponse> =
-        create(VirtualCrossConnectCreateParams.none(), requestOptions)
+        params: VirtualCrossConnectCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<VirtualCrossConnectCreateResponse>
 
     /** Retrieve a Virtual Cross Connect. */
     fun retrieve(id: String): CompletableFuture<VirtualCrossConnectRetrieveResponse> =
@@ -217,26 +207,16 @@ interface VirtualCrossConnectServiceAsync {
          * Returns a raw HTTP response for `post /virtual_cross_connects`, but is otherwise the same
          * as [VirtualCrossConnectServiceAsync.create].
          */
-        fun create(): CompletableFuture<HttpResponseFor<VirtualCrossConnectCreateResponse>> =
-            create(VirtualCrossConnectCreateParams.none())
-
-        /** @see create */
         fun create(
-            params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectCreateResponse>>
-
-        /** @see create */
-        fun create(
-            params: VirtualCrossConnectCreateParams = VirtualCrossConnectCreateParams.none()
+            params: VirtualCrossConnectCreateParams
         ): CompletableFuture<HttpResponseFor<VirtualCrossConnectCreateResponse>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
-            requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectCreateResponse>> =
-            create(VirtualCrossConnectCreateParams.none(), requestOptions)
+            params: VirtualCrossConnectCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<VirtualCrossConnectCreateResponse>>
 
         /**
          * Returns a raw HTTP response for `get /virtual_cross_connects/{id}`, but is otherwise the
