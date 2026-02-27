@@ -32,6 +32,7 @@ import com.telnyx.sdk.services.blocking.credentialconnections.ActionServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Credential connection operations */
 class CredentialConnectionServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : CredentialConnectionService {
 
@@ -48,6 +49,7 @@ internal constructor(private val clientOptions: ClientOptions) : CredentialConne
     ): CredentialConnectionService =
         CredentialConnectionServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Credential connection operations */
     override fun actions(): ActionService = actions
 
     override fun create(
@@ -102,6 +104,7 @@ internal constructor(private val clientOptions: ClientOptions) : CredentialConne
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Credential connection operations */
         override fun actions(): ActionService.WithRawResponse = actions
 
         private val createHandler: Handler<CredentialConnectionCreateResponse> =

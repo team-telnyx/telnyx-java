@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.regulatoryrequirements.RegulatoryRequirementRetriev
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Regulatory Requirements */
 class RegulatoryRequirementServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : RegulatoryRequirementServiceAsync {
 

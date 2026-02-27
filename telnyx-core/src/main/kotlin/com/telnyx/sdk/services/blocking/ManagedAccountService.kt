@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.managedaccounts.ManagedAccountUpdateResponse
 import com.telnyx.sdk.services.blocking.managedaccounts.ActionService
 import java.util.function.Consumer
 
+/** Managed Accounts operations */
 interface ManagedAccountService {
 
     /**
@@ -35,6 +36,7 @@ interface ManagedAccountService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ManagedAccountService
 
+    /** Managed Accounts operations */
     fun actions(): ActionService
 
     /**
@@ -227,6 +229,7 @@ interface ManagedAccountService {
             modifier: Consumer<ClientOptions.Builder>
         ): ManagedAccountService.WithRawResponse
 
+        /** Managed Accounts operations */
         fun actions(): ActionService.WithRawResponse
 
         /**

@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.texml.accounts.calls.recordingsjson.RecordingsJsonR
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML REST Commands */
 class RecordingsJsonServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RecordingsJsonService {
 

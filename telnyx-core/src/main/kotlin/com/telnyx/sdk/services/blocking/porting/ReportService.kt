@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.porting.reports.ReportRetrieveParams
 import com.telnyx.sdk.models.porting.reports.ReportRetrieveResponse
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 interface ReportService {
 
     /**

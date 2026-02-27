@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.messagingnumbersbulkupdates.MessagingNumbersBulkUpd
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Configure your phone numbers */
 interface MessagingNumbersBulkUpdateServiceAsync {
 
     /**

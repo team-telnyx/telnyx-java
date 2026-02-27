@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.seti.SetiRetrieveBlackBoxTestResultsParams
 import com.telnyx.sdk.models.seti.SetiRetrieveBlackBoxTestResultsResponse
 import java.util.function.Consumer
 
+/** Observability into Telnyx platform stability and performance. */
 class SetiServiceImpl internal constructor(private val clientOptions: ClientOptions) : SetiService {
 
     private val withRawResponse: SetiService.WithRawResponse by lazy {

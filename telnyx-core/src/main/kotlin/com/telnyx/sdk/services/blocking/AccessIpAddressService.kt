@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.accessipaddress.AccessIpAddressResponse
 import com.telnyx.sdk.models.accessipaddress.AccessIpAddressRetrieveParams
 import java.util.function.Consumer
 
+/** IP Address Operations */
 interface AccessIpAddressService {
 
     /**

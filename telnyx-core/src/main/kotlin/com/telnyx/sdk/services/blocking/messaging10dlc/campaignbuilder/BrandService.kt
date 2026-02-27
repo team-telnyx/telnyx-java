@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.messaging10dlc.campaignbuilder.brand.BrandQualifyBy
 import com.telnyx.sdk.models.messaging10dlc.campaignbuilder.brand.BrandQualifyByUsecaseResponse
 import java.util.function.Consumer
 
+/** Campaign operations */
 interface BrandService {
 
     /**

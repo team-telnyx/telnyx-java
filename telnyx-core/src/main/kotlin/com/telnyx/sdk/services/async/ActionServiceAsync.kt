@@ -21,8 +21,10 @@ interface ActionServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionServiceAsync
 
+    /** SIM Cards operations */
     fun purchase(): PurchaseServiceAsync
 
+    /** SIM Cards operations */
     fun register(): RegisterServiceAsync
 
     /**
@@ -39,8 +41,10 @@ interface ActionServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): ActionServiceAsync.WithRawResponse
 
+        /** SIM Cards operations */
         fun purchase(): PurchaseServiceAsync.WithRawResponse
 
+        /** SIM Cards operations */
         fun register(): RegisterServiceAsync.WithRawResponse
     }
 }

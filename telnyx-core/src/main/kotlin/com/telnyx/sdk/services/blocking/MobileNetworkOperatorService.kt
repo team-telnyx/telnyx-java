@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListPag
 import com.telnyx.sdk.models.mobilenetworkoperators.MobileNetworkOperatorListParams
 import java.util.function.Consumer
 
+/** Mobile network operators operations */
 interface MobileNetworkOperatorService {
 
     /**

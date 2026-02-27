@@ -28,6 +28,7 @@ import com.telnyx.sdk.models.wireguardinterfaces.WireguardInterfaceRetrieveRespo
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** WireGuard Interface operations */
 class WireguardInterfaceServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     WireguardInterfaceService {
 

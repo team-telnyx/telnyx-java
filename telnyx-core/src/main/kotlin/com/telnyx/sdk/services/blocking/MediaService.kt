@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.media.MediaUploadParams
 import com.telnyx.sdk.models.media.MediaUploadResponse
 import java.util.function.Consumer
 
+/** Media Storage operations */
 interface MediaService {
 
     /**

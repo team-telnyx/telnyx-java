@@ -35,6 +35,7 @@ import com.telnyx.sdk.services.blocking.conferences.ActionServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Conference command operations */
 class ConferenceServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ConferenceService {
 
@@ -49,6 +50,7 @@ class ConferenceServiceImpl internal constructor(private val clientOptions: Clie
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConferenceService =
         ConferenceServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Conference command operations */
     override fun actions(): ActionService = actions
 
     override fun create(
@@ -110,6 +112,7 @@ class ConferenceServiceImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Conference command operations */
         override fun actions(): ActionService.WithRawResponse = actions
 
         private val createHandler: Handler<ConferenceCreateResponse> =

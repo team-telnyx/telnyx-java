@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.texml.accounts.recordings.json.JsonRetrieveRecordin
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface JsonServiceAsync {
 
     /**

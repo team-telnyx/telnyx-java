@@ -20,6 +20,7 @@ interface OperatorConnectService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OperatorConnectService
 
+    /** External Connections operations */
     fun actions(): ActionService
 
     /**
@@ -37,6 +38,7 @@ interface OperatorConnectService {
             modifier: Consumer<ClientOptions.Builder>
         ): OperatorConnectService.WithRawResponse
 
+        /** External Connections operations */
         fun actions(): ActionService.WithRawResponse
     }
 }

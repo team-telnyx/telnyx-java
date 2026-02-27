@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.webhookdeliveries.WebhookDeliveryRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Webhooks operations */
 class WebhookDeliveryServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     WebhookDeliveryService {
 

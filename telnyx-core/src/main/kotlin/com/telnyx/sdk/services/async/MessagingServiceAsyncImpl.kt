@@ -21,6 +21,7 @@ class MessagingServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingServiceAsync =
         MessagingServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Send RCS messages */
     override fun rcs(): RcServiceAsync = rcs
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -37,6 +38,7 @@ class MessagingServiceAsyncImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Send RCS messages */
         override fun rcs(): RcServiceAsync.WithRawResponse = rcs
     }
 }

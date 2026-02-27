@@ -20,6 +20,7 @@ import com.telnyx.sdk.services.blocking.wireless.DetailRecordsReportService
 import com.telnyx.sdk.services.blocking.wireless.DetailRecordsReportServiceImpl
 import java.util.function.Consumer
 
+/** Regions for wireless services */
 class WirelessServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     WirelessService {
 
@@ -36,6 +37,7 @@ class WirelessServiceImpl internal constructor(private val clientOptions: Client
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): WirelessService =
         WirelessServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Wireless reporting operations */
     override fun detailRecordsReports(): DetailRecordsReportService = detailRecordsReports
 
     override fun retrieveRegions(
@@ -62,6 +64,7 @@ class WirelessServiceImpl internal constructor(private val clientOptions: Client
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Wireless reporting operations */
         override fun detailRecordsReports(): DetailRecordsReportService.WithRawResponse =
             detailRecordsReports
 

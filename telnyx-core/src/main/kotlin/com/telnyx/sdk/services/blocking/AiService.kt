@@ -23,6 +23,7 @@ import com.telnyx.sdk.services.blocking.ai.MissionService
 import com.telnyx.sdk.services.blocking.ai.OpenAIService
 import java.util.function.Consumer
 
+/** Generate text with LLMs */
 interface AiService {
 
     /**
@@ -37,16 +38,22 @@ interface AiService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiService
 
+    /** Configure AI assistant specifications */
     fun assistants(): AssistantService
 
+    /** Turn audio into text or text into audio. */
     fun audio(): AudioService
 
+    /** Generate text with LLMs */
     fun chat(): ChatService
 
+    /** Identify common themes and patterns in your embedded documents */
     fun clusters(): ClusterService
 
+    /** Manage historical AI assistant conversations */
     fun conversations(): ConversationService
 
+    /** Embed documents and perform text searches */
     fun embeddings(): EmbeddingService
 
     fun fineTuning(): FineTuningService
@@ -111,16 +118,22 @@ interface AiService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiService.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun assistants(): AssistantService.WithRawResponse
 
+        /** Turn audio into text or text into audio. */
         fun audio(): AudioService.WithRawResponse
 
+        /** Generate text with LLMs */
         fun chat(): ChatService.WithRawResponse
 
+        /** Identify common themes and patterns in your embedded documents */
         fun clusters(): ClusterService.WithRawResponse
 
+        /** Manage historical AI assistant conversations */
         fun conversations(): ConversationService.WithRawResponse
 
+        /** Embed documents and perform text searches */
         fun embeddings(): EmbeddingService.WithRawResponse
 
         fun fineTuning(): FineTuningService.WithRawResponse

@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventRetriev
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 interface ScheduledEventServiceAsync {
 
     /**

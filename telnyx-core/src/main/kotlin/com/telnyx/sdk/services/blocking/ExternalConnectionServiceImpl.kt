@@ -42,6 +42,7 @@ import com.telnyx.sdk.services.blocking.externalconnections.UploadServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** External Connections operations */
 class ExternalConnectionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ExternalConnectionService {
 
@@ -66,14 +67,19 @@ class ExternalConnectionServiceImpl internal constructor(private val clientOptio
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExternalConnectionService =
         ExternalConnectionServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** External Connections operations */
     override fun logMessages(): LogMessageService = logMessages
 
+    /** External Connections operations */
     override fun civicAddresses(): CivicAddressService = civicAddresses
 
+    /** External Connections operations */
     override fun phoneNumbers(): PhoneNumberService = phoneNumbers
 
+    /** External Connections operations */
     override fun releases(): ReleaseService = releases
 
+    /** External Connections operations */
     override fun uploads(): UploadService = uploads
 
     override fun create(
@@ -151,14 +157,19 @@ class ExternalConnectionServiceImpl internal constructor(private val clientOptio
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** External Connections operations */
         override fun logMessages(): LogMessageService.WithRawResponse = logMessages
 
+        /** External Connections operations */
         override fun civicAddresses(): CivicAddressService.WithRawResponse = civicAddresses
 
+        /** External Connections operations */
         override fun phoneNumbers(): PhoneNumberService.WithRawResponse = phoneNumbers
 
+        /** External Connections operations */
         override fun releases(): ReleaseService.WithRawResponse = releases
 
+        /** External Connections operations */
         override fun uploads(): UploadService.WithRawResponse = uploads
 
         private val createHandler: Handler<ExternalConnectionCreateResponse> =

@@ -29,6 +29,7 @@ import com.telnyx.sdk.services.async.messaging10dlc.brand.ExternalVettingService
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Brand operations */
 interface BrandServiceAsync {
 
     /**
@@ -43,6 +44,7 @@ interface BrandServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BrandServiceAsync
 
+    /** Brand operations */
     fun externalVetting(): ExternalVettingServiceAsync
 
     /**
@@ -478,6 +480,7 @@ interface BrandServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): BrandServiceAsync.WithRawResponse
 
+        /** Brand operations */
         fun externalVetting(): ExternalVettingServiceAsync.WithRawResponse
 
         /**

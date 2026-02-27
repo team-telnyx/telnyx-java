@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.wirelessblocklists.WirelessBlocklistUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Wireless Blocklists operations */
 class WirelessBlocklistServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     WirelessBlocklistService {
 

@@ -28,6 +28,7 @@ import com.telnyx.sdk.services.blocking.ai.assistants.ToolService
 import com.telnyx.sdk.services.blocking.ai.assistants.VersionService
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 interface AssistantService {
 
     /**
@@ -42,14 +43,19 @@ interface AssistantService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AssistantService
 
+    /** Configure AI assistant specifications */
     fun tests(): TestService
 
+    /** Configure AI assistant specifications */
     fun canaryDeploys(): CanaryDeployService
 
+    /** Configure AI assistant specifications */
     fun scheduledEvents(): ScheduledEventService
 
+    /** Configure AI assistant specifications */
     fun tools(): ToolService
 
+    /** Configure AI assistant specifications */
     fun versions(): VersionService
 
     /** Create a new AI Assistant. */
@@ -323,14 +329,19 @@ interface AssistantService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): AssistantService.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun tests(): TestService.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun canaryDeploys(): CanaryDeployService.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun scheduledEvents(): ScheduledEventService.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun tools(): ToolService.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun versions(): VersionService.WithRawResponse
 
         /**

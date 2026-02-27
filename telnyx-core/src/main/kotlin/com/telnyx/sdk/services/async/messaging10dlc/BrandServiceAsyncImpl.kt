@@ -43,6 +43,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Brand operations */
 class BrandServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     BrandServiceAsync {
 
@@ -59,6 +60,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): BrandServiceAsync =
         BrandServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Brand operations */
     override fun externalVetting(): ExternalVettingServiceAsync = externalVetting
 
     override fun create(
@@ -162,6 +164,7 @@ class BrandServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Brand operations */
         override fun externalVetting(): ExternalVettingServiceAsync.WithRawResponse =
             externalVetting
 

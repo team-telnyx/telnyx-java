@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.actions.register.RegisterCreateParams
 import com.telnyx.sdk.models.actions.register.RegisterCreateResponse
 import java.util.function.Consumer
 
+/** SIM Cards operations */
 class RegisterServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RegisterService {
 

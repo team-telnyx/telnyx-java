@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListEmbeddingModelsRe
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** OpenAI-compatible embeddings endpoints for generating vector representations of text */
 interface EmbeddingServiceAsync {
 
     /**

@@ -12,6 +12,7 @@ import com.telnyx.sdk.services.async.storage.buckets.UsageServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Presigned object URL operations */
 interface BucketServiceAsync {
 
     /**
@@ -26,8 +27,10 @@ interface BucketServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BucketServiceAsync
 
+    /** SSL certificate operations */
     fun sslCertificate(): SslCertificateServiceAsync
 
+    /** Bucket Usage operations */
     fun usage(): UsageServiceAsync
 
     /**
@@ -78,8 +81,10 @@ interface BucketServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): BucketServiceAsync.WithRawResponse
 
+        /** SSL certificate operations */
         fun sslCertificate(): SslCertificateServiceAsync.WithRawResponse
 
+        /** Bucket Usage operations */
         fun usage(): UsageServiceAsync.WithRawResponse
 
         /**

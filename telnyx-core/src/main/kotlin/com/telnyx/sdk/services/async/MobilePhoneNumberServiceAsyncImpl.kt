@@ -29,6 +29,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Mobile phone number operations */
 class MobilePhoneNumberServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : MobilePhoneNumberServiceAsync {
 

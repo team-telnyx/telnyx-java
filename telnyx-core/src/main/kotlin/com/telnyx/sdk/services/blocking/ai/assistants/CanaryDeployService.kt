@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.ai.assistants.canarydeploys.CanaryDeployRetrievePar
 import com.telnyx.sdk.models.ai.assistants.canarydeploys.CanaryDeployUpdateParams
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 interface CanaryDeployService {
 
     /**

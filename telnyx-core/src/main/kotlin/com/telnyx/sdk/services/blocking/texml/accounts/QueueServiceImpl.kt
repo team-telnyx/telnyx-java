@@ -30,6 +30,7 @@ import com.telnyx.sdk.models.texml.accounts.queues.QueueUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML REST Commands */
 class QueueServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     QueueService {
 

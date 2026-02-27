@@ -25,6 +25,7 @@ import com.telnyx.sdk.models.ai.finetuning.jobs.JobRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Customize LLMs for your unique needs */
 class JobServiceImpl internal constructor(private val clientOptions: ClientOptions) : JobService {
 
     private val withRawResponse: JobService.WithRawResponse by lazy {

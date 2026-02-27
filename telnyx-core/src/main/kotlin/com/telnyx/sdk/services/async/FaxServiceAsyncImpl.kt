@@ -32,6 +32,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Programmable fax command operations */
 class FaxServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     FaxServiceAsync {
 
@@ -46,6 +47,7 @@ class FaxServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FaxServiceAsync =
         FaxServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Programmable fax command operations */
     override fun actions(): ActionServiceAsync = actions
 
     override fun create(
@@ -93,6 +95,7 @@ class FaxServiceAsyncImpl internal constructor(private val clientOptions: Client
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Programmable fax command operations */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         private val createHandler: Handler<FaxCreateResponse> =

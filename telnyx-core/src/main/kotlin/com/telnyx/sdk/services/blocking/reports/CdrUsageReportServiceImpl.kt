@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.reports.cdrusagereports.CdrUsageReportFetchSyncPara
 import com.telnyx.sdk.models.reports.cdrusagereports.CdrUsageReportFetchSyncResponse
 import java.util.function.Consumer
 
+/** Voice usage reports */
 class CdrUsageReportServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CdrUsageReportService {
 

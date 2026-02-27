@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.usertags.UserTagListParams
 import com.telnyx.sdk.models.usertags.UserTagListResponse
 import java.util.function.Consumer
 
+/** User-defined tags for Telnyx resources */
 class UserTagServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     UserTagService {
 

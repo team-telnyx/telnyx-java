@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.texml.accounts.calls.siprec.SiprecSiprecSidJsonResp
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML REST Commands */
 class SiprecServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     SiprecService {
 

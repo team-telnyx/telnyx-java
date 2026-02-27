@@ -29,10 +29,13 @@ class BatchDetailRecordServiceImpl internal constructor(private val clientOption
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchDetailRecordService =
         BatchDetailRecordServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Messaging batch detail records */
     override fun messaging(): MessagingService = messaging
 
+    /** Speech to text batch detail records */
     override fun speechToText(): SpeechToTextService = speechToText
 
+    /** Voice batch detail records */
     override fun voice(): VoiceService = voice
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -57,10 +60,13 @@ class BatchDetailRecordServiceImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Messaging batch detail records */
         override fun messaging(): MessagingService.WithRawResponse = messaging
 
+        /** Speech to text batch detail records */
         override fun speechToText(): SpeechToTextService.WithRawResponse = speechToText
 
+        /** Voice batch detail records */
         override fun voice(): VoiceService.WithRawResponse = voice
     }
 }

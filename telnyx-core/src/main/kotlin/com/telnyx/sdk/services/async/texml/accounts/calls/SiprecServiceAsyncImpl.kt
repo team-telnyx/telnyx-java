@@ -22,6 +22,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML REST Commands */
 class SiprecServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     SiprecServiceAsync {
 

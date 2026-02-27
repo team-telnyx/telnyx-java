@@ -25,6 +25,7 @@ import com.telnyx.sdk.services.async.externalconnections.UploadServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** External Connections operations */
 interface ExternalConnectionServiceAsync {
 
     /**
@@ -39,14 +40,19 @@ interface ExternalConnectionServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExternalConnectionServiceAsync
 
+    /** External Connections operations */
     fun logMessages(): LogMessageServiceAsync
 
+    /** External Connections operations */
     fun civicAddresses(): CivicAddressServiceAsync
 
+    /** External Connections operations */
     fun phoneNumbers(): PhoneNumberServiceAsync
 
+    /** External Connections operations */
     fun releases(): ReleaseServiceAsync
 
+    /** External Connections operations */
     fun uploads(): UploadServiceAsync
 
     /**
@@ -240,14 +246,19 @@ interface ExternalConnectionServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): ExternalConnectionServiceAsync.WithRawResponse
 
+        /** External Connections operations */
         fun logMessages(): LogMessageServiceAsync.WithRawResponse
 
+        /** External Connections operations */
         fun civicAddresses(): CivicAddressServiceAsync.WithRawResponse
 
+        /** External Connections operations */
         fun phoneNumbers(): PhoneNumberServiceAsync.WithRawResponse
 
+        /** External Connections operations */
         fun releases(): ReleaseServiceAsync.WithRawResponse
 
+        /** External Connections operations */
         fun uploads(): UploadServiceAsync.WithRawResponse
 
         /**

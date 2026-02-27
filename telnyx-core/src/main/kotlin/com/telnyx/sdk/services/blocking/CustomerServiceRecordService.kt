@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordVerifyP
 import com.telnyx.sdk.models.customerservicerecords.CustomerServiceRecordVerifyPhoneNumberCoverageResponse
 import java.util.function.Consumer
 
+/** Customer Service Record operations */
 interface CustomerServiceRecordService {
 
     /**

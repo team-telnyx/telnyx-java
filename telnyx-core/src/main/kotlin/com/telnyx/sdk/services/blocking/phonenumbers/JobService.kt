@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.phonenumbers.jobs.JobUpdateEmergencySettingsBatchPa
 import com.telnyx.sdk.models.phonenumbers.jobs.JobUpdateEmergencySettingsBatchResponse
 import java.util.function.Consumer
 
+/** Background jobs performed over a batch of phone numbers */
 interface JobService {
 
     /**

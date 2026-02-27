@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.globalipusage.GlobalIpUsageRetrieveParams
 import com.telnyx.sdk.models.globalipusage.GlobalIpUsageRetrieveResponse
 import java.util.function.Consumer
 
+/** Global IPs */
 class GlobalIpUsageServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     GlobalIpUsageService {
 

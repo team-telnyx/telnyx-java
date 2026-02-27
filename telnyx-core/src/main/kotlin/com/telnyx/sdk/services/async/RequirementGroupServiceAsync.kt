@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.requirementgroups.RequirementGroupUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Requirement Groups */
 interface RequirementGroupServiceAsync {
 
     /**

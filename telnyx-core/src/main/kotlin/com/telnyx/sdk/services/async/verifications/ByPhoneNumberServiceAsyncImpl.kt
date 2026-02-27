@@ -23,6 +23,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Two factor authentication API */
 class ByPhoneNumberServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ByPhoneNumberServiceAsync {
 
@@ -37,6 +38,7 @@ class ByPhoneNumberServiceAsyncImpl internal constructor(private val clientOptio
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ByPhoneNumberServiceAsync =
         ByPhoneNumberServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Two factor authentication API */
     override fun actions(): ActionServiceAsync = actions
 
     override fun list(
@@ -63,6 +65,7 @@ class ByPhoneNumberServiceAsyncImpl internal constructor(private val clientOptio
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Two factor authentication API */
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
 
         private val listHandler: Handler<ByPhoneNumberListResponse> =

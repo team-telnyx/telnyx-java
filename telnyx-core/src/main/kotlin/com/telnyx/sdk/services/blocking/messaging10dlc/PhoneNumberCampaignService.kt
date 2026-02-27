@@ -16,6 +16,7 @@ import com.telnyx.sdk.models.messaging10dlc.phonenumbercampaigns.PhoneNumberCamp
 import com.telnyx.sdk.models.messaging10dlc.phonenumbercampaigns.PhoneNumberCampaignUpdateParams
 import java.util.function.Consumer
 
+/** Phone number campaign assignment */
 interface PhoneNumberCampaignService {
 
     /**

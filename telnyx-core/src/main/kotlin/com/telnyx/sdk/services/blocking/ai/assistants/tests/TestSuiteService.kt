@@ -11,6 +11,7 @@ import com.telnyx.sdk.models.ai.assistants.tests.testsuites.TestSuiteListRespons
 import com.telnyx.sdk.services.blocking.ai.assistants.tests.testsuites.RunService
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 interface TestSuiteService {
 
     /**
@@ -25,6 +26,7 @@ interface TestSuiteService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TestSuiteService
 
+    /** Configure AI assistant specifications */
     fun runs(): RunService
 
     /** Retrieves a list of all distinct test suite names available to the current user */
@@ -54,6 +56,7 @@ interface TestSuiteService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): TestSuiteService.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun runs(): RunService.WithRawResponse
 
         /**

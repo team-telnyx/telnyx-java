@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.porting.reports.ReportRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Endpoints related to porting orders management. */
 class ReportServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ReportService {
 

@@ -32,6 +32,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** TeXML REST Commands */
 class ConferenceServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ConferenceServiceAsync {
 
@@ -48,6 +49,7 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ConferenceServiceAsync =
         ConferenceServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** TeXML REST Commands */
     override fun participants(): ParticipantServiceAsync = participants
 
     override fun retrieve(
@@ -102,6 +104,7 @@ class ConferenceServiceAsyncImpl internal constructor(private val clientOptions:
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** TeXML REST Commands */
         override fun participants(): ParticipantServiceAsync.WithRawResponse = participants
 
         private val retrieveHandler: Handler<ConferenceRetrieveResponse> =

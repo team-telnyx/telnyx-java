@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.messaging10dlc.campaign.usecase.UsecaseGetCostParam
 import com.telnyx.sdk.models.messaging10dlc.campaign.usecase.UsecaseGetCostResponse
 import java.util.function.Consumer
 
+/** Campaign operations */
 interface UsecaseService {
 
     /**

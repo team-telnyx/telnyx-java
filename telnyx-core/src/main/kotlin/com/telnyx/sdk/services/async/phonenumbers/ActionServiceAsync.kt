@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.phonenumbers.actions.ActionVerifyOwnershipResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Configure your phone numbers */
 interface ActionServiceAsync {
 
     /**

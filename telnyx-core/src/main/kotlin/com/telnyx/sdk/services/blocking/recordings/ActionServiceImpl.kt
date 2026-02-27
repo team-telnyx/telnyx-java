@@ -17,6 +17,7 @@ import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.recordings.actions.ActionDeleteParams
 import java.util.function.Consumer
 
+/** Call Recordings operations. */
 class ActionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionService {
 

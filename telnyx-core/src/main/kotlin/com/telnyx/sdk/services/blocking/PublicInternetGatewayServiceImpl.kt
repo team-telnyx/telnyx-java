@@ -28,6 +28,7 @@ import com.telnyx.sdk.models.publicinternetgateways.PublicInternetGatewayRetriev
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Public Internet Gateway operations */
 class PublicInternetGatewayServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : PublicInternetGatewayService {
 

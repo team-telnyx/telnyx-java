@@ -17,6 +17,7 @@ import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointR
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Dynamic Emergency Endpoints */
 interface DynamicEmergencyEndpointServiceAsync {
 
     /**

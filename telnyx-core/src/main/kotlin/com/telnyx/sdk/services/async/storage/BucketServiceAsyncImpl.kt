@@ -26,6 +26,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Presigned object URL operations */
 class BucketServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     BucketServiceAsync {
 
@@ -44,8 +45,10 @@ class BucketServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): BucketServiceAsync =
         BucketServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** SSL certificate operations */
     override fun sslCertificate(): SslCertificateServiceAsync = sslCertificate
 
+    /** Bucket Usage operations */
     override fun usage(): UsageServiceAsync = usage
 
     override fun createPresignedUrl(
@@ -76,8 +79,10 @@ class BucketServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** SSL certificate operations */
         override fun sslCertificate(): SslCertificateServiceAsync.WithRawResponse = sslCertificate
 
+        /** Bucket Usage operations */
         override fun usage(): UsageServiceAsync.WithRawResponse = usage
 
         private val createPresignedUrlHandler: Handler<BucketCreatePresignedUrlResponse> =

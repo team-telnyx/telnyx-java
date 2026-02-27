@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigRet
 import com.telnyx.sdk.models.messagingprofiles.autorespconfigs.AutorespConfigUpdateParams
 import java.util.function.Consumer
 
+/** Opt-Out Management */
 interface AutorespConfigService {
 
     /**

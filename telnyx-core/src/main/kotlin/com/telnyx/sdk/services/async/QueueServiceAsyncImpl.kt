@@ -33,6 +33,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Queue commands operations */
 class QueueServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     QueueServiceAsync {
 
@@ -47,6 +48,7 @@ class QueueServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): QueueServiceAsync =
         QueueServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Queue commands operations */
     override fun calls(): CallServiceAsync = calls
 
     override fun create(
@@ -101,6 +103,7 @@ class QueueServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Queue commands operations */
         override fun calls(): CallServiceAsync.WithRawResponse = calls
 
         private val createHandler: Handler<QueueCreateResponse> =

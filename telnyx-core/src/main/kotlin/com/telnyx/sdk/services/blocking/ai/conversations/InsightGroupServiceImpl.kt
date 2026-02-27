@@ -30,6 +30,7 @@ import com.telnyx.sdk.services.blocking.ai.conversations.insightgroups.InsightSe
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Manage historical AI assistant conversations */
 class InsightGroupServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     InsightGroupService {
 
@@ -44,6 +45,7 @@ class InsightGroupServiceImpl internal constructor(private val clientOptions: Cl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): InsightGroupService =
         InsightGroupServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Manage historical AI assistant conversations */
     override fun insights(): InsightService = insights
 
     override fun retrieve(
@@ -96,6 +98,7 @@ class InsightGroupServiceImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Manage historical AI assistant conversations */
         override fun insights(): InsightService.WithRawResponse = insights
 
         private val retrieveHandler: Handler<InsightTemplateGroupDetail> =

@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.auditevents.AuditEventListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Audit log operations. */
 interface AuditEventServiceAsync {
 
     /**

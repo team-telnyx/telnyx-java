@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.mobilevoiceconnections.MobileVoiceConnectionUpdateR
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Mobile voice connection operations */
 interface MobileVoiceConnectionServiceAsync {
 
     /**

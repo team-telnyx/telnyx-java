@@ -28,6 +28,7 @@ import com.telnyx.sdk.models.dynamicemergencyendpoints.DynamicEmergencyEndpointR
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Dynamic Emergency Endpoints */
 class DynamicEmergencyEndpointServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : DynamicEmergencyEndpointService {
 

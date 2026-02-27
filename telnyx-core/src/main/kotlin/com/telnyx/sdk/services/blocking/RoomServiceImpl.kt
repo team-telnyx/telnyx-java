@@ -34,6 +34,7 @@ import com.telnyx.sdk.services.blocking.rooms.SessionServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Rooms operations. */
 class RoomServiceImpl internal constructor(private val clientOptions: ClientOptions) : RoomService {
 
     private val withRawResponse: RoomService.WithRawResponse by lazy {
@@ -49,6 +50,7 @@ class RoomServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RoomService =
         RoomServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Rooms Client Tokens operations. */
     override fun actions(): ActionService = actions
 
     override fun sessions(): SessionService = sessions
@@ -104,6 +106,7 @@ class RoomServiceImpl internal constructor(private val clientOptions: ClientOpti
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Rooms Client Tokens operations. */
         override fun actions(): ActionService.WithRawResponse = actions
 
         override fun sessions(): SessionService.WithRawResponse = sessions

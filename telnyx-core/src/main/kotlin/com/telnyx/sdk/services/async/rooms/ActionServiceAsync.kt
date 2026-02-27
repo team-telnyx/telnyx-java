@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.rooms.actions.ActionRefreshClientTokenResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Rooms Client Tokens operations. */
 interface ActionServiceAsync {
 
     /**

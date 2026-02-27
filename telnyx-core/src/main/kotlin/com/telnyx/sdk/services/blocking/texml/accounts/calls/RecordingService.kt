@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.texml.accounts.calls.recordings.RecordingRecordingS
 import com.telnyx.sdk.models.texml.accounts.calls.recordings.RecordingRecordingSidJsonResponse
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface RecordingService {
 
     /**

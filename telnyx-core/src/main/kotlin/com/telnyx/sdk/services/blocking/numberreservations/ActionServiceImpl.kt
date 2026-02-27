@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.numberreservations.actions.ActionExtendResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Number reservations */
 class ActionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionService {
 

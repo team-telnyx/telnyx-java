@@ -27,6 +27,7 @@ import com.telnyx.sdk.models.ai.assistants.versions.VersionUpdateParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure AI assistant specifications */
 class VersionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     VersionService {
 

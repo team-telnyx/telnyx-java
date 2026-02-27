@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.actions.register.RegisterCreateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** SIM Cards operations */
 interface RegisterServiceAsync {
 
     /**

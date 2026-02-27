@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.availablephonenumberblocks.AvailablePhoneNumberBloc
 import com.telnyx.sdk.models.availablephonenumberblocks.AvailablePhoneNumberBlockListResponse
 import java.util.function.Consumer
 
+/** Number search */
 interface AvailablePhoneNumberBlockService {
 
     /**

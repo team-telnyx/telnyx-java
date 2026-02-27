@@ -23,6 +23,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhoneNumberBloc
     ): PhoneNumberBlockServiceAsync =
         PhoneNumberBlockServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Background jobs performed over a phone-numbers block's phone numbers */
     override fun jobs(): JobServiceAsync = jobs
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -39,6 +40,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhoneNumberBloc
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Background jobs performed over a phone-numbers block's phone numbers */
         override fun jobs(): JobServiceAsync.WithRawResponse = jobs
     }
 }

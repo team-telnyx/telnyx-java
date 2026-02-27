@@ -28,6 +28,7 @@ import com.telnyx.sdk.services.blocking.mobilephonenumbers.MessagingServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Mobile phone number operations */
 class MobilePhoneNumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     MobilePhoneNumberService {
 

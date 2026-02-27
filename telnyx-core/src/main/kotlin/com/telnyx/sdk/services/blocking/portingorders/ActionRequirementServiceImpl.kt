@@ -24,6 +24,7 @@ import com.telnyx.sdk.models.portingorders.actionrequirements.ActionRequirementL
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Endpoints related to porting orders management. */
 class ActionRequirementServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ActionRequirementService {
 

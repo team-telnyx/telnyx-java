@@ -26,6 +26,7 @@ import com.telnyx.sdk.models.simcardorders.SimCardOrderRetrieveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** SIM Card Orders operations */
 class SimCardOrderServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     SimCardOrderService {
 

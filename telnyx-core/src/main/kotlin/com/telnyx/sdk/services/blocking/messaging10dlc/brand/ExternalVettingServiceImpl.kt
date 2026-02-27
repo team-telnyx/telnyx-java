@@ -25,6 +25,7 @@ import com.telnyx.sdk.models.messaging10dlc.brand.externalvetting.ExternalVettin
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Brand operations */
 class ExternalVettingServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ExternalVettingService {
 

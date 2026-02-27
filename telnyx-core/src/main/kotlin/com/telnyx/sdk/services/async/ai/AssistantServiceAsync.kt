@@ -28,6 +28,7 @@ import com.telnyx.sdk.services.async.ai.assistants.VersionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 interface AssistantServiceAsync {
 
     /**
@@ -42,14 +43,19 @@ interface AssistantServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AssistantServiceAsync
 
+    /** Configure AI assistant specifications */
     fun tests(): TestServiceAsync
 
+    /** Configure AI assistant specifications */
     fun canaryDeploys(): CanaryDeployServiceAsync
 
+    /** Configure AI assistant specifications */
     fun scheduledEvents(): ScheduledEventServiceAsync
 
+    /** Configure AI assistant specifications */
     fun tools(): ToolServiceAsync
 
+    /** Configure AI assistant specifications */
     fun versions(): VersionServiceAsync
 
     /** Create a new AI Assistant. */
@@ -348,14 +354,19 @@ interface AssistantServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): AssistantServiceAsync.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun tests(): TestServiceAsync.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun canaryDeploys(): CanaryDeployServiceAsync.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun scheduledEvents(): ScheduledEventServiceAsync.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun tools(): ToolServiceAsync.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun versions(): VersionServiceAsync.WithRawResponse
 
         /**

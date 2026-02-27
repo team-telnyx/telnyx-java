@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.fqdns.FqdnUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** FQDN operations */
 interface FqdnServiceAsync {
 
     /**

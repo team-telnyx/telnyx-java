@@ -20,6 +20,7 @@ interface MessagingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessagingServiceAsync
 
+    /** Send RCS messages */
     fun rcs(): RcServiceAsync
 
     /**
@@ -36,6 +37,7 @@ interface MessagingServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): MessagingServiceAsync.WithRawResponse
 
+        /** Send RCS messages */
         fun rcs(): RcServiceAsync.WithRawResponse
     }
 }

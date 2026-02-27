@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.actions.purchase.PurchaseCreateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** SIM Cards operations */
 class PurchaseServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     PurchaseServiceAsync {
 

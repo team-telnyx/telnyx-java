@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.detailrecords.DetailRecordListPageResponse
 import com.telnyx.sdk.models.detailrecords.DetailRecordListParams
 import java.util.function.Consumer
 
+/** Detail Records operations */
 class DetailRecordServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     DetailRecordService {
 

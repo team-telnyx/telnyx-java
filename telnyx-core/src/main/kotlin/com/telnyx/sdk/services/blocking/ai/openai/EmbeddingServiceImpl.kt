@@ -21,6 +21,7 @@ import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListEmbeddingModelsPa
 import com.telnyx.sdk.models.ai.openai.embeddings.EmbeddingListEmbeddingModelsResponse
 import java.util.function.Consumer
 
+/** OpenAI-compatible embeddings endpoints for generating vector representations of text */
 class EmbeddingServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     EmbeddingService {
 

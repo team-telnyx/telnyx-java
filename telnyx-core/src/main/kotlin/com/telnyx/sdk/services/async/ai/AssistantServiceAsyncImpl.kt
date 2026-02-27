@@ -46,6 +46,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure AI assistant specifications */
 class AssistantServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     AssistantServiceAsync {
 
@@ -72,14 +73,19 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AssistantServiceAsync =
         AssistantServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Configure AI assistant specifications */
     override fun tests(): TestServiceAsync = tests
 
+    /** Configure AI assistant specifications */
     override fun canaryDeploys(): CanaryDeployServiceAsync = canaryDeploys
 
+    /** Configure AI assistant specifications */
     override fun scheduledEvents(): ScheduledEventServiceAsync = scheduledEvents
 
+    /** Configure AI assistant specifications */
     override fun tools(): ToolServiceAsync = tools
 
+    /** Configure AI assistant specifications */
     override fun versions(): VersionServiceAsync = versions
 
     override fun create(
@@ -185,14 +191,19 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Configure AI assistant specifications */
         override fun tests(): TestServiceAsync.WithRawResponse = tests
 
+        /** Configure AI assistant specifications */
         override fun canaryDeploys(): CanaryDeployServiceAsync.WithRawResponse = canaryDeploys
 
+        /** Configure AI assistant specifications */
         override fun scheduledEvents(): ScheduledEventServiceAsync.WithRawResponse = scheduledEvents
 
+        /** Configure AI assistant specifications */
         override fun tools(): ToolServiceAsync.WithRawResponse = tools
 
+        /** Configure AI assistant specifications */
         override fun versions(): VersionServiceAsync.WithRawResponse = versions
 
         private val createHandler: Handler<InferenceEmbedding> =

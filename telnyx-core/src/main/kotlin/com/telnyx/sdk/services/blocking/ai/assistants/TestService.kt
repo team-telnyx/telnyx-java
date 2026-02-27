@@ -18,6 +18,7 @@ import com.telnyx.sdk.services.blocking.ai.assistants.tests.RunService
 import com.telnyx.sdk.services.blocking.ai.assistants.tests.TestSuiteService
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 interface TestService {
 
     /**
@@ -32,8 +33,10 @@ interface TestService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TestService
 
+    /** Configure AI assistant specifications */
     fun testSuites(): TestSuiteService
 
+    /** Configure AI assistant specifications */
     fun runs(): RunService
 
     /** Creates a comprehensive test configuration for evaluating AI assistant performance */
@@ -153,8 +156,10 @@ interface TestService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): TestService.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun testSuites(): TestSuiteService.WithRawResponse
 
+        /** Configure AI assistant specifications */
         fun runs(): RunService.WithRawResponse
 
         /**

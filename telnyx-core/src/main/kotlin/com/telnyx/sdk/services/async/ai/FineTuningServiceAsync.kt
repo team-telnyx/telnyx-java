@@ -20,6 +20,7 @@ interface FineTuningServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FineTuningServiceAsync
 
+    /** Customize LLMs for your unique needs */
     fun jobs(): JobServiceAsync
 
     /**
@@ -37,6 +38,7 @@ interface FineTuningServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): FineTuningServiceAsync.WithRawResponse
 
+        /** Customize LLMs for your unique needs */
         fun jobs(): JobServiceAsync.WithRawResponse
     }
 }

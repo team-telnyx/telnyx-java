@@ -11,6 +11,7 @@ import com.telnyx.sdk.services.async.messaging10dlc.campaignbuilder.BrandService
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Campaign operations */
 interface CampaignBuilderServiceAsync {
 
     /**
@@ -25,6 +26,7 @@ interface CampaignBuilderServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CampaignBuilderServiceAsync
 
+    /** Campaign operations */
     fun brand(): BrandServiceAsync
 
     /**
@@ -61,6 +63,7 @@ interface CampaignBuilderServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): CampaignBuilderServiceAsync.WithRawResponse
 
+        /** Campaign operations */
         fun brand(): BrandServiceAsync.WithRawResponse
 
         /**

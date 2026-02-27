@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.messagingnumbersbulkupdates.MessagingNumbersBulkUpd
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure your phone numbers */
 class MessagingNumbersBulkUpdateServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : MessagingNumbersBulkUpdateService {
 

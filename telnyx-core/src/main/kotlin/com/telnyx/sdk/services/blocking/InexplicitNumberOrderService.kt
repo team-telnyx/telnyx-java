@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderRetriev
 import com.telnyx.sdk.models.inexplicitnumberorders.InexplicitNumberOrderRetrieveResponse
 import java.util.function.Consumer
 
+/** Inexplicit number orders for bulk purchasing without specifying exact numbers */
 interface InexplicitNumberOrderService {
 
     /**

@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionUpdateParams
 import com.telnyx.sdk.models.fqdnconnections.FqdnConnectionUpdateResponse
 import java.util.function.Consumer
 
+/** FQDN connection operations */
 interface FqdnConnectionService {
 
     /**

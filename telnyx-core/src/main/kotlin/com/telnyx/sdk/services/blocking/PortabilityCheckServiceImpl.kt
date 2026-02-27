@@ -19,6 +19,7 @@ import com.telnyx.sdk.models.portabilitychecks.PortabilityCheckRunParams
 import com.telnyx.sdk.models.portabilitychecks.PortabilityCheckRunResponse
 import java.util.function.Consumer
 
+/** Determining portability of phone numbers */
 class PortabilityCheckServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     PortabilityCheckService {
 

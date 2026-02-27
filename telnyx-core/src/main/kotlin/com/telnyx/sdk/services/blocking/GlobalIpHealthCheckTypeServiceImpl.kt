@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.globaliphealthchecktypes.GlobalIpHealthCheckTypeLis
 import com.telnyx.sdk.models.globaliphealthchecktypes.GlobalIpHealthCheckTypeListResponse
 import java.util.function.Consumer
 
+/** Global IPs */
 class GlobalIpHealthCheckTypeServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : GlobalIpHealthCheckTypeService {
 

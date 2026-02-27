@@ -27,6 +27,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Inexplicit number orders for bulk purchasing without specifying exact numbers */
 class InexplicitNumberOrderServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : InexplicitNumberOrderServiceAsync {
 

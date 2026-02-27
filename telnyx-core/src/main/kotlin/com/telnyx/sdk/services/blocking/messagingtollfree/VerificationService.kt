@@ -20,6 +20,7 @@ interface VerificationService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VerificationService
 
+    /** Manage your tollfree verification requests */
     fun requests(): RequestService
 
     /**
@@ -36,6 +37,7 @@ interface VerificationService {
             modifier: Consumer<ClientOptions.Builder>
         ): VerificationService.WithRawResponse
 
+        /** Manage your tollfree verification requests */
         fun requests(): RequestService.WithRawResponse
     }
 }

@@ -27,6 +27,7 @@ import com.telnyx.sdk.models.ai.assistants.scheduledevents.ScheduledEventRetriev
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Configure AI assistant specifications */
 class ScheduledEventServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ScheduledEventService {
 

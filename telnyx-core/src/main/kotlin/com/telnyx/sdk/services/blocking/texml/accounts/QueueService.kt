@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.texml.accounts.queues.QueueUpdateParams
 import com.telnyx.sdk.models.texml.accounts.queues.QueueUpdateResponse
 import java.util.function.Consumer
 
+/** TeXML REST Commands */
 interface QueueService {
 
     /**

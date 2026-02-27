@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.RunListParams
 import com.telnyx.sdk.models.ai.assistants.tests.testsuites.runs.RunTriggerParams
 import java.util.function.Consumer
 
+/** Configure AI assistant specifications */
 interface RunService {
 
     /**

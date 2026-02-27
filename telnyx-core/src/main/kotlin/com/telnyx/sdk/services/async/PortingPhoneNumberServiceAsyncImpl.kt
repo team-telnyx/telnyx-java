@@ -20,6 +20,7 @@ import com.telnyx.sdk.models.portingphonenumbers.PortingPhoneNumberListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Endpoints related to porting orders management. */
 class PortingPhoneNumberServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : PortingPhoneNumberServiceAsync {
 

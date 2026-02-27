@@ -10,6 +10,7 @@ import com.telnyx.sdk.models.usertags.UserTagListParams
 import com.telnyx.sdk.models.usertags.UserTagListResponse
 import java.util.function.Consumer
 
+/** User-defined tags for Telnyx resources */
 interface UserTagService {
 
     /**

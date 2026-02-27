@@ -29,6 +29,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
+/** Private Wireless Gateways operations */
 class PrivateWirelessGatewayServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
     PrivateWirelessGatewayServiceAsync {

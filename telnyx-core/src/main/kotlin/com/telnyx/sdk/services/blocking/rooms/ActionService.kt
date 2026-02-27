@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.rooms.actions.ActionRefreshClientTokenParams
 import com.telnyx.sdk.models.rooms.actions.ActionRefreshClientTokenResponse
 import java.util.function.Consumer
 
+/** Rooms Client Tokens operations. */
 interface ActionService {
 
     /**

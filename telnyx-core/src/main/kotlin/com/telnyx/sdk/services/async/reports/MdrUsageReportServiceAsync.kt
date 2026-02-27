@@ -18,6 +18,7 @@ import com.telnyx.sdk.models.reports.mdrusagereports.MdrUsageReportRetrieveRespo
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Messaging usage reports */
 interface MdrUsageReportServiceAsync {
 
     /**
