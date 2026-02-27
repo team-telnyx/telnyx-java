@@ -11,11 +11,11 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.globalipassignments.Record
 import com.telnyx.sdk.models.networks.InterfaceStatus
 import com.telnyx.sdk.models.publicinternetgateways.NetworkInterface
-import com.telnyx.sdk.models.publicinternetgateways.NetworkInterfaceRegion
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -155,9 +155,6 @@ private constructor(
     fun toNetworkInterface(): NetworkInterface =
         NetworkInterface.builder().name(name).networkId(networkId).status(status).build()
 
-    fun toNetworkInterfaceRegion(): NetworkInterfaceRegion =
-        NetworkInterfaceRegion.builder().regionCode(regionCode).build()
-
     /**
      * Identifies the resource.
      *
@@ -215,12 +212,12 @@ private constructor(
     fun status(): Optional<InterfaceStatus> = status.getOptional("status")
 
     /**
-     * The region the interface should be deployed to.
+     * The region interface is deployed to.
      *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun regionCode(): Optional<String> = regionCode.getOptional("region_code")
+    fun regionCode(): String = regionCode.getRequired("region_code")
 
     /**
      * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross Connect.<br /><br
@@ -606,6 +603,11 @@ private constructor(
         /**
          * Returns a mutable builder for constructing an instance of
          * [VirtualCrossConnectListResponse].
+         *
+         * The following fields are required:
+         * ```java
+         * .regionCode()
+         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -620,7 +622,7 @@ private constructor(
         private var name: JsonField<String> = JsonMissing.of()
         private var networkId: JsonField<String> = JsonMissing.of()
         private var status: JsonField<InterfaceStatus> = JsonMissing.of()
-        private var regionCode: JsonField<String> = JsonMissing.of()
+        private var regionCode: JsonField<String>? = null
         private var bandwidthMbps: JsonField<Double> = JsonMissing.of()
         private var bgpAsn: JsonField<Double> = JsonMissing.of()
         private var cloudProvider: JsonField<CloudProvider> = JsonMissing.of()
@@ -756,7 +758,7 @@ private constructor(
          */
         fun status(status: JsonField<InterfaceStatus>) = apply { this.status = status }
 
-        /** The region the interface should be deployed to. */
+        /** The region interface is deployed to. */
         fun regionCode(regionCode: String) = regionCode(JsonField.of(regionCode))
 
         /**
@@ -1072,6 +1074,13 @@ private constructor(
          * Returns an immutable instance of [VirtualCrossConnectListResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .regionCode()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): VirtualCrossConnectListResponse =
             VirtualCrossConnectListResponse(
@@ -1082,7 +1091,7 @@ private constructor(
                 name,
                 networkId,
                 status,
-                regionCode,
+                checkRequired("regionCode", regionCode),
                 bandwidthMbps,
                 bgpAsn,
                 cloudProvider,

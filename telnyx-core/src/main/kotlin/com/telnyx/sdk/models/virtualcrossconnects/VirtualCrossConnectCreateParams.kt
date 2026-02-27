@@ -18,7 +18,6 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.globalipassignments.Record
 import com.telnyx.sdk.models.networks.InterfaceStatus
 import com.telnyx.sdk.models.publicinternetgateways.NetworkInterface
-import com.telnyx.sdk.models.publicinternetgateways.NetworkInterfaceRegion
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -93,14 +92,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun status(): Optional<InterfaceStatus> = body.status()
-
-    /**
-     * The region the interface should be deployed to.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun regionCode(): Optional<String> = body.regionCode()
 
     /**
      * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross Connect.<br /><br
@@ -277,13 +268,6 @@ private constructor(
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _status(): JsonField<InterfaceStatus> = body._status()
-
-    /**
-     * Returns the raw JSON value of [regionCode].
-     *
-     * Unlike [regionCode], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _regionCode(): JsonField<String> = body._regionCode()
 
     /**
      * Returns the raw JSON value of [bandwidthMbps].
@@ -521,18 +505,6 @@ private constructor(
          * supported value.
          */
         fun status(status: JsonField<InterfaceStatus>) = apply { body.status(status) }
-
-        /** The region the interface should be deployed to. */
-        fun regionCode(regionCode: String) = apply { body.regionCode(regionCode) }
-
-        /**
-         * Sets [Builder.regionCode] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.regionCode] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun regionCode(regionCode: JsonField<String>) = apply { body.regionCode(regionCode) }
 
         /**
          * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross Connect.<br
@@ -931,7 +903,6 @@ private constructor(
         private val name: JsonField<String>,
         private val networkId: JsonField<String>,
         private val status: JsonField<InterfaceStatus>,
-        private val regionCode: JsonField<String>,
         private val bandwidthMbps: JsonField<Double>,
         private val bgpAsn: JsonField<Double>,
         private val cloudProvider: JsonField<CloudProvider>,
@@ -968,9 +939,6 @@ private constructor(
             @JsonProperty("status")
             @ExcludeMissing
             status: JsonField<InterfaceStatus> = JsonMissing.of(),
-            @JsonProperty("region_code")
-            @ExcludeMissing
-            regionCode: JsonField<String> = JsonMissing.of(),
             @JsonProperty("bandwidth_mbps")
             @ExcludeMissing
             bandwidthMbps: JsonField<Double> = JsonMissing.of(),
@@ -1019,7 +987,6 @@ private constructor(
             name,
             networkId,
             status,
-            regionCode,
             bandwidthMbps,
             bgpAsn,
             cloudProvider,
@@ -1047,9 +1014,6 @@ private constructor(
 
         fun toNetworkInterface(): NetworkInterface =
             NetworkInterface.builder().name(name).networkId(networkId).status(status).build()
-
-        fun toNetworkInterfaceRegion(): NetworkInterfaceRegion =
-            NetworkInterfaceRegion.builder().regionCode(regionCode).build()
 
         /**
          * Identifies the resource.
@@ -1106,14 +1070,6 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun status(): Optional<InterfaceStatus> = status.getOptional("status")
-
-        /**
-         * The region the interface should be deployed to.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun regionCode(): Optional<String> = regionCode.getOptional("region_code")
 
         /**
          * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross Connect.<br
@@ -1303,15 +1259,6 @@ private constructor(
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<InterfaceStatus> = status
 
         /**
-         * Returns the raw JSON value of [regionCode].
-         *
-         * Unlike [regionCode], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("region_code")
-        @ExcludeMissing
-        fun _regionCode(): JsonField<String> = regionCode
-
-        /**
          * Returns the raw JSON value of [bandwidthMbps].
          *
          * Unlike [bandwidthMbps], this method doesn't throw if the JSON field has an unexpected
@@ -1476,7 +1423,6 @@ private constructor(
             private var name: JsonField<String> = JsonMissing.of()
             private var networkId: JsonField<String> = JsonMissing.of()
             private var status: JsonField<InterfaceStatus> = JsonMissing.of()
-            private var regionCode: JsonField<String> = JsonMissing.of()
             private var bandwidthMbps: JsonField<Double> = JsonMissing.of()
             private var bgpAsn: JsonField<Double> = JsonMissing.of()
             private var cloudProvider: JsonField<CloudProvider> = JsonMissing.of()
@@ -1502,7 +1448,6 @@ private constructor(
                 name = body.name
                 networkId = body.networkId
                 status = body.status
-                regionCode = body.regionCode
                 bandwidthMbps = body.bandwidthMbps
                 bgpAsn = body.bgpAsn
                 cloudProvider = body.cloudProvider
@@ -1603,18 +1548,6 @@ private constructor(
              * supported value.
              */
             fun status(status: JsonField<InterfaceStatus>) = apply { this.status = status }
-
-            /** The region the interface should be deployed to. */
-            fun regionCode(regionCode: String) = regionCode(JsonField.of(regionCode))
-
-            /**
-             * Sets [Builder.regionCode] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.regionCode] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun regionCode(regionCode: JsonField<String>) = apply { this.regionCode = regionCode }
 
             /**
              * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
@@ -1896,7 +1829,6 @@ private constructor(
                     name,
                     networkId,
                     status,
-                    regionCode,
                     bandwidthMbps,
                     bgpAsn,
                     cloudProvider,
@@ -1929,7 +1861,6 @@ private constructor(
             name()
             networkId()
             status().ifPresent { it.validate() }
-            regionCode()
             bandwidthMbps()
             bgpAsn()
             cloudProvider().ifPresent { it.validate() }
@@ -1970,7 +1901,6 @@ private constructor(
                 (if (name.asKnown().isPresent) 1 else 0) +
                 (if (networkId.asKnown().isPresent) 1 else 0) +
                 (status.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (regionCode.asKnown().isPresent) 1 else 0) +
                 (if (bandwidthMbps.asKnown().isPresent) 1 else 0) +
                 (if (bgpAsn.asKnown().isPresent) 1 else 0) +
                 (cloudProvider.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1999,7 +1929,6 @@ private constructor(
                 name == other.name &&
                 networkId == other.networkId &&
                 status == other.status &&
-                regionCode == other.regionCode &&
                 bandwidthMbps == other.bandwidthMbps &&
                 bgpAsn == other.bgpAsn &&
                 cloudProvider == other.cloudProvider &&
@@ -2026,7 +1955,6 @@ private constructor(
                 name,
                 networkId,
                 status,
-                regionCode,
                 bandwidthMbps,
                 bgpAsn,
                 cloudProvider,
@@ -2048,7 +1976,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, name=$name, networkId=$networkId, status=$status, regionCode=$regionCode, bandwidthMbps=$bandwidthMbps, bgpAsn=$bgpAsn, cloudProvider=$cloudProvider, cloudProviderRegion=$cloudProviderRegion, primaryBgpKey=$primaryBgpKey, primaryCloudAccountId=$primaryCloudAccountId, primaryCloudIp=$primaryCloudIp, primaryEnabled=$primaryEnabled, primaryTelnyxIp=$primaryTelnyxIp, secondaryBgpKey=$secondaryBgpKey, secondaryCloudAccountId=$secondaryCloudAccountId, secondaryCloudIp=$secondaryCloudIp, secondaryEnabled=$secondaryEnabled, secondaryTelnyxIp=$secondaryTelnyxIp, additionalProperties=$additionalProperties}"
+            "Body{id=$id, createdAt=$createdAt, recordType=$recordType, updatedAt=$updatedAt, name=$name, networkId=$networkId, status=$status, bandwidthMbps=$bandwidthMbps, bgpAsn=$bgpAsn, cloudProvider=$cloudProvider, cloudProviderRegion=$cloudProviderRegion, primaryBgpKey=$primaryBgpKey, primaryCloudAccountId=$primaryCloudAccountId, primaryCloudIp=$primaryCloudIp, primaryEnabled=$primaryEnabled, primaryTelnyxIp=$primaryTelnyxIp, secondaryBgpKey=$secondaryBgpKey, secondaryCloudAccountId=$secondaryCloudAccountId, secondaryCloudIp=$secondaryCloudIp, secondaryEnabled=$secondaryEnabled, secondaryTelnyxIp=$secondaryTelnyxIp, additionalProperties=$additionalProperties}"
     }
 
     /** The Virtual Private Cloud with which you would like to establish a cross connect. */
