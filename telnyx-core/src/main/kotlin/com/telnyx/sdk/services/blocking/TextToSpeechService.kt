@@ -7,12 +7,13 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateParams
+import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateResponse
 import com.telnyx.sdk.models.texttospeech.TextToSpeechListVoicesParams
 import com.telnyx.sdk.models.texttospeech.TextToSpeechListVoicesResponse
 import com.telnyx.sdk.models.texttospeech.TextToSpeechStreamParams
 import java.util.function.Consumer
 
-/** Text to speech streaming command operations */
 interface TextToSpeechService {
 
     /**
@@ -26,6 +27,35 @@ interface TextToSpeechService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TextToSpeechService
+
+    /**
+     * Generate synthesized speech audio from text input. Returns audio in the requested format
+     * (binary audio stream, base64-encoded JSON, or an audio URL for later retrieval).
+     *
+     * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header.
+     *
+     * The `voice` parameter provides a convenient shorthand to specify provider, model, and voice
+     * in a single string (e.g. `telnyx.NaturalHD.Alloy`). Alternatively, specify `provider`
+     * explicitly along with provider-specific parameters.
+     *
+     * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`, `resemble`.
+     */
+    fun generate(): TextToSpeechGenerateResponse = generate(TextToSpeechGenerateParams.none())
+
+    /** @see generate */
+    fun generate(
+        params: TextToSpeechGenerateParams = TextToSpeechGenerateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): TextToSpeechGenerateResponse
+
+    /** @see generate */
+    fun generate(
+        params: TextToSpeechGenerateParams = TextToSpeechGenerateParams.none()
+    ): TextToSpeechGenerateResponse = generate(params, RequestOptions.none())
+
+    /** @see generate */
+    fun generate(requestOptions: RequestOptions): TextToSpeechGenerateResponse =
+        generate(TextToSpeechGenerateParams.none(), requestOptions)
 
     /**
      * Retrieve a list of available voices from one or all TTS providers. When `provider` is
@@ -101,6 +131,34 @@ interface TextToSpeechService {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TextToSpeechService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /text-to-speech/speech`, but is otherwise the same
+         * as [TextToSpeechService.generate].
+         */
+        @MustBeClosed
+        fun generate(): HttpResponseFor<TextToSpeechGenerateResponse> =
+            generate(TextToSpeechGenerateParams.none())
+
+        /** @see generate */
+        @MustBeClosed
+        fun generate(
+            params: TextToSpeechGenerateParams = TextToSpeechGenerateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<TextToSpeechGenerateResponse>
+
+        /** @see generate */
+        @MustBeClosed
+        fun generate(
+            params: TextToSpeechGenerateParams = TextToSpeechGenerateParams.none()
+        ): HttpResponseFor<TextToSpeechGenerateResponse> = generate(params, RequestOptions.none())
+
+        /** @see generate */
+        @MustBeClosed
+        fun generate(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<TextToSpeechGenerateResponse> =
+            generate(TextToSpeechGenerateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /text-to-speech/voices`, but is otherwise the same

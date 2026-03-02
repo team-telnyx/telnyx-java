@@ -13,14 +13,16 @@ import com.telnyx.sdk.core.http.HttpRequest
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateParams
+import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateResponse
 import com.telnyx.sdk.models.texttospeech.TextToSpeechListVoicesParams
 import com.telnyx.sdk.models.texttospeech.TextToSpeechListVoicesResponse
 import com.telnyx.sdk.models.texttospeech.TextToSpeechStreamParams
 import java.util.function.Consumer
 
-/** Text to speech streaming command operations */
 class TextToSpeechServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     TextToSpeechService {
 
@@ -32,6 +34,13 @@ class TextToSpeechServiceImpl internal constructor(private val clientOptions: Cl
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TextToSpeechService =
         TextToSpeechServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun generate(
+        params: TextToSpeechGenerateParams,
+        requestOptions: RequestOptions,
+    ): TextToSpeechGenerateResponse =
+        // post /text-to-speech/speech
+        withRawResponse().generate(params, requestOptions).parse()
 
     override fun listVoices(
         params: TextToSpeechListVoicesParams,
@@ -57,6 +66,34 @@ class TextToSpeechServiceImpl internal constructor(private val clientOptions: Cl
             TextToSpeechServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        private val generateHandler: Handler<TextToSpeechGenerateResponse> =
+            jsonHandler<TextToSpeechGenerateResponse>(clientOptions.jsonMapper)
+
+        override fun generate(
+            params: TextToSpeechGenerateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<TextToSpeechGenerateResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("text-to-speech", "speech")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { generateHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
 
         private val listVoicesHandler: Handler<TextToSpeechListVoicesResponse> =
             jsonHandler<TextToSpeechListVoicesResponse>(clientOptions.jsonMapper)
