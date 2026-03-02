@@ -14,6 +14,7 @@ import com.telnyx.sdk.models.texttospeech.TextToSpeechListVoicesResponse
 import com.telnyx.sdk.models.texttospeech.TextToSpeechStreamParams
 import java.util.function.Consumer
 
+/** Text to speech streaming command operations */
 interface TextToSpeechService {
 
     /**
