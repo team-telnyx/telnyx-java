@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.25.0 (2026-03-02)
+
+Full Changelog: [v6.24.0...v6.25.0](https://github.com/team-telnyx/telnyx-java/compare/v6.24.0...v6.25.0)
+
+### Features
+
+* Changing the tag for TTS endpoint ([c599ce6](https://github.com/team-telnyx/telnyx-java/commit/c599ce6e47f5cd3391068e7911bce213c187a8c4))
+
 ## 6.24.0 (2026-03-02)
 
 Full Changelog: [v6.23.0...v6.24.0](https://github.com/team-telnyx/telnyx-java/compare/v6.23.0...v6.24.0)
