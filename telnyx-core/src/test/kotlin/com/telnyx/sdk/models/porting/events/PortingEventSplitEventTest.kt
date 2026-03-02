@@ -20,7 +20,7 @@ internal class PortingEventSplitEventTest {
                     PortingEventSplitEvent.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(PortingEventSplitEvent.EventType.PORTING_ORDER_DELETED)
+                .eventType(PortingEventSplitEvent.EventType.PORTING_ORDER_SPLIT)
                 .payload(
                     PortingEventSplitEvent.Payload.builder()
                         .from(
@@ -52,7 +52,7 @@ internal class PortingEventSplitEventTest {
         assertThat(portingEventSplitEvent.createdAt())
             .contains(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
         assertThat(portingEventSplitEvent.eventType())
-            .contains(PortingEventSplitEvent.EventType.PORTING_ORDER_DELETED)
+            .contains(PortingEventSplitEvent.EventType.PORTING_ORDER_SPLIT)
         assertThat(portingEventSplitEvent.payload())
             .contains(
                 PortingEventSplitEvent.Payload.builder()
@@ -92,7 +92,7 @@ internal class PortingEventSplitEventTest {
                     PortingEventSplitEvent.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(PortingEventSplitEvent.EventType.PORTING_ORDER_DELETED)
+                .eventType(PortingEventSplitEvent.EventType.PORTING_ORDER_SPLIT)
                 .payload(
                     PortingEventSplitEvent.Payload.builder()
                         .from(

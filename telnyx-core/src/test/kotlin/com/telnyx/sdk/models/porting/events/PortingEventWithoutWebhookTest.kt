@@ -20,7 +20,7 @@ internal class PortingEventWithoutWebhookTest {
                     PortingEventWithoutWebhook.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(PortingEventWithoutWebhook.EventType.PORTING_ORDER_DELETED)
+                .eventType(PortingEventWithoutWebhook.EventType.PORTING_ORDER_LOA_UPDATED)
                 .payload(null)
                 .payloadStatus(PortingEventWithoutWebhook.PayloadStatus.CREATED)
                 .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
@@ -34,7 +34,7 @@ internal class PortingEventWithoutWebhookTest {
         assertThat(portingEventWithoutWebhook.createdAt())
             .contains(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
         assertThat(portingEventWithoutWebhook.eventType())
-            .contains(PortingEventWithoutWebhook.EventType.PORTING_ORDER_DELETED)
+            .contains(PortingEventWithoutWebhook.EventType.PORTING_ORDER_LOA_UPDATED)
         assertThat(portingEventWithoutWebhook.payload()).isEmpty
         assertThat(portingEventWithoutWebhook.payloadStatus())
             .contains(PortingEventWithoutWebhook.PayloadStatus.CREATED)
@@ -55,7 +55,7 @@ internal class PortingEventWithoutWebhookTest {
                     PortingEventWithoutWebhook.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(PortingEventWithoutWebhook.EventType.PORTING_ORDER_DELETED)
+                .eventType(PortingEventWithoutWebhook.EventType.PORTING_ORDER_LOA_UPDATED)
                 .payload(null)
                 .payloadStatus(PortingEventWithoutWebhook.PayloadStatus.CREATED)
                 .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")

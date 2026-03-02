@@ -120,44 +120,38 @@ private constructor(
 
         /**
          * Alias for calling [addData] with
-         * `EventListResponse.ofPortingEventDeletedPayload(portingEventDeletedPayload)`.
+         * `EventListResponse.ofPortingOrderDeleted(portingOrderDeleted)`.
          */
-        fun addData(portingEventDeletedPayload: PortingEventDeletedPayload) =
-            addData(EventListResponse.ofPortingEventDeletedPayload(portingEventDeletedPayload))
+        fun addData(portingOrderDeleted: PortingEventDeletedPayload) =
+            addData(EventListResponse.ofPortingOrderDeleted(portingOrderDeleted))
 
         /**
          * Alias for calling [addData] with
-         * `EventListResponse.ofPortingEventMessagingChangedPayload(portingEventMessagingChangedPayload)`.
+         * `EventListResponse.ofPortingOrderMessagingChanged(portingOrderMessagingChanged)`.
          */
-        fun addData(portingEventMessagingChangedPayload: PortingEventMessagingChangedPayload) =
-            addData(
-                EventListResponse.ofPortingEventMessagingChangedPayload(
-                    portingEventMessagingChangedPayload
-                )
-            )
+        fun addData(portingOrderMessagingChanged: PortingEventMessagingChangedPayload) =
+            addData(EventListResponse.ofPortingOrderMessagingChanged(portingOrderMessagingChanged))
 
         /**
          * Alias for calling [addData] with
-         * `EventListResponse.ofPortingEventStatusChangedEvent(portingEventStatusChangedEvent)`.
+         * `EventListResponse.ofPortingOrderStatusChanged(portingOrderStatusChanged)`.
          */
-        fun addData(portingEventStatusChangedEvent: PortingEventStatusChangedEvent) =
-            addData(
-                EventListResponse.ofPortingEventStatusChangedEvent(portingEventStatusChangedEvent)
-            )
+        fun addData(portingOrderStatusChanged: PortingEventStatusChangedEvent) =
+            addData(EventListResponse.ofPortingOrderStatusChanged(portingOrderStatusChanged))
 
         /**
          * Alias for calling [addData] with
-         * `EventListResponse.ofPortingEventNewCommentEvent(portingEventNewCommentEvent)`.
+         * `EventListResponse.ofPortingOrderNewComment(portingOrderNewComment)`.
          */
-        fun addData(portingEventNewCommentEvent: PortingEventNewCommentEvent) =
-            addData(EventListResponse.ofPortingEventNewCommentEvent(portingEventNewCommentEvent))
+        fun addData(portingOrderNewComment: PortingEventNewCommentEvent) =
+            addData(EventListResponse.ofPortingOrderNewComment(portingOrderNewComment))
 
         /**
          * Alias for calling [addData] with
-         * `EventListResponse.ofPortingEventSplitEvent(portingEventSplitEvent)`.
+         * `EventListResponse.ofPortingOrderSplit(portingOrderSplit)`.
          */
-        fun addData(portingEventSplitEvent: PortingEventSplitEvent) =
-            addData(EventListResponse.ofPortingEventSplitEvent(portingEventSplitEvent))
+        fun addData(portingOrderSplit: PortingEventSplitEvent) =
+            addData(EventListResponse.ofPortingOrderSplit(portingOrderSplit))
 
         /**
          * Alias for calling [addData] with

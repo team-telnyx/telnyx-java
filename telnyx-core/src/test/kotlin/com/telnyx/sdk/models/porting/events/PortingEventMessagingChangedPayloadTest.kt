@@ -20,7 +20,9 @@ internal class PortingEventMessagingChangedPayloadTest {
                     PortingEventMessagingChangedPayload.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(PortingEventMessagingChangedPayload.EventType.PORTING_ORDER_DELETED)
+                .eventType(
+                    PortingEventMessagingChangedPayload.EventType.PORTING_ORDER_MESSAGING_CHANGED
+                )
                 .payload(
                     PortingEventMessagingChangedPayload.Payload.builder()
                         .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
@@ -53,7 +55,7 @@ internal class PortingEventMessagingChangedPayloadTest {
         assertThat(portingEventMessagingChangedPayload.createdAt())
             .contains(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
         assertThat(portingEventMessagingChangedPayload.eventType())
-            .contains(PortingEventMessagingChangedPayload.EventType.PORTING_ORDER_DELETED)
+            .contains(PortingEventMessagingChangedPayload.EventType.PORTING_ORDER_MESSAGING_CHANGED)
         assertThat(portingEventMessagingChangedPayload.payload())
             .contains(
                 PortingEventMessagingChangedPayload.Payload.builder()
@@ -93,7 +95,9 @@ internal class PortingEventMessagingChangedPayloadTest {
                     PortingEventMessagingChangedPayload.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(PortingEventMessagingChangedPayload.EventType.PORTING_ORDER_DELETED)
+                .eventType(
+                    PortingEventMessagingChangedPayload.EventType.PORTING_ORDER_MESSAGING_CHANGED
+                )
                 .payload(
                     PortingEventMessagingChangedPayload.Payload.builder()
                         .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")

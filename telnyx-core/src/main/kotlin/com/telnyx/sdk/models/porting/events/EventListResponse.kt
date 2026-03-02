@@ -12,7 +12,6 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.BaseDeserializer
 import com.telnyx.sdk.core.BaseSerializer
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Objects
@@ -23,60 +22,59 @@ import kotlin.jvm.optionals.getOrNull
 @JsonSerialize(using = EventListResponse.Serializer::class)
 class EventListResponse
 private constructor(
-    private val portingEventDeletedPayload: PortingEventDeletedPayload? = null,
-    private val portingEventMessagingChangedPayload: PortingEventMessagingChangedPayload? = null,
-    private val portingEventStatusChangedEvent: PortingEventStatusChangedEvent? = null,
-    private val portingEventNewCommentEvent: PortingEventNewCommentEvent? = null,
-    private val portingEventSplitEvent: PortingEventSplitEvent? = null,
+    private val portingOrderDeleted: PortingEventDeletedPayload? = null,
+    private val portingOrderMessagingChanged: PortingEventMessagingChangedPayload? = null,
+    private val portingOrderStatusChanged: PortingEventStatusChangedEvent? = null,
+    private val portingOrderNewComment: PortingEventNewCommentEvent? = null,
+    private val portingOrderSplit: PortingEventSplitEvent? = null,
     private val portingEventWithoutWebhook: PortingEventWithoutWebhook? = null,
     private val _json: JsonValue? = null,
 ) {
 
-    fun portingEventDeletedPayload(): Optional<PortingEventDeletedPayload> =
-        Optional.ofNullable(portingEventDeletedPayload)
+    fun portingOrderDeleted(): Optional<PortingEventDeletedPayload> =
+        Optional.ofNullable(portingOrderDeleted)
 
-    fun portingEventMessagingChangedPayload(): Optional<PortingEventMessagingChangedPayload> =
-        Optional.ofNullable(portingEventMessagingChangedPayload)
+    fun portingOrderMessagingChanged(): Optional<PortingEventMessagingChangedPayload> =
+        Optional.ofNullable(portingOrderMessagingChanged)
 
-    fun portingEventStatusChangedEvent(): Optional<PortingEventStatusChangedEvent> =
-        Optional.ofNullable(portingEventStatusChangedEvent)
+    fun portingOrderStatusChanged(): Optional<PortingEventStatusChangedEvent> =
+        Optional.ofNullable(portingOrderStatusChanged)
 
-    fun portingEventNewCommentEvent(): Optional<PortingEventNewCommentEvent> =
-        Optional.ofNullable(portingEventNewCommentEvent)
+    fun portingOrderNewComment(): Optional<PortingEventNewCommentEvent> =
+        Optional.ofNullable(portingOrderNewComment)
 
-    fun portingEventSplitEvent(): Optional<PortingEventSplitEvent> =
-        Optional.ofNullable(portingEventSplitEvent)
+    fun portingOrderSplit(): Optional<PortingEventSplitEvent> =
+        Optional.ofNullable(portingOrderSplit)
 
     fun portingEventWithoutWebhook(): Optional<PortingEventWithoutWebhook> =
         Optional.ofNullable(portingEventWithoutWebhook)
 
-    fun isPortingEventDeletedPayload(): Boolean = portingEventDeletedPayload != null
+    fun isPortingOrderDeleted(): Boolean = portingOrderDeleted != null
 
-    fun isPortingEventMessagingChangedPayload(): Boolean =
-        portingEventMessagingChangedPayload != null
+    fun isPortingOrderMessagingChanged(): Boolean = portingOrderMessagingChanged != null
 
-    fun isPortingEventStatusChangedEvent(): Boolean = portingEventStatusChangedEvent != null
+    fun isPortingOrderStatusChanged(): Boolean = portingOrderStatusChanged != null
 
-    fun isPortingEventNewCommentEvent(): Boolean = portingEventNewCommentEvent != null
+    fun isPortingOrderNewComment(): Boolean = portingOrderNewComment != null
 
-    fun isPortingEventSplitEvent(): Boolean = portingEventSplitEvent != null
+    fun isPortingOrderSplit(): Boolean = portingOrderSplit != null
 
     fun isPortingEventWithoutWebhook(): Boolean = portingEventWithoutWebhook != null
 
-    fun asPortingEventDeletedPayload(): PortingEventDeletedPayload =
-        portingEventDeletedPayload.getOrThrow("portingEventDeletedPayload")
+    fun asPortingOrderDeleted(): PortingEventDeletedPayload =
+        portingOrderDeleted.getOrThrow("portingOrderDeleted")
 
-    fun asPortingEventMessagingChangedPayload(): PortingEventMessagingChangedPayload =
-        portingEventMessagingChangedPayload.getOrThrow("portingEventMessagingChangedPayload")
+    fun asPortingOrderMessagingChanged(): PortingEventMessagingChangedPayload =
+        portingOrderMessagingChanged.getOrThrow("portingOrderMessagingChanged")
 
-    fun asPortingEventStatusChangedEvent(): PortingEventStatusChangedEvent =
-        portingEventStatusChangedEvent.getOrThrow("portingEventStatusChangedEvent")
+    fun asPortingOrderStatusChanged(): PortingEventStatusChangedEvent =
+        portingOrderStatusChanged.getOrThrow("portingOrderStatusChanged")
 
-    fun asPortingEventNewCommentEvent(): PortingEventNewCommentEvent =
-        portingEventNewCommentEvent.getOrThrow("portingEventNewCommentEvent")
+    fun asPortingOrderNewComment(): PortingEventNewCommentEvent =
+        portingOrderNewComment.getOrThrow("portingOrderNewComment")
 
-    fun asPortingEventSplitEvent(): PortingEventSplitEvent =
-        portingEventSplitEvent.getOrThrow("portingEventSplitEvent")
+    fun asPortingOrderSplit(): PortingEventSplitEvent =
+        portingOrderSplit.getOrThrow("portingOrderSplit")
 
     fun asPortingEventWithoutWebhook(): PortingEventWithoutWebhook =
         portingEventWithoutWebhook.getOrThrow("portingEventWithoutWebhook")
@@ -85,18 +83,14 @@ private constructor(
 
     fun <T> accept(visitor: Visitor<T>): T =
         when {
-            portingEventDeletedPayload != null ->
-                visitor.visitPortingEventDeletedPayload(portingEventDeletedPayload)
-            portingEventMessagingChangedPayload != null ->
-                visitor.visitPortingEventMessagingChangedPayload(
-                    portingEventMessagingChangedPayload
-                )
-            portingEventStatusChangedEvent != null ->
-                visitor.visitPortingEventStatusChangedEvent(portingEventStatusChangedEvent)
-            portingEventNewCommentEvent != null ->
-                visitor.visitPortingEventNewCommentEvent(portingEventNewCommentEvent)
-            portingEventSplitEvent != null ->
-                visitor.visitPortingEventSplitEvent(portingEventSplitEvent)
+            portingOrderDeleted != null -> visitor.visitPortingOrderDeleted(portingOrderDeleted)
+            portingOrderMessagingChanged != null ->
+                visitor.visitPortingOrderMessagingChanged(portingOrderMessagingChanged)
+            portingOrderStatusChanged != null ->
+                visitor.visitPortingOrderStatusChanged(portingOrderStatusChanged)
+            portingOrderNewComment != null ->
+                visitor.visitPortingOrderNewComment(portingOrderNewComment)
+            portingOrderSplit != null -> visitor.visitPortingOrderSplit(portingOrderSplit)
             portingEventWithoutWebhook != null ->
                 visitor.visitPortingEventWithoutWebhook(portingEventWithoutWebhook)
             else -> visitor.unknown(_json)
@@ -111,34 +105,32 @@ private constructor(
 
         accept(
             object : Visitor<Unit> {
-                override fun visitPortingEventDeletedPayload(
-                    portingEventDeletedPayload: PortingEventDeletedPayload
+                override fun visitPortingOrderDeleted(
+                    portingOrderDeleted: PortingEventDeletedPayload
                 ) {
-                    portingEventDeletedPayload.validate()
+                    portingOrderDeleted.validate()
                 }
 
-                override fun visitPortingEventMessagingChangedPayload(
-                    portingEventMessagingChangedPayload: PortingEventMessagingChangedPayload
+                override fun visitPortingOrderMessagingChanged(
+                    portingOrderMessagingChanged: PortingEventMessagingChangedPayload
                 ) {
-                    portingEventMessagingChangedPayload.validate()
+                    portingOrderMessagingChanged.validate()
                 }
 
-                override fun visitPortingEventStatusChangedEvent(
-                    portingEventStatusChangedEvent: PortingEventStatusChangedEvent
+                override fun visitPortingOrderStatusChanged(
+                    portingOrderStatusChanged: PortingEventStatusChangedEvent
                 ) {
-                    portingEventStatusChangedEvent.validate()
+                    portingOrderStatusChanged.validate()
                 }
 
-                override fun visitPortingEventNewCommentEvent(
-                    portingEventNewCommentEvent: PortingEventNewCommentEvent
+                override fun visitPortingOrderNewComment(
+                    portingOrderNewComment: PortingEventNewCommentEvent
                 ) {
-                    portingEventNewCommentEvent.validate()
+                    portingOrderNewComment.validate()
                 }
 
-                override fun visitPortingEventSplitEvent(
-                    portingEventSplitEvent: PortingEventSplitEvent
-                ) {
-                    portingEventSplitEvent.validate()
+                override fun visitPortingOrderSplit(portingOrderSplit: PortingEventSplitEvent) {
+                    portingOrderSplit.validate()
                 }
 
                 override fun visitPortingEventWithoutWebhook(
@@ -168,25 +160,24 @@ private constructor(
     internal fun validity(): Int =
         accept(
             object : Visitor<Int> {
-                override fun visitPortingEventDeletedPayload(
-                    portingEventDeletedPayload: PortingEventDeletedPayload
-                ) = portingEventDeletedPayload.validity()
+                override fun visitPortingOrderDeleted(
+                    portingOrderDeleted: PortingEventDeletedPayload
+                ) = portingOrderDeleted.validity()
 
-                override fun visitPortingEventMessagingChangedPayload(
-                    portingEventMessagingChangedPayload: PortingEventMessagingChangedPayload
-                ) = portingEventMessagingChangedPayload.validity()
+                override fun visitPortingOrderMessagingChanged(
+                    portingOrderMessagingChanged: PortingEventMessagingChangedPayload
+                ) = portingOrderMessagingChanged.validity()
 
-                override fun visitPortingEventStatusChangedEvent(
-                    portingEventStatusChangedEvent: PortingEventStatusChangedEvent
-                ) = portingEventStatusChangedEvent.validity()
+                override fun visitPortingOrderStatusChanged(
+                    portingOrderStatusChanged: PortingEventStatusChangedEvent
+                ) = portingOrderStatusChanged.validity()
 
-                override fun visitPortingEventNewCommentEvent(
-                    portingEventNewCommentEvent: PortingEventNewCommentEvent
-                ) = portingEventNewCommentEvent.validity()
+                override fun visitPortingOrderNewComment(
+                    portingOrderNewComment: PortingEventNewCommentEvent
+                ) = portingOrderNewComment.validity()
 
-                override fun visitPortingEventSplitEvent(
-                    portingEventSplitEvent: PortingEventSplitEvent
-                ) = portingEventSplitEvent.validity()
+                override fun visitPortingOrderSplit(portingOrderSplit: PortingEventSplitEvent) =
+                    portingOrderSplit.validity()
 
                 override fun visitPortingEventWithoutWebhook(
                     portingEventWithoutWebhook: PortingEventWithoutWebhook
@@ -202,36 +193,35 @@ private constructor(
         }
 
         return other is EventListResponse &&
-            portingEventDeletedPayload == other.portingEventDeletedPayload &&
-            portingEventMessagingChangedPayload == other.portingEventMessagingChangedPayload &&
-            portingEventStatusChangedEvent == other.portingEventStatusChangedEvent &&
-            portingEventNewCommentEvent == other.portingEventNewCommentEvent &&
-            portingEventSplitEvent == other.portingEventSplitEvent &&
+            portingOrderDeleted == other.portingOrderDeleted &&
+            portingOrderMessagingChanged == other.portingOrderMessagingChanged &&
+            portingOrderStatusChanged == other.portingOrderStatusChanged &&
+            portingOrderNewComment == other.portingOrderNewComment &&
+            portingOrderSplit == other.portingOrderSplit &&
             portingEventWithoutWebhook == other.portingEventWithoutWebhook
     }
 
     override fun hashCode(): Int =
         Objects.hash(
-            portingEventDeletedPayload,
-            portingEventMessagingChangedPayload,
-            portingEventStatusChangedEvent,
-            portingEventNewCommentEvent,
-            portingEventSplitEvent,
+            portingOrderDeleted,
+            portingOrderMessagingChanged,
+            portingOrderStatusChanged,
+            portingOrderNewComment,
+            portingOrderSplit,
             portingEventWithoutWebhook,
         )
 
     override fun toString(): String =
         when {
-            portingEventDeletedPayload != null ->
-                "EventListResponse{portingEventDeletedPayload=$portingEventDeletedPayload}"
-            portingEventMessagingChangedPayload != null ->
-                "EventListResponse{portingEventMessagingChangedPayload=$portingEventMessagingChangedPayload}"
-            portingEventStatusChangedEvent != null ->
-                "EventListResponse{portingEventStatusChangedEvent=$portingEventStatusChangedEvent}"
-            portingEventNewCommentEvent != null ->
-                "EventListResponse{portingEventNewCommentEvent=$portingEventNewCommentEvent}"
-            portingEventSplitEvent != null ->
-                "EventListResponse{portingEventSplitEvent=$portingEventSplitEvent}"
+            portingOrderDeleted != null ->
+                "EventListResponse{portingOrderDeleted=$portingOrderDeleted}"
+            portingOrderMessagingChanged != null ->
+                "EventListResponse{portingOrderMessagingChanged=$portingOrderMessagingChanged}"
+            portingOrderStatusChanged != null ->
+                "EventListResponse{portingOrderStatusChanged=$portingOrderStatusChanged}"
+            portingOrderNewComment != null ->
+                "EventListResponse{portingOrderNewComment=$portingOrderNewComment}"
+            portingOrderSplit != null -> "EventListResponse{portingOrderSplit=$portingOrderSplit}"
             portingEventWithoutWebhook != null ->
                 "EventListResponse{portingEventWithoutWebhook=$portingEventWithoutWebhook}"
             _json != null -> "EventListResponse{_unknown=$_json}"
@@ -241,30 +231,25 @@ private constructor(
     companion object {
 
         @JvmStatic
-        fun ofPortingEventDeletedPayload(portingEventDeletedPayload: PortingEventDeletedPayload) =
-            EventListResponse(portingEventDeletedPayload = portingEventDeletedPayload)
+        fun ofPortingOrderDeleted(portingOrderDeleted: PortingEventDeletedPayload) =
+            EventListResponse(portingOrderDeleted = portingOrderDeleted)
 
         @JvmStatic
-        fun ofPortingEventMessagingChangedPayload(
-            portingEventMessagingChangedPayload: PortingEventMessagingChangedPayload
-        ) =
-            EventListResponse(
-                portingEventMessagingChangedPayload = portingEventMessagingChangedPayload
-            )
+        fun ofPortingOrderMessagingChanged(
+            portingOrderMessagingChanged: PortingEventMessagingChangedPayload
+        ) = EventListResponse(portingOrderMessagingChanged = portingOrderMessagingChanged)
 
         @JvmStatic
-        fun ofPortingEventStatusChangedEvent(
-            portingEventStatusChangedEvent: PortingEventStatusChangedEvent
-        ) = EventListResponse(portingEventStatusChangedEvent = portingEventStatusChangedEvent)
+        fun ofPortingOrderStatusChanged(portingOrderStatusChanged: PortingEventStatusChangedEvent) =
+            EventListResponse(portingOrderStatusChanged = portingOrderStatusChanged)
 
         @JvmStatic
-        fun ofPortingEventNewCommentEvent(
-            portingEventNewCommentEvent: PortingEventNewCommentEvent
-        ) = EventListResponse(portingEventNewCommentEvent = portingEventNewCommentEvent)
+        fun ofPortingOrderNewComment(portingOrderNewComment: PortingEventNewCommentEvent) =
+            EventListResponse(portingOrderNewComment = portingOrderNewComment)
 
         @JvmStatic
-        fun ofPortingEventSplitEvent(portingEventSplitEvent: PortingEventSplitEvent) =
-            EventListResponse(portingEventSplitEvent = portingEventSplitEvent)
+        fun ofPortingOrderSplit(portingOrderSplit: PortingEventSplitEvent) =
+            EventListResponse(portingOrderSplit = portingOrderSplit)
 
         @JvmStatic
         fun ofPortingEventWithoutWebhook(portingEventWithoutWebhook: PortingEventWithoutWebhook) =
@@ -277,23 +262,19 @@ private constructor(
      */
     interface Visitor<out T> {
 
-        fun visitPortingEventDeletedPayload(
-            portingEventDeletedPayload: PortingEventDeletedPayload
+        fun visitPortingOrderDeleted(portingOrderDeleted: PortingEventDeletedPayload): T
+
+        fun visitPortingOrderMessagingChanged(
+            portingOrderMessagingChanged: PortingEventMessagingChangedPayload
         ): T
 
-        fun visitPortingEventMessagingChangedPayload(
-            portingEventMessagingChangedPayload: PortingEventMessagingChangedPayload
+        fun visitPortingOrderStatusChanged(
+            portingOrderStatusChanged: PortingEventStatusChangedEvent
         ): T
 
-        fun visitPortingEventStatusChangedEvent(
-            portingEventStatusChangedEvent: PortingEventStatusChangedEvent
-        ): T
+        fun visitPortingOrderNewComment(portingOrderNewComment: PortingEventNewCommentEvent): T
 
-        fun visitPortingEventNewCommentEvent(
-            portingEventNewCommentEvent: PortingEventNewCommentEvent
-        ): T
-
-        fun visitPortingEventSplitEvent(portingEventSplitEvent: PortingEventSplitEvent): T
+        fun visitPortingOrderSplit(portingOrderSplit: PortingEventSplitEvent): T
 
         fun visitPortingEventWithoutWebhook(
             portingEventWithoutWebhook: PortingEventWithoutWebhook
@@ -320,46 +301,40 @@ private constructor(
             val json = JsonValue.fromJsonNode(node)
             val eventType = json.asObject().getOrNull()?.get("event_type")?.asString()?.getOrNull()
 
-            when (eventType) {}
-
-            val bestMatches =
-                sequenceOf(
-                        tryDeserialize(node, jacksonTypeRef<PortingEventDeletedPayload>())?.let {
-                            EventListResponse(portingEventDeletedPayload = it, _json = json)
-                        },
-                        tryDeserialize(node, jacksonTypeRef<PortingEventMessagingChangedPayload>())
-                            ?.let {
-                                EventListResponse(
-                                    portingEventMessagingChangedPayload = it,
-                                    _json = json,
-                                )
-                            },
-                        tryDeserialize(node, jacksonTypeRef<PortingEventStatusChangedEvent>())
-                            ?.let {
-                                EventListResponse(portingEventStatusChangedEvent = it, _json = json)
-                            },
-                        tryDeserialize(node, jacksonTypeRef<PortingEventNewCommentEvent>())?.let {
-                            EventListResponse(portingEventNewCommentEvent = it, _json = json)
-                        },
-                        tryDeserialize(node, jacksonTypeRef<PortingEventSplitEvent>())?.let {
-                            EventListResponse(portingEventSplitEvent = it, _json = json)
-                        },
-                        tryDeserialize(node, jacksonTypeRef<PortingEventWithoutWebhook>())?.let {
-                            EventListResponse(portingEventWithoutWebhook = it, _json = json)
-                        },
-                    )
-                    .filterNotNull()
-                    .allMaxBy { it.validity() }
-                    .toList()
-            return when (bestMatches.size) {
-                // This can happen if what we're deserializing is completely incompatible with all
-                // the possible variants (e.g. deserializing from boolean).
-                0 -> EventListResponse(_json = json)
-                1 -> bestMatches.single()
-                // If there's more than one match with the highest validity, then use the first
-                // completely valid match, or simply the first match if none are completely valid.
-                else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+            when (eventType) {
+                "porting_order.deleted" -> {
+                    return tryDeserialize(node, jacksonTypeRef<PortingEventDeletedPayload>())?.let {
+                        EventListResponse(portingOrderDeleted = it, _json = json)
+                    } ?: EventListResponse(_json = json)
+                }
+                "porting_order.messaging_changed" -> {
+                    return tryDeserialize(
+                            node,
+                            jacksonTypeRef<PortingEventMessagingChangedPayload>(),
+                        )
+                        ?.let { EventListResponse(portingOrderMessagingChanged = it, _json = json) }
+                        ?: EventListResponse(_json = json)
+                }
+                "porting_order.status_changed" -> {
+                    return tryDeserialize(node, jacksonTypeRef<PortingEventStatusChangedEvent>())
+                        ?.let { EventListResponse(portingOrderStatusChanged = it, _json = json) }
+                        ?: EventListResponse(_json = json)
+                }
+                "porting_order.new_comment" -> {
+                    return tryDeserialize(node, jacksonTypeRef<PortingEventNewCommentEvent>())
+                        ?.let { EventListResponse(portingOrderNewComment = it, _json = json) }
+                        ?: EventListResponse(_json = json)
+                }
+                "porting_order.split" -> {
+                    return tryDeserialize(node, jacksonTypeRef<PortingEventSplitEvent>())?.let {
+                        EventListResponse(portingOrderSplit = it, _json = json)
+                    } ?: EventListResponse(_json = json)
+                }
             }
+
+            return tryDeserialize(node, jacksonTypeRef<PortingEventWithoutWebhook>())?.let {
+                EventListResponse(portingEventWithoutWebhook = it, _json = json)
+            } ?: EventListResponse(_json = json)
         }
     }
 
@@ -371,16 +346,15 @@ private constructor(
             provider: SerializerProvider,
         ) {
             when {
-                value.portingEventDeletedPayload != null ->
-                    generator.writeObject(value.portingEventDeletedPayload)
-                value.portingEventMessagingChangedPayload != null ->
-                    generator.writeObject(value.portingEventMessagingChangedPayload)
-                value.portingEventStatusChangedEvent != null ->
-                    generator.writeObject(value.portingEventStatusChangedEvent)
-                value.portingEventNewCommentEvent != null ->
-                    generator.writeObject(value.portingEventNewCommentEvent)
-                value.portingEventSplitEvent != null ->
-                    generator.writeObject(value.portingEventSplitEvent)
+                value.portingOrderDeleted != null ->
+                    generator.writeObject(value.portingOrderDeleted)
+                value.portingOrderMessagingChanged != null ->
+                    generator.writeObject(value.portingOrderMessagingChanged)
+                value.portingOrderStatusChanged != null ->
+                    generator.writeObject(value.portingOrderStatusChanged)
+                value.portingOrderNewComment != null ->
+                    generator.writeObject(value.portingOrderNewComment)
+                value.portingOrderSplit != null -> generator.writeObject(value.portingOrderSplit)
                 value.portingEventWithoutWebhook != null ->
                     generator.writeObject(value.portingEventWithoutWebhook)
                 value._json != null -> generator.writeObject(value._json)

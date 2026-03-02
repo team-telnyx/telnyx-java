@@ -526,31 +526,12 @@ private constructor(
 
             @JvmField val PORTING_ORDER_DELETED = of("porting_order.deleted")
 
-            @JvmField val PORTING_ORDER_LOA_UPDATED = of("porting_order.loa_updated")
-
-            @JvmField val PORTING_ORDER_MESSAGING_CHANGED = of("porting_order.messaging_changed")
-
-            @JvmField val PORTING_ORDER_STATUS_CHANGED = of("porting_order.status_changed")
-
-            @JvmField
-            val PORTING_ORDER_SHARING_TOKEN_EXPIRED = of("porting_order.sharing_token_expired")
-
-            @JvmField val PORTING_ORDER_NEW_COMMENT = of("porting_order.new_comment")
-
-            @JvmField val PORTING_ORDER_SPLIT = of("porting_order.split")
-
             @JvmStatic fun of(value: String) = EventType(JsonField.of(value))
         }
 
         /** An enum containing [EventType]'s known values. */
         enum class Known {
-            PORTING_ORDER_DELETED,
-            PORTING_ORDER_LOA_UPDATED,
-            PORTING_ORDER_MESSAGING_CHANGED,
-            PORTING_ORDER_STATUS_CHANGED,
-            PORTING_ORDER_SHARING_TOKEN_EXPIRED,
-            PORTING_ORDER_NEW_COMMENT,
-            PORTING_ORDER_SPLIT,
+            PORTING_ORDER_DELETED
         }
 
         /**
@@ -564,12 +545,6 @@ private constructor(
          */
         enum class Value {
             PORTING_ORDER_DELETED,
-            PORTING_ORDER_LOA_UPDATED,
-            PORTING_ORDER_MESSAGING_CHANGED,
-            PORTING_ORDER_STATUS_CHANGED,
-            PORTING_ORDER_SHARING_TOKEN_EXPIRED,
-            PORTING_ORDER_NEW_COMMENT,
-            PORTING_ORDER_SPLIT,
             /**
              * An enum member indicating that [EventType] was instantiated with an unknown value.
              */
@@ -586,12 +561,6 @@ private constructor(
         fun value(): Value =
             when (this) {
                 PORTING_ORDER_DELETED -> Value.PORTING_ORDER_DELETED
-                PORTING_ORDER_LOA_UPDATED -> Value.PORTING_ORDER_LOA_UPDATED
-                PORTING_ORDER_MESSAGING_CHANGED -> Value.PORTING_ORDER_MESSAGING_CHANGED
-                PORTING_ORDER_STATUS_CHANGED -> Value.PORTING_ORDER_STATUS_CHANGED
-                PORTING_ORDER_SHARING_TOKEN_EXPIRED -> Value.PORTING_ORDER_SHARING_TOKEN_EXPIRED
-                PORTING_ORDER_NEW_COMMENT -> Value.PORTING_ORDER_NEW_COMMENT
-                PORTING_ORDER_SPLIT -> Value.PORTING_ORDER_SPLIT
                 else -> Value._UNKNOWN
             }
 
@@ -607,12 +576,6 @@ private constructor(
         fun known(): Known =
             when (this) {
                 PORTING_ORDER_DELETED -> Known.PORTING_ORDER_DELETED
-                PORTING_ORDER_LOA_UPDATED -> Known.PORTING_ORDER_LOA_UPDATED
-                PORTING_ORDER_MESSAGING_CHANGED -> Known.PORTING_ORDER_MESSAGING_CHANGED
-                PORTING_ORDER_STATUS_CHANGED -> Known.PORTING_ORDER_STATUS_CHANGED
-                PORTING_ORDER_SHARING_TOKEN_EXPIRED -> Known.PORTING_ORDER_SHARING_TOKEN_EXPIRED
-                PORTING_ORDER_NEW_COMMENT -> Known.PORTING_ORDER_NEW_COMMENT
-                PORTING_ORDER_SPLIT -> Known.PORTING_ORDER_SPLIT
                 else -> throw TelnyxInvalidDataException("Unknown EventType: $value")
             }
 

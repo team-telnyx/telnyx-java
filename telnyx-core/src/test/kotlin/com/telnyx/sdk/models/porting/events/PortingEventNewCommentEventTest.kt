@@ -20,7 +20,7 @@ internal class PortingEventNewCommentEventTest {
                     PortingEventNewCommentEvent.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(PortingEventNewCommentEvent.EventType.PORTING_ORDER_DELETED)
+                .eventType(PortingEventNewCommentEvent.EventType.PORTING_ORDER_NEW_COMMENT)
                 .payload(
                     PortingEventNewCommentEvent.Payload.builder()
                         .comment(
@@ -49,7 +49,7 @@ internal class PortingEventNewCommentEventTest {
         assertThat(portingEventNewCommentEvent.createdAt())
             .contains(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
         assertThat(portingEventNewCommentEvent.eventType())
-            .contains(PortingEventNewCommentEvent.EventType.PORTING_ORDER_DELETED)
+            .contains(PortingEventNewCommentEvent.EventType.PORTING_ORDER_NEW_COMMENT)
         assertThat(portingEventNewCommentEvent.payload())
             .contains(
                 PortingEventNewCommentEvent.Payload.builder()
@@ -85,7 +85,7 @@ internal class PortingEventNewCommentEventTest {
                     PortingEventNewCommentEvent.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(PortingEventNewCommentEvent.EventType.PORTING_ORDER_DELETED)
+                .eventType(PortingEventNewCommentEvent.EventType.PORTING_ORDER_NEW_COMMENT)
                 .payload(
                     PortingEventNewCommentEvent.Payload.builder()
                         .comment(
