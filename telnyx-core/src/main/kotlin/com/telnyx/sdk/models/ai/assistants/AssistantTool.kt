@@ -43,6 +43,7 @@ private constructor(
     private val handoff: HandoffTool? = null,
     private val hangup: HangupTool? = null,
     private val transfer: Transfer? = null,
+    private val invite: Invite? = null,
     private val refer: SipReferTool? = null,
     private val sendDtmf: DtmfTool? = null,
     private val sendMessage: SendMessage? = null,
@@ -63,6 +64,8 @@ private constructor(
     fun hangup(): Optional<HangupTool> = Optional.ofNullable(hangup)
 
     fun transfer(): Optional<Transfer> = Optional.ofNullable(transfer)
+
+    fun invite(): Optional<Invite> = Optional.ofNullable(invite)
 
     fun refer(): Optional<SipReferTool> = Optional.ofNullable(refer)
 
@@ -87,6 +90,8 @@ private constructor(
 
     fun isTransfer(): Boolean = transfer != null
 
+    fun isInvite(): Boolean = invite != null
+
     fun isRefer(): Boolean = refer != null
 
     fun isSendDtmf(): Boolean = sendDtmf != null
@@ -108,6 +113,8 @@ private constructor(
     fun asHangup(): HangupTool = hangup.getOrThrow("hangup")
 
     fun asTransfer(): Transfer = transfer.getOrThrow("transfer")
+
+    fun asInvite(): Invite = invite.getOrThrow("invite")
 
     fun asRefer(): SipReferTool = refer.getOrThrow("refer")
 
@@ -131,6 +138,7 @@ private constructor(
             handoff != null -> visitor.visitHandoff(handoff)
             hangup != null -> visitor.visitHangup(hangup)
             transfer != null -> visitor.visitTransfer(transfer)
+            invite != null -> visitor.visitInvite(invite)
             refer != null -> visitor.visitRefer(refer)
             sendDtmf != null -> visitor.visitSendDtmf(sendDtmf)
             sendMessage != null -> visitor.visitSendMessage(sendMessage)
@@ -165,6 +173,10 @@ private constructor(
 
                 override fun visitTransfer(transfer: Transfer) {
                     transfer.validate()
+                }
+
+                override fun visitInvite(invite: Invite) {
+                    invite.validate()
                 }
 
                 override fun visitRefer(refer: SipReferTool) {
@@ -215,6 +227,8 @@ private constructor(
 
                 override fun visitTransfer(transfer: Transfer) = transfer.validity()
 
+                override fun visitInvite(invite: Invite) = invite.validity()
+
                 override fun visitRefer(refer: SipReferTool) = refer.validity()
 
                 override fun visitSendDtmf(sendDtmf: DtmfTool) = sendDtmf.validity()
@@ -238,6 +252,7 @@ private constructor(
             handoff == other.handoff &&
             hangup == other.hangup &&
             transfer == other.transfer &&
+            invite == other.invite &&
             refer == other.refer &&
             sendDtmf == other.sendDtmf &&
             sendMessage == other.sendMessage &&
@@ -251,6 +266,7 @@ private constructor(
             handoff,
             hangup,
             transfer,
+            invite,
             refer,
             sendDtmf,
             sendMessage,
@@ -264,6 +280,7 @@ private constructor(
             handoff != null -> "AssistantTool{handoff=$handoff}"
             hangup != null -> "AssistantTool{hangup=$hangup}"
             transfer != null -> "AssistantTool{transfer=$transfer}"
+            invite != null -> "AssistantTool{invite=$invite}"
             refer != null -> "AssistantTool{refer=$refer}"
             sendDtmf != null -> "AssistantTool{sendDtmf=$sendDtmf}"
             sendMessage != null -> "AssistantTool{sendMessage=$sendMessage}"
@@ -289,6 +306,8 @@ private constructor(
         @JvmStatic fun ofHangup(hangup: HangupTool) = AssistantTool(hangup = hangup)
 
         @JvmStatic fun ofTransfer(transfer: Transfer) = AssistantTool(transfer = transfer)
+
+        @JvmStatic fun ofInvite(invite: Invite) = AssistantTool(invite = invite)
 
         @JvmStatic fun ofRefer(refer: SipReferTool) = AssistantTool(refer = refer)
 
@@ -323,6 +342,8 @@ private constructor(
         fun visitHangup(hangup: HangupTool): T
 
         fun visitTransfer(transfer: Transfer): T
+
+        fun visitInvite(invite: Invite): T
 
         fun visitRefer(refer: SipReferTool): T
 
@@ -386,6 +407,11 @@ private constructor(
                         AssistantTool(transfer = it, _json = json)
                     } ?: AssistantTool(_json = json)
                 }
+                "invite" -> {
+                    return tryDeserialize(node, jacksonTypeRef<Invite>())?.let {
+                        AssistantTool(invite = it, _json = json)
+                    } ?: AssistantTool(_json = json)
+                }
                 "refer" -> {
                     return tryDeserialize(node, jacksonTypeRef<SipReferTool>())?.let {
                         AssistantTool(refer = it, _json = json)
@@ -425,6 +451,7 @@ private constructor(
                 value.handoff != null -> generator.writeObject(value.handoff)
                 value.hangup != null -> generator.writeObject(value.hangup)
                 value.transfer != null -> generator.writeObject(value.transfer)
+                value.invite != null -> generator.writeObject(value.invite)
                 value.refer != null -> generator.writeObject(value.refer)
                 value.sendDtmf != null -> generator.writeObject(value.sendDtmf)
                 value.sendMessage != null -> generator.writeObject(value.sendMessage)
@@ -3979,6 +4006,1297 @@ private constructor(
 
         override fun toString() =
             "Transfer{transfer=$transfer, type=$type, additionalProperties=$additionalProperties}"
+    }
+
+    class Invite
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val invite: JsonField<InnerInvite>,
+        private val type: JsonValue,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("invite")
+            @ExcludeMissing
+            invite: JsonField<InnerInvite> = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
+        ) : this(invite, type, mutableMapOf())
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun invite(): InnerInvite = invite.getRequired("invite")
+
+        /**
+         * Expected to always return the following:
+         * ```java
+         * JsonValue.from("invite")
+         * ```
+         *
+         * However, this method can be useful for debugging and logging (e.g. if the server
+         * responded with an unexpected value).
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
+
+        /**
+         * Returns the raw JSON value of [invite].
+         *
+         * Unlike [invite], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("invite") @ExcludeMissing fun _invite(): JsonField<InnerInvite> = invite
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Invite].
+             *
+             * The following fields are required:
+             * ```java
+             * .invite()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Invite]. */
+        class Builder internal constructor() {
+
+            private var invite: JsonField<InnerInvite>? = null
+            private var type: JsonValue = JsonValue.from("invite")
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(invite: Invite) = apply {
+                this.invite = invite.invite
+                type = invite.type
+                additionalProperties = invite.additionalProperties.toMutableMap()
+            }
+
+            fun invite(invite: InnerInvite) = invite(JsonField.of(invite))
+
+            /**
+             * Sets [Builder.invite] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.invite] with a well-typed [InnerInvite] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun invite(invite: JsonField<InnerInvite>) = apply { this.invite = invite }
+
+            /**
+             * Sets the field to an arbitrary JSON value.
+             *
+             * It is usually unnecessary to call this method because the field defaults to the
+             * following:
+             * ```java
+             * JsonValue.from("invite")
+             * ```
+             *
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun type(type: JsonValue) = apply { this.type = type }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Invite].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .invite()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Invite =
+                Invite(checkRequired("invite", invite), type, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Invite = apply {
+            if (validated) {
+                return@apply
+            }
+
+            invite().validate()
+            _type().let {
+                if (it != JsonValue.from("invite")) {
+                    throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                }
+            }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (invite.asKnown().getOrNull()?.validity() ?: 0) +
+                type.let { if (it == JsonValue.from("invite")) 1 else 0 }
+
+        class InnerInvite
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val customHeaders: JsonField<List<CustomHeader>>,
+            private val from: JsonField<String>,
+            private val voicemailDetection: JsonField<VoicemailDetection>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("custom_headers")
+                @ExcludeMissing
+                customHeaders: JsonField<List<CustomHeader>> = JsonMissing.of(),
+                @JsonProperty("from") @ExcludeMissing from: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("voicemail_detection")
+                @ExcludeMissing
+                voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of(),
+            ) : this(customHeaders, from, voicemailDetection, mutableMapOf())
+
+            /**
+             * Custom headers to be added to the SIP INVITE for the invite command.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun customHeaders(): Optional<List<CustomHeader>> =
+                customHeaders.getOptional("custom_headers")
+
+            /**
+             * Number or SIP URI placing the call.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun from(): Optional<String> = from.getOptional("from")
+
+            /**
+             * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
+             * invited call.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun voicemailDetection(): Optional<VoicemailDetection> =
+                voicemailDetection.getOptional("voicemail_detection")
+
+            /**
+             * Returns the raw JSON value of [customHeaders].
+             *
+             * Unlike [customHeaders], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("custom_headers")
+            @ExcludeMissing
+            fun _customHeaders(): JsonField<List<CustomHeader>> = customHeaders
+
+            /**
+             * Returns the raw JSON value of [from].
+             *
+             * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("from") @ExcludeMissing fun _from(): JsonField<String> = from
+
+            /**
+             * Returns the raw JSON value of [voicemailDetection].
+             *
+             * Unlike [voicemailDetection], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("voicemail_detection")
+            @ExcludeMissing
+            fun _voicemailDetection(): JsonField<VoicemailDetection> = voicemailDetection
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [InnerInvite]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [InnerInvite]. */
+            class Builder internal constructor() {
+
+                private var customHeaders: JsonField<MutableList<CustomHeader>>? = null
+                private var from: JsonField<String> = JsonMissing.of()
+                private var voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(innerInvite: InnerInvite) = apply {
+                    customHeaders = innerInvite.customHeaders.map { it.toMutableList() }
+                    from = innerInvite.from
+                    voicemailDetection = innerInvite.voicemailDetection
+                    additionalProperties = innerInvite.additionalProperties.toMutableMap()
+                }
+
+                /** Custom headers to be added to the SIP INVITE for the invite command. */
+                fun customHeaders(customHeaders: List<CustomHeader>) =
+                    customHeaders(JsonField.of(customHeaders))
+
+                /**
+                 * Sets [Builder.customHeaders] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.customHeaders] with a well-typed
+                 * `List<CustomHeader>` value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun customHeaders(customHeaders: JsonField<List<CustomHeader>>) = apply {
+                    this.customHeaders = customHeaders.map { it.toMutableList() }
+                }
+
+                /**
+                 * Adds a single [CustomHeader] to [customHeaders].
+                 *
+                 * @throws IllegalStateException if the field was previously set to a non-list.
+                 */
+                fun addCustomHeader(customHeader: CustomHeader) = apply {
+                    customHeaders =
+                        (customHeaders ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("customHeaders", it).add(customHeader)
+                        }
+                }
+
+                /** Number or SIP URI placing the call. */
+                fun from(from: String) = from(JsonField.of(from))
+
+                /**
+                 * Sets [Builder.from] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.from] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun from(from: JsonField<String>) = apply { this.from = from }
+
+                /**
+                 * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
+                 * invited call.
+                 */
+                fun voicemailDetection(voicemailDetection: VoicemailDetection) =
+                    voicemailDetection(JsonField.of(voicemailDetection))
+
+                /**
+                 * Sets [Builder.voicemailDetection] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.voicemailDetection] with a well-typed
+                 * [VoicemailDetection] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun voicemailDetection(voicemailDetection: JsonField<VoicemailDetection>) = apply {
+                    this.voicemailDetection = voicemailDetection
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [InnerInvite].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): InnerInvite =
+                    InnerInvite(
+                        (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
+                        from,
+                        voicemailDetection,
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): InnerInvite = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                customHeaders().ifPresent { it.forEach { it.validate() } }
+                from()
+                voicemailDetection().ifPresent { it.validate() }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                    (if (from.asKnown().isPresent) 1 else 0) +
+                    (voicemailDetection.asKnown().getOrNull()?.validity() ?: 0)
+
+            class CustomHeader
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val name: JsonField<String>,
+                private val value: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("name")
+                    @ExcludeMissing
+                    name: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("value")
+                    @ExcludeMissing
+                    value: JsonField<String> = JsonMissing.of(),
+                ) : this(name, value, mutableMapOf())
+
+                /**
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun name(): Optional<String> = name.getOptional("name")
+
+                /**
+                 * The value of the header. Note that we support mustache templating for the value.
+                 * For example you can use
+                 * `{{#integration_secret}}test-secret{{/integration_secret}}` to pass the value of
+                 * the integration secret.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun value(): Optional<String> = value.getOptional("value")
+
+                /**
+                 * Returns the raw JSON value of [name].
+                 *
+                 * Unlike [name], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+                /**
+                 * Returns the raw JSON value of [value].
+                 *
+                 * Unlike [value], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<String> = value
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [CustomHeader]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [CustomHeader]. */
+                class Builder internal constructor() {
+
+                    private var name: JsonField<String> = JsonMissing.of()
+                    private var value: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(customHeader: CustomHeader) = apply {
+                        name = customHeader.name
+                        value = customHeader.value
+                        additionalProperties = customHeader.additionalProperties.toMutableMap()
+                    }
+
+                    fun name(name: String) = name(JsonField.of(name))
+
+                    /**
+                     * Sets [Builder.name] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.name] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun name(name: JsonField<String>) = apply { this.name = name }
+
+                    /**
+                     * The value of the header. Note that we support mustache templating for the
+                     * value. For example you can use
+                     * `{{#integration_secret}}test-secret{{/integration_secret}}` to pass the value
+                     * of the integration secret.
+                     */
+                    fun value(value: String) = value(JsonField.of(value))
+
+                    /**
+                     * Sets [Builder.value] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.value] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun value(value: JsonField<String>) = apply { this.value = value }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [CustomHeader].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): CustomHeader =
+                        CustomHeader(name, value, additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): CustomHeader = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    name()
+                    value()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (name.asKnown().isPresent) 1 else 0) +
+                        (if (value.asKnown().isPresent) 1 else 0)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is CustomHeader &&
+                        name == other.name &&
+                        value == other.value &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(name, value, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "CustomHeader{name=$name, value=$value, additionalProperties=$additionalProperties}"
+            }
+
+            /**
+             * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
+             * invited call.
+             */
+            class VoicemailDetection
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val detectionMode: JsonField<DetectionMode>,
+                private val onVoicemailDetected: JsonField<OnVoicemailDetected>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("detection_mode")
+                    @ExcludeMissing
+                    detectionMode: JsonField<DetectionMode> = JsonMissing.of(),
+                    @JsonProperty("on_voicemail_detected")
+                    @ExcludeMissing
+                    onVoicemailDetected: JsonField<OnVoicemailDetected> = JsonMissing.of(),
+                ) : this(detectionMode, onVoicemailDetected, mutableMapOf())
+
+                /**
+                 * The AMD detection mode to use. 'premium' enables premium answering machine
+                 * detection. 'disabled' turns off AMD detection.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun detectionMode(): Optional<DetectionMode> =
+                    detectionMode.getOptional("detection_mode")
+
+                /**
+                 * Action to take when voicemail is detected on the invited call.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
+                 *   if the server responded with an unexpected value).
+                 */
+                fun onVoicemailDetected(): Optional<OnVoicemailDetected> =
+                    onVoicemailDetected.getOptional("on_voicemail_detected")
+
+                /**
+                 * Returns the raw JSON value of [detectionMode].
+                 *
+                 * Unlike [detectionMode], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("detection_mode")
+                @ExcludeMissing
+                fun _detectionMode(): JsonField<DetectionMode> = detectionMode
+
+                /**
+                 * Returns the raw JSON value of [onVoicemailDetected].
+                 *
+                 * Unlike [onVoicemailDetected], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("on_voicemail_detected")
+                @ExcludeMissing
+                fun _onVoicemailDetected(): JsonField<OnVoicemailDetected> = onVoicemailDetected
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [VoicemailDetection].
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [VoicemailDetection]. */
+                class Builder internal constructor() {
+
+                    private var detectionMode: JsonField<DetectionMode> = JsonMissing.of()
+                    private var onVoicemailDetected: JsonField<OnVoicemailDetected> =
+                        JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(voicemailDetection: VoicemailDetection) = apply {
+                        detectionMode = voicemailDetection.detectionMode
+                        onVoicemailDetected = voicemailDetection.onVoicemailDetected
+                        additionalProperties =
+                            voicemailDetection.additionalProperties.toMutableMap()
+                    }
+
+                    /**
+                     * The AMD detection mode to use. 'premium' enables premium answering machine
+                     * detection. 'disabled' turns off AMD detection.
+                     */
+                    fun detectionMode(detectionMode: DetectionMode) =
+                        detectionMode(JsonField.of(detectionMode))
+
+                    /**
+                     * Sets [Builder.detectionMode] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.detectionMode] with a well-typed
+                     * [DetectionMode] value instead. This method is primarily for setting the field
+                     * to an undocumented or not yet supported value.
+                     */
+                    fun detectionMode(detectionMode: JsonField<DetectionMode>) = apply {
+                        this.detectionMode = detectionMode
+                    }
+
+                    /** Action to take when voicemail is detected on the invited call. */
+                    fun onVoicemailDetected(onVoicemailDetected: OnVoicemailDetected) =
+                        onVoicemailDetected(JsonField.of(onVoicemailDetected))
+
+                    /**
+                     * Sets [Builder.onVoicemailDetected] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.onVoicemailDetected] with a well-typed
+                     * [OnVoicemailDetected] value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
+                     */
+                    fun onVoicemailDetected(onVoicemailDetected: JsonField<OnVoicemailDetected>) =
+                        apply {
+                            this.onVoicemailDetected = onVoicemailDetected
+                        }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [VoicemailDetection].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): VoicemailDetection =
+                        VoicemailDetection(
+                            detectionMode,
+                            onVoicemailDetected,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): VoicemailDetection = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    detectionMode().ifPresent { it.validate() }
+                    onVoicemailDetected().ifPresent { it.validate() }
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (detectionMode.asKnown().getOrNull()?.validity() ?: 0) +
+                        (onVoicemailDetected.asKnown().getOrNull()?.validity() ?: 0)
+
+                /**
+                 * The AMD detection mode to use. 'premium' enables premium answering machine
+                 * detection. 'disabled' turns off AMD detection.
+                 */
+                class DetectionMode
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        @JvmField val DISABLED = of("disabled")
+
+                        @JvmField val PREMIUM = of("premium")
+
+                        @JvmStatic fun of(value: String) = DetectionMode(JsonField.of(value))
+                    }
+
+                    /** An enum containing [DetectionMode]'s known values. */
+                    enum class Known {
+                        DISABLED,
+                        PREMIUM,
+                    }
+
+                    /**
+                     * An enum containing [DetectionMode]'s known values, as well as an [_UNKNOWN]
+                     * member.
+                     *
+                     * An instance of [DetectionMode] can contain an unknown value in a couple of
+                     * cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        DISABLED,
+                        PREMIUM,
+                        /**
+                         * An enum member indicating that [DetectionMode] was instantiated with an
+                         * unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            DISABLED -> Value.DISABLED
+                            PREMIUM -> Value.PREMIUM
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                     *   known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            DISABLED -> Known.DISABLED
+                            PREMIUM -> Known.PREMIUM
+                            else ->
+                                throw TelnyxInvalidDataException("Unknown DetectionMode: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            TelnyxInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): DetectionMode = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is DetectionMode && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                /** Action to take when voicemail is detected on the invited call. */
+                class OnVoicemailDetected
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val action: JsonField<Action>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("action")
+                        @ExcludeMissing
+                        action: JsonField<Action> = JsonMissing.of()
+                    ) : this(action, mutableMapOf())
+
+                    /**
+                     * The action to take when voicemail is detected.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun action(): Optional<Action> = action.getOptional("action")
+
+                    /**
+                     * Returns the raw JSON value of [action].
+                     *
+                     * Unlike [action], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("action")
+                    @ExcludeMissing
+                    fun _action(): JsonField<Action> = action
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [OnVoicemailDetected].
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [OnVoicemailDetected]. */
+                    class Builder internal constructor() {
+
+                        private var action: JsonField<Action> = JsonMissing.of()
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(onVoicemailDetected: OnVoicemailDetected) = apply {
+                            action = onVoicemailDetected.action
+                            additionalProperties =
+                                onVoicemailDetected.additionalProperties.toMutableMap()
+                        }
+
+                        /** The action to take when voicemail is detected. */
+                        fun action(action: Action) = action(JsonField.of(action))
+
+                        /**
+                         * Sets [Builder.action] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.action] with a well-typed [Action] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun action(action: JsonField<Action>) = apply { this.action = action }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [OnVoicemailDetected].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         */
+                        fun build(): OnVoicemailDetected =
+                            OnVoicemailDetected(action, additionalProperties.toMutableMap())
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): OnVoicemailDetected = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        action().ifPresent { it.validate() }
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = (action.asKnown().getOrNull()?.validity() ?: 0)
+
+                    /** The action to take when voicemail is detected. */
+                    class Action
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            @JvmField val STOP_INVITE = of("stop_invite")
+
+                            @JvmStatic fun of(value: String) = Action(JsonField.of(value))
+                        }
+
+                        /** An enum containing [Action]'s known values. */
+                        enum class Known {
+                            STOP_INVITE
+                        }
+
+                        /**
+                         * An enum containing [Action]'s known values, as well as an [_UNKNOWN]
+                         * member.
+                         *
+                         * An instance of [Action] can contain an unknown value in a couple of
+                         * cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            STOP_INVITE,
+                            /**
+                             * An enum member indicating that [Action] was instantiated with an
+                             * unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                STOP_INVITE -> Value.STOP_INVITE
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws TelnyxInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                STOP_INVITE -> Known.STOP_INVITE
+                                else -> throw TelnyxInvalidDataException("Unknown Action: $value")
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws TelnyxInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString().orElseThrow {
+                                TelnyxInvalidDataException("Value is not a String")
+                            }
+
+                        private var validated: Boolean = false
+
+                        fun validate(): Action = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: TelnyxInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is Action && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is OnVoicemailDetected &&
+                            action == other.action &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy { Objects.hash(action, additionalProperties) }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "OnVoicemailDetected{action=$action, additionalProperties=$additionalProperties}"
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is VoicemailDetection &&
+                        detectionMode == other.detectionMode &&
+                        onVoicemailDetected == other.onVoicemailDetected &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(detectionMode, onVoicemailDetected, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "VoicemailDetection{detectionMode=$detectionMode, onVoicemailDetected=$onVoicemailDetected, additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is InnerInvite &&
+                    customHeaders == other.customHeaders &&
+                    from == other.from &&
+                    voicemailDetection == other.voicemailDetection &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(customHeaders, from, voicemailDetection, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "InnerInvite{customHeaders=$customHeaders, from=$from, voicemailDetection=$voicemailDetection, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Invite &&
+                invite == other.invite &&
+                type == other.type &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(invite, type, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Invite{invite=$invite, type=$type, additionalProperties=$additionalProperties}"
     }
 
     class SipReferTool
