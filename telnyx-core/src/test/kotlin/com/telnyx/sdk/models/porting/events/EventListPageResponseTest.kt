@@ -49,7 +49,7 @@ internal class EventListPageResponseTest {
 
         assertThat(eventListPageResponse.data().getOrNull())
             .containsExactly(
-                EventListResponse.ofPortingEventDeletedPayload(
+                EventListResponse.ofPortingOrderDeleted(
                     PortingEventDeletedPayload.builder()
                         .id("eef3340b-8903-4466-b445-89b697315a3a")
                         .addAvailableNotificationMethod(

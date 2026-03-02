@@ -18,8 +18,8 @@ import org.junit.jupiter.params.provider.EnumSource
 internal class EventListResponseTest {
 
     @Test
-    fun ofPortingEventDeletedPayload() {
-        val portingEventDeletedPayload =
+    fun ofPortingOrderDeleted() {
+        val portingOrderDeleted =
             PortingEventDeletedPayload.builder()
                 .id("eef3340b-8903-4466-b445-89b697315a3a")
                 .addAvailableNotificationMethod(
@@ -40,23 +40,21 @@ internal class EventListResponseTest {
                 .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
                 .build()
 
-        val eventListResponse =
-            EventListResponse.ofPortingEventDeletedPayload(portingEventDeletedPayload)
+        val eventListResponse = EventListResponse.ofPortingOrderDeleted(portingOrderDeleted)
 
-        assertThat(eventListResponse.portingEventDeletedPayload())
-            .contains(portingEventDeletedPayload)
-        assertThat(eventListResponse.portingEventMessagingChangedPayload()).isEmpty
-        assertThat(eventListResponse.portingEventStatusChangedEvent()).isEmpty
-        assertThat(eventListResponse.portingEventNewCommentEvent()).isEmpty
-        assertThat(eventListResponse.portingEventSplitEvent()).isEmpty
+        assertThat(eventListResponse.portingOrderDeleted()).contains(portingOrderDeleted)
+        assertThat(eventListResponse.portingOrderMessagingChanged()).isEmpty
+        assertThat(eventListResponse.portingOrderStatusChanged()).isEmpty
+        assertThat(eventListResponse.portingOrderNewComment()).isEmpty
+        assertThat(eventListResponse.portingOrderSplit()).isEmpty
         assertThat(eventListResponse.portingEventWithoutWebhook()).isEmpty
     }
 
     @Test
-    fun ofPortingEventDeletedPayloadRoundtrip() {
+    fun ofPortingOrderDeletedRoundtrip() {
         val jsonMapper = jsonMapper()
         val eventListResponse =
-            EventListResponse.ofPortingEventDeletedPayload(
+            EventListResponse.ofPortingOrderDeleted(
                 PortingEventDeletedPayload.builder()
                     .id("eef3340b-8903-4466-b445-89b697315a3a")
                     .addAvailableNotificationMethod(
@@ -88,15 +86,17 @@ internal class EventListResponseTest {
     }
 
     @Test
-    fun ofPortingEventMessagingChangedPayload() {
-        val portingEventMessagingChangedPayload =
+    fun ofPortingOrderMessagingChanged() {
+        val portingOrderMessagingChanged =
             PortingEventMessagingChangedPayload.builder()
                 .id("eef3340b-8903-4466-b445-89b697315a3a")
                 .addAvailableNotificationMethod(
                     PortingEventMessagingChangedPayload.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(PortingEventMessagingChangedPayload.EventType.PORTING_ORDER_DELETED)
+                .eventType(
+                    PortingEventMessagingChangedPayload.EventType.PORTING_ORDER_MESSAGING_CHANGED
+                )
                 .payload(
                     PortingEventMessagingChangedPayload.Payload.builder()
                         .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
@@ -123,31 +123,32 @@ internal class EventListResponseTest {
                 .build()
 
         val eventListResponse =
-            EventListResponse.ofPortingEventMessagingChangedPayload(
-                portingEventMessagingChangedPayload
-            )
+            EventListResponse.ofPortingOrderMessagingChanged(portingOrderMessagingChanged)
 
-        assertThat(eventListResponse.portingEventDeletedPayload()).isEmpty
-        assertThat(eventListResponse.portingEventMessagingChangedPayload())
-            .contains(portingEventMessagingChangedPayload)
-        assertThat(eventListResponse.portingEventStatusChangedEvent()).isEmpty
-        assertThat(eventListResponse.portingEventNewCommentEvent()).isEmpty
-        assertThat(eventListResponse.portingEventSplitEvent()).isEmpty
+        assertThat(eventListResponse.portingOrderDeleted()).isEmpty
+        assertThat(eventListResponse.portingOrderMessagingChanged())
+            .contains(portingOrderMessagingChanged)
+        assertThat(eventListResponse.portingOrderStatusChanged()).isEmpty
+        assertThat(eventListResponse.portingOrderNewComment()).isEmpty
+        assertThat(eventListResponse.portingOrderSplit()).isEmpty
         assertThat(eventListResponse.portingEventWithoutWebhook()).isEmpty
     }
 
     @Test
-    fun ofPortingEventMessagingChangedPayloadRoundtrip() {
+    fun ofPortingOrderMessagingChangedRoundtrip() {
         val jsonMapper = jsonMapper()
         val eventListResponse =
-            EventListResponse.ofPortingEventMessagingChangedPayload(
+            EventListResponse.ofPortingOrderMessagingChanged(
                 PortingEventMessagingChangedPayload.builder()
                     .id("eef3340b-8903-4466-b445-89b697315a3a")
                     .addAvailableNotificationMethod(
                         PortingEventMessagingChangedPayload.AvailableNotificationMethod.EMAIL
                     )
                     .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .eventType(PortingEventMessagingChangedPayload.EventType.PORTING_ORDER_DELETED)
+                    .eventType(
+                        PortingEventMessagingChangedPayload.EventType
+                            .PORTING_ORDER_MESSAGING_CHANGED
+                    )
                     .payload(
                         PortingEventMessagingChangedPayload.Payload.builder()
                             .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
@@ -184,15 +185,15 @@ internal class EventListResponseTest {
     }
 
     @Test
-    fun ofPortingEventStatusChangedEvent() {
-        val portingEventStatusChangedEvent =
+    fun ofPortingOrderStatusChanged() {
+        val portingOrderStatusChanged =
             PortingEventStatusChangedEvent.builder()
                 .id("eef3340b-8903-4466-b445-89b697315a3a")
                 .addAvailableNotificationMethod(
                     PortingEventStatusChangedEvent.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(PortingEventStatusChangedEvent.EventType.PORTING_ORDER_DELETED)
+                .eventType(PortingEventStatusChangedEvent.EventType.PORTING_ORDER_STATUS_CHANGED)
                 .payload(
                     PortingEventStatusChangedEvent.Payload.builder()
                         .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
@@ -220,29 +221,31 @@ internal class EventListResponseTest {
                 .build()
 
         val eventListResponse =
-            EventListResponse.ofPortingEventStatusChangedEvent(portingEventStatusChangedEvent)
+            EventListResponse.ofPortingOrderStatusChanged(portingOrderStatusChanged)
 
-        assertThat(eventListResponse.portingEventDeletedPayload()).isEmpty
-        assertThat(eventListResponse.portingEventMessagingChangedPayload()).isEmpty
-        assertThat(eventListResponse.portingEventStatusChangedEvent())
-            .contains(portingEventStatusChangedEvent)
-        assertThat(eventListResponse.portingEventNewCommentEvent()).isEmpty
-        assertThat(eventListResponse.portingEventSplitEvent()).isEmpty
+        assertThat(eventListResponse.portingOrderDeleted()).isEmpty
+        assertThat(eventListResponse.portingOrderMessagingChanged()).isEmpty
+        assertThat(eventListResponse.portingOrderStatusChanged())
+            .contains(portingOrderStatusChanged)
+        assertThat(eventListResponse.portingOrderNewComment()).isEmpty
+        assertThat(eventListResponse.portingOrderSplit()).isEmpty
         assertThat(eventListResponse.portingEventWithoutWebhook()).isEmpty
     }
 
     @Test
-    fun ofPortingEventStatusChangedEventRoundtrip() {
+    fun ofPortingOrderStatusChangedRoundtrip() {
         val jsonMapper = jsonMapper()
         val eventListResponse =
-            EventListResponse.ofPortingEventStatusChangedEvent(
+            EventListResponse.ofPortingOrderStatusChanged(
                 PortingEventStatusChangedEvent.builder()
                     .id("eef3340b-8903-4466-b445-89b697315a3a")
                     .addAvailableNotificationMethod(
                         PortingEventStatusChangedEvent.AvailableNotificationMethod.EMAIL
                     )
                     .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .eventType(PortingEventStatusChangedEvent.EventType.PORTING_ORDER_DELETED)
+                    .eventType(
+                        PortingEventStatusChangedEvent.EventType.PORTING_ORDER_STATUS_CHANGED
+                    )
                     .payload(
                         PortingEventStatusChangedEvent.Payload.builder()
                             .id("96dfa9e4-c753-4fd3-97cd-42d66f26cf0c")
@@ -284,15 +287,15 @@ internal class EventListResponseTest {
     }
 
     @Test
-    fun ofPortingEventNewCommentEvent() {
-        val portingEventNewCommentEvent =
+    fun ofPortingOrderNewComment() {
+        val portingOrderNewComment =
             PortingEventNewCommentEvent.builder()
                 .id("eef3340b-8903-4466-b445-89b697315a3a")
                 .addAvailableNotificationMethod(
                     PortingEventNewCommentEvent.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(PortingEventNewCommentEvent.EventType.PORTING_ORDER_DELETED)
+                .eventType(PortingEventNewCommentEvent.EventType.PORTING_ORDER_NEW_COMMENT)
                 .payload(
                     PortingEventNewCommentEvent.Payload.builder()
                         .comment(
@@ -314,30 +317,28 @@ internal class EventListResponseTest {
                 .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                 .build()
 
-        val eventListResponse =
-            EventListResponse.ofPortingEventNewCommentEvent(portingEventNewCommentEvent)
+        val eventListResponse = EventListResponse.ofPortingOrderNewComment(portingOrderNewComment)
 
-        assertThat(eventListResponse.portingEventDeletedPayload()).isEmpty
-        assertThat(eventListResponse.portingEventMessagingChangedPayload()).isEmpty
-        assertThat(eventListResponse.portingEventStatusChangedEvent()).isEmpty
-        assertThat(eventListResponse.portingEventNewCommentEvent())
-            .contains(portingEventNewCommentEvent)
-        assertThat(eventListResponse.portingEventSplitEvent()).isEmpty
+        assertThat(eventListResponse.portingOrderDeleted()).isEmpty
+        assertThat(eventListResponse.portingOrderMessagingChanged()).isEmpty
+        assertThat(eventListResponse.portingOrderStatusChanged()).isEmpty
+        assertThat(eventListResponse.portingOrderNewComment()).contains(portingOrderNewComment)
+        assertThat(eventListResponse.portingOrderSplit()).isEmpty
         assertThat(eventListResponse.portingEventWithoutWebhook()).isEmpty
     }
 
     @Test
-    fun ofPortingEventNewCommentEventRoundtrip() {
+    fun ofPortingOrderNewCommentRoundtrip() {
         val jsonMapper = jsonMapper()
         val eventListResponse =
-            EventListResponse.ofPortingEventNewCommentEvent(
+            EventListResponse.ofPortingOrderNewComment(
                 PortingEventNewCommentEvent.builder()
                     .id("eef3340b-8903-4466-b445-89b697315a3a")
                     .addAvailableNotificationMethod(
                         PortingEventNewCommentEvent.AvailableNotificationMethod.EMAIL
                     )
                     .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .eventType(PortingEventNewCommentEvent.EventType.PORTING_ORDER_DELETED)
+                    .eventType(PortingEventNewCommentEvent.EventType.PORTING_ORDER_NEW_COMMENT)
                     .payload(
                         PortingEventNewCommentEvent.Payload.builder()
                             .comment(
@@ -372,15 +373,15 @@ internal class EventListResponseTest {
     }
 
     @Test
-    fun ofPortingEventSplitEvent() {
-        val portingEventSplitEvent =
+    fun ofPortingOrderSplit() {
+        val portingOrderSplit =
             PortingEventSplitEvent.builder()
                 .id("eef3340b-8903-4466-b445-89b697315a3a")
                 .addAvailableNotificationMethod(
                     PortingEventSplitEvent.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(PortingEventSplitEvent.EventType.PORTING_ORDER_DELETED)
+                .eventType(PortingEventSplitEvent.EventType.PORTING_ORDER_SPLIT)
                 .payload(
                     PortingEventSplitEvent.Payload.builder()
                         .from(
@@ -406,28 +407,28 @@ internal class EventListResponseTest {
                 .updatedAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
                 .build()
 
-        val eventListResponse = EventListResponse.ofPortingEventSplitEvent(portingEventSplitEvent)
+        val eventListResponse = EventListResponse.ofPortingOrderSplit(portingOrderSplit)
 
-        assertThat(eventListResponse.portingEventDeletedPayload()).isEmpty
-        assertThat(eventListResponse.portingEventMessagingChangedPayload()).isEmpty
-        assertThat(eventListResponse.portingEventStatusChangedEvent()).isEmpty
-        assertThat(eventListResponse.portingEventNewCommentEvent()).isEmpty
-        assertThat(eventListResponse.portingEventSplitEvent()).contains(portingEventSplitEvent)
+        assertThat(eventListResponse.portingOrderDeleted()).isEmpty
+        assertThat(eventListResponse.portingOrderMessagingChanged()).isEmpty
+        assertThat(eventListResponse.portingOrderStatusChanged()).isEmpty
+        assertThat(eventListResponse.portingOrderNewComment()).isEmpty
+        assertThat(eventListResponse.portingOrderSplit()).contains(portingOrderSplit)
         assertThat(eventListResponse.portingEventWithoutWebhook()).isEmpty
     }
 
     @Test
-    fun ofPortingEventSplitEventRoundtrip() {
+    fun ofPortingOrderSplitRoundtrip() {
         val jsonMapper = jsonMapper()
         val eventListResponse =
-            EventListResponse.ofPortingEventSplitEvent(
+            EventListResponse.ofPortingOrderSplit(
                 PortingEventSplitEvent.builder()
                     .id("eef3340b-8903-4466-b445-89b697315a3a")
                     .addAvailableNotificationMethod(
                         PortingEventSplitEvent.AvailableNotificationMethod.EMAIL
                     )
                     .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .eventType(PortingEventSplitEvent.EventType.PORTING_ORDER_DELETED)
+                    .eventType(PortingEventSplitEvent.EventType.PORTING_ORDER_SPLIT)
                     .payload(
                         PortingEventSplitEvent.Payload.builder()
                             .from(
@@ -472,7 +473,7 @@ internal class EventListResponseTest {
                     PortingEventWithoutWebhook.AvailableNotificationMethod.EMAIL
                 )
                 .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                .eventType(PortingEventWithoutWebhook.EventType.PORTING_ORDER_DELETED)
+                .eventType(PortingEventWithoutWebhook.EventType.PORTING_ORDER_LOA_UPDATED)
                 .payload(null)
                 .payloadStatus(PortingEventWithoutWebhook.PayloadStatus.CREATED)
                 .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
@@ -483,11 +484,11 @@ internal class EventListResponseTest {
         val eventListResponse =
             EventListResponse.ofPortingEventWithoutWebhook(portingEventWithoutWebhook)
 
-        assertThat(eventListResponse.portingEventDeletedPayload()).isEmpty
-        assertThat(eventListResponse.portingEventMessagingChangedPayload()).isEmpty
-        assertThat(eventListResponse.portingEventStatusChangedEvent()).isEmpty
-        assertThat(eventListResponse.portingEventNewCommentEvent()).isEmpty
-        assertThat(eventListResponse.portingEventSplitEvent()).isEmpty
+        assertThat(eventListResponse.portingOrderDeleted()).isEmpty
+        assertThat(eventListResponse.portingOrderMessagingChanged()).isEmpty
+        assertThat(eventListResponse.portingOrderStatusChanged()).isEmpty
+        assertThat(eventListResponse.portingOrderNewComment()).isEmpty
+        assertThat(eventListResponse.portingOrderSplit()).isEmpty
         assertThat(eventListResponse.portingEventWithoutWebhook())
             .contains(portingEventWithoutWebhook)
     }
@@ -503,7 +504,7 @@ internal class EventListResponseTest {
                         PortingEventWithoutWebhook.AvailableNotificationMethod.EMAIL
                     )
                     .createdAt(OffsetDateTime.parse("2021-03-19T10:07:15.527000Z"))
-                    .eventType(PortingEventWithoutWebhook.EventType.PORTING_ORDER_DELETED)
+                    .eventType(PortingEventWithoutWebhook.EventType.PORTING_ORDER_LOA_UPDATED)
                     .payload(null)
                     .payloadStatus(PortingEventWithoutWebhook.PayloadStatus.CREATED)
                     .portingOrderId("9471c873-e3eb-4ca1-957d-f9a451334d52")
