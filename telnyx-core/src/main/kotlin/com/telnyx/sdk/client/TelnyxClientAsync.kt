@@ -563,6 +563,7 @@ interface TelnyxClientAsync {
     /** TeXML Applications operations */
     fun texmlApplications(): TexmlApplicationServiceAsync
 
+    /** Text to speech streaming command operations */
     fun textToSpeech(): TextToSpeechServiceAsync
 
     /** Usage data reporting across Telnyx products */
@@ -1030,6 +1031,7 @@ interface TelnyxClientAsync {
         /** TeXML Applications operations */
         fun texmlApplications(): TexmlApplicationServiceAsync.WithRawResponse
 
+        /** Text to speech streaming command operations */
         fun textToSpeech(): TextToSpeechServiceAsync.WithRawResponse
 
         /** Usage data reporting across Telnyx products */
