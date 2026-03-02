@@ -563,6 +563,7 @@ interface TelnyxClient {
     /** TeXML Applications operations */
     fun texmlApplications(): TexmlApplicationService
 
+    /** Text to speech streaming command operations */
     fun textToSpeech(): TextToSpeechService
 
     /** Usage data reporting across Telnyx products */
@@ -1027,6 +1028,7 @@ interface TelnyxClient {
         /** TeXML Applications operations */
         fun texmlApplications(): TexmlApplicationService.WithRawResponse
 
+        /** Text to speech streaming command operations */
         fun textToSpeech(): TextToSpeechService.WithRawResponse
 
         /** Usage data reporting across Telnyx products */

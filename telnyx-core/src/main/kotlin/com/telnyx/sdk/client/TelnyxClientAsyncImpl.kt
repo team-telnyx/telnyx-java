@@ -1325,6 +1325,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     /** TeXML Applications operations */
     override fun texmlApplications(): TexmlApplicationServiceAsync = texmlApplications
 
+    /** Text to speech streaming command operations */
     override fun textToSpeech(): TextToSpeechServiceAsync = textToSpeech
 
     /** Usage data reporting across Telnyx products */
@@ -2494,6 +2495,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         override fun texmlApplications(): TexmlApplicationServiceAsync.WithRawResponse =
             texmlApplications
 
+        /** Text to speech streaming command operations */
         override fun textToSpeech(): TextToSpeechServiceAsync.WithRawResponse = textToSpeech
 
         /** Usage data reporting across Telnyx products */
