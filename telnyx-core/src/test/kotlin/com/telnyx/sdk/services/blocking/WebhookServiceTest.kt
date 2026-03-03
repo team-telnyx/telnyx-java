@@ -49,7 +49,29 @@ internal class WebhookServiceTest {
                 )
                 .build()
 
-        webhookService.unwrap(payload).validate()
+        // Correct key should not throw
+        webhookService.unwrap(
+            UnwrapWebhookParams.builder()
+                .body(payload)
+                .headers(headers)
+                .secret(webhookSecret)
+                .build()
+        )
+        webhookService
+            .withOptions { it.publicKey(webhookSecret) }
+            .unwrap(UnwrapWebhookParams.builder().body(payload).headers(headers).build())
+
+        // Secret in method takes precedence to secret on client
+        val wrongKey = "whsec_aaaaaaaaaa"
+        webhookService
+            .withOptions { it.publicKey(wrongKey) }
+            .unwrap(
+                UnwrapWebhookParams.builder()
+                    .body(payload)
+                    .headers(headers)
+                    .secret(webhookSecret)
+                    .build()
+            )
 
         // Wrong key should throw
         assertThrows<TelnyxWebhookException> {
@@ -61,6 +83,29 @@ internal class WebhookServiceTest {
                     .secret(wrongKey)
                     .build()
             )
+        }
+        assertThrows<TelnyxWebhookException> {
+            val wrongKey = "whsec_aaaaaaaaaa"
+            webhookService
+                .withOptions { it.publicKey(wrongKey) }
+                .unwrap(UnwrapWebhookParams.builder().body(payload).headers(headers).build())
+        }
+
+        assertThrows<TelnyxWebhookException> {
+            val wrongKey = "whsec_aaaaaaaaaa"
+            webhookService.unwrap(
+                UnwrapWebhookParams.builder()
+                    .body(payload)
+                    .headers(headers)
+                    .secret(wrongKey)
+                    .build()
+            )
+        }
+        assertThrows<TelnyxWebhookException> {
+            val wrongKey = "whsec_aaaaaaaaaa"
+            webhookService
+                .withOptions { it.publicKey(wrongKey) }
+                .unwrap(UnwrapWebhookParams.builder().body(payload).headers(headers).build())
         }
 
         // Bad signature should throw
@@ -76,6 +121,14 @@ internal class WebhookServiceTest {
                     .build()
             )
         }
+        assertThrows<TelnyxWebhookException> {
+            val badSig = webhook.sign(messageId, timestampSeconds, "some other payload")
+            val badHeaders =
+                headers.toBuilder().replace("webhook-signature", listOf(badSig)).build()
+            webhookService
+                .withOptions { it.publicKey(webhookSecret) }
+                .unwrap(UnwrapWebhookParams.builder().body(payload).headers(badHeaders).build())
+        }
 
         // Old timestamp should throw
         assertThrows<TelnyxWebhookException> {
@@ -88,6 +141,12 @@ internal class WebhookServiceTest {
                     .build()
             )
         }
+        assertThrows<TelnyxWebhookException> {
+            val oldHeaders = headers.toBuilder().replace("webhook-timestamp", listOf("5")).build()
+            webhookService
+                .withOptions { it.publicKey(webhookSecret) }
+                .unwrap(UnwrapWebhookParams.builder().body(payload).headers(oldHeaders).build())
+        }
 
         // Wrong message ID should throw
         assertThrows<TelnyxWebhookException> {
@@ -99,6 +158,12 @@ internal class WebhookServiceTest {
                     .secret(webhookSecret)
                     .build()
             )
+        }
+        assertThrows<TelnyxWebhookException> {
+            val wrongIdHeaders = headers.toBuilder().replace("webhook-id", listOf("wrong")).build()
+            webhookService
+                .withOptions { it.publicKey(webhookSecret) }
+                .unwrap(UnwrapWebhookParams.builder().body(payload).headers(wrongIdHeaders).build())
         }
     }
 }

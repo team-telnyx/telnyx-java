@@ -50,6 +50,7 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
                         "publicKey",
                         unwrapParams.secret().getOrNull() ?: clientOptions.publicKey().getOrNull(),
                     )
+
                 val headersMap =
                     headers.names().associateWith { name -> headers.values(name) }.toMap()
 
