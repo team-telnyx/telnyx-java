@@ -14,107 +14,83 @@ internal class CallAiGatherMessageHistoryUpdatedTest {
     fun create() {
         val callAiGatherMessageHistoryUpdated =
             CallAiGatherMessageHistoryUpdated.builder()
-                .data(
-                    CallAiGatherMessageHistoryUpdated.Data.builder()
-                        .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            CallAiGatherMessageHistoryUpdated.Data.EventType
-                                .CALL_AI_GATHER_MESSAGE_HISTORY_UPDATED
-                        )
-                        .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
-                        .payload(
-                            CallAiGatherMessageHistoryUpdated.Data.Payload.builder()
-                                .callControlId(
-                                    "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
+                .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                .eventType(
+                    CallAiGatherMessageHistoryUpdated.EventType
+                        .CALL_AI_GATHER_MESSAGE_HISTORY_UPDATED
+                )
+                .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
+                .payload(
+                    CallAiGatherMessageHistoryUpdated.Payload.builder()
+                        .callControlId("v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ")
+                        .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                        .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                        .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                        .connectionId("7267xxxxxxxxxxxxxx")
+                        .from("+35319605860")
+                        .addMessageHistory(
+                            CallAiGatherMessageHistoryUpdated.Payload.MessageHistory.builder()
+                                .content("Hello, can you tell me your age and where you live?")
+                                .role(
+                                    CallAiGatherMessageHistoryUpdated.Payload.MessageHistory.Role
+                                        .ASSISTANT
                                 )
-                                .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                                .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                                .connectionId("7267xxxxxxxxxxxxxx")
-                                .from("+35319605860")
-                                .addMessageHistory(
-                                    CallAiGatherMessageHistoryUpdated.Data.Payload.MessageHistory
-                                        .builder()
-                                        .content(
-                                            "Hello, can you tell me your age and where you live?"
-                                        )
-                                        .role(
-                                            CallAiGatherMessageHistoryUpdated.Data.Payload
-                                                .MessageHistory
-                                                .Role
-                                                .ASSISTANT
-                                        )
-                                        .build()
-                                )
-                                .addMessageHistory(
-                                    CallAiGatherMessageHistoryUpdated.Data.Payload.MessageHistory
-                                        .builder()
-                                        .content("Hello, I'm 29 and I live in Paris?")
-                                        .role(
-                                            CallAiGatherMessageHistoryUpdated.Data.Payload
-                                                .MessageHistory
-                                                .Role
-                                                .USER
-                                        )
-                                        .build()
-                                )
-                                .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallAiGatherMessageHistoryUpdated.Data.RecordType.EVENT)
+                        .addMessageHistory(
+                            CallAiGatherMessageHistoryUpdated.Payload.MessageHistory.builder()
+                                .content("Hello, I'm 29 and I live in Paris?")
+                                .role(
+                                    CallAiGatherMessageHistoryUpdated.Payload.MessageHistory.Role
+                                        .USER
+                                )
+                                .build()
+                        )
+                        .to("+35319605860")
                         .build()
                 )
+                .recordType(CallAiGatherMessageHistoryUpdated.RecordType.EVENT)
                 .build()
 
-        assertThat(callAiGatherMessageHistoryUpdated.data())
+        assertThat(callAiGatherMessageHistoryUpdated.id())
+            .contains("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+        assertThat(callAiGatherMessageHistoryUpdated.eventType())
             .contains(
-                CallAiGatherMessageHistoryUpdated.Data.builder()
-                    .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                    .eventType(
-                        CallAiGatherMessageHistoryUpdated.Data.EventType
-                            .CALL_AI_GATHER_MESSAGE_HISTORY_UPDATED
-                    )
-                    .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
-                    .payload(
-                        CallAiGatherMessageHistoryUpdated.Data.Payload.builder()
-                            .callControlId(
-                                "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
+                CallAiGatherMessageHistoryUpdated.EventType.CALL_AI_GATHER_MESSAGE_HISTORY_UPDATED
+            )
+        assertThat(callAiGatherMessageHistoryUpdated.occurredAt())
+            .contains(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
+        assertThat(callAiGatherMessageHistoryUpdated.payload())
+            .contains(
+                CallAiGatherMessageHistoryUpdated.Payload.builder()
+                    .callControlId("v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ")
+                    .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                    .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                    .connectionId("7267xxxxxxxxxxxxxx")
+                    .from("+35319605860")
+                    .addMessageHistory(
+                        CallAiGatherMessageHistoryUpdated.Payload.MessageHistory.builder()
+                            .content("Hello, can you tell me your age and where you live?")
+                            .role(
+                                CallAiGatherMessageHistoryUpdated.Payload.MessageHistory.Role
+                                    .ASSISTANT
                             )
-                            .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                            .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                            .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                            .connectionId("7267xxxxxxxxxxxxxx")
-                            .from("+35319605860")
-                            .addMessageHistory(
-                                CallAiGatherMessageHistoryUpdated.Data.Payload.MessageHistory
-                                    .builder()
-                                    .content("Hello, can you tell me your age and where you live?")
-                                    .role(
-                                        CallAiGatherMessageHistoryUpdated.Data.Payload
-                                            .MessageHistory
-                                            .Role
-                                            .ASSISTANT
-                                    )
-                                    .build()
-                            )
-                            .addMessageHistory(
-                                CallAiGatherMessageHistoryUpdated.Data.Payload.MessageHistory
-                                    .builder()
-                                    .content("Hello, I'm 29 and I live in Paris?")
-                                    .role(
-                                        CallAiGatherMessageHistoryUpdated.Data.Payload
-                                            .MessageHistory
-                                            .Role
-                                            .USER
-                                    )
-                                    .build()
-                            )
-                            .to("+35319605860")
                             .build()
                     )
-                    .recordType(CallAiGatherMessageHistoryUpdated.Data.RecordType.EVENT)
+                    .addMessageHistory(
+                        CallAiGatherMessageHistoryUpdated.Payload.MessageHistory.builder()
+                            .content("Hello, I'm 29 and I live in Paris?")
+                            .role(
+                                CallAiGatherMessageHistoryUpdated.Payload.MessageHistory.Role.USER
+                            )
+                            .build()
+                    )
+                    .to("+35319605860")
                     .build()
             )
+        assertThat(callAiGatherMessageHistoryUpdated.recordType())
+            .contains(CallAiGatherMessageHistoryUpdated.RecordType.EVENT)
     }
 
     @Test
@@ -122,56 +98,42 @@ internal class CallAiGatherMessageHistoryUpdatedTest {
         val jsonMapper = jsonMapper()
         val callAiGatherMessageHistoryUpdated =
             CallAiGatherMessageHistoryUpdated.builder()
-                .data(
-                    CallAiGatherMessageHistoryUpdated.Data.builder()
-                        .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
-                        .eventType(
-                            CallAiGatherMessageHistoryUpdated.Data.EventType
-                                .CALL_AI_GATHER_MESSAGE_HISTORY_UPDATED
-                        )
-                        .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
-                        .payload(
-                            CallAiGatherMessageHistoryUpdated.Data.Payload.builder()
-                                .callControlId(
-                                    "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
+                .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                .eventType(
+                    CallAiGatherMessageHistoryUpdated.EventType
+                        .CALL_AI_GATHER_MESSAGE_HISTORY_UPDATED
+                )
+                .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
+                .payload(
+                    CallAiGatherMessageHistoryUpdated.Payload.builder()
+                        .callControlId("v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ")
+                        .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                        .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                        .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                        .connectionId("7267xxxxxxxxxxxxxx")
+                        .from("+35319605860")
+                        .addMessageHistory(
+                            CallAiGatherMessageHistoryUpdated.Payload.MessageHistory.builder()
+                                .content("Hello, can you tell me your age and where you live?")
+                                .role(
+                                    CallAiGatherMessageHistoryUpdated.Payload.MessageHistory.Role
+                                        .ASSISTANT
                                 )
-                                .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                                .callSessionId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
-                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
-                                .connectionId("7267xxxxxxxxxxxxxx")
-                                .from("+35319605860")
-                                .addMessageHistory(
-                                    CallAiGatherMessageHistoryUpdated.Data.Payload.MessageHistory
-                                        .builder()
-                                        .content(
-                                            "Hello, can you tell me your age and where you live?"
-                                        )
-                                        .role(
-                                            CallAiGatherMessageHistoryUpdated.Data.Payload
-                                                .MessageHistory
-                                                .Role
-                                                .ASSISTANT
-                                        )
-                                        .build()
-                                )
-                                .addMessageHistory(
-                                    CallAiGatherMessageHistoryUpdated.Data.Payload.MessageHistory
-                                        .builder()
-                                        .content("Hello, I'm 29 and I live in Paris?")
-                                        .role(
-                                            CallAiGatherMessageHistoryUpdated.Data.Payload
-                                                .MessageHistory
-                                                .Role
-                                                .USER
-                                        )
-                                        .build()
-                                )
-                                .to("+35319605860")
                                 .build()
                         )
-                        .recordType(CallAiGatherMessageHistoryUpdated.Data.RecordType.EVENT)
+                        .addMessageHistory(
+                            CallAiGatherMessageHistoryUpdated.Payload.MessageHistory.builder()
+                                .content("Hello, I'm 29 and I live in Paris?")
+                                .role(
+                                    CallAiGatherMessageHistoryUpdated.Payload.MessageHistory.Role
+                                        .USER
+                                )
+                                .build()
+                        )
+                        .to("+35319605860")
                         .build()
                 )
+                .recordType(CallAiGatherMessageHistoryUpdated.RecordType.EVENT)
                 .build()
 
         val roundtrippedCallAiGatherMessageHistoryUpdated =

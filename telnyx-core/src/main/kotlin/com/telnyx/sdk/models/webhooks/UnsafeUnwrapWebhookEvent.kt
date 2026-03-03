@@ -22,8 +22,9 @@ import java.util.Optional
 @JsonSerialize(using = UnsafeUnwrapWebhookEvent.Serializer::class)
 class UnsafeUnwrapWebhookEvent
 private constructor(
-    private val callAiGatherEnded: CallAiGatherEnded? = null,
-    private val callAiGatherMessageHistoryUpdated: CallAiGatherMessageHistoryUpdated? = null,
+    private val callAiGatherEnded: CallAiGatherEndedWebhookEvent? = null,
+    private val callAiGatherMessageHistoryUpdated: CallAiGatherMessageHistoryUpdatedWebhookEvent? =
+        null,
     private val callAiGatherPartialResults: CallAiGatherPartialResultsWebhookEvent? = null,
     private val callAnswered: CallAnsweredWebhookEvent? = null,
     private val callBridged: CallBridgedWebhookEvent? = null,
@@ -95,9 +96,11 @@ private constructor(
     private val _json: JsonValue? = null,
 ) {
 
-    fun callAiGatherEnded(): Optional<CallAiGatherEnded> = Optional.ofNullable(callAiGatherEnded)
+    fun callAiGatherEnded(): Optional<CallAiGatherEndedWebhookEvent> =
+        Optional.ofNullable(callAiGatherEnded)
 
-    fun callAiGatherMessageHistoryUpdated(): Optional<CallAiGatherMessageHistoryUpdated> =
+    fun callAiGatherMessageHistoryUpdated():
+        Optional<CallAiGatherMessageHistoryUpdatedWebhookEvent> =
         Optional.ofNullable(callAiGatherMessageHistoryUpdated)
 
     fun callAiGatherPartialResults(): Optional<CallAiGatherPartialResultsWebhookEvent> =
@@ -384,9 +387,10 @@ private constructor(
 
     fun isTranscription(): Boolean = transcription != null
 
-    fun asCallAiGatherEnded(): CallAiGatherEnded = callAiGatherEnded.getOrThrow("callAiGatherEnded")
+    fun asCallAiGatherEnded(): CallAiGatherEndedWebhookEvent =
+        callAiGatherEnded.getOrThrow("callAiGatherEnded")
 
-    fun asCallAiGatherMessageHistoryUpdated(): CallAiGatherMessageHistoryUpdated =
+    fun asCallAiGatherMessageHistoryUpdated(): CallAiGatherMessageHistoryUpdatedWebhookEvent =
         callAiGatherMessageHistoryUpdated.getOrThrow("callAiGatherMessageHistoryUpdated")
 
     fun asCallAiGatherPartialResults(): CallAiGatherPartialResultsWebhookEvent =
@@ -647,12 +651,14 @@ private constructor(
 
         accept(
             object : Visitor<Unit> {
-                override fun visitCallAiGatherEnded(callAiGatherEnded: CallAiGatherEnded) {
+                override fun visitCallAiGatherEnded(
+                    callAiGatherEnded: CallAiGatherEndedWebhookEvent
+                ) {
                     callAiGatherEnded.validate()
                 }
 
                 override fun visitCallAiGatherMessageHistoryUpdated(
-                    callAiGatherMessageHistoryUpdated: CallAiGatherMessageHistoryUpdated
+                    callAiGatherMessageHistoryUpdated: CallAiGatherMessageHistoryUpdatedWebhookEvent
                 ) {
                     callAiGatherMessageHistoryUpdated.validate()
                 }
@@ -978,11 +984,12 @@ private constructor(
     internal fun validity(): Int =
         accept(
             object : Visitor<Int> {
-                override fun visitCallAiGatherEnded(callAiGatherEnded: CallAiGatherEnded) =
-                    callAiGatherEnded.validity()
+                override fun visitCallAiGatherEnded(
+                    callAiGatherEnded: CallAiGatherEndedWebhookEvent
+                ) = callAiGatherEnded.validity()
 
                 override fun visitCallAiGatherMessageHistoryUpdated(
-                    callAiGatherMessageHistoryUpdated: CallAiGatherMessageHistoryUpdated
+                    callAiGatherMessageHistoryUpdated: CallAiGatherMessageHistoryUpdatedWebhookEvent
                 ) = callAiGatherMessageHistoryUpdated.validity()
 
                 override fun visitCallAiGatherPartialResults(
@@ -1438,12 +1445,12 @@ private constructor(
     companion object {
 
         @JvmStatic
-        fun ofCallAiGatherEnded(callAiGatherEnded: CallAiGatherEnded) =
+        fun ofCallAiGatherEnded(callAiGatherEnded: CallAiGatherEndedWebhookEvent) =
             UnsafeUnwrapWebhookEvent(callAiGatherEnded = callAiGatherEnded)
 
         @JvmStatic
         fun ofCallAiGatherMessageHistoryUpdated(
-            callAiGatherMessageHistoryUpdated: CallAiGatherMessageHistoryUpdated
+            callAiGatherMessageHistoryUpdated: CallAiGatherMessageHistoryUpdatedWebhookEvent
         ) =
             UnsafeUnwrapWebhookEvent(
                 callAiGatherMessageHistoryUpdated = callAiGatherMessageHistoryUpdated
@@ -1726,10 +1733,10 @@ private constructor(
      */
     interface Visitor<out T> {
 
-        fun visitCallAiGatherEnded(callAiGatherEnded: CallAiGatherEnded): T
+        fun visitCallAiGatherEnded(callAiGatherEnded: CallAiGatherEndedWebhookEvent): T
 
         fun visitCallAiGatherMessageHistoryUpdated(
-            callAiGatherMessageHistoryUpdated: CallAiGatherMessageHistoryUpdated
+            callAiGatherMessageHistoryUpdated: CallAiGatherMessageHistoryUpdatedWebhookEvent
         ): T
 
         fun visitCallAiGatherPartialResults(
@@ -1905,10 +1912,13 @@ private constructor(
 
             val bestMatches =
                 sequenceOf(
-                        tryDeserialize(node, jacksonTypeRef<CallAiGatherEnded>())?.let {
+                        tryDeserialize(node, jacksonTypeRef<CallAiGatherEndedWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(callAiGatherEnded = it, _json = json)
                         },
-                        tryDeserialize(node, jacksonTypeRef<CallAiGatherMessageHistoryUpdated>())
+                        tryDeserialize(
+                                node,
+                                jacksonTypeRef<CallAiGatherMessageHistoryUpdatedWebhookEvent>(),
+                            )
                             ?.let {
                                 UnsafeUnwrapWebhookEvent(
                                     callAiGatherMessageHistoryUpdated = it,
