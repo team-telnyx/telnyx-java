@@ -124,6 +124,7 @@ import com.telnyx.sdk.services.blocking.RoomCompositionService
 import com.telnyx.sdk.services.blocking.RoomParticipantService
 import com.telnyx.sdk.services.blocking.RoomRecordingService
 import com.telnyx.sdk.services.blocking.RoomService
+import com.telnyx.sdk.services.blocking.SessionAnalysisService
 import com.telnyx.sdk.services.blocking.SetiService
 import com.telnyx.sdk.services.blocking.ShortCodeService
 import com.telnyx.sdk.services.blocking.SimCardDataUsageNotificationService
@@ -635,6 +636,9 @@ interface TelnyxClient {
 
     fun messagingProfileMetrics(): MessagingProfileMetricService
 
+    /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
+    fun sessionAnalysis(): SessionAnalysisService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1099,5 +1103,8 @@ interface TelnyxClient {
         fun alphanumericSenderIds(): AlphanumericSenderIdService.WithRawResponse
 
         fun messagingProfileMetrics(): MessagingProfileMetricService.WithRawResponse
+
+        /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
+        fun sessionAnalysis(): SessionAnalysisService.WithRawResponse
     }
 }
