@@ -888,6 +888,20 @@ private constructor(
         fun addTransferTool(transfer: AssistantTool.Transfer.TransferConfig) =
             addTool(AssistantTool.Transfer.builder().transfer(transfer).build())
 
+        /** Alias for calling [addTool] with `AssistantTool.ofInvite(invite)`. */
+        fun addTool(invite: AssistantTool.Invite) = addTool(AssistantTool.ofInvite(invite))
+
+        /**
+         * Alias for calling [addTool] with the following:
+         * ```java
+         * AssistantTool.Invite.builder()
+         *     .invite(invite)
+         *     .build()
+         * ```
+         */
+        fun addInviteTool(invite: AssistantTool.Invite.InnerInvite) =
+            addTool(AssistantTool.Invite.builder().invite(invite).build())
+
         /** Alias for calling [addTool] with `AssistantTool.ofRefer(refer)`. */
         fun addTool(refer: AssistantTool.SipReferTool) = addTool(AssistantTool.ofRefer(refer))
 

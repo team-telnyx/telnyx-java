@@ -95,6 +95,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
         assertThat(assistantTool.transfer()).isEmpty
+        assertThat(assistantTool.invite()).isEmpty
         assertThat(assistantTool.refer()).isEmpty
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
@@ -208,6 +209,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
         assertThat(assistantTool.transfer()).isEmpty
+        assertThat(assistantTool.invite()).isEmpty
         assertThat(assistantTool.refer()).isEmpty
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
@@ -258,6 +260,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.handoff()).contains(handoff)
         assertThat(assistantTool.hangup()).isEmpty
         assertThat(assistantTool.transfer()).isEmpty
+        assertThat(assistantTool.invite()).isEmpty
         assertThat(assistantTool.refer()).isEmpty
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
@@ -308,6 +311,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).contains(hangup)
         assertThat(assistantTool.transfer()).isEmpty
+        assertThat(assistantTool.invite()).isEmpty
         assertThat(assistantTool.refer()).isEmpty
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
@@ -421,6 +425,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
         assertThat(assistantTool.transfer()).contains(transfer)
+        assertThat(assistantTool.invite()).isEmpty
         assertThat(assistantTool.refer()).isEmpty
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
@@ -522,6 +527,108 @@ internal class AssistantToolTest {
     }
 
     @Test
+    fun ofInvite() {
+        val invite =
+            AssistantTool.Invite.builder()
+                .invite(
+                    AssistantTool.Invite.InnerInvite.builder()
+                        .addCustomHeader(
+                            AssistantTool.Invite.InnerInvite.CustomHeader.builder()
+                                .name("name")
+                                .value("value")
+                                .build()
+                        )
+                        .from("+35319605860")
+                        .voicemailDetection(
+                            AssistantTool.Invite.InnerInvite.VoicemailDetection.builder()
+                                .detectionMode(
+                                    AssistantTool.Invite.InnerInvite.VoicemailDetection
+                                        .DetectionMode
+                                        .DISABLED
+                                )
+                                .onVoicemailDetected(
+                                    AssistantTool.Invite.InnerInvite.VoicemailDetection
+                                        .OnVoicemailDetected
+                                        .builder()
+                                        .action(
+                                            AssistantTool.Invite.InnerInvite.VoicemailDetection
+                                                .OnVoicemailDetected
+                                                .Action
+                                                .STOP_INVITE
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        val assistantTool = AssistantTool.ofInvite(invite)
+
+        assertThat(assistantTool.webhook()).isEmpty
+        assertThat(assistantTool.retrieval()).isEmpty
+        assertThat(assistantTool.handoff()).isEmpty
+        assertThat(assistantTool.hangup()).isEmpty
+        assertThat(assistantTool.transfer()).isEmpty
+        assertThat(assistantTool.invite()).contains(invite)
+        assertThat(assistantTool.refer()).isEmpty
+        assertThat(assistantTool.sendDtmf()).isEmpty
+        assertThat(assistantTool.sendMessage()).isEmpty
+        assertThat(assistantTool.skipTurn()).isEmpty
+    }
+
+    @Test
+    fun ofInviteRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val assistantTool =
+            AssistantTool.ofInvite(
+                AssistantTool.Invite.builder()
+                    .invite(
+                        AssistantTool.Invite.InnerInvite.builder()
+                            .addCustomHeader(
+                                AssistantTool.Invite.InnerInvite.CustomHeader.builder()
+                                    .name("name")
+                                    .value("value")
+                                    .build()
+                            )
+                            .from("+35319605860")
+                            .voicemailDetection(
+                                AssistantTool.Invite.InnerInvite.VoicemailDetection.builder()
+                                    .detectionMode(
+                                        AssistantTool.Invite.InnerInvite.VoicemailDetection
+                                            .DetectionMode
+                                            .DISABLED
+                                    )
+                                    .onVoicemailDetected(
+                                        AssistantTool.Invite.InnerInvite.VoicemailDetection
+                                            .OnVoicemailDetected
+                                            .builder()
+                                            .action(
+                                                AssistantTool.Invite.InnerInvite.VoicemailDetection
+                                                    .OnVoicemailDetected
+                                                    .Action
+                                                    .STOP_INVITE
+                                            )
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedAssistantTool =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(assistantTool),
+                jacksonTypeRef<AssistantTool>(),
+            )
+
+        assertThat(roundtrippedAssistantTool).isEqualTo(assistantTool)
+    }
+
+    @Test
     fun ofRefer() {
         val refer =
             AssistantTool.SipReferTool.builder()
@@ -558,6 +665,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
         assertThat(assistantTool.transfer()).isEmpty
+        assertThat(assistantTool.invite()).isEmpty
         assertThat(assistantTool.refer()).contains(refer)
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty
@@ -626,6 +734,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
         assertThat(assistantTool.transfer()).isEmpty
+        assertThat(assistantTool.invite()).isEmpty
         assertThat(assistantTool.refer()).isEmpty
         assertThat(assistantTool.sendDtmf()).contains(sendDtmf)
         assertThat(assistantTool.sendMessage()).isEmpty
@@ -673,6 +782,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
         assertThat(assistantTool.transfer()).isEmpty
+        assertThat(assistantTool.invite()).isEmpty
         assertThat(assistantTool.refer()).isEmpty
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).contains(sendMessage)
@@ -720,6 +830,7 @@ internal class AssistantToolTest {
         assertThat(assistantTool.handoff()).isEmpty
         assertThat(assistantTool.hangup()).isEmpty
         assertThat(assistantTool.transfer()).isEmpty
+        assertThat(assistantTool.invite()).isEmpty
         assertThat(assistantTool.refer()).isEmpty
         assertThat(assistantTool.sendDtmf()).isEmpty
         assertThat(assistantTool.sendMessage()).isEmpty

@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.26.0 (2026-03-02)
+
+Full Changelog: [v6.25.0...v6.26.0](https://github.com/team-telnyx/telnyx-java/compare/v6.25.0...v6.26.0)
+
+### Features
+
+* AI-2106: Add invite tool schema to inference OpenAPI spec ([d84ceb7](https://github.com/team-telnyx/telnyx-java/commit/d84ceb702a6980beb86adf00a150897fdecd6148))
+
 ## 6.25.0 (2026-03-02)
 
 Full Changelog: [v6.24.0...v6.25.0](https://github.com/team-telnyx/telnyx-java/compare/v6.24.0...v6.25.0)
