@@ -42,7 +42,7 @@ internal class MetadataRetrieveResponseTest {
                     MetadataRetrieveResponse.RecordType.builder()
                         .addAlias("string")
                         .addChildRelationship(
-                            MetadataRetrieveResponse.RecordType.ChildRelationship.builder()
+                            ChildRelationshipInfo.builder()
                                 .childEvent("child_event")
                                 .childProduct("child_product")
                                 .childRecordType("child_record_type")
@@ -51,8 +51,7 @@ internal class MetadataRetrieveResponseTest {
                                 .relationshipType("relationship_type")
                                 .traversalEnabled(true)
                                 .via(
-                                    MetadataRetrieveResponse.RecordType.ChildRelationship.Via
-                                        .builder()
+                                    MetadataFieldMapping.builder()
                                         .localField("local_field")
                                         .parentField("parent_field")
                                         .build()
@@ -62,7 +61,7 @@ internal class MetadataRetrieveResponseTest {
                         .description("description")
                         .event("event")
                         .addParentRelationship(
-                            MetadataRetrieveResponse.RecordType.ParentRelationship.builder()
+                            ParentRelationshipInfo.builder()
                                 .costRollup(true)
                                 .description("description")
                                 .parentEvent("parent_event")
@@ -71,8 +70,7 @@ internal class MetadataRetrieveResponseTest {
                                 .relationshipType("relationship_type")
                                 .traversalEnabled(true)
                                 .via(
-                                    MetadataRetrieveResponse.RecordType.ParentRelationship.Via
-                                        .builder()
+                                    MetadataFieldMapping.builder()
                                         .localField("local_field")
                                         .parentField("parent_field")
                                         .build()
@@ -115,7 +113,7 @@ internal class MetadataRetrieveResponseTest {
                 MetadataRetrieveResponse.RecordType.builder()
                     .addAlias("string")
                     .addChildRelationship(
-                        MetadataRetrieveResponse.RecordType.ChildRelationship.builder()
+                        ChildRelationshipInfo.builder()
                             .childEvent("child_event")
                             .childProduct("child_product")
                             .childRecordType("child_record_type")
@@ -124,7 +122,7 @@ internal class MetadataRetrieveResponseTest {
                             .relationshipType("relationship_type")
                             .traversalEnabled(true)
                             .via(
-                                MetadataRetrieveResponse.RecordType.ChildRelationship.Via.builder()
+                                MetadataFieldMapping.builder()
                                     .localField("local_field")
                                     .parentField("parent_field")
                                     .build()
@@ -134,7 +132,7 @@ internal class MetadataRetrieveResponseTest {
                     .description("description")
                     .event("event")
                     .addParentRelationship(
-                        MetadataRetrieveResponse.RecordType.ParentRelationship.builder()
+                        ParentRelationshipInfo.builder()
                             .costRollup(true)
                             .description("description")
                             .parentEvent("parent_event")
@@ -143,7 +141,7 @@ internal class MetadataRetrieveResponseTest {
                             .relationshipType("relationship_type")
                             .traversalEnabled(true)
                             .via(
-                                MetadataRetrieveResponse.RecordType.ParentRelationship.Via.builder()
+                                MetadataFieldMapping.builder()
                                     .localField("local_field")
                                     .parentField("parent_field")
                                     .build()
@@ -188,7 +186,7 @@ internal class MetadataRetrieveResponseTest {
                     MetadataRetrieveResponse.RecordType.builder()
                         .addAlias("string")
                         .addChildRelationship(
-                            MetadataRetrieveResponse.RecordType.ChildRelationship.builder()
+                            ChildRelationshipInfo.builder()
                                 .childEvent("child_event")
                                 .childProduct("child_product")
                                 .childRecordType("child_record_type")
@@ -197,8 +195,7 @@ internal class MetadataRetrieveResponseTest {
                                 .relationshipType("relationship_type")
                                 .traversalEnabled(true)
                                 .via(
-                                    MetadataRetrieveResponse.RecordType.ChildRelationship.Via
-                                        .builder()
+                                    MetadataFieldMapping.builder()
                                         .localField("local_field")
                                         .parentField("parent_field")
                                         .build()
@@ -208,7 +205,7 @@ internal class MetadataRetrieveResponseTest {
                         .description("description")
                         .event("event")
                         .addParentRelationship(
-                            MetadataRetrieveResponse.RecordType.ParentRelationship.builder()
+                            ParentRelationshipInfo.builder()
                                 .costRollup(true)
                                 .description("description")
                                 .parentEvent("parent_event")
@@ -217,8 +214,7 @@ internal class MetadataRetrieveResponseTest {
                                 .relationshipType("relationship_type")
                                 .traversalEnabled(true)
                                 .via(
-                                    MetadataRetrieveResponse.RecordType.ParentRelationship.Via
-                                        .builder()
+                                    MetadataFieldMapping.builder()
                                         .localField("local_field")
                                         .parentField("parent_field")
                                         .build()

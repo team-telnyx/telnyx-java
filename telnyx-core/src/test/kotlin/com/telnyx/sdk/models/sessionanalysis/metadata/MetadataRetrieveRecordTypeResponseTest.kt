@@ -16,7 +16,7 @@ internal class MetadataRetrieveRecordTypeResponseTest {
             MetadataRetrieveRecordTypeResponse.builder()
                 .addAlias("string")
                 .addChildRelationship(
-                    MetadataRetrieveRecordTypeResponse.ChildRelationship.builder()
+                    ChildRelationshipInfo.builder()
                         .childEvent("child_event")
                         .childProduct("child_product")
                         .childRecordType("child_record_type")
@@ -25,7 +25,7 @@ internal class MetadataRetrieveRecordTypeResponseTest {
                         .relationshipType("relationship_type")
                         .traversalEnabled(true)
                         .via(
-                            MetadataRetrieveRecordTypeResponse.ChildRelationship.Via.builder()
+                            MetadataFieldMapping.builder()
                                 .localField("local_field")
                                 .parentField("parent_field")
                                 .build()
@@ -47,7 +47,7 @@ internal class MetadataRetrieveRecordTypeResponseTest {
                         .build()
                 )
                 .addParentRelationship(
-                    MetadataRetrieveRecordTypeResponse.ParentRelationship.builder()
+                    ParentRelationshipInfo.builder()
                         .costRollup(true)
                         .description("description")
                         .parentEvent("parent_event")
@@ -56,7 +56,7 @@ internal class MetadataRetrieveRecordTypeResponseTest {
                         .relationshipType("relationship_type")
                         .traversalEnabled(true)
                         .via(
-                            MetadataRetrieveRecordTypeResponse.ParentRelationship.Via.builder()
+                            MetadataFieldMapping.builder()
                                 .localField("local_field")
                                 .parentField("parent_field")
                                 .build()
@@ -70,7 +70,7 @@ internal class MetadataRetrieveRecordTypeResponseTest {
         assertThat(metadataRetrieveRecordTypeResponse.aliases()).containsExactly("string")
         assertThat(metadataRetrieveRecordTypeResponse.childRelationships())
             .containsExactly(
-                MetadataRetrieveRecordTypeResponse.ChildRelationship.builder()
+                ChildRelationshipInfo.builder()
                     .childEvent("child_event")
                     .childProduct("child_product")
                     .childRecordType("child_record_type")
@@ -79,7 +79,7 @@ internal class MetadataRetrieveRecordTypeResponseTest {
                     .relationshipType("relationship_type")
                     .traversalEnabled(true)
                     .via(
-                        MetadataRetrieveRecordTypeResponse.ChildRelationship.Via.builder()
+                        MetadataFieldMapping.builder()
                             .localField("local_field")
                             .parentField("parent_field")
                             .build()
@@ -104,7 +104,7 @@ internal class MetadataRetrieveRecordTypeResponseTest {
             )
         assertThat(metadataRetrieveRecordTypeResponse.parentRelationships())
             .containsExactly(
-                MetadataRetrieveRecordTypeResponse.ParentRelationship.builder()
+                ParentRelationshipInfo.builder()
                     .costRollup(true)
                     .description("description")
                     .parentEvent("parent_event")
@@ -113,7 +113,7 @@ internal class MetadataRetrieveRecordTypeResponseTest {
                     .relationshipType("relationship_type")
                     .traversalEnabled(true)
                     .via(
-                        MetadataRetrieveRecordTypeResponse.ParentRelationship.Via.builder()
+                        MetadataFieldMapping.builder()
                             .localField("local_field")
                             .parentField("parent_field")
                             .build()
@@ -131,7 +131,7 @@ internal class MetadataRetrieveRecordTypeResponseTest {
             MetadataRetrieveRecordTypeResponse.builder()
                 .addAlias("string")
                 .addChildRelationship(
-                    MetadataRetrieveRecordTypeResponse.ChildRelationship.builder()
+                    ChildRelationshipInfo.builder()
                         .childEvent("child_event")
                         .childProduct("child_product")
                         .childRecordType("child_record_type")
@@ -140,7 +140,7 @@ internal class MetadataRetrieveRecordTypeResponseTest {
                         .relationshipType("relationship_type")
                         .traversalEnabled(true)
                         .via(
-                            MetadataRetrieveRecordTypeResponse.ChildRelationship.Via.builder()
+                            MetadataFieldMapping.builder()
                                 .localField("local_field")
                                 .parentField("parent_field")
                                 .build()
@@ -162,7 +162,7 @@ internal class MetadataRetrieveRecordTypeResponseTest {
                         .build()
                 )
                 .addParentRelationship(
-                    MetadataRetrieveRecordTypeResponse.ParentRelationship.builder()
+                    ParentRelationshipInfo.builder()
                         .costRollup(true)
                         .description("description")
                         .parentEvent("parent_event")
@@ -171,7 +171,7 @@ internal class MetadataRetrieveRecordTypeResponseTest {
                         .relationshipType("relationship_type")
                         .traversalEnabled(true)
                         .via(
-                            MetadataRetrieveRecordTypeResponse.ParentRelationship.Via.builder()
+                            MetadataFieldMapping.builder()
                                 .localField("local_field")
                                 .parentField("parent_field")
                                 .build()
