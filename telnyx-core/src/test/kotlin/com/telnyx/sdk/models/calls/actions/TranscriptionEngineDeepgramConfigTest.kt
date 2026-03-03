@@ -18,7 +18,7 @@ internal class TranscriptionEngineDeepgramConfigTest {
     fun ofDeepgramNova2() {
         val deepgramNova2 =
             DeepgramNova2Config.builder()
-                .transcriptionEngine(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM)
+                .transcriptionEngine(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM_NOVA_2)
                 .transcriptionModel(DeepgramNova2Config.TranscriptionModel.DEEPGRAM_NOVA_2)
                 .interimResults(true)
                 .keywordsBoosting(
@@ -45,7 +45,7 @@ internal class TranscriptionEngineDeepgramConfigTest {
         val transcriptionEngineDeepgramConfig =
             TranscriptionEngineDeepgramConfig.ofDeepgramNova2(
                 DeepgramNova2Config.builder()
-                    .transcriptionEngine(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM)
+                    .transcriptionEngine(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM_NOVA_2)
                     .transcriptionModel(DeepgramNova2Config.TranscriptionModel.DEEPGRAM_NOVA_2)
                     .interimResults(true)
                     .keywordsBoosting(
@@ -74,7 +74,7 @@ internal class TranscriptionEngineDeepgramConfigTest {
     fun ofDeepgramNova3() {
         val deepgramNova3 =
             DeepgramNova3Config.builder()
-                .transcriptionEngine(DeepgramNova3Config.TranscriptionEngine.DEEPGRAM)
+                .transcriptionEngine(DeepgramNova3Config.TranscriptionEngine.DEEPGRAM_NOVA_3)
                 .transcriptionModel(DeepgramNova3Config.TranscriptionModel.DEEPGRAM_NOVA_3)
                 .interimResults(true)
                 .keywordsBoosting(
@@ -101,7 +101,7 @@ internal class TranscriptionEngineDeepgramConfigTest {
         val transcriptionEngineDeepgramConfig =
             TranscriptionEngineDeepgramConfig.ofDeepgramNova3(
                 DeepgramNova3Config.builder()
-                    .transcriptionEngine(DeepgramNova3Config.TranscriptionEngine.DEEPGRAM)
+                    .transcriptionEngine(DeepgramNova3Config.TranscriptionEngine.DEEPGRAM_NOVA_3)
                     .transcriptionModel(DeepgramNova3Config.TranscriptionModel.DEEPGRAM_NOVA_3)
                     .interimResults(true)
                     .keywordsBoosting(

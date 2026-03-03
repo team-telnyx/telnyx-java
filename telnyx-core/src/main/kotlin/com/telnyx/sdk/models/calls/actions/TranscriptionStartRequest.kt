@@ -20,7 +20,6 @@ import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
@@ -275,20 +274,6 @@ private constructor(
 
         /**
          * Alias for calling [transcriptionEngineConfig] with
-         * `TranscriptionEngineConfig.ofDeepgramNova2(deepgramNova2)`.
-         */
-        fun transcriptionEngineConfig(deepgramNova2: DeepgramNova2Config) =
-            transcriptionEngineConfig(TranscriptionEngineConfig.ofDeepgramNova2(deepgramNova2))
-
-        /**
-         * Alias for calling [transcriptionEngineConfig] with
-         * `TranscriptionEngineConfig.ofDeepgramNova3(deepgramNova3)`.
-         */
-        fun transcriptionEngineConfig(deepgramNova3: DeepgramNova3Config) =
-            transcriptionEngineConfig(TranscriptionEngineConfig.ofDeepgramNova3(deepgramNova3))
-
-        /**
-         * Alias for calling [transcriptionEngineConfig] with
          * `TranscriptionEngineConfig.ofAzure(azure)`.
          */
         fun transcriptionEngineConfig(azure: TranscriptionEngineAzureConfig) =
@@ -322,6 +307,58 @@ private constructor(
          */
         fun transcriptionEngineConfig(b: TranscriptionEngineBConfig) =
             transcriptionEngineConfig(TranscriptionEngineConfig.ofB(b))
+
+        /**
+         * Alias for calling [transcriptionEngineConfig] with
+         * `TranscriptionEngineConfig.ofDeepgramNova2(deepgramNova2)`.
+         */
+        fun transcriptionEngineConfig(deepgramNova2: DeepgramNova2Config) =
+            transcriptionEngineConfig(TranscriptionEngineConfig.ofDeepgramNova2(deepgramNova2))
+
+        /**
+         * Alias for calling [transcriptionEngineConfig] with the following:
+         * ```java
+         * DeepgramNova2Config.builder()
+         *     .transcriptionEngine(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM_NOVA_2)
+         *     .transcriptionModel(transcriptionModel)
+         *     .build()
+         * ```
+         */
+        fun deepgramNova2TranscriptionEngineConfig(
+            transcriptionModel: DeepgramNova2Config.TranscriptionModel
+        ) =
+            transcriptionEngineConfig(
+                DeepgramNova2Config.builder()
+                    .transcriptionEngine(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM_NOVA_2)
+                    .transcriptionModel(transcriptionModel)
+                    .build()
+            )
+
+        /**
+         * Alias for calling [transcriptionEngineConfig] with
+         * `TranscriptionEngineConfig.ofDeepgramNova3(deepgramNova3)`.
+         */
+        fun transcriptionEngineConfig(deepgramNova3: DeepgramNova3Config) =
+            transcriptionEngineConfig(TranscriptionEngineConfig.ofDeepgramNova3(deepgramNova3))
+
+        /**
+         * Alias for calling [transcriptionEngineConfig] with the following:
+         * ```java
+         * DeepgramNova3Config.builder()
+         *     .transcriptionEngine(DeepgramNova3Config.TranscriptionEngine.DEEPGRAM_NOVA_3)
+         *     .transcriptionModel(transcriptionModel)
+         *     .build()
+         * ```
+         */
+        fun deepgramNova3TranscriptionEngineConfig(
+            transcriptionModel: DeepgramNova3Config.TranscriptionModel
+        ) =
+            transcriptionEngineConfig(
+                DeepgramNova3Config.builder()
+                    .transcriptionEngine(DeepgramNova3Config.TranscriptionEngine.DEEPGRAM_NOVA_3)
+                    .transcriptionModel(transcriptionModel)
+                    .build()
+            )
 
         /**
          * Indicates which leg of the call will be transcribed. Use `inbound` for the leg that
@@ -577,11 +614,11 @@ private constructor(
     private constructor(
         private val google: TranscriptionEngineGoogleConfig? = null,
         private val telnyx: TranscriptionEngineTelnyxConfig? = null,
-        private val deepgramNova2: DeepgramNova2Config? = null,
-        private val deepgramNova3: DeepgramNova3Config? = null,
         private val azure: TranscriptionEngineAzureConfig? = null,
         private val a: TranscriptionEngineAConfig? = null,
         private val b: TranscriptionEngineBConfig? = null,
+        private val deepgramNova2: DeepgramNova2Config? = null,
+        private val deepgramNova3: DeepgramNova3Config? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -589,23 +626,19 @@ private constructor(
 
         fun telnyx(): Optional<TranscriptionEngineTelnyxConfig> = Optional.ofNullable(telnyx)
 
-        fun deepgramNova2(): Optional<DeepgramNova2Config> = Optional.ofNullable(deepgramNova2)
-
-        fun deepgramNova3(): Optional<DeepgramNova3Config> = Optional.ofNullable(deepgramNova3)
-
         fun azure(): Optional<TranscriptionEngineAzureConfig> = Optional.ofNullable(azure)
 
         fun a(): Optional<TranscriptionEngineAConfig> = Optional.ofNullable(a)
 
         fun b(): Optional<TranscriptionEngineBConfig> = Optional.ofNullable(b)
 
+        fun deepgramNova2(): Optional<DeepgramNova2Config> = Optional.ofNullable(deepgramNova2)
+
+        fun deepgramNova3(): Optional<DeepgramNova3Config> = Optional.ofNullable(deepgramNova3)
+
         fun isGoogle(): Boolean = google != null
 
         fun isTelnyx(): Boolean = telnyx != null
-
-        fun isDeepgramNova2(): Boolean = deepgramNova2 != null
-
-        fun isDeepgramNova3(): Boolean = deepgramNova3 != null
 
         fun isAzure(): Boolean = azure != null
 
@@ -613,13 +646,13 @@ private constructor(
 
         fun isB(): Boolean = b != null
 
+        fun isDeepgramNova2(): Boolean = deepgramNova2 != null
+
+        fun isDeepgramNova3(): Boolean = deepgramNova3 != null
+
         fun asGoogle(): TranscriptionEngineGoogleConfig = google.getOrThrow("google")
 
         fun asTelnyx(): TranscriptionEngineTelnyxConfig = telnyx.getOrThrow("telnyx")
-
-        fun asDeepgramNova2(): DeepgramNova2Config = deepgramNova2.getOrThrow("deepgramNova2")
-
-        fun asDeepgramNova3(): DeepgramNova3Config = deepgramNova3.getOrThrow("deepgramNova3")
 
         fun asAzure(): TranscriptionEngineAzureConfig = azure.getOrThrow("azure")
 
@@ -627,17 +660,21 @@ private constructor(
 
         fun asB(): TranscriptionEngineBConfig = b.getOrThrow("b")
 
+        fun asDeepgramNova2(): DeepgramNova2Config = deepgramNova2.getOrThrow("deepgramNova2")
+
+        fun asDeepgramNova3(): DeepgramNova3Config = deepgramNova3.getOrThrow("deepgramNova3")
+
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
         fun <T> accept(visitor: Visitor<T>): T =
             when {
                 google != null -> visitor.visitGoogle(google)
                 telnyx != null -> visitor.visitTelnyx(telnyx)
-                deepgramNova2 != null -> visitor.visitDeepgramNova2(deepgramNova2)
-                deepgramNova3 != null -> visitor.visitDeepgramNova3(deepgramNova3)
                 azure != null -> visitor.visitAzure(azure)
                 a != null -> visitor.visitA(a)
                 b != null -> visitor.visitB(b)
+                deepgramNova2 != null -> visitor.visitDeepgramNova2(deepgramNova2)
+                deepgramNova3 != null -> visitor.visitDeepgramNova3(deepgramNova3)
                 else -> visitor.unknown(_json)
             }
 
@@ -658,14 +695,6 @@ private constructor(
                         telnyx.validate()
                     }
 
-                    override fun visitDeepgramNova2(deepgramNova2: DeepgramNova2Config) {
-                        deepgramNova2.validate()
-                    }
-
-                    override fun visitDeepgramNova3(deepgramNova3: DeepgramNova3Config) {
-                        deepgramNova3.validate()
-                    }
-
                     override fun visitAzure(azure: TranscriptionEngineAzureConfig) {
                         azure.validate()
                     }
@@ -676,6 +705,14 @@ private constructor(
 
                     override fun visitB(b: TranscriptionEngineBConfig) {
                         b.validate()
+                    }
+
+                    override fun visitDeepgramNova2(deepgramNova2: DeepgramNova2Config) {
+                        deepgramNova2.validate()
+                    }
+
+                    override fun visitDeepgramNova3(deepgramNova3: DeepgramNova3Config) {
+                        deepgramNova3.validate()
                     }
                 }
             )
@@ -706,18 +743,18 @@ private constructor(
                     override fun visitTelnyx(telnyx: TranscriptionEngineTelnyxConfig) =
                         telnyx.validity()
 
-                    override fun visitDeepgramNova2(deepgramNova2: DeepgramNova2Config) =
-                        deepgramNova2.validity()
-
-                    override fun visitDeepgramNova3(deepgramNova3: DeepgramNova3Config) =
-                        deepgramNova3.validity()
-
                     override fun visitAzure(azure: TranscriptionEngineAzureConfig) =
                         azure.validity()
 
                     override fun visitA(a: TranscriptionEngineAConfig) = a.validity()
 
                     override fun visitB(b: TranscriptionEngineBConfig) = b.validity()
+
+                    override fun visitDeepgramNova2(deepgramNova2: DeepgramNova2Config) =
+                        deepgramNova2.validity()
+
+                    override fun visitDeepgramNova3(deepgramNova3: DeepgramNova3Config) =
+                        deepgramNova3.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -731,25 +768,25 @@ private constructor(
             return other is TranscriptionEngineConfig &&
                 google == other.google &&
                 telnyx == other.telnyx &&
-                deepgramNova2 == other.deepgramNova2 &&
-                deepgramNova3 == other.deepgramNova3 &&
                 azure == other.azure &&
                 a == other.a &&
-                b == other.b
+                b == other.b &&
+                deepgramNova2 == other.deepgramNova2 &&
+                deepgramNova3 == other.deepgramNova3
         }
 
         override fun hashCode(): Int =
-            Objects.hash(google, telnyx, deepgramNova2, deepgramNova3, azure, a, b)
+            Objects.hash(google, telnyx, azure, a, b, deepgramNova2, deepgramNova3)
 
         override fun toString(): String =
             when {
                 google != null -> "TranscriptionEngineConfig{google=$google}"
                 telnyx != null -> "TranscriptionEngineConfig{telnyx=$telnyx}"
-                deepgramNova2 != null -> "TranscriptionEngineConfig{deepgramNova2=$deepgramNova2}"
-                deepgramNova3 != null -> "TranscriptionEngineConfig{deepgramNova3=$deepgramNova3}"
                 azure != null -> "TranscriptionEngineConfig{azure=$azure}"
                 a != null -> "TranscriptionEngineConfig{a=$a}"
                 b != null -> "TranscriptionEngineConfig{b=$b}"
+                deepgramNova2 != null -> "TranscriptionEngineConfig{deepgramNova2=$deepgramNova2}"
+                deepgramNova3 != null -> "TranscriptionEngineConfig{deepgramNova3=$deepgramNova3}"
                 _json != null -> "TranscriptionEngineConfig{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid TranscriptionEngineConfig")
             }
@@ -765,20 +802,20 @@ private constructor(
                 TranscriptionEngineConfig(telnyx = telnyx)
 
             @JvmStatic
-            fun ofDeepgramNova2(deepgramNova2: DeepgramNova2Config) =
-                TranscriptionEngineConfig(deepgramNova2 = deepgramNova2)
-
-            @JvmStatic
-            fun ofDeepgramNova3(deepgramNova3: DeepgramNova3Config) =
-                TranscriptionEngineConfig(deepgramNova3 = deepgramNova3)
-
-            @JvmStatic
             fun ofAzure(azure: TranscriptionEngineAzureConfig) =
                 TranscriptionEngineConfig(azure = azure)
 
             @JvmStatic fun ofA(a: TranscriptionEngineAConfig) = TranscriptionEngineConfig(a = a)
 
             @JvmStatic fun ofB(b: TranscriptionEngineBConfig) = TranscriptionEngineConfig(b = b)
+
+            @JvmStatic
+            fun ofDeepgramNova2(deepgramNova2: DeepgramNova2Config) =
+                TranscriptionEngineConfig(deepgramNova2 = deepgramNova2)
+
+            @JvmStatic
+            fun ofDeepgramNova3(deepgramNova3: DeepgramNova3Config) =
+                TranscriptionEngineConfig(deepgramNova3 = deepgramNova3)
         }
 
         /**
@@ -791,15 +828,15 @@ private constructor(
 
             fun visitTelnyx(telnyx: TranscriptionEngineTelnyxConfig): T
 
-            fun visitDeepgramNova2(deepgramNova2: DeepgramNova2Config): T
-
-            fun visitDeepgramNova3(deepgramNova3: DeepgramNova3Config): T
-
             fun visitAzure(azure: TranscriptionEngineAzureConfig): T
 
             fun visitA(a: TranscriptionEngineAConfig): T
 
             fun visitB(b: TranscriptionEngineBConfig): T
+
+            fun visitDeepgramNova2(deepgramNova2: DeepgramNova2Config): T
+
+            fun visitDeepgramNova3(deepgramNova3: DeepgramNova3Config): T
 
             /**
              * Maps an unknown variant of [TranscriptionEngineConfig] to a value of type [T].
@@ -864,30 +901,19 @@ private constructor(
                             ?.let { TranscriptionEngineConfig(b = it, _json = json) }
                             ?: TranscriptionEngineConfig(_json = json)
                     }
+                    "deepgram/nova-2" -> {
+                        return tryDeserialize(node, jacksonTypeRef<DeepgramNova2Config>())?.let {
+                            TranscriptionEngineConfig(deepgramNova2 = it, _json = json)
+                        } ?: TranscriptionEngineConfig(_json = json)
+                    }
+                    "deepgram/nova-3" -> {
+                        return tryDeserialize(node, jacksonTypeRef<DeepgramNova3Config>())?.let {
+                            TranscriptionEngineConfig(deepgramNova3 = it, _json = json)
+                        } ?: TranscriptionEngineConfig(_json = json)
+                    }
                 }
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<DeepgramNova2Config>())?.let {
-                                TranscriptionEngineConfig(deepgramNova2 = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<DeepgramNova3Config>())?.let {
-                                TranscriptionEngineConfig(deepgramNova3 = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> TranscriptionEngineConfig(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
-                }
+                return TranscriptionEngineConfig(_json = json)
             }
         }
 
@@ -902,11 +928,11 @@ private constructor(
                 when {
                     value.google != null -> generator.writeObject(value.google)
                     value.telnyx != null -> generator.writeObject(value.telnyx)
-                    value.deepgramNova2 != null -> generator.writeObject(value.deepgramNova2)
-                    value.deepgramNova3 != null -> generator.writeObject(value.deepgramNova3)
                     value.azure != null -> generator.writeObject(value.azure)
                     value.a != null -> generator.writeObject(value.a)
                     value.b != null -> generator.writeObject(value.b)
+                    value.deepgramNova2 != null -> generator.writeObject(value.deepgramNova2)
+                    value.deepgramNova3 != null -> generator.writeObject(value.deepgramNova3)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid TranscriptionEngineConfig")
                 }
