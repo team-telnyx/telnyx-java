@@ -246,6 +246,8 @@ import com.telnyx.sdk.services.blocking.RoomRecordingService
 import com.telnyx.sdk.services.blocking.RoomRecordingServiceImpl
 import com.telnyx.sdk.services.blocking.RoomService
 import com.telnyx.sdk.services.blocking.RoomServiceImpl
+import com.telnyx.sdk.services.blocking.SessionAnalysisService
+import com.telnyx.sdk.services.blocking.SessionAnalysisServiceImpl
 import com.telnyx.sdk.services.blocking.SetiService
 import com.telnyx.sdk.services.blocking.SetiServiceImpl
 import com.telnyx.sdk.services.blocking.ShortCodeService
@@ -884,6 +886,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         MessagingProfileMetricServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val sessionAnalysis: SessionAnalysisService by lazy {
+        SessionAnalysisServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1345,6 +1351,9 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun alphanumericSenderIds(): AlphanumericSenderIdService = alphanumericSenderIds
 
     override fun messagingProfileMetrics(): MessagingProfileMetricService = messagingProfileMetrics
+
+    /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
+    override fun sessionAnalysis(): SessionAnalysisService = sessionAnalysis
 
     override fun close() = clientOptions.close()
 
@@ -1977,6 +1986,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             MessagingProfileMetricServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val sessionAnalysis: SessionAnalysisService.WithRawResponse by lazy {
+            SessionAnalysisServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2488,5 +2501,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         override fun messagingProfileMetrics(): MessagingProfileMetricService.WithRawResponse =
             messagingProfileMetrics
+
+        /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
+        override fun sessionAnalysis(): SessionAnalysisService.WithRawResponse = sessionAnalysis
     }
 }

@@ -208,6 +208,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.organizations()).isNotNull()
         assertThat(client.alphanumericSenderIds()).isNotNull()
         assertThat(client.messagingProfileMetrics()).isNotNull()
+        assertThat(client.sessionAnalysis()).isNotNull()
     }
 
     @Test
