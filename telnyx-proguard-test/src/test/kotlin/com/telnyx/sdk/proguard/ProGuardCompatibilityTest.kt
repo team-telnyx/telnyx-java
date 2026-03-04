@@ -204,7 +204,6 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.mobilePhoneNumbers()).isNotNull()
         assertThat(client.mobileVoiceConnections()).isNotNull()
         assertThat(client.messaging10dlc()).isNotNull()
-        assertThat(client.speechToText()).isNotNull()
         assertThat(client.organizations()).isNotNull()
         assertThat(client.alphanumericSenderIds()).isNotNull()
         assertThat(client.messagingProfileMetrics()).isNotNull()
