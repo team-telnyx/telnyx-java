@@ -15,34 +15,36 @@ import org.junit.jupiter.params.provider.EnumSource
 internal class StreamServerEventTest {
 
     @Test
-    fun ofAudioChunkFrame() {
-        val audioChunkFrame =
-            StreamServerEvent.AudioChunkFrame.builder()
+    fun ofAudioChunk() {
+        val audioChunk =
+            StreamServerEvent.AudioChunk.builder()
                 .audio("audio")
                 .cached(true)
                 .isFinal(true)
                 .text("text")
                 .timeToFirstAudioFrameMs(0L)
+                .type(StreamServerEvent.AudioChunk.Type.AUDIO_CHUNK)
                 .build()
 
-        val streamServerEvent = StreamServerEvent.ofAudioChunkFrame(audioChunkFrame)
+        val streamServerEvent = StreamServerEvent.ofAudioChunk(audioChunk)
 
-        assertThat(streamServerEvent.audioChunkFrame()).contains(audioChunkFrame)
-        assertThat(streamServerEvent.finalFrame()).isEmpty
-        assertThat(streamServerEvent.errorFrame()).isEmpty
+        assertThat(streamServerEvent.audioChunk()).contains(audioChunk)
+        assertThat(streamServerEvent.final_()).isEmpty
+        assertThat(streamServerEvent.error()).isEmpty
     }
 
     @Test
-    fun ofAudioChunkFrameRoundtrip() {
+    fun ofAudioChunkRoundtrip() {
         val jsonMapper = jsonMapper()
         val streamServerEvent =
-            StreamServerEvent.ofAudioChunkFrame(
-                StreamServerEvent.AudioChunkFrame.builder()
+            StreamServerEvent.ofAudioChunk(
+                StreamServerEvent.AudioChunk.builder()
                     .audio("audio")
                     .cached(true)
                     .isFinal(true)
                     .text("text")
                     .timeToFirstAudioFrameMs(0L)
+                    .type(StreamServerEvent.AudioChunk.Type.AUDIO_CHUNK)
                     .build()
             )
 
@@ -56,32 +58,34 @@ internal class StreamServerEventTest {
     }
 
     @Test
-    fun ofFinalFrame() {
-        val finalFrame =
-            StreamServerEvent.FinalFrame.builder()
+    fun ofFinal() {
+        val final_ =
+            StreamServerEvent.Final.builder()
                 .audio(null)
-                .isFinal(StreamServerEvent.FinalFrame.IsFinal.TRUE)
+                .isFinal(StreamServerEvent.Final.IsFinal.TRUE)
                 .text("text")
                 .timeToFirstAudioFrameMs(0L)
+                .type(StreamServerEvent.Final.Type.FINAL)
                 .build()
 
-        val streamServerEvent = StreamServerEvent.ofFinalFrame(finalFrame)
+        val streamServerEvent = StreamServerEvent.ofFinal(final_)
 
-        assertThat(streamServerEvent.audioChunkFrame()).isEmpty
-        assertThat(streamServerEvent.finalFrame()).contains(finalFrame)
-        assertThat(streamServerEvent.errorFrame()).isEmpty
+        assertThat(streamServerEvent.audioChunk()).isEmpty
+        assertThat(streamServerEvent.final_()).contains(final_)
+        assertThat(streamServerEvent.error()).isEmpty
     }
 
     @Test
-    fun ofFinalFrameRoundtrip() {
+    fun ofFinalRoundtrip() {
         val jsonMapper = jsonMapper()
         val streamServerEvent =
-            StreamServerEvent.ofFinalFrame(
-                StreamServerEvent.FinalFrame.builder()
+            StreamServerEvent.ofFinal(
+                StreamServerEvent.Final.builder()
                     .audio(null)
-                    .isFinal(StreamServerEvent.FinalFrame.IsFinal.TRUE)
+                    .isFinal(StreamServerEvent.Final.IsFinal.TRUE)
                     .text("text")
                     .timeToFirstAudioFrameMs(0L)
+                    .type(StreamServerEvent.Final.Type.FINAL)
                     .build()
             )
 
@@ -95,22 +99,29 @@ internal class StreamServerEventTest {
     }
 
     @Test
-    fun ofErrorFrame() {
-        val errorFrame = StreamServerEvent.ErrorFrame.builder().error("error").build()
+    fun ofError() {
+        val error =
+            StreamServerEvent.Error.builder()
+                .error("error")
+                .type(StreamServerEvent.Error.Type.ERROR)
+                .build()
 
-        val streamServerEvent = StreamServerEvent.ofErrorFrame(errorFrame)
+        val streamServerEvent = StreamServerEvent.ofError(error)
 
-        assertThat(streamServerEvent.audioChunkFrame()).isEmpty
-        assertThat(streamServerEvent.finalFrame()).isEmpty
-        assertThat(streamServerEvent.errorFrame()).contains(errorFrame)
+        assertThat(streamServerEvent.audioChunk()).isEmpty
+        assertThat(streamServerEvent.final_()).isEmpty
+        assertThat(streamServerEvent.error()).contains(error)
     }
 
     @Test
-    fun ofErrorFrameRoundtrip() {
+    fun ofErrorRoundtrip() {
         val jsonMapper = jsonMapper()
         val streamServerEvent =
-            StreamServerEvent.ofErrorFrame(
-                StreamServerEvent.ErrorFrame.builder().error("error").build()
+            StreamServerEvent.ofError(
+                StreamServerEvent.Error.builder()
+                    .error("error")
+                    .type(StreamServerEvent.Error.Type.ERROR)
+                    .build()
             )
 
         val roundtrippedStreamServerEvent =
