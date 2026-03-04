@@ -18,7 +18,7 @@ internal class MessagingProfileMetricServiceAsyncTest {
         val messagingProfileMetricsFuture =
             messagingProfileMetricServiceAsync.list(
                 MessagingProfileMetricListParams.builder()
-                    .timeFrame(MessagingProfileMetricListParams.TimeFrame._1H)
+                    .timeFrame(MessagingProfileMetricListParams.TimeFrame._1_H)
                     .build()
             )
 
