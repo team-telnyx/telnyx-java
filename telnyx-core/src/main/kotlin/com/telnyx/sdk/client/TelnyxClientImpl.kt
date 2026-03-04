@@ -264,8 +264,6 @@ import com.telnyx.sdk.services.blocking.SimCardService
 import com.telnyx.sdk.services.blocking.SimCardServiceImpl
 import com.telnyx.sdk.services.blocking.SiprecConnectorService
 import com.telnyx.sdk.services.blocking.SiprecConnectorServiceImpl
-import com.telnyx.sdk.services.blocking.SpeechToTextService
-import com.telnyx.sdk.services.blocking.SpeechToTextServiceImpl
 import com.telnyx.sdk.services.blocking.StorageService
 import com.telnyx.sdk.services.blocking.StorageServiceImpl
 import com.telnyx.sdk.services.blocking.SubNumberOrderService
@@ -870,10 +868,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         Messaging10dlcServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val speechToText: SpeechToTextService by lazy {
-        SpeechToTextServiceImpl(clientOptionsWithUserAgent)
-    }
-
     private val organizations: OrganizationService by lazy {
         OrganizationServiceImpl(clientOptionsWithUserAgent)
     }
@@ -1342,9 +1336,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun mobileVoiceConnections(): MobileVoiceConnectionService = mobileVoiceConnections
 
     override fun messaging10dlc(): Messaging10dlcService = messaging10dlc
-
-    /** Speech to text command operations */
-    override fun speechToText(): SpeechToTextService = speechToText
 
     override fun organizations(): OrganizationService = organizations
 
@@ -1970,10 +1961,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             Messaging10dlcServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val speechToText: SpeechToTextService.WithRawResponse by lazy {
-            SpeechToTextServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val organizations: OrganizationService.WithRawResponse by lazy {
             OrganizationServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -2490,9 +2477,6 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             mobileVoiceConnections
 
         override fun messaging10dlc(): Messaging10dlcService.WithRawResponse = messaging10dlc
-
-        /** Speech to text command operations */
-        override fun speechToText(): SpeechToTextService.WithRawResponse = speechToText
 
         override fun organizations(): OrganizationService.WithRawResponse = organizations
 
