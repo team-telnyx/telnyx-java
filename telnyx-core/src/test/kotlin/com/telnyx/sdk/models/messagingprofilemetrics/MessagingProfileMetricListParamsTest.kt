@@ -11,7 +11,7 @@ internal class MessagingProfileMetricListParamsTest {
     @Test
     fun create() {
         MessagingProfileMetricListParams.builder()
-            .timeFrame(MessagingProfileMetricListParams.TimeFrame._1_H)
+            .timeFrame(MessagingProfileMetricListParams.TimeFrame._1H)
             .build()
     }
 
@@ -19,7 +19,7 @@ internal class MessagingProfileMetricListParamsTest {
     fun queryParams() {
         val params =
             MessagingProfileMetricListParams.builder()
-                .timeFrame(MessagingProfileMetricListParams.TimeFrame._1_H)
+                .timeFrame(MessagingProfileMetricListParams.TimeFrame._1H)
                 .build()
 
         val queryParams = params._queryParams()
