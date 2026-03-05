@@ -41,7 +41,6 @@ interface AiService {
     /** Configure AI assistant specifications */
     fun assistants(): AssistantService
 
-    /** Turn audio into text or text into audio. */
     fun audio(): AudioService
 
     /** Generate text with LLMs */
@@ -121,7 +120,6 @@ interface AiService {
         /** Configure AI assistant specifications */
         fun assistants(): AssistantService.WithRawResponse
 
-        /** Turn audio into text or text into audio. */
         fun audio(): AudioService.WithRawResponse
 
         /** Generate text with LLMs */
