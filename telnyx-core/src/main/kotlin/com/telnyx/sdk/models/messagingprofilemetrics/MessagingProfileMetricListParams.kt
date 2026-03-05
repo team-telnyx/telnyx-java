@@ -201,29 +201,29 @@ private constructor(
 
         companion object {
 
-            @JvmField val _1_H = of("1h")
+            @JvmField val TIME_FRAME_1_H = of("1h")
 
-            @JvmField val _3_H = of("3h")
+            @JvmField val TIME_FRAME_3_H = of("3h")
 
-            @JvmField val _24_H = of("24h")
+            @JvmField val TIME_FRAME_24_H = of("24h")
 
-            @JvmField val _3_D = of("3d")
+            @JvmField val TIME_FRAME_3_D = of("3d")
 
-            @JvmField val _7_D = of("7d")
+            @JvmField val TIME_FRAME_7_D = of("7d")
 
-            @JvmField val _30_D = of("30d")
+            @JvmField val TIME_FRAME_30_D = of("30d")
 
             @JvmStatic fun of(value: String) = TimeFrame(JsonField.of(value))
         }
 
         /** An enum containing [TimeFrame]'s known values. */
         enum class Known {
-            _1_H,
-            _3_H,
-            _24_H,
-            _3_D,
-            _7_D,
-            _30_D,
+            TIME_FRAME_1_H,
+            TIME_FRAME_3_H,
+            TIME_FRAME_24_H,
+            TIME_FRAME_3_D,
+            TIME_FRAME_7_D,
+            TIME_FRAME_30_D,
         }
 
         /**
@@ -236,12 +236,12 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            _1_H,
-            _3_H,
-            _24_H,
-            _3_D,
-            _7_D,
-            _30_D,
+            TIME_FRAME_1_H,
+            TIME_FRAME_3_H,
+            TIME_FRAME_24_H,
+            TIME_FRAME_3_D,
+            TIME_FRAME_7_D,
+            TIME_FRAME_30_D,
             /**
              * An enum member indicating that [TimeFrame] was instantiated with an unknown value.
              */
@@ -257,12 +257,12 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                _1_H -> Value._1_H
-                _3_H -> Value._3_H
-                _24_H -> Value._24_H
-                _3_D -> Value._3_D
-                _7_D -> Value._7_D
-                _30_D -> Value._30_D
+                TIME_FRAME_1_H -> Value.TIME_FRAME_1_H
+                TIME_FRAME_3_H -> Value.TIME_FRAME_3_H
+                TIME_FRAME_24_H -> Value.TIME_FRAME_24_H
+                TIME_FRAME_3_D -> Value.TIME_FRAME_3_D
+                TIME_FRAME_7_D -> Value.TIME_FRAME_7_D
+                TIME_FRAME_30_D -> Value.TIME_FRAME_30_D
                 else -> Value._UNKNOWN
             }
 
@@ -277,12 +277,12 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                _1_H -> Known._1_H
-                _3_H -> Known._3_H
-                _24_H -> Known._24_H
-                _3_D -> Known._3_D
-                _7_D -> Known._7_D
-                _30_D -> Known._30_D
+                TIME_FRAME_1_H -> Known.TIME_FRAME_1_H
+                TIME_FRAME_3_H -> Known.TIME_FRAME_3_H
+                TIME_FRAME_24_H -> Known.TIME_FRAME_24_H
+                TIME_FRAME_3_D -> Known.TIME_FRAME_3_D
+                TIME_FRAME_7_D -> Known.TIME_FRAME_7_D
+                TIME_FRAME_30_D -> Known.TIME_FRAME_30_D
                 else -> throw TelnyxInvalidDataException("Unknown TimeFrame: $value")
             }
 
