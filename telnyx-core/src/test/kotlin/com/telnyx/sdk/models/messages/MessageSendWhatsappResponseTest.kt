@@ -296,6 +296,7 @@ internal class MessageSendWhatsappResponseTest {
                                 .build()
                         )
                         .type("WHATSAPP")
+                        .waitSeconds(0.5f)
                         .build()
                 )
                 .build()
@@ -578,6 +579,7 @@ internal class MessageSendWhatsappResponseTest {
                             .build()
                     )
                     .type("WHATSAPP")
+                    .waitSeconds(0.5f)
                     .build()
             )
     }
@@ -869,6 +871,7 @@ internal class MessageSendWhatsappResponseTest {
                                 .build()
                         )
                         .type("WHATSAPP")
+                        .waitSeconds(0.5f)
                         .build()
                 )
                 .build()

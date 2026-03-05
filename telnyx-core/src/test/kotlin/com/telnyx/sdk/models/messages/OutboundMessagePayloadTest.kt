@@ -105,6 +105,7 @@ internal class OutboundMessagePayloadTest {
                 )
                 .type(OutboundMessagePayload.Type.MMS)
                 .validUntil(null)
+                .waitSeconds(0.5f)
                 .webhookFailoverUrl("https://backup.example.com/hooks")
                 .webhookUrl("https://www.example.com/hooks")
                 .build()
@@ -210,6 +211,7 @@ internal class OutboundMessagePayloadTest {
             )
         assertThat(outboundMessagePayload.type()).contains(OutboundMessagePayload.Type.MMS)
         assertThat(outboundMessagePayload.validUntil()).isEmpty
+        assertThat(outboundMessagePayload.waitSeconds()).contains(0.5f)
         assertThat(outboundMessagePayload.webhookFailoverUrl())
             .contains("https://backup.example.com/hooks")
         assertThat(outboundMessagePayload.webhookUrl()).contains("https://www.example.com/hooks")
@@ -309,6 +311,7 @@ internal class OutboundMessagePayloadTest {
                 )
                 .type(OutboundMessagePayload.Type.MMS)
                 .validUntil(null)
+                .waitSeconds(0.5f)
                 .webhookFailoverUrl("https://backup.example.com/hooks")
                 .webhookUrl("https://www.example.com/hooks")
                 .build()

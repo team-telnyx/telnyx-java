@@ -495,6 +495,7 @@ internal class RcSendResponseTest {
                                 .build()
                         )
                         .type("RCS")
+                        .waitSeconds(0.5f)
                         .build()
                 )
                 .build()
@@ -946,6 +947,7 @@ internal class RcSendResponseTest {
                             .build()
                     )
                     .type("RCS")
+                    .waitSeconds(0.5f)
                     .build()
             )
     }
@@ -1430,6 +1432,7 @@ internal class RcSendResponseTest {
                                 .build()
                         )
                         .type("RCS")
+                        .waitSeconds(0.5f)
                         .build()
                 )
                 .build()

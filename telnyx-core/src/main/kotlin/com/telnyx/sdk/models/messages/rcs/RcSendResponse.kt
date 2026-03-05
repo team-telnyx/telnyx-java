@@ -153,6 +153,7 @@ private constructor(
         private val recordType: JsonField<String>,
         private val to: JsonField<List<RcsToItem>>,
         private val type: JsonField<String>,
+        private val waitSeconds: JsonField<Float>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -183,6 +184,9 @@ private constructor(
             recordType: JsonField<String> = JsonMissing.of(),
             @JsonProperty("to") @ExcludeMissing to: JsonField<List<RcsToItem>> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("wait_seconds")
+            @ExcludeMissing
+            waitSeconds: JsonField<Float> = JsonMissing.of(),
         ) : this(
             id,
             body,
@@ -195,6 +199,7 @@ private constructor(
             recordType,
             to,
             type,
+            waitSeconds,
             mutableMapOf(),
         )
 
@@ -266,6 +271,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun type(): Optional<String> = type.getOptional("type")
+
+        /**
+         * Seconds the message is queued due to rate limiting before being sent to the carrier.
+         * Represents the maximum wait across all applicable rate limits (account, carrier,
+         * campaign). 0.0 = no queuing delay.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun waitSeconds(): Optional<Float> = waitSeconds.getOptional("wait_seconds")
 
         /**
          * Returns the raw JSON value of [id].
@@ -354,6 +369,15 @@ private constructor(
          */
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<String> = type
 
+        /**
+         * Returns the raw JSON value of [waitSeconds].
+         *
+         * Unlike [waitSeconds], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("wait_seconds")
+        @ExcludeMissing
+        fun _waitSeconds(): JsonField<Float> = waitSeconds
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -386,6 +410,7 @@ private constructor(
             private var recordType: JsonField<String> = JsonMissing.of()
             private var to: JsonField<MutableList<RcsToItem>>? = null
             private var type: JsonField<String> = JsonMissing.of()
+            private var waitSeconds: JsonField<Float> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -401,6 +426,7 @@ private constructor(
                 recordType = data.recordType
                 to = data.to.map { it.toMutableList() }
                 type = data.type
+                waitSeconds = data.waitSeconds
                 additionalProperties = data.additionalProperties.toMutableMap()
             }
 
@@ -546,6 +572,34 @@ private constructor(
              */
             fun type(type: JsonField<String>) = apply { this.type = type }
 
+            /**
+             * Seconds the message is queued due to rate limiting before being sent to the carrier.
+             * Represents the maximum wait across all applicable rate limits (account, carrier,
+             * campaign). 0.0 = no queuing delay.
+             */
+            fun waitSeconds(waitSeconds: Float?) = waitSeconds(JsonField.ofNullable(waitSeconds))
+
+            /**
+             * Alias for [Builder.waitSeconds].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun waitSeconds(waitSeconds: Float) = waitSeconds(waitSeconds as Float?)
+
+            /** Alias for calling [Builder.waitSeconds] with `waitSeconds.orElse(null)`. */
+            fun waitSeconds(waitSeconds: Optional<Float>) = waitSeconds(waitSeconds.getOrNull())
+
+            /**
+             * Sets [Builder.waitSeconds] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.waitSeconds] with a well-typed [Float] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun waitSeconds(waitSeconds: JsonField<Float>) = apply {
+                this.waitSeconds = waitSeconds
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -583,6 +637,7 @@ private constructor(
                     recordType,
                     (to ?: JsonMissing.of()).map { it.toImmutable() },
                     type,
+                    waitSeconds,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -605,6 +660,7 @@ private constructor(
             recordType()
             to().ifPresent { it.forEach { it.validate() } }
             type()
+            waitSeconds()
             validated = true
         }
 
@@ -634,7 +690,8 @@ private constructor(
                 (if (receivedAt.asKnown().isPresent) 1 else 0) +
                 (if (recordType.asKnown().isPresent) 1 else 0) +
                 (to.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-                (if (type.asKnown().isPresent) 1 else 0)
+                (if (type.asKnown().isPresent) 1 else 0) +
+                (if (waitSeconds.asKnown().isPresent) 1 else 0)
 
         class From
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -873,6 +930,7 @@ private constructor(
                 recordType == other.recordType &&
                 to == other.to &&
                 type == other.type &&
+                waitSeconds == other.waitSeconds &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -889,6 +947,7 @@ private constructor(
                 recordType,
                 to,
                 type,
+                waitSeconds,
                 additionalProperties,
             )
         }
@@ -896,7 +955,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{id=$id, body=$body, direction=$direction, encoding=$encoding, from=$from, messagingProfileId=$messagingProfileId, organizationId=$organizationId, receivedAt=$receivedAt, recordType=$recordType, to=$to, type=$type, additionalProperties=$additionalProperties}"
+            "Data{id=$id, body=$body, direction=$direction, encoding=$encoding, from=$from, messagingProfileId=$messagingProfileId, organizationId=$organizationId, receivedAt=$receivedAt, recordType=$recordType, to=$to, type=$type, waitSeconds=$waitSeconds, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
