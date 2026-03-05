@@ -12,7 +12,7 @@ internal class MessagingProfileRetrieveMetricsParamsTest {
     fun create() {
         MessagingProfileRetrieveMetricsParams.builder()
             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .timeFrame(MessagingProfileRetrieveMetricsParams.TimeFrame._1_H)
+            .timeFrame(MessagingProfileRetrieveMetricsParams.TimeFrame.TIME_FRAME_1_H)
             .build()
     }
 
@@ -33,7 +33,7 @@ internal class MessagingProfileRetrieveMetricsParamsTest {
         val params =
             MessagingProfileRetrieveMetricsParams.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .timeFrame(MessagingProfileRetrieveMetricsParams.TimeFrame._1_H)
+                .timeFrame(MessagingProfileRetrieveMetricsParams.TimeFrame.TIME_FRAME_1_H)
                 .build()
 
         val queryParams = params._queryParams()
