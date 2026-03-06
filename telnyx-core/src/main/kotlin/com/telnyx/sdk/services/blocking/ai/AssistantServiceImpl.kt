@@ -36,6 +36,8 @@ import com.telnyx.sdk.services.blocking.ai.assistants.CanaryDeployService
 import com.telnyx.sdk.services.blocking.ai.assistants.CanaryDeployServiceImpl
 import com.telnyx.sdk.services.blocking.ai.assistants.ScheduledEventService
 import com.telnyx.sdk.services.blocking.ai.assistants.ScheduledEventServiceImpl
+import com.telnyx.sdk.services.blocking.ai.assistants.TagService
+import com.telnyx.sdk.services.blocking.ai.assistants.TagServiceImpl
 import com.telnyx.sdk.services.blocking.ai.assistants.TestService
 import com.telnyx.sdk.services.blocking.ai.assistants.TestServiceImpl
 import com.telnyx.sdk.services.blocking.ai.assistants.ToolService
@@ -67,6 +69,8 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
 
     private val versions: VersionService by lazy { VersionServiceImpl(clientOptions) }
 
+    private val tags: TagService by lazy { TagServiceImpl(clientOptions) }
+
     override fun withRawResponse(): AssistantService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AssistantService =
@@ -86,6 +90,9 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
 
     /** Configure AI assistant specifications */
     override fun versions(): VersionService = versions
+
+    /** Configure AI assistant specifications */
+    override fun tags(): TagService = tags
 
     override fun create(
         params: AssistantCreateParams,
@@ -177,6 +184,10 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
             VersionServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val tags: TagService.WithRawResponse by lazy {
+            TagServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AssistantService.WithRawResponse =
@@ -198,6 +209,9 @@ class AssistantServiceImpl internal constructor(private val clientOptions: Clien
 
         /** Configure AI assistant specifications */
         override fun versions(): VersionService.WithRawResponse = versions
+
+        /** Configure AI assistant specifications */
+        override fun tags(): TagService.WithRawResponse = tags
 
         private val createHandler: Handler<InferenceEmbedding> =
             jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)

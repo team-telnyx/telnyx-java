@@ -36,6 +36,8 @@ import com.telnyx.sdk.services.async.ai.assistants.CanaryDeployServiceAsync
 import com.telnyx.sdk.services.async.ai.assistants.CanaryDeployServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.assistants.ScheduledEventServiceAsync
 import com.telnyx.sdk.services.async.ai.assistants.ScheduledEventServiceAsyncImpl
+import com.telnyx.sdk.services.async.ai.assistants.TagServiceAsync
+import com.telnyx.sdk.services.async.ai.assistants.TagServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.assistants.TestServiceAsync
 import com.telnyx.sdk.services.async.ai.assistants.TestServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.assistants.ToolServiceAsync
@@ -68,6 +70,8 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
 
     private val versions: VersionServiceAsync by lazy { VersionServiceAsyncImpl(clientOptions) }
 
+    private val tags: TagServiceAsync by lazy { TagServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): AssistantServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AssistantServiceAsync =
@@ -87,6 +91,9 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
 
     /** Configure AI assistant specifications */
     override fun versions(): VersionServiceAsync = versions
+
+    /** Configure AI assistant specifications */
+    override fun tags(): TagServiceAsync = tags
 
     override fun create(
         params: AssistantCreateParams,
@@ -184,6 +191,10 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
             VersionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val tags: TagServiceAsync.WithRawResponse by lazy {
+            TagServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AssistantServiceAsync.WithRawResponse =
@@ -205,6 +216,9 @@ class AssistantServiceAsyncImpl internal constructor(private val clientOptions: 
 
         /** Configure AI assistant specifications */
         override fun versions(): VersionServiceAsync.WithRawResponse = versions
+
+        /** Configure AI assistant specifications */
+        override fun tags(): TagServiceAsync.WithRawResponse = tags
 
         private val createHandler: Handler<InferenceEmbedding> =
             jsonHandler<InferenceEmbedding>(clientOptions.jsonMapper)
