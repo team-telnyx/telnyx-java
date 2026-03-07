@@ -19,8 +19,8 @@ internal class ActionServiceAsyncTest {
             actionServiceAsync.uploadFile(
                 ActionUploadFileParams.builder()
                     .id("id")
-                    .bill("some content".byteInputStream())
-                    .loa("some content".byteInputStream())
+                    .bill("Example data".byteInputStream())
+                    .loa("Example data".byteInputStream())
                     .build()
             )
 
