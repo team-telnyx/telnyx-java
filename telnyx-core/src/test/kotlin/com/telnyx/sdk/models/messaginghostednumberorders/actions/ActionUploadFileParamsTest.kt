@@ -13,8 +13,8 @@ internal class ActionUploadFileParamsTest {
     fun create() {
         ActionUploadFileParams.builder()
             .id("id")
-            .bill("some content".byteInputStream())
-            .loa("some content".byteInputStream())
+            .bill("Example data".byteInputStream())
+            .loa("Example data".byteInputStream())
             .build()
     }
 
@@ -32,8 +32,8 @@ internal class ActionUploadFileParamsTest {
         val params =
             ActionUploadFileParams.builder()
                 .id("id")
-                .bill("some content".byteInputStream())
-                .loa("some content".byteInputStream())
+                .bill("Example data".byteInputStream())
+                .loa("Example data".byteInputStream())
                 .build()
 
         val body = params._body()
@@ -48,8 +48,8 @@ internal class ActionUploadFileParamsTest {
             )
             .isEqualTo(
                 mapOf(
-                        "bill" to MultipartField.of("some content".byteInputStream()),
-                        "loa" to MultipartField.of("some content".byteInputStream()),
+                        "bill" to MultipartField.of("Example data".byteInputStream()),
+                        "loa" to MultipartField.of("Example data".byteInputStream()),
                     )
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }

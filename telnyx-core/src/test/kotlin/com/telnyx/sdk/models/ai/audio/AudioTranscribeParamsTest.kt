@@ -14,7 +14,7 @@ internal class AudioTranscribeParamsTest {
     fun create() {
         AudioTranscribeParams.builder()
             .model(AudioTranscribeParams.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
-            .file("some content".byteInputStream())
+            .file("Example data".byteInputStream())
             .fileUrl("https://example.com/file.mp3")
             .language("en-US")
             .modelConfig(
@@ -33,7 +33,7 @@ internal class AudioTranscribeParamsTest {
         val params =
             AudioTranscribeParams.builder()
                 .model(AudioTranscribeParams.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
-                .file("some content".byteInputStream())
+                .file("Example data".byteInputStream())
                 .fileUrl("https://example.com/file.mp3")
                 .language("en-US")
                 .modelConfig(
@@ -62,7 +62,7 @@ internal class AudioTranscribeParamsTest {
                             MultipartField.of(
                                 AudioTranscribeParams.Model.DISTIL_WHISPER_DISTIL_LARGE_V2
                             ),
-                        "file" to MultipartField.of("some content".byteInputStream()),
+                        "file" to MultipartField.of("Example data".byteInputStream()),
                         "file_url" to MultipartField.of("https://example.com/file.mp3"),
                         "language" to MultipartField.of("en-US"),
                         "model_config" to

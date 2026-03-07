@@ -20,7 +20,7 @@ internal class AudioServiceAsyncTest {
             audioServiceAsync.transcribe(
                 AudioTranscribeParams.builder()
                     .model(AudioTranscribeParams.Model.DISTIL_WHISPER_DISTIL_LARGE_V2)
-                    .file("some content".byteInputStream())
+                    .file("Example data".byteInputStream())
                     .fileUrl("https://example.com/file.mp3")
                     .language("en-US")
                     .modelConfig(

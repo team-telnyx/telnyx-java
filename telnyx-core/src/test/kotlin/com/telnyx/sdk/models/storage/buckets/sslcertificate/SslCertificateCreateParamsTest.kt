@@ -13,8 +13,8 @@ internal class SslCertificateCreateParamsTest {
     fun create() {
         SslCertificateCreateParams.builder()
             .bucketName("")
-            .certificate("some content".byteInputStream())
-            .privateKey("some content".byteInputStream())
+            .certificate("Example data".byteInputStream())
+            .privateKey("Example data".byteInputStream())
             .build()
     }
 
@@ -32,8 +32,8 @@ internal class SslCertificateCreateParamsTest {
         val params =
             SslCertificateCreateParams.builder()
                 .bucketName("")
-                .certificate("some content".byteInputStream())
-                .privateKey("some content".byteInputStream())
+                .certificate("Example data".byteInputStream())
+                .privateKey("Example data".byteInputStream())
                 .build()
 
         val body = params._body()
@@ -48,8 +48,8 @@ internal class SslCertificateCreateParamsTest {
             )
             .isEqualTo(
                 mapOf(
-                        "certificate" to MultipartField.of("some content".byteInputStream()),
-                        "private_key" to MultipartField.of("some content".byteInputStream()),
+                        "certificate" to MultipartField.of("Example data".byteInputStream()),
+                        "private_key" to MultipartField.of("Example data".byteInputStream()),
                     )
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }
