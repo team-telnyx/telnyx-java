@@ -260,6 +260,15 @@ private constructor(
     fun preferredCodecs(): Optional<String> = body.preferredCodecs()
 
     /**
+     * Prevents bridging and hangs up the call if the target is already bridged. Disabled by
+     * default.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun preventDoubleBridge(): Optional<Boolean> = body.preventDoubleBridge()
+
+    /**
      * Start recording automatically after an event. Disabled by default.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -696,6 +705,14 @@ private constructor(
      * Unlike [preferredCodecs], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _preferredCodecs(): JsonField<String> = body._preferredCodecs()
+
+    /**
+     * Returns the raw JSON value of [preventDoubleBridge].
+     *
+     * Unlike [preventDoubleBridge], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _preventDoubleBridge(): JsonField<Boolean> = body._preventDoubleBridge()
 
     /**
      * Returns the raw JSON value of [record].
@@ -1363,6 +1380,25 @@ private constructor(
          */
         fun preferredCodecs(preferredCodecs: JsonField<String>) = apply {
             body.preferredCodecs(preferredCodecs)
+        }
+
+        /**
+         * Prevents bridging and hangs up the call if the target is already bridged. Disabled by
+         * default.
+         */
+        fun preventDoubleBridge(preventDoubleBridge: Boolean) = apply {
+            body.preventDoubleBridge(preventDoubleBridge)
+        }
+
+        /**
+         * Sets [Builder.preventDoubleBridge] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.preventDoubleBridge] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun preventDoubleBridge(preventDoubleBridge: JsonField<Boolean>) = apply {
+            body.preventDoubleBridge(preventDoubleBridge)
         }
 
         /** Start recording automatically after an event. Disabled by default. */
@@ -2063,6 +2099,7 @@ private constructor(
         private val mediaName: JsonField<String>,
         private val parkAfterUnbridge: JsonField<String>,
         private val preferredCodecs: JsonField<String>,
+        private val preventDoubleBridge: JsonField<Boolean>,
         private val record: JsonField<Record>,
         private val recordChannels: JsonField<RecordChannels>,
         private val recordCustomFileName: JsonField<String>,
@@ -2158,6 +2195,9 @@ private constructor(
             @JsonProperty("preferred_codecs")
             @ExcludeMissing
             preferredCodecs: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("prevent_double_bridge")
+            @ExcludeMissing
+            preventDoubleBridge: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("record") @ExcludeMissing record: JsonField<Record> = JsonMissing.of(),
             @JsonProperty("record_channels")
             @ExcludeMissing
@@ -2276,6 +2316,7 @@ private constructor(
             mediaName,
             parkAfterUnbridge,
             preferredCodecs,
+            preventDoubleBridge,
             record,
             recordChannels,
             recordCustomFileName,
@@ -2516,6 +2557,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun preferredCodecs(): Optional<String> = preferredCodecs.getOptional("preferred_codecs")
+
+        /**
+         * Prevents bridging and hangs up the call if the target is already bridged. Disabled by
+         * default.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun preventDoubleBridge(): Optional<Boolean> =
+            preventDoubleBridge.getOptional("prevent_double_bridge")
 
         /**
          * Start recording automatically after an event. Disabled by default.
@@ -3005,6 +3056,16 @@ private constructor(
         fun _preferredCodecs(): JsonField<String> = preferredCodecs
 
         /**
+         * Returns the raw JSON value of [preventDoubleBridge].
+         *
+         * Unlike [preventDoubleBridge], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("prevent_double_bridge")
+        @ExcludeMissing
+        fun _preventDoubleBridge(): JsonField<Boolean> = preventDoubleBridge
+
+        /**
          * Returns the raw JSON value of [record].
          *
          * Unlike [record], this method doesn't throw if the JSON field has an unexpected type.
@@ -3368,6 +3429,7 @@ private constructor(
             private var mediaName: JsonField<String> = JsonMissing.of()
             private var parkAfterUnbridge: JsonField<String> = JsonMissing.of()
             private var preferredCodecs: JsonField<String> = JsonMissing.of()
+            private var preventDoubleBridge: JsonField<Boolean> = JsonMissing.of()
             private var record: JsonField<Record> = JsonMissing.of()
             private var recordChannels: JsonField<RecordChannels> = JsonMissing.of()
             private var recordCustomFileName: JsonField<String> = JsonMissing.of()
@@ -3430,6 +3492,7 @@ private constructor(
                 mediaName = body.mediaName
                 parkAfterUnbridge = body.parkAfterUnbridge
                 preferredCodecs = body.preferredCodecs
+                preventDoubleBridge = body.preventDoubleBridge
                 record = body.record
                 recordChannels = body.recordChannels
                 recordCustomFileName = body.recordCustomFileName
@@ -3840,6 +3903,24 @@ private constructor(
              */
             fun preferredCodecs(preferredCodecs: JsonField<String>) = apply {
                 this.preferredCodecs = preferredCodecs
+            }
+
+            /**
+             * Prevents bridging and hangs up the call if the target is already bridged. Disabled by
+             * default.
+             */
+            fun preventDoubleBridge(preventDoubleBridge: Boolean) =
+                preventDoubleBridge(JsonField.of(preventDoubleBridge))
+
+            /**
+             * Sets [Builder.preventDoubleBridge] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.preventDoubleBridge] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun preventDoubleBridge(preventDoubleBridge: JsonField<Boolean>) = apply {
+                this.preventDoubleBridge = preventDoubleBridge
             }
 
             /** Start recording automatically after an event. Disabled by default. */
@@ -4431,6 +4512,7 @@ private constructor(
                     mediaName,
                     parkAfterUnbridge,
                     preferredCodecs,
+                    preventDoubleBridge,
                     record,
                     recordChannels,
                     recordCustomFileName,
@@ -4495,6 +4577,7 @@ private constructor(
             mediaName()
             parkAfterUnbridge()
             preferredCodecs()
+            preventDoubleBridge()
             record().ifPresent { it.validate() }
             recordChannels().ifPresent { it.validate() }
             recordCustomFileName()
@@ -4567,6 +4650,7 @@ private constructor(
                 (if (mediaName.asKnown().isPresent) 1 else 0) +
                 (if (parkAfterUnbridge.asKnown().isPresent) 1 else 0) +
                 (if (preferredCodecs.asKnown().isPresent) 1 else 0) +
+                (if (preventDoubleBridge.asKnown().isPresent) 1 else 0) +
                 (record.asKnown().getOrNull()?.validity() ?: 0) +
                 (recordChannels.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (recordCustomFileName.asKnown().isPresent) 1 else 0) +
@@ -4627,6 +4711,7 @@ private constructor(
                 mediaName == other.mediaName &&
                 parkAfterUnbridge == other.parkAfterUnbridge &&
                 preferredCodecs == other.preferredCodecs &&
+                preventDoubleBridge == other.preventDoubleBridge &&
                 record == other.record &&
                 recordChannels == other.recordChannels &&
                 recordCustomFileName == other.recordCustomFileName &&
@@ -4685,6 +4770,7 @@ private constructor(
                 mediaName,
                 parkAfterUnbridge,
                 preferredCodecs,
+                preventDoubleBridge,
                 record,
                 recordChannels,
                 recordCustomFileName,
@@ -4724,7 +4810,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{connectionId=$connectionId, from=$from, to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, audioUrl=$audioUrl, billingGroupId=$billingGroupId, bridgeIntent=$bridgeIntent, bridgeOnAnswer=$bridgeOnAnswer, clientState=$clientState, commandId=$commandId, conferenceConfig=$conferenceConfig, customHeaders=$customHeaders, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, fromDisplayName=$fromDisplayName, linkTo=$linkTo, mediaEncryption=$mediaEncryption, mediaName=$mediaName, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallControlId=$superviseCallControlId, supervisorRole=$supervisorRole, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, additionalProperties=$additionalProperties}"
+            "Body{connectionId=$connectionId, from=$from, to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, audioUrl=$audioUrl, billingGroupId=$billingGroupId, bridgeIntent=$bridgeIntent, bridgeOnAnswer=$bridgeOnAnswer, clientState=$clientState, commandId=$commandId, conferenceConfig=$conferenceConfig, customHeaders=$customHeaders, dialogflowConfig=$dialogflowConfig, enableDialogflow=$enableDialogflow, fromDisplayName=$fromDisplayName, linkTo=$linkTo, mediaEncryption=$mediaEncryption, mediaName=$mediaName, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, preventDoubleBridge=$preventDoubleBridge, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sendSilenceWhenIdle=$sendSilenceWhenIdle, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, streamAuthToken=$streamAuthToken, streamBidirectionalCodec=$streamBidirectionalCodec, streamBidirectionalMode=$streamBidirectionalMode, streamBidirectionalSamplingRate=$streamBidirectionalSamplingRate, streamBidirectionalTargetLegs=$streamBidirectionalTargetLegs, streamCodec=$streamCodec, streamEstablishBeforeCallOriginate=$streamEstablishBeforeCallOriginate, streamTrack=$streamTrack, streamUrl=$streamUrl, superviseCallControlId=$superviseCallControlId, supervisorRole=$supervisorRole, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, transcription=$transcription, transcriptionConfig=$transcriptionConfig, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, additionalProperties=$additionalProperties}"
     }
 
     /**

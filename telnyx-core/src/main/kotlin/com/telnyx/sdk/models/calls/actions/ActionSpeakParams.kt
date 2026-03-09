@@ -94,6 +94,8 @@ private constructor(
      * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`). Only
      *   `Turbo` model is supported. Use `voice_settings` to configure precision, sample_rate, and
      *   format.
+     * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
+     *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
      *
      * For service_level basic, you may define the gender of the speaker (male or female).
      *
@@ -363,6 +365,8 @@ private constructor(
          * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`). Only
          *   `Turbo` model is supported. Use `voice_settings` to configure precision, sample_rate,
          *   and format.
+         * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
+         *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
          *
          * For service_level basic, you may define the gender of the speaker (male or female).
          */
@@ -540,6 +544,9 @@ private constructor(
 
         /** Alias for calling [voiceSettings] with `VoiceSettings.ofResemble(resemble)`. */
         fun voiceSettings(resemble: ResembleVoiceSettings) = apply { body.voiceSettings(resemble) }
+
+        /** Alias for calling [voiceSettings] with `VoiceSettings.ofInworld()`. */
+        fun voiceSettingsInworld() = apply { body.voiceSettingsInworld() }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -793,6 +800,8 @@ private constructor(
          * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`). Only
          *   `Turbo` model is supported. Use `voice_settings` to configure precision, sample_rate,
          *   and format.
+         * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
+         *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
          *
          * For service_level basic, you may define the gender of the speaker (male or female).
          *
@@ -1075,6 +1084,8 @@ private constructor(
              * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g., `Resemble.Turbo.my_voice`).
              *   Only `Turbo` model is supported. Use `voice_settings` to configure precision,
              *   sample_rate, and format.
+             * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
+             *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
              *
              * For service_level basic, you may define the gender of the speaker (male or female).
              */
@@ -1262,6 +1273,9 @@ private constructor(
             /** Alias for calling [voiceSettings] with `VoiceSettings.ofResemble(resemble)`. */
             fun voiceSettings(resemble: ResembleVoiceSettings) =
                 voiceSettings(VoiceSettings.ofResemble(resemble))
+
+            /** Alias for calling [voiceSettings] with `VoiceSettings.ofInworld()`. */
+            fun voiceSettingsInworld() = voiceSettings(VoiceSettings.ofInworld())
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2104,6 +2118,7 @@ private constructor(
         private val azure: AzureVoiceSettings? = null,
         private val rime: RimeVoiceSettings? = null,
         private val resemble: ResembleVoiceSettings? = null,
+        private val inworld: JsonValue? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -2121,6 +2136,8 @@ private constructor(
 
         fun resemble(): Optional<ResembleVoiceSettings> = Optional.ofNullable(resemble)
 
+        fun inworld(): Optional<JsonValue> = Optional.ofNullable(inworld)
+
         fun isElevenlabs(): Boolean = elevenlabs != null
 
         fun isTelnyx(): Boolean = telnyx != null
@@ -2134,6 +2151,8 @@ private constructor(
         fun isRime(): Boolean = rime != null
 
         fun isResemble(): Boolean = resemble != null
+
+        fun isInworld(): Boolean = inworld != null
 
         fun asElevenlabs(): ElevenLabsVoiceSettings = elevenlabs.getOrThrow("elevenlabs")
 
@@ -2149,6 +2168,8 @@ private constructor(
 
         fun asResemble(): ResembleVoiceSettings = resemble.getOrThrow("resemble")
 
+        fun asInworld(): JsonValue = inworld.getOrThrow("inworld")
+
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
         fun <T> accept(visitor: Visitor<T>): T =
@@ -2160,6 +2181,7 @@ private constructor(
                 azure != null -> visitor.visitAzure(azure)
                 rime != null -> visitor.visitRime(rime)
                 resemble != null -> visitor.visitResemble(resemble)
+                inworld != null -> visitor.visitInworld(inworld)
                 else -> visitor.unknown(_json)
             }
 
@@ -2198,6 +2220,16 @@ private constructor(
 
                     override fun visitResemble(resemble: ResembleVoiceSettings) {
                         resemble.validate()
+                    }
+
+                    override fun visitInworld(inworld: JsonValue) {
+                        inworld.let {
+                            if (it != JsonValue.from(mapOf("type" to "inworld"))) {
+                                throw TelnyxInvalidDataException(
+                                    "'inworld' is invalid, received $it"
+                                )
+                            }
+                        }
                     }
                 }
             )
@@ -2238,6 +2270,11 @@ private constructor(
                     override fun visitResemble(resemble: ResembleVoiceSettings) =
                         resemble.validity()
 
+                    override fun visitInworld(inworld: JsonValue) =
+                        inworld.let {
+                            if (it == JsonValue.from(mapOf("type" to "inworld"))) 1 else 0
+                        }
+
                     override fun unknown(json: JsonValue?) = 0
                 }
             )
@@ -2254,11 +2291,12 @@ private constructor(
                 minimax == other.minimax &&
                 azure == other.azure &&
                 rime == other.rime &&
-                resemble == other.resemble
+                resemble == other.resemble &&
+                inworld == other.inworld
         }
 
         override fun hashCode(): Int =
-            Objects.hash(elevenlabs, telnyx, aws, minimax, azure, rime, resemble)
+            Objects.hash(elevenlabs, telnyx, aws, minimax, azure, rime, resemble, inworld)
 
         override fun toString(): String =
             when {
@@ -2269,6 +2307,7 @@ private constructor(
                 azure != null -> "VoiceSettings{azure=$azure}"
                 rime != null -> "VoiceSettings{rime=$rime}"
                 resemble != null -> "VoiceSettings{resemble=$resemble}"
+                inworld != null -> "VoiceSettings{inworld=$inworld}"
                 _json != null -> "VoiceSettings{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid VoiceSettings")
             }
@@ -2292,6 +2331,9 @@ private constructor(
 
             @JvmStatic
             fun ofResemble(resemble: ResembleVoiceSettings) = VoiceSettings(resemble = resemble)
+
+            @JvmStatic
+            fun ofInworld() = VoiceSettings(inworld = JsonValue.from(mapOf("type" to "inworld")))
         }
 
         /**
@@ -2313,6 +2355,8 @@ private constructor(
             fun visitRime(rime: RimeVoiceSettings): T
 
             fun visitResemble(resemble: ResembleVoiceSettings): T
+
+            fun visitInworld(inworld: JsonValue): T
 
             /**
              * Maps an unknown variant of [VoiceSettings] to a value of type [T].
@@ -2371,6 +2415,11 @@ private constructor(
                             VoiceSettings(resemble = it, _json = json)
                         } ?: VoiceSettings(_json = json)
                     }
+                    "inworld" -> {
+                        return tryDeserialize(node, jacksonTypeRef<JsonValue>())
+                            ?.let { VoiceSettings(inworld = it, _json = json) }
+                            ?.takeIf { it.isValid() } ?: VoiceSettings(_json = json)
+                    }
                 }
 
                 return VoiceSettings(_json = json)
@@ -2392,6 +2441,7 @@ private constructor(
                     value.azure != null -> generator.writeObject(value.azure)
                     value.rime != null -> generator.writeObject(value.rime)
                     value.resemble != null -> generator.writeObject(value.resemble)
+                    value.inworld != null -> generator.writeObject(value.inworld)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid VoiceSettings")
                 }

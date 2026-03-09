@@ -197,6 +197,8 @@ private constructor(
      *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
      *   for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
      *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+     * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
+     *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -631,6 +633,8 @@ private constructor(
          *   for details. Check
          *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
          *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+         * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
+         *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
          */
         fun voice(voice: String) = apply { body.voice(voice) }
 
@@ -1063,6 +1067,8 @@ private constructor(
          *   for details. Check
          *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
          *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+         * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
+         *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -1533,6 +1539,8 @@ private constructor(
              *   for details. Check
              *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
              *     - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+             * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
+             *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
              */
             fun voice(voice: String) = voice(JsonField.of(voice))
 

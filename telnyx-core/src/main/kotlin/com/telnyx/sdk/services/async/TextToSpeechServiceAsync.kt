@@ -37,7 +37,8 @@ interface TextToSpeechServiceAsync {
      * in a single string (e.g. `telnyx.NaturalHD.Alloy`). Alternatively, specify `provider`
      * explicitly along with provider-specific parameters.
      *
-     * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`, `resemble`.
+     * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`, `resemble`,
+     * `inworld`.
      */
     fun generate(): CompletableFuture<TextToSpeechGenerateResponse> =
         generate(TextToSpeechGenerateParams.none())
