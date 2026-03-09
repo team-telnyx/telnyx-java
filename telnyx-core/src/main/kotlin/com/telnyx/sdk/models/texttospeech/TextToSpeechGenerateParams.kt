@@ -32,7 +32,8 @@ import kotlin.jvm.optionals.getOrNull
  * single string (e.g. `telnyx.NaturalHD.Alloy`). Alternatively, specify `provider` explicitly along
  * with provider-specific parameters.
  *
- * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`, `resemble`.
+ * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`, `resemble`,
+ * `inworld`.
  */
 class TextToSpeechGenerateParams
 private constructor(
@@ -72,6 +73,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun elevenlabs(): Optional<Elevenlabs> = body.elevenlabs()
+
+    /**
+     * Inworld provider-specific parameters.
+     *
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```java
+     * MyClass myObject = textToSpeechGenerateParams.inworld().convert(MyClass.class);
+     * ```
+     */
+    fun _inworld(): JsonValue = body._inworld()
 
     /**
      * Language code (e.g. `en-US`). Usage varies by provider.
@@ -314,7 +325,7 @@ private constructor(
          * - [azure]
          * - [disableCache]
          * - [elevenlabs]
-         * - [language]
+         * - [inworld]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -366,6 +377,9 @@ private constructor(
          * supported value.
          */
         fun elevenlabs(elevenlabs: JsonField<Elevenlabs>) = apply { body.elevenlabs(elevenlabs) }
+
+        /** Inworld provider-specific parameters. */
+        fun inworld(inworld: JsonValue) = apply { body.inworld(inworld) }
 
         /** Language code (e.g. `en-US`). Usage varies by provider. */
         fun language(language: String) = apply { body.language(language) }
@@ -652,6 +666,7 @@ private constructor(
         private val azure: JsonField<Azure>,
         private val disableCache: JsonField<Boolean>,
         private val elevenlabs: JsonField<Elevenlabs>,
+        private val inworld: JsonValue,
         private val language: JsonField<String>,
         private val minimax: JsonField<Minimax>,
         private val outputType: JsonField<OutputType>,
@@ -676,6 +691,7 @@ private constructor(
             @JsonProperty("elevenlabs")
             @ExcludeMissing
             elevenlabs: JsonField<Elevenlabs> = JsonMissing.of(),
+            @JsonProperty("inworld") @ExcludeMissing inworld: JsonValue = JsonMissing.of(),
             @JsonProperty("language")
             @ExcludeMissing
             language: JsonField<String> = JsonMissing.of(),
@@ -704,6 +720,7 @@ private constructor(
             azure,
             disableCache,
             elevenlabs,
+            inworld,
             language,
             minimax,
             outputType,
@@ -749,6 +766,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun elevenlabs(): Optional<Elevenlabs> = elevenlabs.getOptional("elevenlabs")
+
+        /**
+         * Inworld provider-specific parameters.
+         *
+         * This arbitrary value can be deserialized into a custom type using the `convert` method:
+         * ```java
+         * MyClass myObject = body.inworld().convert(MyClass.class);
+         * ```
+         */
+        @JsonProperty("inworld") @ExcludeMissing fun _inworld(): JsonValue = inworld
 
         /**
          * Language code (e.g. `en-US`). Usage varies by provider.
@@ -983,6 +1010,7 @@ private constructor(
             private var azure: JsonField<Azure> = JsonMissing.of()
             private var disableCache: JsonField<Boolean> = JsonMissing.of()
             private var elevenlabs: JsonField<Elevenlabs> = JsonMissing.of()
+            private var inworld: JsonValue = JsonMissing.of()
             private var language: JsonField<String> = JsonMissing.of()
             private var minimax: JsonField<Minimax> = JsonMissing.of()
             private var outputType: JsonField<OutputType> = JsonMissing.of()
@@ -1002,6 +1030,7 @@ private constructor(
                 azure = body.azure
                 disableCache = body.disableCache
                 elevenlabs = body.elevenlabs
+                inworld = body.inworld
                 language = body.language
                 minimax = body.minimax
                 outputType = body.outputType
@@ -1067,6 +1096,9 @@ private constructor(
             fun elevenlabs(elevenlabs: JsonField<Elevenlabs>) = apply {
                 this.elevenlabs = elevenlabs
             }
+
+            /** Inworld provider-specific parameters. */
+            fun inworld(inworld: JsonValue) = apply { this.inworld = inworld }
 
             /** Language code (e.g. `en-US`). Usage varies by provider. */
             fun language(language: String) = language(JsonField.of(language))
@@ -1246,6 +1278,7 @@ private constructor(
                     azure,
                     disableCache,
                     elevenlabs,
+                    inworld,
                     language,
                     minimax,
                     outputType,
@@ -1328,6 +1361,7 @@ private constructor(
                 azure == other.azure &&
                 disableCache == other.disableCache &&
                 elevenlabs == other.elevenlabs &&
+                inworld == other.inworld &&
                 language == other.language &&
                 minimax == other.minimax &&
                 outputType == other.outputType &&
@@ -1348,6 +1382,7 @@ private constructor(
                 azure,
                 disableCache,
                 elevenlabs,
+                inworld,
                 language,
                 minimax,
                 outputType,
@@ -1366,7 +1401,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{aws=$aws, azure=$azure, disableCache=$disableCache, elevenlabs=$elevenlabs, language=$language, minimax=$minimax, outputType=$outputType, provider=$provider, resemble=$resemble, rime=$rime, telnyx=$telnyx, text=$text, textType=$textType, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+            "Body{aws=$aws, azure=$azure, disableCache=$disableCache, elevenlabs=$elevenlabs, inworld=$inworld, language=$language, minimax=$minimax, outputType=$outputType, provider=$provider, resemble=$resemble, rime=$rime, telnyx=$telnyx, text=$text, textType=$textType, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
     }
 
     /** AWS Polly provider-specific parameters. */
@@ -3203,6 +3238,8 @@ private constructor(
 
             @JvmField val RESEMBLE = of("resemble")
 
+            @JvmField val INWORLD = of("inworld")
+
             @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
         }
 
@@ -3215,6 +3252,7 @@ private constructor(
             MINIMAX,
             RIME,
             RESEMBLE,
+            INWORLD,
         }
 
         /**
@@ -3234,6 +3272,7 @@ private constructor(
             MINIMAX,
             RIME,
             RESEMBLE,
+            INWORLD,
             /** An enum member indicating that [Provider] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -3254,6 +3293,7 @@ private constructor(
                 MINIMAX -> Value.MINIMAX
                 RIME -> Value.RIME
                 RESEMBLE -> Value.RESEMBLE
+                INWORLD -> Value.INWORLD
                 else -> Value._UNKNOWN
             }
 
@@ -3275,6 +3315,7 @@ private constructor(
                 MINIMAX -> Known.MINIMAX
                 RIME -> Known.RIME
                 RESEMBLE -> Known.RESEMBLE
+                INWORLD -> Known.INWORLD
                 else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
             }
 

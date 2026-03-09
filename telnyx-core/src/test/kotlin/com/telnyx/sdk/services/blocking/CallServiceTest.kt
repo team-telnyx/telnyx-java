@@ -96,6 +96,7 @@ internal class CallServiceTest {
                     .mediaName("my_media_uploaded_to_media_storage_api")
                     .parkAfterUnbridge("self")
                     .preferredCodecs("G722,PCMU,PCMA,G729,OPUS,VP8,H264")
+                    .preventDoubleBridge(true)
                     .record(CallDialParams.Record.RECORD_FROM_ANSWER)
                     .recordChannels(CallDialParams.RecordChannels.SINGLE)
                     .recordCustomFileName("my_recording_file_name")
