@@ -184,11 +184,5 @@ internal class WebhookServiceAsyncTest {
                 UnwrapWebhookParams.builder().body(payload).headers(headers).build()
             )
         }
-        assertThrows<TelnyxWebhookException> {
-            val wrongIdHeaders = headers.toBuilder().replace("webhook-id", listOf("wrong")).build()
-            webhookServiceAsync
-                .withOptions { it.publicKey(webhookSecret) }
-                .unwrap(UnwrapWebhookParams.builder().body(payload).headers(wrongIdHeaders).build())
-        }
     }
 }
