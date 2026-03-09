@@ -556,8 +556,6 @@ private constructor(
 
             @JvmField val CALL = of("call")
 
-            @JvmField val FLASHCALL = of("flashcall")
-
             @JvmStatic fun of(value: String) = VerificationMethod(JsonField.of(value))
         }
 
@@ -565,7 +563,6 @@ private constructor(
         enum class Known {
             SMS,
             CALL,
-            FLASHCALL,
         }
 
         /**
@@ -580,7 +577,6 @@ private constructor(
         enum class Value {
             SMS,
             CALL,
-            FLASHCALL,
             /**
              * An enum member indicating that [VerificationMethod] was instantiated with an unknown
              * value.
@@ -599,7 +595,6 @@ private constructor(
             when (this) {
                 SMS -> Value.SMS
                 CALL -> Value.CALL
-                FLASHCALL -> Value.FLASHCALL
                 else -> Value._UNKNOWN
             }
 
@@ -616,7 +611,6 @@ private constructor(
             when (this) {
                 SMS -> Known.SMS
                 CALL -> Known.CALL
-                FLASHCALL -> Known.FLASHCALL
                 else -> throw TelnyxInvalidDataException("Unknown VerificationMethod: $value")
             }
 
