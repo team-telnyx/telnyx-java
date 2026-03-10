@@ -16,6 +16,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.simcards.actions.ActionBulkDisableVoiceParams
+import com.telnyx.sdk.models.simcards.actions.ActionBulkDisableVoiceResponse
+import com.telnyx.sdk.models.simcards.actions.ActionBulkEnableVoiceParams
+import com.telnyx.sdk.models.simcards.actions.ActionBulkEnableVoiceResponse
 import com.telnyx.sdk.models.simcards.actions.ActionBulkSetPublicIpsParams
 import com.telnyx.sdk.models.simcards.actions.ActionBulkSetPublicIpsResponse
 import com.telnyx.sdk.models.simcards.actions.ActionDisableParams
@@ -60,6 +64,20 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun list(params: ActionListParams, requestOptions: RequestOptions): ActionListPage =
         // get /sim_card_actions
         withRawResponse().list(params, requestOptions).parse()
+
+    override fun bulkDisableVoice(
+        params: ActionBulkDisableVoiceParams,
+        requestOptions: RequestOptions,
+    ): ActionBulkDisableVoiceResponse =
+        // post /sim_cards/actions/bulk_disable_voice
+        withRawResponse().bulkDisableVoice(params, requestOptions).parse()
+
+    override fun bulkEnableVoice(
+        params: ActionBulkEnableVoiceParams,
+        requestOptions: RequestOptions,
+    ): ActionBulkEnableVoiceResponse =
+        // post /sim_cards/actions/bulk_enable_voice
+        withRawResponse().bulkEnableVoice(params, requestOptions).parse()
 
     override fun bulkSetPublicIps(
         params: ActionBulkSetPublicIpsParams,
@@ -183,6 +201,62 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
                             .params(params)
                             .response(it)
                             .build()
+                    }
+            }
+        }
+
+        private val bulkDisableVoiceHandler: Handler<ActionBulkDisableVoiceResponse> =
+            jsonHandler<ActionBulkDisableVoiceResponse>(clientOptions.jsonMapper)
+
+        override fun bulkDisableVoice(
+            params: ActionBulkDisableVoiceParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ActionBulkDisableVoiceResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("sim_cards", "actions", "bulk_disable_voice")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { bulkDisableVoiceHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val bulkEnableVoiceHandler: Handler<ActionBulkEnableVoiceResponse> =
+            jsonHandler<ActionBulkEnableVoiceResponse>(clientOptions.jsonMapper)
+
+        override fun bulkEnableVoice(
+            params: ActionBulkEnableVoiceParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ActionBulkEnableVoiceResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("sim_cards", "actions", "bulk_enable_voice")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { bulkEnableVoiceHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
                     }
             }
         }
