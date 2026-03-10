@@ -62,6 +62,7 @@ internal class SimCardListPageResponseTest {
                         .type(SimpleSimCard.Type.PHYSICAL)
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .version("4.3")
+                        .voiceEnabled(false)
                         .build()
                 )
                 .meta(
@@ -119,6 +120,7 @@ internal class SimCardListPageResponseTest {
                     .type(SimpleSimCard.Type.PHYSICAL)
                     .updatedAt("2018-02-02T22:25:27.521Z")
                     .version("4.3")
+                    .voiceEnabled(false)
                     .build()
             )
         assertThat(simCardListPageResponse.meta())
@@ -181,6 +183,7 @@ internal class SimCardListPageResponseTest {
                         .type(SimpleSimCard.Type.PHYSICAL)
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .version("4.3")
+                        .voiceEnabled(false)
                         .build()
                 )
                 .meta(

@@ -3,6 +3,8 @@
 package com.telnyx.sdk.services.blocking.simcards
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
+import com.telnyx.sdk.models.simcards.actions.ActionBulkDisableVoiceParams
+import com.telnyx.sdk.models.simcards.actions.ActionBulkEnableVoiceParams
 import com.telnyx.sdk.models.simcards.actions.ActionBulkSetPublicIpsParams
 import com.telnyx.sdk.models.simcards.actions.ActionSetPublicIpParams
 import com.telnyx.sdk.models.simcards.actions.ActionValidateRegistrationCodesParams
@@ -31,6 +33,38 @@ internal class ActionServiceTest {
         val page = actionService.list()
 
         page.response().validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun bulkDisableVoice() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val actionService = client.simCards().actions()
+
+        val response =
+            actionService.bulkDisableVoice(
+                ActionBulkDisableVoiceParams.builder()
+                    .simCardGroupId("6b14e151-8493-4fa1-8664-1cc4e6d14158")
+                    .build()
+            )
+
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun bulkEnableVoice() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val actionService = client.simCards().actions()
+
+        val response =
+            actionService.bulkEnableVoice(
+                ActionBulkEnableVoiceParams.builder()
+                    .simCardGroupId("6b14e151-8493-4fa1-8664-1cc4e6d14158")
+                    .build()
+            )
+
+        response.validate()
     }
 
     @Disabled("Mock server tests are disabled")

@@ -18,7 +18,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class ActionBulkSetPublicIpsResponse
+class ActionBulkEnableVoiceResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<Data>,
@@ -62,22 +62,21 @@ private constructor(
 
         /**
          * Returns a mutable builder for constructing an instance of
-         * [ActionBulkSetPublicIpsResponse].
+         * [ActionBulkEnableVoiceResponse].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [ActionBulkSetPublicIpsResponse]. */
+    /** A builder for [ActionBulkEnableVoiceResponse]. */
     class Builder internal constructor() {
 
         private var data: JsonField<Data> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(actionBulkSetPublicIpsResponse: ActionBulkSetPublicIpsResponse) = apply {
-            data = actionBulkSetPublicIpsResponse.data
-            additionalProperties =
-                actionBulkSetPublicIpsResponse.additionalProperties.toMutableMap()
+        internal fun from(actionBulkEnableVoiceResponse: ActionBulkEnableVoiceResponse) = apply {
+            data = actionBulkEnableVoiceResponse.data
+            additionalProperties = actionBulkEnableVoiceResponse.additionalProperties.toMutableMap()
         }
 
         /**
@@ -114,17 +113,17 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [ActionBulkSetPublicIpsResponse].
+         * Returns an immutable instance of [ActionBulkEnableVoiceResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): ActionBulkSetPublicIpsResponse =
-            ActionBulkSetPublicIpsResponse(data, additionalProperties.toMutableMap())
+        fun build(): ActionBulkEnableVoiceResponse =
+            ActionBulkEnableVoiceResponse(data, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
 
-    fun validate(): ActionBulkSetPublicIpsResponse = apply {
+    fun validate(): ActionBulkEnableVoiceResponse = apply {
         if (validated) {
             return@apply
         }
@@ -769,7 +768,7 @@ private constructor(
             return true
         }
 
-        return other is ActionBulkSetPublicIpsResponse &&
+        return other is ActionBulkEnableVoiceResponse &&
             data == other.data &&
             additionalProperties == other.additionalProperties
     }
@@ -779,5 +778,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ActionBulkSetPublicIpsResponse{data=$data, additionalProperties=$additionalProperties}"
+        "ActionBulkEnableVoiceResponse{data=$data, additionalProperties=$additionalProperties}"
 }

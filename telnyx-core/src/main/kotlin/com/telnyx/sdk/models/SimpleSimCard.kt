@@ -41,6 +41,7 @@ private constructor(
     private val type: JsonField<Type>,
     private val updatedAt: JsonField<String>,
     private val version: JsonField<String>,
+    private val voiceEnabled: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -83,6 +84,9 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<String> = JsonMissing.of(),
         @JsonProperty("version") @ExcludeMissing version: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("voice_enabled")
+        @ExcludeMissing
+        voiceEnabled: JsonField<Boolean> = JsonMissing.of(),
     ) : this(
         id,
         actionsInProgress,
@@ -103,6 +107,7 @@ private constructor(
         type,
         updatedAt,
         version,
+        voiceEnabled,
         mutableMapOf(),
     )
 
@@ -271,6 +276,14 @@ private constructor(
     fun version(): Optional<String> = version.getOptional("version")
 
     /**
+     * Indicates whether voice services are enabled for the SIM card.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun voiceEnabled(): Optional<Boolean> = voiceEnabled.getOptional("voice_enabled")
+
+    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
@@ -421,6 +434,15 @@ private constructor(
      */
     @JsonProperty("version") @ExcludeMissing fun _version(): JsonField<String> = version
 
+    /**
+     * Returns the raw JSON value of [voiceEnabled].
+     *
+     * Unlike [voiceEnabled], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("voice_enabled")
+    @ExcludeMissing
+    fun _voiceEnabled(): JsonField<Boolean> = voiceEnabled
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -464,6 +486,7 @@ private constructor(
         private var type: JsonField<Type> = JsonMissing.of()
         private var updatedAt: JsonField<String> = JsonMissing.of()
         private var version: JsonField<String> = JsonMissing.of()
+        private var voiceEnabled: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -488,6 +511,7 @@ private constructor(
             type = simpleSimCard.type
             updatedAt = simpleSimCard.updatedAt
             version = simpleSimCard.version
+            voiceEnabled = simpleSimCard.voiceEnabled
             additionalProperties = simpleSimCard.additionalProperties.toMutableMap()
         }
 
@@ -805,6 +829,20 @@ private constructor(
          */
         fun version(version: JsonField<String>) = apply { this.version = version }
 
+        /** Indicates whether voice services are enabled for the SIM card. */
+        fun voiceEnabled(voiceEnabled: Boolean) = voiceEnabled(JsonField.of(voiceEnabled))
+
+        /**
+         * Sets [Builder.voiceEnabled] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.voiceEnabled] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun voiceEnabled(voiceEnabled: JsonField<Boolean>) = apply {
+            this.voiceEnabled = voiceEnabled
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -850,6 +888,7 @@ private constructor(
                 type,
                 updatedAt,
                 version,
+                voiceEnabled,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -880,6 +919,7 @@ private constructor(
         type().ifPresent { it.validate() }
         updatedAt()
         version()
+        voiceEnabled()
         validated = true
     }
 
@@ -917,7 +957,8 @@ private constructor(
             (tags.asKnown().getOrNull()?.size ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
-            (if (version.asKnown().isPresent) 1 else 0)
+            (if (version.asKnown().isPresent) 1 else 0) +
+            (if (voiceEnabled.asKnown().isPresent) 1 else 0)
 
     /** The SIM card consumption so far in the current billing cycle. */
     class CurrentBillingPeriodConsumedData
@@ -1786,6 +1827,7 @@ private constructor(
             type == other.type &&
             updatedAt == other.updatedAt &&
             version == other.version &&
+            voiceEnabled == other.voiceEnabled &&
             additionalProperties == other.additionalProperties
     }
 
@@ -1810,6 +1852,7 @@ private constructor(
             type,
             updatedAt,
             version,
+            voiceEnabled,
             additionalProperties,
         )
     }
@@ -1817,5 +1860,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "SimpleSimCard{id=$id, actionsInProgress=$actionsInProgress, authorizedImeis=$authorizedImeis, createdAt=$createdAt, currentBillingPeriodConsumedData=$currentBillingPeriodConsumedData, dataLimit=$dataLimit, eid=$eid, esimInstallationStatus=$esimInstallationStatus, iccid=$iccid, imsi=$imsi, msisdn=$msisdn, recordType=$recordType, resourcesWithInProgressActions=$resourcesWithInProgressActions, simCardGroupId=$simCardGroupId, status=$status, tags=$tags, type=$type, updatedAt=$updatedAt, version=$version, additionalProperties=$additionalProperties}"
+        "SimpleSimCard{id=$id, actionsInProgress=$actionsInProgress, authorizedImeis=$authorizedImeis, createdAt=$createdAt, currentBillingPeriodConsumedData=$currentBillingPeriodConsumedData, dataLimit=$dataLimit, eid=$eid, esimInstallationStatus=$esimInstallationStatus, iccid=$iccid, imsi=$imsi, msisdn=$msisdn, recordType=$recordType, resourcesWithInProgressActions=$resourcesWithInProgressActions, simCardGroupId=$simCardGroupId, status=$status, tags=$tags, type=$type, updatedAt=$updatedAt, version=$version, voiceEnabled=$voiceEnabled, additionalProperties=$additionalProperties}"
 }
