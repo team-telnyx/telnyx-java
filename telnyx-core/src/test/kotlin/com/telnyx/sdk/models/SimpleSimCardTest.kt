@@ -55,6 +55,7 @@ internal class SimpleSimCardTest {
                 .type(SimpleSimCard.Type.PHYSICAL)
                 .updatedAt("2018-02-02T22:25:27.521Z")
                 .version("4.3")
+                .voiceEnabled(false)
                 .build()
 
         assertThat(simpleSimCard.id()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
@@ -104,6 +105,7 @@ internal class SimpleSimCardTest {
         assertThat(simpleSimCard.type()).contains(SimpleSimCard.Type.PHYSICAL)
         assertThat(simpleSimCard.updatedAt()).contains("2018-02-02T22:25:27.521Z")
         assertThat(simpleSimCard.version()).contains("4.3")
+        assertThat(simpleSimCard.voiceEnabled()).contains(false)
     }
 
     @Test
@@ -151,6 +153,7 @@ internal class SimpleSimCardTest {
                 .type(SimpleSimCard.Type.PHYSICAL)
                 .updatedAt("2018-02-02T22:25:27.521Z")
                 .version("4.3")
+                .voiceEnabled(false)
                 .build()
 
         val roundtrippedSimpleSimCard =

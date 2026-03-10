@@ -5,6 +5,10 @@ package com.telnyx.sdk.services.async.simcards
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.simcards.actions.ActionBulkDisableVoiceParams
+import com.telnyx.sdk.models.simcards.actions.ActionBulkDisableVoiceResponse
+import com.telnyx.sdk.models.simcards.actions.ActionBulkEnableVoiceParams
+import com.telnyx.sdk.models.simcards.actions.ActionBulkEnableVoiceResponse
 import com.telnyx.sdk.models.simcards.actions.ActionBulkSetPublicIpsParams
 import com.telnyx.sdk.models.simcards.actions.ActionBulkSetPublicIpsResponse
 import com.telnyx.sdk.models.simcards.actions.ActionDisableParams
@@ -98,6 +102,50 @@ interface ActionServiceAsync {
     /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<ActionListPageAsync> =
         list(ActionListParams.none(), requestOptions)
+
+    /**
+     * This API triggers an asynchronous operation to disable voice on SIM cards belonging to a
+     * specified SIM Card Group.<br/> For each SIM Card a SIM Card Action will be generated. The
+     * status of the SIM Card Actions can be followed through the
+     * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+     * API.
+     *
+     * The overall status of the Bulk SIM Card Action can be followed through the
+     * [List Bulk SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-bulk-sim-card-actions)
+     * API.
+     */
+    fun bulkDisableVoice(
+        params: ActionBulkDisableVoiceParams
+    ): CompletableFuture<ActionBulkDisableVoiceResponse> =
+        bulkDisableVoice(params, RequestOptions.none())
+
+    /** @see bulkDisableVoice */
+    fun bulkDisableVoice(
+        params: ActionBulkDisableVoiceParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ActionBulkDisableVoiceResponse>
+
+    /**
+     * This API triggers an asynchronous operation to enable voice on SIM cards belonging to a
+     * specified SIM Card Group.<br/> For each SIM Card a SIM Card Action will be generated. The
+     * status of the SIM Card Actions can be followed through the
+     * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+     * API.
+     *
+     * The overall status of the Bulk SIM Card Action can be followed through the
+     * [List Bulk SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-bulk-sim-card-actions)
+     * API.
+     */
+    fun bulkEnableVoice(
+        params: ActionBulkEnableVoiceParams
+    ): CompletableFuture<ActionBulkEnableVoiceResponse> =
+        bulkEnableVoice(params, RequestOptions.none())
+
+    /** @see bulkEnableVoice */
+    fun bulkEnableVoice(
+        params: ActionBulkEnableVoiceParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ActionBulkEnableVoiceResponse>
 
     /**
      * This API triggers an asynchronous operation to set a public IP for each of the specified SIM
@@ -433,6 +481,36 @@ interface ActionServiceAsync {
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<ActionListPageAsync>> =
             list(ActionListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /sim_cards/actions/bulk_disable_voice`, but is
+         * otherwise the same as [ActionServiceAsync.bulkDisableVoice].
+         */
+        fun bulkDisableVoice(
+            params: ActionBulkDisableVoiceParams
+        ): CompletableFuture<HttpResponseFor<ActionBulkDisableVoiceResponse>> =
+            bulkDisableVoice(params, RequestOptions.none())
+
+        /** @see bulkDisableVoice */
+        fun bulkDisableVoice(
+            params: ActionBulkDisableVoiceParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ActionBulkDisableVoiceResponse>>
+
+        /**
+         * Returns a raw HTTP response for `post /sim_cards/actions/bulk_enable_voice`, but is
+         * otherwise the same as [ActionServiceAsync.bulkEnableVoice].
+         */
+        fun bulkEnableVoice(
+            params: ActionBulkEnableVoiceParams
+        ): CompletableFuture<HttpResponseFor<ActionBulkEnableVoiceResponse>> =
+            bulkEnableVoice(params, RequestOptions.none())
+
+        /** @see bulkEnableVoice */
+        fun bulkEnableVoice(
+            params: ActionBulkEnableVoiceParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ActionBulkEnableVoiceResponse>>
 
         /**
          * Returns a raw HTTP response for `post /sim_cards/actions/bulk_set_public_ips`, but is

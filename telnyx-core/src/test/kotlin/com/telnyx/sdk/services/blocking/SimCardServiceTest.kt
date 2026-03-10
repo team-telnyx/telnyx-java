@@ -108,6 +108,7 @@ internal class SimCardServiceTest {
                             .type(SimCard.Type.PHYSICAL)
                             .updatedAt("2018-02-02T22:25:27.521Z")
                             .version("4.3")
+                            .voiceEnabled(false)
                             .build()
                     )
                     .build()

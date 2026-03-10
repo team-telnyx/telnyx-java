@@ -67,9 +67,13 @@ private constructor(
     fun id(): Optional<String> = id.getOptional("id")
 
     /**
-     * The operation type. It can be one of the following: <br/>
+     * The action type. It can be one of the following: <br/>
      * <ul>
-     * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM card.</li>
+     * <li><code>bulk_disable_voice</code> - disable voice for every SIM Card in a SIM Card
+     *   Group.</li>
+     * <li><code>bulk_enable_voice</code> - enable voice for every SIM Card in a SIM Card
+     *   Group.</li>
+     * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM Card.</li>
      * </ul>
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -226,9 +230,13 @@ private constructor(
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * The operation type. It can be one of the following: <br/>
+         * The action type. It can be one of the following: <br/>
          * <ul>
-         * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM card.</li>
+         * <li><code>bulk_disable_voice</code> - disable voice for every SIM Card in a SIM Card
+         *   Group.</li>
+         * <li><code>bulk_enable_voice</code> - enable voice for every SIM Card in a SIM Card
+         *   Group.</li>
+         * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM Card.</li>
          * </ul>
          */
         fun actionType(actionType: ActionType) = actionType(JsonField.of(actionType))
@@ -394,9 +402,13 @@ private constructor(
             (if (updatedAt.asKnown().isPresent) 1 else 0)
 
     /**
-     * The operation type. It can be one of the following: <br/>
+     * The action type. It can be one of the following: <br/>
      * <ul>
-     * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM card.</li>
+     * <li><code>bulk_disable_voice</code> - disable voice for every SIM Card in a SIM Card
+     *   Group.</li>
+     * <li><code>bulk_enable_voice</code> - enable voice for every SIM Card in a SIM Card
+     *   Group.</li>
+     * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM Card.</li>
      * </ul>
      */
     class ActionType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -413,6 +425,10 @@ private constructor(
 
         companion object {
 
+            @JvmField val BULK_DISABLE_VOICE = of("bulk_disable_voice")
+
+            @JvmField val BULK_ENABLE_VOICE = of("bulk_enable_voice")
+
             @JvmField val BULK_SET_PUBLIC_IPS = of("bulk_set_public_ips")
 
             @JvmStatic fun of(value: String) = ActionType(JsonField.of(value))
@@ -420,7 +436,9 @@ private constructor(
 
         /** An enum containing [ActionType]'s known values. */
         enum class Known {
-            BULK_SET_PUBLIC_IPS
+            BULK_DISABLE_VOICE,
+            BULK_ENABLE_VOICE,
+            BULK_SET_PUBLIC_IPS,
         }
 
         /**
@@ -433,6 +451,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            BULK_DISABLE_VOICE,
+            BULK_ENABLE_VOICE,
             BULK_SET_PUBLIC_IPS,
             /**
              * An enum member indicating that [ActionType] was instantiated with an unknown value.
@@ -449,6 +469,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                BULK_DISABLE_VOICE -> Value.BULK_DISABLE_VOICE
+                BULK_ENABLE_VOICE -> Value.BULK_ENABLE_VOICE
                 BULK_SET_PUBLIC_IPS -> Value.BULK_SET_PUBLIC_IPS
                 else -> Value._UNKNOWN
             }
@@ -464,6 +486,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                BULK_DISABLE_VOICE -> Known.BULK_DISABLE_VOICE
+                BULK_ENABLE_VOICE -> Known.BULK_ENABLE_VOICE
                 BULK_SET_PUBLIC_IPS -> Known.BULK_SET_PUBLIC_IPS
                 else -> throw TelnyxInvalidDataException("Unknown ActionType: $value")
             }

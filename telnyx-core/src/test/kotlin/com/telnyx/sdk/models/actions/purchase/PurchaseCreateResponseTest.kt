@@ -62,6 +62,7 @@ internal class PurchaseCreateResponseTest {
                         .type(SimpleSimCard.Type.PHYSICAL)
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .version("4.3")
+                        .voiceEnabled(false)
                         .build()
                 )
                 .addError(
@@ -129,6 +130,7 @@ internal class PurchaseCreateResponseTest {
                     .type(SimpleSimCard.Type.PHYSICAL)
                     .updatedAt("2018-02-02T22:25:27.521Z")
                     .version("4.3")
+                    .voiceEnabled(false)
                     .build()
             )
         assertThat(purchaseCreateResponse.errors().getOrNull())
@@ -201,6 +203,7 @@ internal class PurchaseCreateResponseTest {
                         .type(SimpleSimCard.Type.PHYSICAL)
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .version("4.3")
+                        .voiceEnabled(false)
                         .build()
                 )
                 .addError(
