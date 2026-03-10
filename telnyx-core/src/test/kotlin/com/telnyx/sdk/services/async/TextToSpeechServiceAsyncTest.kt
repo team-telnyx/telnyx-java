@@ -53,7 +53,11 @@ internal class TextToSpeechServiceAsyncTest {
                             )
                             .build()
                     )
-                    .inworld(JsonValue.from(mapOf<String, Any>()))
+                    .inworld(
+                        TextToSpeechGenerateParams.Inworld.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .language("language")
                     .minimax(
                         TextToSpeechGenerateParams.Minimax.builder()
