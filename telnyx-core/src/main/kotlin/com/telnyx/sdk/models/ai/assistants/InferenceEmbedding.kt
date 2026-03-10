@@ -895,12 +895,12 @@ private constructor(
          * Alias for calling [addTool] with the following:
          * ```java
          * AssistantTool.Invite.builder()
-         *     .invite(invite)
+         *     .inviteConfig(inviteConfig)
          *     .build()
          * ```
          */
-        fun addInviteTool(invite: AssistantTool.Invite.InnerInvite) =
-            addTool(AssistantTool.Invite.builder().invite(invite).build())
+        fun addInviteTool(inviteConfig: AssistantTool.Invite.InviteConfig) =
+            addTool(AssistantTool.Invite.builder().inviteConfig(inviteConfig).build())
 
         /** Alias for calling [addTool] with `AssistantTool.ofRefer(refer)`. */
         fun addTool(refer: AssistantTool.SipReferTool) = addTool(AssistantTool.ofRefer(refer))
