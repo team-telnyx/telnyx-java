@@ -124,6 +124,7 @@ import com.telnyx.sdk.services.async.RoomCompositionServiceAsync
 import com.telnyx.sdk.services.async.RoomParticipantServiceAsync
 import com.telnyx.sdk.services.async.RoomRecordingServiceAsync
 import com.telnyx.sdk.services.async.RoomServiceAsync
+import com.telnyx.sdk.services.async.SessionAnalysisServiceAsync
 import com.telnyx.sdk.services.async.SetiServiceAsync
 import com.telnyx.sdk.services.async.ShortCodeServiceAsync
 import com.telnyx.sdk.services.async.SimCardDataUsageNotificationServiceAsync
@@ -132,7 +133,6 @@ import com.telnyx.sdk.services.async.SimCardOrderPreviewServiceAsync
 import com.telnyx.sdk.services.async.SimCardOrderServiceAsync
 import com.telnyx.sdk.services.async.SimCardServiceAsync
 import com.telnyx.sdk.services.async.SiprecConnectorServiceAsync
-import com.telnyx.sdk.services.async.SpeechToTextServiceAsync
 import com.telnyx.sdk.services.async.StorageServiceAsync
 import com.telnyx.sdk.services.async.SubNumberOrderServiceAsync
 import com.telnyx.sdk.services.async.SubNumberOrdersReportServiceAsync
@@ -626,14 +626,14 @@ interface TelnyxClientAsync {
 
     fun messaging10dlc(): Messaging10dlcServiceAsync
 
-    /** Speech to text command operations */
-    fun speechToText(): SpeechToTextServiceAsync
-
     fun organizations(): OrganizationServiceAsync
 
     fun alphanumericSenderIds(): AlphanumericSenderIdServiceAsync
 
     fun messagingProfileMetrics(): MessagingProfileMetricServiceAsync
+
+    /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
+    fun sessionAnalysis(): SessionAnalysisServiceAsync
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -1094,13 +1094,13 @@ interface TelnyxClientAsync {
 
         fun messaging10dlc(): Messaging10dlcServiceAsync.WithRawResponse
 
-        /** Speech to text command operations */
-        fun speechToText(): SpeechToTextServiceAsync.WithRawResponse
-
         fun organizations(): OrganizationServiceAsync.WithRawResponse
 
         fun alphanumericSenderIds(): AlphanumericSenderIdServiceAsync.WithRawResponse
 
         fun messagingProfileMetrics(): MessagingProfileMetricServiceAsync.WithRawResponse
+
+        /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
+        fun sessionAnalysis(): SessionAnalysisServiceAsync.WithRawResponse
     }
 }

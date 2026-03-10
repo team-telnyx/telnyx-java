@@ -14,7 +14,7 @@ internal class DeepgramNova2ConfigTest {
     fun create() {
         val deepgramNova2Config =
             DeepgramNova2Config.builder()
-                .transcriptionEngine(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM)
+                .transcriptionEngine(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM_NOVA_2)
                 .transcriptionModel(DeepgramNova2Config.TranscriptionModel.DEEPGRAM_NOVA_2)
                 .interimResults(true)
                 .keywordsBoosting(
@@ -29,7 +29,7 @@ internal class DeepgramNova2ConfigTest {
                 .build()
 
         assertThat(deepgramNova2Config.transcriptionEngine())
-            .isEqualTo(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM)
+            .isEqualTo(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM_NOVA_2)
         assertThat(deepgramNova2Config.transcriptionModel())
             .isEqualTo(DeepgramNova2Config.TranscriptionModel.DEEPGRAM_NOVA_2)
         assertThat(deepgramNova2Config.interimResults()).contains(true)
@@ -50,7 +50,7 @@ internal class DeepgramNova2ConfigTest {
         val jsonMapper = jsonMapper()
         val deepgramNova2Config =
             DeepgramNova2Config.builder()
-                .transcriptionEngine(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM)
+                .transcriptionEngine(DeepgramNova2Config.TranscriptionEngine.DEEPGRAM_NOVA_2)
                 .transcriptionModel(DeepgramNova2Config.TranscriptionModel.DEEPGRAM_NOVA_2)
                 .interimResults(true)
                 .keywordsBoosting(

@@ -401,14 +401,14 @@ private constructor(
 
         companion object {
 
-            @JvmField val DEEPGRAM = of("Deepgram")
+            @JvmField val DEEPGRAM_NOVA_2 = of("deepgram/nova-2")
 
             @JvmStatic fun of(value: String) = TranscriptionEngine(JsonField.of(value))
         }
 
         /** An enum containing [TranscriptionEngine]'s known values. */
         enum class Known {
-            DEEPGRAM
+            DEEPGRAM_NOVA_2
         }
 
         /**
@@ -421,7 +421,7 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            DEEPGRAM,
+            DEEPGRAM_NOVA_2,
             /**
              * An enum member indicating that [TranscriptionEngine] was instantiated with an unknown
              * value.
@@ -438,7 +438,7 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                DEEPGRAM -> Value.DEEPGRAM
+                DEEPGRAM_NOVA_2 -> Value.DEEPGRAM_NOVA_2
                 else -> Value._UNKNOWN
             }
 
@@ -453,7 +453,7 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                DEEPGRAM -> Known.DEEPGRAM
+                DEEPGRAM_NOVA_2 -> Known.DEEPGRAM_NOVA_2
                 else -> throw TelnyxInvalidDataException("Unknown TranscriptionEngine: $value")
             }
 

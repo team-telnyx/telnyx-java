@@ -19,8 +19,8 @@ internal class SslCertificateServiceAsyncTest {
             sslCertificateServiceAsync.create(
                 SslCertificateCreateParams.builder()
                     .bucketName("")
-                    .certificate("some content".byteInputStream())
-                    .privateKey("some content".byteInputStream())
+                    .certificate("Example data".byteInputStream())
+                    .privateKey("Example data".byteInputStream())
                     .build()
             )
 

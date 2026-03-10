@@ -6,7 +6,6 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.texttospeech.TextToSpeechGenerateParams
 import com.telnyx.sdk.models.texttospeech.TextToSpeechListVoicesParams
-import com.telnyx.sdk.models.texttospeech.TextToSpeechStreamParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -54,6 +53,7 @@ internal class TextToSpeechServiceAsyncTest {
                             )
                             .build()
                     )
+                    .inworld(JsonValue.from(mapOf<String, Any>()))
                     .language("language")
                     .minimax(
                         TextToSpeechGenerateParams.Minimax.builder()
@@ -120,27 +120,5 @@ internal class TextToSpeechServiceAsyncTest {
 
         val response = responseFuture.get()
         response.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun stream() {
-        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
-        val textToSpeechServiceAsync = client.textToSpeech()
-
-        val future =
-            textToSpeechServiceAsync.stream(
-                TextToSpeechStreamParams.builder()
-                    .audioFormat(TextToSpeechStreamParams.AudioFormat.PCM)
-                    .disableCache(true)
-                    .modelId("model_id")
-                    .provider(TextToSpeechStreamParams.Provider.AWS)
-                    .socketId("socket_id")
-                    .voice("voice")
-                    .voiceId("voice_id")
-                    .build()
-            )
-
-        val response = future.get()
     }
 }

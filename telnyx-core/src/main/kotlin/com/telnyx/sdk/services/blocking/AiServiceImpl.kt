@@ -82,7 +82,6 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
     /** Configure AI assistant specifications */
     override fun assistants(): AssistantService = assistants
 
-    /** Turn audio into text or text into audio. */
     override fun audio(): AudioService = audio
 
     /** Generate text with LLMs */
@@ -181,7 +180,6 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
         /** Configure AI assistant specifications */
         override fun assistants(): AssistantService.WithRawResponse = assistants
 
-        /** Turn audio into text or text into audio. */
         override fun audio(): AudioService.WithRawResponse = audio
 
         /** Generate text with LLMs */

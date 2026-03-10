@@ -1,5 +1,48 @@
 # Changelog
 
+## 6.27.0 (2026-03-09)
+
+Full Changelog: [v6.26.0...v6.27.0](https://github.com/team-telnyx/telnyx-java/compare/v6.26.0...v6.27.0)
+
+### Features
+
+* [TDA-6425] Add Session Analysis API spec to public docs ([79136f8](https://github.com/team-telnyx/telnyx-java/commit/79136f8021e72bcdd14e0574f9abf4a879e2b286))
+* **api:** manual updates ([74f0eb5](https://github.com/team-telnyx/telnyx-java/commit/74f0eb592b5d9dc5950f327df847bcb23de848d7))
+* **api:** manual updates ([2259a54](https://github.com/team-telnyx/telnyx-java/commit/2259a5497882efc46d2659e5e25430138238276f))
+* **api:** manual updates ([4419725](https://github.com/team-telnyx/telnyx-java/commit/4419725050e8cc0848d6161920806fba37c554b3))
+* **api:** manual updates ([c273ab5](https://github.com/team-telnyx/telnyx-java/commit/c273ab59df96bd7e3004fe73913eebf7fe3398bc))
+* **api:** manual updates ([c287499](https://github.com/team-telnyx/telnyx-java/commit/c28749987feaeaf7d1b6de4fb16399f43313a098))
+* **api:** manual updates ([b8af8dd](https://github.com/team-telnyx/telnyx-java/commit/b8af8dd04b935e93ad488ce9abf7b2745e04a452))
+* **api:** manual updates ([1b2aafe](https://github.com/team-telnyx/telnyx-java/commit/1b2aafe4f917e148801e0654f374654714b727cf))
+* **api:** manual updates ([70bbaef](https://github.com/team-telnyx/telnyx-java/commit/70bbaefbaf0d81d9309f7ce813683c0f690075c5))
+* **api:** manual updates ([1ef83cb](https://github.com/team-telnyx/telnyx-java/commit/1ef83cb06c74961fdf5f9284eb79fc9b6e234195))
+* **api:** manual updates ([05c78ac](https://github.com/team-telnyx/telnyx-java/commit/05c78ace7b66cd6238d18072db4e478fa4cac59c))
+* Assistant tags ([af8cbe7](https://github.com/team-telnyx/telnyx-java/commit/af8cbe7a972d2e521fc932710aeae5ef1ed64dbf))
+* Changing a tag for filebased STT endpoint ([631fd54](https://github.com/team-telnyx/telnyx-java/commit/631fd540f33a15993584bd66d3072315091bd20e))
+* MSG-6418: remove flashcall from hosted number verification codes endpoint ([a554534](https://github.com/team-telnyx/telnyx-java/commit/a554534ba0a51694a4082a319262ae4fc8537a0f))
+* **stt:** add WebSocket event schemas for Stainless SDK generation ([bd87a45](https://github.com/team-telnyx/telnyx-java/commit/bd87a457bb13950e33768ea134b96f456ec6eb9a))
+* TELAPPS-ENGDESK-49737 Add prevent_double_bridge param to dial ([ada4892](https://github.com/team-telnyx/telnyx-java/commit/ada489205c5f54d885dc9e77ce931aa07860430e))
+
+
+### Bug Fixes
+
+* add discriminator to TtsServerEvent for Stainless SDK generation ([23beddd](https://github.com/team-telnyx/telnyx-java/commit/23beddd0140068510643df9685849769879726b6))
+* fix request delays for retrying to be more respectful of high requested delays ([5458bdf](https://github.com/team-telnyx/telnyx-java/commit/5458bdf8b40e005392c3f0768e1d3ca4c9c999c7))
+* **webhooks:** use correct implementation ([539c587](https://github.com/team-telnyx/telnyx-java/commit/539c587543faafd6978dabb210e7590cb903f59a))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([5ec194c](https://github.com/team-telnyx/telnyx-java/commit/5ec194cb91ab356a9fc24bd5d56ff650f797f291))
+* **internal:** bump palantir-java-format ([d0c331d](https://github.com/team-telnyx/telnyx-java/commit/d0c331d8db730c1ada9b2adec55813df7ce4bbb2))
+* **tests:** update webhook tests ([9e24ca8](https://github.com/team-telnyx/telnyx-java/commit/9e24ca8261cfd4153581d4c64bfa700644105fe2))
+* update placeholder string ([7efe2f7](https://github.com/team-telnyx/telnyx-java/commit/7efe2f794ee17b984770be6f52d9284e5fafa195))
+
+
+### Documentation
+
+* **messaging:** Add wait_seconds to message response schemas ([8466eb2](https://github.com/team-telnyx/telnyx-java/commit/8466eb23a7f2617c6497b8d6460be6136bac7cd2))
+
 ## 6.26.0 (2026-03-02)
 
 Full Changelog: [v6.25.0...v6.26.0](https://github.com/team-telnyx/telnyx-java/compare/v6.25.0...v6.26.0)

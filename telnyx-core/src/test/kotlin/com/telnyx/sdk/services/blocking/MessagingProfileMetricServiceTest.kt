@@ -18,7 +18,7 @@ internal class MessagingProfileMetricServiceTest {
         val messagingProfileMetrics =
             messagingProfileMetricService.list(
                 MessagingProfileMetricListParams.builder()
-                    .timeFrame(MessagingProfileMetricListParams.TimeFrame._1H)
+                    .timeFrame(MessagingProfileMetricListParams.TimeFrame.TIME_FRAME_1_H)
                     .build()
             )
 

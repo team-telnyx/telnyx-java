@@ -246,6 +246,8 @@ import com.telnyx.sdk.services.async.RoomRecordingServiceAsync
 import com.telnyx.sdk.services.async.RoomRecordingServiceAsyncImpl
 import com.telnyx.sdk.services.async.RoomServiceAsync
 import com.telnyx.sdk.services.async.RoomServiceAsyncImpl
+import com.telnyx.sdk.services.async.SessionAnalysisServiceAsync
+import com.telnyx.sdk.services.async.SessionAnalysisServiceAsyncImpl
 import com.telnyx.sdk.services.async.SetiServiceAsync
 import com.telnyx.sdk.services.async.SetiServiceAsyncImpl
 import com.telnyx.sdk.services.async.ShortCodeServiceAsync
@@ -262,8 +264,6 @@ import com.telnyx.sdk.services.async.SimCardServiceAsync
 import com.telnyx.sdk.services.async.SimCardServiceAsyncImpl
 import com.telnyx.sdk.services.async.SiprecConnectorServiceAsync
 import com.telnyx.sdk.services.async.SiprecConnectorServiceAsyncImpl
-import com.telnyx.sdk.services.async.SpeechToTextServiceAsync
-import com.telnyx.sdk.services.async.SpeechToTextServiceAsyncImpl
 import com.telnyx.sdk.services.async.StorageServiceAsync
 import com.telnyx.sdk.services.async.StorageServiceAsyncImpl
 import com.telnyx.sdk.services.async.SubNumberOrderServiceAsync
@@ -910,10 +910,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         Messaging10dlcServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val speechToText: SpeechToTextServiceAsync by lazy {
-        SpeechToTextServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val organizations: OrganizationServiceAsync by lazy {
         OrganizationServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -924,6 +920,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     private val messagingProfileMetrics: MessagingProfileMetricServiceAsync by lazy {
         MessagingProfileMetricServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val sessionAnalysis: SessionAnalysisServiceAsync by lazy {
+        SessionAnalysisServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     override fun sync(): TelnyxClient = sync
@@ -1392,15 +1392,15 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     override fun messaging10dlc(): Messaging10dlcServiceAsync = messaging10dlc
 
-    /** Speech to text command operations */
-    override fun speechToText(): SpeechToTextServiceAsync = speechToText
-
     override fun organizations(): OrganizationServiceAsync = organizations
 
     override fun alphanumericSenderIds(): AlphanumericSenderIdServiceAsync = alphanumericSenderIds
 
     override fun messagingProfileMetrics(): MessagingProfileMetricServiceAsync =
         messagingProfileMetrics
+
+    /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
+    override fun sessionAnalysis(): SessionAnalysisServiceAsync = sessionAnalysis
 
     override fun close() = clientOptions.close()
 
@@ -2036,10 +2036,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             Messaging10dlcServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val speechToText: SpeechToTextServiceAsync.WithRawResponse by lazy {
-            SpeechToTextServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val organizations: OrganizationServiceAsync.WithRawResponse by lazy {
             OrganizationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -2052,6 +2048,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         private val messagingProfileMetrics:
             MessagingProfileMetricServiceAsync.WithRawResponse by lazy {
             MessagingProfileMetricServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val sessionAnalysis: SessionAnalysisServiceAsync.WithRawResponse by lazy {
+            SessionAnalysisServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -2567,9 +2567,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         override fun messaging10dlc(): Messaging10dlcServiceAsync.WithRawResponse = messaging10dlc
 
-        /** Speech to text command operations */
-        override fun speechToText(): SpeechToTextServiceAsync.WithRawResponse = speechToText
-
         override fun organizations(): OrganizationServiceAsync.WithRawResponse = organizations
 
         override fun alphanumericSenderIds(): AlphanumericSenderIdServiceAsync.WithRawResponse =
@@ -2577,5 +2574,9 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         override fun messagingProfileMetrics(): MessagingProfileMetricServiceAsync.WithRawResponse =
             messagingProfileMetrics
+
+        /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
+        override fun sessionAnalysis(): SessionAnalysisServiceAsync.WithRawResponse =
+            sessionAnalysis
     }
 }

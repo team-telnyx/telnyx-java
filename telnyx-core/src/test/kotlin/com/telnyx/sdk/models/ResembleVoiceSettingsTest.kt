@@ -16,7 +16,7 @@ internal class ResembleVoiceSettingsTest {
                 .type(ResembleVoiceSettings.Type.RESEMBLE)
                 .format(ResembleVoiceSettings.Format.WAV)
                 .precision(ResembleVoiceSettings.Precision.PCM_16)
-                .sampleRate(ResembleVoiceSettings.SampleRate._8000)
+                .sampleRate(ResembleVoiceSettings.SampleRate.SAMPLE_RATE_8000)
                 .build()
 
         assertThat(resembleVoiceSettings.type()).isEqualTo(ResembleVoiceSettings.Type.RESEMBLE)
@@ -24,7 +24,7 @@ internal class ResembleVoiceSettingsTest {
         assertThat(resembleVoiceSettings.precision())
             .contains(ResembleVoiceSettings.Precision.PCM_16)
         assertThat(resembleVoiceSettings.sampleRate())
-            .contains(ResembleVoiceSettings.SampleRate._8000)
+            .contains(ResembleVoiceSettings.SampleRate.SAMPLE_RATE_8000)
     }
 
     @Test
@@ -35,7 +35,7 @@ internal class ResembleVoiceSettingsTest {
                 .type(ResembleVoiceSettings.Type.RESEMBLE)
                 .format(ResembleVoiceSettings.Format.WAV)
                 .precision(ResembleVoiceSettings.Precision.PCM_16)
-                .sampleRate(ResembleVoiceSettings.SampleRate._8000)
+                .sampleRate(ResembleVoiceSettings.SampleRate.SAMPLE_RATE_8000)
                 .build()
 
         val roundtrippedResembleVoiceSettings =

@@ -19,7 +19,6 @@ import com.telnyx.sdk.models.ai.audio.AudioTranscribeParams
 import com.telnyx.sdk.models.ai.audio.AudioTranscribeResponse
 import java.util.function.Consumer
 
-/** Turn audio into text or text into audio. */
 class AudioServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AudioService {
 

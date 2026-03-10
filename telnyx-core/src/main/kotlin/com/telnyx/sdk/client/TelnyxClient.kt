@@ -124,6 +124,7 @@ import com.telnyx.sdk.services.blocking.RoomCompositionService
 import com.telnyx.sdk.services.blocking.RoomParticipantService
 import com.telnyx.sdk.services.blocking.RoomRecordingService
 import com.telnyx.sdk.services.blocking.RoomService
+import com.telnyx.sdk.services.blocking.SessionAnalysisService
 import com.telnyx.sdk.services.blocking.SetiService
 import com.telnyx.sdk.services.blocking.ShortCodeService
 import com.telnyx.sdk.services.blocking.SimCardDataUsageNotificationService
@@ -132,7 +133,6 @@ import com.telnyx.sdk.services.blocking.SimCardOrderPreviewService
 import com.telnyx.sdk.services.blocking.SimCardOrderService
 import com.telnyx.sdk.services.blocking.SimCardService
 import com.telnyx.sdk.services.blocking.SiprecConnectorService
-import com.telnyx.sdk.services.blocking.SpeechToTextService
 import com.telnyx.sdk.services.blocking.StorageService
 import com.telnyx.sdk.services.blocking.SubNumberOrderService
 import com.telnyx.sdk.services.blocking.SubNumberOrdersReportService
@@ -626,14 +626,14 @@ interface TelnyxClient {
 
     fun messaging10dlc(): Messaging10dlcService
 
-    /** Speech to text command operations */
-    fun speechToText(): SpeechToTextService
-
     fun organizations(): OrganizationService
 
     fun alphanumericSenderIds(): AlphanumericSenderIdService
 
     fun messagingProfileMetrics(): MessagingProfileMetricService
+
+    /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
+    fun sessionAnalysis(): SessionAnalysisService
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -1091,13 +1091,13 @@ interface TelnyxClient {
 
         fun messaging10dlc(): Messaging10dlcService.WithRawResponse
 
-        /** Speech to text command operations */
-        fun speechToText(): SpeechToTextService.WithRawResponse
-
         fun organizations(): OrganizationService.WithRawResponse
 
         fun alphanumericSenderIds(): AlphanumericSenderIdService.WithRawResponse
 
         fun messagingProfileMetrics(): MessagingProfileMetricService.WithRawResponse
+
+        /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
+        fun sessionAnalysis(): SessionAnalysisService.WithRawResponse
     }
 }

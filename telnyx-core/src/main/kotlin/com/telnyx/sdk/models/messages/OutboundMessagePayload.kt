@@ -49,6 +49,7 @@ private constructor(
     private val to: JsonField<List<To>>,
     private val type: JsonField<Type>,
     private val validUntil: JsonField<OffsetDateTime>,
+    private val waitSeconds: JsonField<Float>,
     private val webhookFailoverUrl: JsonField<String>,
     private val webhookUrl: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -110,6 +111,9 @@ private constructor(
         @JsonProperty("valid_until")
         @ExcludeMissing
         validUntil: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("wait_seconds")
+        @ExcludeMissing
+        waitSeconds: JsonField<Float> = JsonMissing.of(),
         @JsonProperty("webhook_failover_url")
         @ExcludeMissing
         webhookFailoverUrl: JsonField<String> = JsonMissing.of(),
@@ -143,6 +147,7 @@ private constructor(
         to,
         type,
         validUntil,
+        waitSeconds,
         webhookFailoverUrl,
         webhookUrl,
         mutableMapOf(),
@@ -356,6 +361,16 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun validUntil(): Optional<OffsetDateTime> = validUntil.getOptional("valid_until")
+
+    /**
+     * Seconds the message is queued due to rate limiting before being sent to the carrier.
+     * Represents the maximum wait across all applicable rate limits (account, carrier, campaign).
+     * 0.0 = no queuing delay.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun waitSeconds(): Optional<Float> = waitSeconds.getOptional("wait_seconds")
 
     /**
      * The failover URL where webhooks related to this message will be sent if sending to the
@@ -584,6 +599,13 @@ private constructor(
     fun _validUntil(): JsonField<OffsetDateTime> = validUntil
 
     /**
+     * Returns the raw JSON value of [waitSeconds].
+     *
+     * Unlike [waitSeconds], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("wait_seconds") @ExcludeMissing fun _waitSeconds(): JsonField<Float> = waitSeconds
+
+    /**
      * Returns the raw JSON value of [webhookFailoverUrl].
      *
      * Unlike [webhookFailoverUrl], this method doesn't throw if the JSON field has an unexpected
@@ -647,6 +669,7 @@ private constructor(
         private var to: JsonField<MutableList<To>>? = null
         private var type: JsonField<Type> = JsonMissing.of()
         private var validUntil: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var waitSeconds: JsonField<Float> = JsonMissing.of()
         private var webhookFailoverUrl: JsonField<String> = JsonMissing.of()
         private var webhookUrl: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -679,6 +702,7 @@ private constructor(
             to = outboundMessagePayload.to.map { it.toMutableList() }
             type = outboundMessagePayload.type
             validUntil = outboundMessagePayload.validUntil
+            waitSeconds = outboundMessagePayload.waitSeconds
             webhookFailoverUrl = outboundMessagePayload.webhookFailoverUrl
             webhookUrl = outboundMessagePayload.webhookUrl
             additionalProperties = outboundMessagePayload.additionalProperties.toMutableMap()
@@ -1116,6 +1140,32 @@ private constructor(
         }
 
         /**
+         * Seconds the message is queued due to rate limiting before being sent to the carrier.
+         * Represents the maximum wait across all applicable rate limits (account, carrier,
+         * campaign). 0.0 = no queuing delay.
+         */
+        fun waitSeconds(waitSeconds: Float?) = waitSeconds(JsonField.ofNullable(waitSeconds))
+
+        /**
+         * Alias for [Builder.waitSeconds].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun waitSeconds(waitSeconds: Float) = waitSeconds(waitSeconds as Float?)
+
+        /** Alias for calling [Builder.waitSeconds] with `waitSeconds.orElse(null)`. */
+        fun waitSeconds(waitSeconds: Optional<Float>) = waitSeconds(waitSeconds.getOrNull())
+
+        /**
+         * Sets [Builder.waitSeconds] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.waitSeconds] with a well-typed [Float] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun waitSeconds(waitSeconds: JsonField<Float>) = apply { this.waitSeconds = waitSeconds }
+
+        /**
          * The failover URL where webhooks related to this message will be sent if sending to the
          * primary URL fails.
          */
@@ -1206,6 +1256,7 @@ private constructor(
                 (to ?: JsonMissing.of()).map { it.toImmutable() },
                 type,
                 validUntil,
+                waitSeconds,
                 webhookFailoverUrl,
                 webhookUrl,
                 additionalProperties.toMutableMap(),
@@ -1245,6 +1296,7 @@ private constructor(
         to().ifPresent { it.forEach { it.validate() } }
         type().ifPresent { it.validate() }
         validUntil()
+        waitSeconds()
         webhookFailoverUrl()
         webhookUrl()
         validated = true
@@ -1291,6 +1343,7 @@ private constructor(
             (to.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (if (validUntil.asKnown().isPresent) 1 else 0) +
+            (if (waitSeconds.asKnown().isPresent) 1 else 0) +
             (if (webhookFailoverUrl.asKnown().isPresent) 1 else 0) +
             (if (webhookUrl.asKnown().isPresent) 1 else 0)
 
@@ -4224,6 +4277,7 @@ private constructor(
             to == other.to &&
             type == other.type &&
             validUntil == other.validUntil &&
+            waitSeconds == other.waitSeconds &&
             webhookFailoverUrl == other.webhookFailoverUrl &&
             webhookUrl == other.webhookUrl &&
             additionalProperties == other.additionalProperties
@@ -4257,6 +4311,7 @@ private constructor(
             to,
             type,
             validUntil,
+            waitSeconds,
             webhookFailoverUrl,
             webhookUrl,
             additionalProperties,
@@ -4266,5 +4321,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "OutboundMessagePayload{id=$id, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, smartEncodingApplied=$smartEncodingApplied, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, text=$text, to=$to, type=$type, validUntil=$validUntil, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "OutboundMessagePayload{id=$id, cc=$cc, completedAt=$completedAt, cost=$cost, costBreakdown=$costBreakdown, direction=$direction, encoding=$encoding, errors=$errors, from=$from, media=$media, messagingProfileId=$messagingProfileId, organizationId=$organizationId, parts=$parts, receivedAt=$receivedAt, recordType=$recordType, sentAt=$sentAt, smartEncodingApplied=$smartEncodingApplied, subject=$subject, tags=$tags, tcrCampaignBillable=$tcrCampaignBillable, tcrCampaignId=$tcrCampaignId, tcrCampaignRegistered=$tcrCampaignRegistered, text=$text, to=$to, type=$type, validUntil=$validUntil, waitSeconds=$waitSeconds, webhookFailoverUrl=$webhookFailoverUrl, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }
