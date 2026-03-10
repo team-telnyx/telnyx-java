@@ -14,14 +14,12 @@ internal class ActionBulkEnableVoiceResponseTest {
         val actionBulkEnableVoiceResponse =
             ActionBulkEnableVoiceResponse.builder()
                 .data(
-                    ActionBulkEnableVoiceResponse.Data.builder()
+                    BulkSimCardAction.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .actionType(
-                            ActionBulkEnableVoiceResponse.Data.ActionType.BULK_SET_PUBLIC_IPS
-                        )
+                        .actionType(BulkSimCardAction.ActionType.BULK_SET_PUBLIC_IPS)
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .recordType("bulk_sim_card_action")
-                        .settings(ActionBulkEnableVoiceResponse.Data.Settings.builder().build())
+                        .settings(BulkSimCardAction.Settings.builder().build())
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .build()
                 )
@@ -29,12 +27,12 @@ internal class ActionBulkEnableVoiceResponseTest {
 
         assertThat(actionBulkEnableVoiceResponse.data())
             .contains(
-                ActionBulkEnableVoiceResponse.Data.builder()
+                BulkSimCardAction.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .actionType(ActionBulkEnableVoiceResponse.Data.ActionType.BULK_SET_PUBLIC_IPS)
+                    .actionType(BulkSimCardAction.ActionType.BULK_SET_PUBLIC_IPS)
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .recordType("bulk_sim_card_action")
-                    .settings(ActionBulkEnableVoiceResponse.Data.Settings.builder().build())
+                    .settings(BulkSimCardAction.Settings.builder().build())
                     .updatedAt("2018-02-02T22:25:27.521Z")
                     .build()
             )
@@ -46,14 +44,12 @@ internal class ActionBulkEnableVoiceResponseTest {
         val actionBulkEnableVoiceResponse =
             ActionBulkEnableVoiceResponse.builder()
                 .data(
-                    ActionBulkEnableVoiceResponse.Data.builder()
+                    BulkSimCardAction.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                        .actionType(
-                            ActionBulkEnableVoiceResponse.Data.ActionType.BULK_SET_PUBLIC_IPS
-                        )
+                        .actionType(BulkSimCardAction.ActionType.BULK_SET_PUBLIC_IPS)
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .recordType("bulk_sim_card_action")
-                        .settings(ActionBulkEnableVoiceResponse.Data.Settings.builder().build())
+                        .settings(BulkSimCardAction.Settings.builder().build())
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .build()
                 )
