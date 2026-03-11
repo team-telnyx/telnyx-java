@@ -20,7 +20,7 @@ internal class UsageReportServiceTest {
             usageReportService.retrieveSpeechToText(
                 UsageReportRetrieveSpeechToTextParams.builder()
                     .endDate(OffsetDateTime.parse("2020-07-01T00:00:00-06:00"))
-                    .startDate(OffsetDateTime.parse("2020-07-01T00:00:00-06:00"))
+                    .startDate(OffsetDateTime.parse("2020-07-02T00:00:00-06:00"))
                     .build()
             )
 
