@@ -44,7 +44,11 @@ internal class TextToSpeechGenerateParamsTest {
                     )
                     .build()
             )
-            .inworld(JsonValue.from(mapOf<String, Any>()))
+            .inworld(
+                TextToSpeechGenerateParams.Inworld.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
             .language("language")
             .minimax(
                 TextToSpeechGenerateParams.Minimax.builder()
@@ -128,7 +132,11 @@ internal class TextToSpeechGenerateParamsTest {
                         )
                         .build()
                 )
-                .inworld(JsonValue.from(mapOf<String, Any>()))
+                .inworld(
+                    TextToSpeechGenerateParams.Inworld.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .language("language")
                 .minimax(
                     TextToSpeechGenerateParams.Minimax.builder()
@@ -212,7 +220,12 @@ internal class TextToSpeechGenerateParamsTest {
                     )
                     .build()
             )
-        assertThat(body._inworld()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
+        assertThat(body.inworld())
+            .contains(
+                TextToSpeechGenerateParams.Inworld.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
         assertThat(body.language()).contains("language")
         assertThat(body.minimax())
             .contains(
