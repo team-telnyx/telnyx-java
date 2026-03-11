@@ -13,7 +13,7 @@ internal class UsageReportRetrieveSpeechToTextParamsTest {
     fun create() {
         UsageReportRetrieveSpeechToTextParams.builder()
             .endDate(OffsetDateTime.parse("2020-07-01T00:00:00-06:00"))
-            .startDate(OffsetDateTime.parse("2020-07-01T00:00:00-06:00"))
+            .startDate(OffsetDateTime.parse("2020-07-02T00:00:00-06:00"))
             .build()
     }
 
@@ -22,7 +22,7 @@ internal class UsageReportRetrieveSpeechToTextParamsTest {
         val params =
             UsageReportRetrieveSpeechToTextParams.builder()
                 .endDate(OffsetDateTime.parse("2020-07-01T00:00:00-06:00"))
-                .startDate(OffsetDateTime.parse("2020-07-01T00:00:00-06:00"))
+                .startDate(OffsetDateTime.parse("2020-07-02T00:00:00-06:00"))
                 .build()
 
         val queryParams = params._queryParams()
@@ -31,7 +31,7 @@ internal class UsageReportRetrieveSpeechToTextParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("end_date", "2020-07-01T00:00:00-06:00")
-                    .put("start_date", "2020-07-01T00:00:00-06:00")
+                    .put("start_date", "2020-07-02T00:00:00-06:00")
                     .build()
             )
     }
