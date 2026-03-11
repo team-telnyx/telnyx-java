@@ -15,7 +15,7 @@ internal class CallingSettingRetrieveResponseTest {
         val callingSettingRetrieveResponse =
             CallingSettingRetrieveResponse.builder()
                 .data(
-                    CallingSettingRetrieveResponse.Data.builder()
+                    WhatsappCallingSettingsData.builder()
                         .enabled(true)
                         .phoneNumber("phone_number")
                         .recordType("whatsapp_calling_settings")
@@ -26,7 +26,7 @@ internal class CallingSettingRetrieveResponseTest {
 
         assertThat(callingSettingRetrieveResponse.data())
             .contains(
-                CallingSettingRetrieveResponse.Data.builder()
+                WhatsappCallingSettingsData.builder()
                     .enabled(true)
                     .phoneNumber("phone_number")
                     .recordType("whatsapp_calling_settings")
@@ -41,7 +41,7 @@ internal class CallingSettingRetrieveResponseTest {
         val callingSettingRetrieveResponse =
             CallingSettingRetrieveResponse.builder()
                 .data(
-                    CallingSettingRetrieveResponse.Data.builder()
+                    WhatsappCallingSettingsData.builder()
                         .enabled(true)
                         .phoneNumber("phone_number")
                         .recordType("whatsapp_calling_settings")

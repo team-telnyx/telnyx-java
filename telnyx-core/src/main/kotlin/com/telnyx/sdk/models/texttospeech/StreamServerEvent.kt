@@ -33,7 +33,7 @@ import kotlin.jvm.optionals.getOrNull
 class StreamServerEvent
 private constructor(
     private val audioChunk: AudioChunk? = null,
-    private val final_: Final? = null,
+    private val finalFrameEvent: FinalFrameEvent? = null,
     private val error: Error? = null,
     private val _json: JsonValue? = null,
 ) {
@@ -42,7 +42,7 @@ private constructor(
     fun audioChunk(): Optional<AudioChunk> = Optional.ofNullable(audioChunk)
 
     /** Server-to-client frame indicating synthesis is complete for the current text. */
-    fun final_(): Optional<Final> = Optional.ofNullable(final_)
+    fun finalFrameEvent(): Optional<FinalFrameEvent> = Optional.ofNullable(finalFrameEvent)
 
     /**
      * Server-to-client frame indicating an error during synthesis. The connection is closed shortly
@@ -52,7 +52,7 @@ private constructor(
 
     fun isAudioChunk(): Boolean = audioChunk != null
 
-    fun isFinal(): Boolean = final_ != null
+    fun isFinalFrameEvent(): Boolean = finalFrameEvent != null
 
     fun isError(): Boolean = error != null
 
@@ -60,7 +60,7 @@ private constructor(
     fun asAudioChunk(): AudioChunk = audioChunk.getOrThrow("audioChunk")
 
     /** Server-to-client frame indicating synthesis is complete for the current text. */
-    fun asFinal(): Final = final_.getOrThrow("final_")
+    fun asFinalFrameEvent(): FinalFrameEvent = finalFrameEvent.getOrThrow("finalFrameEvent")
 
     /**
      * Server-to-client frame indicating an error during synthesis. The connection is closed shortly
@@ -73,7 +73,7 @@ private constructor(
     fun <T> accept(visitor: Visitor<T>): T =
         when {
             audioChunk != null -> visitor.visitAudioChunk(audioChunk)
-            final_ != null -> visitor.visitFinal(final_)
+            finalFrameEvent != null -> visitor.visitFinalFrameEvent(finalFrameEvent)
             error != null -> visitor.visitError(error)
             else -> visitor.unknown(_json)
         }
@@ -91,8 +91,8 @@ private constructor(
                     audioChunk.validate()
                 }
 
-                override fun visitFinal(final_: Final) {
-                    final_.validate()
+                override fun visitFinalFrameEvent(finalFrameEvent: FinalFrameEvent) {
+                    finalFrameEvent.validate()
                 }
 
                 override fun visitError(error: Error) {
@@ -122,7 +122,8 @@ private constructor(
             object : Visitor<Int> {
                 override fun visitAudioChunk(audioChunk: AudioChunk) = audioChunk.validity()
 
-                override fun visitFinal(final_: Final) = final_.validity()
+                override fun visitFinalFrameEvent(finalFrameEvent: FinalFrameEvent) =
+                    finalFrameEvent.validity()
 
                 override fun visitError(error: Error) = error.validity()
 
@@ -137,16 +138,16 @@ private constructor(
 
         return other is StreamServerEvent &&
             audioChunk == other.audioChunk &&
-            final_ == other.final_ &&
+            finalFrameEvent == other.finalFrameEvent &&
             error == other.error
     }
 
-    override fun hashCode(): Int = Objects.hash(audioChunk, final_, error)
+    override fun hashCode(): Int = Objects.hash(audioChunk, finalFrameEvent, error)
 
     override fun toString(): String =
         when {
             audioChunk != null -> "StreamServerEvent{audioChunk=$audioChunk}"
-            final_ != null -> "StreamServerEvent{final_=$final_}"
+            finalFrameEvent != null -> "StreamServerEvent{finalFrameEvent=$finalFrameEvent}"
             error != null -> "StreamServerEvent{error=$error}"
             _json != null -> "StreamServerEvent{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid StreamServerEvent")
@@ -159,7 +160,9 @@ private constructor(
         fun ofAudioChunk(audioChunk: AudioChunk) = StreamServerEvent(audioChunk = audioChunk)
 
         /** Server-to-client frame indicating synthesis is complete for the current text. */
-        @JvmStatic fun ofFinal(final_: Final) = StreamServerEvent(final_ = final_)
+        @JvmStatic
+        fun ofFinalFrameEvent(finalFrameEvent: FinalFrameEvent) =
+            StreamServerEvent(finalFrameEvent = finalFrameEvent)
 
         /**
          * Server-to-client frame indicating an error during synthesis. The connection is closed
@@ -178,7 +181,7 @@ private constructor(
         fun visitAudioChunk(audioChunk: AudioChunk): T
 
         /** Server-to-client frame indicating synthesis is complete for the current text. */
-        fun visitFinal(final_: Final): T
+        fun visitFinalFrameEvent(finalFrameEvent: FinalFrameEvent): T
 
         /**
          * Server-to-client frame indicating an error during synthesis. The connection is closed
@@ -214,8 +217,8 @@ private constructor(
                     } ?: StreamServerEvent(_json = json)
                 }
                 "final" -> {
-                    return tryDeserialize(node, jacksonTypeRef<Final>())?.let {
-                        StreamServerEvent(final_ = it, _json = json)
+                    return tryDeserialize(node, jacksonTypeRef<FinalFrameEvent>())?.let {
+                        StreamServerEvent(finalFrameEvent = it, _json = json)
                     } ?: StreamServerEvent(_json = json)
                 }
                 "error" -> {
@@ -238,7 +241,7 @@ private constructor(
         ) {
             when {
                 value.audioChunk != null -> generator.writeObject(value.audioChunk)
-                value.final_ != null -> generator.writeObject(value.final_)
+                value.finalFrameEvent != null -> generator.writeObject(value.finalFrameEvent)
                 value.error != null -> generator.writeObject(value.error)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid StreamServerEvent")
@@ -727,7 +730,7 @@ private constructor(
     }
 
     /** Server-to-client frame indicating synthesis is complete for the current text. */
-    class Final
+    class FinalFrameEvent
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val audio: JsonField<Void>,
@@ -842,11 +845,11 @@ private constructor(
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [Final]. */
+            /** Returns a mutable builder for constructing an instance of [FinalFrameEvent]. */
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [Final]. */
+        /** A builder for [FinalFrameEvent]. */
         class Builder internal constructor() {
 
             private var audio: JsonField<Void> = JsonMissing.of()
@@ -857,13 +860,13 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(final_: Final) = apply {
-                audio = final_.audio
-                isFinal = final_.isFinal
-                text = final_.text
-                timeToFirstAudioFrameMs = final_.timeToFirstAudioFrameMs
-                type = final_.type
-                additionalProperties = final_.additionalProperties.toMutableMap()
+            internal fun from(finalFrameEvent: FinalFrameEvent) = apply {
+                audio = finalFrameEvent.audio
+                isFinal = finalFrameEvent.isFinal
+                text = finalFrameEvent.text
+                timeToFirstAudioFrameMs = finalFrameEvent.timeToFirstAudioFrameMs
+                type = finalFrameEvent.type
+                additionalProperties = finalFrameEvent.additionalProperties.toMutableMap()
             }
 
             /** Always `null` for the final frame. */
@@ -952,12 +955,12 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [Final].
+             * Returns an immutable instance of [FinalFrameEvent].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Final =
-                Final(
+            fun build(): FinalFrameEvent =
+                FinalFrameEvent(
                     audio,
                     isFinal,
                     text,
@@ -969,7 +972,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Final = apply {
+        fun validate(): FinalFrameEvent = apply {
             if (validated) {
                 return@apply
             }
@@ -1253,7 +1256,7 @@ private constructor(
                 return true
             }
 
-            return other is Final &&
+            return other is FinalFrameEvent &&
                 audio == other.audio &&
                 isFinal == other.isFinal &&
                 text == other.text &&
@@ -1269,7 +1272,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Final{audio=$audio, isFinal=$isFinal, text=$text, timeToFirstAudioFrameMs=$timeToFirstAudioFrameMs, type=$type, additionalProperties=$additionalProperties}"
+            "FinalFrameEvent{audio=$audio, isFinal=$isFinal, text=$text, timeToFirstAudioFrameMs=$timeToFirstAudioFrameMs, type=$type, additionalProperties=$additionalProperties}"
     }
 
     /**
