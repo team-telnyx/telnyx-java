@@ -20,7 +20,11 @@ internal class TemplateServiceAsyncTest {
             templateServiceAsync.create(
                 TemplateCreateParams.builder()
                     .category(TemplateCreateParams.Category.MARKETING)
-                    .addComponent(JsonValue.from(mapOf<String, Any>()))
+                    .addComponent(
+                        TemplateCreateParams.Component.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .language("language")
                     .name("name")
                     .wabaId("waba_id")
