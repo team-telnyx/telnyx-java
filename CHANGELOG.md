@@ -1,5 +1,22 @@
 # Changelog
 
+## 6.28.0 (2026-03-11)
+
+Full Changelog: [v6.27.0...v6.28.0](https://github.com/team-telnyx/telnyx-java/compare/v6.27.0...v6.28.0)
+
+### Features
+
+* **api:** manual updates ([9f6a5fa](https://github.com/team-telnyx/telnyx-java/commit/9f6a5fa087c1f11ad9b47a2c4a49c4959dfb3328))
+* **api:** manual updates ([db2a2cb](https://github.com/team-telnyx/telnyx-java/commit/db2a2cb88f3f81e73563d8e2dee74c7f36e86388))
+* CW-2881 publish wireless VoLTE docs to prod ([070190f](https://github.com/team-telnyx/telnyx-java/commit/070190fe13820ac1c7a77f9fd854308a4ec2543f))
+* **messaging:** add wait_seconds to OutboundMessagePayload example ([39c2683](https://github.com/team-telnyx/telnyx-java/commit/39c26836067adbccf6e169c813b9a859af9122df))
+
+
+### Bug Fixes
+
+* add title to InviteTool.invite for Stainless SDK ([4bd6e75](https://github.com/team-telnyx/telnyx-java/commit/4bd6e75bf706127ef28c879eff506b87cfaee540))
+* **client:** incorrect `Retry-After` parsing ([6a13b75](https://github.com/team-telnyx/telnyx-java/commit/6a13b750835fee2db4350269245b1fce5c93a78a))
+
 ## 6.27.0 (2026-03-09)
 
 Full Changelog: [v6.26.0...v6.27.0](https://github.com/team-telnyx/telnyx-java/compare/v6.26.0...v6.27.0)
