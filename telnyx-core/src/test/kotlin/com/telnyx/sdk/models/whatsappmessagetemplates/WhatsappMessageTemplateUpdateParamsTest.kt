@@ -14,7 +14,11 @@ internal class WhatsappMessageTemplateUpdateParamsTest {
         WhatsappMessageTemplateUpdateParams.builder()
             .id("id")
             .category(WhatsappMessageTemplateUpdateParams.Category.MARKETING)
-            .addComponent(JsonValue.from(mapOf<String, Any>()))
+            .addComponent(
+                WhatsappMessageTemplateUpdateParams.Component.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
             .build()
     }
 
@@ -33,14 +37,22 @@ internal class WhatsappMessageTemplateUpdateParamsTest {
             WhatsappMessageTemplateUpdateParams.builder()
                 .id("id")
                 .category(WhatsappMessageTemplateUpdateParams.Category.MARKETING)
-                .addComponent(JsonValue.from(mapOf<String, Any>()))
+                .addComponent(
+                    WhatsappMessageTemplateUpdateParams.Component.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
         assertThat(body.category()).contains(WhatsappMessageTemplateUpdateParams.Category.MARKETING)
         assertThat(body.components().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+            .containsExactly(
+                WhatsappMessageTemplateUpdateParams.Component.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
     }
 
     @Test
