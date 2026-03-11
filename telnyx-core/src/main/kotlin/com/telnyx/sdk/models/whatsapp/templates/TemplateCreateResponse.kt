@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsapp.messagetemplates
+package com.telnyx.sdk.models.whatsapp.templates
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -20,7 +20,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class MessageTemplateCreateResponse
+class TemplateCreateResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<Data>,
@@ -59,23 +59,20 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of
-         * [MessageTemplateCreateResponse].
-         */
+        /** Returns a mutable builder for constructing an instance of [TemplateCreateResponse]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [MessageTemplateCreateResponse]. */
+    /** A builder for [TemplateCreateResponse]. */
     class Builder internal constructor() {
 
         private var data: JsonField<Data> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(messageTemplateCreateResponse: MessageTemplateCreateResponse) = apply {
-            data = messageTemplateCreateResponse.data
-            additionalProperties = messageTemplateCreateResponse.additionalProperties.toMutableMap()
+        internal fun from(templateCreateResponse: TemplateCreateResponse) = apply {
+            data = templateCreateResponse.data
+            additionalProperties = templateCreateResponse.additionalProperties.toMutableMap()
         }
 
         fun data(data: Data) = data(JsonField.of(data))
@@ -108,17 +105,17 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [MessageTemplateCreateResponse].
+         * Returns an immutable instance of [TemplateCreateResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): MessageTemplateCreateResponse =
-            MessageTemplateCreateResponse(data, additionalProperties.toMutableMap())
+        fun build(): TemplateCreateResponse =
+            TemplateCreateResponse(data, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
 
-    fun validate(): MessageTemplateCreateResponse = apply {
+    fun validate(): TemplateCreateResponse = apply {
         if (validated) {
             return@apply
         }
@@ -1018,7 +1015,7 @@ private constructor(
             return true
         }
 
-        return other is MessageTemplateCreateResponse &&
+        return other is TemplateCreateResponse &&
             data == other.data &&
             additionalProperties == other.additionalProperties
     }
@@ -1028,5 +1025,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MessageTemplateCreateResponse{data=$data, additionalProperties=$additionalProperties}"
+        "TemplateCreateResponse{data=$data, additionalProperties=$additionalProperties}"
 }

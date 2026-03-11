@@ -4,22 +4,22 @@ package com.telnyx.sdk.services.blocking.whatsapp
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.models.whatsapp.messagetemplates.MessageTemplateCreateParams
+import com.telnyx.sdk.models.whatsapp.templates.TemplateCreateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
-internal class MessageTemplateServiceTest {
+internal class TemplateServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
-        val messageTemplateService = client.whatsapp().messageTemplates()
+        val templateService = client.whatsapp().templates()
 
-        val messageTemplate =
-            messageTemplateService.create(
-                MessageTemplateCreateParams.builder()
-                    .category(MessageTemplateCreateParams.Category.MARKETING)
+        val template =
+            templateService.create(
+                TemplateCreateParams.builder()
+                    .category(TemplateCreateParams.Category.MARKETING)
                     .addComponent(JsonValue.from(mapOf<String, Any>()))
                     .language("language")
                     .name("name")
@@ -27,16 +27,16 @@ internal class MessageTemplateServiceTest {
                     .build()
             )
 
-        messageTemplate.validate()
+        template.validate()
     }
 
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
-        val messageTemplateService = client.whatsapp().messageTemplates()
+        val templateService = client.whatsapp().templates()
 
-        val page = messageTemplateService.list()
+        val page = templateService.list()
 
         page.response().validate()
     }
