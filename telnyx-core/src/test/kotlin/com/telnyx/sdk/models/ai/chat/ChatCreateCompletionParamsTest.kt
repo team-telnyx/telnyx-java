@@ -27,6 +27,7 @@ internal class ChatCreateCompletionParamsTest {
             .apiKeyRef("api_key_ref")
             .bestOf(0L)
             .earlyStopping(true)
+            .enableThinking(true)
             .frequencyPenalty(0.0)
             .addGuidedChoice("string")
             .guidedJson(
@@ -87,6 +88,7 @@ internal class ChatCreateCompletionParamsTest {
                 .apiKeyRef("api_key_ref")
                 .bestOf(0L)
                 .earlyStopping(true)
+                .enableThinking(true)
                 .frequencyPenalty(0.0)
                 .addGuidedChoice("string")
                 .guidedJson(
@@ -143,6 +145,7 @@ internal class ChatCreateCompletionParamsTest {
         assertThat(body.apiKeyRef()).contains("api_key_ref")
         assertThat(body.bestOf()).contains(0L)
         assertThat(body.earlyStopping()).contains(true)
+        assertThat(body.enableThinking()).contains(true)
         assertThat(body.frequencyPenalty()).contains(0.0)
         assertThat(body.guidedChoice().getOrNull()).containsExactly("string")
         assertThat(body.guidedJson())
