@@ -15,7 +15,7 @@ internal class SettingUpdateResponseTest {
         val settingUpdateResponse =
             SettingUpdateResponse.builder()
                 .data(
-                    WabaSettings.builder()
+                    SettingUpdateResponse.Data.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .name("name")
                         .recordType("whatsapp_business_account_settings")
@@ -31,7 +31,7 @@ internal class SettingUpdateResponseTest {
 
         assertThat(settingUpdateResponse.data())
             .contains(
-                WabaSettings.builder()
+                SettingUpdateResponse.Data.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .name("name")
                     .recordType("whatsapp_business_account_settings")
@@ -51,7 +51,7 @@ internal class SettingUpdateResponseTest {
         val settingUpdateResponse =
             SettingUpdateResponse.builder()
                 .data(
-                    WabaSettings.builder()
+                    SettingUpdateResponse.Data.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .name("name")
                         .recordType("whatsapp_business_account_settings")

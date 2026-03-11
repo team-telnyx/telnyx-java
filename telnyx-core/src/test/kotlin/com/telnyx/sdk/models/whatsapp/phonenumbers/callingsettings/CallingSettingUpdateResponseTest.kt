@@ -15,7 +15,7 @@ internal class CallingSettingUpdateResponseTest {
         val callingSettingUpdateResponse =
             CallingSettingUpdateResponse.builder()
                 .data(
-                    WhatsappCallingSettingsData.builder()
+                    CallingSettingUpdateResponse.Data.builder()
                         .enabled(true)
                         .phoneNumber("phone_number")
                         .recordType("whatsapp_calling_settings")
@@ -26,7 +26,7 @@ internal class CallingSettingUpdateResponseTest {
 
         assertThat(callingSettingUpdateResponse.data())
             .contains(
-                WhatsappCallingSettingsData.builder()
+                CallingSettingUpdateResponse.Data.builder()
                     .enabled(true)
                     .phoneNumber("phone_number")
                     .recordType("whatsapp_calling_settings")
@@ -41,7 +41,7 @@ internal class CallingSettingUpdateResponseTest {
         val callingSettingUpdateResponse =
             CallingSettingUpdateResponse.builder()
                 .data(
-                    WhatsappCallingSettingsData.builder()
+                    CallingSettingUpdateResponse.Data.builder()
                         .enabled(true)
                         .phoneNumber("phone_number")
                         .recordType("whatsapp_calling_settings")

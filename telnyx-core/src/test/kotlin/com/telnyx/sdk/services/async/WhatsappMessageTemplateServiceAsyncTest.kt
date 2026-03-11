@@ -33,11 +33,7 @@ internal class WhatsappMessageTemplateServiceAsyncTest {
                 WhatsappMessageTemplateUpdateParams.builder()
                     .id("id")
                     .category(WhatsappMessageTemplateUpdateParams.Category.MARKETING)
-                    .addComponent(
-                        WhatsappMessageTemplateUpdateParams.Component.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
-                    )
+                    .addComponent(JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
 

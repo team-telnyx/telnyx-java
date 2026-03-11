@@ -4,8 +4,8 @@ package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.services.blocking.whatsapp.BusinessAccountService
+import com.telnyx.sdk.services.blocking.whatsapp.MessageTemplateService
 import com.telnyx.sdk.services.blocking.whatsapp.PhoneNumberService
-import com.telnyx.sdk.services.blocking.whatsapp.TemplateService
 import java.util.function.Consumer
 
 interface WhatsappService {
@@ -26,7 +26,7 @@ interface WhatsappService {
     fun businessAccounts(): BusinessAccountService
 
     /** Manage Whatsapp message templates */
-    fun templates(): TemplateService
+    fun messageTemplates(): MessageTemplateService
 
     /** Manage Whatsapp phone numbers */
     fun phoneNumbers(): PhoneNumberService
@@ -45,7 +45,7 @@ interface WhatsappService {
         fun businessAccounts(): BusinessAccountService.WithRawResponse
 
         /** Manage Whatsapp message templates */
-        fun templates(): TemplateService.WithRawResponse
+        fun messageTemplates(): MessageTemplateService.WithRawResponse
 
         /** Manage Whatsapp phone numbers */
         fun phoneNumbers(): PhoneNumberService.WithRawResponse

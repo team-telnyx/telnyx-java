@@ -5,10 +5,10 @@ package com.telnyx.sdk.services.blocking
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.services.blocking.whatsapp.BusinessAccountService
 import com.telnyx.sdk.services.blocking.whatsapp.BusinessAccountServiceImpl
+import com.telnyx.sdk.services.blocking.whatsapp.MessageTemplateService
+import com.telnyx.sdk.services.blocking.whatsapp.MessageTemplateServiceImpl
 import com.telnyx.sdk.services.blocking.whatsapp.PhoneNumberService
 import com.telnyx.sdk.services.blocking.whatsapp.PhoneNumberServiceImpl
-import com.telnyx.sdk.services.blocking.whatsapp.TemplateService
-import com.telnyx.sdk.services.blocking.whatsapp.TemplateServiceImpl
 import java.util.function.Consumer
 
 class WhatsappServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -22,7 +22,9 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
         BusinessAccountServiceImpl(clientOptions)
     }
 
-    private val templates: TemplateService by lazy { TemplateServiceImpl(clientOptions) }
+    private val messageTemplates: MessageTemplateService by lazy {
+        MessageTemplateServiceImpl(clientOptions)
+    }
 
     private val phoneNumbers: PhoneNumberService by lazy { PhoneNumberServiceImpl(clientOptions) }
 
@@ -35,7 +37,7 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
     override fun businessAccounts(): BusinessAccountService = businessAccounts
 
     /** Manage Whatsapp message templates */
-    override fun templates(): TemplateService = templates
+    override fun messageTemplates(): MessageTemplateService = messageTemplates
 
     /** Manage Whatsapp phone numbers */
     override fun phoneNumbers(): PhoneNumberService = phoneNumbers
@@ -47,8 +49,8 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
             BusinessAccountServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val templates: TemplateService.WithRawResponse by lazy {
-            TemplateServiceImpl.WithRawResponseImpl(clientOptions)
+        private val messageTemplates: MessageTemplateService.WithRawResponse by lazy {
+            MessageTemplateServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val phoneNumbers: PhoneNumberService.WithRawResponse by lazy {
@@ -66,7 +68,7 @@ class WhatsappServiceImpl internal constructor(private val clientOptions: Client
         override fun businessAccounts(): BusinessAccountService.WithRawResponse = businessAccounts
 
         /** Manage Whatsapp message templates */
-        override fun templates(): TemplateService.WithRawResponse = templates
+        override fun messageTemplates(): MessageTemplateService.WithRawResponse = messageTemplates
 
         /** Manage Whatsapp phone numbers */
         override fun phoneNumbers(): PhoneNumberService.WithRawResponse = phoneNumbers
