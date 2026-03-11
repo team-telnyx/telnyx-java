@@ -151,6 +151,8 @@ import com.telnyx.sdk.services.async.VirtualCrossConnectsCoverageServiceAsync
 import com.telnyx.sdk.services.async.WebhookDeliveryServiceAsync
 import com.telnyx.sdk.services.async.WebhookServiceAsync
 import com.telnyx.sdk.services.async.WellKnownServiceAsync
+import com.telnyx.sdk.services.async.WhatsappMessageTemplateServiceAsync
+import com.telnyx.sdk.services.async.WhatsappServiceAsync
 import com.telnyx.sdk.services.async.WireguardInterfaceServiceAsync
 import com.telnyx.sdk.services.async.WireguardPeerServiceAsync
 import com.telnyx.sdk.services.async.WirelessBlocklistServiceAsync
@@ -635,6 +637,11 @@ interface TelnyxClientAsync {
     /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
     fun sessionAnalysis(): SessionAnalysisServiceAsync
 
+    fun whatsapp(): WhatsappServiceAsync
+
+    /** Manage Whatsapp message templates */
+    fun whatsappMessageTemplates(): WhatsappMessageTemplateServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1102,5 +1109,10 @@ interface TelnyxClientAsync {
 
         /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
         fun sessionAnalysis(): SessionAnalysisServiceAsync.WithRawResponse
+
+        fun whatsapp(): WhatsappServiceAsync.WithRawResponse
+
+        /** Manage Whatsapp message templates */
+        fun whatsappMessageTemplates(): WhatsappMessageTemplateServiceAsync.WithRawResponse
     }
 }
