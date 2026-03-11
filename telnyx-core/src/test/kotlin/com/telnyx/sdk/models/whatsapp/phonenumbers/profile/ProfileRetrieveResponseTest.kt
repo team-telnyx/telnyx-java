@@ -15,7 +15,7 @@ internal class ProfileRetrieveResponseTest {
         val profileRetrieveResponse =
             ProfileRetrieveResponse.builder()
                 .data(
-                    ProfileRetrieveResponse.Data.builder()
+                    WhatsappProfileData.builder()
                         .id("id")
                         .about("about")
                         .address("address")
@@ -35,7 +35,7 @@ internal class ProfileRetrieveResponseTest {
 
         assertThat(profileRetrieveResponse.data())
             .contains(
-                ProfileRetrieveResponse.Data.builder()
+                WhatsappProfileData.builder()
                     .id("id")
                     .about("about")
                     .address("address")
@@ -59,7 +59,7 @@ internal class ProfileRetrieveResponseTest {
         val profileRetrieveResponse =
             ProfileRetrieveResponse.builder()
                 .data(
-                    ProfileRetrieveResponse.Data.builder()
+                    WhatsappProfileData.builder()
                         .id("id")
                         .about("about")
                         .address("address")
