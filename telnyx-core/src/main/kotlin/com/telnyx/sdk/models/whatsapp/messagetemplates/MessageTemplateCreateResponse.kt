@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsappmessagetemplates
+package com.telnyx.sdk.models.whatsapp.messagetemplates
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -20,7 +20,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class WhatsappMessageTemplateRetrieveResponse
+class MessageTemplateCreateResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<Data>,
@@ -61,24 +61,21 @@ private constructor(
 
         /**
          * Returns a mutable builder for constructing an instance of
-         * [WhatsappMessageTemplateRetrieveResponse].
+         * [MessageTemplateCreateResponse].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [WhatsappMessageTemplateRetrieveResponse]. */
+    /** A builder for [MessageTemplateCreateResponse]. */
     class Builder internal constructor() {
 
         private var data: JsonField<Data> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(
-            whatsappMessageTemplateRetrieveResponse: WhatsappMessageTemplateRetrieveResponse
-        ) = apply {
-            data = whatsappMessageTemplateRetrieveResponse.data
-            additionalProperties =
-                whatsappMessageTemplateRetrieveResponse.additionalProperties.toMutableMap()
+        internal fun from(messageTemplateCreateResponse: MessageTemplateCreateResponse) = apply {
+            data = messageTemplateCreateResponse.data
+            additionalProperties = messageTemplateCreateResponse.additionalProperties.toMutableMap()
         }
 
         fun data(data: Data) = data(JsonField.of(data))
@@ -111,17 +108,17 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [WhatsappMessageTemplateRetrieveResponse].
+         * Returns an immutable instance of [MessageTemplateCreateResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): WhatsappMessageTemplateRetrieveResponse =
-            WhatsappMessageTemplateRetrieveResponse(data, additionalProperties.toMutableMap())
+        fun build(): MessageTemplateCreateResponse =
+            MessageTemplateCreateResponse(data, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
 
-    fun validate(): WhatsappMessageTemplateRetrieveResponse = apply {
+    fun validate(): MessageTemplateCreateResponse = apply {
         if (validated) {
             return@apply
         }
@@ -1021,7 +1018,7 @@ private constructor(
             return true
         }
 
-        return other is WhatsappMessageTemplateRetrieveResponse &&
+        return other is MessageTemplateCreateResponse &&
             data == other.data &&
             additionalProperties == other.additionalProperties
     }
@@ -1031,5 +1028,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "WhatsappMessageTemplateRetrieveResponse{data=$data, additionalProperties=$additionalProperties}"
+        "MessageTemplateCreateResponse{data=$data, additionalProperties=$additionalProperties}"
 }

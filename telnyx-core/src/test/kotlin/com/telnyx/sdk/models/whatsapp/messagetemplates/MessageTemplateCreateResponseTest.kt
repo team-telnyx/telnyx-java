@@ -1,30 +1,25 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsapp.templates
+package com.telnyx.sdk.models.whatsapp.messagetemplates
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.WhatsappTemplateData
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class TemplateCreateResponseTest {
+internal class MessageTemplateCreateResponseTest {
 
     @Test
     fun create() {
-        val templateCreateResponse =
-            TemplateCreateResponse.builder()
+        val messageTemplateCreateResponse =
+            MessageTemplateCreateResponse.builder()
                 .data(
-                    WhatsappTemplateData.builder()
+                    MessageTemplateCreateResponse.Data.builder()
                         .id("id")
-                        .category(WhatsappTemplateData.Category.MARKETING)
-                        .addComponent(
-                            WhatsappTemplateData.Component.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
-                        )
+                        .category(MessageTemplateCreateResponse.Data.Category.MARKETING)
+                        .addComponent(JsonValue.from(mapOf<String, Any>()))
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .language("language")
                         .name("name")
@@ -34,22 +29,20 @@ internal class TemplateCreateResponseTest {
                         .templateId("template_id")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .whatsappBusinessAccount(
-                            WhatsappTemplateData.WhatsappBusinessAccount.builder().id("id").build()
+                            MessageTemplateCreateResponse.Data.WhatsappBusinessAccount.builder()
+                                .id("id")
+                                .build()
                         )
                         .build()
                 )
                 .build()
 
-        assertThat(templateCreateResponse.data())
+        assertThat(messageTemplateCreateResponse.data())
             .contains(
-                WhatsappTemplateData.builder()
+                MessageTemplateCreateResponse.Data.builder()
                     .id("id")
-                    .category(WhatsappTemplateData.Category.MARKETING)
-                    .addComponent(
-                        WhatsappTemplateData.Component.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
-                    )
+                    .category(MessageTemplateCreateResponse.Data.Category.MARKETING)
+                    .addComponent(JsonValue.from(mapOf<String, Any>()))
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .language("language")
                     .name("name")
@@ -59,7 +52,9 @@ internal class TemplateCreateResponseTest {
                     .templateId("template_id")
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .whatsappBusinessAccount(
-                        WhatsappTemplateData.WhatsappBusinessAccount.builder().id("id").build()
+                        MessageTemplateCreateResponse.Data.WhatsappBusinessAccount.builder()
+                            .id("id")
+                            .build()
                     )
                     .build()
             )
@@ -68,17 +63,13 @@ internal class TemplateCreateResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val templateCreateResponse =
-            TemplateCreateResponse.builder()
+        val messageTemplateCreateResponse =
+            MessageTemplateCreateResponse.builder()
                 .data(
-                    WhatsappTemplateData.builder()
+                    MessageTemplateCreateResponse.Data.builder()
                         .id("id")
-                        .category(WhatsappTemplateData.Category.MARKETING)
-                        .addComponent(
-                            WhatsappTemplateData.Component.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
-                        )
+                        .category(MessageTemplateCreateResponse.Data.Category.MARKETING)
+                        .addComponent(JsonValue.from(mapOf<String, Any>()))
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .language("language")
                         .name("name")
@@ -88,18 +79,21 @@ internal class TemplateCreateResponseTest {
                         .templateId("template_id")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .whatsappBusinessAccount(
-                            WhatsappTemplateData.WhatsappBusinessAccount.builder().id("id").build()
+                            MessageTemplateCreateResponse.Data.WhatsappBusinessAccount.builder()
+                                .id("id")
+                                .build()
                         )
                         .build()
                 )
                 .build()
 
-        val roundtrippedTemplateCreateResponse =
+        val roundtrippedMessageTemplateCreateResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(templateCreateResponse),
-                jacksonTypeRef<TemplateCreateResponse>(),
+                jsonMapper.writeValueAsString(messageTemplateCreateResponse),
+                jacksonTypeRef<MessageTemplateCreateResponse>(),
             )
 
-        assertThat(roundtrippedTemplateCreateResponse).isEqualTo(templateCreateResponse)
+        assertThat(roundtrippedMessageTemplateCreateResponse)
+            .isEqualTo(messageTemplateCreateResponse)
     }
 }

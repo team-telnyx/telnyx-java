@@ -1,17 +1,17 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsapp.templates
+package com.telnyx.sdk.models.whatsapp.messagetemplates
 
 import com.telnyx.sdk.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class TemplateListParamsTest {
+internal class MessageTemplateListParamsTest {
 
     @Test
     fun create() {
-        TemplateListParams.builder()
-            .filterCategory(TemplateListParams.FilterCategory.MARKETING)
+        MessageTemplateListParams.builder()
+            .filterCategory(MessageTemplateListParams.FilterCategory.MARKETING)
             .filterSearch("filter[search]")
             .filterStatus("filter[status]")
             .filterWabaId("filter[waba_id]")
@@ -23,8 +23,8 @@ internal class TemplateListParamsTest {
     @Test
     fun queryParams() {
         val params =
-            TemplateListParams.builder()
-                .filterCategory(TemplateListParams.FilterCategory.MARKETING)
+            MessageTemplateListParams.builder()
+                .filterCategory(MessageTemplateListParams.FilterCategory.MARKETING)
                 .filterSearch("filter[search]")
                 .filterStatus("filter[status]")
                 .filterWabaId("filter[waba_id]")
@@ -49,7 +49,7 @@ internal class TemplateListParamsTest {
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = TemplateListParams.builder().build()
+        val params = MessageTemplateListParams.builder().build()
 
         val queryParams = params._queryParams()
 

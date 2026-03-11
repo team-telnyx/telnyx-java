@@ -21,62 +21,80 @@ class Vertical @JsonCreator private constructor(private val value: JsonField<Str
 
     companion object {
 
-        @JvmField val REAL_ESTATE = of("REAL_ESTATE")
+        @JvmField val AGRICULTURE = of("AGRICULTURE")
 
-        @JvmField val HEALTHCARE = of("HEALTHCARE")
+        @JvmField val COMMUNICATION = of("COMMUNICATION")
+
+        @JvmField val CONSTRUCTION = of("CONSTRUCTION")
+
+        @JvmField val EDUCATION = of("EDUCATION")
 
         @JvmField val ENERGY = of("ENERGY")
 
         @JvmField val ENTERTAINMENT = of("ENTERTAINMENT")
 
-        @JvmField val RETAIL = of("RETAIL")
-
-        @JvmField val AGRICULTURE = of("AGRICULTURE")
-
-        @JvmField val INSURANCE = of("INSURANCE")
-
-        @JvmField val EDUCATION = of("EDUCATION")
-
-        @JvmField val HOSPITALITY = of("HOSPITALITY")
-
         @JvmField val FINANCIAL = of("FINANCIAL")
 
         @JvmField val GAMBLING = of("GAMBLING")
 
-        @JvmField val CONSTRUCTION = of("CONSTRUCTION")
+        @JvmField val GOVERNMENT = of("GOVERNMENT")
 
-        @JvmField val NGO = of("NGO")
+        @JvmField val HEALTHCARE = of("HEALTHCARE")
+
+        @JvmField val HOSPITALITY = of("HOSPITALITY")
+
+        @JvmField val HUMAN_RESOURCES = of("HUMAN_RESOURCES")
+
+        @JvmField val INSURANCE = of("INSURANCE")
+
+        @JvmField val LEGAL = of("LEGAL")
 
         @JvmField val MANUFACTURING = of("MANUFACTURING")
 
-        @JvmField val GOVERNMENT = of("GOVERNMENT")
+        @JvmField val NGO = of("NGO")
+
+        @JvmField val POLITICAL = of("POLITICAL")
+
+        @JvmField val POSTAL = of("POSTAL")
+
+        @JvmField val PROFESSIONAL = of("PROFESSIONAL")
+
+        @JvmField val REAL_ESTATE = of("REAL_ESTATE")
+
+        @JvmField val RETAIL = of("RETAIL")
 
         @JvmField val TECHNOLOGY = of("TECHNOLOGY")
 
-        @JvmField val COMMUNICATION = of("COMMUNICATION")
+        @JvmField val TRANSPORTATION = of("TRANSPORTATION")
 
         @JvmStatic fun of(value: String) = Vertical(JsonField.of(value))
     }
 
     /** An enum containing [Vertical]'s known values. */
     enum class Known {
-        REAL_ESTATE,
-        HEALTHCARE,
+        AGRICULTURE,
+        COMMUNICATION,
+        CONSTRUCTION,
+        EDUCATION,
         ENERGY,
         ENTERTAINMENT,
-        RETAIL,
-        AGRICULTURE,
-        INSURANCE,
-        EDUCATION,
-        HOSPITALITY,
         FINANCIAL,
         GAMBLING,
-        CONSTRUCTION,
-        NGO,
-        MANUFACTURING,
         GOVERNMENT,
+        HEALTHCARE,
+        HOSPITALITY,
+        HUMAN_RESOURCES,
+        INSURANCE,
+        LEGAL,
+        MANUFACTURING,
+        NGO,
+        POLITICAL,
+        POSTAL,
+        PROFESSIONAL,
+        REAL_ESTATE,
+        RETAIL,
         TECHNOLOGY,
-        COMMUNICATION,
+        TRANSPORTATION,
     }
 
     /**
@@ -89,23 +107,29 @@ class Vertical @JsonCreator private constructor(private val value: JsonField<Str
      * - It was constructed with an arbitrary value using the [of] method.
      */
     enum class Value {
-        REAL_ESTATE,
-        HEALTHCARE,
+        AGRICULTURE,
+        COMMUNICATION,
+        CONSTRUCTION,
+        EDUCATION,
         ENERGY,
         ENTERTAINMENT,
-        RETAIL,
-        AGRICULTURE,
-        INSURANCE,
-        EDUCATION,
-        HOSPITALITY,
         FINANCIAL,
         GAMBLING,
-        CONSTRUCTION,
-        NGO,
-        MANUFACTURING,
         GOVERNMENT,
+        HEALTHCARE,
+        HOSPITALITY,
+        HUMAN_RESOURCES,
+        INSURANCE,
+        LEGAL,
+        MANUFACTURING,
+        NGO,
+        POLITICAL,
+        POSTAL,
+        PROFESSIONAL,
+        REAL_ESTATE,
+        RETAIL,
         TECHNOLOGY,
-        COMMUNICATION,
+        TRANSPORTATION,
         /** An enum member indicating that [Vertical] was instantiated with an unknown value. */
         _UNKNOWN,
     }
@@ -119,23 +143,29 @@ class Vertical @JsonCreator private constructor(private val value: JsonField<Str
      */
     fun value(): Value =
         when (this) {
-            REAL_ESTATE -> Value.REAL_ESTATE
-            HEALTHCARE -> Value.HEALTHCARE
+            AGRICULTURE -> Value.AGRICULTURE
+            COMMUNICATION -> Value.COMMUNICATION
+            CONSTRUCTION -> Value.CONSTRUCTION
+            EDUCATION -> Value.EDUCATION
             ENERGY -> Value.ENERGY
             ENTERTAINMENT -> Value.ENTERTAINMENT
-            RETAIL -> Value.RETAIL
-            AGRICULTURE -> Value.AGRICULTURE
-            INSURANCE -> Value.INSURANCE
-            EDUCATION -> Value.EDUCATION
-            HOSPITALITY -> Value.HOSPITALITY
             FINANCIAL -> Value.FINANCIAL
             GAMBLING -> Value.GAMBLING
-            CONSTRUCTION -> Value.CONSTRUCTION
-            NGO -> Value.NGO
-            MANUFACTURING -> Value.MANUFACTURING
             GOVERNMENT -> Value.GOVERNMENT
+            HEALTHCARE -> Value.HEALTHCARE
+            HOSPITALITY -> Value.HOSPITALITY
+            HUMAN_RESOURCES -> Value.HUMAN_RESOURCES
+            INSURANCE -> Value.INSURANCE
+            LEGAL -> Value.LEGAL
+            MANUFACTURING -> Value.MANUFACTURING
+            NGO -> Value.NGO
+            POLITICAL -> Value.POLITICAL
+            POSTAL -> Value.POSTAL
+            PROFESSIONAL -> Value.PROFESSIONAL
+            REAL_ESTATE -> Value.REAL_ESTATE
+            RETAIL -> Value.RETAIL
             TECHNOLOGY -> Value.TECHNOLOGY
-            COMMUNICATION -> Value.COMMUNICATION
+            TRANSPORTATION -> Value.TRANSPORTATION
             else -> Value._UNKNOWN
         }
 
@@ -149,23 +179,29 @@ class Vertical @JsonCreator private constructor(private val value: JsonField<Str
      */
     fun known(): Known =
         when (this) {
-            REAL_ESTATE -> Known.REAL_ESTATE
-            HEALTHCARE -> Known.HEALTHCARE
+            AGRICULTURE -> Known.AGRICULTURE
+            COMMUNICATION -> Known.COMMUNICATION
+            CONSTRUCTION -> Known.CONSTRUCTION
+            EDUCATION -> Known.EDUCATION
             ENERGY -> Known.ENERGY
             ENTERTAINMENT -> Known.ENTERTAINMENT
-            RETAIL -> Known.RETAIL
-            AGRICULTURE -> Known.AGRICULTURE
-            INSURANCE -> Known.INSURANCE
-            EDUCATION -> Known.EDUCATION
-            HOSPITALITY -> Known.HOSPITALITY
             FINANCIAL -> Known.FINANCIAL
             GAMBLING -> Known.GAMBLING
-            CONSTRUCTION -> Known.CONSTRUCTION
-            NGO -> Known.NGO
-            MANUFACTURING -> Known.MANUFACTURING
             GOVERNMENT -> Known.GOVERNMENT
+            HEALTHCARE -> Known.HEALTHCARE
+            HOSPITALITY -> Known.HOSPITALITY
+            HUMAN_RESOURCES -> Known.HUMAN_RESOURCES
+            INSURANCE -> Known.INSURANCE
+            LEGAL -> Known.LEGAL
+            MANUFACTURING -> Known.MANUFACTURING
+            NGO -> Known.NGO
+            POLITICAL -> Known.POLITICAL
+            POSTAL -> Known.POSTAL
+            PROFESSIONAL -> Known.PROFESSIONAL
+            REAL_ESTATE -> Known.REAL_ESTATE
+            RETAIL -> Known.RETAIL
             TECHNOLOGY -> Known.TECHNOLOGY
-            COMMUNICATION -> Known.COMMUNICATION
+            TRANSPORTATION -> Known.TRANSPORTATION
             else -> throw TelnyxInvalidDataException("Unknown Vertical: $value")
         }
 

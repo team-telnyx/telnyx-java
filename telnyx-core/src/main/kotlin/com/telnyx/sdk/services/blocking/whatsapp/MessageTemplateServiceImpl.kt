@@ -15,60 +15,60 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.whatsapp.templates.TemplateCreateParams
-import com.telnyx.sdk.models.whatsapp.templates.TemplateCreateResponse
-import com.telnyx.sdk.models.whatsapp.templates.TemplateListPage
-import com.telnyx.sdk.models.whatsapp.templates.TemplateListPageResponse
-import com.telnyx.sdk.models.whatsapp.templates.TemplateListParams
+import com.telnyx.sdk.models.whatsapp.messagetemplates.MessageTemplateCreateParams
+import com.telnyx.sdk.models.whatsapp.messagetemplates.MessageTemplateCreateResponse
+import com.telnyx.sdk.models.whatsapp.messagetemplates.MessageTemplateListPage
+import com.telnyx.sdk.models.whatsapp.messagetemplates.MessageTemplateListPageResponse
+import com.telnyx.sdk.models.whatsapp.messagetemplates.MessageTemplateListParams
 import java.util.function.Consumer
 
 /** Manage Whatsapp message templates */
-class TemplateServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    TemplateService {
+class MessageTemplateServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    MessageTemplateService {
 
-    private val withRawResponse: TemplateService.WithRawResponse by lazy {
+    private val withRawResponse: MessageTemplateService.WithRawResponse by lazy {
         WithRawResponseImpl(clientOptions)
     }
 
-    override fun withRawResponse(): TemplateService.WithRawResponse = withRawResponse
+    override fun withRawResponse(): MessageTemplateService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TemplateService =
-        TemplateServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessageTemplateService =
+        MessageTemplateServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
-        params: TemplateCreateParams,
+        params: MessageTemplateCreateParams,
         requestOptions: RequestOptions,
-    ): TemplateCreateResponse =
+    ): MessageTemplateCreateResponse =
         // post /v2/whatsapp/message_templates
         withRawResponse().create(params, requestOptions).parse()
 
     override fun list(
-        params: TemplateListParams,
+        params: MessageTemplateListParams,
         requestOptions: RequestOptions,
-    ): TemplateListPage =
+    ): MessageTemplateListPage =
         // get /v2/whatsapp/message_templates
         withRawResponse().list(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        TemplateService.WithRawResponse {
+        MessageTemplateService.WithRawResponse {
 
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
-        ): TemplateService.WithRawResponse =
-            TemplateServiceImpl.WithRawResponseImpl(
+        ): MessageTemplateService.WithRawResponse =
+            MessageTemplateServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<TemplateCreateResponse> =
-            jsonHandler<TemplateCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<MessageTemplateCreateResponse> =
+            jsonHandler<MessageTemplateCreateResponse>(clientOptions.jsonMapper)
 
         override fun create(
-            params: TemplateCreateParams,
+            params: MessageTemplateCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<TemplateCreateResponse> {
+        ): HttpResponseFor<MessageTemplateCreateResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -90,13 +90,13 @@ class TemplateServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val listHandler: Handler<TemplateListPageResponse> =
-            jsonHandler<TemplateListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<MessageTemplateListPageResponse> =
+            jsonHandler<MessageTemplateListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
-            params: TemplateListParams,
+            params: MessageTemplateListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<TemplateListPage> {
+        ): HttpResponseFor<MessageTemplateListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -115,8 +115,8 @@ class TemplateServiceImpl internal constructor(private val clientOptions: Client
                         }
                     }
                     .let {
-                        TemplateListPage.builder()
-                            .service(TemplateServiceImpl(clientOptions))
+                        MessageTemplateListPage.builder()
+                            .service(MessageTemplateServiceImpl(clientOptions))
                             .params(params)
                             .response(it)
                             .build()
