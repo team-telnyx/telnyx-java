@@ -1,5 +1,33 @@
 # Changelog
 
+## 6.29.0 (2026-03-11)
+
+Full Changelog: [v6.28.0...v6.29.0](https://github.com/team-telnyx/telnyx-java/compare/v6.28.0...v6.29.0)
+
+### Features
+
+* Add enable_thinking parameter to chat completions API ([75d7d13](https://github.com/team-telnyx/telnyx-java/commit/75d7d13f6d35769c3415b4f796819e38227d34db))
+* **api:** manual updates ([97ec880](https://github.com/team-telnyx/telnyx-java/commit/97ec880c96fd8eca448d7934fcc2a9db2bc4ed47))
+* **api:** manual updates ([b9410be](https://github.com/team-telnyx/telnyx-java/commit/b9410be06577d4345c0667682355e42a05923467))
+* **api:** Merge pull request [#27](https://github.com/team-telnyx/telnyx-java/issues/27) from stainless-sdks/fix/whatsapp-message-templates-conflict ([1a90854](https://github.com/team-telnyx/telnyx-java/commit/1a9085468b153e9b9c72763bf8540aa4b34b5703))
+
+
+### Bug Fixes
+
+* add missing vertical enum values for 10DLC brand creation (ENGDESK-49040) ([62762bc](https://github.com/team-telnyx/telnyx-java/commit/62762bc1459cc10e3f6a007873672738f0bcd187))
+* rename whatsapp.message_templates to whatsapp.templates to avoid conflict ([1a90854](https://github.com/team-telnyx/telnyx-java/commit/1a9085468b153e9b9c72763bf8540aa4b34b5703))
+* update wait_seconds example to 0.5 ([c9fe9a8](https://github.com/team-telnyx/telnyx-java/commit/c9fe9a80a4201249b2735e7b985141787e0dcf61))
+
+
+### Reverts
+
+* restore stainless.yml changes removed in 1de6067 ([5079272](https://github.com/team-telnyx/telnyx-java/commit/5079272f9710563a30348ccc277027046e95e166))
+
+
+### Chores
+
+* update example date in usage-reports ([ffb2822](https://github.com/team-telnyx/telnyx-java/commit/ffb282298dc89316ed43cd7e0ab52fbc64b7372a))
+
 ## 6.28.0 (2026-03-11)
 
 Full Changelog: [v6.27.0...v6.28.0](https://github.com/team-telnyx/telnyx-java/compare/v6.27.0...v6.28.0)
