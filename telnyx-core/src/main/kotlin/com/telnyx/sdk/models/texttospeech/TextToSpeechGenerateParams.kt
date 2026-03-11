@@ -77,12 +77,10 @@ private constructor(
     /**
      * Inworld provider-specific parameters.
      *
-     * This arbitrary value can be deserialized into a custom type using the `convert` method:
-     * ```java
-     * MyClass myObject = textToSpeechGenerateParams.inworld().convert(MyClass.class);
-     * ```
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun _inworld(): JsonValue = body._inworld()
+    fun inworld(): Optional<Inworld> = body.inworld()
 
     /**
      * Language code (e.g. `en-US`). Usage varies by provider.
@@ -204,6 +202,13 @@ private constructor(
      * Unlike [elevenlabs], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _elevenlabs(): JsonField<Elevenlabs> = body._elevenlabs()
+
+    /**
+     * Returns the raw JSON value of [inworld].
+     *
+     * Unlike [inworld], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _inworld(): JsonField<Inworld> = body._inworld()
 
     /**
      * Returns the raw JSON value of [language].
@@ -379,7 +384,15 @@ private constructor(
         fun elevenlabs(elevenlabs: JsonField<Elevenlabs>) = apply { body.elevenlabs(elevenlabs) }
 
         /** Inworld provider-specific parameters. */
-        fun inworld(inworld: JsonValue) = apply { body.inworld(inworld) }
+        fun inworld(inworld: Inworld) = apply { body.inworld(inworld) }
+
+        /**
+         * Sets [Builder.inworld] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.inworld] with a well-typed [Inworld] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun inworld(inworld: JsonField<Inworld>) = apply { body.inworld(inworld) }
 
         /** Language code (e.g. `en-US`). Usage varies by provider. */
         fun language(language: String) = apply { body.language(language) }
@@ -666,7 +679,7 @@ private constructor(
         private val azure: JsonField<Azure>,
         private val disableCache: JsonField<Boolean>,
         private val elevenlabs: JsonField<Elevenlabs>,
-        private val inworld: JsonValue,
+        private val inworld: JsonField<Inworld>,
         private val language: JsonField<String>,
         private val minimax: JsonField<Minimax>,
         private val outputType: JsonField<OutputType>,
@@ -691,7 +704,7 @@ private constructor(
             @JsonProperty("elevenlabs")
             @ExcludeMissing
             elevenlabs: JsonField<Elevenlabs> = JsonMissing.of(),
-            @JsonProperty("inworld") @ExcludeMissing inworld: JsonValue = JsonMissing.of(),
+            @JsonProperty("inworld") @ExcludeMissing inworld: JsonField<Inworld> = JsonMissing.of(),
             @JsonProperty("language")
             @ExcludeMissing
             language: JsonField<String> = JsonMissing.of(),
@@ -770,12 +783,10 @@ private constructor(
         /**
          * Inworld provider-specific parameters.
          *
-         * This arbitrary value can be deserialized into a custom type using the `convert` method:
-         * ```java
-         * MyClass myObject = body.inworld().convert(MyClass.class);
-         * ```
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        @JsonProperty("inworld") @ExcludeMissing fun _inworld(): JsonValue = inworld
+        fun inworld(): Optional<Inworld> = inworld.getOptional("inworld")
 
         /**
          * Language code (e.g. `en-US`). Usage varies by provider.
@@ -904,6 +915,13 @@ private constructor(
         fun _elevenlabs(): JsonField<Elevenlabs> = elevenlabs
 
         /**
+         * Returns the raw JSON value of [inworld].
+         *
+         * Unlike [inworld], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("inworld") @ExcludeMissing fun _inworld(): JsonField<Inworld> = inworld
+
+        /**
          * Returns the raw JSON value of [language].
          *
          * Unlike [language], this method doesn't throw if the JSON field has an unexpected type.
@@ -1010,7 +1028,7 @@ private constructor(
             private var azure: JsonField<Azure> = JsonMissing.of()
             private var disableCache: JsonField<Boolean> = JsonMissing.of()
             private var elevenlabs: JsonField<Elevenlabs> = JsonMissing.of()
-            private var inworld: JsonValue = JsonMissing.of()
+            private var inworld: JsonField<Inworld> = JsonMissing.of()
             private var language: JsonField<String> = JsonMissing.of()
             private var minimax: JsonField<Minimax> = JsonMissing.of()
             private var outputType: JsonField<OutputType> = JsonMissing.of()
@@ -1098,7 +1116,16 @@ private constructor(
             }
 
             /** Inworld provider-specific parameters. */
-            fun inworld(inworld: JsonValue) = apply { this.inworld = inworld }
+            fun inworld(inworld: Inworld) = inworld(JsonField.of(inworld))
+
+            /**
+             * Sets [Builder.inworld] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.inworld] with a well-typed [Inworld] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun inworld(inworld: JsonField<Inworld>) = apply { this.inworld = inworld }
 
             /** Language code (e.g. `en-US`). Usage varies by provider. */
             fun language(language: String) = language(JsonField.of(language))
@@ -1305,6 +1332,7 @@ private constructor(
             azure().ifPresent { it.validate() }
             disableCache()
             elevenlabs().ifPresent { it.validate() }
+            inworld().ifPresent { it.validate() }
             language()
             minimax().ifPresent { it.validate() }
             outputType().ifPresent { it.validate() }
@@ -1339,6 +1367,7 @@ private constructor(
                 (azure.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (disableCache.asKnown().isPresent) 1 else 0) +
                 (elevenlabs.asKnown().getOrNull()?.validity() ?: 0) +
+                (inworld.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (language.asKnown().isPresent) 1 else 0) +
                 (minimax.asKnown().getOrNull()?.validity() ?: 0) +
                 (outputType.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2771,6 +2800,106 @@ private constructor(
 
         override fun toString() =
             "Elevenlabs{apiKey=$apiKey, languageCode=$languageCode, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+    }
+
+    /** Inworld provider-specific parameters. */
+    class Inworld
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Inworld]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Inworld]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(inworld: Inworld) = apply {
+                additionalProperties = inworld.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Inworld].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Inworld = Inworld(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Inworld = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Inworld && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Inworld{additionalProperties=$additionalProperties}"
     }
 
     /** Minimax provider-specific parameters. */

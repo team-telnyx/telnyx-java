@@ -43,7 +43,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun components(): Optional<List<JsonValue>> = body.components()
+    fun components(): Optional<List<Component>> = body.components()
 
     /**
      * Returns the raw JSON value of [category].
@@ -57,7 +57,7 @@ private constructor(
      *
      * Unlike [components], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _components(): JsonField<List<JsonValue>> = body._components()
+    fun _components(): JsonField<List<Component>> = body._components()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -125,25 +125,25 @@ private constructor(
          */
         fun category(category: JsonField<Category>) = apply { body.category(category) }
 
-        fun components(components: List<JsonValue>) = apply { body.components(components) }
+        fun components(components: List<Component>) = apply { body.components(components) }
 
         /**
          * Sets [Builder.components] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.components] with a well-typed `List<JsonValue>` value
+         * You should usually call [Builder.components] with a well-typed `List<Component>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun components(components: JsonField<List<JsonValue>>) = apply {
+        fun components(components: JsonField<List<Component>>) = apply {
             body.components(components)
         }
 
         /**
-         * Adds a single [JsonValue] to [components].
+         * Adds a single [Component] to [components].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addComponent(component: JsonValue) = apply { body.addComponent(component) }
+        fun addComponent(component: Component) = apply { body.addComponent(component) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -292,7 +292,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val category: JsonField<Category>,
-        private val components: JsonField<List<JsonValue>>,
+        private val components: JsonField<List<Component>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -303,7 +303,7 @@ private constructor(
             category: JsonField<Category> = JsonMissing.of(),
             @JsonProperty("components")
             @ExcludeMissing
-            components: JsonField<List<JsonValue>> = JsonMissing.of(),
+            components: JsonField<List<Component>> = JsonMissing.of(),
         ) : this(category, components, mutableMapOf())
 
         /**
@@ -316,7 +316,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun components(): Optional<List<JsonValue>> = components.getOptional("components")
+        fun components(): Optional<List<Component>> = components.getOptional("components")
 
         /**
          * Returns the raw JSON value of [category].
@@ -332,7 +332,7 @@ private constructor(
          */
         @JsonProperty("components")
         @ExcludeMissing
-        fun _components(): JsonField<List<JsonValue>> = components
+        fun _components(): JsonField<List<Component>> = components
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -356,7 +356,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var category: JsonField<Category> = JsonMissing.of()
-            private var components: JsonField<MutableList<JsonValue>>? = null
+            private var components: JsonField<MutableList<Component>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -377,25 +377,25 @@ private constructor(
              */
             fun category(category: JsonField<Category>) = apply { this.category = category }
 
-            fun components(components: List<JsonValue>) = components(JsonField.of(components))
+            fun components(components: List<Component>) = components(JsonField.of(components))
 
             /**
              * Sets [Builder.components] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.components] with a well-typed `List<JsonValue>`
+             * You should usually call [Builder.components] with a well-typed `List<Component>`
              * value instead. This method is primarily for setting the field to an undocumented or
              * not yet supported value.
              */
-            fun components(components: JsonField<List<JsonValue>>) = apply {
+            fun components(components: JsonField<List<Component>>) = apply {
                 this.components = components.map { it.toMutableList() }
             }
 
             /**
-             * Adds a single [JsonValue] to [components].
+             * Adds a single [Component] to [components].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addComponent(component: JsonValue) = apply {
+            fun addComponent(component: Component) = apply {
                 components =
                     (components ?: JsonField.of(mutableListOf())).also {
                         checkKnown("components", it).add(component)
@@ -442,7 +442,7 @@ private constructor(
             }
 
             category().ifPresent { it.validate() }
-            components()
+            components().ifPresent { it.forEach { it.validate() } }
             validated = true
         }
 
@@ -463,7 +463,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (category.asKnown().getOrNull()?.validity() ?: 0) +
-                (components.asKnown().getOrNull()?.size ?: 0)
+                (components.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -615,6 +615,105 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    class Component
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Component]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Component]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(component: Component) = apply {
+                additionalProperties = component.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Component].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Component = Component(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Component = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Component && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Component{additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
