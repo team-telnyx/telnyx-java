@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsapp.templates
+package com.telnyx.sdk.models.whatsapp.messagetemplates
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -14,16 +14,15 @@ import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.MessagingPaginationMeta
-import com.telnyx.sdk.models.WhatsappTemplateData
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class TemplateListPageResponse
+class MessageTemplateListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<WhatsappTemplateData>>,
+    private val data: JsonField<List<MessageTemplateListResponse>>,
     private val meta: JsonField<MessagingPaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -32,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<WhatsappTemplateData>> = JsonMissing.of(),
+        data: JsonField<List<MessageTemplateListResponse>> = JsonMissing.of(),
         @JsonProperty("meta")
         @ExcludeMissing
         meta: JsonField<MessagingPaginationMeta> = JsonMissing.of(),
@@ -42,7 +41,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<WhatsappTemplateData>> = data.getOptional("data")
+    fun data(): Optional<List<MessageTemplateListResponse>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -55,7 +54,9 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<WhatsappTemplateData>> = data
+    @JsonProperty("data")
+    @ExcludeMissing
+    fun _data(): JsonField<List<MessageTemplateListResponse>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -78,43 +79,48 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [TemplateListPageResponse]. */
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [MessageTemplateListPageResponse].
+         */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [TemplateListPageResponse]. */
+    /** A builder for [MessageTemplateListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<WhatsappTemplateData>>? = null
+        private var data: JsonField<MutableList<MessageTemplateListResponse>>? = null
         private var meta: JsonField<MessagingPaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(templateListPageResponse: TemplateListPageResponse) = apply {
-            data = templateListPageResponse.data.map { it.toMutableList() }
-            meta = templateListPageResponse.meta
-            additionalProperties = templateListPageResponse.additionalProperties.toMutableMap()
-        }
+        internal fun from(messageTemplateListPageResponse: MessageTemplateListPageResponse) =
+            apply {
+                data = messageTemplateListPageResponse.data.map { it.toMutableList() }
+                meta = messageTemplateListPageResponse.meta
+                additionalProperties =
+                    messageTemplateListPageResponse.additionalProperties.toMutableMap()
+            }
 
-        fun data(data: List<WhatsappTemplateData>) = data(JsonField.of(data))
+        fun data(data: List<MessageTemplateListResponse>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<WhatsappTemplateData>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.data] with a well-typed
+         * `List<MessageTemplateListResponse>` value instead. This method is primarily for setting
+         * the field to an undocumented or not yet supported value.
          */
-        fun data(data: JsonField<List<WhatsappTemplateData>>) = apply {
+        fun data(data: JsonField<List<MessageTemplateListResponse>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [WhatsappTemplateData] to [Builder.data].
+         * Adds a single [MessageTemplateListResponse] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: WhatsappTemplateData) = apply {
+        fun addData(data: MessageTemplateListResponse) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)
@@ -152,12 +158,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [TemplateListPageResponse].
+         * Returns an immutable instance of [MessageTemplateListPageResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): TemplateListPageResponse =
-            TemplateListPageResponse(
+        fun build(): MessageTemplateListPageResponse =
+            MessageTemplateListPageResponse(
                 (data ?: JsonMissing.of()).map { it.toImmutable() },
                 meta,
                 additionalProperties.toMutableMap(),
@@ -166,7 +172,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): TemplateListPageResponse = apply {
+    fun validate(): MessageTemplateListPageResponse = apply {
         if (validated) {
             return@apply
         }
@@ -199,7 +205,7 @@ private constructor(
             return true
         }
 
-        return other is TemplateListPageResponse &&
+        return other is MessageTemplateListPageResponse &&
             data == other.data &&
             meta == other.meta &&
             additionalProperties == other.additionalProperties
@@ -210,5 +216,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TemplateListPageResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
+        "MessageTemplateListPageResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
 }

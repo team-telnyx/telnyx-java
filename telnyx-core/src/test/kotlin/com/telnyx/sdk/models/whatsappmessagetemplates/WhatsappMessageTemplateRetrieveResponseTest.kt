@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.whatsappmessagetemplates
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.WhatsappTemplateData
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -17,14 +16,10 @@ internal class WhatsappMessageTemplateRetrieveResponseTest {
         val whatsappMessageTemplateRetrieveResponse =
             WhatsappMessageTemplateRetrieveResponse.builder()
                 .data(
-                    WhatsappTemplateData.builder()
+                    WhatsappMessageTemplateRetrieveResponse.Data.builder()
                         .id("id")
-                        .category(WhatsappTemplateData.Category.MARKETING)
-                        .addComponent(
-                            WhatsappTemplateData.Component.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
-                        )
+                        .category(WhatsappMessageTemplateRetrieveResponse.Data.Category.MARKETING)
+                        .addComponent(JsonValue.from(mapOf<String, Any>()))
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .language("language")
                         .name("name")
@@ -34,7 +29,10 @@ internal class WhatsappMessageTemplateRetrieveResponseTest {
                         .templateId("template_id")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .whatsappBusinessAccount(
-                            WhatsappTemplateData.WhatsappBusinessAccount.builder().id("id").build()
+                            WhatsappMessageTemplateRetrieveResponse.Data.WhatsappBusinessAccount
+                                .builder()
+                                .id("id")
+                                .build()
                         )
                         .build()
                 )
@@ -42,14 +40,10 @@ internal class WhatsappMessageTemplateRetrieveResponseTest {
 
         assertThat(whatsappMessageTemplateRetrieveResponse.data())
             .contains(
-                WhatsappTemplateData.builder()
+                WhatsappMessageTemplateRetrieveResponse.Data.builder()
                     .id("id")
-                    .category(WhatsappTemplateData.Category.MARKETING)
-                    .addComponent(
-                        WhatsappTemplateData.Component.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
-                    )
+                    .category(WhatsappMessageTemplateRetrieveResponse.Data.Category.MARKETING)
+                    .addComponent(JsonValue.from(mapOf<String, Any>()))
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .language("language")
                     .name("name")
@@ -59,7 +53,10 @@ internal class WhatsappMessageTemplateRetrieveResponseTest {
                     .templateId("template_id")
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .whatsappBusinessAccount(
-                        WhatsappTemplateData.WhatsappBusinessAccount.builder().id("id").build()
+                        WhatsappMessageTemplateRetrieveResponse.Data.WhatsappBusinessAccount
+                            .builder()
+                            .id("id")
+                            .build()
                     )
                     .build()
             )
@@ -71,14 +68,10 @@ internal class WhatsappMessageTemplateRetrieveResponseTest {
         val whatsappMessageTemplateRetrieveResponse =
             WhatsappMessageTemplateRetrieveResponse.builder()
                 .data(
-                    WhatsappTemplateData.builder()
+                    WhatsappMessageTemplateRetrieveResponse.Data.builder()
                         .id("id")
-                        .category(WhatsappTemplateData.Category.MARKETING)
-                        .addComponent(
-                            WhatsappTemplateData.Component.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .build()
-                        )
+                        .category(WhatsappMessageTemplateRetrieveResponse.Data.Category.MARKETING)
+                        .addComponent(JsonValue.from(mapOf<String, Any>()))
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .language("language")
                         .name("name")
@@ -88,7 +81,10 @@ internal class WhatsappMessageTemplateRetrieveResponseTest {
                         .templateId("template_id")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .whatsappBusinessAccount(
-                            WhatsappTemplateData.WhatsappBusinessAccount.builder().id("id").build()
+                            WhatsappMessageTemplateRetrieveResponse.Data.WhatsappBusinessAccount
+                                .builder()
+                                .id("id")
+                                .build()
                         )
                         .build()
                 )

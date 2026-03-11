@@ -15,7 +15,7 @@ internal class ProfileUpdateResponseTest {
         val profileUpdateResponse =
             ProfileUpdateResponse.builder()
                 .data(
-                    WhatsappProfileData.builder()
+                    ProfileUpdateResponse.Data.builder()
                         .id("id")
                         .about("about")
                         .address("address")
@@ -35,7 +35,7 @@ internal class ProfileUpdateResponseTest {
 
         assertThat(profileUpdateResponse.data())
             .contains(
-                WhatsappProfileData.builder()
+                ProfileUpdateResponse.Data.builder()
                     .id("id")
                     .about("about")
                     .address("address")
@@ -59,7 +59,7 @@ internal class ProfileUpdateResponseTest {
         val profileUpdateResponse =
             ProfileUpdateResponse.builder()
                 .data(
-                    WhatsappProfileData.builder()
+                    ProfileUpdateResponse.Data.builder()
                         .id("id")
                         .about("about")
                         .address("address")

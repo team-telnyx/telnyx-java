@@ -1,13 +1,12 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsapp.templates
+package com.telnyx.sdk.models.whatsapp.messagetemplates
 
 import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.models.MessagingPaginationMeta
-import com.telnyx.sdk.models.WhatsappTemplateData
-import com.telnyx.sdk.services.async.whatsapp.TemplateServiceAsync
+import com.telnyx.sdk.services.async.whatsapp.MessageTemplateServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
@@ -15,31 +14,31 @@ import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrDefault
 import kotlin.jvm.optionals.getOrNull
 
-/** @see TemplateServiceAsync.list */
-class TemplateListPageAsync
+/** @see MessageTemplateServiceAsync.list */
+class MessageTemplateListPageAsync
 private constructor(
-    private val service: TemplateServiceAsync,
+    private val service: MessageTemplateServiceAsync,
     private val streamHandlerExecutor: Executor,
-    private val params: TemplateListParams,
-    private val response: TemplateListPageResponse,
-) : PageAsync<WhatsappTemplateData> {
+    private val params: MessageTemplateListParams,
+    private val response: MessageTemplateListPageResponse,
+) : PageAsync<MessageTemplateListResponse> {
 
     /**
-     * Delegates to [TemplateListPageResponse], but gracefully handles missing data.
+     * Delegates to [MessageTemplateListPageResponse], but gracefully handles missing data.
      *
-     * @see TemplateListPageResponse.data
+     * @see MessageTemplateListPageResponse.data
      */
-    fun data(): List<WhatsappTemplateData> =
+    fun data(): List<MessageTemplateListResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
-     * Delegates to [TemplateListPageResponse], but gracefully handles missing data.
+     * Delegates to [MessageTemplateListPageResponse], but gracefully handles missing data.
      *
-     * @see TemplateListPageResponse.meta
+     * @see MessageTemplateListPageResponse.meta
      */
     fun meta(): Optional<MessagingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<WhatsappTemplateData> = data()
+    override fun items(): List<MessageTemplateListResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -52,29 +51,29 @@ private constructor(
         return pageCount == null || pageNumber < pageCount
     }
 
-    fun nextPageParams(): TemplateListParams {
+    fun nextPageParams(): MessageTemplateListParams {
         val pageNumber = params.pageNumber().getOrDefault(1)
         return params.toBuilder().pageNumber(pageNumber + 1).build()
     }
 
-    override fun nextPage(): CompletableFuture<TemplateListPageAsync> =
+    override fun nextPage(): CompletableFuture<MessageTemplateListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<WhatsappTemplateData> =
+    fun autoPager(): AutoPagerAsync<MessageTemplateListResponse> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
-    fun params(): TemplateListParams = params
+    fun params(): MessageTemplateListParams = params
 
     /** The response that this page was parsed from. */
-    fun response(): TemplateListPageResponse = response
+    fun response(): MessageTemplateListPageResponse = response
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [TemplateListPageAsync].
+         * Returns a mutable builder for constructing an instance of [MessageTemplateListPageAsync].
          *
          * The following fields are required:
          * ```java
@@ -87,36 +86,36 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [TemplateListPageAsync]. */
+    /** A builder for [MessageTemplateListPageAsync]. */
     class Builder internal constructor() {
 
-        private var service: TemplateServiceAsync? = null
+        private var service: MessageTemplateServiceAsync? = null
         private var streamHandlerExecutor: Executor? = null
-        private var params: TemplateListParams? = null
-        private var response: TemplateListPageResponse? = null
+        private var params: MessageTemplateListParams? = null
+        private var response: MessageTemplateListPageResponse? = null
 
         @JvmSynthetic
-        internal fun from(templateListPageAsync: TemplateListPageAsync) = apply {
-            service = templateListPageAsync.service
-            streamHandlerExecutor = templateListPageAsync.streamHandlerExecutor
-            params = templateListPageAsync.params
-            response = templateListPageAsync.response
+        internal fun from(messageTemplateListPageAsync: MessageTemplateListPageAsync) = apply {
+            service = messageTemplateListPageAsync.service
+            streamHandlerExecutor = messageTemplateListPageAsync.streamHandlerExecutor
+            params = messageTemplateListPageAsync.params
+            response = messageTemplateListPageAsync.response
         }
 
-        fun service(service: TemplateServiceAsync) = apply { this.service = service }
+        fun service(service: MessageTemplateServiceAsync) = apply { this.service = service }
 
         fun streamHandlerExecutor(streamHandlerExecutor: Executor) = apply {
             this.streamHandlerExecutor = streamHandlerExecutor
         }
 
         /** The parameters that were used to request this page. */
-        fun params(params: TemplateListParams) = apply { this.params = params }
+        fun params(params: MessageTemplateListParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun response(response: TemplateListPageResponse) = apply { this.response = response }
+        fun response(response: MessageTemplateListPageResponse) = apply { this.response = response }
 
         /**
-         * Returns an immutable instance of [TemplateListPageAsync].
+         * Returns an immutable instance of [MessageTemplateListPageAsync].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -130,8 +129,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): TemplateListPageAsync =
-            TemplateListPageAsync(
+        fun build(): MessageTemplateListPageAsync =
+            MessageTemplateListPageAsync(
                 checkRequired("service", service),
                 checkRequired("streamHandlerExecutor", streamHandlerExecutor),
                 checkRequired("params", params),
@@ -144,7 +143,7 @@ private constructor(
             return true
         }
 
-        return other is TemplateListPageAsync &&
+        return other is MessageTemplateListPageAsync &&
             service == other.service &&
             streamHandlerExecutor == other.streamHandlerExecutor &&
             params == other.params &&
@@ -154,5 +153,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(service, streamHandlerExecutor, params, response)
 
     override fun toString() =
-        "TemplateListPageAsync{service=$service, streamHandlerExecutor=$streamHandlerExecutor, params=$params, response=$response}"
+        "MessageTemplateListPageAsync{service=$service, streamHandlerExecutor=$streamHandlerExecutor, params=$params, response=$response}"
 }

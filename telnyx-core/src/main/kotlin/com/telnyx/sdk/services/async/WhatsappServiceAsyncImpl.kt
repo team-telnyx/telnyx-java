@@ -5,10 +5,10 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.services.async.whatsapp.BusinessAccountServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.BusinessAccountServiceAsyncImpl
+import com.telnyx.sdk.services.async.whatsapp.MessageTemplateServiceAsync
+import com.telnyx.sdk.services.async.whatsapp.MessageTemplateServiceAsyncImpl
 import com.telnyx.sdk.services.async.whatsapp.PhoneNumberServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.PhoneNumberServiceAsyncImpl
-import com.telnyx.sdk.services.async.whatsapp.TemplateServiceAsync
-import com.telnyx.sdk.services.async.whatsapp.TemplateServiceAsyncImpl
 import java.util.function.Consumer
 
 class WhatsappServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -22,7 +22,9 @@ class WhatsappServiceAsyncImpl internal constructor(private val clientOptions: C
         BusinessAccountServiceAsyncImpl(clientOptions)
     }
 
-    private val templates: TemplateServiceAsync by lazy { TemplateServiceAsyncImpl(clientOptions) }
+    private val messageTemplates: MessageTemplateServiceAsync by lazy {
+        MessageTemplateServiceAsyncImpl(clientOptions)
+    }
 
     private val phoneNumbers: PhoneNumberServiceAsync by lazy {
         PhoneNumberServiceAsyncImpl(clientOptions)
@@ -37,7 +39,7 @@ class WhatsappServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun businessAccounts(): BusinessAccountServiceAsync = businessAccounts
 
     /** Manage Whatsapp message templates */
-    override fun templates(): TemplateServiceAsync = templates
+    override fun messageTemplates(): MessageTemplateServiceAsync = messageTemplates
 
     /** Manage Whatsapp phone numbers */
     override fun phoneNumbers(): PhoneNumberServiceAsync = phoneNumbers
@@ -49,8 +51,8 @@ class WhatsappServiceAsyncImpl internal constructor(private val clientOptions: C
             BusinessAccountServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val templates: TemplateServiceAsync.WithRawResponse by lazy {
-            TemplateServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        private val messageTemplates: MessageTemplateServiceAsync.WithRawResponse by lazy {
+            MessageTemplateServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val phoneNumbers: PhoneNumberServiceAsync.WithRawResponse by lazy {
@@ -69,7 +71,8 @@ class WhatsappServiceAsyncImpl internal constructor(private val clientOptions: C
             businessAccounts
 
         /** Manage Whatsapp message templates */
-        override fun templates(): TemplateServiceAsync.WithRawResponse = templates
+        override fun messageTemplates(): MessageTemplateServiceAsync.WithRawResponse =
+            messageTemplates
 
         /** Manage Whatsapp phone numbers */
         override fun phoneNumbers(): PhoneNumberServiceAsync.WithRawResponse = phoneNumbers

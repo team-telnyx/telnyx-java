@@ -4,7 +4,6 @@ package com.telnyx.sdk.models.whatsapp.phonenumbers.profile.photo
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.WhatsappProfileData
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -16,7 +15,7 @@ internal class PhotoUploadResponseTest {
         val photoUploadResponse =
             PhotoUploadResponse.builder()
                 .data(
-                    WhatsappProfileData.builder()
+                    PhotoUploadResponse.Data.builder()
                         .id("id")
                         .about("about")
                         .address("address")
@@ -36,7 +35,7 @@ internal class PhotoUploadResponseTest {
 
         assertThat(photoUploadResponse.data())
             .contains(
-                WhatsappProfileData.builder()
+                PhotoUploadResponse.Data.builder()
                     .id("id")
                     .about("about")
                     .address("address")
@@ -60,7 +59,7 @@ internal class PhotoUploadResponseTest {
         val photoUploadResponse =
             PhotoUploadResponse.builder()
                 .data(
-                    WhatsappProfileData.builder()
+                    PhotoUploadResponse.Data.builder()
                         .id("id")
                         .about("about")
                         .address("address")

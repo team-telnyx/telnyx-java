@@ -4,43 +4,39 @@ package com.telnyx.sdk.services.blocking.whatsapp
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.models.whatsapp.templates.TemplateCreateParams
+import com.telnyx.sdk.models.whatsapp.messagetemplates.MessageTemplateCreateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
-internal class TemplateServiceTest {
+internal class MessageTemplateServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
-        val templateService = client.whatsapp().templates()
+        val messageTemplateService = client.whatsapp().messageTemplates()
 
-        val template =
-            templateService.create(
-                TemplateCreateParams.builder()
-                    .category(TemplateCreateParams.Category.MARKETING)
-                    .addComponent(
-                        TemplateCreateParams.Component.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
-                    )
+        val messageTemplate =
+            messageTemplateService.create(
+                MessageTemplateCreateParams.builder()
+                    .category(MessageTemplateCreateParams.Category.MARKETING)
+                    .addComponent(JsonValue.from(mapOf<String, Any>()))
                     .language("language")
                     .name("name")
                     .wabaId("waba_id")
                     .build()
             )
 
-        template.validate()
+        messageTemplate.validate()
     }
 
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
-        val templateService = client.whatsapp().templates()
+        val messageTemplateService = client.whatsapp().messageTemplates()
 
-        val page = templateService.list()
+        val page = messageTemplateService.list()
 
         page.response().validate()
     }
