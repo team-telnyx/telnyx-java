@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.MessagingPaginationMeta
+import com.telnyx.sdk.models.WhatsappTemplateData
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -18,9 +19,9 @@ internal class TemplateListPageResponseTest {
         val templateListPageResponse =
             TemplateListPageResponse.builder()
                 .addData(
-                    TemplateListResponse.builder()
+                    WhatsappTemplateData.builder()
                         .id("id")
-                        .category(TemplateListResponse.Category.MARKETING)
+                        .category(WhatsappTemplateData.Category.MARKETING)
                         .addComponent(JsonValue.from(mapOf<String, Any>()))
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .language("language")
@@ -31,7 +32,7 @@ internal class TemplateListPageResponseTest {
                         .templateId("template_id")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .whatsappBusinessAccount(
-                            TemplateListResponse.WhatsappBusinessAccount.builder().id("id").build()
+                            WhatsappTemplateData.WhatsappBusinessAccount.builder().id("id").build()
                         )
                         .build()
                 )
@@ -47,9 +48,9 @@ internal class TemplateListPageResponseTest {
 
         assertThat(templateListPageResponse.data().getOrNull())
             .containsExactly(
-                TemplateListResponse.builder()
+                WhatsappTemplateData.builder()
                     .id("id")
-                    .category(TemplateListResponse.Category.MARKETING)
+                    .category(WhatsappTemplateData.Category.MARKETING)
                     .addComponent(JsonValue.from(mapOf<String, Any>()))
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .language("language")
@@ -60,7 +61,7 @@ internal class TemplateListPageResponseTest {
                     .templateId("template_id")
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .whatsappBusinessAccount(
-                        TemplateListResponse.WhatsappBusinessAccount.builder().id("id").build()
+                        WhatsappTemplateData.WhatsappBusinessAccount.builder().id("id").build()
                     )
                     .build()
             )
@@ -81,9 +82,9 @@ internal class TemplateListPageResponseTest {
         val templateListPageResponse =
             TemplateListPageResponse.builder()
                 .addData(
-                    TemplateListResponse.builder()
+                    WhatsappTemplateData.builder()
                         .id("id")
-                        .category(TemplateListResponse.Category.MARKETING)
+                        .category(WhatsappTemplateData.Category.MARKETING)
                         .addComponent(JsonValue.from(mapOf<String, Any>()))
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .language("language")
@@ -94,7 +95,7 @@ internal class TemplateListPageResponseTest {
                         .templateId("template_id")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .whatsappBusinessAccount(
-                            TemplateListResponse.WhatsappBusinessAccount.builder().id("id").build()
+                            WhatsappTemplateData.WhatsappBusinessAccount.builder().id("id").build()
                         )
                         .build()
                 )

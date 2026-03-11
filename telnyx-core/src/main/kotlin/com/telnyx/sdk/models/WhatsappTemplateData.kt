@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsapp.templates
+package com.telnyx.sdk.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -20,7 +20,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class TemplateListResponse
+class WhatsappTemplateData
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
@@ -266,11 +266,11 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [TemplateListResponse]. */
+        /** Returns a mutable builder for constructing an instance of [WhatsappTemplateData]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [TemplateListResponse]. */
+    /** A builder for [WhatsappTemplateData]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String> = JsonMissing.of()
@@ -288,20 +288,20 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(templateListResponse: TemplateListResponse) = apply {
-            id = templateListResponse.id
-            category = templateListResponse.category
-            components = templateListResponse.components.map { it.toMutableList() }
-            createdAt = templateListResponse.createdAt
-            language = templateListResponse.language
-            name = templateListResponse.name
-            recordType = templateListResponse.recordType
-            rejectionReason = templateListResponse.rejectionReason
-            status = templateListResponse.status
-            templateId = templateListResponse.templateId
-            updatedAt = templateListResponse.updatedAt
-            whatsappBusinessAccount = templateListResponse.whatsappBusinessAccount
-            additionalProperties = templateListResponse.additionalProperties.toMutableMap()
+        internal fun from(whatsappTemplateData: WhatsappTemplateData) = apply {
+            id = whatsappTemplateData.id
+            category = whatsappTemplateData.category
+            components = whatsappTemplateData.components.map { it.toMutableList() }
+            createdAt = whatsappTemplateData.createdAt
+            language = whatsappTemplateData.language
+            name = whatsappTemplateData.name
+            recordType = whatsappTemplateData.recordType
+            rejectionReason = whatsappTemplateData.rejectionReason
+            status = whatsappTemplateData.status
+            templateId = whatsappTemplateData.templateId
+            updatedAt = whatsappTemplateData.updatedAt
+            whatsappBusinessAccount = whatsappTemplateData.whatsappBusinessAccount
+            additionalProperties = whatsappTemplateData.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -474,12 +474,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [TemplateListResponse].
+         * Returns an immutable instance of [WhatsappTemplateData].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): TemplateListResponse =
-            TemplateListResponse(
+        fun build(): WhatsappTemplateData =
+            WhatsappTemplateData(
                 id,
                 category,
                 (components ?: JsonMissing.of()).map { it.toImmutable() },
@@ -498,7 +498,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): TemplateListResponse = apply {
+    fun validate(): WhatsappTemplateData = apply {
         if (validated) {
             return@apply
         }
@@ -823,7 +823,7 @@ private constructor(
             return true
         }
 
-        return other is TemplateListResponse &&
+        return other is WhatsappTemplateData &&
             id == other.id &&
             category == other.category &&
             components == other.components &&
@@ -860,5 +860,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TemplateListResponse{id=$id, category=$category, components=$components, createdAt=$createdAt, language=$language, name=$name, recordType=$recordType, rejectionReason=$rejectionReason, status=$status, templateId=$templateId, updatedAt=$updatedAt, whatsappBusinessAccount=$whatsappBusinessAccount, additionalProperties=$additionalProperties}"
+        "WhatsappTemplateData{id=$id, category=$category, components=$components, createdAt=$createdAt, language=$language, name=$name, recordType=$recordType, rejectionReason=$rejectionReason, status=$status, templateId=$templateId, updatedAt=$updatedAt, whatsappBusinessAccount=$whatsappBusinessAccount, additionalProperties=$additionalProperties}"
 }
