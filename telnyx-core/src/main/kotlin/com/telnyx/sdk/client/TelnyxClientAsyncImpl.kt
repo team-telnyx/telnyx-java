@@ -300,6 +300,10 @@ import com.telnyx.sdk.services.async.WebhookServiceAsync
 import com.telnyx.sdk.services.async.WebhookServiceAsyncImpl
 import com.telnyx.sdk.services.async.WellKnownServiceAsync
 import com.telnyx.sdk.services.async.WellKnownServiceAsyncImpl
+import com.telnyx.sdk.services.async.WhatsappMessageTemplateServiceAsync
+import com.telnyx.sdk.services.async.WhatsappMessageTemplateServiceAsyncImpl
+import com.telnyx.sdk.services.async.WhatsappServiceAsync
+import com.telnyx.sdk.services.async.WhatsappServiceAsyncImpl
 import com.telnyx.sdk.services.async.WireguardInterfaceServiceAsync
 import com.telnyx.sdk.services.async.WireguardInterfaceServiceAsyncImpl
 import com.telnyx.sdk.services.async.WireguardPeerServiceAsync
@@ -926,6 +930,14 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         SessionAnalysisServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val whatsapp: WhatsappServiceAsync by lazy {
+        WhatsappServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val whatsappMessageTemplates: WhatsappMessageTemplateServiceAsync by lazy {
+        WhatsappMessageTemplateServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1401,6 +1413,12 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
     override fun sessionAnalysis(): SessionAnalysisServiceAsync = sessionAnalysis
+
+    override fun whatsapp(): WhatsappServiceAsync = whatsapp
+
+    /** Manage Whatsapp message templates */
+    override fun whatsappMessageTemplates(): WhatsappMessageTemplateServiceAsync =
+        whatsappMessageTemplates
 
     override fun close() = clientOptions.close()
 
@@ -2054,6 +2072,15 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             SessionAnalysisServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val whatsapp: WhatsappServiceAsync.WithRawResponse by lazy {
+            WhatsappServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val whatsappMessageTemplates:
+            WhatsappMessageTemplateServiceAsync.WithRawResponse by lazy {
+            WhatsappMessageTemplateServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -2578,5 +2605,11 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
         override fun sessionAnalysis(): SessionAnalysisServiceAsync.WithRawResponse =
             sessionAnalysis
+
+        override fun whatsapp(): WhatsappServiceAsync.WithRawResponse = whatsapp
+
+        /** Manage Whatsapp message templates */
+        override fun whatsappMessageTemplates():
+            WhatsappMessageTemplateServiceAsync.WithRawResponse = whatsappMessageTemplates
     }
 }
