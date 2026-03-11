@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsapp.messagetemplates
+package com.telnyx.sdk.models.whatsapp.templates
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.telnyx.sdk.core.Enum
@@ -14,7 +14,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** List Whatsapp message templates */
-class MessageTemplateListParams
+class TemplateListParams
 private constructor(
     private val filterCategory: FilterCategory?,
     private val filterSearch: String?,
@@ -52,15 +52,13 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): MessageTemplateListParams = builder().build()
+        @JvmStatic fun none(): TemplateListParams = builder().build()
 
-        /**
-         * Returns a mutable builder for constructing an instance of [MessageTemplateListParams].
-         */
+        /** Returns a mutable builder for constructing an instance of [TemplateListParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [MessageTemplateListParams]. */
+    /** A builder for [TemplateListParams]. */
     class Builder internal constructor() {
 
         private var filterCategory: FilterCategory? = null
@@ -73,15 +71,15 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(messageTemplateListParams: MessageTemplateListParams) = apply {
-            filterCategory = messageTemplateListParams.filterCategory
-            filterSearch = messageTemplateListParams.filterSearch
-            filterStatus = messageTemplateListParams.filterStatus
-            filterWabaId = messageTemplateListParams.filterWabaId
-            pageNumber = messageTemplateListParams.pageNumber
-            pageSize = messageTemplateListParams.pageSize
-            additionalHeaders = messageTemplateListParams.additionalHeaders.toBuilder()
-            additionalQueryParams = messageTemplateListParams.additionalQueryParams.toBuilder()
+        internal fun from(templateListParams: TemplateListParams) = apply {
+            filterCategory = templateListParams.filterCategory
+            filterSearch = templateListParams.filterSearch
+            filterStatus = templateListParams.filterStatus
+            filterWabaId = templateListParams.filterWabaId
+            pageNumber = templateListParams.pageNumber
+            pageSize = templateListParams.pageSize
+            additionalHeaders = templateListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = templateListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter by category */
@@ -234,12 +232,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [MessageTemplateListParams].
+         * Returns an immutable instance of [TemplateListParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): MessageTemplateListParams =
-            MessageTemplateListParams(
+        fun build(): TemplateListParams =
+            TemplateListParams(
                 filterCategory,
                 filterSearch,
                 filterStatus,
@@ -407,7 +405,7 @@ private constructor(
             return true
         }
 
-        return other is MessageTemplateListParams &&
+        return other is TemplateListParams &&
             filterCategory == other.filterCategory &&
             filterSearch == other.filterSearch &&
             filterStatus == other.filterStatus &&
@@ -431,5 +429,5 @@ private constructor(
         )
 
     override fun toString() =
-        "MessageTemplateListParams{filterCategory=$filterCategory, filterSearch=$filterSearch, filterStatus=$filterStatus, filterWabaId=$filterWabaId, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "TemplateListParams{filterCategory=$filterCategory, filterSearch=$filterSearch, filterStatus=$filterStatus, filterWabaId=$filterWabaId, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

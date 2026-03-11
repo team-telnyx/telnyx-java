@@ -1,41 +1,41 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsapp.messagetemplates
+package com.telnyx.sdk.models.whatsapp.templates
 
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.models.MessagingPaginationMeta
-import com.telnyx.sdk.services.blocking.whatsapp.MessageTemplateService
+import com.telnyx.sdk.services.blocking.whatsapp.TemplateService
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrDefault
 import kotlin.jvm.optionals.getOrNull
 
-/** @see MessageTemplateService.list */
-class MessageTemplateListPage
+/** @see TemplateService.list */
+class TemplateListPage
 private constructor(
-    private val service: MessageTemplateService,
-    private val params: MessageTemplateListParams,
-    private val response: MessageTemplateListPageResponse,
-) : Page<MessageTemplateListResponse> {
+    private val service: TemplateService,
+    private val params: TemplateListParams,
+    private val response: TemplateListPageResponse,
+) : Page<TemplateListResponse> {
 
     /**
-     * Delegates to [MessageTemplateListPageResponse], but gracefully handles missing data.
+     * Delegates to [TemplateListPageResponse], but gracefully handles missing data.
      *
-     * @see MessageTemplateListPageResponse.data
+     * @see TemplateListPageResponse.data
      */
-    fun data(): List<MessageTemplateListResponse> =
+    fun data(): List<TemplateListResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
-     * Delegates to [MessageTemplateListPageResponse], but gracefully handles missing data.
+     * Delegates to [TemplateListPageResponse], but gracefully handles missing data.
      *
-     * @see MessageTemplateListPageResponse.meta
+     * @see TemplateListPageResponse.meta
      */
     fun meta(): Optional<MessagingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<MessageTemplateListResponse> = data()
+    override fun items(): List<TemplateListResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -48,27 +48,27 @@ private constructor(
         return pageCount == null || pageNumber < pageCount
     }
 
-    fun nextPageParams(): MessageTemplateListParams {
+    fun nextPageParams(): TemplateListParams {
         val pageNumber = params.pageNumber().getOrDefault(1)
         return params.toBuilder().pageNumber(pageNumber + 1).build()
     }
 
-    override fun nextPage(): MessageTemplateListPage = service.list(nextPageParams())
+    override fun nextPage(): TemplateListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<MessageTemplateListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<TemplateListResponse> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
-    fun params(): MessageTemplateListParams = params
+    fun params(): TemplateListParams = params
 
     /** The response that this page was parsed from. */
-    fun response(): MessageTemplateListPageResponse = response
+    fun response(): TemplateListPageResponse = response
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [MessageTemplateListPage].
+         * Returns a mutable builder for constructing an instance of [TemplateListPage].
          *
          * The following fields are required:
          * ```java
@@ -80,30 +80,30 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [MessageTemplateListPage]. */
+    /** A builder for [TemplateListPage]. */
     class Builder internal constructor() {
 
-        private var service: MessageTemplateService? = null
-        private var params: MessageTemplateListParams? = null
-        private var response: MessageTemplateListPageResponse? = null
+        private var service: TemplateService? = null
+        private var params: TemplateListParams? = null
+        private var response: TemplateListPageResponse? = null
 
         @JvmSynthetic
-        internal fun from(messageTemplateListPage: MessageTemplateListPage) = apply {
-            service = messageTemplateListPage.service
-            params = messageTemplateListPage.params
-            response = messageTemplateListPage.response
+        internal fun from(templateListPage: TemplateListPage) = apply {
+            service = templateListPage.service
+            params = templateListPage.params
+            response = templateListPage.response
         }
 
-        fun service(service: MessageTemplateService) = apply { this.service = service }
+        fun service(service: TemplateService) = apply { this.service = service }
 
         /** The parameters that were used to request this page. */
-        fun params(params: MessageTemplateListParams) = apply { this.params = params }
+        fun params(params: TemplateListParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun response(response: MessageTemplateListPageResponse) = apply { this.response = response }
+        fun response(response: TemplateListPageResponse) = apply { this.response = response }
 
         /**
-         * Returns an immutable instance of [MessageTemplateListPage].
+         * Returns an immutable instance of [TemplateListPage].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -116,8 +116,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): MessageTemplateListPage =
-            MessageTemplateListPage(
+        fun build(): TemplateListPage =
+            TemplateListPage(
                 checkRequired("service", service),
                 checkRequired("params", params),
                 checkRequired("response", response),
@@ -129,7 +129,7 @@ private constructor(
             return true
         }
 
-        return other is MessageTemplateListPage &&
+        return other is TemplateListPage &&
             service == other.service &&
             params == other.params &&
             response == other.response
@@ -138,5 +138,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(service, params, response)
 
     override fun toString() =
-        "MessageTemplateListPage{service=$service, params=$params, response=$response}"
+        "TemplateListPage{service=$service, params=$params, response=$response}"
 }

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsapp.messagetemplates
+package com.telnyx.sdk.models.whatsapp.templates
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -23,7 +23,7 @@ import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
 /** Create a Whatsapp message template */
-class MessageTemplateCreateParams
+class TemplateCreateParams
 private constructor(
     private val body: Body,
     private val additionalHeaders: Headers,
@@ -108,7 +108,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [MessageTemplateCreateParams].
+         * Returns a mutable builder for constructing an instance of [TemplateCreateParams].
          *
          * The following fields are required:
          * ```java
@@ -122,7 +122,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [MessageTemplateCreateParams]. */
+    /** A builder for [TemplateCreateParams]. */
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
@@ -130,10 +130,10 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(messageTemplateCreateParams: MessageTemplateCreateParams) = apply {
-            body = messageTemplateCreateParams.body.toBuilder()
-            additionalHeaders = messageTemplateCreateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = messageTemplateCreateParams.additionalQueryParams.toBuilder()
+        internal fun from(templateCreateParams: TemplateCreateParams) = apply {
+            body = templateCreateParams.body.toBuilder()
+            additionalHeaders = templateCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = templateCreateParams.additionalQueryParams.toBuilder()
         }
 
         /**
@@ -329,7 +329,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [MessageTemplateCreateParams].
+         * Returns an immutable instance of [TemplateCreateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -344,8 +344,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): MessageTemplateCreateParams =
-            MessageTemplateCreateParams(
+        fun build(): TemplateCreateParams =
+            TemplateCreateParams(
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -812,7 +812,7 @@ private constructor(
             return true
         }
 
-        return other is MessageTemplateCreateParams &&
+        return other is TemplateCreateParams &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -821,5 +821,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "MessageTemplateCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "TemplateCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -1,24 +1,26 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsapp.messagetemplates
+package com.telnyx.sdk.models.whatsapp.templates
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.MessagingPaginationMeta
 import java.time.OffsetDateTime
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class MessageTemplateCreateResponseTest {
+internal class TemplateListPageResponseTest {
 
     @Test
     fun create() {
-        val messageTemplateCreateResponse =
-            MessageTemplateCreateResponse.builder()
-                .data(
-                    MessageTemplateCreateResponse.Data.builder()
+        val templateListPageResponse =
+            TemplateListPageResponse.builder()
+                .addData(
+                    TemplateListResponse.builder()
                         .id("id")
-                        .category(MessageTemplateCreateResponse.Data.Category.MARKETING)
+                        .category(TemplateListResponse.Category.MARKETING)
                         .addComponent(JsonValue.from(mapOf<String, Any>()))
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .language("language")
@@ -29,19 +31,25 @@ internal class MessageTemplateCreateResponseTest {
                         .templateId("template_id")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .whatsappBusinessAccount(
-                            MessageTemplateCreateResponse.Data.WhatsappBusinessAccount.builder()
-                                .id("id")
-                                .build()
+                            TemplateListResponse.WhatsappBusinessAccount.builder().id("id").build()
                         )
+                        .build()
+                )
+                .meta(
+                    MessagingPaginationMeta.builder()
+                        .pageNumber(2L)
+                        .pageSize(25L)
+                        .totalPages(3L)
+                        .totalResults(55L)
                         .build()
                 )
                 .build()
 
-        assertThat(messageTemplateCreateResponse.data())
-            .contains(
-                MessageTemplateCreateResponse.Data.builder()
+        assertThat(templateListPageResponse.data().getOrNull())
+            .containsExactly(
+                TemplateListResponse.builder()
                     .id("id")
-                    .category(MessageTemplateCreateResponse.Data.Category.MARKETING)
+                    .category(TemplateListResponse.Category.MARKETING)
                     .addComponent(JsonValue.from(mapOf<String, Any>()))
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .language("language")
@@ -52,10 +60,17 @@ internal class MessageTemplateCreateResponseTest {
                     .templateId("template_id")
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .whatsappBusinessAccount(
-                        MessageTemplateCreateResponse.Data.WhatsappBusinessAccount.builder()
-                            .id("id")
-                            .build()
+                        TemplateListResponse.WhatsappBusinessAccount.builder().id("id").build()
                     )
+                    .build()
+            )
+        assertThat(templateListPageResponse.meta())
+            .contains(
+                MessagingPaginationMeta.builder()
+                    .pageNumber(2L)
+                    .pageSize(25L)
+                    .totalPages(3L)
+                    .totalResults(55L)
                     .build()
             )
     }
@@ -63,12 +78,12 @@ internal class MessageTemplateCreateResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val messageTemplateCreateResponse =
-            MessageTemplateCreateResponse.builder()
-                .data(
-                    MessageTemplateCreateResponse.Data.builder()
+        val templateListPageResponse =
+            TemplateListPageResponse.builder()
+                .addData(
+                    TemplateListResponse.builder()
                         .id("id")
-                        .category(MessageTemplateCreateResponse.Data.Category.MARKETING)
+                        .category(TemplateListResponse.Category.MARKETING)
                         .addComponent(JsonValue.from(mapOf<String, Any>()))
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .language("language")
@@ -79,21 +94,26 @@ internal class MessageTemplateCreateResponseTest {
                         .templateId("template_id")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .whatsappBusinessAccount(
-                            MessageTemplateCreateResponse.Data.WhatsappBusinessAccount.builder()
-                                .id("id")
-                                .build()
+                            TemplateListResponse.WhatsappBusinessAccount.builder().id("id").build()
                         )
+                        .build()
+                )
+                .meta(
+                    MessagingPaginationMeta.builder()
+                        .pageNumber(2L)
+                        .pageSize(25L)
+                        .totalPages(3L)
+                        .totalResults(55L)
                         .build()
                 )
                 .build()
 
-        val roundtrippedMessageTemplateCreateResponse =
+        val roundtrippedTemplateListPageResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(messageTemplateCreateResponse),
-                jacksonTypeRef<MessageTemplateCreateResponse>(),
+                jsonMapper.writeValueAsString(templateListPageResponse),
+                jacksonTypeRef<TemplateListPageResponse>(),
             )
 
-        assertThat(roundtrippedMessageTemplateCreateResponse)
-            .isEqualTo(messageTemplateCreateResponse)
+        assertThat(roundtrippedTemplateListPageResponse).isEqualTo(templateListPageResponse)
     }
 }
