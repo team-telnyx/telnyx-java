@@ -34,6 +34,7 @@ internal class ChatServiceAsyncTest {
                     .apiKeyRef("api_key_ref")
                     .bestOf(0L)
                     .earlyStopping(true)
+                    .enableThinking(true)
                     .frequencyPenalty(0.0)
                     .addGuidedChoice("string")
                     .guidedJson(

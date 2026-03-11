@@ -84,6 +84,16 @@ private constructor(
     fun earlyStopping(): Optional<Boolean> = body.earlyStopping()
 
     /**
+     * Whether to enable the thinking/reasoning phase for models that support it (e.g., QwQ, Qwen3).
+     * When set to false, the model will skip the internal reasoning step and respond directly,
+     * which can reduce latency. Defaults to true.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun enableThinking(): Optional<Boolean> = body.enableThinking()
+
+    /**
      * Higher values will penalize the model from repeating the same output tokens.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -274,6 +284,13 @@ private constructor(
     fun _earlyStopping(): JsonField<Boolean> = body._earlyStopping()
 
     /**
+     * Returns the raw JSON value of [enableThinking].
+     *
+     * Unlike [enableThinking], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _enableThinking(): JsonField<Boolean> = body._enableThinking()
+
+    /**
      * Returns the raw JSON value of [frequencyPenalty].
      *
      * Unlike [frequencyPenalty], this method doesn't throw if the JSON field has an unexpected
@@ -453,7 +470,7 @@ private constructor(
          * - [apiKeyRef]
          * - [bestOf]
          * - [earlyStopping]
-         * - [frequencyPenalty]
+         * - [enableThinking]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -521,6 +538,24 @@ private constructor(
          */
         fun earlyStopping(earlyStopping: JsonField<Boolean>) = apply {
             body.earlyStopping(earlyStopping)
+        }
+
+        /**
+         * Whether to enable the thinking/reasoning phase for models that support it (e.g., QwQ,
+         * Qwen3). When set to false, the model will skip the internal reasoning step and respond
+         * directly, which can reduce latency. Defaults to true.
+         */
+        fun enableThinking(enableThinking: Boolean) = apply { body.enableThinking(enableThinking) }
+
+        /**
+         * Sets [Builder.enableThinking] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.enableThinking] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun enableThinking(enableThinking: JsonField<Boolean>) = apply {
+            body.enableThinking(enableThinking)
         }
 
         /** Higher values will penalize the model from repeating the same output tokens. */
@@ -983,6 +1018,7 @@ private constructor(
         private val apiKeyRef: JsonField<String>,
         private val bestOf: JsonField<Long>,
         private val earlyStopping: JsonField<Boolean>,
+        private val enableThinking: JsonField<Boolean>,
         private val frequencyPenalty: JsonField<Double>,
         private val guidedChoice: JsonField<List<String>>,
         private val guidedJson: JsonField<GuidedJson>,
@@ -1017,6 +1053,9 @@ private constructor(
             @JsonProperty("early_stopping")
             @ExcludeMissing
             earlyStopping: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("enable_thinking")
+            @ExcludeMissing
+            enableThinking: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("frequency_penalty")
             @ExcludeMissing
             frequencyPenalty: JsonField<Double> = JsonMissing.of(),
@@ -1067,6 +1106,7 @@ private constructor(
             apiKeyRef,
             bestOf,
             earlyStopping,
+            enableThinking,
             frequencyPenalty,
             guidedChoice,
             guidedJson,
@@ -1125,6 +1165,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun earlyStopping(): Optional<Boolean> = earlyStopping.getOptional("early_stopping")
+
+        /**
+         * Whether to enable the thinking/reasoning phase for models that support it (e.g., QwQ,
+         * Qwen3). When set to false, the model will skip the internal reasoning step and respond
+         * directly, which can reduce latency. Defaults to true.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun enableThinking(): Optional<Boolean> = enableThinking.getOptional("enable_thinking")
 
         /**
          * Higher values will penalize the model from repeating the same output tokens.
@@ -1324,6 +1374,16 @@ private constructor(
         fun _earlyStopping(): JsonField<Boolean> = earlyStopping
 
         /**
+         * Returns the raw JSON value of [enableThinking].
+         *
+         * Unlike [enableThinking], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("enable_thinking")
+        @ExcludeMissing
+        fun _enableThinking(): JsonField<Boolean> = enableThinking
+
+        /**
          * Returns the raw JSON value of [frequencyPenalty].
          *
          * Unlike [frequencyPenalty], this method doesn't throw if the JSON field has an unexpected
@@ -1516,6 +1576,7 @@ private constructor(
             private var apiKeyRef: JsonField<String> = JsonMissing.of()
             private var bestOf: JsonField<Long> = JsonMissing.of()
             private var earlyStopping: JsonField<Boolean> = JsonMissing.of()
+            private var enableThinking: JsonField<Boolean> = JsonMissing.of()
             private var frequencyPenalty: JsonField<Double> = JsonMissing.of()
             private var guidedChoice: JsonField<MutableList<String>>? = null
             private var guidedJson: JsonField<GuidedJson> = JsonMissing.of()
@@ -1543,6 +1604,7 @@ private constructor(
                 apiKeyRef = body.apiKeyRef
                 bestOf = body.bestOf
                 earlyStopping = body.earlyStopping
+                enableThinking = body.enableThinking
                 frequencyPenalty = body.frequencyPenalty
                 guidedChoice = body.guidedChoice.map { it.toMutableList() }
                 guidedJson = body.guidedJson
@@ -1638,6 +1700,25 @@ private constructor(
              */
             fun earlyStopping(earlyStopping: JsonField<Boolean>) = apply {
                 this.earlyStopping = earlyStopping
+            }
+
+            /**
+             * Whether to enable the thinking/reasoning phase for models that support it (e.g., QwQ,
+             * Qwen3). When set to false, the model will skip the internal reasoning step and
+             * respond directly, which can reduce latency. Defaults to true.
+             */
+            fun enableThinking(enableThinking: Boolean) =
+                enableThinking(JsonField.of(enableThinking))
+
+            /**
+             * Sets [Builder.enableThinking] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.enableThinking] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun enableThinking(enableThinking: JsonField<Boolean>) = apply {
+                this.enableThinking = enableThinking
             }
 
             /** Higher values will penalize the model from repeating the same output tokens. */
@@ -2013,6 +2094,7 @@ private constructor(
                     apiKeyRef,
                     bestOf,
                     earlyStopping,
+                    enableThinking,
                     frequencyPenalty,
                     (guidedChoice ?: JsonMissing.of()).map { it.toImmutable() },
                     guidedJson,
@@ -2047,6 +2129,7 @@ private constructor(
             apiKeyRef()
             bestOf()
             earlyStopping()
+            enableThinking()
             frequencyPenalty()
             guidedChoice()
             guidedJson().ifPresent { it.validate() }
@@ -2089,6 +2172,7 @@ private constructor(
                 (if (apiKeyRef.asKnown().isPresent) 1 else 0) +
                 (if (bestOf.asKnown().isPresent) 1 else 0) +
                 (if (earlyStopping.asKnown().isPresent) 1 else 0) +
+                (if (enableThinking.asKnown().isPresent) 1 else 0) +
                 (if (frequencyPenalty.asKnown().isPresent) 1 else 0) +
                 (guidedChoice.asKnown().getOrNull()?.size ?: 0) +
                 (guidedJson.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2119,6 +2203,7 @@ private constructor(
                 apiKeyRef == other.apiKeyRef &&
                 bestOf == other.bestOf &&
                 earlyStopping == other.earlyStopping &&
+                enableThinking == other.enableThinking &&
                 frequencyPenalty == other.frequencyPenalty &&
                 guidedChoice == other.guidedChoice &&
                 guidedJson == other.guidedJson &&
@@ -2147,6 +2232,7 @@ private constructor(
                 apiKeyRef,
                 bestOf,
                 earlyStopping,
+                enableThinking,
                 frequencyPenalty,
                 guidedChoice,
                 guidedJson,
@@ -2173,7 +2259,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{messages=$messages, apiKeyRef=$apiKeyRef, bestOf=$bestOf, earlyStopping=$earlyStopping, frequencyPenalty=$frequencyPenalty, guidedChoice=$guidedChoice, guidedJson=$guidedJson, guidedRegex=$guidedRegex, lengthPenalty=$lengthPenalty, logprobs=$logprobs, maxTokens=$maxTokens, minP=$minP, model=$model, n=$n, presencePenalty=$presencePenalty, responseFormat=$responseFormat, stream=$stream, temperature=$temperature, toolChoice=$toolChoice, tools=$tools, topLogprobs=$topLogprobs, topP=$topP, useBeamSearch=$useBeamSearch, additionalProperties=$additionalProperties}"
+            "Body{messages=$messages, apiKeyRef=$apiKeyRef, bestOf=$bestOf, earlyStopping=$earlyStopping, enableThinking=$enableThinking, frequencyPenalty=$frequencyPenalty, guidedChoice=$guidedChoice, guidedJson=$guidedJson, guidedRegex=$guidedRegex, lengthPenalty=$lengthPenalty, logprobs=$logprobs, maxTokens=$maxTokens, minP=$minP, model=$model, n=$n, presencePenalty=$presencePenalty, responseFormat=$responseFormat, stream=$stream, temperature=$temperature, toolChoice=$toolChoice, tools=$tools, topLogprobs=$topLogprobs, topP=$topP, useBeamSearch=$useBeamSearch, additionalProperties=$additionalProperties}"
     }
 
     class Message
