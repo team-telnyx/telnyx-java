@@ -148,6 +148,8 @@ import com.telnyx.sdk.services.blocking.VerifiedNumberService
 import com.telnyx.sdk.services.blocking.VerifyProfileService
 import com.telnyx.sdk.services.blocking.VirtualCrossConnectService
 import com.telnyx.sdk.services.blocking.VirtualCrossConnectsCoverageService
+import com.telnyx.sdk.services.blocking.VoiceCloneService
+import com.telnyx.sdk.services.blocking.VoiceDesignService
 import com.telnyx.sdk.services.blocking.WebhookDeliveryService
 import com.telnyx.sdk.services.blocking.WebhookService
 import com.telnyx.sdk.services.blocking.WellKnownService
@@ -642,6 +644,12 @@ interface TelnyxClient {
     /** Manage Whatsapp message templates */
     fun whatsappMessageTemplates(): WhatsappMessageTemplateService
 
+    /** Capture and manage voice identities as clones for use in text-to-speech synthesis. */
+    fun voiceClones(): VoiceCloneService
+
+    /** Create and manage AI-generated voice designs using natural language prompts. */
+    fun voiceDesigns(): VoiceDesignService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1111,5 +1119,11 @@ interface TelnyxClient {
 
         /** Manage Whatsapp message templates */
         fun whatsappMessageTemplates(): WhatsappMessageTemplateService.WithRawResponse
+
+        /** Capture and manage voice identities as clones for use in text-to-speech synthesis. */
+        fun voiceClones(): VoiceCloneService.WithRawResponse
+
+        /** Create and manage AI-generated voice designs using natural language prompts. */
+        fun voiceDesigns(): VoiceDesignService.WithRawResponse
     }
 }
