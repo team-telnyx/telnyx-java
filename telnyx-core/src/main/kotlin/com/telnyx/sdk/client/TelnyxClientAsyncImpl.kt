@@ -294,6 +294,10 @@ import com.telnyx.sdk.services.async.VirtualCrossConnectServiceAsync
 import com.telnyx.sdk.services.async.VirtualCrossConnectServiceAsyncImpl
 import com.telnyx.sdk.services.async.VirtualCrossConnectsCoverageServiceAsync
 import com.telnyx.sdk.services.async.VirtualCrossConnectsCoverageServiceAsyncImpl
+import com.telnyx.sdk.services.async.VoiceCloneServiceAsync
+import com.telnyx.sdk.services.async.VoiceCloneServiceAsyncImpl
+import com.telnyx.sdk.services.async.VoiceDesignServiceAsync
+import com.telnyx.sdk.services.async.VoiceDesignServiceAsyncImpl
 import com.telnyx.sdk.services.async.WebhookDeliveryServiceAsync
 import com.telnyx.sdk.services.async.WebhookDeliveryServiceAsyncImpl
 import com.telnyx.sdk.services.async.WebhookServiceAsync
@@ -938,6 +942,14 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         WhatsappMessageTemplateServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val voiceClones: VoiceCloneServiceAsync by lazy {
+        VoiceCloneServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val voiceDesigns: VoiceDesignServiceAsync by lazy {
+        VoiceDesignServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1419,6 +1431,12 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     /** Manage Whatsapp message templates */
     override fun whatsappMessageTemplates(): WhatsappMessageTemplateServiceAsync =
         whatsappMessageTemplates
+
+    /** Capture and manage voice identities as clones for use in text-to-speech synthesis. */
+    override fun voiceClones(): VoiceCloneServiceAsync = voiceClones
+
+    /** Create and manage AI-generated voice designs using natural language prompts. */
+    override fun voiceDesigns(): VoiceDesignServiceAsync = voiceDesigns
 
     override fun close() = clientOptions.close()
 
@@ -2081,6 +2099,14 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             WhatsappMessageTemplateServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val voiceClones: VoiceCloneServiceAsync.WithRawResponse by lazy {
+            VoiceCloneServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val voiceDesigns: VoiceDesignServiceAsync.WithRawResponse by lazy {
+            VoiceDesignServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -2611,5 +2637,11 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         /** Manage Whatsapp message templates */
         override fun whatsappMessageTemplates():
             WhatsappMessageTemplateServiceAsync.WithRawResponse = whatsappMessageTemplates
+
+        /** Capture and manage voice identities as clones for use in text-to-speech synthesis. */
+        override fun voiceClones(): VoiceCloneServiceAsync.WithRawResponse = voiceClones
+
+        /** Create and manage AI-generated voice designs using natural language prompts. */
+        override fun voiceDesigns(): VoiceDesignServiceAsync.WithRawResponse = voiceDesigns
     }
 }
