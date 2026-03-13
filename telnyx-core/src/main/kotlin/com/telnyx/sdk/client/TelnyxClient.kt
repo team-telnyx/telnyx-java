@@ -160,6 +160,7 @@ import com.telnyx.sdk.services.blocking.WireguardPeerService
 import com.telnyx.sdk.services.blocking.WirelessBlocklistService
 import com.telnyx.sdk.services.blocking.WirelessBlocklistValueService
 import com.telnyx.sdk.services.blocking.WirelessService
+import com.telnyx.sdk.services.blocking.X402Service
 import java.util.function.Consumer
 
 /**
@@ -650,6 +651,8 @@ interface TelnyxClient {
     /** Create and manage AI-generated voice designs using natural language prompts. */
     fun voiceDesigns(): VoiceDesignService
 
+    fun x402(): X402Service
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1125,5 +1128,7 @@ interface TelnyxClient {
 
         /** Create and manage AI-generated voice designs using natural language prompts. */
         fun voiceDesigns(): VoiceDesignService.WithRawResponse
+
+        fun x402(): X402Service.WithRawResponse
     }
 }
