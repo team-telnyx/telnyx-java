@@ -8,63 +8,62 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class VoiceCloneListResponseTest {
+internal class VoiceCloneDataTest {
 
     @Test
     fun create() {
-        val voiceCloneListResponse =
-            VoiceCloneListResponse.builder()
+        val voiceCloneData =
+            VoiceCloneData.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .gender(VoiceCloneListResponse.Gender.MALE)
+                .gender(VoiceCloneData.Gender.MALE)
                 .label("label")
                 .language("language")
                 .name("name")
-                .recordType(VoiceCloneListResponse.RecordType.VOICE_CLONE)
+                .recordType(VoiceCloneData.RecordType.VOICE_CLONE)
                 .sourceVoiceDesignId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .sourceVoiceDesignVersion(0L)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
-        assertThat(voiceCloneListResponse.id()).contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(voiceCloneListResponse.createdAt())
+        assertThat(voiceCloneData.id()).contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(voiceCloneData.createdAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(voiceCloneListResponse.gender()).contains(VoiceCloneListResponse.Gender.MALE)
-        assertThat(voiceCloneListResponse.label()).contains("label")
-        assertThat(voiceCloneListResponse.language()).contains("language")
-        assertThat(voiceCloneListResponse.name()).contains("name")
-        assertThat(voiceCloneListResponse.recordType())
-            .contains(VoiceCloneListResponse.RecordType.VOICE_CLONE)
-        assertThat(voiceCloneListResponse.sourceVoiceDesignId())
+        assertThat(voiceCloneData.gender()).contains(VoiceCloneData.Gender.MALE)
+        assertThat(voiceCloneData.label()).contains("label")
+        assertThat(voiceCloneData.language()).contains("language")
+        assertThat(voiceCloneData.name()).contains("name")
+        assertThat(voiceCloneData.recordType()).contains(VoiceCloneData.RecordType.VOICE_CLONE)
+        assertThat(voiceCloneData.sourceVoiceDesignId())
             .contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(voiceCloneListResponse.sourceVoiceDesignVersion()).contains(0L)
-        assertThat(voiceCloneListResponse.updatedAt())
+        assertThat(voiceCloneData.sourceVoiceDesignVersion()).contains(0L)
+        assertThat(voiceCloneData.updatedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val voiceCloneListResponse =
-            VoiceCloneListResponse.builder()
+        val voiceCloneData =
+            VoiceCloneData.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .gender(VoiceCloneListResponse.Gender.MALE)
+                .gender(VoiceCloneData.Gender.MALE)
                 .label("label")
                 .language("language")
                 .name("name")
-                .recordType(VoiceCloneListResponse.RecordType.VOICE_CLONE)
+                .recordType(VoiceCloneData.RecordType.VOICE_CLONE)
                 .sourceVoiceDesignId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .sourceVoiceDesignVersion(0L)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
-        val roundtrippedVoiceCloneListResponse =
+        val roundtrippedVoiceCloneData =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(voiceCloneListResponse),
-                jacksonTypeRef<VoiceCloneListResponse>(),
+                jsonMapper.writeValueAsString(voiceCloneData),
+                jacksonTypeRef<VoiceCloneData>(),
             )
 
-        assertThat(roundtrippedVoiceCloneListResponse).isEqualTo(voiceCloneListResponse)
+        assertThat(roundtrippedVoiceCloneData).isEqualTo(voiceCloneData)
     }
 }
