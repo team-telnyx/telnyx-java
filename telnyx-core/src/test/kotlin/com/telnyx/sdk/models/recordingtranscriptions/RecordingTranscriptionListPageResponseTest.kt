@@ -9,12 +9,12 @@ import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class RecordingTranscriptionListResponseTest {
+internal class RecordingTranscriptionListPageResponseTest {
 
     @Test
     fun create() {
-        val recordingTranscriptionListResponse =
-            RecordingTranscriptionListResponse.builder()
+        val recordingTranscriptionListPageResponse =
+            RecordingTranscriptionListPageResponse.builder()
                 .addData(
                     RecordingTranscription.builder()
                         .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
@@ -28,7 +28,7 @@ internal class RecordingTranscriptionListResponseTest {
                         .build()
                 )
                 .meta(
-                    RecordingTranscriptionListResponse.Meta.builder()
+                    RecordingTranscriptionListPageResponse.Meta.builder()
                         .cursors(
                             Cursor.builder()
                                 .after(
@@ -49,7 +49,7 @@ internal class RecordingTranscriptionListResponseTest {
                 )
                 .build()
 
-        assertThat(recordingTranscriptionListResponse.data().getOrNull())
+        assertThat(recordingTranscriptionListPageResponse.data().getOrNull())
             .containsExactly(
                 RecordingTranscription.builder()
                     .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
@@ -62,9 +62,9 @@ internal class RecordingTranscriptionListResponseTest {
                     .updatedAt("2018-02-02T22:25:27.521Z")
                     .build()
             )
-        assertThat(recordingTranscriptionListResponse.meta())
+        assertThat(recordingTranscriptionListPageResponse.meta())
             .contains(
-                RecordingTranscriptionListResponse.Meta.builder()
+                RecordingTranscriptionListPageResponse.Meta.builder()
                     .cursors(
                         Cursor.builder()
                             .after(
@@ -88,8 +88,8 @@ internal class RecordingTranscriptionListResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val recordingTranscriptionListResponse =
-            RecordingTranscriptionListResponse.builder()
+        val recordingTranscriptionListPageResponse =
+            RecordingTranscriptionListPageResponse.builder()
                 .addData(
                     RecordingTranscription.builder()
                         .id("3fa85f64-5717-4562-b3fc-2c963f66afa6")
@@ -103,7 +103,7 @@ internal class RecordingTranscriptionListResponseTest {
                         .build()
                 )
                 .meta(
-                    RecordingTranscriptionListResponse.Meta.builder()
+                    RecordingTranscriptionListPageResponse.Meta.builder()
                         .cursors(
                             Cursor.builder()
                                 .after(
@@ -124,13 +124,13 @@ internal class RecordingTranscriptionListResponseTest {
                 )
                 .build()
 
-        val roundtrippedRecordingTranscriptionListResponse =
+        val roundtrippedRecordingTranscriptionListPageResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(recordingTranscriptionListResponse),
-                jacksonTypeRef<RecordingTranscriptionListResponse>(),
+                jsonMapper.writeValueAsString(recordingTranscriptionListPageResponse),
+                jacksonTypeRef<RecordingTranscriptionListPageResponse>(),
             )
 
-        assertThat(roundtrippedRecordingTranscriptionListResponse)
-            .isEqualTo(recordingTranscriptionListResponse)
+        assertThat(roundtrippedRecordingTranscriptionListPageResponse)
+            .isEqualTo(recordingTranscriptionListPageResponse)
     }
 }

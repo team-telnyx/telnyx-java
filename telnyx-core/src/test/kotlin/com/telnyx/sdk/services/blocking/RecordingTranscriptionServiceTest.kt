@@ -26,9 +26,9 @@ internal class RecordingTranscriptionServiceTest {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val recordingTranscriptionService = client.recordingTranscriptions()
 
-        val recordingTranscriptions = recordingTranscriptionService.list()
+        val page = recordingTranscriptionService.list()
 
-        recordingTranscriptions.validate()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")

@@ -5,8 +5,9 @@ package com.telnyx.sdk.services.blocking.recordings
 import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
-import com.telnyx.sdk.core.http.HttpResponse
+import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.recordings.actions.ActionDeleteParams
+import com.telnyx.sdk.models.recordings.actions.ActionDeleteResponse
 import java.util.function.Consumer
 
 /** Call Recordings operations. */
@@ -25,10 +26,14 @@ interface ActionService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionService
 
     /** Permanently deletes a list of call recordings. */
-    fun delete(params: ActionDeleteParams) = delete(params, RequestOptions.none())
+    fun delete(params: ActionDeleteParams): ActionDeleteResponse =
+        delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(params: ActionDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
+    fun delete(
+        params: ActionDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionDeleteResponse
 
     /** A view of [ActionService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -45,13 +50,14 @@ interface ActionService {
          * same as [ActionService.delete].
          */
         @MustBeClosed
-        fun delete(params: ActionDeleteParams): HttpResponse = delete(params, RequestOptions.none())
+        fun delete(params: ActionDeleteParams): HttpResponseFor<ActionDeleteResponse> =
+            delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             params: ActionDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
+        ): HttpResponseFor<ActionDeleteResponse>
     }
 }

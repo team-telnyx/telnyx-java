@@ -4,17 +4,19 @@ package com.telnyx.sdk.services.async.recordings
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
-import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
+import com.telnyx.sdk.core.handlers.jsonHandler
 import com.telnyx.sdk.core.http.HttpMethod
 import com.telnyx.sdk.core.http.HttpRequest
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
+import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.recordings.actions.ActionDeleteParams
+import com.telnyx.sdk.models.recordings.actions.ActionDeleteResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -34,9 +36,9 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun delete(
         params: ActionDeleteParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
+    ): CompletableFuture<ActionDeleteResponse> =
         // post /recordings/actions/delete
-        withRawResponse().delete(params, requestOptions).thenAccept {}
+        withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ActionServiceAsync.WithRawResponse {
@@ -51,12 +53,13 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val deleteHandler: Handler<Void?> = emptyHandler()
+        private val deleteHandler: Handler<ActionDeleteResponse> =
+            jsonHandler<ActionDeleteResponse>(clientOptions.jsonMapper)
 
         override fun delete(
             params: ActionDeleteParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
+        ): CompletableFuture<HttpResponseFor<ActionDeleteResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -70,7 +73,13 @@ class ActionServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response.use { deleteHandler.handle(it) }
+                        response
+                            .use { deleteHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
                 }
         }

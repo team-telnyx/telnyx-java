@@ -7,8 +7,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionDeleteParams
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionDeleteResponse
+import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionListPageAsync
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionListParams
-import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionListResponse
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionRetrieveParams
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -77,24 +77,24 @@ interface RecordingTranscriptionServiceAsync {
         )
 
     /** Returns a list of your recording transcriptions. */
-    fun list(): CompletableFuture<RecordingTranscriptionListResponse> =
+    fun list(): CompletableFuture<RecordingTranscriptionListPageAsync> =
         list(RecordingTranscriptionListParams.none())
 
     /** @see list */
     fun list(
         params: RecordingTranscriptionListParams = RecordingTranscriptionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RecordingTranscriptionListResponse>
+    ): CompletableFuture<RecordingTranscriptionListPageAsync>
 
     /** @see list */
     fun list(
         params: RecordingTranscriptionListParams = RecordingTranscriptionListParams.none()
-    ): CompletableFuture<RecordingTranscriptionListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<RecordingTranscriptionListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         requestOptions: RequestOptions
-    ): CompletableFuture<RecordingTranscriptionListResponse> =
+    ): CompletableFuture<RecordingTranscriptionListPageAsync> =
         list(RecordingTranscriptionListParams.none(), requestOptions)
 
     /** Permanently deletes a recording transcription. */
@@ -212,25 +212,25 @@ interface RecordingTranscriptionServiceAsync {
          * Returns a raw HTTP response for `get /recording_transcriptions`, but is otherwise the
          * same as [RecordingTranscriptionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<RecordingTranscriptionListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<RecordingTranscriptionListPageAsync>> =
             list(RecordingTranscriptionListParams.none())
 
         /** @see list */
         fun list(
             params: RecordingTranscriptionListParams = RecordingTranscriptionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RecordingTranscriptionListResponse>>
+        ): CompletableFuture<HttpResponseFor<RecordingTranscriptionListPageAsync>>
 
         /** @see list */
         fun list(
             params: RecordingTranscriptionListParams = RecordingTranscriptionListParams.none()
-        ): CompletableFuture<HttpResponseFor<RecordingTranscriptionListResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecordingTranscriptionListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<RecordingTranscriptionListResponse>> =
+        ): CompletableFuture<HttpResponseFor<RecordingTranscriptionListPageAsync>> =
             list(RecordingTranscriptionListParams.none(), requestOptions)
 
         /**
