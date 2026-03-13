@@ -6,13 +6,25 @@ import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Returns a list of your recording transcriptions. */
 class RecordingTranscriptionListParams
 private constructor(
+    private val filter: Filter?,
+    private val pageNumber: Long?,
+    private val pageSize: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    /** Filter recording transcriptions by various attributes. */
+    fun filter(): Optional<Filter> = Optional.ofNullable(filter)
+
+    fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
+
+    fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -36,16 +48,52 @@ private constructor(
     /** A builder for [RecordingTranscriptionListParams]. */
     class Builder internal constructor() {
 
+        private var filter: Filter? = null
+        private var pageNumber: Long? = null
+        private var pageSize: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(recordingTranscriptionListParams: RecordingTranscriptionListParams) =
             apply {
+                filter = recordingTranscriptionListParams.filter
+                pageNumber = recordingTranscriptionListParams.pageNumber
+                pageSize = recordingTranscriptionListParams.pageSize
                 additionalHeaders = recordingTranscriptionListParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     recordingTranscriptionListParams.additionalQueryParams.toBuilder()
             }
+
+        /** Filter recording transcriptions by various attributes. */
+        fun filter(filter: Filter?) = apply { this.filter = filter }
+
+        /** Alias for calling [Builder.filter] with `filter.orElse(null)`. */
+        fun filter(filter: Optional<Filter>) = filter(filter.getOrNull())
+
+        fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
+
+        /**
+         * Alias for [Builder.pageNumber].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageNumber(pageNumber: Long) = pageNumber(pageNumber as Long?)
+
+        /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
+        fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
+
+        fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
+
+        /**
+         * Alias for [Builder.pageSize].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageSize(pageSize: Long) = pageSize(pageSize as Long?)
+
+        /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
+        fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -152,6 +200,9 @@ private constructor(
          */
         fun build(): RecordingTranscriptionListParams =
             RecordingTranscriptionListParams(
+                filter,
+                pageNumber,
+                pageSize,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -159,7 +210,293 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                filter?.let {
+                    it.createdAt().ifPresent {
+                        it.gte().ifPresent { put("filter[created_at][gte]", it) }
+                        it.lte().ifPresent { put("filter[created_at][lte]", it) }
+                        it._additionalProperties().keys().forEach { key ->
+                            it._additionalProperties().values(key).forEach { value ->
+                                put("filter[created_at][$key]", value)
+                            }
+                        }
+                    }
+                    it.recordingId().ifPresent { put("filter[recording_id]", it) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("filter[$key]", value)
+                        }
+                    }
+                }
+                pageNumber?.let { put("page[number]", it.toString()) }
+                pageSize?.let { put("page[size]", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
+
+    /** Filter recording transcriptions by various attributes. */
+    class Filter
+    private constructor(
+        private val createdAt: CreatedAt?,
+        private val recordingId: String?,
+        private val additionalProperties: QueryParams,
+    ) {
+
+        fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
+
+        /**
+         * If present, transcriptions will be filtered to those associated with the given recording.
+         */
+        fun recordingId(): Optional<String> = Optional.ofNullable(recordingId)
+
+        /** Query params to send with the request. */
+        fun _additionalProperties(): QueryParams = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Filter]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Filter]. */
+        class Builder internal constructor() {
+
+            private var createdAt: CreatedAt? = null
+            private var recordingId: String? = null
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+            @JvmSynthetic
+            internal fun from(filter: Filter) = apply {
+                createdAt = filter.createdAt
+                recordingId = filter.recordingId
+                additionalProperties = filter.additionalProperties.toBuilder()
+            }
+
+            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
+
+            /** Alias for calling [Builder.createdAt] with `createdAt.orElse(null)`. */
+            fun createdAt(createdAt: Optional<CreatedAt>) = createdAt(createdAt.getOrNull())
+
+            /**
+             * If present, transcriptions will be filtered to those associated with the given
+             * recording.
+             */
+            fun recordingId(recordingId: String?) = apply { this.recordingId = recordingId }
+
+            /** Alias for calling [Builder.recordingId] with `recordingId.orElse(null)`. */
+            fun recordingId(recordingId: Optional<String>) = recordingId(recordingId.getOrNull())
+
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            /**
+             * Returns an immutable instance of [Filter].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Filter = Filter(createdAt, recordingId, additionalProperties.build())
+        }
+
+        class CreatedAt
+        private constructor(
+            private val gte: String?,
+            private val lte: String?,
+            private val additionalProperties: QueryParams,
+        ) {
+
+            /** Returns only transcriptions created later than or at given ISO 8601 datetime. */
+            fun gte(): Optional<String> = Optional.ofNullable(gte)
+
+            /** Returns only transcriptions created earlier than or at given ISO 8601 datetime. */
+            fun lte(): Optional<String> = Optional.ofNullable(lte)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [CreatedAt]. */
+            class Builder internal constructor() {
+
+                private var gte: String? = null
+                private var lte: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+                @JvmSynthetic
+                internal fun from(createdAt: CreatedAt) = apply {
+                    gte = createdAt.gte
+                    lte = createdAt.lte
+                    additionalProperties = createdAt.additionalProperties.toBuilder()
+                }
+
+                /** Returns only transcriptions created later than or at given ISO 8601 datetime. */
+                fun gte(gte: String?) = apply { this.gte = gte }
+
+                /** Alias for calling [Builder.gte] with `gte.orElse(null)`. */
+                fun gte(gte: Optional<String>) = gte(gte.getOrNull())
+
+                /**
+                 * Returns only transcriptions created earlier than or at given ISO 8601 datetime.
+                 */
+                fun lte(lte: String?) = apply { this.lte = lte }
+
+                /** Alias for calling [Builder.lte] with `lte.orElse(null)`. */
+                fun lte(lte: Optional<String>) = lte(lte.getOrNull())
+
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
+                /**
+                 * Returns an immutable instance of [CreatedAt].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): CreatedAt = CreatedAt(gte, lte, additionalProperties.build())
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is CreatedAt &&
+                    gte == other.gte &&
+                    lte == other.lte &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(gte, lte, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "CreatedAt{gte=$gte, lte=$lte, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Filter &&
+                createdAt == other.createdAt &&
+                recordingId == other.recordingId &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(createdAt, recordingId, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Filter{createdAt=$createdAt, recordingId=$recordingId, additionalProperties=$additionalProperties}"
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -167,12 +504,16 @@ private constructor(
         }
 
         return other is RecordingTranscriptionListParams &&
+            filter == other.filter &&
+            pageNumber == other.pageNumber &&
+            pageSize == other.pageSize &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(filter, pageNumber, pageSize, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "RecordingTranscriptionListParams{additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "RecordingTranscriptionListParams{filter=$filter, pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

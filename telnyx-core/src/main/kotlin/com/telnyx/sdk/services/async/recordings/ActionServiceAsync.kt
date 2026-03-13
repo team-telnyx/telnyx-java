@@ -4,8 +4,9 @@ package com.telnyx.sdk.services.async.recordings
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
-import com.telnyx.sdk.core.http.HttpResponse
+import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.recordings.actions.ActionDeleteParams
+import com.telnyx.sdk.models.recordings.actions.ActionDeleteResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -25,14 +26,14 @@ interface ActionServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionServiceAsync
 
     /** Permanently deletes a list of call recordings. */
-    fun delete(params: ActionDeleteParams): CompletableFuture<Void?> =
+    fun delete(params: ActionDeleteParams): CompletableFuture<ActionDeleteResponse> =
         delete(params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: ActionDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
+    ): CompletableFuture<ActionDeleteResponse>
 
     /**
      * A view of [ActionServiceAsync] that provides access to raw HTTP responses for each method.
@@ -52,13 +53,15 @@ interface ActionServiceAsync {
          * Returns a raw HTTP response for `post /recordings/actions/delete`, but is otherwise the
          * same as [ActionServiceAsync.delete].
          */
-        fun delete(params: ActionDeleteParams): CompletableFuture<HttpResponse> =
+        fun delete(
+            params: ActionDeleteParams
+        ): CompletableFuture<HttpResponseFor<ActionDeleteResponse>> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             params: ActionDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
+        ): CompletableFuture<HttpResponseFor<ActionDeleteResponse>>
     }
 }

@@ -15,7 +15,7 @@ internal class ActionServiceAsyncTest {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val actionServiceAsync = client.recordings().actions()
 
-        val future =
+        val actionFuture =
             actionServiceAsync.delete(
                 ActionDeleteParams.builder()
                     .addId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
@@ -23,6 +23,7 @@ internal class ActionServiceAsyncTest {
                     .build()
             )
 
-        val response = future.get()
+        val action = actionFuture.get()
+        action.validate()
     }
 }

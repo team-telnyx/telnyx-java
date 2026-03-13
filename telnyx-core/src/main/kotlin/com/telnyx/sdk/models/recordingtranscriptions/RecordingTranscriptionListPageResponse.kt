@@ -19,7 +19,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class RecordingTranscriptionListResponse
+class RecordingTranscriptionListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<RecordingTranscription>>,
@@ -79,12 +79,12 @@ private constructor(
 
         /**
          * Returns a mutable builder for constructing an instance of
-         * [RecordingTranscriptionListResponse].
+         * [RecordingTranscriptionListPageResponse].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [RecordingTranscriptionListResponse]. */
+    /** A builder for [RecordingTranscriptionListPageResponse]. */
     class Builder internal constructor() {
 
         private var data: JsonField<MutableList<RecordingTranscription>>? = null
@@ -92,13 +92,14 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(recordingTranscriptionListResponse: RecordingTranscriptionListResponse) =
-            apply {
-                data = recordingTranscriptionListResponse.data.map { it.toMutableList() }
-                meta = recordingTranscriptionListResponse.meta
-                additionalProperties =
-                    recordingTranscriptionListResponse.additionalProperties.toMutableMap()
-            }
+        internal fun from(
+            recordingTranscriptionListPageResponse: RecordingTranscriptionListPageResponse
+        ) = apply {
+            data = recordingTranscriptionListPageResponse.data.map { it.toMutableList() }
+            meta = recordingTranscriptionListPageResponse.meta
+            additionalProperties =
+                recordingTranscriptionListPageResponse.additionalProperties.toMutableMap()
+        }
 
         fun data(data: List<RecordingTranscription>) = data(JsonField.of(data))
 
@@ -155,12 +156,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [RecordingTranscriptionListResponse].
+         * Returns an immutable instance of [RecordingTranscriptionListPageResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): RecordingTranscriptionListResponse =
-            RecordingTranscriptionListResponse(
+        fun build(): RecordingTranscriptionListPageResponse =
+            RecordingTranscriptionListPageResponse(
                 (data ?: JsonMissing.of()).map { it.toImmutable() },
                 meta,
                 additionalProperties.toMutableMap(),
@@ -169,7 +170,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): RecordingTranscriptionListResponse = apply {
+    fun validate(): RecordingTranscriptionListPageResponse = apply {
         if (validated) {
             return@apply
         }
@@ -412,7 +413,7 @@ private constructor(
             return true
         }
 
-        return other is RecordingTranscriptionListResponse &&
+        return other is RecordingTranscriptionListPageResponse &&
             data == other.data &&
             meta == other.meta &&
             additionalProperties == other.additionalProperties
@@ -423,5 +424,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RecordingTranscriptionListResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
+        "RecordingTranscriptionListPageResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
 }

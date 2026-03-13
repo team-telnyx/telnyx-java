@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionDeleteParams
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionDeleteResponse
+import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionListPageAsync
+import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionListPageResponse
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionListParams
-import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionListResponse
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionRetrieveParams
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionRetrieveResponse
 import java.util.concurrent.CompletableFuture
@@ -55,7 +56,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun list(
         params: RecordingTranscriptionListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RecordingTranscriptionListResponse> =
+    ): CompletableFuture<RecordingTranscriptionListPageAsync> =
         // get /recording_transcriptions
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -112,13 +113,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 }
         }
 
-        private val listHandler: Handler<RecordingTranscriptionListResponse> =
-            jsonHandler<RecordingTranscriptionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RecordingTranscriptionListPageResponse> =
+            jsonHandler<RecordingTranscriptionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RecordingTranscriptionListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RecordingTranscriptionListResponse>> {
+        ): CompletableFuture<HttpResponseFor<RecordingTranscriptionListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -137,6 +138,14 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                RecordingTranscriptionListPageAsync.builder()
+                                    .service(RecordingTranscriptionServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

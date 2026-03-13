@@ -4,17 +4,19 @@ package com.telnyx.sdk.services.blocking.recordings
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
-import com.telnyx.sdk.core.handlers.emptyHandler
 import com.telnyx.sdk.core.handlers.errorBodyHandler
 import com.telnyx.sdk.core.handlers.errorHandler
+import com.telnyx.sdk.core.handlers.jsonHandler
 import com.telnyx.sdk.core.http.HttpMethod
 import com.telnyx.sdk.core.http.HttpRequest
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponse.Handler
+import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.recordings.actions.ActionDeleteParams
+import com.telnyx.sdk.models.recordings.actions.ActionDeleteResponse
 import java.util.function.Consumer
 
 /** Call Recordings operations. */
@@ -30,10 +32,12 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionService =
         ActionServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun delete(params: ActionDeleteParams, requestOptions: RequestOptions) {
+    override fun delete(
+        params: ActionDeleteParams,
+        requestOptions: RequestOptions,
+    ): ActionDeleteResponse =
         // post /recordings/actions/delete
-        withRawResponse().delete(params, requestOptions)
-    }
+        withRawResponse().delete(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ActionService.WithRawResponse {
@@ -48,12 +52,13 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val deleteHandler: Handler<Void?> = emptyHandler()
+        private val deleteHandler: Handler<ActionDeleteResponse> =
+            jsonHandler<ActionDeleteResponse>(clientOptions.jsonMapper)
 
         override fun delete(
             params: ActionDeleteParams,
             requestOptions: RequestOptions,
-        ): HttpResponse {
+        ): HttpResponseFor<ActionDeleteResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -65,7 +70,13 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { deleteHandler.handle(it) }
+                response
+                    .use { deleteHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
         }
     }
