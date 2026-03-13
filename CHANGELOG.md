@@ -1,5 +1,23 @@
 # Changelog
 
+## 6.30.0 (2026-03-13)
+
+Full Changelog: [v6.29.0...v6.30.0](https://github.com/team-telnyx/telnyx-java/compare/v6.29.0...v6.30.0)
+
+### Features
+
+* add public x402 payment endpoints to external specs ([b7fd2ea](https://github.com/team-telnyx/telnyx-java/commit/b7fd2ea5a9b2a0db79343811989ff18a4b3bc045))
+* Add Voice Designs and Voice Clones API specification ([aa3b836](https://github.com/team-telnyx/telnyx-java/commit/aa3b83691821a2b4f6ee8b545e02790fc272d92b))
+* AI-2131: Add expressive_mode boolean to VoiceSettings ([7394919](https://github.com/team-telnyx/telnyx-java/commit/7394919715a13fdb079cf5c514cbae747a0faca6))
+* **api:** manual updates ([8ec5265](https://github.com/team-telnyx/telnyx-java/commit/8ec526546a542d94fdfbae12fc5a8013b37d90f4))
+* **api:** Merge pull request [#29](https://github.com/team-telnyx/telnyx-java/issues/29) from stainless-sdks/fix-add-voice-model ([d23bcc4](https://github.com/team-telnyx/telnyx-java/commit/d23bcc4e2a6a8f17b0b51d622e8bd0f96676cf56))
+* **api:** update OpenAPI spec or Stainless config ([d23bcc4](https://github.com/team-telnyx/telnyx-java/commit/d23bcc4e2a6a8f17b0b51d622e8bd0f96676cf56))
+
+
+### Bug Fixes
+
+* **call-recordings:** align OpenAPI spec with implementation ([57e7cae](https://github.com/team-telnyx/telnyx-java/commit/57e7cae9781f30c09498d7023b4993dfc9b0f422))
+
 ## 6.29.0 (2026-03-11)
 
 Full Changelog: [v6.28.0...v6.29.0](https://github.com/team-telnyx/telnyx-java/compare/v6.28.0...v6.29.0)
