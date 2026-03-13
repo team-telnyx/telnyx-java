@@ -8,8 +8,8 @@ import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionDeleteParams
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionDeleteResponse
+import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionListPage
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionListParams
-import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionListResponse
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionRetrieveParams
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionRetrieveResponse
 import java.util.function.Consumer
@@ -74,21 +74,21 @@ interface RecordingTranscriptionService {
         )
 
     /** Returns a list of your recording transcriptions. */
-    fun list(): RecordingTranscriptionListResponse = list(RecordingTranscriptionListParams.none())
+    fun list(): RecordingTranscriptionListPage = list(RecordingTranscriptionListParams.none())
 
     /** @see list */
     fun list(
         params: RecordingTranscriptionListParams = RecordingTranscriptionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RecordingTranscriptionListResponse
+    ): RecordingTranscriptionListPage
 
     /** @see list */
     fun list(
         params: RecordingTranscriptionListParams = RecordingTranscriptionListParams.none()
-    ): RecordingTranscriptionListResponse = list(params, RequestOptions.none())
+    ): RecordingTranscriptionListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): RecordingTranscriptionListResponse =
+    fun list(requestOptions: RequestOptions): RecordingTranscriptionListPage =
         list(RecordingTranscriptionListParams.none(), requestOptions)
 
     /** Permanently deletes a recording transcription. */
@@ -209,7 +209,7 @@ interface RecordingTranscriptionService {
          * same as [RecordingTranscriptionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<RecordingTranscriptionListResponse> =
+        fun list(): HttpResponseFor<RecordingTranscriptionListPage> =
             list(RecordingTranscriptionListParams.none())
 
         /** @see list */
@@ -217,19 +217,17 @@ interface RecordingTranscriptionService {
         fun list(
             params: RecordingTranscriptionListParams = RecordingTranscriptionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RecordingTranscriptionListResponse>
+        ): HttpResponseFor<RecordingTranscriptionListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: RecordingTranscriptionListParams = RecordingTranscriptionListParams.none()
-        ): HttpResponseFor<RecordingTranscriptionListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<RecordingTranscriptionListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<RecordingTranscriptionListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<RecordingTranscriptionListPage> =
             list(RecordingTranscriptionListParams.none(), requestOptions)
 
         /**

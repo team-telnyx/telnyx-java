@@ -19,11 +19,7 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * Consolidated filter parameter (deepObject style). Originally: filter[conference_id],
-     * filter[created_at][gte], filter[created_at][lte], filter[call_leg_id],
-     * filter[call_session_id], filter[from], filter[to], filter[connection_id], filter[sip_call_id]
-     */
+    /** Filter recordings by various attributes. */
     fun filter(): Optional<Filter> = Optional.ofNullable(filter)
 
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
@@ -64,12 +60,7 @@ private constructor(
             additionalQueryParams = recordingListParams.additionalQueryParams.toBuilder()
         }
 
-        /**
-         * Consolidated filter parameter (deepObject style). Originally: filter[conference_id],
-         * filter[created_at][gte], filter[created_at][lte], filter[call_leg_id],
-         * filter[call_session_id], filter[from], filter[to], filter[connection_id],
-         * filter[sip_call_id]
-         */
+        /** Filter recordings by various attributes. */
         fun filter(filter: Filter?) = apply { this.filter = filter }
 
         /** Alias for calling [Builder.filter] with `filter.orElse(null)`. */
@@ -218,9 +209,11 @@ private constructor(
         QueryParams.builder()
             .apply {
                 filter?.let {
+                    it.callControlId().ifPresent { put("filter[call_control_id]", it) }
                     it.callLegId().ifPresent { put("filter[call_leg_id]", it) }
                     it.callSessionId().ifPresent { put("filter[call_session_id]", it) }
                     it.conferenceId().ifPresent { put("filter[conference_id]", it) }
+                    it.conferenceRegion().ifPresent { put("filter[conference_region]", it) }
                     it.connectionId().ifPresent { put("filter[connection_id]", it) }
                     it.createdAt().ifPresent {
                         it.gte().ifPresent { put("filter[created_at][gte]", it) }
@@ -231,8 +224,26 @@ private constructor(
                             }
                         }
                     }
+                    it.endTime().ifPresent {
+                        it.gte().ifPresent { put("filter[end_time][gte]", it) }
+                        it.lte().ifPresent { put("filter[end_time][lte]", it) }
+                        it._additionalProperties().keys().forEach { key ->
+                            it._additionalProperties().values(key).forEach { value ->
+                                put("filter[end_time][$key]", value)
+                            }
+                        }
+                    }
                     it.from().ifPresent { put("filter[from]", it) }
                     it.sipCallId().ifPresent { put("filter[sip_call_id]", it) }
+                    it.startTime().ifPresent {
+                        it.gte().ifPresent { put("filter[start_time][gte]", it) }
+                        it.lte().ifPresent { put("filter[start_time][lte]", it) }
+                        it._additionalProperties().keys().forEach { key ->
+                            it._additionalProperties().values(key).forEach { value ->
+                                put("filter[start_time][$key]", value)
+                            }
+                        }
+                    }
                     it.to().ifPresent { put("filter[to]", it) }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
@@ -246,23 +257,26 @@ private constructor(
             }
             .build()
 
-    /**
-     * Consolidated filter parameter (deepObject style). Originally: filter[conference_id],
-     * filter[created_at][gte], filter[created_at][lte], filter[call_leg_id],
-     * filter[call_session_id], filter[from], filter[to], filter[connection_id], filter[sip_call_id]
-     */
+    /** Filter recordings by various attributes. */
     class Filter
     private constructor(
+        private val callControlId: String?,
         private val callLegId: String?,
         private val callSessionId: String?,
         private val conferenceId: String?,
+        private val conferenceRegion: String?,
         private val connectionId: String?,
         private val createdAt: CreatedAt?,
+        private val endTime: EndTime?,
         private val from: String?,
         private val sipCallId: String?,
+        private val startTime: StartTime?,
         private val to: String?,
         private val additionalProperties: QueryParams,
     ) {
+
+        /** If present, recordings will be filtered to those with a matching `call_control_id`. */
+        fun callControlId(): Optional<String> = Optional.ofNullable(callControlId)
 
         /** If present, recordings will be filtered to those with a matching call_leg_id. */
         fun callLegId(): Optional<String> = Optional.ofNullable(callLegId)
@@ -273,6 +287,9 @@ private constructor(
         /** Returns only recordings associated with a given conference. */
         fun conferenceId(): Optional<String> = Optional.ofNullable(conferenceId)
 
+        /** If present, recordings will be filtered to those with a matching `conference_region`. */
+        fun conferenceRegion(): Optional<String> = Optional.ofNullable(conferenceRegion)
+
         /**
          * If present, recordings will be filtered to those with a matching `connection_id`
          * attribute (case-sensitive).
@@ -280,6 +297,8 @@ private constructor(
         fun connectionId(): Optional<String> = Optional.ofNullable(connectionId)
 
         fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
+
+        fun endTime(): Optional<EndTime> = Optional.ofNullable(endTime)
 
         /**
          * If present, recordings will be filtered to those with a matching `from` attribute
@@ -289,9 +308,11 @@ private constructor(
 
         /**
          * If present, recordings will be filtered to those with a matching `sip_call_id` attribute.
-         * Matching is case-sensitive
+         * Matching is case-sensitive.
          */
         fun sipCallId(): Optional<String> = Optional.ofNullable(sipCallId)
+
+        fun startTime(): Optional<StartTime> = Optional.ofNullable(startTime)
 
         /**
          * If present, recordings will be filtered to those with a matching `to` attribute
@@ -313,28 +334,45 @@ private constructor(
         /** A builder for [Filter]. */
         class Builder internal constructor() {
 
+            private var callControlId: String? = null
             private var callLegId: String? = null
             private var callSessionId: String? = null
             private var conferenceId: String? = null
+            private var conferenceRegion: String? = null
             private var connectionId: String? = null
             private var createdAt: CreatedAt? = null
+            private var endTime: EndTime? = null
             private var from: String? = null
             private var sipCallId: String? = null
+            private var startTime: StartTime? = null
             private var to: String? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
             internal fun from(filter: Filter) = apply {
+                callControlId = filter.callControlId
                 callLegId = filter.callLegId
                 callSessionId = filter.callSessionId
                 conferenceId = filter.conferenceId
+                conferenceRegion = filter.conferenceRegion
                 connectionId = filter.connectionId
                 createdAt = filter.createdAt
+                endTime = filter.endTime
                 from = filter.from
                 sipCallId = filter.sipCallId
+                startTime = filter.startTime
                 to = filter.to
                 additionalProperties = filter.additionalProperties.toBuilder()
             }
+
+            /**
+             * If present, recordings will be filtered to those with a matching `call_control_id`.
+             */
+            fun callControlId(callControlId: String?) = apply { this.callControlId = callControlId }
+
+            /** Alias for calling [Builder.callControlId] with `callControlId.orElse(null)`. */
+            fun callControlId(callControlId: Optional<String>) =
+                callControlId(callControlId.getOrNull())
 
             /** If present, recordings will be filtered to those with a matching call_leg_id. */
             fun callLegId(callLegId: String?) = apply { this.callLegId = callLegId }
@@ -357,6 +395,19 @@ private constructor(
                 conferenceId(conferenceId.getOrNull())
 
             /**
+             * If present, recordings will be filtered to those with a matching `conference_region`.
+             */
+            fun conferenceRegion(conferenceRegion: String?) = apply {
+                this.conferenceRegion = conferenceRegion
+            }
+
+            /**
+             * Alias for calling [Builder.conferenceRegion] with `conferenceRegion.orElse(null)`.
+             */
+            fun conferenceRegion(conferenceRegion: Optional<String>) =
+                conferenceRegion(conferenceRegion.getOrNull())
+
+            /**
              * If present, recordings will be filtered to those with a matching `connection_id`
              * attribute (case-sensitive).
              */
@@ -371,6 +422,11 @@ private constructor(
             /** Alias for calling [Builder.createdAt] with `createdAt.orElse(null)`. */
             fun createdAt(createdAt: Optional<CreatedAt>) = createdAt(createdAt.getOrNull())
 
+            fun endTime(endTime: EndTime?) = apply { this.endTime = endTime }
+
+            /** Alias for calling [Builder.endTime] with `endTime.orElse(null)`. */
+            fun endTime(endTime: Optional<EndTime>) = endTime(endTime.getOrNull())
+
             /**
              * If present, recordings will be filtered to those with a matching `from` attribute
              * (case-sensitive).
@@ -382,12 +438,17 @@ private constructor(
 
             /**
              * If present, recordings will be filtered to those with a matching `sip_call_id`
-             * attribute. Matching is case-sensitive
+             * attribute. Matching is case-sensitive.
              */
             fun sipCallId(sipCallId: String?) = apply { this.sipCallId = sipCallId }
 
             /** Alias for calling [Builder.sipCallId] with `sipCallId.orElse(null)`. */
             fun sipCallId(sipCallId: Optional<String>) = sipCallId(sipCallId.getOrNull())
+
+            fun startTime(startTime: StartTime?) = apply { this.startTime = startTime }
+
+            /** Alias for calling [Builder.startTime] with `startTime.orElse(null)`. */
+            fun startTime(startTime: Optional<StartTime>) = startTime(startTime.getOrNull())
 
             /**
              * If present, recordings will be filtered to those with a matching `to` attribute
@@ -454,13 +515,17 @@ private constructor(
              */
             fun build(): Filter =
                 Filter(
+                    callControlId,
                     callLegId,
                     callSessionId,
                     conferenceId,
+                    conferenceRegion,
                     connectionId,
                     createdAt,
+                    endTime,
                     from,
                     sipCallId,
+                    startTime,
                     to,
                     additionalProperties.build(),
                 )
@@ -594,32 +659,320 @@ private constructor(
                 "CreatedAt{gte=$gte, lte=$lte, additionalProperties=$additionalProperties}"
         }
 
+        class EndTime
+        private constructor(
+            private val gte: String?,
+            private val lte: String?,
+            private val additionalProperties: QueryParams,
+        ) {
+
+            /**
+             * Returns only recordings with an end time later than or equal to the given ISO 8601
+             * datetime.
+             */
+            fun gte(): Optional<String> = Optional.ofNullable(gte)
+
+            /**
+             * Returns only recordings with an end time earlier than or equal to the given ISO 8601
+             * datetime.
+             */
+            fun lte(): Optional<String> = Optional.ofNullable(lte)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [EndTime]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [EndTime]. */
+            class Builder internal constructor() {
+
+                private var gte: String? = null
+                private var lte: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+                @JvmSynthetic
+                internal fun from(endTime: EndTime) = apply {
+                    gte = endTime.gte
+                    lte = endTime.lte
+                    additionalProperties = endTime.additionalProperties.toBuilder()
+                }
+
+                /**
+                 * Returns only recordings with an end time later than or equal to the given ISO
+                 * 8601 datetime.
+                 */
+                fun gte(gte: String?) = apply { this.gte = gte }
+
+                /** Alias for calling [Builder.gte] with `gte.orElse(null)`. */
+                fun gte(gte: Optional<String>) = gte(gte.getOrNull())
+
+                /**
+                 * Returns only recordings with an end time earlier than or equal to the given ISO
+                 * 8601 datetime.
+                 */
+                fun lte(lte: String?) = apply { this.lte = lte }
+
+                /** Alias for calling [Builder.lte] with `lte.orElse(null)`. */
+                fun lte(lte: Optional<String>) = lte(lte.getOrNull())
+
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
+                /**
+                 * Returns an immutable instance of [EndTime].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): EndTime = EndTime(gte, lte, additionalProperties.build())
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is EndTime &&
+                    gte == other.gte &&
+                    lte == other.lte &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(gte, lte, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "EndTime{gte=$gte, lte=$lte, additionalProperties=$additionalProperties}"
+        }
+
+        class StartTime
+        private constructor(
+            private val gte: String?,
+            private val lte: String?,
+            private val additionalProperties: QueryParams,
+        ) {
+
+            /**
+             * Returns only recordings with a start time later than or equal to the given ISO 8601
+             * datetime.
+             */
+            fun gte(): Optional<String> = Optional.ofNullable(gte)
+
+            /**
+             * Returns only recordings with a start time earlier than or equal to the given ISO 8601
+             * datetime.
+             */
+            fun lte(): Optional<String> = Optional.ofNullable(lte)
+
+            /** Query params to send with the request. */
+            fun _additionalProperties(): QueryParams = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [StartTime]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [StartTime]. */
+            class Builder internal constructor() {
+
+                private var gte: String? = null
+                private var lte: String? = null
+                private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+                @JvmSynthetic
+                internal fun from(startTime: StartTime) = apply {
+                    gte = startTime.gte
+                    lte = startTime.lte
+                    additionalProperties = startTime.additionalProperties.toBuilder()
+                }
+
+                /**
+                 * Returns only recordings with a start time later than or equal to the given ISO
+                 * 8601 datetime.
+                 */
+                fun gte(gte: String?) = apply { this.gte = gte }
+
+                /** Alias for calling [Builder.gte] with `gte.orElse(null)`. */
+                fun gte(gte: Optional<String>) = gte(gte.getOrNull())
+
+                /**
+                 * Returns only recordings with a start time earlier than or equal to the given ISO
+                 * 8601 datetime.
+                 */
+                fun lte(lte: String?) = apply { this.lte = lte }
+
+                /** Alias for calling [Builder.lte] with `lte.orElse(null)`. */
+                fun lte(lte: Optional<String>) = lte(lte.getOrNull())
+
+                fun additionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: String) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.put(key, values)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                fun putAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                fun replaceAdditionalProperties(key: String, value: String) = apply {
+                    additionalProperties.replace(key, value)
+                }
+
+                fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                    additionalProperties.replace(key, values)
+                }
+
+                fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
+
+                fun replaceAllAdditionalProperties(
+                    additionalProperties: Map<String, Iterable<String>>
+                ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+                fun removeAdditionalProperties(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    additionalProperties.removeAll(keys)
+                }
+
+                /**
+                 * Returns an immutable instance of [StartTime].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): StartTime = StartTime(gte, lte, additionalProperties.build())
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is StartTime &&
+                    gte == other.gte &&
+                    lte == other.lte &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(gte, lte, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "StartTime{gte=$gte, lte=$lte, additionalProperties=$additionalProperties}"
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
             return other is Filter &&
+                callControlId == other.callControlId &&
                 callLegId == other.callLegId &&
                 callSessionId == other.callSessionId &&
                 conferenceId == other.conferenceId &&
+                conferenceRegion == other.conferenceRegion &&
                 connectionId == other.connectionId &&
                 createdAt == other.createdAt &&
+                endTime == other.endTime &&
                 from == other.from &&
                 sipCallId == other.sipCallId &&
+                startTime == other.startTime &&
                 to == other.to &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
             Objects.hash(
+                callControlId,
                 callLegId,
                 callSessionId,
                 conferenceId,
+                conferenceRegion,
                 connectionId,
                 createdAt,
+                endTime,
                 from,
                 sipCallId,
+                startTime,
                 to,
                 additionalProperties,
             )
@@ -628,7 +981,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Filter{callLegId=$callLegId, callSessionId=$callSessionId, conferenceId=$conferenceId, connectionId=$connectionId, createdAt=$createdAt, from=$from, sipCallId=$sipCallId, to=$to, additionalProperties=$additionalProperties}"
+            "Filter{callControlId=$callControlId, callLegId=$callLegId, callSessionId=$callSessionId, conferenceId=$conferenceId, conferenceRegion=$conferenceRegion, connectionId=$connectionId, createdAt=$createdAt, endTime=$endTime, from=$from, sipCallId=$sipCallId, startTime=$startTime, to=$to, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -18,8 +18,9 @@ import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionDeleteParams
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionDeleteResponse
+import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionListPage
+import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionListPageResponse
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionListParams
-import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionListResponse
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionRetrieveParams
 import com.telnyx.sdk.models.recordingtranscriptions.RecordingTranscriptionRetrieveResponse
 import java.util.function.Consumer
@@ -50,7 +51,7 @@ internal constructor(private val clientOptions: ClientOptions) : RecordingTransc
     override fun list(
         params: RecordingTranscriptionListParams,
         requestOptions: RequestOptions,
-    ): RecordingTranscriptionListResponse =
+    ): RecordingTranscriptionListPage =
         // get /recording_transcriptions
         withRawResponse().list(params, requestOptions).parse()
 
@@ -104,13 +105,13 @@ internal constructor(private val clientOptions: ClientOptions) : RecordingTransc
             }
         }
 
-        private val listHandler: Handler<RecordingTranscriptionListResponse> =
-            jsonHandler<RecordingTranscriptionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RecordingTranscriptionListPageResponse> =
+            jsonHandler<RecordingTranscriptionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: RecordingTranscriptionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RecordingTranscriptionListResponse> {
+        ): HttpResponseFor<RecordingTranscriptionListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -127,6 +128,13 @@ internal constructor(private val clientOptions: ClientOptions) : RecordingTransc
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        RecordingTranscriptionListPage.builder()
+                            .service(RecordingTranscriptionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

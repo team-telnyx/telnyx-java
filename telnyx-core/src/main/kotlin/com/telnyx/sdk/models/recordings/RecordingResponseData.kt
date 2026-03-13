@@ -26,14 +26,18 @@ private constructor(
     private val callSessionId: JsonField<String>,
     private val channels: JsonField<Channels>,
     private val conferenceId: JsonField<String>,
+    private val connectionId: JsonField<String>,
     private val createdAt: JsonField<String>,
     private val downloadUrls: JsonField<DownloadUrls>,
     private val durationMillis: JsonField<Int>,
+    private val from: JsonField<String>,
+    private val initiatedBy: JsonField<String>,
     private val recordType: JsonField<RecordType>,
     private val recordingEndedAt: JsonField<String>,
     private val recordingStartedAt: JsonField<String>,
     private val source: JsonField<Source>,
     private val status: JsonField<Status>,
+    private val to: JsonField<String>,
     private val updatedAt: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -54,6 +58,9 @@ private constructor(
         @JsonProperty("conference_id")
         @ExcludeMissing
         conferenceId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("connection_id")
+        @ExcludeMissing
+        connectionId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<String> = JsonMissing.of(),
         @JsonProperty("download_urls")
         @ExcludeMissing
@@ -61,6 +68,10 @@ private constructor(
         @JsonProperty("duration_millis")
         @ExcludeMissing
         durationMillis: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("from") @ExcludeMissing from: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("initiated_by")
+        @ExcludeMissing
+        initiatedBy: JsonField<String> = JsonMissing.of(),
         @JsonProperty("record_type")
         @ExcludeMissing
         recordType: JsonField<RecordType> = JsonMissing.of(),
@@ -72,6 +83,7 @@ private constructor(
         recordingStartedAt: JsonField<String> = JsonMissing.of(),
         @JsonProperty("source") @ExcludeMissing source: JsonField<Source> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("to") @ExcludeMissing to: JsonField<String> = JsonMissing.of(),
         @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
@@ -80,14 +92,18 @@ private constructor(
         callSessionId,
         channels,
         conferenceId,
+        connectionId,
         createdAt,
         downloadUrls,
         durationMillis,
+        from,
+        initiatedBy,
         recordType,
         recordingEndedAt,
         recordingStartedAt,
         source,
         status,
+        to,
         updatedAt,
         mutableMapOf(),
     )
@@ -143,6 +159,15 @@ private constructor(
     fun conferenceId(): Optional<String> = conferenceId.getOptional("conference_id")
 
     /**
+     * Identifies the Telnyx application (Call Control, TeXML) or SIP connection resource associated
+     * with this recording.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun connectionId(): Optional<String> = connectionId.getOptional("connection_id")
+
+    /**
      * ISO 8601 formatted date indicating when the resource was created.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -165,6 +190,24 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun durationMillis(): Optional<Int> = durationMillis.getOptional("duration_millis")
+
+    /**
+     * The `from` (caller) number for the call that generated this recording.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun from(): Optional<String> = from.getOptional("from")
+
+    /**
+     * Indicates what triggered the recording. Possible values include `DialVerb`, `Conference`,
+     * `OutboundAPI`, `Trunking`, `RecordVerb`, `StartCallRecordingAPI`,
+     * `StartConferenceRecordingAPI`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun initiatedBy(): Optional<String> = initiatedBy.getOptional("initiated_by")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -204,6 +247,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun status(): Optional<Status> = status.getOptional("status")
+
+    /**
+     * The `to` (callee) number for the call that generated this recording.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun to(): Optional<String> = to.getOptional("to")
 
     /**
      * ISO 8601 formatted date indicating when the resource was updated.
@@ -262,6 +313,15 @@ private constructor(
     fun _conferenceId(): JsonField<String> = conferenceId
 
     /**
+     * Returns the raw JSON value of [connectionId].
+     *
+     * Unlike [connectionId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("connection_id")
+    @ExcludeMissing
+    fun _connectionId(): JsonField<String> = connectionId
+
+    /**
      * Returns the raw JSON value of [createdAt].
      *
      * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -285,6 +345,22 @@ private constructor(
     @JsonProperty("duration_millis")
     @ExcludeMissing
     fun _durationMillis(): JsonField<Int> = durationMillis
+
+    /**
+     * Returns the raw JSON value of [from].
+     *
+     * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("from") @ExcludeMissing fun _from(): JsonField<String> = from
+
+    /**
+     * Returns the raw JSON value of [initiatedBy].
+     *
+     * Unlike [initiatedBy], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("initiated_by")
+    @ExcludeMissing
+    fun _initiatedBy(): JsonField<String> = initiatedBy
 
     /**
      * Returns the raw JSON value of [recordType].
@@ -330,6 +406,13 @@ private constructor(
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
+     * Returns the raw JSON value of [to].
+     *
+     * Unlike [to], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("to") @ExcludeMissing fun _to(): JsonField<String> = to
+
+    /**
      * Returns the raw JSON value of [updatedAt].
      *
      * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -363,14 +446,18 @@ private constructor(
         private var callSessionId: JsonField<String> = JsonMissing.of()
         private var channels: JsonField<Channels> = JsonMissing.of()
         private var conferenceId: JsonField<String> = JsonMissing.of()
+        private var connectionId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<String> = JsonMissing.of()
         private var downloadUrls: JsonField<DownloadUrls> = JsonMissing.of()
         private var durationMillis: JsonField<Int> = JsonMissing.of()
+        private var from: JsonField<String> = JsonMissing.of()
+        private var initiatedBy: JsonField<String> = JsonMissing.of()
         private var recordType: JsonField<RecordType> = JsonMissing.of()
         private var recordingEndedAt: JsonField<String> = JsonMissing.of()
         private var recordingStartedAt: JsonField<String> = JsonMissing.of()
         private var source: JsonField<Source> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
+        private var to: JsonField<String> = JsonMissing.of()
         private var updatedAt: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -382,14 +469,18 @@ private constructor(
             callSessionId = recordingResponseData.callSessionId
             channels = recordingResponseData.channels
             conferenceId = recordingResponseData.conferenceId
+            connectionId = recordingResponseData.connectionId
             createdAt = recordingResponseData.createdAt
             downloadUrls = recordingResponseData.downloadUrls
             durationMillis = recordingResponseData.durationMillis
+            from = recordingResponseData.from
+            initiatedBy = recordingResponseData.initiatedBy
             recordType = recordingResponseData.recordType
             recordingEndedAt = recordingResponseData.recordingEndedAt
             recordingStartedAt = recordingResponseData.recordingStartedAt
             source = recordingResponseData.source
             status = recordingResponseData.status
+            to = recordingResponseData.to
             updatedAt = recordingResponseData.updatedAt
             additionalProperties = recordingResponseData.additionalProperties.toMutableMap()
         }
@@ -478,6 +569,23 @@ private constructor(
             this.conferenceId = conferenceId
         }
 
+        /**
+         * Identifies the Telnyx application (Call Control, TeXML) or SIP connection resource
+         * associated with this recording.
+         */
+        fun connectionId(connectionId: String) = connectionId(JsonField.of(connectionId))
+
+        /**
+         * Sets [Builder.connectionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.connectionId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun connectionId(connectionId: JsonField<String>) = apply {
+            this.connectionId = connectionId
+        }
+
         /** ISO 8601 formatted date indicating when the resource was created. */
         fun createdAt(createdAt: String) = createdAt(JsonField.of(createdAt))
 
@@ -517,6 +625,33 @@ private constructor(
         fun durationMillis(durationMillis: JsonField<Int>) = apply {
             this.durationMillis = durationMillis
         }
+
+        /** The `from` (caller) number for the call that generated this recording. */
+        fun from(from: String) = from(JsonField.of(from))
+
+        /**
+         * Sets [Builder.from] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.from] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun from(from: JsonField<String>) = apply { this.from = from }
+
+        /**
+         * Indicates what triggered the recording. Possible values include `DialVerb`, `Conference`,
+         * `OutboundAPI`, `Trunking`, `RecordVerb`, `StartCallRecordingAPI`,
+         * `StartConferenceRecordingAPI`.
+         */
+        fun initiatedBy(initiatedBy: String) = initiatedBy(JsonField.of(initiatedBy))
+
+        /**
+         * Sets [Builder.initiatedBy] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.initiatedBy] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun initiatedBy(initiatedBy: JsonField<String>) = apply { this.initiatedBy = initiatedBy }
 
         fun recordType(recordType: RecordType) = recordType(JsonField.of(recordType))
 
@@ -581,6 +716,17 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
+        /** The `to` (callee) number for the call that generated this recording. */
+        fun to(to: String) = to(JsonField.of(to))
+
+        /**
+         * Sets [Builder.to] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.to] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun to(to: JsonField<String>) = apply { this.to = to }
+
         /** ISO 8601 formatted date indicating when the resource was updated. */
         fun updatedAt(updatedAt: String) = updatedAt(JsonField.of(updatedAt))
 
@@ -625,14 +771,18 @@ private constructor(
                 callSessionId,
                 channels,
                 conferenceId,
+                connectionId,
                 createdAt,
                 downloadUrls,
                 durationMillis,
+                from,
+                initiatedBy,
                 recordType,
                 recordingEndedAt,
                 recordingStartedAt,
                 source,
                 status,
+                to,
                 updatedAt,
                 additionalProperties.toMutableMap(),
             )
@@ -651,14 +801,18 @@ private constructor(
         callSessionId()
         channels().ifPresent { it.validate() }
         conferenceId()
+        connectionId()
         createdAt()
         downloadUrls().ifPresent { it.validate() }
         durationMillis()
+        from()
+        initiatedBy()
         recordType().ifPresent { it.validate() }
         recordingEndedAt()
         recordingStartedAt()
         source().ifPresent { it.validate() }
         status().ifPresent { it.validate() }
+        to()
         updatedAt()
         validated = true
     }
@@ -684,14 +838,18 @@ private constructor(
             (if (callSessionId.asKnown().isPresent) 1 else 0) +
             (channels.asKnown().getOrNull()?.validity() ?: 0) +
             (if (conferenceId.asKnown().isPresent) 1 else 0) +
+            (if (connectionId.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (downloadUrls.asKnown().getOrNull()?.validity() ?: 0) +
             (if (durationMillis.asKnown().isPresent) 1 else 0) +
+            (if (from.asKnown().isPresent) 1 else 0) +
+            (if (initiatedBy.asKnown().isPresent) 1 else 0) +
             (recordType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (recordingEndedAt.asKnown().isPresent) 1 else 0) +
             (if (recordingStartedAt.asKnown().isPresent) 1 else 0) +
             (source.asKnown().getOrNull()?.validity() ?: 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (to.asKnown().isPresent) 1 else 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0)
 
     /**
@@ -1378,14 +1536,18 @@ private constructor(
             callSessionId == other.callSessionId &&
             channels == other.channels &&
             conferenceId == other.conferenceId &&
+            connectionId == other.connectionId &&
             createdAt == other.createdAt &&
             downloadUrls == other.downloadUrls &&
             durationMillis == other.durationMillis &&
+            from == other.from &&
+            initiatedBy == other.initiatedBy &&
             recordType == other.recordType &&
             recordingEndedAt == other.recordingEndedAt &&
             recordingStartedAt == other.recordingStartedAt &&
             source == other.source &&
             status == other.status &&
+            to == other.to &&
             updatedAt == other.updatedAt &&
             additionalProperties == other.additionalProperties
     }
@@ -1398,14 +1560,18 @@ private constructor(
             callSessionId,
             channels,
             conferenceId,
+            connectionId,
             createdAt,
             downloadUrls,
             durationMillis,
+            from,
+            initiatedBy,
             recordType,
             recordingEndedAt,
             recordingStartedAt,
             source,
             status,
+            to,
             updatedAt,
             additionalProperties,
         )
@@ -1414,5 +1580,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RecordingResponseData{id=$id, callControlId=$callControlId, callLegId=$callLegId, callSessionId=$callSessionId, channels=$channels, conferenceId=$conferenceId, createdAt=$createdAt, downloadUrls=$downloadUrls, durationMillis=$durationMillis, recordType=$recordType, recordingEndedAt=$recordingEndedAt, recordingStartedAt=$recordingStartedAt, source=$source, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "RecordingResponseData{id=$id, callControlId=$callControlId, callLegId=$callLegId, callSessionId=$callSessionId, channels=$channels, conferenceId=$conferenceId, connectionId=$connectionId, createdAt=$createdAt, downloadUrls=$downloadUrls, durationMillis=$durationMillis, from=$from, initiatedBy=$initiatedBy, recordType=$recordType, recordingEndedAt=$recordingEndedAt, recordingStartedAt=$recordingStartedAt, source=$source, status=$status, to=$to, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }
