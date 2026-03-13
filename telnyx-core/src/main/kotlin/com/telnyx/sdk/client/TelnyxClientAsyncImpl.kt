@@ -318,6 +318,8 @@ import com.telnyx.sdk.services.async.WirelessBlocklistValueServiceAsync
 import com.telnyx.sdk.services.async.WirelessBlocklistValueServiceAsyncImpl
 import com.telnyx.sdk.services.async.WirelessServiceAsync
 import com.telnyx.sdk.services.async.WirelessServiceAsyncImpl
+import com.telnyx.sdk.services.async.X402ServiceAsync
+import com.telnyx.sdk.services.async.X402ServiceAsyncImpl
 import java.util.function.Consumer
 
 class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxClientAsync {
@@ -950,6 +952,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         VoiceDesignServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val x402: X402ServiceAsync by lazy { X402ServiceAsyncImpl(clientOptionsWithUserAgent) }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1437,6 +1441,8 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     /** Create and manage AI-generated voice designs using natural language prompts. */
     override fun voiceDesigns(): VoiceDesignServiceAsync = voiceDesigns
+
+    override fun x402(): X402ServiceAsync = x402
 
     override fun close() = clientOptions.close()
 
@@ -2107,6 +2113,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             VoiceDesignServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val x402: X402ServiceAsync.WithRawResponse by lazy {
+            X402ServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -2643,5 +2653,7 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         /** Create and manage AI-generated voice designs using natural language prompts. */
         override fun voiceDesigns(): VoiceDesignServiceAsync.WithRawResponse = voiceDesigns
+
+        override fun x402(): X402ServiceAsync.WithRawResponse = x402
     }
 }
