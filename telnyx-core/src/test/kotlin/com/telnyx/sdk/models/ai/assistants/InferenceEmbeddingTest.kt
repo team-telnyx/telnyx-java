@@ -188,6 +188,7 @@ internal class InferenceEmbeddingTest {
                             VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
                                 .SILENCE
                         )
+                        .expressiveMode(true)
                         .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                         .similarityBoost(0.0)
                         .speed(0.0)
@@ -424,6 +425,7 @@ internal class InferenceEmbeddingTest {
                     .predefinedMediaBackgroundAudio(
                         VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue.SILENCE
                     )
+                    .expressiveMode(true)
                     .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                     .similarityBoost(0.0)
                     .speed(0.0)
@@ -633,6 +635,7 @@ internal class InferenceEmbeddingTest {
                             VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
                                 .SILENCE
                         )
+                        .expressiveMode(true)
                         .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                         .similarityBoost(0.0)
                         .speed(0.0)

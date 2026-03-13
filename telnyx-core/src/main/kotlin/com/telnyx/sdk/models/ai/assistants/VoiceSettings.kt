@@ -34,6 +34,7 @@ private constructor(
     private val voice: JsonField<String>,
     private val apiKeyRef: JsonField<String>,
     private val backgroundAudio: JsonField<BackgroundAudio>,
+    private val expressiveMode: JsonField<Boolean>,
     private val languageBoost: JsonField<LanguageBoost>,
     private val similarityBoost: JsonField<Double>,
     private val speed: JsonField<Double>,
@@ -53,6 +54,9 @@ private constructor(
         @JsonProperty("background_audio")
         @ExcludeMissing
         backgroundAudio: JsonField<BackgroundAudio> = JsonMissing.of(),
+        @JsonProperty("expressive_mode")
+        @ExcludeMissing
+        expressiveMode: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("language_boost")
         @ExcludeMissing
         languageBoost: JsonField<LanguageBoost> = JsonMissing.of(),
@@ -74,6 +78,7 @@ private constructor(
         voice,
         apiKeyRef,
         backgroundAudio,
+        expressiveMode,
         languageBoost,
         similarityBoost,
         speed,
@@ -118,6 +123,16 @@ private constructor(
      */
     fun backgroundAudio(): Optional<BackgroundAudio> =
         backgroundAudio.getOptional("background_audio")
+
+    /**
+     * Enables emotionally expressive speech using SSML emotion tags. When enabled, the assistant
+     * uses audio tags like angry, excited, content, and sad to add emotional nuance. Only supported
+     * for Telnyx Ultra voices.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun expressiveMode(): Optional<Boolean> = expressiveMode.getOptional("expressive_mode")
 
     /**
      * Enhances recognition for specific languages and dialects during MiniMax TTS synthesis.
@@ -209,6 +224,15 @@ private constructor(
     fun _backgroundAudio(): JsonField<BackgroundAudio> = backgroundAudio
 
     /**
+     * Returns the raw JSON value of [expressiveMode].
+     *
+     * Unlike [expressiveMode], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("expressive_mode")
+    @ExcludeMissing
+    fun _expressiveMode(): JsonField<Boolean> = expressiveMode
+
+    /**
      * Returns the raw JSON value of [languageBoost].
      *
      * Unlike [languageBoost], this method doesn't throw if the JSON field has an unexpected type.
@@ -294,6 +318,7 @@ private constructor(
         private var voice: JsonField<String>? = null
         private var apiKeyRef: JsonField<String> = JsonMissing.of()
         private var backgroundAudio: JsonField<BackgroundAudio> = JsonMissing.of()
+        private var expressiveMode: JsonField<Boolean> = JsonMissing.of()
         private var languageBoost: JsonField<LanguageBoost> = JsonMissing.of()
         private var similarityBoost: JsonField<Double> = JsonMissing.of()
         private var speed: JsonField<Double> = JsonMissing.of()
@@ -308,6 +333,7 @@ private constructor(
             voice = voiceSettings.voice
             apiKeyRef = voiceSettings.apiKeyRef
             backgroundAudio = voiceSettings.backgroundAudio
+            expressiveMode = voiceSettings.expressiveMode
             languageBoost = voiceSettings.languageBoost
             similarityBoost = voiceSettings.similarityBoost
             speed = voiceSettings.speed
@@ -421,6 +447,24 @@ private constructor(
          */
         fun mediaNameBackgroundAudio(value: String) =
             backgroundAudio(BackgroundAudio.MediaName.builder().value(value).build())
+
+        /**
+         * Enables emotionally expressive speech using SSML emotion tags. When enabled, the
+         * assistant uses audio tags like angry, excited, content, and sad to add emotional nuance.
+         * Only supported for Telnyx Ultra voices.
+         */
+        fun expressiveMode(expressiveMode: Boolean) = expressiveMode(JsonField.of(expressiveMode))
+
+        /**
+         * Sets [Builder.expressiveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.expressiveMode] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun expressiveMode(expressiveMode: JsonField<Boolean>) = apply {
+            this.expressiveMode = expressiveMode
+        }
 
         /**
          * Enhances recognition for specific languages and dialects during MiniMax TTS synthesis.
@@ -577,6 +621,7 @@ private constructor(
                 checkRequired("voice", voice),
                 apiKeyRef,
                 backgroundAudio,
+                expressiveMode,
                 languageBoost,
                 similarityBoost,
                 speed,
@@ -598,6 +643,7 @@ private constructor(
         voice()
         apiKeyRef()
         backgroundAudio().ifPresent { it.validate() }
+        expressiveMode()
         languageBoost().ifPresent { it.validate() }
         similarityBoost()
         speed()
@@ -626,6 +672,7 @@ private constructor(
         (if (voice.asKnown().isPresent) 1 else 0) +
             (if (apiKeyRef.asKnown().isPresent) 1 else 0) +
             (backgroundAudio.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (expressiveMode.asKnown().isPresent) 1 else 0) +
             (languageBoost.asKnown().getOrNull()?.validity() ?: 0) +
             (if (similarityBoost.asKnown().isPresent) 1 else 0) +
             (if (speed.asKnown().isPresent) 1 else 0) +
@@ -1972,6 +2019,7 @@ private constructor(
             voice == other.voice &&
             apiKeyRef == other.apiKeyRef &&
             backgroundAudio == other.backgroundAudio &&
+            expressiveMode == other.expressiveMode &&
             languageBoost == other.languageBoost &&
             similarityBoost == other.similarityBoost &&
             speed == other.speed &&
@@ -1987,6 +2035,7 @@ private constructor(
             voice,
             apiKeyRef,
             backgroundAudio,
+            expressiveMode,
             languageBoost,
             similarityBoost,
             speed,
@@ -2001,5 +2050,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "VoiceSettings{voice=$voice, apiKeyRef=$apiKeyRef, backgroundAudio=$backgroundAudio, languageBoost=$languageBoost, similarityBoost=$similarityBoost, speed=$speed, style=$style, temperature=$temperature, useSpeakerBoost=$useSpeakerBoost, voiceSpeed=$voiceSpeed, additionalProperties=$additionalProperties}"
+        "VoiceSettings{voice=$voice, apiKeyRef=$apiKeyRef, backgroundAudio=$backgroundAudio, expressiveMode=$expressiveMode, languageBoost=$languageBoost, similarityBoost=$similarityBoost, speed=$speed, style=$style, temperature=$temperature, useSpeakerBoost=$useSpeakerBoost, voiceSpeed=$voiceSpeed, additionalProperties=$additionalProperties}"
 }
