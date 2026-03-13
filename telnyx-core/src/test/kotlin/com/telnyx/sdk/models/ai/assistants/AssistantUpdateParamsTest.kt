@@ -174,6 +174,7 @@ internal class AssistantUpdateParamsTest {
                     .predefinedMediaBackgroundAudio(
                         VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue.SILENCE
                     )
+                    .expressiveMode(true)
                     .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                     .similarityBoost(0.0)
                     .speed(0.0)
@@ -385,6 +386,7 @@ internal class AssistantUpdateParamsTest {
                             VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue
                                 .SILENCE
                         )
+                        .expressiveMode(true)
                         .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                         .similarityBoost(0.0)
                         .speed(0.0)
@@ -612,6 +614,7 @@ internal class AssistantUpdateParamsTest {
                     .predefinedMediaBackgroundAudio(
                         VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue.SILENCE
                     )
+                    .expressiveMode(true)
                     .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                     .similarityBoost(0.0)
                     .speed(0.0)
