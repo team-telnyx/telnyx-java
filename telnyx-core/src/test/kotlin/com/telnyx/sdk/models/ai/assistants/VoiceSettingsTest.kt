@@ -18,6 +18,7 @@ internal class VoiceSettingsTest {
                 .predefinedMediaBackgroundAudio(
                     VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue.SILENCE
                 )
+                .expressiveMode(true)
                 .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                 .similarityBoost(0.0)
                 .speed(0.0)
@@ -40,6 +41,7 @@ internal class VoiceSettingsTest {
                         .build()
                 )
             )
+        assertThat(voiceSettings.expressiveMode()).contains(true)
         assertThat(voiceSettings.languageBoost()).contains(VoiceSettings.LanguageBoost.AUTO)
         assertThat(voiceSettings.similarityBoost()).contains(0.0)
         assertThat(voiceSettings.speed()).contains(0.0)
@@ -59,6 +61,7 @@ internal class VoiceSettingsTest {
                 .predefinedMediaBackgroundAudio(
                     VoiceSettings.BackgroundAudio.PredefinedMedia.PredefinedMediaValue.SILENCE
                 )
+                .expressiveMode(true)
                 .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                 .similarityBoost(0.0)
                 .speed(0.0)

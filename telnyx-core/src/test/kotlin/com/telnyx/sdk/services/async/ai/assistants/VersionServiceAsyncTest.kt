@@ -254,6 +254,7 @@ internal class VersionServiceAsyncTest {
                                             .PredefinedMediaValue
                                             .SILENCE
                                     )
+                                    .expressiveMode(true)
                                     .languageBoost(VoiceSettings.LanguageBoost.AUTO)
                                     .similarityBoost(0.0)
                                     .speed(0.0)
