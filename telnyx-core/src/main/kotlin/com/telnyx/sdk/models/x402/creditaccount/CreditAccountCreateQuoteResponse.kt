@@ -1696,14 +1696,14 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val _2 = of(2L)
+                    @JvmField val V2 = of(2L)
 
                     @JvmStatic fun of(value: Long) = X402Version(JsonField.of(value))
                 }
 
                 /** An enum containing [X402Version]'s known values. */
                 enum class Known {
-                    _2
+                    V2
                 }
 
                 /**
@@ -1716,7 +1716,7 @@ private constructor(
                  * - It was constructed with an arbitrary value using the [of] method.
                  */
                 enum class Value {
-                    _2,
+                    V2,
                     /**
                      * An enum member indicating that [X402Version] was instantiated with an unknown
                      * value.
@@ -1733,7 +1733,7 @@ private constructor(
                  */
                 fun value(): Value =
                     when (this) {
-                        _2 -> Value._2
+                        V2 -> Value.V2
                         else -> Value._UNKNOWN
                     }
 
@@ -1748,7 +1748,7 @@ private constructor(
                  */
                 fun known(): Known =
                     when (this) {
-                        _2 -> Known._2
+                        V2 -> Known.V2
                         else -> throw TelnyxInvalidDataException("Unknown X402Version: $value")
                     }
 
