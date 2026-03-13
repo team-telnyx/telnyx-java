@@ -33,9 +33,9 @@ internal class CreditAccountServiceTest {
         val response =
             creditAccountService.settle(
                 CreditAccountSettleParams.builder()
-                    .headerPaymentSignature("PAYMENT-SIGNATURE")
+                    .paymentSignatureHeader("PAYMENT-SIGNATURE")
                     .id("quote_abc123")
-                    .bodyPaymentSignature("0xabc123...")
+                    .paymentSignature("0xabc123...")
                     .build()
             )
 
