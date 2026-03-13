@@ -15,12 +15,12 @@ internal class VoiceDesignCreateResponseTest {
         val voiceDesignCreateResponse =
             VoiceDesignCreateResponse.builder()
                 .data(
-                    VoiceDesignCreateResponse.Data.builder()
+                    VoiceDesignData.builder()
                         .id("550e8400-e29b-41d4-a716-446655440000")
                         .createdAt(OffsetDateTime.parse("2024-01-01T00:00:00Z"))
                         .name("friendly-narrator")
                         .prompt("Speak in a warm tone")
-                        .recordType(VoiceDesignCreateResponse.Data.RecordType.VOICE_DESIGN)
+                        .recordType(VoiceDesignData.RecordType.VOICE_DESIGN)
                         .text("Hello, welcome.")
                         .updatedAt(OffsetDateTime.parse("2024-01-01T00:00:00Z"))
                         .version(1L)
@@ -32,12 +32,12 @@ internal class VoiceDesignCreateResponseTest {
 
         assertThat(voiceDesignCreateResponse.data())
             .contains(
-                VoiceDesignCreateResponse.Data.builder()
+                VoiceDesignData.builder()
                     .id("550e8400-e29b-41d4-a716-446655440000")
                     .createdAt(OffsetDateTime.parse("2024-01-01T00:00:00Z"))
                     .name("friendly-narrator")
                     .prompt("Speak in a warm tone")
-                    .recordType(VoiceDesignCreateResponse.Data.RecordType.VOICE_DESIGN)
+                    .recordType(VoiceDesignData.RecordType.VOICE_DESIGN)
                     .text("Hello, welcome.")
                     .updatedAt(OffsetDateTime.parse("2024-01-01T00:00:00Z"))
                     .version(1L)
@@ -53,12 +53,12 @@ internal class VoiceDesignCreateResponseTest {
         val voiceDesignCreateResponse =
             VoiceDesignCreateResponse.builder()
                 .data(
-                    VoiceDesignCreateResponse.Data.builder()
+                    VoiceDesignData.builder()
                         .id("550e8400-e29b-41d4-a716-446655440000")
                         .createdAt(OffsetDateTime.parse("2024-01-01T00:00:00Z"))
                         .name("friendly-narrator")
                         .prompt("Speak in a warm tone")
-                        .recordType(VoiceDesignCreateResponse.Data.RecordType.VOICE_DESIGN)
+                        .recordType(VoiceDesignData.RecordType.VOICE_DESIGN)
                         .text("Hello, welcome.")
                         .updatedAt(OffsetDateTime.parse("2024-01-01T00:00:00Z"))
                         .version(1L)
