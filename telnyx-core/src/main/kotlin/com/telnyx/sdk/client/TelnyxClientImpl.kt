@@ -318,6 +318,8 @@ import com.telnyx.sdk.services.blocking.WirelessBlocklistValueService
 import com.telnyx.sdk.services.blocking.WirelessBlocklistValueServiceImpl
 import com.telnyx.sdk.services.blocking.WirelessService
 import com.telnyx.sdk.services.blocking.WirelessServiceImpl
+import com.telnyx.sdk.services.blocking.X402Service
+import com.telnyx.sdk.services.blocking.X402ServiceImpl
 import java.util.function.Consumer
 
 class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient {
@@ -908,6 +910,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         VoiceDesignServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val x402: X402Service by lazy { X402ServiceImpl(clientOptionsWithUserAgent) }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1381,6 +1385,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     /** Create and manage AI-generated voice designs using natural language prompts. */
     override fun voiceDesigns(): VoiceDesignService = voiceDesigns
+
+    override fun x402(): X402Service = x402
 
     override fun close() = clientOptions.close()
 
@@ -2030,6 +2036,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             VoiceDesignServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val x402: X402Service.WithRawResponse by lazy {
+            X402ServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2553,5 +2563,7 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         /** Create and manage AI-generated voice designs using natural language prompts. */
         override fun voiceDesigns(): VoiceDesignService.WithRawResponse = voiceDesigns
+
+        override fun x402(): X402Service.WithRawResponse = x402
     }
 }

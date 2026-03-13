@@ -160,6 +160,7 @@ import com.telnyx.sdk.services.async.WireguardPeerServiceAsync
 import com.telnyx.sdk.services.async.WirelessBlocklistServiceAsync
 import com.telnyx.sdk.services.async.WirelessBlocklistValueServiceAsync
 import com.telnyx.sdk.services.async.WirelessServiceAsync
+import com.telnyx.sdk.services.async.X402ServiceAsync
 import java.util.function.Consumer
 
 /**
@@ -650,6 +651,8 @@ interface TelnyxClientAsync {
     /** Create and manage AI-generated voice designs using natural language prompts. */
     fun voiceDesigns(): VoiceDesignServiceAsync
 
+    fun x402(): X402ServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1128,5 +1131,7 @@ interface TelnyxClientAsync {
 
         /** Create and manage AI-generated voice designs using natural language prompts. */
         fun voiceDesigns(): VoiceDesignServiceAsync.WithRawResponse
+
+        fun x402(): X402ServiceAsync.WithRawResponse
     }
 }
