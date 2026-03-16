@@ -1426,6 +1426,7 @@ private constructor(
             private val targets: JsonField<List<Target>>,
             private val customHeaders: JsonField<List<CustomHeader>>,
             private val voicemailDetection: JsonField<VoicemailDetection>,
+            private val warmMessageDelayMs: JsonField<Long>,
             private val warmTransferInstructions: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -1442,6 +1443,9 @@ private constructor(
                 @JsonProperty("voicemail_detection")
                 @ExcludeMissing
                 voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of(),
+                @JsonProperty("warm_message_delay_ms")
+                @ExcludeMissing
+                warmMessageDelayMs: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("warm_transfer_instructions")
                 @ExcludeMissing
                 warmTransferInstructions: JsonField<String> = JsonMissing.of(),
@@ -1450,6 +1454,7 @@ private constructor(
                 targets,
                 customHeaders,
                 voicemailDetection,
+                warmMessageDelayMs,
                 warmTransferInstructions,
                 mutableMapOf(),
             )
@@ -1492,6 +1497,18 @@ private constructor(
              */
             fun voicemailDetection(): Optional<VoicemailDetection> =
                 voicemailDetection.getOptional("voicemail_detection")
+
+            /**
+             * Optional delay in milliseconds before playing the warm message audio when the
+             * transferred call is answered. When set, the audio_url is not included in the dial
+             * command; instead, playback starts after the specified delay. When not set, existing
+             * behavior (audio_url in dial) is preserved.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun warmMessageDelayMs(): Optional<Long> =
+                warmMessageDelayMs.getOptional("warm_message_delay_ms")
 
             /**
              * Natural language instructions for your agent for how to provide context for the
@@ -1540,6 +1557,16 @@ private constructor(
             fun _voicemailDetection(): JsonField<VoicemailDetection> = voicemailDetection
 
             /**
+             * Returns the raw JSON value of [warmMessageDelayMs].
+             *
+             * Unlike [warmMessageDelayMs], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("warm_message_delay_ms")
+            @ExcludeMissing
+            fun _warmMessageDelayMs(): JsonField<Long> = warmMessageDelayMs
+
+            /**
              * Returns the raw JSON value of [warmTransferInstructions].
              *
              * Unlike [warmTransferInstructions], this method doesn't throw if the JSON field has an
@@ -1582,6 +1609,7 @@ private constructor(
                 private var targets: JsonField<MutableList<Target>>? = null
                 private var customHeaders: JsonField<MutableList<CustomHeader>>? = null
                 private var voicemailDetection: JsonField<VoicemailDetection> = JsonMissing.of()
+                private var warmMessageDelayMs: JsonField<Long> = JsonMissing.of()
                 private var warmTransferInstructions: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1591,6 +1619,7 @@ private constructor(
                     targets = transferConfig.targets.map { it.toMutableList() }
                     customHeaders = transferConfig.customHeaders.map { it.toMutableList() }
                     voicemailDetection = transferConfig.voicemailDetection
+                    warmMessageDelayMs = transferConfig.warmMessageDelayMs
                     warmTransferInstructions = transferConfig.warmTransferInstructions
                     additionalProperties = transferConfig.additionalProperties.toMutableMap()
                 }
@@ -1683,6 +1712,41 @@ private constructor(
                 }
 
                 /**
+                 * Optional delay in milliseconds before playing the warm message audio when the
+                 * transferred call is answered. When set, the audio_url is not included in the dial
+                 * command; instead, playback starts after the specified delay. When not set,
+                 * existing behavior (audio_url in dial) is preserved.
+                 */
+                fun warmMessageDelayMs(warmMessageDelayMs: Long?) =
+                    warmMessageDelayMs(JsonField.ofNullable(warmMessageDelayMs))
+
+                /**
+                 * Alias for [Builder.warmMessageDelayMs].
+                 *
+                 * This unboxed primitive overload exists for backwards compatibility.
+                 */
+                fun warmMessageDelayMs(warmMessageDelayMs: Long) =
+                    warmMessageDelayMs(warmMessageDelayMs as Long?)
+
+                /**
+                 * Alias for calling [Builder.warmMessageDelayMs] with
+                 * `warmMessageDelayMs.orElse(null)`.
+                 */
+                fun warmMessageDelayMs(warmMessageDelayMs: Optional<Long>) =
+                    warmMessageDelayMs(warmMessageDelayMs.getOrNull())
+
+                /**
+                 * Sets [Builder.warmMessageDelayMs] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.warmMessageDelayMs] with a well-typed [Long]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun warmMessageDelayMs(warmMessageDelayMs: JsonField<Long>) = apply {
+                    this.warmMessageDelayMs = warmMessageDelayMs
+                }
+
+                /**
                  * Natural language instructions for your agent for how to provide context for the
                  * transfer recipient.
                  */
@@ -1741,6 +1805,7 @@ private constructor(
                         checkRequired("targets", targets).map { it.toImmutable() },
                         (customHeaders ?: JsonMissing.of()).map { it.toImmutable() },
                         voicemailDetection,
+                        warmMessageDelayMs,
                         warmTransferInstructions,
                         additionalProperties.toMutableMap(),
                     )
@@ -1757,6 +1822,7 @@ private constructor(
                 targets().forEach { it.validate() }
                 customHeaders().ifPresent { it.forEach { it.validate() } }
                 voicemailDetection().ifPresent { it.validate() }
+                warmMessageDelayMs()
                 warmTransferInstructions()
                 validated = true
             }
@@ -1781,6 +1847,7 @@ private constructor(
                     (targets.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                     (customHeaders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                     (voicemailDetection.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (warmMessageDelayMs.asKnown().isPresent) 1 else 0) +
                     (if (warmTransferInstructions.asKnown().isPresent) 1 else 0)
 
             class Target
@@ -3968,6 +4035,7 @@ private constructor(
                     targets == other.targets &&
                     customHeaders == other.customHeaders &&
                     voicemailDetection == other.voicemailDetection &&
+                    warmMessageDelayMs == other.warmMessageDelayMs &&
                     warmTransferInstructions == other.warmTransferInstructions &&
                     additionalProperties == other.additionalProperties
             }
@@ -3978,6 +4046,7 @@ private constructor(
                     targets,
                     customHeaders,
                     voicemailDetection,
+                    warmMessageDelayMs,
                     warmTransferInstructions,
                     additionalProperties,
                 )
@@ -3986,7 +4055,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "TransferConfig{from=$from, targets=$targets, customHeaders=$customHeaders, voicemailDetection=$voicemailDetection, warmTransferInstructions=$warmTransferInstructions, additionalProperties=$additionalProperties}"
+                "TransferConfig{from=$from, targets=$targets, customHeaders=$customHeaders, voicemailDetection=$voicemailDetection, warmMessageDelayMs=$warmMessageDelayMs, warmTransferInstructions=$warmTransferInstructions, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
