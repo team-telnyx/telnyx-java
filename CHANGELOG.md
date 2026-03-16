@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.31.0 (2026-03-16)
+
+Full Changelog: [v6.30.0...v6.31.0](https://github.com/team-telnyx/telnyx-java/compare/v6.30.0...v6.31.0)
+
+### Features
+
+* AI-2132: Add warm_message_delay_ms to transfer tool OpenAPI spec ([5e6b541](https://github.com/team-telnyx/telnyx-java/commit/5e6b54188da96cfa0c8d890b2ffb9f1ad549f12d))
+* CW-2881 update `filter[action_type]` enum ([42f582e](https://github.com/team-telnyx/telnyx-java/commit/42f582e90d7f5544604f654db4d9f6fb0d436ef0))
+
+
+### Chores
+
+* **internal:** tweak CI branches ([d7404df](https://github.com/team-telnyx/telnyx-java/commit/d7404df50b3d253d7d875bfea42046e5f0168bba))
+
 ## 6.30.0 (2026-03-13)
 
 Full Changelog: [v6.29.0...v6.30.0](https://github.com/team-telnyx/telnyx-java/compare/v6.29.0...v6.30.0)
