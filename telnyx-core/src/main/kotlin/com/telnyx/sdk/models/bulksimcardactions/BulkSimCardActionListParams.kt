@@ -247,6 +247,10 @@ private constructor(
 
         companion object {
 
+            @JvmField val BULK_DISABLE_VOICE = of("bulk_disable_voice")
+
+            @JvmField val BULK_ENABLE_VOICE = of("bulk_enable_voice")
+
             @JvmField val BULK_SET_PUBLIC_IPS = of("bulk_set_public_ips")
 
             @JvmStatic fun of(value: String) = FilterActionType(JsonField.of(value))
@@ -254,7 +258,9 @@ private constructor(
 
         /** An enum containing [FilterActionType]'s known values. */
         enum class Known {
-            BULK_SET_PUBLIC_IPS
+            BULK_DISABLE_VOICE,
+            BULK_ENABLE_VOICE,
+            BULK_SET_PUBLIC_IPS,
         }
 
         /**
@@ -267,6 +273,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            BULK_DISABLE_VOICE,
+            BULK_ENABLE_VOICE,
             BULK_SET_PUBLIC_IPS,
             /**
              * An enum member indicating that [FilterActionType] was instantiated with an unknown
@@ -284,6 +292,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                BULK_DISABLE_VOICE -> Value.BULK_DISABLE_VOICE
+                BULK_ENABLE_VOICE -> Value.BULK_ENABLE_VOICE
                 BULK_SET_PUBLIC_IPS -> Value.BULK_SET_PUBLIC_IPS
                 else -> Value._UNKNOWN
             }
@@ -299,6 +309,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                BULK_DISABLE_VOICE -> Known.BULK_DISABLE_VOICE
+                BULK_ENABLE_VOICE -> Known.BULK_ENABLE_VOICE
                 BULK_SET_PUBLIC_IPS -> Known.BULK_SET_PUBLIC_IPS
                 else -> throw TelnyxInvalidDataException("Unknown FilterActionType: $value")
             }
