@@ -411,6 +411,7 @@ internal class AssistantToolTest {
                                 )
                                 .build()
                         )
+                        .warmMessageDelayMs(2000L)
                         .warmTransferInstructions(
                             "Briefly greet the transfer recipient and provide any relevant information from the call. Let them know you will bridge the call right after."
                         )
@@ -509,6 +510,7 @@ internal class AssistantToolTest {
                                     )
                                     .build()
                             )
+                            .warmMessageDelayMs(2000L)
                             .warmTransferInstructions(
                                 "Briefly greet the transfer recipient and provide any relevant information from the call. Let them know you will bridge the call right after."
                             )
