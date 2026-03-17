@@ -133,6 +133,7 @@ import com.telnyx.sdk.services.blocking.SimCardOrderPreviewService
 import com.telnyx.sdk.services.blocking.SimCardOrderService
 import com.telnyx.sdk.services.blocking.SimCardService
 import com.telnyx.sdk.services.blocking.SiprecConnectorService
+import com.telnyx.sdk.services.blocking.SpeechToTextService
 import com.telnyx.sdk.services.blocking.StorageService
 import com.telnyx.sdk.services.blocking.SubNumberOrderService
 import com.telnyx.sdk.services.blocking.SubNumberOrdersReportService
@@ -653,6 +654,9 @@ interface TelnyxClient {
 
     fun x402(): X402Service
 
+    /** Speech to text command operations */
+    fun speechToText(): SpeechToTextService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1130,5 +1134,8 @@ interface TelnyxClient {
         fun voiceDesigns(): VoiceDesignService.WithRawResponse
 
         fun x402(): X402Service.WithRawResponse
+
+        /** Speech to text command operations */
+        fun speechToText(): SpeechToTextService.WithRawResponse
     }
 }
