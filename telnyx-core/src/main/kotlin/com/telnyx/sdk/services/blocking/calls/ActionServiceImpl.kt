@@ -34,6 +34,8 @@ import com.telnyx.sdk.models.calls.actions.ActionGatherUsingSpeakParams
 import com.telnyx.sdk.models.calls.actions.ActionGatherUsingSpeakResponse
 import com.telnyx.sdk.models.calls.actions.ActionHangupParams
 import com.telnyx.sdk.models.calls.actions.ActionHangupResponse
+import com.telnyx.sdk.models.calls.actions.ActionJoinAiAssistantParams
+import com.telnyx.sdk.models.calls.actions.ActionJoinAiAssistantResponse
 import com.telnyx.sdk.models.calls.actions.ActionLeaveQueueParams
 import com.telnyx.sdk.models.calls.actions.ActionLeaveQueueResponse
 import com.telnyx.sdk.models.calls.actions.ActionPauseRecordingParams
@@ -168,6 +170,13 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
     ): ActionHangupResponse =
         // post /calls/{call_control_id}/actions/hangup
         withRawResponse().hangup(params, requestOptions).parse()
+
+    override fun joinAiAssistant(
+        params: ActionJoinAiAssistantParams,
+        requestOptions: RequestOptions,
+    ): ActionJoinAiAssistantResponse =
+        // post /calls/{call_control_id}/actions/ai_assistant_join
+        withRawResponse().joinAiAssistant(params, requestOptions).parse()
 
     override fun leaveQueue(
         params: ActionLeaveQueueParams,
@@ -654,6 +663,37 @@ class ActionServiceImpl internal constructor(private val clientOptions: ClientOp
             return errorHandler.handle(response).parseable {
                 response
                     .use { hangupHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val joinAiAssistantHandler: Handler<ActionJoinAiAssistantResponse> =
+            jsonHandler<ActionJoinAiAssistantResponse>(clientOptions.jsonMapper)
+
+        override fun joinAiAssistant(
+            params: ActionJoinAiAssistantParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ActionJoinAiAssistantResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("callControlId", params.callControlId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("calls", params._pathParam(0), "actions", "ai_assistant_join")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { joinAiAssistantHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
