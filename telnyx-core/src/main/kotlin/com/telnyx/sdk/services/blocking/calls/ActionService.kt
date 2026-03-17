@@ -24,6 +24,8 @@ import com.telnyx.sdk.models.calls.actions.ActionGatherUsingSpeakParams
 import com.telnyx.sdk.models.calls.actions.ActionGatherUsingSpeakResponse
 import com.telnyx.sdk.models.calls.actions.ActionHangupParams
 import com.telnyx.sdk.models.calls.actions.ActionHangupResponse
+import com.telnyx.sdk.models.calls.actions.ActionJoinAiAssistantParams
+import com.telnyx.sdk.models.calls.actions.ActionJoinAiAssistantResponse
 import com.telnyx.sdk.models.calls.actions.ActionLeaveQueueParams
 import com.telnyx.sdk.models.calls.actions.ActionLeaveQueueResponse
 import com.telnyx.sdk.models.calls.actions.ActionPauseRecordingParams
@@ -435,6 +437,33 @@ interface ActionService {
     /** @see hangup */
     fun hangup(callControlId: String, requestOptions: RequestOptions): ActionHangupResponse =
         hangup(callControlId, ActionHangupParams.none(), requestOptions)
+
+    /**
+     * Add a participant to an existing AI assistant conversation. Use this command to bring an
+     * additional call leg into a running AI conversation.
+     */
+    fun joinAiAssistant(
+        callControlId: String,
+        params: ActionJoinAiAssistantParams,
+    ): ActionJoinAiAssistantResponse = joinAiAssistant(callControlId, params, RequestOptions.none())
+
+    /** @see joinAiAssistant */
+    fun joinAiAssistant(
+        callControlId: String,
+        params: ActionJoinAiAssistantParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionJoinAiAssistantResponse =
+        joinAiAssistant(params.toBuilder().callControlId(callControlId).build(), requestOptions)
+
+    /** @see joinAiAssistant */
+    fun joinAiAssistant(params: ActionJoinAiAssistantParams): ActionJoinAiAssistantResponse =
+        joinAiAssistant(params, RequestOptions.none())
+
+    /** @see joinAiAssistant */
+    fun joinAiAssistant(
+        params: ActionJoinAiAssistantParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ActionJoinAiAssistantResponse
 
     /** Removes the call from a queue. */
     fun leaveQueue(callControlId: String): ActionLeaveQueueResponse =
@@ -1848,6 +1877,41 @@ interface ActionService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<ActionHangupResponse> =
             hangup(callControlId, ActionHangupParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /calls/{call_control_id}/actions/ai_assistant_join`, but is otherwise the same as
+         * [ActionService.joinAiAssistant].
+         */
+        @MustBeClosed
+        fun joinAiAssistant(
+            callControlId: String,
+            params: ActionJoinAiAssistantParams,
+        ): HttpResponseFor<ActionJoinAiAssistantResponse> =
+            joinAiAssistant(callControlId, params, RequestOptions.none())
+
+        /** @see joinAiAssistant */
+        @MustBeClosed
+        fun joinAiAssistant(
+            callControlId: String,
+            params: ActionJoinAiAssistantParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionJoinAiAssistantResponse> =
+            joinAiAssistant(params.toBuilder().callControlId(callControlId).build(), requestOptions)
+
+        /** @see joinAiAssistant */
+        @MustBeClosed
+        fun joinAiAssistant(
+            params: ActionJoinAiAssistantParams
+        ): HttpResponseFor<ActionJoinAiAssistantResponse> =
+            joinAiAssistant(params, RequestOptions.none())
+
+        /** @see joinAiAssistant */
+        @MustBeClosed
+        fun joinAiAssistant(
+            params: ActionJoinAiAssistantParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ActionJoinAiAssistantResponse>
 
         /**
          * Returns a raw HTTP response for `post /calls/{call_control_id}/actions/leave_queue`, but

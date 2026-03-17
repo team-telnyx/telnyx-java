@@ -213,6 +213,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.voiceClones()).isNotNull()
         assertThat(client.voiceDesigns()).isNotNull()
         assertThat(client.x402()).isNotNull()
+        assertThat(client.speechToText()).isNotNull()
     }
 
     @Test

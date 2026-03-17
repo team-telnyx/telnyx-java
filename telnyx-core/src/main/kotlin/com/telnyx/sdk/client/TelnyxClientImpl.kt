@@ -264,6 +264,8 @@ import com.telnyx.sdk.services.blocking.SimCardService
 import com.telnyx.sdk.services.blocking.SimCardServiceImpl
 import com.telnyx.sdk.services.blocking.SiprecConnectorService
 import com.telnyx.sdk.services.blocking.SiprecConnectorServiceImpl
+import com.telnyx.sdk.services.blocking.SpeechToTextService
+import com.telnyx.sdk.services.blocking.SpeechToTextServiceImpl
 import com.telnyx.sdk.services.blocking.StorageService
 import com.telnyx.sdk.services.blocking.StorageServiceImpl
 import com.telnyx.sdk.services.blocking.SubNumberOrderService
@@ -912,6 +914,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     private val x402: X402Service by lazy { X402ServiceImpl(clientOptionsWithUserAgent) }
 
+    private val speechToText: SpeechToTextService by lazy {
+        SpeechToTextServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1387,6 +1393,9 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun voiceDesigns(): VoiceDesignService = voiceDesigns
 
     override fun x402(): X402Service = x402
+
+    /** Speech to text command operations */
+    override fun speechToText(): SpeechToTextService = speechToText
 
     override fun close() = clientOptions.close()
 
@@ -2040,6 +2049,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             X402ServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val speechToText: SpeechToTextService.WithRawResponse by lazy {
+            SpeechToTextServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2565,5 +2578,8 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         override fun voiceDesigns(): VoiceDesignService.WithRawResponse = voiceDesigns
 
         override fun x402(): X402Service.WithRawResponse = x402
+
+        /** Speech to text command operations */
+        override fun speechToText(): SpeechToTextService.WithRawResponse = speechToText
     }
 }

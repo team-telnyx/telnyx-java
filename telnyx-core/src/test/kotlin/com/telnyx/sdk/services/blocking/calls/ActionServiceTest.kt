@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.calls.actions.ActionGatherUsingAiParams
 import com.telnyx.sdk.models.calls.actions.ActionGatherUsingAudioParams
 import com.telnyx.sdk.models.calls.actions.ActionGatherUsingSpeakParams
 import com.telnyx.sdk.models.calls.actions.ActionHangupParams
+import com.telnyx.sdk.models.calls.actions.ActionJoinAiAssistantParams
 import com.telnyx.sdk.models.calls.actions.ActionLeaveQueueParams
 import com.telnyx.sdk.models.calls.actions.ActionPauseRecordingParams
 import com.telnyx.sdk.models.calls.actions.ActionReferParams
@@ -440,6 +441,36 @@ internal class ActionServiceTest {
                     .addCustomHeader(
                         CustomSipHeader.builder().name("head_2").value("val_2").build()
                     )
+                    .build()
+            )
+
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun joinAiAssistant() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val actionService = client.calls().actions()
+
+        val response =
+            actionService.joinAiAssistant(
+                ActionJoinAiAssistantParams.builder()
+                    .callControlId("call_control_id")
+                    .conversationId("v3:abc123")
+                    .participant(
+                        ActionJoinAiAssistantParams.Participant.builder()
+                            .id("v3:abc123def456")
+                            .role(ActionJoinAiAssistantParams.Participant.Role.USER)
+                            .name("John Doe")
+                            .onHangup(
+                                ActionJoinAiAssistantParams.Participant.OnHangup
+                                    .CONTINUE_CONVERSATION
+                            )
+                            .build()
+                    )
+                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                    .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .build()
             )
 
