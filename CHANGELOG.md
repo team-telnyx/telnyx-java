@@ -1,5 +1,23 @@
 # Changelog
 
+## 6.32.0 (2026-03-17)
+
+Full Changelog: [v6.31.0...v6.32.0](https://github.com/team-telnyx/telnyx-java/compare/v6.31.0...v6.32.0)
+
+### Features
+
+* add ai_assistant_join call control command OpenAPI spec ([5dbeb98](https://github.com/team-telnyx/telnyx-java/commit/5dbeb9827a4276c1473860cbb1b631b8744e9f20))
+
+
+### Bug Fixes
+
+* **client:** allow updating header/query affecting fields in `toBuilder()` ([abf41c4](https://github.com/team-telnyx/telnyx-java/commit/abf41c41b28b9d94557876918b208ed45187b37e))
+
+
+### Chores
+
+* **internal:** update retry delay tests ([6711832](https://github.com/team-telnyx/telnyx-java/commit/67118327f7b01b1fa09b6126ac9d71de240d8268))
+
 ## 6.31.0 (2026-03-16)
 
 Full Changelog: [v6.30.0...v6.31.0](https://github.com/team-telnyx/telnyx-java/compare/v6.30.0...v6.31.0)
