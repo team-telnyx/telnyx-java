@@ -675,6 +675,28 @@ internal class ActionServiceTest {
                     .commandId("891510ac-f3e4-11e8-af5b-de00688a4901")
                     .greeting("Hello, can you tell me your age and where you live?")
                     .interruptionSettings(InterruptionSettings.builder().enable(true).build())
+                    .addMessageHistory(
+                        ActionStartAiAssistantParams.MessageHistory.User.builder()
+                            .content("Hello, I would like some help.")
+                            .metadata(
+                                ActionStartAiAssistantParams.MessageHistory.User.Metadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .addParticipant(
+                        ActionStartAiAssistantParams.Participant.builder()
+                            .id("v3:abc123def456")
+                            .role(ActionStartAiAssistantParams.Participant.Role.USER)
+                            .name("John Doe")
+                            .onHangup(
+                                ActionStartAiAssistantParams.Participant.OnHangup
+                                    .CONTINUE_CONVERSATION
+                            )
+                            .build()
+                    )
+                    .sendMessageHistoryUpdates(true)
                     .transcription(
                         TranscriptionConfig.builder()
                             .model("distil-whisper/distil-large-v2")
