@@ -1,5 +1,15 @@
 # Changelog
 
+## 6.33.0 (2026-03-18)
+
+Full Changelog: [v6.32.0...v6.33.0](https://github.com/team-telnyx/telnyx-java/compare/v6.32.0...v6.33.0)
+
+### Features
+
+* add message_history, send_message_history_updates, participants to AIAssistantStartRequest ([c3c668d](https://github.com/team-telnyx/telnyx-java/commit/c3c668d399e233a465322b4cb21a52c03e196f78))
+* **api:** manual updates ([726b365](https://github.com/team-telnyx/telnyx-java/commit/726b3654f05faf0248213ec59acf82b04120ab45))
+* port-4690: fix LOA configuration preview path (singular → plural) ([3b836e8](https://github.com/team-telnyx/telnyx-java/commit/3b836e8fe4c84bcaaa8c84da16bf0f7efd9334fa))
+
 ## 6.32.0 (2026-03-17)
 
 Full Changelog: [v6.31.0...v6.32.0](https://github.com/team-telnyx/telnyx-java/compare/v6.31.0...v6.32.0)
