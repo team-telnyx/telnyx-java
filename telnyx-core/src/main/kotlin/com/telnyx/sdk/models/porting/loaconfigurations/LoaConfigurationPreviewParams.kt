@@ -21,7 +21,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** Preview the LOA template that would be generated without need to create LOA configuration. */
-class LoaConfigurationPreview0Params
+class LoaConfigurationPreviewParams
 private constructor(
     private val body: Body,
     private val additionalHeaders: Headers,
@@ -117,7 +117,7 @@ private constructor(
 
         /**
          * Returns a mutable builder for constructing an instance of
-         * [LoaConfigurationPreview0Params].
+         * [LoaConfigurationPreviewParams].
          *
          * The following fields are required:
          * ```java
@@ -131,7 +131,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [LoaConfigurationPreview0Params]. */
+    /** A builder for [LoaConfigurationPreviewParams]. */
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
@@ -139,10 +139,10 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(loaConfigurationPreview0Params: LoaConfigurationPreview0Params) = apply {
-            body = loaConfigurationPreview0Params.body.toBuilder()
-            additionalHeaders = loaConfigurationPreview0Params.additionalHeaders.toBuilder()
-            additionalQueryParams = loaConfigurationPreview0Params.additionalQueryParams.toBuilder()
+        internal fun from(loaConfigurationPreviewParams: LoaConfigurationPreviewParams) = apply {
+            body = loaConfigurationPreviewParams.body.toBuilder()
+            additionalHeaders = loaConfigurationPreviewParams.additionalHeaders.toBuilder()
+            additionalQueryParams = loaConfigurationPreviewParams.additionalQueryParams.toBuilder()
         }
 
         /**
@@ -333,7 +333,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [LoaConfigurationPreview0Params].
+         * Returns an immutable instance of [LoaConfigurationPreviewParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -348,8 +348,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): LoaConfigurationPreview0Params =
-            LoaConfigurationPreview0Params(
+        fun build(): LoaConfigurationPreviewParams =
+            LoaConfigurationPreviewParams(
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -1427,7 +1427,7 @@ private constructor(
             return true
         }
 
-        return other is LoaConfigurationPreview0Params &&
+        return other is LoaConfigurationPreviewParams &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -1436,5 +1436,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "LoaConfigurationPreview0Params{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LoaConfigurationPreviewParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

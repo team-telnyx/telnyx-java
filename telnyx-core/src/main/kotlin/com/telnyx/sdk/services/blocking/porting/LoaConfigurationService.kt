@@ -12,8 +12,8 @@ import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationCreateRes
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationDeleteParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListPage
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListParams
-import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview0Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview1Params
+import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreviewParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationRetrieveParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationRetrieveResponse
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationUpdateParams
@@ -149,13 +149,13 @@ interface LoaConfigurationService {
      * Preview the LOA template that would be generated without need to create LOA configuration.
      */
     @MustBeClosed
-    fun preview0(params: LoaConfigurationPreview0Params): HttpResponse =
-        preview0(params, RequestOptions.none())
+    fun preview(params: LoaConfigurationPreviewParams): HttpResponse =
+        preview(params, RequestOptions.none())
 
-    /** @see preview0 */
+    /** @see preview */
     @MustBeClosed
-    fun preview0(
-        params: LoaConfigurationPreview0Params,
+    fun preview(
+        params: LoaConfigurationPreviewParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
@@ -372,17 +372,17 @@ interface LoaConfigurationService {
             delete(id, LoaConfigurationDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /porting/loa_configuration/preview`, but is
-         * otherwise the same as [LoaConfigurationService.preview0].
+         * Returns a raw HTTP response for `post /porting/loa_configurations/preview`, but is
+         * otherwise the same as [LoaConfigurationService.preview].
          */
         @MustBeClosed
-        fun preview0(params: LoaConfigurationPreview0Params): HttpResponse =
-            preview0(params, RequestOptions.none())
+        fun preview(params: LoaConfigurationPreviewParams): HttpResponse =
+            preview(params, RequestOptions.none())
 
-        /** @see preview0 */
+        /** @see preview */
         @MustBeClosed
-        fun preview0(
-            params: LoaConfigurationPreview0Params,
+        fun preview(
+            params: LoaConfigurationPreviewParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 

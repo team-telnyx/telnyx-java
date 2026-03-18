@@ -5,13 +5,13 @@ package com.telnyx.sdk.models.porting.loaconfigurations
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class LoaConfigurationPreview0ParamsTest {
+internal class LoaConfigurationPreviewParamsTest {
 
     @Test
     fun create() {
-        LoaConfigurationPreview0Params.builder()
+        LoaConfigurationPreviewParams.builder()
             .address(
-                LoaConfigurationPreview0Params.Address.builder()
+                LoaConfigurationPreviewParams.Address.builder()
                     .city("Austin")
                     .countryCode("US")
                     .state("TX")
@@ -22,13 +22,13 @@ internal class LoaConfigurationPreview0ParamsTest {
             )
             .companyName("Telnyx")
             .contact(
-                LoaConfigurationPreview0Params.Contact.builder()
+                LoaConfigurationPreviewParams.Contact.builder()
                     .email("testing@telnyx.com")
                     .phoneNumber("+12003270001")
                     .build()
             )
             .logo(
-                LoaConfigurationPreview0Params.Logo.builder()
+                LoaConfigurationPreviewParams.Logo.builder()
                     .documentId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
             )
@@ -39,9 +39,9 @@ internal class LoaConfigurationPreview0ParamsTest {
     @Test
     fun body() {
         val params =
-            LoaConfigurationPreview0Params.builder()
+            LoaConfigurationPreviewParams.builder()
                 .address(
-                    LoaConfigurationPreview0Params.Address.builder()
+                    LoaConfigurationPreviewParams.Address.builder()
                         .city("Austin")
                         .countryCode("US")
                         .state("TX")
@@ -52,13 +52,13 @@ internal class LoaConfigurationPreview0ParamsTest {
                 )
                 .companyName("Telnyx")
                 .contact(
-                    LoaConfigurationPreview0Params.Contact.builder()
+                    LoaConfigurationPreviewParams.Contact.builder()
                         .email("testing@telnyx.com")
                         .phoneNumber("+12003270001")
                         .build()
                 )
                 .logo(
-                    LoaConfigurationPreview0Params.Logo.builder()
+                    LoaConfigurationPreviewParams.Logo.builder()
                         .documentId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
                 )
@@ -69,7 +69,7 @@ internal class LoaConfigurationPreview0ParamsTest {
 
         assertThat(body.address())
             .isEqualTo(
-                LoaConfigurationPreview0Params.Address.builder()
+                LoaConfigurationPreviewParams.Address.builder()
                     .city("Austin")
                     .countryCode("US")
                     .state("TX")
@@ -81,14 +81,14 @@ internal class LoaConfigurationPreview0ParamsTest {
         assertThat(body.companyName()).isEqualTo("Telnyx")
         assertThat(body.contact())
             .isEqualTo(
-                LoaConfigurationPreview0Params.Contact.builder()
+                LoaConfigurationPreviewParams.Contact.builder()
                     .email("testing@telnyx.com")
                     .phoneNumber("+12003270001")
                     .build()
             )
         assertThat(body.logo())
             .isEqualTo(
-                LoaConfigurationPreview0Params.Logo.builder()
+                LoaConfigurationPreviewParams.Logo.builder()
                     .documentId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
             )
@@ -98,9 +98,9 @@ internal class LoaConfigurationPreview0ParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
-            LoaConfigurationPreview0Params.builder()
+            LoaConfigurationPreviewParams.builder()
                 .address(
-                    LoaConfigurationPreview0Params.Address.builder()
+                    LoaConfigurationPreviewParams.Address.builder()
                         .city("Austin")
                         .countryCode("US")
                         .state("TX")
@@ -110,13 +110,13 @@ internal class LoaConfigurationPreview0ParamsTest {
                 )
                 .companyName("Telnyx")
                 .contact(
-                    LoaConfigurationPreview0Params.Contact.builder()
+                    LoaConfigurationPreviewParams.Contact.builder()
                         .email("testing@telnyx.com")
                         .phoneNumber("+12003270001")
                         .build()
                 )
                 .logo(
-                    LoaConfigurationPreview0Params.Logo.builder()
+                    LoaConfigurationPreviewParams.Logo.builder()
                         .documentId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
                 )
@@ -127,7 +127,7 @@ internal class LoaConfigurationPreview0ParamsTest {
 
         assertThat(body.address())
             .isEqualTo(
-                LoaConfigurationPreview0Params.Address.builder()
+                LoaConfigurationPreviewParams.Address.builder()
                     .city("Austin")
                     .countryCode("US")
                     .state("TX")
@@ -138,14 +138,14 @@ internal class LoaConfigurationPreview0ParamsTest {
         assertThat(body.companyName()).isEqualTo("Telnyx")
         assertThat(body.contact())
             .isEqualTo(
-                LoaConfigurationPreview0Params.Contact.builder()
+                LoaConfigurationPreviewParams.Contact.builder()
                     .email("testing@telnyx.com")
                     .phoneNumber("+12003270001")
                     .build()
             )
         assertThat(body.logo())
             .isEqualTo(
-                LoaConfigurationPreview0Params.Logo.builder()
+                LoaConfigurationPreviewParams.Logo.builder()
                     .documentId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
             )
