@@ -15,14 +15,18 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.BaseDeserializer
 import com.telnyx.sdk.core.BaseSerializer
+import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
+import com.telnyx.sdk.core.checkKnown
+import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.getOrThrow
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
+import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.models.AzureVoiceSettings
 import com.telnyx.sdk.models.ResembleVoiceSettings
@@ -92,6 +96,31 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun interruptionSettings(): Optional<InterruptionSettings> = body.interruptionSettings()
+
+    /**
+     * A list of messages to seed the conversation history before the assistant starts. Follows the
+     * same message format as the `ai_assistant_add_messages` command.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun messageHistory(): Optional<List<MessageHistory>> = body.messageHistory()
+
+    /**
+     * A list of participants to add to the conversation when it starts.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun participants(): Optional<List<Participant>> = body.participants()
+
+    /**
+     * When `true`, a webhook is sent each time the conversation message history is updated.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun sendMessageHistoryUpdates(): Optional<Boolean> = body.sendMessageHistoryUpdates()
 
     /**
      * The settings associated with speech to text for the voice assistant. This is only relevant if
@@ -174,6 +203,28 @@ private constructor(
      * type.
      */
     fun _interruptionSettings(): JsonField<InterruptionSettings> = body._interruptionSettings()
+
+    /**
+     * Returns the raw JSON value of [messageHistory].
+     *
+     * Unlike [messageHistory], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _messageHistory(): JsonField<List<MessageHistory>> = body._messageHistory()
+
+    /**
+     * Returns the raw JSON value of [participants].
+     *
+     * Unlike [participants], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _participants(): JsonField<List<Participant>> = body._participants()
+
+    /**
+     * Returns the raw JSON value of [sendMessageHistoryUpdates].
+     *
+     * Unlike [sendMessageHistoryUpdates], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _sendMessageHistoryUpdates(): JsonField<Boolean> = body._sendMessageHistoryUpdates()
 
     /**
      * Returns the raw JSON value of [transcription].
@@ -323,6 +374,128 @@ private constructor(
          */
         fun interruptionSettings(interruptionSettings: JsonField<InterruptionSettings>) = apply {
             body.interruptionSettings(interruptionSettings)
+        }
+
+        /**
+         * A list of messages to seed the conversation history before the assistant starts. Follows
+         * the same message format as the `ai_assistant_add_messages` command.
+         */
+        fun messageHistory(messageHistory: List<MessageHistory>) = apply {
+            body.messageHistory(messageHistory)
+        }
+
+        /**
+         * Sets [Builder.messageHistory] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.messageHistory] with a well-typed `List<MessageHistory>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun messageHistory(messageHistory: JsonField<List<MessageHistory>>) = apply {
+            body.messageHistory(messageHistory)
+        }
+
+        /**
+         * Adds a single [MessageHistory] to [Builder.messageHistory].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addMessageHistory(messageHistory: MessageHistory) = apply {
+            body.addMessageHistory(messageHistory)
+        }
+
+        /** Alias for calling [addMessageHistory] with `MessageHistory.ofUser(user)`. */
+        fun addMessageHistory(user: MessageHistory.User) = apply { body.addMessageHistory(user) }
+
+        /**
+         * Alias for calling [addMessageHistory] with the following:
+         * ```java
+         * MessageHistory.User.builder()
+         *     .content(content)
+         *     .build()
+         * ```
+         */
+        fun addUserMessageHistory(content: String) = apply { body.addUserMessageHistory(content) }
+
+        /** Alias for calling [addMessageHistory] with `MessageHistory.ofAssistant(assistant)`. */
+        fun addMessageHistory(assistant: MessageHistory.Assistant) = apply {
+            body.addMessageHistory(assistant)
+        }
+
+        /** Alias for calling [addMessageHistory] with `MessageHistory.ofTool(tool)`. */
+        fun addMessageHistory(tool: MessageHistory.Tool) = apply { body.addMessageHistory(tool) }
+
+        /** Alias for calling [addMessageHistory] with `MessageHistory.ofSystem(system)`. */
+        fun addMessageHistory(system: MessageHistory.System) = apply {
+            body.addMessageHistory(system)
+        }
+
+        /**
+         * Alias for calling [addMessageHistory] with the following:
+         * ```java
+         * MessageHistory.System.builder()
+         *     .content(content)
+         *     .build()
+         * ```
+         */
+        fun addSystemMessageHistory(content: String) = apply {
+            body.addSystemMessageHistory(content)
+        }
+
+        /** Alias for calling [addMessageHistory] with `MessageHistory.ofDeveloper(developer)`. */
+        fun addMessageHistory(developer: MessageHistory.Developer) = apply {
+            body.addMessageHistory(developer)
+        }
+
+        /**
+         * Alias for calling [addMessageHistory] with the following:
+         * ```java
+         * MessageHistory.Developer.builder()
+         *     .content(content)
+         *     .build()
+         * ```
+         */
+        fun addDeveloperMessageHistory(content: String) = apply {
+            body.addDeveloperMessageHistory(content)
+        }
+
+        /** A list of participants to add to the conversation when it starts. */
+        fun participants(participants: List<Participant>) = apply {
+            body.participants(participants)
+        }
+
+        /**
+         * Sets [Builder.participants] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.participants] with a well-typed `List<Participant>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun participants(participants: JsonField<List<Participant>>) = apply {
+            body.participants(participants)
+        }
+
+        /**
+         * Adds a single [Participant] to [participants].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addParticipant(participant: Participant) = apply { body.addParticipant(participant) }
+
+        /** When `true`, a webhook is sent each time the conversation message history is updated. */
+        fun sendMessageHistoryUpdates(sendMessageHistoryUpdates: Boolean) = apply {
+            body.sendMessageHistoryUpdates(sendMessageHistoryUpdates)
+        }
+
+        /**
+         * Sets [Builder.sendMessageHistoryUpdates] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sendMessageHistoryUpdates] with a well-typed [Boolean]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun sendMessageHistoryUpdates(sendMessageHistoryUpdates: JsonField<Boolean>) = apply {
+            body.sendMessageHistoryUpdates(sendMessageHistoryUpdates)
         }
 
         /**
@@ -567,6 +740,9 @@ private constructor(
         private val commandId: JsonField<String>,
         private val greeting: JsonField<String>,
         private val interruptionSettings: JsonField<InterruptionSettings>,
+        private val messageHistory: JsonField<List<MessageHistory>>,
+        private val participants: JsonField<List<Participant>>,
+        private val sendMessageHistoryUpdates: JsonField<Boolean>,
         private val transcription: JsonField<TranscriptionConfig>,
         private val voice: JsonField<String>,
         private val voiceSettings: JsonField<VoiceSettings>,
@@ -590,6 +766,15 @@ private constructor(
             @JsonProperty("interruption_settings")
             @ExcludeMissing
             interruptionSettings: JsonField<InterruptionSettings> = JsonMissing.of(),
+            @JsonProperty("message_history")
+            @ExcludeMissing
+            messageHistory: JsonField<List<MessageHistory>> = JsonMissing.of(),
+            @JsonProperty("participants")
+            @ExcludeMissing
+            participants: JsonField<List<Participant>> = JsonMissing.of(),
+            @JsonProperty("send_message_history_updates")
+            @ExcludeMissing
+            sendMessageHistoryUpdates: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("transcription")
             @ExcludeMissing
             transcription: JsonField<TranscriptionConfig> = JsonMissing.of(),
@@ -603,6 +788,9 @@ private constructor(
             commandId,
             greeting,
             interruptionSettings,
+            messageHistory,
+            participants,
+            sendMessageHistoryUpdates,
             transcription,
             voice,
             voiceSettings,
@@ -653,6 +841,33 @@ private constructor(
          */
         fun interruptionSettings(): Optional<InterruptionSettings> =
             interruptionSettings.getOptional("interruption_settings")
+
+        /**
+         * A list of messages to seed the conversation history before the assistant starts. Follows
+         * the same message format as the `ai_assistant_add_messages` command.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun messageHistory(): Optional<List<MessageHistory>> =
+            messageHistory.getOptional("message_history")
+
+        /**
+         * A list of participants to add to the conversation when it starts.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun participants(): Optional<List<Participant>> = participants.getOptional("participants")
+
+        /**
+         * When `true`, a webhook is sent each time the conversation message history is updated.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun sendMessageHistoryUpdates(): Optional<Boolean> =
+            sendMessageHistoryUpdates.getOptional("send_message_history_updates")
 
         /**
          * The settings associated with speech to text for the voice assistant. This is only
@@ -746,6 +961,36 @@ private constructor(
         fun _interruptionSettings(): JsonField<InterruptionSettings> = interruptionSettings
 
         /**
+         * Returns the raw JSON value of [messageHistory].
+         *
+         * Unlike [messageHistory], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("message_history")
+        @ExcludeMissing
+        fun _messageHistory(): JsonField<List<MessageHistory>> = messageHistory
+
+        /**
+         * Returns the raw JSON value of [participants].
+         *
+         * Unlike [participants], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("participants")
+        @ExcludeMissing
+        fun _participants(): JsonField<List<Participant>> = participants
+
+        /**
+         * Returns the raw JSON value of [sendMessageHistoryUpdates].
+         *
+         * Unlike [sendMessageHistoryUpdates], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("send_message_history_updates")
+        @ExcludeMissing
+        fun _sendMessageHistoryUpdates(): JsonField<Boolean> = sendMessageHistoryUpdates
+
+        /**
          * Returns the raw JSON value of [transcription].
          *
          * Unlike [transcription], this method doesn't throw if the JSON field has an unexpected
@@ -798,6 +1043,9 @@ private constructor(
             private var commandId: JsonField<String> = JsonMissing.of()
             private var greeting: JsonField<String> = JsonMissing.of()
             private var interruptionSettings: JsonField<InterruptionSettings> = JsonMissing.of()
+            private var messageHistory: JsonField<MutableList<MessageHistory>>? = null
+            private var participants: JsonField<MutableList<Participant>>? = null
+            private var sendMessageHistoryUpdates: JsonField<Boolean> = JsonMissing.of()
             private var transcription: JsonField<TranscriptionConfig> = JsonMissing.of()
             private var voice: JsonField<String> = JsonMissing.of()
             private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
@@ -810,6 +1058,9 @@ private constructor(
                 commandId = body.commandId
                 greeting = body.greeting
                 interruptionSettings = body.interruptionSettings
+                messageHistory = body.messageHistory.map { it.toMutableList() }
+                participants = body.participants.map { it.toMutableList() }
+                sendMessageHistoryUpdates = body.sendMessageHistoryUpdates
                 transcription = body.transcription
                 voice = body.voice
                 voiceSettings = body.voiceSettings
@@ -891,6 +1142,137 @@ private constructor(
                 apply {
                     this.interruptionSettings = interruptionSettings
                 }
+
+            /**
+             * A list of messages to seed the conversation history before the assistant starts.
+             * Follows the same message format as the `ai_assistant_add_messages` command.
+             */
+            fun messageHistory(messageHistory: List<MessageHistory>) =
+                messageHistory(JsonField.of(messageHistory))
+
+            /**
+             * Sets [Builder.messageHistory] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.messageHistory] with a well-typed
+             * `List<MessageHistory>` value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun messageHistory(messageHistory: JsonField<List<MessageHistory>>) = apply {
+                this.messageHistory = messageHistory.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [MessageHistory] to [Builder.messageHistory].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addMessageHistory(messageHistory: MessageHistory) = apply {
+                this.messageHistory =
+                    (this.messageHistory ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("messageHistory", it).add(messageHistory)
+                    }
+            }
+
+            /** Alias for calling [addMessageHistory] with `MessageHistory.ofUser(user)`. */
+            fun addMessageHistory(user: MessageHistory.User) =
+                addMessageHistory(MessageHistory.ofUser(user))
+
+            /**
+             * Alias for calling [addMessageHistory] with the following:
+             * ```java
+             * MessageHistory.User.builder()
+             *     .content(content)
+             *     .build()
+             * ```
+             */
+            fun addUserMessageHistory(content: String) =
+                addMessageHistory(MessageHistory.User.builder().content(content).build())
+
+            /**
+             * Alias for calling [addMessageHistory] with `MessageHistory.ofAssistant(assistant)`.
+             */
+            fun addMessageHistory(assistant: MessageHistory.Assistant) =
+                addMessageHistory(MessageHistory.ofAssistant(assistant))
+
+            /** Alias for calling [addMessageHistory] with `MessageHistory.ofTool(tool)`. */
+            fun addMessageHistory(tool: MessageHistory.Tool) =
+                addMessageHistory(MessageHistory.ofTool(tool))
+
+            /** Alias for calling [addMessageHistory] with `MessageHistory.ofSystem(system)`. */
+            fun addMessageHistory(system: MessageHistory.System) =
+                addMessageHistory(MessageHistory.ofSystem(system))
+
+            /**
+             * Alias for calling [addMessageHistory] with the following:
+             * ```java
+             * MessageHistory.System.builder()
+             *     .content(content)
+             *     .build()
+             * ```
+             */
+            fun addSystemMessageHistory(content: String) =
+                addMessageHistory(MessageHistory.System.builder().content(content).build())
+
+            /**
+             * Alias for calling [addMessageHistory] with `MessageHistory.ofDeveloper(developer)`.
+             */
+            fun addMessageHistory(developer: MessageHistory.Developer) =
+                addMessageHistory(MessageHistory.ofDeveloper(developer))
+
+            /**
+             * Alias for calling [addMessageHistory] with the following:
+             * ```java
+             * MessageHistory.Developer.builder()
+             *     .content(content)
+             *     .build()
+             * ```
+             */
+            fun addDeveloperMessageHistory(content: String) =
+                addMessageHistory(MessageHistory.Developer.builder().content(content).build())
+
+            /** A list of participants to add to the conversation when it starts. */
+            fun participants(participants: List<Participant>) =
+                participants(JsonField.of(participants))
+
+            /**
+             * Sets [Builder.participants] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.participants] with a well-typed `List<Participant>`
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun participants(participants: JsonField<List<Participant>>) = apply {
+                this.participants = participants.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Participant] to [participants].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addParticipant(participant: Participant) = apply {
+                participants =
+                    (participants ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("participants", it).add(participant)
+                    }
+            }
+
+            /**
+             * When `true`, a webhook is sent each time the conversation message history is updated.
+             */
+            fun sendMessageHistoryUpdates(sendMessageHistoryUpdates: Boolean) =
+                sendMessageHistoryUpdates(JsonField.of(sendMessageHistoryUpdates))
+
+            /**
+             * Sets [Builder.sendMessageHistoryUpdates] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sendMessageHistoryUpdates] with a well-typed
+             * [Boolean] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun sendMessageHistoryUpdates(sendMessageHistoryUpdates: JsonField<Boolean>) = apply {
+                this.sendMessageHistoryUpdates = sendMessageHistoryUpdates
+            }
 
             /**
              * The settings associated with speech to text for the voice assistant. This is only
@@ -1016,6 +1398,9 @@ private constructor(
                     commandId,
                     greeting,
                     interruptionSettings,
+                    (messageHistory ?: JsonMissing.of()).map { it.toImmutable() },
+                    (participants ?: JsonMissing.of()).map { it.toImmutable() },
+                    sendMessageHistoryUpdates,
                     transcription,
                     voice,
                     voiceSettings,
@@ -1035,6 +1420,9 @@ private constructor(
             commandId()
             greeting()
             interruptionSettings().ifPresent { it.validate() }
+            messageHistory().ifPresent { it.forEach { it.validate() } }
+            participants().ifPresent { it.forEach { it.validate() } }
+            sendMessageHistoryUpdates()
             transcription().ifPresent { it.validate() }
             voice()
             voiceSettings().ifPresent { it.validate() }
@@ -1062,6 +1450,9 @@ private constructor(
                 (if (commandId.asKnown().isPresent) 1 else 0) +
                 (if (greeting.asKnown().isPresent) 1 else 0) +
                 (interruptionSettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (messageHistory.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (participants.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (sendMessageHistoryUpdates.asKnown().isPresent) 1 else 0) +
                 (transcription.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (voice.asKnown().isPresent) 1 else 0) +
                 (voiceSettings.asKnown().getOrNull()?.validity() ?: 0)
@@ -1077,6 +1468,9 @@ private constructor(
                 commandId == other.commandId &&
                 greeting == other.greeting &&
                 interruptionSettings == other.interruptionSettings &&
+                messageHistory == other.messageHistory &&
+                participants == other.participants &&
+                sendMessageHistoryUpdates == other.sendMessageHistoryUpdates &&
                 transcription == other.transcription &&
                 voice == other.voice &&
                 voiceSettings == other.voiceSettings &&
@@ -1090,6 +1484,9 @@ private constructor(
                 commandId,
                 greeting,
                 interruptionSettings,
+                messageHistory,
+                participants,
+                sendMessageHistoryUpdates,
                 transcription,
                 voice,
                 voiceSettings,
@@ -1100,7 +1497,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{assistant=$assistant, clientState=$clientState, commandId=$commandId, greeting=$greeting, interruptionSettings=$interruptionSettings, transcription=$transcription, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+            "Body{assistant=$assistant, clientState=$clientState, commandId=$commandId, greeting=$greeting, interruptionSettings=$interruptionSettings, messageHistory=$messageHistory, participants=$participants, sendMessageHistoryUpdates=$sendMessageHistoryUpdates, transcription=$transcription, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
     }
 
     /** AI Assistant configuration */
@@ -1335,6 +1732,3225 @@ private constructor(
 
         override fun toString() =
             "Assistant{id=$id, instructions=$instructions, openaiApiKeyRef=$openaiApiKeyRef, additionalProperties=$additionalProperties}"
+    }
+
+    /** Messages sent by an end user */
+    @JsonDeserialize(using = MessageHistory.Deserializer::class)
+    @JsonSerialize(using = MessageHistory.Serializer::class)
+    class MessageHistory
+    private constructor(
+        private val user: User? = null,
+        private val assistant: Assistant? = null,
+        private val tool: Tool? = null,
+        private val system: System? = null,
+        private val developer: Developer? = null,
+        private val _json: JsonValue? = null,
+    ) {
+
+        /** Messages sent by an end user */
+        fun user(): Optional<User> = Optional.ofNullable(user)
+
+        /** Messages sent by the model in response to user messages. */
+        fun assistant(): Optional<Assistant> = Optional.ofNullable(assistant)
+
+        fun tool(): Optional<Tool> = Optional.ofNullable(tool)
+
+        /**
+         * Developer-provided instructions that the model should follow, regardless of messages sent
+         * by the user.
+         */
+        fun system(): Optional<System> = Optional.ofNullable(system)
+
+        /**
+         * Developer-provided instructions that the model should follow, regardless of messages sent
+         * by the user.
+         */
+        fun developer(): Optional<Developer> = Optional.ofNullable(developer)
+
+        fun isUser(): Boolean = user != null
+
+        fun isAssistant(): Boolean = assistant != null
+
+        fun isTool(): Boolean = tool != null
+
+        fun isSystem(): Boolean = system != null
+
+        fun isDeveloper(): Boolean = developer != null
+
+        /** Messages sent by an end user */
+        fun asUser(): User = user.getOrThrow("user")
+
+        /** Messages sent by the model in response to user messages. */
+        fun asAssistant(): Assistant = assistant.getOrThrow("assistant")
+
+        fun asTool(): Tool = tool.getOrThrow("tool")
+
+        /**
+         * Developer-provided instructions that the model should follow, regardless of messages sent
+         * by the user.
+         */
+        fun asSystem(): System = system.getOrThrow("system")
+
+        /**
+         * Developer-provided instructions that the model should follow, regardless of messages sent
+         * by the user.
+         */
+        fun asDeveloper(): Developer = developer.getOrThrow("developer")
+
+        fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
+
+        fun <T> accept(visitor: Visitor<T>): T =
+            when {
+                user != null -> visitor.visitUser(user)
+                assistant != null -> visitor.visitAssistant(assistant)
+                tool != null -> visitor.visitTool(tool)
+                system != null -> visitor.visitSystem(system)
+                developer != null -> visitor.visitDeveloper(developer)
+                else -> visitor.unknown(_json)
+            }
+
+        private var validated: Boolean = false
+
+        fun validate(): MessageHistory = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accept(
+                object : Visitor<Unit> {
+                    override fun visitUser(user: User) {
+                        user.validate()
+                    }
+
+                    override fun visitAssistant(assistant: Assistant) {
+                        assistant.validate()
+                    }
+
+                    override fun visitTool(tool: Tool) {
+                        tool.validate()
+                    }
+
+                    override fun visitSystem(system: System) {
+                        system.validate()
+                    }
+
+                    override fun visitDeveloper(developer: Developer) {
+                        developer.validate()
+                    }
+                }
+            )
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            accept(
+                object : Visitor<Int> {
+                    override fun visitUser(user: User) = user.validity()
+
+                    override fun visitAssistant(assistant: Assistant) = assistant.validity()
+
+                    override fun visitTool(tool: Tool) = tool.validity()
+
+                    override fun visitSystem(system: System) = system.validity()
+
+                    override fun visitDeveloper(developer: Developer) = developer.validity()
+
+                    override fun unknown(json: JsonValue?) = 0
+                }
+            )
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is MessageHistory &&
+                user == other.user &&
+                assistant == other.assistant &&
+                tool == other.tool &&
+                system == other.system &&
+                developer == other.developer
+        }
+
+        override fun hashCode(): Int = Objects.hash(user, assistant, tool, system, developer)
+
+        override fun toString(): String =
+            when {
+                user != null -> "MessageHistory{user=$user}"
+                assistant != null -> "MessageHistory{assistant=$assistant}"
+                tool != null -> "MessageHistory{tool=$tool}"
+                system != null -> "MessageHistory{system=$system}"
+                developer != null -> "MessageHistory{developer=$developer}"
+                _json != null -> "MessageHistory{_unknown=$_json}"
+                else -> throw IllegalStateException("Invalid MessageHistory")
+            }
+
+        companion object {
+
+            /** Messages sent by an end user */
+            @JvmStatic fun ofUser(user: User) = MessageHistory(user = user)
+
+            /** Messages sent by the model in response to user messages. */
+            @JvmStatic fun ofAssistant(assistant: Assistant) = MessageHistory(assistant = assistant)
+
+            @JvmStatic fun ofTool(tool: Tool) = MessageHistory(tool = tool)
+
+            /**
+             * Developer-provided instructions that the model should follow, regardless of messages
+             * sent by the user.
+             */
+            @JvmStatic fun ofSystem(system: System) = MessageHistory(system = system)
+
+            /**
+             * Developer-provided instructions that the model should follow, regardless of messages
+             * sent by the user.
+             */
+            @JvmStatic fun ofDeveloper(developer: Developer) = MessageHistory(developer = developer)
+        }
+
+        /**
+         * An interface that defines how to map each variant of [MessageHistory] to a value of type
+         * [T].
+         */
+        interface Visitor<out T> {
+
+            /** Messages sent by an end user */
+            fun visitUser(user: User): T
+
+            /** Messages sent by the model in response to user messages. */
+            fun visitAssistant(assistant: Assistant): T
+
+            fun visitTool(tool: Tool): T
+
+            /**
+             * Developer-provided instructions that the model should follow, regardless of messages
+             * sent by the user.
+             */
+            fun visitSystem(system: System): T
+
+            /**
+             * Developer-provided instructions that the model should follow, regardless of messages
+             * sent by the user.
+             */
+            fun visitDeveloper(developer: Developer): T
+
+            /**
+             * Maps an unknown variant of [MessageHistory] to a value of type [T].
+             *
+             * An instance of [MessageHistory] can contain an unknown variant if it was deserialized
+             * from data that doesn't match any known variant. For example, if the SDK is on an
+             * older version than the API, then the API may respond with new variants that the SDK
+             * is unaware of.
+             *
+             * @throws TelnyxInvalidDataException in the default implementation.
+             */
+            fun unknown(json: JsonValue?): T {
+                throw TelnyxInvalidDataException("Unknown MessageHistory: $json")
+            }
+        }
+
+        internal class Deserializer : BaseDeserializer<MessageHistory>(MessageHistory::class) {
+
+            override fun ObjectCodec.deserialize(node: JsonNode): MessageHistory {
+                val json = JsonValue.fromJsonNode(node)
+                val role = json.asObject().getOrNull()?.get("role")?.asString()?.getOrNull()
+
+                when (role) {
+                    "user" -> {
+                        return tryDeserialize(node, jacksonTypeRef<User>())?.let {
+                            MessageHistory(user = it, _json = json)
+                        } ?: MessageHistory(_json = json)
+                    }
+                    "assistant" -> {
+                        return tryDeserialize(node, jacksonTypeRef<Assistant>())?.let {
+                            MessageHistory(assistant = it, _json = json)
+                        } ?: MessageHistory(_json = json)
+                    }
+                    "tool" -> {
+                        return tryDeserialize(node, jacksonTypeRef<Tool>())?.let {
+                            MessageHistory(tool = it, _json = json)
+                        } ?: MessageHistory(_json = json)
+                    }
+                    "system" -> {
+                        return tryDeserialize(node, jacksonTypeRef<System>())?.let {
+                            MessageHistory(system = it, _json = json)
+                        } ?: MessageHistory(_json = json)
+                    }
+                    "developer" -> {
+                        return tryDeserialize(node, jacksonTypeRef<Developer>())?.let {
+                            MessageHistory(developer = it, _json = json)
+                        } ?: MessageHistory(_json = json)
+                    }
+                }
+
+                return MessageHistory(_json = json)
+            }
+        }
+
+        internal class Serializer : BaseSerializer<MessageHistory>(MessageHistory::class) {
+
+            override fun serialize(
+                value: MessageHistory,
+                generator: JsonGenerator,
+                provider: SerializerProvider,
+            ) {
+                when {
+                    value.user != null -> generator.writeObject(value.user)
+                    value.assistant != null -> generator.writeObject(value.assistant)
+                    value.tool != null -> generator.writeObject(value.tool)
+                    value.system != null -> generator.writeObject(value.system)
+                    value.developer != null -> generator.writeObject(value.developer)
+                    value._json != null -> generator.writeObject(value._json)
+                    else -> throw IllegalStateException("Invalid MessageHistory")
+                }
+            }
+        }
+
+        /** Messages sent by an end user */
+        class User
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val content: JsonField<String>,
+            private val role: JsonValue,
+            private val metadata: JsonField<Metadata>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("content")
+                @ExcludeMissing
+                content: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("role") @ExcludeMissing role: JsonValue = JsonMissing.of(),
+                @JsonProperty("metadata")
+                @ExcludeMissing
+                metadata: JsonField<Metadata> = JsonMissing.of(),
+            ) : this(content, role, metadata, mutableMapOf())
+
+            /**
+             * The contents of the user message.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun content(): String = content.getRequired("content")
+
+            /**
+             * The role of the messages author, in this case `user`.
+             *
+             * Expected to always return the following:
+             * ```java
+             * JsonValue.from("user")
+             * ```
+             *
+             * However, this method can be useful for debugging and logging (e.g. if the server
+             * responded with an unexpected value).
+             */
+            @JsonProperty("role") @ExcludeMissing fun _role(): JsonValue = role
+
+            /**
+             * Metadata to add to the message
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
+
+            /**
+             * Returns the raw JSON value of [content].
+             *
+             * Unlike [content], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("content") @ExcludeMissing fun _content(): JsonField<String> = content
+
+            /**
+             * Returns the raw JSON value of [metadata].
+             *
+             * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            fun _metadata(): JsonField<Metadata> = metadata
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [User].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .content()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [User]. */
+            class Builder internal constructor() {
+
+                private var content: JsonField<String>? = null
+                private var role: JsonValue = JsonValue.from("user")
+                private var metadata: JsonField<Metadata> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(user: User) = apply {
+                    content = user.content
+                    role = user.role
+                    metadata = user.metadata
+                    additionalProperties = user.additionalProperties.toMutableMap()
+                }
+
+                /** The contents of the user message. */
+                fun content(content: String) = content(JsonField.of(content))
+
+                /**
+                 * Sets [Builder.content] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.content] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun content(content: JsonField<String>) = apply { this.content = content }
+
+                /**
+                 * Sets the field to an arbitrary JSON value.
+                 *
+                 * It is usually unnecessary to call this method because the field defaults to the
+                 * following:
+                 * ```java
+                 * JsonValue.from("user")
+                 * ```
+                 *
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun role(role: JsonValue) = apply { this.role = role }
+
+                /** Metadata to add to the message */
+                fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+                /**
+                 * Sets [Builder.metadata] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [User].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .content()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): User =
+                    User(
+                        checkRequired("content", content),
+                        role,
+                        metadata,
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): User = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                content()
+                _role().let {
+                    if (it != JsonValue.from("user")) {
+                        throw TelnyxInvalidDataException("'role' is invalid, received $it")
+                    }
+                }
+                metadata().ifPresent { it.validate() }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (content.asKnown().isPresent) 1 else 0) +
+                    role.let { if (it == JsonValue.from("user")) 1 else 0 } +
+                    (metadata.asKnown().getOrNull()?.validity() ?: 0)
+
+            /** Metadata to add to the message */
+            class Metadata
+            @JsonCreator
+            private constructor(
+                @com.fasterxml.jackson.annotation.JsonValue
+                private val additionalProperties: Map<String, JsonValue>
+            ) {
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [Metadata]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Metadata]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(metadata: Metadata) = apply {
+                        additionalProperties = metadata.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Metadata].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Metadata = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    additionalProperties.count { (_, value) ->
+                        !value.isNull() && !value.isMissing()
+                    }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Metadata && additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is User &&
+                    content == other.content &&
+                    role == other.role &&
+                    metadata == other.metadata &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(content, role, metadata, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "User{content=$content, role=$role, metadata=$metadata, additionalProperties=$additionalProperties}"
+        }
+
+        /** Messages sent by the model in response to user messages. */
+        class Assistant
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val role: JsonValue,
+            private val content: JsonField<String>,
+            private val metadata: JsonField<Metadata>,
+            private val toolCalls: JsonField<List<ToolCall>>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("role") @ExcludeMissing role: JsonValue = JsonMissing.of(),
+                @JsonProperty("content")
+                @ExcludeMissing
+                content: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("metadata")
+                @ExcludeMissing
+                metadata: JsonField<Metadata> = JsonMissing.of(),
+                @JsonProperty("tool_calls")
+                @ExcludeMissing
+                toolCalls: JsonField<List<ToolCall>> = JsonMissing.of(),
+            ) : this(role, content, metadata, toolCalls, mutableMapOf())
+
+            /**
+             * The role of the messages author, in this case `assistant`.
+             *
+             * Expected to always return the following:
+             * ```java
+             * JsonValue.from("assistant")
+             * ```
+             *
+             * However, this method can be useful for debugging and logging (e.g. if the server
+             * responded with an unexpected value).
+             */
+            @JsonProperty("role") @ExcludeMissing fun _role(): JsonValue = role
+
+            /**
+             * The contents of the assistant message. Required unless `tool_calls`
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun content(): Optional<String> = content.getOptional("content")
+
+            /**
+             * Metadata to add to the message
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
+
+            /**
+             * The tool calls generated by the model, such as function calls.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun toolCalls(): Optional<List<ToolCall>> = toolCalls.getOptional("tool_calls")
+
+            /**
+             * Returns the raw JSON value of [content].
+             *
+             * Unlike [content], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("content") @ExcludeMissing fun _content(): JsonField<String> = content
+
+            /**
+             * Returns the raw JSON value of [metadata].
+             *
+             * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            fun _metadata(): JsonField<Metadata> = metadata
+
+            /**
+             * Returns the raw JSON value of [toolCalls].
+             *
+             * Unlike [toolCalls], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("tool_calls")
+            @ExcludeMissing
+            fun _toolCalls(): JsonField<List<ToolCall>> = toolCalls
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [Assistant]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Assistant]. */
+            class Builder internal constructor() {
+
+                private var role: JsonValue = JsonValue.from("assistant")
+                private var content: JsonField<String> = JsonMissing.of()
+                private var metadata: JsonField<Metadata> = JsonMissing.of()
+                private var toolCalls: JsonField<MutableList<ToolCall>>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(assistant: Assistant) = apply {
+                    role = assistant.role
+                    content = assistant.content
+                    metadata = assistant.metadata
+                    toolCalls = assistant.toolCalls.map { it.toMutableList() }
+                    additionalProperties = assistant.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * Sets the field to an arbitrary JSON value.
+                 *
+                 * It is usually unnecessary to call this method because the field defaults to the
+                 * following:
+                 * ```java
+                 * JsonValue.from("assistant")
+                 * ```
+                 *
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun role(role: JsonValue) = apply { this.role = role }
+
+                /** The contents of the assistant message. Required unless `tool_calls` */
+                fun content(content: String) = content(JsonField.of(content))
+
+                /**
+                 * Sets [Builder.content] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.content] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun content(content: JsonField<String>) = apply { this.content = content }
+
+                /** Metadata to add to the message */
+                fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+                /**
+                 * Sets [Builder.metadata] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+                /** The tool calls generated by the model, such as function calls. */
+                fun toolCalls(toolCalls: List<ToolCall>) = toolCalls(JsonField.of(toolCalls))
+
+                /**
+                 * Sets [Builder.toolCalls] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.toolCalls] with a well-typed `List<ToolCall>`
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun toolCalls(toolCalls: JsonField<List<ToolCall>>) = apply {
+                    this.toolCalls = toolCalls.map { it.toMutableList() }
+                }
+
+                /**
+                 * Adds a single [ToolCall] to [toolCalls].
+                 *
+                 * @throws IllegalStateException if the field was previously set to a non-list.
+                 */
+                fun addToolCall(toolCall: ToolCall) = apply {
+                    toolCalls =
+                        (toolCalls ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("toolCalls", it).add(toolCall)
+                        }
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Assistant].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): Assistant =
+                    Assistant(
+                        role,
+                        content,
+                        metadata,
+                        (toolCalls ?: JsonMissing.of()).map { it.toImmutable() },
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Assistant = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                _role().let {
+                    if (it != JsonValue.from("assistant")) {
+                        throw TelnyxInvalidDataException("'role' is invalid, received $it")
+                    }
+                }
+                content()
+                metadata().ifPresent { it.validate() }
+                toolCalls().ifPresent { it.forEach { it.validate() } }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                role.let { if (it == JsonValue.from("assistant")) 1 else 0 } +
+                    (if (content.asKnown().isPresent) 1 else 0) +
+                    (metadata.asKnown().getOrNull()?.validity() ?: 0) +
+                    (toolCalls.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+
+            /** Metadata to add to the message */
+            class Metadata
+            @JsonCreator
+            private constructor(
+                @com.fasterxml.jackson.annotation.JsonValue
+                private val additionalProperties: Map<String, JsonValue>
+            ) {
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [Metadata]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Metadata]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(metadata: Metadata) = apply {
+                        additionalProperties = metadata.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Metadata].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Metadata = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    additionalProperties.count { (_, value) ->
+                        !value.isNull() && !value.isMissing()
+                    }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Metadata && additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+            }
+
+            /** A call to a function tool created by the model. */
+            class ToolCall
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val id: JsonField<String>,
+                private val function: JsonField<Function>,
+                private val type: JsonField<Type>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("function")
+                    @ExcludeMissing
+                    function: JsonField<Function> = JsonMissing.of(),
+                    @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+                ) : this(id, function, type, mutableMapOf())
+
+                /**
+                 * The ID of the tool call.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun id(): String = id.getRequired("id")
+
+                /**
+                 * The function that the model called.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun function(): Function = function.getRequired("function")
+
+                /**
+                 * The type of the tool. Currently, only `function` is supported.
+                 *
+                 * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+                 *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+                 *   value).
+                 */
+                fun type(): Type = type.getRequired("type")
+
+                /**
+                 * Returns the raw JSON value of [id].
+                 *
+                 * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+                 */
+                @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+                /**
+                 * Returns the raw JSON value of [function].
+                 *
+                 * Unlike [function], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("function")
+                @ExcludeMissing
+                fun _function(): JsonField<Function> = function
+
+                /**
+                 * Returns the raw JSON value of [type].
+                 *
+                 * Unlike [type], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [ToolCall].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .id()
+                     * .function()
+                     * .type()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [ToolCall]. */
+                class Builder internal constructor() {
+
+                    private var id: JsonField<String>? = null
+                    private var function: JsonField<Function>? = null
+                    private var type: JsonField<Type>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(toolCall: ToolCall) = apply {
+                        id = toolCall.id
+                        function = toolCall.function
+                        type = toolCall.type
+                        additionalProperties = toolCall.additionalProperties.toMutableMap()
+                    }
+
+                    /** The ID of the tool call. */
+                    fun id(id: String) = id(JsonField.of(id))
+
+                    /**
+                     * Sets [Builder.id] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.id] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun id(id: JsonField<String>) = apply { this.id = id }
+
+                    /** The function that the model called. */
+                    fun function(function: Function) = function(JsonField.of(function))
+
+                    /**
+                     * Sets [Builder.function] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.function] with a well-typed [Function] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun function(function: JsonField<Function>) = apply { this.function = function }
+
+                    /** The type of the tool. Currently, only `function` is supported. */
+                    fun type(type: Type) = type(JsonField.of(type))
+
+                    /**
+                     * Sets [Builder.type] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.type] with a well-typed [Type] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun type(type: JsonField<Type>) = apply { this.type = type }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [ToolCall].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .id()
+                     * .function()
+                     * .type()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): ToolCall =
+                        ToolCall(
+                            checkRequired("id", id),
+                            checkRequired("function", function),
+                            checkRequired("type", type),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): ToolCall = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    id()
+                    function().validate()
+                    type().validate()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (id.asKnown().isPresent) 1 else 0) +
+                        (function.asKnown().getOrNull()?.validity() ?: 0) +
+                        (type.asKnown().getOrNull()?.validity() ?: 0)
+
+                /** The function that the model called. */
+                class Function
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val name: JsonField<String>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("name")
+                        @ExcludeMissing
+                        name: JsonField<String> = JsonMissing.of()
+                    ) : this(name, mutableMapOf())
+
+                    /**
+                     * The name of the function to call.
+                     *
+                     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun name(): String = name.getRequired("name")
+
+                    /**
+                     * Returns the raw JSON value of [name].
+                     *
+                     * Unlike [name], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
+                    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Function].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .name()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Function]. */
+                    class Builder internal constructor() {
+
+                        private var name: JsonField<String>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(function: Function) = apply {
+                            name = function.name
+                            additionalProperties = function.additionalProperties.toMutableMap()
+                        }
+
+                        /** The name of the function to call. */
+                        fun name(name: String) = name(JsonField.of(name))
+
+                        /**
+                         * Sets [Builder.name] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.name] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun name(name: JsonField<String>) = apply { this.name = name }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Function].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .name()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Function =
+                            Function(
+                                checkRequired("name", name),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Function = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        name()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = (if (name.asKnown().isPresent) 1 else 0)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Function &&
+                            name == other.name &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy { Objects.hash(name, additionalProperties) }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Function{name=$name, additionalProperties=$additionalProperties}"
+                }
+
+                /** The type of the tool. Currently, only `function` is supported. */
+                class Type @JsonCreator private constructor(private val value: JsonField<String>) :
+                    Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        @JvmField val FUNCTION = of("function")
+
+                        @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                    }
+
+                    /** An enum containing [Type]'s known values. */
+                    enum class Known {
+                        FUNCTION
+                    }
+
+                    /**
+                     * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+                     *
+                     * An instance of [Type] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        FUNCTION,
+                        /**
+                         * An enum member indicating that [Type] was instantiated with an unknown
+                         * value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            FUNCTION -> Value.FUNCTION
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value is a not a
+                     *   known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            FUNCTION -> Known.FUNCTION
+                            else -> throw TelnyxInvalidDataException("Unknown Type: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws TelnyxInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            TelnyxInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Type = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Type && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is ToolCall &&
+                        id == other.id &&
+                        function == other.function &&
+                        type == other.type &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(id, function, type, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "ToolCall{id=$id, function=$function, type=$type, additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Assistant &&
+                    role == other.role &&
+                    content == other.content &&
+                    metadata == other.metadata &&
+                    toolCalls == other.toolCalls &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(role, content, metadata, toolCalls, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Assistant{role=$role, content=$content, metadata=$metadata, toolCalls=$toolCalls, additionalProperties=$additionalProperties}"
+        }
+
+        class Tool
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val content: JsonField<String>,
+            private val role: JsonValue,
+            private val toolCallId: JsonField<String>,
+            private val metadata: JsonField<Metadata>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("content")
+                @ExcludeMissing
+                content: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("role") @ExcludeMissing role: JsonValue = JsonMissing.of(),
+                @JsonProperty("tool_call_id")
+                @ExcludeMissing
+                toolCallId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("metadata")
+                @ExcludeMissing
+                metadata: JsonField<Metadata> = JsonMissing.of(),
+            ) : this(content, role, toolCallId, metadata, mutableMapOf())
+
+            /**
+             * The contents of the tool message.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun content(): String = content.getRequired("content")
+
+            /**
+             * The role of the messages author, in this case `tool`.
+             *
+             * Expected to always return the following:
+             * ```java
+             * JsonValue.from("tool")
+             * ```
+             *
+             * However, this method can be useful for debugging and logging (e.g. if the server
+             * responded with an unexpected value).
+             */
+            @JsonProperty("role") @ExcludeMissing fun _role(): JsonValue = role
+
+            /**
+             * Tool call that this message is responding to.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun toolCallId(): String = toolCallId.getRequired("tool_call_id")
+
+            /**
+             * Metadata to add to the message
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
+
+            /**
+             * Returns the raw JSON value of [content].
+             *
+             * Unlike [content], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("content") @ExcludeMissing fun _content(): JsonField<String> = content
+
+            /**
+             * Returns the raw JSON value of [toolCallId].
+             *
+             * Unlike [toolCallId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("tool_call_id")
+            @ExcludeMissing
+            fun _toolCallId(): JsonField<String> = toolCallId
+
+            /**
+             * Returns the raw JSON value of [metadata].
+             *
+             * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            fun _metadata(): JsonField<Metadata> = metadata
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Tool].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .content()
+                 * .toolCallId()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Tool]. */
+            class Builder internal constructor() {
+
+                private var content: JsonField<String>? = null
+                private var role: JsonValue = JsonValue.from("tool")
+                private var toolCallId: JsonField<String>? = null
+                private var metadata: JsonField<Metadata> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(tool: Tool) = apply {
+                    content = tool.content
+                    role = tool.role
+                    toolCallId = tool.toolCallId
+                    metadata = tool.metadata
+                    additionalProperties = tool.additionalProperties.toMutableMap()
+                }
+
+                /** The contents of the tool message. */
+                fun content(content: String) = content(JsonField.of(content))
+
+                /**
+                 * Sets [Builder.content] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.content] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun content(content: JsonField<String>) = apply { this.content = content }
+
+                /**
+                 * Sets the field to an arbitrary JSON value.
+                 *
+                 * It is usually unnecessary to call this method because the field defaults to the
+                 * following:
+                 * ```java
+                 * JsonValue.from("tool")
+                 * ```
+                 *
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun role(role: JsonValue) = apply { this.role = role }
+
+                /** Tool call that this message is responding to. */
+                fun toolCallId(toolCallId: String) = toolCallId(JsonField.of(toolCallId))
+
+                /**
+                 * Sets [Builder.toolCallId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.toolCallId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun toolCallId(toolCallId: JsonField<String>) = apply {
+                    this.toolCallId = toolCallId
+                }
+
+                /** Metadata to add to the message */
+                fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+                /**
+                 * Sets [Builder.metadata] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Tool].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .content()
+                 * .toolCallId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Tool =
+                    Tool(
+                        checkRequired("content", content),
+                        role,
+                        checkRequired("toolCallId", toolCallId),
+                        metadata,
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Tool = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                content()
+                _role().let {
+                    if (it != JsonValue.from("tool")) {
+                        throw TelnyxInvalidDataException("'role' is invalid, received $it")
+                    }
+                }
+                toolCallId()
+                metadata().ifPresent { it.validate() }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (content.asKnown().isPresent) 1 else 0) +
+                    role.let { if (it == JsonValue.from("tool")) 1 else 0 } +
+                    (if (toolCallId.asKnown().isPresent) 1 else 0) +
+                    (metadata.asKnown().getOrNull()?.validity() ?: 0)
+
+            /** Metadata to add to the message */
+            class Metadata
+            @JsonCreator
+            private constructor(
+                @com.fasterxml.jackson.annotation.JsonValue
+                private val additionalProperties: Map<String, JsonValue>
+            ) {
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [Metadata]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Metadata]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(metadata: Metadata) = apply {
+                        additionalProperties = metadata.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Metadata].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Metadata = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    additionalProperties.count { (_, value) ->
+                        !value.isNull() && !value.isMissing()
+                    }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Metadata && additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Tool &&
+                    content == other.content &&
+                    role == other.role &&
+                    toolCallId == other.toolCallId &&
+                    metadata == other.metadata &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(content, role, toolCallId, metadata, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Tool{content=$content, role=$role, toolCallId=$toolCallId, metadata=$metadata, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * Developer-provided instructions that the model should follow, regardless of messages sent
+         * by the user.
+         */
+        class System
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val content: JsonField<String>,
+            private val role: JsonValue,
+            private val metadata: JsonField<Metadata>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("content")
+                @ExcludeMissing
+                content: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("role") @ExcludeMissing role: JsonValue = JsonMissing.of(),
+                @JsonProperty("metadata")
+                @ExcludeMissing
+                metadata: JsonField<Metadata> = JsonMissing.of(),
+            ) : this(content, role, metadata, mutableMapOf())
+
+            /**
+             * The contents of the system message.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun content(): String = content.getRequired("content")
+
+            /**
+             * The role of the messages author, in this case `system`.
+             *
+             * Expected to always return the following:
+             * ```java
+             * JsonValue.from("system")
+             * ```
+             *
+             * However, this method can be useful for debugging and logging (e.g. if the server
+             * responded with an unexpected value).
+             */
+            @JsonProperty("role") @ExcludeMissing fun _role(): JsonValue = role
+
+            /**
+             * Metadata to add to the message
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
+
+            /**
+             * Returns the raw JSON value of [content].
+             *
+             * Unlike [content], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("content") @ExcludeMissing fun _content(): JsonField<String> = content
+
+            /**
+             * Returns the raw JSON value of [metadata].
+             *
+             * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            fun _metadata(): JsonField<Metadata> = metadata
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [System].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .content()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [System]. */
+            class Builder internal constructor() {
+
+                private var content: JsonField<String>? = null
+                private var role: JsonValue = JsonValue.from("system")
+                private var metadata: JsonField<Metadata> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(system: System) = apply {
+                    content = system.content
+                    role = system.role
+                    metadata = system.metadata
+                    additionalProperties = system.additionalProperties.toMutableMap()
+                }
+
+                /** The contents of the system message. */
+                fun content(content: String) = content(JsonField.of(content))
+
+                /**
+                 * Sets [Builder.content] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.content] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun content(content: JsonField<String>) = apply { this.content = content }
+
+                /**
+                 * Sets the field to an arbitrary JSON value.
+                 *
+                 * It is usually unnecessary to call this method because the field defaults to the
+                 * following:
+                 * ```java
+                 * JsonValue.from("system")
+                 * ```
+                 *
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun role(role: JsonValue) = apply { this.role = role }
+
+                /** Metadata to add to the message */
+                fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+                /**
+                 * Sets [Builder.metadata] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [System].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .content()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): System =
+                    System(
+                        checkRequired("content", content),
+                        role,
+                        metadata,
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): System = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                content()
+                _role().let {
+                    if (it != JsonValue.from("system")) {
+                        throw TelnyxInvalidDataException("'role' is invalid, received $it")
+                    }
+                }
+                metadata().ifPresent { it.validate() }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (content.asKnown().isPresent) 1 else 0) +
+                    role.let { if (it == JsonValue.from("system")) 1 else 0 } +
+                    (metadata.asKnown().getOrNull()?.validity() ?: 0)
+
+            /** Metadata to add to the message */
+            class Metadata
+            @JsonCreator
+            private constructor(
+                @com.fasterxml.jackson.annotation.JsonValue
+                private val additionalProperties: Map<String, JsonValue>
+            ) {
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [Metadata]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Metadata]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(metadata: Metadata) = apply {
+                        additionalProperties = metadata.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Metadata].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Metadata = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    additionalProperties.count { (_, value) ->
+                        !value.isNull() && !value.isMissing()
+                    }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Metadata && additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is System &&
+                    content == other.content &&
+                    role == other.role &&
+                    metadata == other.metadata &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(content, role, metadata, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "System{content=$content, role=$role, metadata=$metadata, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * Developer-provided instructions that the model should follow, regardless of messages sent
+         * by the user.
+         */
+        class Developer
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val content: JsonField<String>,
+            private val role: JsonValue,
+            private val metadata: JsonField<Metadata>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("content")
+                @ExcludeMissing
+                content: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("role") @ExcludeMissing role: JsonValue = JsonMissing.of(),
+                @JsonProperty("metadata")
+                @ExcludeMissing
+                metadata: JsonField<Metadata> = JsonMissing.of(),
+            ) : this(content, role, metadata, mutableMapOf())
+
+            /**
+             * The contents of the developer message.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun content(): String = content.getRequired("content")
+
+            /**
+             * The role of the messages author, in this case developer.
+             *
+             * Expected to always return the following:
+             * ```java
+             * JsonValue.from("developer")
+             * ```
+             *
+             * However, this method can be useful for debugging and logging (e.g. if the server
+             * responded with an unexpected value).
+             */
+            @JsonProperty("role") @ExcludeMissing fun _role(): JsonValue = role
+
+            /**
+             * Metadata to add to the message
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
+             */
+            fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
+
+            /**
+             * Returns the raw JSON value of [content].
+             *
+             * Unlike [content], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("content") @ExcludeMissing fun _content(): JsonField<String> = content
+
+            /**
+             * Returns the raw JSON value of [metadata].
+             *
+             * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            fun _metadata(): JsonField<Metadata> = metadata
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Developer].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .content()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Developer]. */
+            class Builder internal constructor() {
+
+                private var content: JsonField<String>? = null
+                private var role: JsonValue = JsonValue.from("developer")
+                private var metadata: JsonField<Metadata> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(developer: Developer) = apply {
+                    content = developer.content
+                    role = developer.role
+                    metadata = developer.metadata
+                    additionalProperties = developer.additionalProperties.toMutableMap()
+                }
+
+                /** The contents of the developer message. */
+                fun content(content: String) = content(JsonField.of(content))
+
+                /**
+                 * Sets [Builder.content] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.content] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun content(content: JsonField<String>) = apply { this.content = content }
+
+                /**
+                 * Sets the field to an arbitrary JSON value.
+                 *
+                 * It is usually unnecessary to call this method because the field defaults to the
+                 * following:
+                 * ```java
+                 * JsonValue.from("developer")
+                 * ```
+                 *
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun role(role: JsonValue) = apply { this.role = role }
+
+                /** Metadata to add to the message */
+                fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+                /**
+                 * Sets [Builder.metadata] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Developer].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .content()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Developer =
+                    Developer(
+                        checkRequired("content", content),
+                        role,
+                        metadata,
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Developer = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                content()
+                _role().let {
+                    if (it != JsonValue.from("developer")) {
+                        throw TelnyxInvalidDataException("'role' is invalid, received $it")
+                    }
+                }
+                metadata().ifPresent { it.validate() }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (content.asKnown().isPresent) 1 else 0) +
+                    role.let { if (it == JsonValue.from("developer")) 1 else 0 } +
+                    (metadata.asKnown().getOrNull()?.validity() ?: 0)
+
+            /** Metadata to add to the message */
+            class Metadata
+            @JsonCreator
+            private constructor(
+                @com.fasterxml.jackson.annotation.JsonValue
+                private val additionalProperties: Map<String, JsonValue>
+            ) {
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [Metadata]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Metadata]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(metadata: Metadata) = apply {
+                        additionalProperties = metadata.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Metadata].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Metadata = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: TelnyxInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    additionalProperties.count { (_, value) ->
+                        !value.isNull() && !value.isMissing()
+                    }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Metadata && additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Developer &&
+                    content == other.content &&
+                    role == other.role &&
+                    metadata == other.metadata &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(content, role, metadata, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Developer{content=$content, role=$role, metadata=$metadata, additionalProperties=$additionalProperties}"
+        }
+    }
+
+    class Participant
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val id: JsonField<String>,
+        private val role: JsonField<Role>,
+        private val name: JsonField<String>,
+        private val onHangup: JsonField<OnHangup>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("role") @ExcludeMissing role: JsonField<Role> = JsonMissing.of(),
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("on_hangup")
+            @ExcludeMissing
+            onHangup: JsonField<OnHangup> = JsonMissing.of(),
+        ) : this(id, role, name, onHangup, mutableMapOf())
+
+        /**
+         * The call_control_id of the participant to add to the conversation.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun id(): String = id.getRequired("id")
+
+        /**
+         * The role of the participant in the conversation.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun role(): Role = role.getRequired("role")
+
+        /**
+         * Display name for the participant.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun name(): Optional<String> = name.getOptional("name")
+
+        /**
+         * Determines what happens to the conversation when this participant hangs up.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun onHangup(): Optional<OnHangup> = onHangup.getOptional("on_hangup")
+
+        /**
+         * Returns the raw JSON value of [id].
+         *
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+        /**
+         * Returns the raw JSON value of [role].
+         *
+         * Unlike [role], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("role") @ExcludeMissing fun _role(): JsonField<Role> = role
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * Returns the raw JSON value of [onHangup].
+         *
+         * Unlike [onHangup], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("on_hangup") @ExcludeMissing fun _onHangup(): JsonField<OnHangup> = onHangup
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Participant].
+             *
+             * The following fields are required:
+             * ```java
+             * .id()
+             * .role()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Participant]. */
+        class Builder internal constructor() {
+
+            private var id: JsonField<String>? = null
+            private var role: JsonField<Role>? = null
+            private var name: JsonField<String> = JsonMissing.of()
+            private var onHangup: JsonField<OnHangup> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(participant: Participant) = apply {
+                id = participant.id
+                role = participant.role
+                name = participant.name
+                onHangup = participant.onHangup
+                additionalProperties = participant.additionalProperties.toMutableMap()
+            }
+
+            /** The call_control_id of the participant to add to the conversation. */
+            fun id(id: String) = id(JsonField.of(id))
+
+            /**
+             * Sets [Builder.id] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun id(id: JsonField<String>) = apply { this.id = id }
+
+            /** The role of the participant in the conversation. */
+            fun role(role: Role) = role(JsonField.of(role))
+
+            /**
+             * Sets [Builder.role] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.role] with a well-typed [Role] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun role(role: JsonField<Role>) = apply { this.role = role }
+
+            /** Display name for the participant. */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            /** Determines what happens to the conversation when this participant hangs up. */
+            fun onHangup(onHangup: OnHangup) = onHangup(JsonField.of(onHangup))
+
+            /**
+             * Sets [Builder.onHangup] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.onHangup] with a well-typed [OnHangup] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun onHangup(onHangup: JsonField<OnHangup>) = apply { this.onHangup = onHangup }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Participant].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .id()
+             * .role()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Participant =
+                Participant(
+                    checkRequired("id", id),
+                    checkRequired("role", role),
+                    name,
+                    onHangup,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Participant = apply {
+            if (validated) {
+                return@apply
+            }
+
+            id()
+            role().validate()
+            name()
+            onHangup().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (id.asKnown().isPresent) 1 else 0) +
+                (role.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (name.asKnown().isPresent) 1 else 0) +
+                (onHangup.asKnown().getOrNull()?.validity() ?: 0)
+
+        /** The role of the participant in the conversation. */
+        class Role @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val USER = of("user")
+
+                @JvmStatic fun of(value: String) = Role(JsonField.of(value))
+            }
+
+            /** An enum containing [Role]'s known values. */
+            enum class Known {
+                USER
+            }
+
+            /**
+             * An enum containing [Role]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Role] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                USER,
+                /** An enum member indicating that [Role] was instantiated with an unknown value. */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    USER -> Value.USER
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    USER -> Known.USER
+                    else -> throw TelnyxInvalidDataException("Unknown Role: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Role = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Role && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /** Determines what happens to the conversation when this participant hangs up. */
+        class OnHangup @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val CONTINUE_CONVERSATION = of("continue_conversation")
+
+                @JvmField val END_CONVERSATION = of("end_conversation")
+
+                @JvmStatic fun of(value: String) = OnHangup(JsonField.of(value))
+            }
+
+            /** An enum containing [OnHangup]'s known values. */
+            enum class Known {
+                CONTINUE_CONVERSATION,
+                END_CONVERSATION,
+            }
+
+            /**
+             * An enum containing [OnHangup]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [OnHangup] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                CONTINUE_CONVERSATION,
+                END_CONVERSATION,
+                /**
+                 * An enum member indicating that [OnHangup] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    CONTINUE_CONVERSATION -> Value.CONTINUE_CONVERSATION
+                    END_CONVERSATION -> Value.END_CONVERSATION
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    CONTINUE_CONVERSATION -> Known.CONTINUE_CONVERSATION
+                    END_CONVERSATION -> Known.END_CONVERSATION
+                    else -> throw TelnyxInvalidDataException("Unknown OnHangup: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): OnHangup = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is OnHangup && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Participant &&
+                id == other.id &&
+                role == other.role &&
+                name == other.name &&
+                onHangup == other.onHangup &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(id, role, name, onHangup, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Participant{id=$id, role=$role, name=$name, onHangup=$onHangup, additionalProperties=$additionalProperties}"
     }
 
     /** The settings associated with the voice selected */
