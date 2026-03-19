@@ -29,11 +29,13 @@ import kotlin.jvm.optionals.getOrNull
  * Authentication is provided via the standard `Authorization: Bearer <API_KEY>` header.
  *
  * The `voice` parameter provides a convenient shorthand to specify provider, model, and voice in a
- * single string (e.g. `telnyx.NaturalHD.Alloy`). Alternatively, specify `provider` explicitly along
- * with provider-specific parameters.
+ * single string (e.g. `telnyx.NaturalHD.Alloy` or `Telnyx.Ultra.<voice_id>`). Alternatively,
+ * specify `provider` explicitly along with provider-specific parameters.
  *
- * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`, `resemble`,
- * `inworld`.
+ * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`, `resemble`.
+ *
+ * The Telnyx `Ultra` model supports 44 languages with emotion control, speed adjustment, and volume
+ * control. Use the `telnyx` provider-specific parameters to configure these features.
  */
 class TextToSpeechGenerateParams
 private constructor(
@@ -73,14 +75,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun elevenlabs(): Optional<Elevenlabs> = body.elevenlabs()
-
-    /**
-     * Inworld provider-specific parameters.
-     *
-     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun inworld(): Optional<Inworld> = body.inworld()
 
     /**
      * Language code (e.g. `en-US`). Usage varies by provider.
@@ -132,7 +126,8 @@ private constructor(
     fun rime(): Optional<Rime> = body.rime()
 
     /**
-     * Telnyx provider-specific parameters.
+     * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for `Natural` and
+     * `NaturalHD` models. For the `Ultra` model, use `voice_speed`, `volume`, and `emotion`.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -157,9 +152,9 @@ private constructor(
 
     /**
      * Voice identifier in the format `provider.model_id.voice_id` or `provider.voice_id`. Examples:
-     * `telnyx.NaturalHD.Alloy`, `azure.en-US-AvaMultilingualNeural`, `aws.Polly.Generative.Lucia`.
-     * When provided, `provider`, `model_id`, and `voice_id` are extracted automatically and take
-     * precedence over individual parameters.
+     * `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`, `azure.en-US-AvaMultilingualNeural`,
+     * `aws.Polly.Generative.Lucia`. When provided, `provider`, `model_id`, and `voice_id` are
+     * extracted automatically and take precedence over individual parameters.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -202,13 +197,6 @@ private constructor(
      * Unlike [elevenlabs], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _elevenlabs(): JsonField<Elevenlabs> = body._elevenlabs()
-
-    /**
-     * Returns the raw JSON value of [inworld].
-     *
-     * Unlike [inworld], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _inworld(): JsonField<Inworld> = body._inworld()
 
     /**
      * Returns the raw JSON value of [language].
@@ -330,7 +318,7 @@ private constructor(
          * - [azure]
          * - [disableCache]
          * - [elevenlabs]
-         * - [inworld]
+         * - [language]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -382,17 +370,6 @@ private constructor(
          * supported value.
          */
         fun elevenlabs(elevenlabs: JsonField<Elevenlabs>) = apply { body.elevenlabs(elevenlabs) }
-
-        /** Inworld provider-specific parameters. */
-        fun inworld(inworld: Inworld) = apply { body.inworld(inworld) }
-
-        /**
-         * Sets [Builder.inworld] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.inworld] with a well-typed [Inworld] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun inworld(inworld: JsonField<Inworld>) = apply { body.inworld(inworld) }
 
         /** Language code (e.g. `en-US`). Usage varies by provider. */
         fun language(language: String) = apply { body.language(language) }
@@ -466,7 +443,11 @@ private constructor(
          */
         fun rime(rime: JsonField<Rime>) = apply { body.rime(rime) }
 
-        /** Telnyx provider-specific parameters. */
+        /**
+         * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for `Natural`
+         * and `NaturalHD` models. For the `Ultra` model, use `voice_speed`, `volume`, and
+         * `emotion`.
+         */
         fun telnyx(telnyx: Telnyx) = apply { body.telnyx(telnyx) }
 
         /**
@@ -502,9 +483,10 @@ private constructor(
 
         /**
          * Voice identifier in the format `provider.model_id.voice_id` or `provider.voice_id`.
-         * Examples: `telnyx.NaturalHD.Alloy`, `azure.en-US-AvaMultilingualNeural`,
-         * `aws.Polly.Generative.Lucia`. When provided, `provider`, `model_id`, and `voice_id` are
-         * extracted automatically and take precedence over individual parameters.
+         * Examples: `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`,
+         * `azure.en-US-AvaMultilingualNeural`, `aws.Polly.Generative.Lucia`. When provided,
+         * `provider`, `model_id`, and `voice_id` are extracted automatically and take precedence
+         * over individual parameters.
          */
         fun voice(voice: String) = apply { body.voice(voice) }
 
@@ -679,7 +661,6 @@ private constructor(
         private val azure: JsonField<Azure>,
         private val disableCache: JsonField<Boolean>,
         private val elevenlabs: JsonField<Elevenlabs>,
-        private val inworld: JsonField<Inworld>,
         private val language: JsonField<String>,
         private val minimax: JsonField<Minimax>,
         private val outputType: JsonField<OutputType>,
@@ -704,7 +685,6 @@ private constructor(
             @JsonProperty("elevenlabs")
             @ExcludeMissing
             elevenlabs: JsonField<Elevenlabs> = JsonMissing.of(),
-            @JsonProperty("inworld") @ExcludeMissing inworld: JsonField<Inworld> = JsonMissing.of(),
             @JsonProperty("language")
             @ExcludeMissing
             language: JsonField<String> = JsonMissing.of(),
@@ -733,7 +713,6 @@ private constructor(
             azure,
             disableCache,
             elevenlabs,
-            inworld,
             language,
             minimax,
             outputType,
@@ -779,14 +758,6 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun elevenlabs(): Optional<Elevenlabs> = elevenlabs.getOptional("elevenlabs")
-
-        /**
-         * Inworld provider-specific parameters.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun inworld(): Optional<Inworld> = inworld.getOptional("inworld")
 
         /**
          * Language code (e.g. `en-US`). Usage varies by provider.
@@ -838,7 +809,9 @@ private constructor(
         fun rime(): Optional<Rime> = rime.getOptional("rime")
 
         /**
-         * Telnyx provider-specific parameters.
+         * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for `Natural`
+         * and `NaturalHD` models. For the `Ultra` model, use `voice_speed`, `volume`, and
+         * `emotion`.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -863,9 +836,10 @@ private constructor(
 
         /**
          * Voice identifier in the format `provider.model_id.voice_id` or `provider.voice_id`.
-         * Examples: `telnyx.NaturalHD.Alloy`, `azure.en-US-AvaMultilingualNeural`,
-         * `aws.Polly.Generative.Lucia`. When provided, `provider`, `model_id`, and `voice_id` are
-         * extracted automatically and take precedence over individual parameters.
+         * Examples: `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`,
+         * `azure.en-US-AvaMultilingualNeural`, `aws.Polly.Generative.Lucia`. When provided,
+         * `provider`, `model_id`, and `voice_id` are extracted automatically and take precedence
+         * over individual parameters.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -913,13 +887,6 @@ private constructor(
         @JsonProperty("elevenlabs")
         @ExcludeMissing
         fun _elevenlabs(): JsonField<Elevenlabs> = elevenlabs
-
-        /**
-         * Returns the raw JSON value of [inworld].
-         *
-         * Unlike [inworld], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("inworld") @ExcludeMissing fun _inworld(): JsonField<Inworld> = inworld
 
         /**
          * Returns the raw JSON value of [language].
@@ -1028,7 +995,6 @@ private constructor(
             private var azure: JsonField<Azure> = JsonMissing.of()
             private var disableCache: JsonField<Boolean> = JsonMissing.of()
             private var elevenlabs: JsonField<Elevenlabs> = JsonMissing.of()
-            private var inworld: JsonField<Inworld> = JsonMissing.of()
             private var language: JsonField<String> = JsonMissing.of()
             private var minimax: JsonField<Minimax> = JsonMissing.of()
             private var outputType: JsonField<OutputType> = JsonMissing.of()
@@ -1048,7 +1014,6 @@ private constructor(
                 azure = body.azure
                 disableCache = body.disableCache
                 elevenlabs = body.elevenlabs
-                inworld = body.inworld
                 language = body.language
                 minimax = body.minimax
                 outputType = body.outputType
@@ -1114,18 +1079,6 @@ private constructor(
             fun elevenlabs(elevenlabs: JsonField<Elevenlabs>) = apply {
                 this.elevenlabs = elevenlabs
             }
-
-            /** Inworld provider-specific parameters. */
-            fun inworld(inworld: Inworld) = inworld(JsonField.of(inworld))
-
-            /**
-             * Sets [Builder.inworld] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.inworld] with a well-typed [Inworld] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun inworld(inworld: JsonField<Inworld>) = apply { this.inworld = inworld }
 
             /** Language code (e.g. `en-US`). Usage varies by provider. */
             fun language(language: String) = language(JsonField.of(language))
@@ -1204,7 +1157,11 @@ private constructor(
              */
             fun rime(rime: JsonField<Rime>) = apply { this.rime = rime }
 
-            /** Telnyx provider-specific parameters. */
+            /**
+             * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for
+             * `Natural` and `NaturalHD` models. For the `Ultra` model, use `voice_speed`, `volume`,
+             * and `emotion`.
+             */
             fun telnyx(telnyx: Telnyx) = telnyx(JsonField.of(telnyx))
 
             /**
@@ -1242,9 +1199,10 @@ private constructor(
 
             /**
              * Voice identifier in the format `provider.model_id.voice_id` or `provider.voice_id`.
-             * Examples: `telnyx.NaturalHD.Alloy`, `azure.en-US-AvaMultilingualNeural`,
-             * `aws.Polly.Generative.Lucia`. When provided, `provider`, `model_id`, and `voice_id`
-             * are extracted automatically and take precedence over individual parameters.
+             * Examples: `telnyx.NaturalHD.Alloy`, `Telnyx.Ultra.<voice_id>`,
+             * `azure.en-US-AvaMultilingualNeural`, `aws.Polly.Generative.Lucia`. When provided,
+             * `provider`, `model_id`, and `voice_id` are extracted automatically and take
+             * precedence over individual parameters.
              */
             fun voice(voice: String) = voice(JsonField.of(voice))
 
@@ -1305,7 +1263,6 @@ private constructor(
                     azure,
                     disableCache,
                     elevenlabs,
-                    inworld,
                     language,
                     minimax,
                     outputType,
@@ -1332,7 +1289,6 @@ private constructor(
             azure().ifPresent { it.validate() }
             disableCache()
             elevenlabs().ifPresent { it.validate() }
-            inworld().ifPresent { it.validate() }
             language()
             minimax().ifPresent { it.validate() }
             outputType().ifPresent { it.validate() }
@@ -1367,7 +1323,6 @@ private constructor(
                 (azure.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (disableCache.asKnown().isPresent) 1 else 0) +
                 (elevenlabs.asKnown().getOrNull()?.validity() ?: 0) +
-                (inworld.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (language.asKnown().isPresent) 1 else 0) +
                 (minimax.asKnown().getOrNull()?.validity() ?: 0) +
                 (outputType.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1390,7 +1345,6 @@ private constructor(
                 azure == other.azure &&
                 disableCache == other.disableCache &&
                 elevenlabs == other.elevenlabs &&
-                inworld == other.inworld &&
                 language == other.language &&
                 minimax == other.minimax &&
                 outputType == other.outputType &&
@@ -1411,7 +1365,6 @@ private constructor(
                 azure,
                 disableCache,
                 elevenlabs,
-                inworld,
                 language,
                 minimax,
                 outputType,
@@ -1430,7 +1383,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{aws=$aws, azure=$azure, disableCache=$disableCache, elevenlabs=$elevenlabs, inworld=$inworld, language=$language, minimax=$minimax, outputType=$outputType, provider=$provider, resemble=$resemble, rime=$rime, telnyx=$telnyx, text=$text, textType=$textType, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
+            "Body{aws=$aws, azure=$azure, disableCache=$disableCache, elevenlabs=$elevenlabs, language=$language, minimax=$minimax, outputType=$outputType, provider=$provider, resemble=$resemble, rime=$rime, telnyx=$telnyx, text=$text, textType=$textType, voice=$voice, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
     }
 
     /** AWS Polly provider-specific parameters. */
@@ -2802,106 +2755,6 @@ private constructor(
             "Elevenlabs{apiKey=$apiKey, languageCode=$languageCode, voiceSettings=$voiceSettings, additionalProperties=$additionalProperties}"
     }
 
-    /** Inworld provider-specific parameters. */
-    class Inworld
-    @JsonCreator
-    private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
-    ) {
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Inworld]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Inworld]. */
-        class Builder internal constructor() {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(inworld: Inworld) = apply {
-                additionalProperties = inworld.additionalProperties.toMutableMap()
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Inworld].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Inworld = Inworld(additionalProperties.toImmutable())
-        }
-
-        private var validated: Boolean = false
-
-        fun validate(): Inworld = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Inworld && additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() = "Inworld{additionalProperties=$additionalProperties}"
-    }
-
     /** Minimax provider-specific parameters. */
     class Minimax
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -3367,8 +3220,6 @@ private constructor(
 
             @JvmField val RESEMBLE = of("resemble")
 
-            @JvmField val INWORLD = of("inworld")
-
             @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
         }
 
@@ -3381,7 +3232,6 @@ private constructor(
             MINIMAX,
             RIME,
             RESEMBLE,
-            INWORLD,
         }
 
         /**
@@ -3401,7 +3251,6 @@ private constructor(
             MINIMAX,
             RIME,
             RESEMBLE,
-            INWORLD,
             /** An enum member indicating that [Provider] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -3422,7 +3271,6 @@ private constructor(
                 MINIMAX -> Value.MINIMAX
                 RIME -> Value.RIME
                 RESEMBLE -> Value.RESEMBLE
-                INWORLD -> Value.INWORLD
                 else -> Value._UNKNOWN
             }
 
@@ -3444,7 +3292,6 @@ private constructor(
                 MINIMAX -> Known.MINIMAX
                 RIME -> Known.RIME
                 RESEMBLE -> Known.RESEMBLE
-                INWORLD -> Known.INWORLD
                 else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
             }
 
@@ -3989,19 +3836,25 @@ private constructor(
             "Rime{responseFormat=$responseFormat, samplingRate=$samplingRate, voiceSpeed=$voiceSpeed, additionalProperties=$additionalProperties}"
     }
 
-    /** Telnyx provider-specific parameters. */
+    /**
+     * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for `Natural` and
+     * `NaturalHD` models. For the `Ultra` model, use `voice_speed`, `volume`, and `emotion`.
+     */
     class Telnyx
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val emotion: JsonField<Emotion>,
         private val responseFormat: JsonField<String>,
         private val samplingRate: JsonField<Long>,
         private val temperature: JsonField<Float>,
         private val voiceSpeed: JsonField<Float>,
+        private val volume: JsonField<Float>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
+            @JsonProperty("emotion") @ExcludeMissing emotion: JsonField<Emotion> = JsonMissing.of(),
             @JsonProperty("response_format")
             @ExcludeMissing
             responseFormat: JsonField<String> = JsonMissing.of(),
@@ -4014,7 +3867,25 @@ private constructor(
             @JsonProperty("voice_speed")
             @ExcludeMissing
             voiceSpeed: JsonField<Float> = JsonMissing.of(),
-        ) : this(responseFormat, samplingRate, temperature, voiceSpeed, mutableMapOf())
+            @JsonProperty("volume") @ExcludeMissing volume: JsonField<Float> = JsonMissing.of(),
+        ) : this(
+            emotion,
+            responseFormat,
+            samplingRate,
+            temperature,
+            voiceSpeed,
+            volume,
+            mutableMapOf(),
+        )
+
+        /**
+         * Emotion control for the Ultra model. Adjusts the emotional tone of the synthesized
+         * speech.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun emotion(): Optional<Emotion> = emotion.getOptional("emotion")
 
         /**
          * Audio response format.
@@ -4033,7 +3904,7 @@ private constructor(
         fun samplingRate(): Optional<Long> = samplingRate.getOptional("sampling_rate")
 
         /**
-         * Sampling temperature.
+         * Sampling temperature. Applies to `Natural` and `NaturalHD` models only.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -4041,12 +3912,27 @@ private constructor(
         fun temperature(): Optional<Float> = temperature.getOptional("temperature")
 
         /**
-         * Voice speed multiplier.
+         * Voice speed multiplier. Applies to all models. Range: 0.5 to 2.0.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun voiceSpeed(): Optional<Float> = voiceSpeed.getOptional("voice_speed")
+
+        /**
+         * Volume level for the Ultra model. Range: 0.0 to 2.0.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun volume(): Optional<Float> = volume.getOptional("volume")
+
+        /**
+         * Returns the raw JSON value of [emotion].
+         *
+         * Unlike [emotion], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("emotion") @ExcludeMissing fun _emotion(): JsonField<Emotion> = emotion
 
         /**
          * Returns the raw JSON value of [responseFormat].
@@ -4086,6 +3972,13 @@ private constructor(
         @ExcludeMissing
         fun _voiceSpeed(): JsonField<Float> = voiceSpeed
 
+        /**
+         * Returns the raw JSON value of [volume].
+         *
+         * Unlike [volume], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("volume") @ExcludeMissing fun _volume(): JsonField<Float> = volume
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -4107,20 +4000,39 @@ private constructor(
         /** A builder for [Telnyx]. */
         class Builder internal constructor() {
 
+            private var emotion: JsonField<Emotion> = JsonMissing.of()
             private var responseFormat: JsonField<String> = JsonMissing.of()
             private var samplingRate: JsonField<Long> = JsonMissing.of()
             private var temperature: JsonField<Float> = JsonMissing.of()
             private var voiceSpeed: JsonField<Float> = JsonMissing.of()
+            private var volume: JsonField<Float> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(telnyx: Telnyx) = apply {
+                emotion = telnyx.emotion
                 responseFormat = telnyx.responseFormat
                 samplingRate = telnyx.samplingRate
                 temperature = telnyx.temperature
                 voiceSpeed = telnyx.voiceSpeed
+                volume = telnyx.volume
                 additionalProperties = telnyx.additionalProperties.toMutableMap()
             }
+
+            /**
+             * Emotion control for the Ultra model. Adjusts the emotional tone of the synthesized
+             * speech.
+             */
+            fun emotion(emotion: Emotion) = emotion(JsonField.of(emotion))
+
+            /**
+             * Sets [Builder.emotion] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.emotion] with a well-typed [Emotion] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun emotion(emotion: JsonField<Emotion>) = apply { this.emotion = emotion }
 
             /** Audio response format. */
             fun responseFormat(responseFormat: String) =
@@ -4151,7 +4063,7 @@ private constructor(
                 this.samplingRate = samplingRate
             }
 
-            /** Sampling temperature. */
+            /** Sampling temperature. Applies to `Natural` and `NaturalHD` models only. */
             fun temperature(temperature: Float) = temperature(JsonField.of(temperature))
 
             /**
@@ -4165,7 +4077,7 @@ private constructor(
                 this.temperature = temperature
             }
 
-            /** Voice speed multiplier. */
+            /** Voice speed multiplier. Applies to all models. Range: 0.5 to 2.0. */
             fun voiceSpeed(voiceSpeed: Float) = voiceSpeed(JsonField.of(voiceSpeed))
 
             /**
@@ -4176,6 +4088,18 @@ private constructor(
              * supported value.
              */
             fun voiceSpeed(voiceSpeed: JsonField<Float>) = apply { this.voiceSpeed = voiceSpeed }
+
+            /** Volume level for the Ultra model. Range: 0.0 to 2.0. */
+            fun volume(volume: Float) = volume(JsonField.of(volume))
+
+            /**
+             * Sets [Builder.volume] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.volume] with a well-typed [Float] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun volume(volume: JsonField<Float>) = apply { this.volume = volume }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -4203,10 +4127,12 @@ private constructor(
              */
             fun build(): Telnyx =
                 Telnyx(
+                    emotion,
                     responseFormat,
                     samplingRate,
                     temperature,
                     voiceSpeed,
+                    volume,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -4218,10 +4144,12 @@ private constructor(
                 return@apply
             }
 
+            emotion().ifPresent { it.validate() }
             responseFormat()
             samplingRate()
             temperature()
             voiceSpeed()
+            volume()
             validated = true
         }
 
@@ -4241,10 +4169,176 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (responseFormat.asKnown().isPresent) 1 else 0) +
+            (emotion.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (responseFormat.asKnown().isPresent) 1 else 0) +
                 (if (samplingRate.asKnown().isPresent) 1 else 0) +
                 (if (temperature.asKnown().isPresent) 1 else 0) +
-                (if (voiceSpeed.asKnown().isPresent) 1 else 0)
+                (if (voiceSpeed.asKnown().isPresent) 1 else 0) +
+                (if (volume.asKnown().isPresent) 1 else 0)
+
+        /**
+         * Emotion control for the Ultra model. Adjusts the emotional tone of the synthesized
+         * speech.
+         */
+        class Emotion @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val NEUTRAL = of("neutral")
+
+                @JvmField val HAPPY = of("happy")
+
+                @JvmField val SAD = of("sad")
+
+                @JvmField val ANGRY = of("angry")
+
+                @JvmField val FEARFUL = of("fearful")
+
+                @JvmField val DISGUSTED = of("disgusted")
+
+                @JvmField val SURPRISED = of("surprised")
+
+                @JvmStatic fun of(value: String) = Emotion(JsonField.of(value))
+            }
+
+            /** An enum containing [Emotion]'s known values. */
+            enum class Known {
+                NEUTRAL,
+                HAPPY,
+                SAD,
+                ANGRY,
+                FEARFUL,
+                DISGUSTED,
+                SURPRISED,
+            }
+
+            /**
+             * An enum containing [Emotion]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Emotion] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                NEUTRAL,
+                HAPPY,
+                SAD,
+                ANGRY,
+                FEARFUL,
+                DISGUSTED,
+                SURPRISED,
+                /**
+                 * An enum member indicating that [Emotion] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    NEUTRAL -> Value.NEUTRAL
+                    HAPPY -> Value.HAPPY
+                    SAD -> Value.SAD
+                    ANGRY -> Value.ANGRY
+                    FEARFUL -> Value.FEARFUL
+                    DISGUSTED -> Value.DISGUSTED
+                    SURPRISED -> Value.SURPRISED
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    NEUTRAL -> Known.NEUTRAL
+                    HAPPY -> Known.HAPPY
+                    SAD -> Known.SAD
+                    ANGRY -> Known.ANGRY
+                    FEARFUL -> Known.FEARFUL
+                    DISGUSTED -> Known.DISGUSTED
+                    SURPRISED -> Known.SURPRISED
+                    else -> throw TelnyxInvalidDataException("Unknown Emotion: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Emotion = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Emotion && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -4252,19 +4346,23 @@ private constructor(
             }
 
             return other is Telnyx &&
+                emotion == other.emotion &&
                 responseFormat == other.responseFormat &&
                 samplingRate == other.samplingRate &&
                 temperature == other.temperature &&
                 voiceSpeed == other.voiceSpeed &&
+                volume == other.volume &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
             Objects.hash(
+                emotion,
                 responseFormat,
                 samplingRate,
                 temperature,
                 voiceSpeed,
+                volume,
                 additionalProperties,
             )
         }
@@ -4272,7 +4370,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Telnyx{responseFormat=$responseFormat, samplingRate=$samplingRate, temperature=$temperature, voiceSpeed=$voiceSpeed, additionalProperties=$additionalProperties}"
+            "Telnyx{emotion=$emotion, responseFormat=$responseFormat, samplingRate=$samplingRate, temperature=$temperature, voiceSpeed=$voiceSpeed, volume=$volume, additionalProperties=$additionalProperties}"
     }
 
     /** Text type. Use `ssml` for SSML-formatted input (supported by AWS and Azure). */

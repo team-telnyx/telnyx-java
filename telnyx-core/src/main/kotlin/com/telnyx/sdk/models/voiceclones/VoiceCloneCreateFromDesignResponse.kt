@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.voicedesigns
+package com.telnyx.sdk.models.voiceclones
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -18,8 +18,8 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Response envelope for a single voice design with full version detail. */
-class VoiceDesignRetrieveResponse
+/** Response envelope for a single voice clone. */
+class VoiceCloneCreateFromDesignResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<Data>,
@@ -32,7 +32,7 @@ private constructor(
     ) : this(data, mutableMapOf())
 
     /**
-     * A voice design object with full version detail.
+     * A voice clone object.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -61,24 +61,27 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [VoiceDesignRetrieveResponse].
+         * Returns a mutable builder for constructing an instance of
+         * [VoiceCloneCreateFromDesignResponse].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [VoiceDesignRetrieveResponse]. */
+    /** A builder for [VoiceCloneCreateFromDesignResponse]. */
     class Builder internal constructor() {
 
         private var data: JsonField<Data> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(voiceDesignRetrieveResponse: VoiceDesignRetrieveResponse) = apply {
-            data = voiceDesignRetrieveResponse.data
-            additionalProperties = voiceDesignRetrieveResponse.additionalProperties.toMutableMap()
-        }
+        internal fun from(voiceCloneCreateFromDesignResponse: VoiceCloneCreateFromDesignResponse) =
+            apply {
+                data = voiceCloneCreateFromDesignResponse.data
+                additionalProperties =
+                    voiceCloneCreateFromDesignResponse.additionalProperties.toMutableMap()
+            }
 
-        /** A voice design object with full version detail. */
+        /** A voice clone object. */
         fun data(data: Data) = data(JsonField.of(data))
 
         /**
@@ -109,17 +112,17 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [VoiceDesignRetrieveResponse].
+         * Returns an immutable instance of [VoiceCloneCreateFromDesignResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): VoiceDesignRetrieveResponse =
-            VoiceDesignRetrieveResponse(data, additionalProperties.toMutableMap())
+        fun build(): VoiceCloneCreateFromDesignResponse =
+            VoiceCloneCreateFromDesignResponse(data, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
 
-    fun validate(): VoiceDesignRetrieveResponse = apply {
+    fun validate(): VoiceCloneCreateFromDesignResponse = apply {
         if (validated) {
             return@apply
         }
@@ -143,20 +146,20 @@ private constructor(
      */
     @JvmSynthetic internal fun validity(): Int = (data.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** A voice design object with full version detail. */
+    /** A voice clone object. */
     class Data
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
         private val createdAt: JsonField<OffsetDateTime>,
+        private val gender: JsonField<Gender>,
+        private val label: JsonField<String>,
+        private val language: JsonField<String>,
         private val name: JsonField<String>,
-        private val prompt: JsonField<String>,
         private val recordType: JsonField<RecordType>,
-        private val text: JsonField<String>,
+        private val sourceVoiceDesignId: JsonField<String>,
+        private val sourceVoiceDesignVersion: JsonField<Long>,
         private val updatedAt: JsonField<OffsetDateTime>,
-        private val version: JsonField<Long>,
-        private val versionCreatedAt: JsonField<OffsetDateTime>,
-        private val voiceSampleSize: JsonField<Long>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -166,38 +169,40 @@ private constructor(
             @JsonProperty("created_at")
             @ExcludeMissing
             createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("gender") @ExcludeMissing gender: JsonField<Gender> = JsonMissing.of(),
+            @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("language")
+            @ExcludeMissing
+            language: JsonField<String> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("prompt") @ExcludeMissing prompt: JsonField<String> = JsonMissing.of(),
             @JsonProperty("record_type")
             @ExcludeMissing
             recordType: JsonField<RecordType> = JsonMissing.of(),
-            @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("source_voice_design_id")
+            @ExcludeMissing
+            sourceVoiceDesignId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("source_voice_design_version")
+            @ExcludeMissing
+            sourceVoiceDesignVersion: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("updated_at")
             @ExcludeMissing
             updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonProperty("version") @ExcludeMissing version: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("version_created_at")
-            @ExcludeMissing
-            versionCreatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonProperty("voice_sample_size")
-            @ExcludeMissing
-            voiceSampleSize: JsonField<Long> = JsonMissing.of(),
         ) : this(
             id,
             createdAt,
+            gender,
+            label,
+            language,
             name,
-            prompt,
             recordType,
-            text,
+            sourceVoiceDesignId,
+            sourceVoiceDesignVersion,
             updatedAt,
-            version,
-            versionCreatedAt,
-            voiceSampleSize,
             mutableMapOf(),
         )
 
         /**
-         * Unique identifier for the voice design.
+         * Unique identifier for the voice clone.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -205,7 +210,7 @@ private constructor(
         fun id(): Optional<String> = id.getOptional("id")
 
         /**
-         * Timestamp when the voice design was first created.
+         * Timestamp when the voice clone was created.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -213,20 +218,37 @@ private constructor(
         fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("created_at")
 
         /**
-         * Name of the voice design.
+         * Gender of the voice clone.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun gender(): Optional<Gender> = gender.getOptional("gender")
+
+        /**
+         * Voice style description. If not explicitly set on upload, falls back to the source
+         * design's prompt text.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun label(): Optional<String> = label.getOptional("label")
+
+        /**
+         * ISO 639-1 language code of the voice clone.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun language(): Optional<String> = language.getOptional("language")
+
+        /**
+         * Name of the voice clone.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun name(): Optional<String> = name.getOptional("name")
-
-        /**
-         * Natural language prompt used to define the voice style for this version.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun prompt(): Optional<String> = prompt.getOptional("prompt")
 
         /**
          * Identifies the resource type.
@@ -237,45 +259,30 @@ private constructor(
         fun recordType(): Optional<RecordType> = recordType.getOptional("record_type")
 
         /**
-         * Sample text used to synthesize this version.
+         * UUID of the source voice design. `null` for upload-based clones.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun text(): Optional<String> = text.getOptional("text")
+        fun sourceVoiceDesignId(): Optional<String> =
+            sourceVoiceDesignId.getOptional("source_voice_design_id")
 
         /**
-         * Timestamp when the voice design was last updated.
+         * Version of the source voice design used. `null` for upload-based clones.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun sourceVoiceDesignVersion(): Optional<Long> =
+            sourceVoiceDesignVersion.getOptional("source_voice_design_version")
+
+        /**
+         * Timestamp when the voice clone was last updated.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun updatedAt(): Optional<OffsetDateTime> = updatedAt.getOptional("updated_at")
-
-        /**
-         * Version number of this voice design.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun version(): Optional<Long> = version.getOptional("version")
-
-        /**
-         * Timestamp when this specific version was created.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun versionCreatedAt(): Optional<OffsetDateTime> =
-            versionCreatedAt.getOptional("version_created_at")
-
-        /**
-         * Size of the voice sample audio in bytes.
-         *
-         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun voiceSampleSize(): Optional<Long> = voiceSampleSize.getOptional("voice_sample_size")
 
         /**
          * Returns the raw JSON value of [id].
@@ -294,18 +301,32 @@ private constructor(
         fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
         /**
+         * Returns the raw JSON value of [gender].
+         *
+         * Unlike [gender], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("gender") @ExcludeMissing fun _gender(): JsonField<Gender> = gender
+
+        /**
+         * Returns the raw JSON value of [label].
+         *
+         * Unlike [label], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("label") @ExcludeMissing fun _label(): JsonField<String> = label
+
+        /**
+         * Returns the raw JSON value of [language].
+         *
+         * Unlike [language], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("language") @ExcludeMissing fun _language(): JsonField<String> = language
+
+        /**
          * Returns the raw JSON value of [name].
          *
          * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-        /**
-         * Returns the raw JSON value of [prompt].
-         *
-         * Unlike [prompt], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("prompt") @ExcludeMissing fun _prompt(): JsonField<String> = prompt
 
         /**
          * Returns the raw JSON value of [recordType].
@@ -317,11 +338,24 @@ private constructor(
         fun _recordType(): JsonField<RecordType> = recordType
 
         /**
-         * Returns the raw JSON value of [text].
+         * Returns the raw JSON value of [sourceVoiceDesignId].
          *
-         * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [sourceVoiceDesignId], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
-        @JsonProperty("text") @ExcludeMissing fun _text(): JsonField<String> = text
+        @JsonProperty("source_voice_design_id")
+        @ExcludeMissing
+        fun _sourceVoiceDesignId(): JsonField<String> = sourceVoiceDesignId
+
+        /**
+         * Returns the raw JSON value of [sourceVoiceDesignVersion].
+         *
+         * Unlike [sourceVoiceDesignVersion], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("source_voice_design_version")
+        @ExcludeMissing
+        fun _sourceVoiceDesignVersion(): JsonField<Long> = sourceVoiceDesignVersion
 
         /**
          * Returns the raw JSON value of [updatedAt].
@@ -331,33 +365,6 @@ private constructor(
         @JsonProperty("updated_at")
         @ExcludeMissing
         fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
-
-        /**
-         * Returns the raw JSON value of [version].
-         *
-         * Unlike [version], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("version") @ExcludeMissing fun _version(): JsonField<Long> = version
-
-        /**
-         * Returns the raw JSON value of [versionCreatedAt].
-         *
-         * Unlike [versionCreatedAt], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("version_created_at")
-        @ExcludeMissing
-        fun _versionCreatedAt(): JsonField<OffsetDateTime> = versionCreatedAt
-
-        /**
-         * Returns the raw JSON value of [voiceSampleSize].
-         *
-         * Unlike [voiceSampleSize], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("voice_sample_size")
-        @ExcludeMissing
-        fun _voiceSampleSize(): JsonField<Long> = voiceSampleSize
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -382,32 +389,32 @@ private constructor(
 
             private var id: JsonField<String> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var gender: JsonField<Gender> = JsonMissing.of()
+            private var label: JsonField<String> = JsonMissing.of()
+            private var language: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
-            private var prompt: JsonField<String> = JsonMissing.of()
             private var recordType: JsonField<RecordType> = JsonMissing.of()
-            private var text: JsonField<String> = JsonMissing.of()
+            private var sourceVoiceDesignId: JsonField<String> = JsonMissing.of()
+            private var sourceVoiceDesignVersion: JsonField<Long> = JsonMissing.of()
             private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var version: JsonField<Long> = JsonMissing.of()
-            private var versionCreatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var voiceSampleSize: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(data: Data) = apply {
                 id = data.id
                 createdAt = data.createdAt
+                gender = data.gender
+                label = data.label
+                language = data.language
                 name = data.name
-                prompt = data.prompt
                 recordType = data.recordType
-                text = data.text
+                sourceVoiceDesignId = data.sourceVoiceDesignId
+                sourceVoiceDesignVersion = data.sourceVoiceDesignVersion
                 updatedAt = data.updatedAt
-                version = data.version
-                versionCreatedAt = data.versionCreatedAt
-                voiceSampleSize = data.voiceSampleSize
                 additionalProperties = data.additionalProperties.toMutableMap()
             }
 
-            /** Unique identifier for the voice design. */
+            /** Unique identifier for the voice clone. */
             fun id(id: String) = id(JsonField.of(id))
 
             /**
@@ -419,7 +426,7 @@ private constructor(
              */
             fun id(id: JsonField<String>) = apply { this.id = id }
 
-            /** Timestamp when the voice design was first created. */
+            /** Timestamp when the voice clone was created. */
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
             /**
@@ -433,7 +440,55 @@ private constructor(
                 this.createdAt = createdAt
             }
 
-            /** Name of the voice design. */
+            /** Gender of the voice clone. */
+            fun gender(gender: Gender?) = gender(JsonField.ofNullable(gender))
+
+            /** Alias for calling [Builder.gender] with `gender.orElse(null)`. */
+            fun gender(gender: Optional<Gender>) = gender(gender.getOrNull())
+
+            /**
+             * Sets [Builder.gender] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.gender] with a well-typed [Gender] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun gender(gender: JsonField<Gender>) = apply { this.gender = gender }
+
+            /**
+             * Voice style description. If not explicitly set on upload, falls back to the source
+             * design's prompt text.
+             */
+            fun label(label: String?) = label(JsonField.ofNullable(label))
+
+            /** Alias for calling [Builder.label] with `label.orElse(null)`. */
+            fun label(label: Optional<String>) = label(label.getOrNull())
+
+            /**
+             * Sets [Builder.label] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.label] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun label(label: JsonField<String>) = apply { this.label = label }
+
+            /** ISO 639-1 language code of the voice clone. */
+            fun language(language: String?) = language(JsonField.ofNullable(language))
+
+            /** Alias for calling [Builder.language] with `language.orElse(null)`. */
+            fun language(language: Optional<String>) = language(language.getOrNull())
+
+            /**
+             * Sets [Builder.language] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.language] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun language(language: JsonField<String>) = apply { this.language = language }
+
+            /** Name of the voice clone. */
             fun name(name: String) = name(JsonField.of(name))
 
             /**
@@ -444,18 +499,6 @@ private constructor(
              * value.
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
-
-            /** Natural language prompt used to define the voice style for this version. */
-            fun prompt(prompt: String) = prompt(JsonField.of(prompt))
-
-            /**
-             * Sets [Builder.prompt] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.prompt] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun prompt(prompt: JsonField<String>) = apply { this.prompt = prompt }
 
             /** Identifies the resource type. */
             fun recordType(recordType: RecordType) = recordType(JsonField.of(recordType))
@@ -471,19 +514,59 @@ private constructor(
                 this.recordType = recordType
             }
 
-            /** Sample text used to synthesize this version. */
-            fun text(text: String) = text(JsonField.of(text))
+            /** UUID of the source voice design. `null` for upload-based clones. */
+            fun sourceVoiceDesignId(sourceVoiceDesignId: String?) =
+                sourceVoiceDesignId(JsonField.ofNullable(sourceVoiceDesignId))
 
             /**
-             * Sets [Builder.text] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.text] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * Alias for calling [Builder.sourceVoiceDesignId] with
+             * `sourceVoiceDesignId.orElse(null)`.
              */
-            fun text(text: JsonField<String>) = apply { this.text = text }
+            fun sourceVoiceDesignId(sourceVoiceDesignId: Optional<String>) =
+                sourceVoiceDesignId(sourceVoiceDesignId.getOrNull())
 
-            /** Timestamp when the voice design was last updated. */
+            /**
+             * Sets [Builder.sourceVoiceDesignId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sourceVoiceDesignId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun sourceVoiceDesignId(sourceVoiceDesignId: JsonField<String>) = apply {
+                this.sourceVoiceDesignId = sourceVoiceDesignId
+            }
+
+            /** Version of the source voice design used. `null` for upload-based clones. */
+            fun sourceVoiceDesignVersion(sourceVoiceDesignVersion: Long?) =
+                sourceVoiceDesignVersion(JsonField.ofNullable(sourceVoiceDesignVersion))
+
+            /**
+             * Alias for [Builder.sourceVoiceDesignVersion].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun sourceVoiceDesignVersion(sourceVoiceDesignVersion: Long) =
+                sourceVoiceDesignVersion(sourceVoiceDesignVersion as Long?)
+
+            /**
+             * Alias for calling [Builder.sourceVoiceDesignVersion] with
+             * `sourceVoiceDesignVersion.orElse(null)`.
+             */
+            fun sourceVoiceDesignVersion(sourceVoiceDesignVersion: Optional<Long>) =
+                sourceVoiceDesignVersion(sourceVoiceDesignVersion.getOrNull())
+
+            /**
+             * Sets [Builder.sourceVoiceDesignVersion] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sourceVoiceDesignVersion] with a well-typed [Long]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun sourceVoiceDesignVersion(sourceVoiceDesignVersion: JsonField<Long>) = apply {
+                this.sourceVoiceDesignVersion = sourceVoiceDesignVersion
+            }
+
+            /** Timestamp when the voice clone was last updated. */
             fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
             /**
@@ -495,48 +578,6 @@ private constructor(
              */
             fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
                 this.updatedAt = updatedAt
-            }
-
-            /** Version number of this voice design. */
-            fun version(version: Long) = version(JsonField.of(version))
-
-            /**
-             * Sets [Builder.version] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.version] with a well-typed [Long] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun version(version: JsonField<Long>) = apply { this.version = version }
-
-            /** Timestamp when this specific version was created. */
-            fun versionCreatedAt(versionCreatedAt: OffsetDateTime) =
-                versionCreatedAt(JsonField.of(versionCreatedAt))
-
-            /**
-             * Sets [Builder.versionCreatedAt] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.versionCreatedAt] with a well-typed [OffsetDateTime]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun versionCreatedAt(versionCreatedAt: JsonField<OffsetDateTime>) = apply {
-                this.versionCreatedAt = versionCreatedAt
-            }
-
-            /** Size of the voice sample audio in bytes. */
-            fun voiceSampleSize(voiceSampleSize: Long) =
-                voiceSampleSize(JsonField.of(voiceSampleSize))
-
-            /**
-             * Sets [Builder.voiceSampleSize] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.voiceSampleSize] with a well-typed [Long] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun voiceSampleSize(voiceSampleSize: JsonField<Long>) = apply {
-                this.voiceSampleSize = voiceSampleSize
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -567,14 +608,14 @@ private constructor(
                 Data(
                     id,
                     createdAt,
+                    gender,
+                    label,
+                    language,
                     name,
-                    prompt,
                     recordType,
-                    text,
+                    sourceVoiceDesignId,
+                    sourceVoiceDesignVersion,
                     updatedAt,
-                    version,
-                    versionCreatedAt,
-                    voiceSampleSize,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -588,14 +629,14 @@ private constructor(
 
             id()
             createdAt()
+            gender().ifPresent { it.validate() }
+            label()
+            language()
             name()
-            prompt()
             recordType().ifPresent { it.validate() }
-            text()
+            sourceVoiceDesignId()
+            sourceVoiceDesignVersion()
             updatedAt()
-            version()
-            versionCreatedAt()
-            voiceSampleSize()
             validated = true
         }
 
@@ -617,14 +658,150 @@ private constructor(
         internal fun validity(): Int =
             (if (id.asKnown().isPresent) 1 else 0) +
                 (if (createdAt.asKnown().isPresent) 1 else 0) +
+                (gender.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (label.asKnown().isPresent) 1 else 0) +
+                (if (language.asKnown().isPresent) 1 else 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
-                (if (prompt.asKnown().isPresent) 1 else 0) +
                 (recordType.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (text.asKnown().isPresent) 1 else 0) +
-                (if (updatedAt.asKnown().isPresent) 1 else 0) +
-                (if (version.asKnown().isPresent) 1 else 0) +
-                (if (versionCreatedAt.asKnown().isPresent) 1 else 0) +
-                (if (voiceSampleSize.asKnown().isPresent) 1 else 0)
+                (if (sourceVoiceDesignId.asKnown().isPresent) 1 else 0) +
+                (if (sourceVoiceDesignVersion.asKnown().isPresent) 1 else 0) +
+                (if (updatedAt.asKnown().isPresent) 1 else 0)
+
+        /** Gender of the voice clone. */
+        class Gender @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val MALE = of("male")
+
+                @JvmField val FEMALE = of("female")
+
+                @JvmField val NEUTRAL = of("neutral")
+
+                @JvmStatic fun of(value: String) = Gender(JsonField.of(value))
+            }
+
+            /** An enum containing [Gender]'s known values. */
+            enum class Known {
+                MALE,
+                FEMALE,
+                NEUTRAL,
+            }
+
+            /**
+             * An enum containing [Gender]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Gender] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                MALE,
+                FEMALE,
+                NEUTRAL,
+                /**
+                 * An enum member indicating that [Gender] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    MALE -> Value.MALE
+                    FEMALE -> Value.FEMALE
+                    NEUTRAL -> Value.NEUTRAL
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    MALE -> Known.MALE
+                    FEMALE -> Known.FEMALE
+                    NEUTRAL -> Known.NEUTRAL
+                    else -> throw TelnyxInvalidDataException("Unknown Gender: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Gender = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Gender && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
 
         /** Identifies the resource type. */
         class RecordType @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -642,14 +819,14 @@ private constructor(
 
             companion object {
 
-                @JvmField val VOICE_DESIGN = of("voice_design")
+                @JvmField val VOICE_CLONE = of("voice_clone")
 
                 @JvmStatic fun of(value: String) = RecordType(JsonField.of(value))
             }
 
             /** An enum containing [RecordType]'s known values. */
             enum class Known {
-                VOICE_DESIGN
+                VOICE_CLONE
             }
 
             /**
@@ -662,7 +839,7 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                VOICE_DESIGN,
+                VOICE_CLONE,
                 /**
                  * An enum member indicating that [RecordType] was instantiated with an unknown
                  * value.
@@ -679,7 +856,7 @@ private constructor(
              */
             fun value(): Value =
                 when (this) {
-                    VOICE_DESIGN -> Value.VOICE_DESIGN
+                    VOICE_CLONE -> Value.VOICE_CLONE
                     else -> Value._UNKNOWN
                 }
 
@@ -694,7 +871,7 @@ private constructor(
              */
             fun known(): Known =
                 when (this) {
-                    VOICE_DESIGN -> Known.VOICE_DESIGN
+                    VOICE_CLONE -> Known.VOICE_CLONE
                     else -> throw TelnyxInvalidDataException("Unknown RecordType: $value")
                 }
 
@@ -760,14 +937,14 @@ private constructor(
             return other is Data &&
                 id == other.id &&
                 createdAt == other.createdAt &&
+                gender == other.gender &&
+                label == other.label &&
+                language == other.language &&
                 name == other.name &&
-                prompt == other.prompt &&
                 recordType == other.recordType &&
-                text == other.text &&
+                sourceVoiceDesignId == other.sourceVoiceDesignId &&
+                sourceVoiceDesignVersion == other.sourceVoiceDesignVersion &&
                 updatedAt == other.updatedAt &&
-                version == other.version &&
-                versionCreatedAt == other.versionCreatedAt &&
-                voiceSampleSize == other.voiceSampleSize &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -775,14 +952,14 @@ private constructor(
             Objects.hash(
                 id,
                 createdAt,
+                gender,
+                label,
+                language,
                 name,
-                prompt,
                 recordType,
-                text,
+                sourceVoiceDesignId,
+                sourceVoiceDesignVersion,
                 updatedAt,
-                version,
-                versionCreatedAt,
-                voiceSampleSize,
                 additionalProperties,
             )
         }
@@ -790,7 +967,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Data{id=$id, createdAt=$createdAt, name=$name, prompt=$prompt, recordType=$recordType, text=$text, updatedAt=$updatedAt, version=$version, versionCreatedAt=$versionCreatedAt, voiceSampleSize=$voiceSampleSize, additionalProperties=$additionalProperties}"
+            "Data{id=$id, createdAt=$createdAt, gender=$gender, label=$label, language=$language, name=$name, recordType=$recordType, sourceVoiceDesignId=$sourceVoiceDesignId, sourceVoiceDesignVersion=$sourceVoiceDesignVersion, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -798,7 +975,7 @@ private constructor(
             return true
         }
 
-        return other is VoiceDesignRetrieveResponse &&
+        return other is VoiceCloneCreateFromDesignResponse &&
             data == other.data &&
             additionalProperties == other.additionalProperties
     }
@@ -808,5 +985,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "VoiceDesignRetrieveResponse{data=$data, additionalProperties=$additionalProperties}"
+        "VoiceCloneCreateFromDesignResponse{data=$data, additionalProperties=$additionalProperties}"
 }

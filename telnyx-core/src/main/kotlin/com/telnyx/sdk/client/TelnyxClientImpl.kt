@@ -264,8 +264,6 @@ import com.telnyx.sdk.services.blocking.SimCardService
 import com.telnyx.sdk.services.blocking.SimCardServiceImpl
 import com.telnyx.sdk.services.blocking.SiprecConnectorService
 import com.telnyx.sdk.services.blocking.SiprecConnectorServiceImpl
-import com.telnyx.sdk.services.blocking.SpeechToTextService
-import com.telnyx.sdk.services.blocking.SpeechToTextServiceImpl
 import com.telnyx.sdk.services.blocking.StorageService
 import com.telnyx.sdk.services.blocking.StorageServiceImpl
 import com.telnyx.sdk.services.blocking.SubNumberOrderService
@@ -904,18 +902,14 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         WhatsappMessageTemplateServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val x402: X402Service by lazy { X402ServiceImpl(clientOptionsWithUserAgent) }
+
     private val voiceClones: VoiceCloneService by lazy {
         VoiceCloneServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val voiceDesigns: VoiceDesignService by lazy {
         VoiceDesignServiceImpl(clientOptionsWithUserAgent)
-    }
-
-    private val x402: X402Service by lazy { X402ServiceImpl(clientOptionsWithUserAgent) }
-
-    private val speechToText: SpeechToTextService by lazy {
-        SpeechToTextServiceImpl(clientOptionsWithUserAgent)
     }
 
     override fun async(): TelnyxClientAsync = async
@@ -1386,16 +1380,13 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun whatsappMessageTemplates(): WhatsappMessageTemplateService =
         whatsappMessageTemplates
 
+    override fun x402(): X402Service = x402
+
     /** Capture and manage voice identities as clones for use in text-to-speech synthesis. */
     override fun voiceClones(): VoiceCloneService = voiceClones
 
     /** Create and manage AI-generated voice designs using natural language prompts. */
     override fun voiceDesigns(): VoiceDesignService = voiceDesigns
-
-    override fun x402(): X402Service = x402
-
-    /** Speech to text command operations */
-    override fun speechToText(): SpeechToTextService = speechToText
 
     override fun close() = clientOptions.close()
 
@@ -2037,20 +2028,16 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             WhatsappMessageTemplateServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val x402: X402Service.WithRawResponse by lazy {
+            X402ServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val voiceClones: VoiceCloneService.WithRawResponse by lazy {
             VoiceCloneServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val voiceDesigns: VoiceDesignService.WithRawResponse by lazy {
             VoiceDesignServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val x402: X402Service.WithRawResponse by lazy {
-            X402ServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val speechToText: SpeechToTextService.WithRawResponse by lazy {
-            SpeechToTextServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -2571,15 +2558,12 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         override fun whatsappMessageTemplates(): WhatsappMessageTemplateService.WithRawResponse =
             whatsappMessageTemplates
 
+        override fun x402(): X402Service.WithRawResponse = x402
+
         /** Capture and manage voice identities as clones for use in text-to-speech synthesis. */
         override fun voiceClones(): VoiceCloneService.WithRawResponse = voiceClones
 
         /** Create and manage AI-generated voice designs using natural language prompts. */
         override fun voiceDesigns(): VoiceDesignService.WithRawResponse = voiceDesigns
-
-        override fun x402(): X402Service.WithRawResponse = x402
-
-        /** Speech to text command operations */
-        override fun speechToText(): SpeechToTextService.WithRawResponse = speechToText
     }
 }

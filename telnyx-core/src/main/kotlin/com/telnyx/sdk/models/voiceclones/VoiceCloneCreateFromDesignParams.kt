@@ -24,7 +24,7 @@ import kotlin.jvm.optionals.getOrNull
  * Creates a new voice clone by capturing the voice identity of an existing voice design. The clone
  * can then be used for text-to-speech synthesis.
  */
-class VoiceCloneCreateParams
+class VoiceCloneCreateFromDesignParams
 private constructor(
     private val body: Body,
     private val additionalHeaders: Headers,
@@ -104,7 +104,8 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [VoiceCloneCreateParams].
+         * Returns a mutable builder for constructing an instance of
+         * [VoiceCloneCreateFromDesignParams].
          *
          * The following fields are required:
          * ```java
@@ -117,7 +118,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [VoiceCloneCreateParams]. */
+    /** A builder for [VoiceCloneCreateFromDesignParams]. */
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
@@ -125,11 +126,13 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(voiceCloneCreateParams: VoiceCloneCreateParams) = apply {
-            body = voiceCloneCreateParams.body.toBuilder()
-            additionalHeaders = voiceCloneCreateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = voiceCloneCreateParams.additionalQueryParams.toBuilder()
-        }
+        internal fun from(voiceCloneCreateFromDesignParams: VoiceCloneCreateFromDesignParams) =
+            apply {
+                body = voiceCloneCreateFromDesignParams.body.toBuilder()
+                additionalHeaders = voiceCloneCreateFromDesignParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    voiceCloneCreateFromDesignParams.additionalQueryParams.toBuilder()
+            }
 
         /**
          * Sets the entire request body.
@@ -308,7 +311,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [VoiceCloneCreateParams].
+         * Returns an immutable instance of [VoiceCloneCreateFromDesignParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -322,8 +325,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): VoiceCloneCreateParams =
-            VoiceCloneCreateParams(
+        fun build(): VoiceCloneCreateFromDesignParams =
+            VoiceCloneCreateFromDesignParams(
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -757,7 +760,7 @@ private constructor(
             return true
         }
 
-        return other is VoiceCloneCreateParams &&
+        return other is VoiceCloneCreateFromDesignParams &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -766,5 +769,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "VoiceCloneCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "VoiceCloneCreateFromDesignParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
