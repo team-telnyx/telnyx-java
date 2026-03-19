@@ -19,7 +19,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class TrafficPolicyProfileListResponse
+class TrafficPolicyProfile
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
@@ -215,14 +215,11 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of
-         * [TrafficPolicyProfileListResponse].
-         */
+        /** Returns a mutable builder for constructing an instance of [TrafficPolicyProfile]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [TrafficPolicyProfileListResponse]. */
+    /** A builder for [TrafficPolicyProfile]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String> = JsonMissing.of()
@@ -237,20 +234,18 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(trafficPolicyProfileListResponse: TrafficPolicyProfileListResponse) =
-            apply {
-                id = trafficPolicyProfileListResponse.id
-                createdAt = trafficPolicyProfileListResponse.createdAt
-                domains = trafficPolicyProfileListResponse.domains.map { it.toMutableList() }
-                ipRanges = trafficPolicyProfileListResponse.ipRanges.map { it.toMutableList() }
-                limitBwKbps = trafficPolicyProfileListResponse.limitBwKbps
-                recordType = trafficPolicyProfileListResponse.recordType
-                services = trafficPolicyProfileListResponse.services.map { it.toMutableList() }
-                type = trafficPolicyProfileListResponse.type
-                updatedAt = trafficPolicyProfileListResponse.updatedAt
-                additionalProperties =
-                    trafficPolicyProfileListResponse.additionalProperties.toMutableMap()
-            }
+        internal fun from(trafficPolicyProfile: TrafficPolicyProfile) = apply {
+            id = trafficPolicyProfile.id
+            createdAt = trafficPolicyProfile.createdAt
+            domains = trafficPolicyProfile.domains.map { it.toMutableList() }
+            ipRanges = trafficPolicyProfile.ipRanges.map { it.toMutableList() }
+            limitBwKbps = trafficPolicyProfile.limitBwKbps
+            recordType = trafficPolicyProfile.recordType
+            services = trafficPolicyProfile.services.map { it.toMutableList() }
+            type = trafficPolicyProfile.type
+            updatedAt = trafficPolicyProfile.updatedAt
+            additionalProperties = trafficPolicyProfile.additionalProperties.toMutableMap()
+        }
 
         /** Identifies the resource. */
         fun id(id: String) = id(JsonField.of(id))
@@ -429,12 +424,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [TrafficPolicyProfileListResponse].
+         * Returns an immutable instance of [TrafficPolicyProfile].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): TrafficPolicyProfileListResponse =
-            TrafficPolicyProfileListResponse(
+        fun build(): TrafficPolicyProfile =
+            TrafficPolicyProfile(
                 id,
                 createdAt,
                 (domains ?: JsonMissing.of()).map { it.toImmutable() },
@@ -450,7 +445,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): TrafficPolicyProfileListResponse = apply {
+    fun validate(): TrafficPolicyProfile = apply {
         if (validated) {
             return@apply
         }
@@ -629,7 +624,7 @@ private constructor(
             return true
         }
 
-        return other is TrafficPolicyProfileListResponse &&
+        return other is TrafficPolicyProfile &&
             id == other.id &&
             createdAt == other.createdAt &&
             domains == other.domains &&
@@ -660,5 +655,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TrafficPolicyProfileListResponse{id=$id, createdAt=$createdAt, domains=$domains, ipRanges=$ipRanges, limitBwKbps=$limitBwKbps, recordType=$recordType, services=$services, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "TrafficPolicyProfile{id=$id, createdAt=$createdAt, domains=$domains, ipRanges=$ipRanges, limitBwKbps=$limitBwKbps, recordType=$recordType, services=$services, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

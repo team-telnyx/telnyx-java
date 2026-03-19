@@ -14,7 +14,7 @@ internal class TrafficPolicyProfileCreateResponseTest {
         val trafficPolicyProfileCreateResponse =
             TrafficPolicyProfileCreateResponse.builder()
                 .data(
-                    TrafficPolicyProfileCreateResponse.Data.builder()
+                    TrafficPolicyProfile.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .addDomain("www.hbomax.com")
@@ -25,7 +25,7 @@ internal class TrafficPolicyProfileCreateResponseTest {
                         .recordType("traffic_policy_profile")
                         .addService("service_123")
                         .addService("service_456")
-                        .type(TrafficPolicyProfileCreateResponse.Data.Type.WHITELIST)
+                        .type(TrafficPolicyProfile.Type.WHITELIST)
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .build()
                 )
@@ -33,7 +33,7 @@ internal class TrafficPolicyProfileCreateResponseTest {
 
         assertThat(trafficPolicyProfileCreateResponse.data())
             .contains(
-                TrafficPolicyProfileCreateResponse.Data.builder()
+                TrafficPolicyProfile.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .createdAt("2018-02-02T22:25:27.521Z")
                     .addDomain("www.hbomax.com")
@@ -44,7 +44,7 @@ internal class TrafficPolicyProfileCreateResponseTest {
                     .recordType("traffic_policy_profile")
                     .addService("service_123")
                     .addService("service_456")
-                    .type(TrafficPolicyProfileCreateResponse.Data.Type.WHITELIST)
+                    .type(TrafficPolicyProfile.Type.WHITELIST)
                     .updatedAt("2018-02-02T22:25:27.521Z")
                     .build()
             )
@@ -56,7 +56,7 @@ internal class TrafficPolicyProfileCreateResponseTest {
         val trafficPolicyProfileCreateResponse =
             TrafficPolicyProfileCreateResponse.builder()
                 .data(
-                    TrafficPolicyProfileCreateResponse.Data.builder()
+                    TrafficPolicyProfile.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .createdAt("2018-02-02T22:25:27.521Z")
                         .addDomain("www.hbomax.com")
@@ -67,7 +67,7 @@ internal class TrafficPolicyProfileCreateResponseTest {
                         .recordType("traffic_policy_profile")
                         .addService("service_123")
                         .addService("service_456")
-                        .type(TrafficPolicyProfileCreateResponse.Data.Type.WHITELIST)
+                        .type(TrafficPolicyProfile.Type.WHITELIST)
                         .updatedAt("2018-02-02T22:25:27.521Z")
                         .build()
                 )
