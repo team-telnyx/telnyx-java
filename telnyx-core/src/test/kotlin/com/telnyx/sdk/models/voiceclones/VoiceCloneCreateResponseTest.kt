@@ -8,21 +8,21 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class VoiceCloneCreateFromDesignResponseTest {
+internal class VoiceCloneCreateResponseTest {
 
     @Test
     fun create() {
-        val voiceCloneCreateFromDesignResponse =
-            VoiceCloneCreateFromDesignResponse.builder()
+        val voiceCloneCreateResponse =
+            VoiceCloneCreateResponse.builder()
                 .data(
-                    VoiceCloneCreateFromDesignResponse.Data.builder()
+                    VoiceCloneCreateResponse.Data.builder()
                         .id("660f9511-f3ac-52e5-b827-557766551111")
                         .createdAt(OffsetDateTime.parse("2024-01-01T00:00:00Z"))
-                        .gender(VoiceCloneCreateFromDesignResponse.Data.Gender.MALE)
+                        .gender(VoiceCloneCreateResponse.Data.Gender.MALE)
                         .label("Speak in a warm, friendly tone")
                         .language("en")
                         .name("clone-narrator")
-                        .recordType(VoiceCloneCreateFromDesignResponse.Data.RecordType.VOICE_CLONE)
+                        .recordType(VoiceCloneCreateResponse.Data.RecordType.VOICE_CLONE)
                         .sourceVoiceDesignId("550e8400-e29b-41d4-a716-446655440000")
                         .sourceVoiceDesignVersion(1L)
                         .updatedAt(OffsetDateTime.parse("2024-01-01T00:00:00Z"))
@@ -30,16 +30,16 @@ internal class VoiceCloneCreateFromDesignResponseTest {
                 )
                 .build()
 
-        assertThat(voiceCloneCreateFromDesignResponse.data())
+        assertThat(voiceCloneCreateResponse.data())
             .contains(
-                VoiceCloneCreateFromDesignResponse.Data.builder()
+                VoiceCloneCreateResponse.Data.builder()
                     .id("660f9511-f3ac-52e5-b827-557766551111")
                     .createdAt(OffsetDateTime.parse("2024-01-01T00:00:00Z"))
-                    .gender(VoiceCloneCreateFromDesignResponse.Data.Gender.MALE)
+                    .gender(VoiceCloneCreateResponse.Data.Gender.MALE)
                     .label("Speak in a warm, friendly tone")
                     .language("en")
                     .name("clone-narrator")
-                    .recordType(VoiceCloneCreateFromDesignResponse.Data.RecordType.VOICE_CLONE)
+                    .recordType(VoiceCloneCreateResponse.Data.RecordType.VOICE_CLONE)
                     .sourceVoiceDesignId("550e8400-e29b-41d4-a716-446655440000")
                     .sourceVoiceDesignVersion(1L)
                     .updatedAt(OffsetDateTime.parse("2024-01-01T00:00:00Z"))
@@ -50,17 +50,17 @@ internal class VoiceCloneCreateFromDesignResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val voiceCloneCreateFromDesignResponse =
-            VoiceCloneCreateFromDesignResponse.builder()
+        val voiceCloneCreateResponse =
+            VoiceCloneCreateResponse.builder()
                 .data(
-                    VoiceCloneCreateFromDesignResponse.Data.builder()
+                    VoiceCloneCreateResponse.Data.builder()
                         .id("660f9511-f3ac-52e5-b827-557766551111")
                         .createdAt(OffsetDateTime.parse("2024-01-01T00:00:00Z"))
-                        .gender(VoiceCloneCreateFromDesignResponse.Data.Gender.MALE)
+                        .gender(VoiceCloneCreateResponse.Data.Gender.MALE)
                         .label("Speak in a warm, friendly tone")
                         .language("en")
                         .name("clone-narrator")
-                        .recordType(VoiceCloneCreateFromDesignResponse.Data.RecordType.VOICE_CLONE)
+                        .recordType(VoiceCloneCreateResponse.Data.RecordType.VOICE_CLONE)
                         .sourceVoiceDesignId("550e8400-e29b-41d4-a716-446655440000")
                         .sourceVoiceDesignVersion(1L)
                         .updatedAt(OffsetDateTime.parse("2024-01-01T00:00:00Z"))
@@ -68,13 +68,12 @@ internal class VoiceCloneCreateFromDesignResponseTest {
                 )
                 .build()
 
-        val roundtrippedVoiceCloneCreateFromDesignResponse =
+        val roundtrippedVoiceCloneCreateResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(voiceCloneCreateFromDesignResponse),
-                jacksonTypeRef<VoiceCloneCreateFromDesignResponse>(),
+                jsonMapper.writeValueAsString(voiceCloneCreateResponse),
+                jacksonTypeRef<VoiceCloneCreateResponse>(),
             )
 
-        assertThat(roundtrippedVoiceCloneCreateFromDesignResponse)
-            .isEqualTo(voiceCloneCreateFromDesignResponse)
+        assertThat(roundtrippedVoiceCloneCreateResponse).isEqualTo(voiceCloneCreateResponse)
     }
 }

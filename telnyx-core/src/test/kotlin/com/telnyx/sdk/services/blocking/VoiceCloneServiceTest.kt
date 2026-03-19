@@ -9,8 +9,8 @@ import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromDesignParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromUploadParams
+import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneUpdateParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
@@ -20,6 +20,25 @@ import org.junit.jupiter.api.parallel.ResourceLock
 @WireMockTest
 @ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class VoiceCloneServiceTest {
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun create() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val voiceCloneService = client.voiceClones()
+
+        val voiceClone =
+            voiceCloneService.create(
+                VoiceCloneCreateParams.builder()
+                    .gender(VoiceCloneCreateParams.Gender.MALE)
+                    .language("en")
+                    .name("clone-narrator")
+                    .voiceDesignId("550e8400-e29b-41d4-a716-446655440000")
+                    .build()
+            )
+
+        voiceClone.validate()
+    }
 
     @Disabled("Mock server tests are disabled")
     @Test
@@ -58,25 +77,6 @@ internal class VoiceCloneServiceTest {
         val voiceCloneService = client.voiceClones()
 
         voiceCloneService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun createFromDesign() {
-        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
-        val voiceCloneService = client.voiceClones()
-
-        val response =
-            voiceCloneService.createFromDesign(
-                VoiceCloneCreateFromDesignParams.builder()
-                    .gender(VoiceCloneCreateFromDesignParams.Gender.MALE)
-                    .language("en")
-                    .name("clone-narrator")
-                    .voiceDesignId("550e8400-e29b-41d4-a716-446655440000")
-                    .build()
-            )
-
-        response.validate()
     }
 
     @Disabled("Mock server tests are disabled")

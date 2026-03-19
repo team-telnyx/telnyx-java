@@ -82,6 +82,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -269,6 +270,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -458,6 +460,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -640,6 +643,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -798,6 +802,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).contains(callBridged)
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -944,6 +949,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).contains(callConversationEnded)
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -1108,6 +1114,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated())
             .contains(callConversationInsightsGenerated)
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -1218,6 +1225,193 @@ internal class UnwrapWebhookEventTest {
     }
 
     @Test
+    fun ofCallCost() {
+        val callCost =
+            CallCostWebhookEvent.builder()
+                .data(
+                    CallCostWebhookEvent.Data.builder()
+                        .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                        .eventType(CallCostWebhookEvent.Data.EventType.CALL_COST)
+                        .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
+                        .payload(
+                            CallCostWebhookEvent.Data.Payload.builder()
+                                .billedDurationSecs(120L)
+                                .billingGroupId("f5586561-8ff0-4291-a0ac-84fe544797bd")
+                                .callControlId(
+                                    "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+                                )
+                                .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                .callSessionId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
+                                .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                .connectionId("7267xxxxxxxxxxxxxx")
+                                .costParts(
+                                    listOf(
+                                        CallCostWebhookEvent.Data.Payload.CostPart.builder()
+                                            .billedDurationSecs(60L)
+                                            .callPart("sip-trunking")
+                                            .cost("0.0050")
+                                            .currency("USD")
+                                            .rate("0.0050")
+                                            .build(),
+                                        CallCostWebhookEvent.Data.Payload.CostPart.builder()
+                                            .billedDurationSecs(120L)
+                                            .callPart("call-recording")
+                                            .cost("0.0038")
+                                            .currency("USD")
+                                            .rate("0.00190")
+                                            .build(),
+                                        CallCostWebhookEvent.Data.Payload.CostPart.builder()
+                                            .billedDurationSecs(60L)
+                                            .callPart("call-control")
+                                            .cost("0.0018")
+                                            .currency("USD")
+                                            .rate("0.00180")
+                                            .build(),
+                                    )
+                                )
+                                .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
+                                .status(CallCostWebhookEvent.Data.Payload.Status.SUCCESS)
+                                .totalCost("0.0106")
+                                .build()
+                        )
+                        .recordType(CallCostWebhookEvent.Data.RecordType.EVENT)
+                        .build()
+                )
+                .build()
+
+        val unwrapWebhookEvent = UnwrapWebhookEvent.ofCallCost(callCost)
+
+        assertThat(unwrapWebhookEvent.callAiGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherMessageHistoryUpdated()).isEmpty
+        assertThat(unwrapWebhookEvent.callAiGatherPartialResults()).isEmpty
+        assertThat(unwrapWebhookEvent.callAnswered()).isEmpty
+        assertThat(unwrapWebhookEvent.callBridged()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).contains(callCost)
+        assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
+        assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callForkStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callGatherEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callHangup()).isEmpty
+        assertThat(unwrapWebhookEvent.callInitiated()).isEmpty
+        assertThat(unwrapWebhookEvent.callLeftQueue()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachineGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumDetectionEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callMachinePremiumGreetingEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingError()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callRecordingTranscriptionSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferCompleted()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callReferStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callSiprecStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.callSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.callStreamingStopped()).isEmpty
+        assertThat(unwrapWebhookEvent.campaignStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceCreated()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceFloorChanged()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantJoined()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantLeft()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantPlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceParticipantSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferencePlaybackStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceRecordingSaved()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakEnded()).isEmpty
+        assertThat(unwrapWebhookEvent.conferenceSpeakStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.deliveryUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.faxDelivered()).isEmpty
+        assertThat(unwrapWebhookEvent.faxFailed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxMediaProcessed()).isEmpty
+        assertThat(unwrapWebhookEvent.faxQueued()).isEmpty
+        assertThat(unwrapWebhookEvent.faxSendingStarted()).isEmpty
+        assertThat(unwrapWebhookEvent.inboundMessage()).isEmpty
+        assertThat(unwrapWebhookEvent.numberOrderStatusUpdate()).isEmpty
+        assertThat(unwrapWebhookEvent.replacedLinkClick()).isEmpty
+        assertThat(unwrapWebhookEvent.transcription()).isEmpty
+    }
+
+    @Test
+    fun ofCallCostRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val unwrapWebhookEvent =
+            UnwrapWebhookEvent.ofCallCost(
+                CallCostWebhookEvent.builder()
+                    .data(
+                        CallCostWebhookEvent.Data.builder()
+                            .id("0ccc7b54-4df3-4bca-a65a-3da1ecc777f0")
+                            .eventType(CallCostWebhookEvent.Data.EventType.CALL_COST)
+                            .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
+                            .payload(
+                                CallCostWebhookEvent.Data.Payload.builder()
+                                    .billedDurationSecs(120L)
+                                    .billingGroupId("f5586561-8ff0-4291-a0ac-84fe544797bd")
+                                    .callControlId(
+                                        "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg"
+                                    )
+                                    .callLegId("428c31b6-7af4-4bcb-b7f5-5013ef9657c1")
+                                    .callSessionId("428c31b6-abf3-3bc1-b7f4-5013ef9657c1")
+                                    .clientState("aGF2ZSBhIG5pY2UgZGF5ID1d")
+                                    .connectionId("7267xxxxxxxxxxxxxx")
+                                    .costParts(
+                                        listOf(
+                                            CallCostWebhookEvent.Data.Payload.CostPart.builder()
+                                                .billedDurationSecs(60L)
+                                                .callPart("sip-trunking")
+                                                .cost("0.0050")
+                                                .currency("USD")
+                                                .rate("0.0050")
+                                                .build(),
+                                            CallCostWebhookEvent.Data.Payload.CostPart.builder()
+                                                .billedDurationSecs(120L)
+                                                .callPart("call-recording")
+                                                .cost("0.0038")
+                                                .currency("USD")
+                                                .rate("0.00190")
+                                                .build(),
+                                            CallCostWebhookEvent.Data.Payload.CostPart.builder()
+                                                .billedDurationSecs(60L)
+                                                .callPart("call-control")
+                                                .cost("0.0018")
+                                                .currency("USD")
+                                                .rate("0.00180")
+                                                .build(),
+                                        )
+                                    )
+                                    .occurredAt(OffsetDateTime.parse("2018-02-02T22:25:27.521992Z"))
+                                    .status(CallCostWebhookEvent.Data.Payload.Status.SUCCESS)
+                                    .totalCost("0.0106")
+                                    .build()
+                            )
+                            .recordType(CallCostWebhookEvent.Data.RecordType.EVENT)
+                            .build()
+                    )
+                    .build()
+            )
+
+        val roundtrippedUnwrapWebhookEvent =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(unwrapWebhookEvent),
+                jacksonTypeRef<UnwrapWebhookEvent>(),
+            )
+
+        assertThat(roundtrippedUnwrapWebhookEvent).isEqualTo(unwrapWebhookEvent)
+    }
+
+    @Test
     fun ofCallDtmfReceived() {
         val callDtmfReceived =
             CallDtmfReceivedWebhookEvent.builder()
@@ -1254,6 +1448,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).contains(callDtmfReceived)
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -1386,6 +1581,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).contains(callEnqueued)
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -1516,6 +1712,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).contains(callForkStarted)
@@ -1644,6 +1841,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -1775,6 +1973,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -1951,6 +2150,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -2162,6 +2362,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -2329,6 +2530,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -2463,6 +2665,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -2599,6 +2802,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -2737,6 +2941,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -2879,6 +3084,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -3021,6 +3227,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -3157,6 +3364,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -3287,6 +3495,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -3430,6 +3639,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -3583,6 +3793,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -3728,6 +3939,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -3860,6 +4072,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -3992,6 +4205,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -4120,6 +4334,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -4243,6 +4458,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -4366,6 +4582,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -4492,6 +4709,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -4619,6 +4837,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -4755,6 +4974,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -4890,6 +5110,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -5014,6 +5235,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -5128,6 +5350,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -5244,6 +5467,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -5373,6 +5597,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -5496,6 +5721,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -5623,6 +5849,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -5755,6 +5982,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -5895,6 +6123,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6039,6 +6268,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6179,6 +6409,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6319,6 +6550,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6450,6 +6682,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6573,6 +6806,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6721,6 +6955,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6866,6 +7101,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -6984,6 +7220,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -7201,6 +7438,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -7436,6 +7674,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -7583,6 +7822,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -7728,6 +7968,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -7872,6 +8113,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -8016,6 +8258,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -8236,6 +8479,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -8491,6 +8735,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -8653,6 +8898,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
@@ -8781,6 +9027,7 @@ internal class UnwrapWebhookEventTest {
         assertThat(unwrapWebhookEvent.callBridged()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationEnded()).isEmpty
         assertThat(unwrapWebhookEvent.callConversationInsightsGenerated()).isEmpty
+        assertThat(unwrapWebhookEvent.callCost()).isEmpty
         assertThat(unwrapWebhookEvent.callDtmfReceived()).isEmpty
         assertThat(unwrapWebhookEvent.callEnqueued()).isEmpty
         assertThat(unwrapWebhookEvent.callForkStarted()).isEmpty
