@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationDeletePar
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListPage
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListPageResponse
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListParams
+import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview0Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview1Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreviewParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationRetrieveParams
@@ -84,6 +85,13 @@ class LoaConfigurationServiceImpl internal constructor(private val clientOptions
     ): HttpResponse =
         // post /porting/loa_configurations/preview
         withRawResponse().preview(params, requestOptions)
+
+    override fun preview0(
+        params: LoaConfigurationPreview0Params,
+        requestOptions: RequestOptions,
+    ): HttpResponse =
+        // post /porting/loa_configurations/preview
+        withRawResponse().preview0(params, requestOptions)
 
     override fun preview1(
         params: LoaConfigurationPreview1Params,
@@ -254,6 +262,24 @@ class LoaConfigurationServiceImpl internal constructor(private val clientOptions
 
         override fun preview(
             params: LoaConfigurationPreviewParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("porting", "loa_configurations", "preview")
+                    .putHeader("Accept", "application/pdf")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
+        }
+
+        override fun preview0(
+            params: LoaConfigurationPreview0Params,
             requestOptions: RequestOptions,
         ): HttpResponse {
             val request =
