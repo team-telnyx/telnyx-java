@@ -19,7 +19,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** A voice clone object. */
-class VoiceCloneData
+class VoiceCloneListResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
@@ -250,11 +250,11 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [VoiceCloneData]. */
+        /** Returns a mutable builder for constructing an instance of [VoiceCloneListResponse]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [VoiceCloneData]. */
+    /** A builder for [VoiceCloneListResponse]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String> = JsonMissing.of()
@@ -270,18 +270,18 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(voiceCloneData: VoiceCloneData) = apply {
-            id = voiceCloneData.id
-            createdAt = voiceCloneData.createdAt
-            gender = voiceCloneData.gender
-            label = voiceCloneData.label
-            language = voiceCloneData.language
-            name = voiceCloneData.name
-            recordType = voiceCloneData.recordType
-            sourceVoiceDesignId = voiceCloneData.sourceVoiceDesignId
-            sourceVoiceDesignVersion = voiceCloneData.sourceVoiceDesignVersion
-            updatedAt = voiceCloneData.updatedAt
-            additionalProperties = voiceCloneData.additionalProperties.toMutableMap()
+        internal fun from(voiceCloneListResponse: VoiceCloneListResponse) = apply {
+            id = voiceCloneListResponse.id
+            createdAt = voiceCloneListResponse.createdAt
+            gender = voiceCloneListResponse.gender
+            label = voiceCloneListResponse.label
+            language = voiceCloneListResponse.language
+            name = voiceCloneListResponse.name
+            recordType = voiceCloneListResponse.recordType
+            sourceVoiceDesignId = voiceCloneListResponse.sourceVoiceDesignId
+            sourceVoiceDesignVersion = voiceCloneListResponse.sourceVoiceDesignVersion
+            updatedAt = voiceCloneListResponse.updatedAt
+            additionalProperties = voiceCloneListResponse.additionalProperties.toMutableMap()
         }
 
         /** Unique identifier for the voice clone. */
@@ -458,12 +458,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [VoiceCloneData].
+         * Returns an immutable instance of [VoiceCloneListResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): VoiceCloneData =
-            VoiceCloneData(
+        fun build(): VoiceCloneListResponse =
+            VoiceCloneListResponse(
                 id,
                 createdAt,
                 gender,
@@ -480,7 +480,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): VoiceCloneData = apply {
+    fun validate(): VoiceCloneListResponse = apply {
         if (validated) {
             return@apply
         }
@@ -783,7 +783,7 @@ private constructor(
             return true
         }
 
-        return other is VoiceCloneData &&
+        return other is VoiceCloneListResponse &&
             id == other.id &&
             createdAt == other.createdAt &&
             gender == other.gender &&
@@ -816,5 +816,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "VoiceCloneData{id=$id, createdAt=$createdAt, gender=$gender, label=$label, language=$language, name=$name, recordType=$recordType, sourceVoiceDesignId=$sourceVoiceDesignId, sourceVoiceDesignVersion=$sourceVoiceDesignVersion, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "VoiceCloneListResponse{id=$id, createdAt=$createdAt, gender=$gender, label=$label, language=$language, name=$name, recordType=$recordType, sourceVoiceDesignId=$sourceVoiceDesignId, sourceVoiceDesignVersion=$sourceVoiceDesignVersion, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

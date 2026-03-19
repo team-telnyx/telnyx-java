@@ -264,8 +264,6 @@ import com.telnyx.sdk.services.async.SimCardServiceAsync
 import com.telnyx.sdk.services.async.SimCardServiceAsyncImpl
 import com.telnyx.sdk.services.async.SiprecConnectorServiceAsync
 import com.telnyx.sdk.services.async.SiprecConnectorServiceAsyncImpl
-import com.telnyx.sdk.services.async.SpeechToTextServiceAsync
-import com.telnyx.sdk.services.async.SpeechToTextServiceAsyncImpl
 import com.telnyx.sdk.services.async.StorageServiceAsync
 import com.telnyx.sdk.services.async.StorageServiceAsyncImpl
 import com.telnyx.sdk.services.async.SubNumberOrderServiceAsync
@@ -946,18 +944,14 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         WhatsappMessageTemplateServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val x402: X402ServiceAsync by lazy { X402ServiceAsyncImpl(clientOptionsWithUserAgent) }
+
     private val voiceClones: VoiceCloneServiceAsync by lazy {
         VoiceCloneServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     private val voiceDesigns: VoiceDesignServiceAsync by lazy {
         VoiceDesignServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
-    private val x402: X402ServiceAsync by lazy { X402ServiceAsyncImpl(clientOptionsWithUserAgent) }
-
-    private val speechToText: SpeechToTextServiceAsync by lazy {
-        SpeechToTextServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     override fun sync(): TelnyxClient = sync
@@ -1442,16 +1436,13 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     override fun whatsappMessageTemplates(): WhatsappMessageTemplateServiceAsync =
         whatsappMessageTemplates
 
+    override fun x402(): X402ServiceAsync = x402
+
     /** Capture and manage voice identities as clones for use in text-to-speech synthesis. */
     override fun voiceClones(): VoiceCloneServiceAsync = voiceClones
 
     /** Create and manage AI-generated voice designs using natural language prompts. */
     override fun voiceDesigns(): VoiceDesignServiceAsync = voiceDesigns
-
-    override fun x402(): X402ServiceAsync = x402
-
-    /** Speech to text command operations */
-    override fun speechToText(): SpeechToTextServiceAsync = speechToText
 
     override fun close() = clientOptions.close()
 
@@ -2114,20 +2105,16 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             WhatsappMessageTemplateServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val x402: X402ServiceAsync.WithRawResponse by lazy {
+            X402ServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val voiceClones: VoiceCloneServiceAsync.WithRawResponse by lazy {
             VoiceCloneServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val voiceDesigns: VoiceDesignServiceAsync.WithRawResponse by lazy {
             VoiceDesignServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val x402: X402ServiceAsync.WithRawResponse by lazy {
-            X402ServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val speechToText: SpeechToTextServiceAsync.WithRawResponse by lazy {
-            SpeechToTextServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -2661,15 +2648,12 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         override fun whatsappMessageTemplates():
             WhatsappMessageTemplateServiceAsync.WithRawResponse = whatsappMessageTemplates
 
+        override fun x402(): X402ServiceAsync.WithRawResponse = x402
+
         /** Capture and manage voice identities as clones for use in text-to-speech synthesis. */
         override fun voiceClones(): VoiceCloneServiceAsync.WithRawResponse = voiceClones
 
         /** Create and manage AI-generated voice designs using natural language prompts. */
         override fun voiceDesigns(): VoiceDesignServiceAsync.WithRawResponse = voiceDesigns
-
-        override fun x402(): X402ServiceAsync.WithRawResponse = x402
-
-        /** Speech to text command operations */
-        override fun speechToText(): SpeechToTextServiceAsync.WithRawResponse = speechToText
     }
 }

@@ -18,10 +18,10 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.multipartFormData
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromDesignParams
+import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromDesignResponse
 import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromUploadParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromUploadResponse
-import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateParams
-import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateResponse
 import com.telnyx.sdk.models.voiceclones.VoiceCloneDeleteParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneDownloadSampleParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneListPage
@@ -45,13 +45,6 @@ class VoiceCloneServiceImpl internal constructor(private val clientOptions: Clie
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): VoiceCloneService =
         VoiceCloneServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(
-        params: VoiceCloneCreateParams,
-        requestOptions: RequestOptions,
-    ): VoiceCloneCreateResponse =
-        // post /voice_clones
-        withRawResponse().create(params, requestOptions).parse()
-
     override fun update(
         params: VoiceCloneUpdateParams,
         requestOptions: RequestOptions,
@@ -70,6 +63,13 @@ class VoiceCloneServiceImpl internal constructor(private val clientOptions: Clie
         // delete /voice_clones/{id}
         withRawResponse().delete(params, requestOptions)
     }
+
+    override fun createFromDesign(
+        params: VoiceCloneCreateFromDesignParams,
+        requestOptions: RequestOptions,
+    ): VoiceCloneCreateFromDesignResponse =
+        // post /voice_clones
+        withRawResponse().createFromDesign(params, requestOptions).parse()
 
     override fun createFromUpload(
         params: VoiceCloneCreateFromUploadParams,
@@ -97,34 +97,6 @@ class VoiceCloneServiceImpl internal constructor(private val clientOptions: Clie
             VoiceCloneServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
-
-        private val createHandler: Handler<VoiceCloneCreateResponse> =
-            jsonHandler<VoiceCloneCreateResponse>(clientOptions.jsonMapper)
-
-        override fun create(
-            params: VoiceCloneCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<VoiceCloneCreateResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("voice_clones")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
 
         private val updateHandler: Handler<VoiceCloneUpdateResponse> =
             jsonHandler<VoiceCloneUpdateResponse>(clientOptions.jsonMapper)
@@ -212,6 +184,34 @@ class VoiceCloneServiceImpl internal constructor(private val clientOptions: Clie
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response.use { deleteHandler.handle(it) }
+            }
+        }
+
+        private val createFromDesignHandler: Handler<VoiceCloneCreateFromDesignResponse> =
+            jsonHandler<VoiceCloneCreateFromDesignResponse>(clientOptions.jsonMapper)
+
+        override fun createFromDesign(
+            params: VoiceCloneCreateFromDesignParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<VoiceCloneCreateFromDesignResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("voice_clones")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createFromDesignHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
         }
 

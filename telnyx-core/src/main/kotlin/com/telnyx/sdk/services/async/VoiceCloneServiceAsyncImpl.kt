@@ -18,10 +18,10 @@ import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.multipartFormData
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
+import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromDesignParams
+import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromDesignResponse
 import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromUploadParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromUploadResponse
-import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateParams
-import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateResponse
 import com.telnyx.sdk.models.voiceclones.VoiceCloneDeleteParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneDownloadSampleParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneListPageAsync
@@ -46,13 +46,6 @@ class VoiceCloneServiceAsyncImpl internal constructor(private val clientOptions:
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): VoiceCloneServiceAsync =
         VoiceCloneServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(
-        params: VoiceCloneCreateParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<VoiceCloneCreateResponse> =
-        // post /voice_clones
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
-
     override fun update(
         params: VoiceCloneUpdateParams,
         requestOptions: RequestOptions,
@@ -73,6 +66,13 @@ class VoiceCloneServiceAsyncImpl internal constructor(private val clientOptions:
     ): CompletableFuture<Void?> =
         // delete /voice_clones/{id}
         withRawResponse().delete(params, requestOptions).thenAccept {}
+
+    override fun createFromDesign(
+        params: VoiceCloneCreateFromDesignParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<VoiceCloneCreateFromDesignResponse> =
+        // post /voice_clones
+        withRawResponse().createFromDesign(params, requestOptions).thenApply { it.parse() }
 
     override fun createFromUpload(
         params: VoiceCloneCreateFromUploadParams,
@@ -100,37 +100,6 @@ class VoiceCloneServiceAsyncImpl internal constructor(private val clientOptions:
             VoiceCloneServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
-
-        private val createHandler: Handler<VoiceCloneCreateResponse> =
-            jsonHandler<VoiceCloneCreateResponse>(clientOptions.jsonMapper)
-
-        override fun create(
-            params: VoiceCloneCreateParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateResponse>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("voice_clones")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { createHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
 
         private val updateHandler: Handler<VoiceCloneUpdateResponse> =
             jsonHandler<VoiceCloneUpdateResponse>(clientOptions.jsonMapper)
@@ -227,6 +196,37 @@ class VoiceCloneServiceAsyncImpl internal constructor(private val clientOptions:
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val createFromDesignHandler: Handler<VoiceCloneCreateFromDesignResponse> =
+            jsonHandler<VoiceCloneCreateFromDesignResponse>(clientOptions.jsonMapper)
+
+        override fun createFromDesign(
+            params: VoiceCloneCreateFromDesignParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateFromDesignResponse>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("voice_clones")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { createFromDesignHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
                 }
         }

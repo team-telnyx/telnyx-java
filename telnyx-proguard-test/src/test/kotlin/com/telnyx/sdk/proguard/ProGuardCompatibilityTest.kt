@@ -210,10 +210,9 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.sessionAnalysis()).isNotNull()
         assertThat(client.whatsapp()).isNotNull()
         assertThat(client.whatsappMessageTemplates()).isNotNull()
+        assertThat(client.x402()).isNotNull()
         assertThat(client.voiceClones()).isNotNull()
         assertThat(client.voiceDesigns()).isNotNull()
-        assertThat(client.x402()).isNotNull()
-        assertThat(client.speechToText()).isNotNull()
     }
 
     @Test

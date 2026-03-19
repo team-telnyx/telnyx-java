@@ -133,7 +133,6 @@ import com.telnyx.sdk.services.blocking.SimCardOrderPreviewService
 import com.telnyx.sdk.services.blocking.SimCardOrderService
 import com.telnyx.sdk.services.blocking.SimCardService
 import com.telnyx.sdk.services.blocking.SiprecConnectorService
-import com.telnyx.sdk.services.blocking.SpeechToTextService
 import com.telnyx.sdk.services.blocking.StorageService
 import com.telnyx.sdk.services.blocking.SubNumberOrderService
 import com.telnyx.sdk.services.blocking.SubNumberOrdersReportService
@@ -646,16 +645,13 @@ interface TelnyxClient {
     /** Manage Whatsapp message templates */
     fun whatsappMessageTemplates(): WhatsappMessageTemplateService
 
+    fun x402(): X402Service
+
     /** Capture and manage voice identities as clones for use in text-to-speech synthesis. */
     fun voiceClones(): VoiceCloneService
 
     /** Create and manage AI-generated voice designs using natural language prompts. */
     fun voiceDesigns(): VoiceDesignService
-
-    fun x402(): X402Service
-
-    /** Speech to text command operations */
-    fun speechToText(): SpeechToTextService
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -1127,15 +1123,12 @@ interface TelnyxClient {
         /** Manage Whatsapp message templates */
         fun whatsappMessageTemplates(): WhatsappMessageTemplateService.WithRawResponse
 
+        fun x402(): X402Service.WithRawResponse
+
         /** Capture and manage voice identities as clones for use in text-to-speech synthesis. */
         fun voiceClones(): VoiceCloneService.WithRawResponse
 
         /** Create and manage AI-generated voice designs using natural language prompts. */
         fun voiceDesigns(): VoiceDesignService.WithRawResponse
-
-        fun x402(): X402Service.WithRawResponse
-
-        /** Speech to text command operations */
-        fun speechToText(): SpeechToTextService.WithRawResponse
     }
 }
