@@ -31,6 +31,7 @@ private constructor(
     private val callConversationEnded: CallConversationEndedWebhookEvent? = null,
     private val callConversationInsightsGenerated: CallConversationInsightsGeneratedWebhookEvent? =
         null,
+    private val callCost: CallCostWebhookEvent? = null,
     private val callDtmfReceived: CallDtmfReceivedWebhookEvent? = null,
     private val callEnqueued: CallEnqueuedWebhookEvent? = null,
     private val callForkStarted: CallForkStartedWebhookEvent? = null,
@@ -116,6 +117,8 @@ private constructor(
     fun callConversationInsightsGenerated():
         Optional<CallConversationInsightsGeneratedWebhookEvent> =
         Optional.ofNullable(callConversationInsightsGenerated)
+
+    fun callCost(): Optional<CallCostWebhookEvent> = Optional.ofNullable(callCost)
 
     fun callDtmfReceived(): Optional<CallDtmfReceivedWebhookEvent> =
         Optional.ofNullable(callDtmfReceived)
@@ -280,6 +283,8 @@ private constructor(
 
     fun isCallConversationInsightsGenerated(): Boolean = callConversationInsightsGenerated != null
 
+    fun isCallCost(): Boolean = callCost != null
+
     fun isCallDtmfReceived(): Boolean = callDtmfReceived != null
 
     fun isCallEnqueued(): Boolean = callEnqueued != null
@@ -405,6 +410,8 @@ private constructor(
 
     fun asCallConversationInsightsGenerated(): CallConversationInsightsGeneratedWebhookEvent =
         callConversationInsightsGenerated.getOrThrow("callConversationInsightsGenerated")
+
+    fun asCallCost(): CallCostWebhookEvent = callCost.getOrThrow("callCost")
 
     fun asCallDtmfReceived(): CallDtmfReceivedWebhookEvent =
         callDtmfReceived.getOrThrow("callDtmfReceived")
@@ -567,6 +574,7 @@ private constructor(
                 visitor.visitCallConversationEnded(callConversationEnded)
             callConversationInsightsGenerated != null ->
                 visitor.visitCallConversationInsightsGenerated(callConversationInsightsGenerated)
+            callCost != null -> visitor.visitCallCost(callCost)
             callDtmfReceived != null -> visitor.visitCallDtmfReceived(callDtmfReceived)
             callEnqueued != null -> visitor.visitCallEnqueued(callEnqueued)
             callForkStarted != null -> visitor.visitCallForkStarted(callForkStarted)
@@ -687,6 +695,10 @@ private constructor(
                     callConversationInsightsGenerated: CallConversationInsightsGeneratedWebhookEvent
                 ) {
                     callConversationInsightsGenerated.validate()
+                }
+
+                override fun visitCallCost(callCost: CallCostWebhookEvent) {
+                    callCost.validate()
                 }
 
                 override fun visitCallDtmfReceived(callDtmfReceived: CallDtmfReceivedWebhookEvent) {
@@ -1010,6 +1022,8 @@ private constructor(
                     callConversationInsightsGenerated: CallConversationInsightsGeneratedWebhookEvent
                 ) = callConversationInsightsGenerated.validity()
 
+                override fun visitCallCost(callCost: CallCostWebhookEvent) = callCost.validity()
+
                 override fun visitCallDtmfReceived(callDtmfReceived: CallDtmfReceivedWebhookEvent) =
                     callDtmfReceived.validity()
 
@@ -1215,6 +1229,7 @@ private constructor(
             callBridged == other.callBridged &&
             callConversationEnded == other.callConversationEnded &&
             callConversationInsightsGenerated == other.callConversationInsightsGenerated &&
+            callCost == other.callCost &&
             callDtmfReceived == other.callDtmfReceived &&
             callEnqueued == other.callEnqueued &&
             callForkStarted == other.callForkStarted &&
@@ -1279,6 +1294,7 @@ private constructor(
             callBridged,
             callConversationEnded,
             callConversationInsightsGenerated,
+            callCost,
             callDtmfReceived,
             callEnqueued,
             callForkStarted,
@@ -1348,6 +1364,7 @@ private constructor(
                 "UnsafeUnwrapWebhookEvent{callConversationEnded=$callConversationEnded}"
             callConversationInsightsGenerated != null ->
                 "UnsafeUnwrapWebhookEvent{callConversationInsightsGenerated=$callConversationInsightsGenerated}"
+            callCost != null -> "UnsafeUnwrapWebhookEvent{callCost=$callCost}"
             callDtmfReceived != null ->
                 "UnsafeUnwrapWebhookEvent{callDtmfReceived=$callDtmfReceived}"
             callEnqueued != null -> "UnsafeUnwrapWebhookEvent{callEnqueued=$callEnqueued}"
@@ -1480,6 +1497,10 @@ private constructor(
             UnsafeUnwrapWebhookEvent(
                 callConversationInsightsGenerated = callConversationInsightsGenerated
             )
+
+        @JvmStatic
+        fun ofCallCost(callCost: CallCostWebhookEvent) =
+            UnsafeUnwrapWebhookEvent(callCost = callCost)
 
         @JvmStatic
         fun ofCallDtmfReceived(callDtmfReceived: CallDtmfReceivedWebhookEvent) =
@@ -1753,6 +1774,8 @@ private constructor(
             callConversationInsightsGenerated: CallConversationInsightsGeneratedWebhookEvent
         ): T
 
+        fun visitCallCost(callCost: CallCostWebhookEvent): T
+
         fun visitCallDtmfReceived(callDtmfReceived: CallDtmfReceivedWebhookEvent): T
 
         fun visitCallEnqueued(callEnqueued: CallEnqueuedWebhookEvent): T
@@ -1955,6 +1978,9 @@ private constructor(
                                     _json = json,
                                 )
                             },
+                        tryDeserialize(node, jacksonTypeRef<CallCostWebhookEvent>())?.let {
+                            UnsafeUnwrapWebhookEvent(callCost = it, _json = json)
+                        },
                         tryDeserialize(node, jacksonTypeRef<CallDtmfReceivedWebhookEvent>())?.let {
                             UnsafeUnwrapWebhookEvent(callDtmfReceived = it, _json = json)
                         },
@@ -2245,6 +2271,7 @@ private constructor(
                     generator.writeObject(value.callConversationEnded)
                 value.callConversationInsightsGenerated != null ->
                     generator.writeObject(value.callConversationInsightsGenerated)
+                value.callCost != null -> generator.writeObject(value.callCost)
                 value.callDtmfReceived != null -> generator.writeObject(value.callDtmfReceived)
                 value.callEnqueued != null -> generator.writeObject(value.callEnqueued)
                 value.callForkStarted != null -> generator.writeObject(value.callForkStarted)

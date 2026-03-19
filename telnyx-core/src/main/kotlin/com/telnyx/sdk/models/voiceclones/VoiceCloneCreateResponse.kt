@@ -19,7 +19,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** Response envelope for a single voice clone. */
-class VoiceCloneCreateFromDesignResponse
+class VoiceCloneCreateResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<Data>,
@@ -60,26 +60,21 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of
-         * [VoiceCloneCreateFromDesignResponse].
-         */
+        /** Returns a mutable builder for constructing an instance of [VoiceCloneCreateResponse]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [VoiceCloneCreateFromDesignResponse]. */
+    /** A builder for [VoiceCloneCreateResponse]. */
     class Builder internal constructor() {
 
         private var data: JsonField<Data> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(voiceCloneCreateFromDesignResponse: VoiceCloneCreateFromDesignResponse) =
-            apply {
-                data = voiceCloneCreateFromDesignResponse.data
-                additionalProperties =
-                    voiceCloneCreateFromDesignResponse.additionalProperties.toMutableMap()
-            }
+        internal fun from(voiceCloneCreateResponse: VoiceCloneCreateResponse) = apply {
+            data = voiceCloneCreateResponse.data
+            additionalProperties = voiceCloneCreateResponse.additionalProperties.toMutableMap()
+        }
 
         /** A voice clone object. */
         fun data(data: Data) = data(JsonField.of(data))
@@ -112,17 +107,17 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [VoiceCloneCreateFromDesignResponse].
+         * Returns an immutable instance of [VoiceCloneCreateResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): VoiceCloneCreateFromDesignResponse =
-            VoiceCloneCreateFromDesignResponse(data, additionalProperties.toMutableMap())
+        fun build(): VoiceCloneCreateResponse =
+            VoiceCloneCreateResponse(data, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
 
-    fun validate(): VoiceCloneCreateFromDesignResponse = apply {
+    fun validate(): VoiceCloneCreateResponse = apply {
         if (validated) {
             return@apply
         }
@@ -975,7 +970,7 @@ private constructor(
             return true
         }
 
-        return other is VoiceCloneCreateFromDesignResponse &&
+        return other is VoiceCloneCreateResponse &&
             data == other.data &&
             additionalProperties == other.additionalProperties
     }
@@ -985,5 +980,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "VoiceCloneCreateFromDesignResponse{data=$data, additionalProperties=$additionalProperties}"
+        "VoiceCloneCreateResponse{data=$data, additionalProperties=$additionalProperties}"
 }

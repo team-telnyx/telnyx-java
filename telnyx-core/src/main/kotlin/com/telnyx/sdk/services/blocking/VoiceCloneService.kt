@@ -7,10 +7,10 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromDesignParams
-import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromDesignResponse
 import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromUploadParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateFromUploadResponse
+import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateParams
+import com.telnyx.sdk.models.voiceclones.VoiceCloneCreateResponse
 import com.telnyx.sdk.models.voiceclones.VoiceCloneDeleteParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneDownloadSampleParams
 import com.telnyx.sdk.models.voiceclones.VoiceCloneListPage
@@ -33,6 +33,19 @@ interface VoiceCloneService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VoiceCloneService
+
+    /**
+     * Creates a new voice clone by capturing the voice identity of an existing voice design. The
+     * clone can then be used for text-to-speech synthesis.
+     */
+    fun create(params: VoiceCloneCreateParams): VoiceCloneCreateResponse =
+        create(params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        params: VoiceCloneCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): VoiceCloneCreateResponse
 
     /** Updates the name, language, or gender of a voice clone. */
     fun update(id: String, params: VoiceCloneUpdateParams): VoiceCloneUpdateResponse =
@@ -100,20 +113,6 @@ interface VoiceCloneService {
         delete(id, VoiceCloneDeleteParams.none(), requestOptions)
 
     /**
-     * Creates a new voice clone by capturing the voice identity of an existing voice design. The
-     * clone can then be used for text-to-speech synthesis.
-     */
-    fun createFromDesign(
-        params: VoiceCloneCreateFromDesignParams
-    ): VoiceCloneCreateFromDesignResponse = createFromDesign(params, RequestOptions.none())
-
-    /** @see createFromDesign */
-    fun createFromDesign(
-        params: VoiceCloneCreateFromDesignParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): VoiceCloneCreateFromDesignResponse
-
-    /**
      * Creates a new voice clone by uploading an audio file directly. Supported formats: WAV, MP3,
      * FLAC, OGG, M4A. For best results, provide 5–10 seconds of clear speech. Maximum file size:
      * 2MB.
@@ -176,6 +175,21 @@ interface VoiceCloneService {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): VoiceCloneService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /voice_clones`, but is otherwise the same as
+         * [VoiceCloneService.create].
+         */
+        @MustBeClosed
+        fun create(params: VoiceCloneCreateParams): HttpResponseFor<VoiceCloneCreateResponse> =
+            create(params, RequestOptions.none())
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            params: VoiceCloneCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<VoiceCloneCreateResponse>
 
         /**
          * Returns a raw HTTP response for `patch /voice_clones/{id}`, but is otherwise the same as
@@ -271,23 +285,6 @@ interface VoiceCloneService {
         @MustBeClosed
         fun delete(id: String, requestOptions: RequestOptions): HttpResponse =
             delete(id, VoiceCloneDeleteParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `post /voice_clones`, but is otherwise the same as
-         * [VoiceCloneService.createFromDesign].
-         */
-        @MustBeClosed
-        fun createFromDesign(
-            params: VoiceCloneCreateFromDesignParams
-        ): HttpResponseFor<VoiceCloneCreateFromDesignResponse> =
-            createFromDesign(params, RequestOptions.none())
-
-        /** @see createFromDesign */
-        @MustBeClosed
-        fun createFromDesign(
-            params: VoiceCloneCreateFromDesignParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VoiceCloneCreateFromDesignResponse>
 
         /**
          * Returns a raw HTTP response for `post /voice_clones/from_upload`, but is otherwise the
