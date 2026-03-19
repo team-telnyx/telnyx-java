@@ -208,6 +208,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.alphanumericSenderIds()).isNotNull()
         assertThat(client.messagingProfileMetrics()).isNotNull()
         assertThat(client.sessionAnalysis()).isNotNull()
+        assertThat(client.trafficPolicyProfiles()).isNotNull()
         assertThat(client.whatsapp()).isNotNull()
         assertThat(client.whatsappMessageTemplates()).isNotNull()
         assertThat(client.x402()).isNotNull()

@@ -278,6 +278,8 @@ import com.telnyx.sdk.services.blocking.TexmlService
 import com.telnyx.sdk.services.blocking.TexmlServiceImpl
 import com.telnyx.sdk.services.blocking.TextToSpeechService
 import com.telnyx.sdk.services.blocking.TextToSpeechServiceImpl
+import com.telnyx.sdk.services.blocking.TrafficPolicyProfileService
+import com.telnyx.sdk.services.blocking.TrafficPolicyProfileServiceImpl
 import com.telnyx.sdk.services.blocking.UsageReportService
 import com.telnyx.sdk.services.blocking.UsageReportServiceImpl
 import com.telnyx.sdk.services.blocking.UserAddressService
@@ -894,6 +896,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         SessionAnalysisServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val trafficPolicyProfiles: TrafficPolicyProfileService by lazy {
+        TrafficPolicyProfileServiceImpl(clientOptionsWithUserAgent)
+    }
+
     private val whatsapp: WhatsappService by lazy {
         WhatsappServiceImpl(clientOptionsWithUserAgent)
     }
@@ -1373,6 +1379,9 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
     override fun sessionAnalysis(): SessionAnalysisService = sessionAnalysis
+
+    /** Traffic Policy Profiles operations */
+    override fun trafficPolicyProfiles(): TrafficPolicyProfileService = trafficPolicyProfiles
 
     override fun whatsapp(): WhatsappService = whatsapp
 
@@ -2019,6 +2028,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             SessionAnalysisServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val trafficPolicyProfiles: TrafficPolicyProfileService.WithRawResponse by lazy {
+            TrafficPolicyProfileServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val whatsapp: WhatsappService.WithRawResponse by lazy {
             WhatsappServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -2551,6 +2564,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
         /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
         override fun sessionAnalysis(): SessionAnalysisService.WithRawResponse = sessionAnalysis
+
+        /** Traffic Policy Profiles operations */
+        override fun trafficPolicyProfiles(): TrafficPolicyProfileService.WithRawResponse =
+            trafficPolicyProfiles
 
         override fun whatsapp(): WhatsappService.WithRawResponse = whatsapp
 

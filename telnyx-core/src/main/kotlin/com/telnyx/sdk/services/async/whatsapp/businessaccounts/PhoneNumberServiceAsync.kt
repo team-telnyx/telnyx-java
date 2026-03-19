@@ -6,7 +6,7 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberInitializeVerificationParams
+import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberCreateVerificationParams
 import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberListPageAsync
 import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberListParams
 import java.util.concurrent.CompletableFuture
@@ -62,27 +62,26 @@ interface PhoneNumberServiceAsync {
         list(id, PhoneNumberListParams.none(), requestOptions)
 
     /** Initialize Whatsapp phone number verification */
-    fun initializeVerification(
+    fun createVerification(
         id: String,
-        params: PhoneNumberInitializeVerificationParams,
-    ): CompletableFuture<Void?> = initializeVerification(id, params, RequestOptions.none())
+        params: PhoneNumberCreateVerificationParams,
+    ): CompletableFuture<Void?> = createVerification(id, params, RequestOptions.none())
 
-    /** @see initializeVerification */
-    fun initializeVerification(
+    /** @see createVerification */
+    fun createVerification(
         id: String,
-        params: PhoneNumberInitializeVerificationParams,
+        params: PhoneNumberCreateVerificationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?> =
-        initializeVerification(params.toBuilder().id(id).build(), requestOptions)
+        createVerification(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see initializeVerification */
-    fun initializeVerification(
-        params: PhoneNumberInitializeVerificationParams
-    ): CompletableFuture<Void?> = initializeVerification(params, RequestOptions.none())
+    /** @see createVerification */
+    fun createVerification(params: PhoneNumberCreateVerificationParams): CompletableFuture<Void?> =
+        createVerification(params, RequestOptions.none())
 
-    /** @see initializeVerification */
-    fun initializeVerification(
-        params: PhoneNumberInitializeVerificationParams,
+    /** @see createVerification */
+    fun createVerification(
+        params: PhoneNumberCreateVerificationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
@@ -144,30 +143,29 @@ interface PhoneNumberServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post /v2/whatsapp/business_accounts/{id}/phone_numbers`,
-         * but is otherwise the same as [PhoneNumberServiceAsync.initializeVerification].
+         * but is otherwise the same as [PhoneNumberServiceAsync.createVerification].
          */
-        fun initializeVerification(
+        fun createVerification(
             id: String,
-            params: PhoneNumberInitializeVerificationParams,
-        ): CompletableFuture<HttpResponse> =
-            initializeVerification(id, params, RequestOptions.none())
+            params: PhoneNumberCreateVerificationParams,
+        ): CompletableFuture<HttpResponse> = createVerification(id, params, RequestOptions.none())
 
-        /** @see initializeVerification */
-        fun initializeVerification(
+        /** @see createVerification */
+        fun createVerification(
             id: String,
-            params: PhoneNumberInitializeVerificationParams,
+            params: PhoneNumberCreateVerificationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse> =
-            initializeVerification(params.toBuilder().id(id).build(), requestOptions)
+            createVerification(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see initializeVerification */
-        fun initializeVerification(
-            params: PhoneNumberInitializeVerificationParams
-        ): CompletableFuture<HttpResponse> = initializeVerification(params, RequestOptions.none())
+        /** @see createVerification */
+        fun createVerification(
+            params: PhoneNumberCreateVerificationParams
+        ): CompletableFuture<HttpResponse> = createVerification(params, RequestOptions.none())
 
-        /** @see initializeVerification */
-        fun initializeVerification(
-            params: PhoneNumberInitializeVerificationParams,
+        /** @see createVerification */
+        fun createVerification(
+            params: PhoneNumberCreateVerificationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
     }

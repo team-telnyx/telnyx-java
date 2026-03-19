@@ -3,7 +3,7 @@
 package com.telnyx.sdk.services.async.whatsapp.businessaccounts
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberInitializeVerificationParams
+import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberCreateVerificationParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -23,20 +23,18 @@ internal class PhoneNumberServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun initializeVerification() {
+    fun createVerification() {
         val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
         val phoneNumberServiceAsync = client.whatsapp().businessAccounts().phoneNumbers()
 
         val future =
-            phoneNumberServiceAsync.initializeVerification(
-                PhoneNumberInitializeVerificationParams.builder()
+            phoneNumberServiceAsync.createVerification(
+                PhoneNumberCreateVerificationParams.builder()
                     .id("id")
                     .displayName("display_name")
                     .phoneNumber("phone_number")
                     .language("language")
-                    .verificationMethod(
-                        PhoneNumberInitializeVerificationParams.VerificationMethod.SMS
-                    )
+                    .verificationMethod(PhoneNumberCreateVerificationParams.VerificationMethod.SMS)
                     .build()
             )
 

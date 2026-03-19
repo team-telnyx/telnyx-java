@@ -12,8 +12,8 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignCreateParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignDeleteVersionParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignDownloadSampleParams
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveParams
+import com.telnyx.sdk.models.voicedesigns.VoiceDesignUpdateParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -58,6 +58,21 @@ internal class VoiceDesignServiceAsyncTest {
         val voiceDesignFuture =
             voiceDesignServiceAsync.retrieve(
                 VoiceDesignRetrieveParams.builder().id("id").version(1L).build()
+            )
+
+        val voiceDesign = voiceDesignFuture.get()
+        voiceDesign.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun update() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val voiceDesignServiceAsync = client.voiceDesigns()
+
+        val voiceDesignFuture =
+            voiceDesignServiceAsync.update(
+                VoiceDesignUpdateParams.builder().id("id").name("updated-narrator").build()
             )
 
         val voiceDesign = voiceDesignFuture.get()
@@ -118,20 +133,5 @@ internal class VoiceDesignServiceAsyncTest {
 
         val response = responseFuture.get()
         assertThat(response.body()).hasContent("abc")
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun rename() {
-        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
-        val voiceDesignServiceAsync = client.voiceDesigns()
-
-        val responseFuture =
-            voiceDesignServiceAsync.rename(
-                VoiceDesignRenameParams.builder().id("id").name("updated-narrator").build()
-            )
-
-        val response = responseFuture.get()
-        response.validate()
     }
 }

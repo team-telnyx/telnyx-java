@@ -14,10 +14,10 @@ import com.telnyx.sdk.models.voicedesigns.VoiceDesignDeleteVersionParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignDownloadSampleParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignListPage
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignListParams
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameParams
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameResponse
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveResponse
+import com.telnyx.sdk.models.voicedesigns.VoiceDesignUpdateParams
+import com.telnyx.sdk.models.voicedesigns.VoiceDesignUpdateResponse
 import java.util.function.Consumer
 
 /** Create and manage AI-generated voice designs using natural language prompts. */
@@ -82,6 +82,27 @@ interface VoiceDesignService {
     /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): VoiceDesignRetrieveResponse =
         retrieve(id, VoiceDesignRetrieveParams.none(), requestOptions)
+
+    /** Updates the name of a voice design. All versions retain their other properties. */
+    fun update(id: String, params: VoiceDesignUpdateParams): VoiceDesignUpdateResponse =
+        update(id, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        id: String,
+        params: VoiceDesignUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): VoiceDesignUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: VoiceDesignUpdateParams): VoiceDesignUpdateResponse =
+        update(params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        params: VoiceDesignUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): VoiceDesignUpdateResponse
 
     /** Returns a paginated list of voice designs belonging to the authenticated account. */
     fun list(): VoiceDesignListPage = list(VoiceDesignListParams.none())
@@ -192,27 +213,6 @@ interface VoiceDesignService {
     fun downloadSample(id: String, requestOptions: RequestOptions): HttpResponse =
         downloadSample(id, VoiceDesignDownloadSampleParams.none(), requestOptions)
 
-    /** Updates the name of a voice design. All versions retain their other properties. */
-    fun rename(id: String, params: VoiceDesignRenameParams): VoiceDesignRenameResponse =
-        rename(id, params, RequestOptions.none())
-
-    /** @see rename */
-    fun rename(
-        id: String,
-        params: VoiceDesignRenameParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): VoiceDesignRenameResponse = rename(params.toBuilder().id(id).build(), requestOptions)
-
-    /** @see rename */
-    fun rename(params: VoiceDesignRenameParams): VoiceDesignRenameResponse =
-        rename(params, RequestOptions.none())
-
-    /** @see rename */
-    fun rename(
-        params: VoiceDesignRenameParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): VoiceDesignRenameResponse
-
     /**
      * A view of [VoiceDesignService] that provides access to raw HTTP responses for each method.
      */
@@ -287,6 +287,37 @@ interface VoiceDesignService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<VoiceDesignRetrieveResponse> =
             retrieve(id, VoiceDesignRetrieveParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `patch /voice_designs/{id}`, but is otherwise the same as
+         * [VoiceDesignService.update].
+         */
+        @MustBeClosed
+        fun update(
+            id: String,
+            params: VoiceDesignUpdateParams,
+        ): HttpResponseFor<VoiceDesignUpdateResponse> = update(id, params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            id: String,
+            params: VoiceDesignUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<VoiceDesignUpdateResponse> =
+            update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        fun update(params: VoiceDesignUpdateParams): HttpResponseFor<VoiceDesignUpdateResponse> =
+            update(params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            params: VoiceDesignUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<VoiceDesignUpdateResponse>
 
         /**
          * Returns a raw HTTP response for `get /voice_designs`, but is otherwise the same as
@@ -419,36 +450,5 @@ interface VoiceDesignService {
         @MustBeClosed
         fun downloadSample(id: String, requestOptions: RequestOptions): HttpResponse =
             downloadSample(id, VoiceDesignDownloadSampleParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `patch /voice_designs/{id}`, but is otherwise the same as
-         * [VoiceDesignService.rename].
-         */
-        @MustBeClosed
-        fun rename(
-            id: String,
-            params: VoiceDesignRenameParams,
-        ): HttpResponseFor<VoiceDesignRenameResponse> = rename(id, params, RequestOptions.none())
-
-        /** @see rename */
-        @MustBeClosed
-        fun rename(
-            id: String,
-            params: VoiceDesignRenameParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VoiceDesignRenameResponse> =
-            rename(params.toBuilder().id(id).build(), requestOptions)
-
-        /** @see rename */
-        @MustBeClosed
-        fun rename(params: VoiceDesignRenameParams): HttpResponseFor<VoiceDesignRenameResponse> =
-            rename(params, RequestOptions.none())
-
-        /** @see rename */
-        @MustBeClosed
-        fun rename(
-            params: VoiceDesignRenameParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<VoiceDesignRenameResponse>
     }
 }
