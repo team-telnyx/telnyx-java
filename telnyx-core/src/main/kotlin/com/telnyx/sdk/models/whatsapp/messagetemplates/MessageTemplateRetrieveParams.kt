@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsappmessagetemplates
+package com.telnyx.sdk.models.whatsapp.messagetemplates
 
 import com.telnyx.sdk.core.Params
 import com.telnyx.sdk.core.http.Headers
@@ -10,7 +10,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** Get a Whatsapp message template by ID */
-class WhatsappMessageTemplateRetrieveParams
+class MessageTemplateRetrieveParams
 private constructor(
     private val id: String?,
     private val additionalHeaders: Headers,
@@ -29,16 +29,16 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): WhatsappMessageTemplateRetrieveParams = builder().build()
+        @JvmStatic fun none(): MessageTemplateRetrieveParams = builder().build()
 
         /**
          * Returns a mutable builder for constructing an instance of
-         * [WhatsappMessageTemplateRetrieveParams].
+         * [MessageTemplateRetrieveParams].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [WhatsappMessageTemplateRetrieveParams]. */
+    /** A builder for [MessageTemplateRetrieveParams]. */
     class Builder internal constructor() {
 
         private var id: String? = null
@@ -46,13 +46,10 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(
-            whatsappMessageTemplateRetrieveParams: WhatsappMessageTemplateRetrieveParams
-        ) = apply {
-            id = whatsappMessageTemplateRetrieveParams.id
-            additionalHeaders = whatsappMessageTemplateRetrieveParams.additionalHeaders.toBuilder()
-            additionalQueryParams =
-                whatsappMessageTemplateRetrieveParams.additionalQueryParams.toBuilder()
+        internal fun from(messageTemplateRetrieveParams: MessageTemplateRetrieveParams) = apply {
+            id = messageTemplateRetrieveParams.id
+            additionalHeaders = messageTemplateRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = messageTemplateRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         fun id(id: String?) = apply { this.id = id }
@@ -159,12 +156,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [WhatsappMessageTemplateRetrieveParams].
+         * Returns an immutable instance of [MessageTemplateRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): WhatsappMessageTemplateRetrieveParams =
-            WhatsappMessageTemplateRetrieveParams(
+        fun build(): MessageTemplateRetrieveParams =
+            MessageTemplateRetrieveParams(
                 id,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -186,7 +183,7 @@ private constructor(
             return true
         }
 
-        return other is WhatsappMessageTemplateRetrieveParams &&
+        return other is MessageTemplateRetrieveParams &&
             id == other.id &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -195,5 +192,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(id, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "WhatsappMessageTemplateRetrieveParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "MessageTemplateRetrieveParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

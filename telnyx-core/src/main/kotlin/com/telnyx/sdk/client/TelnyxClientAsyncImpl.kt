@@ -306,8 +306,6 @@ import com.telnyx.sdk.services.async.WebhookServiceAsync
 import com.telnyx.sdk.services.async.WebhookServiceAsyncImpl
 import com.telnyx.sdk.services.async.WellKnownServiceAsync
 import com.telnyx.sdk.services.async.WellKnownServiceAsyncImpl
-import com.telnyx.sdk.services.async.WhatsappMessageTemplateServiceAsync
-import com.telnyx.sdk.services.async.WhatsappMessageTemplateServiceAsyncImpl
 import com.telnyx.sdk.services.async.WhatsappServiceAsync
 import com.telnyx.sdk.services.async.WhatsappServiceAsyncImpl
 import com.telnyx.sdk.services.async.WireguardInterfaceServiceAsync
@@ -946,10 +944,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         WhatsappServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val whatsappMessageTemplates: WhatsappMessageTemplateServiceAsync by lazy {
-        WhatsappMessageTemplateServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val x402: X402ServiceAsync by lazy { X402ServiceAsyncImpl(clientOptionsWithUserAgent) }
 
     private val voiceClones: VoiceCloneServiceAsync by lazy {
@@ -1440,10 +1434,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     override fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync = trafficPolicyProfiles
 
     override fun whatsapp(): WhatsappServiceAsync = whatsapp
-
-    /** Manage Whatsapp message templates */
-    override fun whatsappMessageTemplates(): WhatsappMessageTemplateServiceAsync =
-        whatsappMessageTemplates
 
     override fun x402(): X402ServiceAsync = x402
 
@@ -2114,11 +2104,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             WhatsappServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val whatsappMessageTemplates:
-            WhatsappMessageTemplateServiceAsync.WithRawResponse by lazy {
-            WhatsappMessageTemplateServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val x402: X402ServiceAsync.WithRawResponse by lazy {
             X402ServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -2661,10 +2646,6 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             trafficPolicyProfiles
 
         override fun whatsapp(): WhatsappServiceAsync.WithRawResponse = whatsapp
-
-        /** Manage Whatsapp message templates */
-        override fun whatsappMessageTemplates():
-            WhatsappMessageTemplateServiceAsync.WithRawResponse = whatsappMessageTemplates
 
         override fun x402(): X402ServiceAsync.WithRawResponse = x402
 

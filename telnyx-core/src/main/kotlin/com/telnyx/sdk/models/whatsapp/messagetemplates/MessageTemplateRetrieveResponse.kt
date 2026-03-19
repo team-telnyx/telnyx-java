@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.simcards.actions
+package com.telnyx.sdk.models.whatsapp.messagetemplates
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -11,38 +11,38 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
+import com.telnyx.sdk.models.WhatsappTemplateData
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class ActionBulkSetPublicIpsResponse
+class MessageTemplateRetrieveResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<BulkSimCardAction>,
+    private val data: JsonField<WhatsappTemplateData>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("data") @ExcludeMissing data: JsonField<BulkSimCardAction> = JsonMissing.of()
+        @JsonProperty("data")
+        @ExcludeMissing
+        data: JsonField<WhatsappTemplateData> = JsonMissing.of()
     ) : this(data, mutableMapOf())
 
     /**
-     * This object represents a bulk SIM card action. It groups SIM card actions created through a
-     * bulk endpoint under a single resource for further lookup.
-     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<BulkSimCardAction> = data.getOptional("data")
+    fun data(): Optional<WhatsappTemplateData> = data.getOptional("data")
 
     /**
      * Returns the raw JSON value of [data].
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<BulkSimCardAction> = data
+    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<WhatsappTemplateData> = data
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -60,38 +60,35 @@ private constructor(
 
         /**
          * Returns a mutable builder for constructing an instance of
-         * [ActionBulkSetPublicIpsResponse].
+         * [MessageTemplateRetrieveResponse].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [ActionBulkSetPublicIpsResponse]. */
+    /** A builder for [MessageTemplateRetrieveResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<BulkSimCardAction> = JsonMissing.of()
+        private var data: JsonField<WhatsappTemplateData> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(actionBulkSetPublicIpsResponse: ActionBulkSetPublicIpsResponse) = apply {
-            data = actionBulkSetPublicIpsResponse.data
-            additionalProperties =
-                actionBulkSetPublicIpsResponse.additionalProperties.toMutableMap()
-        }
+        internal fun from(messageTemplateRetrieveResponse: MessageTemplateRetrieveResponse) =
+            apply {
+                data = messageTemplateRetrieveResponse.data
+                additionalProperties =
+                    messageTemplateRetrieveResponse.additionalProperties.toMutableMap()
+            }
 
-        /**
-         * This object represents a bulk SIM card action. It groups SIM card actions created through
-         * a bulk endpoint under a single resource for further lookup.
-         */
-        fun data(data: BulkSimCardAction) = data(JsonField.of(data))
+        fun data(data: WhatsappTemplateData) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed [BulkSimCardAction] value
+         * You should usually call [Builder.data] with a well-typed [WhatsappTemplateData] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun data(data: JsonField<BulkSimCardAction>) = apply { this.data = data }
+        fun data(data: JsonField<WhatsappTemplateData>) = apply { this.data = data }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -113,17 +110,17 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [ActionBulkSetPublicIpsResponse].
+         * Returns an immutable instance of [MessageTemplateRetrieveResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): ActionBulkSetPublicIpsResponse =
-            ActionBulkSetPublicIpsResponse(data, additionalProperties.toMutableMap())
+        fun build(): MessageTemplateRetrieveResponse =
+            MessageTemplateRetrieveResponse(data, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
 
-    fun validate(): ActionBulkSetPublicIpsResponse = apply {
+    fun validate(): MessageTemplateRetrieveResponse = apply {
         if (validated) {
             return@apply
         }
@@ -152,7 +149,7 @@ private constructor(
             return true
         }
 
-        return other is ActionBulkSetPublicIpsResponse &&
+        return other is MessageTemplateRetrieveResponse &&
             data == other.data &&
             additionalProperties == other.additionalProperties
     }
@@ -162,5 +159,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ActionBulkSetPublicIpsResponse{data=$data, additionalProperties=$additionalProperties}"
+        "MessageTemplateRetrieveResponse{data=$data, additionalProperties=$additionalProperties}"
 }

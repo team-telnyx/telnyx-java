@@ -1,20 +1,20 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsappmessagetemplates
+package com.telnyx.sdk.models.whatsapp.messagetemplates
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class WhatsappMessageTemplateDeleteParamsTest {
+internal class MessageTemplateDeleteParamsTest {
 
     @Test
     fun create() {
-        WhatsappMessageTemplateDeleteParams.builder().id("id").build()
+        MessageTemplateDeleteParams.builder().id("id").build()
     }
 
     @Test
     fun pathParams() {
-        val params = WhatsappMessageTemplateDeleteParams.builder().id("id").build()
+        val params = MessageTemplateDeleteParams.builder().id("id").build()
 
         assertThat(params._pathParam(0)).isEqualTo("id")
         // out-of-bound path param

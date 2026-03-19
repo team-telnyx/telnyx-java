@@ -12,7 +12,11 @@ internal class MessageTemplateCreateParamsTest {
     fun create() {
         MessageTemplateCreateParams.builder()
             .category(MessageTemplateCreateParams.Category.MARKETING)
-            .addComponent(JsonValue.from(mapOf<String, Any>()))
+            .addComponent(
+                MessageTemplateCreateParams.Component.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
             .language("language")
             .name("name")
             .wabaId("waba_id")
@@ -24,7 +28,11 @@ internal class MessageTemplateCreateParamsTest {
         val params =
             MessageTemplateCreateParams.builder()
                 .category(MessageTemplateCreateParams.Category.MARKETING)
-                .addComponent(JsonValue.from(mapOf<String, Any>()))
+                .addComponent(
+                    MessageTemplateCreateParams.Component.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .language("language")
                 .name("name")
                 .wabaId("waba_id")
@@ -33,7 +41,12 @@ internal class MessageTemplateCreateParamsTest {
         val body = params._body()
 
         assertThat(body.category()).isEqualTo(MessageTemplateCreateParams.Category.MARKETING)
-        assertThat(body.components()).containsExactly(JsonValue.from(mapOf<String, Any>()))
+        assertThat(body.components())
+            .containsExactly(
+                MessageTemplateCreateParams.Component.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
         assertThat(body.language()).isEqualTo("language")
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.wabaId()).isEqualTo("waba_id")

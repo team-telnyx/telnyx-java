@@ -20,6 +20,8 @@ import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.ProfileRetrieveParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.ProfileRetrieveResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.ProfileUpdateParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.ProfileUpdateResponse
+import com.telnyx.sdk.services.blocking.whatsapp.phonenumbers.profile.ModelService
+import com.telnyx.sdk.services.blocking.whatsapp.phonenumbers.profile.ModelServiceImpl
 import com.telnyx.sdk.services.blocking.whatsapp.phonenumbers.profile.PhotoService
 import com.telnyx.sdk.services.blocking.whatsapp.phonenumbers.profile.PhotoServiceImpl
 import java.util.function.Consumer
@@ -35,6 +37,8 @@ class ProfileServiceImpl internal constructor(private val clientOptions: ClientO
 
     private val photo: PhotoService by lazy { PhotoServiceImpl(clientOptions) }
 
+    private val models: ModelService by lazy { ModelServiceImpl(clientOptions) }
+
     override fun withRawResponse(): ProfileService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ProfileService =
@@ -42,6 +46,8 @@ class ProfileServiceImpl internal constructor(private val clientOptions: ClientO
 
     /** Manage Whatsapp phone numbers */
     override fun photo(): PhotoService = photo
+
+    override fun models(): ModelService = models
 
     override fun retrieve(
         params: ProfileRetrieveParams,
@@ -67,6 +73,10 @@ class ProfileServiceImpl internal constructor(private val clientOptions: ClientO
             PhotoServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val models: ModelService.WithRawResponse by lazy {
+            ModelServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): ProfileService.WithRawResponse =
@@ -76,6 +86,8 @@ class ProfileServiceImpl internal constructor(private val clientOptions: ClientO
 
         /** Manage Whatsapp phone numbers */
         override fun photo(): PhotoService.WithRawResponse = photo
+
+        override fun models(): ModelService.WithRawResponse = models
 
         private val retrieveHandler: Handler<ProfileRetrieveResponse> =
             jsonHandler<ProfileRetrieveResponse>(clientOptions.jsonMapper)
