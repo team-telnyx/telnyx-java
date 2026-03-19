@@ -23,6 +23,7 @@ import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationDeletePar
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListPageAsync
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListPageResponse
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListParams
+import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview0Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview1Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreviewParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationRetrieveParams
@@ -89,6 +90,13 @@ internal constructor(private val clientOptions: ClientOptions) : LoaConfiguratio
     ): CompletableFuture<HttpResponse> =
         // post /porting/loa_configurations/preview
         withRawResponse().preview(params, requestOptions)
+
+    override fun preview0(
+        params: LoaConfigurationPreview0Params,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<HttpResponse> =
+        // post /porting/loa_configurations/preview
+        withRawResponse().preview0(params, requestOptions)
 
     override fun preview1(
         params: LoaConfigurationPreview1Params,
@@ -275,6 +283,25 @@ internal constructor(private val clientOptions: ClientOptions) : LoaConfiguratio
 
         override fun preview(
             params: LoaConfigurationPreviewParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("porting", "loa_configurations", "preview")
+                    .putHeader("Accept", "application/pdf")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response -> errorHandler.handle(response) }
+        }
+
+        override fun preview0(
+            params: LoaConfigurationPreview0Params,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             val request =

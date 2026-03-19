@@ -6,6 +6,7 @@ import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.models.MessagingPaginationMeta
+import com.telnyx.sdk.models.WhatsappTemplateData
 import com.telnyx.sdk.services.async.whatsapp.MessageTemplateServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -21,14 +22,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: MessageTemplateListParams,
     private val response: MessageTemplateListPageResponse,
-) : PageAsync<MessageTemplateListResponse> {
+) : PageAsync<WhatsappTemplateData> {
 
     /**
      * Delegates to [MessageTemplateListPageResponse], but gracefully handles missing data.
      *
      * @see MessageTemplateListPageResponse.data
      */
-    fun data(): List<MessageTemplateListResponse> =
+    fun data(): List<WhatsappTemplateData> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +39,7 @@ private constructor(
      */
     fun meta(): Optional<MessagingPaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<MessageTemplateListResponse> = data()
+    override fun items(): List<WhatsappTemplateData> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +60,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<MessageTemplateListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<MessageTemplateListResponse> =
+    fun autoPager(): AutoPagerAsync<WhatsappTemplateData> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

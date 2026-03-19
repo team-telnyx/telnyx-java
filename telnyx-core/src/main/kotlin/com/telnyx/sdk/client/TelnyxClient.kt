@@ -154,7 +154,6 @@ import com.telnyx.sdk.services.blocking.VoiceDesignService
 import com.telnyx.sdk.services.blocking.WebhookDeliveryService
 import com.telnyx.sdk.services.blocking.WebhookService
 import com.telnyx.sdk.services.blocking.WellKnownService
-import com.telnyx.sdk.services.blocking.WhatsappMessageTemplateService
 import com.telnyx.sdk.services.blocking.WhatsappService
 import com.telnyx.sdk.services.blocking.WireguardInterfaceService
 import com.telnyx.sdk.services.blocking.WireguardPeerService
@@ -646,9 +645,6 @@ interface TelnyxClient {
 
     fun whatsapp(): WhatsappService
 
-    /** Manage Whatsapp message templates */
-    fun whatsappMessageTemplates(): WhatsappMessageTemplateService
-
     fun x402(): X402Service
 
     /** Capture and manage voice identities as clones for use in text-to-speech synthesis. */
@@ -1126,9 +1122,6 @@ interface TelnyxClient {
         fun trafficPolicyProfiles(): TrafficPolicyProfileService.WithRawResponse
 
         fun whatsapp(): WhatsappService.WithRawResponse
-
-        /** Manage Whatsapp message templates */
-        fun whatsappMessageTemplates(): WhatsappMessageTemplateService.WithRawResponse
 
         fun x402(): X402Service.WithRawResponse
 

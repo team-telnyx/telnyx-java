@@ -1,25 +1,30 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsappmessagetemplates
+package com.telnyx.sdk.models.whatsapp.messagetemplates
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.WhatsappTemplateData
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class WhatsappMessageTemplateRetrieveResponseTest {
+internal class MessageTemplateUpdateResponseTest {
 
     @Test
     fun create() {
-        val whatsappMessageTemplateRetrieveResponse =
-            WhatsappMessageTemplateRetrieveResponse.builder()
+        val messageTemplateUpdateResponse =
+            MessageTemplateUpdateResponse.builder()
                 .data(
-                    WhatsappMessageTemplateRetrieveResponse.Data.builder()
+                    WhatsappTemplateData.builder()
                         .id("id")
-                        .category(WhatsappMessageTemplateRetrieveResponse.Data.Category.MARKETING)
-                        .addComponent(JsonValue.from(mapOf<String, Any>()))
+                        .category(WhatsappTemplateData.Category.MARKETING)
+                        .addComponent(
+                            WhatsappTemplateData.Component.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .language("language")
                         .name("name")
@@ -29,21 +34,22 @@ internal class WhatsappMessageTemplateRetrieveResponseTest {
                         .templateId("template_id")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .whatsappBusinessAccount(
-                            WhatsappMessageTemplateRetrieveResponse.Data.WhatsappBusinessAccount
-                                .builder()
-                                .id("id")
-                                .build()
+                            WhatsappTemplateData.WhatsappBusinessAccount.builder().id("id").build()
                         )
                         .build()
                 )
                 .build()
 
-        assertThat(whatsappMessageTemplateRetrieveResponse.data())
+        assertThat(messageTemplateUpdateResponse.data())
             .contains(
-                WhatsappMessageTemplateRetrieveResponse.Data.builder()
+                WhatsappTemplateData.builder()
                     .id("id")
-                    .category(WhatsappMessageTemplateRetrieveResponse.Data.Category.MARKETING)
-                    .addComponent(JsonValue.from(mapOf<String, Any>()))
+                    .category(WhatsappTemplateData.Category.MARKETING)
+                    .addComponent(
+                        WhatsappTemplateData.Component.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .language("language")
                     .name("name")
@@ -53,10 +59,7 @@ internal class WhatsappMessageTemplateRetrieveResponseTest {
                     .templateId("template_id")
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .whatsappBusinessAccount(
-                        WhatsappMessageTemplateRetrieveResponse.Data.WhatsappBusinessAccount
-                            .builder()
-                            .id("id")
-                            .build()
+                        WhatsappTemplateData.WhatsappBusinessAccount.builder().id("id").build()
                     )
                     .build()
             )
@@ -65,13 +68,17 @@ internal class WhatsappMessageTemplateRetrieveResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val whatsappMessageTemplateRetrieveResponse =
-            WhatsappMessageTemplateRetrieveResponse.builder()
+        val messageTemplateUpdateResponse =
+            MessageTemplateUpdateResponse.builder()
                 .data(
-                    WhatsappMessageTemplateRetrieveResponse.Data.builder()
+                    WhatsappTemplateData.builder()
                         .id("id")
-                        .category(WhatsappMessageTemplateRetrieveResponse.Data.Category.MARKETING)
-                        .addComponent(JsonValue.from(mapOf<String, Any>()))
+                        .category(WhatsappTemplateData.Category.MARKETING)
+                        .addComponent(
+                            WhatsappTemplateData.Component.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .language("language")
                         .name("name")
@@ -81,22 +88,19 @@ internal class WhatsappMessageTemplateRetrieveResponseTest {
                         .templateId("template_id")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .whatsappBusinessAccount(
-                            WhatsappMessageTemplateRetrieveResponse.Data.WhatsappBusinessAccount
-                                .builder()
-                                .id("id")
-                                .build()
+                            WhatsappTemplateData.WhatsappBusinessAccount.builder().id("id").build()
                         )
                         .build()
                 )
                 .build()
 
-        val roundtrippedWhatsappMessageTemplateRetrieveResponse =
+        val roundtrippedMessageTemplateUpdateResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(whatsappMessageTemplateRetrieveResponse),
-                jacksonTypeRef<WhatsappMessageTemplateRetrieveResponse>(),
+                jsonMapper.writeValueAsString(messageTemplateUpdateResponse),
+                jacksonTypeRef<MessageTemplateUpdateResponse>(),
             )
 
-        assertThat(roundtrippedWhatsappMessageTemplateRetrieveResponse)
-            .isEqualTo(whatsappMessageTemplateRetrieveResponse)
+        assertThat(roundtrippedMessageTemplateUpdateResponse)
+            .isEqualTo(messageTemplateUpdateResponse)
     }
 }

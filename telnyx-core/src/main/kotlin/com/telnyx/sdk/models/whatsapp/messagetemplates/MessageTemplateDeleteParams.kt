@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.whatsappmessagetemplates
+package com.telnyx.sdk.models.whatsapp.messagetemplates
 
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
@@ -12,7 +12,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** Delete a Whatsapp message template */
-class WhatsappMessageTemplateDeleteParams
+class MessageTemplateDeleteParams
 private constructor(
     private val id: String?,
     private val additionalHeaders: Headers,
@@ -35,16 +35,15 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): WhatsappMessageTemplateDeleteParams = builder().build()
+        @JvmStatic fun none(): MessageTemplateDeleteParams = builder().build()
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [WhatsappMessageTemplateDeleteParams].
+         * Returns a mutable builder for constructing an instance of [MessageTemplateDeleteParams].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [WhatsappMessageTemplateDeleteParams]. */
+    /** A builder for [MessageTemplateDeleteParams]. */
     class Builder internal constructor() {
 
         private var id: String? = null
@@ -53,15 +52,12 @@ private constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(
-            whatsappMessageTemplateDeleteParams: WhatsappMessageTemplateDeleteParams
-        ) = apply {
-            id = whatsappMessageTemplateDeleteParams.id
-            additionalHeaders = whatsappMessageTemplateDeleteParams.additionalHeaders.toBuilder()
-            additionalQueryParams =
-                whatsappMessageTemplateDeleteParams.additionalQueryParams.toBuilder()
+        internal fun from(messageTemplateDeleteParams: MessageTemplateDeleteParams) = apply {
+            id = messageTemplateDeleteParams.id
+            additionalHeaders = messageTemplateDeleteParams.additionalHeaders.toBuilder()
+            additionalQueryParams = messageTemplateDeleteParams.additionalQueryParams.toBuilder()
             additionalBodyProperties =
-                whatsappMessageTemplateDeleteParams.additionalBodyProperties.toMutableMap()
+                messageTemplateDeleteParams.additionalBodyProperties.toMutableMap()
         }
 
         fun id(id: String?) = apply { this.id = id }
@@ -190,12 +186,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [WhatsappMessageTemplateDeleteParams].
+         * Returns an immutable instance of [MessageTemplateDeleteParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): WhatsappMessageTemplateDeleteParams =
-            WhatsappMessageTemplateDeleteParams(
+        fun build(): MessageTemplateDeleteParams =
+            MessageTemplateDeleteParams(
                 id,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -221,7 +217,7 @@ private constructor(
             return true
         }
 
-        return other is WhatsappMessageTemplateDeleteParams &&
+        return other is MessageTemplateDeleteParams &&
             id == other.id &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams &&
@@ -232,5 +228,5 @@ private constructor(
         Objects.hash(id, additionalHeaders, additionalQueryParams, additionalBodyProperties)
 
     override fun toString() =
-        "WhatsappMessageTemplateDeleteParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "MessageTemplateDeleteParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -29,7 +29,7 @@ internal class StreamServerEventTest {
         val streamServerEvent = StreamServerEvent.ofAudioChunk(audioChunk)
 
         assertThat(streamServerEvent.audioChunk()).contains(audioChunk)
-        assertThat(streamServerEvent.final_()).isEmpty
+        assertThat(streamServerEvent.finalFrameEvent()).isEmpty
         assertThat(streamServerEvent.error()).isEmpty
     }
 
@@ -58,34 +58,34 @@ internal class StreamServerEventTest {
     }
 
     @Test
-    fun ofFinal() {
-        val final_ =
-            StreamServerEvent.Final.builder()
+    fun ofFinalFrameEvent() {
+        val finalFrameEvent =
+            StreamServerEvent.FinalFrameEvent.builder()
                 .audio(null)
-                .isFinal(StreamServerEvent.Final.IsFinal.TRUE)
+                .isFinal(StreamServerEvent.FinalFrameEvent.IsFinal.TRUE)
                 .text("text")
                 .timeToFirstAudioFrameMs(0L)
-                .type(StreamServerEvent.Final.Type.FINAL)
+                .type(StreamServerEvent.FinalFrameEvent.Type.FINAL)
                 .build()
 
-        val streamServerEvent = StreamServerEvent.ofFinal(final_)
+        val streamServerEvent = StreamServerEvent.ofFinalFrameEvent(finalFrameEvent)
 
         assertThat(streamServerEvent.audioChunk()).isEmpty
-        assertThat(streamServerEvent.final_()).contains(final_)
+        assertThat(streamServerEvent.finalFrameEvent()).contains(finalFrameEvent)
         assertThat(streamServerEvent.error()).isEmpty
     }
 
     @Test
-    fun ofFinalRoundtrip() {
+    fun ofFinalFrameEventRoundtrip() {
         val jsonMapper = jsonMapper()
         val streamServerEvent =
-            StreamServerEvent.ofFinal(
-                StreamServerEvent.Final.builder()
+            StreamServerEvent.ofFinalFrameEvent(
+                StreamServerEvent.FinalFrameEvent.builder()
                     .audio(null)
-                    .isFinal(StreamServerEvent.Final.IsFinal.TRUE)
+                    .isFinal(StreamServerEvent.FinalFrameEvent.IsFinal.TRUE)
                     .text("text")
                     .timeToFirstAudioFrameMs(0L)
-                    .type(StreamServerEvent.Final.Type.FINAL)
+                    .type(StreamServerEvent.FinalFrameEvent.Type.FINAL)
                     .build()
             )
 
@@ -109,7 +109,7 @@ internal class StreamServerEventTest {
         val streamServerEvent = StreamServerEvent.ofError(error)
 
         assertThat(streamServerEvent.audioChunk()).isEmpty
-        assertThat(streamServerEvent.final_()).isEmpty
+        assertThat(streamServerEvent.finalFrameEvent()).isEmpty
         assertThat(streamServerEvent.error()).contains(error)
     }
 
