@@ -5,12 +5,12 @@ package com.telnyx.sdk.services.async.ai.assistants
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.ai.assistants.tags.TagAddParams
-import com.telnyx.sdk.models.ai.assistants.tags.TagAddResponse
+import com.telnyx.sdk.models.ai.assistants.tags.TagCreateParams
+import com.telnyx.sdk.models.ai.assistants.tags.TagCreateResponse
+import com.telnyx.sdk.models.ai.assistants.tags.TagDeleteParams
+import com.telnyx.sdk.models.ai.assistants.tags.TagDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.tags.TagListParams
 import com.telnyx.sdk.models.ai.assistants.tags.TagListResponse
-import com.telnyx.sdk.models.ai.assistants.tags.TagRemoveParams
-import com.telnyx.sdk.models.ai.assistants.tags.TagRemoveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -29,6 +29,28 @@ interface TagServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TagServiceAsync
 
+    /** Add Assistant Tag */
+    fun create(assistantId: String, params: TagCreateParams): CompletableFuture<TagCreateResponse> =
+        create(assistantId, params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        assistantId: String,
+        params: TagCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<TagCreateResponse> =
+        create(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+    /** @see create */
+    fun create(params: TagCreateParams): CompletableFuture<TagCreateResponse> =
+        create(params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        params: TagCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<TagCreateResponse>
+
     /** Get All Tags */
     fun list(): CompletableFuture<TagListResponse> = list(TagListParams.none())
 
@@ -46,49 +68,27 @@ interface TagServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<TagListResponse> =
         list(TagListParams.none(), requestOptions)
 
-    /** Add Assistant Tag */
-    fun add(assistantId: String, params: TagAddParams): CompletableFuture<TagAddResponse> =
-        add(assistantId, params, RequestOptions.none())
-
-    /** @see add */
-    fun add(
-        assistantId: String,
-        params: TagAddParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TagAddResponse> =
-        add(params.toBuilder().assistantId(assistantId).build(), requestOptions)
-
-    /** @see add */
-    fun add(params: TagAddParams): CompletableFuture<TagAddResponse> =
-        add(params, RequestOptions.none())
-
-    /** @see add */
-    fun add(
-        params: TagAddParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TagAddResponse>
-
     /** Remove Assistant Tag */
-    fun remove(tag: String, params: TagRemoveParams): CompletableFuture<TagRemoveResponse> =
-        remove(tag, params, RequestOptions.none())
+    fun delete(tag: String, params: TagDeleteParams): CompletableFuture<TagDeleteResponse> =
+        delete(tag, params, RequestOptions.none())
 
-    /** @see remove */
-    fun remove(
+    /** @see delete */
+    fun delete(
         tag: String,
-        params: TagRemoveParams,
+        params: TagDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TagRemoveResponse> =
-        remove(params.toBuilder().tag(tag).build(), requestOptions)
+    ): CompletableFuture<TagDeleteResponse> =
+        delete(params.toBuilder().tag(tag).build(), requestOptions)
 
-    /** @see remove */
-    fun remove(params: TagRemoveParams): CompletableFuture<TagRemoveResponse> =
-        remove(params, RequestOptions.none())
+    /** @see delete */
+    fun delete(params: TagDeleteParams): CompletableFuture<TagDeleteResponse> =
+        delete(params, RequestOptions.none())
 
-    /** @see remove */
-    fun remove(
-        params: TagRemoveParams,
+    /** @see delete */
+    fun delete(
+        params: TagDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TagRemoveResponse>
+    ): CompletableFuture<TagDeleteResponse>
 
     /** A view of [TagServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -99,6 +99,34 @@ interface TagServiceAsync {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): TagServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /ai/assistants/{assistant_id}/tags`, but is
+         * otherwise the same as [TagServiceAsync.create].
+         */
+        fun create(
+            assistantId: String,
+            params: TagCreateParams,
+        ): CompletableFuture<HttpResponseFor<TagCreateResponse>> =
+            create(assistantId, params, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            assistantId: String,
+            params: TagCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<TagCreateResponse>> =
+            create(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+        /** @see create */
+        fun create(params: TagCreateParams): CompletableFuture<HttpResponseFor<TagCreateResponse>> =
+            create(params, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            params: TagCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<TagCreateResponse>>
 
         /**
          * Returns a raw HTTP response for `get /ai/assistants/tags`, but is otherwise the same as
@@ -124,59 +152,31 @@ interface TagServiceAsync {
             list(TagListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /ai/assistants/{assistant_id}/tags`, but is
-         * otherwise the same as [TagServiceAsync.add].
-         */
-        fun add(
-            assistantId: String,
-            params: TagAddParams,
-        ): CompletableFuture<HttpResponseFor<TagAddResponse>> =
-            add(assistantId, params, RequestOptions.none())
-
-        /** @see add */
-        fun add(
-            assistantId: String,
-            params: TagAddParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TagAddResponse>> =
-            add(params.toBuilder().assistantId(assistantId).build(), requestOptions)
-
-        /** @see add */
-        fun add(params: TagAddParams): CompletableFuture<HttpResponseFor<TagAddResponse>> =
-            add(params, RequestOptions.none())
-
-        /** @see add */
-        fun add(
-            params: TagAddParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TagAddResponse>>
-
-        /**
          * Returns a raw HTTP response for `delete /ai/assistants/{assistant_id}/tags/{tag}`, but is
-         * otherwise the same as [TagServiceAsync.remove].
+         * otherwise the same as [TagServiceAsync.delete].
          */
-        fun remove(
+        fun delete(
             tag: String,
-            params: TagRemoveParams,
-        ): CompletableFuture<HttpResponseFor<TagRemoveResponse>> =
-            remove(tag, params, RequestOptions.none())
+            params: TagDeleteParams,
+        ): CompletableFuture<HttpResponseFor<TagDeleteResponse>> =
+            delete(tag, params, RequestOptions.none())
 
-        /** @see remove */
-        fun remove(
+        /** @see delete */
+        fun delete(
             tag: String,
-            params: TagRemoveParams,
+            params: TagDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TagRemoveResponse>> =
-            remove(params.toBuilder().tag(tag).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<TagDeleteResponse>> =
+            delete(params.toBuilder().tag(tag).build(), requestOptions)
 
-        /** @see remove */
-        fun remove(params: TagRemoveParams): CompletableFuture<HttpResponseFor<TagRemoveResponse>> =
-            remove(params, RequestOptions.none())
+        /** @see delete */
+        fun delete(params: TagDeleteParams): CompletableFuture<HttpResponseFor<TagDeleteResponse>> =
+            delete(params, RequestOptions.none())
 
-        /** @see remove */
-        fun remove(
-            params: TagRemoveParams,
+        /** @see delete */
+        fun delete(
+            params: TagDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TagRemoveResponse>>
+        ): CompletableFuture<HttpResponseFor<TagDeleteResponse>>
     }
 }

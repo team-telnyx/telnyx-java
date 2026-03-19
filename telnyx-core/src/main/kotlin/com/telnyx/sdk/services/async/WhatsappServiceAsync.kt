@@ -4,8 +4,8 @@ package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.services.async.whatsapp.BusinessAccountServiceAsync
+import com.telnyx.sdk.services.async.whatsapp.MessageTemplateServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.PhoneNumberServiceAsync
-import com.telnyx.sdk.services.async.whatsapp.TemplateServiceAsync
 import java.util.function.Consumer
 
 interface WhatsappServiceAsync {
@@ -26,7 +26,7 @@ interface WhatsappServiceAsync {
     fun businessAccounts(): BusinessAccountServiceAsync
 
     /** Manage Whatsapp message templates */
-    fun templates(): TemplateServiceAsync
+    fun messageTemplates(): MessageTemplateServiceAsync
 
     /** Manage Whatsapp phone numbers */
     fun phoneNumbers(): PhoneNumberServiceAsync
@@ -49,7 +49,7 @@ interface WhatsappServiceAsync {
         fun businessAccounts(): BusinessAccountServiceAsync.WithRawResponse
 
         /** Manage Whatsapp message templates */
-        fun templates(): TemplateServiceAsync.WithRawResponse
+        fun messageTemplates(): MessageTemplateServiceAsync.WithRawResponse
 
         /** Manage Whatsapp phone numbers */
         fun phoneNumbers(): PhoneNumberServiceAsync.WithRawResponse

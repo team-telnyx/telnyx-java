@@ -278,6 +278,8 @@ import com.telnyx.sdk.services.async.TexmlServiceAsync
 import com.telnyx.sdk.services.async.TexmlServiceAsyncImpl
 import com.telnyx.sdk.services.async.TextToSpeechServiceAsync
 import com.telnyx.sdk.services.async.TextToSpeechServiceAsyncImpl
+import com.telnyx.sdk.services.async.TrafficPolicyProfileServiceAsync
+import com.telnyx.sdk.services.async.TrafficPolicyProfileServiceAsyncImpl
 import com.telnyx.sdk.services.async.UsageReportServiceAsync
 import com.telnyx.sdk.services.async.UsageReportServiceAsyncImpl
 import com.telnyx.sdk.services.async.UserAddressServiceAsync
@@ -936,6 +938,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         SessionAnalysisServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val trafficPolicyProfiles: TrafficPolicyProfileServiceAsync by lazy {
+        TrafficPolicyProfileServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     private val whatsapp: WhatsappServiceAsync by lazy {
         WhatsappServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -1429,6 +1435,9 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
     override fun sessionAnalysis(): SessionAnalysisServiceAsync = sessionAnalysis
+
+    /** Traffic Policy Profiles operations */
+    override fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync = trafficPolicyProfiles
 
     override fun whatsapp(): WhatsappServiceAsync = whatsapp
 
@@ -2096,6 +2105,11 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             SessionAnalysisServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val trafficPolicyProfiles:
+            TrafficPolicyProfileServiceAsync.WithRawResponse by lazy {
+            TrafficPolicyProfileServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val whatsapp: WhatsappServiceAsync.WithRawResponse by lazy {
             WhatsappServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -2641,6 +2655,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
         override fun sessionAnalysis(): SessionAnalysisServiceAsync.WithRawResponse =
             sessionAnalysis
+
+        /** Traffic Policy Profiles operations */
+        override fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync.WithRawResponse =
+            trafficPolicyProfiles
 
         override fun whatsapp(): WhatsappServiceAsync.WithRawResponse = whatsapp
 

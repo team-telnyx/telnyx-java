@@ -7,7 +7,7 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberInitializeVerificationParams
+import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberCreateVerificationParams
 import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberListPage
 import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberListParams
 import java.util.function.Consumer
@@ -57,23 +57,23 @@ interface PhoneNumberService {
         list(id, PhoneNumberListParams.none(), requestOptions)
 
     /** Initialize Whatsapp phone number verification */
-    fun initializeVerification(id: String, params: PhoneNumberInitializeVerificationParams) =
-        initializeVerification(id, params, RequestOptions.none())
+    fun createVerification(id: String, params: PhoneNumberCreateVerificationParams) =
+        createVerification(id, params, RequestOptions.none())
 
-    /** @see initializeVerification */
-    fun initializeVerification(
+    /** @see createVerification */
+    fun createVerification(
         id: String,
-        params: PhoneNumberInitializeVerificationParams,
+        params: PhoneNumberCreateVerificationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = initializeVerification(params.toBuilder().id(id).build(), requestOptions)
+    ) = createVerification(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see initializeVerification */
-    fun initializeVerification(params: PhoneNumberInitializeVerificationParams) =
-        initializeVerification(params, RequestOptions.none())
+    /** @see createVerification */
+    fun createVerification(params: PhoneNumberCreateVerificationParams) =
+        createVerification(params, RequestOptions.none())
 
-    /** @see initializeVerification */
-    fun initializeVerification(
-        params: PhoneNumberInitializeVerificationParams,
+    /** @see createVerification */
+    fun createVerification(
+        params: PhoneNumberCreateVerificationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
@@ -134,31 +134,31 @@ interface PhoneNumberService {
 
         /**
          * Returns a raw HTTP response for `post /v2/whatsapp/business_accounts/{id}/phone_numbers`,
-         * but is otherwise the same as [PhoneNumberService.initializeVerification].
+         * but is otherwise the same as [PhoneNumberService.createVerification].
          */
         @MustBeClosed
-        fun initializeVerification(
+        fun createVerification(
             id: String,
-            params: PhoneNumberInitializeVerificationParams,
-        ): HttpResponse = initializeVerification(id, params, RequestOptions.none())
+            params: PhoneNumberCreateVerificationParams,
+        ): HttpResponse = createVerification(id, params, RequestOptions.none())
 
-        /** @see initializeVerification */
+        /** @see createVerification */
         @MustBeClosed
-        fun initializeVerification(
+        fun createVerification(
             id: String,
-            params: PhoneNumberInitializeVerificationParams,
+            params: PhoneNumberCreateVerificationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse = initializeVerification(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponse = createVerification(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see initializeVerification */
+        /** @see createVerification */
         @MustBeClosed
-        fun initializeVerification(params: PhoneNumberInitializeVerificationParams): HttpResponse =
-            initializeVerification(params, RequestOptions.none())
+        fun createVerification(params: PhoneNumberCreateVerificationParams): HttpResponse =
+            createVerification(params, RequestOptions.none())
 
-        /** @see initializeVerification */
+        /** @see createVerification */
         @MustBeClosed
-        fun initializeVerification(
-            params: PhoneNumberInitializeVerificationParams,
+        fun createVerification(
+            params: PhoneNumberCreateVerificationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
     }

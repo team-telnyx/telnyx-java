@@ -140,6 +140,7 @@ import com.telnyx.sdk.services.blocking.TelephonyCredentialService
 import com.telnyx.sdk.services.blocking.TexmlApplicationService
 import com.telnyx.sdk.services.blocking.TexmlService
 import com.telnyx.sdk.services.blocking.TextToSpeechService
+import com.telnyx.sdk.services.blocking.TrafficPolicyProfileService
 import com.telnyx.sdk.services.blocking.UsageReportService
 import com.telnyx.sdk.services.blocking.UserAddressService
 import com.telnyx.sdk.services.blocking.UserTagService
@@ -640,6 +641,9 @@ interface TelnyxClient {
     /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
     fun sessionAnalysis(): SessionAnalysisService
 
+    /** Traffic Policy Profiles operations */
+    fun trafficPolicyProfiles(): TrafficPolicyProfileService
+
     fun whatsapp(): WhatsappService
 
     /** Manage Whatsapp message templates */
@@ -1117,6 +1121,9 @@ interface TelnyxClient {
 
         /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
         fun sessionAnalysis(): SessionAnalysisService.WithRawResponse
+
+        /** Traffic Policy Profiles operations */
+        fun trafficPolicyProfiles(): TrafficPolicyProfileService.WithRawResponse
 
         fun whatsapp(): WhatsappService.WithRawResponse
 

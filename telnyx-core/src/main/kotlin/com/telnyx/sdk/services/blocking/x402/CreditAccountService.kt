@@ -6,10 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteParams
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteResponse
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettleParams
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettleResponse
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreatePaymentQuoteParams
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreatePaymentQuoteResponse
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettlePaymentParams
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettlePaymentResponse
 import java.util.function.Consumer
 
 /**
@@ -35,14 +35,15 @@ interface CreditAccountService {
      * x402 payment requirements, network, and expiration time. The quote must be settled before it
      * expires.
      */
-    fun createQuote(params: CreditAccountCreateQuoteParams): CreditAccountCreateQuoteResponse =
-        createQuote(params, RequestOptions.none())
+    fun createPaymentQuote(
+        params: CreditAccountCreatePaymentQuoteParams
+    ): CreditAccountCreatePaymentQuoteResponse = createPaymentQuote(params, RequestOptions.none())
 
-    /** @see createQuote */
-    fun createQuote(
-        params: CreditAccountCreateQuoteParams,
+    /** @see createPaymentQuote */
+    fun createPaymentQuote(
+        params: CreditAccountCreatePaymentQuoteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CreditAccountCreateQuoteResponse
+    ): CreditAccountCreatePaymentQuoteResponse
 
     /**
      * Settles an x402 payment using the quote ID and a signed payment authorization. The payment
@@ -50,14 +51,15 @@ interface CreditAccountService {
      * parameter. Settlement is idempotent — submitting the same quote ID multiple times returns the
      * existing transaction.
      */
-    fun settle(params: CreditAccountSettleParams): CreditAccountSettleResponse =
-        settle(params, RequestOptions.none())
+    fun settlePayment(
+        params: CreditAccountSettlePaymentParams
+    ): CreditAccountSettlePaymentResponse = settlePayment(params, RequestOptions.none())
 
-    /** @see settle */
-    fun settle(
-        params: CreditAccountSettleParams,
+    /** @see settlePayment */
+    fun settlePayment(
+        params: CreditAccountSettlePaymentParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CreditAccountSettleResponse
+    ): CreditAccountSettlePaymentResponse
 
     /**
      * A view of [CreditAccountService] that provides access to raw HTTP responses for each method.
@@ -75,35 +77,36 @@ interface CreditAccountService {
 
         /**
          * Returns a raw HTTP response for `post /v2/x402/credit_account/quote`, but is otherwise
-         * the same as [CreditAccountService.createQuote].
+         * the same as [CreditAccountService.createPaymentQuote].
          */
         @MustBeClosed
-        fun createQuote(
-            params: CreditAccountCreateQuoteParams
-        ): HttpResponseFor<CreditAccountCreateQuoteResponse> =
-            createQuote(params, RequestOptions.none())
+        fun createPaymentQuote(
+            params: CreditAccountCreatePaymentQuoteParams
+        ): HttpResponseFor<CreditAccountCreatePaymentQuoteResponse> =
+            createPaymentQuote(params, RequestOptions.none())
 
-        /** @see createQuote */
+        /** @see createPaymentQuote */
         @MustBeClosed
-        fun createQuote(
-            params: CreditAccountCreateQuoteParams,
+        fun createPaymentQuote(
+            params: CreditAccountCreatePaymentQuoteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CreditAccountCreateQuoteResponse>
+        ): HttpResponseFor<CreditAccountCreatePaymentQuoteResponse>
 
         /**
          * Returns a raw HTTP response for `post /v2/x402/credit_account`, but is otherwise the same
-         * as [CreditAccountService.settle].
+         * as [CreditAccountService.settlePayment].
          */
         @MustBeClosed
-        fun settle(
-            params: CreditAccountSettleParams
-        ): HttpResponseFor<CreditAccountSettleResponse> = settle(params, RequestOptions.none())
+        fun settlePayment(
+            params: CreditAccountSettlePaymentParams
+        ): HttpResponseFor<CreditAccountSettlePaymentResponse> =
+            settlePayment(params, RequestOptions.none())
 
-        /** @see settle */
+        /** @see settlePayment */
         @MustBeClosed
-        fun settle(
-            params: CreditAccountSettleParams,
+        fun settlePayment(
+            params: CreditAccountSettlePaymentParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CreditAccountSettleResponse>
+        ): HttpResponseFor<CreditAccountSettlePaymentResponse>
     }
 }

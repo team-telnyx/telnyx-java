@@ -13,10 +13,10 @@ import com.telnyx.sdk.models.voicedesigns.VoiceDesignDeleteVersionParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignDownloadSampleParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignListPageAsync
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignListParams
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameParams
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameResponse
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveResponse
+import com.telnyx.sdk.models.voicedesigns.VoiceDesignUpdateParams
+import com.telnyx.sdk.models.voicedesigns.VoiceDesignUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -87,6 +87,30 @@ interface VoiceDesignServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<VoiceDesignRetrieveResponse> =
         retrieve(id, VoiceDesignRetrieveParams.none(), requestOptions)
+
+    /** Updates the name of a voice design. All versions retain their other properties. */
+    fun update(
+        id: String,
+        params: VoiceDesignUpdateParams,
+    ): CompletableFuture<VoiceDesignUpdateResponse> = update(id, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        id: String,
+        params: VoiceDesignUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<VoiceDesignUpdateResponse> =
+        update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: VoiceDesignUpdateParams): CompletableFuture<VoiceDesignUpdateResponse> =
+        update(params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        params: VoiceDesignUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<VoiceDesignUpdateResponse>
 
     /** Returns a paginated list of voice designs belonging to the authenticated account. */
     fun list(): CompletableFuture<VoiceDesignListPageAsync> = list(VoiceDesignListParams.none())
@@ -202,30 +226,6 @@ interface VoiceDesignServiceAsync {
     ): CompletableFuture<HttpResponse> =
         downloadSample(id, VoiceDesignDownloadSampleParams.none(), requestOptions)
 
-    /** Updates the name of a voice design. All versions retain their other properties. */
-    fun rename(
-        id: String,
-        params: VoiceDesignRenameParams,
-    ): CompletableFuture<VoiceDesignRenameResponse> = rename(id, params, RequestOptions.none())
-
-    /** @see rename */
-    fun rename(
-        id: String,
-        params: VoiceDesignRenameParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VoiceDesignRenameResponse> =
-        rename(params.toBuilder().id(id).build(), requestOptions)
-
-    /** @see rename */
-    fun rename(params: VoiceDesignRenameParams): CompletableFuture<VoiceDesignRenameResponse> =
-        rename(params, RequestOptions.none())
-
-    /** @see rename */
-    fun rename(
-        params: VoiceDesignRenameParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<VoiceDesignRenameResponse>
-
     /**
      * A view of [VoiceDesignServiceAsync] that provides access to raw HTTP responses for each
      * method.
@@ -296,6 +296,36 @@ interface VoiceDesignServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<VoiceDesignRetrieveResponse>> =
             retrieve(id, VoiceDesignRetrieveParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `patch /voice_designs/{id}`, but is otherwise the same as
+         * [VoiceDesignServiceAsync.update].
+         */
+        fun update(
+            id: String,
+            params: VoiceDesignUpdateParams,
+        ): CompletableFuture<HttpResponseFor<VoiceDesignUpdateResponse>> =
+            update(id, params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            id: String,
+            params: VoiceDesignUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<VoiceDesignUpdateResponse>> =
+            update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see update */
+        fun update(
+            params: VoiceDesignUpdateParams
+        ): CompletableFuture<HttpResponseFor<VoiceDesignUpdateResponse>> =
+            update(params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            params: VoiceDesignUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<VoiceDesignUpdateResponse>>
 
         /**
          * Returns a raw HTTP response for `get /voice_designs`, but is otherwise the same as
@@ -422,35 +452,5 @@ interface VoiceDesignServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> =
             downloadSample(id, VoiceDesignDownloadSampleParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `patch /voice_designs/{id}`, but is otherwise the same as
-         * [VoiceDesignServiceAsync.rename].
-         */
-        fun rename(
-            id: String,
-            params: VoiceDesignRenameParams,
-        ): CompletableFuture<HttpResponseFor<VoiceDesignRenameResponse>> =
-            rename(id, params, RequestOptions.none())
-
-        /** @see rename */
-        fun rename(
-            id: String,
-            params: VoiceDesignRenameParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VoiceDesignRenameResponse>> =
-            rename(params.toBuilder().id(id).build(), requestOptions)
-
-        /** @see rename */
-        fun rename(
-            params: VoiceDesignRenameParams
-        ): CompletableFuture<HttpResponseFor<VoiceDesignRenameResponse>> =
-            rename(params, RequestOptions.none())
-
-        /** @see rename */
-        fun rename(
-            params: VoiceDesignRenameParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<VoiceDesignRenameResponse>>
     }
 }

@@ -5,10 +5,10 @@ package com.telnyx.sdk.services.async.x402
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteParams
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteResponse
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettleParams
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettleResponse
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreatePaymentQuoteParams
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreatePaymentQuoteResponse
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettlePaymentParams
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettlePaymentResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -35,16 +35,16 @@ interface CreditAccountServiceAsync {
      * x402 payment requirements, network, and expiration time. The quote must be settled before it
      * expires.
      */
-    fun createQuote(
-        params: CreditAccountCreateQuoteParams
-    ): CompletableFuture<CreditAccountCreateQuoteResponse> =
-        createQuote(params, RequestOptions.none())
+    fun createPaymentQuote(
+        params: CreditAccountCreatePaymentQuoteParams
+    ): CompletableFuture<CreditAccountCreatePaymentQuoteResponse> =
+        createPaymentQuote(params, RequestOptions.none())
 
-    /** @see createQuote */
-    fun createQuote(
-        params: CreditAccountCreateQuoteParams,
+    /** @see createPaymentQuote */
+    fun createPaymentQuote(
+        params: CreditAccountCreatePaymentQuoteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CreditAccountCreateQuoteResponse>
+    ): CompletableFuture<CreditAccountCreatePaymentQuoteResponse>
 
     /**
      * Settles an x402 payment using the quote ID and a signed payment authorization. The payment
@@ -52,14 +52,16 @@ interface CreditAccountServiceAsync {
      * parameter. Settlement is idempotent — submitting the same quote ID multiple times returns the
      * existing transaction.
      */
-    fun settle(params: CreditAccountSettleParams): CompletableFuture<CreditAccountSettleResponse> =
-        settle(params, RequestOptions.none())
+    fun settlePayment(
+        params: CreditAccountSettlePaymentParams
+    ): CompletableFuture<CreditAccountSettlePaymentResponse> =
+        settlePayment(params, RequestOptions.none())
 
-    /** @see settle */
-    fun settle(
-        params: CreditAccountSettleParams,
+    /** @see settlePayment */
+    fun settlePayment(
+        params: CreditAccountSettlePaymentParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CreditAccountSettleResponse>
+    ): CompletableFuture<CreditAccountSettlePaymentResponse>
 
     /**
      * A view of [CreditAccountServiceAsync] that provides access to raw HTTP responses for each
@@ -78,32 +80,32 @@ interface CreditAccountServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post /v2/x402/credit_account/quote`, but is otherwise
-         * the same as [CreditAccountServiceAsync.createQuote].
+         * the same as [CreditAccountServiceAsync.createPaymentQuote].
          */
-        fun createQuote(
-            params: CreditAccountCreateQuoteParams
-        ): CompletableFuture<HttpResponseFor<CreditAccountCreateQuoteResponse>> =
-            createQuote(params, RequestOptions.none())
+        fun createPaymentQuote(
+            params: CreditAccountCreatePaymentQuoteParams
+        ): CompletableFuture<HttpResponseFor<CreditAccountCreatePaymentQuoteResponse>> =
+            createPaymentQuote(params, RequestOptions.none())
 
-        /** @see createQuote */
-        fun createQuote(
-            params: CreditAccountCreateQuoteParams,
+        /** @see createPaymentQuote */
+        fun createPaymentQuote(
+            params: CreditAccountCreatePaymentQuoteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CreditAccountCreateQuoteResponse>>
+        ): CompletableFuture<HttpResponseFor<CreditAccountCreatePaymentQuoteResponse>>
 
         /**
          * Returns a raw HTTP response for `post /v2/x402/credit_account`, but is otherwise the same
-         * as [CreditAccountServiceAsync.settle].
+         * as [CreditAccountServiceAsync.settlePayment].
          */
-        fun settle(
-            params: CreditAccountSettleParams
-        ): CompletableFuture<HttpResponseFor<CreditAccountSettleResponse>> =
-            settle(params, RequestOptions.none())
+        fun settlePayment(
+            params: CreditAccountSettlePaymentParams
+        ): CompletableFuture<HttpResponseFor<CreditAccountSettlePaymentResponse>> =
+            settlePayment(params, RequestOptions.none())
 
-        /** @see settle */
-        fun settle(
-            params: CreditAccountSettleParams,
+        /** @see settlePayment */
+        fun settlePayment(
+            params: CreditAccountSettlePaymentParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CreditAccountSettleResponse>>
+        ): CompletableFuture<HttpResponseFor<CreditAccountSettlePaymentResponse>>
     }
 }
