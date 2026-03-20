@@ -1,5 +1,29 @@
 # Changelog
 
+## 6.35.0 (2026-03-20)
+
+Full Changelog: [v6.34.0...v6.35.0](https://github.com/team-telnyx/telnyx-java/compare/v6.34.0...v6.35.0)
+
+### Features
+
+* Add Minimax provider support to Voice Designs and Voice Clones API spec ([236e70e](https://github.com/team-telnyx/telnyx-java/commit/236e70e899e9b64c12c007faf129a25c73b4d6a6))
+* **api:** manual updates ([c626f43](https://github.com/team-telnyx/telnyx-java/commit/c626f434a421fcf050643ebfe04c715be0e10bb5))
+
+
+### Bug Fixes
+
+* remove duplicate Provider enum entries in VoiceClone/VoiceDesign models ([c1fb760](https://github.com/team-telnyx/telnyx-java/commit/c1fb760dee98663d636b62f624caaaf79bf874a3))
+
+
+### Chores
+
+* **tests:** bump steady to v0.19.4 ([f227051](https://github.com/team-telnyx/telnyx-java/commit/f227051ec87d5318382d3bb38852a819edca0b51))
+
+
+### Documentation
+
+* WhatsApp template components schema ([f46f5e2](https://github.com/team-telnyx/telnyx-java/commit/f46f5e27e8b527de0b1f80a1d56787ff2340367d))
+
 ## 6.34.0 (2026-03-19)
 
 Full Changelog: [v6.33.0...v6.34.0](https://github.com/team-telnyx/telnyx-java/compare/v6.33.0...v6.34.0)
