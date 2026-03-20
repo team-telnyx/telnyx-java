@@ -20,6 +20,21 @@ internal class ActionStartNoiseSuppressionParamsTest {
             .noiseSuppressionEngineConfig(
                 ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.builder()
                     .attenuationLimit(100L)
+                    .enhancementLevel(0.5)
+                    .family(
+                        ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.Family
+                            .SPARROW
+                    )
+                    .mode(
+                        ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.Mode.STANDARD
+                    )
+                    .model(
+                        ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.Model
+                            .KRISP_VIVA_TEL_V2_KEF
+                    )
+                    .size(ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.Size.L)
+                    .suppressionLevel(50.0)
+                    .voiceGain(1.0)
                     .build()
             )
             .build()
@@ -49,6 +64,22 @@ internal class ActionStartNoiseSuppressionParamsTest {
                 .noiseSuppressionEngineConfig(
                     ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.builder()
                         .attenuationLimit(100L)
+                        .enhancementLevel(0.5)
+                        .family(
+                            ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.Family
+                                .SPARROW
+                        )
+                        .mode(
+                            ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.Mode
+                                .STANDARD
+                        )
+                        .model(
+                            ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.Model
+                                .KRISP_VIVA_TEL_V2_KEF
+                        )
+                        .size(ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.Size.L)
+                        .suppressionLevel(50.0)
+                        .voiceGain(1.0)
                         .build()
                 )
                 .build()
@@ -64,6 +95,21 @@ internal class ActionStartNoiseSuppressionParamsTest {
             .contains(
                 ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.builder()
                     .attenuationLimit(100L)
+                    .enhancementLevel(0.5)
+                    .family(
+                        ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.Family
+                            .SPARROW
+                    )
+                    .mode(
+                        ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.Mode.STANDARD
+                    )
+                    .model(
+                        ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.Model
+                            .KRISP_VIVA_TEL_V2_KEF
+                    )
+                    .size(ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig.Size.L)
+                    .suppressionLevel(50.0)
+                    .voiceGain(1.0)
                     .build()
             )
     }

@@ -58,8 +58,9 @@ private constructor(
     fun direction(): Optional<Direction> = body.direction()
 
     /**
-     * The engine to use for noise suppression. For backward compatibility, engines A, B, and C are
-     * also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp
+     * The engine to use for noise suppression. For backward compatibility, engines A, B, C, and D
+     * are also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp D -
+     * AiCoustics
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -67,7 +68,8 @@ private constructor(
     fun noiseSuppressionEngine(): Optional<NoiseSuppressionEngine> = body.noiseSuppressionEngine()
 
     /**
-     * Configuration parameters for noise suppression engines.
+     * Configuration parameters for noise suppression engines. Different engines support different
+     * parameters.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -216,8 +218,9 @@ private constructor(
         fun direction(direction: JsonField<Direction>) = apply { body.direction(direction) }
 
         /**
-         * The engine to use for noise suppression. For backward compatibility, engines A, B, and C
-         * are also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp
+         * The engine to use for noise suppression. For backward compatibility, engines A, B, C, and
+         * D are also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp D -
+         * AiCoustics
          */
         fun noiseSuppressionEngine(noiseSuppressionEngine: NoiseSuppressionEngine) = apply {
             body.noiseSuppressionEngine(noiseSuppressionEngine)
@@ -235,7 +238,10 @@ private constructor(
                 body.noiseSuppressionEngine(noiseSuppressionEngine)
             }
 
-        /** Configuration parameters for noise suppression engines. */
+        /**
+         * Configuration parameters for noise suppression engines. Different engines support
+         * different parameters.
+         */
         fun noiseSuppressionEngineConfig(
             noiseSuppressionEngineConfig: NoiseSuppressionEngineConfig
         ) = apply { body.noiseSuppressionEngineConfig(noiseSuppressionEngineConfig) }
@@ -458,8 +464,9 @@ private constructor(
         fun direction(): Optional<Direction> = direction.getOptional("direction")
 
         /**
-         * The engine to use for noise suppression. For backward compatibility, engines A, B, and C
-         * are also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp
+         * The engine to use for noise suppression. For backward compatibility, engines A, B, C, and
+         * D are also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp D -
+         * AiCoustics
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -468,7 +475,8 @@ private constructor(
             noiseSuppressionEngine.getOptional("noise_suppression_engine")
 
         /**
-         * Configuration parameters for noise suppression engines.
+         * Configuration parameters for noise suppression engines. Different engines support
+         * different parameters.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
@@ -606,9 +614,9 @@ private constructor(
             fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
             /**
-             * The engine to use for noise suppression. For backward compatibility, engines A, B,
-             * and C are also supported, but are deprecated: A - Denoiser B - DeepFilterNet C -
-             * Krisp
+             * The engine to use for noise suppression. For backward compatibility, engines A, B, C,
+             * and D are also supported, but are deprecated: A - Denoiser B - DeepFilterNet C -
+             * Krisp D - AiCoustics
              */
             fun noiseSuppressionEngine(noiseSuppressionEngine: NoiseSuppressionEngine) =
                 noiseSuppressionEngine(JsonField.of(noiseSuppressionEngine))
@@ -625,7 +633,10 @@ private constructor(
                     this.noiseSuppressionEngine = noiseSuppressionEngine
                 }
 
-            /** Configuration parameters for noise suppression engines. */
+            /**
+             * Configuration parameters for noise suppression engines. Different engines support
+             * different parameters.
+             */
             fun noiseSuppressionEngineConfig(
                 noiseSuppressionEngineConfig: NoiseSuppressionEngineConfig
             ) = noiseSuppressionEngineConfig(JsonField.of(noiseSuppressionEngineConfig))
@@ -879,8 +890,9 @@ private constructor(
     }
 
     /**
-     * The engine to use for noise suppression. For backward compatibility, engines A, B, and C are
-     * also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp
+     * The engine to use for noise suppression. For backward compatibility, engines A, B, C, and D
+     * are also supported, but are deprecated: A - Denoiser B - DeepFilterNet C - Krisp D -
+     * AiCoustics
      */
     class NoiseSuppressionEngine
     @JsonCreator
@@ -904,6 +916,8 @@ private constructor(
 
             @JvmField val KRISP = of("Krisp")
 
+            @JvmField val AI_COUSTICS = of("AiCoustics")
+
             @JvmStatic fun of(value: String) = NoiseSuppressionEngine(JsonField.of(value))
         }
 
@@ -912,6 +926,7 @@ private constructor(
             DENOISER,
             DEEP_FILTER_NET,
             KRISP,
+            AI_COUSTICS,
         }
 
         /**
@@ -929,6 +944,7 @@ private constructor(
             DENOISER,
             DEEP_FILTER_NET,
             KRISP,
+            AI_COUSTICS,
             /**
              * An enum member indicating that [NoiseSuppressionEngine] was instantiated with an
              * unknown value.
@@ -948,6 +964,7 @@ private constructor(
                 DENOISER -> Value.DENOISER
                 DEEP_FILTER_NET -> Value.DEEP_FILTER_NET
                 KRISP -> Value.KRISP
+                AI_COUSTICS -> Value.AI_COUSTICS
                 else -> Value._UNKNOWN
             }
 
@@ -965,6 +982,7 @@ private constructor(
                 DENOISER -> Known.DENOISER
                 DEEP_FILTER_NET -> Known.DEEP_FILTER_NET
                 KRISP -> Known.KRISP
+                AI_COUSTICS -> Known.AI_COUSTICS
                 else -> throw TelnyxInvalidDataException("Unknown NoiseSuppressionEngine: $value")
             }
 
@@ -1020,11 +1038,21 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** Configuration parameters for noise suppression engines. */
+    /**
+     * Configuration parameters for noise suppression engines. Different engines support different
+     * parameters.
+     */
     class NoiseSuppressionEngineConfig
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val attenuationLimit: JsonField<Long>,
+        private val enhancementLevel: JsonField<Double>,
+        private val family: JsonField<Family>,
+        private val mode: JsonField<Mode>,
+        private val model: JsonField<Model>,
+        private val size: JsonField<Size>,
+        private val suppressionLevel: JsonField<Double>,
+        private val voiceGain: JsonField<Double>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -1032,8 +1060,31 @@ private constructor(
         private constructor(
             @JsonProperty("attenuation_limit")
             @ExcludeMissing
-            attenuationLimit: JsonField<Long> = JsonMissing.of()
-        ) : this(attenuationLimit, mutableMapOf())
+            attenuationLimit: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("enhancement_level")
+            @ExcludeMissing
+            enhancementLevel: JsonField<Double> = JsonMissing.of(),
+            @JsonProperty("family") @ExcludeMissing family: JsonField<Family> = JsonMissing.of(),
+            @JsonProperty("mode") @ExcludeMissing mode: JsonField<Mode> = JsonMissing.of(),
+            @JsonProperty("model") @ExcludeMissing model: JsonField<Model> = JsonMissing.of(),
+            @JsonProperty("size") @ExcludeMissing size: JsonField<Size> = JsonMissing.of(),
+            @JsonProperty("suppression_level")
+            @ExcludeMissing
+            suppressionLevel: JsonField<Double> = JsonMissing.of(),
+            @JsonProperty("voice_gain")
+            @ExcludeMissing
+            voiceGain: JsonField<Double> = JsonMissing.of(),
+        ) : this(
+            attenuationLimit,
+            enhancementLevel,
+            family,
+            mode,
+            model,
+            size,
+            suppressionLevel,
+            voiceGain,
+            mutableMapOf(),
+        )
 
         /**
          * The attenuation limit for noise suppression (0-100). Only applicable for DeepFilterNet.
@@ -1044,6 +1095,64 @@ private constructor(
         fun attenuationLimit(): Optional<Long> = attenuationLimit.getOptional("attenuation_limit")
 
         /**
+         * Enhancement intensity (0.0-1.0). Only applicable for AiCoustics.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun enhancementLevel(): Optional<Double> = enhancementLevel.getOptional("enhancement_level")
+
+        /**
+         * AiCoustics model family. 'sparrow' optimized for human-to-human calls, 'quail' optimized
+         * for Voice AI/STT. Only applicable for AiCoustics.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun family(): Optional<Family> = family.getOptional("family")
+
+        /**
+         * Processing mode. Only applicable for DeepFilterNet.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun mode(): Optional<Mode> = mode.getOptional("mode")
+
+        /**
+         * The Krisp model to use. Only applicable for Krisp.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun model(): Optional<Model> = model.getOptional("model")
+
+        /**
+         * AiCoustics model size. 's' and 'l' work with both families. 'xs' and 'xxs' are
+         * sparrow-only. 'vf_l' and 'vf_1_1_l' are quail-only. Only applicable for AiCoustics.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun size(): Optional<Size> = size.getOptional("size")
+
+        /**
+         * Suppression level (0.0-100.0). Only applicable for Krisp.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun suppressionLevel(): Optional<Double> = suppressionLevel.getOptional("suppression_level")
+
+        /**
+         * Voice gain multiplier (0.1-4.0). Only applicable for AiCoustics.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun voiceGain(): Optional<Double> = voiceGain.getOptional("voice_gain")
+
+        /**
          * Returns the raw JSON value of [attenuationLimit].
          *
          * Unlike [attenuationLimit], this method doesn't throw if the JSON field has an unexpected
@@ -1052,6 +1161,61 @@ private constructor(
         @JsonProperty("attenuation_limit")
         @ExcludeMissing
         fun _attenuationLimit(): JsonField<Long> = attenuationLimit
+
+        /**
+         * Returns the raw JSON value of [enhancementLevel].
+         *
+         * Unlike [enhancementLevel], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("enhancement_level")
+        @ExcludeMissing
+        fun _enhancementLevel(): JsonField<Double> = enhancementLevel
+
+        /**
+         * Returns the raw JSON value of [family].
+         *
+         * Unlike [family], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("family") @ExcludeMissing fun _family(): JsonField<Family> = family
+
+        /**
+         * Returns the raw JSON value of [mode].
+         *
+         * Unlike [mode], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("mode") @ExcludeMissing fun _mode(): JsonField<Mode> = mode
+
+        /**
+         * Returns the raw JSON value of [model].
+         *
+         * Unlike [model], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("model") @ExcludeMissing fun _model(): JsonField<Model> = model
+
+        /**
+         * Returns the raw JSON value of [size].
+         *
+         * Unlike [size], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("size") @ExcludeMissing fun _size(): JsonField<Size> = size
+
+        /**
+         * Returns the raw JSON value of [suppressionLevel].
+         *
+         * Unlike [suppressionLevel], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("suppression_level")
+        @ExcludeMissing
+        fun _suppressionLevel(): JsonField<Double> = suppressionLevel
+
+        /**
+         * Returns the raw JSON value of [voiceGain].
+         *
+         * Unlike [voiceGain], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("voice_gain") @ExcludeMissing fun _voiceGain(): JsonField<Double> = voiceGain
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1078,11 +1242,25 @@ private constructor(
         class Builder internal constructor() {
 
             private var attenuationLimit: JsonField<Long> = JsonMissing.of()
+            private var enhancementLevel: JsonField<Double> = JsonMissing.of()
+            private var family: JsonField<Family> = JsonMissing.of()
+            private var mode: JsonField<Mode> = JsonMissing.of()
+            private var model: JsonField<Model> = JsonMissing.of()
+            private var size: JsonField<Size> = JsonMissing.of()
+            private var suppressionLevel: JsonField<Double> = JsonMissing.of()
+            private var voiceGain: JsonField<Double> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(noiseSuppressionEngineConfig: NoiseSuppressionEngineConfig) = apply {
                 attenuationLimit = noiseSuppressionEngineConfig.attenuationLimit
+                enhancementLevel = noiseSuppressionEngineConfig.enhancementLevel
+                family = noiseSuppressionEngineConfig.family
+                mode = noiseSuppressionEngineConfig.mode
+                model = noiseSuppressionEngineConfig.model
+                size = noiseSuppressionEngineConfig.size
+                suppressionLevel = noiseSuppressionEngineConfig.suppressionLevel
+                voiceGain = noiseSuppressionEngineConfig.voiceGain
                 additionalProperties =
                     noiseSuppressionEngineConfig.additionalProperties.toMutableMap()
             }
@@ -1104,6 +1282,102 @@ private constructor(
             fun attenuationLimit(attenuationLimit: JsonField<Long>) = apply {
                 this.attenuationLimit = attenuationLimit
             }
+
+            /** Enhancement intensity (0.0-1.0). Only applicable for AiCoustics. */
+            fun enhancementLevel(enhancementLevel: Double) =
+                enhancementLevel(JsonField.of(enhancementLevel))
+
+            /**
+             * Sets [Builder.enhancementLevel] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.enhancementLevel] with a well-typed [Double] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun enhancementLevel(enhancementLevel: JsonField<Double>) = apply {
+                this.enhancementLevel = enhancementLevel
+            }
+
+            /**
+             * AiCoustics model family. 'sparrow' optimized for human-to-human calls, 'quail'
+             * optimized for Voice AI/STT. Only applicable for AiCoustics.
+             */
+            fun family(family: Family) = family(JsonField.of(family))
+
+            /**
+             * Sets [Builder.family] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.family] with a well-typed [Family] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun family(family: JsonField<Family>) = apply { this.family = family }
+
+            /** Processing mode. Only applicable for DeepFilterNet. */
+            fun mode(mode: Mode) = mode(JsonField.of(mode))
+
+            /**
+             * Sets [Builder.mode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mode] with a well-typed [Mode] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun mode(mode: JsonField<Mode>) = apply { this.mode = mode }
+
+            /** The Krisp model to use. Only applicable for Krisp. */
+            fun model(model: Model) = model(JsonField.of(model))
+
+            /**
+             * Sets [Builder.model] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.model] with a well-typed [Model] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun model(model: JsonField<Model>) = apply { this.model = model }
+
+            /**
+             * AiCoustics model size. 's' and 'l' work with both families. 'xs' and 'xxs' are
+             * sparrow-only. 'vf_l' and 'vf_1_1_l' are quail-only. Only applicable for AiCoustics.
+             */
+            fun size(size: Size) = size(JsonField.of(size))
+
+            /**
+             * Sets [Builder.size] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.size] with a well-typed [Size] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun size(size: JsonField<Size>) = apply { this.size = size }
+
+            /** Suppression level (0.0-100.0). Only applicable for Krisp. */
+            fun suppressionLevel(suppressionLevel: Double) =
+                suppressionLevel(JsonField.of(suppressionLevel))
+
+            /**
+             * Sets [Builder.suppressionLevel] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.suppressionLevel] with a well-typed [Double] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun suppressionLevel(suppressionLevel: JsonField<Double>) = apply {
+                this.suppressionLevel = suppressionLevel
+            }
+
+            /** Voice gain multiplier (0.1-4.0). Only applicable for AiCoustics. */
+            fun voiceGain(voiceGain: Double) = voiceGain(JsonField.of(voiceGain))
+
+            /**
+             * Sets [Builder.voiceGain] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.voiceGain] with a well-typed [Double] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun voiceGain(voiceGain: JsonField<Double>) = apply { this.voiceGain = voiceGain }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1130,7 +1404,17 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): NoiseSuppressionEngineConfig =
-                NoiseSuppressionEngineConfig(attenuationLimit, additionalProperties.toMutableMap())
+                NoiseSuppressionEngineConfig(
+                    attenuationLimit,
+                    enhancementLevel,
+                    family,
+                    mode,
+                    model,
+                    size,
+                    suppressionLevel,
+                    voiceGain,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -1141,6 +1425,13 @@ private constructor(
             }
 
             attenuationLimit()
+            enhancementLevel()
+            family().ifPresent { it.validate() }
+            mode().ifPresent { it.validate() }
+            model().ifPresent { it.validate() }
+            size().ifPresent { it.validate() }
+            suppressionLevel()
+            voiceGain()
             validated = true
         }
 
@@ -1159,7 +1450,573 @@ private constructor(
          * Used for best match union deserialization.
          */
         @JvmSynthetic
-        internal fun validity(): Int = (if (attenuationLimit.asKnown().isPresent) 1 else 0)
+        internal fun validity(): Int =
+            (if (attenuationLimit.asKnown().isPresent) 1 else 0) +
+                (if (enhancementLevel.asKnown().isPresent) 1 else 0) +
+                (family.asKnown().getOrNull()?.validity() ?: 0) +
+                (mode.asKnown().getOrNull()?.validity() ?: 0) +
+                (model.asKnown().getOrNull()?.validity() ?: 0) +
+                (size.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (suppressionLevel.asKnown().isPresent) 1 else 0) +
+                (if (voiceGain.asKnown().isPresent) 1 else 0)
+
+        /**
+         * AiCoustics model family. 'sparrow' optimized for human-to-human calls, 'quail' optimized
+         * for Voice AI/STT. Only applicable for AiCoustics.
+         */
+        class Family @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val SPARROW = of("sparrow")
+
+                @JvmField val QUAIL = of("quail")
+
+                @JvmStatic fun of(value: String) = Family(JsonField.of(value))
+            }
+
+            /** An enum containing [Family]'s known values. */
+            enum class Known {
+                SPARROW,
+                QUAIL,
+            }
+
+            /**
+             * An enum containing [Family]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Family] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                SPARROW,
+                QUAIL,
+                /**
+                 * An enum member indicating that [Family] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    SPARROW -> Value.SPARROW
+                    QUAIL -> Value.QUAIL
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    SPARROW -> Known.SPARROW
+                    QUAIL -> Known.QUAIL
+                    else -> throw TelnyxInvalidDataException("Unknown Family: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Family = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Family && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /** Processing mode. Only applicable for DeepFilterNet. */
+        class Mode @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val STANDARD = of("standard")
+
+                @JvmField val ADVANCED = of("advanced")
+
+                @JvmStatic fun of(value: String) = Mode(JsonField.of(value))
+            }
+
+            /** An enum containing [Mode]'s known values. */
+            enum class Known {
+                STANDARD,
+                ADVANCED,
+            }
+
+            /**
+             * An enum containing [Mode]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Mode] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                STANDARD,
+                ADVANCED,
+                /** An enum member indicating that [Mode] was instantiated with an unknown value. */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    STANDARD -> Value.STANDARD
+                    ADVANCED -> Value.ADVANCED
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    STANDARD -> Known.STANDARD
+                    ADVANCED -> Known.ADVANCED
+                    else -> throw TelnyxInvalidDataException("Unknown Mode: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Mode = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Mode && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /** The Krisp model to use. Only applicable for Krisp. */
+        class Model @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val KRISP_VIVA_TEL_V2_KEF = of("krisp-viva-tel-v2.kef")
+
+                @JvmField val KRISP_VIVA_TEL_LITE_V1_KEF = of("krisp-viva-tel-lite-v1.kef")
+
+                @JvmField val KRISP_VIVA_PRO_V1_KEF = of("krisp-viva-pro-v1.kef")
+
+                @JvmField val KRISP_VIVA_SS_V1_KEF = of("krisp-viva-ss-v1.kef")
+
+                @JvmStatic fun of(value: String) = Model(JsonField.of(value))
+            }
+
+            /** An enum containing [Model]'s known values. */
+            enum class Known {
+                KRISP_VIVA_TEL_V2_KEF,
+                KRISP_VIVA_TEL_LITE_V1_KEF,
+                KRISP_VIVA_PRO_V1_KEF,
+                KRISP_VIVA_SS_V1_KEF,
+            }
+
+            /**
+             * An enum containing [Model]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Model] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                KRISP_VIVA_TEL_V2_KEF,
+                KRISP_VIVA_TEL_LITE_V1_KEF,
+                KRISP_VIVA_PRO_V1_KEF,
+                KRISP_VIVA_SS_V1_KEF,
+                /**
+                 * An enum member indicating that [Model] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    KRISP_VIVA_TEL_V2_KEF -> Value.KRISP_VIVA_TEL_V2_KEF
+                    KRISP_VIVA_TEL_LITE_V1_KEF -> Value.KRISP_VIVA_TEL_LITE_V1_KEF
+                    KRISP_VIVA_PRO_V1_KEF -> Value.KRISP_VIVA_PRO_V1_KEF
+                    KRISP_VIVA_SS_V1_KEF -> Value.KRISP_VIVA_SS_V1_KEF
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    KRISP_VIVA_TEL_V2_KEF -> Known.KRISP_VIVA_TEL_V2_KEF
+                    KRISP_VIVA_TEL_LITE_V1_KEF -> Known.KRISP_VIVA_TEL_LITE_V1_KEF
+                    KRISP_VIVA_PRO_V1_KEF -> Known.KRISP_VIVA_PRO_V1_KEF
+                    KRISP_VIVA_SS_V1_KEF -> Known.KRISP_VIVA_SS_V1_KEF
+                    else -> throw TelnyxInvalidDataException("Unknown Model: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Model = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Model && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /**
+         * AiCoustics model size. 's' and 'l' work with both families. 'xs' and 'xxs' are
+         * sparrow-only. 'vf_l' and 'vf_1_1_l' are quail-only. Only applicable for AiCoustics.
+         */
+        class Size @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                @JvmField val S = of("s")
+
+                @JvmField val L = of("l")
+
+                @JvmField val XS = of("xs")
+
+                @JvmField val XXS = of("xxs")
+
+                @JvmField val VF_L = of("vf_l")
+
+                @JvmField val VF_1_1_L = of("vf_1_1_l")
+
+                @JvmStatic fun of(value: String) = Size(JsonField.of(value))
+            }
+
+            /** An enum containing [Size]'s known values. */
+            enum class Known {
+                S,
+                L,
+                XS,
+                XXS,
+                VF_L,
+                VF_1_1_L,
+            }
+
+            /**
+             * An enum containing [Size]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Size] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                S,
+                L,
+                XS,
+                XXS,
+                VF_L,
+                VF_1_1_L,
+                /** An enum member indicating that [Size] was instantiated with an unknown value. */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    S -> Value.S
+                    L -> Value.L
+                    XS -> Value.XS
+                    XXS -> Value.XXS
+                    VF_L -> Value.VF_L
+                    VF_1_1_L -> Value.VF_1_1_L
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    S -> Known.S
+                    L -> Known.L
+                    XS -> Known.XS
+                    XXS -> Known.XXS
+                    VF_L -> Known.VF_L
+                    VF_1_1_L -> Known.VF_1_1_L
+                    else -> throw TelnyxInvalidDataException("Unknown Size: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws TelnyxInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    TelnyxInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Size = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Size && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1168,15 +2025,34 @@ private constructor(
 
             return other is NoiseSuppressionEngineConfig &&
                 attenuationLimit == other.attenuationLimit &&
+                enhancementLevel == other.enhancementLevel &&
+                family == other.family &&
+                mode == other.mode &&
+                model == other.model &&
+                size == other.size &&
+                suppressionLevel == other.suppressionLevel &&
+                voiceGain == other.voiceGain &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(attenuationLimit, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                attenuationLimit,
+                enhancementLevel,
+                family,
+                mode,
+                model,
+                size,
+                suppressionLevel,
+                voiceGain,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "NoiseSuppressionEngineConfig{attenuationLimit=$attenuationLimit, additionalProperties=$additionalProperties}"
+            "NoiseSuppressionEngineConfig{attenuationLimit=$attenuationLimit, enhancementLevel=$enhancementLevel, family=$family, mode=$mode, model=$model, size=$size, suppressionLevel=$suppressionLevel, voiceGain=$voiceGain, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

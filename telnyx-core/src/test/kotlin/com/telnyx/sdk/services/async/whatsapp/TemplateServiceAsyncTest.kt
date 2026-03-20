@@ -3,7 +3,6 @@
 package com.telnyx.sdk.services.async.whatsapp
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
-import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.whatsapp.templates.TemplateCreateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -21,8 +20,25 @@ internal class TemplateServiceAsyncTest {
                 TemplateCreateParams.builder()
                     .category(TemplateCreateParams.Category.MARKETING)
                     .addComponent(
-                        TemplateCreateParams.Component.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.builder()
+                            .format(
+                                TemplateCreateParams.Component.WhatsappTemplateHeaderComponent
+                                    .Format
+                                    .TEXT
+                            )
+                            .type(
+                                TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Type
+                                    .HEADER
+                            )
+                            .example(
+                                TemplateCreateParams.Component.WhatsappTemplateHeaderComponent
+                                    .Example
+                                    .builder()
+                                    .addHeaderHandle("string")
+                                    .addHeaderText("string")
+                                    .build()
+                            )
+                            .text("text")
                             .build()
                     )
                     .language("language")
