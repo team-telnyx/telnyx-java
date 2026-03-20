@@ -3,8 +3,8 @@
 package com.telnyx.sdk.services.blocking.x402
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreatePaymentQuoteParams
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettlePaymentParams
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteParams
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettleParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -12,13 +12,13 @@ internal class CreditAccountServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun createPaymentQuote() {
+    fun createQuote() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val creditAccountService = client.x402().creditAccount()
 
         val response =
-            creditAccountService.createPaymentQuote(
-                CreditAccountCreatePaymentQuoteParams.builder().amountUsd("50.00").build()
+            creditAccountService.createQuote(
+                CreditAccountCreateQuoteParams.builder().amountUsd("50.00").build()
             )
 
         response.validate()
@@ -26,13 +26,13 @@ internal class CreditAccountServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun settlePayment() {
+    fun settle() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val creditAccountService = client.x402().creditAccount()
 
         val response =
-            creditAccountService.settlePayment(
-                CreditAccountSettlePaymentParams.builder()
+            creditAccountService.settle(
+                CreditAccountSettleParams.builder()
                     .headerPaymentSignature("PAYMENT-SIGNATURE")
                     .id("quote_abc123")
                     .bodyPaymentSignature("0xabc123...")

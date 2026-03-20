@@ -154,6 +154,7 @@ import com.telnyx.sdk.services.async.VoiceDesignServiceAsync
 import com.telnyx.sdk.services.async.WebhookDeliveryServiceAsync
 import com.telnyx.sdk.services.async.WebhookServiceAsync
 import com.telnyx.sdk.services.async.WellKnownServiceAsync
+import com.telnyx.sdk.services.async.WhatsappMessageTemplateServiceAsync
 import com.telnyx.sdk.services.async.WhatsappServiceAsync
 import com.telnyx.sdk.services.async.WireguardInterfaceServiceAsync
 import com.telnyx.sdk.services.async.WireguardPeerServiceAsync
@@ -640,10 +641,10 @@ interface TelnyxClientAsync {
     /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
     fun sessionAnalysis(): SessionAnalysisServiceAsync
 
-    /** Traffic Policy Profiles operations */
-    fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync
-
     fun whatsapp(): WhatsappServiceAsync
+
+    /** Manage Whatsapp message templates */
+    fun whatsappMessageTemplates(): WhatsappMessageTemplateServiceAsync
 
     fun x402(): X402ServiceAsync
 
@@ -652,6 +653,9 @@ interface TelnyxClientAsync {
 
     /** Create and manage AI-generated voice designs using natural language prompts. */
     fun voiceDesigns(): VoiceDesignServiceAsync
+
+    /** Traffic Policy Profiles operations */
+    fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -1121,10 +1125,10 @@ interface TelnyxClientAsync {
         /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
         fun sessionAnalysis(): SessionAnalysisServiceAsync.WithRawResponse
 
-        /** Traffic Policy Profiles operations */
-        fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync.WithRawResponse
-
         fun whatsapp(): WhatsappServiceAsync.WithRawResponse
+
+        /** Manage Whatsapp message templates */
+        fun whatsappMessageTemplates(): WhatsappMessageTemplateServiceAsync.WithRawResponse
 
         fun x402(): X402ServiceAsync.WithRawResponse
 
@@ -1133,5 +1137,8 @@ interface TelnyxClientAsync {
 
         /** Create and manage AI-generated voice designs using natural language prompts. */
         fun voiceDesigns(): VoiceDesignServiceAsync.WithRawResponse
+
+        /** Traffic Policy Profiles operations */
+        fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync.WithRawResponse
     }
 }

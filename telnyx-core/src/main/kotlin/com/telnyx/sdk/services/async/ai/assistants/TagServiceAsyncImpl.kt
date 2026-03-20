@@ -16,12 +16,12 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.ai.assistants.tags.TagCreateParams
-import com.telnyx.sdk.models.ai.assistants.tags.TagCreateResponse
-import com.telnyx.sdk.models.ai.assistants.tags.TagDeleteParams
-import com.telnyx.sdk.models.ai.assistants.tags.TagDeleteResponse
+import com.telnyx.sdk.models.ai.assistants.tags.TagAddParams
+import com.telnyx.sdk.models.ai.assistants.tags.TagAddResponse
 import com.telnyx.sdk.models.ai.assistants.tags.TagListParams
 import com.telnyx.sdk.models.ai.assistants.tags.TagListResponse
+import com.telnyx.sdk.models.ai.assistants.tags.TagRemoveParams
+import com.telnyx.sdk.models.ai.assistants.tags.TagRemoveResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -39,13 +39,6 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TagServiceAsync =
         TagServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(
-        params: TagCreateParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<TagCreateResponse> =
-        // post /ai/assistants/{assistant_id}/tags
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
-
     override fun list(
         params: TagListParams,
         requestOptions: RequestOptions,
@@ -53,12 +46,19 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
         // get /ai/assistants/tags
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
-    override fun delete(
-        params: TagDeleteParams,
+    override fun add(
+        params: TagAddParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<TagDeleteResponse> =
+    ): CompletableFuture<TagAddResponse> =
+        // post /ai/assistants/{assistant_id}/tags
+        withRawResponse().add(params, requestOptions).thenApply { it.parse() }
+
+    override fun remove(
+        params: TagRemoveParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<TagRemoveResponse> =
         // delete /ai/assistants/{assistant_id}/tags/{tag}
-        withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().remove(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         TagServiceAsync.WithRawResponse {
@@ -72,40 +72,6 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
             TagServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
-
-        private val createHandler: Handler<TagCreateResponse> =
-            jsonHandler<TagCreateResponse>(clientOptions.jsonMapper)
-
-        override fun create(
-            params: TagCreateParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TagCreateResponse>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("assistantId", params.assistantId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("ai", "assistants", params._pathParam(0), "tags")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { createHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
 
         private val listHandler: Handler<TagListResponse> =
             jsonHandler<TagListResponse>(clientOptions.jsonMapper)
@@ -137,13 +103,47 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val deleteHandler: Handler<TagDeleteResponse> =
-            jsonHandler<TagDeleteResponse>(clientOptions.jsonMapper)
+        private val addHandler: Handler<TagAddResponse> =
+            jsonHandler<TagAddResponse>(clientOptions.jsonMapper)
 
-        override fun delete(
-            params: TagDeleteParams,
+        override fun add(
+            params: TagAddParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TagDeleteResponse>> {
+        ): CompletableFuture<HttpResponseFor<TagAddResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("assistantId", params.assistantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants", params._pathParam(0), "tags")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { addHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val removeHandler: Handler<TagRemoveResponse> =
+            jsonHandler<TagRemoveResponse>(clientOptions.jsonMapper)
+
+        override fun remove(
+            params: TagRemoveParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<TagRemoveResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("tag", params.tag().getOrNull())
@@ -167,7 +167,7 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { deleteHandler.handle(it) }
+                            .use { removeHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

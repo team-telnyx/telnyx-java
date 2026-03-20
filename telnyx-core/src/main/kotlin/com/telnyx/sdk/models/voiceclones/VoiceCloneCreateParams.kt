@@ -18,6 +18,7 @@ import com.telnyx.sdk.core.http.QueryParams
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
@@ -64,6 +65,14 @@ private constructor(
     fun voiceDesignId(): String = body.voiceDesignId()
 
     /**
+     * Voice synthesis provider. Case-insensitive. Defaults to `telnyx`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun provider(): Optional<Provider> = body.provider()
+
+    /**
      * Returns the raw JSON value of [gender].
      *
      * Unlike [gender], this method doesn't throw if the JSON field has an unexpected type.
@@ -90,6 +99,13 @@ private constructor(
      * Unlike [voiceDesignId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _voiceDesignId(): JsonField<String> = body._voiceDesignId()
+
+    /**
+     * Returns the raw JSON value of [provider].
+     *
+     * Unlike [provider], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _provider(): JsonField<Provider> = body._provider()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -140,6 +156,8 @@ private constructor(
          * - [language]
          * - [name]
          * - [voiceDesignId]
+         * - [provider]
+         * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -189,6 +207,18 @@ private constructor(
         fun voiceDesignId(voiceDesignId: JsonField<String>) = apply {
             body.voiceDesignId(voiceDesignId)
         }
+
+        /** Voice synthesis provider. Case-insensitive. Defaults to `telnyx`. */
+        fun provider(provider: Provider) = apply { body.provider(provider) }
+
+        /**
+         * Sets [Builder.provider] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.provider] with a well-typed [Provider] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun provider(provider: JsonField<Provider>) = apply { body.provider(provider) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -344,6 +374,7 @@ private constructor(
         private val language: JsonField<String>,
         private val name: JsonField<String>,
         private val voiceDesignId: JsonField<String>,
+        private val provider: JsonField<Provider>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -357,7 +388,10 @@ private constructor(
             @JsonProperty("voice_design_id")
             @ExcludeMissing
             voiceDesignId: JsonField<String> = JsonMissing.of(),
-        ) : this(gender, language, name, voiceDesignId, mutableMapOf())
+            @JsonProperty("provider")
+            @ExcludeMissing
+            provider: JsonField<Provider> = JsonMissing.of(),
+        ) : this(gender, language, name, voiceDesignId, provider, mutableMapOf())
 
         /**
          * Gender of the voice clone.
@@ -392,6 +426,14 @@ private constructor(
         fun voiceDesignId(): String = voiceDesignId.getRequired("voice_design_id")
 
         /**
+         * Voice synthesis provider. Case-insensitive. Defaults to `telnyx`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun provider(): Optional<Provider> = provider.getOptional("provider")
+
+        /**
          * Returns the raw JSON value of [gender].
          *
          * Unlike [gender], this method doesn't throw if the JSON field has an unexpected type.
@@ -421,6 +463,13 @@ private constructor(
         @JsonProperty("voice_design_id")
         @ExcludeMissing
         fun _voiceDesignId(): JsonField<String> = voiceDesignId
+
+        /**
+         * Returns the raw JSON value of [provider].
+         *
+         * Unlike [provider], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("provider") @ExcludeMissing fun _provider(): JsonField<Provider> = provider
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -457,6 +506,7 @@ private constructor(
             private var language: JsonField<String>? = null
             private var name: JsonField<String>? = null
             private var voiceDesignId: JsonField<String>? = null
+            private var provider: JsonField<Provider> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -465,6 +515,7 @@ private constructor(
                 language = body.language
                 name = body.name
                 voiceDesignId = body.voiceDesignId
+                provider = body.provider
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -518,6 +569,18 @@ private constructor(
                 this.voiceDesignId = voiceDesignId
             }
 
+            /** Voice synthesis provider. Case-insensitive. Defaults to `telnyx`. */
+            fun provider(provider: Provider) = provider(JsonField.of(provider))
+
+            /**
+             * Sets [Builder.provider] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.provider] with a well-typed [Provider] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun provider(provider: JsonField<Provider>) = apply { this.provider = provider }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -558,6 +621,7 @@ private constructor(
                     checkRequired("language", language),
                     checkRequired("name", name),
                     checkRequired("voiceDesignId", voiceDesignId),
+                    provider,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -573,6 +637,7 @@ private constructor(
             language()
             name()
             voiceDesignId()
+            provider().ifPresent { it.validate() }
             validated = true
         }
 
@@ -595,7 +660,8 @@ private constructor(
             (gender.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (language.asKnown().isPresent) 1 else 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
-                (if (voiceDesignId.asKnown().isPresent) 1 else 0)
+                (if (voiceDesignId.asKnown().isPresent) 1 else 0) +
+                (provider.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -607,17 +673,18 @@ private constructor(
                 language == other.language &&
                 name == other.name &&
                 voiceDesignId == other.voiceDesignId &&
+                provider == other.provider &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(gender, language, name, voiceDesignId, additionalProperties)
+            Objects.hash(gender, language, name, voiceDesignId, provider, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{gender=$gender, language=$language, name=$name, voiceDesignId=$voiceDesignId, additionalProperties=$additionalProperties}"
+            "Body{gender=$gender, language=$language, name=$name, voiceDesignId=$voiceDesignId, provider=$provider, additionalProperties=$additionalProperties}"
     }
 
     /** Gender of the voice clone. */
@@ -745,6 +812,144 @@ private constructor(
             }
 
             return other is Gender && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** Voice synthesis provider. Case-insensitive. Defaults to `telnyx`. */
+    class Provider @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val TELNYX = of("telnyx")
+
+            @JvmField val MINIMAX = of("minimax")
+
+            @JvmField val TELNYX = of("Telnyx")
+
+            @JvmField val MINIMAX = of("Minimax")
+
+            @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
+        }
+
+        /** An enum containing [Provider]'s known values. */
+        enum class Known {
+            TELNYX,
+            MINIMAX,
+            TELNYX,
+            MINIMAX,
+        }
+
+        /**
+         * An enum containing [Provider]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Provider] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            TELNYX,
+            MINIMAX,
+            TELNYX,
+            MINIMAX,
+            /** An enum member indicating that [Provider] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                TELNYX -> Value.TELNYX
+                MINIMAX -> Value.MINIMAX
+                TELNYX -> Value.TELNYX
+                MINIMAX -> Value.MINIMAX
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                TELNYX -> Known.TELNYX
+                MINIMAX -> Known.MINIMAX
+                TELNYX -> Known.TELNYX
+                MINIMAX -> Known.MINIMAX
+                else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): Provider = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Provider && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

@@ -15,10 +15,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreatePaymentQuoteParams
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreatePaymentQuoteResponse
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettlePaymentParams
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettlePaymentResponse
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteParams
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteResponse
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettleParams
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettleResponse
 import java.util.function.Consumer
 
 /**
@@ -37,19 +37,19 @@ class CreditAccountServiceImpl internal constructor(private val clientOptions: C
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CreditAccountService =
         CreditAccountServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun createPaymentQuote(
-        params: CreditAccountCreatePaymentQuoteParams,
+    override fun createQuote(
+        params: CreditAccountCreateQuoteParams,
         requestOptions: RequestOptions,
-    ): CreditAccountCreatePaymentQuoteResponse =
+    ): CreditAccountCreateQuoteResponse =
         // post /v2/x402/credit_account/quote
-        withRawResponse().createPaymentQuote(params, requestOptions).parse()
+        withRawResponse().createQuote(params, requestOptions).parse()
 
-    override fun settlePayment(
-        params: CreditAccountSettlePaymentParams,
+    override fun settle(
+        params: CreditAccountSettleParams,
         requestOptions: RequestOptions,
-    ): CreditAccountSettlePaymentResponse =
+    ): CreditAccountSettleResponse =
         // post /v2/x402/credit_account
-        withRawResponse().settlePayment(params, requestOptions).parse()
+        withRawResponse().settle(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CreditAccountService.WithRawResponse {
@@ -64,13 +64,13 @@ class CreditAccountServiceImpl internal constructor(private val clientOptions: C
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createPaymentQuoteHandler: Handler<CreditAccountCreatePaymentQuoteResponse> =
-            jsonHandler<CreditAccountCreatePaymentQuoteResponse>(clientOptions.jsonMapper)
+        private val createQuoteHandler: Handler<CreditAccountCreateQuoteResponse> =
+            jsonHandler<CreditAccountCreateQuoteResponse>(clientOptions.jsonMapper)
 
-        override fun createPaymentQuote(
-            params: CreditAccountCreatePaymentQuoteParams,
+        override fun createQuote(
+            params: CreditAccountCreateQuoteParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CreditAccountCreatePaymentQuoteResponse> {
+        ): HttpResponseFor<CreditAccountCreateQuoteResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -83,7 +83,7 @@ class CreditAccountServiceImpl internal constructor(private val clientOptions: C
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { createPaymentQuoteHandler.handle(it) }
+                    .use { createQuoteHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -92,13 +92,13 @@ class CreditAccountServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val settlePaymentHandler: Handler<CreditAccountSettlePaymentResponse> =
-            jsonHandler<CreditAccountSettlePaymentResponse>(clientOptions.jsonMapper)
+        private val settleHandler: Handler<CreditAccountSettleResponse> =
+            jsonHandler<CreditAccountSettleResponse>(clientOptions.jsonMapper)
 
-        override fun settlePayment(
-            params: CreditAccountSettlePaymentParams,
+        override fun settle(
+            params: CreditAccountSettleParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CreditAccountSettlePaymentResponse> {
+        ): HttpResponseFor<CreditAccountSettleResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -111,7 +111,7 @@ class CreditAccountServiceImpl internal constructor(private val clientOptions: C
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { settlePaymentHandler.handle(it) }
+                    .use { settleHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

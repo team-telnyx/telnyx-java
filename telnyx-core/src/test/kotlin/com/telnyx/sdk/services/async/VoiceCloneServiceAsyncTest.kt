@@ -34,6 +34,7 @@ internal class VoiceCloneServiceAsyncTest {
                     .language("en")
                     .name("clone-narrator")
                     .voiceDesignId("550e8400-e29b-41d4-a716-446655440000")
+                    .provider(VoiceCloneCreateParams.Provider.TELNYX)
                     .build()
             )
 
@@ -98,6 +99,7 @@ internal class VoiceCloneServiceAsyncTest {
                     .name("name")
                     .gender(VoiceCloneCreateFromUploadParams.Gender.MALE)
                     .label("label")
+                    .provider(VoiceCloneCreateFromUploadParams.Provider.TELNYX)
                     .refText("ref_text")
                     .build()
             )
