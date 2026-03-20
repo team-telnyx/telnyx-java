@@ -21,14 +21,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: TrafficPolicyProfileListParams,
     private val response: TrafficPolicyProfileListPageResponse,
-) : PageAsync<TrafficPolicyProfileListResponse> {
+) : PageAsync<TrafficPolicyProfile> {
 
     /**
      * Delegates to [TrafficPolicyProfileListPageResponse], but gracefully handles missing data.
      *
      * @see TrafficPolicyProfileListPageResponse.data
      */
-    fun data(): List<TrafficPolicyProfileListResponse> =
+    fun data(): List<TrafficPolicyProfile> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<TrafficPolicyProfileListResponse> = data()
+    override fun items(): List<TrafficPolicyProfile> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<TrafficPolicyProfileListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<TrafficPolicyProfileListResponse> =
+    fun autoPager(): AutoPagerAsync<TrafficPolicyProfile> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

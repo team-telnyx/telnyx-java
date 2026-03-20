@@ -18,14 +18,14 @@ private constructor(
     private val service: TrafficPolicyProfileService,
     private val params: TrafficPolicyProfileListParams,
     private val response: TrafficPolicyProfileListPageResponse,
-) : Page<TrafficPolicyProfileListResponse> {
+) : Page<TrafficPolicyProfile> {
 
     /**
      * Delegates to [TrafficPolicyProfileListPageResponse], but gracefully handles missing data.
      *
      * @see TrafficPolicyProfileListPageResponse.data
      */
-    fun data(): List<TrafficPolicyProfileListResponse> =
+    fun data(): List<TrafficPolicyProfile> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
      */
     fun meta(): Optional<PaginationMeta> = response._meta().getOptional("meta")
 
-    override fun items(): List<TrafficPolicyProfileListResponse> = data()
+    override fun items(): List<TrafficPolicyProfile> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): TrafficPolicyProfileListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<TrafficPolicyProfileListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<TrafficPolicyProfile> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): TrafficPolicyProfileListParams = params
