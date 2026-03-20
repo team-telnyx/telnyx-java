@@ -16,12 +16,12 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.ai.assistants.tags.TagCreateParams
-import com.telnyx.sdk.models.ai.assistants.tags.TagCreateResponse
-import com.telnyx.sdk.models.ai.assistants.tags.TagDeleteParams
-import com.telnyx.sdk.models.ai.assistants.tags.TagDeleteResponse
+import com.telnyx.sdk.models.ai.assistants.tags.TagAddParams
+import com.telnyx.sdk.models.ai.assistants.tags.TagAddResponse
 import com.telnyx.sdk.models.ai.assistants.tags.TagListParams
 import com.telnyx.sdk.models.ai.assistants.tags.TagListResponse
+import com.telnyx.sdk.models.ai.assistants.tags.TagRemoveParams
+import com.telnyx.sdk.models.ai.assistants.tags.TagRemoveResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -37,23 +37,20 @@ class TagServiceImpl internal constructor(private val clientOptions: ClientOptio
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TagService =
         TagServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(
-        params: TagCreateParams,
-        requestOptions: RequestOptions,
-    ): TagCreateResponse =
-        // post /ai/assistants/{assistant_id}/tags
-        withRawResponse().create(params, requestOptions).parse()
-
     override fun list(params: TagListParams, requestOptions: RequestOptions): TagListResponse =
         // get /ai/assistants/tags
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun delete(
-        params: TagDeleteParams,
+    override fun add(params: TagAddParams, requestOptions: RequestOptions): TagAddResponse =
+        // post /ai/assistants/{assistant_id}/tags
+        withRawResponse().add(params, requestOptions).parse()
+
+    override fun remove(
+        params: TagRemoveParams,
         requestOptions: RequestOptions,
-    ): TagDeleteResponse =
+    ): TagRemoveResponse =
         // delete /ai/assistants/{assistant_id}/tags/{tag}
-        withRawResponse().delete(params, requestOptions).parse()
+        withRawResponse().remove(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         TagService.WithRawResponse {
@@ -67,37 +64,6 @@ class TagServiceImpl internal constructor(private val clientOptions: ClientOptio
             TagServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
-
-        private val createHandler: Handler<TagCreateResponse> =
-            jsonHandler<TagCreateResponse>(clientOptions.jsonMapper)
-
-        override fun create(
-            params: TagCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<TagCreateResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("assistantId", params.assistantId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("ai", "assistants", params._pathParam(0), "tags")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
 
         private val listHandler: Handler<TagListResponse> =
             jsonHandler<TagListResponse>(clientOptions.jsonMapper)
@@ -126,13 +92,44 @@ class TagServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val deleteHandler: Handler<TagDeleteResponse> =
-            jsonHandler<TagDeleteResponse>(clientOptions.jsonMapper)
+        private val addHandler: Handler<TagAddResponse> =
+            jsonHandler<TagAddResponse>(clientOptions.jsonMapper)
 
-        override fun delete(
-            params: TagDeleteParams,
+        override fun add(
+            params: TagAddParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<TagDeleteResponse> {
+        ): HttpResponseFor<TagAddResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("assistantId", params.assistantId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("ai", "assistants", params._pathParam(0), "tags")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { addHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val removeHandler: Handler<TagRemoveResponse> =
+            jsonHandler<TagRemoveResponse>(clientOptions.jsonMapper)
+
+        override fun remove(
+            params: TagRemoveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<TagRemoveResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("tag", params.tag().getOrNull())
@@ -154,7 +151,7 @@ class TagServiceImpl internal constructor(private val clientOptions: ClientOptio
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { deleteHandler.handle(it) }
+                    .use { removeHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

@@ -11,7 +11,6 @@ import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationCreateParams
-import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview0Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreviewParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationUpdateParams
 import org.assertj.core.api.Assertions.assertThat
@@ -164,48 +163,6 @@ internal class LoaConfigurationServiceTest {
                     )
                     .logo(
                         LoaConfigurationPreviewParams.Logo.builder()
-                            .documentId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .build()
-                    )
-                    .name("My LOA Configuration")
-                    .build()
-            )
-
-        assertThat(response.body()).hasContent("abc")
-    }
-
-    @Test
-    fun preview0(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            TelnyxOkHttpClient.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .apiKey("My API Key")
-                .build()
-        val loaConfigurationService = client.porting().loaConfigurations()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
-
-        val response =
-            loaConfigurationService.preview0(
-                LoaConfigurationPreview0Params.builder()
-                    .address(
-                        LoaConfigurationPreview0Params.Address.builder()
-                            .city("Austin")
-                            .countryCode("US")
-                            .state("TX")
-                            .streetAddress("600 Congress Avenue")
-                            .zipCode("78701")
-                            .extendedAddress("14th Floor")
-                            .build()
-                    )
-                    .companyName("Telnyx")
-                    .contact(
-                        LoaConfigurationPreview0Params.Contact.builder()
-                            .email("testing@telnyx.com")
-                            .phoneNumber("+12003270001")
-                            .build()
-                    )
-                    .logo(
-                        LoaConfigurationPreview0Params.Logo.builder()
                             .documentId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .build()
                     )

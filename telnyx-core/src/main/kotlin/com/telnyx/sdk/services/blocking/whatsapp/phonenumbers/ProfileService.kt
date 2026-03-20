@@ -10,7 +10,6 @@ import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.ProfileRetrieveParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.ProfileRetrieveResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.ProfileUpdateParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.ProfileUpdateResponse
-import com.telnyx.sdk.services.blocking.whatsapp.phonenumbers.profile.ModelService
 import com.telnyx.sdk.services.blocking.whatsapp.phonenumbers.profile.PhotoService
 import java.util.function.Consumer
 
@@ -31,8 +30,6 @@ interface ProfileService {
 
     /** Manage Whatsapp phone numbers */
     fun photo(): PhotoService
-
-    fun models(): ModelService
 
     /** Get phone number business profile */
     fun retrieve(phoneNumber: String): ProfileRetrieveResponse =
@@ -110,8 +107,6 @@ interface ProfileService {
 
         /** Manage Whatsapp phone numbers */
         fun photo(): PhotoService.WithRawResponse
-
-        fun models(): ModelService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /v2/whatsapp/phone_numbers/{phone_number}/profile`,

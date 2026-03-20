@@ -12,7 +12,6 @@ import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationCreateRes
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationDeleteParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListPage
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListParams
-import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview0Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview1Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreviewParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationRetrieveParams
@@ -157,20 +156,6 @@ interface LoaConfigurationService {
     @MustBeClosed
     fun preview(
         params: LoaConfigurationPreviewParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
-
-    /**
-     * Preview the LOA template that would be generated without need to create LOA configuration.
-     */
-    @MustBeClosed
-    fun preview0(params: LoaConfigurationPreview0Params): HttpResponse =
-        preview0(params, RequestOptions.none())
-
-    /** @see preview0 */
-    @MustBeClosed
-    fun preview0(
-        params: LoaConfigurationPreview0Params,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
@@ -398,21 +383,6 @@ interface LoaConfigurationService {
         @MustBeClosed
         fun preview(
             params: LoaConfigurationPreviewParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /**
-         * Returns a raw HTTP response for `post /porting/loa_configurations/preview`, but is
-         * otherwise the same as [LoaConfigurationService.preview0].
-         */
-        @MustBeClosed
-        fun preview0(params: LoaConfigurationPreview0Params): HttpResponse =
-            preview0(params, RequestOptions.none())
-
-        /** @see preview0 */
-        @MustBeClosed
-        fun preview0(
-            params: LoaConfigurationPreview0Params,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 

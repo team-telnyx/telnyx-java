@@ -15,10 +15,10 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreatePaymentQuoteParams
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreatePaymentQuoteResponse
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettlePaymentParams
-import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettlePaymentResponse
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteParams
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountCreateQuoteResponse
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettleParams
+import com.telnyx.sdk.models.x402.creditaccount.CreditAccountSettleResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -38,19 +38,19 @@ class CreditAccountServiceAsyncImpl internal constructor(private val clientOptio
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CreditAccountServiceAsync =
         CreditAccountServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun createPaymentQuote(
-        params: CreditAccountCreatePaymentQuoteParams,
+    override fun createQuote(
+        params: CreditAccountCreateQuoteParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CreditAccountCreatePaymentQuoteResponse> =
+    ): CompletableFuture<CreditAccountCreateQuoteResponse> =
         // post /v2/x402/credit_account/quote
-        withRawResponse().createPaymentQuote(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().createQuote(params, requestOptions).thenApply { it.parse() }
 
-    override fun settlePayment(
-        params: CreditAccountSettlePaymentParams,
+    override fun settle(
+        params: CreditAccountSettleParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CreditAccountSettlePaymentResponse> =
+    ): CompletableFuture<CreditAccountSettleResponse> =
         // post /v2/x402/credit_account
-        withRawResponse().settlePayment(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().settle(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CreditAccountServiceAsync.WithRawResponse {
@@ -65,13 +65,13 @@ class CreditAccountServiceAsyncImpl internal constructor(private val clientOptio
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createPaymentQuoteHandler: Handler<CreditAccountCreatePaymentQuoteResponse> =
-            jsonHandler<CreditAccountCreatePaymentQuoteResponse>(clientOptions.jsonMapper)
+        private val createQuoteHandler: Handler<CreditAccountCreateQuoteResponse> =
+            jsonHandler<CreditAccountCreateQuoteResponse>(clientOptions.jsonMapper)
 
-        override fun createPaymentQuote(
-            params: CreditAccountCreatePaymentQuoteParams,
+        override fun createQuote(
+            params: CreditAccountCreateQuoteParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CreditAccountCreatePaymentQuoteResponse>> {
+        ): CompletableFuture<HttpResponseFor<CreditAccountCreateQuoteResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -86,7 +86,7 @@ class CreditAccountServiceAsyncImpl internal constructor(private val clientOptio
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { createPaymentQuoteHandler.handle(it) }
+                            .use { createQuoteHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -96,13 +96,13 @@ class CreditAccountServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val settlePaymentHandler: Handler<CreditAccountSettlePaymentResponse> =
-            jsonHandler<CreditAccountSettlePaymentResponse>(clientOptions.jsonMapper)
+        private val settleHandler: Handler<CreditAccountSettleResponse> =
+            jsonHandler<CreditAccountSettleResponse>(clientOptions.jsonMapper)
 
-        override fun settlePayment(
-            params: CreditAccountSettlePaymentParams,
+        override fun settle(
+            params: CreditAccountSettleParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CreditAccountSettlePaymentResponse>> {
+        ): CompletableFuture<HttpResponseFor<CreditAccountSettleResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -117,7 +117,7 @@ class CreditAccountServiceAsyncImpl internal constructor(private val clientOptio
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { settlePaymentHandler.handle(it) }
+                            .use { settleHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

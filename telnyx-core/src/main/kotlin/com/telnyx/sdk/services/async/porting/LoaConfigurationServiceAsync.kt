@@ -11,7 +11,6 @@ import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationCreateRes
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationDeleteParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListPageAsync
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationListParams
-import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview0Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreview1Params
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationPreviewParams
 import com.telnyx.sdk.models.porting.loaconfigurations.LoaConfigurationRetrieveParams
@@ -168,18 +167,6 @@ interface LoaConfigurationServiceAsync {
     /** @see preview */
     fun preview(
         params: LoaConfigurationPreviewParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse>
-
-    /**
-     * Preview the LOA template that would be generated without need to create LOA configuration.
-     */
-    fun preview0(params: LoaConfigurationPreview0Params): CompletableFuture<HttpResponse> =
-        preview0(params, RequestOptions.none())
-
-    /** @see preview0 */
-    fun preview0(
-        params: LoaConfigurationPreview0Params,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<HttpResponse>
 
@@ -387,19 +374,6 @@ interface LoaConfigurationServiceAsync {
         /** @see preview */
         fun preview(
             params: LoaConfigurationPreviewParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /**
-         * Returns a raw HTTP response for `post /porting/loa_configurations/preview`, but is
-         * otherwise the same as [LoaConfigurationServiceAsync.preview0].
-         */
-        fun preview0(params: LoaConfigurationPreview0Params): CompletableFuture<HttpResponse> =
-            preview0(params, RequestOptions.none())
-
-        /** @see preview0 */
-        fun preview0(
-            params: LoaConfigurationPreview0Params,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 

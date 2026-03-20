@@ -17,7 +17,7 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberCreateVerificationParams
+import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberInitializeVerificationParams
 import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberListPageAsync
 import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberListPageResponse
 import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberListParams
@@ -44,12 +44,12 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
         // get /v2/whatsapp/business_accounts/{id}/phone_numbers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
-    override fun createVerification(
-        params: PhoneNumberCreateVerificationParams,
+    override fun initializeVerification(
+        params: PhoneNumberInitializeVerificationParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // post /v2/whatsapp/business_accounts/{id}/phone_numbers
-        withRawResponse().createVerification(params, requestOptions).thenAccept {}
+        withRawResponse().initializeVerification(params, requestOptions).thenAccept {}
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         PhoneNumberServiceAsync.WithRawResponse {
@@ -111,10 +111,10 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val createVerificationHandler: Handler<Void?> = emptyHandler()
+        private val initializeVerificationHandler: Handler<Void?> = emptyHandler()
 
-        override fun createVerification(
-            params: PhoneNumberCreateVerificationParams,
+        override fun initializeVerification(
+            params: PhoneNumberInitializeVerificationParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
@@ -139,7 +139,7 @@ class PhoneNumberServiceAsyncImpl internal constructor(private val clientOptions
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response.use { createVerificationHandler.handle(it) }
+                        response.use { initializeVerificationHandler.handle(it) }
                     }
                 }
         }

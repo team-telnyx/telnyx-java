@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
@@ -18,6 +19,7 @@ import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Creates a new voice design (version 1) when `voice_design_id` is omitted. When `voice_design_id`
@@ -73,6 +75,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun name(): Optional<String> = body.name()
+
+    /**
+     * Voice synthesis provider. `telnyx` uses the Qwen3TTS model; `minimax` uses the Minimax speech
+     * models. Case-insensitive. Defaults to `telnyx`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun provider(): Optional<Provider> = body.provider()
 
     /**
      * Repetition penalty to reduce repeated patterns in generated audio. Default: 1.05.
@@ -151,6 +162,13 @@ private constructor(
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _name(): JsonField<String> = body._name()
+
+    /**
+     * Returns the raw JSON value of [provider].
+     *
+     * Unlike [provider], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _provider(): JsonField<Provider> = body._provider()
 
     /**
      * Returns the raw JSON value of [repetitionPenalty].
@@ -304,6 +322,21 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
+
+        /**
+         * Voice synthesis provider. `telnyx` uses the Qwen3TTS model; `minimax` uses the Minimax
+         * speech models. Case-insensitive. Defaults to `telnyx`.
+         */
+        fun provider(provider: Provider) = apply { body.provider(provider) }
+
+        /**
+         * Sets [Builder.provider] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.provider] with a well-typed [Provider] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun provider(provider: JsonField<Provider>) = apply { body.provider(provider) }
 
         /** Repetition penalty to reduce repeated patterns in generated audio. Default: 1.05. */
         fun repetitionPenalty(repetitionPenalty: Float) = apply {
@@ -537,6 +570,7 @@ private constructor(
         private val language: JsonField<String>,
         private val maxNewTokens: JsonField<Long>,
         private val name: JsonField<String>,
+        private val provider: JsonField<Provider>,
         private val repetitionPenalty: JsonField<Float>,
         private val temperature: JsonField<Float>,
         private val topK: JsonField<Long>,
@@ -556,6 +590,9 @@ private constructor(
             @ExcludeMissing
             maxNewTokens: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("provider")
+            @ExcludeMissing
+            provider: JsonField<Provider> = JsonMissing.of(),
             @JsonProperty("repetition_penalty")
             @ExcludeMissing
             repetitionPenalty: JsonField<Float> = JsonMissing.of(),
@@ -573,6 +610,7 @@ private constructor(
             language,
             maxNewTokens,
             name,
+            provider,
             repetitionPenalty,
             temperature,
             topK,
@@ -623,6 +661,15 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun name(): Optional<String> = name.getOptional("name")
+
+        /**
+         * Voice synthesis provider. `telnyx` uses the Qwen3TTS model; `minimax` uses the Minimax
+         * speech models. Case-insensitive. Defaults to `telnyx`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun provider(): Optional<Provider> = provider.getOptional("provider")
 
         /**
          * Repetition penalty to reduce repeated patterns in generated audio. Default: 1.05.
@@ -708,6 +755,13 @@ private constructor(
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         /**
+         * Returns the raw JSON value of [provider].
+         *
+         * Unlike [provider], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("provider") @ExcludeMissing fun _provider(): JsonField<Provider> = provider
+
+        /**
          * Returns the raw JSON value of [repetitionPenalty].
          *
          * Unlike [repetitionPenalty], this method doesn't throw if the JSON field has an unexpected
@@ -784,6 +838,7 @@ private constructor(
             private var language: JsonField<String> = JsonMissing.of()
             private var maxNewTokens: JsonField<Long> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
+            private var provider: JsonField<Provider> = JsonMissing.of()
             private var repetitionPenalty: JsonField<Float> = JsonMissing.of()
             private var temperature: JsonField<Float> = JsonMissing.of()
             private var topK: JsonField<Long> = JsonMissing.of()
@@ -798,6 +853,7 @@ private constructor(
                 language = body.language
                 maxNewTokens = body.maxNewTokens
                 name = body.name
+                provider = body.provider
                 repetitionPenalty = body.repetitionPenalty
                 temperature = body.temperature
                 topK = body.topK
@@ -876,6 +932,21 @@ private constructor(
              * value.
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
+
+            /**
+             * Voice synthesis provider. `telnyx` uses the Qwen3TTS model; `minimax` uses the
+             * Minimax speech models. Case-insensitive. Defaults to `telnyx`.
+             */
+            fun provider(provider: Provider) = provider(JsonField.of(provider))
+
+            /**
+             * Sets [Builder.provider] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.provider] with a well-typed [Provider] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun provider(provider: JsonField<Provider>) = apply { this.provider = provider }
 
             /** Repetition penalty to reduce repeated patterns in generated audio. Default: 1.05. */
             fun repetitionPenalty(repetitionPenalty: Float) =
@@ -995,6 +1066,7 @@ private constructor(
                     language,
                     maxNewTokens,
                     name,
+                    provider,
                     repetitionPenalty,
                     temperature,
                     topK,
@@ -1016,6 +1088,7 @@ private constructor(
             language()
             maxNewTokens()
             name()
+            provider().ifPresent { it.validate() }
             repetitionPenalty()
             temperature()
             topK()
@@ -1045,6 +1118,7 @@ private constructor(
                 (if (language.asKnown().isPresent) 1 else 0) +
                 (if (maxNewTokens.asKnown().isPresent) 1 else 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
+                (provider.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (repetitionPenalty.asKnown().isPresent) 1 else 0) +
                 (if (temperature.asKnown().isPresent) 1 else 0) +
                 (if (topK.asKnown().isPresent) 1 else 0) +
@@ -1062,6 +1136,7 @@ private constructor(
                 language == other.language &&
                 maxNewTokens == other.maxNewTokens &&
                 name == other.name &&
+                provider == other.provider &&
                 repetitionPenalty == other.repetitionPenalty &&
                 temperature == other.temperature &&
                 topK == other.topK &&
@@ -1077,6 +1152,7 @@ private constructor(
                 language,
                 maxNewTokens,
                 name,
+                provider,
                 repetitionPenalty,
                 temperature,
                 topK,
@@ -1089,7 +1165,148 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{prompt=$prompt, text=$text, language=$language, maxNewTokens=$maxNewTokens, name=$name, repetitionPenalty=$repetitionPenalty, temperature=$temperature, topK=$topK, topP=$topP, voiceDesignId=$voiceDesignId, additionalProperties=$additionalProperties}"
+            "Body{prompt=$prompt, text=$text, language=$language, maxNewTokens=$maxNewTokens, name=$name, provider=$provider, repetitionPenalty=$repetitionPenalty, temperature=$temperature, topK=$topK, topP=$topP, voiceDesignId=$voiceDesignId, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Voice synthesis provider. `telnyx` uses the Qwen3TTS model; `minimax` uses the Minimax speech
+     * models. Case-insensitive. Defaults to `telnyx`.
+     */
+    class Provider @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val TELNYX = of("telnyx")
+
+            @JvmField val MINIMAX = of("minimax")
+
+            @JvmField val TELNYX = of("Telnyx")
+
+            @JvmField val MINIMAX = of("Minimax")
+
+            @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
+        }
+
+        /** An enum containing [Provider]'s known values. */
+        enum class Known {
+            TELNYX,
+            MINIMAX,
+            TELNYX,
+            MINIMAX,
+        }
+
+        /**
+         * An enum containing [Provider]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Provider] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            TELNYX,
+            MINIMAX,
+            TELNYX,
+            MINIMAX,
+            /** An enum member indicating that [Provider] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                TELNYX -> Value.TELNYX
+                MINIMAX -> Value.MINIMAX
+                TELNYX -> Value.TELNYX
+                MINIMAX -> Value.MINIMAX
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                TELNYX -> Known.TELNYX
+                MINIMAX -> Known.MINIMAX
+                TELNYX -> Known.TELNYX
+                MINIMAX -> Known.MINIMAX
+                else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): Provider = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Provider && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {

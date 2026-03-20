@@ -17,6 +17,7 @@ import kotlin.jvm.optionals.getOrNull
 class VoiceCloneListParams
 private constructor(
     private val filterName: String?,
+    private val filterProvider: FilterProvider?,
     private val pageNumber: Long?,
     private val pageSize: Long?,
     private val sort: Sort?,
@@ -26,6 +27,9 @@ private constructor(
 
     /** Case-insensitive substring filter on the name field. */
     fun filterName(): Optional<String> = Optional.ofNullable(filterName)
+
+    /** Filter by voice synthesis provider. Case-insensitive. */
+    fun filterProvider(): Optional<FilterProvider> = Optional.ofNullable(filterProvider)
 
     /** Page number for pagination (1-based). */
     fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
@@ -56,6 +60,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var filterName: String? = null
+        private var filterProvider: FilterProvider? = null
         private var pageNumber: Long? = null
         private var pageSize: Long? = null
         private var sort: Sort? = null
@@ -65,6 +70,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(voiceCloneListParams: VoiceCloneListParams) = apply {
             filterName = voiceCloneListParams.filterName
+            filterProvider = voiceCloneListParams.filterProvider
             pageNumber = voiceCloneListParams.pageNumber
             pageSize = voiceCloneListParams.pageSize
             sort = voiceCloneListParams.sort
@@ -77,6 +83,15 @@ private constructor(
 
         /** Alias for calling [Builder.filterName] with `filterName.orElse(null)`. */
         fun filterName(filterName: Optional<String>) = filterName(filterName.getOrNull())
+
+        /** Filter by voice synthesis provider. Case-insensitive. */
+        fun filterProvider(filterProvider: FilterProvider?) = apply {
+            this.filterProvider = filterProvider
+        }
+
+        /** Alias for calling [Builder.filterProvider] with `filterProvider.orElse(null)`. */
+        fun filterProvider(filterProvider: Optional<FilterProvider>) =
+            filterProvider(filterProvider.getOrNull())
 
         /** Page number for pagination (1-based). */
         fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
@@ -216,6 +231,7 @@ private constructor(
         fun build(): VoiceCloneListParams =
             VoiceCloneListParams(
                 filterName,
+                filterProvider,
                 pageNumber,
                 pageSize,
                 sort,
@@ -230,12 +246,155 @@ private constructor(
         QueryParams.builder()
             .apply {
                 filterName?.let { put("filter[name]", it) }
+                filterProvider?.let { put("filter[provider]", it.toString()) }
                 pageNumber?.let { put("page[number]", it.toString()) }
                 pageSize?.let { put("page[size]", it.toString()) }
                 sort?.let { put("sort", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()
+
+    /** Filter by voice synthesis provider. Case-insensitive. */
+    class FilterProvider @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val TELNYX = of("telnyx")
+
+            @JvmField val MINIMAX = of("minimax")
+
+            @JvmField val TELNYX = of("Telnyx")
+
+            @JvmField val MINIMAX = of("Minimax")
+
+            @JvmStatic fun of(value: String) = FilterProvider(JsonField.of(value))
+        }
+
+        /** An enum containing [FilterProvider]'s known values. */
+        enum class Known {
+            TELNYX,
+            MINIMAX,
+            TELNYX,
+            MINIMAX,
+        }
+
+        /**
+         * An enum containing [FilterProvider]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [FilterProvider] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            TELNYX,
+            MINIMAX,
+            TELNYX,
+            MINIMAX,
+            /**
+             * An enum member indicating that [FilterProvider] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                TELNYX -> Value.TELNYX
+                MINIMAX -> Value.MINIMAX
+                TELNYX -> Value.TELNYX
+                MINIMAX -> Value.MINIMAX
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                TELNYX -> Known.TELNYX
+                MINIMAX -> Known.MINIMAX
+                TELNYX -> Known.TELNYX
+                MINIMAX -> Known.MINIMAX
+                else -> throw TelnyxInvalidDataException("Unknown FilterProvider: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): FilterProvider = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is FilterProvider && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
 
     /** Sort order. Prefix with `-` for descending. Defaults to `-created_at`. */
     class Sort @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -382,6 +541,7 @@ private constructor(
 
         return other is VoiceCloneListParams &&
             filterName == other.filterName &&
+            filterProvider == other.filterProvider &&
             pageNumber == other.pageNumber &&
             pageSize == other.pageSize &&
             sort == other.sort &&
@@ -392,6 +552,7 @@ private constructor(
     override fun hashCode(): Int =
         Objects.hash(
             filterName,
+            filterProvider,
             pageNumber,
             pageSize,
             sort,
@@ -400,5 +561,5 @@ private constructor(
         )
 
     override fun toString() =
-        "VoiceCloneListParams{filterName=$filterName, pageNumber=$pageNumber, pageSize=$pageSize, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "VoiceCloneListParams{filterName=$filterName, filterProvider=$filterProvider, pageNumber=$pageNumber, pageSize=$pageSize, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

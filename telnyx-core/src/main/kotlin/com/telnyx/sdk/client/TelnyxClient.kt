@@ -154,6 +154,7 @@ import com.telnyx.sdk.services.blocking.VoiceDesignService
 import com.telnyx.sdk.services.blocking.WebhookDeliveryService
 import com.telnyx.sdk.services.blocking.WebhookService
 import com.telnyx.sdk.services.blocking.WellKnownService
+import com.telnyx.sdk.services.blocking.WhatsappMessageTemplateService
 import com.telnyx.sdk.services.blocking.WhatsappService
 import com.telnyx.sdk.services.blocking.WireguardInterfaceService
 import com.telnyx.sdk.services.blocking.WireguardPeerService
@@ -640,10 +641,10 @@ interface TelnyxClient {
     /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
     fun sessionAnalysis(): SessionAnalysisService
 
-    /** Traffic Policy Profiles operations */
-    fun trafficPolicyProfiles(): TrafficPolicyProfileService
-
     fun whatsapp(): WhatsappService
+
+    /** Manage Whatsapp message templates */
+    fun whatsappMessageTemplates(): WhatsappMessageTemplateService
 
     fun x402(): X402Service
 
@@ -652,6 +653,9 @@ interface TelnyxClient {
 
     /** Create and manage AI-generated voice designs using natural language prompts. */
     fun voiceDesigns(): VoiceDesignService
+
+    /** Traffic Policy Profiles operations */
+    fun trafficPolicyProfiles(): TrafficPolicyProfileService
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -1118,10 +1122,10 @@ interface TelnyxClient {
         /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
         fun sessionAnalysis(): SessionAnalysisService.WithRawResponse
 
-        /** Traffic Policy Profiles operations */
-        fun trafficPolicyProfiles(): TrafficPolicyProfileService.WithRawResponse
-
         fun whatsapp(): WhatsappService.WithRawResponse
+
+        /** Manage Whatsapp message templates */
+        fun whatsappMessageTemplates(): WhatsappMessageTemplateService.WithRawResponse
 
         fun x402(): X402Service.WithRawResponse
 
@@ -1130,5 +1134,8 @@ interface TelnyxClient {
 
         /** Create and manage AI-generated voice designs using natural language prompts. */
         fun voiceDesigns(): VoiceDesignService.WithRawResponse
+
+        /** Traffic Policy Profiles operations */
+        fun trafficPolicyProfiles(): TrafficPolicyProfileService.WithRawResponse
     }
 }
