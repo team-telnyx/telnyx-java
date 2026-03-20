@@ -306,6 +306,8 @@ import com.telnyx.sdk.services.async.WebhookServiceAsync
 import com.telnyx.sdk.services.async.WebhookServiceAsyncImpl
 import com.telnyx.sdk.services.async.WellKnownServiceAsync
 import com.telnyx.sdk.services.async.WellKnownServiceAsyncImpl
+import com.telnyx.sdk.services.async.WhatsappMessageTemplateServiceAsync
+import com.telnyx.sdk.services.async.WhatsappMessageTemplateServiceAsyncImpl
 import com.telnyx.sdk.services.async.WhatsappServiceAsync
 import com.telnyx.sdk.services.async.WhatsappServiceAsyncImpl
 import com.telnyx.sdk.services.async.WireguardInterfaceServiceAsync
@@ -936,12 +938,12 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         SessionAnalysisServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val trafficPolicyProfiles: TrafficPolicyProfileServiceAsync by lazy {
-        TrafficPolicyProfileServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val whatsapp: WhatsappServiceAsync by lazy {
         WhatsappServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val whatsappMessageTemplates: WhatsappMessageTemplateServiceAsync by lazy {
+        WhatsappMessageTemplateServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     private val x402: X402ServiceAsync by lazy { X402ServiceAsyncImpl(clientOptionsWithUserAgent) }
@@ -952,6 +954,10 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     private val voiceDesigns: VoiceDesignServiceAsync by lazy {
         VoiceDesignServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val trafficPolicyProfiles: TrafficPolicyProfileServiceAsync by lazy {
+        TrafficPolicyProfileServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     override fun sync(): TelnyxClient = sync
@@ -1430,10 +1436,11 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
     /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
     override fun sessionAnalysis(): SessionAnalysisServiceAsync = sessionAnalysis
 
-    /** Traffic Policy Profiles operations */
-    override fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync = trafficPolicyProfiles
-
     override fun whatsapp(): WhatsappServiceAsync = whatsapp
+
+    /** Manage Whatsapp message templates */
+    override fun whatsappMessageTemplates(): WhatsappMessageTemplateServiceAsync =
+        whatsappMessageTemplates
 
     override fun x402(): X402ServiceAsync = x402
 
@@ -1442,6 +1449,9 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     /** Create and manage AI-generated voice designs using natural language prompts. */
     override fun voiceDesigns(): VoiceDesignServiceAsync = voiceDesigns
+
+    /** Traffic Policy Profiles operations */
+    override fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync = trafficPolicyProfiles
 
     override fun close() = clientOptions.close()
 
@@ -2095,13 +2105,13 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             SessionAnalysisServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val trafficPolicyProfiles:
-            TrafficPolicyProfileServiceAsync.WithRawResponse by lazy {
-            TrafficPolicyProfileServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val whatsapp: WhatsappServiceAsync.WithRawResponse by lazy {
             WhatsappServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val whatsappMessageTemplates:
+            WhatsappMessageTemplateServiceAsync.WithRawResponse by lazy {
+            WhatsappMessageTemplateServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val x402: X402ServiceAsync.WithRawResponse by lazy {
@@ -2114,6 +2124,11 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         private val voiceDesigns: VoiceDesignServiceAsync.WithRawResponse by lazy {
             VoiceDesignServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val trafficPolicyProfiles:
+            TrafficPolicyProfileServiceAsync.WithRawResponse by lazy {
+            TrafficPolicyProfileServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -2641,11 +2656,11 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         override fun sessionAnalysis(): SessionAnalysisServiceAsync.WithRawResponse =
             sessionAnalysis
 
-        /** Traffic Policy Profiles operations */
-        override fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync.WithRawResponse =
-            trafficPolicyProfiles
-
         override fun whatsapp(): WhatsappServiceAsync.WithRawResponse = whatsapp
+
+        /** Manage Whatsapp message templates */
+        override fun whatsappMessageTemplates():
+            WhatsappMessageTemplateServiceAsync.WithRawResponse = whatsappMessageTemplates
 
         override fun x402(): X402ServiceAsync.WithRawResponse = x402
 
@@ -2654,5 +2669,9 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
         /** Create and manage AI-generated voice designs using natural language prompts. */
         override fun voiceDesigns(): VoiceDesignServiceAsync.WithRawResponse = voiceDesigns
+
+        /** Traffic Policy Profiles operations */
+        override fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync.WithRawResponse =
+            trafficPolicyProfiles
     }
 }

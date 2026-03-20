@@ -25,10 +25,10 @@ import com.telnyx.sdk.models.voicedesigns.VoiceDesignDownloadSampleParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignListPageAsync
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignListPageResponse
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignListParams
+import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameParams
+import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameResponse
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveResponse
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignUpdateParams
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -60,13 +60,6 @@ class VoiceDesignServiceAsyncImpl internal constructor(private val clientOptions
         // get /voice_designs/{id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
-    override fun update(
-        params: VoiceDesignUpdateParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<VoiceDesignUpdateResponse> =
-        // patch /voice_designs/{id}
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
-
     override fun list(
         params: VoiceDesignListParams,
         requestOptions: RequestOptions,
@@ -94,6 +87,13 @@ class VoiceDesignServiceAsyncImpl internal constructor(private val clientOptions
     ): CompletableFuture<HttpResponse> =
         // get /voice_designs/{id}/sample
         withRawResponse().downloadSample(params, requestOptions)
+
+    override fun rename(
+        params: VoiceDesignRenameParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<VoiceDesignRenameResponse> =
+        // patch /voice_designs/{id}
+        withRawResponse().rename(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         VoiceDesignServiceAsync.WithRawResponse {
@@ -163,40 +163,6 @@ class VoiceDesignServiceAsyncImpl internal constructor(private val clientOptions
                     errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val updateHandler: Handler<VoiceDesignUpdateResponse> =
-            jsonHandler<VoiceDesignUpdateResponse>(clientOptions.jsonMapper)
-
-        override fun update(
-            params: VoiceDesignUpdateParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VoiceDesignUpdateResponse>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("voice_designs", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { updateHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -322,6 +288,40 @@ class VoiceDesignServiceAsyncImpl internal constructor(private val clientOptions
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response -> errorHandler.handle(response) }
+        }
+
+        private val renameHandler: Handler<VoiceDesignRenameResponse> =
+            jsonHandler<VoiceDesignRenameResponse>(clientOptions.jsonMapper)
+
+        override fun rename(
+            params: VoiceDesignRenameParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<VoiceDesignRenameResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("voice_designs", params._pathParam(0))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { renameHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
         }
     }
 }

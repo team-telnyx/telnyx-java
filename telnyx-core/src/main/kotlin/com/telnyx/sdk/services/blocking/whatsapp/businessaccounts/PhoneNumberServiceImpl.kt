@@ -17,7 +17,7 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberCreateVerificationParams
+import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberInitializeVerificationParams
 import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberListPage
 import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberListPageResponse
 import com.telnyx.sdk.models.whatsapp.businessaccounts.phonenumbers.PhoneNumberListParams
@@ -43,12 +43,12 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
         // get /v2/whatsapp/business_accounts/{id}/phone_numbers
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun createVerification(
-        params: PhoneNumberCreateVerificationParams,
+    override fun initializeVerification(
+        params: PhoneNumberInitializeVerificationParams,
         requestOptions: RequestOptions,
     ) {
         // post /v2/whatsapp/business_accounts/{id}/phone_numbers
-        withRawResponse().createVerification(params, requestOptions)
+        withRawResponse().initializeVerification(params, requestOptions)
     }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -107,10 +107,10 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val createVerificationHandler: Handler<Void?> = emptyHandler()
+        private val initializeVerificationHandler: Handler<Void?> = emptyHandler()
 
-        override fun createVerification(
-            params: PhoneNumberCreateVerificationParams,
+        override fun initializeVerification(
+            params: PhoneNumberInitializeVerificationParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
@@ -133,7 +133,7 @@ class PhoneNumberServiceImpl internal constructor(private val clientOptions: Cli
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { createVerificationHandler.handle(it) }
+                response.use { initializeVerificationHandler.handle(it) }
             }
         }
     }

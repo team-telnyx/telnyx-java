@@ -17,6 +17,7 @@ internal class VoiceCloneCreateFromUploadParamsTest {
             .name("name")
             .gender(VoiceCloneCreateFromUploadParams.Gender.MALE)
             .label("label")
+            .provider(VoiceCloneCreateFromUploadParams.Provider.TELNYX)
             .refText("ref_text")
             .build()
     }
@@ -30,6 +31,7 @@ internal class VoiceCloneCreateFromUploadParamsTest {
                 .name("name")
                 .gender(VoiceCloneCreateFromUploadParams.Gender.MALE)
                 .label("label")
+                .provider(VoiceCloneCreateFromUploadParams.Provider.TELNYX)
                 .refText("ref_text")
                 .build()
 
@@ -50,6 +52,8 @@ internal class VoiceCloneCreateFromUploadParamsTest {
                         "name" to MultipartField.of("name"),
                         "gender" to MultipartField.of(VoiceCloneCreateFromUploadParams.Gender.MALE),
                         "label" to MultipartField.of("label"),
+                        "provider" to
+                            MultipartField.of(VoiceCloneCreateFromUploadParams.Provider.TELNYX),
                         "ref_text" to MultipartField.of("ref_text"),
                     )
                     .mapValues { (_, field) ->

@@ -22,7 +22,7 @@ import kotlin.jvm.optionals.getOrNull
 class TrafficPolicyProfileListPageResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val data: JsonField<List<TrafficPolicyProfile>>,
+    private val data: JsonField<List<TrafficPolicyProfileListResponse>>,
     private val meta: JsonField<PaginationMeta>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("data")
         @ExcludeMissing
-        data: JsonField<List<TrafficPolicyProfile>> = JsonMissing.of(),
+        data: JsonField<List<TrafficPolicyProfileListResponse>> = JsonMissing.of(),
         @JsonProperty("meta") @ExcludeMissing meta: JsonField<PaginationMeta> = JsonMissing.of(),
     ) : this(data, meta, mutableMapOf())
 
@@ -39,7 +39,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun data(): Optional<List<TrafficPolicyProfile>> = data.getOptional("data")
+    fun data(): Optional<List<TrafficPolicyProfileListResponse>> = data.getOptional("data")
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -52,7 +52,9 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<List<TrafficPolicyProfile>> = data
+    @JsonProperty("data")
+    @ExcludeMissing
+    fun _data(): JsonField<List<TrafficPolicyProfileListResponse>> = data
 
     /**
      * Returns the raw JSON value of [meta].
@@ -85,7 +87,7 @@ private constructor(
     /** A builder for [TrafficPolicyProfileListPageResponse]. */
     class Builder internal constructor() {
 
-        private var data: JsonField<MutableList<TrafficPolicyProfile>>? = null
+        private var data: JsonField<MutableList<TrafficPolicyProfileListResponse>>? = null
         private var meta: JsonField<PaginationMeta> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -99,25 +101,25 @@ private constructor(
                 trafficPolicyProfileListPageResponse.additionalProperties.toMutableMap()
         }
 
-        fun data(data: List<TrafficPolicyProfile>) = data(JsonField.of(data))
+        fun data(data: List<TrafficPolicyProfileListResponse>) = data(JsonField.of(data))
 
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed `List<TrafficPolicyProfile>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.data] with a well-typed
+         * `List<TrafficPolicyProfileListResponse>` value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
          */
-        fun data(data: JsonField<List<TrafficPolicyProfile>>) = apply {
+        fun data(data: JsonField<List<TrafficPolicyProfileListResponse>>) = apply {
             this.data = data.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [TrafficPolicyProfile] to [Builder.data].
+         * Adds a single [TrafficPolicyProfileListResponse] to [Builder.data].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addData(data: TrafficPolicyProfile) = apply {
+        fun addData(data: TrafficPolicyProfileListResponse) = apply {
             this.data =
                 (this.data ?: JsonField.of(mutableListOf())).also {
                     checkKnown("data", it).add(data)

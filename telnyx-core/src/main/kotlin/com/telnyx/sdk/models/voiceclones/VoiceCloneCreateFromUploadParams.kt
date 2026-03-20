@@ -38,7 +38,8 @@ private constructor(
 
     /**
      * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A. For best
-     * quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 2MB.
+     * quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 5MB for Telnyx,
+     * 20MB for Minimax.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -77,6 +78,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun label(): Optional<String> = body.label()
+
+    /**
+     * Voice synthesis provider. Case-insensitive. Defaults to `telnyx`.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun provider(): Optional<Provider> = body.provider()
 
     /**
      * Optional transcript of the audio file. Providing this improves clone quality.
@@ -120,6 +129,13 @@ private constructor(
      * Unlike [label], this method doesn't throw if the multipart field has an unexpected type.
      */
     fun _label(): MultipartField<String> = body._label()
+
+    /**
+     * Returns the raw multipart value of [provider].
+     *
+     * Unlike [provider], this method doesn't throw if the multipart field has an unexpected type.
+     */
+    fun _provider(): MultipartField<Provider> = body._provider()
 
     /**
      * Returns the raw multipart value of [refText].
@@ -186,7 +202,8 @@ private constructor(
 
         /**
          * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A. For best
-         * quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 2MB.
+         * quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 5MB for
+         * Telnyx, 20MB for Minimax.
          */
         fun audioFile(audioFile: InputStream) = apply { body.audioFile(audioFile) }
 
@@ -201,13 +218,15 @@ private constructor(
 
         /**
          * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A. For best
-         * quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 2MB.
+         * quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 5MB for
+         * Telnyx, 20MB for Minimax.
          */
         fun audioFile(audioFile: ByteArray) = apply { body.audioFile(audioFile) }
 
         /**
          * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A. For best
-         * quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 2MB.
+         * quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 5MB for
+         * Telnyx, 20MB for Minimax.
          */
         fun audioFile(path: Path) = apply { body.audioFile(path) }
 
@@ -257,6 +276,18 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun label(label: MultipartField<String>) = apply { body.label(label) }
+
+        /** Voice synthesis provider. Case-insensitive. Defaults to `telnyx`. */
+        fun provider(provider: Provider) = apply { body.provider(provider) }
+
+        /**
+         * Sets [Builder.provider] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.provider] with a well-typed [Provider] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun provider(provider: MultipartField<Provider>) = apply { body.provider(provider) }
 
         /** Optional transcript of the audio file. Providing this improves clone quality. */
         fun refText(refText: String) = apply { body.refText(refText) }
@@ -415,6 +446,7 @@ private constructor(
                 "name" to _name(),
                 "gender" to _gender(),
                 "label" to _label(),
+                "provider" to _provider(),
                 "ref_text" to _refText(),
             ) + _additionalBodyProperties().mapValues { (_, value) -> MultipartField.of(value) })
             .toImmutable()
@@ -431,13 +463,15 @@ private constructor(
         private val name: MultipartField<String>,
         private val gender: MultipartField<Gender>,
         private val label: MultipartField<String>,
+        private val provider: MultipartField<Provider>,
         private val refText: MultipartField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         /**
          * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A. For best
-         * quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 2MB.
+         * quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 5MB for
+         * Telnyx, 20MB for Minimax.
          *
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -476,6 +510,14 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun label(): Optional<String> = label.value.getOptional("label")
+
+        /**
+         * Voice synthesis provider. Case-insensitive. Defaults to `telnyx`.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun provider(): Optional<Provider> = provider.value.getOptional("provider")
 
         /**
          * Optional transcript of the audio file. Providing this improves clone quality.
@@ -525,6 +567,16 @@ private constructor(
         @JsonProperty("label") @ExcludeMissing fun _label(): MultipartField<String> = label
 
         /**
+         * Returns the raw multipart value of [provider].
+         *
+         * Unlike [provider], this method doesn't throw if the multipart field has an unexpected
+         * type.
+         */
+        @JsonProperty("provider")
+        @ExcludeMissing
+        fun _provider(): MultipartField<Provider> = provider
+
+        /**
          * Returns the raw multipart value of [refText].
          *
          * Unlike [refText], this method doesn't throw if the multipart field has an unexpected
@@ -567,6 +619,7 @@ private constructor(
             private var name: MultipartField<String>? = null
             private var gender: MultipartField<Gender> = MultipartField.of(null)
             private var label: MultipartField<String> = MultipartField.of(null)
+            private var provider: MultipartField<Provider> = MultipartField.of(null)
             private var refText: MultipartField<String> = MultipartField.of(null)
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -577,13 +630,15 @@ private constructor(
                 name = body.name
                 gender = body.gender
                 label = body.label
+                provider = body.provider
                 refText = body.refText
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /**
              * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A. For
-             * best quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 2MB.
+             * best quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 5MB
+             * for Telnyx, 20MB for Minimax.
              */
             fun audioFile(audioFile: InputStream) = audioFile(MultipartField.of(audioFile))
 
@@ -600,13 +655,15 @@ private constructor(
 
             /**
              * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A. For
-             * best quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 2MB.
+             * best quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 5MB
+             * for Telnyx, 20MB for Minimax.
              */
             fun audioFile(audioFile: ByteArray) = audioFile(audioFile.inputStream())
 
             /**
              * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A. For
-             * best quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 2MB.
+             * best quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum size: 5MB
+             * for Telnyx, 20MB for Minimax.
              */
             fun audioFile(path: Path) =
                 audioFile(
@@ -667,6 +724,18 @@ private constructor(
              */
             fun label(label: MultipartField<String>) = apply { this.label = label }
 
+            /** Voice synthesis provider. Case-insensitive. Defaults to `telnyx`. */
+            fun provider(provider: Provider) = provider(MultipartField.of(provider))
+
+            /**
+             * Sets [Builder.provider] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.provider] with a well-typed [Provider] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun provider(provider: MultipartField<Provider>) = apply { this.provider = provider }
+
             /** Optional transcript of the audio file. Providing this improves clone quality. */
             fun refText(refText: String) = refText(MultipartField.of(refText))
 
@@ -719,6 +788,7 @@ private constructor(
                     checkRequired("name", name),
                     gender,
                     label,
+                    provider,
                     refText,
                     additionalProperties.toMutableMap(),
                 )
@@ -736,6 +806,7 @@ private constructor(
             name()
             gender().ifPresent { it.validate() }
             label()
+            provider().ifPresent { it.validate() }
             refText()
             validated = true
         }
@@ -759,18 +830,28 @@ private constructor(
                 name == other.name &&
                 gender == other.gender &&
                 label == other.label &&
+                provider == other.provider &&
                 refText == other.refText &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(audioFile, language, name, gender, label, refText, additionalProperties)
+            Objects.hash(
+                audioFile,
+                language,
+                name,
+                gender,
+                label,
+                provider,
+                refText,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{audioFile=$audioFile, language=$language, name=$name, gender=$gender, label=$label, refText=$refText, additionalProperties=$additionalProperties}"
+            "Body{audioFile=$audioFile, language=$language, name=$name, gender=$gender, label=$label, provider=$provider, refText=$refText, additionalProperties=$additionalProperties}"
     }
 
     /** Gender of the voice clone. */
@@ -898,6 +979,144 @@ private constructor(
             }
 
             return other is Gender && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** Voice synthesis provider. Case-insensitive. Defaults to `telnyx`. */
+    class Provider @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val TELNYX = of("telnyx")
+
+            @JvmField val MINIMAX = of("minimax")
+
+            @JvmField val TELNYX = of("Telnyx")
+
+            @JvmField val MINIMAX = of("Minimax")
+
+            @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
+        }
+
+        /** An enum containing [Provider]'s known values. */
+        enum class Known {
+            TELNYX,
+            MINIMAX,
+            TELNYX,
+            MINIMAX,
+        }
+
+        /**
+         * An enum containing [Provider]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Provider] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            TELNYX,
+            MINIMAX,
+            TELNYX,
+            MINIMAX,
+            /** An enum member indicating that [Provider] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                TELNYX -> Value.TELNYX
+                MINIMAX -> Value.MINIMAX
+                TELNYX -> Value.TELNYX
+                MINIMAX -> Value.MINIMAX
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                TELNYX -> Known.TELNYX
+                MINIMAX -> Known.MINIMAX
+                TELNYX -> Known.TELNYX
+                MINIMAX -> Known.MINIMAX
+                else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): Provider = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Provider && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

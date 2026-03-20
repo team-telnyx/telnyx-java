@@ -12,8 +12,8 @@ import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignCreateParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignDeleteVersionParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignDownloadSampleParams
+import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveParams
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignUpdateParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -37,6 +37,7 @@ internal class VoiceDesignServiceTest {
                     .language("Auto")
                     .maxNewTokens(100L)
                     .name("friendly-narrator")
+                    .provider(VoiceDesignCreateParams.Provider.TELNYX)
                     .repetitionPenalty(1.0f)
                     .temperature(0.0f)
                     .topK(1L)
@@ -57,20 +58,6 @@ internal class VoiceDesignServiceTest {
         val voiceDesign =
             voiceDesignService.retrieve(
                 VoiceDesignRetrieveParams.builder().id("id").version(1L).build()
-            )
-
-        voiceDesign.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun update() {
-        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
-        val voiceDesignService = client.voiceDesigns()
-
-        val voiceDesign =
-            voiceDesignService.update(
-                VoiceDesignUpdateParams.builder().id("id").name("updated-narrator").build()
             )
 
         voiceDesign.validate()
@@ -123,5 +110,19 @@ internal class VoiceDesignServiceTest {
             )
 
         assertThat(response.body()).hasContent("abc")
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun rename() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val voiceDesignService = client.voiceDesigns()
+
+        val response =
+            voiceDesignService.rename(
+                VoiceDesignRenameParams.builder().id("id").name("updated-narrator").build()
+            )
+
+        response.validate()
     }
 }
