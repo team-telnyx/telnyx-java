@@ -133,7 +133,6 @@ import com.telnyx.sdk.services.async.SimCardOrderPreviewServiceAsync
 import com.telnyx.sdk.services.async.SimCardOrderServiceAsync
 import com.telnyx.sdk.services.async.SimCardServiceAsync
 import com.telnyx.sdk.services.async.SiprecConnectorServiceAsync
-import com.telnyx.sdk.services.async.SpeechToTextServiceAsync
 import com.telnyx.sdk.services.async.StorageServiceAsync
 import com.telnyx.sdk.services.async.SubNumberOrderServiceAsync
 import com.telnyx.sdk.services.async.SubNumberOrdersReportServiceAsync
@@ -141,6 +140,7 @@ import com.telnyx.sdk.services.async.TelephonyCredentialServiceAsync
 import com.telnyx.sdk.services.async.TexmlApplicationServiceAsync
 import com.telnyx.sdk.services.async.TexmlServiceAsync
 import com.telnyx.sdk.services.async.TextToSpeechServiceAsync
+import com.telnyx.sdk.services.async.TrafficPolicyProfileServiceAsync
 import com.telnyx.sdk.services.async.UsageReportServiceAsync
 import com.telnyx.sdk.services.async.UserAddressServiceAsync
 import com.telnyx.sdk.services.async.UserTagServiceAsync
@@ -154,7 +154,6 @@ import com.telnyx.sdk.services.async.VoiceDesignServiceAsync
 import com.telnyx.sdk.services.async.WebhookDeliveryServiceAsync
 import com.telnyx.sdk.services.async.WebhookServiceAsync
 import com.telnyx.sdk.services.async.WellKnownServiceAsync
-import com.telnyx.sdk.services.async.WhatsappMessageTemplateServiceAsync
 import com.telnyx.sdk.services.async.WhatsappServiceAsync
 import com.telnyx.sdk.services.async.WireguardInterfaceServiceAsync
 import com.telnyx.sdk.services.async.WireguardPeerServiceAsync
@@ -641,21 +640,18 @@ interface TelnyxClientAsync {
     /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
     fun sessionAnalysis(): SessionAnalysisServiceAsync
 
+    /** Traffic Policy Profiles operations */
+    fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync
+
     fun whatsapp(): WhatsappServiceAsync
 
-    /** Manage Whatsapp message templates */
-    fun whatsappMessageTemplates(): WhatsappMessageTemplateServiceAsync
+    fun x402(): X402ServiceAsync
 
     /** Capture and manage voice identities as clones for use in text-to-speech synthesis. */
     fun voiceClones(): VoiceCloneServiceAsync
 
     /** Create and manage AI-generated voice designs using natural language prompts. */
     fun voiceDesigns(): VoiceDesignServiceAsync
-
-    fun x402(): X402ServiceAsync
-
-    /** Speech to text command operations */
-    fun speechToText(): SpeechToTextServiceAsync
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -1125,20 +1121,17 @@ interface TelnyxClientAsync {
         /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
         fun sessionAnalysis(): SessionAnalysisServiceAsync.WithRawResponse
 
+        /** Traffic Policy Profiles operations */
+        fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync.WithRawResponse
+
         fun whatsapp(): WhatsappServiceAsync.WithRawResponse
 
-        /** Manage Whatsapp message templates */
-        fun whatsappMessageTemplates(): WhatsappMessageTemplateServiceAsync.WithRawResponse
+        fun x402(): X402ServiceAsync.WithRawResponse
 
         /** Capture and manage voice identities as clones for use in text-to-speech synthesis. */
         fun voiceClones(): VoiceCloneServiceAsync.WithRawResponse
 
         /** Create and manage AI-generated voice designs using natural language prompts. */
         fun voiceDesigns(): VoiceDesignServiceAsync.WithRawResponse
-
-        fun x402(): X402ServiceAsync.WithRawResponse
-
-        /** Speech to text command operations */
-        fun speechToText(): SpeechToTextServiceAsync.WithRawResponse
     }
 }

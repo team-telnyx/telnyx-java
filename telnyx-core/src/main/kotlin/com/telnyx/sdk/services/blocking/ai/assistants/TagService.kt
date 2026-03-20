@@ -6,12 +6,12 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.ai.assistants.tags.TagAddParams
-import com.telnyx.sdk.models.ai.assistants.tags.TagAddResponse
+import com.telnyx.sdk.models.ai.assistants.tags.TagCreateParams
+import com.telnyx.sdk.models.ai.assistants.tags.TagCreateResponse
+import com.telnyx.sdk.models.ai.assistants.tags.TagDeleteParams
+import com.telnyx.sdk.models.ai.assistants.tags.TagDeleteResponse
 import com.telnyx.sdk.models.ai.assistants.tags.TagListParams
 import com.telnyx.sdk.models.ai.assistants.tags.TagListResponse
-import com.telnyx.sdk.models.ai.assistants.tags.TagRemoveParams
-import com.telnyx.sdk.models.ai.assistants.tags.TagRemoveResponse
 import java.util.function.Consumer
 
 /** Configure AI assistant specifications */
@@ -28,6 +28,27 @@ interface TagService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TagService
+
+    /** Add Assistant Tag */
+    fun create(assistantId: String, params: TagCreateParams): TagCreateResponse =
+        create(assistantId, params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        assistantId: String,
+        params: TagCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): TagCreateResponse =
+        create(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+    /** @see create */
+    fun create(params: TagCreateParams): TagCreateResponse = create(params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        params: TagCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): TagCreateResponse
 
     /** Get All Tags */
     fun list(): TagListResponse = list(TagListParams.none())
@@ -46,45 +67,25 @@ interface TagService {
     fun list(requestOptions: RequestOptions): TagListResponse =
         list(TagListParams.none(), requestOptions)
 
-    /** Add Assistant Tag */
-    fun add(assistantId: String, params: TagAddParams): TagAddResponse =
-        add(assistantId, params, RequestOptions.none())
-
-    /** @see add */
-    fun add(
-        assistantId: String,
-        params: TagAddParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): TagAddResponse = add(params.toBuilder().assistantId(assistantId).build(), requestOptions)
-
-    /** @see add */
-    fun add(params: TagAddParams): TagAddResponse = add(params, RequestOptions.none())
-
-    /** @see add */
-    fun add(
-        params: TagAddParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): TagAddResponse
-
     /** Remove Assistant Tag */
-    fun remove(tag: String, params: TagRemoveParams): TagRemoveResponse =
-        remove(tag, params, RequestOptions.none())
+    fun delete(tag: String, params: TagDeleteParams): TagDeleteResponse =
+        delete(tag, params, RequestOptions.none())
 
-    /** @see remove */
-    fun remove(
+    /** @see delete */
+    fun delete(
         tag: String,
-        params: TagRemoveParams,
+        params: TagDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): TagRemoveResponse = remove(params.toBuilder().tag(tag).build(), requestOptions)
+    ): TagDeleteResponse = delete(params.toBuilder().tag(tag).build(), requestOptions)
 
-    /** @see remove */
-    fun remove(params: TagRemoveParams): TagRemoveResponse = remove(params, RequestOptions.none())
+    /** @see delete */
+    fun delete(params: TagDeleteParams): TagDeleteResponse = delete(params, RequestOptions.none())
 
-    /** @see remove */
-    fun remove(
-        params: TagRemoveParams,
+    /** @see delete */
+    fun delete(
+        params: TagDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): TagRemoveResponse
+    ): TagDeleteResponse
 
     /** A view of [TagService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -95,6 +96,37 @@ interface TagService {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): TagService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /ai/assistants/{assistant_id}/tags`, but is
+         * otherwise the same as [TagService.create].
+         */
+        @MustBeClosed
+        fun create(
+            assistantId: String,
+            params: TagCreateParams,
+        ): HttpResponseFor<TagCreateResponse> = create(assistantId, params, RequestOptions.none())
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            assistantId: String,
+            params: TagCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<TagCreateResponse> =
+            create(params.toBuilder().assistantId(assistantId).build(), requestOptions)
+
+        /** @see create */
+        @MustBeClosed
+        fun create(params: TagCreateParams): HttpResponseFor<TagCreateResponse> =
+            create(params, RequestOptions.none())
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            params: TagCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<TagCreateResponse>
 
         /**
          * Returns a raw HTTP response for `get /ai/assistants/tags`, but is otherwise the same as
@@ -120,61 +152,32 @@ interface TagService {
             list(TagListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /ai/assistants/{assistant_id}/tags`, but is
-         * otherwise the same as [TagService.add].
-         */
-        @MustBeClosed
-        fun add(assistantId: String, params: TagAddParams): HttpResponseFor<TagAddResponse> =
-            add(assistantId, params, RequestOptions.none())
-
-        /** @see add */
-        @MustBeClosed
-        fun add(
-            assistantId: String,
-            params: TagAddParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<TagAddResponse> =
-            add(params.toBuilder().assistantId(assistantId).build(), requestOptions)
-
-        /** @see add */
-        @MustBeClosed
-        fun add(params: TagAddParams): HttpResponseFor<TagAddResponse> =
-            add(params, RequestOptions.none())
-
-        /** @see add */
-        @MustBeClosed
-        fun add(
-            params: TagAddParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<TagAddResponse>
-
-        /**
          * Returns a raw HTTP response for `delete /ai/assistants/{assistant_id}/tags/{tag}`, but is
-         * otherwise the same as [TagService.remove].
+         * otherwise the same as [TagService.delete].
          */
         @MustBeClosed
-        fun remove(tag: String, params: TagRemoveParams): HttpResponseFor<TagRemoveResponse> =
-            remove(tag, params, RequestOptions.none())
+        fun delete(tag: String, params: TagDeleteParams): HttpResponseFor<TagDeleteResponse> =
+            delete(tag, params, RequestOptions.none())
 
-        /** @see remove */
+        /** @see delete */
         @MustBeClosed
-        fun remove(
+        fun delete(
             tag: String,
-            params: TagRemoveParams,
+            params: TagDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<TagRemoveResponse> =
-            remove(params.toBuilder().tag(tag).build(), requestOptions)
+        ): HttpResponseFor<TagDeleteResponse> =
+            delete(params.toBuilder().tag(tag).build(), requestOptions)
 
-        /** @see remove */
+        /** @see delete */
         @MustBeClosed
-        fun remove(params: TagRemoveParams): HttpResponseFor<TagRemoveResponse> =
-            remove(params, RequestOptions.none())
+        fun delete(params: TagDeleteParams): HttpResponseFor<TagDeleteResponse> =
+            delete(params, RequestOptions.none())
 
-        /** @see remove */
+        /** @see delete */
         @MustBeClosed
-        fun remove(
-            params: TagRemoveParams,
+        fun delete(
+            params: TagDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<TagRemoveResponse>
+        ): HttpResponseFor<TagDeleteResponse>
     }
 }

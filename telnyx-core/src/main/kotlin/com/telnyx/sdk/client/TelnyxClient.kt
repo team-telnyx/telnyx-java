@@ -133,7 +133,6 @@ import com.telnyx.sdk.services.blocking.SimCardOrderPreviewService
 import com.telnyx.sdk.services.blocking.SimCardOrderService
 import com.telnyx.sdk.services.blocking.SimCardService
 import com.telnyx.sdk.services.blocking.SiprecConnectorService
-import com.telnyx.sdk.services.blocking.SpeechToTextService
 import com.telnyx.sdk.services.blocking.StorageService
 import com.telnyx.sdk.services.blocking.SubNumberOrderService
 import com.telnyx.sdk.services.blocking.SubNumberOrdersReportService
@@ -141,6 +140,7 @@ import com.telnyx.sdk.services.blocking.TelephonyCredentialService
 import com.telnyx.sdk.services.blocking.TexmlApplicationService
 import com.telnyx.sdk.services.blocking.TexmlService
 import com.telnyx.sdk.services.blocking.TextToSpeechService
+import com.telnyx.sdk.services.blocking.TrafficPolicyProfileService
 import com.telnyx.sdk.services.blocking.UsageReportService
 import com.telnyx.sdk.services.blocking.UserAddressService
 import com.telnyx.sdk.services.blocking.UserTagService
@@ -154,7 +154,6 @@ import com.telnyx.sdk.services.blocking.VoiceDesignService
 import com.telnyx.sdk.services.blocking.WebhookDeliveryService
 import com.telnyx.sdk.services.blocking.WebhookService
 import com.telnyx.sdk.services.blocking.WellKnownService
-import com.telnyx.sdk.services.blocking.WhatsappMessageTemplateService
 import com.telnyx.sdk.services.blocking.WhatsappService
 import com.telnyx.sdk.services.blocking.WireguardInterfaceService
 import com.telnyx.sdk.services.blocking.WireguardPeerService
@@ -641,21 +640,18 @@ interface TelnyxClient {
     /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
     fun sessionAnalysis(): SessionAnalysisService
 
+    /** Traffic Policy Profiles operations */
+    fun trafficPolicyProfiles(): TrafficPolicyProfileService
+
     fun whatsapp(): WhatsappService
 
-    /** Manage Whatsapp message templates */
-    fun whatsappMessageTemplates(): WhatsappMessageTemplateService
+    fun x402(): X402Service
 
     /** Capture and manage voice identities as clones for use in text-to-speech synthesis. */
     fun voiceClones(): VoiceCloneService
 
     /** Create and manage AI-generated voice designs using natural language prompts. */
     fun voiceDesigns(): VoiceDesignService
-
-    fun x402(): X402Service
-
-    /** Speech to text command operations */
-    fun speechToText(): SpeechToTextService
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -1122,20 +1118,17 @@ interface TelnyxClient {
         /** Analyze voice AI sessions, costs, and event hierarchies across Telnyx products. */
         fun sessionAnalysis(): SessionAnalysisService.WithRawResponse
 
+        /** Traffic Policy Profiles operations */
+        fun trafficPolicyProfiles(): TrafficPolicyProfileService.WithRawResponse
+
         fun whatsapp(): WhatsappService.WithRawResponse
 
-        /** Manage Whatsapp message templates */
-        fun whatsappMessageTemplates(): WhatsappMessageTemplateService.WithRawResponse
+        fun x402(): X402Service.WithRawResponse
 
         /** Capture and manage voice identities as clones for use in text-to-speech synthesis. */
         fun voiceClones(): VoiceCloneService.WithRawResponse
 
         /** Create and manage AI-generated voice designs using natural language prompts. */
         fun voiceDesigns(): VoiceDesignService.WithRawResponse
-
-        fun x402(): X402Service.WithRawResponse
-
-        /** Speech to text command operations */
-        fun speechToText(): SpeechToTextService.WithRawResponse
     }
 }

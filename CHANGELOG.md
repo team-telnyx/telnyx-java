@@ -1,5 +1,22 @@
 # Changelog
 
+## 6.34.0 (2026-03-19)
+
+Full Changelog: [v6.33.0...v6.34.0](https://github.com/team-telnyx/telnyx-java/compare/v6.33.0...v6.34.0)
+
+### Features
+
+* **api:** manual updates ([6804b88](https://github.com/team-telnyx/telnyx-java/commit/6804b88a7a5ba0c7fad5d074f7025469e477c7f7))
+* **api:** manual updates ([04c426a](https://github.com/team-telnyx/telnyx-java/commit/04c426aa3006b7c2999bf84545ae1f1cde632595))
+* **api:** manual updates ([6b8ec25](https://github.com/team-telnyx/telnyx-java/commit/6b8ec253a92f8f55f64471eea3f8b0503f52d02a))
+* TELAPPS-5668: Add call.cost webhook event documentation ([ffa5d16](https://github.com/team-telnyx/telnyx-java/commit/ffa5d16d668cf038e1ce145da37e2caa78561fad))
+* **wireless:** add traffic policy profiles endpoints to OpenAPI spec ([fbf1413](https://github.com/team-telnyx/telnyx-java/commit/fbf14131a6ba1a494cbf326b975cd1a03b4bd99d))
+
+
+### Documentation
+
+* **tts:** Add Telnyx.Ultra model documentation ([bad6035](https://github.com/team-telnyx/telnyx-java/commit/bad6035062eb6449ff41ae6c75673130bc05beb6))
+
 ## 6.33.0 (2026-03-18)
 
 Full Changelog: [v6.32.0...v6.33.0](https://github.com/team-telnyx/telnyx-java/compare/v6.32.0...v6.33.0)

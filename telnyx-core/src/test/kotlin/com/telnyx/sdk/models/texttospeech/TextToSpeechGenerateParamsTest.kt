@@ -44,11 +44,6 @@ internal class TextToSpeechGenerateParamsTest {
                     )
                     .build()
             )
-            .inworld(
-                TextToSpeechGenerateParams.Inworld.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                    .build()
-            )
             .language("language")
             .minimax(
                 TextToSpeechGenerateParams.Minimax.builder()
@@ -78,10 +73,12 @@ internal class TextToSpeechGenerateParamsTest {
             )
             .telnyx(
                 TextToSpeechGenerateParams.Telnyx.builder()
+                    .emotion(TextToSpeechGenerateParams.Telnyx.Emotion.NEUTRAL)
                     .responseFormat("response_format")
                     .samplingRate(0L)
                     .temperature(0.0f)
-                    .voiceSpeed(0.0f)
+                    .voiceSpeed(0.5f)
+                    .volume(0.0f)
                     .build()
             )
             .text("text")
@@ -132,11 +129,6 @@ internal class TextToSpeechGenerateParamsTest {
                         )
                         .build()
                 )
-                .inworld(
-                    TextToSpeechGenerateParams.Inworld.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                        .build()
-                )
                 .language("language")
                 .minimax(
                     TextToSpeechGenerateParams.Minimax.builder()
@@ -166,10 +158,12 @@ internal class TextToSpeechGenerateParamsTest {
                 )
                 .telnyx(
                     TextToSpeechGenerateParams.Telnyx.builder()
+                        .emotion(TextToSpeechGenerateParams.Telnyx.Emotion.NEUTRAL)
                         .responseFormat("response_format")
                         .samplingRate(0L)
                         .temperature(0.0f)
-                        .voiceSpeed(0.0f)
+                        .voiceSpeed(0.5f)
+                        .volume(0.0f)
                         .build()
                 )
                 .text("text")
@@ -220,12 +214,6 @@ internal class TextToSpeechGenerateParamsTest {
                     )
                     .build()
             )
-        assertThat(body.inworld())
-            .contains(
-                TextToSpeechGenerateParams.Inworld.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                    .build()
-            )
         assertThat(body.language()).contains("language")
         assertThat(body.minimax())
             .contains(
@@ -259,10 +247,12 @@ internal class TextToSpeechGenerateParamsTest {
         assertThat(body.telnyx())
             .contains(
                 TextToSpeechGenerateParams.Telnyx.builder()
+                    .emotion(TextToSpeechGenerateParams.Telnyx.Emotion.NEUTRAL)
                     .responseFormat("response_format")
                     .samplingRate(0L)
                     .temperature(0.0f)
-                    .voiceSpeed(0.0f)
+                    .voiceSpeed(0.5f)
+                    .volume(0.0f)
                     .build()
             )
         assertThat(body.text()).contains("text")

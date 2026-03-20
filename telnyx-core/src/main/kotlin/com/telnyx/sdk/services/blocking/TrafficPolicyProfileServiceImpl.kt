@@ -1,0 +1,294 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.sdk.services.blocking
+
+import com.telnyx.sdk.core.ClientOptions
+import com.telnyx.sdk.core.RequestOptions
+import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.core.handlers.errorBodyHandler
+import com.telnyx.sdk.core.handlers.errorHandler
+import com.telnyx.sdk.core.handlers.jsonHandler
+import com.telnyx.sdk.core.http.HttpMethod
+import com.telnyx.sdk.core.http.HttpRequest
+import com.telnyx.sdk.core.http.HttpResponse
+import com.telnyx.sdk.core.http.HttpResponse.Handler
+import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.core.http.json
+import com.telnyx.sdk.core.http.parseable
+import com.telnyx.sdk.core.prepare
+import com.telnyx.sdk.models.trafficpolicyprofiles.TrafficPolicyProfileCreateParams
+import com.telnyx.sdk.models.trafficpolicyprofiles.TrafficPolicyProfileCreateResponse
+import com.telnyx.sdk.models.trafficpolicyprofiles.TrafficPolicyProfileDeleteParams
+import com.telnyx.sdk.models.trafficpolicyprofiles.TrafficPolicyProfileDeleteResponse
+import com.telnyx.sdk.models.trafficpolicyprofiles.TrafficPolicyProfileListPage
+import com.telnyx.sdk.models.trafficpolicyprofiles.TrafficPolicyProfileListPageResponse
+import com.telnyx.sdk.models.trafficpolicyprofiles.TrafficPolicyProfileListParams
+import com.telnyx.sdk.models.trafficpolicyprofiles.TrafficPolicyProfileListServicesPage
+import com.telnyx.sdk.models.trafficpolicyprofiles.TrafficPolicyProfileListServicesPageResponse
+import com.telnyx.sdk.models.trafficpolicyprofiles.TrafficPolicyProfileListServicesParams
+import com.telnyx.sdk.models.trafficpolicyprofiles.TrafficPolicyProfileRetrieveParams
+import com.telnyx.sdk.models.trafficpolicyprofiles.TrafficPolicyProfileRetrieveResponse
+import com.telnyx.sdk.models.trafficpolicyprofiles.TrafficPolicyProfileUpdateParams
+import com.telnyx.sdk.models.trafficpolicyprofiles.TrafficPolicyProfileUpdateResponse
+import java.util.function.Consumer
+import kotlin.jvm.optionals.getOrNull
+
+/** Traffic Policy Profiles operations */
+class TrafficPolicyProfileServiceImpl
+internal constructor(private val clientOptions: ClientOptions) : TrafficPolicyProfileService {
+
+    private val withRawResponse: TrafficPolicyProfileService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
+
+    override fun withRawResponse(): TrafficPolicyProfileService.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): TrafficPolicyProfileService =
+        TrafficPolicyProfileServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun create(
+        params: TrafficPolicyProfileCreateParams,
+        requestOptions: RequestOptions,
+    ): TrafficPolicyProfileCreateResponse =
+        // post /traffic_policy_profiles
+        withRawResponse().create(params, requestOptions).parse()
+
+    override fun retrieve(
+        params: TrafficPolicyProfileRetrieveParams,
+        requestOptions: RequestOptions,
+    ): TrafficPolicyProfileRetrieveResponse =
+        // get /traffic_policy_profiles/{id}
+        withRawResponse().retrieve(params, requestOptions).parse()
+
+    override fun update(
+        params: TrafficPolicyProfileUpdateParams,
+        requestOptions: RequestOptions,
+    ): TrafficPolicyProfileUpdateResponse =
+        // patch /traffic_policy_profiles/{id}
+        withRawResponse().update(params, requestOptions).parse()
+
+    override fun list(
+        params: TrafficPolicyProfileListParams,
+        requestOptions: RequestOptions,
+    ): TrafficPolicyProfileListPage =
+        // get /traffic_policy_profiles
+        withRawResponse().list(params, requestOptions).parse()
+
+    override fun delete(
+        params: TrafficPolicyProfileDeleteParams,
+        requestOptions: RequestOptions,
+    ): TrafficPolicyProfileDeleteResponse =
+        // delete /traffic_policy_profiles/{id}
+        withRawResponse().delete(params, requestOptions).parse()
+
+    override fun listServices(
+        params: TrafficPolicyProfileListServicesParams,
+        requestOptions: RequestOptions,
+    ): TrafficPolicyProfileListServicesPage =
+        // get /traffic_policy_profiles/services
+        withRawResponse().listServices(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        TrafficPolicyProfileService.WithRawResponse {
+
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): TrafficPolicyProfileService.WithRawResponse =
+            TrafficPolicyProfileServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
+
+        private val createHandler: Handler<TrafficPolicyProfileCreateResponse> =
+            jsonHandler<TrafficPolicyProfileCreateResponse>(clientOptions.jsonMapper)
+
+        override fun create(
+            params: TrafficPolicyProfileCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<TrafficPolicyProfileCreateResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("traffic_policy_profiles")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val retrieveHandler: Handler<TrafficPolicyProfileRetrieveResponse> =
+            jsonHandler<TrafficPolicyProfileRetrieveResponse>(clientOptions.jsonMapper)
+
+        override fun retrieve(
+            params: TrafficPolicyProfileRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<TrafficPolicyProfileRetrieveResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("traffic_policy_profiles", params._pathParam(0))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val updateHandler: Handler<TrafficPolicyProfileUpdateResponse> =
+            jsonHandler<TrafficPolicyProfileUpdateResponse>(clientOptions.jsonMapper)
+
+        override fun update(
+            params: TrafficPolicyProfileUpdateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<TrafficPolicyProfileUpdateResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("traffic_policy_profiles", params._pathParam(0))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updateHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listHandler: Handler<TrafficPolicyProfileListPageResponse> =
+            jsonHandler<TrafficPolicyProfileListPageResponse>(clientOptions.jsonMapper)
+
+        override fun list(
+            params: TrafficPolicyProfileListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<TrafficPolicyProfileListPage> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("traffic_policy_profiles")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        TrafficPolicyProfileListPage.builder()
+                            .service(TrafficPolicyProfileServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
+            }
+        }
+
+        private val deleteHandler: Handler<TrafficPolicyProfileDeleteResponse> =
+            jsonHandler<TrafficPolicyProfileDeleteResponse>(clientOptions.jsonMapper)
+
+        override fun delete(
+            params: TrafficPolicyProfileDeleteParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<TrafficPolicyProfileDeleteResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("traffic_policy_profiles", params._pathParam(0))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { deleteHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listServicesHandler: Handler<TrafficPolicyProfileListServicesPageResponse> =
+            jsonHandler<TrafficPolicyProfileListServicesPageResponse>(clientOptions.jsonMapper)
+
+        override fun listServices(
+            params: TrafficPolicyProfileListServicesParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<TrafficPolicyProfileListServicesPage> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("traffic_policy_profiles", "services")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { listServicesHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        TrafficPolicyProfileListServicesPage.builder()
+                            .service(TrafficPolicyProfileServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
+            }
+        }
+    }
+}

@@ -20,6 +20,8 @@ import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.ProfileRetrieveParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.ProfileRetrieveResponse
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.ProfileUpdateParams
 import com.telnyx.sdk.models.whatsapp.phonenumbers.profile.ProfileUpdateResponse
+import com.telnyx.sdk.services.async.whatsapp.phonenumbers.profile.ModelServiceAsync
+import com.telnyx.sdk.services.async.whatsapp.phonenumbers.profile.ModelServiceAsyncImpl
 import com.telnyx.sdk.services.async.whatsapp.phonenumbers.profile.PhotoServiceAsync
 import com.telnyx.sdk.services.async.whatsapp.phonenumbers.profile.PhotoServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -36,6 +38,8 @@ class ProfileServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
     private val photo: PhotoServiceAsync by lazy { PhotoServiceAsyncImpl(clientOptions) }
 
+    private val models: ModelServiceAsync by lazy { ModelServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): ProfileServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ProfileServiceAsync =
@@ -43,6 +47,8 @@ class ProfileServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
     /** Manage Whatsapp phone numbers */
     override fun photo(): PhotoServiceAsync = photo
+
+    override fun models(): ModelServiceAsync = models
 
     override fun retrieve(
         params: ProfileRetrieveParams,
@@ -68,6 +74,10 @@ class ProfileServiceAsyncImpl internal constructor(private val clientOptions: Cl
             PhotoServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val models: ModelServiceAsync.WithRawResponse by lazy {
+            ModelServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): ProfileServiceAsync.WithRawResponse =
@@ -77,6 +87,8 @@ class ProfileServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
         /** Manage Whatsapp phone numbers */
         override fun photo(): PhotoServiceAsync.WithRawResponse = photo
+
+        override fun models(): ModelServiceAsync.WithRawResponse = models
 
         private val retrieveHandler: Handler<ProfileRetrieveResponse> =
             jsonHandler<ProfileRetrieveResponse>(clientOptions.jsonMapper)

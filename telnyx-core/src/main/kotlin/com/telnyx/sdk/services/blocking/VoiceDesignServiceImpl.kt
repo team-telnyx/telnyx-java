@@ -25,10 +25,10 @@ import com.telnyx.sdk.models.voicedesigns.VoiceDesignDownloadSampleParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignListPage
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignListPageResponse
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignListParams
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameParams
-import com.telnyx.sdk.models.voicedesigns.VoiceDesignRenameResponse
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveParams
 import com.telnyx.sdk.models.voicedesigns.VoiceDesignRetrieveResponse
+import com.telnyx.sdk.models.voicedesigns.VoiceDesignUpdateParams
+import com.telnyx.sdk.models.voicedesigns.VoiceDesignUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -59,6 +59,13 @@ class VoiceDesignServiceImpl internal constructor(private val clientOptions: Cli
         // get /voice_designs/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
+    override fun update(
+        params: VoiceDesignUpdateParams,
+        requestOptions: RequestOptions,
+    ): VoiceDesignUpdateResponse =
+        // patch /voice_designs/{id}
+        withRawResponse().update(params, requestOptions).parse()
+
     override fun list(
         params: VoiceDesignListParams,
         requestOptions: RequestOptions,
@@ -85,13 +92,6 @@ class VoiceDesignServiceImpl internal constructor(private val clientOptions: Cli
     ): HttpResponse =
         // get /voice_designs/{id}/sample
         withRawResponse().downloadSample(params, requestOptions)
-
-    override fun rename(
-        params: VoiceDesignRenameParams,
-        requestOptions: RequestOptions,
-    ): VoiceDesignRenameResponse =
-        // patch /voice_designs/{id}
-        withRawResponse().rename(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         VoiceDesignService.WithRawResponse {
@@ -156,6 +156,37 @@ class VoiceDesignServiceImpl internal constructor(private val clientOptions: Cli
             return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val updateHandler: Handler<VoiceDesignUpdateResponse> =
+            jsonHandler<VoiceDesignUpdateResponse>(clientOptions.jsonMapper)
+
+        override fun update(
+            params: VoiceDesignUpdateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<VoiceDesignUpdateResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("voice_designs", params._pathParam(0))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updateHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -269,37 +300,6 @@ class VoiceDesignServiceImpl internal constructor(private val clientOptions: Cli
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response)
-        }
-
-        private val renameHandler: Handler<VoiceDesignRenameResponse> =
-            jsonHandler<VoiceDesignRenameResponse>(clientOptions.jsonMapper)
-
-        override fun rename(
-            params: VoiceDesignRenameParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<VoiceDesignRenameResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("voice_designs", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { renameHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
         }
     }
 }
