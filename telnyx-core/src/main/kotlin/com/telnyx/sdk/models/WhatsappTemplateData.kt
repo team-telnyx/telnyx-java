@@ -95,7 +95,7 @@ private constructor(
     fun category(): Optional<Category> = category.getOptional("category")
 
     /**
-     * Whatsapp template components (header, body, footer, buttons)
+     * Template components (header, body, footer, buttons) as submitted, including example values.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -133,6 +133,9 @@ private constructor(
     fun rejectionReason(): Optional<String> = rejectionReason.getOptional("rejection_reason")
 
     /**
+     * Current template status from Meta (e.g. PENDING, APPROVED, REJECTED, PAUSED, DISABLED).
+     * Additional statuses may be returned as Meta evolves the template lifecycle.
+     *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -325,7 +328,10 @@ private constructor(
          */
         fun category(category: JsonField<Category>) = apply { this.category = category }
 
-        /** Whatsapp template components (header, body, footer, buttons) */
+        /**
+         * Template components (header, body, footer, buttons) as submitted, including example
+         * values.
+         */
         fun components(components: List<Component>) = components(JsonField.of(components))
 
         /**
@@ -407,6 +413,10 @@ private constructor(
             this.rejectionReason = rejectionReason
         }
 
+        /**
+         * Current template status from Meta (e.g. PENDING, APPROVED, REJECTED, PAUSED, DISABLED).
+         * Additional statuses may be returned as Meta evolves the template lifecycle.
+         */
         fun status(status: String) = status(JsonField.of(status))
 
         /**

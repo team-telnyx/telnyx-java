@@ -3,7 +3,6 @@
 package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.models.whatsappmessagetemplates.WhatsappMessageTemplateUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -33,8 +32,31 @@ internal class WhatsappMessageTemplateServiceTest {
                     .id("id")
                     .category(WhatsappMessageTemplateUpdateParams.Category.MARKETING)
                     .addComponent(
-                        WhatsappMessageTemplateUpdateParams.Component.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        WhatsappMessageTemplateUpdateParams.Component
+                            .WhatsappTemplateHeaderComponent
+                            .builder()
+                            .format(
+                                WhatsappMessageTemplateUpdateParams.Component
+                                    .WhatsappTemplateHeaderComponent
+                                    .Format
+                                    .TEXT
+                            )
+                            .type(
+                                WhatsappMessageTemplateUpdateParams.Component
+                                    .WhatsappTemplateHeaderComponent
+                                    .Type
+                                    .HEADER
+                            )
+                            .example(
+                                WhatsappMessageTemplateUpdateParams.Component
+                                    .WhatsappTemplateHeaderComponent
+                                    .Example
+                                    .builder()
+                                    .addHeaderHandle("string")
+                                    .addHeaderText("string")
+                                    .build()
+                            )
+                            .text("text")
                             .build()
                     )
                     .build()

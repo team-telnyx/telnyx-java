@@ -2,7 +2,6 @@
 
 package com.telnyx.sdk.models.whatsappmessagetemplates
 
-import com.telnyx.sdk.core.JsonValue
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,8 +14,30 @@ internal class WhatsappMessageTemplateUpdateParamsTest {
             .id("id")
             .category(WhatsappMessageTemplateUpdateParams.Category.MARKETING)
             .addComponent(
-                WhatsappMessageTemplateUpdateParams.Component.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                WhatsappMessageTemplateUpdateParams.Component.WhatsappTemplateHeaderComponent
+                    .builder()
+                    .format(
+                        WhatsappMessageTemplateUpdateParams.Component
+                            .WhatsappTemplateHeaderComponent
+                            .Format
+                            .TEXT
+                    )
+                    .type(
+                        WhatsappMessageTemplateUpdateParams.Component
+                            .WhatsappTemplateHeaderComponent
+                            .Type
+                            .HEADER
+                    )
+                    .example(
+                        WhatsappMessageTemplateUpdateParams.Component
+                            .WhatsappTemplateHeaderComponent
+                            .Example
+                            .builder()
+                            .addHeaderHandle("string")
+                            .addHeaderText("string")
+                            .build()
+                    )
+                    .text("text")
                     .build()
             )
             .build()
@@ -38,8 +59,30 @@ internal class WhatsappMessageTemplateUpdateParamsTest {
                 .id("id")
                 .category(WhatsappMessageTemplateUpdateParams.Category.MARKETING)
                 .addComponent(
-                    WhatsappMessageTemplateUpdateParams.Component.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    WhatsappMessageTemplateUpdateParams.Component.WhatsappTemplateHeaderComponent
+                        .builder()
+                        .format(
+                            WhatsappMessageTemplateUpdateParams.Component
+                                .WhatsappTemplateHeaderComponent
+                                .Format
+                                .TEXT
+                        )
+                        .type(
+                            WhatsappMessageTemplateUpdateParams.Component
+                                .WhatsappTemplateHeaderComponent
+                                .Type
+                                .HEADER
+                        )
+                        .example(
+                            WhatsappMessageTemplateUpdateParams.Component
+                                .WhatsappTemplateHeaderComponent
+                                .Example
+                                .builder()
+                                .addHeaderHandle("string")
+                                .addHeaderText("string")
+                                .build()
+                        )
+                        .text("text")
                         .build()
                 )
                 .build()
@@ -49,9 +92,33 @@ internal class WhatsappMessageTemplateUpdateParamsTest {
         assertThat(body.category()).contains(WhatsappMessageTemplateUpdateParams.Category.MARKETING)
         assertThat(body.components().getOrNull())
             .containsExactly(
-                WhatsappMessageTemplateUpdateParams.Component.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                    .build()
+                WhatsappMessageTemplateUpdateParams.Component.ofWhatsappTemplateHeader(
+                    WhatsappMessageTemplateUpdateParams.Component.WhatsappTemplateHeaderComponent
+                        .builder()
+                        .format(
+                            WhatsappMessageTemplateUpdateParams.Component
+                                .WhatsappTemplateHeaderComponent
+                                .Format
+                                .TEXT
+                        )
+                        .type(
+                            WhatsappMessageTemplateUpdateParams.Component
+                                .WhatsappTemplateHeaderComponent
+                                .Type
+                                .HEADER
+                        )
+                        .example(
+                            WhatsappMessageTemplateUpdateParams.Component
+                                .WhatsappTemplateHeaderComponent
+                                .Example
+                                .builder()
+                                .addHeaderHandle("string")
+                                .addHeaderText("string")
+                                .build()
+                        )
+                        .text("text")
+                        .build()
+                )
             )
     }
 
