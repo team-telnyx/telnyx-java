@@ -4479,7 +4479,7 @@ private constructor(
             class Card
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
-                private val components: JsonField<List<JsonValue>>,
+                private val components: JsonField<List<InnerComponent>>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
 
@@ -4487,14 +4487,15 @@ private constructor(
                 private constructor(
                     @JsonProperty("components")
                     @ExcludeMissing
-                    components: JsonField<List<JsonValue>> = JsonMissing.of()
+                    components: JsonField<List<InnerComponent>> = JsonMissing.of()
                 ) : this(components, mutableMapOf())
 
                 /**
                  * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
                  *   if the server responded with an unexpected value).
                  */
-                fun components(): Optional<List<JsonValue>> = components.getOptional("components")
+                fun components(): Optional<List<InnerComponent>> =
+                    components.getOptional("components")
 
                 /**
                  * Returns the raw JSON value of [components].
@@ -4504,7 +4505,7 @@ private constructor(
                  */
                 @JsonProperty("components")
                 @ExcludeMissing
-                fun _components(): JsonField<List<JsonValue>> = components
+                fun _components(): JsonField<List<InnerComponent>> = components
 
                 @JsonAnySetter
                 private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -4527,7 +4528,7 @@ private constructor(
                 /** A builder for [Card]. */
                 class Builder internal constructor() {
 
-                    private var components: JsonField<MutableList<JsonValue>>? = null
+                    private var components: JsonField<MutableList<InnerComponent>>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -4536,26 +4537,26 @@ private constructor(
                         additionalProperties = card.additionalProperties.toMutableMap()
                     }
 
-                    fun components(components: List<JsonValue>) =
+                    fun components(components: List<InnerComponent>) =
                         components(JsonField.of(components))
 
                     /**
                      * Sets [Builder.components] to an arbitrary JSON value.
                      *
                      * You should usually call [Builder.components] with a well-typed
-                     * `List<JsonValue>` value instead. This method is primarily for setting the
-                     * field to an undocumented or not yet supported value.
+                     * `List<InnerComponent>` value instead. This method is primarily for setting
+                     * the field to an undocumented or not yet supported value.
                      */
-                    fun components(components: JsonField<List<JsonValue>>) = apply {
+                    fun components(components: JsonField<List<InnerComponent>>) = apply {
                         this.components = components.map { it.toMutableList() }
                     }
 
                     /**
-                     * Adds a single [JsonValue] to [components].
+                     * Adds a single [InnerComponent] to [components].
                      *
                      * @throws IllegalStateException if the field was previously set to a non-list.
                      */
-                    fun addComponent(component: JsonValue) = apply {
+                    fun addComponent(component: InnerComponent) = apply {
                         components =
                             (components ?: JsonField.of(mutableListOf())).also {
                                 checkKnown("components", it).add(component)
@@ -4603,7 +4604,7 @@ private constructor(
                         return@apply
                     }
 
-                    components()
+                    components().ifPresent { it.forEach { it.validate() } }
                     validated = true
                 }
 
@@ -4622,7 +4623,120 @@ private constructor(
                  * Used for best match union deserialization.
                  */
                 @JvmSynthetic
-                internal fun validity(): Int = (components.asKnown().getOrNull()?.size ?: 0)
+                internal fun validity(): Int =
+                    (components.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+
+                class InnerComponent
+                @JsonCreator
+                private constructor(
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    private val additionalProperties: Map<String, JsonValue>
+                ) {
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [InnerComponent].
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [InnerComponent]. */
+                    class Builder internal constructor() {
+
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(innerComponent: InnerComponent) = apply {
+                            additionalProperties =
+                                innerComponent.additionalProperties.toMutableMap()
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [InnerComponent].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         */
+                        fun build(): InnerComponent =
+                            InnerComponent(additionalProperties.toImmutable())
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): InnerComponent = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: TelnyxInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        additionalProperties.count { (_, value) ->
+                            !value.isNull() && !value.isMissing()
+                        }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is InnerComponent &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "InnerComponent{additionalProperties=$additionalProperties}"
+                }
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
