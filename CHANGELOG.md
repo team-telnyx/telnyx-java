@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.36.0 (2026-03-23)
+
+Full Changelog: [v6.35.0...v6.36.0](https://github.com/team-telnyx/telnyx-java/compare/v6.35.0...v6.36.0)
+
+### Features
+
+* **api:** manual updates ([431c010](https://github.com/team-telnyx/telnyx-java/commit/431c010adf78c4a9c4ce44b5bef3b6170366e311))
+
+
+### Chores
+
+* **internal:** update gitignore ([e9fa363](https://github.com/team-telnyx/telnyx-java/commit/e9fa363052eada30fd387615f4d0bd0c90563ced))
+
 ## 6.35.0 (2026-03-20)
 
 Full Changelog: [v6.34.0...v6.35.0](https://github.com/team-telnyx/telnyx-java/compare/v6.34.0...v6.35.0)
