@@ -1226,8 +1226,6 @@ private constructor(
             when (this) {
                 TELNYX -> Value.TELNYX
                 MINIMAX -> Value.MINIMAX
-                TELNYX -> Value.TELNYX
-                MINIMAX -> Value.MINIMAX
                 else -> Value._UNKNOWN
             }
 
@@ -1242,8 +1240,6 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                TELNYX -> Known.TELNYX
-                MINIMAX -> Known.MINIMAX
                 TELNYX -> Known.TELNYX
                 MINIMAX -> Known.MINIMAX
                 else -> throw TelnyxInvalidDataException("Unknown Provider: $value")
