@@ -186,6 +186,14 @@ internal class AssistantsListTest {
                                         )
                                         .build()
                                 )
+                                .addStoreFieldsAsVariable(
+                                    InferenceEmbeddingWebhookToolParams.Webhook
+                                        .StoreFieldsAsVariable
+                                        .builder()
+                                        .name("x")
+                                        .valuePath("x")
+                                        .build()
+                                )
                                 .timeoutMs(500L)
                                 .build()
                         )
@@ -403,6 +411,13 @@ internal class AssistantsListTest {
                                             .Type
                                             .OBJECT
                                     )
+                                    .build()
+                            )
+                            .addStoreFieldsAsVariable(
+                                InferenceEmbeddingWebhookToolParams.Webhook.StoreFieldsAsVariable
+                                    .builder()
+                                    .name("x")
+                                    .valuePath("x")
                                     .build()
                             )
                             .timeoutMs(500L)
@@ -640,6 +655,14 @@ internal class AssistantsListTest {
                                                 .Type
                                                 .OBJECT
                                         )
+                                        .build()
+                                )
+                                .addStoreFieldsAsVariable(
+                                    InferenceEmbeddingWebhookToolParams.Webhook
+                                        .StoreFieldsAsVariable
+                                        .builder()
+                                        .name("x")
+                                        .valuePath("x")
                                         .build()
                                 )
                                 .timeoutMs(500L)

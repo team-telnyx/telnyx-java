@@ -172,6 +172,13 @@ internal class VersionUpdateParamsTest {
                                     )
                                     .build()
                             )
+                            .addStoreFieldsAsVariable(
+                                InferenceEmbeddingWebhookToolParams.Webhook.StoreFieldsAsVariable
+                                    .builder()
+                                    .name("x")
+                                    .valuePath("x")
+                                    .build()
+                            )
                             .timeoutMs(500L)
                             .build()
                     )
@@ -418,6 +425,14 @@ internal class VersionUpdateParamsTest {
                                         )
                                         .build()
                                 )
+                                .addStoreFieldsAsVariable(
+                                    InferenceEmbeddingWebhookToolParams.Webhook
+                                        .StoreFieldsAsVariable
+                                        .builder()
+                                        .name("x")
+                                        .valuePath("x")
+                                        .build()
+                                )
                                 .timeoutMs(500L)
                                 .build()
                         )
@@ -629,6 +644,13 @@ internal class VersionUpdateParamsTest {
                                             .Type
                                             .OBJECT
                                     )
+                                    .build()
+                            )
+                            .addStoreFieldsAsVariable(
+                                InferenceEmbeddingWebhookToolParams.Webhook.StoreFieldsAsVariable
+                                    .builder()
+                                    .name("x")
+                                    .valuePath("x")
                                     .build()
                             )
                             .timeoutMs(500L)
