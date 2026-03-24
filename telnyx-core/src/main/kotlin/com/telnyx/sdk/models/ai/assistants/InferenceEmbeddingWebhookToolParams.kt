@@ -325,6 +325,7 @@ private constructor(
         private val method: JsonField<Method>,
         private val pathParameters: JsonField<PathParameters>,
         private val queryParameters: JsonField<QueryParameters>,
+        private val storeFieldsAsVariables: JsonField<List<StoreFieldsAsVariable>>,
         private val timeoutMs: JsonField<Long>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -350,6 +351,9 @@ private constructor(
             @JsonProperty("query_parameters")
             @ExcludeMissing
             queryParameters: JsonField<QueryParameters> = JsonMissing.of(),
+            @JsonProperty("store_fields_as_variables")
+            @ExcludeMissing
+            storeFieldsAsVariables: JsonField<List<StoreFieldsAsVariable>> = JsonMissing.of(),
             @JsonProperty("timeout_ms")
             @ExcludeMissing
             timeoutMs: JsonField<Long> = JsonMissing.of(),
@@ -363,6 +367,7 @@ private constructor(
             method,
             pathParameters,
             queryParameters,
+            storeFieldsAsVariables,
             timeoutMs,
             mutableMapOf(),
         )
@@ -456,6 +461,17 @@ private constructor(
             queryParameters.getOptional("query_parameters")
 
         /**
+         * A list of mappings that extract values from the webhook response and store them as
+         * dynamic variables. Each mapping specifies a dynamic variable name and a dot-notation path
+         * to the value in the response body.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun storeFieldsAsVariables(): Optional<List<StoreFieldsAsVariable>> =
+            storeFieldsAsVariables.getOptional("store_fields_as_variables")
+
+        /**
          * The maximum number of milliseconds to wait for the webhook to respond. Only applicable
          * when async is false.
          *
@@ -539,6 +555,17 @@ private constructor(
         fun _queryParameters(): JsonField<QueryParameters> = queryParameters
 
         /**
+         * Returns the raw JSON value of [storeFieldsAsVariables].
+         *
+         * Unlike [storeFieldsAsVariables], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("store_fields_as_variables")
+        @ExcludeMissing
+        fun _storeFieldsAsVariables(): JsonField<List<StoreFieldsAsVariable>> =
+            storeFieldsAsVariables
+
+        /**
          * Returns the raw JSON value of [timeoutMs].
          *
          * Unlike [timeoutMs], this method doesn't throw if the JSON field has an unexpected type.
@@ -584,6 +611,8 @@ private constructor(
             private var method: JsonField<Method> = JsonMissing.of()
             private var pathParameters: JsonField<PathParameters> = JsonMissing.of()
             private var queryParameters: JsonField<QueryParameters> = JsonMissing.of()
+            private var storeFieldsAsVariables: JsonField<MutableList<StoreFieldsAsVariable>>? =
+                null
             private var timeoutMs: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -598,6 +627,7 @@ private constructor(
                 method = webhook.method
                 pathParameters = webhook.pathParameters
                 queryParameters = webhook.queryParameters
+                storeFieldsAsVariables = webhook.storeFieldsAsVariables.map { it.toMutableList() }
                 timeoutMs = webhook.timeoutMs
                 additionalProperties = webhook.additionalProperties.toMutableMap()
             }
@@ -759,6 +789,39 @@ private constructor(
             }
 
             /**
+             * A list of mappings that extract values from the webhook response and store them as
+             * dynamic variables. Each mapping specifies a dynamic variable name and a dot-notation
+             * path to the value in the response body.
+             */
+            fun storeFieldsAsVariables(storeFieldsAsVariables: List<StoreFieldsAsVariable>) =
+                storeFieldsAsVariables(JsonField.of(storeFieldsAsVariables))
+
+            /**
+             * Sets [Builder.storeFieldsAsVariables] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.storeFieldsAsVariables] with a well-typed
+             * `List<StoreFieldsAsVariable>` value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun storeFieldsAsVariables(
+                storeFieldsAsVariables: JsonField<List<StoreFieldsAsVariable>>
+            ) = apply {
+                this.storeFieldsAsVariables = storeFieldsAsVariables.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [StoreFieldsAsVariable] to [storeFieldsAsVariables].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addStoreFieldsAsVariable(storeFieldsAsVariable: StoreFieldsAsVariable) = apply {
+                storeFieldsAsVariables =
+                    (storeFieldsAsVariables ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("storeFieldsAsVariables", it).add(storeFieldsAsVariable)
+                    }
+            }
+
+            /**
              * The maximum number of milliseconds to wait for the webhook to respond. Only
              * applicable when async is false.
              */
@@ -817,6 +880,7 @@ private constructor(
                     method,
                     pathParameters,
                     queryParameters,
+                    (storeFieldsAsVariables ?: JsonMissing.of()).map { it.toImmutable() },
                     timeoutMs,
                     additionalProperties.toMutableMap(),
                 )
@@ -838,6 +902,7 @@ private constructor(
             method().ifPresent { it.validate() }
             pathParameters().ifPresent { it.validate() }
             queryParameters().ifPresent { it.validate() }
+            storeFieldsAsVariables().ifPresent { it.forEach { it.validate() } }
             timeoutMs()
             validated = true
         }
@@ -867,6 +932,8 @@ private constructor(
                 (method.asKnown().getOrNull()?.validity() ?: 0) +
                 (pathParameters.asKnown().getOrNull()?.validity() ?: 0) +
                 (queryParameters.asKnown().getOrNull()?.validity() ?: 0) +
+                (storeFieldsAsVariables.asKnown().getOrNull()?.sumOf { it.validity().toInt() }
+                    ?: 0) +
                 (if (timeoutMs.asKnown().isPresent) 1 else 0)
 
         /**
@@ -2646,6 +2713,221 @@ private constructor(
                 "QueryParameters{properties=$properties, required=$required, type=$type, additionalProperties=$additionalProperties}"
         }
 
+        class StoreFieldsAsVariable
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val name: JsonField<String>,
+            private val valuePath: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("value_path")
+                @ExcludeMissing
+                valuePath: JsonField<String> = JsonMissing.of(),
+            ) : this(name, valuePath, mutableMapOf())
+
+            /**
+             * The name of the dynamic variable to store the extracted value in.
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun name(): String = name.getRequired("name")
+
+            /**
+             * A dot-notation path to the value in the webhook response body (e.g. 'customer.name'
+             * or 'id').
+             *
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun valuePath(): String = valuePath.getRequired("value_path")
+
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+            /**
+             * Returns the raw JSON value of [valuePath].
+             *
+             * Unlike [valuePath], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("value_path")
+            @ExcludeMissing
+            fun _valuePath(): JsonField<String> = valuePath
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [StoreFieldsAsVariable].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .name()
+                 * .valuePath()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [StoreFieldsAsVariable]. */
+            class Builder internal constructor() {
+
+                private var name: JsonField<String>? = null
+                private var valuePath: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(storeFieldsAsVariable: StoreFieldsAsVariable) = apply {
+                    name = storeFieldsAsVariable.name
+                    valuePath = storeFieldsAsVariable.valuePath
+                    additionalProperties = storeFieldsAsVariable.additionalProperties.toMutableMap()
+                }
+
+                /** The name of the dynamic variable to store the extracted value in. */
+                fun name(name: String) = name(JsonField.of(name))
+
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun name(name: JsonField<String>) = apply { this.name = name }
+
+                /**
+                 * A dot-notation path to the value in the webhook response body (e.g.
+                 * 'customer.name' or 'id').
+                 */
+                fun valuePath(valuePath: String) = valuePath(JsonField.of(valuePath))
+
+                /**
+                 * Sets [Builder.valuePath] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.valuePath] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun valuePath(valuePath: JsonField<String>) = apply { this.valuePath = valuePath }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [StoreFieldsAsVariable].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .name()
+                 * .valuePath()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): StoreFieldsAsVariable =
+                    StoreFieldsAsVariable(
+                        checkRequired("name", name),
+                        checkRequired("valuePath", valuePath),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): StoreFieldsAsVariable = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                name()
+                valuePath()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: TelnyxInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (name.asKnown().isPresent) 1 else 0) +
+                    (if (valuePath.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is StoreFieldsAsVariable &&
+                    name == other.name &&
+                    valuePath == other.valuePath &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(name, valuePath, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "StoreFieldsAsVariable{name=$name, valuePath=$valuePath, additionalProperties=$additionalProperties}"
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -2661,6 +2943,7 @@ private constructor(
                 method == other.method &&
                 pathParameters == other.pathParameters &&
                 queryParameters == other.queryParameters &&
+                storeFieldsAsVariables == other.storeFieldsAsVariables &&
                 timeoutMs == other.timeoutMs &&
                 additionalProperties == other.additionalProperties
         }
@@ -2676,6 +2959,7 @@ private constructor(
                 method,
                 pathParameters,
                 queryParameters,
+                storeFieldsAsVariables,
                 timeoutMs,
                 additionalProperties,
             )
@@ -2684,7 +2968,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Webhook{description=$description, name=$name, url=$url, async=$async, bodyParameters=$bodyParameters, headers=$headers, method=$method, pathParameters=$pathParameters, queryParameters=$queryParameters, timeoutMs=$timeoutMs, additionalProperties=$additionalProperties}"
+            "Webhook{description=$description, name=$name, url=$url, async=$async, bodyParameters=$bodyParameters, headers=$headers, method=$method, pathParameters=$pathParameters, queryParameters=$queryParameters, storeFieldsAsVariables=$storeFieldsAsVariables, timeoutMs=$timeoutMs, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
