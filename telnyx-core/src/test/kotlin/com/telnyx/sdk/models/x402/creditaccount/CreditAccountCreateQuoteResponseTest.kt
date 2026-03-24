@@ -58,7 +58,7 @@ internal class CreditAccountCreateQuoteResponseTest {
                                 .x402Version(
                                     CreditAccountCreateQuoteResponse.Data.PaymentRequirements
                                         .X402Version
-                                        ._2
+                                        .X402_VERSION_2
                                 )
                                 .build()
                         )
@@ -110,7 +110,7 @@ internal class CreditAccountCreateQuoteResponseTest {
                             .x402Version(
                                 CreditAccountCreateQuoteResponse.Data.PaymentRequirements
                                     .X402Version
-                                    ._2
+                                    .X402_VERSION_2
                             )
                             .build()
                     )
@@ -168,7 +168,7 @@ internal class CreditAccountCreateQuoteResponseTest {
                                 .x402Version(
                                     CreditAccountCreateQuoteResponse.Data.PaymentRequirements
                                         .X402Version
-                                        ._2
+                                        .X402_VERSION_2
                                 )
                                 .build()
                         )

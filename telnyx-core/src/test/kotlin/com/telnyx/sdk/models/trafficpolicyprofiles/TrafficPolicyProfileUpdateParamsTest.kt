@@ -14,7 +14,7 @@ internal class TrafficPolicyProfileUpdateParamsTest {
             .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .addDomain("netflix.com")
             .addIpRange("10.64.0.0/24")
-            .limitBwKbps(TrafficPolicyProfileUpdateParams.LimitBwKbps._1024)
+            .limitBwKbps(TrafficPolicyProfileUpdateParams.LimitBwKbps.LIMIT_BW_KBPS_1024)
             .addService("service_123")
             .type(TrafficPolicyProfileUpdateParams.Type.WHITELIST)
             .build()
@@ -39,7 +39,7 @@ internal class TrafficPolicyProfileUpdateParamsTest {
                 .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .addDomain("netflix.com")
                 .addIpRange("10.64.0.0/24")
-                .limitBwKbps(TrafficPolicyProfileUpdateParams.LimitBwKbps._1024)
+                .limitBwKbps(TrafficPolicyProfileUpdateParams.LimitBwKbps.LIMIT_BW_KBPS_1024)
                 .addService("service_123")
                 .type(TrafficPolicyProfileUpdateParams.Type.WHITELIST)
                 .build()
@@ -48,7 +48,8 @@ internal class TrafficPolicyProfileUpdateParamsTest {
 
         assertThat(body.domains().getOrNull()).containsExactly("netflix.com")
         assertThat(body.ipRanges().getOrNull()).containsExactly("10.64.0.0/24")
-        assertThat(body.limitBwKbps()).contains(TrafficPolicyProfileUpdateParams.LimitBwKbps._1024)
+        assertThat(body.limitBwKbps())
+            .contains(TrafficPolicyProfileUpdateParams.LimitBwKbps.LIMIT_BW_KBPS_1024)
         assertThat(body.services().getOrNull()).containsExactly("service_123")
         assertThat(body.type()).contains(TrafficPolicyProfileUpdateParams.Type.WHITELIST)
     }

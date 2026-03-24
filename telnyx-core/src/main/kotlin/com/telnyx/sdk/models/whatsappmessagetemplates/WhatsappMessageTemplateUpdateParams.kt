@@ -21,7 +21,6 @@ import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
-import com.telnyx.sdk.core.allMaxBy
 import com.telnyx.sdk.core.checkKnown
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.getOrThrow
@@ -160,49 +159,56 @@ private constructor(
          */
         fun addComponent(component: Component) = apply { body.addComponent(component) }
 
-        /**
-         * Alias for calling [addComponent] with
-         * `Component.ofWhatsappTemplateHeader(whatsappTemplateHeader)`.
-         */
-        fun addComponent(whatsappTemplateHeader: Component.WhatsappTemplateHeaderComponent) =
-            apply {
-                body.addComponent(whatsappTemplateHeader)
-            }
+        /** Alias for calling [addComponent] with `Component.ofHeader(header)`. */
+        fun addComponent(header: Component.Header) = apply { body.addComponent(header) }
 
         /**
-         * Alias for calling [addComponent] with
-         * `Component.ofWhatsappTemplateBody(whatsappTemplateBody)`.
+         * Alias for calling [addComponent] with the following:
+         * ```java
+         * Component.Header.builder()
+         *     .format(format)
+         *     .build()
+         * ```
          */
-        fun addComponent(whatsappTemplateBody: Component.WhatsappTemplateBodyComponent) = apply {
-            body.addComponent(whatsappTemplateBody)
+        fun addHeaderComponent(format: Component.Header.Format) = apply {
+            body.addHeaderComponent(format)
         }
 
-        /**
-         * Alias for calling [addComponent] with
-         * `Component.ofWhatsappTemplateFooter(whatsappTemplateFooter)`.
-         */
-        fun addComponent(whatsappTemplateFooter: Component.WhatsappTemplateFooterComponent) =
-            apply {
-                body.addComponent(whatsappTemplateFooter)
-            }
+        /** Alias for calling [addComponent] with `Component.ofBody(body)`. */
+        fun addComponent(body: Component.Body) = apply { this.body.addComponent(body) }
+
+        /** Alias for calling [addComponent] with `Component.ofFooter(footer)`. */
+        fun addComponent(footer: Component.Footer) = apply { body.addComponent(footer) }
+
+        /** Alias for calling [addComponent] with `Component.ofButtons(buttons)`. */
+        fun addComponent(buttons: Component.Buttons) = apply { body.addComponent(buttons) }
 
         /**
-         * Alias for calling [addComponent] with
-         * `Component.ofWhatsappTemplateButtons(whatsappTemplateButtons)`.
+         * Alias for calling [addComponent] with the following:
+         * ```java
+         * Component.Buttons.builder()
+         *     .buttons(buttons)
+         *     .build()
+         * ```
          */
-        fun addComponent(whatsappTemplateButtons: Component.WhatsappTemplateButtonsComponent) =
-            apply {
-                body.addComponent(whatsappTemplateButtons)
-            }
+        fun addButtonsComponent(buttons: List<Component.Buttons.Button>) = apply {
+            body.addButtonsComponent(buttons)
+        }
+
+        /** Alias for calling [addComponent] with `Component.ofCarousel(carousel)`. */
+        fun addComponent(carousel: Component.Carousel) = apply { body.addComponent(carousel) }
 
         /**
-         * Alias for calling [addComponent] with
-         * `Component.ofWhatsappTemplateCarousel(whatsappTemplateCarousel)`.
+         * Alias for calling [addComponent] with the following:
+         * ```java
+         * Component.Carousel.builder()
+         *     .cards(cards)
+         *     .build()
+         * ```
          */
-        fun addComponent(whatsappTemplateCarousel: Component.WhatsappTemplateCarouselComponent) =
-            apply {
-                body.addComponent(whatsappTemplateCarousel)
-            }
+        fun addCarouselComponent(cards: List<Component.Carousel.Card>) = apply {
+            body.addCarouselComponent(cards)
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -464,41 +470,55 @@ private constructor(
                     }
             }
 
-            /**
-             * Alias for calling [addComponent] with
-             * `Component.ofWhatsappTemplateHeader(whatsappTemplateHeader)`.
-             */
-            fun addComponent(whatsappTemplateHeader: Component.WhatsappTemplateHeaderComponent) =
-                addComponent(Component.ofWhatsappTemplateHeader(whatsappTemplateHeader))
+            /** Alias for calling [addComponent] with `Component.ofHeader(header)`. */
+            fun addComponent(header: Component.Header) = addComponent(Component.ofHeader(header))
 
             /**
-             * Alias for calling [addComponent] with
-             * `Component.ofWhatsappTemplateBody(whatsappTemplateBody)`.
+             * Alias for calling [addComponent] with the following:
+             * ```java
+             * Component.Header.builder()
+             *     .format(format)
+             *     .build()
+             * ```
              */
-            fun addComponent(whatsappTemplateBody: Component.WhatsappTemplateBodyComponent) =
-                addComponent(Component.ofWhatsappTemplateBody(whatsappTemplateBody))
+            fun addHeaderComponent(format: Component.Header.Format) =
+                addComponent(Component.Header.builder().format(format).build())
+
+            /** Alias for calling [addComponent] with `Component.ofBody(body)`. */
+            fun addComponent(body: Component.Body) = addComponent(Component.ofBody(body))
+
+            /** Alias for calling [addComponent] with `Component.ofFooter(footer)`. */
+            fun addComponent(footer: Component.Footer) = addComponent(Component.ofFooter(footer))
+
+            /** Alias for calling [addComponent] with `Component.ofButtons(buttons)`. */
+            fun addComponent(buttons: Component.Buttons) =
+                addComponent(Component.ofButtons(buttons))
 
             /**
-             * Alias for calling [addComponent] with
-             * `Component.ofWhatsappTemplateFooter(whatsappTemplateFooter)`.
+             * Alias for calling [addComponent] with the following:
+             * ```java
+             * Component.Buttons.builder()
+             *     .buttons(buttons)
+             *     .build()
+             * ```
              */
-            fun addComponent(whatsappTemplateFooter: Component.WhatsappTemplateFooterComponent) =
-                addComponent(Component.ofWhatsappTemplateFooter(whatsappTemplateFooter))
+            fun addButtonsComponent(buttons: List<Component.Buttons.Button>) =
+                addComponent(Component.Buttons.builder().buttons(buttons).build())
+
+            /** Alias for calling [addComponent] with `Component.ofCarousel(carousel)`. */
+            fun addComponent(carousel: Component.Carousel) =
+                addComponent(Component.ofCarousel(carousel))
 
             /**
-             * Alias for calling [addComponent] with
-             * `Component.ofWhatsappTemplateButtons(whatsappTemplateButtons)`.
+             * Alias for calling [addComponent] with the following:
+             * ```java
+             * Component.Carousel.builder()
+             *     .cards(cards)
+             *     .build()
+             * ```
              */
-            fun addComponent(whatsappTemplateButtons: Component.WhatsappTemplateButtonsComponent) =
-                addComponent(Component.ofWhatsappTemplateButtons(whatsappTemplateButtons))
-
-            /**
-             * Alias for calling [addComponent] with
-             * `Component.ofWhatsappTemplateCarousel(whatsappTemplateCarousel)`.
-             */
-            fun addComponent(
-                whatsappTemplateCarousel: Component.WhatsappTemplateCarouselComponent
-            ) = addComponent(Component.ofWhatsappTemplateCarousel(whatsappTemplateCarousel))
+            fun addCarouselComponent(cards: List<Component.Carousel.Card>) =
+                addComponent(Component.Carousel.builder().cards(cards).build())
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -720,90 +740,75 @@ private constructor(
     @JsonSerialize(using = Component.Serializer::class)
     class Component
     private constructor(
-        private val whatsappTemplateHeader: WhatsappTemplateHeaderComponent? = null,
-        private val whatsappTemplateBody: WhatsappTemplateBodyComponent? = null,
-        private val whatsappTemplateFooter: WhatsappTemplateFooterComponent? = null,
-        private val whatsappTemplateButtons: WhatsappTemplateButtonsComponent? = null,
-        private val whatsappTemplateCarousel: WhatsappTemplateCarouselComponent? = null,
+        private val header: Header? = null,
+        private val body: Body? = null,
+        private val footer: Footer? = null,
+        private val buttons: Buttons? = null,
+        private val carousel: Carousel? = null,
         private val _json: JsonValue? = null,
     ) {
 
         /** Optional header displayed at the top of the message. */
-        fun whatsappTemplateHeader(): Optional<WhatsappTemplateHeaderComponent> =
-            Optional.ofNullable(whatsappTemplateHeader)
+        fun header(): Optional<Header> = Optional.ofNullable(header)
 
         /**
          * The main text content of the message. Supports multiple variable parameters ({{1}},
          * {{2}}, etc.). Variables cannot be at the start or end. Maximum 1024 characters.
          */
-        fun whatsappTemplateBody(): Optional<WhatsappTemplateBodyComponent> =
-            Optional.ofNullable(whatsappTemplateBody)
+        fun body(): Optional<Body> = Optional.ofNullable(body)
 
         /** Optional footer displayed at the bottom of the message. Does not support variables. */
-        fun whatsappTemplateFooter(): Optional<WhatsappTemplateFooterComponent> =
-            Optional.ofNullable(whatsappTemplateFooter)
+        fun footer(): Optional<Footer> = Optional.ofNullable(footer)
 
         /** Optional interactive buttons. Maximum 3 buttons per template. */
-        fun whatsappTemplateButtons(): Optional<WhatsappTemplateButtonsComponent> =
-            Optional.ofNullable(whatsappTemplateButtons)
+        fun buttons(): Optional<Buttons> = Optional.ofNullable(buttons)
 
         /**
          * Carousel component for multi-card templates. Each card can contain its own header, body,
          * and buttons.
          */
-        fun whatsappTemplateCarousel(): Optional<WhatsappTemplateCarouselComponent> =
-            Optional.ofNullable(whatsappTemplateCarousel)
+        fun carousel(): Optional<Carousel> = Optional.ofNullable(carousel)
 
-        fun isWhatsappTemplateHeader(): Boolean = whatsappTemplateHeader != null
+        fun isHeader(): Boolean = header != null
 
-        fun isWhatsappTemplateBody(): Boolean = whatsappTemplateBody != null
+        fun isBody(): Boolean = body != null
 
-        fun isWhatsappTemplateFooter(): Boolean = whatsappTemplateFooter != null
+        fun isFooter(): Boolean = footer != null
 
-        fun isWhatsappTemplateButtons(): Boolean = whatsappTemplateButtons != null
+        fun isButtons(): Boolean = buttons != null
 
-        fun isWhatsappTemplateCarousel(): Boolean = whatsappTemplateCarousel != null
+        fun isCarousel(): Boolean = carousel != null
 
         /** Optional header displayed at the top of the message. */
-        fun asWhatsappTemplateHeader(): WhatsappTemplateHeaderComponent =
-            whatsappTemplateHeader.getOrThrow("whatsappTemplateHeader")
+        fun asHeader(): Header = header.getOrThrow("header")
 
         /**
          * The main text content of the message. Supports multiple variable parameters ({{1}},
          * {{2}}, etc.). Variables cannot be at the start or end. Maximum 1024 characters.
          */
-        fun asWhatsappTemplateBody(): WhatsappTemplateBodyComponent =
-            whatsappTemplateBody.getOrThrow("whatsappTemplateBody")
+        fun asBody(): Body = body.getOrThrow("body")
 
         /** Optional footer displayed at the bottom of the message. Does not support variables. */
-        fun asWhatsappTemplateFooter(): WhatsappTemplateFooterComponent =
-            whatsappTemplateFooter.getOrThrow("whatsappTemplateFooter")
+        fun asFooter(): Footer = footer.getOrThrow("footer")
 
         /** Optional interactive buttons. Maximum 3 buttons per template. */
-        fun asWhatsappTemplateButtons(): WhatsappTemplateButtonsComponent =
-            whatsappTemplateButtons.getOrThrow("whatsappTemplateButtons")
+        fun asButtons(): Buttons = buttons.getOrThrow("buttons")
 
         /**
          * Carousel component for multi-card templates. Each card can contain its own header, body,
          * and buttons.
          */
-        fun asWhatsappTemplateCarousel(): WhatsappTemplateCarouselComponent =
-            whatsappTemplateCarousel.getOrThrow("whatsappTemplateCarousel")
+        fun asCarousel(): Carousel = carousel.getOrThrow("carousel")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                whatsappTemplateHeader != null ->
-                    visitor.visitWhatsappTemplateHeader(whatsappTemplateHeader)
-                whatsappTemplateBody != null ->
-                    visitor.visitWhatsappTemplateBody(whatsappTemplateBody)
-                whatsappTemplateFooter != null ->
-                    visitor.visitWhatsappTemplateFooter(whatsappTemplateFooter)
-                whatsappTemplateButtons != null ->
-                    visitor.visitWhatsappTemplateButtons(whatsappTemplateButtons)
-                whatsappTemplateCarousel != null ->
-                    visitor.visitWhatsappTemplateCarousel(whatsappTemplateCarousel)
+                header != null -> visitor.visitHeader(header)
+                body != null -> visitor.visitBody(body)
+                footer != null -> visitor.visitFooter(footer)
+                buttons != null -> visitor.visitButtons(buttons)
+                carousel != null -> visitor.visitCarousel(carousel)
                 else -> visitor.unknown(_json)
             }
 
@@ -816,34 +821,24 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitWhatsappTemplateHeader(
-                        whatsappTemplateHeader: WhatsappTemplateHeaderComponent
-                    ) {
-                        whatsappTemplateHeader.validate()
+                    override fun visitHeader(header: Header) {
+                        header.validate()
                     }
 
-                    override fun visitWhatsappTemplateBody(
-                        whatsappTemplateBody: WhatsappTemplateBodyComponent
-                    ) {
-                        whatsappTemplateBody.validate()
+                    override fun visitBody(body: Body) {
+                        body.validate()
                     }
 
-                    override fun visitWhatsappTemplateFooter(
-                        whatsappTemplateFooter: WhatsappTemplateFooterComponent
-                    ) {
-                        whatsappTemplateFooter.validate()
+                    override fun visitFooter(footer: Footer) {
+                        footer.validate()
                     }
 
-                    override fun visitWhatsappTemplateButtons(
-                        whatsappTemplateButtons: WhatsappTemplateButtonsComponent
-                    ) {
-                        whatsappTemplateButtons.validate()
+                    override fun visitButtons(buttons: Buttons) {
+                        buttons.validate()
                     }
 
-                    override fun visitWhatsappTemplateCarousel(
-                        whatsappTemplateCarousel: WhatsappTemplateCarouselComponent
-                    ) {
-                        whatsappTemplateCarousel.validate()
+                    override fun visitCarousel(carousel: Carousel) {
+                        carousel.validate()
                     }
                 }
             )
@@ -868,25 +863,15 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitWhatsappTemplateHeader(
-                        whatsappTemplateHeader: WhatsappTemplateHeaderComponent
-                    ) = whatsappTemplateHeader.validity()
+                    override fun visitHeader(header: Header) = header.validity()
 
-                    override fun visitWhatsappTemplateBody(
-                        whatsappTemplateBody: WhatsappTemplateBodyComponent
-                    ) = whatsappTemplateBody.validity()
+                    override fun visitBody(body: Body) = body.validity()
 
-                    override fun visitWhatsappTemplateFooter(
-                        whatsappTemplateFooter: WhatsappTemplateFooterComponent
-                    ) = whatsappTemplateFooter.validity()
+                    override fun visitFooter(footer: Footer) = footer.validity()
 
-                    override fun visitWhatsappTemplateButtons(
-                        whatsappTemplateButtons: WhatsappTemplateButtonsComponent
-                    ) = whatsappTemplateButtons.validity()
+                    override fun visitButtons(buttons: Buttons) = buttons.validity()
 
-                    override fun visitWhatsappTemplateCarousel(
-                        whatsappTemplateCarousel: WhatsappTemplateCarouselComponent
-                    ) = whatsappTemplateCarousel.validity()
+                    override fun visitCarousel(carousel: Carousel) = carousel.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -898,34 +883,22 @@ private constructor(
             }
 
             return other is Component &&
-                whatsappTemplateHeader == other.whatsappTemplateHeader &&
-                whatsappTemplateBody == other.whatsappTemplateBody &&
-                whatsappTemplateFooter == other.whatsappTemplateFooter &&
-                whatsappTemplateButtons == other.whatsappTemplateButtons &&
-                whatsappTemplateCarousel == other.whatsappTemplateCarousel
+                header == other.header &&
+                body == other.body &&
+                footer == other.footer &&
+                buttons == other.buttons &&
+                carousel == other.carousel
         }
 
-        override fun hashCode(): Int =
-            Objects.hash(
-                whatsappTemplateHeader,
-                whatsappTemplateBody,
-                whatsappTemplateFooter,
-                whatsappTemplateButtons,
-                whatsappTemplateCarousel,
-            )
+        override fun hashCode(): Int = Objects.hash(header, body, footer, buttons, carousel)
 
         override fun toString(): String =
             when {
-                whatsappTemplateHeader != null ->
-                    "Component{whatsappTemplateHeader=$whatsappTemplateHeader}"
-                whatsappTemplateBody != null ->
-                    "Component{whatsappTemplateBody=$whatsappTemplateBody}"
-                whatsappTemplateFooter != null ->
-                    "Component{whatsappTemplateFooter=$whatsappTemplateFooter}"
-                whatsappTemplateButtons != null ->
-                    "Component{whatsappTemplateButtons=$whatsappTemplateButtons}"
-                whatsappTemplateCarousel != null ->
-                    "Component{whatsappTemplateCarousel=$whatsappTemplateCarousel}"
+                header != null -> "Component{header=$header}"
+                body != null -> "Component{body=$body}"
+                footer != null -> "Component{footer=$footer}"
+                buttons != null -> "Component{buttons=$buttons}"
+                carousel != null -> "Component{carousel=$carousel}"
                 _json != null -> "Component{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Component")
             }
@@ -933,39 +906,27 @@ private constructor(
         companion object {
 
             /** Optional header displayed at the top of the message. */
-            @JvmStatic
-            fun ofWhatsappTemplateHeader(whatsappTemplateHeader: WhatsappTemplateHeaderComponent) =
-                Component(whatsappTemplateHeader = whatsappTemplateHeader)
+            @JvmStatic fun ofHeader(header: Header) = Component(header = header)
 
             /**
              * The main text content of the message. Supports multiple variable parameters ({{1}},
              * {{2}}, etc.). Variables cannot be at the start or end. Maximum 1024 characters.
              */
-            @JvmStatic
-            fun ofWhatsappTemplateBody(whatsappTemplateBody: WhatsappTemplateBodyComponent) =
-                Component(whatsappTemplateBody = whatsappTemplateBody)
+            @JvmStatic fun ofBody(body: Body) = Component(body = body)
 
             /**
              * Optional footer displayed at the bottom of the message. Does not support variables.
              */
-            @JvmStatic
-            fun ofWhatsappTemplateFooter(whatsappTemplateFooter: WhatsappTemplateFooterComponent) =
-                Component(whatsappTemplateFooter = whatsappTemplateFooter)
+            @JvmStatic fun ofFooter(footer: Footer) = Component(footer = footer)
 
             /** Optional interactive buttons. Maximum 3 buttons per template. */
-            @JvmStatic
-            fun ofWhatsappTemplateButtons(
-                whatsappTemplateButtons: WhatsappTemplateButtonsComponent
-            ) = Component(whatsappTemplateButtons = whatsappTemplateButtons)
+            @JvmStatic fun ofButtons(buttons: Buttons) = Component(buttons = buttons)
 
             /**
              * Carousel component for multi-card templates. Each card can contain its own header,
              * body, and buttons.
              */
-            @JvmStatic
-            fun ofWhatsappTemplateCarousel(
-                whatsappTemplateCarousel: WhatsappTemplateCarouselComponent
-            ) = Component(whatsappTemplateCarousel = whatsappTemplateCarousel)
+            @JvmStatic fun ofCarousel(carousel: Carousel) = Component(carousel = carousel)
         }
 
         /**
@@ -974,35 +935,27 @@ private constructor(
         interface Visitor<out T> {
 
             /** Optional header displayed at the top of the message. */
-            fun visitWhatsappTemplateHeader(
-                whatsappTemplateHeader: WhatsappTemplateHeaderComponent
-            ): T
+            fun visitHeader(header: Header): T
 
             /**
              * The main text content of the message. Supports multiple variable parameters ({{1}},
              * {{2}}, etc.). Variables cannot be at the start or end. Maximum 1024 characters.
              */
-            fun visitWhatsappTemplateBody(whatsappTemplateBody: WhatsappTemplateBodyComponent): T
+            fun visitBody(body: Body): T
 
             /**
              * Optional footer displayed at the bottom of the message. Does not support variables.
              */
-            fun visitWhatsappTemplateFooter(
-                whatsappTemplateFooter: WhatsappTemplateFooterComponent
-            ): T
+            fun visitFooter(footer: Footer): T
 
             /** Optional interactive buttons. Maximum 3 buttons per template. */
-            fun visitWhatsappTemplateButtons(
-                whatsappTemplateButtons: WhatsappTemplateButtonsComponent
-            ): T
+            fun visitButtons(buttons: Buttons): T
 
             /**
              * Carousel component for multi-card templates. Each card can contain its own header,
              * body, and buttons.
              */
-            fun visitWhatsappTemplateCarousel(
-                whatsappTemplateCarousel: WhatsappTemplateCarouselComponent
-            ): T
+            fun visitCarousel(carousel: Carousel): T
 
             /**
              * Maps an unknown variant of [Component] to a value of type [T].
@@ -1023,36 +976,37 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): Component {
                 val json = JsonValue.fromJsonNode(node)
+                val type = json.asObject().getOrNull()?.get("type")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<WhatsappTemplateHeaderComponent>())
-                                ?.let { Component(whatsappTemplateHeader = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<WhatsappTemplateBodyComponent>())
-                                ?.let { Component(whatsappTemplateBody = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<WhatsappTemplateFooterComponent>())
-                                ?.let { Component(whatsappTemplateFooter = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<WhatsappTemplateButtonsComponent>())
-                                ?.let { Component(whatsappTemplateButtons = it, _json = json) },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<WhatsappTemplateCarouselComponent>(),
-                                )
-                                ?.let { Component(whatsappTemplateCarousel = it, _json = json) },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> Component(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (type) {
+                    "HEADER" -> {
+                        return tryDeserialize(node, jacksonTypeRef<Header>())?.let {
+                            Component(header = it, _json = json)
+                        } ?: Component(_json = json)
+                    }
+                    "BODY" -> {
+                        return tryDeserialize(node, jacksonTypeRef<Body>())?.let {
+                            Component(body = it, _json = json)
+                        } ?: Component(_json = json)
+                    }
+                    "FOOTER" -> {
+                        return tryDeserialize(node, jacksonTypeRef<Footer>())?.let {
+                            Component(footer = it, _json = json)
+                        } ?: Component(_json = json)
+                    }
+                    "BUTTONS" -> {
+                        return tryDeserialize(node, jacksonTypeRef<Buttons>())?.let {
+                            Component(buttons = it, _json = json)
+                        } ?: Component(_json = json)
+                    }
+                    "CAROUSEL" -> {
+                        return tryDeserialize(node, jacksonTypeRef<Carousel>())?.let {
+                            Component(carousel = it, _json = json)
+                        } ?: Component(_json = json)
+                    }
                 }
+
+                return Component(_json = json)
             }
         }
 
@@ -1064,16 +1018,11 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.whatsappTemplateHeader != null ->
-                        generator.writeObject(value.whatsappTemplateHeader)
-                    value.whatsappTemplateBody != null ->
-                        generator.writeObject(value.whatsappTemplateBody)
-                    value.whatsappTemplateFooter != null ->
-                        generator.writeObject(value.whatsappTemplateFooter)
-                    value.whatsappTemplateButtons != null ->
-                        generator.writeObject(value.whatsappTemplateButtons)
-                    value.whatsappTemplateCarousel != null ->
-                        generator.writeObject(value.whatsappTemplateCarousel)
+                    value.header != null -> generator.writeObject(value.header)
+                    value.body != null -> generator.writeObject(value.body)
+                    value.footer != null -> generator.writeObject(value.footer)
+                    value.buttons != null -> generator.writeObject(value.buttons)
+                    value.carousel != null -> generator.writeObject(value.carousel)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Component")
                 }
@@ -1081,11 +1030,11 @@ private constructor(
         }
 
         /** Optional header displayed at the top of the message. */
-        class WhatsappTemplateHeaderComponent
+        class Header
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val format: JsonField<Format>,
-            private val type: JsonField<Type>,
+            private val type: JsonValue,
             private val example: JsonField<Example>,
             private val text: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1096,7 +1045,7 @@ private constructor(
                 @JsonProperty("format")
                 @ExcludeMissing
                 format: JsonField<Format> = JsonMissing.of(),
-                @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
                 @JsonProperty("example")
                 @ExcludeMissing
                 example: JsonField<Example> = JsonMissing.of(),
@@ -1114,11 +1063,15 @@ private constructor(
             fun format(): Format = format.getRequired("format")
 
             /**
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * Expected to always return the following:
+             * ```java
+             * JsonValue.from("HEADER")
+             * ```
+             *
+             * However, this method can be useful for debugging and logging (e.g. if the server
+             * responded with an unexpected value).
              */
-            fun type(): Type = type.getRequired("type")
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
             /**
              * Sample values for header variables.
@@ -1143,13 +1096,6 @@ private constructor(
              * Unlike [format], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("format") @ExcludeMissing fun _format(): JsonField<Format> = format
-
-            /**
-             * Returns the raw JSON value of [type].
-             *
-             * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
             /**
              * Returns the raw JSON value of [example].
@@ -1180,37 +1126,32 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of
-                 * [WhatsappTemplateHeaderComponent].
+                 * Returns a mutable builder for constructing an instance of [Header].
                  *
                  * The following fields are required:
                  * ```java
                  * .format()
-                 * .type()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [WhatsappTemplateHeaderComponent]. */
+            /** A builder for [Header]. */
             class Builder internal constructor() {
 
                 private var format: JsonField<Format>? = null
-                private var type: JsonField<Type>? = null
+                private var type: JsonValue = JsonValue.from("HEADER")
                 private var example: JsonField<Example> = JsonMissing.of()
                 private var text: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(
-                    whatsappTemplateHeaderComponent: WhatsappTemplateHeaderComponent
-                ) = apply {
-                    format = whatsappTemplateHeaderComponent.format
-                    type = whatsappTemplateHeaderComponent.type
-                    example = whatsappTemplateHeaderComponent.example
-                    text = whatsappTemplateHeaderComponent.text
-                    additionalProperties =
-                        whatsappTemplateHeaderComponent.additionalProperties.toMutableMap()
+                internal fun from(header: Header) = apply {
+                    format = header.format
+                    type = header.type
+                    example = header.example
+                    text = header.text
+                    additionalProperties = header.additionalProperties.toMutableMap()
                 }
 
                 /**
@@ -1228,16 +1169,19 @@ private constructor(
                  */
                 fun format(format: JsonField<Format>) = apply { this.format = format }
 
-                fun type(type: Type) = type(JsonField.of(type))
-
                 /**
-                 * Sets [Builder.type] to an arbitrary JSON value.
+                 * Sets the field to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.type] with a well-typed [Type] value instead.
+                 * It is usually unnecessary to call this method because the field defaults to the
+                 * following:
+                 * ```java
+                 * JsonValue.from("HEADER")
+                 * ```
+                 *
                  * This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun type(type: JsonField<Type>) = apply { this.type = type }
+                fun type(type: JsonValue) = apply { this.type = type }
 
                 /** Sample values for header variables. */
                 fun example(example: Example) = example(JsonField.of(example))
@@ -1289,22 +1233,21 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [WhatsappTemplateHeaderComponent].
+                 * Returns an immutable instance of [Header].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
                  * The following fields are required:
                  * ```java
                  * .format()
-                 * .type()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): WhatsappTemplateHeaderComponent =
-                    WhatsappTemplateHeaderComponent(
+                fun build(): Header =
+                    Header(
                         checkRequired("format", format),
-                        checkRequired("type", type),
+                        type,
                         example,
                         text,
                         additionalProperties.toMutableMap(),
@@ -1313,13 +1256,17 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): WhatsappTemplateHeaderComponent = apply {
+            fun validate(): Header = apply {
                 if (validated) {
                     return@apply
                 }
 
                 format().validate()
-                type().validate()
+                _type().let {
+                    if (it != JsonValue.from("HEADER")) {
+                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                    }
+                }
                 example().ifPresent { it.validate() }
                 text()
                 validated = true
@@ -1342,7 +1289,7 @@ private constructor(
             @JvmSynthetic
             internal fun validity(): Int =
                 (format.asKnown().getOrNull()?.validity() ?: 0) +
-                    (type.asKnown().getOrNull()?.validity() ?: 0) +
+                    type.let { if (it == JsonValue.from("HEADER")) 1 else 0 } +
                     (example.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (text.asKnown().isPresent) 1 else 0)
 
@@ -1492,130 +1439,6 @@ private constructor(
                     }
 
                     return other is Format && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            class Type @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val HEADER = of("HEADER")
-
-                    @JvmStatic fun of(value: String) = Type(JsonField.of(value))
-                }
-
-                /** An enum containing [Type]'s known values. */
-                enum class Known {
-                    HEADER
-                }
-
-                /**
-                 * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Type] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    HEADER,
-                    /**
-                     * An enum member indicating that [Type] was instantiated with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        HEADER -> Value.HEADER
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        HEADER -> Known.HEADER
-                        else -> throw TelnyxInvalidDataException("Unknown Type: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                fun validate(): Type = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Type && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -1856,7 +1679,7 @@ private constructor(
                     return true
                 }
 
-                return other is WhatsappTemplateHeaderComponent &&
+                return other is Header &&
                     format == other.format &&
                     type == other.type &&
                     example == other.example &&
@@ -1871,17 +1694,17 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "WhatsappTemplateHeaderComponent{format=$format, type=$type, example=$example, text=$text, additionalProperties=$additionalProperties}"
+                "Header{format=$format, type=$type, example=$example, text=$text, additionalProperties=$additionalProperties}"
         }
 
         /**
          * The main text content of the message. Supports multiple variable parameters ({{1}},
          * {{2}}, etc.). Variables cannot be at the start or end. Maximum 1024 characters.
          */
-        class WhatsappTemplateBodyComponent
+        class Body
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val type: JsonField<Type>,
+            private val type: JsonValue,
             private val example: JsonField<Example>,
             private val text: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1889,7 +1712,7 @@ private constructor(
 
             @JsonCreator
             private constructor(
-                @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
                 @JsonProperty("example")
                 @ExcludeMissing
                 example: JsonField<Example> = JsonMissing.of(),
@@ -1897,11 +1720,15 @@ private constructor(
             ) : this(type, example, text, mutableMapOf())
 
             /**
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * Expected to always return the following:
+             * ```java
+             * JsonValue.from("BODY")
+             * ```
+             *
+             * However, this method can be useful for debugging and logging (e.g. if the server
+             * responded with an unexpected value).
              */
-            fun type(): Type = type.getRequired("type")
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
             /**
              * Sample values for body variables. Required when body text contains parameters.
@@ -1920,13 +1747,6 @@ private constructor(
              *   the server responded with an unexpected value).
              */
             fun text(): Optional<String> = text.getOptional("text")
-
-            /**
-             * Returns the raw JSON value of [type].
-             *
-             * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
             /**
              * Returns the raw JSON value of [example].
@@ -1956,46 +1776,39 @@ private constructor(
 
             companion object {
 
-                /**
-                 * Returns a mutable builder for constructing an instance of
-                 * [WhatsappTemplateBodyComponent].
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .type()
-                 * ```
-                 */
+                /** Returns a mutable builder for constructing an instance of [Body]. */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [WhatsappTemplateBodyComponent]. */
+            /** A builder for [Body]. */
             class Builder internal constructor() {
 
-                private var type: JsonField<Type>? = null
+                private var type: JsonValue = JsonValue.from("BODY")
                 private var example: JsonField<Example> = JsonMissing.of()
                 private var text: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(whatsappTemplateBodyComponent: WhatsappTemplateBodyComponent) =
-                    apply {
-                        type = whatsappTemplateBodyComponent.type
-                        example = whatsappTemplateBodyComponent.example
-                        text = whatsappTemplateBodyComponent.text
-                        additionalProperties =
-                            whatsappTemplateBodyComponent.additionalProperties.toMutableMap()
-                    }
-
-                fun type(type: Type) = type(JsonField.of(type))
+                internal fun from(body: Body) = apply {
+                    type = body.type
+                    example = body.example
+                    text = body.text
+                    additionalProperties = body.additionalProperties.toMutableMap()
+                }
 
                 /**
-                 * Sets [Builder.type] to an arbitrary JSON value.
+                 * Sets the field to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.type] with a well-typed [Type] value instead.
+                 * It is usually unnecessary to call this method because the field defaults to the
+                 * following:
+                 * ```java
+                 * JsonValue.from("BODY")
+                 * ```
+                 *
                  * This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun type(type: JsonField<Type>) = apply { this.type = type }
+                fun type(type: JsonValue) = apply { this.type = type }
 
                 /**
                  * Sample values for body variables. Required when body text contains parameters.
@@ -2050,34 +1863,25 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [WhatsappTemplateBodyComponent].
+                 * Returns an immutable instance of [Body].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .type()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): WhatsappTemplateBodyComponent =
-                    WhatsappTemplateBodyComponent(
-                        checkRequired("type", type),
-                        example,
-                        text,
-                        additionalProperties.toMutableMap(),
-                    )
+                fun build(): Body = Body(type, example, text, additionalProperties.toMutableMap())
             }
 
             private var validated: Boolean = false
 
-            fun validate(): WhatsappTemplateBodyComponent = apply {
+            fun validate(): Body = apply {
                 if (validated) {
                     return@apply
                 }
 
-                type().validate()
+                _type().let {
+                    if (it != JsonValue.from("BODY")) {
+                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                    }
+                }
                 example().ifPresent { it.validate() }
                 text()
                 validated = true
@@ -2099,133 +1903,9 @@ private constructor(
              */
             @JvmSynthetic
             internal fun validity(): Int =
-                (type.asKnown().getOrNull()?.validity() ?: 0) +
+                type.let { if (it == JsonValue.from("BODY")) 1 else 0 } +
                     (example.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (text.asKnown().isPresent) 1 else 0)
-
-            class Type @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val BODY = of("BODY")
-
-                    @JvmStatic fun of(value: String) = Type(JsonField.of(value))
-                }
-
-                /** An enum containing [Type]'s known values. */
-                enum class Known {
-                    BODY
-                }
-
-                /**
-                 * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Type] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    BODY,
-                    /**
-                     * An enum member indicating that [Type] was instantiated with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        BODY -> Value.BODY
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        BODY -> Known.BODY
-                        else -> throw TelnyxInvalidDataException("Unknown Type: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                fun validate(): Type = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Type && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
 
             /** Sample values for body variables. Required when body text contains parameters. */
             class Example
@@ -2402,7 +2082,7 @@ private constructor(
                     return true
                 }
 
-                return other is WhatsappTemplateBodyComponent &&
+                return other is Body &&
                     type == other.type &&
                     example == other.example &&
                     text == other.text &&
@@ -2416,14 +2096,14 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "WhatsappTemplateBodyComponent{type=$type, example=$example, text=$text, additionalProperties=$additionalProperties}"
+                "Body{type=$type, example=$example, text=$text, additionalProperties=$additionalProperties}"
         }
 
         /** Optional footer displayed at the bottom of the message. Does not support variables. */
-        class WhatsappTemplateFooterComponent
+        class Footer
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val type: JsonField<Type>,
+            private val type: JsonValue,
             private val codeExpirationMinutes: JsonField<Long>,
             private val text: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2431,7 +2111,7 @@ private constructor(
 
             @JsonCreator
             private constructor(
-                @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
                 @JsonProperty("code_expiration_minutes")
                 @ExcludeMissing
                 codeExpirationMinutes: JsonField<Long> = JsonMissing.of(),
@@ -2439,11 +2119,15 @@ private constructor(
             ) : this(type, codeExpirationMinutes, text, mutableMapOf())
 
             /**
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * Expected to always return the following:
+             * ```java
+             * JsonValue.from("FOOTER")
+             * ```
+             *
+             * However, this method can be useful for debugging and logging (e.g. if the server
+             * responded with an unexpected value).
              */
-            fun type(): Type = type.getRequired("type")
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
             /**
              * OTP code expiration time in minutes. Used in AUTHENTICATION template footers instead
@@ -2462,13 +2146,6 @@ private constructor(
              *   the server responded with an unexpected value).
              */
             fun text(): Optional<String> = text.getOptional("text")
-
-            /**
-             * Returns the raw JSON value of [type].
-             *
-             * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
             /**
              * Returns the raw JSON value of [codeExpirationMinutes].
@@ -2501,47 +2178,39 @@ private constructor(
 
             companion object {
 
-                /**
-                 * Returns a mutable builder for constructing an instance of
-                 * [WhatsappTemplateFooterComponent].
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .type()
-                 * ```
-                 */
+                /** Returns a mutable builder for constructing an instance of [Footer]. */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [WhatsappTemplateFooterComponent]. */
+            /** A builder for [Footer]. */
             class Builder internal constructor() {
 
-                private var type: JsonField<Type>? = null
+                private var type: JsonValue = JsonValue.from("FOOTER")
                 private var codeExpirationMinutes: JsonField<Long> = JsonMissing.of()
                 private var text: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(
-                    whatsappTemplateFooterComponent: WhatsappTemplateFooterComponent
-                ) = apply {
-                    type = whatsappTemplateFooterComponent.type
-                    codeExpirationMinutes = whatsappTemplateFooterComponent.codeExpirationMinutes
-                    text = whatsappTemplateFooterComponent.text
-                    additionalProperties =
-                        whatsappTemplateFooterComponent.additionalProperties.toMutableMap()
+                internal fun from(footer: Footer) = apply {
+                    type = footer.type
+                    codeExpirationMinutes = footer.codeExpirationMinutes
+                    text = footer.text
+                    additionalProperties = footer.additionalProperties.toMutableMap()
                 }
 
-                fun type(type: Type) = type(JsonField.of(type))
-
                 /**
-                 * Sets [Builder.type] to an arbitrary JSON value.
+                 * Sets the field to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.type] with a well-typed [Type] value instead.
+                 * It is usually unnecessary to call this method because the field defaults to the
+                 * following:
+                 * ```java
+                 * JsonValue.from("FOOTER")
+                 * ```
+                 *
                  * This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun type(type: JsonField<Type>) = apply { this.type = type }
+                fun type(type: JsonValue) = apply { this.type = type }
 
                 /**
                  * OTP code expiration time in minutes. Used in AUTHENTICATION template footers
@@ -2596,34 +2265,26 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [WhatsappTemplateFooterComponent].
+                 * Returns an immutable instance of [Footer].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .type()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): WhatsappTemplateFooterComponent =
-                    WhatsappTemplateFooterComponent(
-                        checkRequired("type", type),
-                        codeExpirationMinutes,
-                        text,
-                        additionalProperties.toMutableMap(),
-                    )
+                fun build(): Footer =
+                    Footer(type, codeExpirationMinutes, text, additionalProperties.toMutableMap())
             }
 
             private var validated: Boolean = false
 
-            fun validate(): WhatsappTemplateFooterComponent = apply {
+            fun validate(): Footer = apply {
                 if (validated) {
                     return@apply
                 }
 
-                type().validate()
+                _type().let {
+                    if (it != JsonValue.from("FOOTER")) {
+                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                    }
+                }
                 codeExpirationMinutes()
                 text()
                 validated = true
@@ -2645,140 +2306,16 @@ private constructor(
              */
             @JvmSynthetic
             internal fun validity(): Int =
-                (type.asKnown().getOrNull()?.validity() ?: 0) +
+                type.let { if (it == JsonValue.from("FOOTER")) 1 else 0 } +
                     (if (codeExpirationMinutes.asKnown().isPresent) 1 else 0) +
                     (if (text.asKnown().isPresent) 1 else 0)
-
-            class Type @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val FOOTER = of("FOOTER")
-
-                    @JvmStatic fun of(value: String) = Type(JsonField.of(value))
-                }
-
-                /** An enum containing [Type]'s known values. */
-                enum class Known {
-                    FOOTER
-                }
-
-                /**
-                 * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Type] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    FOOTER,
-                    /**
-                     * An enum member indicating that [Type] was instantiated with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        FOOTER -> Value.FOOTER
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        FOOTER -> Known.FOOTER
-                        else -> throw TelnyxInvalidDataException("Unknown Type: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                fun validate(): Type = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Type && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
                 }
 
-                return other is WhatsappTemplateFooterComponent &&
+                return other is Footer &&
                     type == other.type &&
                     codeExpirationMinutes == other.codeExpirationMinutes &&
                     text == other.text &&
@@ -2792,15 +2329,15 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "WhatsappTemplateFooterComponent{type=$type, codeExpirationMinutes=$codeExpirationMinutes, text=$text, additionalProperties=$additionalProperties}"
+                "Footer{type=$type, codeExpirationMinutes=$codeExpirationMinutes, text=$text, additionalProperties=$additionalProperties}"
         }
 
         /** Optional interactive buttons. Maximum 3 buttons per template. */
-        class WhatsappTemplateButtonsComponent
+        class Buttons
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val buttons: JsonField<List<Button>>,
-            private val type: JsonField<Type>,
+            private val type: JsonValue,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -2809,7 +2346,7 @@ private constructor(
                 @JsonProperty("buttons")
                 @ExcludeMissing
                 buttons: JsonField<List<Button>> = JsonMissing.of(),
-                @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
             ) : this(buttons, type, mutableMapOf())
 
             /**
@@ -2822,11 +2359,15 @@ private constructor(
             fun buttons(): List<Button> = buttons.getRequired("buttons")
 
             /**
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * Expected to always return the following:
+             * ```java
+             * JsonValue.from("BUTTONS")
+             * ```
+             *
+             * However, this method can be useful for debugging and logging (e.g. if the server
+             * responded with an unexpected value).
              */
-            fun type(): Type = type.getRequired("type")
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
             /**
              * Returns the raw JSON value of [buttons].
@@ -2836,13 +2377,6 @@ private constructor(
             @JsonProperty("buttons")
             @ExcludeMissing
             fun _buttons(): JsonField<List<Button>> = buttons
-
-            /**
-             * Returns the raw JSON value of [type].
-             *
-             * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -2859,33 +2393,28 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of
-                 * [WhatsappTemplateButtonsComponent].
+                 * Returns a mutable builder for constructing an instance of [Buttons].
                  *
                  * The following fields are required:
                  * ```java
                  * .buttons()
-                 * .type()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [WhatsappTemplateButtonsComponent]. */
+            /** A builder for [Buttons]. */
             class Builder internal constructor() {
 
                 private var buttons: JsonField<MutableList<Button>>? = null
-                private var type: JsonField<Type>? = null
+                private var type: JsonValue = JsonValue.from("BUTTONS")
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(
-                    whatsappTemplateButtonsComponent: WhatsappTemplateButtonsComponent
-                ) = apply {
-                    buttons = whatsappTemplateButtonsComponent.buttons.map { it.toMutableList() }
-                    type = whatsappTemplateButtonsComponent.type
-                    additionalProperties =
-                        whatsappTemplateButtonsComponent.additionalProperties.toMutableMap()
+                internal fun from(buttons: Buttons) = apply {
+                    this.buttons = buttons.buttons.map { it.toMutableList() }
+                    type = buttons.type
+                    additionalProperties = buttons.additionalProperties.toMutableMap()
                 }
 
                 /** Array of button objects. Meta supports various combinations of button types. */
@@ -2914,16 +2443,19 @@ private constructor(
                         }
                 }
 
-                fun type(type: Type) = type(JsonField.of(type))
-
                 /**
-                 * Sets [Builder.type] to an arbitrary JSON value.
+                 * Sets the field to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.type] with a well-typed [Type] value instead.
+                 * It is usually unnecessary to call this method because the field defaults to the
+                 * following:
+                 * ```java
+                 * JsonValue.from("BUTTONS")
+                 * ```
+                 *
                  * This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun type(type: JsonField<Type>) = apply { this.type = type }
+                fun type(type: JsonValue) = apply { this.type = type }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -2948,35 +2480,38 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [WhatsappTemplateButtonsComponent].
+                 * Returns an immutable instance of [Buttons].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
                  * The following fields are required:
                  * ```java
                  * .buttons()
-                 * .type()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): WhatsappTemplateButtonsComponent =
-                    WhatsappTemplateButtonsComponent(
+                fun build(): Buttons =
+                    Buttons(
                         checkRequired("buttons", buttons).map { it.toImmutable() },
-                        checkRequired("type", type),
+                        type,
                         additionalProperties.toMutableMap(),
                     )
             }
 
             private var validated: Boolean = false
 
-            fun validate(): WhatsappTemplateButtonsComponent = apply {
+            fun validate(): Buttons = apply {
                 if (validated) {
                     return@apply
                 }
 
                 buttons().forEach { it.validate() }
-                type().validate()
+                _type().let {
+                    if (it != JsonValue.from("BUTTONS")) {
+                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                    }
+                }
                 validated = true
             }
 
@@ -2997,7 +2532,7 @@ private constructor(
             @JvmSynthetic
             internal fun validity(): Int =
                 (buttons.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-                    (type.asKnown().getOrNull()?.validity() ?: 0)
+                    type.let { if (it == JsonValue.from("BUTTONS")) 1 else 0 }
 
             class Button
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -4128,136 +3663,12 @@ private constructor(
                     "Button{type=$type, autofillText=$autofillText, example=$example, flowAction=$flowAction, flowId=$flowId, navigateScreen=$navigateScreen, otpType=$otpType, packageName=$packageName, phoneNumber=$phoneNumber, signatureHash=$signatureHash, text=$text, url=$url, zeroTapTermsAccepted=$zeroTapTermsAccepted, additionalProperties=$additionalProperties}"
             }
 
-            class Type @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val BUTTONS = of("BUTTONS")
-
-                    @JvmStatic fun of(value: String) = Type(JsonField.of(value))
-                }
-
-                /** An enum containing [Type]'s known values. */
-                enum class Known {
-                    BUTTONS
-                }
-
-                /**
-                 * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Type] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    BUTTONS,
-                    /**
-                     * An enum member indicating that [Type] was instantiated with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        BUTTONS -> Value.BUTTONS
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        BUTTONS -> Known.BUTTONS
-                        else -> throw TelnyxInvalidDataException("Unknown Type: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                fun validate(): Type = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Type && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
                 }
 
-                return other is WhatsappTemplateButtonsComponent &&
+                return other is Buttons &&
                     buttons == other.buttons &&
                     type == other.type &&
                     additionalProperties == other.additionalProperties
@@ -4268,18 +3679,18 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "WhatsappTemplateButtonsComponent{buttons=$buttons, type=$type, additionalProperties=$additionalProperties}"
+                "Buttons{buttons=$buttons, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
          * Carousel component for multi-card templates. Each card can contain its own header, body,
          * and buttons.
          */
-        class WhatsappTemplateCarouselComponent
+        class Carousel
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val cards: JsonField<List<Card>>,
-            private val type: JsonField<Type>,
+            private val type: JsonValue,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -4288,7 +3699,7 @@ private constructor(
                 @JsonProperty("cards")
                 @ExcludeMissing
                 cards: JsonField<List<Card>> = JsonMissing.of(),
-                @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+                @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
             ) : this(cards, type, mutableMapOf())
 
             /**
@@ -4301,11 +3712,15 @@ private constructor(
             fun cards(): List<Card> = cards.getRequired("cards")
 
             /**
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * Expected to always return the following:
+             * ```java
+             * JsonValue.from("CAROUSEL")
+             * ```
+             *
+             * However, this method can be useful for debugging and logging (e.g. if the server
+             * responded with an unexpected value).
              */
-            fun type(): Type = type.getRequired("type")
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
             /**
              * Returns the raw JSON value of [cards].
@@ -4313,13 +3728,6 @@ private constructor(
              * Unlike [cards], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("cards") @ExcludeMissing fun _cards(): JsonField<List<Card>> = cards
-
-            /**
-             * Returns the raw JSON value of [type].
-             *
-             * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -4336,33 +3744,28 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of
-                 * [WhatsappTemplateCarouselComponent].
+                 * Returns a mutable builder for constructing an instance of [Carousel].
                  *
                  * The following fields are required:
                  * ```java
                  * .cards()
-                 * .type()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [WhatsappTemplateCarouselComponent]. */
+            /** A builder for [Carousel]. */
             class Builder internal constructor() {
 
                 private var cards: JsonField<MutableList<Card>>? = null
-                private var type: JsonField<Type>? = null
+                private var type: JsonValue = JsonValue.from("CAROUSEL")
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(
-                    whatsappTemplateCarouselComponent: WhatsappTemplateCarouselComponent
-                ) = apply {
-                    cards = whatsappTemplateCarouselComponent.cards.map { it.toMutableList() }
-                    type = whatsappTemplateCarouselComponent.type
-                    additionalProperties =
-                        whatsappTemplateCarouselComponent.additionalProperties.toMutableMap()
+                internal fun from(carousel: Carousel) = apply {
+                    cards = carousel.cards.map { it.toMutableList() }
+                    type = carousel.type
+                    additionalProperties = carousel.additionalProperties.toMutableMap()
                 }
 
                 /** Array of card objects, each with its own components. */
@@ -4391,16 +3794,19 @@ private constructor(
                         }
                 }
 
-                fun type(type: Type) = type(JsonField.of(type))
-
                 /**
-                 * Sets [Builder.type] to an arbitrary JSON value.
+                 * Sets the field to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.type] with a well-typed [Type] value instead.
+                 * It is usually unnecessary to call this method because the field defaults to the
+                 * following:
+                 * ```java
+                 * JsonValue.from("CAROUSEL")
+                 * ```
+                 *
                  * This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun type(type: JsonField<Type>) = apply { this.type = type }
+                fun type(type: JsonValue) = apply { this.type = type }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -4425,35 +3831,38 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [WhatsappTemplateCarouselComponent].
+                 * Returns an immutable instance of [Carousel].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
                  * The following fields are required:
                  * ```java
                  * .cards()
-                 * .type()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): WhatsappTemplateCarouselComponent =
-                    WhatsappTemplateCarouselComponent(
+                fun build(): Carousel =
+                    Carousel(
                         checkRequired("cards", cards).map { it.toImmutable() },
-                        checkRequired("type", type),
+                        type,
                         additionalProperties.toMutableMap(),
                     )
             }
 
             private var validated: Boolean = false
 
-            fun validate(): WhatsappTemplateCarouselComponent = apply {
+            fun validate(): Carousel = apply {
                 if (validated) {
                     return@apply
                 }
 
                 cards().forEach { it.validate() }
-                type().validate()
+                _type().let {
+                    if (it != JsonValue.from("CAROUSEL")) {
+                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
+                    }
+                }
                 validated = true
             }
 
@@ -4474,12 +3883,12 @@ private constructor(
             @JvmSynthetic
             internal fun validity(): Int =
                 (cards.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-                    (type.asKnown().getOrNull()?.validity() ?: 0)
+                    type.let { if (it == JsonValue.from("CAROUSEL")) 1 else 0 }
 
             class Card
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
-                private val components: JsonField<List<InnerComponent>>,
+                private val components: JsonField<List<CarouselCardComponent>>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
 
@@ -4487,14 +3896,14 @@ private constructor(
                 private constructor(
                     @JsonProperty("components")
                     @ExcludeMissing
-                    components: JsonField<List<InnerComponent>> = JsonMissing.of()
+                    components: JsonField<List<CarouselCardComponent>> = JsonMissing.of()
                 ) : this(components, mutableMapOf())
 
                 /**
                  * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g.
                  *   if the server responded with an unexpected value).
                  */
-                fun components(): Optional<List<InnerComponent>> =
+                fun components(): Optional<List<CarouselCardComponent>> =
                     components.getOptional("components")
 
                 /**
@@ -4505,7 +3914,7 @@ private constructor(
                  */
                 @JsonProperty("components")
                 @ExcludeMissing
-                fun _components(): JsonField<List<InnerComponent>> = components
+                fun _components(): JsonField<List<CarouselCardComponent>> = components
 
                 @JsonAnySetter
                 private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -4528,7 +3937,7 @@ private constructor(
                 /** A builder for [Card]. */
                 class Builder internal constructor() {
 
-                    private var components: JsonField<MutableList<InnerComponent>>? = null
+                    private var components: JsonField<MutableList<CarouselCardComponent>>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -4537,26 +3946,26 @@ private constructor(
                         additionalProperties = card.additionalProperties.toMutableMap()
                     }
 
-                    fun components(components: List<InnerComponent>) =
+                    fun components(components: List<CarouselCardComponent>) =
                         components(JsonField.of(components))
 
                     /**
                      * Sets [Builder.components] to an arbitrary JSON value.
                      *
                      * You should usually call [Builder.components] with a well-typed
-                     * `List<InnerComponent>` value instead. This method is primarily for setting
-                     * the field to an undocumented or not yet supported value.
+                     * `List<CarouselCardComponent>` value instead. This method is primarily for
+                     * setting the field to an undocumented or not yet supported value.
                      */
-                    fun components(components: JsonField<List<InnerComponent>>) = apply {
+                    fun components(components: JsonField<List<CarouselCardComponent>>) = apply {
                         this.components = components.map { it.toMutableList() }
                     }
 
                     /**
-                     * Adds a single [InnerComponent] to [components].
+                     * Adds a single [CarouselCardComponent] to [components].
                      *
                      * @throws IllegalStateException if the field was previously set to a non-list.
                      */
-                    fun addComponent(component: InnerComponent) = apply {
+                    fun addComponent(component: CarouselCardComponent) = apply {
                         components =
                             (components ?: JsonField.of(mutableListOf())).also {
                                 checkKnown("components", it).add(component)
@@ -4626,7 +4035,7 @@ private constructor(
                 internal fun validity(): Int =
                     (components.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
-                class InnerComponent
+                class CarouselCardComponent
                 @JsonCreator
                 private constructor(
                     @com.fasterxml.jackson.annotation.JsonValue
@@ -4643,21 +4052,21 @@ private constructor(
 
                         /**
                          * Returns a mutable builder for constructing an instance of
-                         * [InnerComponent].
+                         * [CarouselCardComponent].
                          */
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    /** A builder for [InnerComponent]. */
+                    /** A builder for [CarouselCardComponent]. */
                     class Builder internal constructor() {
 
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
                         @JvmSynthetic
-                        internal fun from(innerComponent: InnerComponent) = apply {
+                        internal fun from(carouselCardComponent: CarouselCardComponent) = apply {
                             additionalProperties =
-                                innerComponent.additionalProperties.toMutableMap()
+                                carouselCardComponent.additionalProperties.toMutableMap()
                         }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
@@ -4683,17 +4092,17 @@ private constructor(
                         }
 
                         /**
-                         * Returns an immutable instance of [InnerComponent].
+                         * Returns an immutable instance of [CarouselCardComponent].
                          *
                          * Further updates to this [Builder] will not mutate the returned instance.
                          */
-                        fun build(): InnerComponent =
-                            InnerComponent(additionalProperties.toImmutable())
+                        fun build(): CarouselCardComponent =
+                            CarouselCardComponent(additionalProperties.toImmutable())
                     }
 
                     private var validated: Boolean = false
 
-                    fun validate(): InnerComponent = apply {
+                    fun validate(): CarouselCardComponent = apply {
                         if (validated) {
                             return@apply
                         }
@@ -4726,7 +4135,7 @@ private constructor(
                             return true
                         }
 
-                        return other is InnerComponent &&
+                        return other is CarouselCardComponent &&
                             additionalProperties == other.additionalProperties
                     }
 
@@ -4735,7 +4144,7 @@ private constructor(
                     override fun hashCode(): Int = hashCode
 
                     override fun toString() =
-                        "InnerComponent{additionalProperties=$additionalProperties}"
+                        "CarouselCardComponent{additionalProperties=$additionalProperties}"
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -4756,136 +4165,12 @@ private constructor(
                     "Card{components=$components, additionalProperties=$additionalProperties}"
             }
 
-            class Type @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val CAROUSEL = of("CAROUSEL")
-
-                    @JvmStatic fun of(value: String) = Type(JsonField.of(value))
-                }
-
-                /** An enum containing [Type]'s known values. */
-                enum class Known {
-                    CAROUSEL
-                }
-
-                /**
-                 * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Type] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    CAROUSEL,
-                    /**
-                     * An enum member indicating that [Type] was instantiated with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        CAROUSEL -> Value.CAROUSEL
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        CAROUSEL -> Known.CAROUSEL
-                        else -> throw TelnyxInvalidDataException("Unknown Type: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                fun validate(): Type = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Type && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
                 }
 
-                return other is WhatsappTemplateCarouselComponent &&
+                return other is Carousel &&
                     cards == other.cards &&
                     type == other.type &&
                     additionalProperties == other.additionalProperties
@@ -4896,7 +4181,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "WhatsappTemplateCarouselComponent{cards=$cards, type=$type, additionalProperties=$additionalProperties}"
+                "Carousel{cards=$cards, type=$type, additionalProperties=$additionalProperties}"
         }
     }
 

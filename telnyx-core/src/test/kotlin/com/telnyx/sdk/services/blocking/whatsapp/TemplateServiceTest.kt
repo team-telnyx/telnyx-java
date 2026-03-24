@@ -20,20 +20,10 @@ internal class TemplateServiceTest {
                 TemplateCreateParams.builder()
                     .category(TemplateCreateParams.Category.MARKETING)
                     .addComponent(
-                        TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.builder()
-                            .format(
-                                TemplateCreateParams.Component.WhatsappTemplateHeaderComponent
-                                    .Format
-                                    .TEXT
-                            )
-                            .type(
-                                TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Type
-                                    .HEADER
-                            )
+                        TemplateCreateParams.Component.Header.builder()
+                            .format(TemplateCreateParams.Component.Header.Format.TEXT)
                             .example(
-                                TemplateCreateParams.Component.WhatsappTemplateHeaderComponent
-                                    .Example
-                                    .builder()
+                                TemplateCreateParams.Component.Header.Example.builder()
                                     .addHeaderHandle("string")
                                     .addHeaderText("string")
                                     .build()
