@@ -101,6 +101,7 @@ internal class UpdateAssistantTest {
                         )
                         .build()
                 )
+                .addToolId("string")
                 .addWebhookTool(
                     InferenceEmbeddingWebhookToolParams.Webhook.builder()
                         .description("description")
@@ -308,6 +309,7 @@ internal class UpdateAssistantTest {
                     )
                     .build()
             )
+        assertThat(updateAssistant.toolIds().getOrNull()).containsExactly("string")
         assertThat(updateAssistant.tools().getOrNull())
             .containsExactly(
                 AssistantTool.ofWebhook(
@@ -545,6 +547,7 @@ internal class UpdateAssistantTest {
                         )
                         .build()
                 )
+                .addToolId("string")
                 .addWebhookTool(
                     InferenceEmbeddingWebhookToolParams.Webhook.builder()
                         .description("description")

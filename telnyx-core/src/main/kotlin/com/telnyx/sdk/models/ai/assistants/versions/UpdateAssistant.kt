@@ -48,6 +48,7 @@ private constructor(
     private val name: JsonField<String>,
     private val privacySettings: JsonField<PrivacySettings>,
     private val telephonySettings: JsonField<TelephonySettings>,
+    private val toolIds: JsonField<List<String>>,
     private val tools: JsonField<List<AssistantTool>>,
     private val transcription: JsonField<TranscriptionSettings>,
     private val voiceSettings: JsonField<VoiceSettings>,
@@ -90,6 +91,9 @@ private constructor(
         @JsonProperty("telephony_settings")
         @ExcludeMissing
         telephonySettings: JsonField<TelephonySettings> = JsonMissing.of(),
+        @JsonProperty("tool_ids")
+        @ExcludeMissing
+        toolIds: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("tools")
         @ExcludeMissing
         tools: JsonField<List<AssistantTool>> = JsonMissing.of(),
@@ -116,6 +120,7 @@ private constructor(
         name,
         privacySettings,
         telephonySettings,
+        toolIds,
         tools,
         transcription,
         voiceSettings,
@@ -233,6 +238,12 @@ private constructor(
      */
     fun telephonySettings(): Optional<TelephonySettings> =
         telephonySettings.getOptional("telephony_settings")
+
+    /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun toolIds(): Optional<List<String>> = toolIds.getOptional("tool_ids")
 
     /**
      * The tools that the assistant can use. These may be templated with
@@ -378,6 +389,13 @@ private constructor(
     fun _telephonySettings(): JsonField<TelephonySettings> = telephonySettings
 
     /**
+     * Returns the raw JSON value of [toolIds].
+     *
+     * Unlike [toolIds], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("tool_ids") @ExcludeMissing fun _toolIds(): JsonField<List<String>> = toolIds
+
+    /**
      * Returns the raw JSON value of [tools].
      *
      * Unlike [tools], this method doesn't throw if the JSON field has an unexpected type.
@@ -445,6 +463,7 @@ private constructor(
         private var name: JsonField<String> = JsonMissing.of()
         private var privacySettings: JsonField<PrivacySettings> = JsonMissing.of()
         private var telephonySettings: JsonField<TelephonySettings> = JsonMissing.of()
+        private var toolIds: JsonField<MutableList<String>>? = null
         private var tools: JsonField<MutableList<AssistantTool>>? = null
         private var transcription: JsonField<TranscriptionSettings> = JsonMissing.of()
         private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
@@ -466,6 +485,7 @@ private constructor(
             name = updateAssistant.name
             privacySettings = updateAssistant.privacySettings
             telephonySettings = updateAssistant.telephonySettings
+            toolIds = updateAssistant.toolIds.map { it.toMutableList() }
             tools = updateAssistant.tools.map { it.toMutableList() }
             transcription = updateAssistant.transcription
             voiceSettings = updateAssistant.voiceSettings
@@ -678,6 +698,31 @@ private constructor(
          */
         fun telephonySettings(telephonySettings: JsonField<TelephonySettings>) = apply {
             this.telephonySettings = telephonySettings
+        }
+
+        fun toolIds(toolIds: List<String>) = toolIds(JsonField.of(toolIds))
+
+        /**
+         * Sets [Builder.toolIds] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.toolIds] with a well-typed `List<String>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun toolIds(toolIds: JsonField<List<String>>) = apply {
+            this.toolIds = toolIds.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [String] to [toolIds].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addToolId(toolId: String) = apply {
+            toolIds =
+                (toolIds ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("toolIds", it).add(toolId)
+                }
         }
 
         /**
@@ -943,6 +988,7 @@ private constructor(
                 name,
                 privacySettings,
                 telephonySettings,
+                (toolIds ?: JsonMissing.of()).map { it.toImmutable() },
                 (tools ?: JsonMissing.of()).map { it.toImmutable() },
                 transcription,
                 voiceSettings,
@@ -971,6 +1017,7 @@ private constructor(
         name()
         privacySettings().ifPresent { it.validate() }
         telephonySettings().ifPresent { it.validate() }
+        toolIds()
         tools().ifPresent { it.forEach { it.validate() } }
         transcription().ifPresent { it.validate() }
         voiceSettings().ifPresent { it.validate() }
@@ -1006,6 +1053,7 @@ private constructor(
             (if (name.asKnown().isPresent) 1 else 0) +
             (privacySettings.asKnown().getOrNull()?.validity() ?: 0) +
             (telephonySettings.asKnown().getOrNull()?.validity() ?: 0) +
+            (toolIds.asKnown().getOrNull()?.size ?: 0) +
             (tools.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (transcription.asKnown().getOrNull()?.validity() ?: 0) +
             (voiceSettings.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1130,6 +1178,7 @@ private constructor(
             name == other.name &&
             privacySettings == other.privacySettings &&
             telephonySettings == other.telephonySettings &&
+            toolIds == other.toolIds &&
             tools == other.tools &&
             transcription == other.transcription &&
             voiceSettings == other.voiceSettings &&
@@ -1152,6 +1201,7 @@ private constructor(
             name,
             privacySettings,
             telephonySettings,
+            toolIds,
             tools,
             transcription,
             voiceSettings,
@@ -1163,5 +1213,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "UpdateAssistant{description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, model=$model, name=$name, privacySettings=$privacySettings, telephonySettings=$telephonySettings, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
+        "UpdateAssistant{description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, insightSettings=$insightSettings, instructions=$instructions, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, model=$model, name=$name, privacySettings=$privacySettings, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
 }

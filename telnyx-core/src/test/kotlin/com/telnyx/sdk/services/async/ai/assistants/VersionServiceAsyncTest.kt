@@ -139,6 +139,7 @@ internal class VersionServiceAsyncTest {
                                     )
                                     .build()
                             )
+                            .addToolId("string")
                             .addWebhookTool(
                                 InferenceEmbeddingWebhookToolParams.Webhook.builder()
                                     .description("description")

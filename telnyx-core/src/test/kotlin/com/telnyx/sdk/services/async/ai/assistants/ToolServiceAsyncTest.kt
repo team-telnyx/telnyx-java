@@ -4,11 +4,43 @@ package com.telnyx.sdk.services.async.ai.assistants
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
 import com.telnyx.sdk.core.JsonValue
+import com.telnyx.sdk.models.ai.assistants.tools.ToolAddParams
+import com.telnyx.sdk.models.ai.assistants.tools.ToolRemoveParams
 import com.telnyx.sdk.models.ai.assistants.tools.ToolTestParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class ToolServiceAsyncTest {
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun add() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val toolServiceAsync = client.ai().assistants().tools()
+
+        val responseFuture =
+            toolServiceAsync.add(
+                ToolAddParams.builder().assistantId("assistant_id").toolId("tool_id").build()
+            )
+
+        val response = responseFuture.get()
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun remove() {
+        val client = TelnyxOkHttpClientAsync.builder().apiKey("My API Key").build()
+        val toolServiceAsync = client.ai().assistants().tools()
+
+        val toolFuture =
+            toolServiceAsync.remove(
+                ToolRemoveParams.builder().assistantId("assistant_id").toolId("tool_id").build()
+            )
+
+        val tool = toolFuture.get()
+        tool.validate()
+    }
 
     @Disabled("Mock server tests are disabled")
     @Test

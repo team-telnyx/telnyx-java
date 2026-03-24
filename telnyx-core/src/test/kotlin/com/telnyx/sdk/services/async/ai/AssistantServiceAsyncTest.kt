@@ -112,6 +112,7 @@ internal class AssistantServiceAsyncTest {
                             )
                             .build()
                     )
+                    .addToolId("string")
                     .addWebhookTool(
                         InferenceEmbeddingWebhookToolParams.Webhook.builder()
                             .description("description")
@@ -360,6 +361,7 @@ internal class AssistantServiceAsyncTest {
                             )
                             .build()
                     )
+                    .addToolId("string")
                     .addWebhookTool(
                         InferenceEmbeddingWebhookToolParams.Webhook.builder()
                             .description("description")
