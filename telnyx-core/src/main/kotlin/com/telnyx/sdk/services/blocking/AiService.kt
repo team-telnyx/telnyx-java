@@ -21,6 +21,7 @@ import com.telnyx.sdk.services.blocking.ai.IntegrationService
 import com.telnyx.sdk.services.blocking.ai.McpServerService
 import com.telnyx.sdk.services.blocking.ai.MissionService
 import com.telnyx.sdk.services.blocking.ai.OpenAIService
+import com.telnyx.sdk.services.blocking.ai.ToolService
 import java.util.function.Consumer
 
 /** Generate text with LLMs */
@@ -64,6 +65,9 @@ interface AiService {
     fun missions(): MissionService
 
     fun openai(): OpenAIService
+
+    /** Configure AI assistant specifications */
+    fun tools(): ToolService
 
     /**
      * This endpoint returns a list of Open Source and OpenAI models that are available for use. <br
@@ -143,6 +147,9 @@ interface AiService {
         fun missions(): MissionService.WithRawResponse
 
         fun openai(): OpenAIService.WithRawResponse
+
+        /** Configure AI assistant specifications */
+        fun tools(): ToolService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /ai/models`, but is otherwise the same as

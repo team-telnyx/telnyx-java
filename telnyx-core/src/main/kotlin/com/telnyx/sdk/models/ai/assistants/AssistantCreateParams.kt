@@ -136,6 +136,12 @@ private constructor(
     fun telephonySettings(): Optional<TelephonySettings> = body.telephonySettings()
 
     /**
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun toolIds(): Optional<List<String>> = body.toolIds()
+
+    /**
      * The tools that the assistant can use. These may be templated with
      * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
      *
@@ -258,6 +264,13 @@ private constructor(
      * type.
      */
     fun _telephonySettings(): JsonField<TelephonySettings> = body._telephonySettings()
+
+    /**
+     * Returns the raw JSON value of [toolIds].
+     *
+     * Unlike [toolIds], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _toolIds(): JsonField<List<String>> = body._toolIds()
 
     /**
      * Returns the raw JSON value of [tools].
@@ -550,6 +563,24 @@ private constructor(
         fun telephonySettings(telephonySettings: JsonField<TelephonySettings>) = apply {
             body.telephonySettings(telephonySettings)
         }
+
+        fun toolIds(toolIds: List<String>) = apply { body.toolIds(toolIds) }
+
+        /**
+         * Sets [Builder.toolIds] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.toolIds] with a well-typed `List<String>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun toolIds(toolIds: JsonField<List<String>>) = apply { body.toolIds(toolIds) }
+
+        /**
+         * Adds a single [String] to [toolIds].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addToolId(toolId: String) = apply { body.addToolId(toolId) }
 
         /**
          * The tools that the assistant can use. These may be templated with
@@ -929,6 +960,7 @@ private constructor(
         private val messagingSettings: JsonField<MessagingSettings>,
         private val privacySettings: JsonField<PrivacySettings>,
         private val telephonySettings: JsonField<TelephonySettings>,
+        private val toolIds: JsonField<List<String>>,
         private val tools: JsonField<List<AssistantTool>>,
         private val transcription: JsonField<TranscriptionSettings>,
         private val voiceSettings: JsonField<VoiceSettings>,
@@ -973,6 +1005,9 @@ private constructor(
             @JsonProperty("telephony_settings")
             @ExcludeMissing
             telephonySettings: JsonField<TelephonySettings> = JsonMissing.of(),
+            @JsonProperty("tool_ids")
+            @ExcludeMissing
+            toolIds: JsonField<List<String>> = JsonMissing.of(),
             @JsonProperty("tools")
             @ExcludeMissing
             tools: JsonField<List<AssistantTool>> = JsonMissing.of(),
@@ -999,6 +1034,7 @@ private constructor(
             messagingSettings,
             privacySettings,
             telephonySettings,
+            toolIds,
             tools,
             transcription,
             voiceSettings,
@@ -1116,6 +1152,12 @@ private constructor(
          */
         fun telephonySettings(): Optional<TelephonySettings> =
             telephonySettings.getOptional("telephony_settings")
+
+        /**
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun toolIds(): Optional<List<String>> = toolIds.getOptional("tool_ids")
 
         /**
          * The tools that the assistant can use. These may be templated with
@@ -1269,6 +1311,13 @@ private constructor(
         fun _telephonySettings(): JsonField<TelephonySettings> = telephonySettings
 
         /**
+         * Returns the raw JSON value of [toolIds].
+         *
+         * Unlike [toolIds], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("tool_ids") @ExcludeMissing fun _toolIds(): JsonField<List<String>> = toolIds
+
+        /**
          * Returns the raw JSON value of [tools].
          *
          * Unlike [tools], this method doesn't throw if the JSON field has an unexpected type.
@@ -1348,6 +1397,7 @@ private constructor(
             private var messagingSettings: JsonField<MessagingSettings> = JsonMissing.of()
             private var privacySettings: JsonField<PrivacySettings> = JsonMissing.of()
             private var telephonySettings: JsonField<TelephonySettings> = JsonMissing.of()
+            private var toolIds: JsonField<MutableList<String>>? = null
             private var tools: JsonField<MutableList<AssistantTool>>? = null
             private var transcription: JsonField<TranscriptionSettings> = JsonMissing.of()
             private var voiceSettings: JsonField<VoiceSettings> = JsonMissing.of()
@@ -1369,6 +1419,7 @@ private constructor(
                 messagingSettings = body.messagingSettings
                 privacySettings = body.privacySettings
                 telephonySettings = body.telephonySettings
+                toolIds = body.toolIds.map { it.toMutableList() }
                 tools = body.tools.map { it.toMutableList() }
                 transcription = body.transcription
                 voiceSettings = body.voiceSettings
@@ -1587,6 +1638,31 @@ private constructor(
              */
             fun telephonySettings(telephonySettings: JsonField<TelephonySettings>) = apply {
                 this.telephonySettings = telephonySettings
+            }
+
+            fun toolIds(toolIds: List<String>) = toolIds(JsonField.of(toolIds))
+
+            /**
+             * Sets [Builder.toolIds] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.toolIds] with a well-typed `List<String>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun toolIds(toolIds: JsonField<List<String>>) = apply {
+                this.toolIds = toolIds.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [String] to [toolIds].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addToolId(toolId: String) = apply {
+                toolIds =
+                    (toolIds ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("toolIds", it).add(toolId)
+                    }
             }
 
             /**
@@ -1868,6 +1944,7 @@ private constructor(
                     messagingSettings,
                     privacySettings,
                     telephonySettings,
+                    (toolIds ?: JsonMissing.of()).map { it.toImmutable() },
                     (tools ?: JsonMissing.of()).map { it.toImmutable() },
                     transcription,
                     voiceSettings,
@@ -1896,6 +1973,7 @@ private constructor(
             messagingSettings().ifPresent { it.validate() }
             privacySettings().ifPresent { it.validate() }
             telephonySettings().ifPresent { it.validate() }
+            toolIds()
             tools().ifPresent { it.forEach { it.validate() } }
             transcription().ifPresent { it.validate() }
             voiceSettings().ifPresent { it.validate() }
@@ -1932,6 +2010,7 @@ private constructor(
                 (messagingSettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (privacySettings.asKnown().getOrNull()?.validity() ?: 0) +
                 (telephonySettings.asKnown().getOrNull()?.validity() ?: 0) +
+                (toolIds.asKnown().getOrNull()?.size ?: 0) +
                 (tools.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (transcription.asKnown().getOrNull()?.validity() ?: 0) +
                 (voiceSettings.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1956,6 +2035,7 @@ private constructor(
                 messagingSettings == other.messagingSettings &&
                 privacySettings == other.privacySettings &&
                 telephonySettings == other.telephonySettings &&
+                toolIds == other.toolIds &&
                 tools == other.tools &&
                 transcription == other.transcription &&
                 voiceSettings == other.voiceSettings &&
@@ -1978,6 +2058,7 @@ private constructor(
                 messagingSettings,
                 privacySettings,
                 telephonySettings,
+                toolIds,
                 tools,
                 transcription,
                 voiceSettings,
@@ -1989,7 +2070,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{instructions=$instructions, model=$model, name=$name, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, insightSettings=$insightSettings, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
+            "Body{instructions=$instructions, model=$model, name=$name, description=$description, dynamicVariables=$dynamicVariables, dynamicVariablesWebhookUrl=$dynamicVariablesWebhookUrl, enabledFeatures=$enabledFeatures, greeting=$greeting, insightSettings=$insightSettings, llmApiKeyRef=$llmApiKeyRef, messagingSettings=$messagingSettings, privacySettings=$privacySettings, telephonySettings=$telephonySettings, toolIds=$toolIds, tools=$tools, transcription=$transcription, voiceSettings=$voiceSettings, widgetSettings=$widgetSettings, additionalProperties=$additionalProperties}"
     }
 
     /** Map of dynamic variables and their default values */

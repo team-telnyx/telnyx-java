@@ -102,6 +102,7 @@ internal class VersionUpdateParamsTest {
                             )
                             .build()
                     )
+                    .addToolId("string")
                     .addWebhookTool(
                         InferenceEmbeddingWebhookToolParams.Webhook.builder()
                             .description("description")
@@ -344,6 +345,7 @@ internal class VersionUpdateParamsTest {
                                 )
                                 .build()
                         )
+                        .addToolId("string")
                         .addWebhookTool(
                             InferenceEmbeddingWebhookToolParams.Webhook.builder()
                                 .description("description")
@@ -576,6 +578,7 @@ internal class VersionUpdateParamsTest {
                             )
                             .build()
                     )
+                    .addToolId("string")
                     .addWebhookTool(
                         InferenceEmbeddingWebhookToolParams.Webhook.builder()
                             .description("description")

@@ -41,6 +41,8 @@ import com.telnyx.sdk.services.async.ai.MissionServiceAsync
 import com.telnyx.sdk.services.async.ai.MissionServiceAsyncImpl
 import com.telnyx.sdk.services.async.ai.OpenAIServiceAsync
 import com.telnyx.sdk.services.async.ai.OpenAIServiceAsyncImpl
+import com.telnyx.sdk.services.async.ai.ToolServiceAsync
+import com.telnyx.sdk.services.async.ai.ToolServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -86,6 +88,8 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
     private val openai: OpenAIServiceAsync by lazy { OpenAIServiceAsyncImpl(clientOptions) }
 
+    private val tools: ToolServiceAsync by lazy { ToolServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): AiServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiServiceAsync =
@@ -117,6 +121,9 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     override fun missions(): MissionServiceAsync = missions
 
     override fun openai(): OpenAIServiceAsync = openai
+
+    /** Configure AI assistant specifications */
+    override fun tools(): ToolServiceAsync = tools
 
     override fun retrieveModels(
         params: AiRetrieveModelsParams,
@@ -182,6 +189,10 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
             OpenAIServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val tools: ToolServiceAsync.WithRawResponse by lazy {
+            ToolServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AiServiceAsync.WithRawResponse =
@@ -215,6 +226,9 @@ class AiServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         override fun missions(): MissionServiceAsync.WithRawResponse = missions
 
         override fun openai(): OpenAIServiceAsync.WithRawResponse = openai
+
+        /** Configure AI assistant specifications */
+        override fun tools(): ToolServiceAsync.WithRawResponse = tools
 
         private val retrieveModelsHandler: Handler<AiRetrieveModelsResponse> =
             jsonHandler<AiRetrieveModelsResponse>(clientOptions.jsonMapper)

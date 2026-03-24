@@ -112,6 +112,7 @@ internal class AssistantServiceTest {
                             )
                             .build()
                     )
+                    .addToolId("string")
                     .addWebhookTool(
                         InferenceEmbeddingWebhookToolParams.Webhook.builder()
                             .description("description")
@@ -358,6 +359,7 @@ internal class AssistantServiceTest {
                             )
                             .build()
                     )
+                    .addToolId("string")
                     .addWebhookTool(
                         InferenceEmbeddingWebhookToolParams.Webhook.builder()
                             .description("description")

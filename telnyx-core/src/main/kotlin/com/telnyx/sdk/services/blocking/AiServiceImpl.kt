@@ -41,6 +41,8 @@ import com.telnyx.sdk.services.blocking.ai.MissionService
 import com.telnyx.sdk.services.blocking.ai.MissionServiceImpl
 import com.telnyx.sdk.services.blocking.ai.OpenAIService
 import com.telnyx.sdk.services.blocking.ai.OpenAIServiceImpl
+import com.telnyx.sdk.services.blocking.ai.ToolService
+import com.telnyx.sdk.services.blocking.ai.ToolServiceImpl
 import java.util.function.Consumer
 
 /** Generate text with LLMs */
@@ -74,6 +76,8 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
 
     private val openai: OpenAIService by lazy { OpenAIServiceImpl(clientOptions) }
 
+    private val tools: ToolService by lazy { ToolServiceImpl(clientOptions) }
+
     override fun withRawResponse(): AiService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AiService =
@@ -105,6 +109,9 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
     override fun missions(): MissionService = missions
 
     override fun openai(): OpenAIService = openai
+
+    /** Configure AI assistant specifications */
+    override fun tools(): ToolService = tools
 
     override fun retrieveModels(
         params: AiRetrieveModelsParams,
@@ -170,6 +177,10 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
             OpenAIServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val tools: ToolService.WithRawResponse by lazy {
+            ToolServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): AiService.WithRawResponse =
@@ -203,6 +214,9 @@ class AiServiceImpl internal constructor(private val clientOptions: ClientOption
         override fun missions(): MissionService.WithRawResponse = missions
 
         override fun openai(): OpenAIService.WithRawResponse = openai
+
+        /** Configure AI assistant specifications */
+        override fun tools(): ToolService.WithRawResponse = tools
 
         private val retrieveModelsHandler: Handler<AiRetrieveModelsResponse> =
             jsonHandler<AiRetrieveModelsResponse>(clientOptions.jsonMapper)
