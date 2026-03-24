@@ -78,6 +78,13 @@ internal class InferenceEmbeddingWebhookToolParamsTest {
                                 )
                                 .build()
                         )
+                        .addStoreFieldsAsVariable(
+                            InferenceEmbeddingWebhookToolParams.Webhook.StoreFieldsAsVariable
+                                .builder()
+                                .name("x")
+                                .valuePath("x")
+                                .build()
+                        )
                         .timeoutMs(500L)
                         .build()
                 )
@@ -147,6 +154,12 @@ internal class InferenceEmbeddingWebhookToolParamsTest {
                                 InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters.Type
                                     .OBJECT
                             )
+                            .build()
+                    )
+                    .addStoreFieldsAsVariable(
+                        InferenceEmbeddingWebhookToolParams.Webhook.StoreFieldsAsVariable.builder()
+                            .name("x")
+                            .valuePath("x")
                             .build()
                     )
                     .timeoutMs(500L)
@@ -221,6 +234,13 @@ internal class InferenceEmbeddingWebhookToolParamsTest {
                                     InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters.Type
                                         .OBJECT
                                 )
+                                .build()
+                        )
+                        .addStoreFieldsAsVariable(
+                            InferenceEmbeddingWebhookToolParams.Webhook.StoreFieldsAsVariable
+                                .builder()
+                                .name("x")
+                                .valuePath("x")
                                 .build()
                         )
                         .timeoutMs(500L)

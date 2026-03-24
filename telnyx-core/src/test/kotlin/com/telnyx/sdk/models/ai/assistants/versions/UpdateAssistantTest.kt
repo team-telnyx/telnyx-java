@@ -164,6 +164,13 @@ internal class UpdateAssistantTest {
                                 )
                                 .build()
                         )
+                        .addStoreFieldsAsVariable(
+                            InferenceEmbeddingWebhookToolParams.Webhook.StoreFieldsAsVariable
+                                .builder()
+                                .name("x")
+                                .valuePath("x")
+                                .build()
+                        )
                         .timeoutMs(500L)
                         .build()
                 )
@@ -387,6 +394,14 @@ internal class UpdateAssistantTest {
                                         )
                                         .build()
                                 )
+                                .addStoreFieldsAsVariable(
+                                    InferenceEmbeddingWebhookToolParams.Webhook
+                                        .StoreFieldsAsVariable
+                                        .builder()
+                                        .name("x")
+                                        .valuePath("x")
+                                        .build()
+                                )
                                 .timeoutMs(500L)
                                 .build()
                         )
@@ -591,6 +606,13 @@ internal class UpdateAssistantTest {
                                     InferenceEmbeddingWebhookToolParams.Webhook.QueryParameters.Type
                                         .OBJECT
                                 )
+                                .build()
+                        )
+                        .addStoreFieldsAsVariable(
+                            InferenceEmbeddingWebhookToolParams.Webhook.StoreFieldsAsVariable
+                                .builder()
+                                .name("x")
+                                .valuePath("x")
                                 .build()
                         )
                         .timeoutMs(500L)
