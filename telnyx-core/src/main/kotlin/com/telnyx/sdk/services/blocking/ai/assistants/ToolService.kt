@@ -6,6 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.ai.assistants.tools.ToolAddParams
+import com.telnyx.sdk.models.ai.assistants.tools.ToolAddResponse
+import com.telnyx.sdk.models.ai.assistants.tools.ToolRemoveParams
+import com.telnyx.sdk.models.ai.assistants.tools.ToolRemoveResponse
 import com.telnyx.sdk.models.ai.assistants.tools.ToolTestParams
 import com.telnyx.sdk.models.ai.assistants.tools.ToolTestResponse
 import java.util.function.Consumer
@@ -24,6 +28,46 @@ interface ToolService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ToolService
+
+    /** Add Assistant Tool */
+    fun add(toolId: String, params: ToolAddParams): ToolAddResponse =
+        add(toolId, params, RequestOptions.none())
+
+    /** @see add */
+    fun add(
+        toolId: String,
+        params: ToolAddParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ToolAddResponse = add(params.toBuilder().toolId(toolId).build(), requestOptions)
+
+    /** @see add */
+    fun add(params: ToolAddParams): ToolAddResponse = add(params, RequestOptions.none())
+
+    /** @see add */
+    fun add(
+        params: ToolAddParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ToolAddResponse
+
+    /** Remove Assistant Tool */
+    fun remove(toolId: String, params: ToolRemoveParams): ToolRemoveResponse =
+        remove(toolId, params, RequestOptions.none())
+
+    /** @see remove */
+    fun remove(
+        toolId: String,
+        params: ToolRemoveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ToolRemoveResponse = remove(params.toBuilder().toolId(toolId).build(), requestOptions)
+
+    /** @see remove */
+    fun remove(params: ToolRemoveParams): ToolRemoveResponse = remove(params, RequestOptions.none())
+
+    /** @see remove */
+    fun remove(
+        params: ToolRemoveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ToolRemoveResponse
 
     /** Test a webhook tool for an assistant */
     fun test(toolId: String, params: ToolTestParams): ToolTestResponse =
@@ -54,6 +98,64 @@ interface ToolService {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): ToolService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `put /ai/assistants/{assistant_id}/tools/{tool_id}`, but
+         * is otherwise the same as [ToolService.add].
+         */
+        @MustBeClosed
+        fun add(toolId: String, params: ToolAddParams): HttpResponseFor<ToolAddResponse> =
+            add(toolId, params, RequestOptions.none())
+
+        /** @see add */
+        @MustBeClosed
+        fun add(
+            toolId: String,
+            params: ToolAddParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ToolAddResponse> =
+            add(params.toBuilder().toolId(toolId).build(), requestOptions)
+
+        /** @see add */
+        @MustBeClosed
+        fun add(params: ToolAddParams): HttpResponseFor<ToolAddResponse> =
+            add(params, RequestOptions.none())
+
+        /** @see add */
+        @MustBeClosed
+        fun add(
+            params: ToolAddParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ToolAddResponse>
+
+        /**
+         * Returns a raw HTTP response for `delete /ai/assistants/{assistant_id}/tools/{tool_id}`,
+         * but is otherwise the same as [ToolService.remove].
+         */
+        @MustBeClosed
+        fun remove(toolId: String, params: ToolRemoveParams): HttpResponseFor<ToolRemoveResponse> =
+            remove(toolId, params, RequestOptions.none())
+
+        /** @see remove */
+        @MustBeClosed
+        fun remove(
+            toolId: String,
+            params: ToolRemoveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ToolRemoveResponse> =
+            remove(params.toBuilder().toolId(toolId).build(), requestOptions)
+
+        /** @see remove */
+        @MustBeClosed
+        fun remove(params: ToolRemoveParams): HttpResponseFor<ToolRemoveResponse> =
+            remove(params, RequestOptions.none())
+
+        /** @see remove */
+        @MustBeClosed
+        fun remove(
+            params: ToolRemoveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ToolRemoveResponse>
 
         /**
          * Returns a raw HTTP response for `post

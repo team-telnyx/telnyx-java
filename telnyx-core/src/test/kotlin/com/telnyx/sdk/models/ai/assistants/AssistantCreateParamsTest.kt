@@ -83,6 +83,7 @@ internal class AssistantCreateParamsTest {
                     )
                     .build()
             )
+            .addToolId("string")
             .addWebhookTool(
                 InferenceEmbeddingWebhookToolParams.Webhook.builder()
                     .description("description")
@@ -289,6 +290,7 @@ internal class AssistantCreateParamsTest {
                         )
                         .build()
                 )
+                .addToolId("string")
                 .addWebhookTool(
                     InferenceEmbeddingWebhookToolParams.Webhook.builder()
                         .description("description")
@@ -496,6 +498,7 @@ internal class AssistantCreateParamsTest {
                     )
                     .build()
             )
+        assertThat(body.toolIds().getOrNull()).containsExactly("string")
         assertThat(body.tools().getOrNull())
             .containsExactly(
                 AssistantTool.ofWebhook(
