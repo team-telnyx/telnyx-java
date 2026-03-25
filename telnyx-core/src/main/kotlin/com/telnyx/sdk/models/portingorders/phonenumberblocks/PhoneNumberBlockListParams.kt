@@ -275,12 +275,13 @@ private constructor(
                                     put("filter[status]", portingOrderSingle.toString())
                                 }
 
-                                override fun visitUnionArrayVariant1(
-                                    unionArrayVariant1: List<Filter.Status.PortingOrderStatusList>
+                                override fun visitPortingOrderStatusArray(
+                                    portingOrderStatusArray:
+                                        List<Filter.Status.PortingOrderStatusList>
                                 ) {
                                     put(
                                         "filter[status]",
-                                        unionArrayVariant1.joinToString(",") { it.toString() },
+                                        portingOrderStatusArray.joinToString(",") { it.toString() },
                                     )
                                 }
                             }
@@ -464,11 +465,12 @@ private constructor(
                 status(Status.ofPortingOrderSingle(portingOrderSingle))
 
             /**
-             * Alias for calling [status] with `Status.ofUnionArrayVariant1(unionArrayVariant1)`.
+             * Alias for calling [status] with
+             * `Status.ofPortingOrderStatusArray(portingOrderStatusArray)`.
              */
-            fun statusOfUnionArrayVariant1(
-                unionArrayVariant1: List<Status.PortingOrderStatusList>
-            ) = status(Status.ofUnionArrayVariant1(unionArrayVariant1))
+            fun statusOfPortingOrderStatusArray(
+                portingOrderStatusArray: List<Status.PortingOrderStatusList>
+            ) = status(Status.ofPortingOrderStatusArray(portingOrderStatusArray))
 
             /**
              * Filter results by support key(s). Originally: filter[support_key][eq],
@@ -896,7 +898,7 @@ private constructor(
         class Status
         private constructor(
             private val portingOrderSingle: PortingOrderSingleStatus? = null,
-            private val unionArrayVariant1: List<PortingOrderStatusList>? = null,
+            private val portingOrderStatusArray: List<PortingOrderStatusList>? = null,
         ) {
 
             /** Filter by single status */
@@ -904,27 +906,27 @@ private constructor(
                 Optional.ofNullable(portingOrderSingle)
 
             /** Filter by multiple statuses (in operation) */
-            fun unionArrayVariant1(): Optional<List<PortingOrderStatusList>> =
-                Optional.ofNullable(unionArrayVariant1)
+            fun portingOrderStatusArray(): Optional<List<PortingOrderStatusList>> =
+                Optional.ofNullable(portingOrderStatusArray)
 
             fun isPortingOrderSingle(): Boolean = portingOrderSingle != null
 
-            fun isUnionArrayVariant1(): Boolean = unionArrayVariant1 != null
+            fun isPortingOrderStatusArray(): Boolean = portingOrderStatusArray != null
 
             /** Filter by single status */
             fun asPortingOrderSingle(): PortingOrderSingleStatus =
                 portingOrderSingle.getOrThrow("portingOrderSingle")
 
             /** Filter by multiple statuses (in operation) */
-            fun asUnionArrayVariant1(): List<PortingOrderStatusList> =
-                unionArrayVariant1.getOrThrow("unionArrayVariant1")
+            fun asPortingOrderStatusArray(): List<PortingOrderStatusList> =
+                portingOrderStatusArray.getOrThrow("portingOrderStatusArray")
 
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     portingOrderSingle != null ->
                         visitor.visitPortingOrderSingle(portingOrderSingle)
-                    unionArrayVariant1 != null ->
-                        visitor.visitUnionArrayVariant1(unionArrayVariant1)
+                    portingOrderStatusArray != null ->
+                        visitor.visitPortingOrderStatusArray(portingOrderStatusArray)
                     else -> throw IllegalStateException("Invalid Status")
                 }
 
@@ -935,15 +937,16 @@ private constructor(
 
                 return other is Status &&
                     portingOrderSingle == other.portingOrderSingle &&
-                    unionArrayVariant1 == other.unionArrayVariant1
+                    portingOrderStatusArray == other.portingOrderStatusArray
             }
 
-            override fun hashCode(): Int = Objects.hash(portingOrderSingle, unionArrayVariant1)
+            override fun hashCode(): Int = Objects.hash(portingOrderSingle, portingOrderStatusArray)
 
             override fun toString(): String =
                 when {
                     portingOrderSingle != null -> "Status{portingOrderSingle=$portingOrderSingle}"
-                    unionArrayVariant1 != null -> "Status{unionArrayVariant1=$unionArrayVariant1}"
+                    portingOrderStatusArray != null ->
+                        "Status{portingOrderStatusArray=$portingOrderStatusArray}"
                     else -> throw IllegalStateException("Invalid Status")
                 }
 
@@ -956,8 +959,9 @@ private constructor(
 
                 /** Filter by multiple statuses (in operation) */
                 @JvmStatic
-                fun ofUnionArrayVariant1(unionArrayVariant1: List<PortingOrderStatusList>) =
-                    Status(unionArrayVariant1 = unionArrayVariant1.toImmutable())
+                fun ofPortingOrderStatusArray(
+                    portingOrderStatusArray: List<PortingOrderStatusList>
+                ) = Status(portingOrderStatusArray = portingOrderStatusArray.toImmutable())
             }
 
             /**
@@ -969,7 +973,9 @@ private constructor(
                 fun visitPortingOrderSingle(portingOrderSingle: PortingOrderSingleStatus): T
 
                 /** Filter by multiple statuses (in operation) */
-                fun visitUnionArrayVariant1(unionArrayVariant1: List<PortingOrderStatusList>): T
+                fun visitPortingOrderStatusArray(
+                    portingOrderStatusArray: List<PortingOrderStatusList>
+                ): T
             }
 
             /** Filter by single status */
