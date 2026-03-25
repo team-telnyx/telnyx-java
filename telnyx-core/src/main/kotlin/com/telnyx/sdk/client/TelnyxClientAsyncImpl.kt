@@ -72,6 +72,8 @@ import com.telnyx.sdk.services.async.DynamicEmergencyAddressServiceAsync
 import com.telnyx.sdk.services.async.DynamicEmergencyAddressServiceAsyncImpl
 import com.telnyx.sdk.services.async.DynamicEmergencyEndpointServiceAsync
 import com.telnyx.sdk.services.async.DynamicEmergencyEndpointServiceAsyncImpl
+import com.telnyx.sdk.services.async.EnterpriseServiceAsync
+import com.telnyx.sdk.services.async.EnterpriseServiceAsyncImpl
 import com.telnyx.sdk.services.async.ExternalConnectionServiceAsync
 import com.telnyx.sdk.services.async.ExternalConnectionServiceAsyncImpl
 import com.telnyx.sdk.services.async.FaxApplicationServiceAsync
@@ -232,6 +234,8 @@ import com.telnyx.sdk.services.async.RegulatoryRequirementServiceAsync
 import com.telnyx.sdk.services.async.RegulatoryRequirementServiceAsyncImpl
 import com.telnyx.sdk.services.async.ReportServiceAsync
 import com.telnyx.sdk.services.async.ReportServiceAsyncImpl
+import com.telnyx.sdk.services.async.ReputationServiceAsync
+import com.telnyx.sdk.services.async.ReputationServiceAsyncImpl
 import com.telnyx.sdk.services.async.RequirementGroupServiceAsync
 import com.telnyx.sdk.services.async.RequirementGroupServiceAsyncImpl
 import com.telnyx.sdk.services.async.RequirementServiceAsync
@@ -272,6 +276,8 @@ import com.telnyx.sdk.services.async.SubNumberOrdersReportServiceAsync
 import com.telnyx.sdk.services.async.SubNumberOrdersReportServiceAsyncImpl
 import com.telnyx.sdk.services.async.TelephonyCredentialServiceAsync
 import com.telnyx.sdk.services.async.TelephonyCredentialServiceAsyncImpl
+import com.telnyx.sdk.services.async.TermsOfServiceServiceAsync
+import com.telnyx.sdk.services.async.TermsOfServiceServiceAsyncImpl
 import com.telnyx.sdk.services.async.TexmlApplicationServiceAsync
 import com.telnyx.sdk.services.async.TexmlApplicationServiceAsyncImpl
 import com.telnyx.sdk.services.async.TexmlServiceAsync
@@ -960,6 +966,18 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         TrafficPolicyProfileServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val enterprises: EnterpriseServiceAsync by lazy {
+        EnterpriseServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val reputation: ReputationServiceAsync by lazy {
+        ReputationServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val termsOfService: TermsOfServiceServiceAsync by lazy {
+        TermsOfServiceServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): TelnyxClient = sync
 
     override fun withRawResponse(): TelnyxClientAsync.WithRawResponse = withRawResponse
@@ -1452,6 +1470,13 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
 
     /** Traffic Policy Profiles operations */
     override fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync = trafficPolicyProfiles
+
+    /** Enterprise management for Branded Calling and Number Reputation services */
+    override fun enterprises(): EnterpriseServiceAsync = enterprises
+
+    override fun reputation(): ReputationServiceAsync = reputation
+
+    override fun termsOfService(): TermsOfServiceServiceAsync = termsOfService
 
     override fun close() = clientOptions.close()
 
@@ -2131,6 +2156,18 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
             TrafficPolicyProfileServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val enterprises: EnterpriseServiceAsync.WithRawResponse by lazy {
+            EnterpriseServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val reputation: ReputationServiceAsync.WithRawResponse by lazy {
+            ReputationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val termsOfService: TermsOfServiceServiceAsync.WithRawResponse by lazy {
+            TermsOfServiceServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClientAsync.WithRawResponse =
@@ -2673,5 +2710,12 @@ class TelnyxClientAsyncImpl(private val clientOptions: ClientOptions) : TelnyxCl
         /** Traffic Policy Profiles operations */
         override fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync.WithRawResponse =
             trafficPolicyProfiles
+
+        /** Enterprise management for Branded Calling and Number Reputation services */
+        override fun enterprises(): EnterpriseServiceAsync.WithRawResponse = enterprises
+
+        override fun reputation(): ReputationServiceAsync.WithRawResponse = reputation
+
+        override fun termsOfService(): TermsOfServiceServiceAsync.WithRawResponse = termsOfService
     }
 }
