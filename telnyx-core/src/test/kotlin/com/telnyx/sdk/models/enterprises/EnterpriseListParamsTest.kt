@@ -1,0 +1,41 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.telnyx.sdk.models.enterprises
+
+import com.telnyx.sdk.core.http.QueryParams
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class EnterpriseListParamsTest {
+
+    @Test
+    fun create() {
+        EnterpriseListParams.builder().legalName("Acme").pageNumber(1L).pageSize(1L).build()
+    }
+
+    @Test
+    fun queryParams() {
+        val params =
+            EnterpriseListParams.builder().legalName("Acme").pageNumber(1L).pageSize(1L).build()
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("legal_name", "Acme")
+                    .put("page[number]", "1")
+                    .put("page[size]", "1")
+                    .build()
+            )
+    }
+
+    @Test
+    fun queryParamsWithoutOptionalFields() {
+        val params = EnterpriseListParams.builder().build()
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
+    }
+}

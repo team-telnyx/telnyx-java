@@ -72,6 +72,8 @@ import com.telnyx.sdk.services.blocking.DynamicEmergencyAddressService
 import com.telnyx.sdk.services.blocking.DynamicEmergencyAddressServiceImpl
 import com.telnyx.sdk.services.blocking.DynamicEmergencyEndpointService
 import com.telnyx.sdk.services.blocking.DynamicEmergencyEndpointServiceImpl
+import com.telnyx.sdk.services.blocking.EnterpriseService
+import com.telnyx.sdk.services.blocking.EnterpriseServiceImpl
 import com.telnyx.sdk.services.blocking.ExternalConnectionService
 import com.telnyx.sdk.services.blocking.ExternalConnectionServiceImpl
 import com.telnyx.sdk.services.blocking.FaxApplicationService
@@ -232,6 +234,8 @@ import com.telnyx.sdk.services.blocking.RegulatoryRequirementService
 import com.telnyx.sdk.services.blocking.RegulatoryRequirementServiceImpl
 import com.telnyx.sdk.services.blocking.ReportService
 import com.telnyx.sdk.services.blocking.ReportServiceImpl
+import com.telnyx.sdk.services.blocking.ReputationService
+import com.telnyx.sdk.services.blocking.ReputationServiceImpl
 import com.telnyx.sdk.services.blocking.RequirementGroupService
 import com.telnyx.sdk.services.blocking.RequirementGroupServiceImpl
 import com.telnyx.sdk.services.blocking.RequirementService
@@ -272,6 +276,8 @@ import com.telnyx.sdk.services.blocking.SubNumberOrdersReportService
 import com.telnyx.sdk.services.blocking.SubNumberOrdersReportServiceImpl
 import com.telnyx.sdk.services.blocking.TelephonyCredentialService
 import com.telnyx.sdk.services.blocking.TelephonyCredentialServiceImpl
+import com.telnyx.sdk.services.blocking.TermsOfServiceService
+import com.telnyx.sdk.services.blocking.TermsOfServiceServiceImpl
 import com.telnyx.sdk.services.blocking.TexmlApplicationService
 import com.telnyx.sdk.services.blocking.TexmlApplicationServiceImpl
 import com.telnyx.sdk.services.blocking.TexmlService
@@ -918,6 +924,18 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         TrafficPolicyProfileServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val enterprises: EnterpriseService by lazy {
+        EnterpriseServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val reputation: ReputationService by lazy {
+        ReputationServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val termsOfService: TermsOfServiceService by lazy {
+        TermsOfServiceServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1396,6 +1414,13 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
 
     /** Traffic Policy Profiles operations */
     override fun trafficPolicyProfiles(): TrafficPolicyProfileService = trafficPolicyProfiles
+
+    /** Enterprise management for Branded Calling and Number Reputation services */
+    override fun enterprises(): EnterpriseService = enterprises
+
+    override fun reputation(): ReputationService = reputation
+
+    override fun termsOfService(): TermsOfServiceService = termsOfService
 
     override fun close() = clientOptions.close()
 
@@ -2053,6 +2078,18 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             TrafficPolicyProfileServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val enterprises: EnterpriseService.WithRawResponse by lazy {
+            EnterpriseServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val reputation: ReputationService.WithRawResponse by lazy {
+            ReputationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val termsOfService: TermsOfServiceService.WithRawResponse by lazy {
+            TermsOfServiceServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2582,5 +2619,12 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         /** Traffic Policy Profiles operations */
         override fun trafficPolicyProfiles(): TrafficPolicyProfileService.WithRawResponse =
             trafficPolicyProfiles
+
+        /** Enterprise management for Branded Calling and Number Reputation services */
+        override fun enterprises(): EnterpriseService.WithRawResponse = enterprises
+
+        override fun reputation(): ReputationService.WithRawResponse = reputation
+
+        override fun termsOfService(): TermsOfServiceService.WithRawResponse = termsOfService
     }
 }

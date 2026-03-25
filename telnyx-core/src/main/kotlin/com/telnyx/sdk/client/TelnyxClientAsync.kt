@@ -37,6 +37,7 @@ import com.telnyx.sdk.services.async.DocumentLinkServiceAsync
 import com.telnyx.sdk.services.async.DocumentServiceAsync
 import com.telnyx.sdk.services.async.DynamicEmergencyAddressServiceAsync
 import com.telnyx.sdk.services.async.DynamicEmergencyEndpointServiceAsync
+import com.telnyx.sdk.services.async.EnterpriseServiceAsync
 import com.telnyx.sdk.services.async.ExternalConnectionServiceAsync
 import com.telnyx.sdk.services.async.FaxApplicationServiceAsync
 import com.telnyx.sdk.services.async.FaxServiceAsync
@@ -117,6 +118,7 @@ import com.telnyx.sdk.services.async.RecordingTranscriptionServiceAsync
 import com.telnyx.sdk.services.async.RegionServiceAsync
 import com.telnyx.sdk.services.async.RegulatoryRequirementServiceAsync
 import com.telnyx.sdk.services.async.ReportServiceAsync
+import com.telnyx.sdk.services.async.ReputationServiceAsync
 import com.telnyx.sdk.services.async.RequirementGroupServiceAsync
 import com.telnyx.sdk.services.async.RequirementServiceAsync
 import com.telnyx.sdk.services.async.RequirementTypeServiceAsync
@@ -137,6 +139,7 @@ import com.telnyx.sdk.services.async.StorageServiceAsync
 import com.telnyx.sdk.services.async.SubNumberOrderServiceAsync
 import com.telnyx.sdk.services.async.SubNumberOrdersReportServiceAsync
 import com.telnyx.sdk.services.async.TelephonyCredentialServiceAsync
+import com.telnyx.sdk.services.async.TermsOfServiceServiceAsync
 import com.telnyx.sdk.services.async.TexmlApplicationServiceAsync
 import com.telnyx.sdk.services.async.TexmlServiceAsync
 import com.telnyx.sdk.services.async.TextToSpeechServiceAsync
@@ -657,6 +660,13 @@ interface TelnyxClientAsync {
     /** Traffic Policy Profiles operations */
     fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync
 
+    /** Enterprise management for Branded Calling and Number Reputation services */
+    fun enterprises(): EnterpriseServiceAsync
+
+    fun reputation(): ReputationServiceAsync
+
+    fun termsOfService(): TermsOfServiceServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1140,5 +1150,12 @@ interface TelnyxClientAsync {
 
         /** Traffic Policy Profiles operations */
         fun trafficPolicyProfiles(): TrafficPolicyProfileServiceAsync.WithRawResponse
+
+        /** Enterprise management for Branded Calling and Number Reputation services */
+        fun enterprises(): EnterpriseServiceAsync.WithRawResponse
+
+        fun reputation(): ReputationServiceAsync.WithRawResponse
+
+        fun termsOfService(): TermsOfServiceServiceAsync.WithRawResponse
     }
 }

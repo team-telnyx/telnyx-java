@@ -275,13 +275,13 @@ private constructor(
                                     put("filter[status]", portingOrderSingle.toString())
                                 }
 
-                                override fun visitPortingOrderStatusArray(
-                                    portingOrderStatusArray:
+                                override fun visitPortingOrderStatusLists(
+                                    portingOrderStatusLists:
                                         List<Filter.Status.PortingOrderStatusList>
                                 ) {
                                     put(
                                         "filter[status]",
-                                        portingOrderStatusArray.joinToString(",") { it.toString() },
+                                        portingOrderStatusLists.joinToString(",") { it.toString() },
                                     )
                                 }
                             }
@@ -466,11 +466,11 @@ private constructor(
 
             /**
              * Alias for calling [status] with
-             * `Status.ofPortingOrderStatusArray(portingOrderStatusArray)`.
+             * `Status.ofPortingOrderStatusLists(portingOrderStatusLists)`.
              */
-            fun statusOfPortingOrderStatusArray(
-                portingOrderStatusArray: List<Status.PortingOrderStatusList>
-            ) = status(Status.ofPortingOrderStatusArray(portingOrderStatusArray))
+            fun statusOfPortingOrderStatusLists(
+                portingOrderStatusLists: List<Status.PortingOrderStatusList>
+            ) = status(Status.ofPortingOrderStatusLists(portingOrderStatusLists))
 
             /**
              * Filter results by support key(s). Originally: filter[support_key][eq],
@@ -898,7 +898,7 @@ private constructor(
         class Status
         private constructor(
             private val portingOrderSingle: PortingOrderSingleStatus? = null,
-            private val portingOrderStatusArray: List<PortingOrderStatusList>? = null,
+            private val portingOrderStatusLists: List<PortingOrderStatusList>? = null,
         ) {
 
             /** Filter by single status */
@@ -906,27 +906,27 @@ private constructor(
                 Optional.ofNullable(portingOrderSingle)
 
             /** Filter by multiple statuses (in operation) */
-            fun portingOrderStatusArray(): Optional<List<PortingOrderStatusList>> =
-                Optional.ofNullable(portingOrderStatusArray)
+            fun portingOrderStatusLists(): Optional<List<PortingOrderStatusList>> =
+                Optional.ofNullable(portingOrderStatusLists)
 
             fun isPortingOrderSingle(): Boolean = portingOrderSingle != null
 
-            fun isPortingOrderStatusArray(): Boolean = portingOrderStatusArray != null
+            fun isPortingOrderStatusLists(): Boolean = portingOrderStatusLists != null
 
             /** Filter by single status */
             fun asPortingOrderSingle(): PortingOrderSingleStatus =
                 portingOrderSingle.getOrThrow("portingOrderSingle")
 
             /** Filter by multiple statuses (in operation) */
-            fun asPortingOrderStatusArray(): List<PortingOrderStatusList> =
-                portingOrderStatusArray.getOrThrow("portingOrderStatusArray")
+            fun asPortingOrderStatusLists(): List<PortingOrderStatusList> =
+                portingOrderStatusLists.getOrThrow("portingOrderStatusLists")
 
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
                     portingOrderSingle != null ->
                         visitor.visitPortingOrderSingle(portingOrderSingle)
-                    portingOrderStatusArray != null ->
-                        visitor.visitPortingOrderStatusArray(portingOrderStatusArray)
+                    portingOrderStatusLists != null ->
+                        visitor.visitPortingOrderStatusLists(portingOrderStatusLists)
                     else -> throw IllegalStateException("Invalid Status")
                 }
 
@@ -937,16 +937,16 @@ private constructor(
 
                 return other is Status &&
                     portingOrderSingle == other.portingOrderSingle &&
-                    portingOrderStatusArray == other.portingOrderStatusArray
+                    portingOrderStatusLists == other.portingOrderStatusLists
             }
 
-            override fun hashCode(): Int = Objects.hash(portingOrderSingle, portingOrderStatusArray)
+            override fun hashCode(): Int = Objects.hash(portingOrderSingle, portingOrderStatusLists)
 
             override fun toString(): String =
                 when {
                     portingOrderSingle != null -> "Status{portingOrderSingle=$portingOrderSingle}"
-                    portingOrderStatusArray != null ->
-                        "Status{portingOrderStatusArray=$portingOrderStatusArray}"
+                    portingOrderStatusLists != null ->
+                        "Status{portingOrderStatusLists=$portingOrderStatusLists}"
                     else -> throw IllegalStateException("Invalid Status")
                 }
 
@@ -959,9 +959,9 @@ private constructor(
 
                 /** Filter by multiple statuses (in operation) */
                 @JvmStatic
-                fun ofPortingOrderStatusArray(
-                    portingOrderStatusArray: List<PortingOrderStatusList>
-                ) = Status(portingOrderStatusArray = portingOrderStatusArray.toImmutable())
+                fun ofPortingOrderStatusLists(
+                    portingOrderStatusLists: List<PortingOrderStatusList>
+                ) = Status(portingOrderStatusLists = portingOrderStatusLists.toImmutable())
             }
 
             /**
@@ -973,8 +973,8 @@ private constructor(
                 fun visitPortingOrderSingle(portingOrderSingle: PortingOrderSingleStatus): T
 
                 /** Filter by multiple statuses (in operation) */
-                fun visitPortingOrderStatusArray(
-                    portingOrderStatusArray: List<PortingOrderStatusList>
+                fun visitPortingOrderStatusLists(
+                    portingOrderStatusLists: List<PortingOrderStatusList>
                 ): T
             }
 
