@@ -214,6 +214,9 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.voiceClones()).isNotNull()
         assertThat(client.voiceDesigns()).isNotNull()
         assertThat(client.trafficPolicyProfiles()).isNotNull()
+        assertThat(client.enterprises()).isNotNull()
+        assertThat(client.reputation()).isNotNull()
+        assertThat(client.termsOfService()).isNotNull()
     }
 
     @Test

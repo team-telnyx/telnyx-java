@@ -37,6 +37,7 @@ import com.telnyx.sdk.services.blocking.DocumentLinkService
 import com.telnyx.sdk.services.blocking.DocumentService
 import com.telnyx.sdk.services.blocking.DynamicEmergencyAddressService
 import com.telnyx.sdk.services.blocking.DynamicEmergencyEndpointService
+import com.telnyx.sdk.services.blocking.EnterpriseService
 import com.telnyx.sdk.services.blocking.ExternalConnectionService
 import com.telnyx.sdk.services.blocking.FaxApplicationService
 import com.telnyx.sdk.services.blocking.FaxService
@@ -117,6 +118,7 @@ import com.telnyx.sdk.services.blocking.RecordingTranscriptionService
 import com.telnyx.sdk.services.blocking.RegionService
 import com.telnyx.sdk.services.blocking.RegulatoryRequirementService
 import com.telnyx.sdk.services.blocking.ReportService
+import com.telnyx.sdk.services.blocking.ReputationService
 import com.telnyx.sdk.services.blocking.RequirementGroupService
 import com.telnyx.sdk.services.blocking.RequirementService
 import com.telnyx.sdk.services.blocking.RequirementTypeService
@@ -137,6 +139,7 @@ import com.telnyx.sdk.services.blocking.StorageService
 import com.telnyx.sdk.services.blocking.SubNumberOrderService
 import com.telnyx.sdk.services.blocking.SubNumberOrdersReportService
 import com.telnyx.sdk.services.blocking.TelephonyCredentialService
+import com.telnyx.sdk.services.blocking.TermsOfServiceService
 import com.telnyx.sdk.services.blocking.TexmlApplicationService
 import com.telnyx.sdk.services.blocking.TexmlService
 import com.telnyx.sdk.services.blocking.TextToSpeechService
@@ -657,6 +660,13 @@ interface TelnyxClient {
     /** Traffic Policy Profiles operations */
     fun trafficPolicyProfiles(): TrafficPolicyProfileService
 
+    /** Enterprise management for Branded Calling and Number Reputation services */
+    fun enterprises(): EnterpriseService
+
+    fun reputation(): ReputationService
+
+    fun termsOfService(): TermsOfServiceService
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -1137,5 +1147,12 @@ interface TelnyxClient {
 
         /** Traffic Policy Profiles operations */
         fun trafficPolicyProfiles(): TrafficPolicyProfileService.WithRawResponse
+
+        /** Enterprise management for Branded Calling and Number Reputation services */
+        fun enterprises(): EnterpriseService.WithRawResponse
+
+        fun reputation(): ReputationService.WithRawResponse
+
+        fun termsOfService(): TermsOfServiceService.WithRawResponse
     }
 }
