@@ -37,7 +37,7 @@ internal constructor(private val clientOptions: ClientOptions) : NumberReputatio
         params: NumberReputationAgreeParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
-        // post /terms-of-service/number-reputation/agree
+        // post /terms_of_service/number_reputation/agree
         withRawResponse().agree(params, requestOptions).thenAccept {}
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -63,7 +63,7 @@ internal constructor(private val clientOptions: ClientOptions) : NumberReputatio
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("terms-of-service", "number-reputation", "agree")
+                    .addPathSegments("terms_of_service", "number_reputation", "agree")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
