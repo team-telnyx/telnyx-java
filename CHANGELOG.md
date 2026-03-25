@@ -1,5 +1,27 @@
 # Changelog
 
+## 6.37.0 (2026-03-25)
+
+Full Changelog: [v6.36.0...v6.37.0](https://github.com/team-telnyx/telnyx-java/compare/v6.36.0...v6.37.0)
+
+### Features
+
+* **api:** manual updates ([84eb8e5](https://github.com/team-telnyx/telnyx-java/commit/84eb8e5bed006d7581a97e728b827d41d960d887))
+* **api:** manual updates ([d62b3b1](https://github.com/team-telnyx/telnyx-java/commit/d62b3b1c0cc54ec3c5b140ff0ef9eed750400b9a))
+* **api:** Merge pull request [#30](https://github.com/team-telnyx/telnyx-java/issues/30) from stainless-sdks/fix-schemaUnionDiscriminatorMissing ([50f69d6](https://github.com/team-telnyx/telnyx-java/commit/50f69d6ac1af18e556c4663422870e6ac171f51a))
+* New tools api ([701503a](https://github.com/team-telnyx/telnyx-java/commit/701503ae98115ed51a924aabf50c1d53d063b00b))
+* TELAPPS-5685: Add store_fields_as_variables to WebhookToolParams ([a19bedd](https://github.com/team-telnyx/telnyx-java/commit/a19bedde8f14f4361f9447dcec0136eea450f00c))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([3e19390](https://github.com/team-telnyx/telnyx-java/commit/3e1939055b068b858e2ccb4cee6085feeedd5e6c))
+
+
+### Documentation
+
+* **branded-calling:** add Number Reputation API specs ([f488512](https://github.com/team-telnyx/telnyx-java/commit/f4885127dd5a7c72c2887abf49fe846ab9aa626b))
+
 ## 6.36.0 (2026-03-23)
 
 Full Changelog: [v6.35.0...v6.36.0](https://github.com/team-telnyx/telnyx-java/compare/v6.35.0...v6.36.0)
