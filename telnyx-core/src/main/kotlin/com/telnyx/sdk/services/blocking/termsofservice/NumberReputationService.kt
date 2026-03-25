@@ -63,7 +63,7 @@ interface NumberReputationService {
         ): NumberReputationService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /terms-of-service/number-reputation/agree`, but is
+         * Returns a raw HTTP response for `post /terms_of_service/number_reputation/agree`, but is
          * otherwise the same as [NumberReputationService.agree].
          */
         @MustBeClosed fun agree(): HttpResponse = agree(NumberReputationAgreeParams.none())

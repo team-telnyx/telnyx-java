@@ -31,7 +31,7 @@ class NumberReputationServiceImpl internal constructor(private val clientOptions
         NumberReputationServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun agree(params: NumberReputationAgreeParams, requestOptions: RequestOptions) {
-        // post /terms-of-service/number-reputation/agree
+        // post /terms_of_service/number_reputation/agree
         withRawResponse().agree(params, requestOptions)
     }
 
@@ -58,7 +58,7 @@ class NumberReputationServiceImpl internal constructor(private val clientOptions
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("terms-of-service", "number-reputation", "agree")
+                    .addPathSegments("terms_of_service", "number_reputation", "agree")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
