@@ -64,7 +64,7 @@ interface NumberReputationServiceAsync {
         ): NumberReputationServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /terms-of-service/number-reputation/agree`, but is
+         * Returns a raw HTTP response for `post /terms_of_service/number_reputation/agree`, but is
          * otherwise the same as [NumberReputationServiceAsync.agree].
          */
         fun agree(): CompletableFuture<HttpResponse> = agree(NumberReputationAgreeParams.none())
