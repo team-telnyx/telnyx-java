@@ -12,7 +12,7 @@ internal class EnterpriseUpdateParamsTest {
         EnterpriseUpdateParams.builder()
             .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .billingAddress(
-                EnterpriseUpdateParams.BillingAddress.builder()
+                BillingAddress.builder()
                     .administrativeArea("Illinois")
                     .city("Chicago")
                     .country("United States")
@@ -22,7 +22,7 @@ internal class EnterpriseUpdateParamsTest {
                     .build()
             )
             .billingContact(
-                EnterpriseUpdateParams.BillingContact.builder()
+                BillingContact.builder()
                     .email("billing@acme.com")
                     .firstName("John")
                     .lastName("Doe")
@@ -38,7 +38,7 @@ internal class EnterpriseUpdateParamsTest {
             .legalName("xxx")
             .numberOfEmployees(EnterpriseUpdateParams.NumberOfEmployees._1_10)
             .organizationContact(
-                EnterpriseUpdateParams.OrganizationContact.builder()
+                OrganizationContact.builder()
                     .email("jane.smith@acme.com")
                     .firstName("Jane")
                     .jobTitle("VP of Engineering")
@@ -48,7 +48,7 @@ internal class EnterpriseUpdateParamsTest {
             )
             .organizationLegalType(EnterpriseUpdateParams.OrganizationLegalType.CORPORATION)
             .organizationPhysicalAddress(
-                EnterpriseUpdateParams.OrganizationPhysicalAddress.builder()
+                PhysicalAddress.builder()
                     .administrativeArea("Illinois")
                     .city("Chicago")
                     .country("United States")
@@ -81,7 +81,7 @@ internal class EnterpriseUpdateParamsTest {
             EnterpriseUpdateParams.builder()
                 .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .billingAddress(
-                    EnterpriseUpdateParams.BillingAddress.builder()
+                    BillingAddress.builder()
                         .administrativeArea("Illinois")
                         .city("Chicago")
                         .country("United States")
@@ -91,7 +91,7 @@ internal class EnterpriseUpdateParamsTest {
                         .build()
                 )
                 .billingContact(
-                    EnterpriseUpdateParams.BillingContact.builder()
+                    BillingContact.builder()
                         .email("billing@acme.com")
                         .firstName("John")
                         .lastName("Doe")
@@ -107,7 +107,7 @@ internal class EnterpriseUpdateParamsTest {
                 .legalName("xxx")
                 .numberOfEmployees(EnterpriseUpdateParams.NumberOfEmployees._1_10)
                 .organizationContact(
-                    EnterpriseUpdateParams.OrganizationContact.builder()
+                    OrganizationContact.builder()
                         .email("jane.smith@acme.com")
                         .firstName("Jane")
                         .jobTitle("VP of Engineering")
@@ -117,7 +117,7 @@ internal class EnterpriseUpdateParamsTest {
                 )
                 .organizationLegalType(EnterpriseUpdateParams.OrganizationLegalType.CORPORATION)
                 .organizationPhysicalAddress(
-                    EnterpriseUpdateParams.OrganizationPhysicalAddress.builder()
+                    PhysicalAddress.builder()
                         .administrativeArea("Illinois")
                         .city("Chicago")
                         .country("United States")
@@ -135,7 +135,7 @@ internal class EnterpriseUpdateParamsTest {
 
         assertThat(body.billingAddress())
             .contains(
-                EnterpriseUpdateParams.BillingAddress.builder()
+                BillingAddress.builder()
                     .administrativeArea("Illinois")
                     .city("Chicago")
                     .country("United States")
@@ -146,7 +146,7 @@ internal class EnterpriseUpdateParamsTest {
             )
         assertThat(body.billingContact())
             .contains(
-                EnterpriseUpdateParams.BillingContact.builder()
+                BillingContact.builder()
                     .email("billing@acme.com")
                     .firstName("John")
                     .lastName("Doe")
@@ -164,7 +164,7 @@ internal class EnterpriseUpdateParamsTest {
             .contains(EnterpriseUpdateParams.NumberOfEmployees._1_10)
         assertThat(body.organizationContact())
             .contains(
-                EnterpriseUpdateParams.OrganizationContact.builder()
+                OrganizationContact.builder()
                     .email("jane.smith@acme.com")
                     .firstName("Jane")
                     .jobTitle("VP of Engineering")
@@ -176,7 +176,7 @@ internal class EnterpriseUpdateParamsTest {
             .contains(EnterpriseUpdateParams.OrganizationLegalType.CORPORATION)
         assertThat(body.organizationPhysicalAddress())
             .contains(
-                EnterpriseUpdateParams.OrganizationPhysicalAddress.builder()
+                PhysicalAddress.builder()
                     .administrativeArea("Illinois")
                     .city("Chicago")
                     .country("United States")

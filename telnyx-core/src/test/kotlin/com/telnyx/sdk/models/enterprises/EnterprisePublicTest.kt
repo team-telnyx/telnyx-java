@@ -8,15 +8,15 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class EnterpriseListResponseTest {
+internal class EnterprisePublicTest {
 
     @Test
     fun create() {
-        val enterpriseListResponse =
-            EnterpriseListResponse.builder()
+        val enterprisePublic =
+            EnterprisePublic.builder()
                 .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .billingAddress(
-                    EnterpriseListResponse.BillingAddress.builder()
+                    BillingAddress.builder()
                         .administrativeArea("Illinois")
                         .city("Chicago")
                         .country("United States")
@@ -26,7 +26,7 @@ internal class EnterpriseListResponseTest {
                         .build()
                 )
                 .billingContact(
-                    EnterpriseListResponse.BillingContact.builder()
+                    BillingContact.builder()
                         .email("billing@acme.com")
                         .firstName("John")
                         .lastName("Doe")
@@ -42,9 +42,9 @@ internal class EnterpriseListResponseTest {
                 .fein("fein")
                 .industry("industry")
                 .legalName("Acme Corp Inc.")
-                .numberOfEmployees(EnterpriseListResponse.NumberOfEmployees._1_10)
+                .numberOfEmployees(EnterprisePublic.NumberOfEmployees._1_10)
                 .organizationContact(
-                    EnterpriseListResponse.OrganizationContact.builder()
+                    OrganizationContact.builder()
                         .email("jane.smith@acme.com")
                         .firstName("Jane")
                         .jobTitle("VP of Engineering")
@@ -52,9 +52,9 @@ internal class EnterpriseListResponseTest {
                         .phone("+16035551234")
                         .build()
                 )
-                .organizationLegalType(EnterpriseListResponse.OrganizationLegalType.CORPORATION)
+                .organizationLegalType(EnterprisePublic.OrganizationLegalType.CORPORATION)
                 .organizationPhysicalAddress(
-                    EnterpriseListResponse.OrganizationPhysicalAddress.builder()
+                    PhysicalAddress.builder()
                         .administrativeArea("Illinois")
                         .city("Chicago")
                         .country("United States")
@@ -63,18 +63,18 @@ internal class EnterpriseListResponseTest {
                         .extendedAddress("Suite 400")
                         .build()
                 )
-                .organizationType(EnterpriseListResponse.OrganizationType.COMMERCIAL)
+                .organizationType(EnterprisePublic.OrganizationType.COMMERCIAL)
                 .primaryBusinessDomainSicCode("primary_business_domain_sic_code")
                 .professionalLicenseNumber("professional_license_number")
-                .roleType(EnterpriseListResponse.RoleType.ENTERPRISE)
+                .roleType(EnterprisePublic.RoleType.ENTERPRISE)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .website("website")
                 .build()
 
-        assertThat(enterpriseListResponse.id()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-        assertThat(enterpriseListResponse.billingAddress())
+        assertThat(enterprisePublic.id()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(enterprisePublic.billingAddress())
             .contains(
-                EnterpriseListResponse.BillingAddress.builder()
+                BillingAddress.builder()
                     .administrativeArea("Illinois")
                     .city("Chicago")
                     .country("United States")
@@ -83,31 +83,31 @@ internal class EnterpriseListResponseTest {
                     .extendedAddress("Suite 400")
                     .build()
             )
-        assertThat(enterpriseListResponse.billingContact())
+        assertThat(enterprisePublic.billingContact())
             .contains(
-                EnterpriseListResponse.BillingContact.builder()
+                BillingContact.builder()
                     .email("billing@acme.com")
                     .firstName("John")
                     .lastName("Doe")
                     .phoneNumber("15551234568")
                     .build()
             )
-        assertThat(enterpriseListResponse.corporateRegistrationNumber())
+        assertThat(enterprisePublic.corporateRegistrationNumber())
             .contains("corporate_registration_number")
-        assertThat(enterpriseListResponse.countryCode()).contains("US")
-        assertThat(enterpriseListResponse.createdAt())
+        assertThat(enterprisePublic.countryCode()).contains("US")
+        assertThat(enterprisePublic.createdAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(enterpriseListResponse.customerReference()).contains("customer_reference")
-        assertThat(enterpriseListResponse.doingBusinessAs()).contains("Acme")
-        assertThat(enterpriseListResponse.dunBradstreetNumber()).contains("dun_bradstreet_number")
-        assertThat(enterpriseListResponse.fein()).contains("fein")
-        assertThat(enterpriseListResponse.industry()).contains("industry")
-        assertThat(enterpriseListResponse.legalName()).contains("Acme Corp Inc.")
-        assertThat(enterpriseListResponse.numberOfEmployees())
-            .contains(EnterpriseListResponse.NumberOfEmployees._1_10)
-        assertThat(enterpriseListResponse.organizationContact())
+        assertThat(enterprisePublic.customerReference()).contains("customer_reference")
+        assertThat(enterprisePublic.doingBusinessAs()).contains("Acme")
+        assertThat(enterprisePublic.dunBradstreetNumber()).contains("dun_bradstreet_number")
+        assertThat(enterprisePublic.fein()).contains("fein")
+        assertThat(enterprisePublic.industry()).contains("industry")
+        assertThat(enterprisePublic.legalName()).contains("Acme Corp Inc.")
+        assertThat(enterprisePublic.numberOfEmployees())
+            .contains(EnterprisePublic.NumberOfEmployees._1_10)
+        assertThat(enterprisePublic.organizationContact())
             .contains(
-                EnterpriseListResponse.OrganizationContact.builder()
+                OrganizationContact.builder()
                     .email("jane.smith@acme.com")
                     .firstName("Jane")
                     .jobTitle("VP of Engineering")
@@ -115,11 +115,11 @@ internal class EnterpriseListResponseTest {
                     .phone("+16035551234")
                     .build()
             )
-        assertThat(enterpriseListResponse.organizationLegalType())
-            .contains(EnterpriseListResponse.OrganizationLegalType.CORPORATION)
-        assertThat(enterpriseListResponse.organizationPhysicalAddress())
+        assertThat(enterprisePublic.organizationLegalType())
+            .contains(EnterprisePublic.OrganizationLegalType.CORPORATION)
+        assertThat(enterprisePublic.organizationPhysicalAddress())
             .contains(
-                EnterpriseListResponse.OrganizationPhysicalAddress.builder()
+                PhysicalAddress.builder()
                     .administrativeArea("Illinois")
                     .city("Chicago")
                     .country("United States")
@@ -128,27 +128,26 @@ internal class EnterpriseListResponseTest {
                     .extendedAddress("Suite 400")
                     .build()
             )
-        assertThat(enterpriseListResponse.organizationType())
-            .contains(EnterpriseListResponse.OrganizationType.COMMERCIAL)
-        assertThat(enterpriseListResponse.primaryBusinessDomainSicCode())
+        assertThat(enterprisePublic.organizationType())
+            .contains(EnterprisePublic.OrganizationType.COMMERCIAL)
+        assertThat(enterprisePublic.primaryBusinessDomainSicCode())
             .contains("primary_business_domain_sic_code")
-        assertThat(enterpriseListResponse.professionalLicenseNumber())
+        assertThat(enterprisePublic.professionalLicenseNumber())
             .contains("professional_license_number")
-        assertThat(enterpriseListResponse.roleType())
-            .contains(EnterpriseListResponse.RoleType.ENTERPRISE)
-        assertThat(enterpriseListResponse.updatedAt())
+        assertThat(enterprisePublic.roleType()).contains(EnterprisePublic.RoleType.ENTERPRISE)
+        assertThat(enterprisePublic.updatedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(enterpriseListResponse.website()).contains("website")
+        assertThat(enterprisePublic.website()).contains("website")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val enterpriseListResponse =
-            EnterpriseListResponse.builder()
+        val enterprisePublic =
+            EnterprisePublic.builder()
                 .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .billingAddress(
-                    EnterpriseListResponse.BillingAddress.builder()
+                    BillingAddress.builder()
                         .administrativeArea("Illinois")
                         .city("Chicago")
                         .country("United States")
@@ -158,7 +157,7 @@ internal class EnterpriseListResponseTest {
                         .build()
                 )
                 .billingContact(
-                    EnterpriseListResponse.BillingContact.builder()
+                    BillingContact.builder()
                         .email("billing@acme.com")
                         .firstName("John")
                         .lastName("Doe")
@@ -174,9 +173,9 @@ internal class EnterpriseListResponseTest {
                 .fein("fein")
                 .industry("industry")
                 .legalName("Acme Corp Inc.")
-                .numberOfEmployees(EnterpriseListResponse.NumberOfEmployees._1_10)
+                .numberOfEmployees(EnterprisePublic.NumberOfEmployees._1_10)
                 .organizationContact(
-                    EnterpriseListResponse.OrganizationContact.builder()
+                    OrganizationContact.builder()
                         .email("jane.smith@acme.com")
                         .firstName("Jane")
                         .jobTitle("VP of Engineering")
@@ -184,9 +183,9 @@ internal class EnterpriseListResponseTest {
                         .phone("+16035551234")
                         .build()
                 )
-                .organizationLegalType(EnterpriseListResponse.OrganizationLegalType.CORPORATION)
+                .organizationLegalType(EnterprisePublic.OrganizationLegalType.CORPORATION)
                 .organizationPhysicalAddress(
-                    EnterpriseListResponse.OrganizationPhysicalAddress.builder()
+                    PhysicalAddress.builder()
                         .administrativeArea("Illinois")
                         .city("Chicago")
                         .country("United States")
@@ -195,20 +194,20 @@ internal class EnterpriseListResponseTest {
                         .extendedAddress("Suite 400")
                         .build()
                 )
-                .organizationType(EnterpriseListResponse.OrganizationType.COMMERCIAL)
+                .organizationType(EnterprisePublic.OrganizationType.COMMERCIAL)
                 .primaryBusinessDomainSicCode("primary_business_domain_sic_code")
                 .professionalLicenseNumber("professional_license_number")
-                .roleType(EnterpriseListResponse.RoleType.ENTERPRISE)
+                .roleType(EnterprisePublic.RoleType.ENTERPRISE)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .website("website")
                 .build()
 
-        val roundtrippedEnterpriseListResponse =
+        val roundtrippedEnterprisePublic =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(enterpriseListResponse),
-                jacksonTypeRef<EnterpriseListResponse>(),
+                jsonMapper.writeValueAsString(enterprisePublic),
+                jacksonTypeRef<EnterprisePublic>(),
             )
 
-        assertThat(roundtrippedEnterpriseListResponse).isEqualTo(enterpriseListResponse)
+        assertThat(roundtrippedEnterprisePublic).isEqualTo(enterprisePublic)
     }
 }
