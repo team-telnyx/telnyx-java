@@ -70,7 +70,7 @@ class EventEmitterTest {
 
         assertThat(emitter.hasListeners()).isFalse()
 
-        emitter.on { }
+        emitter.on {}
         assertThat(emitter.hasListeners()).isTrue()
 
         emitter.removeAllListeners()

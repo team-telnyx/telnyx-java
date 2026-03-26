@@ -8,9 +8,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Parameters for creating a Speech-to-Text WebSocket streaming connection.
- */
+/** Parameters for creating a Speech-to-Text WebSocket streaming connection. */
 class SpeechToTextStreamParams
 private constructor(
     private val transcriptionEngine: TranscriptionEngine,
@@ -109,9 +107,12 @@ private constructor(
 
         fun language(language: Optional<String>) = language(language.getOrNull())
 
-        fun interimResults(interimResults: Boolean?) = apply { this.interimResults = interimResults }
+        fun interimResults(interimResults: Boolean?) = apply {
+            this.interimResults = interimResults
+        }
 
-        fun interimResults(interimResults: Optional<Boolean>) = interimResults(interimResults.getOrNull())
+        fun interimResults(interimResults: Optional<Boolean>) =
+            interimResults(interimResults.getOrNull())
 
         fun model(model: String?) = apply { this.model = model }
 
@@ -135,7 +136,8 @@ private constructor(
 
         fun build(): SpeechToTextStreamParams =
             SpeechToTextStreamParams(
-                transcriptionEngine ?: throw IllegalStateException("transcriptionEngine is required"),
+                transcriptionEngine
+                    ?: throw IllegalStateException("transcriptionEngine is required"),
                 inputFormat,
                 language,
                 interimResults,
@@ -153,8 +155,7 @@ private constructor(
     private constructor(private val value: JsonField<String>) {
 
         /** Returns this class instance's raw value. */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         /** Returns the string representation of the value. */
         fun asString(): String = value.asString().orElse("")
@@ -182,13 +183,10 @@ private constructor(
     }
 
     /** The format of the input audio stream. */
-    class InputFormat
-    @JsonCreator
-    private constructor(private val value: JsonField<String>) {
+    class InputFormat @JsonCreator private constructor(private val value: JsonField<String>) {
 
         /** Returns this class instance's raw value. */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         /** Returns the string representation of the value. */
         fun asString(): String = value.asString().orElse("")
@@ -232,7 +230,17 @@ private constructor(
     }
 
     override fun hashCode(): Int =
-        Objects.hash(transcriptionEngine, inputFormat, language, interimResults, model, endpointing, keyterm, keywords, redact)
+        Objects.hash(
+            transcriptionEngine,
+            inputFormat,
+            language,
+            interimResults,
+            model,
+            endpointing,
+            keyterm,
+            keywords,
+            redact,
+        )
 
     override fun toString(): String =
         "SpeechToTextStreamParams{transcriptionEngine=$transcriptionEngine, inputFormat=$inputFormat, language=$language, interimResults=$interimResults, model=$model, endpointing=$endpointing, keyterm=$keyterm, keywords=$keywords, redact=$redact}"

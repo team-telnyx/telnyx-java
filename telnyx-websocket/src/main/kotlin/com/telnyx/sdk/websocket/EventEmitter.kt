@@ -78,9 +78,7 @@ open class EventEmitter<T : Any> {
      */
     fun hasListeners(): Boolean = listeners.isNotEmpty() || onceListeners.isNotEmpty()
 
-    /**
-     * Listener interface for events.
-     */
+    /** Listener interface for events. */
     fun interface EventListener<T> {
         fun onEvent(event: T)
     }

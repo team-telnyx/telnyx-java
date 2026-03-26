@@ -7,19 +7,18 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.speechtotext.SpeechToTextStreamParams
 import com.telnyx.sdk.models.speechtotext.SttServerEvent
+import java.io.Closeable
+import java.util.concurrent.BlockingQueue
+import java.util.concurrent.LinkedBlockingQueue
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.jvm.optionals.getOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString
-import java.io.Closeable
-import java.net.URL
-import java.util.concurrent.BlockingQueue
-import java.util.concurrent.LinkedBlockingQueue
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.jvm.optionals.getOrNull
 
 /**
  * A synchronous Speech-to-Text WebSocket connection with an iterator-based API.
@@ -41,7 +40,8 @@ import kotlin.jvm.optionals.getOrNull
  * }
  * ```
  */
-class SpeechToTextConnection private constructor(
+class SpeechToTextConnection
+private constructor(
     private val webSocket: WebSocket,
     private val eventQueue: BlockingQueue<Result<SttServerEvent>>,
     private val isOpen: AtomicBoolean,
@@ -79,55 +79,70 @@ class SpeechToTextConnection private constructor(
 
             val url = buildUrl(clientOptions, params)
 
-            val request = Request.Builder()
-                .url(url)
-                .apply {
-                    clientOptions.apiKey().getOrNull()?.let { apiKey ->
-                        addHeader("Authorization", "Bearer $apiKey")
+            val request =
+                Request.Builder()
+                    .url(url)
+                    .apply {
+                        clientOptions.apiKey().getOrNull()?.let { apiKey ->
+                            addHeader("Authorization", "Bearer $apiKey")
+                        }
                     }
-                }
-                .build()
+                    .build()
 
             val openLatch = java.util.concurrent.CountDownLatch(1)
 
-            val webSocket = okHttpClient.newWebSocket(request, object : WebSocketListener() {
-                override fun onOpen(webSocket: WebSocket, response: Response) {
-                    isOpen.set(true)
-                    openLatch.countDown()
-                }
+            val webSocket =
+                okHttpClient.newWebSocket(
+                    request,
+                    object : WebSocketListener() {
+                        override fun onOpen(webSocket: WebSocket, response: Response) {
+                            isOpen.set(true)
+                            openLatch.countDown()
+                        }
 
-                override fun onMessage(webSocket: WebSocket, text: String) {
-                    try {
-                        val event = jsonMapper.readValue(text, SttServerEvent::class.java)
-                        eventQueue.put(Result.success(event))
-                    } catch (e: Exception) {
-                        eventQueue.put(Result.failure(WebSocketError("Failed to parse message", e)))
-                    }
-                }
+                        override fun onMessage(webSocket: WebSocket, text: String) {
+                            try {
+                                val event = jsonMapper.readValue(text, SttServerEvent::class.java)
+                                eventQueue.put(Result.success(event))
+                            } catch (e: Exception) {
+                                eventQueue.put(
+                                    Result.failure(WebSocketError("Failed to parse message", e))
+                                )
+                            }
+                        }
 
-                override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-                    // Server initiated close
-                }
+                        override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
+                            // Server initiated close
+                        }
 
-                override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
-                    isOpen.set(false)
-                    // Signal end of stream
-                    eventQueue.put(Result.failure(ConnectionClosedException(code, reason)))
-                }
+                        override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
+                            isOpen.set(false)
+                            // Signal end of stream
+                            eventQueue.put(Result.failure(ConnectionClosedException(code, reason)))
+                        }
 
-                override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-                    isOpen.set(false)
-                    if (!connectionError.getAndSet(true)) {
-                        startupError = t
-                        openLatch.countDown()
-                    }
-                    eventQueue.put(Result.failure(WebSocketError(
-                        message = t.message ?: "Connection failed",
-                        cause = t,
-                        code = response?.code
-                    )))
-                }
-            })
+                        override fun onFailure(
+                            webSocket: WebSocket,
+                            t: Throwable,
+                            response: Response?,
+                        ) {
+                            isOpen.set(false)
+                            if (!connectionError.getAndSet(true)) {
+                                startupError = t
+                                openLatch.countDown()
+                            }
+                            eventQueue.put(
+                                Result.failure(
+                                    WebSocketError(
+                                        message = t.message ?: "Connection failed",
+                                        cause = t,
+                                        code = response?.code,
+                                    )
+                                )
+                            )
+                        }
+                    },
+                )
 
             // Wait for connection
             if (!openLatch.await(timeout, TimeUnit.MILLISECONDS)) {
@@ -138,22 +153,26 @@ class SpeechToTextConnection private constructor(
             if (!isOpen.get()) {
                 throw WebSocketError(
                     message = startupError?.message ?: "Failed to connect",
-                    cause = startupError
+                    cause = startupError,
                 )
             }
 
             return SpeechToTextConnection(webSocket, eventQueue, isOpen, jsonMapper)
         }
 
-        private fun buildUrl(clientOptions: ClientOptions, params: SpeechToTextStreamParams): String {
+        private fun buildUrl(
+            clientOptions: ClientOptions,
+            params: SpeechToTextStreamParams,
+        ): String {
             val baseUrl = clientOptions.baseUrl().removeSuffix("/")
             val wsUrl = baseUrl.replace("https://", "wss://").replace("http://", "ws://")
             val path = "/speech-to-text/transcription"
 
             val queryParams = params.toQueryParams()
-            val queryString = queryParams.entries.joinToString("&") { (key, value) ->
-                "${java.net.URLEncoder.encode(key, "UTF-8")}=${java.net.URLEncoder.encode(value, "UTF-8")}"
-            }
+            val queryString =
+                queryParams.entries.joinToString("&") { (key, value) ->
+                    "${java.net.URLEncoder.encode(key, "UTF-8")}=${java.net.URLEncoder.encode(value, "UTF-8")}"
+                }
 
             return "$wsUrl$path?$queryString"
         }
@@ -196,30 +215,23 @@ class SpeechToTextConnection private constructor(
     }
 
     /**
-     * Receives raw bytes from the event queue.
-     * This method parses the result as an SttServerEvent.
+     * Receives raw bytes from the event queue. This method parses the result as an SttServerEvent.
      */
     fun recvBytes(): ByteArray {
         throw UnsupportedOperationException("Use recv() for JSON events")
     }
 
-    /**
-     * Parses raw JSON data into an SttServerEvent.
-     */
+    /** Parses raw JSON data into an SttServerEvent. */
     fun parseEvent(data: String): SttServerEvent {
         return jsonMapper.readValue(data, SttServerEvent::class.java)
     }
 
-    /**
-     * Parses raw bytes as JSON into an SttServerEvent.
-     */
+    /** Parses raw bytes as JSON into an SttServerEvent. */
     fun parseEvent(data: ByteArray): SttServerEvent {
         return jsonMapper.readValue(data, SttServerEvent::class.java)
     }
 
-    /**
-     * Checks if there are more events available.
-     */
+    /** Checks if there are more events available. */
     override fun hasNext(): Boolean {
         if (!hasCalledNext) {
             try {
@@ -234,9 +246,7 @@ class SpeechToTextConnection private constructor(
         return nextEvent != null
     }
 
-    /**
-     * Returns the next transcription event.
-     */
+    /** Returns the next transcription event. */
     override fun next(): SttServerEvent {
         if (!hasCalledNext) {
             hasNext()
@@ -245,31 +255,21 @@ class SpeechToTextConnection private constructor(
         return nextEvent ?: throw NoSuchElementException("No more events")
     }
 
-    /**
-     * Closes the connection.
-     */
+    /** Closes the connection. */
     override fun close() {
         close(1000, "OK")
     }
 
-    /**
-     * Closes the connection with a specific code and reason.
-     */
+    /** Closes the connection with a specific code and reason. */
     fun close(code: Int, reason: String) {
         webSocket.close(code, reason)
         isOpen.set(false)
     }
 
-    /**
-     * Returns whether the connection is open.
-     */
+    /** Returns whether the connection is open. */
     fun isOpen(): Boolean = isOpen.get()
 }
 
-/**
- * Exception thrown when the WebSocket connection is closed.
- */
-class ConnectionClosedException(
-    val code: Int,
-    val reason: String,
-) : Exception("Connection closed: $code $reason")
+/** Exception thrown when the WebSocket connection is closed. */
+class ConnectionClosedException(val code: Int, val reason: String) :
+    Exception("Connection closed: $code $reason")

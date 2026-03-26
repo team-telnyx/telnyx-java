@@ -105,9 +105,7 @@ private constructor(
             return true
         }
 
-        return other is SttServerEvent &&
-            transcript == other.transcript &&
-            error == other.error
+        return other is SttServerEvent && transcript == other.transcript && error == other.error
     }
 
     override fun hashCode(): Int = Objects.hash(transcript, error)
@@ -125,8 +123,7 @@ private constructor(
         @JvmStatic
         fun ofTranscript(transcript: TranscriptFrame) = SttServerEvent(transcript = transcript)
 
-        @JvmStatic
-        fun ofError(error: ErrorFrame) = SttServerEvent(error = error)
+        @JvmStatic fun ofError(error: ErrorFrame) = SttServerEvent(error = error)
     }
 
     interface Visitor<out T> {
@@ -144,12 +141,23 @@ private constructor(
     class TranscriptFrame
     @JsonCreator
     private constructor(
-        @JsonProperty("type") @ExcludeMissing private val type: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("transcript") @ExcludeMissing private val transcript: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("is_final") @ExcludeMissing private val isFinal: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("confidence") @ExcludeMissing private val confidence: JsonField<Double> = JsonMissing.of(),
-        @JsonProperty("speech_final") @ExcludeMissing private val speechFinal: JsonField<Boolean> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: MutableMap<String, JsonValue> = mutableMapOf(),
+        @JsonProperty("type")
+        @ExcludeMissing
+        private val type: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("transcript")
+        @ExcludeMissing
+        private val transcript: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("is_final")
+        @ExcludeMissing
+        private val isFinal: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("confidence")
+        @ExcludeMissing
+        private val confidence: JsonField<Double> = JsonMissing.of(),
+        @JsonProperty("speech_final")
+        @ExcludeMissing
+        private val speechFinal: JsonField<Boolean> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: MutableMap<String, JsonValue> = mutableMapOf(),
     ) {
 
         fun type(): Optional<String> = type.getOptional("type")
@@ -164,13 +172,19 @@ private constructor(
 
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<String> = type
 
-        @JsonProperty("transcript") @ExcludeMissing fun _transcript(): JsonField<String> = transcript
+        @JsonProperty("transcript")
+        @ExcludeMissing
+        fun _transcript(): JsonField<String> = transcript
 
         @JsonProperty("is_final") @ExcludeMissing fun _isFinal(): JsonField<Boolean> = isFinal
 
-        @JsonProperty("confidence") @ExcludeMissing fun _confidence(): JsonField<Double> = confidence
+        @JsonProperty("confidence")
+        @ExcludeMissing
+        fun _confidence(): JsonField<Double> = confidence
 
-        @JsonProperty("speech_final") @ExcludeMissing fun _speechFinal(): JsonField<Boolean> = speechFinal
+        @JsonProperty("speech_final")
+        @ExcludeMissing
+        fun _speechFinal(): JsonField<Boolean> = speechFinal
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -220,7 +234,9 @@ private constructor(
 
             fun speechFinal(speechFinal: Boolean) = speechFinal(JsonField.of(speechFinal))
 
-            fun speechFinal(speechFinal: JsonField<Boolean>) = apply { this.speechFinal = speechFinal }
+            fun speechFinal(speechFinal: JsonField<Boolean>) = apply {
+                this.speechFinal = speechFinal
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -305,10 +321,17 @@ private constructor(
     class ErrorFrame
     @JsonCreator
     private constructor(
-        @JsonProperty("type") @ExcludeMissing private val type: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("error") @ExcludeMissing private val error: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("code") @ExcludeMissing private val code: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: MutableMap<String, JsonValue> = mutableMapOf(),
+        @JsonProperty("type")
+        @ExcludeMissing
+        private val type: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("error")
+        @ExcludeMissing
+        private val error: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("code")
+        @ExcludeMissing
+        private val code: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: MutableMap<String, JsonValue> = mutableMapOf(),
     ) {
 
         fun type(): Optional<String> = type.getOptional("type")
@@ -422,9 +445,7 @@ private constructor(
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy {
-            Objects.hash(type, error, code, additionalProperties)
-        }
+        private val hashCode: Int by lazy { Objects.hash(type, error, code, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
@@ -456,9 +477,11 @@ private constructor(
             // (some engines don't include 'type' field)
             return tryDeserialize(node, jacksonTypeRef<TranscriptFrame>())?.let {
                 SttServerEvent(transcript = it, _json = json)
-            } ?: tryDeserialize(node, jacksonTypeRef<ErrorFrame>())?.let {
-                SttServerEvent(error = it, _json = json)
-            } ?: SttServerEvent(_json = json)
+            }
+                ?: tryDeserialize(node, jacksonTypeRef<ErrorFrame>())?.let {
+                    SttServerEvent(error = it, _json = json)
+                }
+                ?: SttServerEvent(_json = json)
         }
     }
 

@@ -7,25 +7,25 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.speechtotext.SpeechToTextStreamParams
 import com.telnyx.sdk.models.speechtotext.SttServerEvent
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
-import okhttp3.WebSocket
-import okhttp3.WebSocketListener
-import okio.ByteString
 import java.io.Closeable
 import java.net.URL
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.WebSocket
+import okhttp3.WebSocketListener
+import okio.ByteString
 
 /**
  * WebSocket client for real-time Speech-to-Text transcription.
  *
  * Connect to `wss://api.telnyx.com/v2/speech-to-text/transcription` with query parameters
- * specifying the transcription engine, input format, and language. Send binary audio frames
- * and receive JSON transcription events.
+ * specifying the transcription engine, input format, and language. Send binary audio frames and
+ * receive JSON transcription events.
  *
  * Example usage:
  * ```kotlin
@@ -85,8 +85,8 @@ class SpeechToTextWebSocket(
     }
 
     /**
-     * Opens the WebSocket connection. This is called automatically on first send
-     * if not already connected.
+     * Opens the WebSocket connection. This is called automatically on first send if not already
+     * connected.
      *
      * @return this client for chaining
      */
@@ -95,61 +95,74 @@ class SpeechToTextWebSocket(
             return this
         }
 
-        val request = Request.Builder()
-            .url(url.toString())
-            .apply {
-                clientOptions.apiKey().ifPresent { apiKey ->
-                    addHeader("Authorization", "Bearer $apiKey")
-                }
-            }
-            .build()
-
-        webSocket = okHttpClient.newWebSocket(request, object : WebSocketListener() {
-            override fun onOpen(webSocket: WebSocket, response: Response) {
-                isOpen.set(true)
-                openLatch.countDown()
-            }
-
-            override fun onMessage(webSocket: WebSocket, text: String) {
-                try {
-                    val event = jsonMapper.readValue(text, SttServerEvent::class.java)
-                    emit(event)
-
-                    if (event.isError()) {
-                        val errorFrame = event.asError()
-                        emitError(WebSocketError(
-                            message = errorFrame.error(),
-                            code = errorFrame.code().orElse(null)?.toIntOrNull(),
-                            errorData = errorFrame
-                        ))
+        val request =
+            Request.Builder()
+                .url(url.toString())
+                .apply {
+                    clientOptions.apiKey().ifPresent { apiKey ->
+                        addHeader("Authorization", "Bearer $apiKey")
                     }
-                } catch (e: Exception) {
-                    emitError(WebSocketError("Failed to parse WebSocket message", e))
                 }
-            }
+                .build()
 
-            override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
-                // Binary messages are not expected from the server
-            }
+        webSocket =
+            okHttpClient.newWebSocket(
+                request,
+                object : WebSocketListener() {
+                    override fun onOpen(webSocket: WebSocket, response: Response) {
+                        isOpen.set(true)
+                        openLatch.countDown()
+                    }
 
-            override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-                isOpen.set(false)
-            }
+                    override fun onMessage(webSocket: WebSocket, text: String) {
+                        try {
+                            val event = jsonMapper.readValue(text, SttServerEvent::class.java)
+                            emit(event)
 
-            override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
-                isOpen.set(false)
-            }
+                            if (event.isError()) {
+                                val errorFrame = event.asError()
+                                emitError(
+                                    WebSocketError(
+                                        message = errorFrame.error(),
+                                        code = errorFrame.code().orElse(null)?.toIntOrNull(),
+                                        errorData = errorFrame,
+                                    )
+                                )
+                            }
+                        } catch (e: Exception) {
+                            emitError(WebSocketError("Failed to parse WebSocket message", e))
+                        }
+                    }
 
-            override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-                isOpen.set(false)
-                openLatch.countDown()
-                emitError(WebSocketError(
-                    message = t.message ?: "WebSocket connection failed",
-                    cause = t,
-                    code = response?.code
-                ))
-            }
-        })
+                    override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
+                        // Binary messages are not expected from the server
+                    }
+
+                    override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
+                        isOpen.set(false)
+                    }
+
+                    override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
+                        isOpen.set(false)
+                    }
+
+                    override fun onFailure(
+                        webSocket: WebSocket,
+                        t: Throwable,
+                        response: Response?,
+                    ) {
+                        isOpen.set(false)
+                        openLatch.countDown()
+                        emitError(
+                            WebSocketError(
+                                message = t.message ?: "WebSocket connection failed",
+                                cause = t,
+                                code = response?.code,
+                            )
+                        )
+                    }
+                },
+            )
 
         return this
     }
@@ -219,9 +232,10 @@ class SpeechToTextWebSocket(
         val path = "/speech-to-text/transcription"
 
         val queryParams = params.toQueryParams()
-        val queryString = queryParams.entries.joinToString("&") { (key, value) ->
-            "${java.net.URLEncoder.encode(key, "UTF-8")}=${java.net.URLEncoder.encode(value, "UTF-8")}"
-        }
+        val queryString =
+            queryParams.entries.joinToString("&") { (key, value) ->
+                "${java.net.URLEncoder.encode(key, "UTF-8")}=${java.net.URLEncoder.encode(value, "UTF-8")}"
+            }
 
         return URL("$wsUrl$path?$queryString")
     }

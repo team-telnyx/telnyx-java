@@ -7,24 +7,24 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.jsonMapper
 import com.telnyx.sdk.models.texttospeech.StreamClientEvent
 import com.telnyx.sdk.models.texttospeech.StreamServerEvent
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
-import okhttp3.WebSocket
-import okhttp3.WebSocketListener
-import okio.ByteString
 import java.io.Closeable
 import java.net.URL
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.WebSocket
+import okhttp3.WebSocketListener
+import okio.ByteString
 
 /**
  * WebSocket client for real-time Text-to-Speech synthesis.
  *
- * Connect to `wss://api.telnyx.com/v2/text-to-speech/speech` for bidirectional streaming.
- * Send JSON messages with text to synthesize, receive audio chunks and status events.
+ * Connect to `wss://api.telnyx.com/v2/text-to-speech/speech` for bidirectional streaming. Send JSON
+ * messages with text to synthesize, receive audio chunks and status events.
  *
  * Example usage:
  * ```kotlin
@@ -95,8 +95,8 @@ class TextToSpeechWebSocket(
     }
 
     /**
-     * Opens the WebSocket connection. This is called automatically on first send
-     * if not already connected.
+     * Opens the WebSocket connection. This is called automatically on first send if not already
+     * connected.
      *
      * @return this client for chaining
      */
@@ -105,60 +105,73 @@ class TextToSpeechWebSocket(
             return this
         }
 
-        val request = Request.Builder()
-            .url(url.toString())
-            .apply {
-                clientOptions.apiKey().ifPresent { apiKey ->
-                    addHeader("Authorization", "Bearer $apiKey")
-                }
-            }
-            .build()
-
-        webSocket = okHttpClient.newWebSocket(request, object : WebSocketListener() {
-            override fun onOpen(webSocket: WebSocket, response: Response) {
-                isOpen.set(true)
-                openLatch.countDown()
-            }
-
-            override fun onMessage(webSocket: WebSocket, text: String) {
-                try {
-                    val event = jsonMapper.readValue(text, StreamServerEvent::class.java)
-                    emit(event)
-
-                    if (event.isError()) {
-                        val errorFrame = event.asError()
-                        emitError(WebSocketError(
-                            message = errorFrame.error().orElse("Unknown error"),
-                            errorData = errorFrame
-                        ))
+        val request =
+            Request.Builder()
+                .url(url.toString())
+                .apply {
+                    clientOptions.apiKey().ifPresent { apiKey ->
+                        addHeader("Authorization", "Bearer $apiKey")
                     }
-                } catch (e: Exception) {
-                    emitError(WebSocketError("Failed to parse WebSocket message", e))
                 }
-            }
+                .build()
 
-            override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
-                // Binary messages might be sent for audio in some cases
-            }
+        webSocket =
+            okHttpClient.newWebSocket(
+                request,
+                object : WebSocketListener() {
+                    override fun onOpen(webSocket: WebSocket, response: Response) {
+                        isOpen.set(true)
+                        openLatch.countDown()
+                    }
 
-            override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-                isOpen.set(false)
-            }
+                    override fun onMessage(webSocket: WebSocket, text: String) {
+                        try {
+                            val event = jsonMapper.readValue(text, StreamServerEvent::class.java)
+                            emit(event)
 
-            override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
-                isOpen.set(false)
-            }
+                            if (event.isError()) {
+                                val errorFrame = event.asError()
+                                emitError(
+                                    WebSocketError(
+                                        message = errorFrame.error().orElse("Unknown error"),
+                                        errorData = errorFrame,
+                                    )
+                                )
+                            }
+                        } catch (e: Exception) {
+                            emitError(WebSocketError("Failed to parse WebSocket message", e))
+                        }
+                    }
 
-            override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-                isOpen.set(false)
-                openLatch.countDown()
-                emitError(WebSocketError(
-                    message = t.message ?: "WebSocket connection failed",
-                    cause = t,
-                    code = response?.code
-                ))
-            }
-        })
+                    override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
+                        // Binary messages might be sent for audio in some cases
+                    }
+
+                    override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
+                        isOpen.set(false)
+                    }
+
+                    override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
+                        isOpen.set(false)
+                    }
+
+                    override fun onFailure(
+                        webSocket: WebSocket,
+                        t: Throwable,
+                        response: Response?,
+                    ) {
+                        isOpen.set(false)
+                        openLatch.countDown()
+                        emitError(
+                            WebSocketError(
+                                message = t.message ?: "WebSocket connection failed",
+                                cause = t,
+                                code = response?.code,
+                            )
+                        )
+                    }
+                },
+            )
 
         return this
     }

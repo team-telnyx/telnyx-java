@@ -4,10 +4,10 @@ package com.telnyx.sdk.websocket
 
 import com.telnyx.sdk.errors.TelnyxException
 
-/**
- * Exception thrown when a WebSocket error occurs.
- */
-class WebSocketError @JvmOverloads constructor(
+/** Exception thrown when a WebSocket error occurs. */
+class WebSocketError
+@JvmOverloads
+constructor(
     message: String,
     cause: Throwable? = null,
     val code: Int? = null,

@@ -13,7 +13,8 @@ class SttServerEventTest {
 
     @Test
     fun `deserializes transcript event`() {
-        val json = """
+        val json =
+            """
             {
                 "type": "transcript",
                 "transcript": "Hello world",
@@ -21,7 +22,8 @@ class SttServerEventTest {
                 "confidence": 0.95,
                 "speech_final": true
             }
-        """.trimIndent()
+            """
+                .trimIndent()
 
         val event = jsonMapper.readValue(json, SttServerEvent::class.java)
 
@@ -37,12 +39,14 @@ class SttServerEventTest {
 
     @Test
     fun `deserializes interim transcript event`() {
-        val json = """
+        val json =
+            """
             {
                 "transcript": "Hello",
                 "is_final": false
             }
-        """.trimIndent()
+            """
+                .trimIndent()
 
         val event = jsonMapper.readValue(json, SttServerEvent::class.java)
 
@@ -54,13 +58,15 @@ class SttServerEventTest {
 
     @Test
     fun `deserializes error event`() {
-        val json = """
+        val json =
+            """
             {
                 "type": "error",
                 "error": "Invalid audio format",
                 "code": "INVALID_FORMAT"
             }
-        """.trimIndent()
+            """
+                .trimIndent()
 
         val event = jsonMapper.readValue(json, SttServerEvent::class.java)
 
@@ -74,11 +80,12 @@ class SttServerEventTest {
 
     @Test
     fun `serializes transcript event`() {
-        val transcript = SttServerEvent.TranscriptFrame.builder()
-            .transcript("Hello world")
-            .isFinal(true)
-            .confidence(0.95)
-            .build()
+        val transcript =
+            SttServerEvent.TranscriptFrame.builder()
+                .transcript("Hello world")
+                .isFinal(true)
+                .confidence(0.95)
+                .build()
 
         val event = SttServerEvent.ofTranscript(transcript)
         val json = jsonMapper.writeValueAsString(event)
@@ -90,23 +97,28 @@ class SttServerEventTest {
 
     @Test
     fun `visitor pattern works`() {
-        val json = """
+        val json =
+            """
             {
                 "type": "transcript",
                 "transcript": "Test",
                 "is_final": true
             }
-        """.trimIndent()
+            """
+                .trimIndent()
 
         val event = jsonMapper.readValue(json, SttServerEvent::class.java)
 
-        val result = event.accept(object : SttServerEvent.Visitor<String> {
-            override fun visitTranscript(transcript: SttServerEvent.TranscriptFrame) =
-                "transcript: ${transcript.transcript()}"
+        val result =
+            event.accept(
+                object : SttServerEvent.Visitor<String> {
+                    override fun visitTranscript(transcript: SttServerEvent.TranscriptFrame) =
+                        "transcript: ${transcript.transcript()}"
 
-            override fun visitError(error: SttServerEvent.ErrorFrame) =
-                "error: ${error.error()}"
-        })
+                    override fun visitError(error: SttServerEvent.ErrorFrame) =
+                        "error: ${error.error()}"
+                }
+            )
 
         assertThat(result).isEqualTo("transcript: Test")
     }
