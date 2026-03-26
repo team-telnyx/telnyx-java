@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.38.0 (2026-03-26)
+
+Full Changelog: [v6.37.0...v6.38.0](https://github.com/team-telnyx/telnyx-java/compare/v6.37.0...v6.38.0)
+
+### Features
+
+* Add WebSocket streaming support for TTS and STT ([af7e4e2](https://github.com/team-telnyx/telnyx-java/commit/af7e4e237439ec468283ac65c0c96476547a9e9c))
+
+
+### Bug Fixes
+
+* Format code with ktlint ([00b09b8](https://github.com/team-telnyx/telnyx-java/commit/00b09b8d42cb82bb292e07d04536be6f59af8629))
+* rename number-reputation ToS route to use underscores ([9cdbb1d](https://github.com/team-telnyx/telnyx-java/commit/9cdbb1d4186bb70b903be19c39d5cf48e840fe70))
+
 ## 6.37.0 (2026-03-25)
 
 Full Changelog: [v6.36.0...v6.37.0](https://github.com/team-telnyx/telnyx-java/compare/v6.36.0...v6.37.0)
