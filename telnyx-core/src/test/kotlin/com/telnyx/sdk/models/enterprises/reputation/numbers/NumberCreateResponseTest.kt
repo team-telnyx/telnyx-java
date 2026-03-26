@@ -4,6 +4,7 @@ package com.telnyx.sdk.models.enterprises.reputation.numbers
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
+import com.telnyx.sdk.models.MetaInfo
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -25,7 +26,7 @@ internal class NumberCreateResponseTest {
                         .build()
                 )
                 .meta(
-                    NumberCreateResponse.Meta.builder()
+                    MetaInfo.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)
@@ -46,7 +47,7 @@ internal class NumberCreateResponseTest {
             )
         assertThat(numberCreateResponse.meta())
             .contains(
-                NumberCreateResponse.Meta.builder()
+                MetaInfo.builder()
                     .pageNumber(0L)
                     .pageSize(0L)
                     .totalPages(0L)
@@ -70,7 +71,7 @@ internal class NumberCreateResponseTest {
                         .build()
                 )
                 .meta(
-                    NumberCreateResponse.Meta.builder()
+                    MetaInfo.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)
