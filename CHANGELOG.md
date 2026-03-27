@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.38.1 (2026-03-27)
+
+Full Changelog: [v6.38.0...v6.38.1](https://github.com/team-telnyx/telnyx-java/compare/v6.38.0...v6.38.1)
+
+### Documentation
+
+* fix voice settings available voices link ([2ac25e9](https://github.com/team-telnyx/telnyx-java/commit/2ac25e9007a059a97ab1e9f1829efbe289dae844))
+
 ## 6.38.0 (2026-03-26)
 
 Full Changelog: [v6.37.0...v6.38.0](https://github.com/team-telnyx/telnyx-java/compare/v6.37.0...v6.38.0)

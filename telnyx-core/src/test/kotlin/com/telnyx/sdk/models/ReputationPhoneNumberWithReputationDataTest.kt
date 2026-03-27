@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.reputation.numbers
+package com.telnyx.sdk.models
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
@@ -8,89 +8,83 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class NumberListResponseTest {
+internal class ReputationPhoneNumberWithReputationDataTest {
 
     @Test
     fun create() {
-        val numberListResponse =
-            NumberListResponse.builder()
+        val reputationPhoneNumberWithReputationData =
+            ReputationPhoneNumberWithReputationData.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .enterpriseId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .phoneNumber("+16035551234")
                 .reputationData(
-                    NumberListResponse.ReputationData.InnerReputationData.builder()
+                    ReputationData.builder()
                         .connectionScore(0L)
                         .engagementScore(0L)
                         .lastRefreshedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .maturityScore(0L)
                         .sentimentScore(0L)
                         .spamCategory("spam_category")
-                        .spamRisk(
-                            NumberListResponse.ReputationData.InnerReputationData.SpamRisk.LOW
-                        )
+                        .spamRisk(ReputationData.SpamRisk.LOW)
                         .build()
                 )
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
-        assertThat(numberListResponse.id()).contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(numberListResponse.createdAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(numberListResponse.enterpriseId())
+        assertThat(reputationPhoneNumberWithReputationData.id())
             .contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(numberListResponse.phoneNumber()).contains("+16035551234")
-        assertThat(numberListResponse.reputationData())
+        assertThat(reputationPhoneNumberWithReputationData.createdAt())
+            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(reputationPhoneNumberWithReputationData.enterpriseId())
+            .contains("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(reputationPhoneNumberWithReputationData.phoneNumber()).contains("+16035551234")
+        assertThat(reputationPhoneNumberWithReputationData.reputationData())
             .contains(
-                NumberListResponse.ReputationData.ofReputationData(
-                    NumberListResponse.ReputationData.InnerReputationData.builder()
-                        .connectionScore(0L)
-                        .engagementScore(0L)
-                        .lastRefreshedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .maturityScore(0L)
-                        .sentimentScore(0L)
-                        .spamCategory("spam_category")
-                        .spamRisk(
-                            NumberListResponse.ReputationData.InnerReputationData.SpamRisk.LOW
-                        )
-                        .build()
-                )
+                ReputationData.builder()
+                    .connectionScore(0L)
+                    .engagementScore(0L)
+                    .lastRefreshedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .maturityScore(0L)
+                    .sentimentScore(0L)
+                    .spamCategory("spam_category")
+                    .spamRisk(ReputationData.SpamRisk.LOW)
+                    .build()
             )
-        assertThat(numberListResponse.updatedAt())
+        assertThat(reputationPhoneNumberWithReputationData.updatedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val numberListResponse =
-            NumberListResponse.builder()
+        val reputationPhoneNumberWithReputationData =
+            ReputationPhoneNumberWithReputationData.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .enterpriseId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .phoneNumber("+16035551234")
                 .reputationData(
-                    NumberListResponse.ReputationData.InnerReputationData.builder()
+                    ReputationData.builder()
                         .connectionScore(0L)
                         .engagementScore(0L)
                         .lastRefreshedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .maturityScore(0L)
                         .sentimentScore(0L)
                         .spamCategory("spam_category")
-                        .spamRisk(
-                            NumberListResponse.ReputationData.InnerReputationData.SpamRisk.LOW
-                        )
+                        .spamRisk(ReputationData.SpamRisk.LOW)
                         .build()
                 )
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
-        val roundtrippedNumberListResponse =
+        val roundtrippedReputationPhoneNumberWithReputationData =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(numberListResponse),
-                jacksonTypeRef<NumberListResponse>(),
+                jsonMapper.writeValueAsString(reputationPhoneNumberWithReputationData),
+                jacksonTypeRef<ReputationPhoneNumberWithReputationData>(),
             )
 
-        assertThat(roundtrippedNumberListResponse).isEqualTo(numberListResponse)
+        assertThat(roundtrippedReputationPhoneNumberWithReputationData)
+            .isEqualTo(reputationPhoneNumberWithReputationData)
     }
 }
