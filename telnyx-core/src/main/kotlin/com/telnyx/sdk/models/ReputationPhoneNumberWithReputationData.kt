@@ -6,22 +6,10 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.telnyx.sdk.core.BaseDeserializer
-import com.telnyx.sdk.core.BaseSerializer
 import com.telnyx.sdk.core.ExcludeMissing
 import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonMissing
 import com.telnyx.sdk.core.JsonValue
-import com.telnyx.sdk.core.allMaxBy
-import com.telnyx.sdk.core.getOrThrow
-import com.telnyx.sdk.core.toImmutable
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
@@ -94,7 +82,7 @@ private constructor(
     fun phoneNumber(): Optional<String> = phoneNumber.getOptional("phone_number")
 
     /**
-     * Reputation metrics (null if not yet fetched)
+     * Reputation metrics
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -256,7 +244,7 @@ private constructor(
          */
         fun phoneNumber(phoneNumber: JsonField<String>) = apply { this.phoneNumber = phoneNumber }
 
-        /** Reputation metrics (null if not yet fetched) */
+        /** Reputation metrics */
         fun reputationData(reputationData: ReputationData) =
             reputationData(JsonField.of(reputationData))
 
@@ -270,20 +258,6 @@ private constructor(
         fun reputationData(reputationData: JsonField<ReputationData>) = apply {
             this.reputationData = reputationData
         }
-
-        /**
-         * Alias for calling [Builder.reputationData] with
-         * `ReputationData.ofReputationData(reputationData)`.
-         */
-        fun reputationData(reputationData: ReputationData) =
-            reputationData(ReputationData.ofReputationData(reputationData))
-
-        /**
-         * Alias for calling [reputationData] with
-         * `ReputationData.ofEmptyReputationData(emptyReputationData)`.
-         */
-        fun reputationData(emptyReputationData: ReputationData.EmptyReputationData) =
-            reputationData(ReputationData.ofEmptyReputationData(emptyReputationData))
 
         /** When the record was last updated */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
@@ -370,307 +344,6 @@ private constructor(
             (if (phoneNumber.asKnown().isPresent) 1 else 0) +
             (reputationData.asKnown().getOrNull()?.validity() ?: 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0)
-
-    /** Reputation metrics (null if not yet fetched) */
-    @JsonDeserialize(using = ReputationData.Deserializer::class)
-    @JsonSerialize(using = ReputationData.Serializer::class)
-    class ReputationData
-    private constructor(
-        private val reputationData: ReputationData? = null,
-        private val emptyReputationData: EmptyReputationData? = null,
-        private val _json: JsonValue? = null,
-    ) {
-
-        /** Reputation metrics */
-        fun reputationData(): Optional<ReputationData> = Optional.ofNullable(reputationData)
-
-        fun emptyReputationData(): Optional<EmptyReputationData> =
-            Optional.ofNullable(emptyReputationData)
-
-        fun isReputationData(): Boolean = reputationData != null
-
-        fun isEmptyReputationData(): Boolean = emptyReputationData != null
-
-        /** Reputation metrics */
-        fun asReputationData(): ReputationData = reputationData.getOrThrow("reputationData")
-
-        fun asEmptyReputationData(): EmptyReputationData =
-            emptyReputationData.getOrThrow("emptyReputationData")
-
-        fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
-
-        fun <T> accept(visitor: Visitor<T>): T =
-            when {
-                reputationData != null -> visitor.visitReputationData(reputationData)
-                emptyReputationData != null -> visitor.visitEmptyReputationData(emptyReputationData)
-                else -> visitor.unknown(_json)
-            }
-
-        private var validated: Boolean = false
-
-        fun validate(): ReputationData = apply {
-            if (validated) {
-                return@apply
-            }
-
-            accept(
-                object : Visitor<Unit> {
-                    override fun visitReputationData(reputationData: ReputationData) {
-                        reputationData.validate()
-                    }
-
-                    override fun visitEmptyReputationData(
-                        emptyReputationData: EmptyReputationData
-                    ) {
-                        emptyReputationData.validate()
-                    }
-                }
-            )
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: TelnyxInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            accept(
-                object : Visitor<Int> {
-                    override fun visitReputationData(reputationData: ReputationData) =
-                        reputationData.validity()
-
-                    override fun visitEmptyReputationData(
-                        emptyReputationData: EmptyReputationData
-                    ) = emptyReputationData.validity()
-
-                    override fun unknown(json: JsonValue?) = 0
-                }
-            )
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is ReputationData &&
-                reputationData == other.reputationData &&
-                emptyReputationData == other.emptyReputationData
-        }
-
-        override fun hashCode(): Int = Objects.hash(reputationData, emptyReputationData)
-
-        override fun toString(): String =
-            when {
-                reputationData != null -> "ReputationData{reputationData=$reputationData}"
-                emptyReputationData != null ->
-                    "ReputationData{emptyReputationData=$emptyReputationData}"
-                _json != null -> "ReputationData{_unknown=$_json}"
-                else -> throw IllegalStateException("Invalid ReputationData")
-            }
-
-        companion object {
-
-            /** Reputation metrics */
-            @JvmStatic
-            fun ofReputationData(reputationData: ReputationData) =
-                ReputationData(reputationData = reputationData)
-
-            @JvmStatic
-            fun ofEmptyReputationData(emptyReputationData: EmptyReputationData) =
-                ReputationData(emptyReputationData = emptyReputationData)
-        }
-
-        /**
-         * An interface that defines how to map each variant of [ReputationData] to a value of type
-         * [T].
-         */
-        interface Visitor<out T> {
-
-            /** Reputation metrics */
-            fun visitReputationData(reputationData: ReputationData): T
-
-            fun visitEmptyReputationData(emptyReputationData: EmptyReputationData): T
-
-            /**
-             * Maps an unknown variant of [ReputationData] to a value of type [T].
-             *
-             * An instance of [ReputationData] can contain an unknown variant if it was deserialized
-             * from data that doesn't match any known variant. For example, if the SDK is on an
-             * older version than the API, then the API may respond with new variants that the SDK
-             * is unaware of.
-             *
-             * @throws TelnyxInvalidDataException in the default implementation.
-             */
-            fun unknown(json: JsonValue?): T {
-                throw TelnyxInvalidDataException("Unknown ReputationData: $json")
-            }
-        }
-
-        internal class Deserializer : BaseDeserializer<ReputationData>(ReputationData::class) {
-
-            override fun ObjectCodec.deserialize(node: JsonNode): ReputationData {
-                val json = JsonValue.fromJsonNode(node)
-
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<ReputationData>())?.let {
-                                ReputationData(reputationData = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<EmptyReputationData>())?.let {
-                                ReputationData(emptyReputationData = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> ReputationData(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
-                }
-            }
-        }
-
-        internal class Serializer : BaseSerializer<ReputationData>(ReputationData::class) {
-
-            override fun serialize(
-                value: ReputationData,
-                generator: JsonGenerator,
-                provider: SerializerProvider,
-            ) {
-                when {
-                    value.reputationData != null -> generator.writeObject(value.reputationData)
-                    value.emptyReputationData != null ->
-                        generator.writeObject(value.emptyReputationData)
-                    value._json != null -> generator.writeObject(value._json)
-                    else -> throw IllegalStateException("Invalid ReputationData")
-                }
-            }
-        }
-
-        class EmptyReputationData
-        @JsonCreator
-        private constructor(
-            @com.fasterxml.jackson.annotation.JsonValue
-            private val additionalProperties: Map<String, JsonValue>
-        ) {
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /**
-                 * Returns a mutable builder for constructing an instance of [EmptyReputationData].
-                 */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [EmptyReputationData]. */
-            class Builder internal constructor() {
-
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(emptyReputationData: EmptyReputationData) = apply {
-                    additionalProperties = emptyReputationData.additionalProperties.toMutableMap()
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [EmptyReputationData].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): EmptyReputationData =
-                    EmptyReputationData(additionalProperties.toImmutable())
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): EmptyReputationData = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is EmptyReputationData &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "EmptyReputationData{additionalProperties=$additionalProperties}"
-        }
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
