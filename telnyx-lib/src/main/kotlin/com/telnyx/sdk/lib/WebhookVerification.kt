@@ -1,21 +1,4 @@
 // Custom ED25519 webhook verification - persists across codegen runs.
-//
-// This file provides standalone ED25519 signature verification for Telnyx webhooks.
-// It is kept in telnyx-lib/ to avoid being overwritten by Stainless code generation.
-//
-// Telnyx webhooks are signed using ED25519 with the following format:
-// - Header "Telnyx-Signature-Ed25519": Base64-encoded ED25519 signature (64 bytes)
-// - Header "Telnyx-Timestamp": Unix timestamp in seconds
-// - Signed payload: "{timestamp}|{payload}"
-//
-// Usage:
-//   import com.telnyx.sdk.lib.WebhookVerification
-//
-//   try {
-//       WebhookVerification.verify(payload, headers, publicKey)
-//   } catch (e: WebhookVerificationException) {
-//       // Handle verification failure
-//   }
 
 package com.telnyx.sdk.lib
 
@@ -27,17 +10,39 @@ import kotlin.math.abs
 
 /**
  * Exception thrown when webhook signature verification fails.
+ *
+ * This error is raised when:
+ * - No public key is configured
+ * - Required headers are missing (telnyx-signature-ed25519, telnyx-timestamp)
+ * - Timestamp is too old or too new (outside 5-minute tolerance)
+ * - Signature verification fails
+ * - Public key or signature format is invalid
  */
-class WebhookVerificationException : Exception {
-    constructor(message: String) : super(message)
-    constructor(message: String, cause: Throwable) : super(message, cause)
-}
+class WebhookVerificationException
+@JvmOverloads
+constructor(
+    message: String,
+    cause: Throwable? = null,
+) : Exception(message, cause)
 
 /**
  * ED25519 webhook signature verification for Telnyx webhooks.
  *
- * This object provides methods to verify the authenticity of Telnyx webhooks
- * using ED25519 cryptographic signatures.
+ * Telnyx webhooks are signed using ED25519 with the following format:
+ * - Header "Telnyx-Signature-Ed25519": Base64-encoded ED25519 signature (64 bytes)
+ * - Header "Telnyx-Timestamp": Unix timestamp in seconds
+ * - Signed payload: "{timestamp}|{payload}"
+ *
+ * Usage:
+ * ```kotlin
+ * import com.telnyx.sdk.lib.WebhookVerification
+ *
+ * try {
+ *     WebhookVerification.verify(payload, headers, publicKey)
+ * } catch (e: WebhookVerificationException) {
+ *     // Handle verification failure
+ * }
+ * ```
  */
 object WebhookVerification {
 
@@ -63,15 +68,6 @@ object WebhookVerification {
      * @param headers Map of HTTP headers (case-insensitive lookup is performed)
      * @param publicKeyB64 Base64-encoded ED25519 public key from Telnyx Mission Control
      * @throws WebhookVerificationException If verification fails for any reason
-     *
-     * @sample
-     * ```kotlin
-     * val headers = mapOf(
-     *     "telnyx-signature-ed25519" to "base64signature...",
-     *     "telnyx-timestamp" to "1234567890"
-     * )
-     * WebhookVerification.verify(requestBody, headers, System.getenv("TELNYX_PUBLIC_KEY"))
-     * ```
      */
     @JvmStatic
     fun verify(payload: String, headers: Map<String, String>, publicKeyB64: String) {
@@ -161,20 +157,13 @@ object WebhookVerification {
     /**
      * Verify webhook signature using Telnyx SDK Headers type.
      *
-     * This overload accepts the SDK's Headers type directly for convenience
-     * when integrating with the generated WebhookService.
-     *
      * @param payload The raw webhook body as a string
      * @param headers SDK Headers object
      * @param publicKeyB64 Base64-encoded ED25519 public key
      * @throws WebhookVerificationException If verification fails
      */
     @JvmStatic
-    fun verify(
-        payload: String,
-        headers: com.telnyx.sdk.core.http.Headers,
-        publicKeyB64: String
-    ) {
+    fun verify(payload: String, headers: com.telnyx.sdk.core.http.Headers, publicKeyB64: String) {
         val signature = getHeader(headers, SIGNATURE_HEADER)
         val timestamp = getHeader(headers, TIMESTAMP_HEADER)
 
@@ -186,19 +175,16 @@ object WebhookVerification {
         }
 
         // Convert to simple map and delegate
-        val headersMap = mapOf(
-            SIGNATURE_HEADER to signature,
-            TIMESTAMP_HEADER to timestamp
-        )
+        val headersMap = mapOf(SIGNATURE_HEADER to signature, TIMESTAMP_HEADER to timestamp)
         verify(payload, headersMap, publicKeyB64)
     }
 
-    /**
-     * Get header value case-insensitively from a map.
-     */
+    /** Get header value case-insensitively from a map. */
     private fun getHeader(headers: Map<String, String>, name: String): String? {
         // Try exact match first
-        headers[name]?.let { return it }
+        headers[name]?.let {
+            return it
+        }
 
         // Case-insensitive search
         for ((key, value) in headers) {
@@ -209,9 +195,7 @@ object WebhookVerification {
         return null
     }
 
-    /**
-     * Get header value from SDK Headers type.
-     */
+    /** Get header value from SDK Headers type. */
     private fun getHeader(headers: com.telnyx.sdk.core.http.Headers, name: String): String? {
         val values = headers.values(name)
         if (values.isNotEmpty()) {
@@ -232,11 +216,11 @@ object WebhookVerification {
     /**
      * Wrap a raw ED25519 public key in X.509 SubjectPublicKeyInfo format.
      *
-     * Java's KeyFactory requires keys in X.509 format, but Telnyx provides
-     * raw 32-byte ED25519 public keys. This method adds the required ASN.1 header.
+     * Java's KeyFactory requires keys in X.509 format, but Telnyx provides raw 32-byte ED25519
+     * public keys. This method adds the required ASN.1 header.
      *
-     * ED25519 OID: 1.3.101.112 = 06 03 2b 65 70
-     * X.509 SPKI header for ED25519: 30 2a 30 05 06 03 2b 65 70 03 21 00
+     * ED25519 OID: 1.3.101.112 = 06 03 2b 65 70 X.509 SPKI header for ED25519: 30 2a 30 05 06 03 2b
+     * 65 70 03 21 00
      */
     private fun wrapEd25519PublicKey(rawKey: ByteArray): ByteArray {
         val header =
