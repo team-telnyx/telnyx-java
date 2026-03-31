@@ -20,10 +20,7 @@ import kotlin.math.abs
  */
 class WebhookVerificationException
 @JvmOverloads
-constructor(
-    message: String,
-    cause: Throwable? = null,
-) : Exception(message, cause)
+constructor(message: String, cause: Throwable? = null) : Exception(message, cause)
 
 /**
  * ED25519 webhook signature verification for Telnyx webhooks.

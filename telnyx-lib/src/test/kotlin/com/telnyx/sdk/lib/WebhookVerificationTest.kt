@@ -29,7 +29,10 @@ class WebhookVerificationTest {
     @Test
     fun `verify throws when timestamp is invalid`() {
         val headers =
-            mapOf("telnyx-signature-ed25519" to "dGVzdHNpZ25hdHVyZQ==", "telnyx-timestamp" to "not-a-number")
+            mapOf(
+                "telnyx-signature-ed25519" to "dGVzdHNpZ25hdHVyZQ==",
+                "telnyx-timestamp" to "not-a-number",
+            )
 
         assertThatThrownBy { WebhookVerification.verify("{}", headers, "dGVzdGtleQ==") }
             .isInstanceOf(WebhookVerificationException::class.java)
@@ -40,7 +43,11 @@ class WebhookVerificationTest {
     fun `verify throws when timestamp is too old`() {
         // Timestamp from 10 minutes ago
         val oldTimestamp = (System.currentTimeMillis() / 1000 - 600).toString()
-        val headers = mapOf("telnyx-signature-ed25519" to "dGVzdHNpZ25hdHVyZQ==", "telnyx-timestamp" to oldTimestamp)
+        val headers =
+            mapOf(
+                "telnyx-signature-ed25519" to "dGVzdHNpZ25hdHVyZQ==",
+                "telnyx-timestamp" to oldTimestamp,
+            )
 
         assertThatThrownBy { WebhookVerification.verify("{}", headers, "dGVzdGtleQ==") }
             .isInstanceOf(WebhookVerificationException::class.java)
@@ -55,7 +62,7 @@ class WebhookVerificationTest {
                 // Valid base64 but wrong size (not 64 bytes)
                 "telnyx-signature-ed25519" to
                     "QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUE=",
-                "telnyx-timestamp" to currentTimestamp
+                "telnyx-timestamp" to currentTimestamp,
             )
         // Invalid key size (not 32 bytes)
         val invalidKey = "dGVzdA==" // "test" = 4 bytes
@@ -72,7 +79,7 @@ class WebhookVerificationTest {
             mapOf(
                 // Invalid signature size (not 64 bytes)
                 "telnyx-signature-ed25519" to "dGVzdA==",
-                "telnyx-timestamp" to currentTimestamp
+                "telnyx-timestamp" to currentTimestamp,
             )
         // Valid 32-byte key
         val validKey = "QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUE="
@@ -84,7 +91,11 @@ class WebhookVerificationTest {
 
     @Test
     fun `header lookup is case-insensitive`() {
-        val headers = mapOf("TELNYX-SIGNATURE-ED25519" to "dGVzdHNpZ25hdHVyZQ==", "Telnyx-Timestamp" to "not-a-number")
+        val headers =
+            mapOf(
+                "TELNYX-SIGNATURE-ED25519" to "dGVzdHNpZ25hdHVyZQ==",
+                "Telnyx-Timestamp" to "not-a-number",
+            )
 
         // Should find headers despite different case, then fail on invalid timestamp
         assertThatThrownBy { WebhookVerification.verify("{}", headers, "dGVzdGtleQ==") }
