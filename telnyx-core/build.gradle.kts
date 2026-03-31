@@ -24,6 +24,7 @@ dependencies {
     api("com.google.errorprone:error_prone_annotations:2.33.0")
     // Removed: standardwebhooks - using native Java ED25519 for Telnyx webhook verification
 
+    implementation(project(":telnyx-lib"))
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.18.2")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.18.2")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2")

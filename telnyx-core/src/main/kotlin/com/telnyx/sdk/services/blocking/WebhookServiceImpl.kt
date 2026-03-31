@@ -8,15 +8,12 @@ import com.telnyx.sdk.core.UnwrapWebhookParams
 import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.errors.TelnyxInvalidDataException
 import com.telnyx.sdk.errors.TelnyxWebhookException
+import com.telnyx.sdk.lib.WebhookVerification
+import com.telnyx.sdk.lib.WebhookVerificationException
 import com.telnyx.sdk.models.webhooks.UnsafeUnwrapWebhookEvent
 import com.telnyx.sdk.models.webhooks.UnwrapWebhookEvent
-import java.security.KeyFactory
-import java.security.Signature
-import java.security.spec.X509EncodedKeySpec
-import java.util.Base64
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
-import kotlin.math.abs
 
 class WebhookServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     WebhookService {
@@ -62,101 +59,20 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         headers: com.telnyx.sdk.core.http.Headers,
         publicKeyB64: String,
     ) {
-        val signature = getHeader(headers, SIGNATURE_HEADER)
-        val timestamp = getHeader(headers, TIMESTAMP_HEADER)
-
-        if (signature.isNullOrEmpty()) {
-            throw TelnyxWebhookException("Missing required header: $SIGNATURE_HEADER")
-        }
-        if (timestamp.isNullOrEmpty()) {
-            throw TelnyxWebhookException("Missing required header: $TIMESTAMP_HEADER")
+        // Convert Headers to Map for WebhookVerification
+        val headersMap = mutableMapOf<String, String>()
+        for (name in headers.names()) {
+            val values = headers.values(name)
+            if (values.isNotEmpty()) {
+                headersMap[name] = values.first()
+            }
         }
 
         try {
-            val webhookTime = timestamp.toLong()
-            val currentTime = System.currentTimeMillis() / 1000
-            if (abs(currentTime - webhookTime) > TIMESTAMP_TOLERANCE_SECONDS) {
-                throw TelnyxWebhookException(
-                    "Webhook timestamp is outside the allowed tolerance window"
-                )
-            }
-        } catch (e: NumberFormatException) {
-            throw TelnyxWebhookException("Invalid timestamp format", e)
+            WebhookVerification.verify(payload, headersMap, publicKeyB64)
+        } catch (e: WebhookVerificationException) {
+            throw TelnyxWebhookException(e.message ?: "Webhook verification failed", e)
         }
-
-        val publicKeyBytes =
-            try {
-                Base64.getDecoder().decode(publicKeyB64)
-            } catch (e: Exception) {
-                throw TelnyxWebhookException("Invalid public key encoding", e)
-            }
-
-        if (publicKeyBytes.size != ED25519_PUBLIC_KEY_SIZE) {
-            throw TelnyxWebhookException(
-                "Invalid public key size: expected $ED25519_PUBLIC_KEY_SIZE bytes, " +
-                    "got ${publicKeyBytes.size}"
-            )
-        }
-
-        val signatureBytes =
-            try {
-                Base64.getDecoder().decode(signature)
-            } catch (e: Exception) {
-                throw TelnyxWebhookException("Invalid signature encoding", e)
-            }
-
-        if (signatureBytes.size != ED25519_SIGNATURE_SIZE) {
-            throw TelnyxWebhookException(
-                "Invalid signature size: expected $ED25519_SIGNATURE_SIZE bytes, " +
-                    "got ${signatureBytes.size}"
-            )
-        }
-
-        val signedPayload = "$timestamp|$payload".toByteArray(Charsets.UTF_8)
-
-        try {
-            val x509KeyBytes = wrapEd25519PublicKey(publicKeyBytes)
-            val keySpec = X509EncodedKeySpec(x509KeyBytes)
-            val keyFactory = KeyFactory.getInstance("Ed25519")
-            val publicKey = keyFactory.generatePublic(keySpec)
-
-            val sig = Signature.getInstance("Ed25519")
-            sig.initVerify(publicKey)
-            sig.update(signedPayload)
-
-            if (!sig.verify(signatureBytes)) {
-                throw TelnyxWebhookException("Webhook signature verification failed")
-            }
-        } catch (e: TelnyxWebhookException) {
-            throw e
-        } catch (e: Exception) {
-            throw TelnyxWebhookException(
-                "Signature verification failed due to cryptographic error",
-                e,
-            )
-        }
-    }
-
-    private fun getHeader(headers: com.telnyx.sdk.core.http.Headers, name: String): String? {
-        val values = headers.values(name)
-        if (values.isNotEmpty()) {
-            return values.first()
-        }
-        for (headerName in headers.names()) {
-            if (headerName.equals(name, ignoreCase = true)) {
-                val headerValues = headers.values(headerName)
-                if (headerValues.isNotEmpty()) {
-                    return headerValues.first()
-                }
-            }
-        }
-        return null
-    }
-
-    private fun wrapEd25519PublicKey(rawKey: ByteArray): ByteArray {
-        val header =
-            byteArrayOf(0x30, 0x2a, 0x30, 0x05, 0x06, 0x03, 0x2b, 0x65, 0x70, 0x03, 0x21, 0x00)
-        return header + rawKey
     }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -168,13 +84,5 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
             WebhookServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
-    }
-
-    companion object {
-        private const val SIGNATURE_HEADER = "telnyx-signature-ed25519"
-        private const val TIMESTAMP_HEADER = "telnyx-timestamp"
-        private const val TIMESTAMP_TOLERANCE_SECONDS = 300L
-        private const val ED25519_PUBLIC_KEY_SIZE = 32
-        private const val ED25519_SIGNATURE_SIZE = 64
     }
 }
