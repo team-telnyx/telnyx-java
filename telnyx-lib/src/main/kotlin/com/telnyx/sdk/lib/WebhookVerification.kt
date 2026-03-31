@@ -151,31 +151,6 @@ object WebhookVerification {
         }
     }
 
-    /**
-     * Verify webhook signature using Telnyx SDK Headers type.
-     *
-     * @param payload The raw webhook body as a string
-     * @param headers SDK Headers object
-     * @param publicKeyB64 Base64-encoded ED25519 public key
-     * @throws WebhookVerificationException If verification fails
-     */
-    @JvmStatic
-    fun verify(payload: String, headers: com.telnyx.sdk.core.http.Headers, publicKeyB64: String) {
-        val signature = getHeader(headers, SIGNATURE_HEADER)
-        val timestamp = getHeader(headers, TIMESTAMP_HEADER)
-
-        if (signature.isNullOrEmpty()) {
-            throw WebhookVerificationException("Missing required header: $SIGNATURE_HEADER")
-        }
-        if (timestamp.isNullOrEmpty()) {
-            throw WebhookVerificationException("Missing required header: $TIMESTAMP_HEADER")
-        }
-
-        // Convert to simple map and delegate
-        val headersMap = mapOf(SIGNATURE_HEADER to signature, TIMESTAMP_HEADER to timestamp)
-        verify(payload, headersMap, publicKeyB64)
-    }
-
     /** Get header value case-insensitively from a map. */
     private fun getHeader(headers: Map<String, String>, name: String): String? {
         // Try exact match first
@@ -187,24 +162,6 @@ object WebhookVerification {
         for ((key, value) in headers) {
             if (key.equals(name, ignoreCase = true)) {
                 return value
-            }
-        }
-        return null
-    }
-
-    /** Get header value from SDK Headers type. */
-    private fun getHeader(headers: com.telnyx.sdk.core.http.Headers, name: String): String? {
-        val values = headers.values(name)
-        if (values.isNotEmpty()) {
-            return values.first()
-        }
-        // Case-insensitive search
-        for (headerName in headers.names()) {
-            if (headerName.equals(name, ignoreCase = true)) {
-                val headerValues = headers.values(headerName)
-                if (headerValues.isNotEmpty()) {
-                    return headerValues.first()
-                }
             }
         }
         return null
