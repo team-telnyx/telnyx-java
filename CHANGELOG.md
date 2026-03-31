@@ -1,5 +1,24 @@
 # Changelog
 
+## 6.39.0 (2026-03-31)
+
+Full Changelog: [v6.38.1...v6.39.0](https://github.com/team-telnyx/telnyx-java/compare/v6.38.1...v6.39.0)
+
+### Features
+
+* **lib:** add ED25519 webhook verification to telnyx-lib ([0d90c34](https://github.com/team-telnyx/telnyx-java/commit/0d90c34de82ae4f347d0de9a3e960d5ecd9bcb27))
+
+
+### Bug Fixes
+
+* apply ktfmt formatting ([8e480c7](https://github.com/team-telnyx/telnyx-java/commit/8e480c749755d96d5424b45b43e2ae734dfe785a))
+* format code to pass ktfmt lint ([d543ec1](https://github.com/team-telnyx/telnyx-java/commit/d543ec1e8d0b1e5fb6d288ab36d511df235524f7))
+
+
+### Refactors
+
+* **webhooks:** delegate WebhookServiceImpl ED25519 verification to telnyx-lib ([d69f3c7](https://github.com/team-telnyx/telnyx-java/commit/d69f3c7443115905e2026fe8151a193d187d7a65))
+
 ## 6.38.1 (2026-03-27)
 
 Full Changelog: [v6.38.0...v6.38.1](https://github.com/team-telnyx/telnyx-java/compare/v6.38.0...v6.38.1)
