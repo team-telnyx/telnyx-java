@@ -11,8 +11,6 @@ plugins {
 }
 
 dependencies {
-    api(project(":telnyx-core"))
-
     testImplementation(kotlin("test"))
     testImplementation("org.assertj:assertj-core:3.27.7")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.3")
