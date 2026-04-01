@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.40.0 (2026-04-01)
+
+Full Changelog: [v6.39.0...v6.40.0](https://github.com/team-telnyx/telnyx-java/compare/v6.39.0...v6.40.0)
+
+### Features
+
+* add Sigstore OIDC signing for provenance ([d4899df](https://github.com/team-telnyx/telnyx-java/commit/d4899dfcec92b0c9846ff93228d52d8be4239437))
+
+
+### Bug Fixes
+
+* only apply Sigstore signing for Maven Central publishes ([89c2576](https://github.com/team-telnyx/telnyx-java/commit/89c25764f7aaae9398643ad43774759e494b4893))
+
 ## 6.39.0 (2026-03-31)
 
 Full Changelog: [v6.38.1...v6.39.0](https://github.com/team-telnyx/telnyx-java/compare/v6.38.1...v6.39.0)
