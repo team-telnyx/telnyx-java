@@ -12,4 +12,6 @@ repositories {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.20")
     implementation("com.vanniktech:gradle-maven-publish-plugin:0.28.0")
+    // Sigstore signing for OIDC-based provenance
+    implementation("dev.sigstore:sigstore-gradle-sign-plugin:2.0.0")
 }
