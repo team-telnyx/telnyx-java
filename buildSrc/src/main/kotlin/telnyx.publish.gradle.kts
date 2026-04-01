@@ -5,6 +5,12 @@ plugins {
     id("com.vanniktech.maven.publish")
 }
 
+// Only apply Sigstore signing for actual Maven Central publishes (not CI local builds)
+// Stainless's CI upload doesn't support .sigstore.json files
+if (!project.hasProperty("publishLocal")) {
+    apply(plugin = "dev.sigstore.sign")
+}
+
 publishing {
   repositories {
       if (project.hasProperty("publishLocal")) {
