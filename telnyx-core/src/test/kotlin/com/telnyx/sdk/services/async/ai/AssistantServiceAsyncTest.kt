@@ -15,6 +15,7 @@ import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
 import com.telnyx.sdk.models.ai.assistants.MessagingSettings
+import com.telnyx.sdk.models.ai.assistants.ObservabilityReq
 import com.telnyx.sdk.models.ai.assistants.PrivacySettings
 import com.telnyx.sdk.models.ai.assistants.TelephonySettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
@@ -60,11 +61,11 @@ internal class AssistantServiceAsyncTest {
                             .build()
                     )
                     .observabilitySettings(
-                        AssistantCreateParams.ObservabilitySettings.builder()
+                        ObservabilityReq.builder()
                             .host("host")
                             .publicKeyRef("public_key_ref")
                             .secretKeyRef("secret_key_ref")
-                            .status(AssistantCreateParams.ObservabilitySettings.Status.ENABLED)
+                            .status(ObservabilityReq.Status.ENABLED)
                             .build()
                     )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
@@ -317,11 +318,11 @@ internal class AssistantServiceAsyncTest {
                     .model("model")
                     .name("name")
                     .observabilitySettings(
-                        UpdateAssistant.ObservabilitySettings.builder()
+                        ObservabilityReq.builder()
                             .host("host")
                             .publicKeyRef("public_key_ref")
                             .secretKeyRef("secret_key_ref")
-                            .status(UpdateAssistant.ObservabilitySettings.Status.ENABLED)
+                            .status(ObservabilityReq.Status.ENABLED)
                             .build()
                     )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
