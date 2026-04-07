@@ -12,6 +12,7 @@ import com.telnyx.sdk.models.verifications.VerificationRetrieveResponse
 import com.telnyx.sdk.models.verifications.VerificationTriggerCallParams
 import com.telnyx.sdk.models.verifications.VerificationTriggerFlashcallParams
 import com.telnyx.sdk.models.verifications.VerificationTriggerSmsParams
+import com.telnyx.sdk.models.verifications.VerificationTriggerWhatsappVerificationParams
 import com.telnyx.sdk.services.blocking.verifications.ActionService
 import com.telnyx.sdk.services.blocking.verifications.ByPhoneNumberService
 import java.util.function.Consumer
@@ -99,6 +100,17 @@ interface VerificationService {
     /** @see triggerSms */
     fun triggerSms(
         params: VerificationTriggerSmsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CreateVerificationResponse
+
+    /** Trigger WhatsApp verification */
+    fun triggerWhatsappVerification(
+        params: VerificationTriggerWhatsappVerificationParams
+    ): CreateVerificationResponse = triggerWhatsappVerification(params, RequestOptions.none())
+
+    /** @see triggerWhatsappVerification */
+    fun triggerWhatsappVerification(
+        params: VerificationTriggerWhatsappVerificationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CreateVerificationResponse
 
@@ -214,6 +226,23 @@ interface VerificationService {
         @MustBeClosed
         fun triggerSms(
             params: VerificationTriggerSmsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CreateVerificationResponse>
+
+        /**
+         * Returns a raw HTTP response for `post /verifications/whatsapp`, but is otherwise the same
+         * as [VerificationService.triggerWhatsappVerification].
+         */
+        @MustBeClosed
+        fun triggerWhatsappVerification(
+            params: VerificationTriggerWhatsappVerificationParams
+        ): HttpResponseFor<CreateVerificationResponse> =
+            triggerWhatsappVerification(params, RequestOptions.none())
+
+        /** @see triggerWhatsappVerification */
+        @MustBeClosed
+        fun triggerWhatsappVerification(
+            params: VerificationTriggerWhatsappVerificationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CreateVerificationResponse>
     }

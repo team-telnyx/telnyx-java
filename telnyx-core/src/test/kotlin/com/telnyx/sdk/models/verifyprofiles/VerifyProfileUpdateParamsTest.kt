@@ -55,6 +55,14 @@ internal class VerifyProfileUpdateParamsTest {
             )
             .webhookFailoverUrl("http://example.com/webhook/failover")
             .webhookUrl("http://example.com/webhook")
+            .whatsapp(
+                VerifyProfileUpdateParams.Whatsapp.builder()
+                    .appName("Example Secure App")
+                    .defaultVerificationTimeoutSecs(300L)
+                    .addWhitelistedDestination("US")
+                    .addWhitelistedDestination("CA")
+                    .build()
+            )
             .build()
     }
 
@@ -119,6 +127,14 @@ internal class VerifyProfileUpdateParamsTest {
                 )
                 .webhookFailoverUrl("http://example.com/webhook/failover")
                 .webhookUrl("http://example.com/webhook")
+                .whatsapp(
+                    VerifyProfileUpdateParams.Whatsapp.builder()
+                        .appName("Example Secure App")
+                        .defaultVerificationTimeoutSecs(300L)
+                        .addWhitelistedDestination("US")
+                        .addWhitelistedDestination("CA")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
@@ -171,6 +187,15 @@ internal class VerifyProfileUpdateParamsTest {
             )
         assertThat(body.webhookFailoverUrl()).contains("http://example.com/webhook/failover")
         assertThat(body.webhookUrl()).contains("http://example.com/webhook")
+        assertThat(body.whatsapp())
+            .contains(
+                VerifyProfileUpdateParams.Whatsapp.builder()
+                    .appName("Example Secure App")
+                    .defaultVerificationTimeoutSecs(300L)
+                    .addWhitelistedDestination("US")
+                    .addWhitelistedDestination("CA")
+                    .build()
+            )
     }
 
     @Test

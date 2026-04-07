@@ -766,6 +766,8 @@ private constructor(
 
             @JvmField val FLASHCALL = of("flashcall")
 
+            @JvmField val WHATSAPP = of("whatsapp")
+
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
 
@@ -774,6 +776,7 @@ private constructor(
             SMS,
             CALL,
             FLASHCALL,
+            WHATSAPP,
         }
 
         /**
@@ -789,6 +792,7 @@ private constructor(
             SMS,
             CALL,
             FLASHCALL,
+            WHATSAPP,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -805,6 +809,7 @@ private constructor(
                 SMS -> Value.SMS
                 CALL -> Value.CALL
                 FLASHCALL -> Value.FLASHCALL
+                WHATSAPP -> Value.WHATSAPP
                 else -> Value._UNKNOWN
             }
 
@@ -822,6 +827,7 @@ private constructor(
                 SMS -> Known.SMS
                 CALL -> Known.CALL
                 FLASHCALL -> Known.FLASHCALL
+                WHATSAPP -> Known.WHATSAPP
                 else -> throw TelnyxInvalidDataException("Unknown Type: $value")
             }
 
