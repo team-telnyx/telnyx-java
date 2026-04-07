@@ -59,6 +59,14 @@ internal class AssistantServiceAsyncTest {
                             .deliveryStatusWebhookUrl("delivery_status_webhook_url")
                             .build()
                     )
+                    .observabilitySettings(
+                        AssistantCreateParams.ObservabilitySettings.builder()
+                            .host("host")
+                            .publicKeyRef("public_key_ref")
+                            .secretKeyRef("secret_key_ref")
+                            .status(AssistantCreateParams.ObservabilitySettings.Status.ENABLED)
+                            .build()
+                    )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                     .telephonySettings(
                         TelephonySettings.builder()
@@ -308,6 +316,14 @@ internal class AssistantServiceAsyncTest {
                     )
                     .model("model")
                     .name("name")
+                    .observabilitySettings(
+                        UpdateAssistant.ObservabilitySettings.builder()
+                            .host("host")
+                            .publicKeyRef("public_key_ref")
+                            .secretKeyRef("secret_key_ref")
+                            .status(UpdateAssistant.ObservabilitySettings.Status.ENABLED)
+                            .build()
+                    )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
                     .telephonySettings(
                         TelephonySettings.builder()
