@@ -958,6 +958,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val channels: JsonField<Channels>,
+        private val enabled: JsonField<Boolean>,
         private val format: JsonField<Format>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -967,8 +968,9 @@ private constructor(
             @JsonProperty("channels")
             @ExcludeMissing
             channels: JsonField<Channels> = JsonMissing.of(),
+            @JsonProperty("enabled") @ExcludeMissing enabled: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("format") @ExcludeMissing format: JsonField<Format> = JsonMissing.of(),
-        ) : this(channels, format, mutableMapOf())
+        ) : this(channels, enabled, format, mutableMapOf())
 
         /**
          * The number of channels for the recording. 'single' for mono, 'dual' for stereo.
@@ -977,6 +979,15 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun channels(): Optional<Channels> = channels.getOptional("channels")
+
+        /**
+         * Whether call recording is enabled. When set to false, calls will not be recorded
+         * regardless of other recording configuration.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun enabled(): Optional<Boolean> = enabled.getOptional("enabled")
 
         /**
          * The format of the recording file.
@@ -992,6 +1003,13 @@ private constructor(
          * Unlike [channels], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("channels") @ExcludeMissing fun _channels(): JsonField<Channels> = channels
+
+        /**
+         * Returns the raw JSON value of [enabled].
+         *
+         * Unlike [enabled], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("enabled") @ExcludeMissing fun _enabled(): JsonField<Boolean> = enabled
 
         /**
          * Returns the raw JSON value of [format].
@@ -1022,12 +1040,14 @@ private constructor(
         class Builder internal constructor() {
 
             private var channels: JsonField<Channels> = JsonMissing.of()
+            private var enabled: JsonField<Boolean> = JsonMissing.of()
             private var format: JsonField<Format> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(recordingSettings: RecordingSettings) = apply {
                 channels = recordingSettings.channels
+                enabled = recordingSettings.enabled
                 format = recordingSettings.format
                 additionalProperties = recordingSettings.additionalProperties.toMutableMap()
             }
@@ -1043,6 +1063,21 @@ private constructor(
              * supported value.
              */
             fun channels(channels: JsonField<Channels>) = apply { this.channels = channels }
+
+            /**
+             * Whether call recording is enabled. When set to false, calls will not be recorded
+             * regardless of other recording configuration.
+             */
+            fun enabled(enabled: Boolean) = enabled(JsonField.of(enabled))
+
+            /**
+             * Sets [Builder.enabled] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.enabled] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun enabled(enabled: JsonField<Boolean>) = apply { this.enabled = enabled }
 
             /** The format of the recording file. */
             fun format(format: Format) = format(JsonField.of(format))
@@ -1081,7 +1116,7 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): RecordingSettings =
-                RecordingSettings(channels, format, additionalProperties.toMutableMap())
+                RecordingSettings(channels, enabled, format, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -1092,6 +1127,7 @@ private constructor(
             }
 
             channels().ifPresent { it.validate() }
+            enabled()
             format().ifPresent { it.validate() }
             validated = true
         }
@@ -1113,6 +1149,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (channels.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (enabled.asKnown().isPresent) 1 else 0) +
                 (format.asKnown().getOrNull()?.validity() ?: 0)
 
         /** The number of channels for the recording. 'single' for mono, 'dual' for stereo. */
@@ -1383,16 +1420,19 @@ private constructor(
 
             return other is RecordingSettings &&
                 channels == other.channels &&
+                enabled == other.enabled &&
                 format == other.format &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(channels, format, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(channels, enabled, format, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "RecordingSettings{channels=$channels, format=$format, additionalProperties=$additionalProperties}"
+            "RecordingSettings{channels=$channels, enabled=$enabled, format=$format, additionalProperties=$additionalProperties}"
     }
 
     /**

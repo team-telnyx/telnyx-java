@@ -72,6 +72,7 @@ internal class VersionUpdateParamsTest {
                             .recordingSettings(
                                 TelephonySettings.RecordingSettings.builder()
                                     .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                                    .enabled(true)
                                     .format(TelephonySettings.RecordingSettings.Format.WAV)
                                     .build()
                             )
@@ -323,6 +324,7 @@ internal class VersionUpdateParamsTest {
                                         .channels(
                                             TelephonySettings.RecordingSettings.Channels.SINGLE
                                         )
+                                        .enabled(true)
                                         .format(TelephonySettings.RecordingSettings.Format.WAV)
                                         .build()
                                 )
@@ -564,6 +566,7 @@ internal class VersionUpdateParamsTest {
                             .recordingSettings(
                                 TelephonySettings.RecordingSettings.builder()
                                     .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                                    .enabled(true)
                                     .format(TelephonySettings.RecordingSettings.Format.WAV)
                                     .build()
                             )

@@ -55,6 +55,7 @@ internal class AssistantCreateParamsTest {
                     .recordingSettings(
                         TelephonySettings.RecordingSettings.builder()
                             .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                            .enabled(true)
                             .format(TelephonySettings.RecordingSettings.Format.WAV)
                             .build()
                     )
@@ -269,6 +270,7 @@ internal class AssistantCreateParamsTest {
                         .recordingSettings(
                             TelephonySettings.RecordingSettings.builder()
                                 .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                                .enabled(true)
                                 .format(TelephonySettings.RecordingSettings.Format.WAV)
                                 .build()
                         )
@@ -487,6 +489,7 @@ internal class AssistantCreateParamsTest {
                     .recordingSettings(
                         TelephonySettings.RecordingSettings.builder()
                             .channels(TelephonySettings.RecordingSettings.Channels.SINGLE)
+                            .enabled(true)
                             .format(TelephonySettings.RecordingSettings.Format.WAV)
                             .build()
                     )

@@ -107,6 +107,7 @@ internal class VersionServiceTest {
                                             .channels(
                                                 TelephonySettings.RecordingSettings.Channels.SINGLE
                                             )
+                                            .enabled(true)
                                             .format(TelephonySettings.RecordingSettings.Format.WAV)
                                             .build()
                                     )
