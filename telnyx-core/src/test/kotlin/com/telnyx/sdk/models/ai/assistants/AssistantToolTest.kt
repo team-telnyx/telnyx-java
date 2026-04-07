@@ -786,7 +786,7 @@ internal class AssistantToolTest {
             AssistantTool.SendMessage.builder()
                 .sendMessage(
                     AssistantTool.SendMessage.SendMessageConfig.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .messageTemplate("message_template")
                         .build()
                 )
                 .build()
@@ -813,7 +813,7 @@ internal class AssistantToolTest {
                 AssistantTool.SendMessage.builder()
                     .sendMessage(
                         AssistantTool.SendMessage.SendMessageConfig.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .messageTemplate("message_template")
                             .build()
                     )
                     .build()
