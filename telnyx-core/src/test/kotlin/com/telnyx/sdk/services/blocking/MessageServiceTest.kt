@@ -464,6 +464,49 @@ internal class MessageServiceTest {
                                     .voice(true)
                                     .build()
                             )
+                            .template(
+                                WhatsappMessageContent.Template.builder()
+                                    .addComponent(
+                                        WhatsappMessageContent.Template.Component.builder()
+                                            .index(0L)
+                                            .addParameter(
+                                                WhatsappMessageContent.Template.Component.Parameter
+                                                    .builder()
+                                                    .text("text")
+                                                    .type(
+                                                        WhatsappMessageContent.Template.Component
+                                                            .Parameter
+                                                            .Type
+                                                            .TEXT
+                                                    )
+                                                    .build()
+                                            )
+                                            .subType(
+                                                WhatsappMessageContent.Template.Component.SubType
+                                                    .QUICK_REPLY
+                                            )
+                                            .type(
+                                                WhatsappMessageContent.Template.Component.Type
+                                                    .HEADER
+                                            )
+                                            .build()
+                                    )
+                                    .language(
+                                        WhatsappMessageContent.Template.Language.builder()
+                                            .code("en_US")
+                                            .policy("deterministic")
+                                            .build()
+                                    )
+                                    .name("order_confirmation")
+                                    .templateId("019cd44b-3a1c-781b-956e-bd33e9fd2ac6")
+                                    .build()
+                            )
+                            .text(
+                                WhatsappMessageContent.Text.builder()
+                                    .body("Hello from Telnyx!")
+                                    .previewUrl(true)
+                                    .build()
+                            )
                             .type(WhatsappMessageContent.Type.AUDIO)
                             .video(
                                 WhatsappMedia.builder()
