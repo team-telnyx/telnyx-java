@@ -108,6 +108,7 @@ internal class VersionServiceAsyncTest {
                                             .channels(
                                                 TelephonySettings.RecordingSettings.Channels.SINGLE
                                             )
+                                            .enabled(true)
                                             .format(TelephonySettings.RecordingSettings.Format.WAV)
                                             .build()
                                     )
