@@ -65,6 +65,14 @@ internal class VerifyProfileServiceTest {
                     )
                     .webhookFailoverUrl("http://example.com/webhook/failover")
                     .webhookUrl("http://example.com/webhook")
+                    .whatsapp(
+                        VerifyProfileCreateParams.Whatsapp.builder()
+                            .appName("Example Secure App")
+                            .defaultVerificationTimeoutSecs(300L)
+                            .addWhitelistedDestination("US")
+                            .addWhitelistedDestination("CA")
+                            .build()
+                    )
                     .build()
             )
 
@@ -137,6 +145,14 @@ internal class VerifyProfileServiceTest {
                     )
                     .webhookFailoverUrl("http://example.com/webhook/failover")
                     .webhookUrl("http://example.com/webhook")
+                    .whatsapp(
+                        VerifyProfileUpdateParams.Whatsapp.builder()
+                            .appName("Example Secure App")
+                            .defaultVerificationTimeoutSecs(300L)
+                            .addWhitelistedDestination("US")
+                            .addWhitelistedDestination("CA")
+                            .build()
+                    )
                     .build()
             )
 
