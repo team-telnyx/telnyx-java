@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.enterprises.reputation
+package com.telnyx.sdk.models.pronunciationdicts
 
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
@@ -11,25 +11,16 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Disable Number Reputation for an enterprise.
- *
- * This will:
- * - Delete the reputation settings record
- * - Log the deletion for audit purposes
- * - Stop all future automated reputation checks
- *
- * **Note:** Can only be performed on `approved` reputation settings.
- */
-class ReputationDisableParams
+/** Permanently delete a pronunciation dictionary. */
+class PronunciationDictDeleteParams
 private constructor(
-    private val enterpriseId: String?,
+    private val id: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun enterpriseId(): Optional<String> = Optional.ofNullable(enterpriseId)
+    fun id(): Optional<String> = Optional.ofNullable(id)
 
     /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
@@ -44,33 +35,36 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): ReputationDisableParams = builder().build()
+        @JvmStatic fun none(): PronunciationDictDeleteParams = builder().build()
 
-        /** Returns a mutable builder for constructing an instance of [ReputationDisableParams]. */
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [PronunciationDictDeleteParams].
+         */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [ReputationDisableParams]. */
+    /** A builder for [PronunciationDictDeleteParams]. */
     class Builder internal constructor() {
 
-        private var enterpriseId: String? = null
+        private var id: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(reputationDisableParams: ReputationDisableParams) = apply {
-            enterpriseId = reputationDisableParams.enterpriseId
-            additionalHeaders = reputationDisableParams.additionalHeaders.toBuilder()
-            additionalQueryParams = reputationDisableParams.additionalQueryParams.toBuilder()
+        internal fun from(pronunciationDictDeleteParams: PronunciationDictDeleteParams) = apply {
+            id = pronunciationDictDeleteParams.id
+            additionalHeaders = pronunciationDictDeleteParams.additionalHeaders.toBuilder()
+            additionalQueryParams = pronunciationDictDeleteParams.additionalQueryParams.toBuilder()
             additionalBodyProperties =
-                reputationDisableParams.additionalBodyProperties.toMutableMap()
+                pronunciationDictDeleteParams.additionalBodyProperties.toMutableMap()
         }
 
-        fun enterpriseId(enterpriseId: String?) = apply { this.enterpriseId = enterpriseId }
+        fun id(id: String?) = apply { this.id = id }
 
-        /** Alias for calling [Builder.enterpriseId] with `enterpriseId.orElse(null)`. */
-        fun enterpriseId(enterpriseId: Optional<String>) = enterpriseId(enterpriseId.getOrNull())
+        /** Alias for calling [Builder.id] with `id.orElse(null)`. */
+        fun id(id: Optional<String>) = id(id.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -193,13 +187,13 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [ReputationDisableParams].
+         * Returns an immutable instance of [PronunciationDictDeleteParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): ReputationDisableParams =
-            ReputationDisableParams(
-                enterpriseId,
+        fun build(): PronunciationDictDeleteParams =
+            PronunciationDictDeleteParams(
+                id,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -211,7 +205,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> enterpriseId ?: ""
+            0 -> id ?: ""
             else -> ""
         }
 
@@ -224,21 +218,16 @@ private constructor(
             return true
         }
 
-        return other is ReputationDisableParams &&
-            enterpriseId == other.enterpriseId &&
+        return other is PronunciationDictDeleteParams &&
+            id == other.id &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams &&
             additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int =
-        Objects.hash(
-            enterpriseId,
-            additionalHeaders,
-            additionalQueryParams,
-            additionalBodyProperties,
-        )
+        Objects.hash(id, additionalHeaders, additionalQueryParams, additionalBodyProperties)
 
     override fun toString() =
-        "ReputationDisableParams{enterpriseId=$enterpriseId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "PronunciationDictDeleteParams{id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }
