@@ -160,6 +160,7 @@ internal class ServiceParamsTest {
                 .parkAfterUnbridge("self")
                 .preferredCodecs("G722,PCMU,PCMA,G729,OPUS,VP8,H264")
                 .preventDoubleBridge(true)
+                .privacy(CallDialParams.Privacy.ID)
                 .record(CallDialParams.Record.RECORD_FROM_ANSWER)
                 .recordChannels(CallDialParams.RecordChannels.SINGLE)
                 .recordCustomFileName("my_recording_file_name")
