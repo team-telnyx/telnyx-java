@@ -890,17 +890,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val LIMIT_BW_KBPS_512 = of(512L)
+            @JvmField val _512 = of(512L)
 
-            @JvmField val LIMIT_BW_KBPS_1024 = of(1024L)
+            @JvmField val _1024 = of(1024L)
 
             @JvmStatic fun of(value: Long) = LimitBwKbps(JsonField.of(value))
         }
 
         /** An enum containing [LimitBwKbps]'s known values. */
         enum class Known {
-            LIMIT_BW_KBPS_512,
-            LIMIT_BW_KBPS_1024,
+            _512,
+            _1024,
         }
 
         /**
@@ -913,8 +913,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            LIMIT_BW_KBPS_512,
-            LIMIT_BW_KBPS_1024,
+            _512,
+            _1024,
             /**
              * An enum member indicating that [LimitBwKbps] was instantiated with an unknown value.
              */
@@ -930,8 +930,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                LIMIT_BW_KBPS_512 -> Value.LIMIT_BW_KBPS_512
-                LIMIT_BW_KBPS_1024 -> Value.LIMIT_BW_KBPS_1024
+                _512 -> Value._512
+                _1024 -> Value._1024
                 else -> Value._UNKNOWN
             }
 
@@ -946,8 +946,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                LIMIT_BW_KBPS_512 -> Known.LIMIT_BW_KBPS_512
-                LIMIT_BW_KBPS_1024 -> Known.LIMIT_BW_KBPS_1024
+                _512 -> Known._512
+                _1024 -> Known._1024
                 else -> throw TelnyxInvalidDataException("Unknown LimitBwKbps: $value")
             }
 

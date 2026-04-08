@@ -15,10 +15,10 @@ internal class EnterpriseUpdateResponseTest {
         val enterpriseUpdateResponse =
             EnterpriseUpdateResponse.builder()
                 .data(
-                    EnterprisePublic.builder()
+                    EnterpriseUpdateResponse.Data.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .billingAddress(
-                            BillingAddress.builder()
+                            EnterpriseUpdateResponse.Data.BillingAddress.builder()
                                 .administrativeArea("Illinois")
                                 .city("Chicago")
                                 .country("United States")
@@ -28,7 +28,7 @@ internal class EnterpriseUpdateResponseTest {
                                 .build()
                         )
                         .billingContact(
-                            BillingContact.builder()
+                            EnterpriseUpdateResponse.Data.BillingContact.builder()
                                 .email("billing@acme.com")
                                 .firstName("John")
                                 .lastName("Doe")
@@ -44,9 +44,9 @@ internal class EnterpriseUpdateResponseTest {
                         .fein("fein")
                         .industry("industry")
                         .legalName("Acme Corp Inc.")
-                        .numberOfEmployees(EnterprisePublic.NumberOfEmployees._1_10)
+                        .numberOfEmployees(EnterpriseUpdateResponse.Data.NumberOfEmployees._1_10)
                         .organizationContact(
-                            OrganizationContact.builder()
+                            EnterpriseUpdateResponse.Data.OrganizationContact.builder()
                                 .email("jane.smith@acme.com")
                                 .firstName("Jane")
                                 .jobTitle("VP of Engineering")
@@ -54,9 +54,11 @@ internal class EnterpriseUpdateResponseTest {
                                 .phone("+16035551234")
                                 .build()
                         )
-                        .organizationLegalType(EnterprisePublic.OrganizationLegalType.CORPORATION)
+                        .organizationLegalType(
+                            EnterpriseUpdateResponse.Data.OrganizationLegalType.CORPORATION
+                        )
                         .organizationPhysicalAddress(
-                            PhysicalAddress.builder()
+                            EnterpriseUpdateResponse.Data.OrganizationPhysicalAddress.builder()
                                 .administrativeArea("Illinois")
                                 .city("Chicago")
                                 .country("United States")
@@ -65,10 +67,10 @@ internal class EnterpriseUpdateResponseTest {
                                 .extendedAddress("Suite 400")
                                 .build()
                         )
-                        .organizationType(EnterprisePublic.OrganizationType.COMMERCIAL)
+                        .organizationType(EnterpriseUpdateResponse.Data.OrganizationType.COMMERCIAL)
                         .primaryBusinessDomainSicCode("primary_business_domain_sic_code")
                         .professionalLicenseNumber("professional_license_number")
-                        .roleType(EnterprisePublic.RoleType.ENTERPRISE)
+                        .roleType(EnterpriseUpdateResponse.Data.RoleType.ENTERPRISE)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .website("website")
                         .build()
@@ -77,10 +79,10 @@ internal class EnterpriseUpdateResponseTest {
 
         assertThat(enterpriseUpdateResponse.data())
             .contains(
-                EnterprisePublic.builder()
+                EnterpriseUpdateResponse.Data.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .billingAddress(
-                        BillingAddress.builder()
+                        EnterpriseUpdateResponse.Data.BillingAddress.builder()
                             .administrativeArea("Illinois")
                             .city("Chicago")
                             .country("United States")
@@ -90,7 +92,7 @@ internal class EnterpriseUpdateResponseTest {
                             .build()
                     )
                     .billingContact(
-                        BillingContact.builder()
+                        EnterpriseUpdateResponse.Data.BillingContact.builder()
                             .email("billing@acme.com")
                             .firstName("John")
                             .lastName("Doe")
@@ -106,9 +108,9 @@ internal class EnterpriseUpdateResponseTest {
                     .fein("fein")
                     .industry("industry")
                     .legalName("Acme Corp Inc.")
-                    .numberOfEmployees(EnterprisePublic.NumberOfEmployees._1_10)
+                    .numberOfEmployees(EnterpriseUpdateResponse.Data.NumberOfEmployees._1_10)
                     .organizationContact(
-                        OrganizationContact.builder()
+                        EnterpriseUpdateResponse.Data.OrganizationContact.builder()
                             .email("jane.smith@acme.com")
                             .firstName("Jane")
                             .jobTitle("VP of Engineering")
@@ -116,9 +118,11 @@ internal class EnterpriseUpdateResponseTest {
                             .phone("+16035551234")
                             .build()
                     )
-                    .organizationLegalType(EnterprisePublic.OrganizationLegalType.CORPORATION)
+                    .organizationLegalType(
+                        EnterpriseUpdateResponse.Data.OrganizationLegalType.CORPORATION
+                    )
                     .organizationPhysicalAddress(
-                        PhysicalAddress.builder()
+                        EnterpriseUpdateResponse.Data.OrganizationPhysicalAddress.builder()
                             .administrativeArea("Illinois")
                             .city("Chicago")
                             .country("United States")
@@ -127,10 +131,10 @@ internal class EnterpriseUpdateResponseTest {
                             .extendedAddress("Suite 400")
                             .build()
                     )
-                    .organizationType(EnterprisePublic.OrganizationType.COMMERCIAL)
+                    .organizationType(EnterpriseUpdateResponse.Data.OrganizationType.COMMERCIAL)
                     .primaryBusinessDomainSicCode("primary_business_domain_sic_code")
                     .professionalLicenseNumber("professional_license_number")
-                    .roleType(EnterprisePublic.RoleType.ENTERPRISE)
+                    .roleType(EnterpriseUpdateResponse.Data.RoleType.ENTERPRISE)
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .website("website")
                     .build()
@@ -143,10 +147,10 @@ internal class EnterpriseUpdateResponseTest {
         val enterpriseUpdateResponse =
             EnterpriseUpdateResponse.builder()
                 .data(
-                    EnterprisePublic.builder()
+                    EnterpriseUpdateResponse.Data.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .billingAddress(
-                            BillingAddress.builder()
+                            EnterpriseUpdateResponse.Data.BillingAddress.builder()
                                 .administrativeArea("Illinois")
                                 .city("Chicago")
                                 .country("United States")
@@ -156,7 +160,7 @@ internal class EnterpriseUpdateResponseTest {
                                 .build()
                         )
                         .billingContact(
-                            BillingContact.builder()
+                            EnterpriseUpdateResponse.Data.BillingContact.builder()
                                 .email("billing@acme.com")
                                 .firstName("John")
                                 .lastName("Doe")
@@ -172,9 +176,9 @@ internal class EnterpriseUpdateResponseTest {
                         .fein("fein")
                         .industry("industry")
                         .legalName("Acme Corp Inc.")
-                        .numberOfEmployees(EnterprisePublic.NumberOfEmployees._1_10)
+                        .numberOfEmployees(EnterpriseUpdateResponse.Data.NumberOfEmployees._1_10)
                         .organizationContact(
-                            OrganizationContact.builder()
+                            EnterpriseUpdateResponse.Data.OrganizationContact.builder()
                                 .email("jane.smith@acme.com")
                                 .firstName("Jane")
                                 .jobTitle("VP of Engineering")
@@ -182,9 +186,11 @@ internal class EnterpriseUpdateResponseTest {
                                 .phone("+16035551234")
                                 .build()
                         )
-                        .organizationLegalType(EnterprisePublic.OrganizationLegalType.CORPORATION)
+                        .organizationLegalType(
+                            EnterpriseUpdateResponse.Data.OrganizationLegalType.CORPORATION
+                        )
                         .organizationPhysicalAddress(
-                            PhysicalAddress.builder()
+                            EnterpriseUpdateResponse.Data.OrganizationPhysicalAddress.builder()
                                 .administrativeArea("Illinois")
                                 .city("Chicago")
                                 .country("United States")
@@ -193,10 +199,10 @@ internal class EnterpriseUpdateResponseTest {
                                 .extendedAddress("Suite 400")
                                 .build()
                         )
-                        .organizationType(EnterprisePublic.OrganizationType.COMMERCIAL)
+                        .organizationType(EnterpriseUpdateResponse.Data.OrganizationType.COMMERCIAL)
                         .primaryBusinessDomainSicCode("primary_business_domain_sic_code")
                         .professionalLicenseNumber("professional_license_number")
-                        .roleType(EnterprisePublic.RoleType.ENTERPRISE)
+                        .roleType(EnterpriseUpdateResponse.Data.RoleType.ENTERPRISE)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .website("website")
                         .build()

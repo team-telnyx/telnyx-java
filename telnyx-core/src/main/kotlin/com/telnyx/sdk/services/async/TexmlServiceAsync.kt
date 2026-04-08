@@ -5,6 +5,8 @@ package com.telnyx.sdk.services.async
 import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponseFor
+import com.telnyx.sdk.models.texml.TexmlInitiateAiCallParams
+import com.telnyx.sdk.models.texml.TexmlInitiateAiCallResponse
 import com.telnyx.sdk.models.texml.TexmlSecretsParams
 import com.telnyx.sdk.models.texml.TexmlSecretsResponse
 import com.telnyx.sdk.services.async.texml.AccountServiceAsync
@@ -28,6 +30,38 @@ interface TexmlServiceAsync {
 
     /** TeXML REST Commands */
     fun accounts(): AccountServiceAsync
+
+    /**
+     * Initiate an outbound AI call with warm-up support. Validates parameters, builds an internal
+     * TeXML with an AI Assistant configuration, encodes instructions into client state, and calls
+     * the dial API. The Twiml, Texml, and Url parameters are not allowed and will result in a 422
+     * error.
+     */
+    fun initiateAiCall(
+        connectionId: String,
+        params: TexmlInitiateAiCallParams,
+    ): CompletableFuture<TexmlInitiateAiCallResponse> =
+        initiateAiCall(connectionId, params, RequestOptions.none())
+
+    /** @see initiateAiCall */
+    fun initiateAiCall(
+        connectionId: String,
+        params: TexmlInitiateAiCallParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<TexmlInitiateAiCallResponse> =
+        initiateAiCall(params.toBuilder().connectionId(connectionId).build(), requestOptions)
+
+    /** @see initiateAiCall */
+    fun initiateAiCall(
+        params: TexmlInitiateAiCallParams
+    ): CompletableFuture<TexmlInitiateAiCallResponse> =
+        initiateAiCall(params, RequestOptions.none())
+
+    /** @see initiateAiCall */
+    fun initiateAiCall(
+        params: TexmlInitiateAiCallParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<TexmlInitiateAiCallResponse>
 
     /**
      * Create a TeXML secret which can be later used as a Dynamic Parameter for TeXML when using
@@ -58,6 +92,36 @@ interface TexmlServiceAsync {
 
         /** TeXML REST Commands */
         fun accounts(): AccountServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /texml/ai_calls/{connection_id}`, but is otherwise
+         * the same as [TexmlServiceAsync.initiateAiCall].
+         */
+        fun initiateAiCall(
+            connectionId: String,
+            params: TexmlInitiateAiCallParams,
+        ): CompletableFuture<HttpResponseFor<TexmlInitiateAiCallResponse>> =
+            initiateAiCall(connectionId, params, RequestOptions.none())
+
+        /** @see initiateAiCall */
+        fun initiateAiCall(
+            connectionId: String,
+            params: TexmlInitiateAiCallParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<TexmlInitiateAiCallResponse>> =
+            initiateAiCall(params.toBuilder().connectionId(connectionId).build(), requestOptions)
+
+        /** @see initiateAiCall */
+        fun initiateAiCall(
+            params: TexmlInitiateAiCallParams
+        ): CompletableFuture<HttpResponseFor<TexmlInitiateAiCallResponse>> =
+            initiateAiCall(params, RequestOptions.none())
+
+        /** @see initiateAiCall */
+        fun initiateAiCall(
+            params: TexmlInitiateAiCallParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<TexmlInitiateAiCallResponse>>
 
         /**
          * Returns a raw HTTP response for `post /texml/secrets`, but is otherwise the same as

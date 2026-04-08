@@ -20,14 +20,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: VoiceCloneListParams,
     private val response: VoiceCloneListPageResponse,
-) : PageAsync<VoiceCloneData> {
+) : PageAsync<VoiceCloneListResponse> {
 
     /**
      * Delegates to [VoiceCloneListPageResponse], but gracefully handles missing data.
      *
      * @see VoiceCloneListPageResponse.data
      */
-    fun data(): List<VoiceCloneData> =
+    fun data(): List<VoiceCloneListResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -37,7 +37,7 @@ private constructor(
      */
     fun meta(): Optional<VoiceCloneListPageResponse.Meta> = response._meta().getOptional("meta")
 
-    override fun items(): List<VoiceCloneData> = data()
+    override fun items(): List<VoiceCloneListResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -58,7 +58,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<VoiceCloneListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<VoiceCloneData> =
+    fun autoPager(): AutoPagerAsync<VoiceCloneListResponse> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

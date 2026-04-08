@@ -13,7 +13,7 @@ internal class CreditAccountSettleParamsTest {
         CreditAccountSettleParams.builder()
             .headerPaymentSignature("PAYMENT-SIGNATURE")
             .id("quote_abc123")
-            .paymentSignature("0xabc123...")
+            .bodyPaymentSignature("0xabc123...")
             .build()
     }
 
@@ -23,7 +23,7 @@ internal class CreditAccountSettleParamsTest {
             CreditAccountSettleParams.builder()
                 .headerPaymentSignature("PAYMENT-SIGNATURE")
                 .id("quote_abc123")
-                .paymentSignature("0xabc123...")
+                .bodyPaymentSignature("0xabc123...")
                 .build()
 
         val headers = params._headers()
@@ -47,13 +47,13 @@ internal class CreditAccountSettleParamsTest {
             CreditAccountSettleParams.builder()
                 .headerPaymentSignature("PAYMENT-SIGNATURE")
                 .id("quote_abc123")
-                .paymentSignature("0xabc123...")
+                .bodyPaymentSignature("0xabc123...")
                 .build()
 
         val body = params._body()
 
         assertThat(body.id()).isEqualTo("quote_abc123")
-        assertThat(body.paymentSignature()).contains("0xabc123...")
+        assertThat(body.bodyPaymentSignature()).contains("0xabc123...")
     }
 
     @Test

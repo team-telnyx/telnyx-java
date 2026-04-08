@@ -4,7 +4,6 @@ package com.telnyx.sdk.models.enterprises
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.MetaInfo
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -17,10 +16,10 @@ internal class EnterpriseListPageResponseTest {
         val enterpriseListPageResponse =
             EnterpriseListPageResponse.builder()
                 .addData(
-                    EnterprisePublic.builder()
+                    EnterpriseListResponse.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .billingAddress(
-                            BillingAddress.builder()
+                            EnterpriseListResponse.BillingAddress.builder()
                                 .administrativeArea("Illinois")
                                 .city("Chicago")
                                 .country("United States")
@@ -30,7 +29,7 @@ internal class EnterpriseListPageResponseTest {
                                 .build()
                         )
                         .billingContact(
-                            BillingContact.builder()
+                            EnterpriseListResponse.BillingContact.builder()
                                 .email("billing@acme.com")
                                 .firstName("John")
                                 .lastName("Doe")
@@ -46,9 +45,9 @@ internal class EnterpriseListPageResponseTest {
                         .fein("fein")
                         .industry("industry")
                         .legalName("Acme Corp Inc.")
-                        .numberOfEmployees(EnterprisePublic.NumberOfEmployees._1_10)
+                        .numberOfEmployees(EnterpriseListResponse.NumberOfEmployees._1_10)
                         .organizationContact(
-                            OrganizationContact.builder()
+                            EnterpriseListResponse.OrganizationContact.builder()
                                 .email("jane.smith@acme.com")
                                 .firstName("Jane")
                                 .jobTitle("VP of Engineering")
@@ -56,9 +55,11 @@ internal class EnterpriseListPageResponseTest {
                                 .phone("+16035551234")
                                 .build()
                         )
-                        .organizationLegalType(EnterprisePublic.OrganizationLegalType.CORPORATION)
+                        .organizationLegalType(
+                            EnterpriseListResponse.OrganizationLegalType.CORPORATION
+                        )
                         .organizationPhysicalAddress(
-                            PhysicalAddress.builder()
+                            EnterpriseListResponse.OrganizationPhysicalAddress.builder()
                                 .administrativeArea("Illinois")
                                 .city("Chicago")
                                 .country("United States")
@@ -67,16 +68,16 @@ internal class EnterpriseListPageResponseTest {
                                 .extendedAddress("Suite 400")
                                 .build()
                         )
-                        .organizationType(EnterprisePublic.OrganizationType.COMMERCIAL)
+                        .organizationType(EnterpriseListResponse.OrganizationType.COMMERCIAL)
                         .primaryBusinessDomainSicCode("primary_business_domain_sic_code")
                         .professionalLicenseNumber("professional_license_number")
-                        .roleType(EnterprisePublic.RoleType.ENTERPRISE)
+                        .roleType(EnterpriseListResponse.RoleType.ENTERPRISE)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .website("website")
                         .build()
                 )
                 .meta(
-                    MetaInfo.builder()
+                    EnterpriseListPageResponse.Meta.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)
@@ -87,10 +88,10 @@ internal class EnterpriseListPageResponseTest {
 
         assertThat(enterpriseListPageResponse.data().getOrNull())
             .containsExactly(
-                EnterprisePublic.builder()
+                EnterpriseListResponse.builder()
                     .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .billingAddress(
-                        BillingAddress.builder()
+                        EnterpriseListResponse.BillingAddress.builder()
                             .administrativeArea("Illinois")
                             .city("Chicago")
                             .country("United States")
@@ -100,7 +101,7 @@ internal class EnterpriseListPageResponseTest {
                             .build()
                     )
                     .billingContact(
-                        BillingContact.builder()
+                        EnterpriseListResponse.BillingContact.builder()
                             .email("billing@acme.com")
                             .firstName("John")
                             .lastName("Doe")
@@ -116,9 +117,9 @@ internal class EnterpriseListPageResponseTest {
                     .fein("fein")
                     .industry("industry")
                     .legalName("Acme Corp Inc.")
-                    .numberOfEmployees(EnterprisePublic.NumberOfEmployees._1_10)
+                    .numberOfEmployees(EnterpriseListResponse.NumberOfEmployees._1_10)
                     .organizationContact(
-                        OrganizationContact.builder()
+                        EnterpriseListResponse.OrganizationContact.builder()
                             .email("jane.smith@acme.com")
                             .firstName("Jane")
                             .jobTitle("VP of Engineering")
@@ -126,9 +127,9 @@ internal class EnterpriseListPageResponseTest {
                             .phone("+16035551234")
                             .build()
                     )
-                    .organizationLegalType(EnterprisePublic.OrganizationLegalType.CORPORATION)
+                    .organizationLegalType(EnterpriseListResponse.OrganizationLegalType.CORPORATION)
                     .organizationPhysicalAddress(
-                        PhysicalAddress.builder()
+                        EnterpriseListResponse.OrganizationPhysicalAddress.builder()
                             .administrativeArea("Illinois")
                             .city("Chicago")
                             .country("United States")
@@ -137,17 +138,17 @@ internal class EnterpriseListPageResponseTest {
                             .extendedAddress("Suite 400")
                             .build()
                     )
-                    .organizationType(EnterprisePublic.OrganizationType.COMMERCIAL)
+                    .organizationType(EnterpriseListResponse.OrganizationType.COMMERCIAL)
                     .primaryBusinessDomainSicCode("primary_business_domain_sic_code")
                     .professionalLicenseNumber("professional_license_number")
-                    .roleType(EnterprisePublic.RoleType.ENTERPRISE)
+                    .roleType(EnterpriseListResponse.RoleType.ENTERPRISE)
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .website("website")
                     .build()
             )
         assertThat(enterpriseListPageResponse.meta())
             .contains(
-                MetaInfo.builder()
+                EnterpriseListPageResponse.Meta.builder()
                     .pageNumber(0L)
                     .pageSize(0L)
                     .totalPages(0L)
@@ -162,10 +163,10 @@ internal class EnterpriseListPageResponseTest {
         val enterpriseListPageResponse =
             EnterpriseListPageResponse.builder()
                 .addData(
-                    EnterprisePublic.builder()
+                    EnterpriseListResponse.builder()
                         .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .billingAddress(
-                            BillingAddress.builder()
+                            EnterpriseListResponse.BillingAddress.builder()
                                 .administrativeArea("Illinois")
                                 .city("Chicago")
                                 .country("United States")
@@ -175,7 +176,7 @@ internal class EnterpriseListPageResponseTest {
                                 .build()
                         )
                         .billingContact(
-                            BillingContact.builder()
+                            EnterpriseListResponse.BillingContact.builder()
                                 .email("billing@acme.com")
                                 .firstName("John")
                                 .lastName("Doe")
@@ -191,9 +192,9 @@ internal class EnterpriseListPageResponseTest {
                         .fein("fein")
                         .industry("industry")
                         .legalName("Acme Corp Inc.")
-                        .numberOfEmployees(EnterprisePublic.NumberOfEmployees._1_10)
+                        .numberOfEmployees(EnterpriseListResponse.NumberOfEmployees._1_10)
                         .organizationContact(
-                            OrganizationContact.builder()
+                            EnterpriseListResponse.OrganizationContact.builder()
                                 .email("jane.smith@acme.com")
                                 .firstName("Jane")
                                 .jobTitle("VP of Engineering")
@@ -201,9 +202,11 @@ internal class EnterpriseListPageResponseTest {
                                 .phone("+16035551234")
                                 .build()
                         )
-                        .organizationLegalType(EnterprisePublic.OrganizationLegalType.CORPORATION)
+                        .organizationLegalType(
+                            EnterpriseListResponse.OrganizationLegalType.CORPORATION
+                        )
                         .organizationPhysicalAddress(
-                            PhysicalAddress.builder()
+                            EnterpriseListResponse.OrganizationPhysicalAddress.builder()
                                 .administrativeArea("Illinois")
                                 .city("Chicago")
                                 .country("United States")
@@ -212,16 +215,16 @@ internal class EnterpriseListPageResponseTest {
                                 .extendedAddress("Suite 400")
                                 .build()
                         )
-                        .organizationType(EnterprisePublic.OrganizationType.COMMERCIAL)
+                        .organizationType(EnterpriseListResponse.OrganizationType.COMMERCIAL)
                         .primaryBusinessDomainSicCode("primary_business_domain_sic_code")
                         .professionalLicenseNumber("professional_license_number")
-                        .roleType(EnterprisePublic.RoleType.ENTERPRISE)
+                        .roleType(EnterpriseListResponse.RoleType.ENTERPRISE)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .website("website")
                         .build()
                 )
                 .meta(
-                    MetaInfo.builder()
+                    EnterpriseListPageResponse.Meta.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)

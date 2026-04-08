@@ -1190,11 +1190,17 @@ private constructor(
 
             @JvmField val MINIMAX = of("minimax")
 
+            @JvmField val TELNYX = of("Telnyx")
+
+            @JvmField val MINIMAX = of("Minimax")
+
             @JvmStatic fun of(value: String) = Provider(JsonField.of(value))
         }
 
         /** An enum containing [Provider]'s known values. */
         enum class Known {
+            TELNYX,
+            MINIMAX,
             TELNYX,
             MINIMAX,
         }
@@ -1209,6 +1215,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            TELNYX,
+            MINIMAX,
             TELNYX,
             MINIMAX,
             /** An enum member indicating that [Provider] was instantiated with an unknown value. */
@@ -1226,6 +1234,8 @@ private constructor(
             when (this) {
                 TELNYX -> Value.TELNYX
                 MINIMAX -> Value.MINIMAX
+                TELNYX -> Value.TELNYX
+                MINIMAX -> Value.MINIMAX
                 else -> Value._UNKNOWN
             }
 
@@ -1240,6 +1250,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                TELNYX -> Known.TELNYX
+                MINIMAX -> Known.MINIMAX
                 TELNYX -> Known.TELNYX
                 MINIMAX -> Known.MINIMAX
                 else -> throw TelnyxInvalidDataException("Unknown Provider: $value")

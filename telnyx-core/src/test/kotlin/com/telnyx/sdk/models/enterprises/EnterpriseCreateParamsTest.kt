@@ -11,7 +11,7 @@ internal class EnterpriseCreateParamsTest {
     fun create() {
         EnterpriseCreateParams.builder()
             .billingAddress(
-                BillingAddress.builder()
+                EnterpriseCreateParams.BillingAddress.builder()
                     .administrativeArea("Illinois")
                     .city("Chicago")
                     .country("United States")
@@ -21,7 +21,7 @@ internal class EnterpriseCreateParamsTest {
                     .build()
             )
             .billingContact(
-                BillingContact.builder()
+                EnterpriseCreateParams.BillingContact.builder()
                     .email("billing@acme.com")
                     .firstName("John")
                     .lastName("Doe")
@@ -35,7 +35,7 @@ internal class EnterpriseCreateParamsTest {
             .legalName("Acme Corp Inc.")
             .numberOfEmployees(EnterpriseCreateParams.NumberOfEmployees._51_200)
             .organizationContact(
-                OrganizationContact.builder()
+                EnterpriseCreateParams.OrganizationContact.builder()
                     .email("jane.smith@acme.com")
                     .firstName("Jane")
                     .jobTitle("VP of Engineering")
@@ -45,7 +45,7 @@ internal class EnterpriseCreateParamsTest {
             )
             .organizationLegalType(EnterpriseCreateParams.OrganizationLegalType.CORPORATION)
             .organizationPhysicalAddress(
-                PhysicalAddress.builder()
+                EnterpriseCreateParams.OrganizationPhysicalAddress.builder()
                     .administrativeArea("Illinois")
                     .city("Chicago")
                     .country("United States")
@@ -70,7 +70,7 @@ internal class EnterpriseCreateParamsTest {
         val params =
             EnterpriseCreateParams.builder()
                 .billingAddress(
-                    BillingAddress.builder()
+                    EnterpriseCreateParams.BillingAddress.builder()
                         .administrativeArea("Illinois")
                         .city("Chicago")
                         .country("United States")
@@ -80,7 +80,7 @@ internal class EnterpriseCreateParamsTest {
                         .build()
                 )
                 .billingContact(
-                    BillingContact.builder()
+                    EnterpriseCreateParams.BillingContact.builder()
                         .email("billing@acme.com")
                         .firstName("John")
                         .lastName("Doe")
@@ -94,7 +94,7 @@ internal class EnterpriseCreateParamsTest {
                 .legalName("Acme Corp Inc.")
                 .numberOfEmployees(EnterpriseCreateParams.NumberOfEmployees._51_200)
                 .organizationContact(
-                    OrganizationContact.builder()
+                    EnterpriseCreateParams.OrganizationContact.builder()
                         .email("jane.smith@acme.com")
                         .firstName("Jane")
                         .jobTitle("VP of Engineering")
@@ -104,7 +104,7 @@ internal class EnterpriseCreateParamsTest {
                 )
                 .organizationLegalType(EnterpriseCreateParams.OrganizationLegalType.CORPORATION)
                 .organizationPhysicalAddress(
-                    PhysicalAddress.builder()
+                    EnterpriseCreateParams.OrganizationPhysicalAddress.builder()
                         .administrativeArea("Illinois")
                         .city("Chicago")
                         .country("United States")
@@ -127,7 +127,7 @@ internal class EnterpriseCreateParamsTest {
 
         assertThat(body.billingAddress())
             .isEqualTo(
-                BillingAddress.builder()
+                EnterpriseCreateParams.BillingAddress.builder()
                     .administrativeArea("Illinois")
                     .city("Chicago")
                     .country("United States")
@@ -138,7 +138,7 @@ internal class EnterpriseCreateParamsTest {
             )
         assertThat(body.billingContact())
             .isEqualTo(
-                BillingContact.builder()
+                EnterpriseCreateParams.BillingContact.builder()
                     .email("billing@acme.com")
                     .firstName("John")
                     .lastName("Doe")
@@ -154,7 +154,7 @@ internal class EnterpriseCreateParamsTest {
             .isEqualTo(EnterpriseCreateParams.NumberOfEmployees._51_200)
         assertThat(body.organizationContact())
             .isEqualTo(
-                OrganizationContact.builder()
+                EnterpriseCreateParams.OrganizationContact.builder()
                     .email("jane.smith@acme.com")
                     .firstName("Jane")
                     .jobTitle("VP of Engineering")
@@ -166,7 +166,7 @@ internal class EnterpriseCreateParamsTest {
             .isEqualTo(EnterpriseCreateParams.OrganizationLegalType.CORPORATION)
         assertThat(body.organizationPhysicalAddress())
             .isEqualTo(
-                PhysicalAddress.builder()
+                EnterpriseCreateParams.OrganizationPhysicalAddress.builder()
                     .administrativeArea("Illinois")
                     .city("Chicago")
                     .country("United States")
@@ -191,7 +191,7 @@ internal class EnterpriseCreateParamsTest {
         val params =
             EnterpriseCreateParams.builder()
                 .billingAddress(
-                    BillingAddress.builder()
+                    EnterpriseCreateParams.BillingAddress.builder()
                         .administrativeArea("Illinois")
                         .city("Chicago")
                         .country("United States")
@@ -200,7 +200,7 @@ internal class EnterpriseCreateParamsTest {
                         .build()
                 )
                 .billingContact(
-                    BillingContact.builder()
+                    EnterpriseCreateParams.BillingContact.builder()
                         .email("billing@acme.com")
                         .firstName("John")
                         .lastName("Doe")
@@ -214,7 +214,7 @@ internal class EnterpriseCreateParamsTest {
                 .legalName("Acme Corp Inc.")
                 .numberOfEmployees(EnterpriseCreateParams.NumberOfEmployees._51_200)
                 .organizationContact(
-                    OrganizationContact.builder()
+                    EnterpriseCreateParams.OrganizationContact.builder()
                         .email("jane.smith@acme.com")
                         .firstName("Jane")
                         .jobTitle("VP of Engineering")
@@ -224,7 +224,7 @@ internal class EnterpriseCreateParamsTest {
                 )
                 .organizationLegalType(EnterpriseCreateParams.OrganizationLegalType.CORPORATION)
                 .organizationPhysicalAddress(
-                    PhysicalAddress.builder()
+                    EnterpriseCreateParams.OrganizationPhysicalAddress.builder()
                         .administrativeArea("Illinois")
                         .city("Chicago")
                         .country("United States")
@@ -240,7 +240,7 @@ internal class EnterpriseCreateParamsTest {
 
         assertThat(body.billingAddress())
             .isEqualTo(
-                BillingAddress.builder()
+                EnterpriseCreateParams.BillingAddress.builder()
                     .administrativeArea("Illinois")
                     .city("Chicago")
                     .country("United States")
@@ -250,7 +250,7 @@ internal class EnterpriseCreateParamsTest {
             )
         assertThat(body.billingContact())
             .isEqualTo(
-                BillingContact.builder()
+                EnterpriseCreateParams.BillingContact.builder()
                     .email("billing@acme.com")
                     .firstName("John")
                     .lastName("Doe")
@@ -266,7 +266,7 @@ internal class EnterpriseCreateParamsTest {
             .isEqualTo(EnterpriseCreateParams.NumberOfEmployees._51_200)
         assertThat(body.organizationContact())
             .isEqualTo(
-                OrganizationContact.builder()
+                EnterpriseCreateParams.OrganizationContact.builder()
                     .email("jane.smith@acme.com")
                     .firstName("Jane")
                     .jobTitle("VP of Engineering")
@@ -278,7 +278,7 @@ internal class EnterpriseCreateParamsTest {
             .isEqualTo(EnterpriseCreateParams.OrganizationLegalType.CORPORATION)
         assertThat(body.organizationPhysicalAddress())
             .isEqualTo(
-                PhysicalAddress.builder()
+                EnterpriseCreateParams.OrganizationPhysicalAddress.builder()
                     .administrativeArea("Illinois")
                     .city("Chicago")
                     .country("United States")

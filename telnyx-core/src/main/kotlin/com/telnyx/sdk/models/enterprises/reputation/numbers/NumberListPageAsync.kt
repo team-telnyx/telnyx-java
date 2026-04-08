@@ -5,8 +5,6 @@ package com.telnyx.sdk.models.enterprises.reputation.numbers
 import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.models.MetaInfo
-import com.telnyx.sdk.models.ReputationPhoneNumberWithReputationData
 import com.telnyx.sdk.services.async.enterprises.reputation.NumberServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -22,14 +20,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: NumberListParams,
     private val response: NumberListPageResponse,
-) : PageAsync<ReputationPhoneNumberWithReputationData> {
+) : PageAsync<NumberListResponse> {
 
     /**
      * Delegates to [NumberListPageResponse], but gracefully handles missing data.
      *
      * @see NumberListPageResponse.data
      */
-    fun data(): List<ReputationPhoneNumberWithReputationData> =
+    fun data(): List<NumberListResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -37,9 +35,9 @@ private constructor(
      *
      * @see NumberListPageResponse.meta
      */
-    fun meta(): Optional<MetaInfo> = response._meta().getOptional("meta")
+    fun meta(): Optional<NumberListPageResponse.Meta> = response._meta().getOptional("meta")
 
-    override fun items(): List<ReputationPhoneNumberWithReputationData> = data()
+    override fun items(): List<NumberListResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +57,7 @@ private constructor(
 
     override fun nextPage(): CompletableFuture<NumberListPageAsync> = service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<ReputationPhoneNumberWithReputationData> =
+    fun autoPager(): AutoPagerAsync<NumberListResponse> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

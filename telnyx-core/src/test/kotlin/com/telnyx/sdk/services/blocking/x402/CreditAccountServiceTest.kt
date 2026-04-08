@@ -35,7 +35,7 @@ internal class CreditAccountServiceTest {
                 CreditAccountSettleParams.builder()
                     .headerPaymentSignature("PAYMENT-SIGNATURE")
                     .id("quote_abc123")
-                    .paymentSignature("0xabc123...")
+                    .bodyPaymentSignature("0xabc123...")
                     .build()
             )
 

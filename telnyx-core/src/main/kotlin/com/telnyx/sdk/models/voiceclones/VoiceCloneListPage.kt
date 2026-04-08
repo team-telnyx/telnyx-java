@@ -17,14 +17,14 @@ private constructor(
     private val service: VoiceCloneService,
     private val params: VoiceCloneListParams,
     private val response: VoiceCloneListPageResponse,
-) : Page<VoiceCloneData> {
+) : Page<VoiceCloneListResponse> {
 
     /**
      * Delegates to [VoiceCloneListPageResponse], but gracefully handles missing data.
      *
      * @see VoiceCloneListPageResponse.data
      */
-    fun data(): List<VoiceCloneData> =
+    fun data(): List<VoiceCloneListResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -34,7 +34,7 @@ private constructor(
      */
     fun meta(): Optional<VoiceCloneListPageResponse.Meta> = response._meta().getOptional("meta")
 
-    override fun items(): List<VoiceCloneData> = data()
+    override fun items(): List<VoiceCloneListResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -54,7 +54,7 @@ private constructor(
 
     override fun nextPage(): VoiceCloneListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<VoiceCloneData> = AutoPager.from(this)
+    fun autoPager(): AutoPager<VoiceCloneListResponse> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): VoiceCloneListParams = params

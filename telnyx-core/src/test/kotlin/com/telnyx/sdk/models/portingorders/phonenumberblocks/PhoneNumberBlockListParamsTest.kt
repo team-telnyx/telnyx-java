@@ -21,8 +21,7 @@ internal class PhoneNumberBlockListParamsTest {
                     )
                     .addPortingOrderId("f3575e15-32ce-400e-a4c0-dd78800c20b0")
                     .status(
-                        PhoneNumberBlockListParams.Filter.Status.PortingOrderMultipleStatus
-                            .IN_PROCESS
+                        PhoneNumberBlockListParams.Filter.Status.PortingOrderSingleStatus.IN_PROCESS
                     )
                     .supportKey("sr_a12345")
                     .build()
@@ -63,7 +62,7 @@ internal class PhoneNumberBlockListParamsTest {
                         )
                         .addPortingOrderId("f3575e15-32ce-400e-a4c0-dd78800c20b0")
                         .status(
-                            PhoneNumberBlockListParams.Filter.Status.PortingOrderMultipleStatus
+                            PhoneNumberBlockListParams.Filter.Status.PortingOrderSingleStatus
                                 .IN_PROCESS
                         )
                         .supportKey("sr_a12345")

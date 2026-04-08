@@ -5,7 +5,6 @@ package com.telnyx.sdk.models.enterprises
 import com.telnyx.sdk.core.AutoPagerAsync
 import com.telnyx.sdk.core.PageAsync
 import com.telnyx.sdk.core.checkRequired
-import com.telnyx.sdk.models.MetaInfo
 import com.telnyx.sdk.services.async.EnterpriseServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -21,14 +20,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: EnterpriseListParams,
     private val response: EnterpriseListPageResponse,
-) : PageAsync<EnterprisePublic> {
+) : PageAsync<EnterpriseListResponse> {
 
     /**
      * Delegates to [EnterpriseListPageResponse], but gracefully handles missing data.
      *
      * @see EnterpriseListPageResponse.data
      */
-    fun data(): List<EnterprisePublic> =
+    fun data(): List<EnterpriseListResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -36,9 +35,9 @@ private constructor(
      *
      * @see EnterpriseListPageResponse.meta
      */
-    fun meta(): Optional<MetaInfo> = response._meta().getOptional("meta")
+    fun meta(): Optional<EnterpriseListPageResponse.Meta> = response._meta().getOptional("meta")
 
-    override fun items(): List<EnterprisePublic> = data()
+    override fun items(): List<EnterpriseListResponse> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +58,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<EnterpriseListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<EnterprisePublic> =
+    fun autoPager(): AutoPagerAsync<EnterpriseListResponse> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
