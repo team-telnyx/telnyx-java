@@ -5,6 +5,7 @@ package com.telnyx.sdk.models.enterprises
 import com.telnyx.sdk.core.AutoPager
 import com.telnyx.sdk.core.Page
 import com.telnyx.sdk.core.checkRequired
+import com.telnyx.sdk.models.MetaInfo
 import com.telnyx.sdk.services.blocking.EnterpriseService
 import java.util.Objects
 import java.util.Optional
@@ -17,14 +18,14 @@ private constructor(
     private val service: EnterpriseService,
     private val params: EnterpriseListParams,
     private val response: EnterpriseListPageResponse,
-) : Page<EnterpriseListResponse> {
+) : Page<EnterprisePublic> {
 
     /**
      * Delegates to [EnterpriseListPageResponse], but gracefully handles missing data.
      *
      * @see EnterpriseListPageResponse.data
      */
-    fun data(): List<EnterpriseListResponse> =
+    fun data(): List<EnterprisePublic> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -32,9 +33,9 @@ private constructor(
      *
      * @see EnterpriseListPageResponse.meta
      */
-    fun meta(): Optional<EnterpriseListPageResponse.Meta> = response._meta().getOptional("meta")
+    fun meta(): Optional<MetaInfo> = response._meta().getOptional("meta")
 
-    override fun items(): List<EnterpriseListResponse> = data()
+    override fun items(): List<EnterprisePublic> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -54,7 +55,7 @@ private constructor(
 
     override fun nextPage(): EnterpriseListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<EnterpriseListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<EnterprisePublic> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): EnterpriseListParams = params

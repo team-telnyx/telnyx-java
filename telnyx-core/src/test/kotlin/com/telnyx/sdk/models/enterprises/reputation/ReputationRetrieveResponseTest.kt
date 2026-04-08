@@ -15,15 +15,13 @@ internal class ReputationRetrieveResponseTest {
         val reputationRetrieveResponse =
             ReputationRetrieveResponse.builder()
                 .data(
-                    ReputationRetrieveResponse.Data.builder()
-                        .checkFrequency(
-                            ReputationRetrieveResponse.Data.CheckFrequency.BUSINESS_DAILY
-                        )
+                    EnterpriseReputationPublic.builder()
+                        .checkFrequency(EnterpriseReputationPublic.CheckFrequency.BUSINESS_DAILY)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .loaDocumentId("loa_document_id")
                         .addRejectionReason("string")
-                        .status(ReputationRetrieveResponse.Data.Status.PENDING)
+                        .status(EnterpriseReputationPublic.Status.PENDING)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
@@ -31,13 +29,13 @@ internal class ReputationRetrieveResponseTest {
 
         assertThat(reputationRetrieveResponse.data())
             .contains(
-                ReputationRetrieveResponse.Data.builder()
-                    .checkFrequency(ReputationRetrieveResponse.Data.CheckFrequency.BUSINESS_DAILY)
+                EnterpriseReputationPublic.builder()
+                    .checkFrequency(EnterpriseReputationPublic.CheckFrequency.BUSINESS_DAILY)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .loaDocumentId("loa_document_id")
                     .addRejectionReason("string")
-                    .status(ReputationRetrieveResponse.Data.Status.PENDING)
+                    .status(EnterpriseReputationPublic.Status.PENDING)
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
@@ -49,15 +47,13 @@ internal class ReputationRetrieveResponseTest {
         val reputationRetrieveResponse =
             ReputationRetrieveResponse.builder()
                 .data(
-                    ReputationRetrieveResponse.Data.builder()
-                        .checkFrequency(
-                            ReputationRetrieveResponse.Data.CheckFrequency.BUSINESS_DAILY
-                        )
+                    EnterpriseReputationPublic.builder()
+                        .checkFrequency(EnterpriseReputationPublic.CheckFrequency.BUSINESS_DAILY)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                         .loaDocumentId("loa_document_id")
                         .addRejectionReason("string")
-                        .status(ReputationRetrieveResponse.Data.Status.PENDING)
+                        .status(EnterpriseReputationPublic.Status.PENDING)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
