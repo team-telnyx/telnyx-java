@@ -29,6 +29,7 @@ private constructor(
     private val gender: JsonField<Gender>,
     private val label: JsonField<String>,
     private val language: JsonField<String>,
+    private val modelId: JsonField<ModelId>,
     private val name: JsonField<String>,
     private val provider: JsonField<Provider>,
     private val providerSupportedModels: JsonField<List<String>>,
@@ -36,6 +37,7 @@ private constructor(
     private val recordType: JsonField<RecordType>,
     private val sourceVoiceDesignId: JsonField<String>,
     private val sourceVoiceDesignVersion: JsonField<Long>,
+    private val status: JsonField<Status>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -49,6 +51,7 @@ private constructor(
         @JsonProperty("gender") @ExcludeMissing gender: JsonField<Gender> = JsonMissing.of(),
         @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
         @JsonProperty("language") @ExcludeMissing language: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("model_id") @ExcludeMissing modelId: JsonField<ModelId> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("provider") @ExcludeMissing provider: JsonField<Provider> = JsonMissing.of(),
         @JsonProperty("provider_supported_models")
@@ -66,6 +69,7 @@ private constructor(
         @JsonProperty("source_voice_design_version")
         @ExcludeMissing
         sourceVoiceDesignVersion: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -75,6 +79,7 @@ private constructor(
         gender,
         label,
         language,
+        modelId,
         name,
         provider,
         providerSupportedModels,
@@ -82,6 +87,7 @@ private constructor(
         recordType,
         sourceVoiceDesignId,
         sourceVoiceDesignVersion,
+        status,
         updatedAt,
         mutableMapOf(),
     )
@@ -128,6 +134,14 @@ private constructor(
     fun language(): Optional<String> = language.getOptional("language")
 
     /**
+     * TTS model identifier for the voice clone.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun modelId(): Optional<ModelId> = modelId.getOptional("model_id")
+
+    /**
      * Name of the voice clone.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -153,8 +167,8 @@ private constructor(
         providerSupportedModels.getOptional("provider_supported_models")
 
     /**
-     * Provider-specific voice identifier used for TTS synthesis. For Telnyx clones this equals the
-     * clone ID; for Minimax it is the Minimax-assigned voice ID.
+     * Provider-specific voice identifier used for TTS synthesis. May differ from the clone UUID
+     * depending on the provider and model.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -186,6 +200,15 @@ private constructor(
      */
     fun sourceVoiceDesignVersion(): Optional<Long> =
         sourceVoiceDesignVersion.getOptional("source_voice_design_version")
+
+    /**
+     * Clone status. pending for Ultra clones while on-prem import is in progress, active once
+     * ready, failed if verification timed out, expired if not kept alive.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun status(): Optional<Status> = status.getOptional("status")
 
     /**
      * Timestamp when the voice clone was last updated.
@@ -231,6 +254,13 @@ private constructor(
      * Unlike [language], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("language") @ExcludeMissing fun _language(): JsonField<String> = language
+
+    /**
+     * Returns the raw JSON value of [modelId].
+     *
+     * Unlike [modelId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("model_id") @ExcludeMissing fun _modelId(): JsonField<ModelId> = modelId
 
     /**
      * Returns the raw JSON value of [name].
@@ -295,6 +325,13 @@ private constructor(
     fun _sourceVoiceDesignVersion(): JsonField<Long> = sourceVoiceDesignVersion
 
     /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+
+    /**
      * Returns the raw JSON value of [updatedAt].
      *
      * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -329,6 +366,7 @@ private constructor(
         private var gender: JsonField<Gender> = JsonMissing.of()
         private var label: JsonField<String> = JsonMissing.of()
         private var language: JsonField<String> = JsonMissing.of()
+        private var modelId: JsonField<ModelId> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var provider: JsonField<Provider> = JsonMissing.of()
         private var providerSupportedModels: JsonField<MutableList<String>>? = null
@@ -336,6 +374,7 @@ private constructor(
         private var recordType: JsonField<RecordType> = JsonMissing.of()
         private var sourceVoiceDesignId: JsonField<String> = JsonMissing.of()
         private var sourceVoiceDesignVersion: JsonField<Long> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -346,6 +385,7 @@ private constructor(
             gender = voiceCloneData.gender
             label = voiceCloneData.label
             language = voiceCloneData.language
+            modelId = voiceCloneData.modelId
             name = voiceCloneData.name
             provider = voiceCloneData.provider
             providerSupportedModels =
@@ -354,6 +394,7 @@ private constructor(
             recordType = voiceCloneData.recordType
             sourceVoiceDesignId = voiceCloneData.sourceVoiceDesignId
             sourceVoiceDesignVersion = voiceCloneData.sourceVoiceDesignVersion
+            status = voiceCloneData.status
             updatedAt = voiceCloneData.updatedAt
             additionalProperties = voiceCloneData.additionalProperties.toMutableMap()
         }
@@ -426,6 +467,17 @@ private constructor(
          */
         fun language(language: JsonField<String>) = apply { this.language = language }
 
+        /** TTS model identifier for the voice clone. */
+        fun modelId(modelId: ModelId) = modelId(JsonField.of(modelId))
+
+        /**
+         * Sets [Builder.modelId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.modelId] with a well-typed [ModelId] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun modelId(modelId: JsonField<ModelId>) = apply { this.modelId = modelId }
+
         /** Name of the voice clone. */
         fun name(name: String) = name(JsonField.of(name))
 
@@ -477,8 +529,8 @@ private constructor(
         }
 
         /**
-         * Provider-specific voice identifier used for TTS synthesis. For Telnyx clones this equals
-         * the clone ID; for Minimax it is the Minimax-assigned voice ID.
+         * Provider-specific voice identifier used for TTS synthesis. May differ from the clone UUID
+         * depending on the provider and model.
          */
         fun providerVoiceId(providerVoiceId: String?) =
             providerVoiceId(JsonField.ofNullable(providerVoiceId))
@@ -561,6 +613,20 @@ private constructor(
             this.sourceVoiceDesignVersion = sourceVoiceDesignVersion
         }
 
+        /**
+         * Clone status. pending for Ultra clones while on-prem import is in progress, active once
+         * ready, failed if verification timed out, expired if not kept alive.
+         */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun status(status: JsonField<Status>) = apply { this.status = status }
+
         /** Timestamp when the voice clone was last updated. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
@@ -604,6 +670,7 @@ private constructor(
                 gender,
                 label,
                 language,
+                modelId,
                 name,
                 provider,
                 (providerSupportedModels ?: JsonMissing.of()).map { it.toImmutable() },
@@ -611,6 +678,7 @@ private constructor(
                 recordType,
                 sourceVoiceDesignId,
                 sourceVoiceDesignVersion,
+                status,
                 updatedAt,
                 additionalProperties.toMutableMap(),
             )
@@ -628,6 +696,7 @@ private constructor(
         gender().ifPresent { it.validate() }
         label()
         language()
+        modelId().ifPresent { it.validate() }
         name()
         provider().ifPresent { it.validate() }
         providerSupportedModels()
@@ -635,6 +704,7 @@ private constructor(
         recordType().ifPresent { it.validate() }
         sourceVoiceDesignId()
         sourceVoiceDesignVersion()
+        status().ifPresent { it.validate() }
         updatedAt()
         validated = true
     }
@@ -659,6 +729,7 @@ private constructor(
             (gender.asKnown().getOrNull()?.validity() ?: 0) +
             (if (label.asKnown().isPresent) 1 else 0) +
             (if (language.asKnown().isPresent) 1 else 0) +
+            (modelId.asKnown().getOrNull()?.validity() ?: 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (provider.asKnown().getOrNull()?.validity() ?: 0) +
             (providerSupportedModels.asKnown().getOrNull()?.size ?: 0) +
@@ -666,6 +737,7 @@ private constructor(
             (recordType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (sourceVoiceDesignId.asKnown().isPresent) 1 else 0) +
             (if (sourceVoiceDesignVersion.asKnown().isPresent) 1 else 0) +
+            (status.asKnown().getOrNull()?.validity() ?: 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0)
 
     /** Gender of the voice clone. */
@@ -793,6 +865,138 @@ private constructor(
             }
 
             return other is Gender && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** TTS model identifier for the voice clone. */
+    class ModelId @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val QWEN3_TTS = of("Qwen3TTS")
+
+            @JvmField val ULTRA = of("Ultra")
+
+            @JvmField val SPEECH_2_8_TURBO = of("speech-2.8-turbo")
+
+            @JvmStatic fun of(value: String) = ModelId(JsonField.of(value))
+        }
+
+        /** An enum containing [ModelId]'s known values. */
+        enum class Known {
+            QWEN3_TTS,
+            ULTRA,
+            SPEECH_2_8_TURBO,
+        }
+
+        /**
+         * An enum containing [ModelId]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [ModelId] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            QWEN3_TTS,
+            ULTRA,
+            SPEECH_2_8_TURBO,
+            /** An enum member indicating that [ModelId] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                QWEN3_TTS -> Value.QWEN3_TTS
+                ULTRA -> Value.ULTRA
+                SPEECH_2_8_TURBO -> Value.SPEECH_2_8_TURBO
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                QWEN3_TTS -> Known.QWEN3_TTS
+                ULTRA -> Known.ULTRA
+                SPEECH_2_8_TURBO -> Known.SPEECH_2_8_TURBO
+                else -> throw TelnyxInvalidDataException("Unknown ModelId: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): ModelId = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ModelId && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1048,6 +1252,147 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * Clone status. pending for Ultra clones while on-prem import is in progress, active once
+     * ready, failed if verification timed out, expired if not kept alive.
+     */
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val ACTIVE = of("active")
+
+            @JvmField val PENDING = of("pending")
+
+            @JvmField val FAILED = of("failed")
+
+            @JvmField val EXPIRED = of("expired")
+
+            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        /** An enum containing [Status]'s known values. */
+        enum class Known {
+            ACTIVE,
+            PENDING,
+            FAILED,
+            EXPIRED,
+        }
+
+        /**
+         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Status] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            ACTIVE,
+            PENDING,
+            FAILED,
+            EXPIRED,
+            /** An enum member indicating that [Status] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                ACTIVE -> Value.ACTIVE
+                PENDING -> Value.PENDING
+                FAILED -> Value.FAILED
+                EXPIRED -> Value.EXPIRED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                ACTIVE -> Known.ACTIVE
+                PENDING -> Known.PENDING
+                FAILED -> Known.FAILED
+                EXPIRED -> Known.EXPIRED
+                else -> throw TelnyxInvalidDataException("Unknown Status: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): Status = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -1059,6 +1404,7 @@ private constructor(
             gender == other.gender &&
             label == other.label &&
             language == other.language &&
+            modelId == other.modelId &&
             name == other.name &&
             provider == other.provider &&
             providerSupportedModels == other.providerSupportedModels &&
@@ -1066,6 +1412,7 @@ private constructor(
             recordType == other.recordType &&
             sourceVoiceDesignId == other.sourceVoiceDesignId &&
             sourceVoiceDesignVersion == other.sourceVoiceDesignVersion &&
+            status == other.status &&
             updatedAt == other.updatedAt &&
             additionalProperties == other.additionalProperties
     }
@@ -1077,6 +1424,7 @@ private constructor(
             gender,
             label,
             language,
+            modelId,
             name,
             provider,
             providerSupportedModels,
@@ -1084,6 +1432,7 @@ private constructor(
             recordType,
             sourceVoiceDesignId,
             sourceVoiceDesignVersion,
+            status,
             updatedAt,
             additionalProperties,
         )
@@ -1092,5 +1441,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "VoiceCloneData{id=$id, createdAt=$createdAt, gender=$gender, label=$label, language=$language, name=$name, provider=$provider, providerSupportedModels=$providerSupportedModels, providerVoiceId=$providerVoiceId, recordType=$recordType, sourceVoiceDesignId=$sourceVoiceDesignId, sourceVoiceDesignVersion=$sourceVoiceDesignVersion, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "VoiceCloneData{id=$id, createdAt=$createdAt, gender=$gender, label=$label, language=$language, modelId=$modelId, name=$name, provider=$provider, providerSupportedModels=$providerSupportedModels, providerVoiceId=$providerVoiceId, recordType=$recordType, sourceVoiceDesignId=$sourceVoiceDesignId, sourceVoiceDesignVersion=$sourceVoiceDesignVersion, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

@@ -17,7 +17,7 @@ import kotlin.jvm.optionals.getOrNull
  *
  * Returns `404` if reputation has not been enabled for this enterprise.
  */
-class ReputationRetrieveParams
+class ReputationListParams
 private constructor(
     private val enterpriseId: String?,
     private val additionalHeaders: Headers,
@@ -36,13 +36,13 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): ReputationRetrieveParams = builder().build()
+        @JvmStatic fun none(): ReputationListParams = builder().build()
 
-        /** Returns a mutable builder for constructing an instance of [ReputationRetrieveParams]. */
+        /** Returns a mutable builder for constructing an instance of [ReputationListParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [ReputationRetrieveParams]. */
+    /** A builder for [ReputationListParams]. */
     class Builder internal constructor() {
 
         private var enterpriseId: String? = null
@@ -50,10 +50,10 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(reputationRetrieveParams: ReputationRetrieveParams) = apply {
-            enterpriseId = reputationRetrieveParams.enterpriseId
-            additionalHeaders = reputationRetrieveParams.additionalHeaders.toBuilder()
-            additionalQueryParams = reputationRetrieveParams.additionalQueryParams.toBuilder()
+        internal fun from(reputationListParams: ReputationListParams) = apply {
+            enterpriseId = reputationListParams.enterpriseId
+            additionalHeaders = reputationListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = reputationListParams.additionalQueryParams.toBuilder()
         }
 
         fun enterpriseId(enterpriseId: String?) = apply { this.enterpriseId = enterpriseId }
@@ -160,12 +160,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [ReputationRetrieveParams].
+         * Returns an immutable instance of [ReputationListParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): ReputationRetrieveParams =
-            ReputationRetrieveParams(
+        fun build(): ReputationListParams =
+            ReputationListParams(
                 enterpriseId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -187,7 +187,7 @@ private constructor(
             return true
         }
 
-        return other is ReputationRetrieveParams &&
+        return other is ReputationListParams &&
             enterpriseId == other.enterpriseId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -197,5 +197,5 @@ private constructor(
         Objects.hash(enterpriseId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ReputationRetrieveParams{enterpriseId=$enterpriseId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ReputationListParams{enterpriseId=$enterpriseId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

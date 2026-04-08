@@ -29,12 +29,12 @@ internal class VoiceCloneServiceTest {
 
         val voiceClone =
             voiceCloneService.create(
-                VoiceCloneCreateParams.builder()
-                    .gender(VoiceCloneCreateParams.Gender.MALE)
+                VoiceCloneCreateParams.Body.TelnyxDesignClone.builder()
+                    .gender(VoiceCloneCreateParams.Body.TelnyxDesignClone.Gender.MALE)
                     .language("en")
                     .name("clone-narrator")
                     .voiceDesignId("550e8400-e29b-41d4-a716-446655440000")
-                    .provider(VoiceCloneCreateParams.Provider.TELNYX)
+                    .provider(VoiceCloneCreateParams.Body.TelnyxDesignClone.Provider.TELNYX)
                     .build()
             )
 
@@ -88,13 +88,18 @@ internal class VoiceCloneServiceTest {
 
         val response =
             voiceCloneService.createFromUpload(
-                VoiceCloneCreateFromUploadParams.builder()
+                VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone.builder()
                     .audioFile("Example data".byteInputStream())
+                    .gender(VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone.Gender.MALE)
                     .language("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf")
                     .name("name")
-                    .gender(VoiceCloneCreateFromUploadParams.Gender.MALE)
+                    .provider(
+                        VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone.Provider.TELNYX
+                    )
                     .label("label")
-                    .provider(VoiceCloneCreateFromUploadParams.Provider.TELNYX)
+                    .modelId(
+                        VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone.ModelId.QWEN3_TTS
+                    )
                     .refText("ref_text")
                     .build()
             )

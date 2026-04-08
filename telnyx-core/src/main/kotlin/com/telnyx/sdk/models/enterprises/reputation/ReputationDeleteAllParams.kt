@@ -21,7 +21,7 @@ import kotlin.jvm.optionals.getOrNull
  *
  * **Note:** Can only be performed on `approved` reputation settings.
  */
-class ReputationDisableParams
+class ReputationDeleteAllParams
 private constructor(
     private val enterpriseId: String?,
     private val additionalHeaders: Headers,
@@ -44,13 +44,15 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): ReputationDisableParams = builder().build()
+        @JvmStatic fun none(): ReputationDeleteAllParams = builder().build()
 
-        /** Returns a mutable builder for constructing an instance of [ReputationDisableParams]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [ReputationDeleteAllParams].
+         */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [ReputationDisableParams]. */
+    /** A builder for [ReputationDeleteAllParams]. */
     class Builder internal constructor() {
 
         private var enterpriseId: String? = null
@@ -59,12 +61,12 @@ private constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(reputationDisableParams: ReputationDisableParams) = apply {
-            enterpriseId = reputationDisableParams.enterpriseId
-            additionalHeaders = reputationDisableParams.additionalHeaders.toBuilder()
-            additionalQueryParams = reputationDisableParams.additionalQueryParams.toBuilder()
+        internal fun from(reputationDeleteAllParams: ReputationDeleteAllParams) = apply {
+            enterpriseId = reputationDeleteAllParams.enterpriseId
+            additionalHeaders = reputationDeleteAllParams.additionalHeaders.toBuilder()
+            additionalQueryParams = reputationDeleteAllParams.additionalQueryParams.toBuilder()
             additionalBodyProperties =
-                reputationDisableParams.additionalBodyProperties.toMutableMap()
+                reputationDeleteAllParams.additionalBodyProperties.toMutableMap()
         }
 
         fun enterpriseId(enterpriseId: String?) = apply { this.enterpriseId = enterpriseId }
@@ -193,12 +195,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [ReputationDisableParams].
+         * Returns an immutable instance of [ReputationDeleteAllParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): ReputationDisableParams =
-            ReputationDisableParams(
+        fun build(): ReputationDeleteAllParams =
+            ReputationDeleteAllParams(
                 enterpriseId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -224,7 +226,7 @@ private constructor(
             return true
         }
 
-        return other is ReputationDisableParams &&
+        return other is ReputationDeleteAllParams &&
             enterpriseId == other.enterpriseId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams &&
@@ -240,5 +242,5 @@ private constructor(
         )
 
     override fun toString() =
-        "ReputationDisableParams{enterpriseId=$enterpriseId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "ReputationDeleteAllParams{enterpriseId=$enterpriseId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

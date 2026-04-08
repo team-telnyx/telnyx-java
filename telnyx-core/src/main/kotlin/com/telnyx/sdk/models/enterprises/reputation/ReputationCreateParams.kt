@@ -45,7 +45,7 @@ import kotlin.jvm.optionals.getOrNull
  * - `monthly` — Once per month
  * - `never` — Manual refresh only
  */
-class ReputationEnableParams
+class ReputationCreateParams
 private constructor(
     private val enterpriseId: String?,
     private val body: Body,
@@ -98,7 +98,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [ReputationEnableParams].
+         * Returns a mutable builder for constructing an instance of [ReputationCreateParams].
          *
          * The following fields are required:
          * ```java
@@ -108,7 +108,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [ReputationEnableParams]. */
+    /** A builder for [ReputationCreateParams]. */
     class Builder internal constructor() {
 
         private var enterpriseId: String? = null
@@ -117,11 +117,11 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(reputationEnableParams: ReputationEnableParams) = apply {
-            enterpriseId = reputationEnableParams.enterpriseId
-            body = reputationEnableParams.body.toBuilder()
-            additionalHeaders = reputationEnableParams.additionalHeaders.toBuilder()
-            additionalQueryParams = reputationEnableParams.additionalQueryParams.toBuilder()
+        internal fun from(reputationCreateParams: ReputationCreateParams) = apply {
+            enterpriseId = reputationCreateParams.enterpriseId
+            body = reputationCreateParams.body.toBuilder()
+            additionalHeaders = reputationCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = reputationCreateParams.additionalQueryParams.toBuilder()
         }
 
         fun enterpriseId(enterpriseId: String?) = apply { this.enterpriseId = enterpriseId }
@@ -289,7 +289,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [ReputationEnableParams].
+         * Returns an immutable instance of [ReputationCreateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -300,8 +300,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): ReputationEnableParams =
-            ReputationEnableParams(
+        fun build(): ReputationCreateParams =
+            ReputationCreateParams(
                 enterpriseId,
                 body.build(),
                 additionalHeaders.build(),
@@ -697,7 +697,7 @@ private constructor(
             return true
         }
 
-        return other is ReputationEnableParams &&
+        return other is ReputationCreateParams &&
             enterpriseId == other.enterpriseId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
@@ -708,5 +708,5 @@ private constructor(
         Objects.hash(enterpriseId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ReputationEnableParams{enterpriseId=$enterpriseId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ReputationCreateParams{enterpriseId=$enterpriseId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
