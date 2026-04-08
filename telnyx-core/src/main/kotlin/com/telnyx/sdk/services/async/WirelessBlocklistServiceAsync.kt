@@ -83,23 +83,41 @@ interface WirelessBlocklistServiceAsync {
         retrieve(id, WirelessBlocklistRetrieveParams.none(), requestOptions)
 
     /** Update a Wireless Blocklist. */
-    fun update(): CompletableFuture<WirelessBlocklistUpdateResponse> =
-        update(WirelessBlocklistUpdateParams.none())
+    fun update(id: String): CompletableFuture<WirelessBlocklistUpdateResponse> =
+        update(id, WirelessBlocklistUpdateParams.none())
 
     /** @see update */
     fun update(
+        id: String,
         params: WirelessBlocklistUpdateParams = WirelessBlocklistUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<WirelessBlocklistUpdateResponse> =
+        update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see update */
+    fun update(
+        id: String,
+        params: WirelessBlocklistUpdateParams = WirelessBlocklistUpdateParams.none(),
+    ): CompletableFuture<WirelessBlocklistUpdateResponse> =
+        update(id, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        params: WirelessBlocklistUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WirelessBlocklistUpdateResponse>
 
     /** @see update */
     fun update(
-        params: WirelessBlocklistUpdateParams = WirelessBlocklistUpdateParams.none()
+        params: WirelessBlocklistUpdateParams
     ): CompletableFuture<WirelessBlocklistUpdateResponse> = update(params, RequestOptions.none())
 
     /** @see update */
-    fun update(requestOptions: RequestOptions): CompletableFuture<WirelessBlocklistUpdateResponse> =
-        update(WirelessBlocklistUpdateParams.none(), requestOptions)
+    fun update(
+        id: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<WirelessBlocklistUpdateResponse> =
+        update(id, WirelessBlocklistUpdateParams.none(), requestOptions)
 
     /** Get all Wireless Blocklists belonging to the user. */
     fun list(): CompletableFuture<WirelessBlocklistListPageAsync> =
@@ -231,29 +249,47 @@ interface WirelessBlocklistServiceAsync {
             retrieve(id, WirelessBlocklistRetrieveParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `patch /wireless_blocklists`, but is otherwise the same
-         * as [WirelessBlocklistServiceAsync.update].
+         * Returns a raw HTTP response for `patch /wireless_blocklists/{id}`, but is otherwise the
+         * same as [WirelessBlocklistServiceAsync.update].
          */
-        fun update(): CompletableFuture<HttpResponseFor<WirelessBlocklistUpdateResponse>> =
-            update(WirelessBlocklistUpdateParams.none())
+        fun update(
+            id: String
+        ): CompletableFuture<HttpResponseFor<WirelessBlocklistUpdateResponse>> =
+            update(id, WirelessBlocklistUpdateParams.none())
 
         /** @see update */
         fun update(
+            id: String,
             params: WirelessBlocklistUpdateParams = WirelessBlocklistUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<WirelessBlocklistUpdateResponse>> =
+            update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see update */
+        fun update(
+            id: String,
+            params: WirelessBlocklistUpdateParams = WirelessBlocklistUpdateParams.none(),
+        ): CompletableFuture<HttpResponseFor<WirelessBlocklistUpdateResponse>> =
+            update(id, params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            params: WirelessBlocklistUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<WirelessBlocklistUpdateResponse>>
 
         /** @see update */
         fun update(
-            params: WirelessBlocklistUpdateParams = WirelessBlocklistUpdateParams.none()
+            params: WirelessBlocklistUpdateParams
         ): CompletableFuture<HttpResponseFor<WirelessBlocklistUpdateResponse>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
-            requestOptions: RequestOptions
+            id: String,
+            requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<WirelessBlocklistUpdateResponse>> =
-            update(WirelessBlocklistUpdateParams.none(), requestOptions)
+            update(id, WirelessBlocklistUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /wireless_blocklists`, but is otherwise the same as

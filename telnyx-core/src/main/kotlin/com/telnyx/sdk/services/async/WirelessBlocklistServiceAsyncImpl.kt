@@ -64,7 +64,7 @@ internal constructor(private val clientOptions: ClientOptions) : WirelessBlockli
         params: WirelessBlocklistUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<WirelessBlocklistUpdateResponse> =
-        // patch /wireless_blocklists
+        // patch /wireless_blocklists/{id}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
     override fun list(
@@ -165,11 +165,14 @@ internal constructor(private val clientOptions: ClientOptions) : WirelessBlockli
             params: WirelessBlocklistUpdateParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<WirelessBlocklistUpdateResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("wireless_blocklists")
+                    .addPathSegments("wireless_blocklists", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)

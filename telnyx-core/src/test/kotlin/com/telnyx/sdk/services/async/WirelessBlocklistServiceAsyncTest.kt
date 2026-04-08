@@ -52,8 +52,8 @@ internal class WirelessBlocklistServiceAsyncTest {
         val wirelessBlocklistFuture =
             wirelessBlocklistServiceAsync.update(
                 WirelessBlocklistUpdateParams.builder()
+                    .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .name("My Wireless Blocklist")
-                    .type(WirelessBlocklistUpdateParams.Type.COUNTRY)
                     .addValue("CA")
                     .addValue("US")
                     .build()
