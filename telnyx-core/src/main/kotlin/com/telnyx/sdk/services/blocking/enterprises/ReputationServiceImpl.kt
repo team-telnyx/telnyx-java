@@ -17,11 +17,11 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.enterprises.reputation.ReputationDisableParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableResponse
-import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveResponse
+import com.telnyx.sdk.models.enterprises.reputation.ReputationCreateParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationCreateResponse
+import com.telnyx.sdk.models.enterprises.reputation.ReputationDeleteAllParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationListParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationListResponse
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyResponse
 import com.telnyx.sdk.services.blocking.enterprises.reputation.NumberService
@@ -50,24 +50,24 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
      */
     override fun numbers(): NumberService = numbers
 
-    override fun retrieve(
-        params: ReputationRetrieveParams,
+    override fun create(
+        params: ReputationCreateParams,
         requestOptions: RequestOptions,
-    ): ReputationRetrieveResponse =
-        // get /enterprises/{enterprise_id}/reputation
-        withRawResponse().retrieve(params, requestOptions).parse()
-
-    override fun disable(params: ReputationDisableParams, requestOptions: RequestOptions) {
-        // delete /enterprises/{enterprise_id}/reputation
-        withRawResponse().disable(params, requestOptions)
-    }
-
-    override fun enable(
-        params: ReputationEnableParams,
-        requestOptions: RequestOptions,
-    ): ReputationEnableResponse =
+    ): ReputationCreateResponse =
         // post /enterprises/{enterprise_id}/reputation
-        withRawResponse().enable(params, requestOptions).parse()
+        withRawResponse().create(params, requestOptions).parse()
+
+    override fun list(
+        params: ReputationListParams,
+        requestOptions: RequestOptions,
+    ): ReputationListResponse =
+        // get /enterprises/{enterprise_id}/reputation
+        withRawResponse().list(params, requestOptions).parse()
+
+    override fun deleteAll(params: ReputationDeleteAllParams, requestOptions: RequestOptions) {
+        // delete /enterprises/{enterprise_id}/reputation
+        withRawResponse().deleteAll(params, requestOptions)
+    }
 
     override fun updateFrequency(
         params: ReputationUpdateFrequencyParams,
@@ -99,13 +99,44 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
          */
         override fun numbers(): NumberService.WithRawResponse = numbers
 
-        private val retrieveHandler: Handler<ReputationRetrieveResponse> =
-            jsonHandler<ReputationRetrieveResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<ReputationCreateResponse> =
+            jsonHandler<ReputationCreateResponse>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: ReputationRetrieveParams,
+        override fun create(
+            params: ReputationCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ReputationRetrieveResponse> {
+        ): HttpResponseFor<ReputationCreateResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("enterpriseId", params.enterpriseId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("enterprises", params._pathParam(0), "reputation")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listHandler: Handler<ReputationListResponse> =
+            jsonHandler<ReputationListResponse>(clientOptions.jsonMapper)
+
+        override fun list(
+            params: ReputationListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ReputationListResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())
@@ -120,7 +151,7 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { retrieveHandler.handle(it) }
+                    .use { listHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -129,10 +160,10 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val disableHandler: Handler<Void?> = emptyHandler()
+        private val deleteAllHandler: Handler<Void?> = emptyHandler()
 
-        override fun disable(
-            params: ReputationDisableParams,
+        override fun deleteAll(
+            params: ReputationDeleteAllParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
@@ -149,38 +180,7 @@ class ReputationServiceImpl internal constructor(private val clientOptions: Clie
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { disableHandler.handle(it) }
-            }
-        }
-
-        private val enableHandler: Handler<ReputationEnableResponse> =
-            jsonHandler<ReputationEnableResponse>(clientOptions.jsonMapper)
-
-        override fun enable(
-            params: ReputationEnableParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ReputationEnableResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("enterpriseId", params.enterpriseId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("enterprises", params._pathParam(0), "reputation")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { enableHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
+                response.use { deleteAllHandler.handle(it) }
             }
         }
 

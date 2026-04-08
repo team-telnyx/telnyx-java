@@ -3,13 +3,30 @@
 package com.telnyx.sdk.services.blocking.enterprises.reputation
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateParams
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociateParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberCreateParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDeleteParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class NumberServiceTest {
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun create() {
+        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
+        val numberService = client.enterprises().reputation().numbers()
+
+        val number =
+            numberService.create(
+                NumberCreateParams.builder()
+                    .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+                    .addPhoneNumber("+16035551234")
+                    .build()
+            )
+
+        number.validate()
+    }
 
     @Disabled("Mock server tests are disabled")
     @Test
@@ -42,29 +59,12 @@ internal class NumberServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun associate() {
+    fun delete() {
         val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
         val numberService = client.enterprises().reputation().numbers()
 
-        val response =
-            numberService.associate(
-                NumberAssociateParams.builder()
-                    .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-                    .addPhoneNumber("+16035551234")
-                    .build()
-            )
-
-        response.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun disassociate() {
-        val client = TelnyxOkHttpClient.builder().apiKey("My API Key").build()
-        val numberService = client.enterprises().reputation().numbers()
-
-        numberService.disassociate(
-            NumberDisassociateParams.builder()
+        numberService.delete(
+            NumberDeleteParams.builder()
                 .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .phoneNumber("+16035551234")
                 .build()

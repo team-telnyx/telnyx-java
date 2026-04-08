@@ -7,11 +7,11 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.enterprises.reputation.ReputationDisableParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableResponse
-import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveResponse
+import com.telnyx.sdk.models.enterprises.reputation.ReputationCreateParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationCreateResponse
+import com.telnyx.sdk.models.enterprises.reputation.ReputationDeleteAllParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationListParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationListResponse
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyResponse
 import com.telnyx.sdk.services.blocking.enterprises.reputation.NumberService
@@ -39,83 +39,6 @@ interface ReputationService {
     fun numbers(): NumberService
 
     /**
-     * Retrieve the current Number Reputation settings for an enterprise.
-     *
-     * Returns the enrollment status (`pending`, `approved`, `rejected`, `deleted`), check
-     * frequency, and any rejection reasons.
-     *
-     * Returns `404` if reputation has not been enabled for this enterprise.
-     */
-    fun retrieve(enterpriseId: String): ReputationRetrieveResponse =
-        retrieve(enterpriseId, ReputationRetrieveParams.none())
-
-    /** @see retrieve */
-    fun retrieve(
-        enterpriseId: String,
-        params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ReputationRetrieveResponse =
-        retrieve(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-    /** @see retrieve */
-    fun retrieve(
-        enterpriseId: String,
-        params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
-    ): ReputationRetrieveResponse = retrieve(enterpriseId, params, RequestOptions.none())
-
-    /** @see retrieve */
-    fun retrieve(
-        params: ReputationRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ReputationRetrieveResponse
-
-    /** @see retrieve */
-    fun retrieve(params: ReputationRetrieveParams): ReputationRetrieveResponse =
-        retrieve(params, RequestOptions.none())
-
-    /** @see retrieve */
-    fun retrieve(enterpriseId: String, requestOptions: RequestOptions): ReputationRetrieveResponse =
-        retrieve(enterpriseId, ReputationRetrieveParams.none(), requestOptions)
-
-    /**
-     * Disable Number Reputation for an enterprise.
-     *
-     * This will:
-     * - Delete the reputation settings record
-     * - Log the deletion for audit purposes
-     * - Stop all future automated reputation checks
-     *
-     * **Note:** Can only be performed on `approved` reputation settings.
-     */
-    fun disable(enterpriseId: String) = disable(enterpriseId, ReputationDisableParams.none())
-
-    /** @see disable */
-    fun disable(
-        enterpriseId: String,
-        params: ReputationDisableParams = ReputationDisableParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) = disable(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-    /** @see disable */
-    fun disable(
-        enterpriseId: String,
-        params: ReputationDisableParams = ReputationDisableParams.none(),
-    ) = disable(enterpriseId, params, RequestOptions.none())
-
-    /** @see disable */
-    fun disable(
-        params: ReputationDisableParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    )
-
-    /** @see disable */
-    fun disable(params: ReputationDisableParams) = disable(params, RequestOptions.none())
-
-    /** @see disable */
-    fun disable(enterpriseId: String, requestOptions: RequestOptions) =
-        disable(enterpriseId, ReputationDisableParams.none(), requestOptions)
-
-    /**
      * Enable Number Reputation service for an enterprise.
      *
      * **Requirements:**
@@ -139,26 +62,103 @@ interface ReputationService {
      * - `monthly` — Once per month
      * - `never` — Manual refresh only
      */
-    fun enable(enterpriseId: String, params: ReputationEnableParams): ReputationEnableResponse =
-        enable(enterpriseId, params, RequestOptions.none())
+    fun create(enterpriseId: String, params: ReputationCreateParams): ReputationCreateResponse =
+        create(enterpriseId, params, RequestOptions.none())
 
-    /** @see enable */
-    fun enable(
+    /** @see create */
+    fun create(
         enterpriseId: String,
-        params: ReputationEnableParams,
+        params: ReputationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ReputationEnableResponse =
-        enable(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+    ): ReputationCreateResponse =
+        create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
-    /** @see enable */
-    fun enable(params: ReputationEnableParams): ReputationEnableResponse =
-        enable(params, RequestOptions.none())
+    /** @see create */
+    fun create(params: ReputationCreateParams): ReputationCreateResponse =
+        create(params, RequestOptions.none())
 
-    /** @see enable */
-    fun enable(
-        params: ReputationEnableParams,
+    /** @see create */
+    fun create(
+        params: ReputationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ReputationEnableResponse
+    ): ReputationCreateResponse
+
+    /**
+     * Retrieve the current Number Reputation settings for an enterprise.
+     *
+     * Returns the enrollment status (`pending`, `approved`, `rejected`, `deleted`), check
+     * frequency, and any rejection reasons.
+     *
+     * Returns `404` if reputation has not been enabled for this enterprise.
+     */
+    fun list(enterpriseId: String): ReputationListResponse =
+        list(enterpriseId, ReputationListParams.none())
+
+    /** @see list */
+    fun list(
+        enterpriseId: String,
+        params: ReputationListParams = ReputationListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ReputationListResponse =
+        list(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+    /** @see list */
+    fun list(
+        enterpriseId: String,
+        params: ReputationListParams = ReputationListParams.none(),
+    ): ReputationListResponse = list(enterpriseId, params, RequestOptions.none())
+
+    /** @see list */
+    fun list(
+        params: ReputationListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ReputationListResponse
+
+    /** @see list */
+    fun list(params: ReputationListParams): ReputationListResponse =
+        list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(enterpriseId: String, requestOptions: RequestOptions): ReputationListResponse =
+        list(enterpriseId, ReputationListParams.none(), requestOptions)
+
+    /**
+     * Disable Number Reputation for an enterprise.
+     *
+     * This will:
+     * - Delete the reputation settings record
+     * - Log the deletion for audit purposes
+     * - Stop all future automated reputation checks
+     *
+     * **Note:** Can only be performed on `approved` reputation settings.
+     */
+    fun deleteAll(enterpriseId: String) = deleteAll(enterpriseId, ReputationDeleteAllParams.none())
+
+    /** @see deleteAll */
+    fun deleteAll(
+        enterpriseId: String,
+        params: ReputationDeleteAllParams = ReputationDeleteAllParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = deleteAll(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+    /** @see deleteAll */
+    fun deleteAll(
+        enterpriseId: String,
+        params: ReputationDeleteAllParams = ReputationDeleteAllParams.none(),
+    ) = deleteAll(enterpriseId, params, RequestOptions.none())
+
+    /** @see deleteAll */
+    fun deleteAll(
+        params: ReputationDeleteAllParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** @see deleteAll */
+    fun deleteAll(params: ReputationDeleteAllParams) = deleteAll(params, RequestOptions.none())
+
+    /** @see deleteAll */
+    fun deleteAll(enterpriseId: String, requestOptions: RequestOptions) =
+        deleteAll(enterpriseId, ReputationDeleteAllParams.none(), requestOptions)
 
     /**
      * Update how often reputation data is automatically refreshed.
@@ -218,123 +218,122 @@ interface ReputationService {
         fun numbers(): NumberService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /enterprises/{enterprise_id}/reputation`, but is
-         * otherwise the same as [ReputationService.retrieve].
+         * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/reputation`, but is
+         * otherwise the same as [ReputationService.create].
          */
         @MustBeClosed
-        fun retrieve(enterpriseId: String): HttpResponseFor<ReputationRetrieveResponse> =
-            retrieve(enterpriseId, ReputationRetrieveParams.none())
-
-        /** @see retrieve */
-        @MustBeClosed
-        fun retrieve(
+        fun create(
             enterpriseId: String,
-            params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ReputationRetrieveResponse> =
-            retrieve(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+            params: ReputationCreateParams,
+        ): HttpResponseFor<ReputationCreateResponse> =
+            create(enterpriseId, params, RequestOptions.none())
 
-        /** @see retrieve */
+        /** @see create */
         @MustBeClosed
-        fun retrieve(
+        fun create(
             enterpriseId: String,
-            params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
-        ): HttpResponseFor<ReputationRetrieveResponse> =
-            retrieve(enterpriseId, params, RequestOptions.none())
-
-        /** @see retrieve */
-        @MustBeClosed
-        fun retrieve(
-            params: ReputationRetrieveParams,
+            params: ReputationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ReputationRetrieveResponse>
+        ): HttpResponseFor<ReputationCreateResponse> =
+            create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
-        /** @see retrieve */
+        /** @see create */
         @MustBeClosed
-        fun retrieve(
-            params: ReputationRetrieveParams
-        ): HttpResponseFor<ReputationRetrieveResponse> = retrieve(params, RequestOptions.none())
+        fun create(params: ReputationCreateParams): HttpResponseFor<ReputationCreateResponse> =
+            create(params, RequestOptions.none())
 
-        /** @see retrieve */
+        /** @see create */
         @MustBeClosed
-        fun retrieve(
+        fun create(
+            params: ReputationCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ReputationCreateResponse>
+
+        /**
+         * Returns a raw HTTP response for `get /enterprises/{enterprise_id}/reputation`, but is
+         * otherwise the same as [ReputationService.list].
+         */
+        @MustBeClosed
+        fun list(enterpriseId: String): HttpResponseFor<ReputationListResponse> =
+            list(enterpriseId, ReputationListParams.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            enterpriseId: String,
+            params: ReputationListParams = ReputationListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ReputationListResponse> =
+            list(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            enterpriseId: String,
+            params: ReputationListParams = ReputationListParams.none(),
+        ): HttpResponseFor<ReputationListResponse> =
+            list(enterpriseId, params, RequestOptions.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            params: ReputationListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ReputationListResponse>
+
+        /** @see list */
+        @MustBeClosed
+        fun list(params: ReputationListParams): HttpResponseFor<ReputationListResponse> =
+            list(params, RequestOptions.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
             enterpriseId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ReputationRetrieveResponse> =
-            retrieve(enterpriseId, ReputationRetrieveParams.none(), requestOptions)
+        ): HttpResponseFor<ReputationListResponse> =
+            list(enterpriseId, ReputationListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `delete /enterprises/{enterprise_id}/reputation`, but is
-         * otherwise the same as [ReputationService.disable].
+         * otherwise the same as [ReputationService.deleteAll].
          */
         @MustBeClosed
-        fun disable(enterpriseId: String): HttpResponse =
-            disable(enterpriseId, ReputationDisableParams.none())
+        fun deleteAll(enterpriseId: String): HttpResponse =
+            deleteAll(enterpriseId, ReputationDeleteAllParams.none())
 
-        /** @see disable */
+        /** @see deleteAll */
         @MustBeClosed
-        fun disable(
+        fun deleteAll(
             enterpriseId: String,
-            params: ReputationDisableParams = ReputationDisableParams.none(),
+            params: ReputationDeleteAllParams = ReputationDeleteAllParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse =
-            disable(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+            deleteAll(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
-        /** @see disable */
+        /** @see deleteAll */
         @MustBeClosed
-        fun disable(
+        fun deleteAll(
             enterpriseId: String,
-            params: ReputationDisableParams = ReputationDisableParams.none(),
-        ): HttpResponse = disable(enterpriseId, params, RequestOptions.none())
+            params: ReputationDeleteAllParams = ReputationDeleteAllParams.none(),
+        ): HttpResponse = deleteAll(enterpriseId, params, RequestOptions.none())
 
-        /** @see disable */
+        /** @see deleteAll */
         @MustBeClosed
-        fun disable(
-            params: ReputationDisableParams,
+        fun deleteAll(
+            params: ReputationDeleteAllParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see disable */
+        /** @see deleteAll */
         @MustBeClosed
-        fun disable(params: ReputationDisableParams): HttpResponse =
-            disable(params, RequestOptions.none())
+        fun deleteAll(params: ReputationDeleteAllParams): HttpResponse =
+            deleteAll(params, RequestOptions.none())
 
-        /** @see disable */
+        /** @see deleteAll */
         @MustBeClosed
-        fun disable(enterpriseId: String, requestOptions: RequestOptions): HttpResponse =
-            disable(enterpriseId, ReputationDisableParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/reputation`, but is
-         * otherwise the same as [ReputationService.enable].
-         */
-        @MustBeClosed
-        fun enable(
-            enterpriseId: String,
-            params: ReputationEnableParams,
-        ): HttpResponseFor<ReputationEnableResponse> =
-            enable(enterpriseId, params, RequestOptions.none())
-
-        /** @see enable */
-        @MustBeClosed
-        fun enable(
-            enterpriseId: String,
-            params: ReputationEnableParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ReputationEnableResponse> =
-            enable(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-        /** @see enable */
-        @MustBeClosed
-        fun enable(params: ReputationEnableParams): HttpResponseFor<ReputationEnableResponse> =
-            enable(params, RequestOptions.none())
-
-        /** @see enable */
-        @MustBeClosed
-        fun enable(
-            params: ReputationEnableParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ReputationEnableResponse>
+        fun deleteAll(enterpriseId: String, requestOptions: RequestOptions): HttpResponse =
+            deleteAll(enterpriseId, ReputationDeleteAllParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch

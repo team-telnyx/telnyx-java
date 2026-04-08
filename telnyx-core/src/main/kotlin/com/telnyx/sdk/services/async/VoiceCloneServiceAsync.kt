@@ -47,6 +47,43 @@ interface VoiceCloneServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<VoiceCloneCreateResponse>
 
+    /** @see create */
+    fun create(
+        body: VoiceCloneCreateParams.Body,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<VoiceCloneCreateResponse> =
+        create(VoiceCloneCreateParams.builder().body(body).build(), requestOptions)
+
+    /** @see create */
+    fun create(body: VoiceCloneCreateParams.Body): CompletableFuture<VoiceCloneCreateResponse> =
+        create(body, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        telnyxDesignClone: VoiceCloneCreateParams.Body.TelnyxDesignClone,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<VoiceCloneCreateResponse> =
+        create(VoiceCloneCreateParams.Body.ofTelnyxDesignClone(telnyxDesignClone), requestOptions)
+
+    /** @see create */
+    fun create(
+        telnyxDesignClone: VoiceCloneCreateParams.Body.TelnyxDesignClone
+    ): CompletableFuture<VoiceCloneCreateResponse> =
+        create(telnyxDesignClone, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        minimaxDesignClone: VoiceCloneCreateParams.Body.MinimaxDesignClone,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<VoiceCloneCreateResponse> =
+        create(VoiceCloneCreateParams.Body.ofMinimaxDesignClone(minimaxDesignClone), requestOptions)
+
+    /** @see create */
+    fun create(
+        minimaxDesignClone: VoiceCloneCreateParams.Body.MinimaxDesignClone
+    ): CompletableFuture<VoiceCloneCreateResponse> =
+        create(minimaxDesignClone, RequestOptions.none())
+
     /** Updates the name, language, or gender of a voice clone. */
     fun update(
         id: String,
@@ -122,7 +159,7 @@ interface VoiceCloneServiceAsync {
     /**
      * Creates a new voice clone by uploading an audio file directly. Supported formats: WAV, MP3,
      * FLAC, OGG, M4A. For best results, provide 5–10 seconds of clear speech. Maximum file size:
-     * 2MB.
+     * 5MB for Telnyx, 20MB for Minimax.
      */
     fun createFromUpload(
         params: VoiceCloneCreateFromUploadParams
@@ -134,6 +171,70 @@ interface VoiceCloneServiceAsync {
         params: VoiceCloneCreateFromUploadParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<VoiceCloneCreateFromUploadResponse>
+
+    /** @see createFromUpload */
+    fun createFromUpload(
+        body: VoiceCloneCreateFromUploadParams.Body,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<VoiceCloneCreateFromUploadResponse> =
+        createFromUpload(
+            VoiceCloneCreateFromUploadParams.builder().body(body).build(),
+            requestOptions,
+        )
+
+    /** @see createFromUpload */
+    fun createFromUpload(
+        body: VoiceCloneCreateFromUploadParams.Body
+    ): CompletableFuture<VoiceCloneCreateFromUploadResponse> =
+        createFromUpload(body, RequestOptions.none())
+
+    /** @see createFromUpload */
+    fun createFromUpload(
+        telnyxQwen3TtsClone: VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<VoiceCloneCreateFromUploadResponse> =
+        createFromUpload(
+            VoiceCloneCreateFromUploadParams.Body.ofTelnyxQwen3TtsClone(telnyxQwen3TtsClone),
+            requestOptions,
+        )
+
+    /** @see createFromUpload */
+    fun createFromUpload(
+        telnyxQwen3TtsClone: VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone
+    ): CompletableFuture<VoiceCloneCreateFromUploadResponse> =
+        createFromUpload(telnyxQwen3TtsClone, RequestOptions.none())
+
+    /** @see createFromUpload */
+    fun createFromUpload(
+        telnyxUltraClone: VoiceCloneCreateFromUploadParams.Body.TelnyxUltraClone,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<VoiceCloneCreateFromUploadResponse> =
+        createFromUpload(
+            VoiceCloneCreateFromUploadParams.Body.ofTelnyxUltraClone(telnyxUltraClone),
+            requestOptions,
+        )
+
+    /** @see createFromUpload */
+    fun createFromUpload(
+        telnyxUltraClone: VoiceCloneCreateFromUploadParams.Body.TelnyxUltraClone
+    ): CompletableFuture<VoiceCloneCreateFromUploadResponse> =
+        createFromUpload(telnyxUltraClone, RequestOptions.none())
+
+    /** @see createFromUpload */
+    fun createFromUpload(
+        minimaxClone: VoiceCloneCreateFromUploadParams.Body.MinimaxClone,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<VoiceCloneCreateFromUploadResponse> =
+        createFromUpload(
+            VoiceCloneCreateFromUploadParams.Body.ofMinimaxClone(minimaxClone),
+            requestOptions,
+        )
+
+    /** @see createFromUpload */
+    fun createFromUpload(
+        minimaxClone: VoiceCloneCreateFromUploadParams.Body.MinimaxClone
+    ): CompletableFuture<VoiceCloneCreateFromUploadResponse> =
+        createFromUpload(minimaxClone, RequestOptions.none())
 
     /** Downloads the WAV audio sample that was used to create the voice clone. */
     fun downloadSample(id: String): CompletableFuture<HttpResponse> =
@@ -199,6 +300,51 @@ interface VoiceCloneServiceAsync {
             params: VoiceCloneCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<VoiceCloneCreateResponse>>
+
+        /** @see create */
+        fun create(
+            body: VoiceCloneCreateParams.Body,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateResponse>> =
+            create(VoiceCloneCreateParams.builder().body(body).build(), requestOptions)
+
+        /** @see create */
+        fun create(
+            body: VoiceCloneCreateParams.Body
+        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateResponse>> =
+            create(body, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            telnyxDesignClone: VoiceCloneCreateParams.Body.TelnyxDesignClone,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateResponse>> =
+            create(
+                VoiceCloneCreateParams.Body.ofTelnyxDesignClone(telnyxDesignClone),
+                requestOptions,
+            )
+
+        /** @see create */
+        fun create(
+            telnyxDesignClone: VoiceCloneCreateParams.Body.TelnyxDesignClone
+        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateResponse>> =
+            create(telnyxDesignClone, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            minimaxDesignClone: VoiceCloneCreateParams.Body.MinimaxDesignClone,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateResponse>> =
+            create(
+                VoiceCloneCreateParams.Body.ofMinimaxDesignClone(minimaxDesignClone),
+                requestOptions,
+            )
+
+        /** @see create */
+        fun create(
+            minimaxDesignClone: VoiceCloneCreateParams.Body.MinimaxDesignClone
+        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateResponse>> =
+            create(minimaxDesignClone, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `patch /voice_clones/{id}`, but is otherwise the same as
@@ -304,6 +450,70 @@ interface VoiceCloneServiceAsync {
             params: VoiceCloneCreateFromUploadParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<VoiceCloneCreateFromUploadResponse>>
+
+        /** @see createFromUpload */
+        fun createFromUpload(
+            body: VoiceCloneCreateFromUploadParams.Body,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateFromUploadResponse>> =
+            createFromUpload(
+                VoiceCloneCreateFromUploadParams.builder().body(body).build(),
+                requestOptions,
+            )
+
+        /** @see createFromUpload */
+        fun createFromUpload(
+            body: VoiceCloneCreateFromUploadParams.Body
+        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateFromUploadResponse>> =
+            createFromUpload(body, RequestOptions.none())
+
+        /** @see createFromUpload */
+        fun createFromUpload(
+            telnyxQwen3TtsClone: VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateFromUploadResponse>> =
+            createFromUpload(
+                VoiceCloneCreateFromUploadParams.Body.ofTelnyxQwen3TtsClone(telnyxQwen3TtsClone),
+                requestOptions,
+            )
+
+        /** @see createFromUpload */
+        fun createFromUpload(
+            telnyxQwen3TtsClone: VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone
+        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateFromUploadResponse>> =
+            createFromUpload(telnyxQwen3TtsClone, RequestOptions.none())
+
+        /** @see createFromUpload */
+        fun createFromUpload(
+            telnyxUltraClone: VoiceCloneCreateFromUploadParams.Body.TelnyxUltraClone,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateFromUploadResponse>> =
+            createFromUpload(
+                VoiceCloneCreateFromUploadParams.Body.ofTelnyxUltraClone(telnyxUltraClone),
+                requestOptions,
+            )
+
+        /** @see createFromUpload */
+        fun createFromUpload(
+            telnyxUltraClone: VoiceCloneCreateFromUploadParams.Body.TelnyxUltraClone
+        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateFromUploadResponse>> =
+            createFromUpload(telnyxUltraClone, RequestOptions.none())
+
+        /** @see createFromUpload */
+        fun createFromUpload(
+            minimaxClone: VoiceCloneCreateFromUploadParams.Body.MinimaxClone,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateFromUploadResponse>> =
+            createFromUpload(
+                VoiceCloneCreateFromUploadParams.Body.ofMinimaxClone(minimaxClone),
+                requestOptions,
+            )
+
+        /** @see createFromUpload */
+        fun createFromUpload(
+            minimaxClone: VoiceCloneCreateFromUploadParams.Body.MinimaxClone
+        ): CompletableFuture<HttpResponseFor<VoiceCloneCreateFromUploadResponse>> =
+            createFromUpload(minimaxClone, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /voice_clones/{id}/sample`, but is otherwise the

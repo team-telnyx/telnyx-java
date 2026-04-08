@@ -12,13 +12,22 @@ internal class VoiceCloneCreateFromUploadParamsTest {
     @Test
     fun create() {
         VoiceCloneCreateFromUploadParams.builder()
-            .audioFile("Example data".byteInputStream())
-            .language("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf")
-            .name("name")
-            .gender(VoiceCloneCreateFromUploadParams.Gender.MALE)
-            .label("label")
-            .provider(VoiceCloneCreateFromUploadParams.Provider.TELNYX)
-            .refText("ref_text")
+            .body(
+                VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone.builder()
+                    .audioFile("Example data".byteInputStream())
+                    .gender(VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone.Gender.MALE)
+                    .language("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf")
+                    .name("name")
+                    .provider(
+                        VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone.Provider.TELNYX
+                    )
+                    .label("label")
+                    .modelId(
+                        VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone.ModelId.QWEN3_TTS
+                    )
+                    .refText("ref_text")
+                    .build()
+            )
             .build()
     }
 
@@ -26,13 +35,26 @@ internal class VoiceCloneCreateFromUploadParamsTest {
     fun body() {
         val params =
             VoiceCloneCreateFromUploadParams.builder()
-                .audioFile("Example data".byteInputStream())
-                .language("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf")
-                .name("name")
-                .gender(VoiceCloneCreateFromUploadParams.Gender.MALE)
-                .label("label")
-                .provider(VoiceCloneCreateFromUploadParams.Provider.TELNYX)
-                .refText("ref_text")
+                .body(
+                    VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone.builder()
+                        .audioFile("Example data".byteInputStream())
+                        .gender(
+                            VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone.Gender.MALE
+                        )
+                        .language("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf")
+                        .name("name")
+                        .provider(
+                            VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone.Provider
+                                .TELNYX
+                        )
+                        .label("label")
+                        .modelId(
+                            VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone.ModelId
+                                .QWEN3_TTS
+                        )
+                        .refText("ref_text")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
@@ -47,14 +69,40 @@ internal class VoiceCloneCreateFromUploadParamsTest {
             )
             .isEqualTo(
                 mapOf(
-                        "audio_file" to MultipartField.of("Example data".byteInputStream()),
-                        "language" to MultipartField.of("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf"),
-                        "name" to MultipartField.of("name"),
-                        "gender" to MultipartField.of(VoiceCloneCreateFromUploadParams.Gender.MALE),
-                        "label" to MultipartField.of("label"),
-                        "provider" to
-                            MultipartField.of(VoiceCloneCreateFromUploadParams.Provider.TELNYX),
-                        "ref_text" to MultipartField.of("ref_text"),
+                        "body" to
+                            MultipartField.builder<VoiceCloneCreateFromUploadParams.Body>()
+                                .value(
+                                    VoiceCloneCreateFromUploadParams.Body.ofTelnyxQwen3TtsClone(
+                                        VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone
+                                            .builder()
+                                            .audioFile("Example data".byteInputStream())
+                                            .gender(
+                                                VoiceCloneCreateFromUploadParams.Body
+                                                    .TelnyxQwen3TtsClone
+                                                    .Gender
+                                                    .MALE
+                                            )
+                                            .language("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf")
+                                            .name("name")
+                                            .provider(
+                                                VoiceCloneCreateFromUploadParams.Body
+                                                    .TelnyxQwen3TtsClone
+                                                    .Provider
+                                                    .TELNYX
+                                            )
+                                            .label("label")
+                                            .modelId(
+                                                VoiceCloneCreateFromUploadParams.Body
+                                                    .TelnyxQwen3TtsClone
+                                                    .ModelId
+                                                    .QWEN3_TTS
+                                            )
+                                            .refText("ref_text")
+                                            .build()
+                                    )
+                                )
+                                .contentType("application/octet-stream")
+                                .build()
                     )
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }
@@ -66,9 +114,20 @@ internal class VoiceCloneCreateFromUploadParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             VoiceCloneCreateFromUploadParams.builder()
-                .audioFile("Example data".byteInputStream())
-                .language("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf")
-                .name("name")
+                .body(
+                    VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone.builder()
+                        .audioFile("Example data".byteInputStream())
+                        .gender(
+                            VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone.Gender.MALE
+                        )
+                        .language("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf")
+                        .name("name")
+                        .provider(
+                            VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone.Provider
+                                .TELNYX
+                        )
+                        .build()
+                )
                 .build()
 
         val body = params._body()
@@ -83,9 +142,32 @@ internal class VoiceCloneCreateFromUploadParamsTest {
             )
             .isEqualTo(
                 mapOf(
-                        "audio_file" to MultipartField.of("Example data".byteInputStream()),
-                        "language" to MultipartField.of("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf"),
-                        "name" to MultipartField.of("name"),
+                        "body" to
+                            MultipartField.builder<VoiceCloneCreateFromUploadParams.Body>()
+                                .value(
+                                    VoiceCloneCreateFromUploadParams.Body.ofTelnyxQwen3TtsClone(
+                                        VoiceCloneCreateFromUploadParams.Body.TelnyxQwen3TtsClone
+                                            .builder()
+                                            .audioFile("Example data".byteInputStream())
+                                            .gender(
+                                                VoiceCloneCreateFromUploadParams.Body
+                                                    .TelnyxQwen3TtsClone
+                                                    .Gender
+                                                    .MALE
+                                            )
+                                            .language("lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf")
+                                            .name("name")
+                                            .provider(
+                                                VoiceCloneCreateFromUploadParams.Body
+                                                    .TelnyxQwen3TtsClone
+                                                    .Provider
+                                                    .TELNYX
+                                            )
+                                            .build()
+                                    )
+                                )
+                                .contentType("application/octet-stream")
+                                .build()
                     )
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }

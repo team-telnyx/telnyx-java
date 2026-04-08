@@ -17,9 +17,9 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepare
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateParams
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateResponse
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociateParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberCreateParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberCreateResponse
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDeleteParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPage
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPageResponse
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListParams
@@ -44,6 +44,13 @@ class NumberServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberService =
         NumberServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    override fun create(
+        params: NumberCreateParams,
+        requestOptions: RequestOptions,
+    ): NumberCreateResponse =
+        // post /enterprises/{enterprise_id}/reputation/numbers
+        withRawResponse().create(params, requestOptions).parse()
+
     override fun retrieve(
         params: NumberRetrieveParams,
         requestOptions: RequestOptions,
@@ -55,16 +62,9 @@ class NumberServiceImpl internal constructor(private val clientOptions: ClientOp
         // get /enterprises/{enterprise_id}/reputation/numbers
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun associate(
-        params: NumberAssociateParams,
-        requestOptions: RequestOptions,
-    ): NumberAssociateResponse =
-        // post /enterprises/{enterprise_id}/reputation/numbers
-        withRawResponse().associate(params, requestOptions).parse()
-
-    override fun disassociate(params: NumberDisassociateParams, requestOptions: RequestOptions) {
+    override fun delete(params: NumberDeleteParams, requestOptions: RequestOptions) {
         // delete /enterprises/{enterprise_id}/reputation/numbers/{phone_number}
-        withRawResponse().disassociate(params, requestOptions)
+        withRawResponse().delete(params, requestOptions)
     }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -79,6 +79,37 @@ class NumberServiceImpl internal constructor(private val clientOptions: ClientOp
             NumberServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        private val createHandler: Handler<NumberCreateResponse> =
+            jsonHandler<NumberCreateResponse>(clientOptions.jsonMapper)
+
+        override fun create(
+            params: NumberCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<NumberCreateResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("enterpriseId", params.enterpriseId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("enterprises", params._pathParam(0), "reputation", "numbers")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
 
         private val retrieveHandler: Handler<NumberRetrieveResponse> =
             jsonHandler<NumberRetrieveResponse>(clientOptions.jsonMapper)
@@ -153,41 +184,10 @@ class NumberServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val associateHandler: Handler<NumberAssociateResponse> =
-            jsonHandler<NumberAssociateResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
-        override fun associate(
-            params: NumberAssociateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<NumberAssociateResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("enterpriseId", params.enterpriseId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("enterprises", params._pathParam(0), "reputation", "numbers")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { associateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val disassociateHandler: Handler<Void?> = emptyHandler()
-
-        override fun disassociate(
-            params: NumberDisassociateParams,
+        override fun delete(
+            params: NumberDeleteParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
@@ -210,7 +210,7 @@ class NumberServiceImpl internal constructor(private val clientOptions: ClientOp
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { disassociateHandler.handle(it) }
+                response.use { deleteHandler.handle(it) }
             }
         }
     }

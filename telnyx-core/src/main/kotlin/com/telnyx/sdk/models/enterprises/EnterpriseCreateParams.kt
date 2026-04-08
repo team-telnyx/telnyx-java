@@ -1868,7 +1868,7 @@ private constructor(
 
             @JvmField val _2001_10000 = of("2001-10000")
 
-            @JvmField val _10001_PLUS = of("10001+")
+            @JvmField val _10001 = of("10001+")
 
             @JvmStatic fun of(value: String) = NumberOfEmployees(JsonField.of(value))
         }
@@ -1881,7 +1881,7 @@ private constructor(
             _201_500,
             _501_2000,
             _2001_10000,
-            _10001_PLUS,
+            _10001,
         }
 
         /**
@@ -1900,7 +1900,7 @@ private constructor(
             _201_500,
             _501_2000,
             _2001_10000,
-            _10001_PLUS,
+            _10001,
             /**
              * An enum member indicating that [NumberOfEmployees] was instantiated with an unknown
              * value.
@@ -1923,7 +1923,7 @@ private constructor(
                 _201_500 -> Value._201_500
                 _501_2000 -> Value._501_2000
                 _2001_10000 -> Value._2001_10000
-                _10001_PLUS -> Value._10001_PLUS
+                _10001 -> Value._10001
                 else -> Value._UNKNOWN
             }
 
@@ -1944,7 +1944,7 @@ private constructor(
                 _201_500 -> Known._201_500
                 _501_2000 -> Known._501_2000
                 _2001_10000 -> Known._2001_10000
-                _10001_PLUS -> Known._10001_PLUS
+                _10001 -> Known._10001
                 else -> throw TelnyxInvalidDataException("Unknown NumberOfEmployees: $value")
             }
 
