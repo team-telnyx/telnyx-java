@@ -6,9 +6,9 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberCreateParams
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberCreateResponse
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDeleteParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateResponse
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociateParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPageAsync
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveParams
@@ -33,43 +33,6 @@ interface NumberServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberServiceAsync
-
-    /**
-     * Associate one or more phone numbers with an enterprise for Number Reputation monitoring.
-     *
-     * **Validations:**
-     * - Phone numbers must be in E.164 format (e.g., `+16035551234`)
-     * - Phone numbers must be in-service and belong to your account (verified via Warehouse)
-     * - Phone numbers must be US local numbers
-     * - Phone numbers cannot already be associated with any enterprise
-     *
-     * **Note:** This operation is atomic — if any number fails validation, the entire request
-     * fails.
-     *
-     * **Maximum:** 100 phone numbers per request.
-     */
-    fun create(
-        enterpriseId: String,
-        params: NumberCreateParams,
-    ): CompletableFuture<NumberCreateResponse> = create(enterpriseId, params, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        enterpriseId: String,
-        params: NumberCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NumberCreateResponse> =
-        create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-    /** @see create */
-    fun create(params: NumberCreateParams): CompletableFuture<NumberCreateResponse> =
-        create(params, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        params: NumberCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<NumberCreateResponse>
 
     /**
      * Get detailed reputation data for a specific phone number associated with an enterprise.
@@ -153,28 +116,68 @@ interface NumberServiceAsync {
         list(enterpriseId, NumberListParams.none(), requestOptions)
 
     /**
+     * Associate one or more phone numbers with an enterprise for Number Reputation monitoring.
+     *
+     * **Validations:**
+     * - Phone numbers must be in E.164 format (e.g., `+16035551234`)
+     * - Phone numbers must be in-service and belong to your account (verified via Warehouse)
+     * - Phone numbers must be US local numbers
+     * - Phone numbers cannot already be associated with any enterprise
+     *
+     * **Note:** This operation is atomic — if any number fails validation, the entire request
+     * fails.
+     *
+     * **Maximum:** 100 phone numbers per request.
+     */
+    fun associate(
+        enterpriseId: String,
+        params: NumberAssociateParams,
+    ): CompletableFuture<NumberAssociateResponse> =
+        associate(enterpriseId, params, RequestOptions.none())
+
+    /** @see associate */
+    fun associate(
+        enterpriseId: String,
+        params: NumberAssociateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<NumberAssociateResponse> =
+        associate(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+    /** @see associate */
+    fun associate(params: NumberAssociateParams): CompletableFuture<NumberAssociateResponse> =
+        associate(params, RequestOptions.none())
+
+    /** @see associate */
+    fun associate(
+        params: NumberAssociateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<NumberAssociateResponse>
+
+    /**
      * Remove a phone number from Number Reputation monitoring for an enterprise.
      *
      * The number will no longer be tracked and reputation data will no longer be refreshed.
      */
-    fun delete(phoneNumber: String, params: NumberDeleteParams): CompletableFuture<Void?> =
-        delete(phoneNumber, params, RequestOptions.none())
-
-    /** @see delete */
-    fun delete(
+    fun disassociate(
         phoneNumber: String,
-        params: NumberDeleteParams,
+        params: NumberDisassociateParams,
+    ): CompletableFuture<Void?> = disassociate(phoneNumber, params, RequestOptions.none())
+
+    /** @see disassociate */
+    fun disassociate(
+        phoneNumber: String,
+        params: NumberDisassociateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?> =
-        delete(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
+        disassociate(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
 
-    /** @see delete */
-    fun delete(params: NumberDeleteParams): CompletableFuture<Void?> =
-        delete(params, RequestOptions.none())
+    /** @see disassociate */
+    fun disassociate(params: NumberDisassociateParams): CompletableFuture<Void?> =
+        disassociate(params, RequestOptions.none())
 
-    /** @see delete */
-    fun delete(
-        params: NumberDeleteParams,
+    /** @see disassociate */
+    fun disassociate(
+        params: NumberDisassociateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
@@ -191,36 +194,6 @@ interface NumberServiceAsync {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): NumberServiceAsync.WithRawResponse
-
-        /**
-         * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/reputation/numbers`,
-         * but is otherwise the same as [NumberServiceAsync.create].
-         */
-        fun create(
-            enterpriseId: String,
-            params: NumberCreateParams,
-        ): CompletableFuture<HttpResponseFor<NumberCreateResponse>> =
-            create(enterpriseId, params, RequestOptions.none())
-
-        /** @see create */
-        fun create(
-            enterpriseId: String,
-            params: NumberCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NumberCreateResponse>> =
-            create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-        /** @see create */
-        fun create(
-            params: NumberCreateParams
-        ): CompletableFuture<HttpResponseFor<NumberCreateResponse>> =
-            create(params, RequestOptions.none())
-
-        /** @see create */
-        fun create(
-            params: NumberCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<NumberCreateResponse>>
 
         /**
          * Returns a raw HTTP response for `get
@@ -295,30 +268,61 @@ interface NumberServiceAsync {
             list(enterpriseId, NumberListParams.none(), requestOptions)
 
         /**
+         * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/reputation/numbers`,
+         * but is otherwise the same as [NumberServiceAsync.associate].
+         */
+        fun associate(
+            enterpriseId: String,
+            params: NumberAssociateParams,
+        ): CompletableFuture<HttpResponseFor<NumberAssociateResponse>> =
+            associate(enterpriseId, params, RequestOptions.none())
+
+        /** @see associate */
+        fun associate(
+            enterpriseId: String,
+            params: NumberAssociateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<NumberAssociateResponse>> =
+            associate(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+        /** @see associate */
+        fun associate(
+            params: NumberAssociateParams
+        ): CompletableFuture<HttpResponseFor<NumberAssociateResponse>> =
+            associate(params, RequestOptions.none())
+
+        /** @see associate */
+        fun associate(
+            params: NumberAssociateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<NumberAssociateResponse>>
+
+        /**
          * Returns a raw HTTP response for `delete
          * /enterprises/{enterprise_id}/reputation/numbers/{phone_number}`, but is otherwise the
-         * same as [NumberServiceAsync.delete].
+         * same as [NumberServiceAsync.disassociate].
          */
-        fun delete(
+        fun disassociate(
             phoneNumber: String,
-            params: NumberDeleteParams,
-        ): CompletableFuture<HttpResponse> = delete(phoneNumber, params, RequestOptions.none())
+            params: NumberDisassociateParams,
+        ): CompletableFuture<HttpResponse> =
+            disassociate(phoneNumber, params, RequestOptions.none())
 
-        /** @see delete */
-        fun delete(
+        /** @see disassociate */
+        fun disassociate(
             phoneNumber: String,
-            params: NumberDeleteParams,
+            params: NumberDisassociateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse> =
-            delete(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
+            disassociate(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
 
-        /** @see delete */
-        fun delete(params: NumberDeleteParams): CompletableFuture<HttpResponse> =
-            delete(params, RequestOptions.none())
+        /** @see disassociate */
+        fun disassociate(params: NumberDisassociateParams): CompletableFuture<HttpResponse> =
+            disassociate(params, RequestOptions.none())
 
-        /** @see delete */
-        fun delete(
-            params: NumberDeleteParams,
+        /** @see disassociate */
+        fun disassociate(
+            params: NumberDisassociateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
     }

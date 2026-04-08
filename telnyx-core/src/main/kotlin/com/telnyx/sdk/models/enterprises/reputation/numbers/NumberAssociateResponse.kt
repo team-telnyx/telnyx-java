@@ -20,7 +20,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class NumberCreateResponse
+class NumberAssociateResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<Data>>,
@@ -74,11 +74,11 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [NumberCreateResponse]. */
+        /** Returns a mutable builder for constructing an instance of [NumberAssociateResponse]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [NumberCreateResponse]. */
+    /** A builder for [NumberAssociateResponse]. */
     class Builder internal constructor() {
 
         private var data: JsonField<MutableList<Data>>? = null
@@ -86,10 +86,10 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(numberCreateResponse: NumberCreateResponse) = apply {
-            data = numberCreateResponse.data.map { it.toMutableList() }
-            meta = numberCreateResponse.meta
-            additionalProperties = numberCreateResponse.additionalProperties.toMutableMap()
+        internal fun from(numberAssociateResponse: NumberAssociateResponse) = apply {
+            data = numberAssociateResponse.data.map { it.toMutableList() }
+            meta = numberAssociateResponse.meta
+            additionalProperties = numberAssociateResponse.additionalProperties.toMutableMap()
         }
 
         fun data(data: List<Data>) = data(JsonField.of(data))
@@ -146,12 +146,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [NumberCreateResponse].
+         * Returns an immutable instance of [NumberAssociateResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): NumberCreateResponse =
-            NumberCreateResponse(
+        fun build(): NumberAssociateResponse =
+            NumberAssociateResponse(
                 (data ?: JsonMissing.of()).map { it.toImmutable() },
                 meta,
                 additionalProperties.toMutableMap(),
@@ -160,7 +160,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): NumberCreateResponse = apply {
+    fun validate(): NumberAssociateResponse = apply {
         if (validated) {
             return@apply
         }
@@ -507,7 +507,7 @@ private constructor(
             return true
         }
 
-        return other is NumberCreateResponse &&
+        return other is NumberAssociateResponse &&
             data == other.data &&
             meta == other.meta &&
             additionalProperties == other.additionalProperties
@@ -518,5 +518,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "NumberCreateResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
+        "NumberAssociateResponse{data=$data, meta=$meta, additionalProperties=$additionalProperties}"
 }

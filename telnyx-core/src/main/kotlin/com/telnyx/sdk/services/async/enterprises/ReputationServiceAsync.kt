@@ -6,11 +6,11 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.enterprises.reputation.ReputationCreateParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationCreateResponse
-import com.telnyx.sdk.models.enterprises.reputation.ReputationDeleteAllParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationListParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationListResponse
+import com.telnyx.sdk.models.enterprises.reputation.ReputationDisableParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableResponse
+import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveResponse
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyResponse
 import com.telnyx.sdk.services.async.enterprises.reputation.NumberServiceAsync
@@ -39,6 +39,90 @@ interface ReputationServiceAsync {
     fun numbers(): NumberServiceAsync
 
     /**
+     * Retrieve the current Number Reputation settings for an enterprise.
+     *
+     * Returns the enrollment status (`pending`, `approved`, `rejected`, `deleted`), check
+     * frequency, and any rejection reasons.
+     *
+     * Returns `404` if reputation has not been enabled for this enterprise.
+     */
+    fun retrieve(enterpriseId: String): CompletableFuture<ReputationRetrieveResponse> =
+        retrieve(enterpriseId, ReputationRetrieveParams.none())
+
+    /** @see retrieve */
+    fun retrieve(
+        enterpriseId: String,
+        params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ReputationRetrieveResponse> =
+        retrieve(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+    /** @see retrieve */
+    fun retrieve(
+        enterpriseId: String,
+        params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
+    ): CompletableFuture<ReputationRetrieveResponse> =
+        retrieve(enterpriseId, params, RequestOptions.none())
+
+    /** @see retrieve */
+    fun retrieve(
+        params: ReputationRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ReputationRetrieveResponse>
+
+    /** @see retrieve */
+    fun retrieve(params: ReputationRetrieveParams): CompletableFuture<ReputationRetrieveResponse> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see retrieve */
+    fun retrieve(
+        enterpriseId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ReputationRetrieveResponse> =
+        retrieve(enterpriseId, ReputationRetrieveParams.none(), requestOptions)
+
+    /**
+     * Disable Number Reputation for an enterprise.
+     *
+     * This will:
+     * - Delete the reputation settings record
+     * - Log the deletion for audit purposes
+     * - Stop all future automated reputation checks
+     *
+     * **Note:** Can only be performed on `approved` reputation settings.
+     */
+    fun disable(enterpriseId: String): CompletableFuture<Void?> =
+        disable(enterpriseId, ReputationDisableParams.none())
+
+    /** @see disable */
+    fun disable(
+        enterpriseId: String,
+        params: ReputationDisableParams = ReputationDisableParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        disable(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+    /** @see disable */
+    fun disable(
+        enterpriseId: String,
+        params: ReputationDisableParams = ReputationDisableParams.none(),
+    ): CompletableFuture<Void?> = disable(enterpriseId, params, RequestOptions.none())
+
+    /** @see disable */
+    fun disable(
+        params: ReputationDisableParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
+
+    /** @see disable */
+    fun disable(params: ReputationDisableParams): CompletableFuture<Void?> =
+        disable(params, RequestOptions.none())
+
+    /** @see disable */
+    fun disable(enterpriseId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
+        disable(enterpriseId, ReputationDisableParams.none(), requestOptions)
+
+    /**
      * Enable Number Reputation service for an enterprise.
      *
      * **Requirements:**
@@ -62,112 +146,29 @@ interface ReputationServiceAsync {
      * - `monthly` — Once per month
      * - `never` — Manual refresh only
      */
-    fun create(
+    fun enable(
         enterpriseId: String,
-        params: ReputationCreateParams,
-    ): CompletableFuture<ReputationCreateResponse> =
-        create(enterpriseId, params, RequestOptions.none())
+        params: ReputationEnableParams,
+    ): CompletableFuture<ReputationEnableResponse> =
+        enable(enterpriseId, params, RequestOptions.none())
 
-    /** @see create */
-    fun create(
+    /** @see enable */
+    fun enable(
         enterpriseId: String,
-        params: ReputationCreateParams,
+        params: ReputationEnableParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ReputationCreateResponse> =
-        create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+    ): CompletableFuture<ReputationEnableResponse> =
+        enable(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
-    /** @see create */
-    fun create(params: ReputationCreateParams): CompletableFuture<ReputationCreateResponse> =
-        create(params, RequestOptions.none())
+    /** @see enable */
+    fun enable(params: ReputationEnableParams): CompletableFuture<ReputationEnableResponse> =
+        enable(params, RequestOptions.none())
 
-    /** @see create */
-    fun create(
-        params: ReputationCreateParams,
+    /** @see enable */
+    fun enable(
+        params: ReputationEnableParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ReputationCreateResponse>
-
-    /**
-     * Retrieve the current Number Reputation settings for an enterprise.
-     *
-     * Returns the enrollment status (`pending`, `approved`, `rejected`, `deleted`), check
-     * frequency, and any rejection reasons.
-     *
-     * Returns `404` if reputation has not been enabled for this enterprise.
-     */
-    fun list(enterpriseId: String): CompletableFuture<ReputationListResponse> =
-        list(enterpriseId, ReputationListParams.none())
-
-    /** @see list */
-    fun list(
-        enterpriseId: String,
-        params: ReputationListParams = ReputationListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ReputationListResponse> =
-        list(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-    /** @see list */
-    fun list(
-        enterpriseId: String,
-        params: ReputationListParams = ReputationListParams.none(),
-    ): CompletableFuture<ReputationListResponse> = list(enterpriseId, params, RequestOptions.none())
-
-    /** @see list */
-    fun list(
-        params: ReputationListParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ReputationListResponse>
-
-    /** @see list */
-    fun list(params: ReputationListParams): CompletableFuture<ReputationListResponse> =
-        list(params, RequestOptions.none())
-
-    /** @see list */
-    fun list(
-        enterpriseId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<ReputationListResponse> =
-        list(enterpriseId, ReputationListParams.none(), requestOptions)
-
-    /**
-     * Disable Number Reputation for an enterprise.
-     *
-     * This will:
-     * - Delete the reputation settings record
-     * - Log the deletion for audit purposes
-     * - Stop all future automated reputation checks
-     *
-     * **Note:** Can only be performed on `approved` reputation settings.
-     */
-    fun deleteAll(enterpriseId: String): CompletableFuture<Void?> =
-        deleteAll(enterpriseId, ReputationDeleteAllParams.none())
-
-    /** @see deleteAll */
-    fun deleteAll(
-        enterpriseId: String,
-        params: ReputationDeleteAllParams = ReputationDeleteAllParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        deleteAll(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-    /** @see deleteAll */
-    fun deleteAll(
-        enterpriseId: String,
-        params: ReputationDeleteAllParams = ReputationDeleteAllParams.none(),
-    ): CompletableFuture<Void?> = deleteAll(enterpriseId, params, RequestOptions.none())
-
-    /** @see deleteAll */
-    fun deleteAll(
-        params: ReputationDeleteAllParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
-
-    /** @see deleteAll */
-    fun deleteAll(params: ReputationDeleteAllParams): CompletableFuture<Void?> =
-        deleteAll(params, RequestOptions.none())
-
-    /** @see deleteAll */
-    fun deleteAll(enterpriseId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
-        deleteAll(enterpriseId, ReputationDeleteAllParams.none(), requestOptions)
+    ): CompletableFuture<ReputationEnableResponse>
 
     /**
      * Update how often reputation data is automatically refreshed.
@@ -231,113 +232,115 @@ interface ReputationServiceAsync {
         fun numbers(): NumberServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/reputation`, but is
-         * otherwise the same as [ReputationServiceAsync.create].
-         */
-        fun create(
-            enterpriseId: String,
-            params: ReputationCreateParams,
-        ): CompletableFuture<HttpResponseFor<ReputationCreateResponse>> =
-            create(enterpriseId, params, RequestOptions.none())
-
-        /** @see create */
-        fun create(
-            enterpriseId: String,
-            params: ReputationCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ReputationCreateResponse>> =
-            create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-        /** @see create */
-        fun create(
-            params: ReputationCreateParams
-        ): CompletableFuture<HttpResponseFor<ReputationCreateResponse>> =
-            create(params, RequestOptions.none())
-
-        /** @see create */
-        fun create(
-            params: ReputationCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ReputationCreateResponse>>
-
-        /**
          * Returns a raw HTTP response for `get /enterprises/{enterprise_id}/reputation`, but is
-         * otherwise the same as [ReputationServiceAsync.list].
+         * otherwise the same as [ReputationServiceAsync.retrieve].
          */
-        fun list(enterpriseId: String): CompletableFuture<HttpResponseFor<ReputationListResponse>> =
-            list(enterpriseId, ReputationListParams.none())
+        fun retrieve(
+            enterpriseId: String
+        ): CompletableFuture<HttpResponseFor<ReputationRetrieveResponse>> =
+            retrieve(enterpriseId, ReputationRetrieveParams.none())
 
-        /** @see list */
-        fun list(
+        /** @see retrieve */
+        fun retrieve(
             enterpriseId: String,
-            params: ReputationListParams = ReputationListParams.none(),
+            params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ReputationListResponse>> =
-            list(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<ReputationRetrieveResponse>> =
+            retrieve(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
-        /** @see list */
-        fun list(
+        /** @see retrieve */
+        fun retrieve(
             enterpriseId: String,
-            params: ReputationListParams = ReputationListParams.none(),
-        ): CompletableFuture<HttpResponseFor<ReputationListResponse>> =
-            list(enterpriseId, params, RequestOptions.none())
+            params: ReputationRetrieveParams = ReputationRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<ReputationRetrieveResponse>> =
+            retrieve(enterpriseId, params, RequestOptions.none())
 
-        /** @see list */
-        fun list(
-            params: ReputationListParams,
+        /** @see retrieve */
+        fun retrieve(
+            params: ReputationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ReputationListResponse>>
+        ): CompletableFuture<HttpResponseFor<ReputationRetrieveResponse>>
 
-        /** @see list */
-        fun list(
-            params: ReputationListParams
-        ): CompletableFuture<HttpResponseFor<ReputationListResponse>> =
-            list(params, RequestOptions.none())
+        /** @see retrieve */
+        fun retrieve(
+            params: ReputationRetrieveParams
+        ): CompletableFuture<HttpResponseFor<ReputationRetrieveResponse>> =
+            retrieve(params, RequestOptions.none())
 
-        /** @see list */
-        fun list(
+        /** @see retrieve */
+        fun retrieve(
             enterpriseId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ReputationListResponse>> =
-            list(enterpriseId, ReputationListParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<ReputationRetrieveResponse>> =
+            retrieve(enterpriseId, ReputationRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `delete /enterprises/{enterprise_id}/reputation`, but is
-         * otherwise the same as [ReputationServiceAsync.deleteAll].
+         * otherwise the same as [ReputationServiceAsync.disable].
          */
-        fun deleteAll(enterpriseId: String): CompletableFuture<HttpResponse> =
-            deleteAll(enterpriseId, ReputationDeleteAllParams.none())
+        fun disable(enterpriseId: String): CompletableFuture<HttpResponse> =
+            disable(enterpriseId, ReputationDisableParams.none())
 
-        /** @see deleteAll */
-        fun deleteAll(
+        /** @see disable */
+        fun disable(
             enterpriseId: String,
-            params: ReputationDeleteAllParams = ReputationDeleteAllParams.none(),
+            params: ReputationDisableParams = ReputationDisableParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse> =
-            deleteAll(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+            disable(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
 
-        /** @see deleteAll */
-        fun deleteAll(
+        /** @see disable */
+        fun disable(
             enterpriseId: String,
-            params: ReputationDeleteAllParams = ReputationDeleteAllParams.none(),
-        ): CompletableFuture<HttpResponse> = deleteAll(enterpriseId, params, RequestOptions.none())
+            params: ReputationDisableParams = ReputationDisableParams.none(),
+        ): CompletableFuture<HttpResponse> = disable(enterpriseId, params, RequestOptions.none())
 
-        /** @see deleteAll */
-        fun deleteAll(
-            params: ReputationDeleteAllParams,
+        /** @see disable */
+        fun disable(
+            params: ReputationDisableParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
-        /** @see deleteAll */
-        fun deleteAll(params: ReputationDeleteAllParams): CompletableFuture<HttpResponse> =
-            deleteAll(params, RequestOptions.none())
+        /** @see disable */
+        fun disable(params: ReputationDisableParams): CompletableFuture<HttpResponse> =
+            disable(params, RequestOptions.none())
 
-        /** @see deleteAll */
-        fun deleteAll(
+        /** @see disable */
+        fun disable(
             enterpriseId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> =
-            deleteAll(enterpriseId, ReputationDeleteAllParams.none(), requestOptions)
+            disable(enterpriseId, ReputationDisableParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/reputation`, but is
+         * otherwise the same as [ReputationServiceAsync.enable].
+         */
+        fun enable(
+            enterpriseId: String,
+            params: ReputationEnableParams,
+        ): CompletableFuture<HttpResponseFor<ReputationEnableResponse>> =
+            enable(enterpriseId, params, RequestOptions.none())
+
+        /** @see enable */
+        fun enable(
+            enterpriseId: String,
+            params: ReputationEnableParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ReputationEnableResponse>> =
+            enable(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+        /** @see enable */
+        fun enable(
+            params: ReputationEnableParams
+        ): CompletableFuture<HttpResponseFor<ReputationEnableResponse>> =
+            enable(params, RequestOptions.none())
+
+        /** @see enable */
+        fun enable(
+            params: ReputationEnableParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ReputationEnableResponse>>
 
         /**
          * Returns a raw HTTP response for `patch

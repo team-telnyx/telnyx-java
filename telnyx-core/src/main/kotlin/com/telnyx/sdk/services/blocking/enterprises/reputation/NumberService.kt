@@ -7,9 +7,9 @@ import com.telnyx.sdk.core.ClientOptions
 import com.telnyx.sdk.core.RequestOptions
 import com.telnyx.sdk.core.http.HttpResponse
 import com.telnyx.sdk.core.http.HttpResponseFor
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberCreateParams
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberCreateResponse
-import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDeleteParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateParams
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberAssociateResponse
+import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberDisassociateParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListPage
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberListParams
 import com.telnyx.sdk.models.enterprises.reputation.numbers.NumberRetrieveParams
@@ -33,41 +33,6 @@ interface NumberService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberService
-
-    /**
-     * Associate one or more phone numbers with an enterprise for Number Reputation monitoring.
-     *
-     * **Validations:**
-     * - Phone numbers must be in E.164 format (e.g., `+16035551234`)
-     * - Phone numbers must be in-service and belong to your account (verified via Warehouse)
-     * - Phone numbers must be US local numbers
-     * - Phone numbers cannot already be associated with any enterprise
-     *
-     * **Note:** This operation is atomic — if any number fails validation, the entire request
-     * fails.
-     *
-     * **Maximum:** 100 phone numbers per request.
-     */
-    fun create(enterpriseId: String, params: NumberCreateParams): NumberCreateResponse =
-        create(enterpriseId, params, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        enterpriseId: String,
-        params: NumberCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): NumberCreateResponse =
-        create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-    /** @see create */
-    fun create(params: NumberCreateParams): NumberCreateResponse =
-        create(params, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        params: NumberCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): NumberCreateResponse
 
     /**
      * Get detailed reputation data for a specific phone number associated with an enterprise.
@@ -142,25 +107,63 @@ interface NumberService {
         list(enterpriseId, NumberListParams.none(), requestOptions)
 
     /**
+     * Associate one or more phone numbers with an enterprise for Number Reputation monitoring.
+     *
+     * **Validations:**
+     * - Phone numbers must be in E.164 format (e.g., `+16035551234`)
+     * - Phone numbers must be in-service and belong to your account (verified via Warehouse)
+     * - Phone numbers must be US local numbers
+     * - Phone numbers cannot already be associated with any enterprise
+     *
+     * **Note:** This operation is atomic — if any number fails validation, the entire request
+     * fails.
+     *
+     * **Maximum:** 100 phone numbers per request.
+     */
+    fun associate(enterpriseId: String, params: NumberAssociateParams): NumberAssociateResponse =
+        associate(enterpriseId, params, RequestOptions.none())
+
+    /** @see associate */
+    fun associate(
+        enterpriseId: String,
+        params: NumberAssociateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): NumberAssociateResponse =
+        associate(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+    /** @see associate */
+    fun associate(params: NumberAssociateParams): NumberAssociateResponse =
+        associate(params, RequestOptions.none())
+
+    /** @see associate */
+    fun associate(
+        params: NumberAssociateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): NumberAssociateResponse
+
+    /**
      * Remove a phone number from Number Reputation monitoring for an enterprise.
      *
      * The number will no longer be tracked and reputation data will no longer be refreshed.
      */
-    fun delete(phoneNumber: String, params: NumberDeleteParams) =
-        delete(phoneNumber, params, RequestOptions.none())
+    fun disassociate(phoneNumber: String, params: NumberDisassociateParams) =
+        disassociate(phoneNumber, params, RequestOptions.none())
 
-    /** @see delete */
-    fun delete(
+    /** @see disassociate */
+    fun disassociate(
         phoneNumber: String,
-        params: NumberDeleteParams,
+        params: NumberDisassociateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = delete(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
+    ) = disassociate(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
 
-    /** @see delete */
-    fun delete(params: NumberDeleteParams) = delete(params, RequestOptions.none())
+    /** @see disassociate */
+    fun disassociate(params: NumberDisassociateParams) = disassociate(params, RequestOptions.none())
 
-    /** @see delete */
-    fun delete(params: NumberDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
+    /** @see disassociate */
+    fun disassociate(
+        params: NumberDisassociateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
 
     /** A view of [NumberService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -171,38 +174,6 @@ interface NumberService {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): NumberService.WithRawResponse
-
-        /**
-         * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/reputation/numbers`,
-         * but is otherwise the same as [NumberService.create].
-         */
-        @MustBeClosed
-        fun create(
-            enterpriseId: String,
-            params: NumberCreateParams,
-        ): HttpResponseFor<NumberCreateResponse> =
-            create(enterpriseId, params, RequestOptions.none())
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            enterpriseId: String,
-            params: NumberCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NumberCreateResponse> =
-            create(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
-
-        /** @see create */
-        @MustBeClosed
-        fun create(params: NumberCreateParams): HttpResponseFor<NumberCreateResponse> =
-            create(params, RequestOptions.none())
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            params: NumberCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<NumberCreateResponse>
 
         /**
          * Returns a raw HTTP response for `get
@@ -282,31 +253,64 @@ interface NumberService {
             list(enterpriseId, NumberListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete
-         * /enterprises/{enterprise_id}/reputation/numbers/{phone_number}`, but is otherwise the
-         * same as [NumberService.delete].
+         * Returns a raw HTTP response for `post /enterprises/{enterprise_id}/reputation/numbers`,
+         * but is otherwise the same as [NumberService.associate].
          */
         @MustBeClosed
-        fun delete(phoneNumber: String, params: NumberDeleteParams): HttpResponse =
-            delete(phoneNumber, params, RequestOptions.none())
+        fun associate(
+            enterpriseId: String,
+            params: NumberAssociateParams,
+        ): HttpResponseFor<NumberAssociateResponse> =
+            associate(enterpriseId, params, RequestOptions.none())
 
-        /** @see delete */
+        /** @see associate */
         @MustBeClosed
-        fun delete(
+        fun associate(
+            enterpriseId: String,
+            params: NumberAssociateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<NumberAssociateResponse> =
+            associate(params.toBuilder().enterpriseId(enterpriseId).build(), requestOptions)
+
+        /** @see associate */
+        @MustBeClosed
+        fun associate(params: NumberAssociateParams): HttpResponseFor<NumberAssociateResponse> =
+            associate(params, RequestOptions.none())
+
+        /** @see associate */
+        @MustBeClosed
+        fun associate(
+            params: NumberAssociateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<NumberAssociateResponse>
+
+        /**
+         * Returns a raw HTTP response for `delete
+         * /enterprises/{enterprise_id}/reputation/numbers/{phone_number}`, but is otherwise the
+         * same as [NumberService.disassociate].
+         */
+        @MustBeClosed
+        fun disassociate(phoneNumber: String, params: NumberDisassociateParams): HttpResponse =
+            disassociate(phoneNumber, params, RequestOptions.none())
+
+        /** @see disassociate */
+        @MustBeClosed
+        fun disassociate(
             phoneNumber: String,
-            params: NumberDeleteParams,
+            params: NumberDisassociateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse =
-            delete(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
+            disassociate(params.toBuilder().phoneNumber(phoneNumber).build(), requestOptions)
 
-        /** @see delete */
+        /** @see disassociate */
         @MustBeClosed
-        fun delete(params: NumberDeleteParams): HttpResponse = delete(params, RequestOptions.none())
+        fun disassociate(params: NumberDisassociateParams): HttpResponse =
+            disassociate(params, RequestOptions.none())
 
-        /** @see delete */
+        /** @see disassociate */
         @MustBeClosed
-        fun delete(
-            params: NumberDeleteParams,
+        fun disassociate(
+            params: NumberDisassociateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
     }

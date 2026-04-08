@@ -5,11 +5,11 @@ package com.telnyx.sdk.models.enterprises.reputation.numbers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class NumberCreateParamsTest {
+internal class NumberAssociateParamsTest {
 
     @Test
     fun create() {
-        NumberCreateParams.builder()
+        NumberAssociateParams.builder()
             .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .addPhoneNumber("+16035551234")
             .build()
@@ -18,7 +18,7 @@ internal class NumberCreateParamsTest {
     @Test
     fun pathParams() {
         val params =
-            NumberCreateParams.builder()
+            NumberAssociateParams.builder()
                 .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .addPhoneNumber("+16035551234")
                 .build()
@@ -31,7 +31,7 @@ internal class NumberCreateParamsTest {
     @Test
     fun body() {
         val params =
-            NumberCreateParams.builder()
+            NumberAssociateParams.builder()
                 .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .addPhoneNumber("+16035551234")
                 .build()

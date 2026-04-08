@@ -8,12 +8,12 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class ReputationListResponseTest {
+internal class ReputationEnableResponseTest {
 
     @Test
     fun create() {
-        val reputationListResponse =
-            ReputationListResponse.builder()
+        val reputationEnableResponse =
+            ReputationEnableResponse.builder()
                 .data(
                     EnterpriseReputationPublic.builder()
                         .checkFrequency(EnterpriseReputationPublic.CheckFrequency.BUSINESS_DAILY)
@@ -27,7 +27,7 @@ internal class ReputationListResponseTest {
                 )
                 .build()
 
-        assertThat(reputationListResponse.data())
+        assertThat(reputationEnableResponse.data())
             .contains(
                 EnterpriseReputationPublic.builder()
                     .checkFrequency(EnterpriseReputationPublic.CheckFrequency.BUSINESS_DAILY)
@@ -44,8 +44,8 @@ internal class ReputationListResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val reputationListResponse =
-            ReputationListResponse.builder()
+        val reputationEnableResponse =
+            ReputationEnableResponse.builder()
                 .data(
                     EnterpriseReputationPublic.builder()
                         .checkFrequency(EnterpriseReputationPublic.CheckFrequency.BUSINESS_DAILY)
@@ -59,12 +59,12 @@ internal class ReputationListResponseTest {
                 )
                 .build()
 
-        val roundtrippedReputationListResponse =
+        val roundtrippedReputationEnableResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(reputationListResponse),
-                jacksonTypeRef<ReputationListResponse>(),
+                jsonMapper.writeValueAsString(reputationEnableResponse),
+                jacksonTypeRef<ReputationEnableResponse>(),
             )
 
-        assertThat(roundtrippedReputationListResponse).isEqualTo(reputationListResponse)
+        assertThat(roundtrippedReputationEnableResponse).isEqualTo(reputationEnableResponse)
     }
 }
