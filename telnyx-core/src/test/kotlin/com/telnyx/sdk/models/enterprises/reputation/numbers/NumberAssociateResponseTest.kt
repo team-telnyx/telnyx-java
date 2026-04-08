@@ -10,14 +10,14 @@ import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class NumberCreateResponseTest {
+internal class NumberAssociateResponseTest {
 
     @Test
     fun create() {
-        val numberCreateResponse =
-            NumberCreateResponse.builder()
+        val numberAssociateResponse =
+            NumberAssociateResponse.builder()
                 .addData(
-                    NumberCreateResponse.Data.builder()
+                    NumberAssociateResponse.Data.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .enterpriseId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -35,9 +35,9 @@ internal class NumberCreateResponseTest {
                 )
                 .build()
 
-        assertThat(numberCreateResponse.data().getOrNull())
+        assertThat(numberAssociateResponse.data().getOrNull())
             .containsExactly(
-                NumberCreateResponse.Data.builder()
+                NumberAssociateResponse.Data.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .enterpriseId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -45,7 +45,7 @@ internal class NumberCreateResponseTest {
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-        assertThat(numberCreateResponse.meta())
+        assertThat(numberAssociateResponse.meta())
             .contains(
                 MetaInfo.builder()
                     .pageNumber(0L)
@@ -59,10 +59,10 @@ internal class NumberCreateResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val numberCreateResponse =
-            NumberCreateResponse.builder()
+        val numberAssociateResponse =
+            NumberAssociateResponse.builder()
                 .addData(
-                    NumberCreateResponse.Data.builder()
+                    NumberAssociateResponse.Data.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .enterpriseId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -80,12 +80,12 @@ internal class NumberCreateResponseTest {
                 )
                 .build()
 
-        val roundtrippedNumberCreateResponse =
+        val roundtrippedNumberAssociateResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(numberCreateResponse),
-                jacksonTypeRef<NumberCreateResponse>(),
+                jsonMapper.writeValueAsString(numberAssociateResponse),
+                jacksonTypeRef<NumberAssociateResponse>(),
             )
 
-        assertThat(roundtrippedNumberCreateResponse).isEqualTo(numberCreateResponse)
+        assertThat(roundtrippedNumberAssociateResponse).isEqualTo(numberAssociateResponse)
     }
 }

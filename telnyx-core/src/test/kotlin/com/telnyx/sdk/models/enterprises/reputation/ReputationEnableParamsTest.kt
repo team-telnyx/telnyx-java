@@ -5,21 +5,21 @@ package com.telnyx.sdk.models.enterprises.reputation
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class ReputationCreateParamsTest {
+internal class ReputationEnableParamsTest {
 
     @Test
     fun create() {
-        ReputationCreateParams.builder()
+        ReputationEnableParams.builder()
             .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
             .loaDocumentId("doc_01HXYZ1234ABCDEF")
-            .checkFrequency(ReputationCreateParams.CheckFrequency.BUSINESS_DAILY)
+            .checkFrequency(ReputationEnableParams.CheckFrequency.BUSINESS_DAILY)
             .build()
     }
 
     @Test
     fun pathParams() {
         val params =
-            ReputationCreateParams.builder()
+            ReputationEnableParams.builder()
                 .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .loaDocumentId("doc_01HXYZ1234ABCDEF")
                 .build()
@@ -32,23 +32,23 @@ internal class ReputationCreateParamsTest {
     @Test
     fun body() {
         val params =
-            ReputationCreateParams.builder()
+            ReputationEnableParams.builder()
                 .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .loaDocumentId("doc_01HXYZ1234ABCDEF")
-                .checkFrequency(ReputationCreateParams.CheckFrequency.BUSINESS_DAILY)
+                .checkFrequency(ReputationEnableParams.CheckFrequency.BUSINESS_DAILY)
                 .build()
 
         val body = params._body()
 
         assertThat(body.loaDocumentId()).isEqualTo("doc_01HXYZ1234ABCDEF")
         assertThat(body.checkFrequency())
-            .contains(ReputationCreateParams.CheckFrequency.BUSINESS_DAILY)
+            .contains(ReputationEnableParams.CheckFrequency.BUSINESS_DAILY)
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
-            ReputationCreateParams.builder()
+            ReputationEnableParams.builder()
                 .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .loaDocumentId("doc_01HXYZ1234ABCDEF")
                 .build()

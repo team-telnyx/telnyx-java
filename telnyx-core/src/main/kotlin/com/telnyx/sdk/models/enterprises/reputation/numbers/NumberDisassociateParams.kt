@@ -17,7 +17,7 @@ import kotlin.jvm.optionals.getOrNull
  *
  * The number will no longer be tracked and reputation data will no longer be refreshed.
  */
-class NumberDeleteParams
+class NumberDisassociateParams
 private constructor(
     private val enterpriseId: String,
     private val phoneNumber: String?,
@@ -44,7 +44,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [NumberDeleteParams].
+         * Returns a mutable builder for constructing an instance of [NumberDisassociateParams].
          *
          * The following fields are required:
          * ```java
@@ -54,7 +54,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [NumberDeleteParams]. */
+    /** A builder for [NumberDisassociateParams]. */
     class Builder internal constructor() {
 
         private var enterpriseId: String? = null
@@ -64,12 +64,13 @@ private constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(numberDeleteParams: NumberDeleteParams) = apply {
-            enterpriseId = numberDeleteParams.enterpriseId
-            phoneNumber = numberDeleteParams.phoneNumber
-            additionalHeaders = numberDeleteParams.additionalHeaders.toBuilder()
-            additionalQueryParams = numberDeleteParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties = numberDeleteParams.additionalBodyProperties.toMutableMap()
+        internal fun from(numberDisassociateParams: NumberDisassociateParams) = apply {
+            enterpriseId = numberDisassociateParams.enterpriseId
+            phoneNumber = numberDisassociateParams.phoneNumber
+            additionalHeaders = numberDisassociateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = numberDisassociateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                numberDisassociateParams.additionalBodyProperties.toMutableMap()
         }
 
         fun enterpriseId(enterpriseId: String) = apply { this.enterpriseId = enterpriseId }
@@ -200,7 +201,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [NumberDeleteParams].
+         * Returns an immutable instance of [NumberDisassociateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -211,8 +212,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): NumberDeleteParams =
-            NumberDeleteParams(
+        fun build(): NumberDisassociateParams =
+            NumberDisassociateParams(
                 checkRequired("enterpriseId", enterpriseId),
                 phoneNumber,
                 additionalHeaders.build(),
@@ -240,7 +241,7 @@ private constructor(
             return true
         }
 
-        return other is NumberDeleteParams &&
+        return other is NumberDisassociateParams &&
             enterpriseId == other.enterpriseId &&
             phoneNumber == other.phoneNumber &&
             additionalHeaders == other.additionalHeaders &&
@@ -258,5 +259,5 @@ private constructor(
         )
 
     override fun toString() =
-        "NumberDeleteParams{enterpriseId=$enterpriseId, phoneNumber=$phoneNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "NumberDisassociateParams{enterpriseId=$enterpriseId, phoneNumber=$phoneNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }
