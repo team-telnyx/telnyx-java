@@ -20,14 +20,14 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: PronunciationDictListParams,
     private val response: PronunciationDictListPageResponse,
-) : PageAsync<PronunciationDictListResponse> {
+) : PageAsync<PronunciationDictData> {
 
     /**
      * Delegates to [PronunciationDictListPageResponse], but gracefully handles missing data.
      *
      * @see PronunciationDictListPageResponse.data
      */
-    fun data(): List<PronunciationDictListResponse> =
+    fun data(): List<PronunciationDictData> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -38,7 +38,7 @@ private constructor(
     fun meta(): Optional<PronunciationDictListPageResponse.Meta> =
         response._meta().getOptional("meta")
 
-    override fun items(): List<PronunciationDictListResponse> = data()
+    override fun items(): List<PronunciationDictData> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -59,7 +59,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<PronunciationDictListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<PronunciationDictListResponse> =
+    fun autoPager(): AutoPagerAsync<PronunciationDictData> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */

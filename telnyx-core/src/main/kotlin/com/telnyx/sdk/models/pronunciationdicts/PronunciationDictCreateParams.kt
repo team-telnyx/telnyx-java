@@ -4,15 +4,12 @@ package com.telnyx.sdk.models.pronunciationdicts
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.telnyx.sdk.core.BaseSerializer
-import com.telnyx.sdk.core.Enum
 import com.telnyx.sdk.core.ExcludeMissing
-import com.telnyx.sdk.core.JsonField
 import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.MultipartField
 import com.telnyx.sdk.core.Params
@@ -150,10 +147,10 @@ private constructor(
         fun addItem(item: Item) = apply { body.addItem(item) }
 
         /** Alias for calling [addItem] with `Item.ofAlias(alias)`. */
-        fun addItem(alias: Item.Alias) = apply { body.addItem(alias) }
+        fun addItem(alias: PronunciationDictAliasItem) = apply { body.addItem(alias) }
 
         /** Alias for calling [addItem] with `Item.ofPhoneme(phoneme)`. */
-        fun addItem(phoneme: Item.Phoneme) = apply { body.addItem(phoneme) }
+        fun addItem(phoneme: PronunciationDictPhonemeItem) = apply { body.addItem(phoneme) }
 
         /** Human-readable name. Must be unique within the organization. */
         fun name(name: String) = apply { body.name(name) }
@@ -420,10 +417,10 @@ private constructor(
             }
 
             /** Alias for calling [addItem] with `Item.ofAlias(alias)`. */
-            fun addItem(alias: Item.Alias) = addItem(Item.ofAlias(alias))
+            fun addItem(alias: PronunciationDictAliasItem) = addItem(Item.ofAlias(alias))
 
             /** Alias for calling [addItem] with `Item.ofPhoneme(phoneme)`. */
-            fun addItem(phoneme: Item.Phoneme) = addItem(Item.ofPhoneme(phoneme))
+            fun addItem(phoneme: PronunciationDictPhonemeItem) = addItem(Item.ofPhoneme(phoneme))
 
             /** Human-readable name. Must be unique within the organization. */
             fun name(name: String) = name(MultipartField.of(name))
@@ -523,8 +520,8 @@ private constructor(
     @JsonSerialize(using = Item.Serializer::class)
     class Item
     private constructor(
-        private val alias: Alias? = null,
-        private val phoneme: Phoneme? = null,
+        private val alias: PronunciationDictAliasItem? = null,
+        private val phoneme: PronunciationDictPhonemeItem? = null,
         private val _json: JsonValue? = null,
     ) {
 
@@ -532,13 +529,13 @@ private constructor(
          * An alias pronunciation item. When the `text` value is found in input, it is replaced with
          * the `alias` before speech synthesis.
          */
-        fun alias(): Optional<Alias> = Optional.ofNullable(alias)
+        fun alias(): Optional<PronunciationDictAliasItem> = Optional.ofNullable(alias)
 
         /**
          * A phoneme pronunciation item. When the `text` value is found in input, it is pronounced
          * using the specified IPA phoneme notation.
          */
-        fun phoneme(): Optional<Phoneme> = Optional.ofNullable(phoneme)
+        fun phoneme(): Optional<PronunciationDictPhonemeItem> = Optional.ofNullable(phoneme)
 
         fun isAlias(): Boolean = alias != null
 
@@ -548,13 +545,13 @@ private constructor(
          * An alias pronunciation item. When the `text` value is found in input, it is replaced with
          * the `alias` before speech synthesis.
          */
-        fun asAlias(): Alias = alias.getOrThrow("alias")
+        fun asAlias(): PronunciationDictAliasItem = alias.getOrThrow("alias")
 
         /**
          * A phoneme pronunciation item. When the `text` value is found in input, it is pronounced
          * using the specified IPA phoneme notation.
          */
-        fun asPhoneme(): Phoneme = phoneme.getOrThrow("phoneme")
+        fun asPhoneme(): PronunciationDictPhonemeItem = phoneme.getOrThrow("phoneme")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
@@ -574,11 +571,11 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitAlias(alias: Alias) {
+                    override fun visitAlias(alias: PronunciationDictAliasItem) {
                         alias.validate()
                     }
 
-                    override fun visitPhoneme(phoneme: Phoneme) {
+                    override fun visitPhoneme(phoneme: PronunciationDictPhonemeItem) {
                         phoneme.validate()
                     }
                 }
@@ -618,13 +615,14 @@ private constructor(
              * An alias pronunciation item. When the `text` value is found in input, it is replaced
              * with the `alias` before speech synthesis.
              */
-            @JvmStatic fun ofAlias(alias: Alias) = Item(alias = alias)
+            @JvmStatic fun ofAlias(alias: PronunciationDictAliasItem) = Item(alias = alias)
 
             /**
              * A phoneme pronunciation item. When the `text` value is found in input, it is
              * pronounced using the specified IPA phoneme notation.
              */
-            @JvmStatic fun ofPhoneme(phoneme: Phoneme) = Item(phoneme = phoneme)
+            @JvmStatic
+            fun ofPhoneme(phoneme: PronunciationDictPhonemeItem) = Item(phoneme = phoneme)
         }
 
         /** An interface that defines how to map each variant of [Item] to a value of type [T]. */
@@ -634,13 +632,13 @@ private constructor(
              * An alias pronunciation item. When the `text` value is found in input, it is replaced
              * with the `alias` before speech synthesis.
              */
-            fun visitAlias(alias: Alias): T
+            fun visitAlias(alias: PronunciationDictAliasItem): T
 
             /**
              * A phoneme pronunciation item. When the `text` value is found in input, it is
              * pronounced using the specified IPA phoneme notation.
              */
-            fun visitPhoneme(phoneme: Phoneme): T
+            fun visitPhoneme(phoneme: PronunciationDictPhonemeItem): T
 
             /**
              * Maps an unknown variant of [Item] to a value of type [T].
@@ -670,641 +668,6 @@ private constructor(
                     else -> throw IllegalStateException("Invalid Item")
                 }
             }
-        }
-
-        /**
-         * An alias pronunciation item. When the `text` value is found in input, it is replaced with
-         * the `alias` before speech synthesis.
-         */
-        class Alias
-        private constructor(
-            private val alias: MultipartField<String>,
-            private val text: MultipartField<String>,
-            private val type: JsonValue,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            /**
-             * The replacement text that will be spoken instead.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun alias(): String = alias.value.getRequired("alias")
-
-            /**
-             * The text to match in the input. Case-insensitive matching is used during synthesis.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun text(): String = text.value.getRequired("text")
-
-            /**
-             * The item type.
-             *
-             * Expected to always return the following:
-             * ```java
-             * JsonValue.from("alias")
-             * ```
-             *
-             * However, this method can be useful for debugging and logging (e.g. if the server
-             * responded with an unexpected value).
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
-
-            /**
-             * Returns the raw multipart value of [alias].
-             *
-             * Unlike [alias], this method doesn't throw if the multipart field has an unexpected
-             * type.
-             */
-            @JsonProperty("alias") @ExcludeMissing fun _alias(): MultipartField<String> = alias
-
-            /**
-             * Returns the raw multipart value of [text].
-             *
-             * Unlike [text], this method doesn't throw if the multipart field has an unexpected
-             * type.
-             */
-            @JsonProperty("text") @ExcludeMissing fun _text(): MultipartField<String> = text
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /**
-                 * Returns a mutable builder for constructing an instance of [Alias].
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .alias()
-                 * .text()
-                 * ```
-                 */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Alias]. */
-            class Builder internal constructor() {
-
-                private var alias: MultipartField<String>? = null
-                private var text: MultipartField<String>? = null
-                private var type: JsonValue = JsonValue.from("alias")
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(alias: Alias) = apply {
-                    this.alias = alias.alias
-                    text = alias.text
-                    type = alias.type
-                    additionalProperties = alias.additionalProperties.toMutableMap()
-                }
-
-                /** The replacement text that will be spoken instead. */
-                fun alias(alias: String) = alias(MultipartField.of(alias))
-
-                /**
-                 * Sets [Builder.alias] to an arbitrary multipart value.
-                 *
-                 * You should usually call [Builder.alias] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun alias(alias: MultipartField<String>) = apply { this.alias = alias }
-
-                /**
-                 * The text to match in the input. Case-insensitive matching is used during
-                 * synthesis.
-                 */
-                fun text(text: String) = text(MultipartField.of(text))
-
-                /**
-                 * Sets [Builder.text] to an arbitrary multipart value.
-                 *
-                 * You should usually call [Builder.text] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun text(text: MultipartField<String>) = apply { this.text = text }
-
-                /**
-                 * Sets the field to an arbitrary JSON value.
-                 *
-                 * It is usually unnecessary to call this method because the field defaults to the
-                 * following:
-                 * ```java
-                 * JsonValue.from("alias")
-                 * ```
-                 *
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun type(type: JsonValue) = apply { this.type = type }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Alias].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .alias()
-                 * .text()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
-                 */
-                fun build(): Alias =
-                    Alias(
-                        checkRequired("alias", alias),
-                        checkRequired("text", text),
-                        type,
-                        additionalProperties.toMutableMap(),
-                    )
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): Alias = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                alias()
-                text()
-                _type().let {
-                    if (it != JsonValue.from("alias")) {
-                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
-                    }
-                }
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Alias &&
-                    alias == other.alias &&
-                    text == other.text &&
-                    type == other.type &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(alias, text, type, additionalProperties)
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Alias{alias=$alias, text=$text, type=$type, additionalProperties=$additionalProperties}"
-        }
-
-        /**
-         * A phoneme pronunciation item. When the `text` value is found in input, it is pronounced
-         * using the specified IPA phoneme notation.
-         */
-        class Phoneme
-        private constructor(
-            private val alphabet: MultipartField<Alphabet>,
-            private val phoneme: MultipartField<String>,
-            private val text: MultipartField<String>,
-            private val type: JsonValue,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            /**
-             * The phonetic alphabet used for the phoneme notation.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun alphabet(): Alphabet = alphabet.value.getRequired("alphabet")
-
-            /**
-             * The phoneme notation representing the desired pronunciation.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun phoneme(): String = phoneme.value.getRequired("phoneme")
-
-            /**
-             * The text to match in the input. Case-insensitive matching is used during synthesis.
-             *
-             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun text(): String = text.value.getRequired("text")
-
-            /**
-             * The item type.
-             *
-             * Expected to always return the following:
-             * ```java
-             * JsonValue.from("phoneme")
-             * ```
-             *
-             * However, this method can be useful for debugging and logging (e.g. if the server
-             * responded with an unexpected value).
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
-
-            /**
-             * Returns the raw multipart value of [alphabet].
-             *
-             * Unlike [alphabet], this method doesn't throw if the multipart field has an unexpected
-             * type.
-             */
-            @JsonProperty("alphabet")
-            @ExcludeMissing
-            fun _alphabet(): MultipartField<Alphabet> = alphabet
-
-            /**
-             * Returns the raw multipart value of [phoneme].
-             *
-             * Unlike [phoneme], this method doesn't throw if the multipart field has an unexpected
-             * type.
-             */
-            @JsonProperty("phoneme")
-            @ExcludeMissing
-            fun _phoneme(): MultipartField<String> = phoneme
-
-            /**
-             * Returns the raw multipart value of [text].
-             *
-             * Unlike [text], this method doesn't throw if the multipart field has an unexpected
-             * type.
-             */
-            @JsonProperty("text") @ExcludeMissing fun _text(): MultipartField<String> = text
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /**
-                 * Returns a mutable builder for constructing an instance of [Phoneme].
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .alphabet()
-                 * .phoneme()
-                 * .text()
-                 * ```
-                 */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Phoneme]. */
-            class Builder internal constructor() {
-
-                private var alphabet: MultipartField<Alphabet>? = null
-                private var phoneme: MultipartField<String>? = null
-                private var text: MultipartField<String>? = null
-                private var type: JsonValue = JsonValue.from("phoneme")
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(phoneme: Phoneme) = apply {
-                    alphabet = phoneme.alphabet
-                    this.phoneme = phoneme.phoneme
-                    text = phoneme.text
-                    type = phoneme.type
-                    additionalProperties = phoneme.additionalProperties.toMutableMap()
-                }
-
-                /** The phonetic alphabet used for the phoneme notation. */
-                fun alphabet(alphabet: Alphabet) = alphabet(MultipartField.of(alphabet))
-
-                /**
-                 * Sets [Builder.alphabet] to an arbitrary multipart value.
-                 *
-                 * You should usually call [Builder.alphabet] with a well-typed [Alphabet] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun alphabet(alphabet: MultipartField<Alphabet>) = apply {
-                    this.alphabet = alphabet
-                }
-
-                /** The phoneme notation representing the desired pronunciation. */
-                fun phoneme(phoneme: String) = phoneme(MultipartField.of(phoneme))
-
-                /**
-                 * Sets [Builder.phoneme] to an arbitrary multipart value.
-                 *
-                 * You should usually call [Builder.phoneme] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun phoneme(phoneme: MultipartField<String>) = apply { this.phoneme = phoneme }
-
-                /**
-                 * The text to match in the input. Case-insensitive matching is used during
-                 * synthesis.
-                 */
-                fun text(text: String) = text(MultipartField.of(text))
-
-                /**
-                 * Sets [Builder.text] to an arbitrary multipart value.
-                 *
-                 * You should usually call [Builder.text] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun text(text: MultipartField<String>) = apply { this.text = text }
-
-                /**
-                 * Sets the field to an arbitrary JSON value.
-                 *
-                 * It is usually unnecessary to call this method because the field defaults to the
-                 * following:
-                 * ```java
-                 * JsonValue.from("phoneme")
-                 * ```
-                 *
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun type(type: JsonValue) = apply { this.type = type }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Phoneme].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .alphabet()
-                 * .phoneme()
-                 * .text()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
-                 */
-                fun build(): Phoneme =
-                    Phoneme(
-                        checkRequired("alphabet", alphabet),
-                        checkRequired("phoneme", phoneme),
-                        checkRequired("text", text),
-                        type,
-                        additionalProperties.toMutableMap(),
-                    )
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): Phoneme = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                alphabet().validate()
-                phoneme()
-                text()
-                _type().let {
-                    if (it != JsonValue.from("phoneme")) {
-                        throw TelnyxInvalidDataException("'type' is invalid, received $it")
-                    }
-                }
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: TelnyxInvalidDataException) {
-                    false
-                }
-
-            /** The phonetic alphabet used for the phoneme notation. */
-            class Alphabet @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    @JvmField val IPA = of("ipa")
-
-                    @JvmStatic fun of(value: String) = Alphabet(JsonField.of(value))
-                }
-
-                /** An enum containing [Alphabet]'s known values. */
-                enum class Known {
-                    IPA
-                }
-
-                /**
-                 * An enum containing [Alphabet]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Alphabet] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    IPA,
-                    /**
-                     * An enum member indicating that [Alphabet] was instantiated with an unknown
-                     * value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        IPA -> Value.IPA
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        IPA -> Known.IPA
-                        else -> throw TelnyxInvalidDataException("Unknown Alphabet: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws TelnyxInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        TelnyxInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                fun validate(): Alphabet = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: TelnyxInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Alphabet && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Phoneme &&
-                    alphabet == other.alphabet &&
-                    phoneme == other.phoneme &&
-                    text == other.text &&
-                    type == other.type &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(alphabet, phoneme, text, type, additionalProperties)
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "Phoneme{alphabet=$alphabet, phoneme=$phoneme, text=$text, type=$type, additionalProperties=$additionalProperties}"
         }
     }
 

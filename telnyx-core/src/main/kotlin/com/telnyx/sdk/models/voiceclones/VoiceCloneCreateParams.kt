@@ -38,13 +38,13 @@ import kotlin.jvm.optionals.getOrNull
  */
 class VoiceCloneCreateParams
 private constructor(
-    private val body: Body,
+    private val params: Params,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** Request body for creating a voice clone from an existing voice design. */
-    fun body(): Body = body
+    fun params(): Params = params
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -61,7 +61,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .body()
+         * .params()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -70,27 +70,27 @@ private constructor(
     /** A builder for [VoiceCloneCreateParams]. */
     class Builder internal constructor() {
 
-        private var body: Body? = null
+        private var params: Params? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(voiceCloneCreateParams: VoiceCloneCreateParams) = apply {
-            body = voiceCloneCreateParams.body
+            params = voiceCloneCreateParams.params
             additionalHeaders = voiceCloneCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = voiceCloneCreateParams.additionalQueryParams.toBuilder()
         }
 
         /** Request body for creating a voice clone from an existing voice design. */
-        fun body(body: Body) = apply { this.body = body }
+        fun params(params: Params) = apply { this.params = params }
 
-        /** Alias for calling [body] with `Body.ofTelnyxDesignClone(telnyxDesignClone)`. */
-        fun body(telnyxDesignClone: Body.TelnyxDesignClone) =
-            body(Body.ofTelnyxDesignClone(telnyxDesignClone))
+        /** Alias for calling [params] with `Params.ofTelnyxDesignClone(telnyxDesignClone)`. */
+        fun params(telnyxDesignClone: Params.TelnyxDesignClone) =
+            params(Params.ofTelnyxDesignClone(telnyxDesignClone))
 
-        /** Alias for calling [body] with `Body.ofMinimaxDesignClone(minimaxDesignClone)`. */
-        fun body(minimaxDesignClone: Body.MinimaxDesignClone) =
-            body(Body.ofMinimaxDesignClone(minimaxDesignClone))
+        /** Alias for calling [params] with `Params.ofMinimaxDesignClone(minimaxDesignClone)`. */
+        fun params(minimaxDesignClone: Params.MinimaxDesignClone) =
+            params(Params.ofMinimaxDesignClone(minimaxDesignClone))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -197,29 +197,29 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .body()
+         * .params()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): VoiceCloneCreateParams =
             VoiceCloneCreateParams(
-                checkRequired("body", body),
+                checkRequired("params", params),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Body = body
+    fun _body(): Params = params
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     /** Request body for creating a voice clone from an existing voice design. */
-    @JsonDeserialize(using = Body.Deserializer::class)
-    @JsonSerialize(using = Body.Serializer::class)
-    class Body
+    @JsonDeserialize(using = Params.Deserializer::class)
+    @JsonSerialize(using = Params.Serializer::class)
+    class Params
     private constructor(
         private val telnyxDesignClone: TelnyxDesignClone? = null,
         private val minimaxDesignClone: MinimaxDesignClone? = null,
@@ -257,7 +257,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Body = apply {
+        fun validate(): Params = apply {
             if (validated) {
                 return@apply
             }
@@ -309,7 +309,7 @@ private constructor(
                 return true
             }
 
-            return other is Body &&
+            return other is Params &&
                 telnyxDesignClone == other.telnyxDesignClone &&
                 minimaxDesignClone == other.minimaxDesignClone
         }
@@ -318,10 +318,10 @@ private constructor(
 
         override fun toString(): String =
             when {
-                telnyxDesignClone != null -> "Body{telnyxDesignClone=$telnyxDesignClone}"
-                minimaxDesignClone != null -> "Body{minimaxDesignClone=$minimaxDesignClone}"
-                _json != null -> "Body{_unknown=$_json}"
-                else -> throw IllegalStateException("Invalid Body")
+                telnyxDesignClone != null -> "Params{telnyxDesignClone=$telnyxDesignClone}"
+                minimaxDesignClone != null -> "Params{minimaxDesignClone=$minimaxDesignClone}"
+                _json != null -> "Params{_unknown=$_json}"
+                else -> throw IllegalStateException("Invalid Params")
             }
 
         companion object {
@@ -329,15 +329,15 @@ private constructor(
             /** Create a voice clone from a voice design using the Telnyx provider. */
             @JvmStatic
             fun ofTelnyxDesignClone(telnyxDesignClone: TelnyxDesignClone) =
-                Body(telnyxDesignClone = telnyxDesignClone)
+                Params(telnyxDesignClone = telnyxDesignClone)
 
             /** Create a voice clone from a voice design using the Minimax provider. */
             @JvmStatic
             fun ofMinimaxDesignClone(minimaxDesignClone: MinimaxDesignClone) =
-                Body(minimaxDesignClone = minimaxDesignClone)
+                Params(minimaxDesignClone = minimaxDesignClone)
         }
 
-        /** An interface that defines how to map each variant of [Body] to a value of type [T]. */
+        /** An interface that defines how to map each variant of [Params] to a value of type [T]. */
         interface Visitor<out T> {
 
             /** Create a voice clone from a voice design using the Telnyx provider. */
@@ -347,22 +347,23 @@ private constructor(
             fun visitMinimaxDesignClone(minimaxDesignClone: MinimaxDesignClone): T
 
             /**
-             * Maps an unknown variant of [Body] to a value of type [T].
+             * Maps an unknown variant of [Params] to a value of type [T].
              *
-             * An instance of [Body] can contain an unknown variant if it was deserialized from data
-             * that doesn't match any known variant. For example, if the SDK is on an older version
-             * than the API, then the API may respond with new variants that the SDK is unaware of.
+             * An instance of [Params] can contain an unknown variant if it was deserialized from
+             * data that doesn't match any known variant. For example, if the SDK is on an older
+             * version than the API, then the API may respond with new variants that the SDK is
+             * unaware of.
              *
              * @throws TelnyxInvalidDataException in the default implementation.
              */
             fun unknown(json: JsonValue?): T {
-                throw TelnyxInvalidDataException("Unknown Body: $json")
+                throw TelnyxInvalidDataException("Unknown Params: $json")
             }
         }
 
-        internal class Deserializer : BaseDeserializer<Body>(Body::class) {
+        internal class Deserializer : BaseDeserializer<Params>(Params::class) {
 
-            override fun ObjectCodec.deserialize(node: JsonNode): Body {
+            override fun ObjectCodec.deserialize(node: JsonNode): Params {
                 val json = JsonValue.fromJsonNode(node)
                 val provider = json.asObject().getOrNull()?.get("provider")?.asString()?.getOrNull()
 
@@ -371,10 +372,10 @@ private constructor(
                 val bestMatches =
                     sequenceOf(
                             tryDeserialize(node, jacksonTypeRef<TelnyxDesignClone>())?.let {
-                                Body(telnyxDesignClone = it, _json = json)
+                                Params(telnyxDesignClone = it, _json = json)
                             },
                             tryDeserialize(node, jacksonTypeRef<MinimaxDesignClone>())?.let {
-                                Body(minimaxDesignClone = it, _json = json)
+                                Params(minimaxDesignClone = it, _json = json)
                             },
                         )
                         .filterNotNull()
@@ -383,7 +384,7 @@ private constructor(
                 return when (bestMatches.size) {
                     // This can happen if what we're deserializing is completely incompatible with
                     // all the possible variants (e.g. deserializing from boolean).
-                    0 -> Body(_json = json)
+                    0 -> Params(_json = json)
                     1 -> bestMatches.single()
                     // If there's more than one match with the highest validity, then use the first
                     // completely valid match, or simply the first match if none are completely
@@ -393,10 +394,10 @@ private constructor(
             }
         }
 
-        internal class Serializer : BaseSerializer<Body>(Body::class) {
+        internal class Serializer : BaseSerializer<Params>(Params::class) {
 
             override fun serialize(
-                value: Body,
+                value: Params,
                 generator: JsonGenerator,
                 provider: SerializerProvider,
             ) {
@@ -406,7 +407,7 @@ private constructor(
                     value.minimaxDesignClone != null ->
                         generator.writeObject(value.minimaxDesignClone)
                     value._json != null -> generator.writeObject(value._json)
-                    else -> throw IllegalStateException("Invalid Body")
+                    else -> throw IllegalStateException("Invalid Params")
                 }
             }
         }
@@ -1633,13 +1634,13 @@ private constructor(
         }
 
         return other is VoiceCloneCreateParams &&
-            body == other.body &&
+            params == other.params &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int = Objects.hash(params, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "VoiceCloneCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "VoiceCloneCreateParams{params=$params, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

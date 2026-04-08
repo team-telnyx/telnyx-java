@@ -41,14 +41,14 @@ import kotlin.jvm.optionals.getOrNull
 class CallCallsParams
 private constructor(
     private val accountSid: String?,
-    private val body: Body,
+    private val params: Params,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun accountSid(): Optional<String> = Optional.ofNullable(accountSid)
 
-    fun body(): Body = body
+    fun params(): Params = params
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -65,7 +65,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .body()
+         * .params()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -75,14 +75,14 @@ private constructor(
     class Builder internal constructor() {
 
         private var accountSid: String? = null
-        private var body: Body? = null
+        private var params: Params? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(callCallsParams: CallCallsParams) = apply {
             accountSid = callCallsParams.accountSid
-            body = callCallsParams.body
+            params = callCallsParams.params
             additionalHeaders = callCallsParams.additionalHeaders.toBuilder()
             additionalQueryParams = callCallsParams.additionalQueryParams.toBuilder()
         }
@@ -92,17 +92,17 @@ private constructor(
         /** Alias for calling [Builder.accountSid] with `accountSid.orElse(null)`. */
         fun accountSid(accountSid: Optional<String>) = accountSid(accountSid.getOrNull())
 
-        fun body(body: Body) = apply { this.body = body }
+        fun params(params: Params) = apply { this.params = params }
 
-        /** Alias for calling [body] with `Body.ofWithUrl(withUrl)`. */
-        fun body(withUrl: Body.WithUrl) = body(Body.ofWithUrl(withUrl))
+        /** Alias for calling [params] with `Params.ofWithUrl(withUrl)`. */
+        fun params(withUrl: Params.WithUrl) = params(Params.ofWithUrl(withUrl))
 
-        /** Alias for calling [body] with `Body.ofWithTeXml(withTeXml)`. */
-        fun body(withTeXml: Body.WithTeXml) = body(Body.ofWithTeXml(withTeXml))
+        /** Alias for calling [params] with `Params.ofWithTeXml(withTeXml)`. */
+        fun params(withTeXml: Params.WithTeXml) = params(Params.ofWithTeXml(withTeXml))
 
-        /** Alias for calling [body] with `Body.ofApplicationDefault(applicationDefault)`. */
-        fun body(applicationDefault: Body.ApplicationDefault) =
-            body(Body.ofApplicationDefault(applicationDefault))
+        /** Alias for calling [params] with `Params.ofApplicationDefault(applicationDefault)`. */
+        fun params(applicationDefault: Params.ApplicationDefault) =
+            params(Params.ofApplicationDefault(applicationDefault))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -209,7 +209,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .body()
+         * .params()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -217,13 +217,13 @@ private constructor(
         fun build(): CallCallsParams =
             CallCallsParams(
                 accountSid,
-                checkRequired("body", body),
+                checkRequired("params", params),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Body = body
+    fun _body(): Params = params
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -235,9 +235,9 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(using = Body.Deserializer::class)
-    @JsonSerialize(using = Body.Serializer::class)
-    class Body
+    @JsonDeserialize(using = Params.Deserializer::class)
+    @JsonSerialize(using = Params.Serializer::class)
+    class Params
     private constructor(
         private val withUrl: WithUrl? = null,
         private val withTeXml: WithTeXml? = null,
@@ -277,7 +277,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Body = apply {
+        fun validate(): Params = apply {
             if (validated) {
                 return@apply
             }
@@ -334,7 +334,7 @@ private constructor(
                 return true
             }
 
-            return other is Body &&
+            return other is Params &&
                 withUrl == other.withUrl &&
                 withTeXml == other.withTeXml &&
                 applicationDefault == other.applicationDefault
@@ -344,25 +344,25 @@ private constructor(
 
         override fun toString(): String =
             when {
-                withUrl != null -> "Body{withUrl=$withUrl}"
-                withTeXml != null -> "Body{withTeXml=$withTeXml}"
-                applicationDefault != null -> "Body{applicationDefault=$applicationDefault}"
-                _json != null -> "Body{_unknown=$_json}"
-                else -> throw IllegalStateException("Invalid Body")
+                withUrl != null -> "Params{withUrl=$withUrl}"
+                withTeXml != null -> "Params{withTeXml=$withTeXml}"
+                applicationDefault != null -> "Params{applicationDefault=$applicationDefault}"
+                _json != null -> "Params{_unknown=$_json}"
+                else -> throw IllegalStateException("Invalid Params")
             }
 
         companion object {
 
-            @JvmStatic fun ofWithUrl(withUrl: WithUrl) = Body(withUrl = withUrl)
+            @JvmStatic fun ofWithUrl(withUrl: WithUrl) = Params(withUrl = withUrl)
 
-            @JvmStatic fun ofWithTeXml(withTeXml: WithTeXml) = Body(withTeXml = withTeXml)
+            @JvmStatic fun ofWithTeXml(withTeXml: WithTeXml) = Params(withTeXml = withTeXml)
 
             @JvmStatic
             fun ofApplicationDefault(applicationDefault: ApplicationDefault) =
-                Body(applicationDefault = applicationDefault)
+                Params(applicationDefault = applicationDefault)
         }
 
-        /** An interface that defines how to map each variant of [Body] to a value of type [T]. */
+        /** An interface that defines how to map each variant of [Params] to a value of type [T]. */
         interface Visitor<out T> {
 
             fun visitWithUrl(withUrl: WithUrl): T
@@ -372,34 +372,35 @@ private constructor(
             fun visitApplicationDefault(applicationDefault: ApplicationDefault): T
 
             /**
-             * Maps an unknown variant of [Body] to a value of type [T].
+             * Maps an unknown variant of [Params] to a value of type [T].
              *
-             * An instance of [Body] can contain an unknown variant if it was deserialized from data
-             * that doesn't match any known variant. For example, if the SDK is on an older version
-             * than the API, then the API may respond with new variants that the SDK is unaware of.
+             * An instance of [Params] can contain an unknown variant if it was deserialized from
+             * data that doesn't match any known variant. For example, if the SDK is on an older
+             * version than the API, then the API may respond with new variants that the SDK is
+             * unaware of.
              *
              * @throws TelnyxInvalidDataException in the default implementation.
              */
             fun unknown(json: JsonValue?): T {
-                throw TelnyxInvalidDataException("Unknown Body: $json")
+                throw TelnyxInvalidDataException("Unknown Params: $json")
             }
         }
 
-        internal class Deserializer : BaseDeserializer<Body>(Body::class) {
+        internal class Deserializer : BaseDeserializer<Params>(Params::class) {
 
-            override fun ObjectCodec.deserialize(node: JsonNode): Body {
+            override fun ObjectCodec.deserialize(node: JsonNode): Params {
                 val json = JsonValue.fromJsonNode(node)
 
                 val bestMatches =
                     sequenceOf(
                             tryDeserialize(node, jacksonTypeRef<WithUrl>())?.let {
-                                Body(withUrl = it, _json = json)
+                                Params(withUrl = it, _json = json)
                             },
                             tryDeserialize(node, jacksonTypeRef<WithTeXml>())?.let {
-                                Body(withTeXml = it, _json = json)
+                                Params(withTeXml = it, _json = json)
                             },
                             tryDeserialize(node, jacksonTypeRef<ApplicationDefault>())?.let {
-                                Body(applicationDefault = it, _json = json)
+                                Params(applicationDefault = it, _json = json)
                             },
                         )
                         .filterNotNull()
@@ -408,7 +409,7 @@ private constructor(
                 return when (bestMatches.size) {
                     // This can happen if what we're deserializing is completely incompatible with
                     // all the possible variants (e.g. deserializing from boolean).
-                    0 -> Body(_json = json)
+                    0 -> Params(_json = json)
                     1 -> bestMatches.single()
                     // If there's more than one match with the highest validity, then use the first
                     // completely valid match, or simply the first match if none are completely
@@ -418,10 +419,10 @@ private constructor(
             }
         }
 
-        internal class Serializer : BaseSerializer<Body>(Body::class) {
+        internal class Serializer : BaseSerializer<Params>(Params::class) {
 
             override fun serialize(
-                value: Body,
+                value: Params,
                 generator: JsonGenerator,
                 provider: SerializerProvider,
             ) {
@@ -431,7 +432,7 @@ private constructor(
                     value.applicationDefault != null ->
                         generator.writeObject(value.applicationDefault)
                     value._json != null -> generator.writeObject(value._json)
-                    else -> throw IllegalStateException("Invalid Body")
+                    else -> throw IllegalStateException("Invalid Params")
                 }
             }
         }
@@ -474,7 +475,7 @@ private constructor(
             private val statusCallbackMethod: JsonField<StatusCallbackMethod>,
             private val superviseCallSid: JsonField<String>,
             private val supervisingRole: JsonField<SupervisingRole>,
-            private val texml: JsonValue,
+            private val texml: JsonField<String>,
             private val timeLimit: JsonField<Long>,
             private val timeout: JsonField<Long>,
             private val to: JsonField<String>,
@@ -588,7 +589,7 @@ private constructor(
                 @JsonProperty("SupervisingRole")
                 @ExcludeMissing
                 supervisingRole: JsonField<SupervisingRole> = JsonMissing.of(),
-                @JsonProperty("Texml") @ExcludeMissing texml: JsonValue = JsonMissing.of(),
+                @JsonProperty("Texml") @ExcludeMissing texml: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("TimeLimit")
                 @ExcludeMissing
                 timeLimit: JsonField<Long> = JsonMissing.of(),
@@ -974,13 +975,10 @@ private constructor(
                 supervisingRole.getOptional("SupervisingRole")
 
             /**
-             * This arbitrary value can be deserialized into a custom type using the `convert`
-             * method:
-             * ```java
-             * MyClass myObject = withUrl.texml().convert(MyClass.class);
-             * ```
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
              */
-            @JsonProperty("Texml") @ExcludeMissing fun _texml(): JsonValue = texml
+            fun texml(): Optional<String> = texml.getOptional("Texml")
 
             /**
              * The maximum duration of the call in seconds. The minimum value is 30 and the maximum
@@ -1372,6 +1370,13 @@ private constructor(
             fun _supervisingRole(): JsonField<SupervisingRole> = supervisingRole
 
             /**
+             * Returns the raw JSON value of [texml].
+             *
+             * Unlike [texml], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("Texml") @ExcludeMissing fun _texml(): JsonField<String> = texml
+
+            /**
              * Returns the raw JSON value of [timeLimit].
              *
              * Unlike [timeLimit], this method doesn't throw if the JSON field has an unexpected
@@ -1476,7 +1481,7 @@ private constructor(
                 private var statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of()
                 private var superviseCallSid: JsonField<String> = JsonMissing.of()
                 private var supervisingRole: JsonField<SupervisingRole> = JsonMissing.of()
-                private var texml: JsonValue = JsonMissing.of()
+                private var texml: JsonField<String> = JsonMissing.of()
                 private var timeLimit: JsonField<Long> = JsonMissing.of()
                 private var timeout: JsonField<Long> = JsonMissing.of()
                 private var to: JsonField<String> = JsonMissing.of()
@@ -2122,7 +2127,19 @@ private constructor(
                     this.supervisingRole = supervisingRole
                 }
 
-                fun texml(texml: JsonValue) = apply { this.texml = texml }
+                fun texml(texml: String?) = texml(JsonField.ofNullable(texml))
+
+                /** Alias for calling [Builder.texml] with `texml.orElse(null)`. */
+                fun texml(texml: Optional<String>) = texml(texml.getOrNull())
+
+                /**
+                 * Sets [Builder.texml] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.texml] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun texml(texml: JsonField<String>) = apply { this.texml = texml }
 
                 /**
                  * The maximum duration of the call in seconds. The minimum value is 30 and the
@@ -2325,6 +2342,7 @@ private constructor(
                 statusCallbackMethod().ifPresent { it.validate() }
                 superviseCallSid()
                 supervisingRole().ifPresent { it.validate() }
+                texml()
                 timeLimit()
                 timeout()
                 to()
@@ -2384,6 +2402,7 @@ private constructor(
                     (statusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (superviseCallSid.asKnown().isPresent) 1 else 0) +
                     (supervisingRole.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (texml.asKnown().isPresent) 1 else 0) +
                     (if (timeLimit.asKnown().isPresent) 1 else 0) +
                     (if (timeout.asKnown().isPresent) 1 else 0) +
                     (if (to.asKnown().isPresent) 1 else 0) +
@@ -4577,7 +4596,7 @@ private constructor(
             private val timeout: JsonField<Long>,
             private val to: JsonField<String>,
             private val trim: JsonField<Trim>,
-            private val url: JsonValue,
+            private val url: JsonField<String>,
             private val urlMethod: JsonField<UrlMethod>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -4695,7 +4714,7 @@ private constructor(
                 timeout: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("To") @ExcludeMissing to: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("Trim") @ExcludeMissing trim: JsonField<Trim> = JsonMissing.of(),
-                @JsonProperty("Url") @ExcludeMissing url: JsonValue = JsonMissing.of(),
+                @JsonProperty("Url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("UrlMethod")
                 @ExcludeMissing
                 urlMethod: JsonField<UrlMethod> = JsonMissing.of(),
@@ -5111,13 +5130,10 @@ private constructor(
             fun trim(): Optional<Trim> = trim.getOptional("Trim")
 
             /**
-             * This arbitrary value can be deserialized into a custom type using the `convert`
-             * method:
-             * ```java
-             * MyClass myObject = withTeXml.url().convert(MyClass.class);
-             * ```
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
              */
-            @JsonProperty("Url") @ExcludeMissing fun _url(): JsonValue = url
+            fun url(): Optional<String> = url.getOptional("Url")
 
             /**
              * HTTP request type used for `Url`. The default value is inherited from TeXML
@@ -5501,6 +5517,13 @@ private constructor(
             @JsonProperty("Trim") @ExcludeMissing fun _trim(): JsonField<Trim> = trim
 
             /**
+             * Returns the raw JSON value of [url].
+             *
+             * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("Url") @ExcludeMissing fun _url(): JsonField<String> = url
+
+            /**
              * Returns the raw JSON value of [urlMethod].
              *
              * Unlike [urlMethod], this method doesn't throw if the JSON field has an unexpected
@@ -5580,7 +5603,7 @@ private constructor(
                 private var timeout: JsonField<Long> = JsonMissing.of()
                 private var to: JsonField<String> = JsonMissing.of()
                 private var trim: JsonField<Trim> = JsonMissing.of()
-                private var url: JsonValue = JsonMissing.of()
+                private var url: JsonField<String> = JsonMissing.of()
                 private var urlMethod: JsonField<UrlMethod> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -6287,7 +6310,19 @@ private constructor(
                  */
                 fun trim(trim: JsonField<Trim>) = apply { this.trim = trim }
 
-                fun url(url: JsonValue) = apply { this.url = url }
+                fun url(url: String?) = url(JsonField.ofNullable(url))
+
+                /** Alias for calling [Builder.url] with `url.orElse(null)`. */
+                fun url(url: Optional<String>) = url(url.getOrNull())
+
+                /**
+                 * Sets [Builder.url] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.url] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun url(url: JsonField<String>) = apply { this.url = url }
 
                 /**
                  * HTTP request type used for `Url`. The default value is inherited from TeXML
@@ -6433,6 +6468,7 @@ private constructor(
                 timeout()
                 to()
                 trim().ifPresent { it.validate() }
+                url()
                 urlMethod().ifPresent { it.validate() }
                 validated = true
             }
@@ -6492,6 +6528,7 @@ private constructor(
                     (if (timeout.asKnown().isPresent) 1 else 0) +
                     (if (to.asKnown().isPresent) 1 else 0) +
                     (trim.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (url.asKnown().isPresent) 1 else 0) +
                     (urlMethod.asKnown().getOrNull()?.validity() ?: 0)
 
             /**
@@ -8676,12 +8713,12 @@ private constructor(
             private val statusCallbackMethod: JsonField<StatusCallbackMethod>,
             private val superviseCallSid: JsonField<String>,
             private val supervisingRole: JsonField<SupervisingRole>,
-            private val texml: JsonValue,
+            private val texml: JsonField<String>,
             private val timeLimit: JsonField<Long>,
             private val timeout: JsonField<Long>,
             private val to: JsonField<String>,
             private val trim: JsonField<Trim>,
-            private val url: JsonValue,
+            private val url: JsonField<String>,
             private val urlMethod: JsonField<UrlMethod>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -8790,7 +8827,7 @@ private constructor(
                 @JsonProperty("SupervisingRole")
                 @ExcludeMissing
                 supervisingRole: JsonField<SupervisingRole> = JsonMissing.of(),
-                @JsonProperty("Texml") @ExcludeMissing texml: JsonValue = JsonMissing.of(),
+                @JsonProperty("Texml") @ExcludeMissing texml: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("TimeLimit")
                 @ExcludeMissing
                 timeLimit: JsonField<Long> = JsonMissing.of(),
@@ -8799,7 +8836,7 @@ private constructor(
                 timeout: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("To") @ExcludeMissing to: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("Trim") @ExcludeMissing trim: JsonField<Trim> = JsonMissing.of(),
-                @JsonProperty("Url") @ExcludeMissing url: JsonValue = JsonMissing.of(),
+                @JsonProperty("Url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("UrlMethod")
                 @ExcludeMissing
                 urlMethod: JsonField<UrlMethod> = JsonMissing.of(),
@@ -9168,13 +9205,10 @@ private constructor(
                 supervisingRole.getOptional("SupervisingRole")
 
             /**
-             * This arbitrary value can be deserialized into a custom type using the `convert`
-             * method:
-             * ```java
-             * MyClass myObject = applicationDefault.texml().convert(MyClass.class);
-             * ```
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
              */
-            @JsonProperty("Texml") @ExcludeMissing fun _texml(): JsonValue = texml
+            fun texml(): Optional<String> = texml.getOptional("Texml")
 
             /**
              * The maximum duration of the call in seconds. The minimum value is 30 and the maximum
@@ -9214,13 +9248,10 @@ private constructor(
             fun trim(): Optional<Trim> = trim.getOptional("Trim")
 
             /**
-             * This arbitrary value can be deserialized into a custom type using the `convert`
-             * method:
-             * ```java
-             * MyClass myObject = applicationDefault.url().convert(MyClass.class);
-             * ```
+             * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if
+             *   the server responded with an unexpected value).
              */
-            @JsonProperty("Url") @ExcludeMissing fun _url(): JsonValue = url
+            fun url(): Optional<String> = url.getOptional("Url")
 
             /**
              * HTTP request type used for `Url`. The default value is inherited from TeXML
@@ -9568,6 +9599,13 @@ private constructor(
             fun _supervisingRole(): JsonField<SupervisingRole> = supervisingRole
 
             /**
+             * Returns the raw JSON value of [texml].
+             *
+             * Unlike [texml], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("Texml") @ExcludeMissing fun _texml(): JsonField<String> = texml
+
+            /**
              * Returns the raw JSON value of [timeLimit].
              *
              * Unlike [timeLimit], this method doesn't throw if the JSON field has an unexpected
@@ -9595,6 +9633,13 @@ private constructor(
              * Unlike [trim], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("Trim") @ExcludeMissing fun _trim(): JsonField<Trim> = trim
+
+            /**
+             * Returns the raw JSON value of [url].
+             *
+             * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("Url") @ExcludeMissing fun _url(): JsonField<String> = url
 
             /**
              * Returns the raw JSON value of [urlMethod].
@@ -9666,12 +9711,12 @@ private constructor(
                 private var statusCallbackMethod: JsonField<StatusCallbackMethod> = JsonMissing.of()
                 private var superviseCallSid: JsonField<String> = JsonMissing.of()
                 private var supervisingRole: JsonField<SupervisingRole> = JsonMissing.of()
-                private var texml: JsonValue = JsonMissing.of()
+                private var texml: JsonField<String> = JsonMissing.of()
                 private var timeLimit: JsonField<Long> = JsonMissing.of()
                 private var timeout: JsonField<Long> = JsonMissing.of()
                 private var to: JsonField<String> = JsonMissing.of()
                 private var trim: JsonField<Trim> = JsonMissing.of()
-                private var url: JsonValue = JsonMissing.of()
+                private var url: JsonField<String> = JsonMissing.of()
                 private var urlMethod: JsonField<UrlMethod> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -10306,7 +10351,19 @@ private constructor(
                     this.supervisingRole = supervisingRole
                 }
 
-                fun texml(texml: JsonValue) = apply { this.texml = texml }
+                fun texml(texml: String?) = texml(JsonField.ofNullable(texml))
+
+                /** Alias for calling [Builder.texml] with `texml.orElse(null)`. */
+                fun texml(texml: Optional<String>) = texml(texml.getOrNull())
+
+                /**
+                 * Sets [Builder.texml] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.texml] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun texml(texml: JsonField<String>) = apply { this.texml = texml }
 
                 /**
                  * The maximum duration of the call in seconds. The minimum value is 30 and the
@@ -10369,7 +10426,19 @@ private constructor(
                  */
                 fun trim(trim: JsonField<Trim>) = apply { this.trim = trim }
 
-                fun url(url: JsonValue) = apply { this.url = url }
+                fun url(url: String?) = url(JsonField.ofNullable(url))
+
+                /** Alias for calling [Builder.url] with `url.orElse(null)`. */
+                fun url(url: Optional<String>) = url(url.getOrNull())
+
+                /**
+                 * Sets [Builder.url] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.url] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun url(url: JsonField<String>) = apply { this.url = url }
 
                 /**
                  * HTTP request type used for `Url`. The default value is inherited from TeXML
@@ -10503,10 +10572,12 @@ private constructor(
                 statusCallbackMethod().ifPresent { it.validate() }
                 superviseCallSid()
                 supervisingRole().ifPresent { it.validate() }
+                texml()
                 timeLimit()
                 timeout()
                 to()
                 trim().ifPresent { it.validate() }
+                url()
                 urlMethod().ifPresent { it.validate() }
                 validated = true
             }
@@ -10561,10 +10632,12 @@ private constructor(
                     (statusCallbackMethod.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (superviseCallSid.asKnown().isPresent) 1 else 0) +
                     (supervisingRole.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (texml.asKnown().isPresent) 1 else 0) +
                     (if (timeLimit.asKnown().isPresent) 1 else 0) +
                     (if (timeout.asKnown().isPresent) 1 else 0) +
                     (if (to.asKnown().isPresent) 1 else 0) +
                     (trim.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (url.asKnown().isPresent) 1 else 0) +
                     (urlMethod.asKnown().getOrNull()?.validity() ?: 0)
 
             /**
@@ -12720,14 +12793,14 @@ private constructor(
 
         return other is CallCallsParams &&
             accountSid == other.accountSid &&
-            body == other.body &&
+            params == other.params &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(accountSid, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(accountSid, params, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "CallCallsParams{accountSid=$accountSid, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CallCallsParams{accountSid=$accountSid, params=$params, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

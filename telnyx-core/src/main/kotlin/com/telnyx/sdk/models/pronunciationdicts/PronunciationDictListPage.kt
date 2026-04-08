@@ -17,14 +17,14 @@ private constructor(
     private val service: PronunciationDictService,
     private val params: PronunciationDictListParams,
     private val response: PronunciationDictListPageResponse,
-) : Page<PronunciationDictListResponse> {
+) : Page<PronunciationDictData> {
 
     /**
      * Delegates to [PronunciationDictListPageResponse], but gracefully handles missing data.
      *
      * @see PronunciationDictListPageResponse.data
      */
-    fun data(): List<PronunciationDictListResponse> =
+    fun data(): List<PronunciationDictData> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
@@ -35,7 +35,7 @@ private constructor(
     fun meta(): Optional<PronunciationDictListPageResponse.Meta> =
         response._meta().getOptional("meta")
 
-    override fun items(): List<PronunciationDictListResponse> = data()
+    override fun items(): List<PronunciationDictData> = data()
 
     override fun hasNextPage(): Boolean {
         if (items().isEmpty()) {
@@ -55,7 +55,7 @@ private constructor(
 
     override fun nextPage(): PronunciationDictListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<PronunciationDictListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<PronunciationDictData> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): PronunciationDictListParams = params

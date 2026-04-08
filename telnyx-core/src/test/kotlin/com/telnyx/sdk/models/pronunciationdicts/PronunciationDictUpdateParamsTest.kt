@@ -13,9 +13,10 @@ internal class PronunciationDictUpdateParamsTest {
         PronunciationDictUpdateParams.builder()
             .id("c215a3e1-be41-4701-97e8-1d3c22f9a5b7")
             .addItem(
-                PronunciationDictUpdateParams.Item.Alias.builder()
+                PronunciationDictAliasItem.builder()
                     .alias("tel-nicks")
                     .text("Telnyx")
+                    .type(PronunciationDictAliasItem.Type.ALIAS)
                     .build()
             )
             .name("Updated Brand Names")
@@ -40,9 +41,10 @@ internal class PronunciationDictUpdateParamsTest {
             PronunciationDictUpdateParams.builder()
                 .id("c215a3e1-be41-4701-97e8-1d3c22f9a5b7")
                 .addItem(
-                    PronunciationDictUpdateParams.Item.Alias.builder()
+                    PronunciationDictAliasItem.builder()
                         .alias("tel-nicks")
                         .text("Telnyx")
+                        .type(PronunciationDictAliasItem.Type.ALIAS)
                         .build()
                 )
                 .name("Updated Brand Names")
@@ -53,9 +55,10 @@ internal class PronunciationDictUpdateParamsTest {
         assertThat(body.items().getOrNull())
             .containsExactly(
                 PronunciationDictUpdateParams.Item.ofAlias(
-                    PronunciationDictUpdateParams.Item.Alias.builder()
+                    PronunciationDictAliasItem.builder()
                         .alias("tel-nicks")
                         .text("Telnyx")
+                        .type(PronunciationDictAliasItem.Type.ALIAS)
                         .build()
                 )
             )

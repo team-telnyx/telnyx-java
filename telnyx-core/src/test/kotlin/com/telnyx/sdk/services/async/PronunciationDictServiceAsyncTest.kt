@@ -3,6 +3,7 @@
 package com.telnyx.sdk.services.async
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClientAsync
+import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictAliasItem
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictCreateParams
 import com.telnyx.sdk.models.pronunciationdicts.PronunciationDictUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -20,9 +21,10 @@ internal class PronunciationDictServiceAsyncTest {
             pronunciationDictServiceAsync.create(
                 PronunciationDictCreateParams.builder()
                     .addItem(
-                        PronunciationDictCreateParams.Item.Alias.builder()
+                        PronunciationDictAliasItem.builder()
                             .alias("tel-nicks")
                             .text("Telnyx")
+                            .type(PronunciationDictAliasItem.Type.ALIAS)
                             .build()
                     )
                     .name("Brand Names")
@@ -57,9 +59,10 @@ internal class PronunciationDictServiceAsyncTest {
                 PronunciationDictUpdateParams.builder()
                     .id("c215a3e1-be41-4701-97e8-1d3c22f9a5b7")
                     .addItem(
-                        PronunciationDictUpdateParams.Item.Alias.builder()
+                        PronunciationDictAliasItem.builder()
                             .alias("tel-nicks")
                             .text("Telnyx")
+                            .type(PronunciationDictAliasItem.Type.ALIAS)
                             .build()
                     )
                     .name("Updated Brand Names")

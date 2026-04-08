@@ -15,19 +15,18 @@ internal class PronunciationDictRetrieveResponseTest {
         val pronunciationDictRetrieveResponse =
             PronunciationDictRetrieveResponse.builder()
                 .data(
-                    PronunciationDictRetrieveResponse.Data.builder()
+                    PronunciationDictData.builder()
                         .id("c215a3e1-be41-4701-97e8-1d3c22f9a5b7")
                         .createdAt(OffsetDateTime.parse("2026-03-25T12:00:00.000Z"))
                         .addItem(
-                            PronunciationDictRetrieveResponse.Data.Item.Alias.builder()
+                            PronunciationDictAliasItem.builder()
                                 .alias("tel-nicks")
                                 .text("Telnyx")
+                                .type(PronunciationDictAliasItem.Type.ALIAS)
                                 .build()
                         )
                         .name("Brand Names")
-                        .recordType(
-                            PronunciationDictRetrieveResponse.Data.RecordType.PRONUNCIATION_DICT
-                        )
+                        .recordType(PronunciationDictData.RecordType.PRONUNCIATION_DICT)
                         .updatedAt(OffsetDateTime.parse("2026-03-25T12:00:00.000Z"))
                         .version(1L)
                         .build()
@@ -36,19 +35,18 @@ internal class PronunciationDictRetrieveResponseTest {
 
         assertThat(pronunciationDictRetrieveResponse.data())
             .contains(
-                PronunciationDictRetrieveResponse.Data.builder()
+                PronunciationDictData.builder()
                     .id("c215a3e1-be41-4701-97e8-1d3c22f9a5b7")
                     .createdAt(OffsetDateTime.parse("2026-03-25T12:00:00.000Z"))
                     .addItem(
-                        PronunciationDictRetrieveResponse.Data.Item.Alias.builder()
+                        PronunciationDictAliasItem.builder()
                             .alias("tel-nicks")
                             .text("Telnyx")
+                            .type(PronunciationDictAliasItem.Type.ALIAS)
                             .build()
                     )
                     .name("Brand Names")
-                    .recordType(
-                        PronunciationDictRetrieveResponse.Data.RecordType.PRONUNCIATION_DICT
-                    )
+                    .recordType(PronunciationDictData.RecordType.PRONUNCIATION_DICT)
                     .updatedAt(OffsetDateTime.parse("2026-03-25T12:00:00.000Z"))
                     .version(1L)
                     .build()
@@ -61,19 +59,18 @@ internal class PronunciationDictRetrieveResponseTest {
         val pronunciationDictRetrieveResponse =
             PronunciationDictRetrieveResponse.builder()
                 .data(
-                    PronunciationDictRetrieveResponse.Data.builder()
+                    PronunciationDictData.builder()
                         .id("c215a3e1-be41-4701-97e8-1d3c22f9a5b7")
                         .createdAt(OffsetDateTime.parse("2026-03-25T12:00:00.000Z"))
                         .addItem(
-                            PronunciationDictRetrieveResponse.Data.Item.Alias.builder()
+                            PronunciationDictAliasItem.builder()
                                 .alias("tel-nicks")
                                 .text("Telnyx")
+                                .type(PronunciationDictAliasItem.Type.ALIAS)
                                 .build()
                         )
                         .name("Brand Names")
-                        .recordType(
-                            PronunciationDictRetrieveResponse.Data.RecordType.PRONUNCIATION_DICT
-                        )
+                        .recordType(PronunciationDictData.RecordType.PRONUNCIATION_DICT)
                         .updatedAt(OffsetDateTime.parse("2026-03-25T12:00:00.000Z"))
                         .version(1L)
                         .build()
