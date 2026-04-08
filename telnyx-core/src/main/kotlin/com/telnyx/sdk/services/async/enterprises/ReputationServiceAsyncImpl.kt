@@ -17,11 +17,11 @@ import com.telnyx.sdk.core.http.HttpResponseFor
 import com.telnyx.sdk.core.http.json
 import com.telnyx.sdk.core.http.parseable
 import com.telnyx.sdk.core.prepareAsync
-import com.telnyx.sdk.models.enterprises.reputation.ReputationDisableParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationEnableResponse
-import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveParams
-import com.telnyx.sdk.models.enterprises.reputation.ReputationRetrieveResponse
+import com.telnyx.sdk.models.enterprises.reputation.ReputationCreateParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationCreateResponse
+import com.telnyx.sdk.models.enterprises.reputation.ReputationDeleteAllParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationListParams
+import com.telnyx.sdk.models.enterprises.reputation.ReputationListResponse
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyParams
 import com.telnyx.sdk.models.enterprises.reputation.ReputationUpdateFrequencyResponse
 import com.telnyx.sdk.services.async.enterprises.reputation.NumberServiceAsync
@@ -51,26 +51,26 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
      */
     override fun numbers(): NumberServiceAsync = numbers
 
-    override fun retrieve(
-        params: ReputationRetrieveParams,
+    override fun create(
+        params: ReputationCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ReputationRetrieveResponse> =
-        // get /enterprises/{enterprise_id}/reputation
-        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
+    ): CompletableFuture<ReputationCreateResponse> =
+        // post /enterprises/{enterprise_id}/reputation
+        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
-    override fun disable(
-        params: ReputationDisableParams,
+    override fun list(
+        params: ReputationListParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ReputationListResponse> =
+        // get /enterprises/{enterprise_id}/reputation
+        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+
+    override fun deleteAll(
+        params: ReputationDeleteAllParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /enterprises/{enterprise_id}/reputation
-        withRawResponse().disable(params, requestOptions).thenAccept {}
-
-    override fun enable(
-        params: ReputationEnableParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<ReputationEnableResponse> =
-        // post /enterprises/{enterprise_id}/reputation
-        withRawResponse().enable(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().deleteAll(params, requestOptions).thenAccept {}
 
     override fun updateFrequency(
         params: ReputationUpdateFrequencyParams,
@@ -102,13 +102,47 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
          */
         override fun numbers(): NumberServiceAsync.WithRawResponse = numbers
 
-        private val retrieveHandler: Handler<ReputationRetrieveResponse> =
-            jsonHandler<ReputationRetrieveResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<ReputationCreateResponse> =
+            jsonHandler<ReputationCreateResponse>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: ReputationRetrieveParams,
+        override fun create(
+            params: ReputationCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ReputationRetrieveResponse>> {
+        ): CompletableFuture<HttpResponseFor<ReputationCreateResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("enterpriseId", params.enterpriseId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("enterprises", params._pathParam(0), "reputation")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { createHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val listHandler: Handler<ReputationListResponse> =
+            jsonHandler<ReputationListResponse>(clientOptions.jsonMapper)
+
+        override fun list(
+            params: ReputationListParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ReputationListResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("enterpriseId", params.enterpriseId().getOrNull())
@@ -125,7 +159,7 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { retrieveHandler.handle(it) }
+                            .use { listHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -135,10 +169,10 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val disableHandler: Handler<Void?> = emptyHandler()
+        private val deleteAllHandler: Handler<Void?> = emptyHandler()
 
-        override fun disable(
-            params: ReputationDisableParams,
+        override fun deleteAll(
+            params: ReputationDeleteAllParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
@@ -157,41 +191,7 @@ class ReputationServiceAsyncImpl internal constructor(private val clientOptions:
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response.use { disableHandler.handle(it) }
-                    }
-                }
-        }
-
-        private val enableHandler: Handler<ReputationEnableResponse> =
-            jsonHandler<ReputationEnableResponse>(clientOptions.jsonMapper)
-
-        override fun enable(
-            params: ReputationEnableParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ReputationEnableResponse>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("enterpriseId", params.enterpriseId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("enterprises", params._pathParam(0), "reputation")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { enableHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
+                        response.use { deleteAllHandler.handle(it) }
                     }
                 }
         }

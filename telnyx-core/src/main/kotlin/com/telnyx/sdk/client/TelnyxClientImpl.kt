@@ -218,6 +218,8 @@ import com.telnyx.sdk.services.blocking.PortoutService
 import com.telnyx.sdk.services.blocking.PortoutServiceImpl
 import com.telnyx.sdk.services.blocking.PrivateWirelessGatewayService
 import com.telnyx.sdk.services.blocking.PrivateWirelessGatewayServiceImpl
+import com.telnyx.sdk.services.blocking.PronunciationDictService
+import com.telnyx.sdk.services.blocking.PronunciationDictServiceImpl
 import com.telnyx.sdk.services.blocking.PublicInternetGatewayService
 import com.telnyx.sdk.services.blocking.PublicInternetGatewayServiceImpl
 import com.telnyx.sdk.services.blocking.QueueService
@@ -936,6 +938,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         TermsOfServiceServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val pronunciationDicts: PronunciationDictService by lazy {
+        PronunciationDictServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): TelnyxClientAsync = async
 
     override fun withRawResponse(): TelnyxClient.WithRawResponse = withRawResponse
@@ -1421,6 +1427,13 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
     override fun reputation(): ReputationService = reputation
 
     override fun termsOfService(): TermsOfServiceService = termsOfService
+
+    /**
+     * Manage pronunciation dictionaries for text-to-speech synthesis. Dictionaries contain alias
+     * items (text replacement) and phoneme items (IPA pronunciation notation) that control how
+     * specific words are spoken.
+     */
+    override fun pronunciationDicts(): PronunciationDictService = pronunciationDicts
 
     override fun close() = clientOptions.close()
 
@@ -2090,6 +2103,10 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
             TermsOfServiceServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val pronunciationDicts: PronunciationDictService.WithRawResponse by lazy {
+            PronunciationDictServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TelnyxClient.WithRawResponse =
@@ -2626,5 +2643,13 @@ class TelnyxClientImpl(private val clientOptions: ClientOptions) : TelnyxClient 
         override fun reputation(): ReputationService.WithRawResponse = reputation
 
         override fun termsOfService(): TermsOfServiceService.WithRawResponse = termsOfService
+
+        /**
+         * Manage pronunciation dictionaries for text-to-speech synthesis. Dictionaries contain
+         * alias items (text replacement) and phoneme items (IPA pronunciation notation) that
+         * control how specific words are spoken.
+         */
+        override fun pronunciationDicts(): PronunciationDictService.WithRawResponse =
+            pronunciationDicts
     }
 }

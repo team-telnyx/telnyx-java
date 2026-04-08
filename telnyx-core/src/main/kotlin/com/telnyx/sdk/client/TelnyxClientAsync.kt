@@ -110,6 +110,7 @@ import com.telnyx.sdk.services.async.PortingPhoneNumberServiceAsync
 import com.telnyx.sdk.services.async.PortingServiceAsync
 import com.telnyx.sdk.services.async.PortoutServiceAsync
 import com.telnyx.sdk.services.async.PrivateWirelessGatewayServiceAsync
+import com.telnyx.sdk.services.async.PronunciationDictServiceAsync
 import com.telnyx.sdk.services.async.PublicInternetGatewayServiceAsync
 import com.telnyx.sdk.services.async.QueueServiceAsync
 import com.telnyx.sdk.services.async.RcsAgentServiceAsync
@@ -668,6 +669,13 @@ interface TelnyxClientAsync {
     fun termsOfService(): TermsOfServiceServiceAsync
 
     /**
+     * Manage pronunciation dictionaries for text-to-speech synthesis. Dictionaries contain alias
+     * items (text replacement) and phoneme items (IPA pronunciation notation) that control how
+     * specific words are spoken.
+     */
+    fun pronunciationDicts(): PronunciationDictServiceAsync
+
+    /**
      * Closes this client, relinquishing any underlying resources.
      *
      * This is purposefully not inherited from [AutoCloseable] because the client is long-lived and
@@ -1157,5 +1165,12 @@ interface TelnyxClientAsync {
         fun reputation(): ReputationServiceAsync.WithRawResponse
 
         fun termsOfService(): TermsOfServiceServiceAsync.WithRawResponse
+
+        /**
+         * Manage pronunciation dictionaries for text-to-speech synthesis. Dictionaries contain
+         * alias items (text replacement) and phoneme items (IPA pronunciation notation) that
+         * control how specific words are spoken.
+         */
+        fun pronunciationDicts(): PronunciationDictServiceAsync.WithRawResponse
     }
 }

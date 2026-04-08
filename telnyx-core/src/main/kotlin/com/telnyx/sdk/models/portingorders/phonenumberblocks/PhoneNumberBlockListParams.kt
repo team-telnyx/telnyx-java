@@ -269,19 +269,19 @@ private constructor(
                     it.status().ifPresent {
                         it.accept(
                             object : Filter.Status.Visitor<Unit> {
-                                override fun visitPortingOrderMultiple(
-                                    portingOrderMultiple: Filter.Status.PortingOrderMultipleStatus
+                                override fun visitPortingOrderSingle(
+                                    portingOrderSingle: Filter.Status.PortingOrderSingleStatus
                                 ) {
-                                    put("filter[status]", portingOrderMultiple.toString())
+                                    put("filter[status]", portingOrderSingle.toString())
                                 }
 
-                                override fun visitPortingOrderStatusList(
-                                    portingOrderStatusList:
-                                        List<Filter.Status.PortingOrderStatusItem>
+                                override fun visitPortingOrderStatusLists(
+                                    portingOrderStatusLists:
+                                        List<Filter.Status.PortingOrderStatusList>
                                 ) {
                                     put(
                                         "filter[status]",
-                                        portingOrderStatusList.joinToString(",") { it.toString() },
+                                        portingOrderStatusLists.joinToString(",") { it.toString() },
                                     )
                                 }
                             }
@@ -459,19 +459,18 @@ private constructor(
             fun status(status: Optional<Status>) = status(status.getOrNull())
 
             /**
-             * Alias for calling [status] with
-             * `Status.ofPortingOrderMultiple(portingOrderMultiple)`.
+             * Alias for calling [status] with `Status.ofPortingOrderSingle(portingOrderSingle)`.
              */
-            fun status(portingOrderMultiple: Status.PortingOrderMultipleStatus) =
-                status(Status.ofPortingOrderMultiple(portingOrderMultiple))
+            fun status(portingOrderSingle: Status.PortingOrderSingleStatus) =
+                status(Status.ofPortingOrderSingle(portingOrderSingle))
 
             /**
              * Alias for calling [status] with
-             * `Status.ofPortingOrderStatusList(portingOrderStatusList)`.
+             * `Status.ofPortingOrderStatusLists(portingOrderStatusLists)`.
              */
-            fun statusOfPortingOrderStatusList(
-                portingOrderStatusList: List<Status.PortingOrderStatusItem>
-            ) = status(Status.ofPortingOrderStatusList(portingOrderStatusList))
+            fun statusOfPortingOrderStatusLists(
+                portingOrderStatusLists: List<Status.PortingOrderStatusList>
+            ) = status(Status.ofPortingOrderStatusLists(portingOrderStatusLists))
 
             /**
              * Filter results by support key(s). Originally: filter[support_key][eq],
@@ -898,36 +897,36 @@ private constructor(
         /** Filter porting orders by status(es). Originally: filter[status], filter[status][in][] */
         class Status
         private constructor(
-            private val portingOrderMultiple: PortingOrderMultipleStatus? = null,
-            private val portingOrderStatusList: List<PortingOrderStatusItem>? = null,
+            private val portingOrderSingle: PortingOrderSingleStatus? = null,
+            private val portingOrderStatusLists: List<PortingOrderStatusList>? = null,
         ) {
 
             /** Filter by single status */
-            fun portingOrderMultiple(): Optional<PortingOrderMultipleStatus> =
-                Optional.ofNullable(portingOrderMultiple)
+            fun portingOrderSingle(): Optional<PortingOrderSingleStatus> =
+                Optional.ofNullable(portingOrderSingle)
 
             /** Filter by multiple statuses (in operation) */
-            fun portingOrderStatusList(): Optional<List<PortingOrderStatusItem>> =
-                Optional.ofNullable(portingOrderStatusList)
+            fun portingOrderStatusLists(): Optional<List<PortingOrderStatusList>> =
+                Optional.ofNullable(portingOrderStatusLists)
 
-            fun isPortingOrderMultiple(): Boolean = portingOrderMultiple != null
+            fun isPortingOrderSingle(): Boolean = portingOrderSingle != null
 
-            fun isPortingOrderStatusList(): Boolean = portingOrderStatusList != null
+            fun isPortingOrderStatusLists(): Boolean = portingOrderStatusLists != null
 
             /** Filter by single status */
-            fun asPortingOrderMultiple(): PortingOrderMultipleStatus =
-                portingOrderMultiple.getOrThrow("portingOrderMultiple")
+            fun asPortingOrderSingle(): PortingOrderSingleStatus =
+                portingOrderSingle.getOrThrow("portingOrderSingle")
 
             /** Filter by multiple statuses (in operation) */
-            fun asPortingOrderStatusList(): List<PortingOrderStatusItem> =
-                portingOrderStatusList.getOrThrow("portingOrderStatusList")
+            fun asPortingOrderStatusLists(): List<PortingOrderStatusList> =
+                portingOrderStatusLists.getOrThrow("portingOrderStatusLists")
 
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
-                    portingOrderMultiple != null ->
-                        visitor.visitPortingOrderMultiple(portingOrderMultiple)
-                    portingOrderStatusList != null ->
-                        visitor.visitPortingOrderStatusList(portingOrderStatusList)
+                    portingOrderSingle != null ->
+                        visitor.visitPortingOrderSingle(portingOrderSingle)
+                    portingOrderStatusLists != null ->
+                        visitor.visitPortingOrderStatusLists(portingOrderStatusLists)
                     else -> throw IllegalStateException("Invalid Status")
                 }
 
@@ -937,19 +936,17 @@ private constructor(
                 }
 
                 return other is Status &&
-                    portingOrderMultiple == other.portingOrderMultiple &&
-                    portingOrderStatusList == other.portingOrderStatusList
+                    portingOrderSingle == other.portingOrderSingle &&
+                    portingOrderStatusLists == other.portingOrderStatusLists
             }
 
-            override fun hashCode(): Int =
-                Objects.hash(portingOrderMultiple, portingOrderStatusList)
+            override fun hashCode(): Int = Objects.hash(portingOrderSingle, portingOrderStatusLists)
 
             override fun toString(): String =
                 when {
-                    portingOrderMultiple != null ->
-                        "Status{portingOrderMultiple=$portingOrderMultiple}"
-                    portingOrderStatusList != null ->
-                        "Status{portingOrderStatusList=$portingOrderStatusList}"
+                    portingOrderSingle != null -> "Status{portingOrderSingle=$portingOrderSingle}"
+                    portingOrderStatusLists != null ->
+                        "Status{portingOrderStatusLists=$portingOrderStatusLists}"
                     else -> throw IllegalStateException("Invalid Status")
                 }
 
@@ -957,13 +954,14 @@ private constructor(
 
                 /** Filter by single status */
                 @JvmStatic
-                fun ofPortingOrderMultiple(portingOrderMultiple: PortingOrderMultipleStatus) =
-                    Status(portingOrderMultiple = portingOrderMultiple)
+                fun ofPortingOrderSingle(portingOrderSingle: PortingOrderSingleStatus) =
+                    Status(portingOrderSingle = portingOrderSingle)
 
                 /** Filter by multiple statuses (in operation) */
                 @JvmStatic
-                fun ofPortingOrderStatusList(portingOrderStatusList: List<PortingOrderStatusItem>) =
-                    Status(portingOrderStatusList = portingOrderStatusList.toImmutable())
+                fun ofPortingOrderStatusLists(
+                    portingOrderStatusLists: List<PortingOrderStatusList>
+                ) = Status(portingOrderStatusLists = portingOrderStatusLists.toImmutable())
             }
 
             /**
@@ -972,16 +970,16 @@ private constructor(
             interface Visitor<out T> {
 
                 /** Filter by single status */
-                fun visitPortingOrderMultiple(portingOrderMultiple: PortingOrderMultipleStatus): T
+                fun visitPortingOrderSingle(portingOrderSingle: PortingOrderSingleStatus): T
 
                 /** Filter by multiple statuses (in operation) */
-                fun visitPortingOrderStatusList(
-                    portingOrderStatusList: List<PortingOrderStatusItem>
+                fun visitPortingOrderStatusLists(
+                    portingOrderStatusLists: List<PortingOrderStatusList>
                 ): T
             }
 
             /** Filter by single status */
-            class PortingOrderMultipleStatus
+            class PortingOrderSingleStatus
             @JsonCreator
             private constructor(private val value: JsonField<String>) : Enum {
 
@@ -1013,11 +1011,10 @@ private constructor(
 
                     @JvmField val CANCELLED = of("cancelled")
 
-                    @JvmStatic
-                    fun of(value: String) = PortingOrderMultipleStatus(JsonField.of(value))
+                    @JvmStatic fun of(value: String) = PortingOrderSingleStatus(JsonField.of(value))
                 }
 
-                /** An enum containing [PortingOrderMultipleStatus]'s known values. */
+                /** An enum containing [PortingOrderSingleStatus]'s known values. */
                 enum class Known {
                     DRAFT,
                     IN_PROCESS,
@@ -1030,10 +1027,10 @@ private constructor(
                 }
 
                 /**
-                 * An enum containing [PortingOrderMultipleStatus]'s known values, as well as an
+                 * An enum containing [PortingOrderSingleStatus]'s known values, as well as an
                  * [_UNKNOWN] member.
                  *
-                 * An instance of [PortingOrderMultipleStatus] can contain an unknown value in a
+                 * An instance of [PortingOrderSingleStatus] can contain an unknown value in a
                  * couple of cases:
                  * - It was deserialized from data that doesn't match any known member. For example,
                  *   if the SDK is on an older version than the API, then the API may respond with
@@ -1050,7 +1047,7 @@ private constructor(
                     PORTED,
                     CANCELLED,
                     /**
-                     * An enum member indicating that [PortingOrderMultipleStatus] was instantiated
+                     * An enum member indicating that [PortingOrderSingleStatus] was instantiated
                      * with an unknown value.
                      */
                     _UNKNOWN,
@@ -1097,7 +1094,7 @@ private constructor(
                         CANCELLED -> Known.CANCELLED
                         else ->
                             throw TelnyxInvalidDataException(
-                                "Unknown PortingOrderMultipleStatus: $value"
+                                "Unknown PortingOrderSingleStatus: $value"
                             )
                     }
 
@@ -1117,7 +1114,7 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                fun validate(): PortingOrderMultipleStatus = apply {
+                fun validate(): PortingOrderSingleStatus = apply {
                     if (validated) {
                         return@apply
                     }
@@ -1147,7 +1144,7 @@ private constructor(
                         return true
                     }
 
-                    return other is PortingOrderMultipleStatus && value == other.value
+                    return other is PortingOrderSingleStatus && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -1155,7 +1152,7 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
-            class PortingOrderStatusItem
+            class PortingOrderStatusList
             @JsonCreator
             private constructor(private val value: JsonField<String>) : Enum {
 
@@ -1187,10 +1184,10 @@ private constructor(
 
                     @JvmField val CANCELLED = of("cancelled")
 
-                    @JvmStatic fun of(value: String) = PortingOrderStatusItem(JsonField.of(value))
+                    @JvmStatic fun of(value: String) = PortingOrderStatusList(JsonField.of(value))
                 }
 
-                /** An enum containing [PortingOrderStatusItem]'s known values. */
+                /** An enum containing [PortingOrderStatusList]'s known values. */
                 enum class Known {
                     DRAFT,
                     IN_PROCESS,
@@ -1203,10 +1200,10 @@ private constructor(
                 }
 
                 /**
-                 * An enum containing [PortingOrderStatusItem]'s known values, as well as an
+                 * An enum containing [PortingOrderStatusList]'s known values, as well as an
                  * [_UNKNOWN] member.
                  *
-                 * An instance of [PortingOrderStatusItem] can contain an unknown value in a couple
+                 * An instance of [PortingOrderStatusList] can contain an unknown value in a couple
                  * of cases:
                  * - It was deserialized from data that doesn't match any known member. For example,
                  *   if the SDK is on an older version than the API, then the API may respond with
@@ -1223,7 +1220,7 @@ private constructor(
                     PORTED,
                     CANCELLED,
                     /**
-                     * An enum member indicating that [PortingOrderStatusItem] was instantiated with
+                     * An enum member indicating that [PortingOrderStatusList] was instantiated with
                      * an unknown value.
                      */
                     _UNKNOWN,
@@ -1270,7 +1267,7 @@ private constructor(
                         CANCELLED -> Known.CANCELLED
                         else ->
                             throw TelnyxInvalidDataException(
-                                "Unknown PortingOrderStatusItem: $value"
+                                "Unknown PortingOrderStatusList: $value"
                             )
                     }
 
@@ -1290,7 +1287,7 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                fun validate(): PortingOrderStatusItem = apply {
+                fun validate(): PortingOrderStatusList = apply {
                     if (validated) {
                         return@apply
                     }
@@ -1320,7 +1317,7 @@ private constructor(
                         return true
                     }
 
-                    return other is PortingOrderStatusItem && value == other.value
+                    return other is PortingOrderStatusList && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()

@@ -130,7 +130,8 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun observabilitySettings(): Optional<ObservabilityReq> = body.observabilitySettings()
+    fun observabilitySettings(): Optional<UpdateAssistant.ObservabilitySettings> =
+        body.observabilitySettings()
 
     /**
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -273,7 +274,8 @@ private constructor(
      * Unlike [observabilitySettings], this method doesn't throw if the JSON field has an unexpected
      * type.
      */
-    fun _observabilitySettings(): JsonField<ObservabilityReq> = body._observabilitySettings()
+    fun _observabilitySettings(): JsonField<UpdateAssistant.ObservabilitySettings> =
+        body._observabilitySettings()
 
     /**
      * Returns the raw JSON value of [privacySettings].
@@ -567,20 +569,21 @@ private constructor(
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
 
-        fun observabilitySettings(observabilitySettings: ObservabilityReq) = apply {
-            body.observabilitySettings(observabilitySettings)
-        }
+        fun observabilitySettings(observabilitySettings: UpdateAssistant.ObservabilitySettings) =
+            apply {
+                body.observabilitySettings(observabilitySettings)
+            }
 
         /**
          * Sets [Builder.observabilitySettings] to an arbitrary JSON value.
          *
          * You should usually call [Builder.observabilitySettings] with a well-typed
-         * [ObservabilityReq] value instead. This method is primarily for setting the field to an
-         * undocumented or not yet supported value.
+         * [UpdateAssistant.ObservabilitySettings] value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
          */
-        fun observabilitySettings(observabilitySettings: JsonField<ObservabilityReq>) = apply {
-            body.observabilitySettings(observabilitySettings)
-        }
+        fun observabilitySettings(
+            observabilitySettings: JsonField<UpdateAssistant.ObservabilitySettings>
+        ) = apply { body.observabilitySettings(observabilitySettings) }
 
         fun privacySettings(privacySettings: PrivacySettings) = apply {
             body.privacySettings(privacySettings)
@@ -1020,7 +1023,7 @@ private constructor(
         private val messagingSettings: JsonField<MessagingSettings>,
         private val model: JsonField<String>,
         private val name: JsonField<String>,
-        private val observabilitySettings: JsonField<ObservabilityReq>,
+        private val observabilitySettings: JsonField<UpdateAssistant.ObservabilitySettings>,
         private val privacySettings: JsonField<PrivacySettings>,
         private val telephonySettings: JsonField<TelephonySettings>,
         private val toolIds: JsonField<List<String>>,
@@ -1065,7 +1068,8 @@ private constructor(
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
             @JsonProperty("observability_settings")
             @ExcludeMissing
-            observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of(),
+            observabilitySettings: JsonField<UpdateAssistant.ObservabilitySettings> =
+                JsonMissing.of(),
             @JsonProperty("privacy_settings")
             @ExcludeMissing
             privacySettings: JsonField<PrivacySettings> = JsonMissing.of(),
@@ -1238,7 +1242,7 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun observabilitySettings(): Optional<ObservabilityReq> =
+        fun observabilitySettings(): Optional<UpdateAssistant.ObservabilitySettings> =
             observabilitySettings.getOptional("observability_settings")
 
         /**
@@ -1408,7 +1412,8 @@ private constructor(
          */
         @JsonProperty("observability_settings")
         @ExcludeMissing
-        fun _observabilitySettings(): JsonField<ObservabilityReq> = observabilitySettings
+        fun _observabilitySettings(): JsonField<UpdateAssistant.ObservabilitySettings> =
+            observabilitySettings
 
         /**
          * Returns the raw JSON value of [privacySettings].
@@ -1517,7 +1522,8 @@ private constructor(
             private var messagingSettings: JsonField<MessagingSettings> = JsonMissing.of()
             private var model: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
-            private var observabilitySettings: JsonField<ObservabilityReq> = JsonMissing.of()
+            private var observabilitySettings: JsonField<UpdateAssistant.ObservabilitySettings> =
+                JsonMissing.of()
             private var privacySettings: JsonField<PrivacySettings> = JsonMissing.of()
             private var telephonySettings: JsonField<TelephonySettings> = JsonMissing.of()
             private var toolIds: JsonField<MutableList<String>>? = null
@@ -1739,19 +1745,20 @@ private constructor(
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
-            fun observabilitySettings(observabilitySettings: ObservabilityReq) =
-                observabilitySettings(JsonField.of(observabilitySettings))
+            fun observabilitySettings(
+                observabilitySettings: UpdateAssistant.ObservabilitySettings
+            ) = observabilitySettings(JsonField.of(observabilitySettings))
 
             /**
              * Sets [Builder.observabilitySettings] to an arbitrary JSON value.
              *
              * You should usually call [Builder.observabilitySettings] with a well-typed
-             * [ObservabilityReq] value instead. This method is primarily for setting the field to
-             * an undocumented or not yet supported value.
+             * [UpdateAssistant.ObservabilitySettings] value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
              */
-            fun observabilitySettings(observabilitySettings: JsonField<ObservabilityReq>) = apply {
-                this.observabilitySettings = observabilitySettings
-            }
+            fun observabilitySettings(
+                observabilitySettings: JsonField<UpdateAssistant.ObservabilitySettings>
+            ) = apply { this.observabilitySettings = observabilitySettings }
 
             fun privacySettings(privacySettings: PrivacySettings) =
                 privacySettings(JsonField.of(privacySettings))

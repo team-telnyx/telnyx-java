@@ -35,7 +35,7 @@ import kotlin.jvm.optionals.getOrNull
  *
  * **Maximum:** 100 phone numbers per request.
  */
-class NumberAssociateParams
+class NumberCreateParams
 private constructor(
     private val enterpriseId: String?,
     private val body: Body,
@@ -73,7 +73,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [NumberAssociateParams].
+         * Returns a mutable builder for constructing an instance of [NumberCreateParams].
          *
          * The following fields are required:
          * ```java
@@ -83,7 +83,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [NumberAssociateParams]. */
+    /** A builder for [NumberCreateParams]. */
     class Builder internal constructor() {
 
         private var enterpriseId: String? = null
@@ -92,11 +92,11 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(numberAssociateParams: NumberAssociateParams) = apply {
-            enterpriseId = numberAssociateParams.enterpriseId
-            body = numberAssociateParams.body.toBuilder()
-            additionalHeaders = numberAssociateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = numberAssociateParams.additionalQueryParams.toBuilder()
+        internal fun from(numberCreateParams: NumberCreateParams) = apply {
+            enterpriseId = numberCreateParams.enterpriseId
+            body = numberCreateParams.body.toBuilder()
+            additionalHeaders = numberCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = numberCreateParams.additionalQueryParams.toBuilder()
         }
 
         fun enterpriseId(enterpriseId: String?) = apply { this.enterpriseId = enterpriseId }
@@ -252,7 +252,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [NumberAssociateParams].
+         * Returns an immutable instance of [NumberCreateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -263,8 +263,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): NumberAssociateParams =
-            NumberAssociateParams(
+        fun build(): NumberCreateParams =
+            NumberCreateParams(
                 enterpriseId,
                 body.build(),
                 additionalHeaders.build(),
@@ -467,7 +467,7 @@ private constructor(
             return true
         }
 
-        return other is NumberAssociateParams &&
+        return other is NumberCreateParams &&
             enterpriseId == other.enterpriseId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
@@ -478,5 +478,5 @@ private constructor(
         Objects.hash(enterpriseId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "NumberAssociateParams{enterpriseId=$enterpriseId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "NumberCreateParams{enterpriseId=$enterpriseId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

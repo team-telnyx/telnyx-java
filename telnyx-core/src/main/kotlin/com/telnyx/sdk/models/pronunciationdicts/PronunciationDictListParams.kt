@@ -1,37 +1,31 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.telnyx.sdk.models.enterprises.reputation.numbers
+package com.telnyx.sdk.models.pronunciationdicts
 
-import com.telnyx.sdk.core.JsonValue
 import com.telnyx.sdk.core.Params
-import com.telnyx.sdk.core.checkRequired
 import com.telnyx.sdk.core.http.Headers
 import com.telnyx.sdk.core.http.QueryParams
-import com.telnyx.sdk.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Remove a phone number from Number Reputation monitoring for an enterprise.
- *
- * The number will no longer be tracked and reputation data will no longer be refreshed.
+ * List all pronunciation dictionaries for the authenticated organization. Results are paginated
+ * using offset-based pagination.
  */
-class NumberDisassociateParams
+class PronunciationDictListParams
 private constructor(
-    private val enterpriseId: String,
-    private val phoneNumber: String?,
+    private val pageNumber: Long?,
+    private val pageSize: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun enterpriseId(): String = enterpriseId
+    /** Page number (1-based). Defaults to 1. */
+    fun pageNumber(): Optional<Long> = Optional.ofNullable(pageNumber)
 
-    fun phoneNumber(): Optional<String> = Optional.ofNullable(phoneNumber)
-
-    /** Additional body properties to send with the request. */
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    /** Number of results per page. Defaults to 20, maximum 250. */
+    fun pageSize(): Optional<Long> = Optional.ofNullable(pageSize)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -43,42 +37,55 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): PronunciationDictListParams = builder().build()
+
         /**
-         * Returns a mutable builder for constructing an instance of [NumberDisassociateParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .enterpriseId()
-         * ```
+         * Returns a mutable builder for constructing an instance of [PronunciationDictListParams].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [NumberDisassociateParams]. */
+    /** A builder for [PronunciationDictListParams]. */
     class Builder internal constructor() {
 
-        private var enterpriseId: String? = null
-        private var phoneNumber: String? = null
+        private var pageNumber: Long? = null
+        private var pageSize: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(numberDisassociateParams: NumberDisassociateParams) = apply {
-            enterpriseId = numberDisassociateParams.enterpriseId
-            phoneNumber = numberDisassociateParams.phoneNumber
-            additionalHeaders = numberDisassociateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = numberDisassociateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                numberDisassociateParams.additionalBodyProperties.toMutableMap()
+        internal fun from(pronunciationDictListParams: PronunciationDictListParams) = apply {
+            pageNumber = pronunciationDictListParams.pageNumber
+            pageSize = pronunciationDictListParams.pageSize
+            additionalHeaders = pronunciationDictListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = pronunciationDictListParams.additionalQueryParams.toBuilder()
         }
 
-        fun enterpriseId(enterpriseId: String) = apply { this.enterpriseId = enterpriseId }
+        /** Page number (1-based). Defaults to 1. */
+        fun pageNumber(pageNumber: Long?) = apply { this.pageNumber = pageNumber }
 
-        fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
+        /**
+         * Alias for [Builder.pageNumber].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageNumber(pageNumber: Long) = pageNumber(pageNumber as Long?)
 
-        /** Alias for calling [Builder.phoneNumber] with `phoneNumber.orElse(null)`. */
-        fun phoneNumber(phoneNumber: Optional<String>) = phoneNumber(phoneNumber.getOrNull())
+        /** Alias for calling [Builder.pageNumber] with `pageNumber.orElse(null)`. */
+        fun pageNumber(pageNumber: Optional<Long>) = pageNumber(pageNumber.getOrNull())
+
+        /** Number of results per page. Defaults to 20, maximum 250. */
+        fun pageSize(pageSize: Long?) = apply { this.pageSize = pageSize }
+
+        /**
+         * Alias for [Builder.pageSize].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun pageSize(pageSize: Long) = pageSize(pageSize as Long?)
+
+        /** Alias for calling [Builder.pageSize] with `pageSize.orElse(null)`. */
+        fun pageSize(pageSize: Optional<Long>) = pageSize(pageSize.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -178,86 +185,46 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
-        }
-
         /**
-         * Returns an immutable instance of [NumberDisassociateParams].
+         * Returns an immutable instance of [PronunciationDictListParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .enterpriseId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): NumberDisassociateParams =
-            NumberDisassociateParams(
-                checkRequired("enterpriseId", enterpriseId),
-                phoneNumber,
+        fun build(): PronunciationDictListParams =
+            PronunciationDictListParams(
+                pageNumber,
+                pageSize,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
-    fun _body(): Optional<Map<String, JsonValue>> =
-        Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> enterpriseId
-            1 -> phoneNumber ?: ""
-            else -> ""
-        }
-
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                pageNumber?.let { put("page[number]", it.toString()) }
+                pageSize?.let { put("page[size]", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
         }
 
-        return other is NumberDisassociateParams &&
-            enterpriseId == other.enterpriseId &&
-            phoneNumber == other.phoneNumber &&
+        return other is PronunciationDictListParams &&
+            pageNumber == other.pageNumber &&
+            pageSize == other.pageSize &&
             additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams &&
-            additionalBodyProperties == other.additionalBodyProperties
+            additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(
-            enterpriseId,
-            phoneNumber,
-            additionalHeaders,
-            additionalQueryParams,
-            additionalBodyProperties,
-        )
+        Objects.hash(pageNumber, pageSize, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "NumberDisassociateParams{enterpriseId=$enterpriseId, phoneNumber=$phoneNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "PronunciationDictListParams{pageNumber=$pageNumber, pageSize=$pageSize, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

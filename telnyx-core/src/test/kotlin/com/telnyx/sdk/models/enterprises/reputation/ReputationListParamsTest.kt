@@ -5,19 +5,17 @@ package com.telnyx.sdk.models.enterprises.reputation
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class ReputationRetrieveParamsTest {
+internal class ReputationListParamsTest {
 
     @Test
     fun create() {
-        ReputationRetrieveParams.builder()
-            .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-            .build()
+        ReputationListParams.builder().enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58").build()
     }
 
     @Test
     fun pathParams() {
         val params =
-            ReputationRetrieveParams.builder()
+            ReputationListParams.builder()
                 .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .build()
 

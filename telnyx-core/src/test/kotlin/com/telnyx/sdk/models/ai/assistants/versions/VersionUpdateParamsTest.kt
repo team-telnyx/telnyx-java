@@ -8,7 +8,6 @@ import com.telnyx.sdk.models.ai.assistants.EnabledFeatures
 import com.telnyx.sdk.models.ai.assistants.InferenceEmbeddingWebhookToolParams
 import com.telnyx.sdk.models.ai.assistants.InsightSettings
 import com.telnyx.sdk.models.ai.assistants.MessagingSettings
-import com.telnyx.sdk.models.ai.assistants.ObservabilityReq
 import com.telnyx.sdk.models.ai.assistants.PrivacySettings
 import com.telnyx.sdk.models.ai.assistants.TelephonySettings
 import com.telnyx.sdk.models.ai.assistants.TranscriptionSettings
@@ -51,11 +50,11 @@ internal class VersionUpdateParamsTest {
                     .model("model")
                     .name("name")
                     .observabilitySettings(
-                        ObservabilityReq.builder()
+                        UpdateAssistant.ObservabilitySettings.builder()
                             .host("host")
                             .publicKeyRef("public_key_ref")
                             .secretKeyRef("secret_key_ref")
-                            .status(ObservabilityReq.Status.ENABLED)
+                            .status(UpdateAssistant.ObservabilitySettings.Status.ENABLED)
                             .build()
                     )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())
@@ -299,11 +298,11 @@ internal class VersionUpdateParamsTest {
                         .model("model")
                         .name("name")
                         .observabilitySettings(
-                            ObservabilityReq.builder()
+                            UpdateAssistant.ObservabilitySettings.builder()
                                 .host("host")
                                 .publicKeyRef("public_key_ref")
                                 .secretKeyRef("secret_key_ref")
-                                .status(ObservabilityReq.Status.ENABLED)
+                                .status(UpdateAssistant.ObservabilitySettings.Status.ENABLED)
                                 .build()
                         )
                         .privacySettings(PrivacySettings.builder().dataRetention(true).build())
@@ -545,11 +544,11 @@ internal class VersionUpdateParamsTest {
                     .model("model")
                     .name("name")
                     .observabilitySettings(
-                        ObservabilityReq.builder()
+                        UpdateAssistant.ObservabilitySettings.builder()
                             .host("host")
                             .publicKeyRef("public_key_ref")
                             .secretKeyRef("secret_key_ref")
-                            .status(ObservabilityReq.Status.ENABLED)
+                            .status(UpdateAssistant.ObservabilitySettings.Status.ENABLED)
                             .build()
                     )
                     .privacySettings(PrivacySettings.builder().dataRetention(true).build())

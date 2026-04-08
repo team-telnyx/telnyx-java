@@ -8,12 +8,12 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class ReputationRetrieveResponseTest {
+internal class ReputationCreateResponseTest {
 
     @Test
     fun create() {
-        val reputationRetrieveResponse =
-            ReputationRetrieveResponse.builder()
+        val reputationCreateResponse =
+            ReputationCreateResponse.builder()
                 .data(
                     EnterpriseReputationPublic.builder()
                         .checkFrequency(EnterpriseReputationPublic.CheckFrequency.BUSINESS_DAILY)
@@ -27,7 +27,7 @@ internal class ReputationRetrieveResponseTest {
                 )
                 .build()
 
-        assertThat(reputationRetrieveResponse.data())
+        assertThat(reputationCreateResponse.data())
             .contains(
                 EnterpriseReputationPublic.builder()
                     .checkFrequency(EnterpriseReputationPublic.CheckFrequency.BUSINESS_DAILY)
@@ -44,8 +44,8 @@ internal class ReputationRetrieveResponseTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val reputationRetrieveResponse =
-            ReputationRetrieveResponse.builder()
+        val reputationCreateResponse =
+            ReputationCreateResponse.builder()
                 .data(
                     EnterpriseReputationPublic.builder()
                         .checkFrequency(EnterpriseReputationPublic.CheckFrequency.BUSINESS_DAILY)
@@ -59,12 +59,12 @@ internal class ReputationRetrieveResponseTest {
                 )
                 .build()
 
-        val roundtrippedReputationRetrieveResponse =
+        val roundtrippedReputationCreateResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(reputationRetrieveResponse),
-                jacksonTypeRef<ReputationRetrieveResponse>(),
+                jsonMapper.writeValueAsString(reputationCreateResponse),
+                jacksonTypeRef<ReputationCreateResponse>(),
             )
 
-        assertThat(roundtrippedReputationRetrieveResponse).isEqualTo(reputationRetrieveResponse)
+        assertThat(roundtrippedReputationCreateResponse).isEqualTo(reputationCreateResponse)
     }
 }
