@@ -92,6 +92,7 @@ internal class CallServiceTest {
                     .machineDetectionSpeechEndThreshold(2000L)
                     .machineDetectionSpeechThreshold(2000L)
                     .machineDetectionTimeout(5000L)
+                    .mediaEncryption(CallCallsParams.MediaEncryption.DISABLED)
                     .preferredCodecs("PCMA,PCMU")
                     .record(false)
                     .recordingChannels(CallCallsParams.RecordingChannels.DUAL)

@@ -3,12 +3,8 @@
 package com.telnyx.sdk.services.blocking
 
 import com.telnyx.sdk.client.okhttp.TelnyxOkHttpClient
-import com.telnyx.sdk.models.enterprises.BillingAddress
-import com.telnyx.sdk.models.enterprises.BillingContact
 import com.telnyx.sdk.models.enterprises.EnterpriseCreateParams
 import com.telnyx.sdk.models.enterprises.EnterpriseUpdateParams
-import com.telnyx.sdk.models.enterprises.OrganizationContact
-import com.telnyx.sdk.models.enterprises.PhysicalAddress
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -24,7 +20,7 @@ internal class EnterpriseServiceTest {
             enterpriseService.create(
                 EnterpriseCreateParams.builder()
                     .billingAddress(
-                        BillingAddress.builder()
+                        EnterpriseCreateParams.BillingAddress.builder()
                             .administrativeArea("Illinois")
                             .city("Chicago")
                             .country("United States")
@@ -34,7 +30,7 @@ internal class EnterpriseServiceTest {
                             .build()
                     )
                     .billingContact(
-                        BillingContact.builder()
+                        EnterpriseCreateParams.BillingContact.builder()
                             .email("billing@acme.com")
                             .firstName("John")
                             .lastName("Doe")
@@ -48,7 +44,7 @@ internal class EnterpriseServiceTest {
                     .legalName("Acme Corp Inc.")
                     .numberOfEmployees(EnterpriseCreateParams.NumberOfEmployees._51_200)
                     .organizationContact(
-                        OrganizationContact.builder()
+                        EnterpriseCreateParams.OrganizationContact.builder()
                             .email("jane.smith@acme.com")
                             .firstName("Jane")
                             .jobTitle("VP of Engineering")
@@ -58,7 +54,7 @@ internal class EnterpriseServiceTest {
                     )
                     .organizationLegalType(EnterpriseCreateParams.OrganizationLegalType.CORPORATION)
                     .organizationPhysicalAddress(
-                        PhysicalAddress.builder()
+                        EnterpriseCreateParams.OrganizationPhysicalAddress.builder()
                             .administrativeArea("Illinois")
                             .city("Chicago")
                             .country("United States")
@@ -103,7 +99,7 @@ internal class EnterpriseServiceTest {
                 EnterpriseUpdateParams.builder()
                     .enterpriseId("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                     .billingAddress(
-                        BillingAddress.builder()
+                        EnterpriseUpdateParams.BillingAddress.builder()
                             .administrativeArea("Illinois")
                             .city("Chicago")
                             .country("United States")
@@ -113,7 +109,7 @@ internal class EnterpriseServiceTest {
                             .build()
                     )
                     .billingContact(
-                        BillingContact.builder()
+                        EnterpriseUpdateParams.BillingContact.builder()
                             .email("billing@acme.com")
                             .firstName("John")
                             .lastName("Doe")
@@ -129,7 +125,7 @@ internal class EnterpriseServiceTest {
                     .legalName("xxx")
                     .numberOfEmployees(EnterpriseUpdateParams.NumberOfEmployees._1_10)
                     .organizationContact(
-                        OrganizationContact.builder()
+                        EnterpriseUpdateParams.OrganizationContact.builder()
                             .email("jane.smith@acme.com")
                             .firstName("Jane")
                             .jobTitle("VP of Engineering")
@@ -139,7 +135,7 @@ internal class EnterpriseServiceTest {
                     )
                     .organizationLegalType(EnterpriseUpdateParams.OrganizationLegalType.CORPORATION)
                     .organizationPhysicalAddress(
-                        PhysicalAddress.builder()
+                        EnterpriseUpdateParams.OrganizationPhysicalAddress.builder()
                             .administrativeArea("Illinois")
                             .city("Chicago")
                             .country("United States")

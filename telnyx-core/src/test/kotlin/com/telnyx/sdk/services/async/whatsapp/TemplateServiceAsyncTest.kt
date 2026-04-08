@@ -20,10 +20,20 @@ internal class TemplateServiceAsyncTest {
                 TemplateCreateParams.builder()
                     .category(TemplateCreateParams.Category.MARKETING)
                     .addComponent(
-                        TemplateCreateParams.Component.Header.builder()
-                            .format(TemplateCreateParams.Component.Header.Format.TEXT)
+                        TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.builder()
+                            .format(
+                                TemplateCreateParams.Component.WhatsappTemplateHeaderComponent
+                                    .Format
+                                    .TEXT
+                            )
+                            .type(
+                                TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Type
+                                    .HEADER
+                            )
                             .example(
-                                TemplateCreateParams.Component.Header.Example.builder()
+                                TemplateCreateParams.Component.WhatsappTemplateHeaderComponent
+                                    .Example
+                                    .builder()
                                     .addHeaderHandle("string")
                                     .addHeaderText("string")
                                     .build()

@@ -51,7 +51,7 @@ private constructor(
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun paymentSignature(): Optional<String> = body.paymentSignature()
+    fun bodyPaymentSignature(): Optional<String> = body.bodyPaymentSignature()
 
     /**
      * Returns the raw JSON value of [id].
@@ -61,12 +61,12 @@ private constructor(
     fun _id(): JsonField<String> = body._id()
 
     /**
-     * Returns the raw JSON value of [paymentSignature].
+     * Returns the raw JSON value of [bodyPaymentSignature].
      *
-     * Unlike [paymentSignature], this method doesn't throw if the JSON field has an unexpected
+     * Unlike [bodyPaymentSignature], this method doesn't throw if the JSON field has an unexpected
      * type.
      */
-    fun _paymentSignature(): JsonField<String> = body._paymentSignature()
+    fun _bodyPaymentSignature(): JsonField<String> = body._bodyPaymentSignature()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -124,7 +124,7 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [id]
-         * - [paymentSignature]
+         * - [bodyPaymentSignature]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -143,19 +143,19 @@ private constructor(
          * Base64-encoded signed payment authorization (x402 PaymentPayload). Can alternatively be
          * provided via the PAYMENT-SIGNATURE header.
          */
-        fun paymentSignature(paymentSignature: String) = apply {
-            body.paymentSignature(paymentSignature)
+        fun bodyPaymentSignature(bodyPaymentSignature: String) = apply {
+            body.bodyPaymentSignature(bodyPaymentSignature)
         }
 
         /**
-         * Sets [Builder.paymentSignature] to an arbitrary JSON value.
+         * Sets [Builder.bodyPaymentSignature] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.paymentSignature] with a well-typed [String] value
+         * You should usually call [Builder.bodyPaymentSignature] with a well-typed [String] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun paymentSignature(paymentSignature: JsonField<String>) = apply {
-            body.paymentSignature(paymentSignature)
+        fun bodyPaymentSignature(bodyPaymentSignature: JsonField<String>) = apply {
+            body.bodyPaymentSignature(bodyPaymentSignature)
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -312,7 +312,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
-        private val paymentSignature: JsonField<String>,
+        private val bodyPaymentSignature: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -321,8 +321,8 @@ private constructor(
             @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("payment_signature")
             @ExcludeMissing
-            paymentSignature: JsonField<String> = JsonMissing.of(),
-        ) : this(id, paymentSignature, mutableMapOf())
+            bodyPaymentSignature: JsonField<String> = JsonMissing.of(),
+        ) : this(id, bodyPaymentSignature, mutableMapOf())
 
         /**
          * The quote ID to settle.
@@ -339,7 +339,8 @@ private constructor(
          * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun paymentSignature(): Optional<String> = paymentSignature.getOptional("payment_signature")
+        fun bodyPaymentSignature(): Optional<String> =
+            bodyPaymentSignature.getOptional("payment_signature")
 
         /**
          * Returns the raw JSON value of [id].
@@ -349,14 +350,14 @@ private constructor(
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         /**
-         * Returns the raw JSON value of [paymentSignature].
+         * Returns the raw JSON value of [bodyPaymentSignature].
          *
-         * Unlike [paymentSignature], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [bodyPaymentSignature], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("payment_signature")
         @ExcludeMissing
-        fun _paymentSignature(): JsonField<String> = paymentSignature
+        fun _bodyPaymentSignature(): JsonField<String> = bodyPaymentSignature
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -387,13 +388,13 @@ private constructor(
         class Builder internal constructor() {
 
             private var id: JsonField<String>? = null
-            private var paymentSignature: JsonField<String> = JsonMissing.of()
+            private var bodyPaymentSignature: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 id = body.id
-                paymentSignature = body.paymentSignature
+                bodyPaymentSignature = body.bodyPaymentSignature
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -413,18 +414,18 @@ private constructor(
              * Base64-encoded signed payment authorization (x402 PaymentPayload). Can alternatively
              * be provided via the PAYMENT-SIGNATURE header.
              */
-            fun paymentSignature(paymentSignature: String) =
-                paymentSignature(JsonField.of(paymentSignature))
+            fun bodyPaymentSignature(bodyPaymentSignature: String) =
+                bodyPaymentSignature(JsonField.of(bodyPaymentSignature))
 
             /**
-             * Sets [Builder.paymentSignature] to an arbitrary JSON value.
+             * Sets [Builder.bodyPaymentSignature] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.paymentSignature] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.bodyPaymentSignature] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
-            fun paymentSignature(paymentSignature: JsonField<String>) = apply {
-                this.paymentSignature = paymentSignature
+            fun bodyPaymentSignature(bodyPaymentSignature: JsonField<String>) = apply {
+                this.bodyPaymentSignature = bodyPaymentSignature
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -459,7 +460,11 @@ private constructor(
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Body =
-                Body(checkRequired("id", id), paymentSignature, additionalProperties.toMutableMap())
+                Body(
+                    checkRequired("id", id),
+                    bodyPaymentSignature,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -470,7 +475,7 @@ private constructor(
             }
 
             id()
-            paymentSignature()
+            bodyPaymentSignature()
             validated = true
         }
 
@@ -491,7 +496,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (id.asKnown().isPresent) 1 else 0) +
-                (if (paymentSignature.asKnown().isPresent) 1 else 0)
+                (if (bodyPaymentSignature.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -500,18 +505,18 @@ private constructor(
 
             return other is Body &&
                 id == other.id &&
-                paymentSignature == other.paymentSignature &&
+                bodyPaymentSignature == other.bodyPaymentSignature &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(id, paymentSignature, additionalProperties)
+            Objects.hash(id, bodyPaymentSignature, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{id=$id, paymentSignature=$paymentSignature, additionalProperties=$additionalProperties}"
+            "Body{id=$id, bodyPaymentSignature=$bodyPaymentSignature, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -33,12 +33,25 @@ internal class WhatsappMessageTemplateServiceAsyncTest {
                     .id("id")
                     .category(WhatsappMessageTemplateUpdateParams.Category.MARKETING)
                     .addComponent(
-                        WhatsappMessageTemplateUpdateParams.Component.Header.builder()
+                        WhatsappMessageTemplateUpdateParams.Component
+                            .WhatsappTemplateHeaderComponent
+                            .builder()
                             .format(
-                                WhatsappMessageTemplateUpdateParams.Component.Header.Format.TEXT
+                                WhatsappMessageTemplateUpdateParams.Component
+                                    .WhatsappTemplateHeaderComponent
+                                    .Format
+                                    .TEXT
+                            )
+                            .type(
+                                WhatsappMessageTemplateUpdateParams.Component
+                                    .WhatsappTemplateHeaderComponent
+                                    .Type
+                                    .HEADER
                             )
                             .example(
-                                WhatsappMessageTemplateUpdateParams.Component.Header.Example
+                                WhatsappMessageTemplateUpdateParams.Component
+                                    .WhatsappTemplateHeaderComponent
+                                    .Example
                                     .builder()
                                     .addHeaderHandle("string")
                                     .addHeaderText("string")

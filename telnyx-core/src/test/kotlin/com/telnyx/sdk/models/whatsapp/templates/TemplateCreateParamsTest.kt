@@ -12,10 +12,16 @@ internal class TemplateCreateParamsTest {
         TemplateCreateParams.builder()
             .category(TemplateCreateParams.Category.MARKETING)
             .addComponent(
-                TemplateCreateParams.Component.Header.builder()
-                    .format(TemplateCreateParams.Component.Header.Format.TEXT)
+                TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.builder()
+                    .format(
+                        TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Format.TEXT
+                    )
+                    .type(
+                        TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Type.HEADER
+                    )
                     .example(
-                        TemplateCreateParams.Component.Header.Example.builder()
+                        TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Example
+                            .builder()
                             .addHeaderHandle("string")
                             .addHeaderText("string")
                             .build()
@@ -35,10 +41,18 @@ internal class TemplateCreateParamsTest {
             TemplateCreateParams.builder()
                 .category(TemplateCreateParams.Category.MARKETING)
                 .addComponent(
-                    TemplateCreateParams.Component.Header.builder()
-                        .format(TemplateCreateParams.Component.Header.Format.TEXT)
+                    TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.builder()
+                        .format(
+                            TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Format
+                                .TEXT
+                        )
+                        .type(
+                            TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Type
+                                .HEADER
+                        )
                         .example(
-                            TemplateCreateParams.Component.Header.Example.builder()
+                            TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Example
+                                .builder()
                                 .addHeaderHandle("string")
                                 .addHeaderText("string")
                                 .build()
@@ -56,11 +70,19 @@ internal class TemplateCreateParamsTest {
         assertThat(body.category()).isEqualTo(TemplateCreateParams.Category.MARKETING)
         assertThat(body.components())
             .containsExactly(
-                TemplateCreateParams.Component.ofHeader(
-                    TemplateCreateParams.Component.Header.builder()
-                        .format(TemplateCreateParams.Component.Header.Format.TEXT)
+                TemplateCreateParams.Component.ofWhatsappTemplateHeader(
+                    TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.builder()
+                        .format(
+                            TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Format
+                                .TEXT
+                        )
+                        .type(
+                            TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Type
+                                .HEADER
+                        )
                         .example(
-                            TemplateCreateParams.Component.Header.Example.builder()
+                            TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Example
+                                .builder()
                                 .addHeaderHandle("string")
                                 .addHeaderText("string")
                                 .build()
@@ -79,7 +101,18 @@ internal class TemplateCreateParamsTest {
         val params =
             TemplateCreateParams.builder()
                 .category(TemplateCreateParams.Category.MARKETING)
-                .addHeaderComponent(TemplateCreateParams.Component.Header.Format.TEXT)
+                .addComponent(
+                    TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.builder()
+                        .format(
+                            TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Format
+                                .TEXT
+                        )
+                        .type(
+                            TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Type
+                                .HEADER
+                        )
+                        .build()
+                )
                 .language("language")
                 .name("name")
                 .wabaId("waba_id")
@@ -90,9 +123,16 @@ internal class TemplateCreateParamsTest {
         assertThat(body.category()).isEqualTo(TemplateCreateParams.Category.MARKETING)
         assertThat(body.components())
             .containsExactly(
-                TemplateCreateParams.Component.ofHeader(
-                    TemplateCreateParams.Component.Header.builder()
-                        .format(TemplateCreateParams.Component.Header.Format.TEXT)
+                TemplateCreateParams.Component.ofWhatsappTemplateHeader(
+                    TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.builder()
+                        .format(
+                            TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Format
+                                .TEXT
+                        )
+                        .type(
+                            TemplateCreateParams.Component.WhatsappTemplateHeaderComponent.Type
+                                .HEADER
+                        )
                         .build()
                 )
             )

@@ -190,6 +190,16 @@ private constructor(
     fun machineDetectionTimeout(): Optional<Long> = body.machineDetectionTimeout()
 
     /**
+     * Defines whether media should be encrypted on the call. When set to `SRTP`, the call will use
+     * Secure Real-time Transport Protocol for media encryption. When set to `DTLS`, the call will
+     * use DTLS for media encryption. Only supported for SIP destinations.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun mediaEncryption(): Optional<MediaEncryption> = body.mediaEncryption()
+
+    /**
      * The list of comma-separated codecs to be offered on a call.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -521,6 +531,13 @@ private constructor(
      * unexpected type.
      */
     fun _machineDetectionTimeout(): JsonField<Long> = body._machineDetectionTimeout()
+
+    /**
+     * Returns the raw JSON value of [mediaEncryption].
+     *
+     * Unlike [mediaEncryption], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _mediaEncryption(): JsonField<MediaEncryption> = body._mediaEncryption()
 
     /**
      * Returns the raw JSON value of [preferredCodecs].
@@ -1043,6 +1060,26 @@ private constructor(
          */
         fun machineDetectionTimeout(machineDetectionTimeout: JsonField<Long>) = apply {
             body.machineDetectionTimeout(machineDetectionTimeout)
+        }
+
+        /**
+         * Defines whether media should be encrypted on the call. When set to `SRTP`, the call will
+         * use Secure Real-time Transport Protocol for media encryption. When set to `DTLS`, the
+         * call will use DTLS for media encryption. Only supported for SIP destinations.
+         */
+        fun mediaEncryption(mediaEncryption: MediaEncryption) = apply {
+            body.mediaEncryption(mediaEncryption)
+        }
+
+        /**
+         * Sets [Builder.mediaEncryption] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.mediaEncryption] with a well-typed [MediaEncryption]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun mediaEncryption(mediaEncryption: JsonField<MediaEncryption>) = apply {
+            body.mediaEncryption(mediaEncryption)
         }
 
         /** The list of comma-separated codecs to be offered on a call. */
@@ -1580,6 +1617,7 @@ private constructor(
         private val machineDetectionSpeechEndThreshold: JsonField<Long>,
         private val machineDetectionSpeechThreshold: JsonField<Long>,
         private val machineDetectionTimeout: JsonField<Long>,
+        private val mediaEncryption: JsonField<MediaEncryption>,
         private val preferredCodecs: JsonField<String>,
         private val record: JsonField<Boolean>,
         private val recordingChannels: JsonField<RecordingChannels>,
@@ -1656,6 +1694,9 @@ private constructor(
             @JsonProperty("MachineDetectionTimeout")
             @ExcludeMissing
             machineDetectionTimeout: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("MediaEncryption")
+            @ExcludeMissing
+            mediaEncryption: JsonField<MediaEncryption> = JsonMissing.of(),
             @JsonProperty("PreferredCodecs")
             @ExcludeMissing
             preferredCodecs: JsonField<String> = JsonMissing.of(),
@@ -1734,6 +1775,7 @@ private constructor(
             machineDetectionSpeechEndThreshold,
             machineDetectionSpeechThreshold,
             machineDetectionTimeout,
+            mediaEncryption,
             preferredCodecs,
             record,
             recordingChannels,
@@ -1917,6 +1959,17 @@ private constructor(
          */
         fun machineDetectionTimeout(): Optional<Long> =
             machineDetectionTimeout.getOptional("MachineDetectionTimeout")
+
+        /**
+         * Defines whether media should be encrypted on the call. When set to `SRTP`, the call will
+         * use Secure Real-time Transport Protocol for media encryption. When set to `DTLS`, the
+         * call will use DTLS for media encryption. Only supported for SIP destinations.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun mediaEncryption(): Optional<MediaEncryption> =
+            mediaEncryption.getOptional("MediaEncryption")
 
         /**
          * The list of comma-separated codecs to be offered on a call.
@@ -2287,6 +2340,16 @@ private constructor(
         fun _machineDetectionTimeout(): JsonField<Long> = machineDetectionTimeout
 
         /**
+         * Returns the raw JSON value of [mediaEncryption].
+         *
+         * Unlike [mediaEncryption], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("MediaEncryption")
+        @ExcludeMissing
+        fun _mediaEncryption(): JsonField<MediaEncryption> = mediaEncryption
+
+        /**
          * Returns the raw JSON value of [preferredCodecs].
          *
          * Unlike [preferredCodecs], this method doesn't throw if the JSON field has an unexpected
@@ -2545,6 +2608,7 @@ private constructor(
             private var machineDetectionSpeechEndThreshold: JsonField<Long> = JsonMissing.of()
             private var machineDetectionSpeechThreshold: JsonField<Long> = JsonMissing.of()
             private var machineDetectionTimeout: JsonField<Long> = JsonMissing.of()
+            private var mediaEncryption: JsonField<MediaEncryption> = JsonMissing.of()
             private var preferredCodecs: JsonField<String> = JsonMissing.of()
             private var record: JsonField<Boolean> = JsonMissing.of()
             private var recordingChannels: JsonField<RecordingChannels> = JsonMissing.of()
@@ -2590,6 +2654,7 @@ private constructor(
                 machineDetectionSpeechEndThreshold = body.machineDetectionSpeechEndThreshold
                 machineDetectionSpeechThreshold = body.machineDetectionSpeechThreshold
                 machineDetectionTimeout = body.machineDetectionTimeout
+                mediaEncryption = body.mediaEncryption
                 preferredCodecs = body.preferredCodecs
                 record = body.record
                 recordingChannels = body.recordingChannels
@@ -2907,6 +2972,26 @@ private constructor(
              */
             fun machineDetectionTimeout(machineDetectionTimeout: JsonField<Long>) = apply {
                 this.machineDetectionTimeout = machineDetectionTimeout
+            }
+
+            /**
+             * Defines whether media should be encrypted on the call. When set to `SRTP`, the call
+             * will use Secure Real-time Transport Protocol for media encryption. When set to
+             * `DTLS`, the call will use DTLS for media encryption. Only supported for SIP
+             * destinations.
+             */
+            fun mediaEncryption(mediaEncryption: MediaEncryption) =
+                mediaEncryption(JsonField.of(mediaEncryption))
+
+            /**
+             * Sets [Builder.mediaEncryption] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mediaEncryption] with a well-typed [MediaEncryption]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun mediaEncryption(mediaEncryption: JsonField<MediaEncryption>) = apply {
+                this.mediaEncryption = mediaEncryption
             }
 
             /** The list of comma-separated codecs to be offered on a call. */
@@ -3321,6 +3406,7 @@ private constructor(
                     machineDetectionSpeechEndThreshold,
                     machineDetectionSpeechThreshold,
                     machineDetectionTimeout,
+                    mediaEncryption,
                     preferredCodecs,
                     record,
                     recordingChannels,
@@ -3372,6 +3458,7 @@ private constructor(
             machineDetectionSpeechEndThreshold()
             machineDetectionSpeechThreshold()
             machineDetectionTimeout()
+            mediaEncryption().ifPresent { it.validate() }
             preferredCodecs()
             record()
             recordingChannels().ifPresent { it.validate() }
@@ -3431,6 +3518,7 @@ private constructor(
                 (if (machineDetectionSpeechEndThreshold.asKnown().isPresent) 1 else 0) +
                 (if (machineDetectionSpeechThreshold.asKnown().isPresent) 1 else 0) +
                 (if (machineDetectionTimeout.asKnown().isPresent) 1 else 0) +
+                (mediaEncryption.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (preferredCodecs.asKnown().isPresent) 1 else 0) +
                 (if (record.asKnown().isPresent) 1 else 0) +
                 (recordingChannels.asKnown().getOrNull()?.validity() ?: 0) +
@@ -3478,6 +3566,7 @@ private constructor(
                 machineDetectionSpeechEndThreshold == other.machineDetectionSpeechEndThreshold &&
                 machineDetectionSpeechThreshold == other.machineDetectionSpeechThreshold &&
                 machineDetectionTimeout == other.machineDetectionTimeout &&
+                mediaEncryption == other.mediaEncryption &&
                 preferredCodecs == other.preferredCodecs &&
                 record == other.record &&
                 recordingChannels == other.recordingChannels &&
@@ -3523,6 +3612,7 @@ private constructor(
                 machineDetectionSpeechEndThreshold,
                 machineDetectionSpeechThreshold,
                 machineDetectionTimeout,
+                mediaEncryption,
                 preferredCodecs,
                 record,
                 recordingChannels,
@@ -3553,7 +3643,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{applicationSid=$applicationSid, from=$from, to=$to, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
+            "Body{applicationSid=$applicationSid, from=$from, to=$to, asyncAmd=$asyncAmd, asyncAmdStatusCallback=$asyncAmdStatusCallback, asyncAmdStatusCallbackMethod=$asyncAmdStatusCallbackMethod, callerId=$callerId, cancelPlaybackOnDetectMessageEnd=$cancelPlaybackOnDetectMessageEnd, cancelPlaybackOnMachineDetection=$cancelPlaybackOnMachineDetection, customHeaders=$customHeaders, detectionMode=$detectionMode, fallbackUrl=$fallbackUrl, machineDetection=$machineDetection, machineDetectionSilenceTimeout=$machineDetectionSilenceTimeout, machineDetectionSpeechEndThreshold=$machineDetectionSpeechEndThreshold, machineDetectionSpeechThreshold=$machineDetectionSpeechThreshold, machineDetectionTimeout=$machineDetectionTimeout, mediaEncryption=$mediaEncryption, preferredCodecs=$preferredCodecs, record=$record, recordingChannels=$recordingChannels, recordingStatusCallback=$recordingStatusCallback, recordingStatusCallbackEvent=$recordingStatusCallbackEvent, recordingStatusCallbackMethod=$recordingStatusCallbackMethod, recordingTimeout=$recordingTimeout, recordingTrack=$recordingTrack, sendRecordingUrl=$sendRecordingUrl, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipRegion=$sipRegion, statusCallback=$statusCallback, statusCallbackEvent=$statusCallbackEvent, statusCallbackMethod=$statusCallbackMethod, superviseCallSid=$superviseCallSid, supervisingRole=$supervisingRole, texml=$texml, timeLimit=$timeLimit, timeout=$timeout, trim=$trim, url=$url, urlMethod=$urlMethod, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -4149,6 +4239,146 @@ private constructor(
             }
 
             return other is MachineDetection && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * Defines whether media should be encrypted on the call. When set to `SRTP`, the call will use
+     * Secure Real-time Transport Protocol for media encryption. When set to `DTLS`, the call will
+     * use DTLS for media encryption. Only supported for SIP destinations.
+     */
+    class MediaEncryption @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val DISABLED = of("disabled")
+
+            @JvmField val SRTP = of("SRTP")
+
+            @JvmField val DTLS = of("DTLS")
+
+            @JvmStatic fun of(value: String) = MediaEncryption(JsonField.of(value))
+        }
+
+        /** An enum containing [MediaEncryption]'s known values. */
+        enum class Known {
+            DISABLED,
+            SRTP,
+            DTLS,
+        }
+
+        /**
+         * An enum containing [MediaEncryption]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [MediaEncryption] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            DISABLED,
+            SRTP,
+            DTLS,
+            /**
+             * An enum member indicating that [MediaEncryption] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                DISABLED -> Value.DISABLED
+                SRTP -> Value.SRTP
+                DTLS -> Value.DTLS
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                DISABLED -> Known.DISABLED
+                SRTP -> Known.SRTP
+                DTLS -> Known.DTLS
+                else -> throw TelnyxInvalidDataException("Unknown MediaEncryption: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): MediaEncryption = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is MediaEncryption && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

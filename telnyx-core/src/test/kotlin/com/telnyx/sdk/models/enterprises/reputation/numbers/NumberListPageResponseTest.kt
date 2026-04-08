@@ -4,9 +4,6 @@ package com.telnyx.sdk.models.enterprises.reputation.numbers
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.telnyx.sdk.core.jsonMapper
-import com.telnyx.sdk.models.MetaInfo
-import com.telnyx.sdk.models.ReputationData
-import com.telnyx.sdk.models.ReputationPhoneNumberWithReputationData
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -19,27 +16,30 @@ internal class NumberListPageResponseTest {
         val numberListPageResponse =
             NumberListPageResponse.builder()
                 .addData(
-                    ReputationPhoneNumberWithReputationData.builder()
+                    NumberListResponse.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .enterpriseId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .phoneNumber("+16035551234")
                         .reputationData(
-                            ReputationData.builder()
+                            NumberListResponse.ReputationData.InnerReputationData.builder()
                                 .connectionScore(0L)
                                 .engagementScore(0L)
                                 .lastRefreshedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .maturityScore(0L)
                                 .sentimentScore(0L)
                                 .spamCategory("spam_category")
-                                .spamRisk(ReputationData.SpamRisk.LOW)
+                                .spamRisk(
+                                    NumberListResponse.ReputationData.InnerReputationData.SpamRisk
+                                        .LOW
+                                )
                                 .build()
                         )
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
                 .meta(
-                    MetaInfo.builder()
+                    NumberListPageResponse.Meta.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)
@@ -50,20 +50,22 @@ internal class NumberListPageResponseTest {
 
         assertThat(numberListPageResponse.data().getOrNull())
             .containsExactly(
-                ReputationPhoneNumberWithReputationData.builder()
+                NumberListResponse.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .enterpriseId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .phoneNumber("+16035551234")
                     .reputationData(
-                        ReputationData.builder()
+                        NumberListResponse.ReputationData.InnerReputationData.builder()
                             .connectionScore(0L)
                             .engagementScore(0L)
                             .lastRefreshedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .maturityScore(0L)
                             .sentimentScore(0L)
                             .spamCategory("spam_category")
-                            .spamRisk(ReputationData.SpamRisk.LOW)
+                            .spamRisk(
+                                NumberListResponse.ReputationData.InnerReputationData.SpamRisk.LOW
+                            )
                             .build()
                     )
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -71,7 +73,7 @@ internal class NumberListPageResponseTest {
             )
         assertThat(numberListPageResponse.meta())
             .contains(
-                MetaInfo.builder()
+                NumberListPageResponse.Meta.builder()
                     .pageNumber(0L)
                     .pageSize(0L)
                     .totalPages(0L)
@@ -86,27 +88,30 @@ internal class NumberListPageResponseTest {
         val numberListPageResponse =
             NumberListPageResponse.builder()
                 .addData(
-                    ReputationPhoneNumberWithReputationData.builder()
+                    NumberListResponse.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .enterpriseId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .phoneNumber("+16035551234")
                         .reputationData(
-                            ReputationData.builder()
+                            NumberListResponse.ReputationData.InnerReputationData.builder()
                                 .connectionScore(0L)
                                 .engagementScore(0L)
                                 .lastRefreshedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .maturityScore(0L)
                                 .sentimentScore(0L)
                                 .spamCategory("spam_category")
-                                .spamRisk(ReputationData.SpamRisk.LOW)
+                                .spamRisk(
+                                    NumberListResponse.ReputationData.InnerReputationData.SpamRisk
+                                        .LOW
+                                )
                                 .build()
                         )
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
                 .meta(
-                    MetaInfo.builder()
+                    NumberListPageResponse.Meta.builder()
                         .pageNumber(0L)
                         .pageSize(0L)
                         .totalPages(0L)
