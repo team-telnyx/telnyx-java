@@ -1230,6 +1230,7 @@ internal class ActionServiceAsyncTest {
                     .muteDtmf(ActionTransferParams.MuteDtmf.OPPOSITE)
                     .parkAfterUnbridge("self")
                     .preferredCodecs("G722,PCMU,PCMA,G729,OPUS,VP8,H264")
+                    .privacy(ActionTransferParams.Privacy.ID)
                     .record(ActionTransferParams.Record.RECORD_FROM_ANSWER)
                     .recordChannels(ActionTransferParams.RecordChannels.SINGLE)
                     .recordCustomFileName("my_recording_file_name")

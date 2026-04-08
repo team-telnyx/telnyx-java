@@ -198,6 +198,16 @@ private constructor(
     fun preferredCodecs(): Optional<String> = body.preferredCodecs()
 
     /**
+     * Indicates the privacy level to be used for the call. When set to `id`, caller ID information
+     * (name and number) will be hidden from the called party. When set to `none` or omitted, caller
+     * ID will be shown normally.
+     *
+     * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun privacy(): Optional<Privacy> = body.privacy()
+
+    /**
      * Start recording automatically after an event. Disabled by default.
      *
      * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -503,6 +513,13 @@ private constructor(
      * Unlike [preferredCodecs], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _preferredCodecs(): JsonField<String> = body._preferredCodecs()
+
+    /**
+     * Returns the raw JSON value of [privacy].
+     *
+     * Unlike [privacy], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _privacy(): JsonField<Privacy> = body._privacy()
 
     /**
      * Returns the raw JSON value of [record].
@@ -984,6 +1001,21 @@ private constructor(
         fun preferredCodecs(preferredCodecs: JsonField<String>) = apply {
             body.preferredCodecs(preferredCodecs)
         }
+
+        /**
+         * Indicates the privacy level to be used for the call. When set to `id`, caller ID
+         * information (name and number) will be hidden from the called party. When set to `none` or
+         * omitted, caller ID will be shown normally.
+         */
+        fun privacy(privacy: Privacy) = apply { body.privacy(privacy) }
+
+        /**
+         * Sets [Builder.privacy] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.privacy] with a well-typed [Privacy] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun privacy(privacy: JsonField<Privacy>) = apply { body.privacy(privacy) }
 
         /** Start recording automatically after an event. Disabled by default. */
         fun record(record: Record) = apply { body.record(record) }
@@ -1527,6 +1559,7 @@ private constructor(
         private val muteDtmf: JsonField<MuteDtmf>,
         private val parkAfterUnbridge: JsonField<String>,
         private val preferredCodecs: JsonField<String>,
+        private val privacy: JsonField<Privacy>,
         private val record: JsonField<Record>,
         private val recordChannels: JsonField<RecordChannels>,
         private val recordCustomFileName: JsonField<String>,
@@ -1596,6 +1629,7 @@ private constructor(
             @JsonProperty("preferred_codecs")
             @ExcludeMissing
             preferredCodecs: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("privacy") @ExcludeMissing privacy: JsonField<Privacy> = JsonMissing.of(),
             @JsonProperty("record") @ExcludeMissing record: JsonField<Record> = JsonMissing.of(),
             @JsonProperty("record_channels")
             @ExcludeMissing
@@ -1676,6 +1710,7 @@ private constructor(
             muteDtmf,
             parkAfterUnbridge,
             preferredCodecs,
+            privacy,
             record,
             recordChannels,
             recordCustomFileName,
@@ -1847,6 +1882,16 @@ private constructor(
          *   server responded with an unexpected value).
          */
         fun preferredCodecs(): Optional<String> = preferredCodecs.getOptional("preferred_codecs")
+
+        /**
+         * Indicates the privacy level to be used for the call. When set to `id`, caller ID
+         * information (name and number) will be hidden from the called party. When set to `none` or
+         * omitted, caller ID will be shown normally.
+         *
+         * @throws TelnyxInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun privacy(): Optional<Privacy> = privacy.getOptional("privacy")
 
         /**
          * Start recording automatically after an event. Disabled by default.
@@ -2188,6 +2233,13 @@ private constructor(
         fun _preferredCodecs(): JsonField<String> = preferredCodecs
 
         /**
+         * Returns the raw JSON value of [privacy].
+         *
+         * Unlike [privacy], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("privacy") @ExcludeMissing fun _privacy(): JsonField<Privacy> = privacy
+
+        /**
          * Returns the raw JSON value of [record].
          *
          * Unlike [record], this method doesn't throw if the JSON field has an unexpected type.
@@ -2443,6 +2495,7 @@ private constructor(
             private var muteDtmf: JsonField<MuteDtmf> = JsonMissing.of()
             private var parkAfterUnbridge: JsonField<String> = JsonMissing.of()
             private var preferredCodecs: JsonField<String> = JsonMissing.of()
+            private var privacy: JsonField<Privacy> = JsonMissing.of()
             private var record: JsonField<Record> = JsonMissing.of()
             private var recordChannels: JsonField<RecordChannels> = JsonMissing.of()
             private var recordCustomFileName: JsonField<String> = JsonMissing.of()
@@ -2484,6 +2537,7 @@ private constructor(
                 muteDtmf = body.muteDtmf
                 parkAfterUnbridge = body.parkAfterUnbridge
                 preferredCodecs = body.preferredCodecs
+                privacy = body.privacy
                 record = body.record
                 recordChannels = body.recordChannels
                 recordCustomFileName = body.recordCustomFileName
@@ -2771,6 +2825,22 @@ private constructor(
             fun preferredCodecs(preferredCodecs: JsonField<String>) = apply {
                 this.preferredCodecs = preferredCodecs
             }
+
+            /**
+             * Indicates the privacy level to be used for the call. When set to `id`, caller ID
+             * information (name and number) will be hidden from the called party. When set to
+             * `none` or omitted, caller ID will be shown normally.
+             */
+            fun privacy(privacy: Privacy) = privacy(JsonField.of(privacy))
+
+            /**
+             * Sets [Builder.privacy] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.privacy] with a well-typed [Privacy] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun privacy(privacy: JsonField<Privacy>) = apply { this.privacy = privacy }
 
             /** Start recording automatically after an event. Disabled by default. */
             fun record(record: Record) = record(JsonField.of(record))
@@ -3199,6 +3269,7 @@ private constructor(
                     muteDtmf,
                     parkAfterUnbridge,
                     preferredCodecs,
+                    privacy,
                     record,
                     recordChannels,
                     recordCustomFileName,
@@ -3247,6 +3318,7 @@ private constructor(
             muteDtmf().ifPresent { it.validate() }
             parkAfterUnbridge()
             preferredCodecs()
+            privacy().ifPresent { it.validate() }
             record().ifPresent { it.validate() }
             recordChannels().ifPresent { it.validate() }
             recordCustomFileName()
@@ -3303,6 +3375,7 @@ private constructor(
                 (muteDtmf.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (parkAfterUnbridge.asKnown().isPresent) 1 else 0) +
                 (if (preferredCodecs.asKnown().isPresent) 1 else 0) +
+                (privacy.asKnown().getOrNull()?.validity() ?: 0) +
                 (record.asKnown().getOrNull()?.validity() ?: 0) +
                 (recordChannels.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (recordCustomFileName.asKnown().isPresent) 1 else 0) +
@@ -3347,6 +3420,7 @@ private constructor(
                 muteDtmf == other.muteDtmf &&
                 parkAfterUnbridge == other.parkAfterUnbridge &&
                 preferredCodecs == other.preferredCodecs &&
+                privacy == other.privacy &&
                 record == other.record &&
                 recordChannels == other.recordChannels &&
                 recordCustomFileName == other.recordCustomFileName &&
@@ -3389,6 +3463,7 @@ private constructor(
                 muteDtmf,
                 parkAfterUnbridge,
                 preferredCodecs,
+                privacy,
                 record,
                 recordChannels,
                 recordCustomFileName,
@@ -3418,7 +3493,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, audioUrl=$audioUrl, clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, earlyMedia=$earlyMedia, from=$from, fromDisplayName=$fromDisplayName, mediaEncryption=$mediaEncryption, mediaName=$mediaName, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, targetLegClientState=$targetLegClientState, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
+            "Body{to=$to, answeringMachineDetection=$answeringMachineDetection, answeringMachineDetectionConfig=$answeringMachineDetectionConfig, audioUrl=$audioUrl, clientState=$clientState, commandId=$commandId, customHeaders=$customHeaders, earlyMedia=$earlyMedia, from=$from, fromDisplayName=$fromDisplayName, mediaEncryption=$mediaEncryption, mediaName=$mediaName, muteDtmf=$muteDtmf, parkAfterUnbridge=$parkAfterUnbridge, preferredCodecs=$preferredCodecs, privacy=$privacy, record=$record, recordChannels=$recordChannels, recordCustomFileName=$recordCustomFileName, recordFormat=$recordFormat, recordMaxLength=$recordMaxLength, recordTimeoutSecs=$recordTimeoutSecs, recordTrack=$recordTrack, recordTrim=$recordTrim, sipAuthPassword=$sipAuthPassword, sipAuthUsername=$sipAuthUsername, sipHeaders=$sipHeaders, sipRegion=$sipRegion, sipTransportProtocol=$sipTransportProtocol, soundModifications=$soundModifications, targetLegClientState=$targetLegClientState, timeLimitSecs=$timeLimitSecs, timeoutSecs=$timeoutSecs, webhookRetriesPolicies=$webhookRetriesPolicies, webhookUrl=$webhookUrl, webhookUrlMethod=$webhookUrlMethod, webhookUrls=$webhookUrls, webhookUrlsMethod=$webhookUrlsMethod, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -4463,6 +4538,136 @@ private constructor(
             }
 
             return other is MuteDtmf && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * Indicates the privacy level to be used for the call. When set to `id`, caller ID information
+     * (name and number) will be hidden from the called party. When set to `none` or omitted, caller
+     * ID will be shown normally.
+     */
+    class Privacy @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val ID = of("id")
+
+            @JvmField val NONE = of("none")
+
+            @JvmStatic fun of(value: String) = Privacy(JsonField.of(value))
+        }
+
+        /** An enum containing [Privacy]'s known values. */
+        enum class Known {
+            ID,
+            NONE,
+        }
+
+        /**
+         * An enum containing [Privacy]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Privacy] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            ID,
+            NONE,
+            /** An enum member indicating that [Privacy] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                ID -> Value.ID
+                NONE -> Value.NONE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                ID -> Known.ID
+                NONE -> Known.NONE
+                else -> throw TelnyxInvalidDataException("Unknown Privacy: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws TelnyxInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { TelnyxInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): Privacy = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: TelnyxInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Privacy && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
