@@ -13,9 +13,10 @@ internal class PronunciationDictCreateParamsTest {
     fun create() {
         PronunciationDictCreateParams.builder()
             .addItem(
-                PronunciationDictCreateParams.Item.Alias.builder()
+                PronunciationDictAliasItem.builder()
                     .alias("tel-nicks")
                     .text("Telnyx")
+                    .type(PronunciationDictAliasItem.Type.ALIAS)
                     .build()
             )
             .name("Brand Names")
@@ -27,9 +28,10 @@ internal class PronunciationDictCreateParamsTest {
         val params =
             PronunciationDictCreateParams.builder()
                 .addItem(
-                    PronunciationDictCreateParams.Item.Alias.builder()
+                    PronunciationDictAliasItem.builder()
                         .alias("tel-nicks")
                         .text("Telnyx")
+                        .type(PronunciationDictAliasItem.Type.ALIAS)
                         .build()
                 )
                 .name("Brand Names")
@@ -51,9 +53,10 @@ internal class PronunciationDictCreateParamsTest {
                             MultipartField.of(
                                 listOf(
                                     PronunciationDictCreateParams.Item.ofAlias(
-                                        PronunciationDictCreateParams.Item.Alias.builder()
+                                        PronunciationDictAliasItem.builder()
                                             .alias("tel-nicks")
                                             .text("Telnyx")
+                                            .type(PronunciationDictAliasItem.Type.ALIAS)
                                             .build()
                                     )
                                 )

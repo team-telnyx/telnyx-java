@@ -9,73 +9,74 @@ import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class PronunciationDictListResponseTest {
+internal class PronunciationDictDataTest {
 
     @Test
     fun create() {
-        val pronunciationDictListResponse =
-            PronunciationDictListResponse.builder()
+        val pronunciationDictData =
+            PronunciationDictData.builder()
                 .id("c215a3e1-be41-4701-97e8-1d3c22f9a5b7")
                 .createdAt(OffsetDateTime.parse("2026-03-25T12:00:00.000Z"))
                 .addItem(
-                    PronunciationDictListResponse.Item.Alias.builder()
+                    PronunciationDictAliasItem.builder()
                         .alias("tel-nicks")
                         .text("Telnyx")
+                        .type(PronunciationDictAliasItem.Type.ALIAS)
                         .build()
                 )
                 .name("Brand Names")
-                .recordType(PronunciationDictListResponse.RecordType.PRONUNCIATION_DICT)
+                .recordType(PronunciationDictData.RecordType.PRONUNCIATION_DICT)
                 .updatedAt(OffsetDateTime.parse("2026-03-25T12:00:00.000Z"))
                 .version(1L)
                 .build()
 
-        assertThat(pronunciationDictListResponse.id())
-            .contains("c215a3e1-be41-4701-97e8-1d3c22f9a5b7")
-        assertThat(pronunciationDictListResponse.createdAt())
+        assertThat(pronunciationDictData.id()).contains("c215a3e1-be41-4701-97e8-1d3c22f9a5b7")
+        assertThat(pronunciationDictData.createdAt())
             .contains(OffsetDateTime.parse("2026-03-25T12:00:00.000Z"))
-        assertThat(pronunciationDictListResponse.items().getOrNull())
+        assertThat(pronunciationDictData.items().getOrNull())
             .containsExactly(
-                PronunciationDictListResponse.Item.ofAlias(
-                    PronunciationDictListResponse.Item.Alias.builder()
+                PronunciationDictData.Item.ofAlias(
+                    PronunciationDictAliasItem.builder()
                         .alias("tel-nicks")
                         .text("Telnyx")
+                        .type(PronunciationDictAliasItem.Type.ALIAS)
                         .build()
                 )
             )
-        assertThat(pronunciationDictListResponse.name()).contains("Brand Names")
-        assertThat(pronunciationDictListResponse.recordType())
-            .contains(PronunciationDictListResponse.RecordType.PRONUNCIATION_DICT)
-        assertThat(pronunciationDictListResponse.updatedAt())
+        assertThat(pronunciationDictData.name()).contains("Brand Names")
+        assertThat(pronunciationDictData.recordType())
+            .contains(PronunciationDictData.RecordType.PRONUNCIATION_DICT)
+        assertThat(pronunciationDictData.updatedAt())
             .contains(OffsetDateTime.parse("2026-03-25T12:00:00.000Z"))
-        assertThat(pronunciationDictListResponse.version()).contains(1L)
+        assertThat(pronunciationDictData.version()).contains(1L)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val pronunciationDictListResponse =
-            PronunciationDictListResponse.builder()
+        val pronunciationDictData =
+            PronunciationDictData.builder()
                 .id("c215a3e1-be41-4701-97e8-1d3c22f9a5b7")
                 .createdAt(OffsetDateTime.parse("2026-03-25T12:00:00.000Z"))
                 .addItem(
-                    PronunciationDictListResponse.Item.Alias.builder()
+                    PronunciationDictAliasItem.builder()
                         .alias("tel-nicks")
                         .text("Telnyx")
+                        .type(PronunciationDictAliasItem.Type.ALIAS)
                         .build()
                 )
                 .name("Brand Names")
-                .recordType(PronunciationDictListResponse.RecordType.PRONUNCIATION_DICT)
+                .recordType(PronunciationDictData.RecordType.PRONUNCIATION_DICT)
                 .updatedAt(OffsetDateTime.parse("2026-03-25T12:00:00.000Z"))
                 .version(1L)
                 .build()
 
-        val roundtrippedPronunciationDictListResponse =
+        val roundtrippedPronunciationDictData =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(pronunciationDictListResponse),
-                jacksonTypeRef<PronunciationDictListResponse>(),
+                jsonMapper.writeValueAsString(pronunciationDictData),
+                jacksonTypeRef<PronunciationDictData>(),
             )
 
-        assertThat(roundtrippedPronunciationDictListResponse)
-            .isEqualTo(pronunciationDictListResponse)
+        assertThat(roundtrippedPronunciationDictData).isEqualTo(pronunciationDictData)
     }
 }
