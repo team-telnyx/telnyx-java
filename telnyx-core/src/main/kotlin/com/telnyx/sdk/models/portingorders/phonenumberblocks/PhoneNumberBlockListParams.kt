@@ -269,18 +269,19 @@ private constructor(
                     it.status().ifPresent {
                         it.accept(
                             object : Filter.Status.Visitor<Unit> {
-                                override fun visitPortingOrderSingle(
-                                    portingOrderSingle: Filter.Status.PortingOrderSingleStatus
+                                override fun visitPortingOrderMultiple(
+                                    portingOrderMultiple: Filter.Status.PortingOrderMultipleStatus
                                 ) {
-                                    put("filter[status]", portingOrderSingle.toString())
+                                    put("filter[status]", portingOrderMultiple.toString())
                                 }
 
-                                override fun visitUnionArrayVariant1(
-                                    unionArrayVariant1: List<Filter.Status.PortingOrderStatusList>
+                                override fun visitPortingOrderStatusList(
+                                    portingOrderStatusList:
+                                        List<Filter.Status.PortingOrderStatusItem>
                                 ) {
                                     put(
                                         "filter[status]",
-                                        unionArrayVariant1.joinToString(",") { it.toString() },
+                                        portingOrderStatusList.joinToString(",") { it.toString() },
                                     )
                                 }
                             }
@@ -458,17 +459,19 @@ private constructor(
             fun status(status: Optional<Status>) = status(status.getOrNull())
 
             /**
-             * Alias for calling [status] with `Status.ofPortingOrderSingle(portingOrderSingle)`.
+             * Alias for calling [status] with
+             * `Status.ofPortingOrderMultiple(portingOrderMultiple)`.
              */
-            fun status(portingOrderSingle: Status.PortingOrderSingleStatus) =
-                status(Status.ofPortingOrderSingle(portingOrderSingle))
+            fun status(portingOrderMultiple: Status.PortingOrderMultipleStatus) =
+                status(Status.ofPortingOrderMultiple(portingOrderMultiple))
 
             /**
-             * Alias for calling [status] with `Status.ofUnionArrayVariant1(unionArrayVariant1)`.
+             * Alias for calling [status] with
+             * `Status.ofPortingOrderStatusList(portingOrderStatusList)`.
              */
-            fun statusOfUnionArrayVariant1(
-                unionArrayVariant1: List<Status.PortingOrderStatusList>
-            ) = status(Status.ofUnionArrayVariant1(unionArrayVariant1))
+            fun statusOfPortingOrderStatusList(
+                portingOrderStatusList: List<Status.PortingOrderStatusItem>
+            ) = status(Status.ofPortingOrderStatusList(portingOrderStatusList))
 
             /**
              * Filter results by support key(s). Originally: filter[support_key][eq],
@@ -895,36 +898,36 @@ private constructor(
         /** Filter porting orders by status(es). Originally: filter[status], filter[status][in][] */
         class Status
         private constructor(
-            private val portingOrderSingle: PortingOrderSingleStatus? = null,
-            private val unionArrayVariant1: List<PortingOrderStatusList>? = null,
+            private val portingOrderMultiple: PortingOrderMultipleStatus? = null,
+            private val portingOrderStatusList: List<PortingOrderStatusItem>? = null,
         ) {
 
             /** Filter by single status */
-            fun portingOrderSingle(): Optional<PortingOrderSingleStatus> =
-                Optional.ofNullable(portingOrderSingle)
+            fun portingOrderMultiple(): Optional<PortingOrderMultipleStatus> =
+                Optional.ofNullable(portingOrderMultiple)
 
             /** Filter by multiple statuses (in operation) */
-            fun unionArrayVariant1(): Optional<List<PortingOrderStatusList>> =
-                Optional.ofNullable(unionArrayVariant1)
+            fun portingOrderStatusList(): Optional<List<PortingOrderStatusItem>> =
+                Optional.ofNullable(portingOrderStatusList)
 
-            fun isPortingOrderSingle(): Boolean = portingOrderSingle != null
+            fun isPortingOrderMultiple(): Boolean = portingOrderMultiple != null
 
-            fun isUnionArrayVariant1(): Boolean = unionArrayVariant1 != null
+            fun isPortingOrderStatusList(): Boolean = portingOrderStatusList != null
 
             /** Filter by single status */
-            fun asPortingOrderSingle(): PortingOrderSingleStatus =
-                portingOrderSingle.getOrThrow("portingOrderSingle")
+            fun asPortingOrderMultiple(): PortingOrderMultipleStatus =
+                portingOrderMultiple.getOrThrow("portingOrderMultiple")
 
             /** Filter by multiple statuses (in operation) */
-            fun asUnionArrayVariant1(): List<PortingOrderStatusList> =
-                unionArrayVariant1.getOrThrow("unionArrayVariant1")
+            fun asPortingOrderStatusList(): List<PortingOrderStatusItem> =
+                portingOrderStatusList.getOrThrow("portingOrderStatusList")
 
             fun <T> accept(visitor: Visitor<T>): T =
                 when {
-                    portingOrderSingle != null ->
-                        visitor.visitPortingOrderSingle(portingOrderSingle)
-                    unionArrayVariant1 != null ->
-                        visitor.visitUnionArrayVariant1(unionArrayVariant1)
+                    portingOrderMultiple != null ->
+                        visitor.visitPortingOrderMultiple(portingOrderMultiple)
+                    portingOrderStatusList != null ->
+                        visitor.visitPortingOrderStatusList(portingOrderStatusList)
                     else -> throw IllegalStateException("Invalid Status")
                 }
 
@@ -934,16 +937,19 @@ private constructor(
                 }
 
                 return other is Status &&
-                    portingOrderSingle == other.portingOrderSingle &&
-                    unionArrayVariant1 == other.unionArrayVariant1
+                    portingOrderMultiple == other.portingOrderMultiple &&
+                    portingOrderStatusList == other.portingOrderStatusList
             }
 
-            override fun hashCode(): Int = Objects.hash(portingOrderSingle, unionArrayVariant1)
+            override fun hashCode(): Int =
+                Objects.hash(portingOrderMultiple, portingOrderStatusList)
 
             override fun toString(): String =
                 when {
-                    portingOrderSingle != null -> "Status{portingOrderSingle=$portingOrderSingle}"
-                    unionArrayVariant1 != null -> "Status{unionArrayVariant1=$unionArrayVariant1}"
+                    portingOrderMultiple != null ->
+                        "Status{portingOrderMultiple=$portingOrderMultiple}"
+                    portingOrderStatusList != null ->
+                        "Status{portingOrderStatusList=$portingOrderStatusList}"
                     else -> throw IllegalStateException("Invalid Status")
                 }
 
@@ -951,13 +957,13 @@ private constructor(
 
                 /** Filter by single status */
                 @JvmStatic
-                fun ofPortingOrderSingle(portingOrderSingle: PortingOrderSingleStatus) =
-                    Status(portingOrderSingle = portingOrderSingle)
+                fun ofPortingOrderMultiple(portingOrderMultiple: PortingOrderMultipleStatus) =
+                    Status(portingOrderMultiple = portingOrderMultiple)
 
                 /** Filter by multiple statuses (in operation) */
                 @JvmStatic
-                fun ofUnionArrayVariant1(unionArrayVariant1: List<PortingOrderStatusList>) =
-                    Status(unionArrayVariant1 = unionArrayVariant1.toImmutable())
+                fun ofPortingOrderStatusList(portingOrderStatusList: List<PortingOrderStatusItem>) =
+                    Status(portingOrderStatusList = portingOrderStatusList.toImmutable())
             }
 
             /**
@@ -966,14 +972,16 @@ private constructor(
             interface Visitor<out T> {
 
                 /** Filter by single status */
-                fun visitPortingOrderSingle(portingOrderSingle: PortingOrderSingleStatus): T
+                fun visitPortingOrderMultiple(portingOrderMultiple: PortingOrderMultipleStatus): T
 
                 /** Filter by multiple statuses (in operation) */
-                fun visitUnionArrayVariant1(unionArrayVariant1: List<PortingOrderStatusList>): T
+                fun visitPortingOrderStatusList(
+                    portingOrderStatusList: List<PortingOrderStatusItem>
+                ): T
             }
 
             /** Filter by single status */
-            class PortingOrderSingleStatus
+            class PortingOrderMultipleStatus
             @JsonCreator
             private constructor(private val value: JsonField<String>) : Enum {
 
@@ -1005,10 +1013,11 @@ private constructor(
 
                     @JvmField val CANCELLED = of("cancelled")
 
-                    @JvmStatic fun of(value: String) = PortingOrderSingleStatus(JsonField.of(value))
+                    @JvmStatic
+                    fun of(value: String) = PortingOrderMultipleStatus(JsonField.of(value))
                 }
 
-                /** An enum containing [PortingOrderSingleStatus]'s known values. */
+                /** An enum containing [PortingOrderMultipleStatus]'s known values. */
                 enum class Known {
                     DRAFT,
                     IN_PROCESS,
@@ -1021,10 +1030,10 @@ private constructor(
                 }
 
                 /**
-                 * An enum containing [PortingOrderSingleStatus]'s known values, as well as an
+                 * An enum containing [PortingOrderMultipleStatus]'s known values, as well as an
                  * [_UNKNOWN] member.
                  *
-                 * An instance of [PortingOrderSingleStatus] can contain an unknown value in a
+                 * An instance of [PortingOrderMultipleStatus] can contain an unknown value in a
                  * couple of cases:
                  * - It was deserialized from data that doesn't match any known member. For example,
                  *   if the SDK is on an older version than the API, then the API may respond with
@@ -1041,7 +1050,7 @@ private constructor(
                     PORTED,
                     CANCELLED,
                     /**
-                     * An enum member indicating that [PortingOrderSingleStatus] was instantiated
+                     * An enum member indicating that [PortingOrderMultipleStatus] was instantiated
                      * with an unknown value.
                      */
                     _UNKNOWN,
@@ -1088,7 +1097,7 @@ private constructor(
                         CANCELLED -> Known.CANCELLED
                         else ->
                             throw TelnyxInvalidDataException(
-                                "Unknown PortingOrderSingleStatus: $value"
+                                "Unknown PortingOrderMultipleStatus: $value"
                             )
                     }
 
@@ -1108,7 +1117,7 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                fun validate(): PortingOrderSingleStatus = apply {
+                fun validate(): PortingOrderMultipleStatus = apply {
                     if (validated) {
                         return@apply
                     }
@@ -1138,7 +1147,7 @@ private constructor(
                         return true
                     }
 
-                    return other is PortingOrderSingleStatus && value == other.value
+                    return other is PortingOrderMultipleStatus && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -1146,7 +1155,7 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
-            class PortingOrderStatusList
+            class PortingOrderStatusItem
             @JsonCreator
             private constructor(private val value: JsonField<String>) : Enum {
 
@@ -1178,10 +1187,10 @@ private constructor(
 
                     @JvmField val CANCELLED = of("cancelled")
 
-                    @JvmStatic fun of(value: String) = PortingOrderStatusList(JsonField.of(value))
+                    @JvmStatic fun of(value: String) = PortingOrderStatusItem(JsonField.of(value))
                 }
 
-                /** An enum containing [PortingOrderStatusList]'s known values. */
+                /** An enum containing [PortingOrderStatusItem]'s known values. */
                 enum class Known {
                     DRAFT,
                     IN_PROCESS,
@@ -1194,10 +1203,10 @@ private constructor(
                 }
 
                 /**
-                 * An enum containing [PortingOrderStatusList]'s known values, as well as an
+                 * An enum containing [PortingOrderStatusItem]'s known values, as well as an
                  * [_UNKNOWN] member.
                  *
-                 * An instance of [PortingOrderStatusList] can contain an unknown value in a couple
+                 * An instance of [PortingOrderStatusItem] can contain an unknown value in a couple
                  * of cases:
                  * - It was deserialized from data that doesn't match any known member. For example,
                  *   if the SDK is on an older version than the API, then the API may respond with
@@ -1214,7 +1223,7 @@ private constructor(
                     PORTED,
                     CANCELLED,
                     /**
-                     * An enum member indicating that [PortingOrderStatusList] was instantiated with
+                     * An enum member indicating that [PortingOrderStatusItem] was instantiated with
                      * an unknown value.
                      */
                     _UNKNOWN,
@@ -1261,7 +1270,7 @@ private constructor(
                         CANCELLED -> Known.CANCELLED
                         else ->
                             throw TelnyxInvalidDataException(
-                                "Unknown PortingOrderStatusList: $value"
+                                "Unknown PortingOrderStatusItem: $value"
                             )
                     }
 
@@ -1281,7 +1290,7 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                fun validate(): PortingOrderStatusList = apply {
+                fun validate(): PortingOrderStatusItem = apply {
                     if (validated) {
                         return@apply
                     }
@@ -1311,7 +1320,7 @@ private constructor(
                         return true
                     }
 
-                    return other is PortingOrderStatusList && value == other.value
+                    return other is PortingOrderStatusItem && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()

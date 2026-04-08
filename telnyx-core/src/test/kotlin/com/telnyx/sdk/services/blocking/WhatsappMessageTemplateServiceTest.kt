@@ -32,25 +32,12 @@ internal class WhatsappMessageTemplateServiceTest {
                     .id("id")
                     .category(WhatsappMessageTemplateUpdateParams.Category.MARKETING)
                     .addComponent(
-                        WhatsappMessageTemplateUpdateParams.Component
-                            .WhatsappTemplateHeaderComponent
-                            .builder()
+                        WhatsappMessageTemplateUpdateParams.Component.Header.builder()
                             .format(
-                                WhatsappMessageTemplateUpdateParams.Component
-                                    .WhatsappTemplateHeaderComponent
-                                    .Format
-                                    .TEXT
-                            )
-                            .type(
-                                WhatsappMessageTemplateUpdateParams.Component
-                                    .WhatsappTemplateHeaderComponent
-                                    .Type
-                                    .HEADER
+                                WhatsappMessageTemplateUpdateParams.Component.Header.Format.TEXT
                             )
                             .example(
-                                WhatsappMessageTemplateUpdateParams.Component
-                                    .WhatsappTemplateHeaderComponent
-                                    .Example
+                                WhatsappMessageTemplateUpdateParams.Component.Header.Example
                                     .builder()
                                     .addHeaderHandle("string")
                                     .addHeaderText("string")

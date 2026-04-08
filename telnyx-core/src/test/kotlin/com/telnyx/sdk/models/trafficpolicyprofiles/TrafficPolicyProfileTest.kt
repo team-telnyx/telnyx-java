@@ -8,12 +8,12 @@ import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class TrafficPolicyProfileListResponseTest {
+internal class TrafficPolicyProfileTest {
 
     @Test
     fun create() {
-        val trafficPolicyProfileListResponse =
-            TrafficPolicyProfileListResponse.builder()
+        val trafficPolicyProfile =
+            TrafficPolicyProfile.builder()
                 .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .createdAt("2018-02-02T22:25:27.521Z")
                 .addDomain("www.hbomax.com")
@@ -24,33 +24,29 @@ internal class TrafficPolicyProfileListResponseTest {
                 .recordType("traffic_policy_profile")
                 .addService("service_123")
                 .addService("service_456")
-                .type(TrafficPolicyProfileListResponse.Type.WHITELIST)
+                .type(TrafficPolicyProfile.Type.WHITELIST)
                 .updatedAt("2018-02-02T22:25:27.521Z")
                 .build()
 
-        assertThat(trafficPolicyProfileListResponse.id())
-            .contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
-        assertThat(trafficPolicyProfileListResponse.createdAt())
-            .contains("2018-02-02T22:25:27.521Z")
-        assertThat(trafficPolicyProfileListResponse.domains().getOrNull())
+        assertThat(trafficPolicyProfile.id()).contains("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
+        assertThat(trafficPolicyProfile.createdAt()).contains("2018-02-02T22:25:27.521Z")
+        assertThat(trafficPolicyProfile.domains().getOrNull())
             .containsExactly("www.hbomax.com", "netflix.com")
-        assertThat(trafficPolicyProfileListResponse.ipRanges().getOrNull())
+        assertThat(trafficPolicyProfile.ipRanges().getOrNull())
             .containsExactly("10.64.0.0/24", "10.64.0.0/25")
-        assertThat(trafficPolicyProfileListResponse.limitBwKbps()).contains(512L)
-        assertThat(trafficPolicyProfileListResponse.recordType()).contains("traffic_policy_profile")
-        assertThat(trafficPolicyProfileListResponse.services().getOrNull())
+        assertThat(trafficPolicyProfile.limitBwKbps()).contains(512L)
+        assertThat(trafficPolicyProfile.recordType()).contains("traffic_policy_profile")
+        assertThat(trafficPolicyProfile.services().getOrNull())
             .containsExactly("service_123", "service_456")
-        assertThat(trafficPolicyProfileListResponse.type())
-            .contains(TrafficPolicyProfileListResponse.Type.WHITELIST)
-        assertThat(trafficPolicyProfileListResponse.updatedAt())
-            .contains("2018-02-02T22:25:27.521Z")
+        assertThat(trafficPolicyProfile.type()).contains(TrafficPolicyProfile.Type.WHITELIST)
+        assertThat(trafficPolicyProfile.updatedAt()).contains("2018-02-02T22:25:27.521Z")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val trafficPolicyProfileListResponse =
-            TrafficPolicyProfileListResponse.builder()
+        val trafficPolicyProfile =
+            TrafficPolicyProfile.builder()
                 .id("6a09cdc3-8948-47f0-aa62-74ac943d6c58")
                 .createdAt("2018-02-02T22:25:27.521Z")
                 .addDomain("www.hbomax.com")
@@ -61,17 +57,16 @@ internal class TrafficPolicyProfileListResponseTest {
                 .recordType("traffic_policy_profile")
                 .addService("service_123")
                 .addService("service_456")
-                .type(TrafficPolicyProfileListResponse.Type.WHITELIST)
+                .type(TrafficPolicyProfile.Type.WHITELIST)
                 .updatedAt("2018-02-02T22:25:27.521Z")
                 .build()
 
-        val roundtrippedTrafficPolicyProfileListResponse =
+        val roundtrippedTrafficPolicyProfile =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(trafficPolicyProfileListResponse),
-                jacksonTypeRef<TrafficPolicyProfileListResponse>(),
+                jsonMapper.writeValueAsString(trafficPolicyProfile),
+                jacksonTypeRef<TrafficPolicyProfile>(),
             )
 
-        assertThat(roundtrippedTrafficPolicyProfileListResponse)
-            .isEqualTo(trafficPolicyProfileListResponse)
+        assertThat(roundtrippedTrafficPolicyProfile).isEqualTo(trafficPolicyProfile)
     }
 }
