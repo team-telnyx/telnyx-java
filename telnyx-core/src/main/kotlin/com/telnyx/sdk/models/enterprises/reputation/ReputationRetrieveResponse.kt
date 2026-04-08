@@ -16,7 +16,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class ReputationListResponse
+class ReputationRetrieveResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<EnterpriseReputationPublic>,
@@ -57,20 +57,22 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [ReputationListResponse]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [ReputationRetrieveResponse].
+         */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [ReputationListResponse]. */
+    /** A builder for [ReputationRetrieveResponse]. */
     class Builder internal constructor() {
 
         private var data: JsonField<EnterpriseReputationPublic> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(reputationListResponse: ReputationListResponse) = apply {
-            data = reputationListResponse.data
-            additionalProperties = reputationListResponse.additionalProperties.toMutableMap()
+        internal fun from(reputationRetrieveResponse: ReputationRetrieveResponse) = apply {
+            data = reputationRetrieveResponse.data
+            additionalProperties = reputationRetrieveResponse.additionalProperties.toMutableMap()
         }
 
         fun data(data: EnterpriseReputationPublic) = data(JsonField.of(data))
@@ -104,17 +106,17 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [ReputationListResponse].
+         * Returns an immutable instance of [ReputationRetrieveResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): ReputationListResponse =
-            ReputationListResponse(data, additionalProperties.toMutableMap())
+        fun build(): ReputationRetrieveResponse =
+            ReputationRetrieveResponse(data, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
 
-    fun validate(): ReputationListResponse = apply {
+    fun validate(): ReputationRetrieveResponse = apply {
         if (validated) {
             return@apply
         }
@@ -143,7 +145,7 @@ private constructor(
             return true
         }
 
-        return other is ReputationListResponse &&
+        return other is ReputationRetrieveResponse &&
             data == other.data &&
             additionalProperties == other.additionalProperties
     }
@@ -153,5 +155,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ReputationListResponse{data=$data, additionalProperties=$additionalProperties}"
+        "ReputationRetrieveResponse{data=$data, additionalProperties=$additionalProperties}"
 }
